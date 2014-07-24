@@ -1,4 +1,0 @@
-Name | Age
------+----
-John | 15
-Mary | 13

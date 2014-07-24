@@ -19,7 +19,7 @@ function processDirectory($src, $dst) {
         if ($file === false) {
             break;
         }
-        if ($file[0] < 'A') {
+        if ($file[0] == '.' || $file[0] == '_') {
             continue;
         }
         $srcFile = "$src/$file";
@@ -36,6 +36,33 @@ function processDirectory($src, $dst) {
 
 function convertFile($src, $dst) {
     $text = file_get_contents($src);
-    $html = \Michelf\MarkdownExtra::defaultTransform($text);
+    $params = extractParams($text);
+    $params['text'] = \Michelf\MarkdownExtra::defaultTransform($text);
+    $html = loadTemplate($params['template'], $params);
+    $dst = str_replace('.txt', '.html', $dst);
     file_put_contents($dst, $html);
+}
+
+function extractParams(&$text) {
+    $vars = array('template' => 'default');
+    $lines = explode("\n", $text);
+    $res = array();
+    foreach ($lines as $line) {
+        $matches = array();
+        if (preg_match('/^\s*\<\!\-\-\?([a-z]+)\s+(.*)\-\-\>\s*$/', $line, $matches)) {
+            $vars[$matches[1]] = $matches[2];
+            continue;
+        }
+        $res[] = $line;
+    }
+    $text = implode("\n", $res);
+    return $vars;
+}
+
+function loadTemplate($name, $params) {
+    $template = file_get_contents("src/_templates/$name.html");
+    foreach ($params as $name => $value) {
+        $template = str_replace("&$name&", $value, $template);
+    }
+    return $template;
 }
