@@ -1,0 +1,29 @@
+body {
+    background: #eee;
+    font-family: Helvetica, Tahoma, Arial;
+    line-height: 1.4;
+    color: #333;
+}
+#container {
+    width: 1000px;
+    margin: 10px auto;
+    padding: 20px;
+    border-radius: 7px;
+    background: #fff;
+}
+code {
+    font-weight: bold;
+    padding: 2px;
+    font-family: Monospace;
+    font-size: 125%;
+    color: #449;
+}
+a {
+    color: #4444aa;
+    text-decoration: none;
+    padding: 2px;
+    border-radius: 2px;
+}
+a:hover {
+    text-decoration: underline;
+}

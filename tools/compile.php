@@ -27,6 +27,8 @@ function processDirectory($src, $dst) {
         if (!is_dir($srcFile)) {
             if (preg_match('/.*\.txt/i', $file)) {
                 convertFile($srcFile, $dstFile);
+            } else {
+                copy($srcFile, $dstFile);
             }
         } else {
             processDirectory($srcFile, $dstFile);
