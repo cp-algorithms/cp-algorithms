@@ -1,0 +1,18 @@
+<!--?title For Contributors-->
+#How to Contribute
+
+###Source format
+
+We use **Markdown** for source texts and convert them automatically with the help of small tool.
+
+If you have **PHP** installed, you can run `compile.bat` or `compile.sh` file in the root folder - it will parse `src`
+directory and convert all the files inside into HTML documents under the new folder `target`.
+
+Formulas could be added thanks to `MathJax` library. Simply use `TeX` expressions inside single or double dollar marks `$`, for
+example:
+
+here is an inline equation: $P \ne NP$
+
+And here is the formula in the separate block:
+
+$$E = mc^{2}$$
