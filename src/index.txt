@@ -5,6 +5,10 @@
 [http://e-maxx.ru](http://e-maxx.ru) which provides descriptions of many special algorithms
 especially popular in field of competitive programming.*
 
+###Articles translated so far
+
+- [Balanced Ternary](./balanced-ternary.html)
+
 ---
 
 [Information for contributors](./contrib.html)
