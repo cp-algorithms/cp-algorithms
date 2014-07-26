@@ -5,11 +5,35 @@ body {
     color: #333;
 }
 #container {
-    width: 1000px;
+    width: 960px;
     margin: 10px auto;
     padding: 20px;
     border-radius: 7px;
     background: #fff;
+}
+#navbar {
+    color: #fff;
+    background: #7777aa;
+    padding: 10px;
+    border-radius: 3px;
+}
+#navbar #title {
+    font-size: 200%;
+    display: inline-block;
+}
+#navbar #menu {
+    display: inline-block;
+    float: right;
+    margin-top: 9px;
+    margin-right: 10px
+}
+#navbar #menu a {
+    font-size: 120%;
+    font-weight: bold;
+    color: white;
+}
+h1,h2,h3 {
+    color: #660000;
 }
 code {
     font-weight: bold;
