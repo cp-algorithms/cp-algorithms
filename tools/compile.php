@@ -72,7 +72,13 @@ function loadTemplate($name, $params) {
 function rootPath() {
     global $argv;
     if (count($argv) < 2) {
-        return 'file://' . realpath('target');
+        $path = realpath('target');
+    } else {
+        $path = $argv[1];
     }
-    return $argv[1];
+    if ($path[1] == ':') { // windows path with drive letter
+        $path = '/' . str_replace('\\', '/', $path);
+    }
+    return "file://$path";
 }
+
