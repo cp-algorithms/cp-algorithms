@@ -4,6 +4,8 @@ require_once dirname(__FILE__) . '/markdown/MarkdownExtra.inc.php';
 
 processDirectory('src', 'target');
 
+echo "\nDONE: site should be accessible at\n    " . rootPath() . "/index.html\n";
+
 function processDirectory($src, $dst) {
     echo "Processing directory: $src -> $dst\n";
     $dir = opendir($src);

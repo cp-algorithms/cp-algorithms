@@ -1,11 +1,33 @@
 <!--?title Euler's Totient Function-->
 #Euler's Totient Function
 
-Also known as `phi-function` ($ \phi (n) $) it is just a count of coprimes (numbers,
-having greatest common divisor of `1`) with `n` not exceeding `n` itself. Here `1` is regarded as a coprime to any number.
+Also known as $\phi (n)$ i.e. **phi-function** it is just a count of coprimes (numbers,
+having greatest common divisor of `1`) with `n` and not exceeding `n` itself.
+Here `1` is regarded as a coprime to any number.
 
 For example, `4` has two such coprimes - `1` and `2`. Any prime, `n` (like `7`) obviously have
 `n-1` such coprimes.
 
+Here are values of $\phi(n)$ for first few positive integers:
 
+    N      1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22
+    
+    Phi    1   1   2   2   4   2   6   4   6   4  10   4  12   6   8   8  16   6  18   8  12  10
+
+###Algorithm
+
+Here is the code for generating `phi(n)` in `Python 3`:
+
+    def phi(n):
+	    result = n
+	    i = 2
+	    while i * i <= n:
+		    if n % i == 0:
+			    while n % i == 0:
+				    n //= i
+			    result -= result // i
+		    i += 1
+	    if n > 1:
+		    result -= result // n
+	    return result
 

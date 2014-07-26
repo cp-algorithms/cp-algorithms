@@ -42,6 +42,12 @@ code {
     font-size: 125%;
     color: #449;
 }
+pre {
+    margin: 0px 10px;
+    padding: 5px;
+    border-radius: 5px;
+    background: #e8e8e8;
+}
 a {
     color: #4444aa;
     text-decoration: none;
