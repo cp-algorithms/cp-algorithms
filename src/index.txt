@@ -7,7 +7,8 @@ especially popular in field of competitive programming.*
 
 ###Articles translated so far
 
-- [Balanced Ternary](./balanced-ternary.html)
+- [Balanced Ternary](./basic/balanced-ternary.html)
+- [Euler's Totient Function](./basic/phi-function.html)
 
 ---
 

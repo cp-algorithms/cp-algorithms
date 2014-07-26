@@ -46,7 +46,7 @@ function convertFile($src, $dst) {
 }
 
 function extractParams(&$text) {
-    $vars = array('template' => 'default');
+    $vars = array('template' => 'default', 'root' => rootPath());
     $lines = explode("\n", $text);
     $res = array();
     foreach ($lines as $line) {
@@ -67,4 +67,12 @@ function loadTemplate($name, $params) {
         $template = str_replace("&$name&", $value, $template);
     }
     return $template;
+}
+
+function rootPath() {
+    global $argv;
+    if (count($argv) < 2) {
+        return 'file://' . realpath('target');
+    }
+    return $argv[1];
 }
