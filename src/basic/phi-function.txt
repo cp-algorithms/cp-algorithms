@@ -16,7 +16,7 @@ Here are values of $\phi(n)$ for first few positive integers:
 
 ###Algorithm
 
-Here is the code for generating `phi(n)` in `Python 3`:
+Here is the code for generating `phi(n)` in `Python 3`: <span class="toggle-code">Show/Hide</span>
 
     def phi(n):
 	    result = n

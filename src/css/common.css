@@ -11,7 +11,7 @@ body {
     border-radius: 7px;
     background: #fff;
 }
-#navbar {
+#navbar, #footer {
     color: #fff;
     background: #7777aa;
     padding: 10px;
@@ -30,6 +30,9 @@ body {
 #navbar #menu a {
     font-size: 120%;
     font-weight: bold;
+    color: white;
+}
+#footer a {
     color: white;
 }
 h1,h2,h3 {
@@ -56,4 +59,12 @@ a {
 }
 a:hover {
     text-decoration: underline;
+}
+.toggle-code {
+    color: #4444aa;
+    font-weiht: bold;
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 3px;
+    border: 1px solid #999;
 }
