@@ -8,7 +8,9 @@ especially popular in field of competitive programming.*
 ###Articles translated so far
 
 - [Balanced Ternary](./basic/balanced-ternary.html)
+- [Binary Exponentiation](./basic/binary-exp.html)
 - [Euler's Totient Function](./basic/phi-function.html)
+- [Suffix Array](./basic/suffix-array.html)
 
 ---
 
