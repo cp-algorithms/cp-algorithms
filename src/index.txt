@@ -11,6 +11,7 @@ especially popular in field of competitive programming.*
 - [Binary Exponentiation](./basic/binary-exp.html)
 - [Euler's Totient Function](./basic/phi-function.html)
 - [Suffix Array](./basic/suffix-array.html)
+- [Z-function](./basic/z-function.html)
 
 ---
 
