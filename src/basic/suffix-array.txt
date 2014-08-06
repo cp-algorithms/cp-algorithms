@@ -35,7 +35,7 @@ Suffix Array for $S$ will be $(2,\ 3,\ 0,\ 4,\ 1)$.
 
 ####$O(N^2\log{N})$ Approach
 
-This is most naive approach. Get all the suffixes and sort them using Quicksort or Mergesort simultanously retaining there
+This is most naive approach. Get all the suffixes and sort them using Quicksort or Mergesort simultaneously retaining there
 original indexes. Sorting takes $O(N\log{N})$ so how it is $O(N^2\log{N})$??.
 What we miss here is comparison of two strings is not $O(1)$ in worst case it takes $O(N)$.
 So the final complexity is $O(N^2\log{N})$. We can reduce this comparison from $O(N)$ to $O(1)$. Read further :).
@@ -77,14 +77,14 @@ $1.\ ab|$
 $2.\ b|$  
 $2.\ ba|ab$
 
-Now, in the next iteration, we sort 4-charaters strings. This involves a lot of comparisons between different 4-charaters strings.  
-How do we compare two 4-charaters strings? Well, we could compare them character by character. That would be up to 4 operations per comparison.  
-But instead, we compare them by looking up the ranks of the two charaters contained in them, using the rank table generated in the previous steps.  
+Now, in the next iteration, we sort 4-characters strings. This involves a lot of comparisons between different 4-characters strings.  
+How do we compare two 4-characters strings? Well, we could compare them character by character. That would be up to 4 operations per comparison.  
+But instead, we compare them by looking up the ranks of the two characters contained in them, using the rank table generated in the previous steps.  
 That rank represents the lexicographic rank from the previous 2-charater sort, so if any given 4-character string has a higher rank than another 4-character string, then it must be lexicographically greater somewhere in the first two characters.  
-Hence, if for two 4-charaters string the rank is identical, they must be identical in the first two characters.  
-In other words, two look-ups in the rank table are sufficient to compare all 4 characters of the two 4-charaters strings.  
+Hence, if for two 4-characters string the rank is identical, they must be identical in the first two characters.  
+In other words, two look-ups in the rank table are sufficient to compare all 4 characters of the two 4-characters strings.  
 
-Similarly we can compare 8, 16, 32 $\ldots$ strings in atmost two integer comparisons.  
+Similarly we can compare 8, 16, 32 $\ldots$ strings in at most two integer comparisons.  
 i.e. $O(1)$ comparison.  
 
 Following fully commented code will clarify more.  
@@ -108,7 +108,7 @@ int suffixRank[20][int(1E6)];
 struct myTuple {  
 	int originalIndex;   // stores original index of suffix  
 	int firstHalf;       // store rank for first half of suffix  
-	int secondHalf;      // sotre rank for second half of suffix  
+	int secondHalf;      // store rank for second half of suffix  
 };
 
 

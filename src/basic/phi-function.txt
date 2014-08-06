@@ -19,7 +19,7 @@ Here are values of $\phi(n)$ for first few positive integers:
 
 ###Properties
 
-The following properties of Euler Totient Functin are enough to calculate if for any number.
+The following properties of Euler Totient Function are enough to calculate it for any number.
 
 * If $p$ is a prime number, $\phi (p) = p - 1$ as $gcd(p, q) = 1$ where $1 <= q < p$.
 * If $p$ is a prime number and $k > 0$, $\phi (p^k) = p^k - p^{(k - 1)}$
