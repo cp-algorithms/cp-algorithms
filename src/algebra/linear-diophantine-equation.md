@@ -9,10 +9,10 @@ where $a$, $b$, $c$ are given integers, and $x$, $y$ are unknown integers.
 
 In this article, we consider several classical problems on these equations:
 
-* finding any solution
+* finding one solution
 * obtaining all solutions
 * finding number of solutions and the solutions themselves in a given interval
-* finding a solution with the least amount of unknown
+* finding a solution with minimum value of $x + y$
 
 ## The degenerate case
 
@@ -39,7 +39,7 @@ The above idea still works when $a$ or $b$ or both of them are negative. We only
 
 Finally, we can implement this idea like following (note that this piece of code does not take care of the case $a = b = 0$:
 
-```
+```cpp
 int gcd(int a, int b, int &x, int &y) {
     if (a == 0) {
         x = 0; y = 1;
