@@ -16,6 +16,7 @@ especially popular in field of competitive programming.*
 - [Module Inverse](./algebra/module-inverse.html)
 - [Chinese Remainder Theorem](./algebra/chinese-remainder-theorem.html)
 - [Primitive Root](./algebra/primitive-root.html)
+- [Discrete Root](./algebra/discrete-root.html)
 
 ---
 
