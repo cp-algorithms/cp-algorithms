@@ -13,6 +13,7 @@ especially popular in field of competitive programming.*
 - [Suffix Array](./basic/suffix-array.html)
 - [Z-function](./basic/z-function.html)
 - [Linear Diophantine equation](./algebra/linear-diophantine-equation.html)
+- [Module Inverse](./algebra/module-inverse.html)
 
 ---
 
