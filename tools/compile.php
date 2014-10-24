@@ -27,7 +27,7 @@ function processDirectory($src, $dst) {
         $srcFile = "$src/$file";
         $dstFile = "$dst/$file";
         if (!is_dir($srcFile)) {
-            if (preg_match('/.*\.txt/i', $file)) {
+            if (preg_match('/.*\.(txt|md)/i', $file)) {
                 convertFile($srcFile, $dstFile);
             } else {
                 copy($srcFile, $dstFile);
@@ -43,7 +43,7 @@ function convertFile($src, $dst) {
     $params = extractParams($text);
     $params['text'] = \Michelf\MarkdownExtra::defaultTransform($text);
     $html = loadTemplate($params['template'], $params);
-    $dst = str_replace('.txt', '.html', $dst);
+    $dst = str_replace(array('.txt', '.md'), '.html', $dst);
     file_put_contents($dst, $html);
 }
 
