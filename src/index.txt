@@ -15,6 +15,7 @@ especially popular in field of competitive programming.*
 - [Linear Diophantine equation](./algebra/linear-diophantine-equation.html)
 - [Module Inverse](./algebra/module-inverse.html)
 - [Chinese Remainder Theorem](./algebra/chinese-remainder-theorem.html)
+- [Primitive Root](./algebra/primitive-root.html)
 
 ---
 
