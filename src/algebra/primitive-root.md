@@ -50,7 +50,7 @@ Now we have a complete algorithm for finding the primitive root:
     * Calculate all $g ^ { \frac {\phi (n)} {p_i}} \pmod n$.
     * If all the calculated values are different from $1$, then $g$ is a primitive root.
 
-Running time of this algorithm is $O(Ans . log \phi (n) . \log n)$ (assume that $\phi (n)$ has $\log \phi (n)$ divisors.
+    Running time of this algorithm is $O(Ans . log \phi (n) . \log n)$ (assume that $\phi (n)$ has $\log \phi (n)$ divisors).
 
 Shoup (1990, 1992) proved, assuming the [generalized Riemann hypothesis](http://en.wikipedia.org/wiki/Generalized_Riemann_hypothesis), that $g$ is $O(log^6 p)$.
 

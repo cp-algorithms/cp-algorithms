@@ -48,7 +48,7 @@ $a = x_1 + x_2 . p_1 + x_3 . p_1 . p_2 + ... + x_k . p_1 . ... . p_{k-1}$
 
 (This is called the mixed radix equation).
 
-We denote by r_{ij} the inverse of $p_i$ in module $p_j$ (which can be found using the algorithm described in [this article](./algebra/module-inverse.html)
+We denote by $r_{ij}$ the inverse of $p_i$ in module $p_j$, which can be found using the algorithm described in [this article](./algebra/module-inverse.html)
 
 $r_{ij} = (p_i)^{-1} \; (mod \, p_j)$.
 

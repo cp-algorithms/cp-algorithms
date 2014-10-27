@@ -51,7 +51,7 @@ In the second step of the algorithm, we need to calculate $f_2(q)$ for each poss
 
 $O(n (\log m + \log \frac{m}{n} ) ) = O(n \log m)$.
 
-Now, when we add these two complexity, we would get $\log m$ multiplied by $n$ and $m/n$, which has minimum value when $n = $m/n$, which means, to achieve optimal performance, $n$ should be chosen such that:
+Now, when we add these two complexity, we would get $\log m$ multiplied by $n$ and $m/n$, which has minimum value when $n = m/n$, which means, to achieve optimal performance, $n$ should be chosen such that:
 
 $n = \sqrt{m}$.
 
