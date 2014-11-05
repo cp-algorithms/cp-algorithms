@@ -1,2 +1,4 @@
 target
 *.swp
+*.sublime-project
+*.sublime-workspace

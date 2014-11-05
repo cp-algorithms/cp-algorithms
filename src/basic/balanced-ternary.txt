@@ -10,6 +10,7 @@ computers utilizing it.
 
 So here are few first numbers written in balanced ternary:
 
+```nohighlight
     0    0
     1    1
     2    1Z
@@ -20,14 +21,17 @@ So here are few first numbers written in balanced ternary:
     7    1Z1
     8    10Z
     9    100
+```
 
 This system allows to write negative values without leading minus sign: you can simply invert digits in any positive number
 
+```nohighlight
     -1   Z
     -2   Z1
     -3   Z0
     -4   ZZ
     -5   Z11
+```
 
 Note that negative number starts with `Z` and positive with `1`.
 

@@ -14,6 +14,10 @@ especially popular in field of competitive programming.*
 - [Z-function](./basic/z-function.html)
 - [Linear Diophantine equation](./algebra/linear-diophantine-equation.html)
 - [Module Inverse](./algebra/module-inverse.html)
+- [Chinese Remainder Theorem](./algebra/chinese-remainder-theorem.html)
+- [Primitive Root](./algebra/primitive-root.html)
+- [Discrete Root](./algebra/discrete-root.html)
+- [Discrete Log](./algebra/discrete-log.html)
 
 ---
 

@@ -37,7 +37,7 @@ $ y_0 = y_g . (c / g)$.
 
 The above idea still works when $a$ or $b$ or both of them are negative. We only need to change the sign of $x_0$ and $y_0$ when necessary.
 
-Finally, we can implement this idea like following (note that this piece of code does not take care of the case $a = b = 0$:
+Finally, we can implement this idea like following (note that this piece of code does not take care of the case $a = b = 0$):
 
 ```cpp
 int gcd(int a, int b, int &x, int &y) {
