@@ -23,9 +23,6 @@ especially popular in field of competitive programming.*
 - [Suffix Array](./string/suffix-array.html)
 - [Z-function](./string/z-function.html)
 
-### Graph
-- [Online Bridge Searching](./graph/online-bridge.html)
-
 ### Linear Algebra
 - [Gauss & System of linear equation](./algebra/linear-system-gauss.html)
 
