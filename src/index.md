@@ -24,7 +24,9 @@ especially popular in field of competitive programming.*
 - [Z-function](./string/z-function.html)
 
 ### Linear Algebra
-- [Gauss & System of linear equation](./algebra/linear-system-gauss.html)
+- [Gauss & System of linear equation](./linear_algebra/linear-system-gauss.html)
+- [Gauss & Determinant](./linear_algebra/determinant-gauss.html)
+- [Kraut & Determinant](./linear_algebra/determinant-kraut.html)
 
 ---
 

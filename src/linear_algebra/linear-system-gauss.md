@@ -189,6 +189,3 @@ Therefore, the resulting Gauss-Jordan solution must sometimes be improved by app
 
 Thus, the solution turns into two-step: First, Gauss-Jordan algorithm is applied, and then a numerical method taking initial solution as solution in the first step.
 
-## Translator's note
-
-In my attempt of translating this article using Google Translate, there are some parts which was very hard to understand and translate properly. Thus in many places, I used my own words, and the translation is not exactly the same as original article. If you find any improvement, please contact me at ngthanhtrung23@gmail.com
