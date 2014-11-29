@@ -28,6 +28,9 @@ especially popular in field of competitive programming.*
 - [Gauss & Determinant](./linear_algebra/determinant-gauss.html)
 - [Kraut & Determinant](./linear_algebra/determinant-kraut.html)
 
+### Geometry 
+- [Circle-Line Intersection](./geometry/circle-line-intersection.html)
+
 ---
 
 [Information for contributors](./contrib.html)
