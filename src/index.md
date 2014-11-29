@@ -26,6 +26,9 @@ especially popular in field of competitive programming.*
 ### Linear Algebra
 - [Gauss & System of linear equation](./algebra/linear-system-gauss.html)
 
+### Geometry 
+- [Circle-Line Intersection](./geometry/circle-line-intersection.html)
+
 ---
 
 [Information for contributors](./contrib.html)
