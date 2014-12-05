@@ -17,7 +17,6 @@ especially popular in field of competitive programming.*
 - [Primitive Root](./algebra/primitive-root.html)
 - [Discrete Root](./algebra/discrete-root.html)
 - [Discrete Log](./algebra/discrete-log.html)
-- 
 
 ### String Processing
 - [Suffix Array](./string/suffix-array.html)
@@ -29,6 +28,7 @@ especially popular in field of competitive programming.*
 - [Kraut & Determinant](./linear_algebra/determinant-kraut.html)
 
 ### Geometry 
+- [Length of the union of intervals on a line in $O(n\log n)$](./geometry/length-of-segments-union.html)
 - [Circle-Line Intersection](./geometry/circle-line-intersection.html)
 
 ---
