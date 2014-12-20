@@ -18,6 +18,9 @@ especially popular in field of competitive programming.*
 - [Discrete Root](./algebra/discrete-root.html)
 - [Discrete Log](./algebra/discrete-log.html)
 
+### Data Structure
+- [Fenwick Tree](./data_structures/fenwick.html)
+
 ### String Processing
 - [Suffix Array](./string/suffix-array.html)
 - [Z-function](./string/z-function.html)
