@@ -179,3 +179,5 @@ As claimed before, it is easy to implement Fenwick Tree for multidimensional arr
 Wikipedia: [en.wikipedia.org/wiki/Fenwick_tree](http://en.wikipedia.org/wiki/Fenwick_tree)  
 Topcoder: [community.topcoder.com/tc?module=Static&d1=tutorials&d2=binaryIndexedTrees](http://community.topcoder.com/tc?module=Static&d1=tutorials&d2=binaryIndexedTrees)
 
+
+Translated by [sylap97](http://codeforces.com/profile/sylap97)
