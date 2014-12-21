@@ -32,15 +32,15 @@ where $g$ is some function that satisfies $(g(i) \le i)$, and we will define it 
 Now we can write pseudo-code for the two operations mentioned above &mdash; get the sum of elements of $A$ in range $[0; r]$ and update some element $A_i$:
 
 ```python
-    def sum (int r):
-      res = 0
-      while (r >= 0):
+def sum (int r):
+    res = 0
+    while (r >= 0):
         res += t[r]
         r = g(r) - 1
-      return res
-    
-    def inc (int i, int delta):
-      for all j, where g(j) <= i <= j
+    return res
+
+def inc (int i, int delta):
+    for all j, where g(j) <= i <= j
         t[j] += delta
 ```
 
@@ -61,7 +61,7 @@ It is obvious that complexity of both `sum` and `upd` do depend on the function 
 There exists a trivial solution for the non-trivial operation described above:
 
 ```
-    g(i) = i & (i+1)
+g(i) = i & (i+1)
 ```
 
 where `&` is logical AND operator. It is not hard to convince yourself that this solution does the same thing as the operation described above.
@@ -71,18 +71,18 @@ Now, we need to find a way to find all such $j$'s, so that, *g(j) <= i <= j*.
 It is easy to see that we can find all such $j$'s, by starting with $i$ and replacing the least significant one of all $0$'s with a $1$. For example, for $i = 10$ we have:
 
 ```
-    j = 10, binary 0001010
-    j = 11, binary 0001011
-    j = 15, binary 0001111
-    j = 31, binary 0011111
-    j = 63, binary 0111111
-    ...
+j = 10, binary 0001010
+j = 11, binary 0001011
+j = 15, binary 0001111
+j = 31, binary 0011111
+j = 63, binary 0111111
+...
 ```
 
 Not surprisingly, there also exists a simple way to do the above operation:
 
 ```
-    h(j) = j | (j+1)
+h(j) = j | (j+1)
 ```
 
 where `|` is the logical OR operator.
@@ -90,33 +90,33 @@ where `|` is the logical OR operator.
 ### Implementation: finding sum in one-dimensional array
 
 ```cpp
-    struct FenwickTree {
-        vector<int> bit; // binary indexed tree
-        int n;
-    
-        void init(int n) {
-            this->n = n;
-            bit.assign(n, 0);
-        }
-        int sum(int r) {
-            int ret = 0;
-            for (; r >= 0; r = (r & (r+1)) - 1)
-                ret += bit[r];
-            return ret;
-        }
-        void add(int idx, int delta) {
-            for (; idx < n; idx = idx | (idx+1))
-                bit[idx] += delta;
-        }
-        int sum(int l, int r) {
-            return sum(r) - sum(l-1);
-        }
-        void init(vector<int> a) {
-            init(a.size());
-            for (size_t i = 0; i < a.size(); i++)
-                add(i, a[i]);
-        }
-    };
+struct FenwickTree {
+    vector<int> bit; // binary indexed tree
+    int n;
+
+    void init(int n) {
+        this->n = n;
+        bit.assign(n, 0);
+    }
+    int sum(int r) {
+        int ret = 0;
+        for (; r >= 0; r = (r & (r+1)) - 1)
+            ret += bit[r];
+        return ret;
+    }
+    void add(int idx, int delta) {
+        for (; idx < n; idx = idx | (idx+1))
+            bit[idx] += delta;
+    }
+    int sum(int l, int r) {
+        return sum(r) - sum(l-1);
+    }
+    void init(vector<int> a) {
+        init(a.size());
+        for (size_t i = 0; i < a.size(); i++)
+            add(i, a[i]);
+    }
+};
 ```
 
 ### Implementation: finding minimum of $[0; r]$ in one-dimensional array
@@ -124,30 +124,30 @@ where `|` is the logical OR operator.
 It is obvious that there is no way of finding minimum of range $[l; r]$ using Fenwick tree, as Fenwick tree can only answer the queries of type [0; r]. Additionally, each time a value is `update`'d, new value should be smaller than the current value (because, the $min$ function is not reversible). These, of course, are significant limitations.
 
 ```cpp
-    struct FenwickTreeMin {
-        vector<int> bit;
-        int n;
-        const int INF = (int)1e9;
-        void init (int n) {
-            this->n = n;
-            bit.assign (n, INF);
-        }
-        int getmin (int r) {
-            int ret = INF;
-            for (; r >= 0; r = (r & (r+1)) - 1)
-                ret = min(ret, bit[r]);
-            return ret;
-        }
-        void update (int idx, int val) {
-            for (; idx < n; idx = idx | (idx+1))
-                bit[idx] = min(bit[idx], val);
-        }
-        void init (vector<int> a) {
-            init (a.size());
-            for (size_t i = 0; i < a.size(); i++)
-                update(i, a[i]);
-        }
-    };
+struct FenwickTreeMin {
+    vector<int> bit;
+    int n;
+    const int INF = (int)1e9;
+    void init (int n) {
+        this->n = n;
+        bit.assign (n, INF);
+    }
+    int getmin (int r) {
+        int ret = INF;
+        for (; r >= 0; r = (r & (r+1)) - 1)
+            ret = min(ret, bit[r]);
+        return ret;
+    }
+    void update (int idx, int val) {
+        for (; idx < n; idx = idx | (idx+1))
+            bit[idx] = min(bit[idx], val);
+    }
+    void init (vector<int> a) {
+        init (a.size());
+        for (size_t i = 0; i < a.size(); i++)
+            update(i, a[i]);
+    }
+};
 ```
 
 ### Implementation: finding sum in two-dimensional array
@@ -155,23 +155,23 @@ It is obvious that there is no way of finding minimum of range $[l; r]$ using Fe
 As claimed before, it is easy to implement Fenwick Tree for multidimensional array.
 
 ```cpp
-    struct FenwickTree2D {
-        vector <vector <int> > bit;
-        int n, m;
-        // init(...) { ... }
-        int sum (int x, int y) {
-            int ret = 0;
-            for (int i = x; i >= 0; i = (i & (i+1)) - 1)
-                for (int j = y; j >= 0; j = (j & (j+1)) - 1)
-                    ret += bit[i][j];
-            return ret;
-        }
-        void add(int x, int y, int delta) {
-            for (int i = x; i < n; i = i | (i+1))
-                for (int j = y; j < m; j = j | (j+1))
-                    bit[i][j] += delta;
-        }
-    };
+struct FenwickTree2D {
+    vector <vector <int> > bit;
+    int n, m;
+    // init(...) { ... }
+    int sum (int x, int y) {
+        int ret = 0;
+        for (int i = x; i >= 0; i = (i & (i+1)) - 1)
+            for (int j = y; j >= 0; j = (j & (j+1)) - 1)
+                ret += bit[i][j];
+        return ret;
+    }
+    void add(int x, int y, int delta) {
+        for (int i = x; i < n; i = i | (i+1))
+            for (int j = y; j < m; j = j | (j+1))
+                bit[i][j] += delta;
+    }
+};
 ```
 
 ### Other sources
