@@ -1,0 +1,7 @@
+Topological sorting
+===================
+Given a directed graph with n vertices and m edges. You want to renumber the vertices so that every edge led from the top with a smaller number in the top with a large.
+In other words, you want to find a permutation of the vertices (topological order) corresponding to the order defined by all edges of the graph.
+Topological sort can be not only (for example, if the graph is empty; or if there are three such vertices a, b, c, what a is the way in b and in c, but neither b in cnor out c to b get them).
+Topological sorting may not exist at all - if the graph contains cycles (because there is a contradiction: there is a path from one vertex to another, and Vice versa).
+A common problem for topological sorting next.... There are n variables whose values are unknown to us. We know only about some pairs of variables, one variable less than the other. You want to check, is not controversial whether these inequalities, and if not, to give the variables in ascending order (if the answer to any issue). It is easy to notice that this is exactly the task is about finding a topological sort of the graph of n vertices.
