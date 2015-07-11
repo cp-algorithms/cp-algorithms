@@ -32,7 +32,7 @@ where $P_{i}$ are prime factors of $n$.
 
 >$\phi (n) = \phi ({P_{1}}^{a_{1}}) \cdot \phi ({P_{2}}^{a_{2}}) \cdot  \ldots  \cdot \phi ({P_{k}}^{a_{k}})$  
 $= ({P_{1}}^{a_{1}} - {P_{1}}^{a_{1} - 1}) \cdot ({P_{2}}^{a_{2}} - {P_{2}}^{a_{2} - 1}) \cdot \ldots \cdot ({P_{k}}^{a_{k}} - {P_{k}}^{a_{k} - 1})$  
-$= n \cdot (1 - \frac{1}{{P_{1}}^{a_{1}}}) \cdot (1 - \frac{1}{{P_{2}}^{a_{2}}}) \cdot \ldots \cdot (1 - \frac{1}{{P_{k}}^{a_{k}}})$
+$= n \cdot (1 - \frac{1}{P_{1}}) \cdot (1 - \frac{1}{P_{2}}) \cdot \ldots \cdot (1 - \frac{1}{P_{k}})$
 
 ###Algorithm
 
