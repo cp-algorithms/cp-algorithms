@@ -2,7 +2,7 @@
 #E-Maxx Algorithms in English
 
 *The goal of this project is to translate at least some pages of the wonderful resource
-[http://e-maxx.ru](http://e-maxx.ru) which provides descriptions of many special algorithms
+[http://e-maxx.ru/algo](http://e-maxx.ru/algo) which provides descriptions of many special algorithms
 especially popular in field of competitive programming.*
 
 ## Articles translated so far
