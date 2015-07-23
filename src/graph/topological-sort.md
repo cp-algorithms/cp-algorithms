@@ -25,32 +25,32 @@ These explanations can also be presented in a somewhat different light, through 
 
 Here is an implementation, assuming that the graph is acyclic, i.e. the desired topological sort exists. If necessary, check the graph on acyclicity easy to insert into the depth, as described in the article on depth.
 
-```C++
-int n; // number of vertices
-vector<int> g[MAXN]; // count
-bool used[MAXN];
-vector<int> ans;
- 
-void dfs (int v) {
- used[v] = true;
-	for (size_t i=0; i<g[v].size(); ++i) {
-		int to = g[v][i];
-		if (!used[to])
- dfs (to);
-	}
- ans.push_back (v);
-}
- 
-void topological_sort() {
-	for (int i=0; i<n; ++i)
- used[i] = false;
- ans.clear();
-	for (int i=0; i<n; ++i)
-		if (!used[i])
- dfs (i);
- reverse (ans.begin(), ans.end());
-}
-```
+`C++` implementation <span class="toggle-code">Show/Hide</span>
+
+    int n; // number of vertices
+    vector<int> g[MAXN]; // count
+    bool used[MAXN];
+    vector<int> ans;
+     
+    void dfs (int v) {
+     used[v] = true;
+	    for (size_t i=0; i<g[v].size(); ++i) {
+		    int to = g[v][i];
+		    if (!used[to])
+     dfs (to);
+	    }
+     ans.push_back (v);
+    }
+     
+    void topological_sort() {
+	    for (int i=0; i<n; ++i)
+     used[i] = false;
+     ans.clear();
+	    for (int i=0; i<n; ++i)
+		    if (!used[i])
+     dfs (i);
+     reverse (ans.begin(), ans.end());
+    }
 
 Here the constant **MAXN** value must be set equal to the maximum possible number of vertices in the graph.
 

@@ -34,6 +34,10 @@ especially popular in field of competitive programming.*
 - [Length of the union of intervals on a line in $O(n\log n)$](./geometry/length-of-segments-union.html)
 - [Circle-Line Intersection](./geometry/circle-line-intersection.html)
 
+### Graphs
+- [Kirchhoff theorem](./graph/kirchhoff-theorem.html)
+- [Topological sorting](./graph/topological-sort.html)
+
 ---
 
 [Information for contributors](./contrib.html)
