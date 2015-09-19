@@ -1,10 +1,10 @@
-<!--?title Module Inverse -->
+<!--?title Modular Inverse -->
 
 # Modular Multiplicative Inverse
 
 ## Definition
 
-Suppose we are given a positive integer $m$. Consider the integers in module $m$ (i.e. all integers from $0$ to $m-1$). Then, for some integer $a$, we can find its [Modular multiplicative inverse](http://en.wikipedia.org/wiki/Modular_multiplicative_inverse), denoted by $a ^ {-1}$, which satisfy:
+Suppose we are given a positive integer $m$. Consider the integers in modulo $m$ (i.e. all integers from $0$ to $m-1$). Then, for some integer $a$, we can find its [Modular multiplicative inverse](http://en.wikipedia.org/wiki/Modular_multiplicative_inverse), denoted by $a ^ {-1}$, which satisfy:
 
 $a . a^{-1} \equiv 1 \; (mod \, m)$
 
@@ -20,7 +20,7 @@ $a . x + m . y = 1$
 
 This is known as [Linear Diophantine equation of two variables](./algebra/linear-diophantine-equation.html). As shown in the linked article, when $gcd(a, m) = 1$, the equation has a solution which can be found using the [Extended Euclidean algorithm](http://en.wikipedia.org/wiki/Extended_Euclidean_algorithm). Note that $gcd(a, m) = 1$ is also the condition for the Modular inverse to exist.
 
-Now, if we take module $m$ of both sides, we can get rid of $m . y$, and the equation becomes:
+Now, if we take modulo $m$ of both sides, we can get rid of $m . y$, and the equation becomes:
 
 $a . x \equiv 1 \; (mod \, m)$
 
@@ -52,14 +52,14 @@ $a ^ {m - 1} \equiv 1 \; (mod \, m)$
 
 Multiply both sides of the above 2 equations, we have the following results:
 
-* For any module $m$: $a ^ {\phi (m) - 1} \equiv a ^{-1} \; (mod \, m)$
-* For a prime module $m$: $a ^ {m - 2} \equiv a ^ {-1} \; (mod \, m)$
+* For any modulo $m$: $a ^ {\phi (m) - 1} \equiv a ^{-1} \; (mod \, m)$
+* For a prime modulo $m$: $a ^ {m - 2} \equiv a ^ {-1} \; (mod \, m)$
 
 From these results, we can easily find the Modular inverse using the [Binary exponential algorithm](./basic/binary-exp.html), which works in time $O(log m)$.
 
 Even though this method is easier to understand than the method described in previous paragraph, in the case when $m$ is not a prime number, we need to calculate Euler phi function, which involves factorization of $m$, which might be very hard. If the prime factorization of $m$ is known, then the complexity of this method is $O(log m)$.
 
-## Finding all Modular Inverse of numbers in module $m$
+## Finding all Modular Inverse of numbers in modulo $m$
 
 In this section, we consider a special case when $m$ is a prime number, and we will describe a method that can calculate all the Modular inverse of every number in range $[1, m-1]$.
 
