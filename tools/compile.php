@@ -81,7 +81,7 @@ function rootPath() {
     if ($path[1] == ':') { // windows path with drive letter
         $path = '/' . str_replace('\\', '/', $path);
     }
-    if (substr($path, 0, 5) != 'http:') {
+    if (substr($path, 0, 6) != 'https:') {
         $path = 'file://' . $path;
     }
     return "$path";
