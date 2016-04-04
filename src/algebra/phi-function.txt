@@ -8,7 +8,7 @@ Here $1$ is regarded as a coprime to any number.
 $\phi (n) =$ the number of positive integers less than $n$ that are relatively prime to $n$
 where $n >=1$.
 
-For example, $4$ has two such coprimes - $1$ and $2$. Any prime, $n$ (like $7$) obviously have
+For example, $4$ has two such coprimes - $1$ and $3$. Any prime, $n$ (like $7$) obviously have
 $n - 1$ such coprimes.
 
 Here are values of $\phi(n)$ for first few positive integers:
