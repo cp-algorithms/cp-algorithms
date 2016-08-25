@@ -12,7 +12,7 @@ especially popular in field of competitive programming.*
 - [Binary Exponentiation](./algebra/binary-exp.html)
 - [Balanced Ternary](./algebra/balanced-ternary.html)
 - [Linear Diophantine equation](./algebra/linear-diophantine-equation.html)
-- [Module Inverse](./algebra/module-inverse.html)
+- [Modular Inverse](./algebra/module-inverse.html)
 - [Chinese Remainder Theorem](./algebra/chinese-remainder-theorem.html)
 - [Primitive Root](./algebra/primitive-root.html)
 - [Discrete Root](./algebra/discrete-root.html)
