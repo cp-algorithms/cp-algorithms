@@ -14,7 +14,7 @@ In order to make contribution consider the following steps:
 1. Fork [source repository](https://github.com/e-maxx-eng/e-maxx-eng).
 2. Add or modify files in `src` subfolder in Markdown format (you can do this in web-interface of github now).
 3. Use `pull-request` feature to send the request for your changes to be merged.
-4. Some time later the html page would appear at the site. If it don't happen, contact one of admins.
+4. It will take about 5 minutes before updated html page will appear at the site.
 
 Please kindly refer to manuals on using `git` and `github` anywhere over internet.
 
