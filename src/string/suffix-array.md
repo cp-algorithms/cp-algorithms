@@ -1,11 +1,11 @@
 <!--?title Suffix Array-->
 #Suffix Array
 
-###What is suffix?
+###What is a suffix?
 
-Let $S$ be a string of length $N$. $i^{th}$ suffix of $S$ is substring $S[i \ldots n - 1], i = 0 \ldots n - 1$.
+Let $S$ be a string of length $N$. The $i^{th}$ suffix of $S$ is substring $S[i \ldots n - 1], i = 0 \ldots n - 1$.
 
-###What is suffix array?
+###What is a suffix array?
 
 As a data structure, it is widely used in areas such as data compression, bioinformatics and, 
 in general, in any area that deals with strings and string matching problems, so, as you can see, 
@@ -35,8 +35,7 @@ Suffix Array for $S$ will be $(2,\ 3,\ 0,\ 4,\ 1)$.
 
 ####$O(N^2\log{N})$ Approach
 
-This is most naive approach. Get all the suffixes and sort them using Quicksort or Mergesort simultaneously retaining there
-original indexes. Sorting takes $O(N\log{N})$ so how it is $O(N^2\log{N})$??.
+This is the most naive approach. Get all the suffixes and sort them using Quicksort or Mergesort simultaneously retaining their original indexes. Sorting takes $O(N\log{N})$ so how it is $O(N^2\log{N})$??.
 What we miss here is comparison of two strings is not $O(1)$ in worst case it takes $O(N)$.
 So the final complexity is $O(N^2\log{N})$. We can reduce this comparison from $O(N)$ to $O(1)$. Read further :).
 
@@ -44,10 +43,10 @@ So the final complexity is $O(N^2\log{N})$. We can reduce this comparison from $
 ####$O(N\log^2{N})$ Approach
 
 We can reduce comparison of two strings from $O(N)$ to $O(1)$ using the fact that, given strings are not
-random strings they are part of single string. **Each string has something common with other.**  
+random strings they are part of single string. **Each string has something in common with others.**  
 
-Lets see how we can use this fact.
-Lets sort the suffixes on basis of there first character and assign them rank.  
+Let's see how we can use this fact.
+Let's sort the suffixes on basis of their first character and assign them rank.  
 If two are equal rank for them will be same.  
   
 $0.\ a|baab$  
@@ -60,15 +59,15 @@ $1.\ b|$
 
 Now double the characters to take from each for sorting i.e. 2.  
 When we take string of two chars we can have two parts first containing 1 char other containing 1.  
-Lets compare $abaab$ with $baab$, based on the first part, that of 1 character we can say that $abaab$ will  
+Let's compare $abaab$ with $baab$, based on the first part, that of 1 character we can say that $abaab$ will  
 be always ranked above $baab$ so skip further comparison.  
 
-Now compare $abaab$ with $aab$ based on first part both have same rank. Now we will compare there second half part,  
-second half part of $abaab$ is only $b$ and for $aab$ be is $a$ for these we already know there ranks  
+Now compare $abaab$ with $aab$ based on first part both have same rank. Now we will compare their second half part,  
+second half part of $abaab$ is only $b$ and for $aab$ be is $a$ for these we already know their ranks  
 for $b$ (i.e. whole $baab$) is 1 and $a$ (i.e. whole $ab$) is 0.  
 Hence $abaab$ will be ranked above $baab$.  
 
-For the strings not having second part we will rank there second part highest i.e. -1
+For the strings not having second part we will rank their second part highest i.e. -1
 for example $b$ is not having $2^{nd}$ char so its rank tuple will be (1, -1).  
 
 $0.\ aa|b$  
