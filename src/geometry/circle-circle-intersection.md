@@ -13,7 +13,7 @@ Assume without loss of generality that the first circle is centered at the origi
 $$x^2+y^2=r_1^2$$
 $$(x - x_2)^2 + (y - y_2)^2 = r_2^2$$
 
-Subtract the first equation from the second one to get rid of second powers of variables:
+Subtract the first equation from the second one to get rid of the second powers of variables:
 
 $$x^2+y^2=r_1^2$$
 $$x \cdot (-2x_2) + y \cdot (-2y_2) + (x_2^2+y_2^2+r_1^2-r_2^2) = 0$$
