@@ -31,6 +31,8 @@ The only degenerate case we need to consider separately is when the centers of t
 
 ## Practice Problems
 
-[RadarFinder](https://community.topcoder.com/stat?c=problem_statement&pm=7766)
-[Runaway to a shadow - Codeforces](http://codeforces.com/problemset/problem/681/E)
-[ASC 1 Problem F "Get out!"](http://codeforces.com/gym/100199/problem/F)
+- [RadarFinder](https://community.topcoder.com/stat?c=problem_statement&pm=7766)
+
+- [Runaway to a shadow - Codeforces Round #357](http://codeforces.com/problemset/problem/681/E)
+
+- [ASC 1 Problem F "Get out!"](http://codeforces.com/gym/100199/problem/F)
