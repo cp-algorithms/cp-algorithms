@@ -174,6 +174,12 @@ struct FenwickTree2D {
 };
 ```
 
+## Problems in Online Judge
+
+* [UVA 12086 - Potentiometers](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3238)
+* [LOJ 1112 - Curious Robin Hood](http://www.lightoj.com/volume_showproblem.php?problem=1112)
+* [LOJ 1266 - Points in Rectangle](http://www.lightoj.com/volume_showproblem.php?problem=1266 "2D Fenwick Tree")
+
 ### Other sources
 
 Wikipedia: [en.wikipedia.org/wiki/Fenwick_tree](http://en.wikipedia.org/wiki/Fenwick_tree)  
