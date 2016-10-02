@@ -173,6 +173,25 @@ struct FenwickTree2D {
     }
 };
 ```
+Practice Problems:
+SPOJ:
+    CTRICK - Sphere Online Judge (SPOJ)
+    DQUERY - Sphere Online Judge (SPOJ)
+    INCSEQ - Sphere Online Judge (SPOJ)
+    INVCNT - Sphere Online Judge (SPOJ)
+    KPMATRIX - Sphere Online Judge (SPOJ)
+    MATSUM - Sphere Online Judge (SPOJ)
+    MCHAOS - Sphere Online Judge (SPOJ)
+    MSE06H - Sphere Online Judge (SPOJ)
+    NICEDAY - Sphere Online Judge (SPOJ)
+    NKMOBILE - Sphere Online Judge (SPOJ)
+    NKTEAM -  Sphere Online Judge (SPOJ)
+    ORDERSET - SPOJ.com - Problem ORDERSET
+    RRSCHED - Sphere Online Judge (SPOJ)
+    YODANESS - Sphere Online Judge (SPOJ)
+Codechef:
+    SPREAD - http://www.codechef.com/problems/SPREAD)
+    
 
 ### Other sources
 
