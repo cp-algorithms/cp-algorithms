@@ -67,4 +67,6 @@ $a^{b} = (a^{b/2})^2 \quad$ for even `b`,
 $a^{b} = (a^{(b-1)/2})^2 \cdot a \quad$ for odd `b`,  
 $a^{1} = a$.
 
-
+Practice problems from UVA OJ:
+MODEX:: http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3671
+Big Mod:: http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=310
