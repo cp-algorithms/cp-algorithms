@@ -184,4 +184,7 @@ int main() {
     return 0;
 }</code></pre>  
 
-**Upcoming: $O(N\log(N))$ approach, $O(N)$ approach, LCP array, practice problems**
+Practice Problems:
+Dna Sequencing: http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=701
+Editor: http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3664
+**Upcoming: $O(N\log(N))$ approach, $O(N)$ approach and LCP array**
