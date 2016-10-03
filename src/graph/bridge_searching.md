@@ -83,3 +83,4 @@ Some tasks in which we aim to find bridges:
 
 - [UVA #796 "Critical Links" [difficulty: low]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=737)
 - [UVA #610 "Street Directions" [difficulty: medium]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=551)
+- [Case of the Computer Network (Codeforces Round #310 Div. 1 E)[difficulty: hard]](http://codeforces.com/problemset/problem/555/E)
