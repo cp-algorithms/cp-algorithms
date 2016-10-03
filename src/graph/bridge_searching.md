@@ -79,7 +79,7 @@ It should be noted that this does not work correctly if multiple edges are prese
 
 ## Tasks in online judges
 
-The task list in which we aim to find bridges:
+Some tasks in which we aim to find bridges:
 
 - [UVA #796 "Critical Links" [difficulty: low]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=737)
 - [UVA #610 "Street Directions" [difficulty: medium]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=551)
