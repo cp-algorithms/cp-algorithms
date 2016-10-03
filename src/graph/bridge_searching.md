@@ -38,6 +38,8 @@ Regarding the implementation, here we need to distinguish 3 cases: when we are o
 
 Thus, to implement, we need a depth first search function with all the information for a current node.
 
+C++ implementation <span class="toggle-code">Show/Hide</span>
+
 <pre><code>const int MAXN = ...;
 vector&lt;int&gt; g[MAXN];
 bool used[MAXN];
@@ -69,7 +71,9 @@ void find_bridges() {
 			dfs (i);
 } </code></pre>
 
-Here, the main function calls function $find_bridges$ which produces necessary initialization and starts depth first search in all components of a graph.
+</span>
+
+Here, the main function calls function $find$_$bridges$ which produces necessary initialization and starts depth first search in all components of a graph.
 
 Function $IS$_$BRIDGE(a, b)$ - is a function that will produce output to the fact that edge $(a, b)$ is a bridge.
 
