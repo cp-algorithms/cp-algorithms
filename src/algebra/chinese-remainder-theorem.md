@@ -180,5 +180,5 @@ Note on negative numbers:
 
 * Modular scheme itself does not allow representing negative numbers. However, it can be seen that if we know that the absolute values our numbers are smaller than $p / 2$, then we know that it must be negative when the resulting number is greater than $p / 2$. The flag $can_be_negative$ in this code allows converting it to negative in this case. 
 
-Practice Problem:
-Number of sequences: https://www.hackerrank.com/contests/w22/challenges/number-of-sequences 
+## Practice Problem:
+* [Hackerrank - Number of sequences](https://www.hackerrank.com/contests/w22/challenges/number-of-sequences)
