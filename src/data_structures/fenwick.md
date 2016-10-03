@@ -179,6 +179,12 @@ struct FenwickTree2D {
 * [UVA 12086 - Potentiometers](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3238)
 * [LOJ 1112 - Curious Robin Hood](http://www.lightoj.com/volume_showproblem.php?problem=1112)
 * [LOJ 1266 - Points in Rectangle](http://www.lightoj.com/volume_showproblem.php?problem=1266 "2D Fenwick Tree")
+* [Codechef - SPREAD](http://www.codechef.com/problems/SPREAD)
+* [SPOJ - CTRICK](http://www.spoj.com/problems/CTRICK/)
+* [SPOJ - MATSUM](http://www.spoj.com/problems/MATSUM/)
+* [SPOJ - DQUERY](http://www.spoj.com/problems/DQUERY/)
+* [SPOJ - NKTEAM](http://www.spoj.com/problems/NKTEAM/)
+* [SPOJ - YODANESS](http://www.spoj.com/problems/YODANESS/)
 
 ### Other sources
 
