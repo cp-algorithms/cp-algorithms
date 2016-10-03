@@ -5,7 +5,7 @@ At least at first stage we are going to collaborate via means of github.
 
 Generated pages are placed at [http://e-maxx-eng.appspot.com](http://e-maxx-eng.appspot.com).
 
-And sources (to which you may want to contribute) are [here](http://github.com/e-maxx-eng/e-maxx-eng/src).
+And sources (to which you may want to contribute) are [here](http://github.com/e-maxx-eng/e-maxx-eng/tree/master/src).
 
 In order to make contribution consider the following steps:
 

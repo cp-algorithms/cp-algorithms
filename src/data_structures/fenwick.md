@@ -4,7 +4,7 @@
 
 Let, $f$ be some _reversible_ function and $A$ be an array of integers of length $N$.
 
-Fenwick tree is a data structure, which:
+Fenwick tree is a data structure which:
 
 * calculates the value of function $f$ in the given range $[l; r]$ (i.e. $f(A_l, A_{l+1}, \dots, A_r)$) in $O(lg\ n)$ time;
 * updates the value of an element of $A$ in $O(lg\ n)$ time;
@@ -13,7 +13,7 @@ Fenwick tree is a data structure, which:
 
 > Fenwick tree is also called Binary Indexed Tree.
 
-The most common application of Fenwick tree is used for _calculating the sum of a range_ (i.e. $f(A_1, A_2, \dots, A_k) = A_1 + A_2 + \dots + A_k$).
+The most common application of Fenwick tree is _calculating the sum of a range_ (i.e. $f(A_1, A_2, \dots, A_k) = A_1 + A_2 + \dots + A_k$).
 
 Fenwick tree was first described in the paper titled "A new data structure for cumulative frequency tables" (Peter M. Fenwick, 1994).
 
@@ -174,10 +174,16 @@ struct FenwickTree2D {
 };
 ```
 
+## Practice Problems
+
+* [UVA 12086 - Potentiometers](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3238)
+* [LOJ 1112 - Curious Robin Hood](http://www.lightoj.com/volume_showproblem.php?problem=1112)
+* [LOJ 1266 - Points in Rectangle](http://www.lightoj.com/volume_showproblem.php?problem=1266 "2D Fenwick Tree")
+
 ### Other sources
 
-Wikipedia: [en.wikipedia.org/wiki/Fenwick_tree](http://en.wikipedia.org/wiki/Fenwick_tree)  
-Topcoder: [community.topcoder.com/tc?module=Static&d1=tutorials&d2=binaryIndexedTrees](http://community.topcoder.com/tc?module=Static&d1=tutorials&d2=binaryIndexedTrees)
+* [Fenwick tree on Wikipedia](http://en.wikipedia.org/wiki/Fenwick_tree)  
+* [Binary indexed trees tutorial on TopCoder](https://www.topcoder.com/community/data-science/data-science-tutorials/binary-indexed-trees/)
 
 
 Translated by [sylap97](http://codeforces.com/profile/sylap97)
