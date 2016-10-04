@@ -1,4 +1,4 @@
-# Finding the shortest paths between all pairs of vertices - Floyd-Warshall Algorithm
+# Finding the shortest path between all pairs of vertices - Floyd-Warshall Algorithm
 
 Given an undirected weighted graph G with n vertices. It is required to find the values of all variables d<sub>ij</sub> (<i>The length of the shortest path from vertex i to the vertex j</i>) .
 
@@ -15,7 +15,7 @@ The key idea of the algorithm - Partitioning the process of finding the shortest
 Let us number the vertices starting from 1 to n.
 The Matrix of Distances is d[][].
 
-Before k<sup>th</sup> phase $( k = 1 .... n )$, the d[i][j] for any vertices i and j, stores the length of the shortest path between the vertex i and vertex j, which contain only the vertices ${1, 2, ..... , k-1}$ as internal vertices in the path.
+Before k<sup>th</sup> phase ( k = 1 .... n ), the d[i][j] for any vertices i and j, stores the length of the shortest path between the vertex i and vertex j, which contain only the vertices {1, 2, ..... , k-1} as internal vertices in the path.
 
 In other words, before k<sup>th</sup> phase value of d[i][j] equal to the length of the shortest path from vertex i to the vertex j, if this path is allowed to enter only the vertex with numbers smaller k (Beginning and end of the path are not considered).
 
@@ -34,7 +34,7 @@ At the same time, if between some vertices i and j, direct edge not exists, the 
 
 Suppose now that we are on k<sup>th</sup> phase, and we want to compute the matrix d[][] so that it meets the requirements of having (k + 1)<sup>th</sup> phase. We fix some vertices i and j . Then there are two fundamentally different cases:
 
-* The shortest way from the vertex i to the vertex j which is allowed to pass through the internal vertices in the set ${1, 2, ....., k}$, coincides with the shortest path, which is allowed to pass through the internal vertices in the set ${1, 2, ....., k-1}$.
+* The shortest way from the vertex i to the vertex j which is allowed to pass through the internal vertices in the set {1, 2, ....., k}, coincides with the shortest path, which is allowed to pass through the internal vertices in the set {1, 2, ....., k-1}.
 	
 	In this case, the d[i][j] will not change during the transition from k on th (k + 1)<sup>th</sup> phase.
 
@@ -52,7 +52,7 @@ Thus, all the work that is required to produce k<sup>th</sup> phase is to iterat
 
 A last remark - we don't need to create a separate matrix of distances d<sub>new</sub>[][] for temporarily storing shortest paths of k<sup>th</sup> phase while transitioning to (k + 1)<sup>th</sup>, i.e. all changes can be made directly in the matrix d[][] at any phase. In fact, at any k<sup>th</sup> phase we are at most improving (reducing) value of any path in matrix of distances, hence, we cannot worsen the length of the shortest path for any pair of the vertices that are to be processed in (k+1)<sup>th</sup> phase or later.
 
-Asymptotic complexity of algorithm obviously is $O(n<sup>3</sup>)$ .
+Asymptotic complexity of the algorithm obviously is O( n<sup>3</sup> ) .
 
 ## Implementation
 
