@@ -24,6 +24,7 @@ especially popular in field of competitive programming.*
 ### String Processing
 - [Suffix Array](./string/suffix-array.html)
 - [Z-function](./string/z-function.html)
+- [Rabin-Karp Algorithm](./string/rabin-karp-algorithm.html)
 
 ### Linear Algebra
 - [Gauss & System of linear equation](./linear_algebra/linear-system-gauss.html)
