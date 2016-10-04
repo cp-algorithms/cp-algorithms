@@ -40,6 +40,7 @@ especially popular in field of competitive programming.*
 - [Kirchhoff theorem](./graph/kirchhoff-theorem.html)
 - [Topological sorting](./graph/topological-sort.html)
 - [Searching for bridges in O(N+M)](./graph/bridge-searching.html)
+- [Finding a negative cycle in the graph](./graph/finding-negative-cycle-in-graph.html)
 
 ---
 
