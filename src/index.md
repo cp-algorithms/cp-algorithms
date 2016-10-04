@@ -39,7 +39,7 @@ especially popular in field of competitive programming.*
 - [Breadth First Search](./graph/breadth-first-search.html)
 - [Kirchhoff theorem](./graph/kirchhoff-theorem.html)
 - [Topological sorting](./graph/topological-sort.html)
-
+- [Searching for bridges in O(N+M)](./graph/bridge-searching.html)
 ---
 
 [Information for contributors](./contrib.html) and [Test-Your-Page form](./test.php)
