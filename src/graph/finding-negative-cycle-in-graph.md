@@ -1,20 +1,16 @@
 #Finding a negative cycle in the graph
 
-An directed weighted graph G from n vertices and peaks m edges. Required to find it in any of the negative cycle of weight, if any.
+A directed weighted graph G with n vertices and m edges. Required to find it in any of the negative cycle of weight, if any.
 
-In another formulation of the problem - you want to find all pairs of vertices such that there is a path between any number of small length.
-
-These two options to solve the problem it is convenient different algorithms, so both of them will be discussed below.
-
-One of the most common "life" performances this task - is as follows: exchange rates are known, ie, transfer rates from one currency to another. You want to know whether a certain sequence of exchanges to benefit, ie, starting from one unit of a currency, to receive as a result of more than one unit of the same currency.
+These two options to solve the problem. It is convenient different algorithms, so both of them will be discussed below.
 
 #The decision by the algorithm of Bellman-Ford
 
-Bellman-Ford algorithm allows you to check the presence or absence of the negative weight cycle in the graph, and if present - to find one of these cycles.
+Bellman-Ford algorithm allows you to check the presence or absence of the negative weight cycle in the graph, and if present then find one of these cycles.
 
 We will not go into details (which are described in the article on the algorithm of Bellman-Ford ), and give only the result - how the algorithm works.
 
-done n iterations of the algorithm of Bellman-Ford, and if at the last iteration has been no change - the negative cycle in the graph no. Otherwise, take the top, the distance to which has changed and will go on from her ancestors until will enter the ring; this cycle will be the desired negative cycle.
+done n iterations of the algorithm of Bellman-Ford, and if at the last iteration has been no change - the negative cycle in the graph not present. Otherwise, take the top, the distance to which has changed and will go on from her ancestors until will enter the ring; this cycle will be the desired negative cycle.
 
 #Implementation:
 
@@ -62,11 +58,11 @@ done n iterations of the algorithm of Bellman-Ford, and if at the last iteration
 
 #The decision by the algorithm of Floyd-Warshall
 
-Floyd-Warshall algorithm allows to solve a second statement of the problem - when you need to find all pairs of vertices (I, j) Between which there is not the shortest path (ie, it has an infinitesimal amount).
+Floyd-Warshall algorithm allows to solve a second statement of the problem - when you need to find all pairs of vertices (i, j) Between which there is not the shortest path (ie, it has an infinitesimal amount).
 
 Again, a more detailed explanation is contained in the description of the algorithm of Floyd-Warshall , but here we present only the result.
 
-Once the algorithm of Floyd-Warshall will work for the input graph Let's brute over all pairs of vertices (I, j) And check infinitesimal shortest path for each pair of i at j or not. To do this Let's brute over the third vertex t And if it turned out for her d [t] [t] <0 (Ie it is in a cycle of negative weight), and she is accessible from i and because it is achievable j - The path (I, j) It could have infinitesimal length.
+Once the algorithm of Floyd-Warshall will work for the input graph Let's brute force over all pairs of vertices (i, j) And check infinitesimal shortest path for each pair of i at j or not. To do this Let's brute over the third vertex t And if it turned out for her d [t][t] <0 (i.e. it is in a cycle of negative weight), and she is accessible from i and because it is achievable j - The path (i, j) It could have infinitesimal length.
 
 #Implementation:
 
