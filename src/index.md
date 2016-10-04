@@ -37,6 +37,7 @@ especially popular in field of competitive programming.*
 
 ### Graphs
 - [Breadth First Search](./graph/breadth-first-search.html)
+- [Depth First Search](./graph/depth-first-search.html)
 - [Kirchhoff theorem](./graph/kirchhoff-theorem.html)
 - [Topological sorting](./graph/topological-sort.html)
 - [Searching for bridges in O(N+M)](./graph/bridge-searching.html)
