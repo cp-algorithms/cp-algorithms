@@ -9,10 +9,9 @@ And sources (to which you may want to contribute) are [here](http://github.com/e
 
 In order to make contribution consider the following steps:
 
-###Using GitHub
-
 1. Fork [source repository](https://github.com/e-maxx-eng/e-maxx-eng).
 2. Add or modify files in `src` subfolder in Markdown format (you can do this in web-interface of github now).
+3. Make sure you added `<!--?title ... -->` to your page and the corresponding link to main (index) page.
 3. Use [Test-Your-Page form](./test.php) to check if you are satisfied with the result.
 4. Use `pull-request` feature to send the request for your changes to be merged.
 5. It may take few hours or few days before someone who have admin rights will merge your request. Contact any of admins personally to speed up this process!
