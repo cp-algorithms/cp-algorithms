@@ -23,6 +23,10 @@ Please kindly refer to manuals on using `git` and `github` anywhere over interne
 <iframe width="420" height="315" src="https://www.youtube.com/embed/TrBBw4J9X30" frameborder="0" allowfullscreen></iframe>
 </div>
 
+###Your Authorship is Preserved
+
+If you want, you can place note like "translated by Rodion Gork" at the bottom of the article, probably with the link to your GitHub or CodeForces account for example. However it is not necessary (and not very convenient if the article was edited by several people). All commits [are tracked in GitHub](https://github.com/e-maxx-eng/e-maxx-eng/commits/master) and so it is always easy to determine or prove the authorship of any line (especially with "blame" functionality on a specific file).
+
 ###Source format
 
 We use [Markdown](https://daringfireball.net/projects/markdown) for source texts and
