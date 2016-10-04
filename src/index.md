@@ -30,12 +30,13 @@ especially popular in field of competitive programming.*
 - [Gauss & Determinant](./linear_algebra/determinant-gauss.html)
 - [Kraut & Determinant](./linear_algebra/determinant-kraut.html)
 
-### Geometry 
+### Geometry
 - [Length of the union of intervals on a line in $O(n\log n)$](./geometry/length-of-segments-union.html)
 - [Circle-Line Intersection](./geometry/circle-line-intersection.html)
 - [Circle-Circle Intersection](./geometry/circle-circle-intersection.html)
 
 ### Graphs
+- [Breadth First Search](./graph/breadth-first-search.html)
 - [Kirchhoff theorem](./graph/kirchhoff-theorem.html)
 - [Topological sorting](./graph/topological-sort.html)
 
