@@ -40,7 +40,7 @@ especially popular in field of competitive programming.*
 - [Kirchhoff theorem](./graph/kirchhoff-theorem.html)
 - [Topological sorting](./graph/topological-sort.html)
 - [Searching for bridges in O(N+M)](./graph/bridge-searching.html)
-
+- [All Pair Shortest Path - Floyd-Warshall O(N<sup>3</sup>)](./graph/all-pair-shortest-path.html)
 ---
 
 [Information for contributors](./contrib.html) and [Test-Your-Page form](./test.php)
