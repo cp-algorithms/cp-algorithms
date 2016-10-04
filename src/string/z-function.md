@@ -7,7 +7,7 @@ In other words, $z[i]$ is the length of the longest common prefix between $s$ an
 
 **Note.** In this article, to avoid ambiguity, we assume $0$-based indexes; that is: the first character of $s$ has index $0$ and the last one has index $n-1$.
 
-The first element of Z-functions, $z[0]$, is generally not well defined. In this article we will assume it is zero (although it doesn't change anything in the algorithm implementation).
+The first element of Z-function, $z[0]$, is generally not well defined. In this article we will assume it is zero (although it doesn't change anything in the algorithm implementation).
 
 This article presents an algorithm for calculating the Z-function in $O(n)$ time, as well as various of its applications.
 
