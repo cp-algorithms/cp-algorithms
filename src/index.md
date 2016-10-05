@@ -25,6 +25,7 @@ especially popular in field of competitive programming.*
 - [String Hashing](./string/string-hashing.html)
 - [Suffix Array](./string/suffix-array.html)
 - [Z-function](./string/z-function.html)
+- [Rabin-Karp Algorithm](./string/rabin-karp-algorithm.html)
 
 ### Linear Algebra
 - [Gauss & System of linear equation](./linear_algebra/linear-system-gauss.html)
@@ -42,6 +43,7 @@ especially popular in field of competitive programming.*
 - [Kirchhoff theorem](./graph/kirchhoff-theorem.html)
 - [Topological sorting](./graph/topological-sort.html)
 - [Searching for bridges in O(N+M)](./graph/bridge-searching.html)
+- [Finding a negative cycle in the graph](./graph/finding-negative-cycle-in-graph.html)
 
 ---
 
