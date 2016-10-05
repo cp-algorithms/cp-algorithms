@@ -44,7 +44,7 @@ especially popular in field of competitive programming.*
 - [Topological sorting](./graph/topological-sort.html)
 - [Searching for bridges in O(N+M)](./graph/bridge-searching.html)
 - [Finding a negative cycle in the graph](./graph/finding-negative-cycle-in-graph.html)
-
+- [Minimum Spanning Tree - Kruskal (naive implementation)](./graph/minimum-spanning-tree-naive-kruskal.html)
 ---
 
 [Information for contributors](./contrib.html) and [Test-Your-Page form](./test.php)
