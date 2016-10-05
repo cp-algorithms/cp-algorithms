@@ -1,7 +1,7 @@
 <!--?title Breadth First Search -->
 
 # Breadth-first search
-Breadth first search is one of the basic and essential algorithms on graphs.
+Breadth first search is one of the basic and essential searching algorithms on graphs.
 
 As a result of how the algorithm works, the path found by breadth first search to any node is the shortest path to that node i.e
 the path that contains the smallest number of edges in unweighted graphs.
@@ -97,5 +97,6 @@ manner:
 * [SPOJ: AKBAR](http://spoj.com/problems/AKBAR)
 * [SPOJ: NAKANJ](http://www.spoj.com/problems/NAKANJ/)
 * [SPOJ: WATER](http://www.spoj.com/problems/WATER)
+* [SPOJ: MICE AND MAZE](http://www.spoj.com/problems/MICEMAZE/)
 
 
