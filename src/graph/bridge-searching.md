@@ -20,9 +20,7 @@ Now we have to learn how to effectively verify this fact for each vertex. For do
 
 So, let $tin[v]$ denote the the depth first search time of node $v$. Now, we introduce the array $fup[v]$, which is the minimum of $tin[v]$, the DFS time of all nodes $p$ that are connected to node $v$ via back-edge $(v, p)$ and all the values of $fup[to]$ for each vertex to which is a direct child of $v$ in the DFS tree.
 
-<pre><img src="http://e-maxx.ru/tex2png/cache/ec0a7c417df6f6cbc5ef762cd909127f.png" alt=" fup[v] = \min \cases{
-tin[v], &amp; \cr
-tin[p], &amp; {[...]"></pre>
+![Formula for algorithm complexity](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/search-bridge-formula.png)
 
 Now, there is a back edge from node $v$ or it's descendants if there is a son $to$ of node $v$ such that $fup[to] \leq tin[v]$.(If $fup[to] = tin[v]$, it means back edge comes directly to $v$, otherwise it comes to some ancestor).
 
