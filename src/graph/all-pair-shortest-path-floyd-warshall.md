@@ -15,7 +15,7 @@ The key idea of the algorithm - Partitioning the process of finding the shortest
 Let us number the vertices starting from 1 to n.
 The Matrix of Distances is d[][].
 
-Before k<sup>th</sup> phase ( k = 1 .... n ), the d[i][j] for any vertices i and j, stores the length of the shortest path between the vertex i and vertex j, which contain only the vertices {1, 2, ..... , k-1} as internal vertices in the path.
+Before k<sup>th</sup> phase $( k = 1 .... n )$, the d[i][j] for any vertices i and j, stores the length of the shortest path between the vertex i and vertex j, which contain only the vertices ${1, 2, ..... , k-1}$ as internal vertices in the path.
 
 In other words, before k<sup>th</sup> phase value of d[i][j] equal to the length of the shortest path from vertex i to the vertex j, if this path is allowed to enter only the vertex with numbers smaller k (Beginning and end of the path are not considered).
 
@@ -34,7 +34,7 @@ At the same time, if between some vertices i and j, direct edge not exists, the 
 
 Suppose now that we are on k<sup>th</sup> phase, and we want to compute the matrix d[][] so that it meets the requirements of having (k + 1)<sup>th</sup> phase. We fix some vertices i and j . Then there are two fundamentally different cases:
 
-* The shortest way from the vertex i to the vertex j which is allowed to pass through the internal vertices in the set {1, 2, ....., k}, coincides with the shortest path, which is allowed to pass through the internal vertices in the set {1, 2, ....., k-1}.
+* The shortest way from the vertex i to the vertex j which is allowed to pass through the internal vertices in the set ${1, 2, ....., k}$, coincides with the shortest path, which is allowed to pass through the internal vertices in the set ${1, 2, ....., k-1}$.
 	
 	In this case, the d[i][j] will not change during the transition from k on th (k + 1)<sup>th</sup> phase.
 
@@ -42,7 +42,7 @@ Suppose now that we are on k<sup>th</sup> phase, and we want to compute the matr
 	
 	This means that the "New" shorter path passing through the vertex k . Just note that we do not lose generality, further 	considering only simple paths (i.e. paths not passing through some vertex twice).
 
-	Then we note that if we divide this "New" way of through vertex k into two halves (one going i -> k, and, the other 		going from k -> j ), each of these halves no longer pass through the vertex k. But then it turns out that the length of 	each of the halves was calculated by another (k-1)<sup>th</sup> phase or even earlier than (k-1), and it is sufficient 		to simply take the amount d[i][k] + d[k][j], it will give the length of the "New" shortest path.
+	Then we note that if we divide this "New" way of through vertex k into two halves (one going i -> k, and, the other going from k -> j ), each of these halves no longer pass through the vertex k. But then it turns out that the length of each of the halves was calculated by another (k-1)<sup>th</sup> phase or even earlier than (k-1), and it is sufficient to simply take the amount d[i][k] + d[k][j], it will give the length of the "New" shortest path.
 
 Combining these two cases, we find that k<sup>th</sup> phase is required to recalculate the length of the shortest paths between all pairs of vertices i and j in the following way:
 
@@ -102,6 +102,6 @@ For the pair of vertices, the answer for which does not exist (due to the presen
 
 This can be done, for example, following the criterion "non-existence of the path". So, let us run the usual Floyd-Warshall algorithm for a given graph. Then a shortest path between vertices i and j does not exist, if and only if, there is a vertex t that is reachable from i and also from j, for which d[t][t] < 0.
 
-In addition, when using the Floyd algorithm for graphs with negative cycles, we should keep in mind that in the process of working with Floys-Warshall Algorithm, situations may arise in which distances can strongly go into the negative, exponentially with each phase. Therefore, integer overflow must be handled by limiting the distance from the bottom of some value (e.g. -INF).
+In addition, when using the Floyd-Warshall algorithm for graphs with negative cycles, we should keep in mind that in the process of working with Floyd-Warshall Algorithm, situations may arise in which distances can strongly go into the negative, exponentially with each phase. Therefore, integer overflow must be handled by limiting the distance from the bottom of some value (e.g. -INF).
 
-Learn more about this task, see separate article: "Finding a negative cycle in the graph".
+To learn more about finding negative cycles in a graph, see separate article: "Finding a negative cycle in the graph".
