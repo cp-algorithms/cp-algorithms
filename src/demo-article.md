@@ -5,18 +5,10 @@
 _You can [see the source of this article](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/src/demo-article.md) to better understand formatting features._
 
 The header is made of line starting with `#` (hash) symbol. Note that also we need to add a magical `?title` comment which
-defines the title of the resulting HTML page for browser and search engines. It could be placed anywhere on a separate line
-in the form:
-
-    <!--?title Demo Article-->
+defines the title of the resulting HTML page for browser and search engines (see the source of this page - it is in the top).
 
 Text is written in paragraphs, separated with empty lines. Line breaks in paragraphs are regarded as ordinary spaces. If you
 add a couple of extra spaces in the line end, they will create "hard line-break" in that place.
-
-We use a kind of LaTeX renderer for formulas. It looks like this:  
-$\phi (n) =$ the number of positive integers
-less than $n$ that are relatively prime to $n$
-where $n >=1$.
 
 The code snippets are created of blocks indented with 4 spaces:
 
@@ -43,8 +35,6 @@ the preceding paragraph <span class="toggle-code">Show/Hide</span>
 
 ###TeX and Markdown references
 
-###Source format
-
 We use [Markdown](https://daringfireball.net/projects/markdown) for source texts and
 convert them automatically to HTML.
 Some [extra](https://michelf.ca/projects/php-markdown/extra/) features also could be used.
@@ -59,12 +49,12 @@ $$E = mc^{2}$$
 
 ###Adding images
 
-Small images could be pushed along with texts to the [/img](https://github.com/e-maxx-eng/e-maxx-eng/tree/master/img) subfolder. Let them be in `PNG` format and less than `200kb`. Then you can refer to them inside the article with the tag:
+Small images could be pushed along with texts to the [/img](https://github.com/e-maxx-eng/e-maxx-eng/tree/master/img) subfolder. Let them be in `PNG` format and less than `200kb`. Then you can refer to them inside the article like this (see the source here):
 
-    ![some image description](&imgroot&/my-image.png)
+    ![some image description](&imgroot&/search-bridge-formula.png)
 
-Here `my-image.png` should be your file name, while `&imgroot&` is some magic which will expand to proper url prefix when shown at the site (so you need not know the precise prefix of github raw data).
+Note that file name is prefixed with `imgroot` variable (in ampersands) which will expand to proper url prefix when shown at the site (so you need not know the precise prefix of github raw data). It would be good if you use it instead of full path urls.
 
 Larger images should be posted to some image-hosting, like [PostImage](http://postimage.org) or [ImgUr](http://imgur.com/) - they will then give you the url to insert into the page.
 
-You can also embed videos from youtube, as it is done in the `contrib.md` file.
+You can also embed videos from youtube, as it is done in the [contrib.md](./contrib.html) file.
