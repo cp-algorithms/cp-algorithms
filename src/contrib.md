@@ -41,3 +41,12 @@ And here is the formula in the separate block:
 
 $$E = mc^{2}$$
 
+###Adding images
+
+Small images could be pushed along with texts to the [/img](https://github.com/e-maxx-eng/e-maxx-eng/tree/master/img) subfolder. Let them be in `PNG` format and less than `200kb`. Then you can refer to them inside the article with the tag:
+
+    ![some image description](&imgroot&/my-image.png)
+
+Here `my-image.png` should be your file name, while `&imgroot&` is some magic which will expand to proper url prefix when shown at the site (so you need not know the precise prefix of github raw data).
+
+Larger images should be posted to some image-hosting, like [PostImage](http://postimage.org) or [ImgUr](http://imgur.com/) - they will then give you the url to insert into the page.
