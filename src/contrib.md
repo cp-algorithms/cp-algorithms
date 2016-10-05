@@ -18,7 +18,7 @@ In order to make contribution consider the following steps:
 5. It may take few hours or few days before someone who have admin rights will merge your request. Contact any of admins personally to speed up this process!
 6. After merging it will take about 5 minutes before updated html page will appear at the site.
 
-You may start with this [demo-article](./demo-article.html) or even use [its source](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/src/contrib.md) as a template for your new article.
+**You may start with this [demo-article](./demo-article.html) or even use [its source](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/src/contrib.md) as a template for your new article.**
 
 Please kindly refer to manuals on using `git` and `github` anywhere over internet. You may also watch this demo video:
 
