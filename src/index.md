@@ -22,6 +22,7 @@ especially popular in field of competitive programming.*
 - [Fenwick Tree](./data_structures/fenwick.html)
 
 ### String Processing
+- [String Hashing](./string/string-hashing.html)
 - [Suffix Array](./string/suffix-array.html)
 - [Z-function](./string/z-function.html)
 
