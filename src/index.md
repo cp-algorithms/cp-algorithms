@@ -17,6 +17,7 @@ especially popular in field of competitive programming.*
 - [Primitive Root](./algebra/primitive-root.html)
 - [Discrete Root](./algebra/discrete-root.html)
 - [Discrete Log](./algebra/discrete-log.html)
+- [Gray code](./algebra/gray-code.html)
 
 ### Data Structure
 - [Fenwick Tree](./data_structures/fenwick.html)
