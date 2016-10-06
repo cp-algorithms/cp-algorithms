@@ -28,7 +28,7 @@ Please kindly refer to manuals on using `git` and `github` anywhere over interne
 
 ###Your Authorship is Preserved
 
-If you want, you can place note like "translated by Rodion Gork" at the bottom of the article, probably with the link to your GitHub or CodeForces account for example. However it is not necessary (and not very convenient if the article was edited by several people). All commits [are tracked in GitHub](https://github.com/e-maxx-eng/e-maxx-eng/commits/master) and so it is always easy to determine or prove the authorship of any line (especially with "blame" functionality on a specific file).
+Some contributors add explicit links to their profiles at the bottom of the translated articles. However it is discouraged and simply not very convenient if the article was edited by several people. Every page has `Page Authors` link in its top - this link leads to the github commit history, so it is always easy to determine or prove the authorship (even of any single line). Just make sure that your GitHub profile (which is mentioned in history) provides enough information about you.
 
 ###Source format
 
