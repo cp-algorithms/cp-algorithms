@@ -44,7 +44,8 @@ especially popular in field of competitive programming.*
 - [Topological sorting](./graph/topological-sort.html)
 - [Searching for bridges in O(N+M)](./graph/bridge-searching.html)
 - [Finding a negative cycle in the graph](./graph/finding-negative-cycle-in-graph.html)
-- [Finding all pair shortest path - Floyd-Warshall](./graph/all-pair-shortest-path-floyd-warshall.html)
+- [Floyd-Warshall - all shortests paths](./graph/all-pair-shortest-path-floyd-warshall.html)
+
 ---
 
 [Information for contributors](./contrib.html) and [Test-Your-Page form](./test.php)

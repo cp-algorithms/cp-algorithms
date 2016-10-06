@@ -1,4 +1,8 @@
-# Finding the shortest path between all pairs of vertices - Floyd-Warshall Algorithm
+<!--?title Floyd-Warshall algorithm -->
+
+# Floyd-Warshall Algorithm
+
+**For shortests paths between all pairs of vertices in a graph**
 
 Given an undirected weighted graph G with n vertices. It is required to find the values of all variables d<sub>ij</sub> (<i>The length of the shortest path from vertex i to the vertex j</i>) .
 
@@ -20,33 +24,33 @@ Before k<sup>th</sup> phase $( k = 1 .... n )$, the d[i][j] for any vertices i a
 In other words, before k<sup>th</sup> phase value of d[i][j] equal to the length of the shortest path from vertex i to the vertex j, if this path is allowed to enter only the vertex with numbers smaller k (Beginning and end of the path are not considered).
 
 It is easy to make sure that this property holds for the first phase. For k = 0, we can fill matrix as:
-	
-	/* Assuming weight(i, j) is the cost of the direct edge from the vertex i to the vertex j
-	weight(i ,j) = 0 if no edge between vertex i and vertex j exits and
-	weight(i, j) is non-zero if the edge between vertex i and vertex j exists */
-	
-	if ( weight(i, j) != 0) // direct edge between i and j exists
-		d[i][j] = weight(i, j);
-	else // direct edge between i and j does not exist
-		d[i][j] = INF;
+    
+    /* Assuming weight(i, j) is the cost of the direct edge from the vertex i to the vertex j
+    weight(i ,j) = 0 if no edge between vertex i and vertex j exits and
+    weight(i, j) is non-zero if the edge between vertex i and vertex j exists */
+    
+    if ( weight(i, j) != 0) // direct edge between i and j exists
+        d[i][j] = weight(i, j);
+    else // direct edge between i and j does not exist
+        d[i][j] = INF;
 
 At the same time, if between some vertices i and j, direct edge not exists, the d[i][j] should be the value of INF (some high positive value denoting infinity) . As we shall see later, it is a requirement for the algorithm.
 
 Suppose now that we are on k<sup>th</sup> phase, and we want to compute the matrix d[][] so that it meets the requirements of having (k + 1)<sup>th</sup> phase. We fix some vertices i and j . Then there are two fundamentally different cases:
 
 * The shortest way from the vertex i to the vertex j which is allowed to pass through the internal vertices in the set ${1, 2, ....., k}$, coincides with the shortest path, which is allowed to pass through the internal vertices in the set ${1, 2, ....., k-1}$.
-	
-	In this case, the d[i][j] will not change during the transition from k on th (k + 1)<sup>th</sup> phase.
+    
+    In this case, the d[i][j] will not change during the transition from k on th (k + 1)<sup>th</sup> phase.
 
 * "New" is the shorter path better than the "Old" way.
-	
-	This means that the "New" shorter path passing through the vertex k . Just note that we do not lose generality, further 	considering only simple paths (i.e. paths not passing through some vertex twice).
+    
+    This means that the "New" shorter path passing through the vertex k . Just note that we do not lose generality, further     considering only simple paths (i.e. paths not passing through some vertex twice).
 
-	Then we note that if we divide this "New" way of through vertex k into two halves (one going i -> k, and, the other going from k -> j ), each of these halves no longer pass through the vertex k. But then it turns out that the length of each of the halves was calculated by another (k-1)<sup>th</sup> phase or even earlier than (k-1), and it is sufficient to simply take the amount d[i][k] + d[k][j], it will give the length of the "New" shortest path.
+    Then we note that if we divide this "New" way of through vertex k into two halves (one going i -> k, and, the other going from k -> j ), each of these halves no longer pass through the vertex k. But then it turns out that the length of each of the halves was calculated by another (k-1)<sup>th</sup> phase or even earlier than (k-1), and it is sufficient to simply take the amount d[i][k] + d[k][j], it will give the length of the "New" shortest path.
 
 Combining these two cases, we find that k<sup>th</sup> phase is required to recalculate the length of the shortest paths between all pairs of vertices i and j in the following way:
 
-	new_d[i][j] = min ( d[i][j] , d[i][k] + d[k][j] ) ; 
+    new_d[i][j] = min ( d[i][j] , d[i][k] + d[k][j] ) ; 
 
 Thus, all the work that is required to produce k<sup>th</sup> phase is to iterate over all pairs of vertices and recalculate the length of the shortest path between them. As a result, after the n<sup>th</sup> phase, in the Distance Matrix, the value of d[i][j] is the length of the shortest path between pair of vertices i and j, or, is INF if the path between the vertices i and j does not exist.
 
@@ -60,20 +64,20 @@ Let d[][] is a 2-D array of size n x n, which is filled according to the 0<sup>t
 
 It is required to have d[i][i] = 0 for any i at the 0<sup>th</sup> phase.
 
-	 for ( int k = 0 ; k < n ; ++k )
-		for ( int i = 0 ; i < n ; ++i )
-			for ( int j = 0 ; j < n ; ++j )
-				d[i][j] = min ( d[i][j] , d[i][k] + d[k][j] ) ; 
+     for ( int k = 0 ; k < n ; ++k )
+        for ( int i = 0 ; i < n ; ++i )
+            for ( int j = 0 ; j < n ; ++j )
+                d[i][j] = min ( d[i][j] , d[i][k] + d[k][j] ) ; 
 
 It is assumed that if there is no edge between two any vertices i and j, the adjacency matrix at d[i][j] recorded a large number (large enough so that it is greater than the length of any path in this graph), then this edge will always be unprofitable to take, and the algorithm will work correctly.
 
 However, in the presence of negative weight edges in the graph, special measures are not taken, the resulting values in matrix may appear of the form INF-1,  INF-2, etc., which, of course, still indicates that between the respective vertices no path at all exists. Therefore, if the graph is having negative weight edges, it is better to write Floyd-Warshall algorithm in the following way, so that it does not perform transitions from states, which already are "non-existence of the path":
 
-	 for ( int k = 0 ; k < n ; ++k )
-		for ( int i = 0 ; i < n ; ++i )
-			for ( int j = 0 ; j < n ; ++j )
-				if ( d [i][k] < INF && d [k][j] < INF )
-					d[i][j] = min ( d[i][j] , d[i][k] + d[k][j] ) ; 
+     for ( int k = 0 ; k < n ; ++k )
+        for ( int i = 0 ; i < n ; ++i )
+            for ( int j = 0 ; j < n ; ++j )
+                if ( d [i][k] < INF && d [k][j] < INF )
+                    d[i][j] = min ( d[i][j] , d[i][k] + d[k][j] ) ; 
 
 ## Retrieving the sequence of vertices in the shortest path
 
@@ -89,8 +93,8 @@ With respect to the Floyd-Warshall Algorithm, the unpleasant effects of the real
 
 To avoid this, the  can be modified to take the error(EPS) into account, by using following type of comparison:
 
-	 if ( d[i][k] + d[k][j] < d[i][j] - EPS )
-		d[i][j] = d[i][k] + d[k][j] ; 
+     if ( d[i][k] + d[k][j] < d[i][j] - EPS )
+        d[i][j] = d[i][k] + d[k][j] ; 
 
 ## The case of negative cycles
 
@@ -104,4 +108,4 @@ This can be done, for example, following the criterion "non-existence of the pat
 
 In addition, when using the Floyd-Warshall algorithm for graphs with negative cycles, we should keep in mind that in the process of working with Floyd-Warshall Algorithm, situations may arise in which distances can strongly go into the negative, exponentially with each phase. Therefore, integer overflow must be handled by limiting the distance from the bottom of some value (e.g. -INF).
 
-To learn more about finding negative cycles in a graph, see separate article: "Finding a negative cycle in the graph".
+To learn more about finding negative cycles in a graph, see separate article: [Finding a negative cycle in the graph](./graph/finding-negative-cycle-in-graph.html).
