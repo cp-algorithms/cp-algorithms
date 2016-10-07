@@ -17,6 +17,7 @@ especially popular in field of competitive programming.*
 - [Primitive Root](./algebra/primitive-root.html)
 - [Discrete Root](./algebra/discrete-root.html)
 - [Discrete Log](./algebra/discrete-log.html)
+- [Enumerating submasks of a bit mask](./algebra/all-submasks.html)
 
 ### Data Structure
 - [Fenwick Tree](./data_structures/fenwick.html)
