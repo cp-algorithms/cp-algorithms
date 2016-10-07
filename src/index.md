@@ -17,6 +17,8 @@ especially popular in field of competitive programming.*
 - [Primitive Root](./algebra/primitive-root.html)
 - [Discrete Root](./algebra/discrete-root.html)
 - [Discrete Log](./algebra/discrete-log.html)
+- [Enumerating submasks of a bit mask](./algebra/all-submasks.html)
+- [Gray code](./algebra/gray-code.html)
 
 ### Data Structure
 - [Fenwick Tree](./data_structures/fenwick.html)
@@ -45,6 +47,8 @@ especially popular in field of competitive programming.*
 - [Searching for bridges in O(N+M)](./graph/bridge-searching.html)
 - [Finding a negative cycle in the graph](./graph/finding-negative-cycle-in-graph.html)
 - [Floyd-Warshall - all shortests paths](./graph/all-pair-shortest-path-floyd-warshall.html)
+- [Search for Connected Components](./graph/search-for-connected-components.html)
+- [Lowest Common Ancestor](./graph/lca.html)
 
 ---
 
