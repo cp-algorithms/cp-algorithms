@@ -53,6 +53,9 @@ especially popular in field of competitive programming.*
 - [Search for Connected Components](./graph/search-for-connected-components.html)
 - [Lowest Common Ancestor](./graph/lca.html)
 
+### Sequences
+- [K-th order statistic in O(N)](./sequences/k-th.html)
+
 ---
 
 [Information for contributors](./contrib.html) and [Test-Your-Page form](./test.php)
