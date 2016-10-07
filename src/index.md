@@ -46,6 +46,9 @@ especially popular in field of competitive programming.*
 - [Finding a negative cycle in the graph](./graph/finding-negative-cycle-in-graph.html)
 - [Floyd-Warshall - all shortests paths](./graph/all-pair-shortest-path-floyd-warshall.html)
 
+### Sequences
+- [K-th order statistic in O(N)](./sequences/k-th.html)
+
 ---
 
 [Information for contributors](./contrib.html) and [Test-Your-Page form](./test.php)
