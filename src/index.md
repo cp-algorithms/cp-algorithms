@@ -48,6 +48,7 @@ especially popular in field of competitive programming.*
 - [Finding a negative cycle in the graph](./graph/finding-negative-cycle-in-graph.html)
 - [Floyd-Warshall - all shortests paths](./graph/all-pair-shortest-path-floyd-warshall.html)
 - [Search for Connected Components](./graph/search-for-connected-components.html)
+- [Lowest Common Ancestor](./graph/lca.html)
 
 ---
 
