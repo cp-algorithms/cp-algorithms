@@ -45,7 +45,7 @@ especially popular in field of competitive programming.*
 - [Searching for bridges in O(N+M)](./graph/bridge-searching.html)
 - [Finding a negative cycle in the graph](./graph/finding-negative-cycle-in-graph.html)
 - [Floyd-Warshall - all shortests paths](./graph/all-pair-shortest-path-floyd-warshall.html)
-
+- [Minimum Spanning Tree - Kruskal's Algorithm of O(M log N + N<sup>2</sup>)](./graph/mst_kruskal.html)
 ---
 
 [Information for contributors](./contrib.html) and [Test-Your-Page form](./test.php)
