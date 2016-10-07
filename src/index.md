@@ -18,6 +18,7 @@ especially popular in field of competitive programming.*
 - [Discrete Root](./algebra/discrete-root.html)
 - [Discrete Log](./algebra/discrete-log.html)
 - [Enumerating submasks of a bit mask](./algebra/all-submasks.html)
+- [Gray code](./algebra/gray-code.html)
 
 ### Data Structure
 - [Fenwick Tree](./data_structures/fenwick.html)
