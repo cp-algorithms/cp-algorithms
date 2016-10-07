@@ -1,4 +1,6 @@
-# The algorithm for searching connected components in the graph
+<!--?title Search for connected components in a graph -->
+
+# Search for connected components in a graph
 
 Given an undirected graph G with n nodes and m edges. We are required to find in it all the connected components, i.e, several groups of vertices such that within a group each vertex can be reached from another and no path exists between different groups.
 
