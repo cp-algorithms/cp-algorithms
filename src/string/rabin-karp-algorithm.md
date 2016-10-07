@@ -1,6 +1,6 @@
 # Rabin-Karp Algorithm search substring in a string of O (N)
 
-This algorithm is based on the lines of hashing, and those who are not familiar with the subject, refer to the [hashing algorithm in problems on the line](http://e-maxx.ru/algo/string_hashes) .
+This algorithm is based on the lines of hashing, and those who are not familiar with the subject, refer to the [hashing algorithm in problems on the line](./string-hashing.html) .
 
  
 
