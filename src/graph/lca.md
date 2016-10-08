@@ -116,3 +116,9 @@ int main()
     }
 }
 ```
+### practicle problems
+ - [SPOJ: LCA](http://www.spoj.com/problems/LCA/)
+ - [SPOJ: DISQUERY](http://www.spoj.com/problems/DISQUERY/)
+ - [TIMUS: 1471. Distance in the Tree](http://acm.timus.ru/problem.aspx?space=1&num=1471)
+ - [CODEFORCES: Design Tutorial: Inverse the Problem](http://codeforces.com/problemset/problem/472/D)
+ - [CODECHEF: Lowest Common Ancestor](https://www.codechef.com/problems/TALCA)
