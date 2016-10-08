@@ -49,3 +49,8 @@ Given an undirected graph G with n nodes and m edges. We are required to find in
 * The graph is stored in adjacency list representation, i.e g[i] contains a list of vertices that have edges from the vertex i. The constant MAXN should be set equal to the maximum possible number of vertices in the graph.
 
 * Vector comp contains a list of nodes in the current connected component.
+
+## Practicle Problems
+ - [SPOJ: CCOMPS](http://www.spoj.com/problems/CCOMPS/)
+ - [SPOJ: CT23E](http://www.spoj.com/problems/CT23E/)
+ - [CODECHEF: GERALD07](https://www.codechef.com/MARCH14/problems/GERALD07)
