@@ -116,7 +116,7 @@ int main()
     }
 }
 ```
-### practicle problems
+## Practice Problems
  - [SPOJ: LCA](http://www.spoj.com/problems/LCA/)
  - [SPOJ: DISQUERY](http://www.spoj.com/problems/DISQUERY/)
  - [TIMUS: 1471. Distance in the Tree](http://acm.timus.ru/problem.aspx?space=1&num=1471)

@@ -50,7 +50,7 @@ Given an undirected graph G with n nodes and m edges. We are required to find in
 
 * Vector comp contains a list of nodes in the current connected component.
 
-## Practicle Problems
+## Practice Problems
  - [SPOJ: CCOMPS](http://www.spoj.com/problems/CCOMPS/)
  - [SPOJ: CT23E](http://www.spoj.com/problems/CT23E/)
  - [CODECHEF: GERALD07](https://www.codechef.com/MARCH14/problems/GERALD07)
