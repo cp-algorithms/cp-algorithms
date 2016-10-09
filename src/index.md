@@ -25,7 +25,7 @@ especially popular in field of competitive programming.*
 
 ### String Processing
 - [String Hashing](./string/string-hashing.html)
-- [Rabin-Karp for String Matching](./string/rabin-karp.html) ([v2](./string/rabin-karp-algorithm.html))
+- [Rabin-Karp for String Matching](./string/rabin-karp.html)
 - [Suffix Array](./string/suffix-array.html)
 - [Z-function](./string/z-function.html)
 
