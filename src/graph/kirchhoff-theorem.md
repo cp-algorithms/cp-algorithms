@@ -19,3 +19,7 @@ The proof of this theorem is quite difficult and is not presented here.
 ## Relationship with Kirchhoff laws in electrical circuit
 
 (this section is not yet translated)
+
+## Practice Problems
+ - [CODECHEF: Roads in Stars](https://www.codechef.com/problems/STARROAD)
+ - [SPOJ: Maze](http://www.spoj.com/problems/KPMAZE/)
