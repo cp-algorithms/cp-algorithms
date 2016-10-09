@@ -1,20 +1,22 @@
 <!--?title Negative Cycle Search -->
 
-#Finding a negative cycle in the graph
+# Finding a negative cycle in the graph
 
-A directed weighted graph G with n vertices and m edges. Required to find it in any of the negative cycle of weight, if any.
+You are given a directed weighted graph $G$ with $N$ vertices and $M$ edges. Find any cycle of negative weight in it, if such a cycle exists.
 
-These two options to solve the problem. It is convenient different algorithms, so both of them will be discussed below.
+In another formulation of the problem you have to find all pairs of vertices which have a path of arbitrarily small weight between them.
 
-#The decision by the algorithm of Bellman-Ford
+It is convenient to use different algorithms to solve these two versions of the problem, so we'll discuss both of them here.
 
-Bellman-Ford algorithm allows you to check the presence or absence of the negative weight cycle in the graph, and if present then find one of these cycles.
+## Using Bellman-Ford algorithm
 
-We will not go into details (which are described in the article on the algorithm of Bellman-Ford ), and give only the result - how the algorithm works.
+Bellman-Ford algorithm allows you to check whether there exists a cycle of negative weight in the graph, and if it does, find one of these cycles.
 
-done n iterations of the algorithm of Bellman-Ford, and if at the last iteration has been no change - the negative cycle in the graph not present. Otherwise, take the top, the distance to which has changed and will go on from her ancestors until will enter the ring; this cycle will be the desired negative cycle.
+The details of the algorithm are described in the article on Bellman-Ford algorithm. Here we'll describe only its application to this problem.
 
-#Implementation:
+Do $N$ iterations of Bellman-Ford algorithm. If there were no changes on the last iteration, there is no cycle of negative weight in the graph. Otherwise take a vertex the distance to which has changed, and go from it via its ancestores until a cycle is found. This cycle will be the desired cycle of negative weight.
+
+### Implementation<span class="toggle-code">Show/Hide</span>
 
 	struct edge {
 		int a, b, cost ;
@@ -58,15 +60,15 @@ done n iterations of the algorithm of Bellman-Ford, and if at the last iteration
 		}
 	} 
 
-#The decision by the algorithm of Floyd-Warshall
+## Using Floyd-Warshall algorithm
 
-Floyd-Warshall algorithm allows to solve a second statement of the problem - when you need to find all pairs of vertices (i, j) Between which there is not the shortest path (ie, it has an infinitesimal amount).
+Floyd-Warshall algorithm allows to solve the second version of the problem - finding all pairs of vertices $(i, j)$ which don't have a shortest path between them (i.e. a path of arbitrarily small weight exists).
 
-Again, a more detailed explanation is contained in the description of the algorithm of Floyd-Warshall , but here we present only the result.
+Again, the details can be found in Floyd-Warshall algorithm article, and here we describe only its application.
 
-Once the algorithm of Floyd-Warshall will work for the input graph Let's brute force over all pairs of vertices (i, j) And check infinitesimal shortest path for each pair of i at j or not. To do this Let's brute over the third vertex t And if it turned out for her d [t][t] <0 (i.e. it is in a cycle of negative weight), and she is accessible from i and because it is achievable j - The path (i, j) It could have infinitesimal length.
+Run Floyd-Warshall algorithm on the graph. Iterate over all pairs of vertices $(i, j)$ and for each pair check whether they have a shortest path between them. To do this try all possibilities for a third vertex $t$, and if for one of them $d[t][t] < 0$ (i.e. it is part of a cycle of negative weight), and $t$ can be reached from $i$ and $j$ can be reached from $t$, then the path from $i$ to $j$ can have arbitrarily small weight.
 
-#Implementation:
+### Implementation
 
 	for ( int i = 0 ; i < n ; ++ i )
 		for ( int j = 0 ; j < n ; ++ j )
@@ -74,9 +76,8 @@ Once the algorithm of Floyd-Warshall will work for the input graph Let's brute f
 				if ( d [ i ] [ t ] < INF && d [ t ] [ t ] < 0 && d [ t ] [ j ] < INF )
 					d [ i ] [ j ] = - INF ; 
 
-Tasks in the online judges
+## Practice Problems
 
-The list of tasks that need to search for a cycle of negative weight:
 - [UVA: Wormholes](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=499)
 - [SPOJ: Alice in Amsterdam, I mean Wonderland](http://www.spoj.com/problems/UCV2013B/)
 - [SPOJ: Johnsons Algorithm](http://www.spoj.com/problems/JHNSN/)
