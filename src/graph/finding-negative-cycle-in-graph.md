@@ -77,4 +77,6 @@ Once the algorithm of Floyd-Warshall will work for the input graph Let's brute f
 Tasks in the online judges
 
 The list of tasks that need to search for a cycle of negative weight:
-* [UVA: Wormholes](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=499)
+- [UVA: Wormholes](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=499)
+- [SPOJ: Alice in Amsterdam, I mean Wonderland](http://www.spoj.com/problems/UCV2013B/)
+- [SPOJ: Johnsons Algorithm](http://www.spoj.com/problems/JHNSN/)
