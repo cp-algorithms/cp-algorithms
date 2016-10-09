@@ -109,3 +109,9 @@ This can be done, for example, following the criterion "non-existence of the pat
 In addition, when using the Floyd-Warshall algorithm for graphs with negative cycles, we should keep in mind that in the process of working with Floyd-Warshall Algorithm, situations may arise in which distances can strongly go into the negative, exponentially with each phase. Therefore, integer overflow must be handled by limiting the distance from the bottom of some value (e.g. -INF).
 
 To learn more about finding negative cycles in a graph, see separate article: [Finding a negative cycle in the graph](./graph/finding-negative-cycle-in-graph.html).
+
+## Practice Problems
+ - [UVA: Page Hopping](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=762)
+ - [SPOJ: Possible Friends](http://www.spoj.com/problems/SOCIALNE/)
+ - [CODEFORCES: Greg and Graph](http://codeforces.com/problemset/problem/295/B)
+ 
