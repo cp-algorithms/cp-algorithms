@@ -6,29 +6,27 @@ Given a system of $n$ linear algebraic equation (SLAE) with $m$ unknowns. You ar
 
 Formally, the problem is formulated as follows: solve the system:
 
-$a_{11} x_1 + a_{12} x_2 + ... + a_{1m} x_m = b_1$
-$a_{21} x_1 + a_{22} x_2 + ... + a_{2m} x_m = b_2$
-$...$
-$a_{n1} x_1 + a_{n2} x_2 + ... + a_{nm} x_m = b_n$
+$$a_{11} x_1 + a_{12} x_2 + \dots + a_{1m} x_m = b_1$$
+$$a_{21} x_1 + a_{22} x_2 + \dots + a_{2m} x_m = b_2$$
+$$\dots$$
+$$a_{n1} x_1 + a_{n2} x_2 + \dots + a_{nm} x_m = b_n$$
 
-where the coefficients $a_{ij} (i = 1...n, j = 1...m)$ and $b_i (i = 1 ... n)$ are known and variables $x_i (i = 1 ... m)$ are unknowns.
+where the coefficients $a_{ij}$ (for $i$ from 1 to $n$, $j$ from 1 to $m$) and $b_i$ ($i$ from 1 to $n$ are known and variables $x_i$ ($i$ from 1 to $m$) are unknowns.
 
 This problem also has a simple matrix representation:
-
-$Ax = b$,
-
-where $A$ is a matrix of size $n . m$ of coefficients $a_{ij}$ and $b$ is the column vector of size $m$.
+$$Ax = b$$,
+where $A$ is a matrix of size $n \times m$ of coefficients $a_{ij}$ and $b$ is the column vector of size $m$.
 
 It is worth noting that the method presented in this article can also be used to solve the equation modulo any number p, i.e.:
 
-$a_{11} x_1 + a_{12} x_2 + ... + a_{1m} x_m \equiv b_1 \pmod p$
-$a_{21} x_1 + a_{22} x_2 + ... + a_{2m} x_m \equiv b_2 \pmod p$
-$...$
-$a_{n1} x_1 + a_{n2} x_2 + ... + a_{nm} x_m \equiv b_n \pmod p$
+$$a_{11} x_1 + a_{12} x_2 + \dots + a_{1m} x_m \equiv b_1 \pmod p$$
+$$a_{21} x_1 + a_{22} x_2 + \dots + a_{2m} x_m \equiv b_2 \pmod p$$
+$$\dots$$
+$$a_{n1} x_1 + a_{n2} x_2 + \dots + a_{nm} x_m \equiv b_n \pmod p$$
 
 ## Gauss
 
-Strictly speaking, the method described below should be called "Gauss-Jordan", or Gauss-Jordan elimination, because it is a variation of the Gauss method, described by Jordan in 1887
+Strictly speaking, the method described below should be called "Gauss-Jordan", or Gauss-Jordan elimination, because it is a variation of the Gauss method, described by Jordan in 1887.
 
 ## Overview
 
@@ -38,9 +36,9 @@ Gaussian elimination is based on two simple transformation:
 * It is possible to exchange two equations
 * Any equation can be replaced by a linear combination of the that row (with non-zero coefficient), and some other rows (with arbitrary coefficients).
 
-In the first step, Gaus-Jordan algorithm divides the first row by $a_{11}$. Then, the algorithm adds the first row to the remaining rows such that the coefficients in the first column becomes all zeros. To achieve this, on the i-th row, we must add the first row multiplied by $- a_{i1}$. Note that, this operation must also be performed on vector $b$. In a sense, it behaves as if vector $b$ was the $m+1$-th column of matrix $A$.
+In the first step, Gauss-Jordan algorithm divides the first row by $a_{11}$. Then, the algorithm adds the first row to the remaining rows such that the coefficients in the first column becomes all zeros. To achieve this, on the i-th row, we must add the first row multiplied by $- a_{i1}$. Note that, this operation must also be performed on vector $b$. In a sense, it behaves as if vector $b$ was the $m+1$-th column of matrix $A$.
 
-As a reult, after the first step, the first column of matrix $A$ will consists of $1$ on the first row, and $0$ in other rows.
+As a result, after the first step, the first column of matrix $A$ will consists of $1$ on the first row, and $0$ in other rows.
 
 Similarly, we perform the second step of the algorithm, where we consider the second column of second row. First, the row is divided by $a_{22}$, then it is subtracted from other rows so that all the second column becomes $0$ (except for the second row).
 
@@ -52,17 +50,17 @@ The described scheme left out many details. At the $i$th step, if $a_{ii}$ is ze
 
 Note that, here we swap rows but not columns. This is because if you swap columns, then when you find a solution, you must remember to swap back to correct places. Thus, swapping rows is much easier to do.
 
-In many implementation, ven when $a_{ii} != 0$, you can see people still swap the $i$th row with some pivoting row, using some heuristics such as choosing the pivoting row with maximum absolute value of $a_{ji}$. This heuristic is used to reduce the value range of the matrix in later step. Without this heuristic, even for matrices of size about $20$, the error will be too big and can cause overflow for floating points data types of C++.
+In many implementation, when $a_{ii} \neq 0$, you can see people still swap the $i$th row with some pivoting row, using some heuristics such as choosing the pivoting row with maximum absolute value of $a_{ji}$. This heuristic is used to reduce the value range of the matrix in later step. Without this heuristic, even for matrices of size about $20$, the error will be too big and can cause overflow for floating points data types of C++.
 
 ## Degenerate cases
 
 In the case where $m = n$ and the system is degenerate (i.e. it has non-zero determinant, and has unique solution), the algorithm described above will transform $A$ into identity matrix.
 
-Now we consider the `general case`, where $n$ and $m$ are not necessarily equal, and the system can be non-degenerate. In these cases, the pivoting element in $i$th step may not be found. This means that on the $i$th column, starting from the current line, all contains zeros. In this case, either there is no possible value of variable $x_i$ (meaning the SLAE has no solution), or $x_i$ is an independent variable and can take arbitrary value. When implementing Guass-Jordan, you should continue the work for subsequent variables and just skip the $i$th column (this is equivalent to removing the $i$th column of the matrix).
+Now we consider the `general case`, where $n$ and $m$ are not necessarily equal, and the system can be non-degenerate. In these cases, the pivoting element in $i$th step may not be found. This means that on the $i$th column, starting from the current line, all contains zeros. In this case, either there is no possible value of variable $x_i$ (meaning the SLAE has no solution), or $x_i$ is an independent variable and can take arbitrary value. When implementing Gauss-Jordan, you should continue the work for subsequent variables and just skip the $i$th column (this is equivalent to removing the $i$th column of the matrix).
 
-So, some of the variables in the process can be found to be independent. When the number of variables, $m$ is greater than the number of equations, $n$, then at least $m - n$ indepdent variables will be found.
+So, some of the variables in the process can be found to be independent. When the number of variables, $m$ is greater than the number of equations, $n$, then at least $m - n$ independent variables will be found.
 
-In general, if you find at least on idependent variable, it can take any arbitrary value, while the other (dependent) variables are expressed through it.  This means that when we work in the field of real numbers, the system potentially has infinitely many solutions. But you should remember that when there are indepdent variables, SLAE can have no solution at all. This happens when the remaining untreated equations has at least one non-zero constant term. You can check this by assigning zeros to all independent variables, calculate other variables, and then plug in to the original SLAE to check if they satisfies.
+In general, if you find at least on independent variable, it can take any arbitrary value, while the other (dependent) variables are expressed through it.  This means that when we work in the field of real numbers, the system potentially has infinitely many solutions. But you should remember that when there are independent variables, SLAE can have no solution at all. This happens when the remaining untreated equations has at least one non-zero constant term. You can check this by assigning zeros to all independent variables, calculate other variables, and then plug in to the original SLAE to check if they satisfies.
 
 ## Implementation
 
@@ -70,7 +68,7 @@ Following is an implementation of Gauss-Jordan. Choosing the pivot row is done w
 
 The input to the function `gauss` is the system matrix $a$. The last column of this matrix is vector $b$.
 
-The function returns the number of solutions of the system $(0, 1 or \inf)$. If at least one solution exists, then it is returned in the vector $ans$.
+The function returns the number of solutions of the system $(0, 1,\textrm{or } \infty)$. If at least one solution exists, then it is returned in the vector $ans$.
 
 ```cpp
 int gauss (vector < vector<double> > a, vector<double> & ans) {
@@ -118,6 +116,7 @@ int gauss (vector < vector<double> > a, vector<double> & ans) {
 ```
 
 Implementation notes:
+
 * The function uses two pointers - the current column $col$ and the current row $row$.
 * For each variable $x_i$, the value $where(i)$ is the line where this column is not zero. This vector is needed because some variables can be independent.
 * In this implementation, the current $i$th line is not divided by $a_{ii}$ as described above, so in the end the matrix is not identity matrix (though apparently dividing the $i$th line can help reducing errors).
@@ -138,6 +137,7 @@ Note that when the SLAE is not on real numbers, but is in the modulo two, then t
 ## Acceleration of the algorithm
 
 The previous implementation can be speed up by two times, by dividing the algorithm into two phases: forward and reverse:
+
 * Forward phase: Similar to the previous implementation, but the current row is only added to the rows after it. As a result, we obtain a triangular matrix instead of diagonal.
 * Reverse phase: When the matrix is triangular, we first calculate the value of the last variable. Then plug this value to find the value of next variable. Then plug these two values to find the next variables...
 
@@ -177,7 +177,7 @@ There is no general rule for what heuristics to use.
 
 The heuristics used in previous implementation works quite well in practice. It also turns out to give almost the same answers as "full pivoting" - where the pivoting row is search amongst all elements of the whose submatrix (from the current row and current column).
 
-Though, you should note that both heuristics is dependent on how much the original equations was scaled. For example, if one of the equation was mlutiplied by $10^6$, then this equation is almost certain to be chosen as pivot in first step. This seems rather strange, so it seems logical to change to a more complicated heuristics, called `implicit pivoting`.
+Though, you should note that both heuristics is dependent on how much the original equations was scaled. For example, if one of the equation was multiplied by $10^6$, then this equation is almost certain to be chosen as pivot in first step. This seems rather strange, so it seems logical to change to a more complicated heuristics, called `implicit pivoting`.
 
 Implicit pivoting compares elements as if both lines were normalized, so that the maximum element would be unity. To implement this technique, one need to maintain maximum in each row (or maintain each line so that maximum is unity, but this can lead to increase in the accumulated error).
 
@@ -188,4 +188,3 @@ Despite various heuristics, Gauss-Jordan algorithm can still lead to large error
 Therefore, the resulting Gauss-Jordan solution must sometimes be improved by applying a simple numerical method - for example, the method of simple iteration.
 
 Thus, the solution turns into two-step: First, Gauss-Jordan algorithm is applied, and then a numerical method taking initial solution as solution in the first step.
-
