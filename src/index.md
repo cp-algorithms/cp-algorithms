@@ -51,6 +51,7 @@ especially popular in field of competitive programming.*
 - [Searching for bridges in O(N+M)](./graph/bridge-searching.html)
 - [Finding a negative cycle in the graph](./graph/finding-negative-cycle-in-graph.html)
 - [Floyd-Warshall - all shortests paths](./graph/all-pair-shortest-path-floyd-warshall.html)
+- [Dijkstra - shortests paths from given vertex](./graph/dijkstra.html)
 - [Search for Connected Components](./graph/search-for-connected-components.html)
 - [Lowest Common Ancestor](./graph/lca.html)
 
