@@ -15,6 +15,7 @@ At the same time, **priorities** allow you to **uniquely** specify the tree that
 
 ##Operations
 So, Treap have next operations:
+
 - **Insert(X,Y)**.
 Average asymptotic - O (log N).
 It performs the addition of a new element in the tree. The variant, described below, contains code, in which Y priority value is not transmitted function and chosen randomly (but bear in mind that it should not coincide with any other Y in the tree).
