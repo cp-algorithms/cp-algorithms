@@ -59,3 +59,11 @@ Let's prove that the inner loop will execute a total of $O(3^n)$ iterations.
  $$\sum_{k=0}^n C_n^k 2^k$$ 
 
 To calculate this number, note that the sum above is equal to the expansion of $(1+2)^n$ using the binomial theorem. Therefore, we have $3^n$ combinations, as we wanted to prove.
+
+## Practice Problems
+
+* [Codeforces - A Simple Task](http://codeforces.com/contest/11/problem/D)
+* [UVa 1252 - Twenty Questions](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3693)
+* [UVa 11795 - Mega Man's Mission](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=2895)
+* [UVa 11825 - Hackers' Crackdown](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2925)
+* [SPOJ - TRSTAGE - Traveling by Stagecoach](http://www.spoj.com/problems/TRSTAGE/)
