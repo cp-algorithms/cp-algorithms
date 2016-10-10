@@ -132,3 +132,6 @@ int solve (int a, int b, int m) {
 }
 ```
 
+##Problems for Online Judges
+* [Spoj - Power Modulo Inverted](http://www.spoj.com/problems/MOD/)
+* [Topcoder - SplittingFoxes3](https://community.topcoder.com/stat?c=problem_statement&pm=14386&rd=16801)
