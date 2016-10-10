@@ -149,7 +149,7 @@ References:
 * Edsger Dijkstra. A note on two problems in connexion with graphs [1959]
 
 ## Practice Problem:
-* [Timus - Ivan's Car [Difficulty:Medium](http://acm.timus.ru/problem.aspx?space=1&num=1930)
+* [Timus - Ivan's Car [Difficulty:Medium]](http://acm.timus.ru/problem.aspx?space=1&num=1930)
 * [SPOJ  - SHPATH [Difficulty:Easy]](http://www.spoj.com/problems/SHPATH/)
 
 
