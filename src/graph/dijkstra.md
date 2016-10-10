@@ -1,6 +1,10 @@
-# Finding shortest paths from a given vertex to all other vertices : Dijkstra's Algorithm
+<!--?title Dijkstra Algorithm -->
 
-## Statement of the problem
+# Dijkstra Algorithm
+
+**Shortest paths from given vertex to all other**
+
+## Problem Statement
 
 Given a directed or undirected weighted graph with $n$ vertices and $m$ edges. The weights of all edges are non-negative. Provided some starting vertex s. You want to find the length of shortest paths from a vertex $s$ to all other vertices, and provide a way to make themselves shortest paths.
 
