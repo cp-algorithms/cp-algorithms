@@ -89,4 +89,10 @@ Multiply both sides by modular inverse of $i$ and then by modular inverse of $(m
 
 $r[i] = - \lfloor \frac{m}{i} \rfloor \cdot r[m \, mod \, i] \; (mod \, m)$
 
+## Practice Problems
 
+* [UVa 11904 - One Unit Machine](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3055)
+* [Hackerrank - Longest Increasing Subsequence Arrays](https://www.hackerrank.com/contests/world-codesprint-5/challenges/longest-increasing-subsequence-arrays)
+* [Codeforces 300C - Beautiful Numbers](http://codeforces.com/problemset/problem/300/C)
+* [Codeforces 622F - The Sum of the k-th Powers](http://codeforces.com/problemset/problem/622/F)
+* [Codeforces 717A - Festival Organization](http://codeforces.com/problemset/problem/717/A)
