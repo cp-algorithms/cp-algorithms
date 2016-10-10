@@ -53,6 +53,8 @@ especially popular in field of competitive programming.*
 - [Floyd-Warshall - all shortests paths](./graph/all-pair-shortest-path-floyd-warshall.html)
 - [Search for Connected Components](./graph/search-for-connected-components.html)
 - [Lowest Common Ancestor](./graph/lca.html)
+- [Min spanning tree - Kruskal's algorithm](./graph/mst_kruskal.html)
+- [Min spanning tree - Kruskal with disjoint unit set](./graph/mst_kruskal_with_dsu.html)
 
 ### Sequences
 - [K-th order statistic in O(N)](./sequences/k-th.html)
