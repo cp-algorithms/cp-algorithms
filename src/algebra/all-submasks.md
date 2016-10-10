@@ -62,8 +62,7 @@ To calculate this number, note that the sum above is equal to the expansion of $
 
 ## Practice Problems
 
-* [Codeforces - A Simple Task](http://codeforces.com/contest/11/problem/D)
-* [UVa 1252 - Twenty Questions](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3693)
-* [UVa 11795 - Mega Man's Mission](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=2895)
+* [Codeforces - Nuclear Fusion](http://codeforces.com/problemset/problem/71/E)
+* [Codeforces - Sandy and Nuts](http://codeforces.com/problemset/problem/599/E)
+* [Uva 1439 - Exclusive Access 2](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=4185)
 * [UVa 11825 - Hackers' Crackdown](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2925)
-* [SPOJ - TRSTAGE - Traveling by Stagecoach](http://www.spoj.com/problems/TRSTAGE/)
