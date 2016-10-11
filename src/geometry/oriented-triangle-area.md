@@ -1,9 +1,9 @@
-<!--?title The sign of a triangle area and a predicate "Clockwise" -->
+<!--?title Oriented area of a triangle and predicate "clockwise" -->
 
 # Definition
-We are given three points $p_1$, $p_2$ and $p_3$ and we would like to calculate a signed area of a triangle formed by them. The sign of the area is determined like that: imagine you are standing in the plane at point $p_1$ and are facing $p_2$. You go to $p_2$ and if $p_3$ is to your right (then we say the three vectors turn "clockwise"), the sign of the area is positive. Otherwise it is negative (or the area is zero, if the three points are collinear).
+We are given three points $p_1$, $p_2$ and $p_3$ and we would like to calculate an oriented (signed) area of a triangle formed by them. The sign of the area is determined like that: imagine you are standing in the plane at point $p_1$ and are facing $p_2$. You go to $p_2$ and if $p_3$ is to your right (then we say the three vectors turn "clockwise"), the sign of the area is positive. Otherwise it is negative (or the area is zero, if the three points are collinear).
 
-Using this signed (also known as oriented) area, we can both trivially get the actual area (just take absolute value) and we can also use the sign to determine if the points lie clockwise or counterclockwise in their specified order (which is useful in convex hull algorithms for example).
+Using this signed area, we can both trivially get the actual area (just take absolute value) and we can also use the sign to determine if the points lie clockwise or counterclockwise in their specified order (which is useful in convex hull algorithms for example).
 
 
 ## Calculation
