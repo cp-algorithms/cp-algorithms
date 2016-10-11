@@ -54,6 +54,8 @@ especially popular in field of competitive programming.*
 - [Dijkstra - shortests paths from given vertex](./graph/dijkstra.html)
 - [Search for Connected Components](./graph/search-for-connected-components.html)
 - [Lowest Common Ancestor](./graph/lca.html)
+- [Minimum Spanning Tree - Kruskal](./graph/mst_kruskal.html)
+- [Min Spanning Tree - Kruskal with Disjoint Set Union](./graph/mst_kruskal_with_dsu.html)
 
 ### Sequences
 - [K-th order statistic in O(N)](./sequences/k-th.html)

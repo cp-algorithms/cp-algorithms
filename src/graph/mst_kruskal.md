@@ -1,4 +1,6 @@
-# Minimum spanning tree. Kruskal's algorithm
+<!--?title Minimum spanning tree - Kruskal's algorithm -->
+
+# Minimum spanning tree - Kruskal's algorithm
 
 Given a weighted undirected graph. We want to find a subtree of this graph which connects all vertices (i.e. a spanning tree), and is having the least weight (i.e. the sum of weights of all the edges is minimum) of all possible spanning trees. This spanning tree is called a minimum spanning tree.
 
@@ -56,4 +58,4 @@ The following code directly implements the algorithm described above, and is hav
 
 ## Improved implementation
 
-We can use the "Disjoint Set Union (DSU)" data structure to write faster implementation of the Kruskal's algorithm with an asymptotic complexity of about $O(M log N)$. 
+We can use the **Disjoint Set Union** (DSU) data structure to write faster implementation of the Kruskal's algorithm with an asymptotic complexity of about $O(M log N)$. [This article details such approach](./graph/mst_kruskal_with_dsu.html).
