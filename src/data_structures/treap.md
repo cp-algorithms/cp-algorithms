@@ -1,3 +1,4 @@
+<!--?title Treap -->
 #Treap (Cartesian tree)
 
 Treap is a data structure which are combains binary tree and binary heap (that's why this structure called Treap => tree + heap).
