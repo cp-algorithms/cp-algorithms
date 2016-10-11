@@ -1,4 +1,4 @@
-<!--?title Minimum spanning tree - Kruskal with Disjoint Set Union
+<!--?title Minimum spanning tree - Kruskal with Disjoint Set Union -->
 
 # Minimum spanning tree - Kruskal with Disjoint Set Union
 
