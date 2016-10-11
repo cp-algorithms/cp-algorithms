@@ -1,4 +1,5 @@
 <!--?title For Contributors-->
+<!--?imgroot &imgroot&-->
 #How to Contribute
 
 At least at first stage we are going to collaborate via means of github.
@@ -9,20 +10,25 @@ And sources (to which you may want to contribute) are [here](http://github.com/e
 
 In order to make contribution consider the following steps:
 
-###Using GitHub
-
 1. Fork [source repository](https://github.com/e-maxx-eng/e-maxx-eng).
 2. Add or modify files in `src` subfolder in Markdown format (you can do this in web-interface of github now).
+3. Make sure you added `<!--?title ... -->` to your page and the corresponding link to main (index) page.
 3. Use [Test-Your-Page form](./test.php) to check if you are satisfied with the result.
 4. Use `pull-request` feature to send the request for your changes to be merged.
 5. It may take few hours or few days before someone who have admin rights will merge your request. Contact any of admins personally to speed up this process!
 6. After merging it will take about 5 minutes before updated html page will appear at the site.
+
+**You may start with this [demo-article](./demo-article.html) or even use [its source](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/src/contrib.md) as a template for your new article.**
 
 Please kindly refer to manuals on using `git` and `github` anywhere over internet. You may also watch this demo video:
 
 <div style="text-align:center">
 <iframe width="420" height="315" src="https://www.youtube.com/embed/TrBBw4J9X30" frameborder="0" allowfullscreen></iframe>
 </div>
+
+###Your Authorship is Preserved
+
+Some contributors add explicit links to their profiles at the bottom of the translated articles. However it is discouraged and simply not very convenient if the article was edited by several people. Every page has `Page Authors` link in its top - this link leads to the github commit history, so it is always easy to determine or prove the authorship (even of any single line). Just make sure that your GitHub profile (which is mentioned in history) provides enough information about you.
 
 ###Source format
 
@@ -38,3 +44,12 @@ And here is the formula in the separate block:
 
 $$E = mc^{2}$$
 
+###Adding images
+
+Small images could be pushed along with texts to the [/img](https://github.com/e-maxx-eng/e-maxx-eng/tree/master/img) subfolder. Let them be in `PNG` format and less than `200kb`. Then you can refer to them inside the article with the tag:
+
+    ![some image description](&imgroot&/my-image.png)
+
+Here `my-image.png` should be your file name, while `&imgroot&` is some magic which will expand to proper url prefix when shown at the site (so you need not know the precise prefix of github raw data).
+
+Larger images should be posted to some image-hosting, like [PostImage](http://postimage.org) or [ImgUr](http://imgur.com/) - they will then give you the url to insert into the page.
