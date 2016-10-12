@@ -205,3 +205,5 @@ Implementation:
 * [A Needle in the Haystack - SPOJ](http://www.spoj.com/problems/NHAY/)
 * [Double Profiles - Codeforces](http://codeforces.com/problemset/problem/154/C)
 * [Password - Codeforces](http://codeforces.com/problemset/problem/126/B)
+* [SUB_PROB - SPOJ](http://www.spoj.com/problems/SUB_PROB/)
+* [INSQ15_A](https://www.codechef.com/problems/INSQ15_A)
