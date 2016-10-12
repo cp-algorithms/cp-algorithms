@@ -75,5 +75,5 @@ This is the most generic implementation of Depth First Search. In many cases ent
 * [SPOJ: EAGLE1](http://www.spoj.com/problems/EAGLE1/)
 * [Codeforces: Kefa and Park](http://codeforces.com/problemset/problem/580/C)
 * [Timus:Werewolf](http://acm.timus.ru/problem.aspx?space=1&num=1242)
-* [Timus:Penguin Alva](http://acm.timus.ru/problem.aspx?space=1&num=1709)
+* [Timus:Penguin Avia](http://acm.timus.ru/problem.aspx?space=1&num=1709)
 * [Timus:Two Teams](http://acm.timus.ru/problem.aspx?space=1&num=1106)
