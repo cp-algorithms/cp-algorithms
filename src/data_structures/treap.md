@@ -54,7 +54,7 @@ Also, implementation of **Erase (X)** is more understandable now. We go down on 
 
 Finally, the **Union (T1, T2)** operation. Theoretically, its asymptotic behavior of O (M log (N / M)), but in practice it works very well, probably with a very small hidden constant. Suppose, without loss of generality, T1-> Y > T2-> Y, ie, T1 is the root of the root of the result. To get results, we need to combine trees T1-> L, T1-> R and T2 in 2 tree, so that they could be a sons of T1 tree. To do this, call the Split (T2, T1-> X), and we split T2 in the two part - L and R, which are then recursively combine sons of T1: Union (T1-> L, L) and Union (T1-> R, R), thus we will build the Left and Right subtrees of the result.
 
-##Realization
+##Implementation
 
 Let's make a realization, described above:
 ```
@@ -111,11 +111,11 @@ pitem unite (pitem l, pitem r) {
 }
 ```
 
-##Supporting of the size of trees
+##Supporting of the size of subtrees
 
 To extend the functionality of the Cartesian tree, it is often necessary for each node to store the number of nodes in its subtree - field `int cnt` in the item structure. For example, K-th largest element of tree can easily be found for O (log N), or, conversely, for the same asymptotic behavior item number can be found in the sorted list (the implementation of these operations will not be differ from their realization for conventional binary search tree).
 
-When a tree changes (add or remove items, etc.), _cnt_ should be also updated accordingly for peaks. For that purposes we should create two functions - `cnt ()` - it will return the current value of _cnt_, or 0 if the node does not exist, and `upd_cnt ()`  - it will update the value _cnt_ for this summit, with the condition - for her sons, L and R, the `cnt` has correctly updated. Then, of course, enough to add calls of `upd_cnt ()` to the end of each functions - insert, erase, split, merge - to keep the correct value of _cnt_.
+When a tree changes (add or remove items, etc.), _cnt_ should be also updated accordingly for vertices. For that purposes we should create two functions - `cnt ()` - it will return the current value of _cnt_, or 0 if the node does not exist, and `upd_cnt ()`  - it will update the value _cnt_ for this vertex, with the condition - for her sons, L and R, the `cnt` has correctly updated. Then, of course, enough to add calls of `upd_cnt ()` to the end of each functions - insert, erase, split, merge - to keep the correct value of _cnt_.
 
 ```
 int cnt (pitem t) {
@@ -142,12 +142,12 @@ Implicit Treap - is a simple modification of the conventional Cartesian tree, wh
 - Addition, painting on a segment
 - Coup (permutation of the elements in reverse order) in the interval
 
-The key idea is that the key in this case will be **index** of the element inside array. But obviously, we will not store these _key_ values (otherwise, for example, when inserting an element operation would have had to change the key in O (N) peaks of the tree ).
+The key idea is that the key in this case will be **index** of the element inside array. But obviously, we will not store these _key_ values (otherwise, for example, when inserting an element operation would have had to change the key in O (N) vertices of the tree ).
 
-Note that in this case the key to some peaks is actually the number of vertices less than it. 
+Note that in this case the key to some vertices is actually the number of vertices less than it. 
 Also note that the vertexes which are less than current can situated not only in left tree but also in the left subtrees in its ancestors. More precisely, the **implicit key** for some vertex t is the number of vertices cnt (T-> L) in the left subtree of this node plus a similar magnitude cnt (P-> L) +1 for each ancestor of the vertex P, provided that T is in the right subtree of P.
 
-Now is more clearly how to quickly calculate the implicit key of current peak. As in all operations, we arrive in any top when we goes down  on the tree so we can just accumulate this amount and transfer it to functions. If we go to the left subtree - accumulated amount does not change, and if we go to the right - it increases in the cnt (T-> L) +1.
+Now is more clearly how to quickly calculate the implicit key of current vertex. As in all operations, we arrive in any top when we goes down  on the tree so we can just accumulate this amount and transfer it to functions. If we go to the left subtree - accumulated amount does not change, and if we go to the right - it increases in the cnt (T-> L) +1.
 
 We give new implementations for **Split** and **Merge** operations:
 
