@@ -61,3 +61,5 @@ The basic idea - to use the idea of quick sort algorithm. Actually, the algorith
     }
 
 To note, in the standard C ++ library, this algorithm has already been implemented - it is called nth_element.
+## Practice Problems
+ - [CODECHEF: Median](https://www.codechef.com/problems/CD1IT1)

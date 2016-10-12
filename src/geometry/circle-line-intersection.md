@@ -62,3 +62,6 @@ else {
     cout << ax << ' ' << ay << '\n' << bx << ' ' << by << '\n';
 }
 ~~~~~
+
+## Practice Problems
+- [CODECHEF: ANDOOR](https://www.codechef.com/problems/ANDOOR)
