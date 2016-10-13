@@ -25,7 +25,7 @@ especially popular in field of competitive programming.*
 
 ### String Processing
 - [String Hashing](./string/string-hashing.html)
-- [Rabin-Karp for String Matching](./string/rabin-karp.html) ([v2](./string/rabin-karp-algorithm.html))
+- [Rabin-Karp for String Matching](./string/rabin-karp.html)
 - [Suffix Array](./string/suffix-array.html)
 - [Z-function](./string/z-function.html)
 
@@ -34,10 +34,17 @@ especially popular in field of competitive programming.*
 - [Gauss & Determinant](./linear_algebra/determinant-gauss.html)
 - [Kraut & Determinant](./linear_algebra/determinant-kraut.html)
 
+### Combinatorics
+- [The Inclusion-Exclusion Principle](./combinatorics/inclusion-exclusion.html)
+- [Binomial Coefficients](./combinatorics/binomial-coefficients.html)
+- [Catalan Numbers](./combinatorics/catalan-numbers.html)
+
 ### Geometry
 - [Length of the union of intervals on a line in O(N\*logN)](./geometry/length-of-segments-union.html)
+- [Oriented area of a triangle and predicate "clockwise"](./geometry/oriented-triangle-area.html)
 - [Circle-Line Intersection](./geometry/circle-line-intersection.html)
 - [Circle-Circle Intersection](./geometry/circle-circle-intersection.html)
+- [Pick's Theorem - area of lattice polygons](./geometry/picks-theorem.html)
 
 ### Graphs
 - [Breadth First Search](./graph/breadth-first-search.html)
@@ -46,9 +53,15 @@ especially popular in field of competitive programming.*
 - [Topological sorting](./graph/topological-sort.html)
 - [Searching for bridges in O(N+M)](./graph/bridge-searching.html)
 - [Finding a negative cycle in the graph](./graph/finding-negative-cycle-in-graph.html)
-- [Floyd-Warshall - all shortests paths](./graph/all-pair-shortest-path-floyd-warshall.html)
+- [Floyd-Warshall - all shortest paths](./graph/all-pair-shortest-path-floyd-warshall.html)
+- [Dijkstra - shortests paths from given vertex](./graph/dijkstra.html)
 - [Search for Connected Components](./graph/search-for-connected-components.html)
 - [Lowest Common Ancestor](./graph/lca.html)
+- [Minimum Spanning Tree - Kruskal](./graph/mst_kruskal.html)
+- [Min Spanning Tree - Kruskal with Disjoint Set Union](./graph/mst_kruskal_with_dsu.html)
+
+### Sequences
+- [K-th order statistic in O(N)](./sequences/k-th.html)
 
 ---
 

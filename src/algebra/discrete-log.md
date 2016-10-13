@@ -39,9 +39,9 @@ This problem can be solved using the method meet-in-the-middle as follows:
 * We calculate $f_1$ for all possible values of $p$. Sort these values.
 * For each value of $q$, calculate $f_2$, and look for the corresponding value of $p$ using the sorted array of $f_1$ using binary search.
 
-# Complexity
+## Complexity
 
-For each value of $p$, we can calculate $f_1(p)$ in $O(\log m)$ using [binary exponentation algorithm](./basic/binary-exp.html). Similar for $f_2(q)$.
+For each value of $p$, we can calculate $f_1(p)$ in $O(\log m)$ using [binary exponentation algorithm](./algebra/binary-exp.html). Similar for $f_2(q)$.
 
 In the first step of the algorithm, we need to calculate $f_1$ for every possible values of $p$, and then sort them. Thus, this step has complexity:
 
@@ -97,9 +97,9 @@ int solve (int a, int b, int m) {
 }
 ```
 
-In this code, we used `map` from C++ STL to store the values of $f_1 (i)$. Internally, `map` uses Red-black-tree to store values. This code is a little bit slower than if we uses array and binary search for $f1$, but is much easier to write.
+In this code, we used `map` from C++ STL to store the values of $f_1 (i)$. Internally, `map` uses red-black-tree to store values. This code is a little bit slower than if we uses array and binary search for $f1$, but is much easier to write.
 
-Another thing to note is that, if there are multiple values of $p$ that has same value of $f_1$, we only store one such value. This works in this case because we only want to return one possible solution. If we need to return all possible solutions, we need to change $map<int,int>$ to, for example $map<int, vector<int> >$. And we also need to change the second step accordingly.
+Another thing to note is that, if there are multiple values of $p$ that has same value of $f_1$, we only store one such value. This works in this case because we only want to return one possible solution. If we need to return all possible solutions, we need to change `map<int,int>` to, say, `map<int, vector<int> >`. And we also need to change the second step accordingly.
 
 ## Improved implementation
 

@@ -188,7 +188,7 @@ Implementation:
             long long cur_h = h [i + l-1];
             if (i) cur_h - = h [i-1];
             // Get all the hashes to the same degree
-            cur_h * = p_pow [ni-1];
+            cur_h * = p_pow [n-i-1];
             hs [i] = cur_h;
         }
 
