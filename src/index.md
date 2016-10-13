@@ -61,6 +61,7 @@ especially popular in field of competitive programming.*
 - [Min Spanning Tree - Kruskal with Disjoint Set Union](./graph/mst_kruskal_with_dsu.html)
 
 ### Sequences
+- [RMQ task (Range Minimum Query - the smallest element in an interval)](./sequences/rmq.html)
 - [K-th order statistic in O(N)](./sequences/k-th.html)
 
 ---
