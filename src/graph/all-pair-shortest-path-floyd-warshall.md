@@ -2,9 +2,9 @@
 
 # Floyd-Warshall Algorithm
 
-**For shortests paths between all pairs of vertices in a graph**
+**For shortest paths between all pairs of vertices in a graph**
 
-Given an undirected weighted graph $G$ with $n$ vertices. It is required to find the values of all variables $d_{ij}$ (<i>The length of the shortest path from vertex i to the vertex j</i>) .
+Given an undirected weighted graph $G$ with $n$ vertices. The task is to find the values of all variables $d_{ij}$ (<i>The length of the shortest path from vertex i to the vertex j</i>) .
 
 The graph may have negative weight edges, but no negative weight cycles (for then the shortest path is undefined).
 
@@ -14,14 +14,14 @@ This algorithm has been simultaneously published in articles by  Robert Floyd an
 
 ## Description of the algorithm
 
-The key idea of the algorithm - Partitioning the process of finding the shortest path between any two vertices, in incremental phases.
+The key idea of the algorithm is to partition the process of finding the shortest path between any two vertices to several incremental phases.
 
 Let us number the vertices starting from 1 to $n$.
 The Matrix of Distances is $d[ ][ ]$.
 
 Before $k^{th}$ phase $( k = 1 ... n )$, the $d[i][j]$ for any vertices $i$ and $j$, stores the length of the shortest path between the vertex $i$ and vertex $j$, which contain only the vertices {${1, 2, ..., k-1}$} as internal vertices in the path.
 
-In other words, before $k^{th}$ phase value of $d[i][j]$ equal to the length of the shortest path from vertex $i$ to the vertex $j$, if this path is allowed to enter only the vertex with numbers smaller $k$ (Beginning and end of the path are not considered).
+In other words, before $k^{th}$ phase the value of $d[i][j]$ is equal to the length of the shortest path from vertex $i$ to the vertex $j$, if this path is allowed to enter only the vertex with numbers smaller $k$ (the beginning and end of the path are not restricted by this property).
 
 It is easy to make sure that this property holds for the first phase. For $k = 0$, we can fill matrix as:
     
@@ -34,9 +34,9 @@ It is easy to make sure that this property holds for the first phase. For $k = 0
     else // direct edge between i and j does not exist
         d[i][j] = INF;
 
-At the same time, if between some vertices $i$ and $j$, direct edge not exists, the $d[i][j]$ should be the value of $\infty$ (some high positive value denoting infinity) . As we shall see later, it is a requirement for the algorithm.
+At the same time, if there is no edge from $i$ to $j$, $d[i][j]$ should be $\infty$ (some high positive value denoting infinity). As we shall see later, it is a requirement for the algorithm.
 
-Suppose now that we are on $k^{th}$ phase, and we want to compute the matrix $d[ ][ ]$ so that it meets the requirements of having $(k + 1)^{th}$ phase. We fix some vertices $i$ and $j$ . Then there are two fundamentally different cases:
+Suppose now that we are in the $k^{th}$ phase, and we want to compute the matrix $d[ ][ ]$ so that it meets the requirements for the $(k + 1)^{th}$ phase. We fix some vertices $i$ and $j$. Then there are two fundamentally different cases:
 
 * The shortest way from the vertex i to the vertex j which is allowed to pass through the internal vertices in the set {${1, 2, ....., k}$}, coincides with the shortest path, which is allowed to pass through the internal vertices in the set {${1, 2, ....., k-1}$}.
     
@@ -52,7 +52,7 @@ Combining these two cases, we find that $k^{th}$ phase is required to recalculat
 
     new_d[i][j] = min ( d[i][j] , d[i][k] + d[k][j] ) ; 
 
-Thus, all the work that is required to produce $k{th}$ phase is to iterate over all pairs of vertices and recalculate the length of the shortest path between them. As a result, after the $n^{th}$ phase, in the Distance Matrix, the value of $d[i][j]$ is the length of the shortest path between pair of vertices $i$ and $j$, or, is $\infty$ if the path between the vertices $i$ and $j$ does not exist.
+Thus, all the work that is required to produce $k^{th}$ phase is to iterate over all pairs of vertices and recalculate the length of the shortest path between them. As a result, after the $n^{th}$ phase, in the Distance Matrix, the value of $d[i][j]$ is the length of the shortest path between pair of vertices $i$ and $j$, or, is $\infty$ if the path between the vertices $i$ and $j$ does not exist.
 
 A last remark - we don't need to create a separate matrix of distances $d_{new}[ ][ ]$ for temporarily storing shortest paths of $k^{th}$ phase while transitioning to $(k + 1)^{th}$, i.e. all changes can be made directly in the matrix $d[ ][ ]$ at any phase. In fact, at any $k^{th}$ phase we are at most improving (reducing) value of any path in matrix of distances, hence, we cannot worsen the length of the shortest path for any pair of the vertices that are to be processed in $(k+1)^{th}$ phase or later.
 
@@ -69,7 +69,7 @@ It is required to have $d[i][i] = 0$ for any $i$ at the $0^{th}$ phase.
             for ( int j = 0 ; j < n ; ++j )
                 d[i][j] = min ( d[i][j] , d[i][k] + d[k][j] ) ; 
 
-It is assumed that if there is no edge between two any vertices $i$ and $j$, the adjacency matrix at $d[i][j]$ recorded a large number (large enough so that it is greater than the length of any path in this graph), then this edge will always be unprofitable to take, and the algorithm will work correctly.
+It is assumed that if there is no edge between two any vertices $i$ and $j$, the adjacency matrix at $d[i][j]$ contains a large number (large enough so that it is greater than the length of any path in this graph), then this edge will always be unprofitable to take, and the algorithm will work correctly.
 
 However, in the presence of negative weight edges in the graph, special measures are not taken, the resulting values in matrix may appear of the form $\infty - 1$,  $\infty - 2$, etc., which, of course, still indicates that between the respective vertices no path at all exists. Therefore, if the graph is having negative weight edges, it is better to write Floyd-Warshall algorithm in the following way, so that it does not perform transitions from states, which already are "non-existence of the path":
 
