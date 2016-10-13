@@ -37,6 +37,7 @@ especially popular in field of competitive programming.*
 ### Combinatorics
 - [The Inclusion-Exclusion Principle](./combinatorics/inclusion-exclusion.html)
 - [Binomial Coefficients](./combinatorics/binomial-coefficients.html)
+- [Catalan Numbers](./combinatorics/catalan-numbers.html)
 
 ### Geometry
 - [Length of the union of intervals on a line in O(N\*logN)](./geometry/length-of-segments-union.html)
