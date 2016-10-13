@@ -40,6 +40,7 @@ especially popular in field of competitive programming.*
 
 ### Geometry
 - [Length of the union of intervals on a line in O(N\*logN)](./geometry/length-of-segments-union.html)
+- [Oriented area of a triangle and predicate "clockwise"](./geometry/oriented-triangle-area.html)
 - [Circle-Line Intersection](./geometry/circle-line-intersection.html)
 - [Circle-Circle Intersection](./geometry/circle-circle-intersection.html)
 - [Pick's Theorem - area of lattice polygons](./geometry/picks-theorem.html)
