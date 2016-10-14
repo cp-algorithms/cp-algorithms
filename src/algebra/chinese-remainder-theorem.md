@@ -182,3 +182,4 @@ Note on negative numbers:
 
 ## Practice Problem:
 * [Hackerrank - Number of sequences](https://www.hackerrank.com/contests/w22/challenges/number-of-sequences)
+* [Codeforces - Remainders Game](http://codeforces.com/problemset/problem/687/B)
