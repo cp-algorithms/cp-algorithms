@@ -77,3 +77,4 @@ The number of monotonic paths in the lattice $(n - 1) \times (n + 1)$ are $C_{2n
 - [Spoj - Skyline](http://www.spoj.com/problems/SKYLINE/)
 - [UVA - Safe Salutions](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=932)
 - [Codeforces - How many trees?](http://codeforces.com/problemset/problem/9/D)
+- [SPOJ - FUNPROB](http://www.spoj.com/problems/FUNPROB/)
