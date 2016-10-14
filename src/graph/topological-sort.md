@@ -60,7 +60,7 @@ The main function of the solution is topological_sort, it initializes marking de
 
 The task list in which you want to search topological sorting:
 
+- [SPOJ TOPOSORT "Topological Sorting" [difficulty: easy]](http://www.spoj.com/problems/TOPOSORT/)
 - [UVA #10305 "Ordering Tasks" [difficulty: easy]](https://z5h64q92x9.net/proxy_u/ru-en.en/uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1246)
 - [UVA #124 "Following Orders" [difficulty: easy]](https://z5h64q92x9.net/proxy_u/ru-en.en/uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=60)
 - [UVA #200 "Rare Order" [difficulty: easy]](https://z5h64q92x9.net/proxy_u/ru-en.en/uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=136)
- 
