@@ -99,5 +99,4 @@ Finally, in some situations it is beneficial to pre-calculate all the factorials
 
 ## Practice Problems
  - [HACKEREARTH: Binomial Coefficient](https://www.hackerearth.com/problem/algorithm/binomial-coefficient-1/description/)
- - [HACKEREARTH: Different sums](https://www.hackerearth.com/practice/math/combinatorics/basics-of-combinatorics/practice-problems/approximate/different-sums/)
- - [HACKEREARTH:Power Set Game](https://www.hackerearth.com/practice/math/combinatorics/basics-of-combinatorics/practice-problems/algorithm/power-set-game-3/)
+ 
