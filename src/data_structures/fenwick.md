@@ -185,6 +185,7 @@ struct FenwickTree2D {
 * [SPOJ - DQUERY](http://www.spoj.com/problems/DQUERY/)
 * [SPOJ - NKTEAM](http://www.spoj.com/problems/NKTEAM/)
 * [SPOJ - YODANESS](http://www.spoj.com/problems/YODANESS/)
+* [SRM 310 - FloatingMedian](https://community.topcoder.com/stat?c=problem_statement&pm=6551&rd=9990)
 
 ### Other sources
 
