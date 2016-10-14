@@ -46,5 +46,5 @@ for (int i=0; i<n; ++i) {
 cout << det;
 ```
 
-##Problems from ONLINE Judges
+## Practice Problems
 * [Codeforces - Wizards and Bets](http://codeforces.com/contest/167/problem/E)

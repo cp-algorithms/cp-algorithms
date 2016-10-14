@@ -77,13 +77,12 @@ In the particular case when, $m$ is a prime Euler's theorem turns into the so-ca
 $a^{(m - 1)} \equiv 1 \pmod m$   
 Euler's theorem occurs quite often in practical applications
 
-###Practice Problems  
+## Practice Problems  
 
 * [SPOJ #4141 [Euler Totient Function] [Difficulty: CakeWalk]](http://www.spoj.com/problems/ETF/)  
 * [UVA #10179 "Irreducible Basic Fractions" [Difficulty: Easy]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1120)
 * [UVA #10299 "Relatives" [Difficulty: Easy]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1240)
 * [UVA #11327 "Enumerating Rational Numbers" [Difficulty: Medium]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2302)
 * [TIMUS #1673 "tolerance for the exam" [Difficulty: High]](http://acm.timus.ru/problem.aspx?space=1&num=1673)
-
 
 **We will add more practice problems soon**

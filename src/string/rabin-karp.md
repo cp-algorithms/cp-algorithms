@@ -52,5 +52,6 @@ Algorithm: Calculate the hash for the pattern $S$. Calculate hash values for all
 
 ## Practice Problems
 
-* [Pattern Find - SPOJ](http://www.spoj.com/problems/NAJPF/)
+* [SPOJ - Pattern Find](http://www.spoj.com/problems/NAJPF/)
+* [Codeforces - Good Substrings](http://codeforces.com/problemset/problem/271/D)
 
