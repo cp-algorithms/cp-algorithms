@@ -50,6 +50,19 @@ The approach described above could be easily implemented with a single loop.
 		    b >>= 1
 	    return res
 
+Approach in C++ <span class="toggle-code">Show/Hide</span>:
+
+	long long binpow(long long a,long long b)
+	{
+		long long res = 1;
+		while(b){
+			if(b&1) res = res*a;
+			a = (a*a);
+			b >>=1;
+		}
+		return res;
+	}
+
 This approach builds the result starting from smallest degrees of `a`. If we use recursion
 instead of loop we can work in "inverse" direction, starting from largest degrees and dividing
 `b` in two at each step.
@@ -61,6 +74,16 @@ instead of loop we can work in "inverse" direction, starting from largest degree
 		    return a
 	    res = binpow(a, b // 2)
 	    return res * res * (a if b % 2 != 0 else 1)
+
+Approach in c++<span class="toggle-code">Show/Hide</span>:
+
+	long long binpow(long long a,long long b)
+	{
+		if(b==1) return a;
+		long long res = binpow(a,b/2);
+		if(b%2)return res*res*a;
+		else return res*res;
+	}
 
 We can explain this last approach mathematically:  
 $a^{b} = (a^{b/2})^2 \quad$ for even `b`,  

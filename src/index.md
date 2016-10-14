@@ -37,11 +37,14 @@ especially popular in field of competitive programming.*
 ### Combinatorics
 - [The Inclusion-Exclusion Principle](./combinatorics/inclusion-exclusion.html)
 - [Binomial Coefficients](./combinatorics/binomial-coefficients.html)
+- [Catalan Numbers](./combinatorics/catalan-numbers.html)
 
 ### Geometry
 - [Length of the union of intervals on a line in O(N\*logN)](./geometry/length-of-segments-union.html)
+- [Oriented area of a triangle and predicate "clockwise"](./geometry/oriented-triangle-area.html)
 - [Circle-Line Intersection](./geometry/circle-line-intersection.html)
 - [Circle-Circle Intersection](./geometry/circle-circle-intersection.html)
+- [Pick's Theorem - area of lattice polygons](./geometry/picks-theorem.html)
 
 ### Graphs
 - [Breadth First Search](./graph/breadth-first-search.html)
@@ -50,7 +53,7 @@ especially popular in field of competitive programming.*
 - [Topological sorting](./graph/topological-sort.html)
 - [Searching for bridges in O(N+M)](./graph/bridge-searching.html)
 - [Finding a negative cycle in the graph](./graph/finding-negative-cycle-in-graph.html)
-- [Floyd-Warshall - all shortests paths](./graph/all-pair-shortest-path-floyd-warshall.html)
+- [Floyd-Warshall - all shortest paths](./graph/all-pair-shortest-path-floyd-warshall.html)
 - [Dijkstra - shortests paths from given vertex](./graph/dijkstra.html)
 - [Search for Connected Components](./graph/search-for-connected-components.html)
 - [Lowest Common Ancestor](./graph/lca.html)
