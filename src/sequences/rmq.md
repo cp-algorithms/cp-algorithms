@@ -1,26 +1,24 @@
-<!--?title RMQ Task -->
+<!--?title Range Minimum Query -->
 
-# RMQ Task
+# Range Minimum Query
 
-Given an array A[1..N]. You have to answer the queries of the form (L, R), asking the minimum value in array A from position L to position R.
+You are given an array $A[1..N]$. You have to answer incoming queries of the form $(L, R)$ which ask to find the minimum element in array A between positions L and R, inclusive.
 
-### Application
+RMQ can appear in problems directly or be applied to other tasks, including [Lowest Common Ancestor](../graph/lca.html).
 
-The RMQ problem can be applied in a variety of problems, including:
+## Solution
 
-- [LCA (Lowest Common Ancestor)]()
+RMQ task is solved by using appropriate data structures.
 
-### Options
+From the list of data structures described on this site, you can choose:
 
-The RMQ task can be solved by using some data structures.
+- [Sqrt-decomposition]() - answers each query in $O(\sqrt{N})$, preprocessing done in $O(N)$.
+  Pros: a very simple data structure. Cons: worse complexity.
+- [Segment tree]() - answers each query in $O(\log N)$, preprocessing done in $O(N)$.
+  Pros: good runtime complexity. Cons: larger amount of code compared to the other data structures.
+- [Fenwick tree](../data_structures/fenwick.html) - answers each query in $O(\log N)$, preprocessing done in $O(N \log N)$.
+  Pros: the shortest code, good runtime complexity. Cons: Fenwick tree can only be used for queries with $L = 1$, so it is not applicable to many problems.
 
+Note: Preprocessing is the preliminary processing of the given array by building corresponding data structure for it.
 
-From the described data structures on this site, you can choose:
-
-- [Sqrt-decomposition]() - answers each query in O(sqrt(N)) with preprocessing in O(N). It is a very simple data structure, but it is slower.
-- [Segment tree]() - answers each query in O(log N) with preprocessing in O(N). It has good runtime complexity, but it has larger amount of code compared to the other data structures.
-- [Fenwick tree](../data_structures/fenwick.html) - answers each query in O(log N) with preprocessing in O(N log N). It has the smallest amount of code and works faster, but Fenwick tree can only be used to the queries with L = 1, so it is not applicable to many problems.
-
-Note: "Preprocessing" is the preliminary processing of array A by building a data structure for the corresponding array.
-
-Now assume that array A may be changed in the process (i.e. there will also be queries to change values in some interval [L;R]). Then, the resulting problem can only be solved by Sqrt-decomposition or Segment tree.
+If the array $A$ might change during the runtime (i.e. there will also be queries to change values in some interval), the problem can only be solved by [Sqrt-decomposition]() or [Segment tree]().
