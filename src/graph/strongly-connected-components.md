@@ -1,6 +1,6 @@
-<!--?title Finding strongly connected components. Building a condensation graph. -->
+<!--?title Strongly Connected Components and Condensation graph -->
 
-#Finding strongly connected components. Building a condensation graph.
+#Finding strongly connected components<br/>Building condensation graph
 
 ## Definitions
 You are given a directed graph $G$ with vertices $V$ and edges $E$. It is possible that there are loops and multiple edges. Let's denote $n$ as number of vertices and $m$ as number of edges in $G$.
@@ -97,5 +97,6 @@ Finally, it is appropriate to mention [topological sort](http://e-maxx-eng.appsp
 Here, $g$ is graph, $gr$ is transposed graph. Function $dfs1$ implements depth first search on graph $G$, function $dfs2$ - on transposed graph $G^T$. Function $dfs1$ fills the list $order$ with vertices in increasing order of their exit times (actually, it is making a topological sort). Function $dfs2$ stores all reached vertices in list $component$, that is going to store next strongly connected component after each run.
 
 ## Literature
-** Thomas Cormen, Charles Leiserson, Ronald Rivest, Clifford Stein. Introduction to Algorithms [2005].
-** M. Sharir. A strong-connectivity algorithm and its applications in data-flow analysis [1979].
+
+* Thomas Cormen, Charles Leiserson, Ronald Rivest, Clifford Stein. Introduction to Algorithms [2005].
+* M. Sharir. A strong-connectivity algorithm and its applications in data-flow analysis [1979].

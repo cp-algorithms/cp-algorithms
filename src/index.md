@@ -59,6 +59,7 @@ especially popular in field of competitive programming.*
 - [Lowest Common Ancestor](./graph/lca.html)
 - [Minimum Spanning Tree - Kruskal](./graph/mst_kruskal.html)
 - [Min Spanning Tree - Kruskal with Disjoint Set Union](./graph/mst_kruskal_with_dsu.html)
+- [Strongly Connected Components and Condensation Graph](./graph/strongly-connected-components.html)
 
 ### Sequences
 - [RMQ task (Range Minimum Query - the smallest element in an interval)](./sequences/rmq.html)
