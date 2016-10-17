@@ -55,6 +55,7 @@ especially popular in field of competitive programming.*
 - [Finding a negative cycle in the graph](./graph/finding-negative-cycle-in-graph.html)
 - [Floyd-Warshall - all shortest paths](./graph/all-pair-shortest-path-floyd-warshall.html)
 - [Dijkstra - shortests paths from given vertex](./graph/dijkstra.html)
+- [Bellman-Ford - shortests paths with negative weights](./graph/bellman_ford.html)
 - [Search for Connected Components](./graph/search-for-connected-components.html)
 - [Lowest Common Ancestor](./graph/lca.html)
 - [Minimum Spanning Tree - Kruskal](./graph/mst_kruskal.html)

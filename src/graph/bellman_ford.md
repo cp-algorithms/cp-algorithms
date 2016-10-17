@@ -1,5 +1,9 @@
+<!--?title Bellman-Ford Algorithm - shortest paths with negative weights -->
+
 # Bellman-Ford Algorithm
-## Single source shortest path with negative weight edges
+
+**Single source shortest path with negative weight edges**
+
 Suppose that we are given a weighted directed graph $G$ with $n$ vertices and $m$ edges, and some specified vertex $v$. You want to find the length of shortest paths from vertex $v$ to every other vertex.
 
 Unlike the Dijkstra algorithm, this algorithm can also be applied to graphs containing negative weight edges . However, if the graph contains a negative cycle, then, clearly, the shortest path to some vertices may not exist (due to the fact that the weight of the shortest path must be equal to minus infinity); however, this algorithm can be modified to signal the presence of a cycle of negative weight, or even deduce this cycle.
@@ -198,14 +202,10 @@ For more on this topic — see separate article, [Finding a negative cycle in th
 
 A list of tasks that can be solved using the Bellman-Ford algorithm:
 
-* <a href="http://www.e-olimp.com.ua/problems/1453">E-OLIMP #1453 "Ford-Bellman" [difficulty: low]</a>
-
-* <a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=364">UVA #423 "MPI Maelstrom" [difficulty: low]</a>
-
-* <a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=7&page=show_problem&problem=475" >UVA #534 "Frogger" [difficulty: medium]</a>
-
-* <a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=12&page=show_problem&problem=1040" >UVA #10099 "The Tourist Guide" [difficulty: medium]</a>
-
-* <a href="http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=456" >UVA #515 "King" [difficulty: medium]</a>
+* [E-OLIMP #1453 "Ford-Bellman" [difficulty: low]](http://www.e-olimp.com.ua/problems/1453)
+* [UVA #423 "MPI Maelstrom" [difficulty: low]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=364)
+* [UVA #534 "Frogger" [difficulty: medium]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=7&page=show_problem&problem=475)
+* [UVA #10099 "The Tourist Guide" [difficulty: medium]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=12&page=show_problem&problem=1040)
+* [UVA #515 "King" [difficulty: medium]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=456)
 
 See also the problem list in the article [Finding the negative cycle in a graph](./graph/finding-negative-cycle-in-graph.html).
