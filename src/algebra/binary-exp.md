@@ -15,12 +15,12 @@ $$3^{11} = 3^{1011_{2}} = 3^{8} \cdot 3^{2} \cdot 3^{1}$$
 
 So we need only find sequence of squared numbers:
 
-$3^{1} = 3$  
-$3^{2} = (3^{1})^{2} = 3 \cdot 3 = 9$  
-$3^{4} = (3^{2})^{2} = 9 \cdot 9 = 81$  
+$3^{1} = 3$
+$3^{2} = (3^{1})^{2} = 3 \cdot 3 = 9$
+$3^{4} = (3^{2})^{2} = 9 \cdot 9 = 81$
 $3^{8} = (3^{4})^{2} = 81 \cdot 81 = 6561$
 
-And multiply three of them (skipping $3^{4}$ because corresponding bit in `b` is zero):
+And multiply three of them (skipping `3^{4}` because corresponding bit in `b` is zero):
 $\quad 3^{11} = 6561 \cdot 9 \cdot 3 = 177147$
 
 This approach has important applications in many tasks not related to arithmetics, since it
@@ -36,7 +36,7 @@ and it is still used inside CPUs of contemporary computers!
 
 ###Algorithm
 
-The approach described above could be easily implemented with a single loop.  
+The approach described above could be easily implemented with a single loop.
 
 **Non-recursive** approach in Python 3 <span class="toggle-code">Show/Hide</span>:
 
@@ -55,10 +55,10 @@ Approach in C++ <span class="toggle-code">Show/Hide</span>:
 	long long binpow(long long a,long long b)
 	{
 		long long res = 1;
-		while(b){
-			if(b&1) res = res*a;
-			a = (a*a);
-			b >>=1;
+		while (b){
+			if (b & 1) res = res * a;
+			a = (a * a);
+			b >>= 1;
 		}
 		return res;
 	}
@@ -66,7 +66,7 @@ Approach in C++ <span class="toggle-code">Show/Hide</span>:
 This approach builds the result starting from smallest degrees of `a`. If we use recursion
 instead of loop we can work in "inverse" direction, starting from largest degrees and dividing
 `b` in two at each step.
-  
+
 **Recursive** approach in Python 3 <span class="toggle-code">Show/Hide</span>:
 
     def binpow(a, b):
@@ -75,19 +75,19 @@ instead of loop we can work in "inverse" direction, starting from largest degree
 	    res = binpow(a, b // 2)
 	    return res * res * (a if b % 2 != 0 else 1)
 
-Approach in c++<span class="toggle-code">Show/Hide</span>:
+Approach in C++ <span class="toggle-code">Show/Hide</span>:
 
 	long long binpow(long long a,long long b)
 	{
-		if(b==1) return a;
-		long long res = binpow(a,b/2);
-		if(b%2)return res*res*a;
-		else return res*res;
+		if (b == 1) return a;
+		long long res = binpow(a, b/2);
+		if (b % 2) return res*res*a;
+		else return res * res;
 	}
 
-We can explain this last approach mathematically:  
-$a^{b} = (a^{b/2})^2 \quad$ for even `b`,  
-$a^{b} = (a^{(b-1)/2})^2 \cdot a \quad$ for odd `b`,  
+We can explain this last approach mathematically:
+$a^{b} = (a^{b/2})^2 \quad$ for even `b`,
+$a^{b} = (a^{(b-1)/2})^2 \cdot a \quad$ for odd `b`,
 $a^{1} = a$.
 
 ## Practice Problems
