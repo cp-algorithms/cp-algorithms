@@ -2,7 +2,7 @@
 
 # Gauss method for solving system of linear equations
 
-Given a system of $n$ linear algebraic equation (SLAE) with $m$ unknowns. You are asked to solve the system: to determine if it has no solution, exactly one solution or infinite number of solutions. And in case it has at least one solution, find any of them.
+Given a system of $n$ linear algebraic equations (SLAE) with $m$ unknowns. You are asked to solve the system: to determine if it has no solution, exactly one solution or infinite number of solutions. And in case it has at least one solution, find any of them.
 
 Formally, the problem is formulated as follows: solve the system:
 
@@ -192,4 +192,4 @@ Thus, the solution turns into two-step: First, Gauss-Jordan algorithm is applied
 ## Practice Problems
 * [Spoj - Xor maximisation](http://www.spoj.com/problems/XMAX/)
 * [Codechef - Knight Moving](https://www.codechef.com/SEP12/problems/KNGHTMOV)
-* [Lightoj - Graph Coloring] (http://lightoj.com/volume_showproblem.php?problem=1279)
+* [Lightoj - Graph Coloring](http://lightoj.com/volume_showproblem.php?problem=1279)
