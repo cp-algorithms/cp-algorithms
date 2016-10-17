@@ -98,5 +98,7 @@ If the entire table of values is not necessary, storing only two last rows of it
 Finally, in some situations it is beneficial to pre-calculate all the factorials in order to produce any necessary binomial coefficient with only two divisions later.This can be advantageous when using [long arithmetic](./algebra/big-integer.html), when the memory does not allow precalculation of all Pascal's triangle, or when you need to do calculations for some prime modulo (if the modulo is not prime, there are difficulties when dividing the numerator by the denominator, which can be overcome by factoring modulo and storing all numbers in the form of vectors of powers of these primes; see the section [Long arithmetic in factored form](./algebra/big-integer.html)).
 
 ## Practice Problems
- - [HACKEREARTH: Binomial Coefficient](https://www.hackerearth.com/problem/algorithm/binomial-coefficient-1/description/)
- 
+* [Codechef - Number of ways](https://www.codechef.com/LTIME24/problems/NWAYS/)
+* [Codeforces - Curious Array](http://codeforces.com/problemset/problem/407/C)
+* [LightOj - Necklaces](http://www.lightoj.com/volume_showproblem.php?problem=1419)
+* [HACKEREARTH: Binomial Coefficient](https://www.hackerearth.com/problem/algorithm/binomial-coefficient-1/description/)

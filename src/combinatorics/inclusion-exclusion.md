@@ -402,7 +402,7 @@ $$ n! \left( 1 - \frac{1}{1!} + \frac{1}{2!} - \frac{1}{3!} + \cdots \pm \frac{1
 
 It is worth noting that a similar problem can be solved this way: when you need the fixed points were not among the $m$ first elements of permutations (and not among all, as we just solved). The formula obtained is as the given above accurate formula, but it will go up to the sum of $k$, instead of $n$.
 
-## Tasks in online judges
+## Practice Problems
 
 A list of tasks that can be solved using the principle of inclusions-exclusions:
 

@@ -173,6 +173,10 @@ $x' + y' = x + y + k . (b/g - a/g) = x + y + k . (b - a) / g$.
 
 If $a < b$, we need to select smallest possible value of $k$. If $a > b$, we need to select the largest possible value of $k$. If $a = b$, all solution will have the same sum $x + y$.
 
-## Problems in Online Judge
+## Practice Problems
 
+* [Spoj - Crucial Equation](http://www.spoj.com/problems/CEQU/)
 * [SGU 106](http://acm.sgu.ru/problem.php?contest=0&problem=106)
+* [Codeforces - Ebony and Ivory](http://codeforces.com/contest/633/problem/A)
+* [Codechef - Get AC in one go](https://www.codechef.com/problems/COPR16G)
+* [LightOj - Solutions to an equation](http://www.lightoj.com/volume_showproblem.php?problem=1306)

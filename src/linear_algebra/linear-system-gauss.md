@@ -188,3 +188,8 @@ Despite various heuristics, Gauss-Jordan algorithm can still lead to large error
 Therefore, the resulting Gauss-Jordan solution must sometimes be improved by applying a simple numerical method - for example, the method of simple iteration.
 
 Thus, the solution turns into two-step: First, Gauss-Jordan algorithm is applied, and then a numerical method taking initial solution as solution in the first step.
+
+## Practice Problems
+* [Spoj - Xor maximisation](http://www.spoj.com/problems/XMAX/)
+* [Codechef - Knight Moving](https://www.codechef.com/SEP12/problems/KNGHTMOV)
+* [Lightoj - Graph Coloring] (http://lightoj.com/volume_showproblem.php?problem=1279)

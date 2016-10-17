@@ -29,3 +29,6 @@ $$2S=\left|\begin{matrix}x_2-x_1 & x_3-x_2\\\\y_2-y_1 & y_3-y_2\end{matrix}\righ
 	bool counter_clockwise (int x1, int y1, int x2, int y2, int x3, int y3) {
 		return area_determinant (x1, y1, x2, y2, x3, y3) > 0;
 	}
+
+## Practice Problems
+* [Codechef - Chef and Polygons](https://www.codechef.com/problems/CHEFPOLY)

@@ -54,6 +54,6 @@ Let us process it from the least significant (rightmost) digit:
 
 So the result is `10Z01`.
 
-###Relevant problems
+## Practice Problems
 
-[Topcoder SRM 604, Div1-250](http://community.topcoder.com/stat?c=problem_statement&pm=12917&rd=15837)
+* [Topcoder SRM 604, Div1-250](http://community.topcoder.com/stat?c=problem_statement&pm=12917&rd=15837)
