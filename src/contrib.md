@@ -46,7 +46,7 @@ $$E = mc^{2}$$
 
 ###Some conventions
 
-* We have agreed as of issue [#83](https://github.com/e-maxx-eng/e-maxx-eng/issues/83) to express binomial coefficients with `\binom{n}{k}` or `{n \choose k}` instead of `C_n^k`.
+* We have agreed as of issue [#83](https://github.com/e-maxx-eng/e-maxx-eng/issues/83) to express binomial coefficients with `\binom{n}{k}` instead of `C_n^k`. The first one renders as $\binom{n}{k}$ and is a more universal convention. The second would render as $C_n^k$.
 
 ###Adding images
 
