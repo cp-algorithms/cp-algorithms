@@ -28,7 +28,7 @@ First, let's make notations: let's define exit time $tout[C]$ from the strongly 
 
 There are two main different cases at the proof depending on which component will be visited by depth first search first, i.e. depending on difference between $tin[C]$ and $tin[C']$:
 ** The component $C$ was reached first. It means that depth first search comes at some vertex $v$ of component $C$ at some moment, but all other vertices of components $C$ and $C'$ were not visited yet. By condition there is an edge $C, C'$ in a condensation graph, so not only the entire component $C$ is reachable from $v$ but the whole component $C'$ is reachable as well. It means that depth first search that is running from vertex $v$ will visit all vertices of components $C$ and $C'$, so they will be descendants for $v$ in a depth first search tree, i.e. for each vertex $u \in C \cup C', u \ne v$ we have that $tout[v] > tout[u]$, as we claimed.
-** Assume that component $C'$ was visited first. Similarly, depth first search comes at some vertex $v$ of component $C'$ at some moment, but all other vertices of components $C$ and $C'$ were not visited yet. But by condition there is an edge (C, C') in the condensation graph, so, because of acyclic propery of condensation graph, there is no back path from $C'$ to $C$, i.e. depth first search from vertex $v$ will not reach vertices of $C$. It means that vertices of $C$ will be visited by depth first search later, so $tout[C] > tout[C']$. This completes the proof.
+** Assume that component $C'$ was visited first. Similarly, depth first search comes at some vertex $v$ of component $C'$ at some moment, but all other vertices of components $C$ and $C'$ were not visited yet. But by condition there is an edge $(C, C')$ in the condensation graph, so, because of acyclic propery of condensation graph, there is no back path from $C'$ to $C$, i.e. depth first search from vertex $v$ will not reach vertices of $C$. It means that vertices of $C$ will be visited by depth first search later, so $tout[C] > tout[C']$. This completes the proof.
 
 Proved theorem is **the base of algorithm** for finding strongly connected components. It follows that any edge $(C, C')$ in condensation graph comes from a component with a larger value of $tout$ to component with a smaller value.
 
@@ -36,17 +36,17 @@ If we sort all vertices $v \in V$ by decreasing of their exit moment $tout[v]$ t
 
 Let's consider transposed graph $G^T$, i.e. graph received from $G$ by changing direction of each edge on the opposite. Obviously this graph will have the same strongly connected components, as an initial graph. More over, condensation graph $G^{SCC}$. It means that there will be no edges from our "root" component to other components.
 
-Thus, for visiting the whole "root" strongly connected component, containing vertex $v$, is is enough to run search from vertex $v$ in graph $G^T$. This search will visit all vertices of this strongly connected component and only them. As was mentioned before, we can remove these vertices from the graph then, and find the next vertex with a maximal value of $tout[v]$ and run search in transposed graph from it, and so on.
+Thus, for visiting the whole "root" strongly connected component, containing vertex $v$, is enough to run search from vertex $v$ in graph $G^T$. This search will visit all vertices of this strongly connected component and only them. As was mentioned before, we can remove these vertices from the graph then, and find the next vertex with a maximal value of $tout[v]$ and run search in transposed graph from it, and so on.
 
-Thus, we built next **algorithm** for selecting srongly connected components:
+Thus, we built next **algorithm** for selecting strongly connected components:
 
 1st step. Run sequence of depth first search of graph $G$ which will return vertices with increasing exit time $tout$, i.e. some list $order$.
 
-2nd step. Build transposed graph $G^T$. Run a series of depth (breadth) first searchds in the order determined by list $order$ (to be exact in reverse order, i.e. in decreasing order of exit times). Every set of vertices, reached after the next search, will be the next strongly connected component.
+2nd step. Build transposed graph $G^T$. Run a series of depth (breadth) first searchs in the order determined by list $order$ (to be exact in reverse order, i.e. in decreasing order of exit times). Every set of vertices, reached after the next search, will be the next strongly connected component.
 
 Algorithm asymptotics is $O(n + m)$, because it is just two depth (breadth) first searches.
 
-Finally, it is appropriate to mention [topological sort](http://e-maxx-eng.appspot.com/graph/topological-sort.html) here. First of all, step 1 of the algorithm represents topological sort of graph $G$ (actually this is exactly what vertices' sort by exit time means). Secondly, the algorithm's scheme generates stronlgy connected components by decreasing order of their exit times, thus it generates components - vertices of condensation graph - in topological sort order.
+Finally, it is appropriate to mention [topological sort](http://e-maxx-eng.appspot.com/graph/topological-sort.html) here. First of all, step 1 of the algorithm represents topological sort of graph $G$ (actually this is exactly what vertices' sort by exit time means). Secondly, the algorithm's scheme generates strongly connected components by decreasing order of their exit times, thus it generates components - vertices of condensation graph - in topological sort order.
 
 ## Implementation
     vector < vector<int> > g, gr;
