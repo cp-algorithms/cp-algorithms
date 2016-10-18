@@ -42,7 +42,7 @@ Thus, we built next **algorithm** for selecting strongly connected components:
 
 1st step. Run sequence of depth first search of graph $G$ which will return vertices with increasing exit time $tout$, i.e. some list $order$.
 
-2nd step. Build transposed graph $G^T$. Run a series of depth (breadth) first searchs in the order determined by list $order$ (to be exact in reverse order, i.e. in decreasing order of exit times). Every set of vertices, reached after the next search, will be the next strongly connected component.
+2nd step. Build transposed graph $G^T$. Run a series of depth (breadth) first searches in the order determined by list $order$ (to be exact in reverse order, i.e. in decreasing order of exit times). Every set of vertices, reached after the next search, will be the next strongly connected component.
 
 Algorithm asymptotics is $O(n + m)$, because it is just two depth (breadth) first searches.
 
