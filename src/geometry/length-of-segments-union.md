@@ -12,11 +12,11 @@ Store in an array $X$ the endpoints of all the segments sorted by its value, wit
 
 ## Implementation
 
-<pre><code>unsigned segments_union_measure (const vector <pair <int,int> > & a)
+<pre><code>unsigned segments_union_measure (const vector &lt; pair&lt;int,int&gt; &gt; & a)
 {
     unsigned n = a.size();
-    vector <pair <int,bool> > x (n*2);
-    for (unsigned i=0; i < n; i++)
+    vector &lt; pair&lt;int,int&gt; &gt; x (n*2);
+    for (unsigned i=0; i &lt; n; i++)
     {
         x[i*2] = make_pair (a[i].first, false);
         x[i*2+1] = make_pair (a[i].second, true);
@@ -26,7 +26,7 @@ Store in an array $X$ the endpoints of all the segments sorted by its value, wit
 
     unsigned result = 0;
     unsigned c = 0;
-    for (unsigned i=0; i < n*2; i++)
+    for (unsigned i=0; i &lt; n*2; i++)
     {
         if (c && i)
             result += unsigned (x[i].first - x[i-1].first);
