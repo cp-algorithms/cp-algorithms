@@ -27,7 +27,7 @@ unsigned segments_union_measure (const vector < pair<int,bool> > & a)
 
     unsigned result = 0;
     unsigned c = 0;
-    for (unsigned i=0; i &lt; n*2; i++)
+    for (unsigned i=0; i < n*2; i++)
     {
         if (c && i)
             result += unsigned (x[i].first - x[i-1].first);
