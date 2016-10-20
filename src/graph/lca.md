@@ -35,7 +35,7 @@ If you use segment tree, you can answer each query in $O(log\ N)$ with preproces
 
 The implementation of described LCA algorithm is as follows, using a segment tree:
 
-```
+```cpp
 typedef vector < vector<int> > graph;
 typedef vector<int>::const_iterator const_graph_iter;
 

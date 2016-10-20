@@ -11,24 +11,26 @@ We can use the fact that a determinant of a $2\times 2$ matrix is equal to a sig
 $$2S=\left|\begin{matrix}x_2-x_1 & x_3-x_2\\\\y_2-y_1 & y_3-y_2\end{matrix}\right|=(x_2-x_1)(y_3-y_2)-(x_3-x_2)(y_2-y_1)$$
 
 ## Implementation
+```cpp
+// twice the triangle's area
+int area_determinant (int x1, int y1, int x2, int y2, int x3, int y3) {
+	return (x2 - x1) * (y3 - y2) - (x3 - x2) * (y2 - y1);
+}
 
-	// twice the triangle's area
-	int area_determinant (int x1, int y1, int x2, int y2, int x3, int y3) {
-		return (x2 - x1) * (y3 - y2) - (x3 - x2) * (y2 - y1);
-	}
-	
-	// unsigned area of the triangle
-	double triangle_area (int x1, int y1, int x2, int y2, int x3, int y3) {
-		return abs (area_determinant (x1, y1, x2, y2, x3, y3)) / 2.0;
-	}
+// unsigned area of the triangle
+double triangle_area (int x1, int y1, int x2, int y2, int x3, int y3) {
+	return abs (area_determinant (x1, y1, x2, y2, x3, y3)) / 2.0;
+}
 
-	// two predicates for angle orientation
-	bool clockwise (int x1, int y1, int x2, int y2, int x3, int y3) {
-		return area_determinant (x1, y1, x2, y2, x3, y3) < 0;
-	}
-	bool counter_clockwise (int x1, int y1, int x2, int y2, int x3, int y3) {
-		return area_determinant (x1, y1, x2, y2, x3, y3) > 0;
-	}
+// two predicates for angle orientation
+bool clockwise (int x1, int y1, int x2, int y2, int x3, int y3) {
+	return area_determinant (x1, y1, x2, y2, x3, y3) < 0;
+}
+
+bool counter_clockwise (int x1, int y1, int x2, int y2, int x3, int y3) {
+	return area_determinant (x1, y1, x2, y2, x3, y3) > 0;
+}
+```
 
 ## Practice Problems
 * [Codechef - Chef and Polygons](https://www.codechef.com/problems/CHEFPOLY)

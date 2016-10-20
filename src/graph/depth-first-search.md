@@ -36,38 +36,41 @@ The algorithm works in $O(m + n)$ time where $n$ is the number of vertices and $
 
 ## Implementation
 
-	vector<vector<int>> g; // graph represented as an adjacency list
-	int n; // number of vertices
+```cpp
+vector<vector<int>> g; // graph represented as an adjacency list
+int n; // number of vertices
 
-	vector<int> color; // vertex color (0, 1, or 2)
+vector<int> color; // vertex color (0, 1, or 2)
 
-	vector<int> time_in, time_out; // entry and exit "times" for each vertex
-	int dfs_timer = 0; // "timer" to determine the current time
+vector<int> time_in, time_out; // entry and exit "times" for each vertex
+int dfs_timer = 0; // "timer" to determine the current time
 
-	void dfs(int v) {
-		time_in[v] = dfs_timer++;
-		color[v] = 1;
-		for (vector <int>::iterator i = g[v].begin(); i != g[v].end(); ++i)
-			if (color[*i] == 0)
-				dfs(*i);
-		color[v] = 2;
-		time_out[v] = dfs_timer++;
-	}
-
+void dfs(int v) {
+	time_in[v] = dfs_timer++;
+	color[v] = 1;
+	for (vector <int>::iterator i = g[v].begin(); i != g[v].end(); ++i)
+		if (color[*i] == 0)
+			dfs(*i);
+	color[v] = 2;
+	time_out[v] = dfs_timer++;
+}
+```
 
 This is the most generic implementation of Depth First Search. In many cases entry and exit times and vertex colors are not important, so they can be discarded. In this case it will be necessary to store a boolean array $used[]$ to keep track of visited vertices. Here is the simplest implementation of DFS:
 
-	vector<vector<int>> g; // graph represented as an adjacency list
-	int n; // number of vertices
+```cpp
+vector<vector<int>> g; // graph represented as an adjacency list
+int n; // number of vertices
 
-	vector<bool> used;
+vector<bool> used;
 
-	void dfs(int v) {
-		used[v] = true;
-		for (vector<int>::iterator i = g[v].begin(); i != g[v].end(); ++i)
-			if (!used[*i])
-				dfs(*i);
-	}
+void dfs(int v) {
+	used[v] = true;
+	for (vector<int>::iterator i = g[v].begin(); i != g[v].end(); ++i)
+		if (!used[*i])
+			dfs(*i);
+}
+```
 
 ## Practice Problems
 

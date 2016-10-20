@@ -92,7 +92,8 @@ Following fully commented code will clarify more.
 
 C++ implementation <span class="toggle-code">Show/Hide</span>  
 
-<pre><code>#include bits/stdc++.h  
+```cpp
+#include bits/stdc++.h  
 using namespace std;
 
 // suffixRank is table hold the rank of each string on each iteration  
@@ -182,7 +183,8 @@ int main() {
     for(int i = 0; i < N; ++i) cout << L[i].originalIndex << endl;
 
     return 0;
-}</code></pre>  
+}
+``` 
 
 ## Practice Problems
 

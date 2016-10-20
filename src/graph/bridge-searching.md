@@ -38,8 +38,9 @@ Thus, to implement, we need a depth first search function with all the informati
 
 C++ implementation <span class="toggle-code">Show/Hide</span>
 
-<pre><code>const int MAXN = ...;
-vector&lt;int&gt; g[MAXN];
+```cpp
+const int MAXN = ...;
+vector<int> g[MAXN];
 bool used[MAXN];
 int timer, tin[MAXN], fup[MAXN];
  
@@ -67,9 +68,8 @@ void find_bridges() {
 	for (int i = 0; i < n; ++i)
 		if (!used[i])
 			dfs (i);
-} </code></pre>
-
-</span>
+}
+```
 
 Here, the main function calls function $find$_$bridges$ which produces necessary initialization and starts depth first search in all components of a graph.
 
