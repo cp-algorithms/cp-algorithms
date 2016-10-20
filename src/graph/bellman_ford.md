@@ -28,25 +28,27 @@ Unlike many other graph algorithms, for Bellman-Ford algorithm, it is more coven
 
 The constant $\rm INF$ denotes the number "infinity" — it should be selected in such a way that it is greater than all possible path lengths.
 
-    struct edge 
-    {
-        int a, b, cost;
-    };
- 
-    int n, m, v;
-    vector<edge> e;
-    const int INF = 1000000000;
- 
-    void solve() 
-    {
-        vector<int> d (n, INF);
-        d[v] = 0;
-	for (int i=0; i<n-1; ++i)
-            for (int j=0; j<m; ++j)
-                if (d[e[j].a] < INF)
-                    d[e[j].b] = min (d[e[j].b], d[e[j].a] + e[j].cost);
-	// display d, for example, on the screen
-    }
+```cpp
+struct edge 
+{
+    int a, b, cost;
+};
+
+int n, m, v;
+vector<edge> e;
+const int INF = 1000000000;
+
+void solve() 
+{
+    vector<int> d (n, INF);
+    d[v] = 0;
+for (int i=0; i<n-1; ++i)
+        for (int j=0; j<m; ++j)
+            if (d[e[j].a] < INF)
+                d[e[j].b] = min (d[e[j].b], d[e[j].a] + e[j].cost);
+// display d, for example, on the screen
+}
+```
 
 The check "if (d[e[j].a] < INF)" is needed only if the graph contains negative weight edges: no such verification would result in relaxation from the vertices to which paths have not yet found, and incorrect distance, of the type $\infty - 1$, $\infty - 2$ etc. would appear.
 
@@ -56,26 +58,28 @@ This algorithm can be somewhat speeded up: often we already get the answer in a 
 
 With this optimization, it is generally unnecessary to restrict manually the number of phases of the algorithm to $n-1$ — the algorithm will stop after the desired number of phases.
 
-    void solve() 
+```cpp
+void solve() 
+{
+    vector<int> d (n, INF);
+    d[v] = 0;
+    for (;;) 
     {
-        vector<int> d (n, INF);
-        d[v] = 0;
-        for (;;) 
-        {
-            bool any = false;
-            
-            for (int j=0; j<m; ++j)
-                if (d[e[j].a] < INF)
-                    if (d[e[j].b] > d[e[j].a] + e[j].cost) 
-                    {
-                        d[e[j].b] = d[e[j].a] + e[j].cost;
-                        any = true;
-                    }
-            
-            if (!any) break;
-        }
-        // display d, for example, on the screen
+        bool any = false;
+        
+        for (int j=0; j<m; ++j)
+            if (d[e[j].a] < INF)
+                if (d[e[j].b] > d[e[j].a] + e[j].cost) 
+                {
+                    d[e[j].b] = d[e[j].a] + e[j].cost;
+                    any = true;
+                }
+        
+        if (!any) break;
     }
+    // display d, for example, on the screen
+}
+```
 
 ### Retrieving Path
 
@@ -87,40 +91,42 @@ Note that the algorithm works on the same logic: it assumes that the shortest di
 
 Following is an implementation of the Bellman-Ford with the retrieval of shortest path to a given node $t$:
 
-    void solve() 
+```cpp
+void solve() 
+{
+    vector<int> d (n, INF);
+    d[v] = 0;
+    vector<int> p (n - 1);
+
+    for (;;) 
     {
-        vector<int> d (n, INF);
-        d[v] = 0;
-        vector<int> p (n - 1);
-
-        for (;;) 
-        {
-            bool any = false;
-            for (int j = 0; j < m; ++j)
-                if (d[e[j].a] < INF)
-                    if (d[e[j].b] > d[e[j].a] + e[j].cost) 
-                    {
-                        d[e[j].b] = d[e[j].a] + e[j].cost;
-                        p[e[j].b] = e[j].a;
-                        any = true;
-                    }
-                    if (!any)  break;
-        }
-
-        if (d[t] == INF)
-            cout << "No path from " << v << " to " << t << ".";
-        else 
-        {
-            vector<int> path;
-            for (int cur = t; cur != -1; cur = p[cur])
-                path.push_back (cur);
-            reverse (path.begin(), path.end());
-
-            cout << "Path from " << v << " to " << t << ": ";
-            for (size_t i=0; i<path.size(); ++i)
-                cout << path[i] << ' ';
-        }
+        bool any = false;
+        for (int j = 0; j < m; ++j)
+            if (d[e[j].a] < INF)
+                if (d[e[j].b] > d[e[j].a] + e[j].cost) 
+                {
+                    d[e[j].b] = d[e[j].a] + e[j].cost;
+                    p[e[j].b] = e[j].a;
+                    any = true;
+                }
+                if (!any)  break;
     }
+
+    if (d[t] == INF)
+        cout << "No path from " << v << " to " << t << ".";
+    else 
+    {
+        vector<int> path;
+        for (int cur = t; cur != -1; cur = p[cur])
+            path.push_back (cur);
+        reverse (path.begin(), path.end());
+
+        cout << "Path from " << v << " to " << t << ": ";
+        for (size_t i=0; i<path.size(); ++i)
+            cout << path[i] << ' ';
+    }
+}
+```
 
 Here starting from the vertex $t$, we go through the predecessors till we reach starting vertex with no predecessor, and store all the vertices in the path in the list $\rm path$. This list is a shortest path from $v$ to $t$, but in reverse order, so we call $\rm reverse()$ function over $\rm path$ and then output the path.
 
@@ -148,51 +154,55 @@ Moreover, if such a cycle is found, the Bellman-Ford algorithm can be modified s
 
 ### Implementation:
 
-    void solve() 
+```cpp
+void solve() 
+{
+    vector<int> d (n, INF);
+    d[v] = 0;
+    vector<int> p (n - 1);
+    int x;
+    for (int i=0; i<n; ++i) 
     {
-        vector<int> d (n, INF);
-        d[v] = 0;
-        vector<int> p (n - 1);
-        int x;
-        for (int i=0; i<n; ++i) 
-        {
-            x = -1;
-            for (int j=0; j<m; ++j)
-                if (d[e[j].a] < INF)
-                    if (d[e[j].b] > d[e[j].a] + e[j].cost) 
-                    {
-                        d[e[j].b] = max (-INF, d[e[j].a] + e[j].cost);
-                        p[e[j].b] = e[j].a;
-                        x = e[j].b;
-                    }
-        }
-
-        if (x == -1)
-            cout << "No negative cycle from " << v;
-        else 
-        {
-            int y = x;
-            for (int i=0; i<n; ++i)
-                y = p[y];
-
-            vector<int> path;
-            for (int cur=y; ; cur=p[cur]) 
-            {
-                path.push_back (cur);
-                if (cur == y && path.size() > 1)  
-                    break;
-            }
-            reverse (path.begin(), path.end());
-
-            cout << "Negative cycle: ";
-            for (size_t i=0; i<path.size(); ++i)
-                cout << path[i] << ' ';
-        }
+        x = -1;
+        for (int j=0; j<m; ++j)
+            if (d[e[j].a] < INF)
+                if (d[e[j].b] > d[e[j].a] + e[j].cost) 
+                {
+                    d[e[j].b] = max (-INF, d[e[j].a] + e[j].cost);
+                    p[e[j].b] = e[j].a;
+                    x = e[j].b;
+                }
     }
+
+    if (x == -1)
+        cout << "No negative cycle from " << v;
+    else 
+    {
+        int y = x;
+        for (int i=0; i<n; ++i)
+            y = p[y];
+
+        vector<int> path;
+        for (int cur=y; ; cur=p[cur]) 
+        {
+            path.push_back (cur);
+            if (cur == y && path.size() > 1)  
+                break;
+        }
+        reverse (path.begin(), path.end());
+
+        cout << "Negative cycle: ";
+        for (size_t i=0; i<path.size(); ++i)
+            cout << path[i] << ' ';
+    }
+}
+```
 
 Due to the presence of a negative cycle, for $n$ iterations of the algorithm, the distances may go far in the negative (apparently, to negative numbers of order $-2^n$). Hence in the code, we adopted additional measures against the integer overflow as follows:
 
-    d[e[j].b] = max (-INF, d[e[j].a] + e[j].cost);
+```cpp
+d[e[j].b] = max (-INF, d[e[j].a] + e[j].cost);
+```
 
 The above implementation looks for a negative cycle reachable from some starting vertex $v$; however, the algorithm can be modified to just looking for any negative cycle in the graph. For this we need to put all the distance $d[i]$ to zero and not infinity — as if we are looking for the shortest path from all vertices simultaneously; the validity of the detection of a negative cycle is not affected. 
 
