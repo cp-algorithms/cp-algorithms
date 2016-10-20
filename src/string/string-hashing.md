@@ -17,7 +17,7 @@ All pieces of code in this article will take the value of $P$ to be equal to $31
 
 Of course, it is desirable to store the hash value in the largest numeric type - int64 i.e unsigned long long. It is obvious that if the length of the string gets to about 20 characters, the hash value will overflow. But the key point to notice here is that we do not pay attention to these overflows, as these overflows are equivalent to keeping the hash modulo $2^{64}$ at all times.
 
-Example of calulating the hash of a string $s$, which contains only small letters:
+Example of calculating the hash of a string $s$, which contains only small letters:
 
     const int p = 31;
     unsigned long long hash = 0, p_pow = 1;
