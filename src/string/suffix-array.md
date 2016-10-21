@@ -1,19 +1,19 @@
 <!--?title Suffix Array-->
-#Suffix Array
+# Suffix Array
 
-###What is a suffix?
+### What is a suffix?
 
 Let $S$ be a string of length $N$. The $i^{th}$ suffix of $S$ is substring $S[i \ldots n - 1], i = 0 \ldots n - 1$.
 
-###What is a suffix array?
+### What is a suffix array?
 
-As a data structure, it is widely used in areas such as data compression, bioinformatics and, 
-in general, in any area that deals with strings and string matching problems, so, as you can see, 
+As a data structure, it is widely used in areas such as data compression, bioinformatics and,
+in general, in any area that deals with strings and string matching problems, so, as you can see,
 it is of great importance to know efficient algorithms to construct a suffix array for a given string.
 
 A **Suffix Array** will contain integers that represent the **starting indexes** of the all the suffixes of a given string, after the aforementioned suffixes are sorted.
 
-###Example
+### Example
 Let $S\ =\ abaab$  
 All suffixes are as follows  
 $0.\ abaab$  
@@ -31,16 +31,16 @@ $1.\ baaab$
 
 Suffix Array for $S$ will be $(2,\ 3,\ 0,\ 4,\ 1)$.  
 
-###Construction Of Suffix Array
+### Construction Of Suffix Array
 
-####$O(N^2\log{N})$ Approach
+#### $O(N^2\log{N})$ Approach
 
 This is the most naive approach. Get all the suffixes and sort them using Quicksort or Mergesort simultaneously retaining their original indexes. Sorting takes $O(N\log{N})$ so how it is $O(N^2\log{N})$??.
 What we miss here is comparison of two strings is not $O(1)$ in worst case it takes $O(N)$.
 So the final complexity is $O(N^2\log{N})$. We can reduce this comparison from $O(N)$ to $O(1)$. Read further :).
 
 
-####$O(N\log^2{N})$ Approach
+#### $O(N\log^2{N})$ Approach
 
 We can reduce comparison of two strings from $O(N)$ to $O(1)$ using the fact that, given strings are not
 random strings they are part of single string. **Each string has something in common with others.**  
@@ -48,7 +48,7 @@ random strings they are part of single string. **Each string has something in co
 Let's see how we can use this fact.
 Let's sort the suffixes on basis of their first character and assign them rank.  
 If two are equal rank for them will be same.  
-  
+
 $0.\ a|baab$  
 $0.\ a|ab$  
 $0.\ a|b$  
@@ -60,7 +60,7 @@ $1.\ b|$
 Now double the characters to take from each for sorting i.e. 2.  
 When we take string of two chars we can have two parts first containing 1 char other containing 1.  
 Let's compare $abaab$ with $baab$, based on the first part, that of 1 character we can say that $abaab$ will  
-be always ranked above $baab$ so skip further comparison.  
+always be ranked above $baab$ so skip further comparison.  
 
 Now compare $abaab$ with $aab$ based on first part both have same rank. Now we will compare their second half part,  
 second half part of $abaab$ is only $b$ and for $aab$ be is $a$ for these we already know their ranks  
@@ -88,7 +88,7 @@ i.e. $O(1)$ comparison.
 
 Following fully commented code will clarify more.  
 
-###Implementation
+### Implementation
 
 C++ implementation <span class="toggle-code">Show/Hide</span>  
 
