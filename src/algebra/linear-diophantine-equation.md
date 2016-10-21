@@ -10,34 +10,34 @@ where $a$, $b$, $c$ are given integers, and $x$, $y$ are unknown integers.
 In this article, we consider several classical problems on these equations:
 
 * finding one solution
-* obtaining all solutions
-* finding number of solutions and the solutions themselves in a given interval
+* finding all solutions
+* finding the number of solutions and the solutions themselves in a given interval
 * finding a solution with minimum value of $x + y$
 
 ## The degenerate case
 
-A degenerate case that need to be taken care of is when $a = b = 0$. It should be easy to see that we either have no solution or infinite number of solutions (depends on $c = 0$ or not). In the rest of this article, we will ignore this case.
+A degenerate case that need to be taken care of is when $a = b = 0$. It is easy to see that we either have no solutions or infinitely many solutions, depending on whether $c = 0$ or not. In the rest of this article, we will ignore this case.
 
 ## Finding a solution
 
-To find one solution of the Diophantine equation with 2 unknowns, you can use the Extended Euclidean algorithm. First, assume that $a$ and $b$ are non-negative. When we apply Extended Euclidean algorithm for $a$ and $b$, we can find their greatest common divisor $g$ and 2 numbers $x_g$ and $y_g$ such that:
+To find one solution of the Diophantine equation with 2 unknowns, you can use the extended Euclidean algorithm. First, assume that $a$ and $b$ are non-negative. When we apply extended Euclidean algorithm for $a$ and $b$, we can find their greatest common divisor $g$ and 2 numbers $x_g$ and $y_g$ such that:
 
 $a x_g + b y_g = g$
 
-If $c$ is divisible by $g = gcd(a, b)$, then the given Diophantine equation has a solution, otherwise it does not have any solution. The proof is straight-forward: a linear combination of two numbers should be divided by their common divisor.
+If $c$ is divisible by $g = gcd(a, b)$, then the given Diophantine equation has a solution, otherwise it does not have any solution. The proof is straight-forward: a linear combination of two numbers is divisible by their common divisor.
 
 Now supposed that $c$ is divisible by $g$, then we have:
 
-$ a . x_g . (c / g) + b . y_g . (c / g) = c$
+$ a \cdot x_g \cdot (c / g) + b \cdot y_g \cdot (c / g) = c$
 
-i.e. One of the solutions of Diophantine are:
+One of the solutions of the Diophantine equation is:
 
-$ x_0 = x_g . (c / g)$,
-$ y_0 = y_g . (c / g)$.
+$ x_0 = x_g \cdot (c / g)$,
+$ y_0 = y_g \cdot (c / g)$.
 
 The above idea still works when $a$ or $b$ or both of them are negative. We only need to change the sign of $x_0$ and $y_0$ when necessary.
 
-Finally, we can implement this idea like following (note that this piece of code does not take care of the case $a = b = 0$):
+Finally, we can implement this idea as follows (note that this code does not consider the case $a = b = 0$):
 
 ```cpp
 int gcd(int a, int b, int &x, int &y) {
@@ -72,16 +72,16 @@ From one solution $(x_0, y_0)$, we can obtain all the solutions of the given equ
 
 Let $g = gcd(a, b)$ and let $x_0, y_0$ be integers which satisfy the following:
 
-$a . x_0 + b . y_0 = c$
+$a \cdot x_0 + b \cdot y_0 = c$
 
 Now, we should see that adding $b / g$ to $x_0$, and, at the same time subtracting $a / g$ from $y_0$ will not break the equality:
 
-$a . (x_0 + b / g) + b . (y_0 - a / g) = a . x_0 + b . y_0 + a . b / g - b . a / g = c$
+$a \cdot (x_0 + b / g) + b \cdot (y_0 - a / g) = a \cdot x_0 + b \cdot y_0 + a \cdot b / g - b \cdot a / g = c$
 
-Obviously, this process can be repeated any number of times, i.e. all the number of the form:
+Obviously, this process can be repeated again, so all the numbers of the form:
 
-$x = x_0 + k . b / g$
-$y = y_0 - k . a / g$
+$x = x_0 + k \cdot b / g$
+$y = y_0 - k \cdot a / g$
 
 are solutions of the given Diophantine equation.
 
@@ -89,9 +89,9 @@ Moreover, this is the set of all possible solutions of the given Diophantine equ
 
 ## Finding the number of solutions and the solutions in a given interval
 
-From previous section, it should be clear that if we don't impose any restrictions on the solutions, there would be infinte number of them. So in this section, we make some restrictions on the interval of $x$ and $y$, and we will try to count & enumerate all the solutions.
+From previous section, it should be clear that if we don't impose any restrictions on the solutions, there would be infinte number of them. So in this section, we add some restrictions on the interval of $x$ and $y$, and we will try to count and enumerate all the solutions.
 
-Let there be two intervals: $[min_x; max_x]$ and $[min_y; max_y]$ and let say we only want to find the solutions in these two intervals.
+Let there be two intervals: $[min_x; max_x]$ and $[min_y; max_y]$ and let's say we only want to find the solutions in these two intervals.
 
 Note that if $a$ or $b$ is $0$, then the problem only has one solution. We don't consider this case here.
 
@@ -153,7 +153,7 @@ int find_all_solutions (int a, int b, int c, int minx, int maxx, int miny, int m
 }
 ```
 
-When we have $lx$ and $rx$, it is simple to enumerate through all the solutions. Just need to iterate through $x = lx + k . b$ and find the corresponding $y$ using the equation $a x + b y = c$.
+When we have $lx$ and $rx$, it is simple to enumerate through all the solutions. Just need to iterate through $x = lx + k \cdot b$ and find the corresponding $y$ using the equation $a x + b y = c$.
 
 ## Find the solution with minimum value of $x + y$
 
@@ -163,13 +163,13 @@ The idea is similar to previous section: We find any solution of the Diophantine
 
 Finally, use the knowledge of the set of all solutions to find the minimum:
 
-$x' = x + k . (b / g)$,
+$x' = x + k \cdot (b / g)$,
 
-$y' = y - k . (a / g)$.
+$y' = y - k \cdot (a / g)$.
 
 Note that $x + y$ change as follows:
 
-$x' + y' = x + y + k . (b/g - a/g) = x + y + k . (b - a) / g$.
+$x' + y' = x + y + k \cdot (b/g - a/g) = x + y + k \cdot (b - a) / g$.
 
 If $a < b$, we need to select smallest possible value of $k$. If $a > b$, we need to select the largest possible value of $k$. If $a = b$, all solution will have the same sum $x + y$.
 

@@ -26,35 +26,37 @@ Kruskal's algorithm initially places all the nodes of the original graph isolate
 
 The following code directly implements the algorithm described above, and is having $O(M log N + N^2)$ time complexity. Sorting edges require $O(M log N)$ operations. Information regarding the subtree to which a vertex belongs is maintained with the help of an array tree_id[ ] - for each vertex $i$, tree_id[i] stores the number of the tree , to which $i$ belongs. For each edge, whether it belongs to the ends of different trees, can be determined in $O(1)$, . Finally, the union of the two trees is carried out in $O​​(N)$ by a simple pass through tree_id[ ] array. Given that total merge operations are $N-1$, we obtain the asymptotic behavior of $O(M log N + N^2)$.
 
-    int m;
-    vector < pair < int, pair < int, int > > > g (m);  //  stores edges (weight - the vertex 1 - vertex 2)
+```cpp
+int m;
+vector < pair < int, pair < int, int > > > g (m);  //  stores edges (weight - the vertex 1 - vertex 2)
 
-    int cost = 0;
-    vector < pair < int, int > > res;
+int cost = 0;
+vector < pair < int, int > > res;
 
-    sort (g.begin(), g.end()); // sorting edges
+sort (g.begin(), g.end()); // sorting edges
+
+vector < int > tree_id (n);
+
+for (int i = 0; i < n; ++i)
+    tree_id[i] = i;
     
-    vector < int > tree_id (n);
+for (int i = 0; i < m; ++i)
+{ 
+    int a = g[i].second.first, b = g[i].second.second, l = g[i].first;
+    
+    if (tree_id[a] != tree_id[b])
+    {
+        cost += l;
+        res.push_back (make_pair (a, b));
 
-    for (int i = 0; i < n; ++i)
-        tree_id[i] = i;
-        
-    for (int i = 0; i < m; ++i)
-    { 
-        int a = g[i].second.first, b = g[i].second.second, l = g[i].first;
-        
-        if (tree_id[a] != tree_id[b])
-        {
-            cost += l;
-            res.push_back (make_pair (a, b));
-
-            int old_id = tree_id[b], new_id = tree_id[a];
-             
-            for (int j = 0; j < n; ++j)
-                if (tree_id[j] == old_id)
-                    tree_id[j] = new_id;
-        }
-    } 
+        int old_id = tree_id[b], new_id = tree_id[a];
+         
+        for (int j = 0; j < n; ++j)
+            if (tree_id[j] == old_id)
+                tree_id[j] = new_id;
+    }
+} 
+```
 
 ## Improved implementation
 

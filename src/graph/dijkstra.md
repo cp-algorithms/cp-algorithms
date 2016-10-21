@@ -87,47 +87,49 @@ $$O(n^2+m)$$
 
 ## Implementation:
 
-    const int INF = 1000000000;
-    
-    int main() {
-        int n;
-        /*... read n ...*/
-       
-        vector < vector < pair < int, int > > > g (n);
-        /*... reading graph ...*/
-        
-        int s = ...; // starting vertex
+```cpp
+const int INF = 1000000000;
 
-        vector < int > d (n, INF), p (n);
+int main() {
+    int n;
+    /*... read n ...*/
+   
+    vector < vector < pair < int, int > > > g (n);
+    /*... reading graph ...*/
+    
+    int s = ...; // starting vertex
+
+    vector < int > d (n, INF), p (n);
+    
+    d[s] = 0;
+    
+    vector<char> u (n);
+    
+    for (int i=0; i<n; ++i) {
+        int v = -1;
         
-        d[s] = 0;
+        for (int j=0; j<n; ++j)
+            if (!u[j] && (v == -1 || d[j] < d[v]))
+                v = j;
         
-        vector<char> u (n);
+        if (d[v] == INF)
+            break;
         
-        for (int i=0; i<n; ++i) {
-            int v = -1;
+        u[v] = true;
+        
+        for (size_t j=0; j<g[v].size(); ++j) {
             
-            for (int j=0; j<n; ++j)
-                if (!u[j] && (v == -1 || d[j] < d[v]))
-                    v = j;
+            int to = g[v][j].first,
+            int len = g[v][j].second;
             
-            if (d[v] == INF)
-                break;
-            
-            u[v] = true;
-            
-            for (size_t j=0; j<g[v].size(); ++j) {
-                
-                int to = g[v][j].first,
-                int len = g[v][j].second;
-                
-                if (d[v] + len < d[to]) {
-                    d[to] = d[v] + len;
-                    p[to] = v;
-                }
+            if (d[v] + len < d[to]) {
+                d[to] = d[v] + len;
+                p[to] = v;
             }
         }
     }
+}
+```
 
 Here the graph $g$ is stored as adjacency list: for each vertex $v$ list $g[v]$ contains the list of edges outgoing from this vertex, i.e. a list of pairs $\rm pair<int,int>$ where the first element in the pair is the vertex which is the other end of the edge, and the second element is the edge weight.
 
@@ -135,13 +137,15 @@ First of all, the arrays, distances $d[]$, labels $u[]$ and predecessor $p[]$ ar
 
 After performing all the iterations, the array $d[]$ is having the lengths of the shortest paths to all vertices, and, the array $p[]$ is having the predecessors of all vertices (except starting vertex $s$). The path to any vertex $t$ can be restored in the following way:
 
-    vector < int > path;
-    
-    for (int v=t; v!=s; v=p[v])
-        path.push_back (v);
-    path.push_back (s);
-    
-    reverse (path.begin(), path.end());
+```cpp
+vector < int > path;
+
+for (int v=t; v!=s; v=p[v])
+    path.push_back (v);
+path.push_back (s);
+
+reverse (path.begin(), path.end());
+```
 
 References:
 

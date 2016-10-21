@@ -41,7 +41,7 @@ Had we solved the original system of equations using algebraic methods, we would
 
 As indicated at the outset, we assume that the circle is centered at the origin, and therefore the input to the program is the radius $r$ of the circle and the parameters $A$, $B$ and $C$ of the equation of the line.
 
-~~~~~
+```cpp
 double r, a, b, c; // given as input
 double x0 = -a*c/(a*a+b*b), y0 = -b*c/(a*a+b*b);
 if (c*c > r*r*(a*a+b*b)+EPS)
@@ -61,7 +61,7 @@ else {
     puts ("2 points");
     cout << ax << ' ' << ay << '\n' << bx << ' ' << by << '\n';
 }
-~~~~~
+```
 
 ## Practice Problems
 

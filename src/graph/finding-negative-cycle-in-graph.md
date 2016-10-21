@@ -16,49 +16,51 @@ The details of the algorithm are described in the article on Bellman-Ford algori
 
 Do $N$ iterations of Bellman-Ford algorithm. If there were no changes on the last iteration, there is no cycle of negative weight in the graph. Otherwise take a vertex the distance to which has changed, and go from it via its ancestores until a cycle is found. This cycle will be the desired cycle of negative weight.
 
-### Implementation<span class="toggle-code">Show/Hide</span>
+### Implementation <span class="toggle-code"> Show/Hide </span>
 
-	struct edge {
-		int a, b, cost ;
-	} ;
-	 
-	int n, m ;
-	vector < edge > e ;
-	const int INF = 1000000000 ;
-	 
-	void solve ( ) {
-		vector < int > d ( n ) ;
-		vector < int > p ( n, - 1 ) ;
-		int x ;
-		for ( int i = 0 ; i < n ; ++ i ) {
-			x = - 1 ;
-			for ( int j = 0 ; j < m ; ++ j )
-				if ( d [ e [ j ] . b ] > d [ e [ j ] . a ] + e [ j ] . cost ) {
-					d [ e [ j ] . b ] = max ( - INF, d [ e [ j ] . a ] + e [ j ] . cost ) ;
-					p [ e [ j ] . b ] = e [ j ] . a ;
-					x = e [ j ] . b ;
-				}
-		}
-	 
-		if ( x == - 1 )
-			cout << "No negative cycle found." ;
-		else {
-			int y = x ;
-			for ( int i = 0 ; i < n ; ++ i )
-				y = p [ y ] ;
-	 
-			vector < int > path ;
-			for ( int cur = y ; ; cur = p [ cur ] ) {
-				path. push_back ( cur ) ;
-				if ( cur == y && path. size ( ) > 1 )  break ;
+```cpp
+struct edge {
+	int a, b, cost ;
+} ;
+ 
+int n, m ;
+vector < edge > e ;
+const int INF = 1000000000 ;
+ 
+void solve ( ) {
+	vector < int > d ( n ) ;
+	vector < int > p ( n, - 1 ) ;
+	int x ;
+	for ( int i = 0 ; i < n ; ++ i ) {
+		x = - 1 ;
+		for ( int j = 0 ; j < m ; ++ j )
+			if ( d [ e [ j ] . b ] > d [ e [ j ] . a ] + e [ j ] . cost ) {
+				d [ e [ j ] . b ] = max ( - INF, d [ e [ j ] . a ] + e [ j ] . cost ) ;
+				p [ e [ j ] . b ] = e [ j ] . a ;
+				x = e [ j ] . b ;
 			}
-			reverse ( path. begin ( ) , path. end ( ) ) ;
-	 
-			cout << "Negative cycle: " ;
-			for ( size_t i = 0 ; i < path. size ( ) ; ++ i )
-				cout << path [ i ] << ' ' ;
+	}
+ 
+	if ( x == - 1 )
+		cout << "No negative cycle found." ;
+	else {
+		int y = x ;
+		for ( int i = 0 ; i < n ; ++ i )
+			y = p [ y ] ;
+ 
+		vector < int > path ;
+		for ( int cur = y ; ; cur = p [ cur ] ) {
+			path. push_back ( cur ) ;
+			if ( cur == y && path. size ( ) > 1 )  break ;
 		}
-	} 
+		reverse ( path. begin ( ) , path. end ( ) ) ;
+ 
+		cout << "Negative cycle: " ;
+		for ( size_t i = 0 ; i < path. size ( ) ; ++ i )
+			cout << path [ i ] << ' ' ;
+	}
+} 
+```
 
 ## Using Floyd-Warshall algorithm
 
@@ -70,11 +72,13 @@ Run Floyd-Warshall algorithm on the graph. Iterate over all pairs of vertices $(
 
 ### Implementation
 
-	for ( int i = 0 ; i < n ; ++ i )
-		for ( int j = 0 ; j < n ; ++ j )
-			for ( int t = 0 ; t < n ; ++ t )
-				if ( d [ i ] [ t ] < INF && d [ t ] [ t ] < 0 && d [ t ] [ j ] < INF )
-					d [ i ] [ j ] = - INF ; 
+```cpp
+for ( int i = 0 ; i < n ; ++ i )
+	for ( int j = 0 ; j < n ; ++ j )
+		for ( int t = 0 ; t < n ; ++ t )
+			if ( d [ i ] [ t ] < INF && d [ t ] [ t ] < 0 && d [ t ] [ j ] < INF )
+				d [ i ] [ j ] = - INF ; 
+```
 
 ## Practice Problems
 

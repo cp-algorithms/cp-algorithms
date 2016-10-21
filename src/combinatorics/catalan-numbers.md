@@ -43,7 +43,8 @@ $( ) ( ( ) )$ can be divided into $( )$ and $( ( ) )$, but cannot be divided int
 
 #### C++ implementation <span class="toggle-code">Show/Hide</span>
 
-<pre><code>const int MOD = ....
+```cpp
+const int MOD = ....
 const int MAX = ....
 int catalan[MAX];
 void init() {
@@ -57,7 +58,8 @@ void init() {
             }
         }
     }
-} </code></pre>
+}
+```
 
 ###Analytical formula
  $$C_n = \frac{1}{n + 1} C_{2n}^{n}$$
