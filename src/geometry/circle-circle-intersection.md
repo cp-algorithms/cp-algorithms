@@ -36,3 +36,5 @@ The only degenerate case we need to consider separately is when the centers of t
 - [Runaway to a shadow - Codeforces Round #357](http://codeforces.com/problemset/problem/681/E)
 
 - [ASC 1 Problem F "Get out!"](http://codeforces.com/gym/100199/problem/F)
+
+- [SPOJ: CIRCINT](http://www.spoj.com/problems/CIRCINT/)

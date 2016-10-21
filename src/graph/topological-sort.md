@@ -27,40 +27,42 @@ Here is an implementation, assuming that the graph is acyclic, i.e. the desired 
 
 `C++` implementation <span class="toggle-code">Show/Hide</span>
 
-    int n; // number of vertices
-    vector<int> g[MAXN]; // count
-    bool used[MAXN];
-    vector<int> ans;
-     
-    void dfs (int v) {
-     used[v] = true;
-	    for (size_t i=0; i<g[v].size(); ++i) {
-		    int to = g[v][i];
-		    if (!used[to])
-     dfs (to);
-	    }
-     ans.push_back (v);
+```cpp
+int n; // number of vertices
+vector<int> g[MAXN]; // count
+bool used[MAXN];
+vector<int> ans;
+ 
+void dfs (int v) {
+ used[v] = true;
+    for (size_t i=0; i<g[v].size(); ++i) {
+	    int to = g[v][i];
+	    if (!used[to])
+ dfs (to);
     }
-     
-    void topological_sort() {
-	    for (int i=0; i<n; ++i)
-     used[i] = false;
-     ans.clear();
-	    for (int i=0; i<n; ++i)
-		    if (!used[i])
-     dfs (i);
-     reverse (ans.begin(), ans.end());
-    }
+ ans.push_back (v);
+}
+ 
+void topological_sort() {
+    for (int i=0; i<n; ++i)
+ used[i] = false;
+ ans.clear();
+    for (int i=0; i<n; ++i)
+	    if (!used[i])
+ dfs (i);
+ reverse (ans.begin(), ans.end());
+}
+```
 
 Here the constant **MAXN** value must be set equal to the maximum possible number of vertices in the graph.
 
 The main function of the solution is topological_sort, it initializes marking depth, starts it, and answer the result in the vector \rm ans.
 
-## Challenges in online judges
+## Practice Problems
 
 The task list in which you want to search topological sorting:
 
+- [SPOJ TOPOSORT "Topological Sorting" [difficulty: easy]](http://www.spoj.com/problems/TOPOSORT/)
 - [UVA #10305 "Ordering Tasks" [difficulty: easy]](https://z5h64q92x9.net/proxy_u/ru-en.en/uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1246)
 - [UVA #124 "Following Orders" [difficulty: easy]](https://z5h64q92x9.net/proxy_u/ru-en.en/uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=60)
 - [UVA #200 "Rare Order" [difficulty: easy]](https://z5h64q92x9.net/proxy_u/ru-en.en/uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=136)
- 

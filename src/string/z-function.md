@@ -7,7 +7,7 @@ In other words, $z[i]$ is the length of the longest common prefix between $s$ an
 
 **Note.** In this article, to avoid ambiguity, we assume $0$-based indexes; that is: the first character of $s$ has index $0$ and the last one has index $n-1$.
 
-The first element of Z-functions, $z[0]$, is generally not well defined. In this article we will assume it is zero (although it doesn't change anything in the algorithm implementation).
+The first element of Z-function, $z[0]$, is generally not well defined. In this article we will assume it is zero (although it doesn't change anything in the algorithm implementation).
 
 This article presents an algorithm for calculating the Z-function in $O(n)$ time, as well as various of its applications.
 
@@ -47,14 +47,16 @@ $ s = `\text{abacaba}\textrm' $
 
 Formal definition can be represented in the following elementary $O(n^2)$ implementation.
 
-<pre><code>vector<int> z_function_trivial(string s) {
+```cpp
+vector<int> z_function_trivial(string s) {
 	int n = (int) s.length();
 	vector<int> z(n);
 	for (int i = 1; i < n; ++i)
 		while (i + z[i] < n && s[z[i]] == s[i + z[i]])
 			++z[i];
 	return z;
-}</code></pre>
+}
+```
 
 We just iterate through every position $i$ and update $z[i]$ for each one of them, starting from $z[i] = 0$ and incrementing it as long as we don't find a mismatch (and as long as we don't reach the end of the line).
 
@@ -102,7 +104,8 @@ The algorithm turns out to be very simple. Despite the fact that on each iterati
 
 Implementation turns out to be rather laconic:
 
-<pre><code>vector<int> z_function(string s) {
+```cpp
+vector<int> z_function(string s) {
 	int n = (int) s.length();
 	vector<int> z(n);
 	for (int i = 1, l = 0, r = 0; i < n; ++i) {
@@ -114,7 +117,8 @@ Implementation turns out to be rather laconic:
 			l = i, r = i + z[i] - 1;
 	}
 	return z;
-}</code></pre>
+}
+```
 
 ### Comments on this implementation
 
@@ -149,7 +153,7 @@ To do that, we will consider both branches of the algorithm:
 * $i \le r$
 
   In this case, we initialize $z[i]$ to a certain value $z_0$ given by the above formula. Let's compare this initial value $z_0$ to the value $r - i + 1$. We will have three cases:
-  
+
     * $z_0 < r - i + 1$
 
       We prove that in this case no iteration of the `while` loop will take place.
@@ -212,7 +216,8 @@ The proof for this fact does not differ from that of the solution which uses the
 
 ## Practice Problems
 
-List of tasks that can be solved using Z-function:
-
-* [UVA # 455 "Periodic Strings" [Difficulty: Medium]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=396)  
+* [UVA # 455 "Periodic Strings" [Difficulty: Medium]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=396)
 * [UVA # 11022 "String Factoring" [Difficulty: Medium]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1963)
+* [UVa 11475 - Extend to Palindrome](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=2470)
+* [LA 6439 - Pasti Pas!](https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&Itemid=8&category=588&page=show_problem&problem=4450)
+* [Codechef - Chef and Strings](https://www.codechef.com/problems/CHSTR)

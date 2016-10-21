@@ -92,7 +92,8 @@ Following fully commented code will clarify more.
 
 C++ implementation <span class="toggle-code">Show/Hide</span>  
 
-<pre><code>#include bits/stdc++.h  
+```cpp
+#include bits/stdc++.h  
 using namespace std;
 
 // suffixRank is table hold the rank of each string on each iteration  
@@ -182,6 +183,12 @@ int main() {
     for(int i = 0; i < N; ++i) cout << L[i].originalIndex << endl;
 
     return 0;
-}</code></pre>  
+}
+``` 
 
-**Upcoming: $O(N\log(N))$ approach, $O(N)$ approach, LCP array, practice problems**
+## Practice Problems
+
+* [Uva 760 - DNA Sequencing](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=701)
+* [Uva 1223 - Editor](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3664)
+
+**Upcoming: $O(N\log(N))$ approach, $O(N)$ approach and LCP array**

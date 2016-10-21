@@ -20,9 +20,7 @@ Now we have to learn how to effectively verify this fact for each vertex. For do
 
 So, let $tin[v]$ denote the the depth first search time of node $v$. Now, we introduce the array $fup[v]$, which is the minimum of $tin[v]$, the DFS time of all nodes $p$ that are connected to node $v$ via back-edge $(v, p)$ and all the values of $fup[to]$ for each vertex to which is a direct child of $v$ in the DFS tree.
 
-<pre><img src="http://e-maxx.ru/tex2png/cache/ec0a7c417df6f6cbc5ef762cd909127f.png" alt=" fup[v] = \min \cases{
-tin[v], &amp; \cr
-tin[p], &amp; {[...]"></pre>
+![Formula for algorithm complexity](&imgroot&/search-bridge-formula.png)
 
 Now, there is a back edge from node $v$ or it's descendants if there is a son $to$ of node $v$ such that $fup[to] \leq tin[v]$.(If $fup[to] = tin[v]$, it means back edge comes directly to $v$, otherwise it comes to some ancestor).
 
@@ -40,8 +38,9 @@ Thus, to implement, we need a depth first search function with all the informati
 
 C++ implementation <span class="toggle-code">Show/Hide</span>
 
-<pre><code>const int MAXN = ...;
-vector&lt;int&gt; g[MAXN];
+```cpp
+const int MAXN = ...;
+vector<int> g[MAXN];
 bool used[MAXN];
 int timer, tin[MAXN], fup[MAXN];
  
@@ -69,9 +68,8 @@ void find_bridges() {
 	for (int i = 0; i < n; ++i)
 		if (!used[i])
 			dfs (i);
-} </code></pre>
-
-</span>
+}
+```
 
 Here, the main function calls function $find$_$bridges$ which produces necessary initialization and starts depth first search in all components of a graph.
 

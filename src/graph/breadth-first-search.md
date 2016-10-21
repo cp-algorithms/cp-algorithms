@@ -1,7 +1,7 @@
 <!--?title Breadth First Search -->
 
 # Breadth-first search
-Breadth first search is one of the basic and essential algorithms on graphs.
+Breadth first search is one of the basic and essential searching algorithms on graphs.
 
 As a result of how the algorithm works, the path found by breadth first search to any node is the shortest path to that node i.e
 the path that contains the smallest number of edges in unweighted graphs.
@@ -30,49 +30,51 @@ necessary to maintain an array of "parents" $p[]$, which stores for each vertex,
 
 We write code for the described algorithm in C++.
 
-Input data:
+```cpp
+// Input Data:
+vector < vector<int> > g; // adjacency list representation of graph
+int n; // number of nodes in the graph
+int s; // the source vertex
+// take input ...
 
-    vector < vector<int> > g; // adjacency list representation of graph
-    int n; // number of nodes in the graph
-    int s; // the source vertex
-    // take input ...
-
-Breadth first Search:
-
-    queue<int> q;
-    q.push (s);
-    vector<bool> used (n);
-    vector<int> d (n), p (n);
-    used[s] = true;
-    p[s] = -1;
-    while (!q.empty()) {
-        int v = q.front();
-        q.pop();
-        for (size_t i = 0; i < g[v].size(); ++i) {
-            int to = g[v][i];
-            if (!used[to]) {
-                used[to] = true;
-                q.push (to);
-                d[to] = d[v] + 1;
-                p[to] = v;
-            }
+// Breadth first Search:
+queue<int> q;
+q.push (s);
+vector<bool> used (n);
+vector<int> d (n), p (n);
+used[s] = true;
+p[s] = -1;
+while (!q.empty()) {
+    int v = q.front();
+    q.pop();
+    for (size_t i = 0; i < g[v].size(); ++i) {
+        int to = g[v][i];
+        if (!used[to]) {
+            used[to] = true;
+            q.push (to);
+            d[to] = d[v] + 1;
+            p[to] = v;
         }
     }
+}
+```
 
 If we have to restore and display the shortest path from the source to some vertex $to$, it can be done in the following
 manner:
 
-    if (!used[to])
-        cout << "No path!";
-    else {
-        vector<int> path;
-        for (int v=to; v!=-1; v=p[v])
-            path.push_back (v);
-        reverse (path.begin(), path.end());
-        cout << "Path: ";
-        for (size_t i=0; i<path.size(); ++i)
-            cout << path[i] + 1 << " ";
-    }
+```cpp
+if (!used[to])
+    cout << "No path!";
+else {
+    vector<int> path;
+    for (int v=to; v!=-1; v=p[v])
+        path.push_back (v);
+    reverse (path.begin(), path.end());
+    cout << "Path: ";
+    for (size_t i=0; i<path.size(); ++i)
+        cout << path[i] + 1 << " ";
+}
+```
 
 ## Applications of BFS
 
@@ -97,5 +99,6 @@ manner:
 * [SPOJ: AKBAR](http://spoj.com/problems/AKBAR)
 * [SPOJ: NAKANJ](http://www.spoj.com/problems/NAKANJ/)
 * [SPOJ: WATER](http://www.spoj.com/problems/WATER)
+* [SPOJ: MICE AND MAZE](http://www.spoj.com/problems/MICEMAZE/)
 
 
