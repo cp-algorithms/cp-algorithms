@@ -50,7 +50,7 @@ The described scheme left out many details. At the $i$th step, if $a_{ii}$ is ze
 
 Note that, here we swap rows but not columns. This is because if you swap columns, then when you find a solution, you must remember to swap back to correct places. Thus, swapping rows is much easier to do.
 
-In many implementation, when $a_{ii} \neq 0$, you can see people still swap the $i$th row with some pivoting row, using some heuristics such as choosing the pivoting row with maximum absolute value of $a_{ji}$. This heuristic is used to reduce the value range of the matrix in later step. Without this heuristic, even for matrices of size about $20$, the error will be too big and can cause overflow for floating points data types of C++.
+In many implementations, when $a_{ii} \neq 0$, you can see people still swap the $i$th row with some pivoting row, using some heuristics such as choosing the pivoting row with maximum absolute value of $a_{ji}$. This heuristic is used to reduce the value range of the matrix in later step. Without this heuristic, even for matrices of size about $20$, the error will be too big and can cause overflow for floating points data types of C++.
 
 ## Degenerate cases
 
@@ -74,7 +74,7 @@ The function returns the number of solutions of the system $(0, 1,\textrm{or } \
 int gauss (vector < vector<double> > a, vector<double> & ans) {
 	int n = (int) a.size();
 	int m = (int) a[0].size() - 1;
- 
+
 	vector<int> where (m, -1);
 	for (int col=0, row=0; col<m && row<n; ++col) {
 		int sel = row;
@@ -86,7 +86,7 @@ int gauss (vector < vector<double> > a, vector<double> & ans) {
 		for (int i=col; i<=m; ++i)
 			swap (a[sel][i], a[row][i]);
 		where[col] = row;
- 
+
 		for (int i=0; i<n; ++i)
 			if (i != row) {
 				double c = a[i][col] / a[row][col];
@@ -95,7 +95,7 @@ int gauss (vector < vector<double> > a, vector<double> & ans) {
 			}
 		++row;
 	}
- 
+
 	ans.assign (m, 0);
 	for (int i=0; i<m; ++i)
 		if (where[i] != -1)
@@ -107,7 +107,7 @@ int gauss (vector < vector<double> > a, vector<double> & ans) {
 		if (abs (sum - a[i][m]) > EPS)
 			return 0;
 	}
- 
+
 	for (int i=0; i<m; ++i)
 		if (where[i] == -1)
 			return INF;
@@ -145,7 +145,7 @@ Reverse phase only takes $O(nm)$, which is much faster than forward phase. In fo
 
 ## Solving SLAE
 
-For solving SLAE in some module, we can still used the described algorithm. However, in case the module is equal to two, we can perform Gauss-Jordan elimination much more effectively using bitwise operations and C++ bitset data types:
+For solving SLAE in some module, we can still use the described algorithm. However, in case the module is equal to two, we can perform Gauss-Jordan elimination much more effectively using bitwise operations and C++ bitset data types:
 
 ```cpp
 int gauss (vector < bitset<N> > a, int n, int m, bitset<N> & ans) {
@@ -159,7 +159,7 @@ int gauss (vector < bitset<N> > a, int n, int m, bitset<N> & ans) {
 		if (! a[row][col])
 			continue;
 		where[col] = row;
- 
+
 		for (int i=0; i<n; ++i)
 			if (i != row && a[i][col])
 				a[i] ^= a[row];
@@ -190,6 +190,6 @@ Therefore, the resulting Gauss-Jordan solution must sometimes be improved by app
 Thus, the solution turns into two-step: First, Gauss-Jordan algorithm is applied, and then a numerical method taking initial solution as solution in the first step.
 
 ## Practice Problems
-* [Spoj - Xor maximisation](http://www.spoj.com/problems/XMAX/)
+* [Spoj - Xor Maximization](http://www.spoj.com/problems/XMAX/)
 * [Codechef - Knight Moving](https://www.codechef.com/SEP12/problems/KNGHTMOV)
 * [Lightoj - Graph Coloring](http://lightoj.com/volume_showproblem.php?problem=1279)
