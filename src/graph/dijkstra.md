@@ -155,5 +155,5 @@ References:
 ## Practice Problem:
 * [Timus - Ivan's Car [Difficulty:Medium]](http://acm.timus.ru/problem.aspx?space=1&num=1930)
 * [SPOJ  - SHPATH [Difficulty:Easy]](http://www.spoj.com/problems/SHPATH/)
-
+* [Codeforces - Dijkstra? [Difficulty:Easy]](http://codeforces.com/problemset/problem/20/C)
 
