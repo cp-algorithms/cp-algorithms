@@ -63,8 +63,8 @@ Approach in C++ <span class="toggle-code">Show/Hide</span>:
 		return res;
 	}
 
-This approach builds the result starting from smallest degrees of `a`. If we use recursion
-instead of loop we can work in "inverse" direction, starting from largest degrees and dividing
+This approach builds the result starting from the smallest degrees of `a`. If we use recursion
+instead of loop we can work in "inverse" direction, starting from the largest degrees and dividing
 `b` in two at each step.
 
 **Recursive** approach in Python 3 <span class="toggle-code">Show/Hide</span>:
