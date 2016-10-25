@@ -14,13 +14,13 @@ The Euclidean algorithm, discussed below, solves the problem of finding the grea
 
 The algorithm was first described in Euclid's “**Elements**” (circa 300 BC). However, it is possible that the algorithm has earlier origins.
 
-##Algorithm
+## Algorithm
 
 The algorithm is extremely simple and described by this formula:
 
 ![image](http://e-maxx.ru/tex2png/cache/b8e1571eb429ef8ef1c06bc060dec3e7.png)
 
-##Implementation
+## Implementation
 
 ```cpp
 int gcd (int a, int b) {
@@ -51,11 +51,11 @@ int gcd (int a, int b) {
 }
 ```
 
-##The Proof of correctness
+## The Proof of correctness
 
 First, observe that at each successive iteration of the Euclidean algorithm, it's second argument strictly decreases, therefore, since it is always non-negative, the algorithm must terminate.
 
-For the proof of correctness, we need to show $gcd(a, b) = gcd(b, a mod b)$ for all $a \geq 0$, $b > 0$.
+For the proof of correctness, we need to show $gcd(a, b) = gcd(b, a\mod b)$ for all $a \geq 0$, $b > 0$.
 
 We will show that the quantity on the left side of the equation, can be written as the value on the left. Obviously, this would mean that the left and right sides are the same and prove Euclid's algorithm.
 
@@ -83,17 +83,17 @@ Or, by substituting $d$ by it's definition($gcd(a, b)$) we get:
 
 So, we have shown that the left side divides the right. The second half of the proof is similar.
 
-##Time complexity
+## Time complexity
 
 The running time of the algorithm is estimated by Lame's theorem, which establishes a surprising connection between the euclidean algorithm and the Fibonacci sequence:
 
 If $a > b \geq 1$ and $b < F_n$ for some $n$, the euclidean algorithm performs no more than $n-2$ recursive calls.
 
-Moreover, one can show that the upper bound of this theorem is optimal. When $a = F_n$ and $b = F_n-1$, $gcd(a, b)$ performs $n-2$ recursive calls. In other words, consecutive fibonacci numbers are the worst case input for Euclid's algorithm.
+Moreover, one can show that the upper bound of this theorem is optimal. When $a = F_n$ and $b = F_{n-1}$, $gcd(a, b)$ performs $n-2$ recursive calls. In other words, consecutive fibonacci numbers are the worst case input for Euclid's algorithm.
 
 Given that Fibonacci numbers grow exponentially(as a constant with respect to $n$), we find that the Euclidean algorithm is performed in $O(\log min(a, b))$
 
-LCM(Least common multiple)
+## LCM(Least common multiple)
 
 Calculating least common multiple (least common multiplier, lcm) is reduced to calculating $gcd$ with the following simple statement:
 
