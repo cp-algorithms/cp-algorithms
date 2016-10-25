@@ -1,7 +1,7 @@
 <!--?title The Inclusion-Exclusion Principle-->
 # The Inclusion-Exclusion Principle
 
-The inclusion-exclusion principle is an important combinatorial way to compute the size of a set or the probabilty of complex events. It relates the sizes of individual sets with their union.
+The inclusion-exclusion principle is an important combinatorial way to compute the size of a set or the probability of complex events. It relates the sizes of individual sets with their union.
 
 ## Statement
 
@@ -35,7 +35,7 @@ It can also be generalized for an association of $n$ sets.
 
 ### The formulation in terms of probability theory
 
-If $A_i$ $(i = 1,2...n)$ are events and ${\cal P}(A_i)$ the probability of a event from $A_i$ to occur, then the probabilty of their union (i.e. the probability that at least one of the events occur) is equal to:
+If $A_i$ $(i = 1,2...n)$ are events and ${\cal P}(A_i)$ the probability of an event from $A_i$ to occur, then the probability of their union (i.e. the probability that at least one of the events occur) is equal to:
 
 $$\begin{eqnarray}
 {\cal P} \left( \bigcup_{i=1}^n A_i \right) &=& \sum_{i=1}^n{\cal P}(A_i)\ - \sum_{1\leq i<j\leq n} {\cal P}(A_i \cap A_j)\  + \\\\\\
@@ -54,10 +54,10 @@ $$\left|\bigcup_{i=1}^n A_i \right| = \sum_{\emptyset \neq J\subseteq \\{1,2,\ld
 
 We want to prove that any element contained in at least one of the sets $A_i$ will occur in the formula only once (note that elements which are not present in any of the sets $A_i$ will never be considered on the right part of the formula).
 
-Consider an element $x$ occuring in $k \geq 1$ sets $A_i$. We will show it is counted only once in the formula. Note that:
+Consider an element $x$ occurring in $k \geq 1$ sets $A_i$. We will show it is counted only once in the formula. Note that:
 
 * in terms which $|J| = 1$, the item $x$ will be counted **$+\ k$** times;
-* in terms which $|J| = 2$, the item $x$ will be counted **$-\ C_k^2$** times - because it will be counted in those terms that include two of the $k$ sets containg $x$;
+* in terms which $|J| = 2$, the item $x$ will be counted **$-\ C_k^2$** times - because it will be counted in those terms that include two of the $k$ sets containing $x$;
 * in terms which $|J| = 3$, the item $x$ will be counted **$+\ C_k^3$** times;
 * $\cdots$
 * in terms which $|J| = k$, the item $x$ will be counted **$(-1)^{k-1}\cdot C_k^k$** times;
@@ -77,7 +77,7 @@ When $x = 1$, $(1 - x)^k$ looks a lot like $T$. However, the expression has an a
 
 The inclusion-exclusion principle is hard to understand without studying its applications.
 
-First, we will look at three simples tasks "at paper", illustrating applications of the principle, and then consider more practical problems which are difficult to solve without inclusion-exclusion principle.
+First, we will look at three simplest tasks "at paper", illustrating applications of the principle, and then consider more practical problems which are difficult to solve without inclusion-exclusion principle.
 
 Tasks asking to "find the **number** of ways" are worth of note, as they sometimes lead to polynomial solutions, not necessarily exponential.
 
@@ -194,7 +194,7 @@ int solve (int n, int r) {
 }
 ```
 
-Asmptotics of the solution is $O (\sqrt{n})$.
+Asymptotics of the solution is $O (\sqrt{n})$.
 
 ### The number of integers in a given interval which are multiple of at least one of the given numbers
 
@@ -224,7 +224,7 @@ If we sum up on all $ans(X)$, we will get the final answer:
 
 $$ ans = \sum_{X ~ : ~ |X| = k} ans(X) $$
 
-However, asymtotics of this solution is $O(3^k \cdot k)$. To improve it, notice that different $ans(X)$ computations very often share $Y$ sets.
+However, asymptotics of this solution is $O(3^k \cdot k)$. To improve it, notice that different $ans(X)$ computations very often share $Y$ sets.
 
 We will reverse the formula of inclusion-exclusion and sum in terms of $Y$ sets. Now it becomes clear that the same set $Y$ would be taken into account in the computation of $ans(X)$ of $C_{|Y|}^k$ sets with the same sign $(-1)^{|Y| - k}$.
 
@@ -253,7 +253,7 @@ $$ ans = \sum_{Y ~ : ~ |Y| \ge k} (-1)^{|Y|-k} \cdot C_{|Y|-1}^{|Y|-k} \cdot f(Y
 
 ### The number of ways of going from a cell to another
 
-There is a field $n \times m$, and $k$ of its cells are impassable walls. A robot is nitially at the cell $(1,1)$ (bottom left). The robot can only move right or up, and eventually it needs to get into the cell $(n,m)$, avoiding all obstacles. You need to count the number of ways he can do it.
+There is a field $n \times m$, and $k$ of its cells are impassable walls. A robot is initially at the cell $(1,1)$ (bottom left). The robot can only move right or up, and eventually it needs to get into the cell $(n,m)$, avoiding all obstacles. You need to count the number of ways he can do it.
 
 Assume that the sizes $n$ and $m$ are very large (say, $10^9$), and the number $k$ is small (around $100$).
 
@@ -281,7 +281,7 @@ We can compute $d[i][j]$ in $O(k)$ for $O(k^2)$ pairs, so this solution has comp
 
 ### The number of coprime quadruples
 
-You're giben $n$ numbers: $a_1, a_2, \ldots, a_n$. You are required to count the number of ways to choose four numbers so that their combined greatest common divisor is equal to one.
+You're given $n$ numbers: $a_1, a_2, \ldots, a_n$. You are required to count the number of ways to choose four numbers so that their combined greatest common divisor is equal to one.
 
 We will solve the inverse problem — compute the number of "bad" quadruples, i.e. quadruples in which all numbers are divisible by a number $d > 1$.
 
@@ -315,17 +315,17 @@ or $gcd(a,b) = 1 \wedge gcd(a,c) = 1 \wedge gcd(b,c) > 1$
 
 In both of these cases, it will be counted twice. The first case will be counted when $i = a$ and when $i = b$. The second case will be counted when $i = b$ and when $i = c$. Therefore, to compute the number of non-harmonic triples, we sum this calculation through all $i$ from $2$ to $n$ and divide it by $2$.
 
-Now all we have left to solve is to learn to count the number of coprimes to $i$ in the interval $[2;n]$. Although this problem has already been mentiond, the above solution is not suitable here — it would require the factorization of each of the integers from $2$ to $n$, and then iterationg through all subsets of these primes.
+Now all we have left to solve is to learn to count the number of coprimes to $i$ in the interval $[2;n]$. Although this problem has already been mentioned, the above solution is not suitable here — it would require the factorization of each of the integers from $2$ to $n$, and then iterating through all subsets of these primes.
 
 A faster solution is possible with such modification of the sieve of Eratosthenes:
 
-1. First, we find all numbers in the interval $[2;n]$ such that its simple factorization does not include a prime factor twice. We will also need to know, for this numbers, how many factors it includes.
+1. First, we find all numbers in the interval $[2;n]$ such that its simple factorization does not include a prime factor twice. We will also need to know, for these numbers, how many factors it includes.
     * To do this we will maintain an array $deg[i]$ to store the number of primes in the factorization of $i$, and an array $good[i]$, to mark either if $i$ contains each factor at most twice ($good[i] = 1$) or not ($good[i] = 0$). When iterating from $2$ to $n$, if we reach a number that has $deg$ equal to $0$, then it is a prime and its $deg$ is $1$.
     * During the sieve of Eratosthenes, we will iterate $i$ from $2$ to $n$. When processing a prime number we go through all of its multiples and increase their $deg[]$. If one of these multiples is multiple of the square of $i$, then we can put $good$ as false.
 
 2. Second, we need to calculate the answer for all $i$ from $2$ to $n$, i.e., the array $cnt[]$ — the number of integers not coprime with $i$.
     * To do this, remember how the formula of inclusion-exclusion works — actually here we implement the same concept, but with inverted logic: we iterate over a component (a product of primes from the factorization) and add or subtract its term on the formula of inclusion-exclusion of each of its multiples.
-    * So, let's say we are processing a number $i$ such that $good[i] = true$, i.e., it is involved in the formula of inclusion-exclusion. Iteratate through all numbers that are multiples of $i$, and either add or subtract $\lfloor N/i \rfloor$ from their $cnt[]$ (the signal depends on $deg[i]$: if $deg[i]$ is odd, then we must add, otherwise subtract).
+    * So, let's say we are processing a number $i$ such that $good[i] = true$, i.e., it is involved in the formula of inclusion-exclusion. Iterate through all numbers that are multiples of $i$, and either add or subtract $\lfloor N/i \rfloor$ from their $cnt[]$ (the signal depends on $deg[i]$: if $deg[i]$ is odd, then we must add, otherwise subtract).
 
 Here's a C++ implementation:
 
@@ -386,7 +386,7 @@ $$\begin{eqnarray}
 
 because if we know that the number of fixed points is equal $x$, then we know the position of $x$ elements of the permutation, and all other $(n-x)$ elements can be placed anywhere.
 
-Substituting this into the formula of inclusion-exclusion, and given that the number of ways to choose a subset of size $x$ from the set of $n$ elementsis equal to $C_n^x$, we obtain a formula for the number of permutations with at least one fixed point:
+Substituting this into the formula of inclusion-exclusion, and given that the number of ways to choose a subset of size $x$ from the set of $n$ elements is equal to $C_n^x$, we obtain a formula for the number of permutations with at least one fixed point:
 
 $$C_n^1 \cdot (n-1)! - C_n^2 \cdot (n-2)! + C_n^3 \cdot (n-3)! - \cdots \pm C_n^n \cdot (n-n)! $$
 
@@ -415,8 +415,7 @@ A list of tasks that can be solved using the principle of inclusions-exclusions:
 * [TopCoder SRM 390 "SetOfPatterns" [difficulty: medium]](http://www.topcoder.com/stat?c=problem_statement&pm=8307)
 * [TopCoder SRM 176 "Deranged" [difficulty: medium]](http://community.topcoder.com/stat?c=problem_statement&pm=2013)
 * [TopCoder SRM 457 "TheHexagonsDivOne" [difficulty: medium]](http://community.topcoder.com/stat?c=problem_statement&pm=10702&rd=14144&rm=303184&cr=22697599)
-* [Test>>>thebest "HarmonicTriples" (in russian) [difficulty: medium]](http://esci.ru/ttb/statement-62.htm)
+* [Test>>>thebest "HarmonicTriples" (in Russian) [difficulty: medium]](http://esci.ru/ttb/statement-62.htm)
 * [SPOJ #4191 MSKYCODE "Sky Code" [difficulty: medium]](http://www.spoj.pl/problems/MSKYCODE/)
 * [SPOJ #4168 SQFREE "Square-free integers" [difficulty: medium]](http://www.spoj.pl/problems/SQFREE/)
 * [CodeChef "Count Relations" [difficulty: medium]](http://www.codechef.com/JAN11/problems/COUNTREL/)
-
