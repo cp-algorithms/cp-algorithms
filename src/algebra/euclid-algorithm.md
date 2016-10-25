@@ -112,4 +112,8 @@ int lcm (int a, int b) {
 
 - Thomas Cormen, Charles Leiserson, Ronald Rivest, Clifford Stein. Algorithms: Construction and analysis [2005]
 
+## Problems
+
+- [GCD and LCM[easy]](https://www.codechef.com/problems/FLOW016)
+
 ####Note: Translated by [NibNalin](http://codeforces.com/profile/NibNalin)

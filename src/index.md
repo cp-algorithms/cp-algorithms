@@ -9,6 +9,7 @@ especially popular in field of competitive programming.*
 
 ### Algebra
 - [Euler's Totient Function](./algebra/phi-function.html)
+- [Euclidean algorithm for finding the GCD(greatest common divisor)](./algebra/euclid-algorithm.html)
 - [Sieve of Eratosthenes](./algebra/sieve-of-eratosthenes.html)
 - [Binary Exponentiation](./algebra/binary-exp.html)
 - [Balanced Ternary](./algebra/balanced-ternary.html)
@@ -53,8 +54,6 @@ especially popular in field of competitive programming.*
 - [Kirchhoff theorem](./graph/kirchhoff-theorem.html)
 - [Topological sorting](./graph/topological-sort.html)
 - [Searching for bridges in O(N+M)](./graph/bridge-searching.html)
-<<<<<<< HEAD
-=======
 - [Finding a negative cycle in the graph](./graph/finding-negative-cycle-in-graph.html)
 - [Floyd-Warshall - all shortest paths](./graph/all-pair-shortest-path-floyd-warshall.html)
 - [Dijkstra - shortests paths from given vertex](./graph/dijkstra.html)
@@ -68,9 +67,7 @@ especially popular in field of competitive programming.*
 ### Sequences
 - [RMQ task (Range Minimum Query - the smallest element in an interval)](./sequences/rmq.html)
 - [K-th order statistic in O(N)](./sequences/k-th.html)
->>>>>>> e-maxx-eng/master
 
 ---
 
 [Information for contributors](./contrib.html) and [Test-Your-Page form](./test.php)
-
