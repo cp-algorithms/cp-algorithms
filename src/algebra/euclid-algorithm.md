@@ -111,3 +111,5 @@ int lcm (int a, int b) {
 ##Literature
 
 - Thomas Cormen, Charles Leiserson, Ronald Rivest, Clifford Stein. Algorithms: Construction and analysis [2005]
+
+####Note: Translated by [NibNalin](http://codeforces.com/profile/NibNalin)
