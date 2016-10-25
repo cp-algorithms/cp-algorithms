@@ -4,7 +4,7 @@
 
 Given two non-negative integers $a$ and $b$, we require the greater common divisor i.e. the largest number which is a divisor of $a$ and $b$ simultaneously. It's common denoted by $gcd$.
 
-![Euclid’s formula](http://e-maxx.ru/tex2png/cache/e49f97b41b2449d76d33517b580fef68.png)
+![Euclid’s formula](&imgroot&/euclid1.png)
 
 (here the symbol "$\mid$" denotes divisibility, i.e. “$k\mid a$” means “$k$ divides $a$”)
 
@@ -18,7 +18,7 @@ The algorithm was first described in Euclid's “**Elements**” (circa 300 BC).
 
 The algorithm is extremely simple and described by this formula:
 
-![image](http://e-maxx.ru/tex2png/cache/b8e1571eb429ef8ef1c06bc060dec3e7.png)
+![image](&imgroot&/euclid2.png)
 
 ## Implementation
 
@@ -63,23 +63,23 @@ Let $d = gcd(a, b)$. Then, by definition $d\mid a$ and $d\mid b$.
 
 New writing the remainder on dividing $a$ by $b$:
 
-![image](http://e-maxx.ru/tex2png/cache/ad604a58d5faf878aeaa5492d8f28d12.png)
+![image](&imgroot&/euclid3.png)
 
 But then, it follows:
 
-![image](http://e-maxx.ru/tex2png/cache/85feaf22c5f69e1d19617467cdab7a04.png)
+![image](&imgroot&/euclid4.png)
 
 So, remembering the statement $d\mid b$, we obtain the system:
 
-![image](http://e-maxx.ru/tex2png/cache/9d785ea6dd075edc4a1849cf44affb22.png)
+![image](&imgroot&/euclid5.png)
 
 We now use the following fact: if for any three numbers $p$, $q$, and $r$, if $p\mid q$ and $p\mid r$ then $p\mid gcd(q, r)$, In our case, we get:
 
-![image](http://e-maxx.ru/tex2png/cache/9318355a27d52014ebd91c204579fb3c.png)
+![image](&imgroot&/euclid6.png)
 
 Or, by substituting $d$ by it's definition($gcd(a, b)$) we get:
 
-![image](http://e-maxx.ru/tex2png/cache/256b72e6f755e9181250d20bf15cc4b7.png)
+![image](&imgroot&/euclid7.png)
 
 So, we have shown that the left side divides the right. The second half of the proof is similar.
 
@@ -97,7 +97,7 @@ Given that Fibonacci numbers grow exponentially(as a constant with respect to $n
 
 Calculating least common multiple (least common multiplier, lcm) is reduced to calculating $gcd$ with the following simple statement:
 
-![image](http://e-maxx.ru/tex2png/cache/1407548584803d912291dc28ee8f40ec.png)
+![image](&imgroot&/euclid8.png)
 
 Thus, the calculation of the LCM can also be done using the euclidean algorithm with the same time complexity
 
