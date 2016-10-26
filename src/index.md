@@ -40,6 +40,9 @@ especially popular in field of competitive programming.*
 - [Binomial Coefficients](./combinatorics/binomial-coefficients.html)
 - [Catalan Numbers](./combinatorics/catalan-numbers.html)
 
+### Numerical Methods
+- [Ternary Search](./num_methods/ternary_search.html)
+
 ### Geometry
 - [Length of the union of intervals on a line in O(N\*logN)](./geometry/length-of-segments-union.html)
 - [Oriented area of a triangle and predicate "clockwise"](./geometry/oriented-triangle-area.html)
