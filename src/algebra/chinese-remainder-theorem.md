@@ -4,7 +4,7 @@
 
 ## Formulation
 
-The Chinese Remainder Theorem (will be refered to as CRT in the rest of this article), is formulated as follows:
+The Chinese Remainder Theorem (will be referred to as CRT in the rest of this article), is formulated as follows:
 
 Let $p = p_1 . p_2 ... p_k$ where $p_i$ are pairwise relatively prime.
 
@@ -77,7 +77,7 @@ for (int i=0; i<k; ++i) {
 	x[i] = a[i];
 	for (int j=0; j<i; ++j) {
 		x[i] = r[j][i] * (x[i] - x[j]);
- 
+
 		x[i] = x[i] % p[i];
 		if (x[i] < 0)  x[i] += p[i];
 	}
@@ -100,57 +100,57 @@ Below is an implementation of Garner algorithm, which supports addition, subtrac
 final int SZ = 100;
 int pr[] = new int[SZ];
 int r[][] = new int[SZ][SZ];
- 
+
 void init() {
 	for (int x=1000*1000*1000, i=0; i<SZ; ++x)
 		if (BigInteger.valueOf(x).isProbablePrime(100))
 			pr[i++] = x;
- 
+
 	for (int i=0; i<SZ; ++i)
 		for (int j=i+1; j<SZ; ++j)
 			r[i][j] = BigInteger.valueOf( pr[i] ).modInverse(
 					BigInteger.valueOf( pr[j] ) ).intValue();
 }
- 
- 
+
+
 class Number {
- 
+
 	int a[] = new int[SZ];
- 
+
 	public Number() {
 	}
- 
+
 	public Number (int n) {
 		for (int i=0; i<SZ; ++i)
 			a[i] = n % pr[i];
 	}
- 
+
 	public Number (BigInteger n) {
 		for (int i=0; i<SZ; ++i)
 			a[i] = n.mod( BigInteger.valueOf( pr[i] ) ).intValue();
 	}
- 
+
 	public Number add (Number n) {
 		Number result = new Number();
 		for (int i=0; i<SZ; ++i)
 			result.a[i] = (a[i] + n.a[i]) % pr[i];
 		return result;
 	}
- 
+
 	public Number subtract (Number n) {
 		Number result = new Number();
 		for (int i=0; i<SZ; ++i)
 			result.a[i] = (a[i] - n.a[i] + pr[i]) % pr[i];
 		return result;
 	}
- 
+
 	public Number multiply (Number n) {
 		Number result = new Number();
 		for (int i=0; i<SZ; ++i)
 			result.a[i] = (int)( (a[i] * 1l * n.a[i]) % pr[i] );
 		return result;
 	}
- 
+
 	public BigInteger bigIntegerValue (boolean can_be_negative) {
 		BigInteger result = BigInteger.ZERO,
 			mult = BigInteger.ONE;
@@ -164,11 +164,11 @@ class Number {
 			result = result.add( mult.multiply( BigInteger.valueOf( x[i] ) ) );
 			mult = mult.multiply( BigInteger.valueOf( pr[i] ) );
 		}
- 
+
 		if (can_be_negative)
 			if (result.compareTo( mult.shiftRight(1) ) >= 0)
 				result = result.subtract( mult );
- 
+
 		return result;
 	}
 }
@@ -178,7 +178,7 @@ Note on negative numbers:
 
 * Let $p$ be the product of all primes.
 
-* Modular scheme itself does not allow representing negative numbers. However, it can be seen that if we know that the absolute values our numbers are smaller than $p / 2$, then we know that it must be negative when the resulting number is greater than $p / 2$. The flag $can_be_negative$ in this code allows converting it to negative in this case. 
+* Modular scheme itself does not allow representing negative numbers. However, it can be seen that if we know that the absolute values our numbers are smaller than $p / 2$, then we know that it must be negative when the resulting number is greater than $p / 2$. The flag $can_be_negative$ in this code allows converting it to negative in this case.
 
 ## Practice Problem:
 * [Hackerrank - Number of sequences](https://www.hackerrank.com/contests/w22/challenges/number-of-sequences)
