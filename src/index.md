@@ -20,6 +20,7 @@ especially popular in field of competitive programming.*
 - [Discrete Log](./algebra/discrete-log.html)
 - [Enumerating submasks of a bit mask](./algebra/all-submasks.html)
 - [Gray code](./algebra/gray-code.html)
+- [Sieve of Eratosthenes Having Linear Time Complexity](./algebra/prime-sieve-linear.html)
 
 ### Data Structure
 - [Fenwick Tree](./data_structures/fenwick.html)
