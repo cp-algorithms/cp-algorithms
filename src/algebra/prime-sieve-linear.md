@@ -24,7 +24,7 @@ The algorithm’s authorship appears to belong to Gries & Misra (Gries, Misra, 1
 
 Our goal is to calculate **a minimum prime factor** $lp [i]$ for every number $i$ in a segment $[2; n]$.
 
-Besides, we need to keep the list of all the found prime numbers - lets call it $array\ pr []$.
+Besides, we need to keep the list of all the found prime numbers - let's call it $array\ pr []$.
 
 Initially, we’ll fill out all the values $lp [i]$ with zeros, which means that we assume all numbers are prime. During the work of the algorithm, this array will be filled gradually.
 
@@ -38,7 +38,7 @@ Hence, it is needed to assign $lp [i] = i$ and to add $i$ to the end of the list
 
 In both cases afterwards begins the process of **arranging values** in array $lp []$:  we'll be taking the numbers that are multiple to $i$ and updating values of $lp []$. However, our goal is to learn to do it in a way to set a value $lp []$ not more than once for every number.
 
-In order to perform this we need to do the following. Lets look at the numbers of type
+In order to perform this we need to do the following. Let's look at the numbers of type
 
 $x _j = i \cdot \ p _ j$,
 
