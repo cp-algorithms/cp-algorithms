@@ -24,7 +24,7 @@ The algorithm’s authorship appears to belong to Gries & Misra (Gries, Misra, 1
 
 Our goal is to calculate **a minimum prime factor** $lp [i]$ for every number $i$ in a segment $[2; n]$.
 
-Besides, we need to keep the list of all the found prime numbers - lets call it $array\ pr []$.
+Besides, we need to keep the list of all the found prime numbers - let's call it $array\ pr []$.
 
 Initially, we’ll fill out all the values $lp [i]$ with zeros, which means that we assume all numbers are prime. During the work of the algorithm, this array will be filled gradually.
 
@@ -38,7 +38,7 @@ Hence, it is needed to assign $lp [i] = i$ and to add $i$ to the end of the list
 
 In both cases afterwards begins the process of **arranging values** in array $lp []$:  we'll be taking the numbers that are multiple to $i$ and updating values of $lp []$. However, our goal is to learn to do it in a way to set a value $lp []$ not more than once for every number.
 
-In order to perform this we need to do the following. Lets look at the numbers of type
+In order to perform this we need to do the following. Let's look at the numbers of type
 
 $x _j = i \cdot \ p _ j$,
 
@@ -74,7 +74,7 @@ We can speed it up a bit by getting rid of vector $pr$ (by replacing it with the
 
 ## The proof of correctness
 
-Lets prove the **correctness** of the algorithm, i.e. that it is setting all the values $lp []$ correctly, and every value will be set exactly once. Hence, the algorithm will work for the linear time, as all the remaining actions of the algorithm, obviously, work for *O (n)*.
+Let's prove the **correctness** of the algorithm, i.e. that it is setting all the values $lp []$ correctly, and every value will be set exactly once. Hence, the algorithm will work for the linear time, as all the remaining actions of the algorithm, obviously, work for *O (n)*.
 
 For that we should notice that every number $i$ has **only one equation** in such way:
 
@@ -84,7 +84,7 @@ where $lp [i]$ (as previously) is a minimal prime factor of a number $i$, and th
 
 $lp [i] \le \ lp [x]$.
 
-Now, lets compare that with the work of our algorithm: in fact, for every $x$ it goes through all prime numbers, possible multipliers for $x$, i.e. the prime numbers till $lp [x]$ inclusive, in order to get the numbers in the equation presented above.
+Now, let's compare that with the work of our algorithm: in fact, for every $x$ it goes through all prime numbers, possible multipliers for $x$, i.e. the prime numbers till $lp [x]$ inclusive, in order to get the numbers in the equation presented above.
 
 Hence, the algorithm, indeed, will go through every composite number exactly once, setting the correct values $lp []$ there.
 
