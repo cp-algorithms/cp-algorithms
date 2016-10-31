@@ -124,4 +124,5 @@ To learn more about finding negative cycles in a graph, see separate article: [F
  - [UVA: Page Hopping](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=762)
  - [SPOJ: Possible Friends](http://www.spoj.com/problems/SOCIALNE/)
  - [CODEFORCES: Greg and Graph](http://codeforces.com/problemset/problem/295/B)
+ - [SPOJ: CHICAGO - 106 miles to Chicago](http://www.spoj.com/problems/CHICAGO/)
  
