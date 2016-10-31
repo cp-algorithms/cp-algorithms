@@ -67,7 +67,8 @@ especially popular in field of competitive programming.*
 - [RMQ task (Range Minimum Query - the smallest element in an interval)](./sequences/rmq.html)
 - [K-th order statistic in O(N)](./sequences/k-th.html)
 
----
+### Schedules
+- [The Optimal Schedule Of Jobs Given Their Deadlines And Durations](./schedules/schedule-with-completion-duration.html)
 
 [Information for contributors](./contrib.html) and [Test-Your-Page form](./test.php)
 
