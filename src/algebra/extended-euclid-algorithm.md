@@ -1,6 +1,6 @@
-<!--?title Extended Euclidean algorithm  -->
+<!--?title Extended Euclidean Algorithm  -->
 
-# Extended Euclidean algorithm
+# Extended Euclidean Algorithm
 
 While the [euclidean algorithm](../algebra/euclid_algorithm.html) itself only calculates greatest commond divisor (GCD) of two integers $a$ and $b$, the extended version also finds coefficients $x$ and $y$ such that:
 
