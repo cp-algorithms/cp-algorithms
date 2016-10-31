@@ -33,7 +33,9 @@ $x \equiv a \; (mod \, p)$
 is equivalent to the system of equations:
 
 $x \equiv a \; (mod \, p_1)$
+
 $...$
+
 $x \equiv a \; (mod \, p_k)$
 
 (As above, assume that $p = p_1 . p_2 ... p_k$ and $p_i$ are pairwise relatively prime).
@@ -63,7 +65,9 @@ $a_2 \equiv x_1 + x_2 . p_1 \; (mod \, p_2)$.
 Taking away $x_1$ from both side, and divide by $p_1$:
 
 $a_2 - x_1 \equiv x_2 . p_1 \; (mod \, p_2)$
+
 $(a_2 - x_1) . r_{12} \equiv x_2 \; (mod \, p_2)$
+
 $x_2 \equiv (a_2 - x_1) . r_{12} \; (mod \, p_2)$
 
 Similarly,
@@ -94,7 +98,7 @@ It is worth noting that in practice, we almost always need to compute the answer
 
 It is most convenient to implement this algorithm using Java, because it has BigInteger class.
 
-Below is an implementation of Garner algorithm, which supports addition, subtraction and multiplication. In this code, we took 100 prime numbers greater than $10^9$, which allows the numbers to be as large as $10^900$.
+Below is an implementation of Garner algorithm, which supports addition, subtraction and multiplication. In this code, we took 100 prime numbers greater than $10^9$, which allows the numbers to be as large as $10^{900}$.
 
 ```java
 final int SZ = 100;
@@ -178,7 +182,7 @@ Note on negative numbers:
 
 * Let $p$ be the product of all primes.
 
-* Modular scheme itself does not allow representing negative numbers. However, it can be seen that if we know that the absolute values our numbers are smaller than $p / 2$, then we know that it must be negative when the resulting number is greater than $p / 2$. The flag $can_be_negative$ in this code allows converting it to negative in this case. 
+* Modular scheme itself does not allow representing negative numbers. However, it can be seen that if we know that the absolute values our numbers are smaller than $p / 2$, then we know that it must be negative when the resulting number is greater than $p / 2$. The flag $can\\_be\\_negative$ in this code allows converting it to negative in this case. 
 
 ## Practice Problem:
 * [Hackerrank - Number of sequences](https://www.hackerrank.com/contests/w22/challenges/number-of-sequences)
