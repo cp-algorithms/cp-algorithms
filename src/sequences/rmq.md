@@ -23,6 +23,6 @@ Note: Preprocessing is the preliminary processing of the given array by building
 
 If the array $A$ might change during the runtime (i.e. there will also be queries to change values in some interval), the problem can only be solved by [Sqrt-decomposition]() or [Segment tree]().
 
-## Practise Problems on RMQ
+## Practice Problems
 - [SPOJ: Range Minimum Query](http://www.spoj.com/problems/RMQSQ/)
 - [CODECHEF: Chef And Array](https://www.codechef.com/problems/FRMQ)
