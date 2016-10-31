@@ -100,5 +100,5 @@ else {
 * [SPOJ: NAKANJ](http://www.spoj.com/problems/NAKANJ/)
 * [SPOJ: WATER](http://www.spoj.com/problems/WATER)
 * [SPOJ: MICE AND MAZE](http://www.spoj.com/problems/MICEMAZE/)
-* [Timus: Caravans](http://acm.timus.ru/problem.aspx?space=1&num=2034/)
+* [Timus: Caravans](http://acm.timus.ru/problem.aspx?space=1&num=2034)
 
