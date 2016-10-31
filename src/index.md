@@ -24,6 +24,9 @@ especially popular in field of competitive programming.*
 ### Data Structure
 - [Fenwick Tree](./data_structures/fenwick.html)
 
+### Dynamic Programming
+- [Dynamic Programming on Broken Profile. Problem "Parquet"](./dynamic_programming/profile-dynamics.html)
+
 ### String Processing
 - [String Hashing](./string/string-hashing.html)
 - [Rabin-Karp for String Matching](./string/rabin-karp.html)
