@@ -36,7 +36,7 @@ $$\sum_{\substack{p \le n, \\\ p\ is\ prime}} \frac 1 p \approx \frac 1 2 + \sum
 
 Here, we extracted the first prime number out of a sum, since $k = 1$ in approximation $k \ln k$  leads to $0$ yielding division by zero operation.
 
-Now, lets evaluate this sum using the integral of a same function over $k$ from $2$ to $\frac n {\ln n}$ (we can make such approximation because, in fact, the sum is related to the integral as its approximation using rectangle method):
+Now, let’s evaluate this sum using the integral of a same function over $k$ from $2$ to $\frac n {\ln n}$ (we can make such approximation because, in fact, the sum is related to the integral as its approximation using rectangle method):
 
 $$\sum_{k = 2}^{\frac n {\ln n}} \frac 1 {k \ln k} \approx \int_2^{\frac n {\ln n}} \frac 1 {k \ln k} dk.$$
 
@@ -144,4 +144,4 @@ According to the performed experiments, we have the best speed of work when $s$ 
 
 ##Advancement to the linear time complexity
 
-We can convert the Eratosthenes algorithm into another algorithm that will have linear time complexity. Look at the article "Sieve of Eratosthenes with the Linear Time Complexity” (TODO: insert a link). (However, this algorithm has its own weaknesses).
+We can convert the Eratosthenes algorithm into another algorithm that will have linear time complexity. Look at the article [Sieve of Eratosthenes Having Linear Time Complexity](./prime-sieve-linear.html). (However, this algorithm has its own weaknesses).

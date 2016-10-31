@@ -20,6 +20,7 @@ especially popular in field of competitive programming.*
 - [Discrete Log](./algebra/discrete-log.html)
 - [Enumerating submasks of a bit mask](./algebra/all-submasks.html)
 - [Gray code](./algebra/gray-code.html)
+- [Sieve of Eratosthenes Having Linear Time Complexity](./algebra/prime-sieve-linear.html)
 
 ### Data Structure
 - [Fenwick Tree](./data_structures/fenwick.html)
@@ -69,6 +70,9 @@ especially popular in field of competitive programming.*
 ### Sequences
 - [RMQ task (Range Minimum Query - the smallest element in an interval)](./sequences/rmq.html)
 - [K-th order statistic in O(N)](./sequences/k-th.html)
+
+### Others
+- [15 Puzzle Game: Existence Of The Solution](./others/15-puzzle.html)
 
 ---
 
