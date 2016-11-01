@@ -2,9 +2,9 @@
 
 # 15 Puzzle Game: Existence Of The Solution
 
-This game is played on a $4 \times 4$ board. On this board there are 15 playing tiles numbered from 1 to 15. One cell is left empty. You need to get the board to the position presented below by repeatedly moving one of the tiles to the free space:
+This game is played on a $4 \times 4$ board. On this board there are 15 playing tiles numbered from 1 to 15. One cell is left empty (denoted by 0). You need to get the board to the position presented below by repeatedly moving one of the tiles to the free space:
 
-![15 puzzle goal position](http://e-maxx.ru/tex2png/cache/a20a65d11dd5382b08465279d9bef0ca.png)
+$$\begin{matrix} 1 & 2 & 3 & 4 \\\\ 5 & 6 & 7 & 8 \\\\ 9 & 10 & 11 & 12 \\\\ 13 & 14 & 15 & 0 \end{matrix}$$
 
 The game "15 Puzzle” was created by Noyes Chapman in 1880.
 
@@ -14,7 +14,7 @@ Let's consider this problem: given position on the board, determine whether a se
 
 Suppose we have some position on the board:
 
-![15 puzzle board position](http://e-maxx.ru/tex2png/cache/4bce648a6f89c9fc25289fa27fd7a107.png)
+$$\begin{matrix} a_1 & a_2 & a_3 & a_4 \\\\ a_5 & a_6 & a_7 & a_8 \\\\ a_9 & a_{10} & a_{11} & a_{12} \\\\ a_{13} & a_{14} & a_{15} & a_{16} \end{matrix}$$
 
 where one of the elements equals zero and indicates an empty cell $a_z  = 0$
 
