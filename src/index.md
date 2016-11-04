@@ -9,6 +9,7 @@ especially popular in field of competitive programming.*
 
 ### Algebra
 - [Euler's Totient Function](./algebra/phi-function.html)
+- [Sieve of Eratosthenes](./algebra/sieve-of-eratosthenes.html)
 - [Binary Exponentiation](./algebra/binary-exp.html)
 - [Balanced Ternary](./algebra/balanced-ternary.html)
 - [Linear Diophantine equation](./algebra/linear-diophantine-equation.html)
@@ -19,6 +20,7 @@ especially popular in field of competitive programming.*
 - [Discrete Log](./algebra/discrete-log.html)
 - [Enumerating submasks of a bit mask](./algebra/all-submasks.html)
 - [Gray code](./algebra/gray-code.html)
+- [Sieve of Eratosthenes Having Linear Time Complexity](./algebra/prime-sieve-linear.html)
 
 ### Data Structure
 - [Fenwick Tree](./data_structures/fenwick.html)
@@ -38,6 +40,9 @@ especially popular in field of competitive programming.*
 - [The Inclusion-Exclusion Principle](./combinatorics/inclusion-exclusion.html)
 - [Binomial Coefficients](./combinatorics/binomial-coefficients.html)
 - [Catalan Numbers](./combinatorics/catalan-numbers.html)
+
+### Numerical Methods
+- [Ternary Search](./num_methods/ternary_search.html)
 
 ### Geometry
 - [Length of the union of intervals on a line in O(N\*logN)](./geometry/length-of-segments-union.html)
@@ -65,6 +70,9 @@ especially popular in field of competitive programming.*
 ### Sequences
 - [RMQ task (Range Minimum Query - the smallest element in an interval)](./sequences/rmq.html)
 - [K-th order statistic in O(N)](./sequences/k-th.html)
+
+### Others
+- [15 Puzzle Game: Existence Of The Solution](./others/15-puzzle.html)
 
 ---
 

@@ -1,21 +1,21 @@
-<!--?title Binomial Coefficients--> 
+<!--?title Binomial Coefficients-->
 # Binomial Coefficients
 
-Binomial coefficients $\binom n k$ are the numbers of ways to select a set of $k$ elements from $n$ different elements without taking into account the order of arrangement of these elements (i.e., the numbers of unordered sets). 
+Binomial coefficients $\binom n k$ are the numbers of ways to select a set of $k$ elements from $n$ different elements without taking into account the order of arrangement of these elements (i.e., the numbers of unordered sets).
 
-Binomial coefficients are also the coefficients in the expansion of $(a + b) ^ n$ (so-called binomial theorem): 
+Binomial coefficients are also the coefficients in the expansion of $(a + b) ^ n$ (so-called binomial theorem):
 
 $$ (a+b)^n = \binom n 0 a^n + \binom n 1 a^{n-1} b + \binom n 2 a^{n-2} b^2 + \cdots + \binom n k a^{n-k} b^k + \cdots + \binom n n b^n $$
 
-It is believed that this formula, as well as the triangle which allows efficient calculation of the coefficients, was discovered by Blaise Pascal in the 17th century. Nevertheless, it was known to the Chinese mathematician Yang Hui(楊輝), who lived in the 13th century. Perhaps it was discovered by a Persian scholar Omar Khayyam(عمر خیام). Moreover, Indian mathematician Pingala (पिङ्गल), who lived  earlier in the 3rd. BC, got similar results. The merit of the Newton is that he generalized this formula for exponents that are not natural. 
+It is believed that this formula, as well as the triangle which allows efficient calculation of the coefficients, was discovered by Blaise Pascal in the 17th century. Nevertheless, it was known to the Chinese mathematician Yang Hui(楊輝), who lived in the 13th century. Perhaps it was discovered by a Persian scholar Omar Khayyam(عمر خیام). Moreover, Indian mathematician Pingala (पिङ्गल), who lived  earlier in the 3rd. BC, got similar results. The merit of the Newton is that he generalized this formula for exponents that are not natural.
 
 ## Calculation
 
-**Analytic formula** for the calculation: 
+**Analytic formula** for the calculation:
 
 $$ \binom n k = \frac {n!} {k!(n-k)!} $$
 
-This formula can be easily deduced from the problem of ordered arrangement (number of ways to select $k$ different elements from $n$ different elements). First, let's count the number of ordered selections of $k$ elements. There are $n$ ways to select the first element, $n-1$ ways to select the second element, $n-2$ ways to select the third element, and so on. As a result, we get the formula of the number of ordered arrangements: $n (n-1) (n-2) \cdots (n - k + 1) = \frac {n!} {(n-k)!}$. We can easily move to unordered arrangements, noting that each unordered arrangement corresponds to exactly $k!$ ordered arrangements ($k!$ is the number of possible permutations of $k$ elements). We get the final formula by dividing $\frac {n!} {(n-k)!}$ by $k!$. 
+This formula can be easily deduced from the problem of ordered arrangement (number of ways to select $k$ different elements from $n$ different elements). First, let's count the number of ordered selections of $k$ elements. There are $n$ ways to select the first element, $n-1$ ways to select the second element, $n-2$ ways to select the third element, and so on. As a result, we get the formula of the number of ordered arrangements: $n (n-1) (n-2) \cdots (n - k + 1) = \frac {n!} {(n-k)!}$. We can easily move to unordered arrangements, noting that each unordered arrangement corresponds to exactly $k!$ ordered arrangements ($k!$ is the number of possible permutations of $k$ elements). We get the final formula by dividing $\frac {n!} {(n-k)!}$ by $k!$.
 
 **Recurrent formula** (which is associated with the famous "Pascal's Triangle"):
 
@@ -23,7 +23,7 @@ $$ \binom n k = \binom {n-1} {k-1} + \binom {n-1} k $$
 
 It is easy to deduce through the previous formula.
 
-Note that for $n \lt k$ the value of $\binom n k$ is assumed to be zero. 
+Note that for $n \lt k$ the value of $\binom n k$ is assumed to be zero.
 
 ## Properties
 
@@ -48,7 +48,7 @@ $$ \binom n 0 + \binom {n-1} 1 + \cdots + \binom {n-k} k + \cdots + \binom 0 n =
 
 ## Calculations in code
 
-### Direct calculation of analytical formula 
+### Direct calculation of analytical formula
 
 The first, straightforward formula is very easy to code, but this method is likely to overflow even for relatively small values of $n$ and $k$ (even if the answer completely fit into any type of data, the calculation of the intermediate factorials can lead to overflow). Therefore, this method often can only be used with [long arithmetic](./algebra/big-integer.html):
 
@@ -64,7 +64,7 @@ int C (int n, int k) {
 
 ### Improved implementation
 
-Note that in the above implementation numerator and denominator have the same number of factors ($k$), each of which is greater than or equal to 1. Therefore, we can replace our fraction with a product $k$ fractions, each of which is real-valued. However, on each step after mupltiplying current answer by each of the next fractions the answer will still be integer (this follows from the property of factoring in). C++ implementation:
+Note that in the above implementation numerator and denominator have the same number of factors ($k$), each of which is greater than or equal to 1. Therefore, we can replace our fraction with a product $k$ fractions, each of which is real-valued. However, on each step after multiplying current answer by each of the next fractions the answer will still be integer (this follows from the property of factoring in). C++ implementation:
 
 ```cpp
 int C (int n, int k) {
@@ -79,7 +79,7 @@ Here we carefully cast the floating point number to an integer, taking into acco
 
 ### Pascal's Triangle
 
-By using the recurrence relation we can construct a table of binomial coefficients (Pascal's triangle) and take the result from it. The advantage of this method is that intermediate results never exceed the anwser and calculating each new table element requires only one addition. The flaw is slow execution for large $n$ and $k$ if you just need a single value and not the whole table (because in order to calculate $\binom n k$ you will need to build a table of all $\binom i j, 1 \le i \le n, 1 \le j \le n$, or at least to $1 \le j \le \min (i, 2k)$). C++ implementation:
+By using the recurrence relation we can construct a table of binomial coefficients (Pascal's triangle) and take the result from it. The advantage of this method is that intermediate results never exceed the answer and calculating each new table element requires only one addition. The flaw is slow execution for large $n$ and $k$ if you just need a single value and not the whole table (because in order to calculate $\binom n k$ you will need to build a table of all $\binom i j, 1 \le i \le n, 1 \le j \le n$, or at least to $1 \le j \le \min (i, 2k)$). C++ implementation:
 
 ```cpp
 const int maxn = ...;

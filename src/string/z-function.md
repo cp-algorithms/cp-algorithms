@@ -47,14 +47,16 @@ $ s = `\text{abacaba}\textrm' $
 
 Formal definition can be represented in the following elementary $O(n^2)$ implementation.
 
-<pre><code>vector<int> z_function_trivial(string s) {
+```cpp
+vector<int> z_function_trivial(string s) {
 	int n = (int) s.length();
 	vector<int> z(n);
 	for (int i = 1; i < n; ++i)
 		while (i + z[i] < n && s[z[i]] == s[i + z[i]])
 			++z[i];
 	return z;
-}</code></pre>
+}
+```
 
 We just iterate through every position $i$ and update $z[i]$ for each one of them, starting from $z[i] = 0$ and incrementing it as long as we don't find a mismatch (and as long as we don't reach the end of the line).
 
@@ -102,7 +104,8 @@ The algorithm turns out to be very simple. Despite the fact that on each iterati
 
 Implementation turns out to be rather laconic:
 
-<pre><code>vector<int> z_function(string s) {
+```cpp
+vector<int> z_function(string s) {
 	int n = (int) s.length();
 	vector<int> z(n);
 	for (int i = 1, l = 0, r = 0; i < n; ++i) {
@@ -114,7 +117,8 @@ Implementation turns out to be rather laconic:
 			l = i, r = i + z[i] - 1;
 	}
 	return z;
-}</code></pre>
+}
+```
 
 ### Comments on this implementation
 

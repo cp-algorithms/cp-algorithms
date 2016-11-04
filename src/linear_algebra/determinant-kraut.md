@@ -4,9 +4,9 @@
 
 In this article, we'll describe how to find the determinant of the matrix using Kraut method, which works in $O(N^3)$.
 
-The Kraut algorithm finds decomposition of matrix $A$ as $A = L U$ where L is lower and and U is upper triangular matrix. Without loss of generality, we can assume that all the diagonal elements of L are equal to 1. But knowing these matrices, it is easy to calculate the determinant of A: it is equal to the product of all the elements on the main diagonal of the matrix U.
+The Kraut algorithm finds decomposition of matrix $A$ as $A = L U$ where L is lower and U is upper triangular matrix. Without loss of generality, we can assume that all the diagonal elements of L are equal to 1. But knowing these matrices, it is easy to calculate the determinant of A: it is equal to the product of all the elements on the main diagonal of the matrix U.
 
-There is a theorem stating that any invertible matrix has a LU-decomposition, and it is unique, if and only if all its principle minors are non-zero. It should be recall that we consider only such decomposition in which the diagonal L consists of ones.
+There is a theorem stating that any invertible matrix has a LU-decomposition, and it is unique, if and only if all its principle minors are non-zero. It should be recalled that we consider only such decomposition in which the diagonal L consists of ones.
 
 Let A be the matrix and N is its size. We will find the elements of the matrices L and U using the following steps:
 
@@ -75,7 +75,7 @@ static BigInteger det (BigDecimal a [][], int n) {
 				a[j][k] = a[imax][k];
 				a[imax][k] = t;
 			}
-			
+
 			BigDecimal t = scaling[imax];
 			scaling[imax] = scaling[j];
 			scaling[j] = t;
@@ -87,7 +87,7 @@ static BigInteger det (BigDecimal a [][], int n) {
 			for (int i=j+1; i<n; i++)
 				a[i][j] = a[i][j].divide
 					(a[j][j], 100, BigDecimal.ROUND_HALF_EVEN);
-		
+
 	}
 
 	BigDecimal result = new BigDecimal (1);

@@ -15,7 +15,7 @@ The Catalan number $C_n$ is the solution for
 
 - Number of correct bracket sequence consisting of $n$ opening and $n$ closing brackets.
 - The number of rooted full binary trees with $n + 1$ leaves (tops are not numbered). A rooted binary tree is full if every vertex has either two children or no children.
-- The number of ways to completely parenthesise $n + 1$ factors.
+- The number of ways to completely parenthesize $n + 1$ factors.
 - The number of triangulations of a convex polygon with $n + 2$ sides (i.e. the number of partitions of polygon into disjoint triangles by using the diagonals).
 - The number of ways to connect the $2n$ points on a circle to form $n$ disjoint chords.
 - The number of [non-isomorphic](https://en.wikipedia.org/wiki/Graph_isomorphism) full binary trees with $n$ internal nodes (i.e. nodes having at least one son).
@@ -43,7 +43,8 @@ $( ) ( ( ) )$ can be divided into $( )$ and $( ( ) )$, but cannot be divided int
 
 #### C++ implementation <span class="toggle-code">Show/Hide</span>
 
-<pre><code>const int MOD = ....
+```cpp
+const int MOD = ....
 const int MAX = ....
 int catalan[MAX];
 void init() {
@@ -57,7 +58,8 @@ void init() {
             }
         }
     }
-} </code></pre>
+}
+```
 
 ###Analytical formula
 $$C_n = \frac{1}{n + 1} {\binom{2n}{n}$$
@@ -75,6 +77,6 @@ $$C_n = \binom{2n}{n} - \binom{2n}{n-1} = \frac{1}{n + 1} \binom{2n}{n} , {n} \g
 ## Practice Problems
 - [Codechef - PANSTACK](https://www.codechef.com/APRIL12/problems/PANSTACK/)
 - [Spoj - Skyline](http://www.spoj.com/problems/SKYLINE/)
-- [UVA - Safe Salutions](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=932)
+- [UVA - Safe Salutations](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=932)
 - [Codeforces - How many trees?](http://codeforces.com/problemset/problem/9/D)
 - [SPOJ - FUNPROB](http://www.spoj.com/problems/FUNPROB/)
