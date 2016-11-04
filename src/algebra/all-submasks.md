@@ -18,7 +18,7 @@ while (s > 0) {
 
 or, using a more compact for statement:
 
-```cpp 
+```cpp
 for (int s=m; s; s=(s-1)&m)
  ... you can use s ...
 ```
@@ -49,14 +49,14 @@ for (int m=0; m<(1<<n); ++m)
 	for (int s=m; s; s=(s-1)&m)
  ... s and m ...
 ```
- 
+
 Let's prove that the inner loop will execute a total of $O(3^n)$ iterations.
 
 **First proof**: Consider the i-th bit. There are exactly three options for it: it is not included in the mask $m$ (and therefore not included in submask $s$); it is included in $m$, but not included in $s$, or it's included in both $m$ and $s$. As there are a total of $n$ bits, there will be $3^n$ different combinations.
 
-**Second proof**: Note that if mask $m$ has $k$ enabled bits, then it will have $2^k$ submasks. As we have a total of $C_n^k$ masks with $k$ enabled bits (see "binomial coefficients"), then the total number of combinations for all masks will be:
+**Second proof**: Note that if mask $m$ has $k$ enabled bits, then it will have $2^k$ submasks. As we have a total of $\binom{n}{k}$ masks with $k$ enabled bits (see "binomial coefficients"), then the total number of combinations for all masks will be:
 
- $$\sum_{k=0}^n C_n^k 2^k$$ 
+$$\sum_{k=0}^n \binom{n}{k} \cdot 2^k$$
 
 To calculate this number, note that the sum above is equal to the expansion of $(1+2)^n$ using the binomial theorem. Therefore, we have $3^n$ combinations, as we wanted to prove.
 
