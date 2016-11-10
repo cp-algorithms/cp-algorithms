@@ -162,11 +162,11 @@ To do that, we will consider both branches of the algorithm:
 
       Thus, since $z[i-l]$ is correct and it is less than $r - i + 1$, it follows that this value coincides with the required value $z[i]$.
 
-    * z_0 = r - i + 1
+    * $z_0 = r - i + 1$
 
       In this case, the `while` loop can make a few iterations, but each of them will lead to an increase in the value of the $r$ index because we will start comparing from $s[r+1]$, which will climb beyond the $[l; r]$ interval.
 
-    * z_0 > r - i + 1
+    * $z_0 > r - i + 1$
 
       This option is impossible, by definition of $z_0$.
 
@@ -221,3 +221,4 @@ The proof for this fact does not differ from that of the solution which uses the
 * [UVa 11475 - Extend to Palindrome](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=2470)
 * [LA 6439 - Pasti Pas!](https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&Itemid=8&category=588&page=show_problem&problem=4450)
 * [Codechef - Chef and Strings](https://www.codechef.com/problems/CHSTR)
+* [Codeforces - Prefixes and Suffixes](http://codeforces.com/problemset/problem/432/D)
