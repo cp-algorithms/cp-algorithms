@@ -1,44 +1,39 @@
 <!--?title Treap -->
-#Treap (Cartesian tree)
+# Treap (Cartesian tree)
 
-Treap is a data structure which are combains binary tree and binary heap (that's why this structure called Treap => tree + heap).
+Treap is a data structure which combines binary tree and binary heap (hence the name: tree + heap => Treap).
 
-In more strict way, Treap is a data structure that stores pair (X,Y) in a form of binary tree, so that it is a binary search tree by X and binary heap by Y.
-Assuming that all X and all Y are different, we can find that if a some tree’s element contains (X0, Y0), then all elements in the left subtree have X < X0 and all elements in right subtree have X > X0, and also,  left and right subtree have Y < Y0.
+More specifically, treap is a data structure that stores pairs (X, Y) in a binary tree in such a way that it is a binary search tree by X and a binary heap by Y.
+Assuming that all X and all Y are different, we can see that if some node of the tree contains values ($X_0$, $Y_0$), all nodes in the left subtree have $X < X_0$, all nodes in the right subtree have $X > X_0$, and all nodes in both left and right subtrees have $Y < Y_0$.
 
-Treaps have been proposed Siedel and Aragon in 1989.
+Treaps have been proposed by Siedel and Aragon in 1989.
 
-##Advantages of such data organisation
+## Advantages of such data organisation
 
-In the application, which we are considering (we consider deramidy as a Treap) X values are the keys (also at same time they are values, stored in this data structure) and Y values  are **priorities**. If there were no **priorities**, it would be a normal binary search tree by X and, a some set of X could correspond to a lot of trees, some of which are degenerate (eg, in the form of a chain), and, therefore, they are extremely slow (the main operations would be carried out of O (N)).
+In such implementation X values are the keys (and at same time the values stored in the treap), and Y values are called **priorities**. Without priorities, the treap would be a regular binary search tree by X, and one set of X values could correspond to a lot of different trees, some of them degenerate (for example, in the form of a linked list), and therefore extremely slow (the main operations would have $O(N)$ complexity).
 
-At the same time, **priorities** allow you to **uniquely** specify the tree that will be build (of course, it does not depend on the order of addition of components)(this is proved by the corresponding theorem). Now it is obvious that if you **choose a priorities by accident**, then, you will achieve the construction of degenerate trees in the average case, which will provide the asymptotic behaviour of O (log N) on average. Hence it is clear that the another name of this data structure - a **randomized binary search tree**.
+At the same time, **priorities** allow to **uniquely** specify the tree that will be constructed (of course, it does not depend on the order in which values are added), which can be proven using corresponding theorem. Obviously, if you **choose the priorities randomly**, you will get non-degenerate trees on average, which will ensure $O(\log N)$ complexity for the main operations. Hence another name of this data structure - **randomized binary search tree**.
 
-##Operations
-So, Treap have next operations:
+## Operations
 
-- **Insert(X,Y)**.
-Average asymptotic - O (log N).
-It performs the addition of a new element in the tree. The variant, described below, contains code, in which Y priority value is not transmitted function and chosen randomly (but bear in mind that it should not coincide with any other Y in the tree).
-- **Search (X)**.
-Average asymptotic - O (log N).
-Searches for an item with the specified key X. Implemented in exactly the same way as for an ordinary binary tree.
-- **Erase (X)**.
-Average asymptotic - O (log N).
-Searches for an item and remove it from the tree.
-- **Build (X1, ... Xn)**.
-Average asymptotic - O (N).
-Build a tree from a list of values. This operation can be implemented in linear time (assuming that the values of X1, ... Xn are sorted), but here, this implementation will not be discussed. We will used a simplified variant with serial calls of **Insert** operation.
-- **Union (T1, T2)**.
-Average asymptotic - O(M log (N/M)).
-It merges two trees, on the assumption that all the elements are different (however, this operation can be realized with the same asymptotic behavior, if the it is necessary to remove duplicate entries).
-- **Intersect (T1, T2)**.
-Average asymptotic - O (log N).
-Finds the intersection of two trees (ie, their common elements). Here the implementation of this operation will not be considered.
+A treap provides the following operations:
 
-In  addition, due to the fact that the Cartesian tree is a binary searching tree, some operation are also applicable to it such as finding the K-th largest element, and, on the contrary, the searching of item number.
+- **Insert(X,Y)** in $O(\log N)$.  
+  Adds a new node to the tree. A variant is possible in priority Y is not passed as as a parameter but is chosen randomly instead (while ensuring that it's different from all other priorities in the tree).
+- **Search (X)** in $O(\log N)$.  
+  Looks for a node with the specified key value X. The implementation is the same as for an ordinary binary tree.
+- **Erase (X)** in $O(\log N)$.  
+  Looks for a node with the specified key value X and removes it from the tree.
+- **Build ($X_1$, ..., $X_N$)** in $O(N)$.  
+  Builds a tree from a list of values. This can be done in linear time (assuming that $X_1, ..., X_N$ are sorted), but we will not discuss this implementation here. We will use the simplest variant with serial calls of **Insert** operation, which has $O(N \log N)$ complexity.
+- **Union ($T_1$, $T_2$)** in $O(M \log (N/M))$.  
+  Merges two trees, assuming that all the elements are different. An implementation with the same asymptotic behavior is possible if duplicate elements should be removed during merge.
+- **Intersect ($T_1$, $T_2$)** in $O(M \log (N/M))$.  
+  Finds the intersection of two trees (i.e. their common elements). We will not consider the implementation of this operation here.
 
-##Description of implementations 
+In  addition, due to the fact that a treap is a binary search tree, it can implement other operations, such as finding the K-th largest element or finding the index of an element.
+
+## Implementation Description
 In terms of implementation, each element contains the X, Y and pointers to the left (L) and right (R) son.
 **Split** and **Merge** operations are required for implementation.
 
