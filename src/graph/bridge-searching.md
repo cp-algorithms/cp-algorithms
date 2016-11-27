@@ -79,12 +79,8 @@ Constant $MAXN$ at beginning of code is initialised to maximum number of nodes i
 
 It should be noted that this does not work correctly if multiple edges are present in the graph, as it actually ignores their presence. Of course, multiple edges must not be a part of the answer, so checks must be made in the function $IS$_$BRIDGE$. Another way to work with multiple edges more accurately is to transfer the number of edges by which we entered the current node(we all need to store this additionally).
 
-## Tasks in online judges
-
-Some tasks in which we aim to find bridges:
+## Practice Problems
 
 - [UVA #796 "Critical Links" [difficulty: low]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=737)
 - [UVA #610 "Street Directions" [difficulty: medium]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=551)
 - [Case of the Computer Network (Codeforces Round #310 Div. 1 E) [difficulty: hard]](http://codeforces.com/problemset/problem/555/E)
-
-####Note: Translated by [NibNalin](http://codeforces.com/profile/NibNalin)
