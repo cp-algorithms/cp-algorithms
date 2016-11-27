@@ -129,22 +129,22 @@ TODO
 
 ## Implicit Treaps
 
-Implicit Treap - is a simple modification of the conventional Cartesian tree, which, however, is a very powerful data structure. In fact, the implicit Treap can be perceived as an array, which can be implemented over the following procedures (all in O (log N) in the online mode):
+Implicit treap is a simple modification of the regular treap which is a very powerful data structure. In fact, implicit treap can be considered as an array with the following procedures implemented (all in $O (\log N)$ in the online mode):
 
-- Inserting an element in the array in any position
-- Removal of any element
-- The amount of minimum / maximum on an arbitrary interval, etc.
-- Addition, painting on a segment
-- Coup (permutation of the elements in reverse order) in the interval
+- Inserting an element in the array in any location
+- Removal of an arbitrary element
+- Finding sum, minimum / maximum element etc. on an arbitrary interval
+- Addition, painting on an arbitrary interval
+- Reversing elements on an arbitrary interval
 
-The key idea is that the key in this case will be **index** of the element inside array. But obviously, we will not store these _key_ values (otherwise, for example, when inserting an element operation would have had to change the key in O (N) vertices of the tree ).
+The idea is that the keys should be **indices** of the elements in the array. But we will not store these values explicitly (otherwise, for example, inserting an element would cause changes of the key in $O (N)$ nodes of the tree).
 
-Note that in this case the key to some vertices is actually the number of vertices less than it. 
-Also note that the vertexes which are less than current can situated not only in left tree but also in the left subtrees in its ancestors. More precisely, the **implicit key** for some vertex t is the number of vertices cnt (T-> L) in the left subtree of this node plus a similar magnitude cnt (P-> L) +1 for each ancestor of the vertex P, provided that T is in the right subtree of P.
+Note that the key of a node is the number of nodes less than it (such nodes can be present not only in its left subtree but also in left subtrees of its ancestors). 
+More specifically, the **implicit key** for some node T is the number of vertices $cnt (T \rightarrow L)$ in the left subtree of this node plus similar values $cnt (P \rightarrow L) + 1$ for each ancestor P of the node T, if T is in the right subtree of P.
 
-Now is more clearly how to quickly calculate the implicit key of current vertex. As in all operations, we arrive in any top when we goes down  on the tree so we can just accumulate this amount and transfer it to functions. If we go to the left subtree - accumulated amount does not change, and if we go to the right - it increases in the cnt (T-> L) +1.
+Now it's clear how to calculate the implicit key of current node quickly. Since in all operations we arrive to any node by descending in the tree, we can just accumulate this sum and pass it to the function. If we go to the left subtree, the accumulated sum does not change, if we go to the right subtree it increases by $cnt (T \rightarrow L) +1$.
 
-We give new implementations for **Split** and **Merge** operations:
+Here are the new implementations of **Split** and **Merge**:
 
 ```
 void merge (pitem & t, pitem l, pitem r) {
@@ -169,22 +169,22 @@ void split (pitem t, pitem & l, pitem & r, int key, int add = 0) {
 }
 ```
 
-Now we turn to the implementation of various additional operations on the implicit Cartesian trees:
+Now let's consider the implementation of various operations on implicit treaps:
 
-- **Insert element**.
-Suppose we need to insert an element at position _pos_. We divide Treap into two halves: a corresponding array [0..pos-1] and array [pos..sz]; it is enough for a split (T, T1, T2, pos). Then we can combine trees with a new vertex T1; it is enough for a merge (T1, T1, new_item) (it is easy to make sure that all of the preconditions are done). Finally, we combine the two trees T1 and T2 back into T - by a call of merge (T, T1, T2).
-- **Delete an item**.
-It is still easy: just find an item to delete, and then perform the merge to it sons, L and R,  and put a result of merge operation in a place of T. In fact, there is no difference between the removal of the implicit Cartesian tree and removal of the conventional Cartesian tree.
-- **The amount / minimum**, etc. on the segment.
-Firstly, create a vertex for each additional item field F in the structure to store the value of the goal function for this peek’s subtree. This field is easy to maintain - same operation like during the work with _cnt_ (we need 2 functions for getting and settings this value and we should update depended function - see above).
-Secondly, we need to know how to respond to a request for an arbitrary interval [A; B]. 
-For this we need to get a part of tree which are corresponded to the segment [A;B]. It is easy to understand that this is enough for first split(T, T1, T2, A), and then split (T2, T2, T3, B-A+ 1). As a result, T2 will consist of all the elements in the interval [A; B], and only of them. Therefore, response to the request will be in the field F of T2 tree. After the response to the request, tree need to be restored by call of a merge (T, T1, T2) and merge (T, T, T3).
-- **Addition / painting on the segment**.
-Here we act as in the previous paragraph, but instead of the field F will store a field called _add_ that will contain accumulation value for painting. Before carrying out any operations necessary to set this value correctly - ie, accordingly change T->L->add and T-> R-> add, and clean up _add_ in parent node. In this way we will achieve that after any changes to the tree all information will not be lost.
-- **Flip on the segment**.
-This item is almost similar to the previous - just add the field ‘bool rev’, which will be setted to true, when you want to make a flip in the subtree of the current node. The initialize operation is just little bit complicated - we swapping a sons of this node and set this flag for them.
+- **Insert element**.  
+  Suppose we need to insert an element at position `pos`. We divide the treap into two parts, which correspond to arrays `[0..pos-1]` and `[pos..sz]`; to do this we call `split` (T, $T_1$, $T_2$, pos). Then we can combine tree $T_1$ with the new vertex by calling `merge` ($T_1$, $T_1$, new_item) (it is easy to see that all preconditions are met). Finally, we combine trees $T_1$ and $T_2$ back into T by calling `merge` (T, $T_1$, $T_2$).
+- **Delete element**.  
+ This operation is even easier: find the element to be deleted T, perform merge of its children L and R, and replace the element T with the result of merge. In fact, element deletion in the implicit treap is exactly the same as in the regular treap.
+- Find **sum / minimum**, etc. on the interval.  
+ First, create an additional field F in the `item` structure to store the value of the target function for this node's subtree. This field is easy to maintain similarly to maintaining sizes of subtrees: create a function which calculates this value for a node based on values for its children and add calls of this function in the end of all functions which modify the tree.  
+ Second, we need to know how to process a query for an arbitrary interval [A; B].  
+ To get a part of tree which corresponds to the interval [A; B], we need to call `split` (T, $T_1$, $T_2$, A), and then `split` ($T_2$, $T_2$, $T_3$, B - A + 1): after this $T_2$ will consist of all the elements in the interval [A; B], and only of them. Therefore, the response to the query will be stored in the field F of the root of $T_2$. After the query is answered, the tree has to be restored by calling `merge` (T, $T_1$, $T_2$) and `merge` ($T$, $T$, $T_3$).
+- **Addition / painting** on the interval.  
+ We act similarly to the previous paragraph, but instead of the field F we will store a field `add` which will contain the added value for the subtree (or the value to which the subtree is painted). Before performing any operation we have to "push" this value correctly - i.e. change $T \rightarrow L \rightarrow add$ and $T \rightarrow R \rightarrow add$, and to clean up `add` in the parent node. This way after any changes to the tree the information will not be lost.
+- **Reverse** on the interval.  
+ This is again similar to the previous operation: we have to add boolean flag ‘rev’ and set it to true when the subtree of the current node has to be reversed. "Pushing" this value is a bit complicated - we swap children of this node and set this flag to true for them.
 
-**Implementation**. Let us give an example for the full realization of the implicit Cartesian tree with the coup on the segment. Here, for each vertex we store field called _value_ - the actual value of the item standing in the array at the current position. We also give the implementation of the function ‘output ()’, which displays an array that corresponds to the current state of the implicit Cartesian tree.
+Here is an example implementation of the implicit treap with reverse on the interval. For each node we store field called `value` which is the actual value of the array element at current position. We also provide implementation of the function `output()`, which outputs an array that corresponds to the current state of the implicit treap.
 
 ```
 typedef struct item * pitem;
@@ -254,4 +254,6 @@ void output (pitem t) {
 }
 ```
 
+** Literature
 
+* [Blelloch, Reid-Miller "Fast Set Operations Using Treaps"](https://www.cs.cmu.edu/~scandal/papers/treaps-spaa98.pdf)
