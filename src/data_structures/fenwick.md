@@ -191,6 +191,3 @@ struct FenwickTree2D {
 
 * [Fenwick tree on Wikipedia](http://en.wikipedia.org/wiki/Fenwick_tree)  
 * [Binary indexed trees tutorial on TopCoder](https://www.topcoder.com/community/data-science/data-science-tutorials/binary-indexed-trees/)
-
-
-Translated by [sylap97](http://codeforces.com/profile/sylap97)
