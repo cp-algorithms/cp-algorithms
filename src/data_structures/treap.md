@@ -254,6 +254,6 @@ void output (pitem t) {
 }
 ```
 
-** Literature
+## Literature
 
 * [Blelloch, Reid-Miller "Fast Set Operations Using Treaps"](https://www.cs.cmu.edu/~scandal/papers/treaps-spaa98.pdf)
