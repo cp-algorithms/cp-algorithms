@@ -34,24 +34,24 @@ A treap provides the following operations:
 In  addition, due to the fact that a treap is a binary search tree, it can implement other operations, such as finding the K-th largest element or finding the index of an element.
 
 ## Implementation Description
-In terms of implementation, each element contains the X, Y and pointers to the left (L) and right (R) son.
-**Split** and **Merge** operations are required for implementation.
+In terms of implementation, each node contains X, Y and pointers to the left (L) and right (R) children.
 
-**Split(T,X)** - separates T tree on 2 parts - L and R trees (which are the returned values from operation). L contains all elements with key Xl < X, R contains all elements with key Xr >X. This operation is performed for the O (log N). The implementation is a quite simple - an obvious recursion.
+To implement the required operations, we'll have to start with two auxiliary operations: Split and Merge.
 
-**Merge(T1, T2)** - combines two subtrees T1 and T2, and returns the new tree. This operation is also performed for O (log N). It works under the assumption that the T1 and T2 have respective order (all X values in first tree **must be smaller** than X values in second tree). Thus, we need to combine these trees without reordering them by Y priorities. To do this, simply choose as the root a tree with the highest Y priority, and recursively calls itself from the other tree and the corresponding son of selected one.
+**Split (T, X)** separates tree T in 2 subtrees L and R trees (which are the return values of split) so that L contains all elements with key $X_L < X$, and R contains all elements with key $X_R > X$. This operation has $O (\log N)$ complexity and is implemented using an obvious recursion.
 
-Now, implementation of **Insert (X, Y)** is pretty obvious. First, we go down on the tree (as in a conventional binary tree search by X), but we should stop at the first element in which the priority value is less than the Y. We found a position where we will insert our element. Now, we call **Split (X)** on the found item (on the element along with all of its subtree). As the result of **Split** we will get L and R sons for new element which we are trying to add.
+**Merge ($T_1$, $T_2$)** combines two subtrees $T_1$ and $T_2$ and returns the new tree. This operation also has $O (\log N)$ complexity. It works under the assumption that $T_1$ and $T_2$ are ordered (all keys X in $T_1$ are smaller than keys in $T_2$). Thus, we need to combine these trees without violating the order of priorities Y. To do this, we choose as the root the tree which has higher priority Y in the root node, and recursively call Merge for the other tree and the corresponding subtree of the selected root node.
 
-Also, implementation of **Erase (X)** is more understandable now. We go down on a tree (as in a normal binary search tree by X), seeking to delete the item during the way. When item found, we call a **Merge** operation on it sons - R and L trees, and after -paste result of Merge on a place of this item.
+Now implementation of **Insert (X, Y)** becomes obvious. First we descend in the tree (as in a regular binary search tree by X), and stop at the first node in which the priority value is less than Y. We have found the place where we will insert the new element. Next, we call **Split (T, X)** on the subtree starting at the found node, and use returned subtrees L and R as left and right children of the new node.
 
-**Build** operation we will implement in a way with O(N log N) asymptotic by simply calling of **Insert** operation.
+Implementation of **Erase (X)** is also clear. First we descend in the tree (as in a regular binary search tree by X), looking for the element we want to delete. Once the node is found, we call **Merge** on it children and put the return value of the operation in the place of the element we're deleting.
 
-Finally, the **Union (T1, T2)** operation. Theoretically, its asymptotic behavior of O (M log (N / M)), but in practice it works very well, probably with a very small hidden constant. Suppose, without loss of generality, T1-> Y > T2-> Y, ie, T1 is the root of the root of the result. To get results, we need to combine trees T1-> L, T1-> R and T2 in 2 tree, so that they could be a sons of T1 tree. To do this, call the Split (T2, T1-> X), and we split T2 in the two part - L and R, which are then recursively combine sons of T1: Union (T1-> L, L) and Union (T1-> R, R), thus we will build the Left and Right subtrees of the result.
+We implement **Build** operation with $O (N \log N)$ complexity using $N$ **Insert** calls.
 
-##Implementation
+**Union ($T_1$, $T_2$)** has theoretical complexity $O (M \log (N / M))$, but in practice it works very well, probably with a very small hidden constant. Let's assume without loss of generality that $T_1 \rightarrow Y > T_2 \rightarrow Y$, i. e. root of $T_1$ will be the root of the result. To get the result, we need to merge trees $T_1 \rightarrow L$, $T_1 \rightarrow R$ and $T_2$ in two trees which could be children of $T_1$ root. To do this, we call Split ($T_2$, $T_1\rightarrow X$), thus splitting $T_2$ in two parts L and R, which we then recursively combine with children of $T_1$: Union ($T_1 \rightarrow L$, $L$) and Union ($T_1 \rightarrow R$, $R$), thus getting left and right subtrees of the result.
 
-Let's make a realization, described above:
+## Implementation
+
 ```
 struct item {
 	int key, prior;
@@ -106,11 +106,11 @@ pitem unite (pitem l, pitem r) {
 }
 ```
 
-##Supporting of the size of subtrees
+## Maintaining the sizes of subtrees
 
-To extend the functionality of the Cartesian tree, it is often necessary for each node to store the number of nodes in its subtree - field `int cnt` in the item structure. For example, K-th largest element of tree can easily be found for O (log N), or, conversely, for the same asymptotic behavior item number can be found in the sorted list (the implementation of these operations will not be differ from their realization for conventional binary search tree).
+To extend the functionality of the treap, it is often necessary to store the number of nodes in subtree of each node - field `int cnt` in the `item` structure. For example, it can be used to find K-th largest element of tree in $O (\log N)$, or to find the index of the element in the sorted list with the same complexity. The implementation of these operations will be the same as for the regular binary search tree.
 
-When a tree changes (add or remove items, etc.), _cnt_ should be also updated accordingly for vertices. For that purposes we should create two functions - `cnt ()` - it will return the current value of _cnt_, or 0 if the node does not exist, and `upd_cnt ()`  - it will update the value _cnt_ for this vertex, with the condition - for her sons, L and R, the `cnt` has correctly updated. Then, of course, enough to add calls of `upd_cnt ()` to the end of each functions - insert, erase, split, merge - to keep the correct value of _cnt_.
+When a tree changes (nodes are added or removed etc.), `cnt` of some nodes should be updated accordingly. We'll create two functions: `cnt()` will return the current value of `cnt` or 0 if the node does not exist, and `upd_cnt()` will update the value of `cnt` for this node assuming that for its children L and R the values of `cnt` have already been updated. Evidently it's sufficient to add calls of `upd_cnt()` to the end of `insert`, `erase`, `split` and `merge` to keep `cnt` values up-to-date.
 
 ```
 int cnt (pitem t) {
@@ -123,7 +123,7 @@ void upd_cnt (pitem t) {
 }
 ```
 
-## Build a Treap for a O (N) in offline mode
+## Building a Treap in $O (N)$ in offline mode
 
 TODO
 
