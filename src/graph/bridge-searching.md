@@ -1,40 +1,40 @@
-<!--?title Searching for bridges in a graph in O(N+M) -->
+<!--?title Finding bridges in a graph in O(N+M) -->
 
-# Searching for bridges
+# Finding bridges in a graph in $O(N+M)$
 
-Suppose that we are given an undirected graph. A bridge is defined as an edge, whose removal makes the graph disconnected(or more precisely, increases the number of connected components). You want to find all the bridges in a given graph.
+We are given an undirected graph. A bridge is defined as an edge which, when removed, makes the graph disconnected (or more precisely, increases the number of connected components in the graph). The task is to find all bridges in the given graph.
 
-Informally, the problem is formulated as follows: Given a map of cities with roads between them, find all "important" roads, i.e. roads whose removal leads to disappearance of the path between some pair of cities.
+Informally, the problem is formulated as follows: given a map of cities connected with roads, find all "important" roads, i.e. roads which, when removed, cause disappearance of a path between some pair of cities.
 
-Below, we describe the algorithm based of [depth first search](http://e-maxx.ru/algo/dfs), having running time $O(n+m)$, where $n$ is the number of vertices, and $m$ is the number of edges in the graph.
+The algorithm described here is based on [depth first search](./graph/depth-first-search.html) and has $O(N+M)$ complexity, where $N$ is the number of vertices and $M$ is the number of edges in the graph.
 
-Note that the website also describes an [online algorithm for finding bridges](http://e-maxx.ru/algo/bridge_searching_online) - in contrast to the offline algorithm described here, the online algorithm is able to maintain all bridges in a graph that is changing(new edges are being added).
+Note that there also exists an [online algorithm for finding bridges (ru)](http://e-maxx.ru/algo/bridge_searching_online) - unlike the offline algorithm described here, the online algorithm is able to maintain the list of all bridges in a changing graph (assuming that the only type of change is addition of new edges).
 
 ## Algorithm
 
-Run [DFS](http://e-maxx.ru/algo/dfs) from an arbitrary vertex of the graph; lets denote it through $root$. We note the following fact(which is easy to prove):
+Pick an arbitrary vertex of the graph $root$ and run [depth first search](./graph/depth-first-search.html) from it. Note the following fact (which is easy to prove):
 
-- Let's say we are in the DFS, and looking through the edges from vertex $v$. Then for some edge $(v, to)$, it is a bridge if the vertices $to$ and it's descendants in the DFS tree have no back-edges to vertex $v$ or any of it's ancestors. Otherwise, the edge must not be a bridge. (In fact, we check the condition that there is no other way from $v$ to $to$ except for edge $(v, to)$ traversing the DFS tree.)
+- Let's say we are in the DFS, looking through the edges starting from vertex $v$. The current edge $(v, to)$ is a bridge if and only if none of the vertices $to$ and its descendants in the DFS traversal tree has a back-edge to vertex $v$ or any of its ancestors. (Indeed, this condition means that there is no other way from $v$ to $to$ except for edge $(v, to)$)
 
-Now we have to learn how to effectively verify this fact for each vertex. For doing this, we use "time of entry into node", computed by the depth first search algorithm.
+Now we have to learn to check this fact for each vertex efficiently. We'll use "time of entry into node" computed by the depth first search.
 
-So, let $tin[v]$ denote the the depth first search time of node $v$. Now, we introduce the array $fup[v]$, which is the minimum of $tin[v]$, the DFS time of all nodes $p$ that are connected to node $v$ via back-edge $(v, p)$ and all the values of $fup[to]$ for each vertex to which is a direct child of $v$ in the DFS tree.
+So, let $tin[v]$ denote entry time for node $v$. We introduce an array $fup$ which will let us check the fact for each vertex $v$. $fup[v]$ is the minimum of $tin[v]$, the entry time for all nodes $p$ that are connected to node $v$ via a back-edge $(v, p)$ and the values of $fup[to]$ for each vertex $to$ which is a direct descendant of $v$ in the DFS tree:
 
-![Formula for algorithm complexity](&imgroot&/search-bridge-formula.png)
+![Formula for fup](&imgroot&/search-bridge-formula.png)
 
-Now, there is a back edge from node $v$ or it's descendants if there is a son $to$ of node $v$ such that $fup[to] \leq tin[v]$.(If $fup[to] = tin[v]$, it means back edge comes directly to $v$, otherwise it comes to some ancestor).
+Now, there is a back edge from vertex $v$ or one of its descendants to one of its ancestors if and only if vertex $v$ has a child $to$ for which $fup[to] \leq tin[v]$. If $fup[to] = tin[v]$, the back edge comes directly to $v$, otherwise it comes to one of the ancestors of $v$.
 
-Thus, if the current edge $(v, to)$ in the DFS tree satisfies $fup[to] > tin[v]$, then it must be a bridge; otherwise it isn't one.
+Thus, the current edge $(v, to)$ in the DFS tree is a bridge if and only if $fup[to] > tin[v]$.
 
-##Implementation
+## Implementation
 
-Regarding the implementation, here we need to distinguish 3 cases: when we are on an edge to a child in DFS tree, when we try to go on a back edge to some ancestor and when we are going in the reverse direction to our parent. Therefore, these are the cases accordingly:
+The implementation needs to distinguish three cases: when we go down the edge in DFS tree, when we find a back edge to an ancestor of the vertex and when we return to a parent of the vertex. These are the cases:
 
-- $used[to] = false$ - DFS tree edges criteria;
-- $used[to] = true$ && $to \neq parent$ - back edge to some ancestor criteria;
-- $to = parent$ - Criteria for edge to be edge to parent in DFS tree.
+- $used[to] = false$ - the edge is part of DFS tree;
+- $used[to] = true$ && $to \neq parent$ - the edge is back edge to one of the ancestors;
+- $to = parent$ - the edge leads back to parent in DFS tree.
 
-Thus, to implement, we need a depth first search function with all the information for a current node.
+To implement this, we need a depth first search function which accepts the parent vertex of the current node.
 
 C++ implementation <span class="toggle-code">Show/Hide</span>
 
@@ -45,42 +45,43 @@ bool used[MAXN];
 int timer, tin[MAXN], fup[MAXN];
  
 void dfs (int v, int p = -1) {
-	used[v] = true;
-	tin[v] = fup[v] = timer++;
-	for (size_t i = 0; i < g[v].size(); ++i) {
-		int to = g[v][i];
-		if (to == p)  continue;
-		if (used[to])
-			fup[v] = min (fup[v], tin[to]);
-		else {
-			dfs (to, v);
-			fup[v] = min (fup[v], fup[to]);
-			if (fup[to] > tin[v])
-				IS_BRIDGE(v,to);
-		}
-	}
+    used[v] = true;
+    tin[v] = fup[v] = timer++;
+    for (size_t i = 0; i < g[v].size(); ++i) {
+        int to = g[v][i];
+        if (to == p)  continue;
+        if (used[to])
+            fup[v] = min (fup[v], tin[to]);
+        else {
+            dfs (to, v);
+            fup[v] = min (fup[v], fup[to]);
+            if (fup[to] > tin[v])
+                IS_BRIDGE(v,to);
+        }
+    }
 }
  
 void find_bridges() {
-	timer = 0;
-	for (int i = 0; i < n; ++i)
-		used[i] = false;
-	for (int i = 0; i < n; ++i)
-		if (!used[i])
-			dfs (i);
+    timer = 0;
+    for (int i = 0; i < n; ++i)
+        used[i] = false;
+    for (int i = 0; i < n; ++i)
+        if (!used[i])
+            dfs (i);
 }
 ```
 
-Here, the main function calls function $find$_$bridges$ which produces necessary initialization and starts depth first search in all components of a graph.
+Main function is `find_bridges`; it performs necessary initialization and starts depth first search in each connected component of the graph.
 
-Function $IS$_$BRIDGE(a, b)$ - is a function that will produce output to the fact that edge $(a, b)$ is a bridge.
+Function `IS_BRIDGE(a, b)` is some function that will process the fact that edge $(a, b)$ is a bridge, for example, print it.
 
-Constant $MAXN$ at beginning of code is initialised to maximum number of nodes in the graph.
+Constant `MAXN` at beginning of code should be initialized to the maximum possible number of vertices in the input graph.
 
-It should be noted that this does not work correctly if multiple edges are present in the graph, as it actually ignores their presence. Of course, multiple edges must not be a part of the answer, so checks must be made in the function $IS$_$BRIDGE$. Another way to work with multiple edges more accurately is to transfer the number of edges by which we entered the current node(we all need to store this additionally).
+Note that this implementation malfunctions if the graph has multiple edges, since it ignores them. Of course, multiple edges will never be a part of the answer, so `IS_BRIDGE` can check additionally that the reported bridge does is not a multiple edge. Alternatively it's possible to pass to `dfs` the index of the edge used to enter the vertex instead of the parent vertex (and store the indices of all vertices).
 
 ## Practice Problems
 
-- [UVA #796 "Critical Links" [difficulty: low]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=737)
-- [UVA #610 "Street Directions" [difficulty: medium]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=551)
-- [Case of the Computer Network (Codeforces Round #310 Div. 1 E) [difficulty: hard]](http://codeforces.com/problemset/problem/555/E)
+- [UVA #796 "Critical Links"](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=737) [difficulty: low]
+- [UVA #610 "Street Directions"](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=551) [difficulty: medium]
+- [Case of the Computer Network (Codeforces Round #310 Div. 1 E)](http://codeforces.com/problemset/problem/555/E) [difficulty: hard]
+
