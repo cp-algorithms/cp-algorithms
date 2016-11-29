@@ -14,13 +14,13 @@ Note that there also exists an [online algorithm for finding bridges (ru)](http:
 
 Pick an arbitrary vertex of the graph $root$ and run [depth first search](./graph/depth-first-search.html) from it. Note the following fact (which is easy to prove):
 
-- Let's say we are in the DFS, looking through the edges starting from vertex $v$. The current edge $(v, to)$ is a bridge if and only if none of the vertices $to$ and its descendants in the DFS traversal tree has a back-edge to vertex $v$ or any of its ancestors. (Indeed, this condition means that there is no other way from $v$ to $to$ except for edge $(v, to)$)
+- Let's say we are in the DFS, looking through the edges starting from vertex $v$. The current edge $(v, to)$ is a bridge if and only if none of the vertices $to$ and its descendants in the DFS traversal tree has a back-edge to vertex $v$ or any of its ancestors. Indeed, this condition means that there is no other way from $v$ to $to$ except for edge $(v, to)$.
 
 Now we have to learn to check this fact for each vertex efficiently. We'll use "time of entry into node" computed by the depth first search.
 
-So, let $tin[v]$ denote entry time for node $v$. We introduce an array $fup$ which will let us check the fact for each vertex $v$. $fup[v]$ is the minimum of $tin[v]$, the entry time for all nodes $p$ that are connected to node $v$ via a back-edge $(v, p)$ and the values of $fup[to]$ for each vertex $to$ which is a direct descendant of $v$ in the DFS tree:
+So, let $tin[v]$ denote entry time for node $v$. We introduce an array $fup$ which will let us check the fact for each vertex $v$. $fup[v]$ is the minimum of $tin[v]$, the entry times $tin[p]$ for each node $p$ that is connected to node $v$ via a back-edge $(v, p)$ and the values of $fup[to]$ for each vertex $to$ which is a direct descendant of $v$ in the DFS tree:
 
-![Formula for fup](&imgroot&/search-bridge-formula.png)
+$$fup[v] = \min \Biggl\\{ {\begin{array}l tin[v] \\\\ tin[p] \text{ for all }p\text{ for which }(v, p)\text{ is a back edge} \\\ fup[to] \text{ for all }to\text{ for which }(v, to)\text{ is a tree edge} \end{array}}$$
 
 Now, there is a back edge from vertex $v$ or one of its descendants to one of its ancestors if and only if vertex $v$ has a child $to$ for which $fup[to] \leq tin[v]$. If $fup[to] = tin[v]$, the back edge comes directly to $v$, otherwise it comes to one of the ancestors of $v$.
 
