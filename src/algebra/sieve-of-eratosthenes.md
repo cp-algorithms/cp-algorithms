@@ -144,4 +144,4 @@ According to the performed experiments, we have the best speed of work when $s$ 
 
 ##Advancement to the linear time complexity
 
-We can convert the Eratosthenes algorithm into another algorithm that will have linear time complexity. Look at the article [Sieve of Eratosthenes Having Linear Time Complexity](./prime-sieve-linear.html). (However, this algorithm has its own weaknesses).
+We can convert the Eratosthenes algorithm into another algorithm that will have linear time complexity. Look at the article [Sieve of Eratosthenes Having Linear Time Complexity](./algebra/prime-sieve-linear.html). (However, this algorithm has its own weaknesses).
