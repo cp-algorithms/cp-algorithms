@@ -74,7 +74,7 @@ Such optimization doesn’t affect the running time (indeed, by repeating the pr
 
 ##Sieving by the odd numbers only
 
-Since all the even numbers, except $2$, are composite, we can stop woking on even numbers at all. Instead, we need to operate with odd numbers only.
+Since all the even numbers, except $2$, are composite, we can stop checking even numbers at all. Instead, we need to operate with odd numbers only.
 
 Firstly, it will allow us to shorten the needed memory in half. Secondly, it will reduce the number of operations performing by algorithm approximately in half.
 
@@ -84,7 +84,7 @@ We should notice that algorithm of Eratosthenes operates with $n$ bits of memory
 
 However, such approach, which is called **“a bit-level compression”**, will complicate the operations with these bits. Any bit’s reading or recording will look like a few arithmetic operations ultimately slowing down the algorithm.
 
-Thus, this approach is justified provided $n$ is so big that we cannot allocate $n$ bytes of the memory any more. In this case we will trade saving memory ($8$ times less) with significant slowing down of the algorithm.
+Thus, this approach is justified provided $n$ is so big that we cannot allocate $n$ bytes of the memory anymore. In this case we will trade saving memory ($8$ times less) with significant slowing down of the algorithm.
 
 After all, it’s worth mentioning the data structures that automatically do a bit-level compression, such as vector<bool\> and bitset<\>, have been already implemented in C++ language.
 

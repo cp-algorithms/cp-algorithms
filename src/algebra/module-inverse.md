@@ -38,7 +38,7 @@ else {
 }
 ```
 
-## Finding the Modular Inverse using Binary exponention
+## Finding the Modular Inverse using Binary Exponentiation
 
 Another method for finding modular inverse is to use Euler's theorem, which is as follows:
 

@@ -4,7 +4,7 @@
 
 ## Formulation
 
-The Chinese Remainder Theorem (will be refered to as CRT in the rest of this article), is formulated as follows:
+The Chinese Remainder Theorem (will be referred to as CRT in the rest of this article), is formulated as follows:
 
 Let $p = p_1 \cdot p_2 \cdot ... \cdot p_k$, where $p_i$ are pairwise relatively prime.
 

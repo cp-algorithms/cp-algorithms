@@ -89,7 +89,7 @@ Moreover, this is the set of all possible solutions of the given Diophantine equ
 
 ## Finding the number of solutions and the solutions in a given interval
 
-From previous section, it should be clear that if we don't impose any restrictions on the solutions, there would be infinte number of them. So in this section, we add some restrictions on the interval of $x$ and $y$, and we will try to count and enumerate all the solutions.
+From previous section, it should be clear that if we don't impose any restrictions on the solutions, there would be infinite number of them. So in this section, we add some restrictions on the interval of $x$ and $y$, and we will try to count and enumerate all the solutions.
 
 Let there be two intervals: $[min_x; max_x]$ and $[min_y; max_y]$ and let's say we only want to find the solutions in these two intervals.
 
