@@ -148,7 +148,14 @@ reverse(path.begin(), path.end());
 * Thomas Cormen, Charles Leiserson, Ronald Rivest, Clifford Stein. Introduction to Algorithms [2005]
 
 ## Practice Problems
-* [Timus - Ivan's Car [Difficulty:Medium]](http://acm.timus.ru/problem.aspx?space=1&num=1930)
-* [SPOJ  - SHPATH [Difficulty:Easy]](http://www.spoj.com/problems/SHPATH/)
-* [Codeforces - Dijkstra? [Difficulty:Easy]](http://codeforces.com/problemset/problem/20/C)
-
+* [Timus - Ivan's Car](http://acm.timus.ru/problem.aspx?space=1&num=1930) [Difficulty:Medium]
+* [Timus - Sightseeing Trip](http://acm.timus.ru/problem.aspx?space=1&num=1004)
+* [SPOJ - SHPATH](http://www.spoj.com/problems/SHPATH/) [Difficulty:Easy]
+* [Codeforces - Dijkstra?](http://codeforces.com/problemset/problem/20/C) [Difficulty:Easy]
+* [Codeforces - Shortest Path](http://codeforces.com/problemset/problem/59/E)
+* [Codeforces - Jzzhu and Cities](http://codeforces.com/problemset/problem/449/B)
+* [Codeforces - The Classic Problem](http://codeforces.com/problemset/problem/464/E)
+* [Codeforces - President and Roads](http://codeforces.com/problemset/problem/567/E)
+* [Codeforces - Complete The Graph](http://codeforces.com/problemset/problem/715/B)
+* [TopCoder - SkiResorts](https://community.topcoder.com/stat?c=problem_statement&pm=12468)
+* [TopCoder - MaliciousPath](https://community.topcoder.com/stat?c=problem_statement&pm=13596)
