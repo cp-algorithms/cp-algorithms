@@ -48,4 +48,4 @@ where $k$ can be any natural number. Then for any $k$, the tetrahedron $ABCD$ do
 However, higher dimensions still has a generalization using **Ehrhart polynomials** but they are quite complex and depends not only on points inside but also on the boundary of polytype.
 
 ## Extra Resources
-A few simple examples and a simple proof of pick's theorem can be found [here](http://www.geometer.org/mathcircles/pick.pdf).
+A few simple examples and a simple proof of Pick's theorem can be found [here](http://www.geometer.org/mathcircles/pick.pdf).
