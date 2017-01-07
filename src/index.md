@@ -10,7 +10,6 @@ especially popular in field of competitive programming.*
 ### Algebra
 - [Euler's Totient Function](./algebra/phi-function.html)
 - [Sieve of Eratosthenes](./algebra/sieve-of-eratosthenes.html)
-- [Extended Euclidean Algorithm](./algebra/extended-euclid-algorithm.html)
 - [Binary Exponentiation](./algebra/binary-exp.html)
 - [Balanced Ternary](./algebra/balanced-ternary.html)
 - [Linear Diophantine Equations](./algebra/linear-diophantine-equation.html)
@@ -26,9 +25,6 @@ especially popular in field of competitive programming.*
 ### Data Structures
 - [Fenwick Tree](./data_structures/fenwick.html)
 - [Treap](./data_structures/treap.html)
-
-### Dynamic Programming
-- [Dynamic Programming on Broken Profile. Problem "Parquet"](./dynamic_programming/profile-dynamics.html)
 
 ### String Processing
 - [String Hashing](./string/string-hashing.html)
