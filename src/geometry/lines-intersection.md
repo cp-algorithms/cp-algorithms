@@ -2,25 +2,25 @@
 
 # Intersection Point of Lines
 
-**Problem description.** Given two lines, represented by their coefficients $A_1, B_1, C_1$ and $A_2, B_2, C_2$. Find the intersection point of the lines, or state that the lines are parallel.
+You are given two lines, described as coefficients $A_1, B_1, C_1$ and $A_2, B_2, C_2$. Find the intersection point of the lines, or figure out that the lines are parallel.
 
 ## Solution
 
-If two lines are not parallel, then they have an intersection point. To find the intersection point, we need to solve the following system of linear equations:
+If two lines are not parallel, they intersect. To find their intersection point, we need to solve the following system of linear equations:
 
 $$ \cases{ A_1 x + B_1 y + C_1 = 0, \cr
 A_2 x + B_2 y + C_2 = 0. } $$
 
-Using Cramer's rule, we immediately find the solution for the system, which is also the point of intersection of the lines:
+Using Cramer's rule, we immediately find the solution for the system, which will give us the required intersection point of the lines:
 
 $$ x = - \frac{ \left|\matrix{C_1&B_1 \cr C_2&B_2}\right| }{ \left|\matrix{A_1&B_1 \cr A_2&B_2}\right| } = - \frac{ C_1 B_2 - C_2 B_1 }{ A_1 B_2 - A_2 B_1 }, $$
 $$ y = - \frac{ \left|\matrix{A_1&C_1 \cr A_2&C_2}\right| }{ \left|\matrix{A_1&B_1 \cr A_2&B_2}\right| } = - \frac{ A_1 C_2 - A_2 C_1 }{ A_1 B_2 - A_2 B_1 }. $$
 
-If the denominator is $0$, that is:
+If the denominator equals $0$, i.e.
 
 $$ \left|\matrix{A_1&B_1 \cr A_2&B_2}\right| = A_1 B_2 - A_2 B_1 = 0 $$
 
-then either **(1)** the system has no solution (the lines are parallel and do not overlap) or **(2)** there are infinitely many solutions (the lines overlap). If it is required to distinguish between these two cases, we have to check if coefficients $C$ of the lines have the same proportionality as the coefficients $A$ and $B$. To do that we only have to check if the following determinants are $0$ (if so the lines overlap, otherwise they don't):
+then either the system has no solutions (the lines are parallel and distinct) or there are infinitely many solutions (the lines overlap). If we need to distinguish these two cases, we have to check if coefficients $C$ are proportional with the same ratio as the coefficients $A$ and $B$. To do that we only have calculate the following determinants, and if they both equal $0$, the lines overlap:
 
 $$ \left|\matrix{ A_1 & C_1 \cr A_2 & C_2 }\right|, \left|\matrix{ B_1 & C_1 \cr B_2 & C_2 }\right| $$
 
