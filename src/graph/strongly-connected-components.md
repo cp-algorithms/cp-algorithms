@@ -100,3 +100,10 @@ Here, $g$ is graph, $gr$ is transposed graph. Function $dfs1$ implements depth f
 
 * Thomas Cormen, Charles Leiserson, Ronald Rivest, Clifford Stein. Introduction to Algorithms [2005].
 * M. Sharir. A strong-connectivity algorithm and its applications in data-flow analysis [1979].
+
+##Practice Problems
+- [SPOJ - Submerging Islands](http://www.spoj.com/problems/SUBMERGE/)
+- [SPOJ - Good Travels](http://www.spoj.com/problems/GOODA/)
+- [SPOJ - Lego](http://www.spoj.com/problems/LEGO/)
+- [Codechef - Chef and Round Run](https://www.codechef.com/AUG16/problems/CHEFRRUN)
+

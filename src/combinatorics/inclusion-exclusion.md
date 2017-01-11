@@ -57,21 +57,21 @@ We want to prove that any element contained in at least one of the sets $A_i$ wi
 Consider an element $x$ occurring in $k \geq 1$ sets $A_i$. We will show it is counted only once in the formula. Note that:
 
 * in terms which $|J| = 1$, the item $x$ will be counted **$+\ k$** times;
-* in terms which $|J| = 2$, the item $x$ will be counted **$-\ C_k^2$** times - because it will be counted in those terms that include two of the $k$ sets containing $x$;
-* in terms which $|J| = 3$, the item $x$ will be counted **$+\ C_k^3$** times;
+* in terms which $|J| = 2$, the item $x$ will be counted **$-\ \binom{k}{2}$** times - because it will be counted in those terms that include two of the $k$ sets containing $x$;
+* in terms which $|J| = 3$, the item $x$ will be counted **$+\ \binom{k}{3}$** times;
 * $\cdots$
-* in terms which $|J| = k$, the item $x$ will be counted **$(-1)^{k-1}\cdot C_k^k$** times;
+* in terms which $|J| = k$, the item $x$ will be counted **$(-1)^{k-1}\cdot \binom{k}{k}$** times;
 * in terms which $|J| \gt k$, the item $x$ will be counted **zero** times;
 
 This leads us to the following sum of [binomial coefficients](./combinatorics/binomial-coefficients.html):
 
-$$ T = C_k^{1} - C_k^{2} + C_k^{3} - \cdots + (-1)^{i-1}\cdot C_k^{i} + \cdots + (-1)^{k-1}\cdot C_k^k $$
+$$ T = \binom{k}{1} - \binom{k}{2} + \binom{k}{3} - \cdots + (-1)^{i-1}\cdot \binom{k}{i} + \cdots + (-1)^{k-1}\cdot \binom{k}{k}$$
 
 This expression is very similar to the binomial expansion of $(1 - x)^k$:
 
-$$ (1 - x)^k = C_k^0 - C_k^1\cdot x + C_k^2\cdot x^2 - C_k^3\cdot x^3 + \cdots + (-1)^k\cdot C_k^k\cdot x^k $$
+$$ (1 - x)^k = \binom{k}{0} - \binom{k}{1} \cdot x + \binom{k}{2} \cdot x^2 - \binom{k}{3} \cdot x^3 + \cdots + (-1)^k\cdot \binom{k}{k} \cdot x^k $$
 
-When $x = 1$, $(1 - x)^k$ looks a lot like $T$. However, the expression has an additional $C_k^0 = 1$, and it is multiplied by $-1$. That leads us to $(1 - 1)^k = 1 - T$. Therefore $T = 1 - (1 - 1)^k = 1$, what was required to prove. The element is counted only once.
+When $x = 1$, $(1 - x)^k$ looks a lot like $T$. However, the expression has an additional $\binom{k}{0} = 1$, and it is multiplied by $-1$. That leads us to $(1 - 1)^k = 1 - T$. Therefore $T = 1 - (1 - 1)^k = 1$, what was required to prove. The element is counted only once.
 
 ## Usage when solving problems
 
@@ -125,23 +125,23 @@ Task: count the number of solutions to the equation.
 
 Forget the restriction on $x_i$ for a moment and just count the number of nonnegative solutions to this equation. This is easily done using [binomial coefficients](./combinatorics/binomial-coefficients.html): we want to break a sequence of $20$ units into $6$ groups, which is the same as distributing $5$ "walls" over $25$ slots:
 
-$$N_0 = C_{25}^5$$
+$$N_0 = \binom{25}{5}$$
 
 We will now calculate the number of "bad" solutions with the inclusion-exclusion principle. The "bad" solutions will be those in which one or more $x_i$ are greater than $9$.
 
 Denote by $A_k (k = 1,2\ldots 6)$ the set of solutions where $x_k \ge 9$, and all other $x_i \ge 0 (i \ne k)$ (they may be $\ge 9$ or not). To calculate the size of $A_k$, note that we have essentially the same combinatorial problem that was solved in the two paragraphs above, but now $9$ of the units are excluded from the slots and definitely belong to the first group. Thus:
 
-$$ | A_k | = C_{16}^5 $$
+$$ | A_k | = \binom{16}{5} $$
 
 Similarly, the size of the intersection between sets $A_k$ and $A_p$ is equal to:
 
-$$ \left| A_k \cap A_p \right| = C_7^5 $$
+$$ \left| A_k \cap A_p \right| = \binom{7}{5}$$
 
 The size of each intersection of three sets is zero, since $20$ units will not be enough for three or more variables greater than or equal to $9$.
 
 Combining all this into the formula of inclusions-exceptions and given that we solved the inverse problem, we finally get the answer:
 
-$$C_{25}^5 - (C_6^1 \cdot C_{16}^5 - C_6^2 \cdot C_7^5) $$
+$$\binom{25}{5} - \left(\binom{6}{1} \cdot \binom{16}{5} - \binom{6}{2} \cdot \binom{7}{5}\right) $$
 
 ### The number of relatively primes in a given interval
 
@@ -226,9 +226,9 @@ $$ ans = \sum_{X ~ : ~ |X| = k} ans(X) $$
 
 However, asymptotics of this solution is $O(3^k \cdot k)$. To improve it, notice that different $ans(X)$ computations very often share $Y$ sets.
 
-We will reverse the formula of inclusion-exclusion and sum in terms of $Y$ sets. Now it becomes clear that the same set $Y$ would be taken into account in the computation of $ans(X)$ of $C_{|Y|}^k$ sets with the same sign $(-1)^{|Y| - k}$.
+We will reverse the formula of inclusion-exclusion and sum in terms of $Y$ sets. Now it becomes clear that the same set $Y$ would be taken into account in the computation of $ans(X)$ of $\binom{|Y|}{k}$ sets with the same sign $(-1)^{|Y| - k}$.
 
-$$ ans = \sum_{Y ~ : ~ |Y| \ge k} (-1)^{|Y|-k} \cdot C_{|Y|}^k \cdot f(Y) $$
+$$ ans = \sum_{Y ~ : ~ |Y| \ge k} (-1)^{|Y|-k} \cdot \binom{|Y|}{k} \cdot f(Y) $$
 
 Now our solution has asymptotics $O(2^k \cdot k)$.
 
@@ -237,19 +237,19 @@ We will now solve the second version of the problem: find the number of strings 
 Of course, we can just use the solution to the first version of the problem and add the answers for sets with size greater than $k$. However, you may notice that in this problem, a set |Y| is considered in the formula for all sets with size $\ge k$ which are contained in $Y$. That said, we can write the part of the expression that is being multiplied by $f(Y)$ as:
 
 
-$$ (-1)^{|Y|-k} \cdot C_{|Y|}^k + (-1)^{|Y|-k-1} \cdot C_{|Y|}^{k+1} + (-1)^{|Y|-k-2} \cdot C_{|Y|}^{k+2} + \cdots + (-1)^{|Y|-|Y|} \cdot C_{|Y|}^{|Y|} $$
+$$ (-1)^{|Y|-k} \cdot \binom{|Y|}{k} + (-1)^{|Y|-k-1} \cdot \binom{|Y|}{k+1} + (-1)^{|Y|-k-2} \cdot \binom{|Y|}{k+2} + \cdots + (-1)^{|Y|-|Y|} \cdot \binom{|Y|}{|Y|} $$
 
 Looking at Graham's (Graham, Knuth, Patashnik. "Concrete mathematics" [1998] ), we see a well-known formula for [binomial coefficients](./combinatorics/binomial-coefficients.html):
 
-$$ \sum_{k=0}^m (-1)^k \cdot C_n^k = (-1)^m \cdot C_{n-1}^m $$
+$$ \sum_{k=0}^m (-1)^k \cdot \binom{n}{k} = (-1)^m \cdot \binom{n-1}{m} $$
 
 Applying it here, we find that the entire sum of binomial coefficients is minimized:
 
-$$ (-1)^{|Y|-k} \cdot C_{|Y|-1}^{|Y|-k} $$
+$$ (-1)^{|Y|-k} \cdot \binom{|Y|-1}{|Y|-k} $$
 
 Thus, for this task, we also obtained a solution with the asymptotics $O(2^k \cdot k)$:
 
-$$ ans = \sum_{Y ~ : ~ |Y| \ge k} (-1)^{|Y|-k} \cdot C_{|Y|-1}^{|Y|-k} \cdot f(Y) $$
+$$ ans = \sum_{Y ~ : ~ |Y| \ge k} (-1)^{|Y|-k} \cdot \binom{|Y|-1}{|Y|-k} \cdot f(Y) $$
 
 ### The number of ways of going from a cell to another
 
@@ -261,7 +261,7 @@ For now, sort the obstacles by their coordinate $x$, and in case of equality —
 
 Also just learn how to solve a problem without obstacles: i.e. learn how to count the number of ways to get from one cell to another. In one axis, we need to go through $x$ cells, and on the other, $y$ cells. From simple combinatorics, we get a formula using [binomial coefficients](./combinatorics/binomial-coefficients.html):
 
-$$C_{x+y}^{x}$$
+$$\binom{x+y}{x}$$
 
 Now to count the number of ways to get from one cell to another, avoiding all obstacles, you can use inclusion-exclusion to solve the inverse problem: count the number of ways to walk through the board stepping at a subset of obstacles (and subtract it from the total number of ways).
 
@@ -365,7 +365,7 @@ The asymptotics of our solution is $O(n \log n)$, as for almost every number up 
 
 Prove that the number of permutations of length $n$ without fixed points (i.e. no number $i$ is in position $i$ - also called a derangement) is equal to the following number:
 
-$$n! - C_n^1 \cdot (n-1)! + C_n^2 \cdot (n-2)! - C_n^3 \cdot (n-3)! + \cdots \pm C_n^n \cdot (n-n)! $$
+$$n! - \binom{n}{1} \cdot (n-1)! + \binom{n}{2} \cdot (n-2)! - \binom{n}{3} \cdot (n-3)! + \cdots \pm \binom{n}{n} \cdot (n-n)! $$
 
 and approximately equal to:
 
@@ -386,13 +386,13 @@ $$\begin{eqnarray}
 
 because if we know that the number of fixed points is equal $x$, then we know the position of $x$ elements of the permutation, and all other $(n-x)$ elements can be placed anywhere.
 
-Substituting this into the formula of inclusion-exclusion, and given that the number of ways to choose a subset of size $x$ from the set of $n$ elements is equal to $C_n^x$, we obtain a formula for the number of permutations with at least one fixed point:
+Substituting this into the formula of inclusion-exclusion, and given that the number of ways to choose a subset of size $x$ from the set of $n$ elements is equal to $\binom{n}{x}$, we obtain a formula for the number of permutations with at least one fixed point:
 
-$$C_n^1 \cdot (n-1)! - C_n^2 \cdot (n-2)! + C_n^3 \cdot (n-3)! - \cdots \pm C_n^n \cdot (n-n)! $$
+$$\binom{n}{1} \cdot (n-1)! - \binom{n}{2} \cdot (n-2)! + \binom{n}{3} \cdot (n-3)! - \cdots \pm \binom{n}{n} \cdot (n-n)! $$
 
 Then the number of permutations without fixed points is equal to:
 
-$$n! - C_n^1 \cdot (n-1)! + C_n^2 \cdot (n-2)! - C_n^3 \cdot (n-3)! + \cdots \pm C_n^n \cdot (n-n)! $$
+$$n! - \binom{n}{1} \cdot (n-1)! + \binom{n}{2} \cdot (n-2)! - \binom{n}{3} \cdot (n-3)! + \cdots \pm \binom{n}{n} \cdot (n-n)! $$
 
 Simplifying this expression, we obtain **exact and approximate expressions for the number of permutations without fixed points**:
 

@@ -36,7 +36,7 @@ $$\sum_{\substack{p \le n, \\\ p\ is\ prime}} \frac 1 p \approx \frac 1 2 + \sum
 
 Here, we extracted the first prime number out of a sum, since $k = 1$ in approximation $k \ln k$  leads to $0$ yielding division by zero operation.
 
-Now, lets evaluate this sum using the integral of a same function over $k$ from $2$ to $\frac n {\ln n}$ (we can make such approximation because, in fact, the sum is related to the integral as its approximation using rectangle method):
+Now, let’s evaluate this sum using the integral of a same function over $k$ from $2$ to $\frac n {\ln n}$ (we can make such approximation because, in fact, the sum is related to the integral as its approximation using rectangle method):
 
 $$\sum_{k = 2}^{\frac n {\ln n}} \frac 1 {k \ln k} \approx \int_2^{\frac n {\ln n}} \frac 1 {k \ln k} dk.$$
 
@@ -74,7 +74,7 @@ Such optimization doesn’t affect the running time (indeed, by repeating the pr
 
 ##Sieving by the odd numbers only
 
-Since all the even numbers, except $2$, are composite, we can stop woking on even numbers at all. Instead, we need to operate with odd numbers only.
+Since all the even numbers, except $2$, are composite, we can stop checking even numbers at all. Instead, we need to operate with odd numbers only.
 
 Firstly, it will allow us to shorten the needed memory in half. Secondly, it will reduce the number of operations performing by algorithm approximately in half.
 
@@ -84,7 +84,7 @@ We should notice that algorithm of Eratosthenes operates with $n$ bits of memory
 
 However, such approach, which is called **“a bit-level compression”**, will complicate the operations with these bits. Any bit’s reading or recording will look like a few arithmetic operations ultimately slowing down the algorithm.
 
-Thus, this approach is justified provided $n$ is so big that we cannot allocate $n$ bytes of the memory any more. In this case we will trade saving memory ($8$ times less) with significant slowing down of the algorithm.
+Thus, this approach is justified provided $n$ is so big that we cannot allocate $n$ bytes of the memory anymore. In this case we will trade saving memory ($8$ times less) with significant slowing down of the algorithm.
 
 After all, it’s worth mentioning the data structures that automatically do a bit-level compression, such as vector<bool\> and bitset<\>, have been already implemented in C++ language.
 
@@ -144,4 +144,4 @@ According to the performed experiments, we have the best speed of work when $s$ 
 
 ##Advancement to the linear time complexity
 
-We can convert the Eratosthenes algorithm into another algorithm that will have linear time complexity. Look at the article "Sieve of Eratosthenes with the Linear Time Complexity” (TODO: insert a link). (However, this algorithm has its own weaknesses).
+We can convert the Eratosthenes algorithm into another algorithm that will have linear time complexity. Look at the article [Sieve of Eratosthenes Having Linear Time Complexity](./algebra/prime-sieve-linear.html). (However, this algorithm has its own weaknesses).

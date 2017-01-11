@@ -8,23 +8,23 @@ Hashing algorithms are helpful in solving a lot of problems. But they have a big
 
 The best and most widely used way to determine the hash of a string $S$ is the following function:
 
-$ hash(S) = S[0] + S[1] * P + S[2] * P ^ 2 + S[3] * P ^ 3 + ... + S[N] * P ^ N $
+$ hash(S) = S[0] + S[1] \cdot P + S[2] \cdot P ^ 2 + S[3] \cdot P ^ 3 + ... + S[N] \cdot P ^ N $
 where $P$ is some number.
 
-It is reasonable to make $P$ a prime number roughly equal to the number of characters in the input alphabet. For example, if the input is composed of only lowercase letters of the Latin alphabet, $P = 31$ is a good choice. If the input may contain both uppercase and lowercase letters, then $P = 53$ is a possible choice.
+It is reasonable to make $P$ a prime number roughly equal to the number of characters in the input alphabet. For example, if the input is composed of only lowercase letters of English alphabet, $P = 31$ is a good choice. If the input may contain both uppercase and lowercase letters, then $P = 53$ is a possible choice.
 
-All pieces of code in this article will take the value of $P$ to be equal to $31$.
+The code in this article will use $P = 31$.
 
-Of course, it is desirable to store the hash value in the largest numeric type - int64 i.e unsigned long long. It is obvious that if the length of the string gets to about 20 characters, the hash value will overflow. But the key point to notice here is that we do not pay attention to these overflows, as these overflows are equivalent to keeping the hash modulo $2^{64}$ at all times.
+Of course, it is desirable to store the hash value in the largest numeric type - int64 i.e. unsigned long long. It is obvious that if the length of the string gets to about 20 characters, the hash value will overflow. But the key point to notice here is that we do not care about these overflows, as these overflows are equivalent to keeping the hash modulo $2^{64}$ at all times.
 
-Example of calulating the hash of a string $s$, which contains only small letters:
+Example of calulating the hash of a string $s$, which contains only lowercase letters:
 ```cpp
 const int p = 31;
 unsigned long long hash = 0, p_pow = 1;
 for (size_t i = 0; i <s.length (); ++ i)
 {
     // Generally, it is recommended to take the "value" of 'a' to be 1
-    // so that strings like "aaaaa" do not hash to the value 0
+    // so that strings like "aaaaa" do not all hash to the value 0
     hash + = (s [i] - 'a' + 1) * p_pow;
     p_pow * = p;
 }
@@ -32,11 +32,11 @@ for (size_t i = 0; i <s.length (); ++ i)
 
 In the majority of tasks, it makes sense to first calculate all the necessary powers of $P$ and store them in an array.
 
-## Example tasks.
+### Example tasks
 
 #### Search for duplicate strings in an array of strings
 
-We wish to efficiently solve the following problem: Given a list of strings $S [1..N]$, each no longer than $M$ characters, find all the duplicate strings and divide them into groups so that each group contains only the same string.
+We wish to efficiently solve the following problem: given a list of strings $S [1..N]$, each no longer than $M$ characters, find all the duplicate strings and divide them into groups so that each group contains only the same string.
 
 From the obvious algorithm involving sorting the strings, we would get a time complexity of $O(NM log N)$ where the sorting requires $O(N log N)$ comparisons and each comparison take $O(M)$ time. However by using hashes, we reduce the comparison time to $O(1)$, giving us an algorithm that runs in $O(NM + N log N)$ time.
 
@@ -150,15 +150,15 @@ Here are some typical applications of Hashing:
 
 * Calculating the number of palindromic substrings in a string.
 
-### Determination of the number of different substrings in  a string
+### Determine the number of different substrings in  a string
 
-Problem: Given a string $S$ of length $N$, consisting only of lowercase Latin letters, find the number of different substrings in this string.
+Problem: Given a string $S$ of length $N$, consisting only of lowercase English letters, find the number of different substrings in this string.
 
 To solve this problem, first let's apply the brute force approach over substring length one by one: $L = 1 .. N$.
 
 For every substring length $L$, we construct an array of hashes of all substrings of length $L$. Further, we get these hashes multiplied by the same power of $P$, and then sort the array. The number of different elements in the array is equal to the number of distinct substrings of length $L$ in the string. This number is added to the final answer.
 
-##Implementation:
+#### Implementation
 
 ```cpp
 string s; // Input string

@@ -62,17 +62,17 @@ void init() {
 ```
 
 ###Analytical formula
- $$C_n = \frac{1}{n + 1} C_{2n}^{n}$$
+$$C_n = \frac{1}{n + 1} {\binom{2n}{n}$$
 
-(here $C_{n}^{k}$ denotes the usual binomial coefficient, i.e. number of ways to select $k$ objects from set of $n$ objects).
+(here $\binom{n}{k}$ denotes the usual binomial coefficient, i.e. number of ways to select $k$ objects from set of $n$ objects).
 
-The above formula can be easily concluded from the problem of the monotonic paths in square grid. The total number of  monotonic paths in the lattice size of $n \times n$ is given by $C_{2n}^{n}$.
+The above formula can be easily concluded from the problem of the monotonic paths in square grid. The total number of  monotonic paths in the lattice size of $n \times n$ is given by $\binom{2n}{n}$.
 
 Now we count the number of monotonic paths which cross the main diagonal. Consider such paths crossing the main diagonal and find the first edge in it which is above the diagonal. Reflect the path about the diagonal all the way, going after this edge. The result is always a monotonic path in the grid $(n - 1) \times (n + 1)$. On the other hand, any monotonic path in the lattice $(n - 1) \times (n + 1)$ must intersect the diagonal. Hence, we enumerated all monotonic paths crossing the main diagonal in the lattice $n \times n$.
 
-The number of monotonic paths in the lattice $(n - 1) \times (n + 1)$ are $C_{2n}^{n-1}$ . Let us call such paths as "bad" paths. As a result, to obtain the number of monotonic paths which do not cross the main diagonal, we subtract the above "bad" paths, obtaining the formula:
+The number of monotonic paths in the lattice $(n - 1) \times (n + 1)$ are $\binom{2n}{n-1}$ . Let us call such paths as "bad" paths. As a result, to obtain the number of monotonic paths which do not cross the main diagonal, we subtract the above "bad" paths, obtaining the formula:
 
- $$C_n = C_{2n}^{n} - C_{2n}^{n-1} = \frac{1}{n + 1} C_{2n}^{n} , {n} \geq 0$$
+$$C_n = \binom{2n}{n} - \binom{2n}{n-1} = \frac{1}{n + 1} \binom{2n}{n} , {n} \geq 0$$
 
 ## Practice Problems
 - [Codechef - PANSTACK](https://www.codechef.com/APRIL12/problems/PANSTACK/)
