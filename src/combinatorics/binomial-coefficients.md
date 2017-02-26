@@ -7,7 +7,7 @@ Binomial coefficients are also the coefficients in the expansion of $(a + b) ^ n
 
 $$ (a+b)^n = \binom n 0 a^n + \binom n 1 a^{n-1} b + \binom n 2 a^{n-2} b^2 + \cdots + \binom n k a^{n-k} b^k + \cdots + \binom n n b^n $$
 
-It is believed that this formula, as well as the triangle which allows efficient calculation of the coefficients, was discovered by Blaise Pascal in the 17th century. Nevertheless, it was known to the Chinese mathematician Yang Hui(楊輝), who lived in the 13th century. Perhaps it was discovered by a Persian scholar Omar Khayyam(عمر خیام). Moreover, Indian mathematician Pingala (पिङ्गल), who lived  earlier in the 3rd. BC, got similar results. The merit of the Newton is that he generalized this formula for exponents that are not natural.
+It is believed that this formula, as well as the triangle which allows efficient calculation of the coefficients, was discovered by Blaise Pascal in the 17th century. Nevertheless, it was known to the Chinese mathematician Yang Hui, who lived in the 13th century. Perhaps it was discovered by a Persian scholar Omar Khayyam. Moreover, Indian mathematician Pingala, who lived  earlier in the 3rd. BC, got similar results. The merit of the Newton is that he generalized this formula for exponents that are not natural.
 
 ## Calculation
 
@@ -46,11 +46,11 @@ $$ 1 \binom n 1 + 2 \binom n 2 + \cdots + n \binom n n = n 2^{n-1} $$
 *   Connection with the [Fibonacci numbers](./algebra/fibonacci-numbers.html):
 $$ \binom n 0 + \binom {n-1} 1 + \cdots + \binom {n-k} k + \cdots + \binom 0 n = F_{n+1} $$
 
-## Calculations in code
+## Calculation
 
-### Direct calculation of analytical formula
+### Straightforward calculation using analytical formula
 
-The first, straightforward formula is very easy to code, but this method is likely to overflow even for relatively small values of $n$ and $k$ (even if the answer completely fit into any type of data, the calculation of the intermediate factorials can lead to overflow). Therefore, this method often can only be used with [long arithmetic](./algebra/big-integer.html):
+The first, straightforward formula is very easy to code, but this method is likely to overflow even for relatively small values of $n$ and $k$ (even if the answer completely fit into some datatype, the calculation of the intermediate factorials can lead to overflow). Therefore, this method often can only be used with [long arithmetic](./algebra/big-integer.html):
 
 ```cpp
 int C (int n, int k) {
@@ -95,7 +95,7 @@ If the entire table of values is not necessary, storing only two last rows of it
 
 ### Calculation in $O(1)$
 
-Finally, in some situations it is beneficial to pre-calculate all the factorials in order to produce any necessary binomial coefficient with only two divisions later.This can be advantageous when using [long arithmetic](./algebra/big-integer.html), when the memory does not allow precalculation of all Pascal's triangle, or when you need to do calculations for some prime modulo (if the modulo is not prime, there are difficulties when dividing the numerator by the denominator, which can be overcome by factoring modulo and storing all numbers in the form of vectors of powers of these primes; see the section [Long arithmetic in factored form](./algebra/big-integer.html)).
+Finally, in some situations it is beneficial to pre-calculate all the factorials in order to produce any necessary binomial coefficient with only two divisions later. This can be advantageous when using [long arithmetic](./algebra/big-integer.html), when the memory does not allow precalculation of the whole Pascal's triangle, or when you need to do calculations for some prime modulo (if the modulo is not prime, there are difficulties when dividing the numerator by the denominator, which can be overcome by factoring modulo and storing all numbers in the form of vectors of powers of these primes; see the section [Long arithmetic in factored form](./algebra/big-integer.html)).
 
 ## Practice Problems
 * [Codechef - Number of ways](https://www.codechef.com/LTIME24/problems/NWAYS/)
