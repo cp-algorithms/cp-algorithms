@@ -149,3 +149,21 @@ for (int i=(int)a.size()-1; i>=0; --i) {
 while (a.size() > 1 && a.back() == 0)
 	a.pop_back();
 ```
+
+## Long Arithmetics for Factorization Representation
+
+The idea is to store the integer as its factorization, i.e. the powers of primes which divide it.
+
+This approach is very easy to implement, and allows to do multiplication and division easily (assymptotically faster than the classic method), but not addition or subtraction. It is also very memory-efficient compared to the classic approach.
+
+This method is often used for calculations modulo non-prime number M; in this case a number is stored as powers of divisors of M which divide the number, plus the remainder modulo M.
+
+## Long Arithmetics in prime modulos (Garner Algorithm)
+
+The idea is to choose a set of prime numbers (typically they are small enough to fit into standard integer data type) and to store an integer as a vector of remainders from division of the integer by each of those primes.
+
+Chinese remainder theorem states that this representation is sufficient to uniquely restore any number from 0 to product of these primes minus one. [Garner algorithm](./algebra/chinese-remainder-theorem.html) allows to restore the number from such representation to normal integer.
+
+This method allows to save memory compared to the classic approach (though the savings are not as dramatic as in factorization representation). Besides, it allows to perform fast addition, subtraction and multiplication in time proportional to the number of prime numbers used as modulos (see [Chinese remainder theorem](./algebra/chinese-remainder-theorem.html) article for implementation).
+
+The tradeoff is that converting the integer back to normal form is rather laborious and requires implementing classic long arithmetics with multiplication. Besides, this method doesn't support division.
