@@ -4,7 +4,7 @@
 
 Long arithmetics is a set of data structures and algorithms which allows to process much greater numbers than can be fit in standard data types. Here are several types of long arithmetics.
 
-## Classical Long Arithmetics
+## Classical Integer Long Arithmetics
 
 The main idea is that the number is stored as an array of its "digits" in some base. Several most frequently used bases are decimal, powers of decimal ($10^4$ or $10^9$) and binary.
 
@@ -150,20 +150,38 @@ while (a.size() > 1 && a.back() == 0)
 	a.pop_back();
 ```
 
-## Long Arithmetics for Factorization Representation
+## Long Integer Arithmetics for Factorization Representation
 
 The idea is to store the integer as its factorization, i.e. the powers of primes which divide it.
 
-This approach is very easy to implement, and allows to do multiplication and division easily (assymptotically faster than the classic method), but not addition or subtraction. It is also very memory-efficient compared to the classic approach.
+This approach is very easy to implement, and allows to do multiplication and division easily (assymptotically faster than the classical method), but not addition or subtraction. It is also very memory-efficient compared to the classical approach.
 
 This method is often used for calculations modulo non-prime number M; in this case a number is stored as powers of divisors of M which divide the number, plus the remainder modulo M.
 
-## Long Arithmetics in prime modulos (Garner Algorithm)
+## Long Integer Arithmetics in prime modulos (Garner Algorithm)
 
 The idea is to choose a set of prime numbers (typically they are small enough to fit into standard integer data type) and to store an integer as a vector of remainders from division of the integer by each of those primes.
 
 Chinese remainder theorem states that this representation is sufficient to uniquely restore any number from 0 to product of these primes minus one. [Garner algorithm](./algebra/chinese-remainder-theorem.html) allows to restore the number from such representation to normal integer.
 
-This method allows to save memory compared to the classic approach (though the savings are not as dramatic as in factorization representation). Besides, it allows to perform fast addition, subtraction and multiplication in time proportional to the number of prime numbers used as modulos (see [Chinese remainder theorem](./algebra/chinese-remainder-theorem.html) article for implementation).
+This method allows to save memory compared to the classical approach (though the savings are not as dramatic as in factorization representation). Besides, it allows to perform fast addition, subtraction and multiplication in time proportional to the number of prime numbers used as modulos (see [Chinese remainder theorem](./algebra/chinese-remainder-theorem.html) article for implementation).
 
-The tradeoff is that converting the integer back to normal form is rather laborious and requires implementing classic long arithmetics with multiplication. Besides, this method doesn't support division.
+The tradeoff is that converting the integer back to normal form is rather laborious and requires implementing classical long arithmetics with multiplication. Besides, this method doesn't support division.
+
+## Long Fractional Arithmetics
+
+Fractions occur in programming competitions less frequently than integers, and long arithmetics is much trickier to implement for fractions, so programming competitions feature only a small subset of fractional long arithmetics.
+
+### Long Arithmetics in Irreducible Fractions
+
+A number is represented as an irreducible fraction $\frac{a}{b}$, where $a$ and $b$ are integers. All operations on fractions can be represented as operations on integer numerators and denominators of these fractions. Usually this requires using classical long arithmetics for storing numerator and denominator, but sometimes a built-in 64-bit integer data type suffices.
+
+### Storing Floating Point Position as Separate Type
+
+Sometimes a problem requires handling very small or very large numbers without allowing overflow or underflow. Built-in double data type uses 8-10 bytes and allows values of the exponent in $[-308; 308]$ range, which sometimes might be insufficient.
+
+The approach is very simple: a separate integer variable is used to store the value of the exponent, and after each operation the floating-point number is normalized, i.e. returned to $[0.1; 1)$ interval by adjusting the exponent accordingly. 
+
+When two such numbers are multiplied or divided, their exponents should be added or subtracted, respectively. When numbers are added or subtracted, they have to be brought to common exponent first by multiplying one of them by 10 raised to the power equal to the difference of exponent values.
+
+As a final note, the exponent base doesn't have to equal 10. Based on the internal representation of floating-point numbers, it makes most sense to use 2 as the exponent base.
