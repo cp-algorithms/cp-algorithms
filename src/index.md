@@ -24,6 +24,7 @@ especially popular in field of competitive programming.*
 - [Gray code](./algebra/gray-code.html)
 - [Sieve of Eratosthenes Having Linear Time Complexity](./algebra/prime-sieve-linear.html)
 - [Long Arithmetics](./algebra/big-integer.html)
+- [Fibonacci Numbers](./algebra/fibonacci-numbers.html)
 
 ### Data Structures
 - [Fenwick Tree](./data_structures/fenwick.html)
