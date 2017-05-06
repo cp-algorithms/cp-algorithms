@@ -2,11 +2,11 @@
 
 # String Hashing
 
-Hashing algorithms are helpful in solving a lot of problems. But they have a big flaw that sometimes they are not 100% deterministically correct because when there are plenty of strings, hashes may collide. However, in a wide majority of tasks, this can be safely ignored as the probability of the hashes of two different strings colliding is still very small.
+Hashing algorithms are helpful in solving a lot of problems. But they have a big flaw that sometimes they are not 100% deterministically correct because when there are plenty of strings, hashes may collide. However, in a wide majority of tasks this can be safely ignored as the probability of the hashes of two different strings colliding is still very small.
 
 ## Calculation of the hash of a string
 
-The best and most widely used way to determine the hash of a string $S$ is the following function:
+The best and most widely used way to define the hash of a string $S$ is the following function:
 
 $ hash(S) = S[0] + S[1] \cdot P + S[2] \cdot P ^ 2 + S[3] \cdot P ^ 3 + ... + S[N] \cdot P ^ N $
 where $P$ is some number.
@@ -17,7 +17,7 @@ The code in this article will use $P = 31$.
 
 Of course, it is desirable to store the hash value in the largest numeric type - int64 i.e. unsigned long long. It is obvious that if the length of the string gets to about 20 characters, the hash value will overflow. But the key point to notice here is that we do not care about these overflows, as these overflows are equivalent to keeping the hash modulo $2^{64}$ at all times.
 
-Example of calulating the hash of a string $s$, which contains only lowercase letters:
+Example of calculating the hash of a string $s$, which contains only lowercase letters:
 ```cpp
 const int p = 31;
 unsigned long long hash = 0, p_pow = 1;
@@ -32,11 +32,11 @@ for (size_t i = 0; i <s.length (); ++ i)
 
 In the majority of tasks, it makes sense to first calculate all the necessary powers of $P$ and store them in an array.
 
-### Example tasks
+## Example tasks
 
-#### Search for duplicate strings in an array of strings
+### Search for duplicate strings in an array of strings
 
-We wish to efficiently solve the following problem: given a list of strings $S [1..N]$, each no longer than $M$ characters, find all the duplicate strings and divide them into groups so that each group contains only the same string.
+Problem: Given a list of strings $S [1..N]$, each no longer than $M$ characters, find all the duplicate strings and divide them into groups so that each group contains only the same string.
 
 From the obvious algorithm involving sorting the strings, we would get a time complexity of $O(NM log N)$ where the sorting requires $O(N log N)$ comparisons and each comparison take $O(M)$ time. However by using hashes, we reduce the comparison time to $O(1)$, giving us an algorithm that runs in $O(NM + N log N)$ time.
 
@@ -77,7 +77,7 @@ for (int i = 0, group = 0; i <n; ++ i)
 }
 ```
 
-#### Fast calculation of hashes of substrings of given string $S$
+### Fast calculation of hashes of substrings of given string $S$
 
 Problem: Given a string $S$ and indices $I$ and $J$, find the hash of the substring $S [I..J]$.
 
@@ -158,7 +158,7 @@ To solve this problem, first let's apply the brute force approach over substring
 
 For every substring length $L$, we construct an array of hashes of all substrings of length $L$. Further, we get these hashes multiplied by the same power of $P$, and then sort the array. The number of different elements in the array is equal to the number of distinct substrings of length $L$ in the string. This number is added to the final answer.
 
-#### Implementation
+### Implementation
 
 ```cpp
 string s; // Input string
