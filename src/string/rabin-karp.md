@@ -3,15 +3,15 @@
 # Rabin-Karp Algorithm for string matching in O(|S| + |T|)
 
 
-This algorithm is based on the concept of hashing, so if you are not familiar with string hashing, kindly refer to the [String Hashing](./string/string-hashing.html) article.
+This algorithm is based on the concept of hashing, so if you are not familiar with string hashing,  refer to the [string hashing](./string/string-hashing.html) article.
 
  
 This algorithm was authored by Rabin and Karp in 1987.
 
 Problem: Given two strings - a pattern $S$ and a text $T$, determine if the pattern appears in the text and if it does, enumerate all its
-occurences in $O(|S| + |T|)$ time.
+occurrences in $O(|S| + |T|)$ time.
 
-Algorithm: Calculate the hash for the pattern $S$. Calculate hash values for all the prefixes of the text $T$. Now, we can compare a substring of length $|S|$ with $S$ in constant time using the calculated hashes. So, compare each substring of length $|S|$ with the pattern. This will take a total of $O(|T|)$ time. Hence the final complexity of the algorithm is $O(|T| + |S|)$ where $O(|S|)$ is required for calculating the hash of the pattern and $O(|T|)$ for comparing each substring of length $|S|$ with the pattern.
+Algorithm: Calculate the hash for the pattern $S$. Calculate hash values for all the prefixes of the text $T$. Now, we can compare a substring of length $|S|$ with $S$ in constant time using the calculated hashes. So, compare each substring of length $|S|$ with the pattern. This will take a total of $O(|T|)$ time. Hence the final complexity of the algorithm is $O(|T| + |S|)$:  $O(|S|)$ is required for calculating the hash of the pattern and $O(|T|)$ for comparing each substring of length $|S|$ with the pattern.
 
 
 ## Implementation
