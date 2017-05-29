@@ -33,6 +33,9 @@ especially popular in field of competitive programming.*
 ### Dynamic Programming
 - [Dynamic Programming on Broken Profile. Problem "Parquet"](./dynamic_programming/profile-dynamics.html)
 
+### Dynamic Programming
+- [Dynamic Programming on Broken Profile. Problem "Parquet"](./dynamic_programming/profile-dynamics.html)
+
 ### String Processing
 - [String Hashing](./string/string-hashing.html)
 - [Rabin-Karp for String Matching](./string/rabin-karp.html)
