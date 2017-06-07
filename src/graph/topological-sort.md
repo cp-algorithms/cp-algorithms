@@ -56,7 +56,7 @@ void topological_sort() {
 
 Here the constant $MAXN$ value must be set equal to the maximum possible number of vertices in the graph.
 
-The main function of the solution is $topological_sort$, it initializes marking depth, starts it, and answer the result in the vector ${\rm ans}$.
+The main function of the solution is $topological\_sort$, it initializes marking depth, starts it, and answer the result in the vector ${\rm ans}$.
 
 ## Practice Problems
 
