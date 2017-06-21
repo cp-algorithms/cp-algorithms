@@ -1,4 +1,7 @@
 <!--?title String Hashing-->
+<!--?script if (window.location.href== "http://e-maxx-eng.github.io/string/string-hashing.html") {
+   window.location.href = 'http://e-maxx-eng.appspot.com/string/string-hashing.html'; 
+}-->
 
 # String Hashing
 
