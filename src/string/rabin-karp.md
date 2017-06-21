@@ -1,4 +1,7 @@
 <!--?title Rabin-Karp Algorithm-->
+<!--?script if (window.location.href== "http://e-maxx-eng.github.io/string/rabin-karp.html") {
+   window.location.href = 'http://e-maxx-eng.appspot.com/string/rabin-karp.html'; 
+}-->
 
 # Rabin-Karp Algorithm for string matching in O(|S| + |T|)
 
