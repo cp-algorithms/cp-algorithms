@@ -1,4 +1,7 @@
 <!--?title Suffix Array-->
+<!--?script if (window.location.href== "http://e-maxx-eng.github.io/string/suffix-array.html") {
+   window.location.href = 'http://e-maxx-eng.appspot.com/string/suffix-array.html'; 
+}-->
 #Suffix Array
 
 ###What is a suffix?
