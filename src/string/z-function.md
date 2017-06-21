@@ -1,4 +1,7 @@
 <!--?title Z-function and its calculation-->
+<!--?script if (window.location.href== "http://e-maxx-eng.github.io/string/z-function.html") {
+   window.location.href = 'http://e-maxx-eng.appspot.com/string/z-function.html'; 
+}-->
 # Z-function and its calculation
 
 Suppose we are given a string $s$ of length $n$. The **Z-function** for this string is an array of length $n$ where the $i$-th element is equal to the greatest number of characters starting from the position $i$ that coincide with the first characters of $s$.
@@ -222,8 +225,4 @@ The proof for this fact does not differ from that of the solution which uses the
 * [LA 6439 - Pasti Pas!](https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&Itemid=8&category=588&page=show_problem&problem=4450)
 * [Codechef - Chef and Strings](https://www.codechef.com/problems/CHSTR)
 * [Codeforces - Prefixes and Suffixes](http://codeforces.com/problemset/problem/432/D)
-```javascript
-if (window.location.href== "http://e-maxx-eng.github.io/string/z-function.html") {
-   window.location.href = 'http://e-maxx-eng.appspot.com/string/z-function.html'; 
-}
-```
+
