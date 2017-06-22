@@ -15,15 +15,15 @@ A common problem in which topological sorting occurs is the following. There are
 
 To solve this problem we will use [depth-first search](./graph/depth-first-search.html).
 
-Let's assume that the graph is acyclic, i.e. there is a solution. What does the depth-first search do? When you run out of some of the peaks $v$ he tries to run along all edges emanating from $v$. Along those edges, the ends of which have already been previously visited, it doesn't pass, and along the rest goes and causes themselves from their ends.
+Let's assume that the graph is acyclic, i.e. there is a solution. What does the depth-first search do? When started from some  vertex $v$, it tries to run along all edges outgoing from $v$. It fails to run along the edges for which the opposite ends have been visited previously, and runs along the rest of the edges and starts from their ends.
 
-Thus, by the time of the call, ${\rm dfs}(v)$ all vertices that are reachable from $v$ either directly (one edge), and indirectly (by the way) - all such vertices already visited. Therefore, if we at the time of exit from ${\rm dfs}(v)$ add our peak in the beginning of a list, in the end, this list will get a **topological sort**.
+Thus, by the time of the call $dfs(v)$ is ended, all vertices that are reachable from $v$ either directly (via one edge) or indirectly are already visited by the search. Therefore, if at the time of exit from $dfs(v)$ we add vertex $v$ to the beginning of a certain list, in the end this list will store a topological ordering of all vertices.
 
-These explanations can also be presented in a somewhat different light, through the concept of **"time out"** of depth. Output time for each vertex $v$ is the point at which the finished challenge ${\rm dfs}(v)$ the depth of it (the times, when you can zanemarivali from $1$ before $n$). It is easy to understand that the depth-first-exit time of any vertex $v$ is always greater than the exit time of all vertices reachable from it (since they were visited either before the call ${\rm dfs}(v)$ or during it). Thus, the desired topological sort is sorting in descending order times out.
+These explanations can also be presented in terms of time of exit from DFS routine. Exit time for vertex $v$ is the time at which $dfs(v)$ finished work (the times can be numbered from $1$ to $n$). It is easy to understand that exit time of any vertex $v$ is always greater than exit time of any vertex reachable from it (since they were visited either before the call $dfs(v)$ or during it). Thus, the desired topological ordering is sorting vertices in descending order of their exit times.
 
 ## Implementation
 
-Here is an implementation, assuming that the graph is acyclic, i.e. the desired topological sort exists. If necessary, check the graph on acyclicity easy to insert into the depth, as described in the article on depth.
+Here is an implementation which assumes that the graph is acyclic, i.e. the desired topological ordering exists. If necessary, you can easily check that the graph is acyclic, as described in the article on [depth-first search](./graph/depth-first-search.html).
 
 C++ implementation <span class="toggle-code">Show/Hide</span>
 
@@ -34,29 +34,29 @@ bool used[MAXN];
 vector<int> ans;
 
 void dfs (int v) {
-  used[v] = true;
+    used[v] = true;
     for (size_t i=0; i<g[v].size(); ++i) {
-	    int to = g[v][i];
-	    if (!used[to])
- dfs (to);
+        int to = g[v][i];
+        if (!used[to])
+            dfs (to);
     }
- ans.push_back (v);
+    ans.push_back(v);
 }
  
 void topological_sort() {
     for (int i=0; i<n; ++i)
- used[i] = false;
- ans.clear();
+        used[i] = false;
+    ans.clear();
     for (int i=0; i<n; ++i)
-	    if (!used[i])
- dfs (i);
- reverse (ans.begin(), ans.end());
+        if (!used[i])
+            dfs(i);
+    reverse(ans.begin(), ans.end());
 }
 ```
 
-Here the constant $MAXN$ value must be set equal to the maximum possible number of vertices in the graph.
+Here the constant `MAXN` must be set to the maximum possible number of vertices in the graph.
 
-The main function of the solution is $topological\\_sort$, it initializes marking depth, starts it, and answer the result in the vector ${\rm ans}$.
+The main function of the solution is `topological_sort`, which initializes DFS variables, launches DFS and receives the answer in the vector `ans`.
 
 ## Practice Problems
 
