@@ -62,7 +62,7 @@ void init() {
 ```
 
 ###Analytical formula
-$$C_n = \frac{1}{n + 1} {\binom{2n}{n}$$
+$$C_n = \frac{1}{n + 1} {\binom{2n}{n}}$$
 
 (here $\binom{n}{k}$ denotes the usual binomial coefficient, i.e. number of ways to select $k$ objects from set of $n$ objects).
 
