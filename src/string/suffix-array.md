@@ -190,5 +190,10 @@ int main() {
 
 * [Uva 760 - DNA Sequencing](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=701)
 * [Uva 1223 - Editor](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3664)
+* [Codechef - Tandem](https://www.codechef.com/problems/TANDEM)
+* [Codechef - Substrings and Repetitions](https://www.codechef.com/problems/ANUSAR)
+* [Codechef - Entangled Strings](https://www.codechef.com/problems/TANGLED)
+* [Codeforces - Martian Strings](http://codeforces.com/problemset/problem/149/E)
+* [Codeforces - Little Elephant and Strings](http://codeforces.com/problemset/problem/204/E)
 
 **Upcoming: $O(N\log(N))$ approach, $O(N)$ approach and LCP array**
