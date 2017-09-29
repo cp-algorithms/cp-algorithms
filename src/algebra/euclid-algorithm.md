@@ -6,13 +6,13 @@ Given two non-negative integers $a$ and $b$, find their greatest common divisor,
 
 $$gcd(a, b) = \max_ {k = 1 \ldots \infty  \ : \ k \mid a \ \& \ k \mid b} k$$
 
-(here the symbol "$\mid$" denotes divisibility, i.e. “$k \mid a$” means “$k$ divides $a$”)
+(here the symbol "$\mid$" denotes divisibility, i.e. "$k \mid a$" means "$k$ divides $a$")
 
 When one of the numbers is zero, while the other is non-zero, their greatest common divisor, by definition, is the second number. When both numbers are zero, their greatest common divisor is undefined (it can be any arbitrarily large number), but we can define it to be zero. So we have a simple rule: if one of the numbers is zero, the greatest common divisor is the other number.
 
 The Euclidean algorithm, discussed below, allows to find the greatest common divisor of two numbers $a$ and $b$ in $O(\log min(a, b))$.
 
-The algorithm was first described in Euclid's “Elements” (circa 300 BC), but it is possible that the algorithm has earlier origins.
+The algorithm was first described in Euclid's "Elements" (circa 300 BC), but it is possible that the algorithm has earlier origins.
 
 ## Algorithm
 
