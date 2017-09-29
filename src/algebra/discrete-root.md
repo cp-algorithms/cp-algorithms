@@ -2,41 +2,55 @@
 
 # Discrete Root
 
-The problem of finding `discrete root` is defined as follows. Given a prime $n$, and 2 integers $a$, $k$. It is required to find all $x$ satisfying:
+The problem of finding discrete root is defined as follows. Given a prime $n$ and two integers $a$ and $k$, find all $x$ for which:
 
 $x^k \equiv a \pmod n$
 
 ## The algorithm
 
-We will solve this problem by reducing it to the discrete logarithm problem.
+We will solve this problem by reducing it to the [discrete logarithm problem](./algebra/discrete-log.html).
 
-For this, we apply the concept of a `primitive root` modulo $n$. Let $g$ be a primitive root modulo $n$. Note that since $n$ is prime, it must exist, and it can be found in $O(Ans . \log \phi (n) . \log n)$.
+Let's apply the concept of a [primitive root](./algebra/primitive-root.html) modulo $n$. Let $g$ be a primitive root modulo $n$. Note that since $n$ is prime, it must exist, and it can be found in $O(Ans \cdot \log \phi (n) \cdot \log n) = O(Ans \cdot \log^2 n)$ plus time of factoring $\phi (n)$.
 
 We can easily discard the case where $a = 0$. In this case, obviously there is only one answer: $x = 0$.
 
-Now we can transform the problem to:
+Since we jnow that $n$ is a prime, any number between 1 and $n-1$ can be represented as a power of the primitive root, and we can represent the discrete root problem as follows:
 
-$x^k \equiv a \pmod n$
 $(g^y)^k \equiv a \pmod n$
+
+where
+
+$x \equiv g^y \pmod n$
+
+This, in turn, can be rewritten as
+
 $(g^k)^y \equiv a \pmod n$
 
-Now we have one unknown y, which can be calculated by the discrete logarithm algorithm using baby-step-giant-step algorithm Shanks in $O(\sqrt (n) \log n)$.
+Now we have one unknown $y$, which is a discrete logarithm problem. The solution can be found using Shanks' baby-step-giant-step algorithm in $O(\sqrt {n} \log n)$ (or we can verify that there are no solutions).
 
-Having found one solution $y_0$ (or see that there is no solution at all), we can find all solutions, which is described in the following section.
+Having found one solution $y_0$, one of solutions of discrete root problem will be $x_0 = g^{y_0} \pmod n$.
 
 ## Finding all solutions from one known solution
 
-To completely solve the problem, recall the fact that a primitive root always has index $\phi (n)$. Therefore, if we add the term $\phi (n)$ to the exponential, we still get the same value:
+To solve the given problem in full, we need to find all solutions knowing one of them: $x_0 = g^{y_0} \pmod n$.
 
-$x^k \equiv g^{ y_0 . k + l . \phi (n)} \equiv a \pmod n$
+Let's recall the fact that a primitive root always has order of $\phi (n)$, i.e. the smallest power of $g$ which gives 1 is $\phi (n)$. Therefore, if we add the term $\phi (n)$ to the exponential, we still get the same value:
+
+$x^k \equiv g^{ y_0 \cdot k + l \cdot \phi (n)} \equiv a \pmod n \forall l \in Z$
 
 Hence, all the solutions are of the form:
 
-$x = g^{y_0 + \frac {l . \phi (n)}{k}} \pmod n$.
+$x = g^{y_0 + \frac {l \cdot \phi (n)}{k}} \pmod n \forall l \in Z$.
 
-where $l$ is chosen such that the fraction must be an integer.
+where $l$ is chosen such that the fraction must be an integer. For this to be true, the numerator has to be divisible by the least common multiple of  $\phi (n)$ and $k$. Remember that least common multiple of two numbers $lcm(a, b) = \frac{a \cdot b}{gcd(a, b)}$; we'll get
+
+$x = g^{y_0 + i \frac {\phi (n)}{gcd(k, \phi (n))}} \pmod n \forall i \in Z$.
+
+This is the final formula for all solutions of discrete root problem.
 
 ## Implementation
+
+Here is a full implementation, including routines for finding the primitive root, discrete log and finding and printing all solutions.
 
 ```cpp
 int gcd (int a, int b) {
