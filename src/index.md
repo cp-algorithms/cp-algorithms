@@ -37,8 +37,9 @@ especially popular in field of competitive programming.*
 - [String Hashing](./string/string-hashing.html)
 - [Rabin-Karp for String Matching](./string/rabin-karp.html)
 - [Suffix Array](./string/suffix-array.html)
-- [Suffix Array](./string/suffix-tree-ukkonen.html)
+- [Suffix Tree](./string/suffix-tree-ukkonen.html)
 - [Z-function](./string/z-function.html)
+- [Prefix function](./string/prefix-function.html)
 
 ### Linear Algebra
 - [Gauss & System of Linear Equations](./linear_algebra/linear-system-gauss.html)
