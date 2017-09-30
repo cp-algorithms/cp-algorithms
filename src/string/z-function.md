@@ -15,33 +15,9 @@ This article presents an algorithm for calculating the Z-function in $O(n)$ time
 
 For example, here are the values of the Z-function computed for different strings:
 
-$ s = `\text{aaaaa}\textrm' $
-
-    z[0] = 0,
-    z[1] = 4,
-    z[2] = 3,
-    z[3] = 2,
-    z[4] = 1.
-
-$ s = `\text{aaabaab}\textrm' $
-
-    z[0] = 0,
-    z[1] = 2,
-    z[2] = 1,
-    z[3] = 0,
-    z[4] = 2,
-    z[5] = 1,
-    z[6] = 0.
-
-$ s = `\text{abacaba}\textrm' $
-
-    z[0] = 0,
-    z[1] = 0,
-    z[2] = 1,
-    z[3] = 0,
-    z[4] = 3,
-    z[5] = 0,
-    z[6] = 1.
+* "aaaaa" - $[0, 4, 3, 2, 1]$
+* "aaabaab" - $[0, 2, 1, 0, 2, 1, 0]$
+* "abacaba" - $[0, 0, 1, 0, 3, 0, 1]$
 
 ## Trivial algorithm
 
@@ -86,7 +62,7 @@ Then, if the current index (for which we have to compute the next value of the Z
 
   Here is **an example** of a similar scenario:
 
-  $$ s = `\text{aaaabaa}\textrm' $$
+  $$ s = "aaaabaa" $$
 
   When we get to the last position ($i = 6$), the current match segment will be $[5; 6]$. Position $6$ will then match position $6 - 5 = 1$, for which the value of the Z-function is $z[1] = 3$. Obviously, we cannot initialize $z[6]$ to $3$, it would be completely incorrect. The maximum value we could initialize it to is $1$ -- because it's the largest value that doesn't bring us beyond the index $r$ of the match segment $[l; r]$.
 
@@ -178,7 +154,7 @@ As the rest of the algorithm obviously works in $O(n)$, we have proved that the 
 
 We will now consider some uses of Z-functions for specific tasks.
 
-These applications will be largely similar to applications of [prefix function](prefix-function.html).
+These applications will be largely similar to applications of [prefix function](./string/prefix-function.html).
 
 ### Search the substring
 
@@ -192,15 +168,15 @@ The running time (and memory consumption) is $O(\operatorname{length}(t) + \oper
 
 ### Number of distinct substrings in a string
 
-Given a string $s$ of length $n$. Count the number of distinct substrings of $s$.
+Given a string $s$ of length $n$, count the number of distinct substrings of $s$.
 
 We'll solve this problem iteratively. That is: knowing the current number of different substrings, recalculate this amount after adding to the end of $s$ one character.
 
 So, let $k$ be the current number of distinct substrings of $s$. We append a new character $c$ to $s$. Obviously, there can be some new substrings ending in this new character $c$ (namely, all those strings that end with this symbol and that we haven't encountered yet).
 
-Take a string $t = s + c$ and invert it (write its characters in reverse order). Our task is now to count how many prefixes of $t$ are not found anywhere else in $t$. Let's compute the Z-function of $t$ and find its maximum value $z_{\text{max}}$. Obviously, $t$'s prefix of length $z_{\text{max}}$ occurs also somewhere in the middle of $t$. Clearly, shorter prefixes also occur.
+Take a string $t = s + c$ and invert it (write its characters in reverse order). Our task is now to count how many prefixes of $t$ are not found anywhere else in $t$. Let's compute the Z-function of $t$ and find its maximum value $z_{max}$. Obviously, $t$'s prefix of length $z_{max}$ occurs also somewhere in the middle of $t$. Clearly, shorter prefixes also occur.
 
-So, we have found that the number of new substrings that appear when symbol $c$ is appended to $s$ is equal to $\operatorname{length}(t) - z_{\text{max}}$.
+So, we have found that the number of new substrings that appear when symbol $c$ is appended to $s$ is equal to $\operatorname{length}(t) - z_{max}$.
 
 Consequently, the running time of this solution is $O(n^2)$ for a string of length $n$.
 
@@ -212,7 +188,7 @@ Given a string $s$ of length $n$. Find its shortest "compressed" representation,
 
 A solution is: compute the Z-function of $s$, loop through all $i$ such that $i$ divides $n$. Stop at the first $i$ such that $i + z[i] = n$. Then, the string $s$ can be compressed to the length $i$.
 
-The proof for this fact does not differ from that of the solution which uses the [prefix function](prefix-function.html).
+The proof for this fact is the same as the solution which uses the [prefix function](./string/prefix-function.html).
 
 ## Practice Problems
 
