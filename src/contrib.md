@@ -13,7 +13,7 @@ In order to make contribution consider the following steps:
 1. Fork [source repository](https://github.com/e-maxx-eng/e-maxx-eng).
 2. Add or modify files in `src` subfolder in Markdown format (you can do this in web-interface of github now).
 3. Make sure you added `<!--?title ... -->` to your page and the corresponding link to main (index) page.
-3. Use [Test-Your-Page form](./test.php) to check if you are satisfied with the result.
+3. Use [Test-Your-Page form](http://e-maxx-eng.appspot.com/test.php) to check if you are satisfied with the result.
 4. Use `pull-request` feature to send the request for your changes to be merged.
 5. It may take few hours or few days before someone who have admin rights will merge your request. Contact any of admins personally to speed up this process!
 6. After merging it will take about 5 minutes before updated html page will appear at the site.
@@ -22,9 +22,7 @@ In order to make contribution consider the following steps:
 
 Please kindly refer to manuals on using `git` and `github` anywhere over internet. You may also watch this demo video:
 
-<div style="text-align:center">
-<iframe width="420" height="315" src="https://www.youtube.com/embed/TrBBw4J9X30" frameborder="0" allowfullscreen></iframe>
-</div>
+[![How to add articles to E-Maxx in English project](https://img.youtube.com/vi/TrBBw4J9X30/0.jpg)](https://www.youtube.com/watch?v=TrBBw4J9X30)
 
 ###Your Authorship is Preserved
 
