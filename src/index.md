@@ -8,86 +8,87 @@ especially popular in field of competitive programming.*
 ## Articles
 
 ### Algebra
-- [Euler's Totient Function](./algebra/phi-function.md)
-- [Euclidean algorithm for finding the GCD (greatest common divisor)](./algebra/euclid-algorithm.md)
-- [Sieve of Eratosthenes](./algebra/sieve-of-eratosthenes.md)
-- [Extended Euclidean Algorithm](./algebra/extended-euclid-algorithm.md)
-- [Binary Exponentiation](./algebra/binary-exp.md)
-- [Balanced Ternary](./algebra/balanced-ternary.md)
-- [Linear Diophantine Equations](./algebra/linear-diophantine-equation.md)
-- [Modular Inverse](./algebra/module-inverse.md)
-- [Chinese Remainder Theorem](./algebra/chinese-remainder-theorem.md)
-- [Primitive Root](./algebra/primitive-root.md)
-- [Discrete Root](./algebra/discrete-root.md)
-- [Discrete Log](./algebra/discrete-log.md)
-- [Enumerating submasks of a bitmask](./algebra/all-submasks.md)
-- [Gray code](./algebra/gray-code.md)
-- [Sieve of Eratosthenes Having Linear Time Complexity](./algebra/prime-sieve-linear.md)
-- [Long Arithmetics](./algebra/big-integer.md)
-- [Fibonacci Numbers](./algebra/fibonacci-numbers.md)
+- [Euler's Totient Function](./algebra/phi-function.html)
+- [Euclidean algorithm for finding the GCD (greatest common divisor)](./algebra/euclid-algorithm.html)
+- [Sieve of Eratosthenes](./algebra/sieve-of-eratosthenes.html)
+- [Extended Euclidean Algorithm](./algebra/extended-euclid-algorithm.html)
+- [Binary Exponentiation](./algebra/binary-exp.html)
+- [Balanced Ternary](./algebra/balanced-ternary.html)
+- [Linear Diophantine Equations](./algebra/linear-diophantine-equation.html)
+- [Modular Inverse](./algebra/module-inverse.html)
+- [Chinese Remainder Theorem](./algebra/chinese-remainder-theorem.html)
+- [Primitive Root](./algebra/primitive-root.html)
+- [Discrete Root](./algebra/discrete-root.html)
+- [Discrete Log](./algebra/discrete-log.html)
+- [Enumerating submasks of a bitmask](./algebra/all-submasks.html)
+- [Gray code](./algebra/gray-code.html)
+- [Sieve of Eratosthenes Having Linear Time Complexity](./algebra/prime-sieve-linear.html)
+- [Long Arithmetics](./algebra/big-integer.html)
+- [Fibonacci Numbers](./algebra/fibonacci-numbers.html)
 
 ### Data Structures
-- [Fenwick Tree](./data_structures/fenwick.md)
-- [Treap](./data_structures/treap.md)
+- [Fenwick Tree](./data_structures/fenwick.html)
+- [Treap](./data_structures/treap.html)
 
 ### Dynamic Programming
-- [Dynamic Programming on Broken Profile. Problem "Parquet"](./dynamic_programming/profile-dynamics.md)
+- [Dynamic Programming on Broken Profile. Problem "Parquet"](./dynamic_programming/profile-dynamics.html)
 
 ### String Processing
-- [String Hashing](./string/string-hashing.md)
-- [Rabin-Karp for String Matching](./string/rabin-karp.md)
-- [Suffix Array](./string/suffix-array.md)
-- [Suffix Tree](./string/suffix-tree-ukkonen.md)
-- [Z-function](./string/z-function.md)
-- [Prefix function](./string/prefix-function.md)
+- [String Hashing](./string/string-hashing.html)
+- [Rabin-Karp for String Matching](./string/rabin-karp.html)
+- [Suffix Array](./string/suffix-array.html)
+- [Suffix Tree](./string/suffix-tree-ukkonen.html)
+- [Z-function](./string/z-function.html)
+- [Prefix function](./string/prefix-function.html)
 
 ### Linear Algebra
-- [Gauss & System of Linear Equations](./linear_algebra/linear-system-gauss.md)
-- [Gauss & Determinant](./linear_algebra/determinant-gauss.md)
-- [Kraut & Determinant](./linear_algebra/determinant-kraut.md)
+- [Gauss & System of Linear Equations](./linear_algebra/linear-system-gauss.html)
+- [Gauss & Determinant](./linear_algebra/determinant-gauss.html)
+- [Kraut & Determinant](./linear_algebra/determinant-kraut.html)
 
 ### Combinatorics
-- [The Inclusion-Exclusion Principle](./combinatorics/inclusion-exclusion.md)
-- [Binomial Coefficients](./combinatorics/binomial-coefficients.md)
-- [Catalan Numbers](./combinatorics/catalan-numbers.md)
+- [The Inclusion-Exclusion Principle](./combinatorics/inclusion-exclusion.html)
+- [Binomial Coefficients](./combinatorics/binomial-coefficients.html)
+- [Catalan Numbers](./combinatorics/catalan-numbers.html)
 
 ### Numerical Methods
-- [Ternary Search](./num_methods/ternary_search.md)
+- [Ternary Search](./num_methods/ternary_search.html)
 
 ### Geometry
-- [Length of the union of intervals on a line in O(N\*logN)](./geometry/length-of-segments-union.md)
-- [Oriented area of a triangle and predicate "clockwise"](./geometry/oriented-triangle-area.md)
-- [Intersection Point of Lines](./geometry/lines-intersection.md)
-- [Circle-Line Intersection](./geometry/circle-line-intersection.md)
-- [Circle-Circle Intersection](./geometry/circle-circle-intersection.md)
-- [Pick's Theorem - area of lattice polygons](./geometry/picks-theorem.md)
+- [Length of the union of intervals on a line in O(N\*logN)](./geometry/length-of-segments-union.html)
+- [Oriented area of a triangle and predicate "clockwise"](./geometry/oriented-triangle-area.html)
+- [Intersection Point of Lines](./geometry/lines-intersection.html)
+- [Circle-Line Intersection](./geometry/circle-line-intersection.html)
+- [Circle-Circle Intersection](./geometry/circle-circle-intersection.html)
+- [Pick's Theorem - area of lattice polygons](./geometry/picks-theorem.html)
 
 ### Graphs
-- [Breadth First Search](./graph/breadth-first-search.md)
-- [Depth First Search](./graph/depth-first-search.md)
-- [Kirchhoff Theorem](./graph/kirchhoff-theorem.md)
-- [Topological Sorting](./graph/topological-sort.md)
-- [Finding Bridges in O(N+M)](./graph/bridge-searching.md)
-- [Finding a Negative Cycle in the Graph](./graph/finding-negative-cycle-in-graph.md)
-- [Floyd-Warshall - finding all shortest paths](./graph/all-pair-shortest-path-floyd-warshall.md)
-- [Dijkstra - finding shortests paths from given vertex](./graph/dijkstra.md)
-- [Bellman-Ford - finding shortests paths with negative weights](./graph/bellman_ford.md)
-- [Finding Connected Components](./graph/search-for-connected-components.md)
-- [Lowest Common Ancestor](./graph/lca.md)
-- [Minimum Spanning Tree - Kruskal](./graph/mst_kruskal.md)
-- [Minimum Spanning Tree - Kruskal with Disjoint Set Union](./graph/mst_kruskal_with_dsu.md)
-- [Strongly Connected Components and Condensation Graph](./graph/strongly-connected-components.md)
+- [Breadth First Search](./graph/breadth-first-search.html)
+- [Depth First Search](./graph/depth-first-search.html)
+- [Kirchhoff Theorem](./graph/kirchhoff-theorem.html)
+- [Topological Sorting](./graph/topological-sort.html)
+- [Finding Bridges in O(N+M)](./graph/bridge-searching.html)
+- [Finding a Negative Cycle in the Graph](./graph/finding-negative-cycle-in-graph.html)
+- [Floyd-Warshall - finding all shortest paths](./graph/all-pair-shortest-path-floyd-warshall.html)
+- [Dijkstra - finding shortests paths from given vertex](./graph/dijkstra.html)
+- [Bellman-Ford - finding shortests paths with negative weights](./graph/bellman_ford.html)
+- [Finding Connected Components](./graph/search-for-connected-components.html)
+- [Lowest Common Ancestor](./graph/lca.html)
+- [Minimum Spanning Tree - Kruskal](./graph/mst_kruskal.html)
+- [Minimum Spanning Tree - Kruskal with Disjoint Set Union](./graph/mst_kruskal_with_dsu.html)
+- [Strongly Connected Components and Condensation Graph](./graph/strongly-connected-components.html)
 
 ### Sequences
-- [RMQ task (Range Minimum Query - the smallest element in an interval)](./sequences/rmq.md)
-- [K-th order statistic in O(N)](./sequences/k-th.md)
+- [RMQ task (Range Minimum Query - the smallest element in an interval)](./sequences/rmq.html)
+- [K-th order statistic in O(N)](./sequences/k-th.html)
 
 ### Schedules
-- [The Optimal Schedule Of Jobs Given Their Deadlines And Durations](./schedules/schedule-with-completion-duration.md)
+- [The Optimal Schedule Of Jobs Given Their Deadlines And Durations](./schedules/schedule-with-completion-duration.html)
 
 ### Miscellaneous
-- [15 Puzzle Game: Existence Of The Solution](./others/15-puzzle.md)
+- [15 Puzzle Game: Existence Of The Solution](./others/15-puzzle.html)
 
 ---
 
-[Information for contributors](./contrib.md) and [Test-Your-Page form](./test.php)
+[Information for contributors](./contrib.html) and [Test-Your-Page form](./test.php)
+
