@@ -22,9 +22,7 @@ In order to make contribution consider the following steps:
 
 Please kindly refer to manuals on using `git` and `github` anywhere over internet. You may also watch this demo video:
 
-<div style="text-align:center">
-<iframe width="420" height="315" src="https://www.youtube.com/embed/TrBBw4J9X30" frameborder="0" allowfullscreen></iframe>
-</div>
+[![How to add articles to E-Maxx in English project](https://img.youtube.com/vi/TrBBw4J9X30/0.jpg)](https://www.youtube.com/watch?v=TrBBw4J9X30)
 
 ###Your Authorship is Preserved
 
