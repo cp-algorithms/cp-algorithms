@@ -23,7 +23,7 @@ From the list of data structures described on this site, you can choose:
 
 Note: Preprocessing is the preliminary processing of the given array by building corresponding data structure for it.
 
-If the array $A$ might change during the runtime (i.e. there will also be queries to change values in some interval), the problem can only be solved by [Sqrt-decomposition]() or [Segment tree]().
+If the array $A$ might change during the runtime (i.e. there will also be queries to change values in some interval), the problem can only be solved by [Sqrt-decomposition](), [Segment tree]() or [Fenwick tree](../data_structures/fenwick.html).
 
 ## Practice Problems
 - [SPOJ: Range Minimum Query](http://www.spoj.com/problems/RMQSQ/)
