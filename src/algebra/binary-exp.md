@@ -1,42 +1,52 @@
 <!--?title Binary Exponentiation-->
-#Binary Exponentiation
+# Binary Exponentiation
 
-Raising `a` to the power of `b` is expressed naively as multiplication of `a` taken `b` times:
-$a^{b} = a \cdot a \cdot \ldots \cdot a$.
+Binary exponentiation is a trick which allows to calculate $a^n$ using only $O(\log n)$ multiplications (instead of $O(n)$ multiplications required by naive approach). 
 
-However this approach is not practical for large `a` or `b`. **Binary exponentiation** is a
-simple trick. We know from school that:
-
-$$a^{b+c} = a^{b} \cdot a^{c} \qquad and \qquad a^{2b} = a^{b} \cdot a^{b} = (a^{b})^{2}$$
-
-Let us then write `b` in binary system, for example:
-
-$$3^{11} = 3^{1011_{2}} = 3^{8} \cdot 3^{2} \cdot 3^{1}$$
-
-So we need only find sequence of squared numbers:
-
-$3^{1} = 3$
-$3^{2} = (3^{1})^{2} = 3 \cdot 3 = 9$
-$3^{4} = (3^{2})^{2} = 9 \cdot 9 = 81$
-$3^{8} = (3^{4})^{2} = 81 \cdot 81 = 6561$
-
-And multiply three of them (skipping `3^{4}` because corresponding bit in `b` is zero):
-$\quad 3^{11} = 6561 \cdot 9 \cdot 3 = 177147$
-
-This approach has important applications in many tasks not related to arithmetics, since it
-can be used with any operations having the property of **associativity**:
+It also has important applications in many tasks unrelated to arithmetics, since it
+can be used with any operations that have the property of **associativity**:
 
 $$(X \cdot Y) \cdot Z = X \cdot (Y \cdot Z)$$
 
-Most obviously this applies to modular multiplication, then to multiplication of matrices and
-to other problems which we will discuss below. As another example - in Ancient Egypt the
-same approach was used for simple multiplication (by summing up members of the sequence
-`a`, `2a`, `4a`, `8a` according to binary representation of multiplier `b`) -
-and it is still used inside CPUs of contemporary computers!
+Most obviously this applies to modular multiplication, to multiplication of matrices and
+to other problems which we will discuss below.
 
-###Algorithm
+## Algorithm
 
-The approach described above could be easily implemented with a single loop.
+Raising $a$ to the power of $n$ is expressed naively as multiplication by $a$ done $n - 1$ times:
+$a^{n} = a \cdot a \cdot \ldots \cdot a$. However, this approach is not practical for large $a$ or $n$. 
+
+Recall that
+$a^{b+c} = a^b \cdot a^c$ and $a^{2b} = a^b \cdot a^b = (a^b)^2$.
+
+Let's write $n$ in binary system, for example:
+
+$$3^{11} = 3^{1011_{2}} = 3^{8} \cdot 3^{2} \cdot 3^{1}$$
+
+So we only need to find the sequence of numbers in which each one is a square of the previous one:
+
+$3^{1} = 3$
+
+$3^{2} = (3^1)^2 = 3 \cdot 3 = 9$
+
+$3^{4} = (3^2)^2 = 9 \cdot 9 = 81$
+
+$3^{8} = (3^4)^2 = 81 \cdot 81 = 6561$
+
+The get the final answer, we multiply three of them (skipping $3^4$ because corresponding bit in $n$ is zero):
+$3^{11} = 6561 \cdot 9 \cdot 3 = 177147$.
+
+The complexity of this algorithm is $O(\log n)$: there are $\log n$ powers of $a$ to be calculated, and at most $\log n$ multiplications are required to get the final answer from them.
+
+A recursive approach expresses the same idea as a recursion: 
+
+$a^n = (a^{n/2})^2$ for even $n$,
+$a^n = (a^{(n-1)/2})^2 \cdot a$ for odd $n$,
+$a^1 = a$.
+
+## Implementation
+
+The first approach described above can be implemented with a single loop.
 
 **Non-recursive** approach in Python 3 <span class="toggle-code">Show/Hide</span>:
 ```python
@@ -63,9 +73,9 @@ long long binpow(long long a,long long b)
 	return res;
 }
 ```
-This approach builds the result starting from smallest degrees of `a`. If we use recursion
+This approach builds the result starting from smallest degrees of $a$. If we use recursion
 instead of loop we can work in "inverse" direction, starting from largest degrees and dividing
-`b` in two at each step.
+$b$ by two at each step.
 
 **Recursive** approach in Python 3 <span class="toggle-code">Show/Hide</span>:
 ```python
@@ -85,10 +95,10 @@ long long binpow(long long a,long long b)
 	else return res * res;
 }
 ```
-We can explain this last approach mathematically:
-$a^{b} = (a^{b/2})^2 \quad$ for even `b`,
-$a^{b} = (a^{(b-1)/2})^2 \cdot a \quad$ for odd `b`,
-$a^{1} = a$.
+
+## Applications
+
+TBD
 
 ## Practice Problems
 
