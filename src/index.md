@@ -29,6 +29,7 @@ especially popular in field of competitive programming.*
 ### Data Structures
 - [Fenwick Tree](./data_structures/fenwick.html)
 - [Treap](./data_structures/treap.html)
+- [Sqrt Decomposition](./data_structures/sqrt_decomposition.html)
 
 ### Dynamic Programming
 - [Dynamic Programming on Broken Profile. Problem "Parquet"](./dynamic_programming/profile-dynamics.html)
