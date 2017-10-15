@@ -28,7 +28,7 @@ Afterwards a different range query can be answered by splitting the range into r
 
 We will use a 2-dimensional array for storing the answers to the precomputed queries. 
 $\text{st}\[i\]\[j\]$ will store the answer for the range $[i, i + 2^j - 1]$ of length $2^j$. 
-The size of the 2-dimensional array will be $MAXN \times K + 1$, where $MAXN$ is the biggest possible array length. 
+The size of the 2-dimensional array will be $\text{MAXN} \times (K + 1)$, where $\text{MAXN}$ is the biggest possible array length. 
 $\text{K}$ has to satisfy $\text{K} \ge \lfloor \log_2 \text{MAXN} \rfloor + 1$, because $2^{\lfloor \log_2 \text{MAXN} \rfloor}$ is the biggest power of two range, that we have to support. 
 For arrays with reasonable length ($\le 10^7$ elements), $K = 25$ is a good value. 
 
@@ -50,7 +50,7 @@ for (int j = 1; j <= K; j++)
 The function $f$ will depend on the type of query.
 For range sum queries it will compute the sum, for range minimum queries it will compute the minimum. 
 
-The time complexity of the precomputation is $O(\text{N} \cdot \log \text{N})$. 
+The time complexity of the precomputation is $O(\text{N} \log \text{N})$. 
 
 ### Range Sum Queries
 
