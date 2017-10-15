@@ -95,7 +95,7 @@ So we can compute the minimum of the range $\[L, R\]$ with:
 
 $$\min(\text{st}\[L\]\[j\], \text{st}\[R - 2^j + 1][j]) \quad \text{ where } j = \log_2(R - L + 1)$$
 
-This requires that you are able to compute $\log_2(R - L + 1)$ fast. 
+This requires that we are able to compute $\log_2(R - L + 1)$ fast. 
 You can accomplish that by precomputing all logarithms: 
 
 ```cpp
@@ -105,7 +105,7 @@ for (int i = 2; i <= MAXN; i++)
     log[i] = log[i/2] + 1;
 ```
 
-Afterwards you need to precompute the Sparse Table structure. This time we define $f$ with $f(x, y) = \min(x, y)$. 
+Afterwards we need to precompute the Sparse Table structure. This time we define $f$ with $f(x, y) = \min(x, y)$. 
 
 ```cpp
 int st[MAXN][K];
