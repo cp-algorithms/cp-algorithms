@@ -18,10 +18,12 @@ From the list of data structures described on this site, you can choose:
   Pros: good runtime complexity. Cons: larger amount of code compared to the other data structures.
 - [Fenwick tree](../data_structures/fenwick.html) - answers each query in $O(\log N)$, preprocessing done in $O(N \log N)$.
   Pros: the shortest code, good runtime complexity. Cons: Fenwick tree can only be used for queries with $L = 1$, so it is not applicable to many problems.
+- [Sparse Table](../data_structures/sparse-table.html) - answers each query in $O(1)$, preprocessing done in $O(N \log N)$.
+  Pros: simple data structure, excellent runtime complexity. Cons: doesn't allow modifications on the array between queries.
 
 Note: Preprocessing is the preliminary processing of the given array by building corresponding data structure for it.
 
-If the array $A$ might change during the runtime (i.e. there will also be queries to change values in some interval), the problem can only be solved by [Sqrt-decomposition]() or [Segment tree]().
+If the array $A$ might change during the runtime (i.e. there will also be queries to change values in some interval), the problem can only be solved by [Sqrt-decomposition](), [Segment tree]() or [Fenwick tree](../data_structures/fenwick.html).
 
 ## Practice Problems
 - [SPOJ: Range Minimum Query](http://www.spoj.com/problems/RMQSQ/)
