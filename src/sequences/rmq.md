@@ -12,7 +12,7 @@ RMQ task is solved by using appropriate data structures.
 
 From the list of data structures described on this site, you can choose:
 
-- [Sqrt-decomposition]() - answers each query in $O(\sqrt{N})$, preprocessing done in $O(N)$.
+- [Sqrt-decomposition](../data_structures/sqrt_decomposition.html) - answers each query in $O(\sqrt{N})$, preprocessing done in $O(N)$.
   Pros: a very simple data structure. Cons: worse complexity.
 - [Segment tree]() - answers each query in $O(\log N)$, preprocessing done in $O(N)$.
   Pros: good runtime complexity. Cons: larger amount of code compared to the other data structures.
@@ -23,7 +23,7 @@ From the list of data structures described on this site, you can choose:
 
 Note: Preprocessing is the preliminary processing of the given array by building corresponding data structure for it.
 
-If the array $A$ might change during the runtime (i.e. there will also be queries to change values in some interval), the problem can only be solved by [Sqrt-decomposition](), [Segment tree]() or [Fenwick tree](../data_structures/fenwick.html).
+If the array $A$ might change during the runtime (i.e. there will also be queries to change values in some interval), the problem can only be solved by [Sqrt-decomposition](../data_structures/sqrt_decomposition.html), [Segment tree]() or [Fenwick tree](../data_structures/fenwick.html).
 
 ## Practice Problems
 - [SPOJ: Range Minimum Query](http://www.spoj.com/problems/RMQSQ/)
