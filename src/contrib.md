@@ -57,3 +57,11 @@ Small images could be pushed along with texts to the [/img](https://github.com/e
 Here `my-image.png` should be your file name, while `&imgroot&` is some magic which will expand to proper url prefix when shown at the site (so you need not know the precise prefix of github raw data).
 
 Larger images should be posted to some image-hosting, like [PostImage](http://postimage.org) or [ImgUr](http://imgur.com/) - they will then give you the url to insert into the page.
+
+###Page Template
+
+Template for the pages (the one which creates small violet header and footer, determines the layout of the text, includes css and js files) is now also stored in this repo, in [src/\_templates](https://github.com/e-maxx-eng/e-maxx-eng/tree/master/src/_templates) folder. So in case you find some bugs in it, or with the passing of time some new features may be needed in it - create PR to improve it. Note that for testing purposes the alternative template could be created and used for specific page with the inclusion of special comment as shown below:
+
+    <!--?template myfunnytemplate-->
+
+The templates are cached for about 3600 seconds, rather than 300 seconds for ordinary pages, so be patient :)
