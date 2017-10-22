@@ -56,3 +56,64 @@ It is convenient to describe this operation recursively: we start the constructi
 If it is called on a leaf node, it simply uses the value of the array. 
 
 The time complexity of the construction is $O(n)$.
+
+### Sum queries
+
+For now we are going to answer sum queries. As an input we receive two integers $l$ and $r$, and we have to compute the sum of the segment $a[l \dots r]$ in $O(\log n)$ time. 
+
+To do this, we will traverse the Segment Tree and use the precomputed sums of the segments.
+Initially we start at the root of the Segment Tree.
+There are three possible cases. 
+
+The easiest case is when the segment $a[l \dots r]$ is equal to the whole array $a[0 \dots n-1]$, then we are finished and can return the precomputed sum that is stored in the root node.
+
+Alternatively the segment of the query falls completely into the damain of either the left or the right child.
+Recall that the left child covers the segment $a[0 \dots n/2]$ and the right node covers the segment $a[n/2 + 1 \dots n - 1]$. 
+In this case we can simply go to the child node, which contains the query segment, and apply the algorithm described here to that node. 
+
+And then there is the last case, the query segment intersects with both children. 
+In this case we have no other option to go to both children. 
+First we go to the left child, compute a partial answer to the query using it, then go to the right child, compute the partial answer using it, and then combine the answers by adding them. 
+In other words, if the left child represents the segment $a[L_1 \dots R_1]$ and the right child the segment $a[L_2 \dots R_1]$ (notice that $R_1 + 1 = L_2$), then we compute the sum query $a[l \dots R_1]$ using the left child, and the sum query $a[L_2 \dots r]$ using the right child. 
+
+So processing a sum query is a function that recursively calls itself once with either the left or the right child (without changing the query boundaries), or twice, once for the left and once for the right child (by splitting the query into two subqueries). 
+However recursive calls will not be done, whenever the current query coincides with the boundaries of the segment of the current node. 
+Then the answer will be the precomputed value of the sum of this segment, which is stored in the tree.
+kk
+In other words, the calculation of the query is a traversal of the tree, which spreads through all necessary branches of the tree, and uses the precomputed sum values of the segments in the tree. 
+
+Why is the complexity of this algorithm $O(\log n)$?
+To show this complexity we look at each level of the tree. 
+It turns out, that for each level we only visit not more than four nodes. 
+And since the height of the tree is $O(\log n)$, we receive the desired running time. 
+
+We can show that this allegation (maximal four nodes each level) is true. 
+At the first level, we only visit one node, the root node. 
+In the next level two nodes will be visit in the worst case.
+But those two recursive calls will coexist. 
+Both subqueries will touch the segment boundaries of the subnodes. 
+So even if the queries on one child (or both children) calls again two nodes, only one each will be a real recursive call. The other one will end immediately. 
+I.e. if the query $a[l \dots r]$ gets distributed on the two children (left child $a[L_1 \dots R_1]$ receives the subquery $a[l \dots R_1]$, right child $a[L_2 \dots R_2]$ receives the subquery $a[L_2 \dots r]$) and the left left child again makes to recursive calls to the nodes representing the segments $a[L_1 \dots R_1^']$ and $a[L_1^' \dots R_1]$. The left child receives the subquery $a[l \dots R_1^']$ and the right child receives the subquery $a[L_1^' \dots R_1]$. 
+Now the right boundaries of the right query coincides with the boundaries of the right segment, and no recursive calls will be made from this node.
+So in each level we only visit two nodes, that have the potential to make recursive calls.
+We can say that one branch approaches the left boundary of the query, and the second branch approaches the right one. 
+But in total, since each of the two potential nodes can make no more than two new calls, the number of visited segments each level is at most four.
+Therefore we visit at most $4 \log n$ nodes in total, and that is equal to a running time of $O(\log n)$. 
+
+In conclusion the query works by dividing the input segment into several sub-segments for which all the sums are already precomputed and stored in the tree. 
+And if you do the partitioning the the right way, then we only need $O(\log n)$ such segments, which gives the effectiveness of the Segment Tree. 
+
+### Update queries
+
+Now we want to modify a specific element in the array, lets say we want to do the assignment $a[i] = x$. 
+It turns out, that we only need to modify $O(\log n)$ segments.
+To see this, we need to count how many segments contain the element $a[i]$. 
+There is one leaf node, that coinsides with the element.
+The parent of this leaf node, the parent of the parent, the parent of the parent of the parent, and so on. 
+Exactly one leaf node and all its parents are effected by a modification of a single element in the array. 
+And since the height of the tree is $O(\log n)$, exactly that many segments we have to change. 
+
+To implement the modification efficiently, we act similar to the build process. We start with the child node and assign it to $x$. 
+Then we can recompute the parent node, by using the precomputed values of its child nodes and repeat the process to all its parents. 
+As an implementation, we can start with the root node, recursively call one of the child nodes, and afterwards fix the sum using the now correct precomputed values of the children. 
+
