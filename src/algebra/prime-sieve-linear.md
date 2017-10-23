@@ -87,19 +87,3 @@ Knowing the factorizations of all numbers is very useful for some tasks, and thi
 ## References
 
 - David Gries, Jayadev Misra. **A Linear Sieve Algorithm for Finding Prime Numbers** [1978]
-
-## Pracice Problems
-
-* [SPOJ - Printing Some Primes](http://www.spoj.com/problems/TDPRIMES/)
-* [SPOJ - A Conjecture of Paul Erdos](http://www.spoj.com/problems/HS08PAUL/)
-* [SPOJ - Primal Fear](http://www.spoj.com/problems/VECTAR8/)
-* [SPOJ - Primes Triangle (I)](http://www.spoj.com/problems/PTRI/)
-* [Codeforces - Almost Prime](http://codeforces.com/contest/26/problem/A)
-* [Codeforces - Sherlock And His Girlfriend](http://codeforces.com/contest/776/problem/B)
-* [SPOJ - Namit in Trouble](http://www.spoj.com/problems/NGIRL/)
-* [SPOJ - Bazinga!](http://www.spoj.com/problems/DCEPC505/)
-* [Project Euler - Prime pair connection](https://www.hackerrank.com/contests/projecteuler/challenges/euler134)
-* [SPOJ - N-Factorful](http://www.spoj.com/problems/NFACTOR/)
-* [SPOJ - Binary Sequence of Prime Numbers](http://www.spoj.com/problems/BSPRIME/)
-* [UVA 11353 - A Different Kind of Sorting](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2338)
-* [SPOJ - Printing some primes (hard)](http://www.spoj.com/problems/PRIMES2/)
