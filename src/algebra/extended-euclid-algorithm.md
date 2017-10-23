@@ -63,3 +63,9 @@ This implementation of extended Euclidean algorithm produces correct results for
 ## References
 
 - Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein, Introduction to Algorithms (2005)
+
+## Practice Problems
+
+* [10104 - Euclid Problem](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1045)
+* [GYM - (J) Once Upon A Time](http://codeforces.com/gym/100963)
+* [UVA - 12775 - Gift Dilemma](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=4628)
