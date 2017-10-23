@@ -198,3 +198,9 @@ $$a \cdot b = \\left\\{\begin{array}{ll}
 
 * [UVa 1230 - MODEX](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3671)
 * [UVa 374 - Big Mod](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=310)
+* [UVa 11029 - Leading and Trailing](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1970)
+* [Codeforces - Parking Lot](http://codeforces.com/problemset/problem/630/I)
+* [SPOJ - The last digit](http://www.spoj.com/problems/LASTDIG/)
+* [SPOJ - Locker](http://www.spoj.com/problems/LOCKER/)
+* [LA - 3722 Jewel-eating Monsters](https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1723)
+* [SPOJ - Just add it](http://www.spoj.com/problems/ZSUM/)
