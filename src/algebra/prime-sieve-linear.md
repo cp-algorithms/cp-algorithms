@@ -86,4 +86,4 @@ Knowing the factorizations of all numbers is very useful for some tasks, and thi
 
 ## References
 
-- David Gries, Jayadev Misra. **A Linear Sieve Algorithm for Finding Prime Numbers** [1978]
+- David Gries, Jayadev Misra. **A Linear Sieve Algorithm for Finding Prime Numbers** [1978] 
