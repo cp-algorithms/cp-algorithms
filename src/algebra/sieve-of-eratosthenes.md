@@ -144,3 +144,19 @@ According to the performed experiments, we have the best speed of work when $s$ 
 ## Advancement to the linear time complexity
 
 We can convert the Eratosthenes algorithm into another algorithm that will have linear time complexity. Look at the article [Sieve of Eratosthenes Having Linear Time Complexity](./algebra/prime-sieve-linear.html). However, this algorithm has its own weaknesses.
+
+## Pracice Problems
+
+* [SPOJ - Printing Some Primes](http://www.spoj.com/problems/TDPRIMES/)
+* [SPOJ - A Conjecture of Paul Erdos](http://www.spoj.com/problems/HS08PAUL/)
+* [SPOJ - Primal Fear](http://www.spoj.com/problems/VECTAR8/)
+* [SPOJ - Primes Triangle (I)](http://www.spoj.com/problems/PTRI/)
+* [Codeforces - Almost Prime](http://codeforces.com/contest/26/problem/A)
+* [Codeforces - Sherlock And His Girlfriend](http://codeforces.com/contest/776/problem/B)
+* [SPOJ - Namit in Trouble](http://www.spoj.com/problems/NGIRL/)
+* [SPOJ - Bazinga!](http://www.spoj.com/problems/DCEPC505/)
+* [Project Euler - Prime pair connection](https://www.hackerrank.com/contests/projecteuler/challenges/euler134)
+* [SPOJ - N-Factorful](http://www.spoj.com/problems/NFACTOR/)
+* [SPOJ - Binary Sequence of Prime Numbers](http://www.spoj.com/problems/BSPRIME/)
+* [UVA 11353 - A Different Kind of Sorting](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2338)
+* [SPOJ - Printing some primes (hard)](http://www.spoj.com/problems/PRIMES2/)
