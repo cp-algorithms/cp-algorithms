@@ -84,4 +84,9 @@ Note that this implementation malfunctions if the graph has multiple edges, sinc
 - [UVA #796 "Critical Links"](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=737) [difficulty: low]
 - [UVA #610 "Street Directions"](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=551) [difficulty: medium]
 - [Case of the Computer Network (Codeforces Round #310 Div. 1 E)](http://codeforces.com/problemset/problem/555/E) [difficulty: hard]
-
+* [UVA 12363 - Hedge Mazes](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=3785)
+* [GYM - Computer Network (J)](http://codeforces.com/gym/100114)
+* [SPOJ - King Graffs Defense](http://www.spoj.com/problems/GRAFFDEF/)
+* [SPOJ - Critical Edges](http://www.spoj.com/problems/EC_P/)
+* [Codeforces - Break Up](http://codeforces.com/contest/700/problem/C)
+* [Codeforces - Tourist Reform](http://codeforces.com/contest/732/problem/F)
