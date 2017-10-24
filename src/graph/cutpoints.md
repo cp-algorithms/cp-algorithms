@@ -83,3 +83,4 @@ Constant `MAXN` at beginning of code should be initialized to the maximum possib
 
 - [UVA #10199 "Tourist Guide"](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=13&page=show_problem&problem=1140) [difficulty: low]
 - [UVA #315 "Network"](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=5&page=show_problem&problem=251) [difficulty: low]
+* [SPOJ - Submerging Islands](http://www.spoj.com/problems/SUBMERGE/)
