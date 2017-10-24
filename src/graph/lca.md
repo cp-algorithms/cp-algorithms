@@ -1,3 +1,4 @@
+
 <!--?title Lowest Common Ancestor - O(sqrt(N)) and O(log N) with O(N) preprocessing -->
 
 # Lowest Common Ancestor - $O(\sqrt{N})$ and $O(log\ N)$ with $O(N)$ preprocessing
@@ -144,3 +145,17 @@ int main()
  - [TIMUS: 1471. Distance in the Tree](http://acm.timus.ru/problem.aspx?space=1&num=1471)
  - [CODEFORCES: Design Tutorial: Inverse the Problem](http://codeforces.com/problemset/problem/472/D)
  - [CODECHEF: Lowest Common Ancestor](https://www.codechef.com/problems/TALCA)
+ * [SPOJ - Lowest Common Ancestor](http://www.spoj.com/problems/LCASQ/)
+ * [SPOJ - Ada and Orange Tree](http://www.spoj.com/problems/ADAORANG/)
+ * [DevSkills - Motoku](https://devskill.com/CodingProblems/ViewProblem/141)
+ * [UVA 12655 - Trucks](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=4384)
+ * [Codechef - Pishty and Tree](https://www.codechef.com/problems/PSHTTR)
+ * [UVA - 12533 - Joining Couples](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=441&page=show_problem&problem=3978)
+ * [Codechef - So close yet So Far](https://www.codechef.com/problems/CLOSEFAR)
+ * [Codeforces - Drivers Dissatisfaction](http://codeforces.com/contest/733/problem/F)
+ * [UVA 11354 - Bond](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2339)
+ * [SPOJ - Querry on a tree II](http://www.spoj.com/problems/QTREE2/)
+ * [Codeforces - Best Edge Wiegth](http://codeforces.com/contest/828/problem/F)
+ * [Codeforces - Misha, Grisha and Underground](http://codeforces.com/contest/832/problem/D)
+ * [SPOJ - Nlogonian Tickets](http://www.spoj.com/problems/NTICKETS/)
+ * [Codeforces - Rowena Rawenclaws Diadem](http://codeforces.com/contest/855/problem/D)
