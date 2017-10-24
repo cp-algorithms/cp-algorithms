@@ -1,3 +1,4 @@
+
 <!--?title Treap -->
 # Treap (Cartesian tree)
 
@@ -257,3 +258,17 @@ void output (pitem t) {
 ## Literature
 
 * [Blelloch, Reid-Miller "Fast Set Operations Using Treaps"](https://www.cs.cmu.edu/~scandal/papers/treaps-spaa98.pdf)
+
+## Practice Problems
+
+* [SPOJ - Ada and Aphids](http://www.spoj.com/problems/ADAAPHID/)
+* [SPOJ - Ada and Harvest](http://www.spoj.com/problems/ADACROP/)
+* [Codeforces - Radio Stations](http://codeforces.com/contest/762/problem/E)
+* [SPOJ - Ghost Town](http://www.spoj.com/problems/COUNT1IT/)
+* [SPOJ - Arrangement Validity](http://www.spoj.com/problems/IITWPC4D/)
+* [SPOJ - All in One](http://www.spoj.com/problems/ALLIN1/)
+* [Codeforces - Dog Show](http://codeforces.com/contest/847/problem/D)
+* [Codeforces - Yet Another Array Queries Problem](http://codeforces.com/contest/863/problem/D)
+* [SPOJ - Mean of Array](http://www.spoj.com/problems/MEANARR/)
+* [SPOJ - TWIST](http://www.spoj.com/problems/TWIST/)
+* [SPOJ - KOILINE](http://www.spoj.com/problems/KOILINE/)
