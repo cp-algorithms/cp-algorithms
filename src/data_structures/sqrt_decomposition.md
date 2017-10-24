@@ -107,3 +107,12 @@ For example, let's say we can do two types of operations on an array: add a give
 Finally, those two classes of problems can be combined if the task requires doing **both** element updates on an interval and queries on an interval. Both operations can be done with $O(\sqrt{n})$ complexity. This will require two block arrays $b$ and $c$: one to keep track of element updates and another to keep track of answers to the query.
 
 There exist other problems which can be solved using sqrt decomposition, for example, a problem about maintaining a set of numbers which would allow adding/deleting numbers, checking whether a number belongs to the set and finding $k$-th largest number. To solve it one has to store numbers in increasing order, split into several blocks with $\sqrt{n}$ numbers in each. Every time a number is added/deleted, the blocks have to be rebalanced by moving numbers between beginnings and ends of adjacent blocks.
+
+## Practice Problems
+
+* [UVA - 12003 - Array Transformer](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3154)
+* [UVA - 11990 Dynamic Inversion](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3141)
+* [SPOJ - Give Away](http://www.spoj.com/problems/GIVEAWAY/)
+* [Codeforces - Till I Collapse](http://codeforces.com/contest/786/problem/C)
+* [Codeforces - Destiny](http://codeforces.com/contest/840/problem/D)
+* [Codeforces - Holes](http://codeforces.com/contest/13/problem/E)
