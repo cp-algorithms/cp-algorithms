@@ -419,3 +419,6 @@ A list of tasks that can be solved using the principle of inclusions-exclusions:
 * [SPOJ #4191 MSKYCODE "Sky Code" [difficulty: medium]](http://www.spoj.pl/problems/MSKYCODE/)
 * [SPOJ #4168 SQFREE "Square-free integers" [difficulty: medium]](http://www.spoj.pl/problems/SQFREE/)
 * [CodeChef "Count Relations" [difficulty: medium]](http://www.codechef.com/JAN11/problems/COUNTREL/)
+* [SPOJ - Almost Prime Numbers Again](http://www.spoj.com/problems/KPRIMESB/)
+* [SPOJ - Find number of Pair of Friends](http://www.spoj.com/problems/IITKWPCH/)
+* [SPOJ - Balanced Cow Subsets](http://www.spoj.com/problems/SUBSET/)
