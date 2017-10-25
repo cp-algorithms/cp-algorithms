@@ -106,14 +106,86 @@ And if you do the partitioning the the right way, then we only need $O(\log n)$ 
 ### Update queries
 
 Now we want to modify a specific element in the array, lets say we want to do the assignment $a[i] = x$. 
-It turns out, that we only need to modify $O(\log n)$ segments.
-To see this, we need to count how many segments contain the element $a[i]$. 
-There is one leaf node, that coinsides with the element.
-The parent of this leaf node, the parent of the parent, the parent of the parent of the parent, and so on. 
-Exactly one leaf node and all its parents are effected by a modification of a single element in the array. 
-And since the height of the tree is $O(\log n)$, exactly that many segments we have to change. 
+And we want to keep the structure of the tree, so we have to rebuild the parts of the tree, that aren't valid any more after the assignment. 
 
-To implement the modification efficiently, we act similar to the build process. We start with the child node and assign it to $x$. 
-Then we can recompute the parent node, by using the precomputed values of its child nodes and repeat the process to all its parents. 
-As an implementation, we can start with the root node, recursively call one of the child nodes, and afterwards fix the sum using the now correct precomputed values of the children. 
+This query is easier than the sum query. 
+It is a fact, that an element $a[i]$ only contributes to one single segment from each level. 
+Therefore only $O(\log n)$ segments need to be updated. 
+It turns out, that we only need to modify $O(\log n)$ segments.
+
+It is easy to see, that the update request can be implemented using a recursive function. 
+The function gets passed the current tree node, and it recursively calls itself with one of the two child nodes (the one that contains $a[i]$ in its segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children). 
+
+### Implementation
+
+The main consideration is how to store the Segment Tree.
+To make the implementation efficient, we use a little trick:
+We store the nodes in an array, the root node at index 1, its two child nodes at indices 2 and 3, the four children of these two nodes at indices 4 to 7, and so on. 
+It is easy to see, that the left child of a node at index $i$ is stored at index $2i$, and the right one at index $2i + 1$. 
+
+This simplifies the implementation a lot. 
+Now we don't need to store the structure of the tree in memory. 
+It is defined implicitely. 
+We only need an array which stores the sums of the segments. 
+
+It should be noticed, that the array should have the size $4n$, not $2n$. 
+The reason is, that this numbering doesn't work, when $n$ is not a power of 2. 
+Then there are some elements in the sum array, that doesn't correspond to any nodes in the actual tree. 
+This doesn't complicates the implementation, we only have to make sure that we have to make the array at least $4n$ elements long. 
+
+So, we store the Segment Tree simply as an array $t[]$ with a size of four times the input size $n$:
+
+```cpp
+int n, t[4 * MAXN];
+```
+
+The procedure for constructing the Segment Tree from a given array $a[]$ looks like this: 
+it is a recursive function with the parameters $a[]$ (the input array), $v$ (the index of the current node/segment), and the boundaries $tl$ and $tr$ of the current segment. 
+In the main program this function will be called with the parameters $v = 1$, $tl = 0$, and $tr = n - 1$. 
+
+```cpp
+void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+```
+
+Further the function for answering sum queries is also a recursive function, which receives as parameters information about the current node (i.e. the index $v$ and the boundaries $tl$ and $tr$) and also the information about the boundaries of the query, $l$ and $r$. 
+In order to simplify the code, this function always does two recursive calls, even if only one is necessary - in that case the superfluous recursive call will have $l > r$, and this can easily be caught using an additional check at the beginning of the function.
+
+```cpp
+int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    int tm = (tl + tr) / 2;
+    return sum(v*2, tl, tm, l, min(r, tm))
+           + sum(v*2, tm+1, tr, max(l, tm+1), r);
+}
+```
+
+Finally the update query. The function will also receive information about the current segment, and additionally also information about the index of the changing element as well as the new value. 
+
+```cpp
+void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = new_value;
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_value);
+        else
+            update(v*2+1, tm+1, tr, pos, new_value);
+        t[v] = t[v*2] + t[v*2+1];
+    }
+}
+```
 
