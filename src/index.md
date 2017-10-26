@@ -71,6 +71,7 @@ especially popular in field of competitive programming.*
 - [Kirchhoff Theorem](./graph/kirchhoff-theorem.html)
 - [Topological Sorting](./graph/topological-sort.html)
 - [Finding Bridges in O(N+M)](./graph/bridge-searching.html)
+- [Finding Articulation Points in O(N+M)](./graph/cutpoints.html)
 - [Finding a Negative Cycle in the Graph](./graph/finding-negative-cycle-in-graph.html)
 - [Floyd-Warshall - finding all shortest paths](./graph/all-pair-shortest-path-floyd-warshall.html)
 - [Dijkstra - finding shortests paths from given vertex](./graph/dijkstra.html)
