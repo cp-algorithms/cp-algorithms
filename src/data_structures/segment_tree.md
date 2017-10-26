@@ -198,3 +198,135 @@ void update(int v, int tl, int tr, int pos, int new_val) {
 }
 ```
 
+## Advanced version of Segment Trees
+
+A Segment Tree is a very flexible data structure, and allows extensions in many different directions. 
+Let's try to categorize them below. 
+
+### More complex queries and updates
+
+It can be quite obvious to change the Segment Tree in a direction, such that it computes different queries (e.g. computing the minimum / maximum instead of the sum), but it also can be very nontrivial. 
+
+### Finding the minimum / maximum
+
+Let us slightly change the condition of the problem described above: instead of querying the sum, we will now make maximum queries.
+
+The tree will have exactly the same structure as the tree described above. 
+We only need to change the way $t[v]$ is computed in the $\text{build}$ and $\text{update}$ functions.
+$t[v]$ will now store the maximum of the corresponding segment. 
+And we also need to change the calculation of the returned value of the $\text{sum}$ function (replacing the summation by the maximum).
+
+Of course this problem can be easily changed into computing the minimum instead of the maximum.
+
+Instead of showing an implementation to this problem, the implementation will be given to a more complex version of this problem in the next section.
+
+### Finding the maximum and the number of times it appears 
+
+This task is very similar to the previous one.
+In addition of finding the maximum, we also have to find the number of occurrences of the maximum. 
+
+To solve this problem, we store a pair of numbers at each node in the tree: 
+in addition to the maximum we also store the number of occurrences of it in the corresponding segment. 
+Determining the correct pair to store at $t[v]$ can still be done in constant time using the information of the pairs stored at the child nodes. 
+The combination to two such pairs should be done in a separate function, since this will be a operation that we will do while building the tree, while answering maximum queries and while performing modifications.
+
+```cpp
+pair<int, int> t[4*MAXN];
+
+pair<int, int> combine(pair<int, int> a, pair<int, int> b) {
+    if (a.first > b.first) 
+        return a;
+    if (b.first > a.first)
+        return b;
+    return make_pair(a.first, a.second + b.second);
+}
+
+void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = make_pair(a[tl], 1);
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = combine(t[v*2], t[v*2+1]);
+    }
+}
+
+pair<int, int> get_max(int v, int tl, int tr, int l, int r) {
+    if (l > r)
+        return make_pair(-INF, 0);
+    if (l == tl && r == tr)
+        return t[v];
+    int tm = (tl + tr) / 2;
+    return combine(get_max(v*2, tl, tm, l, min(r, tm)), 
+                   get_max(v*2+1, tm+1, tr, max(l, tm+1), r));
+}
+
+void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = make_pair(new_val, 1);
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = combine(t[v*2], t[v*2+1]);
+    }
+
+}
+```
+### Compute the greatest common divisor / least common multiple
+
+In this problem we want to compute the GCD / LCM of all numbers of given ranges of the array. 
+
+This interesting variation of the Segment Tree can be solved in exactly the same way as the Segment Trees we derived for sum / minimum / maximum queries:
+it is enough to store the GCD / LCM of the corresponding node in each node of the tree. 
+Combining two nodes can be done by performing computing the GCM / LCM of both nodes.
+
+### Counting the number of zeros, searching for the $k$-th zero
+
+In this problem we want to find the number of zeros in a given range, and additionally find the index of the $k$-th zero using a second function.
+
+Again we have to change the store values of the tree a bit:
+This time we will store the number of zeros in each segment in $t[]$. 
+It is pretty clear, how to implement the $\text{build}$, $\text{update}$ and $\text{count_zero}$ functions, we can simple use the ideas from the sum query problem.
+Thus we solved the first part of the problem.
+
+Now we learn how to solve the of problem of finding the $k$-th zero in the array $a[]$. 
+To do this task, we will descend the Segment Tree, starting at the root node, and moving each time to either the left or the right child, depending on which segment contains the $k$-th zero.
+In order to decide to which child we need to go, it is enough to look at the number of zeros appearing in the segment corresponding to the left node.
+If this precomputed count is greater or equal to $k$, it is necessary to descend to the left child, and otherwise descent to the right child.
+Notice, if we chose the right child, we have to subtract the number of zeros of the left child from $k$.
+
+In the implementation we can handle the case, $a[]$ containing less than $k$ zeros, by returning -1.
+
+```cpp
+int find_kth(int v, int tl, int tr, int k) {
+    if (k > t[v])
+        return -1;
+    if (tl == tr)
+        return tl;
+    int tm = (tl + tr) / 2;
+    if (t[v*2] >= k)
+        return find_kth(v*2, tl, tm, k);
+    else 
+        return find_kth(v*2+1, tm+1, tr, k - t[v*2]);
+}
+```
+
+### Searching for an array prefix with a given amount
+
+The task is as follows: 
+for a given value $x$ we have to quickly find smallest index $i$ such that the sum of the first $i$ elements of the array $a[]$ is greater or equal to $x$ (assuming that the array $a[]$ only contains nonnegative values).
+
+This task can be solved using binary search, computing the sum of the prefixes with the Segment Tree.
+However this will lead to a $O(\log^2 n)$ solution.
+
+Instead we can use the same idea as in the previous section, and find the position by descending the tree:
+by moving each time to the left or the right, depending on the sum of the left child.
+Thus finding the answer in $O(\log n)$ time.
+
+### Finding subsegments with the maximal sum
+
+
