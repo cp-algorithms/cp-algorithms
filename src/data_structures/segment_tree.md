@@ -329,4 +329,91 @@ Thus finding the answer in $O(\log n)$ time.
 
 ### Finding subsegments with the maximal sum
 
+Again we receive a range $a[l \dots r]$ as each query, this time we have to find a subsegment $a[l^\prime \dots r^\prime]$ such that $l \le l^\prime$ and $r^\prime \le r$ and the sum of the elements of this segment is maximal. 
+As before we also want to be able to modify individual elements of the array. 
+The elements of the array can be negative, and the optimal subsegment can be empty (e.g. if all elements are negative).
 
+This problem is a non-trivial usage of a Segment Tree.
+This time we will store four values for each node: 
+the sum of the segment, the maximum prefix sum, the maximum suffix sum, and the sum of the maximal subsegment in it.
+In other words for each segment of the Segment Tree the answer is already precalculated, and also answers for segments touching the left and the right boundaries of the segment.
+
+How to build a tree with such data?
+Again we compute it in a recursive fashion: 
+we first compute all four values for the left and the right child, and then combine those to archive the four values for the current node.
+Note the answer for the current node is either:
+
+ * the answer of the left child, which means that the optimal subsection is entirely placed in the segment of the left child
+ * the answer of the right child, which means that the optimal subsection is entirely placed in the segment of the right child
+ * the sum of the maximum suffix sum of the left child and the maximum prefix sum of the right child, which means that the optimal subsegment lies intersects with both children.
+
+Hence the answer to the current node is the maximum of these three values. 
+Computing the maximum prefix / suffix sum is even easier. 
+Here is the implementation of the $\text{combine}$ function, which receives only data from the left and right child, and returns the data of the current node. 
+
+```cpp
+struct data {
+    int sum, pref, suff, ans;
+};
+
+data combine(data l, data r) {
+    data res;
+    res.sum = l.sum + r.sum;
+    res.pref = max(l.pref, l.sum + r.pref);
+    res.suff = max(r.suff, r.sum + l.suff);
+    res.ans = max(max(l.ans, r.ans), l.suff + r.pref);
+    return res;
+}
+```
+
+Using the $\text{combine}$ function it is easy to build the Segment Tree. 
+We can implement it in exactly the same way as in the previous implementations.
+To initialize the leaf nodes, we additionally create the auxiliary function $\text{make_data}$, which will return a $\text{data}$ object holding the information of a single value.
+
+```cpp
+data make_data(int val) {
+    data res;
+    res.sum = val;
+    res.pref = res.suff = res.ans = max(0, val);
+}
+
+void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = make_data(a[tl]);
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = combine(t[v*2], t[v*2+1]);
+    }
+}
+ 
+void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) {
+        t[v] = make_data(new_val);
+    } else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val);
+        t[v] = combine(t[v*2], t[v*2+1]);
+    }
+}
+```
+
+It only remains, how to compute the answer to a query. 
+To answer it, we go down the tree as before, breaking the query into several subsegments that coincide with the segments of the Segment Tree, and combine the answers in them into a single answer for the query.
+Then it should be clear, that the work is exactly the same as in the simple Segment Tree, but instead of summing / minimizing / maximizing the values, we use the $\text{combine}$ function.
+
+```cpp
+data query(int v, int tl, int tr, int l, int r) {
+    if (l > r) 
+        return make_data(0);
+    if (l == tl && r == tr) 
+        return t[v];
+    int tm = (tl + tr) / 2;
+    return combine(query(v*2, tl, tm, l, min(r, tm)), 
+                   query(v*2+1, tm+1, tr, max(l, tm+1), r));
+}
+```
