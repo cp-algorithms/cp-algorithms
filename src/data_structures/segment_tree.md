@@ -13,7 +13,7 @@ For instance with a 2D Segment Tree you can answer sum or minimum queries over s
 
 One important property of Segment Trees is, that they require only a linear amount of memory. The standard Segment Tree requires $4n$ nodes for working on an array of size of size $n$. 
 
-## Description of the simplest Segment Tree
+## Description of the simple Segment Tree
 
 To start easy, we consider the simplest case of a Segment Tree. 
 We want to answer sum queries efficiently. 
@@ -200,12 +200,12 @@ void update(int v, int tl, int tr, int pos, int new_val) {
 
 ## Advanced version of Segment Trees
 
-A Segment Tree is a very flexible data structure, and allows extensions in many different directions. 
+A Segment Tree is a very flexible data structure, and allows variations and extensions in many different directions. 
 Let's try to categorize them below. 
 
-### More complex queries and updates
+### More complex queries
 
-It can be quite obvious to change the Segment Tree in a direction, such that it computes different queries (e.g. computing the minimum / maximum instead of the sum), but it also can be very nontrivial. 
+It can be quite easy to change the Segment Tree in a direction, such that it computes different queries (e.g. computing the minimum / maximum instead of the sum), but it also can be very nontrivial. 
 
 ### Finding the minimum / maximum
 
@@ -282,7 +282,7 @@ In this problem we want to compute the GCD / LCM of all numbers of given ranges 
 
 This interesting variation of the Segment Tree can be solved in exactly the same way as the Segment Trees we derived for sum / minimum / maximum queries:
 it is enough to store the GCD / LCM of the corresponding node in each node of the tree. 
-Combining two nodes can be done by performing computing the GCM / LCM of both nodes.
+Combining two nodes can be done by computing the GCM / LCM of both nodes.
 
 ### Counting the number of zeros, searching for the $k$-th zero
 
@@ -299,7 +299,7 @@ In order to decide to which child we need to go, it is enough to look at the num
 If this precomputed count is greater or equal to $k$, it is necessary to descend to the left child, and otherwise descent to the right child.
 Notice, if we chose the right child, we have to subtract the number of zeros of the left child from $k$.
 
-In the implementation we can handle the case, $a[]$ containing less than $k$ zeros, by returning -1.
+In the implementation we can handle the special case, $a[]$ containing less than $k$ zeros, by returning -1.
 
 ```cpp
 int find_kth(int v, int tl, int tr, int k) {
@@ -336,16 +336,16 @@ The elements of the array can be negative, and the optimal subsegment can be emp
 This problem is a non-trivial usage of a Segment Tree.
 This time we will store four values for each node: 
 the sum of the segment, the maximum prefix sum, the maximum suffix sum, and the sum of the maximal subsegment in it.
-In other words for each segment of the Segment Tree the answer is already precalculated, and also answers for segments touching the left and the right boundaries of the segment.
+In other words for each segment of the Segment Tree the answer is already precalculated as well as the answers for segments touching the left and the right boundaries of the segment.
 
 How to build a tree with such data?
 Again we compute it in a recursive fashion: 
 we first compute all four values for the left and the right child, and then combine those to archive the four values for the current node.
 Note the answer for the current node is either:
 
- * the answer of the left child, which means that the optimal subsection is entirely placed in the segment of the left child
- * the answer of the right child, which means that the optimal subsection is entirely placed in the segment of the right child
- * the sum of the maximum suffix sum of the left child and the maximum prefix sum of the right child, which means that the optimal subsegment lies intersects with both children.
+ * the answer of the left child, which means that the optimal subsegment is entirely placed in the segment of the left child
+ * the answer of the right child, which means that the optimal subsegment is entirely placed in the segment of the right child
+ * the sum of the maximum suffix sum of the left child and the maximum prefix sum of the right child, which means that the optimal subsegment intersects with both children.
 
 Hence the answer to the current node is the maximum of these three values. 
 Computing the maximum prefix / suffix sum is even easier. 
