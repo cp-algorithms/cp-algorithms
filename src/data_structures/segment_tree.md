@@ -417,3 +417,24 @@ data query(int v, int tl, int tr, int l, int r) {
                    query(v*2+1, tm+1, tr, max(l, tm+1), r));
 }
 ```
+
+## Saving the entire subarrays in each node
+
+### Find the smallest number greater or equal to a specified number. No modification queries.
+### Find the smallest number greater or equal to a specified number. With modification queries.
+### Find the smallest number greater or equal to a specified number. Acceleration with "partial cascading".
+### Other possible variations
+
+## Range updates (Lazy Propagation)
+
+### Addition on segments
+### Assignment on segments
+### Adding on segments, querying for maximum
+### Other variations
+
+## Generalization to higher dimensions
+
+### Simple 2D Segment Tree
+### Compression of 2D Segment Tree
+
+## Preserving the history of it's values (Persistent Segment Tree)
