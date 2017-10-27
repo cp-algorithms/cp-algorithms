@@ -128,7 +128,7 @@ To learn more about finding negative cycles in a graph, see separate article: [F
  * [UVA 10724 - Road Construction](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1665)
  * [UVA  117 - The Postal Worker Rings Once](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=53)
  * [Codeforces - Traveling Graph](http://codeforces.com/problemset/problem/21/D)
- * [UVA - Geodetic Problem Set](1198 - The Geodetic Set Problem)
+ * [UVA - 1198 - The Geodetic Set Problem](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=3639)
  * [UVA - 10048 - Audiophobia](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=989)
  * [UVA - 125 - Numbering Paths](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=61)
  * [LOJ - Travel Company](http://lightoj.com/volume_showproblem.php?problem=1221)
