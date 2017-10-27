@@ -38,3 +38,5 @@ The only degenerate case we need to consider separately is when the centers of t
 - [ASC 1 Problem F "Get out!"](http://codeforces.com/gym/100199/problem/F)
 
 - [SPOJ: CIRCINT](http://www.spoj.com/problems/CIRCINT/)
+
+* [UVA - 10301 - Rings and Glue] (https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1242)
