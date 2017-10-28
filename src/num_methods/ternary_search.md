@@ -44,7 +44,7 @@ $$T(n) = T({2n}/{3}) + 1 = \Theta(\log n)$$
 
 It can be visualized as follows: every time after evaluating the function at points $m_1$ and $m_2$, we are essentially ignoring about one third of the interval, either the left or right one. Thus the size of the search space is ${2n}/{3}$ of the original one. 
 
-Applying [Master's Theorem](https://en.wikipedia.org/wiki/Master_theorem), we get the desired complexity estimate.
+Applying [Master's Theorem](https://en.wikipedia.org/wiki/Master_theorem_(analysis_of_algorithms)), we get the desired complexity estimate.
 
 ### The case of the integer arguments
 
