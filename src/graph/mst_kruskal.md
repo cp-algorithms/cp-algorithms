@@ -24,7 +24,7 @@ Kruskal's algorithm initially places all the nodes of the original graph isolate
 
 ## The simplest implementation
 
-The following code directly implements the algorithm described above, and is having $O(M log N + N^2)$ time complexity. Sorting edges require $O(M log N)$ operations. Information regarding the subtree to which a vertex belongs is maintained with the help of an array tree_id[ ] - for each vertex $i$, tree_id[i] stores the number of the tree , to which $i$ belongs. For each edge, whether it belongs to the ends of different trees, can be determined in $O(1)$, . Finally, the union of the two trees is carried out in $O​​(N)$ by a simple pass through tree_id[ ] array. Given that total merge operations are $N-1$, we obtain the asymptotic behavior of $O(M log N + N^2)$.
+The following code directly implements the algorithm described above, and is having $O(M \log N + N^2)$ time complexity. Sorting edges requires $O(M \log N)$ operations. Information regarding the subtree to which a vertex belongs is maintained with the help of an array tree_id[ ] - for each vertex $i$, tree_id[i] stores the number of the tree , to which $i$ belongs. For each edge, whether it belongs to the ends of different trees, can be determined in $O(1)$. Finally, the union of the two trees is carried out in $O(N)$ by a simple pass through tree_id[ ] array. Given that total merge operations are $N-1$, we obtain the asymptotic behavior of $O(M \log N + N^2)$.
 
 ```cpp
 int m;
@@ -60,13 +60,14 @@ for (int i = 0; i < m; ++i)
 
 ## Improved implementation
 
-We can use the **Disjoint Set Union** (DSU) data structure to write faster implementation of the Kruskal's algorithm with an asymptotic complexity of about $O(M log N)$. [This article details such approach](./graph/mst_kruskal_with_dsu.html).
+We can use the **Disjoint Set Union** (DSU) data structure to write faster implementation of the Kruskal's algorithm with an asymptotic complexity of about $O(M \log N)$. [This article details such approach](./graph/mst_kruskal_with_dsu.html).
 
-##Practice Problems
-- [SPOJ - Koicost](http://www.spoj.com/problems/KOICOST/)
-- [SPOJ - MaryBMW](http://www.spoj.com/problems/MARYBMW/)
-- [Codechef - Fullmetal Alchemist](https://www.codechef.com/ICL2016/problems/ICL16A)
-- [Codeforces - Edges in MST](http://codeforces.com/contest/160/problem/D)
+## Practice Problems
+
+* [SPOJ - Koicost](http://www.spoj.com/problems/KOICOST/)
+* [SPOJ - MaryBMW](http://www.spoj.com/problems/MARYBMW/)
+* [Codechef - Fullmetal Alchemist](https://www.codechef.com/ICL2016/problems/ICL16A)
+* [Codeforces - Edges in MST](http://codeforces.com/contest/160/problem/D)
 * [UVA 12176 - Bring Your Own Horse](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3328)
 * [UVA 10600 - ACM Contest and Blackout](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1541)
 * [UVA 10724 - Road Construction](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1665)
@@ -89,9 +90,3 @@ We can use the **Disjoint Set Union** (DSU) data structure to write faster imple
 * [SPOJ - Blinet](http://www.spoj.com/problems/BLINNET/)
 * [SPOJ - Help the Old King](http://www.spoj.com/problems/IITKWPCG/)
 * [Codeforces - Hierarchy](http://codeforces.com/contest/17/problem/B)
-Root	 Submit  Problem Stats
-uDebug  Download as PDF
-11733 - Airports
-Root	 Submit  Problem Stats
-uDebug  Download as PDF
-11733 - Airports
