@@ -67,3 +67,31 @@ We can use the **Disjoint Set Union** (DSU) data structure to write faster imple
 - [SPOJ - MaryBMW](http://www.spoj.com/problems/MARYBMW/)
 - [Codechef - Fullmetal Alchemist](https://www.codechef.com/ICL2016/problems/ICL16A)
 - [Codeforces - Edges in MST](http://codeforces.com/contest/160/problem/D)
+* [UVA 12176 - Bring Your Own Horse](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3328)
+* [UVA 10600 - ACM Contest and Blackout](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1541)
+* [UVA 10724 - Road Construction](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1665)
+* [Hackerrank - Roads in HackerLand](https://www.hackerrank.com/contests/june-world-codesprint/challenges/johnland/problem)
+* [UVA 11710 - Expensive subway](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2757)
+* [Codechef - Chefland and Electricity](https://www.codechef.com/problems/CHEFELEC)
+* [UVA 10307 - Killing Aliens in Borg Maze](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1248)
+* [Codeforces - Flea](http://codeforces.com/problemset/problem/32/C)
+* [Codeforces - Igon in Museum](http://codeforces.com/problemset/problem/598/D)
+* [Codeforces - Hongcow Builds a Nation](http://codeforces.com/problemset/problem/744/A)
+* [DevSkills - Repairing Road](https://devskill.com/CodingProblems/ViewProblem/344)
+* [UVA - 908 - Re-connecting Computer Sites](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=849)
+* [UVA 1208 - Oreon](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3649)
+* [UVA 1235 - Anti Brute Force Lock](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3676)
+* [UVA 10034 - Freckles](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=975)
+* [UVA 11228 - Transportation system](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=2169)
+* [UVA 11631 - Dark roads](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2678)
+* [UVA 11733 - Airports](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2833)
+* [UVA 11747 - Heavy Cycle Edges](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2847)
+* [SPOJ - Blinet](http://www.spoj.com/problems/BLINNET/)
+* [SPOJ - Help the Old King](http://www.spoj.com/problems/IITKWPCG/)
+* [Codeforces - Hierarchy](http://codeforces.com/contest/17/problem/B)
+Root	 Submit  Problem Stats
+uDebug  Download as PDF
+11733 - Airports
+Root	 Submit  Problem Stats
+uDebug  Download as PDF
+11733 - Airports
