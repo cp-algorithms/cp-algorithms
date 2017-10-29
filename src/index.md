@@ -29,6 +29,7 @@ especially popular in field of competitive programming.*
 ### Data Structures
 - [Fenwick Tree](./data_structures/fenwick.html)
 - [Sparse Table](./data_structures/sparse-table.html)
+- [Segment Tree](./data_structures/segment_tree.html)
 - [Treap](./data_structures/treap.html)
 - [Sqrt Decomposition](./data_structures/sqrt_decomposition.html)
 
