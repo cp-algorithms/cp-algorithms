@@ -2,7 +2,7 @@
 <!--?title Treap -->
 # Treap (Cartesian tree)
 
-Treap is a data structure which combines binary tree and binary heap (hence the name: tree + heap => Treap).
+Treap is a data structure which combines binary tree and binary heap (hence the name: tree + heap $\Rightarrow$ Treap).
 
 More specifically, treap is a data structure that stores pairs (X, Y) in a binary tree in such a way that it is a binary search tree by X and a binary heap by Y.
 Assuming that all X and all Y are different, we can see that if some node of the tree contains values ($X_0$, $Y_0$), all nodes in the left subtree have $X < X_0$, all nodes in the right subtree have $X > X_0$, and all nodes in both left and right subtrees have $Y < Y_0$.
@@ -20,24 +20,24 @@ At the same time, **priorities** allow to **uniquely** specify the tree that wil
 A treap provides the following operations:
 
 - **Insert(X,Y)** in $O(\log N)$.  
-  Adds a new node to the tree. A variant is possible in priority Y is not passed as as a parameter but is chosen randomly instead (while ensuring that it's different from all other priorities in the tree).
+  Adds a new node to the tree. One possible variant is to pass only X and generate Y randomly inside the operation (while ensuring that it's different from all other priorities in the tree).
 - **Search (X)** in $O(\log N)$.  
-  Looks for a node with the specified key value X. The implementation is the same as for an ordinary binary tree.
+  Looks for a node with the specified key value X. The implementation is the same as for an ordinary binary search tree.
 - **Erase (X)** in $O(\log N)$.  
   Looks for a node with the specified key value X and removes it from the tree.
 - **Build ($X_1$, ..., $X_N$)** in $O(N)$.  
-  Builds a tree from a list of values. This can be done in linear time (assuming that $X_1, ..., X_N$ are sorted), but we will not discuss this implementation here. We will use the simplest variant with serial calls of **Insert** operation, which has $O(N \log N)$ complexity.
+  Builds a tree from a list of values. This can be done in linear time (assuming that $X_1, ..., X_N$ are sorted), but we will not discuss this implementation here. We will just use $N$ serial calls of **Insert** operation, which has $O(N \log N)$ complexity.
 - **Union ($T_1$, $T_2$)** in $O(M \log (N/M))$.  
-  Merges two trees, assuming that all the elements are different. An implementation with the same asymptotic behavior is possible if duplicate elements should be removed during merge.
+  Merges two trees, assuming that all the elements are different. It is possible to achieve the same complexity if duplicate elements should be removed during merge.
 - **Intersect ($T_1$, $T_2$)** in $O(M \log (N/M))$.  
   Finds the intersection of two trees (i.e. their common elements). We will not consider the implementation of this operation here.
 
-In  addition, due to the fact that a treap is a binary search tree, it can implement other operations, such as finding the K-th largest element or finding the index of an element.
+In addition, due to the fact that a treap is a binary search tree, it can implement other operations, such as finding the K-th largest element or finding the index of an element.
 
 ## Implementation Description
 In terms of implementation, each node contains X, Y and pointers to the left (L) and right (R) children.
 
-To implement the required operations, we'll have to start with two auxiliary operations: Split and Merge.
+We will implement all the required operations using just two auxiliary operations: Split and Merge.
 
 **Split (T, X)** separates tree T in 2 subtrees L and R trees (which are the return values of split) so that L contains all elements with key $X_L < X$, and R contains all elements with key $X_R > X$. This operation has $O (\log N)$ complexity and is implemented using an obvious recursion.
 
