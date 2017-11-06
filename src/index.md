@@ -65,6 +65,7 @@ especially popular in field of competitive programming.*
 - [Circle-Line Intersection](./geometry/circle-line-intersection.html)
 - [Circle-Circle Intersection](./geometry/circle-circle-intersection.html)
 - [Pick's Theorem - area of lattice polygons](./geometry/picks-theorem.html)
+- [Area of simple polygon](./geometry/area-of-simple-polygon.html)
 
 ### Graphs
 - [Breadth First Search](./graph/breadth-first-search.html)
