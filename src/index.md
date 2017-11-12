@@ -84,6 +84,7 @@ especially popular in field of competitive programming.*
 - [Minimum Spanning Tree - Kruskal](./graph/mst_kruskal.html)
 - [Minimum Spanning Tree - Kruskal with Disjoint Set Union](./graph/mst_kruskal_with_dsu.html)
 - [Strongly Connected Components and Condensation Graph](./graph/strongly-connected-components.html)
+- [2-SAT](./graph/2SAT.html)
 
 ### Sequences
 - [RMQ task (Range Minimum Query - the smallest element in an interval)](./sequences/rmq.html)
