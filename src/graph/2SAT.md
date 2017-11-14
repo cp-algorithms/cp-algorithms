@@ -1,17 +1,17 @@
 <!--?title 2-SAT -->
 
-# 2-SAT 
+# 2 - SAT 
 
 SAT (Boolean satisfiability problem) is the problem of assigning Boolean values to variables to satisfy a given Boolean formula.
 The Boolean formula will usually be given in CNF (conjunctive normal form), which is a conjunction of multiple clauses, where each clause is a disjunction of literals (variables or negation of variables).
 2-SAT (2-satisfiability) is a restriction of the SAT problem, in 2-SAT every clause has exactly two literals.
 Here is an example of such a 2-SAT problem.
-Find an assignment of $a, b, c, d, e$ such that the following formula is true:
+Find an assignment of $a, b, c$ such that the following formula is true:
 
-$$(a \lor c) \land (a \lor \lnot d) \land (b \lor \lnot d) \land (b \lor e) \land (c \lor d)$$
+$$(a \lor \lnot b) \land (\lnot a \lor b) \land (\lnot a \lor \lnot b) \land (a \lor c)$$
 
 SAT is NP-complete, there is no known efficient solution known for it.
-However 2SAT can be solved efficiently in $O(n + m)$.
+However 2SAT can be solved efficiently in $O(n + m)$ where $n$ is the number of variables and $m$ is the number of clauses.
 
 ## Algorithm:
 
@@ -20,32 +20,43 @@ Note that the expression $a \lor b$ is equivalent to $\lnot a \Rightarrow b \lan
 
 We now construct a directed graph of these implications:
 for each variable $i$ there will be two vertices $v_i$ and $v_{\lnot i}$.
-The edges correspond to the implications.
+The edges will correspond to the implications.
 
 Lets look at the example in 2-CNF form:
 
-$$(a \lor b) \land (b \lor \lnot c)$$
+$$(a \lor \lnot b) \land (\lnot a \lor b) \land (\lnot a \lor \lnot b) \land (a \lor c)$$
 
-The oriented graph will contain the following edges:
+The oriented graph will contain the following vertices and edges:
 
-$$\lnot a \Rightarrow b$$
-$$\lnot b \Rightarrow b$$
-$$\lnot b \Rightarrow \lnot c$$
-$$c \Rightarrow b$$
+$$\begin{array}{ccc}
+\lnot a \Rightarrow \lnot b & a \Rightarrow b & a \Rightarrow \lnot b & \lnot a \Rightarrow c\\\\
+b \Rightarrow a & \lnot b \Rightarrow \lnot a & b \Rightarrow \lnot a & \lnot c \Rightarrow a\\\\
+\end{array}$$
+
+You can see the implication graph in the following image:
+
+!["Implication Graph of 2-SAT example"](&imgroot&/2SAT.png)
 
 It is worth paying attention to the property of the implication graph:
 if there is an edge $a \Rightarrow b$, then there also is an edge $\lnot b \Rightarrow \lnot a$. 
 
 Also note, that if $x$ is reachable from $\lnot x$, and $\lnot x$ is reachable from $x$, then the problem has no solution.
-Whatever value we choose for $x$, it will always end in a contradiction - the implications tell us that we should assign $x$ the opposite value.
-It turns out, that this condition is not only necessary, but also sufficient (the algorithm below will prove this fact).
-We reformulate this criterion using graph theory.
+Whatever value we choose for $x$, it will always end in a contradiction - if $x$ will assigned $\text{true}$ then the implication tell us that $\lnot x$ should also be $\text{true}$ and visa versa.
+It turns out, that this condition is not only necessary, but also sufficient.
+We will prove this in a few paragraphs below.
+First let us formulate the assignment criterion using graph theory.
 Recall, if a vertex if reachable from a second one, and the second one is reachable from the first one, then these two vertices are in the same strongly connected component.
 Therefore we can formulate the criterion for the existence of a solution as follows:
 
 In order for this 2-SAT problem to have a solution, it is necessary and sufficient that for any variable $x$ the vertices $x$ and $\lnot x$ are in different components of the strong connection of the implication graph.
 
-This criterion can be verifies in $O(n + m)$ time using finding all strongly connected components.
+This criterion can be verified in $O(n + m)$ time by finding all strongly connected components.
+
+The following image shows all strongly connected components for the example.
+As we can check easily, neither of the four components contain a vertex $x$ and its negation $\lnot x$, therefore the example has a solution.
+We will learn in the next paragraphs how to compute a valid assignment, but just for demonstration the solution $a = \text{false}, b = \text{false}, c = \text{true}$ is given.
+
+!["Strongly Connected Components of the 2-SAT example"](&imgroot&/2SAT_SCC.png)
 
 Now we construct the algorithm for finding the solution of the 2-SAT problem on the assumption that the solution exists.
 
@@ -96,47 +107,45 @@ int n;
 vector<vector<int>> g, gt;
 vector<bool> used;
 vector<int> order, comp;
+vector<bool> assignment;
 
-void dfs1 (int v) {
-	used[v] = true;
-	for (size_t i=0; i<g[v].size(); ++i) {
-		int to = g[v][i];
-		if (!used[to])
-			dfs1 (to);
-	}
-	order.push_back (v);
+void dfs1(int v) {
+    used[v] = true;
+    for (int u : g[v]) {
+        if (!used[u])
+            dfs1(u);
+    }
+    order.push_back(v);
 }
 
-void dfs2 (int v, int cl) {
-	comp[v] = cl;
-	for (size_t i=0; i<gt[v].size(); ++i) {
-		int to = gt[v][i];
-		if (comp[to] == -1)
-			dfs2 (to, cl);
-	}
+void dfs2(int v, int cl) {
+    comp[v] = cl;
+    for (int u : gt[v]) {
+        if (comp[u] == -1)
+            dfs2(u, cl);
+    }
 }
 
-int main() {
-	used.assign (n, false);
-	for (int i=0; i<n; ++i)
-		if (!used[i])
-			dfs1 (i);
+bool solve_2SAT() {
+    used.assign(n, false);
+    for (int i = 0; i < n; ++i) {
+        if (!used[i])
+            dfs1(i);
+    }
 
-	comp.assign (n, -1);
-	for (int i=0, j=0; i<n; ++i) {
-		int v = order[n-i-1];
-		if (comp[v] == -1)
-			dfs2 (v, j++);
-	}
+    comp.assign(n, -1);
+    for (int i = 0, j = 0; i < n; ++i) {
+        int v = order[n - i - 1];
+        if (comp[v] == -1)
+            dfs2(v, j++);
+    }
 
-	for (int i=0; i<n; ++i)
-		if (comp[i] == comp[i^1]) {
-			puts ("NO SOLUTION");
-			return 0;
-		}
-	for (int i=0; i<n; ++i) {
-		int ans = comp[i] > comp[i^1] ? i : i^1;
-		printf ("%d ", ans);
-	}
+    assignment.assign(n / 2, false);
+    for (int i = 0; i < n; i += 2) {
+        if (comp[i] == comp[i ^ 1])
+            return false;
+        assignment[i / 2] = comp[i] > comp[i + 1];
+    }
+    return true;
 }
 ```
