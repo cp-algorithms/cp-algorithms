@@ -53,7 +53,7 @@ This criterion can be verified in $O(n + m)$ time by finding all strongly connec
 
 The following image shows all strongly connected components for the example.
 As we can check easily, neither of the four components contain a vertex $x$ and its negation $\lnot x$, therefore the example has a solution.
-We will learn in the next paragraphs how to compute a valid assignment, but just for demonstration purposes the solution $a = \text{false}$, $b = \text{false}$, $c = \text{true}$ is given.
+We will learn in the next paragraphs how to compute a valid assignment, but just for demonstration purposes the solution $a = \text{false}$, $b = \text{false}$, $c = \text{false}$ is given.
 
 !["Strongly Connected Components of the 2-SAT example"](&imgroot&/2SAT_SCC.png)
 
