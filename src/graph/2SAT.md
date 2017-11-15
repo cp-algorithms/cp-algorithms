@@ -60,47 +60,43 @@ We will learn in the next paragraphs how to compute a valid assignment, but just
 
 Now we construct the algorithm for finding the solution of the 2-SAT problem on the assumption that the solution exists.
 
-Note that, in spite of the fact that the solution exists, it can happen that $\lnot x$ is reachable from $x$, or that (not simultaneously) $x$ is reachable from $\lnot x$.
-In this case the choice of one value will lead to a contradiction, while the choice of the other will not.
+Note that, in spite of the fact that the solution exists, it can happen that $\lnot x$ is reachable from $x$ in the implication graph, or that (but not simultaneously) $x$ is reachable from $\lnot x$.
+In that case the choice of either $\text{true}$ or $\text{false}$ for $x$ will lead to a contradiction, while the choice of the other one will not.
 Let's learn how to choose a value, such that we don't generate a contradiction.
-Just note the by selecting a value, we need to start to explore the graph with DFS/BFS and mark all the values that follow from it, i.e. the vertices that are reachable in the graph of implications.
-Accordingly for all already marked vertices there is no need to make any choice between $x$ and $\lnot x$, the value has already been chosen and fixed.
-The following rules apply to untagged peaks.
 
-The following is stated.
-Let $\text{comp}[v]$ denote the number of strongly connected components to which the vertex $v$ belongs, and the numbers are ordered int the order of topological sorting of the strongly connected components in the component graph (that is, there are larger numbers in the topological sort order if there is a path from $v$ to $w$ than $\text{comp}[v] \le \text{comp}[w]).
-Then, if $\text{comp}[x] \lt \text{comp}[\lnot x]$, then select the value of $\lnot x$, otherwise, i.e. $\text{comp}[x] < \text{comp}[\lnot x]$, then choose $x$.
+Let us sort the strongly connected components in topological order (i.e. $\text{comp}[v] \le \text{comp}[u]$ if there is a path from $v$ to $u$) and let $\text{comp}[v]$ denote the index of strongly connected component to which the vertex $v$ belongs.
+Then, if $\text{comp}[x] \lt \text{comp}[\lnot x]$ we assign $x$ with $\text{false}$ and $\text{true}$ otherwise.
 
-Let us prove that with this choice of values we do not arrive at a contradiction.
-Suppose, for definiteness, that the vertex $x$ is chosen (the case when the vertex $\lnot x$ is proven analogously.
+Let us prove that with this assignment of the variables we do not arrive at a contradiction.
+Suppose $x$ is assigned with $\text{true}$.
+The other case can be proven in a similar way.
 
-Fist we prove that $x$ is not reachable by $\lnot x$.
-Indeed, since the number of strongly connected component $\text{comp}[x]$ is greater than the index of the component $\text{comp}[\lnot x]$, this means that the connected component containing $x$ is located to the left of the connected component containing $\lnot x$, and the later can be reached by the first.
+First we prove that the vertex $x$ cannot reach the vertex $\lnot x$.
+Because we assigned $\text{true}$ it has to hold that the index of strongly connected component of $x$ is greater than the index of the component of $\lnot x$.
+This means that $\lnot x$ is located on the left of the component containing $x$, and the later vertex cannot reach the first.
 
-Secondly we prove that no vertex $y$ is reachable from $x$ is "bad", i.e. it is not correct that $y$ is reachable from $\lnot y$.
+Secondly we prove that there doesn't exist a variable $y$, such that the vertices $y$ and $\lnot y$ are both reachable from $x$ in the implication graph.
+This would cause a contradiction, because $x = \text{true}$ implies that $y = \text{true}$ and $y = \text{false}$.
 Let us prove this by contradiction.
-Suppose that $y$ is reachable from $y$, then by the property of the implication graph, $\lnot y$ is reachable from $\lnot x$.
-But, by assumption, $y$ is reachable from $y$.
-Then we get that $x$ is reachable from $\lnot x$, which contradicts the condition as required.
+Suppose that $y$ and $\lnot y$ are both reachable from $x$, then by the property of the implication graph $\lnot x$ is reachable from both $y$ and $\lnot y$.
+By transitivity this results that $\lnot x$ is reachable by $x$, which contradicts the assumption.
 
 So we have constructed an algorithm that finds the required values of variables under the assumption that for any variable $x$ the vertices $x$ and $\lnot x$ are in different strongly connected components.
 Above showed the correctness of this algorithm.
 Consequently we simultaneously proved the above criterion for the existence of a solution.
 
-Now we can implement the entire algorithm.
-
-We construct the graph of implications.
-We find in this graph the strongly connected components in $O(n + m)$ time.
-Let $\text{comp}[v]$ be the index of the strongly connected component to which the vertex $v$ belongs.
-Let us verify that for each variable $x$ the vertices $x$ and $\lnot x$ belong to different components, i.e. $\text{comp}[x] \ne \text{comp}[\lnot x]$. 
-If this condition is not met, then return "the solution does not exist".
-If $\text{comp}[x] > \text{comp}[\lnot x]$, then the variable $x$ is set to true, otherwise false.
-
 ## Implementation:
 
-Below is the implementation of the solution of the 2-SAT problem for the already constructed graph of implication $g$ and the inverse graph $g^\prime$ (in which the direction of each edge is reversed).
+Now we can implement the entire algorithm.
+First we construct the graph of implications and find all strongly connected components.
+This can be accomplished with Kosaraku's algorithm in $O(n + m)$ time.
+In the second traversal of the graph Kosaraku's algorithm visits the strongly connected components in reverse topological order, therefore it is easy to compute $\text{comp}[v]$ for each vertex $v$.
 
-The program displays the numbers of the selected vertices, or the phrase "No solution".
+Afterwards we can choose the assignment of $x$ by comparing $\text{comp}[x]$ and $\text{comp}[\lnot x]$. 
+If $\text{comp}[x] = \text{comp}[\lnot x]$ we return $\text{false}$ to indicate that there doesn't exist a valid assignment that satisfies the 2-SAT problem.
+
+Below is the implementation of the solution of the 2-SAT problem for the already constructed graph of implication $g$ and the transpose graph $g^{\intercal}$ (in which the direction of each edge is reversed).
+In the graph the vertices with indices $2k$ and $2k+1$ are the two vertices corresponding to variable $k$ with $2k+1$ being the negated vertex.
 
 ```cpp
 int n;
@@ -142,7 +138,7 @@ bool solve_2SAT() {
 
     assignment.assign(n / 2, false);
     for (int i = 0; i < n; i += 2) {
-        if (comp[i] == comp[i ^ 1])
+        if (comp[i] == comp[i + 1])
             return false;
         assignment[i / 2] = comp[i] > comp[i + 1];
     }
