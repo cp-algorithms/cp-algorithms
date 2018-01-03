@@ -70,6 +70,7 @@ especially popular in field of competitive programming.*
 ### Graphs
 - [Breadth First Search](./graph/breadth-first-search.html)
 - [Depth First Search](./graph/depth-first-search.html)
+- [Bipartite Graph Check](./graph/bipartite-check.html)
 - [Kirchhoff Theorem](./graph/kirchhoff-theorem.html)
 - [Topological Sorting](./graph/topological-sort.html)
 - [Finding Bridges in O(N+M)](./graph/bridge-searching.html)
