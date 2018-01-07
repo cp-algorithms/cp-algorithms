@@ -66,6 +66,16 @@ int get(ftype x) {
 
 ## Li Chao tree
 
+Assume you're given set of functions such that each two can intersect at most once. Let's keep in each vertex of segment tree some function in such way that if we go from root to the leaf, it will be guaranteed that among functions we met on the path will be the one giving minimum value in that leaf. Let's see how to construct it.
+
+Assume we're in some vertex corresponding to half-segment $[l;r)$ and function $f_{old}$ is kept there and we add function $f_{new}$. Then intersection point will be either in $[l;m)$ or in $[m;r)$ where $m=\left\lfloor\tfrac{l+r}{2}\right\rfloor$. We can efficiently learn that comparing values of functions in points $l$ and $m$. If dominating function changes then it's in $[l;m)$ otherwise it's in $[m;r)$. Now for the half of segment where there is no intersection we pick lower function and write it in current vertex. You can see that it always be the one which is lower in point $m$. After that we recursively go to the other half of segment with the function which was upper one. As you can see this will keep correctness on the first half of segment and in the other one correctness will be maintained during the recursive call. Thus we can add functions and check the minimum value in the point in $O(\log [C\varepsilon^{-1}])$.
+
+Here is the illustration of what's going on in the vertex when we add new function:
+
+<center>![Li Chao Tree vertex](https://i.imgur.com/SgEADs7.png)</center>
+
+Let's go to implementation now. Once again we will use complex numbers to keep linear functions.
+
 ```cpp
 typedef int ftype;
 typedef complex<ftype> point;
@@ -79,17 +89,19 @@ ftype dot(point a, point b) {
 ftype f(point a,  ftype x) {
     return dot(a, {x, 1});
 }
- 
+```
+We will keep functions in array $line$ and use binary indexing of segment tree. If you want to use it on large numbers or doubles, you should use dynamic segment tree. 
+```cpp
 const int maxn = 2e5;
  
-point ln[4 * maxn];
+point line[4 * maxn];
  
 void add_line(point nw, int v = 1, int l = 0, int r = maxn) {
     int m = (l + r) / 2;
-    bool lef = f(ln[v], l) < f(nw, l);
-    bool mid = f(ln[v], m) < f(nw, m);
+    bool lef = f(nw, l) < f(line[v], l);
+    bool mid = f(nw, m) < f(line[v], m);
     if(mid) {
-        swap(ln[v], nw);
+        swap(line[v], nw);
     }
     if(r - l == 1) {
         return;
@@ -99,20 +111,20 @@ void add_line(point nw, int v = 1, int l = 0, int r = maxn) {
         add_line(nw, 2 * v + 1, m, r);
     }
 }
- 
+```
+Now to get minimum we simply choose minimum value along the path to point $x$.
+```cpp
 int get(int x, int v = 1, int l = 0, int r = maxn) {
     int m = (l + r) / 2;
     if(r - l == 1) {
         return f(ln[v], x);
     } else if(x < m) {
-        return max(f(ln[v], x), get(x, 2 * v, l, m));
+        return min(f(ln[v], x), get(x, 2 * v, l, m));
     } else {
-        return max(f(ln[v], x), get(x, 2 * v + 1, m, r));
+        return min(f(ln[v], x), get(x, 2 * v + 1, m, r));
     }
 }
 ```
-
-dp[i] = min(B + A * (i - j) + dp[j])
 
 ## Problems
 
