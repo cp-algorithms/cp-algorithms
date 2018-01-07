@@ -12,4 +12,6 @@ Naive approach will give you $O(n^2)$ complexity which can be improved to $O(n \
 
 Idea of this approach is to maintain lower convex hull of linear functions. After that 
 
+![lower convex hull](&imgroot&/envelope.png)
+
 ## Li Chao tree
