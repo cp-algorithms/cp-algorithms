@@ -10,7 +10,7 @@ Naive approach will give you $O(n^2)$ complexity which can be improved to $O(n \
 
 ## Convex hull trick
 
-Idea of this approach is to maintain lower convex hull of linear functions. After that 
+Idea of this approach is to maintain lower convex hull of linear functions. Actually it would be a bit more convenient to consider it not as linear functions but as points $(k, b)$ on the plane such that we will have to find the point which has least dot product with given point $(x,1)$, that is, for this point $kx+b$ is minimized which is the same as initial problem. Such minimum will necessarily be on lower convex envelope of these points as can be seen below. 
 
 ![lower convex hull](&imgroot&/envelope.png)
 
