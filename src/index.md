@@ -67,6 +67,7 @@ especially popular in field of competitive programming.*
 - [Circle-Circle Intersection](./geometry/circle-circle-intersection.html)
 - [Pick's Theorem - area of lattice polygons](./geometry/picks-theorem.html)
 - [Area of simple polygon](./geometry/area-of-simple-polygon.html)
+- [Convex hull trick and Li Chao tree](./geometry/convex_hull_trick.html)
 
 ### Graphs
 - [Breadth First Search](./graph/breadth-first-search.html)
