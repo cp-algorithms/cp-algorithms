@@ -73,6 +73,22 @@ $$ (1 - x)^k = \binom{k}{0} - \binom{k}{1} \cdot x + \binom{k}{2} \cdot x^2 - \b
 
 When $x = 1$, $(1 - x)^k$ looks a lot like $T$. However, the expression has an additional $\binom{k}{0} = 1$, and it is multiplied by $-1$. That leads us to $(1 - 1)^k = 1 - T$. Therefore $T = 1 - (1 - 1)^k = 1$, what was required to prove. The element is counted only once.
 
+## Generalization for calculating number of elements in exactly $r$ sets
+
+Inclusion-exclusion principle can be rewritten to calculate number of elements which are present in zero sets:
+
+$$\left|\bigcap_{i=1}^n \overline{A_i}\right|=\sum_{m=0}^n (-1)^m \sum_{|X|=m} \left|\bigcap_{i\in X} A_{i}\right|$$
+
+Consider its generalization to calculate number of elements which are present in exactly $r$ sets:
+
+$$\left|\bigcup_{|B|=r}\left[\bigcap_{i \in B} A_i \cap \bigcap_{j \not\in B} \overline{A_j}\right]\right|=\sum_{m=r}^n (-1)^{m-r}\dbinom{m}{r} \sum_{|X|=m} \left|\bigcap_{i \in X} A_{i}\right|$$
+
+To proove this formula, consider some particular $B$. Due to basic inclusion-exclusion principle we can say about it that:
+
+$$\left|\bigcap_{i \in B} A_i \cap \bigcap_{j \not \in B} \overline{A_j}\right|=\sum_{m=r}^{n} (-1)^{m-r} \sum_{\substack{|X|=m \newline B \subset X}}\left|\bigcap_{i\in X} A_{i}\right|$$
+
+The sets on the left side do not intersect for different $B$, thus we can sum them up directly. Also one should note that any set $X$ will always have coefficient $(-1)^{m-r}$ if it occurs and it will occur for exactly $\dbinom{m}{r}$ sets $B$. 
+
 ## Usage when solving problems
 
 The inclusion-exclusion principle is hard to understand without studying its applications.
