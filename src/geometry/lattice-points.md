@@ -1,0 +1,21 @@
+<!--?title Lattice points inside non-lattice polygon -->
+
+# Lattice points inside non-lattice polygon
+
+For lattice polygon there's Pick's formula to enumerate lattice points inside polygon. What about polygons with arbitrary vertices?
+
+Let's direct each of polygon's edges and after that we may sum up amount of lattice points under each edge considering its orientations to choose a sign (like in calculating area of polygon using trapezoid). First of all we should note that if current edge has endpoints in $A=(x_1;y_1)$ and $B=(x_2;y_2)$ then it can be presented as linear function:
+
+$$y=y_1+(y_2-y_1) \cdot \dfrac{x-x_1}{x_2-x_1}=\left(\dfrac{y_2-y_1}{x_2-x_1}\right)\cdot x + \left(\dfrac{y_1x_2-x_1y_2}{x_2-x_1}\right)$$
+
+$$y = k \cdot x + b,k = \dfrac{y_2-y_1}{x_2-x_1},b = \dfrac{y_1x_2-x_1y_2}{x_2-x_1}$$
+
+Now we will substitute $x=x'+\lceil x_1 \rceil$ so that $b' = b + k \cdot \lceil x_1 \rceil$ which allows us to work with $x_1'=0$ and $x_2'=x_2 - \lceil x_1 \rceil$. We will not sum up points below $x_2'$ and on $y=0$ for integrity of algorithm, they may be added manually afterwards. Let's denote $n=\lfloor x_2' \rfloor$. Thus we have to sum up $\sum\limits_{x'=0}^{n - 1} \lfloor k'x' + b'\rfloor$. We also assume that $k', b'\geq 0$. Otherwise one should substitute $x'=-t$ and add $\lceil|b'|\rceil$ to $b'$. Now we have two cases:
+
+- $k \geq 1$ or $b \geq 1$. Then we should start with summing up points below $y=\lfloor k \rfloor \cdot x + \lfloor b \rfloor$. Their amount equals to $$\sum\limits_{x=0}^{n - 1} \lfloor k \rfloor \cdot x + \lfloor b \rfloor=\dfrac{(\lfloor k \rfloor(n-1)+2\lfloor b \rfloor) n}{2}$$ Now we are interested only in points $(x;y)$ such that $\lfloor k \rfloor \cdot x + \lfloor b \rfloor < y \leq k\cdot x + b$. But this amount is the same as number of points such that $0 < y \leq (k - \lfloor k \rfloor) \cdot x + (b - \lfloor b \rfloor)$. So we reduced our problem to $k'= k - \lfloor k \rfloor$, $b' = b - \lfloor b \rfloor$ and both $k'$ and $b'$ less than $1$ now. Here is the picture, we just summed up blue points and subtracted blue linear function from black one to reduce problem to smaller $k$ and $b$: <center>![Subtracting floored linear function](https://i.imgur.com/EZeTolX.png)</center>
+
+- $k < 1$ and $b < 1$. If $\lfloor k \cdot n + b\rfloor$ equals $0$, we can safely return $0$. Otherwise this means that there are no lattice points such that $x < 0$ and $0 < y \leq k \cdot x + b$. That means that we will have the same answer if we consider new reference system in which $O'=(n;\lfloor k\cdot n + b\rfloor)$, axis $x'$ is directed down and axis $y'$ is directed to the left. For this reference system we are interested in lattice points on the set $$\left\\{(x;y) \bigg| 0 \leq x < \lfloor k \cdot n + b\rfloor, 0 < y \leq \dfrac{x+(k\cdot n+b)-\lfloor k\cdot n + b \rfloor}{k}\right\\}$$ which returns us to the case $k>1$. You can see new reference point $O'$ and axes $X'$ and $Y'$ on the picture below: <center>![New reference and axes](https://i.imgur.com/UYOcRiU.png)</center> As you see, in new reference system linear function will have coefficient $\tfrac 1 k$ and its zero will be in the point $\lfloor k\cdot n + b \rfloor-(k\cdot n+b)$ which makes formula above correct.
+
+## Complexity analysis
+
+We have to count at most $\dfrac{(k(n-1)+2b)n}{2}$ points. Among them we will count $\dfrac{\lfloor k \rfloor (n-1)+2\lfloor b \rfloor}{2}$ on the very first step. We may consider that $b$ is negligibly small because we can start with making it less than $1$. In that case we cay say that we got rid of about $\dfrac{\lfloor k \rfloor}{k} \geq \dfrac 1 2$ part of points. Thus we will finish in $O(\log n)$ steps.
