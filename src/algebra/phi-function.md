@@ -75,11 +75,23 @@ There is less known version of Euler's theorem for not coprime $x$ and $m$. That
 
 $$x^{n}\equiv x^{\varphi(m)+[n \bmod \varphi(m)]} \mod m$$
 
-To prove this let's start with the following. Assume we want to calculate $x^n \bmod m$. We should note that $an \bmod am = a(n \bmod m)$. Indeed if $n = d\cdot m + r, r < m$ then $an = d \cdot am + ar, ar < am$. Now assume that $p_1, \dots, p_t$ are common divisors of $x$ and $m$. Let $a=p_1^{k_1} \dots p_t^{k_t}$ be the number in which all such divisors taken with the same degree as in $m$ and $k$ is the smallest number such that $a$ divides $x^k$. Then we can write:
+To prove this let's start with the following. Assume we want to calculate $x^n \bmod m$.
+We should note that $an \bmod am = a(n \bmod m)$.
+Indeed if $n = d m + r, r < m$ then $an = a d m + ar, ar < am$.
+Now assume that $p_1, \dots, p_t$ are common divisors of $x$ and $m$.
+Let $a=p_1^{k_1} \dots p_t^{k_t}$ be the number in which all such divisors taken with the same degree as in $m$ and $k$ is the smallest number such that $a$ divides $x^k$.
+Then we can write:
 
-$$x^n \bmod m = \left(\dfrac{x^k}{a}\right)ax^{n-k}\bmod a \left(\dfrac m a \right)=x^k\left[x^{n-k} \bmod \left(\dfrac m a\right)\right]\bmod m$$
+$$x^n \bmod m = \left(\dfrac{x^k}{a}\right)ax^{n-k}\bmod a \left(\dfrac m a \right)$$
+$$=\dfrac{x^k}{a} a \left[x^{n-k} \bmod \left(\dfrac m a\right)\right]\bmod m = x^k\left[x^{n-k} \bmod \left(\dfrac m a\right)\right]\bmod m$$
 
-Now we see that $x$ and $\tfrac m a$ are coprime so if we consider powers of $x$ modulo $m$ they will have pre-period at most $k$ and its period will divide $\varphi\left(\dfrac m a\right)$. As we see, $k \leq \log_2 m$ and period of $x$ divides $\varphi(m)$ because $\varphi(a)$ always divides $\varphi(ab)$. Final thing to note is that $\varphi(m)\geq \log_2 m$ always holds so preperiod will for sure be covered by it.
+Now we see that $x$ and $\tfrac m a$ are coprime, so if we consider powers of $x$ modulo $m$ they will have pre-period at most $k$ and its period will divide $\varphi\left(\dfrac m a\right)$.
+It is easy to see that $k \leq \varphi(m)$, since $k \leq \log_2 m$ and $\varphi \geq \log_2 m$.
+And we can use the period $\varphi(m)$ instead of $\varphi\left(\tfrac{m}{a}\right)$, because $\varphi(a)$ always divides $\varphi(ab)$.
+
+This gives the desired formula:
+
+$$ x^n \equiv x^{\varphi(m)} x^{n - \varphi(m) \bmod \varphi(m)} \bmod m \equiv x^{\varphi(m)+[n \bmod \varphi(m)]} \mod m$$
 
 ## Practice Problems  
 
@@ -101,3 +113,4 @@ Now we see that $x$ and $\tfrac m a$ are coprime so if we consider powers of $x$
 * [SPOJ - Playing with GCD](http://www.spoj.com/problems/NAJPWG/)
 * [SPOJ - G Force](http://www.spoj.com/problems/DCEPC12G/)
 * [SPOJ - Smallest Inverse Euler Totient Function](http://www.spoj.com/problems/INVPHI/)
+* [Codeforces - Power Tower](http://codeforces.com/problemset/problem/906/D)
