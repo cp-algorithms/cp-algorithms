@@ -20,7 +20,7 @@ This representative can be used to check if two elements are part of the same se
 
 As described in more detail later, the data structure allows you to do each of these operations in almost $O(1)$ time on average.
 
-Also in one of the subsections an alternative embodiment (???) of a DSU is explained, which allows to achieve the average complexity $O(\log n)$ for $m \ge n$ requests.
+Also in one of the subsections an alternative structure of a DSU is explained, which allows to achieve the average complexity $O(\log n)$ for $m \ge n$ requests.
 And $O(1)$ when $m >> n$ (i.e. $m$ much bigger then $n$). 
 
 ## Build an efficient data structure
@@ -72,3 +72,29 @@ In that case each call `find_set(x)` can take $O(n)$ time.
 
 This is far away from the complexity that we want to have (nearly constant time). 
 Therefore we will consider two optimizations that will allow to significantly accelerate the work.
+
+### Path compression optimization
+
+This optimization is designed for speeding up `find_set`.
+
+If we call `find_set(x)` for some vertex `x`, we actually find the representative `p` for all vertices that are passed on the path between `x` and the actual representative `p`. 
+The trick is to make the paths for all those nodes shorter, by setting the parent of each visited vertex to `p`. 
+
+You can see the effect in the following image.
+On the left is a tree, and on the right side is the modified tree after calling `find_set(7)`, which shortens the paths for the visited nodes 7, 5, 3 and 2.
+
+![Path compression during call of find_set(7)](&imgroot&/DSU_path_compression.png)
+
+The new implementation of `find_set` is as follows:
+
+```cpp
+int find_set(int x) {
+    if (x == parent[x])
+        return x;
+    return parent[x] = find_set(parent[x]);
+}
+```
+
+The simple implementation does what was intended:
+first find the representative of the set (root vertex), and the in the process of stack unwinding the visited nodes are attached directly to the representative.
+
