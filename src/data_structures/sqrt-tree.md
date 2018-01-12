@@ -2,14 +2,11 @@
 
 # Sqrt-tree
 
-Given an array $a$ that contains $n$ elements and the operation $op$ that satisfies some properties:
+Given an array $a$ that contains $n$ elements and the operation $\circ$ that satisfies associative property: $(x \circ y) \circ z = x \circ (y \circ z)$ is true for any $x$, $y$, $z$.
 
-1. Associative property: $(x\ op\ y)\ op\ z = x\ op\ (y\ op\ z)$.
-2. Commutative property (optional, not required): $x\ op\ y = y\ op\ x$.
+So, such operations as $\gcd$, $\min$, $\max$, $+$, $and$, $or$, $xor$, etc. satisfy these conditions.
 
-So, such operations as $gcd$, $\min$, $\max$, $+$, $and$, $or$, $xor$, etc. satisfy these conditions.
-
-Also we have some queries $q(l, r)$. For each query, we need to compute $a_l\ op\ a_{l+1}\ op\ \dots op\ a_r$.
+Also we have some queries $q(l, r)$. For each query, we need to compute $a_l \circ a_{l+1} \circ \dots \circ a_r$.
 
 Sqrt-tree can process such queries in $O(1)$ time with $O(n \cdot \log \log n)$ preprocessing time and $O(n \cdot \log \log n)$ memory.
 
@@ -28,7 +25,7 @@ And we'll compute another one array:
 
 Let's see the example.
 
-Let $op$ be $+$ (we calculate sum on a segment) and we have the following array $a$:
+Let $\circ$ be $+$ (we calculate sum on a segment) and we have the following array $a$:
 
 `{1, 2, 3, 4, 5, 6, 7, 8, 9}`
 
@@ -54,7 +51,7 @@ $between$ array is:
 
 It's obvious to see that these arrays can be easily calculated in $O(n)$ time and memory.
 
-We already can answer some queries using these arrays. If the query doesn't fit into one block, we can divide it onto three parts: suffix of a block, then some segment of contiguous blocks and then prefix of some block. We can answer a query by dividing it into three parts and taking $op$ of some value from $suffixOp$, then some value from $between$, then some value from $prefixOp$.
+We already can answer some queries using these arrays. If the query doesn't fit into one block, we can divide it onto three parts: suffix of a block, then some segment of contiguous blocks and then prefix of some block. We can answer a query by dividing it into three parts and taking our operation of some value from $suffixOp$, then some value from $between$, then some value from $prefixOp$.
 
 But if we have queries that entirely fit into one block, we cannot process them using these three arrays. So, we need to do something.
 
@@ -64,7 +61,7 @@ We cannot answer only the queries that entirely fit in one block. But what **if 
 
 So, we get a tree. Each node of the tree represents some segment of the array. Node that represents array segment with size $k$ has $\sqrt{k}$ children -- for each block. Also each node contains the three arrays described above for the segment it contains. The root of the tree represents the entire array. Nodes with segment lengths $1$ or $2$ are leaves.
 
-Also it's obvious that the radius of this tree is $O(\log \log n)$, because if some vertex of the tree represents an array with length $k$, then its children have length $\sqrt{k}$. $\log(\sqrt{k}) = \frac{\log{k}}{2}$, so $\log k$ decreases two times every layer of the tree and so its height is $O(\log \log n)$. The time for building and memory usage will be $O(n \cdot \log \log n)$, because every element of the array appears exactly once on each layer of the tree.
+Also it's obvious that the height of this tree is $O(\log \log n)$, because if some vertex of the tree represents an array with length $k$, then its children have length $\sqrt{k}$. $\log(\sqrt{k}) = \frac{\log{k}}{2}$, so $\log k$ decreases two times every layer of the tree and so its height is $O(\log \log n)$. The time for building and memory usage will be $O(n \cdot \log \log n)$, because every element of the array appears exactly once on each layer of the tree.
 
 Now we can answer the queries in $O(\log \log n)$. We can go down on the tree until we meet a segment with length $1$ or $2$ (answer for it can be calculated in $O(1)$ time) or meet the first segment in which our query doesn't fit entirely into one block. See the first section on how to answer the query in this case.
 
@@ -104,6 +101,8 @@ For more details, see the code below.
 So, using this, we can answer the queries in $O(1)$ each. Hooray! :)
 
 # Implementation
+
+Here is the implementation of this structure. This code works only for commutative operations (that satisfy $x \circ y = y \circ x$), though it can be easily adjusted to work with non-commutative operations.
 
 ~~~~~
 int op(int a, int b);
