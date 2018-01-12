@@ -102,8 +102,6 @@ So, using this, we can answer the queries in $O(1)$ each. Hooray! :)
 
 # Implementation
 
-Here is the implementation of this structure. This code works only for commutative operations (that satisfy $x \circ y = y \circ x$), though it can be easily adjusted to work with non-commutative operations.
-
 ~~~~~
 int op(int a, int b);
 
@@ -143,7 +141,7 @@ class SqrtTree {
                 }
                 suf[layer][r-1] = v[r-1];
                 for (int i = r-2; i >= l; i--) {
-                    suf[layer][i] = op(suf[layer][i+1], v[i]);
+                    suf[layer][i] = op(v[i], suf[layer][i+1]);
                 }
                 build(layer+1, l, r);
             }
@@ -170,10 +168,11 @@ class SqrtTree {
             int lBound = (l >> layers[layer]) << layers[layer];
             int lBlock = ((l - lBound) >> bSzLog) + 1;
             int rBlock = ((r - lBound) >> bSzLog) - 1;
-            int ans = op(suf[layer][l], pref[layer][r]);
+            int ans = suf[layer][l];
             if (lBlock <= rBlock) {
                 ans = op(ans, between[layer][lBound + (lBlock << bCntLog) + rBlock]);
             }
+            ans = op(ans, pref[layer][r]);
             return ans;
         }
         
@@ -198,6 +197,7 @@ class SqrtTree {
             build(0, 0, n);
         }
 };
+
 ~~~~~
 
 # Problems
