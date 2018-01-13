@@ -1,6 +1,6 @@
-<!--?title Sqrt-tree-->
+<!--?title Sqrt Tree-->
 
-# Sqrt-tree
+# Sqrt Tree
 
 Given an array $a$ that contains $n$ elements and the operation $\circ$ that satisfies associative property: $(x \circ y) \circ z = x \circ (y \circ z)$ is true for any $x$, $y$, $z$.
 
@@ -8,7 +8,7 @@ So, such operations as $\gcd$, $\min$, $\max$, $+$, $and$, $or$, $xor$, etc. sat
 
 Also we have some queries $q(l, r)$. For each query, we need to compute $a_l \circ a_{l+1} \circ \dots \circ a_r$.
 
-Sqrt-tree can process such queries in $O(1)$ time with $O(n \cdot \log \log n)$ preprocessing time and $O(n \cdot \log \log n)$ memory.
+Sqrt Tree can process such queries in $O(1)$ time with $O(n \cdot \log \log n)$ preprocessing time and $O(n \cdot \log \log n)$ memory.
 
 # Description
 

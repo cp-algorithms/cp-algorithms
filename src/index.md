@@ -33,6 +33,7 @@ especially popular in field of competitive programming.*
 - [Segment Tree](./data_structures/segment_tree.html)
 - [Treap](./data_structures/treap.html)
 - [Sqrt Decomposition](./data_structures/sqrt_decomposition.html)
+- [Sqrt Tree](./data_structures/sqrt-tree.html)
 
 ### Dynamic Programming
 - [Dynamic Programming on Broken Profile. Problem "Parquet"](./dynamic_programming/profile-dynamics.html)
