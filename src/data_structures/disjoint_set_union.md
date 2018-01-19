@@ -163,7 +163,7 @@ So in practice you can use any of them.
 
 As mentioned before, if we combine both optimizations - path compression with union by size / rank - we will reach reach nearly constant time queries.
 It turns out, that the final time complexity is $O(\alpha(n))$ on average, where $\alpha(n)$ is the inverse Ackerman function, which grows very slowly. 
-In fact so slowly, that it doesn't exceed 4 for all reasonable $n$ (approximately $n < 10^{600}$).
+In fact so slowly, that it doesn't exceed 4 for all reasonable $n$ (approximately $n \lt 10^{600}$).
 
 We will not present a proof for this time complexity, since it is quite long and complicated. 
 
@@ -184,4 +184,26 @@ Here we can directly apply the data structure, and get a solution that handles a
 This application is quite important, because nearly the same problem appears in [Kruskal's algorithm for finding a minimum spanning tree](./graph/mst_kruskal.html).
 Using DSU we can [improve](./graph/mst_kruskal_with_dsu.html) the $O(m \log n + n^2)$ complexity to $O(m \log n)$.
 
+### Search for connected components in an image
+
+One of the applications of DSU is the following task:
+there is an image of $n \times m$ pixels.
+Originally all are white, but then a few black pixels are drawn. 
+You want to determine the size of each white connected component in the final image.
+
+For the solution we simply iterate over all white pixels in the image, for each cell iterate over its four neighbors, and if the neighbor is white call `union_sets`.
+Thus we will have a DSU with $n m$ nodes corresponding to image pixels.
+The resulting trees in the DSU are the desired connected components.
+
+The problem can also be solved by [DFS](./graph/depth-first-search.html) or [BFS](./graph/breadth-first-search.html), but the method described here has a small advantage: 
+it can process the matrix row by row.
+
+### Store additional information for each set
+
+DSU allows you to easily store additional information pertaining to the sets.
+
+A simple example is the size of the sets:
+how to store the sizes was already described in the Union by size section (the information was stored by the current representative of the set).
+
+In the same way - by storing it at the representative nodes - you can also store any other information about the sets.
 
