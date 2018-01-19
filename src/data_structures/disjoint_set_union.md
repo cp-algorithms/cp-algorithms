@@ -17,7 +17,7 @@ Thus the basic interface of this data structure consists of only three operation
 - `find_set(x)` - returns the representative of the set that contains the element $x$.
 This representative is an element of its corresponding set. It is selected in each set by the data structure itself (and can change over time, namely after `union_sets` calls).
 This representative can be used to check if two elements are part of the same set of not. 
-$x$ and $y$ are exactly in the same set, if $2\text{find\_set}(x) == \text{find\_set}(y)$. Otherwise they are in different sets. 
+$x$ and $y$ are exactly in the same set, if $\text{find\_set}(x) == \text{find\_set}(y)$. Otherwise they are in different sets. 
 
 As described in more detail later, the data structure allows you to do each of these operations in almost $O(1)$ time on average.
 
@@ -163,7 +163,7 @@ So in practice you can use any of them.
 
 As mentioned before, if we combine both optimizations - path compression with union by size / rank - we will reach reach nearly constant time queries.
 It turns out, that the final time complexity is $O(\alpha(n))$ on average, where $\alpha(n)$ is the inverse Ackerman function, which grows very slowly. 
-In fact so slowly, that it doesn't exceed 4 for all reasonable $n$ (approximately $n \lt 10^{600}$).
+In fact so slowly, that it doesn't exceed 4 for all reasonable $n$ (approximately $n < 10^{600}$).
 
 We will not present a proof for this time complexity, since it is quite long and complicated. 
 
