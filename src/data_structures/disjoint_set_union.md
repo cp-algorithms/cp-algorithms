@@ -16,7 +16,7 @@ Thus the basic interface of this data structure consists of only three operation
 - `union_sets(x, y)` - brings together the two specified sets (the set in which the element $x$ is located, and the set in which the element $y$ is located.
 - `find_set(x)` - returns the representative of the set that contains the element $x$.
 This representative is an element of its corresponding set. It is selected in each set by the data structure itself (and can change over time, namely after `union_sets` calls).
-This representative can be used to check if two elements are part of the same set of not. $x$ and $y$ are exactly in the same set, if $find_set(x) == find_set(y)$. Otherwise they are in different sets. 
+This representative can be used to check if two elements are part of the same set of not. $x$ and $y$ are exactly in the same set, if $\text{find_set}(x) == \text{find_set}(y)$. Otherwise they are in different sets. 
 
 As described in more detail later, the data structure allows you to do each of these operations in almost $O(1)$ time on average.
 
@@ -66,7 +66,7 @@ void union_sets(int x, int y) {
 }
 ```
 
-However this implementation if inefficient.
+However this implementation is inefficient.
 It is easy to construct an example, so that the chains degenerate into long chains.
 In that case each call `find_set(x)` can take $O(n)$ time.
 
