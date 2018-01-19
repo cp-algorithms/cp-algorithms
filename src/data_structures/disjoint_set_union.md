@@ -83,7 +83,7 @@ The trick is to make the paths for all those nodes shorter, by setting the paren
 You can see the effect in the following image.
 On the left is a tree, and on the right side is the modified tree after calling `find_set(7)`, which shortens the paths for the visited nodes 7, 5, 3 and 2.
 
-![Path compression during call of find_set(7)](&imgroot&/DSU_path_compression.png)
+![Path compression during call of $\text{find_set}(7)$](&imgroot&/DSU_path_compression.png)
 
 The new implementation of `find_set` is as follows:
 
@@ -97,4 +97,64 @@ int find_set(int x) {
 
 The simple implementation does what was intended:
 first find the representative of the set (root vertex), and the in the process of stack unwinding the visited nodes are attached directly to the representative.
+
+This simple modification of the operation already achieves the time complexity $O(\log n)$ per call on average.
+There is a second modification, that will make it even faster.
+
+### Union by size / rank
+
+In this optimization we will change the `union_set` operation. 
+To be precise, we will change which tree gets attached to the other one.
+In the native implementation the second tree always got attached to the first one.
+In practice that can lead to trees containing chains of length $O(n)$. 
+With this optimization we will avoid this by choosing very carefully which tree gets attached.
+
+There are two possible approaches: 
+In the first approach we as the size of the trees as rank, and in the second one we use the depth of the tree (more precisely, the upper bound on the tree depth, because the depth will get smaller when applying path compression in the `find_set` method).
+
+In both approaches the essence of the optimization is the same: we attach the tree with the lower rank to the one with the bigger rank.
+
+Here is the implementation of union by size:
+
+```cpp
+void make_set(int x) {
+    parent(x) = x;
+    size[x] = 1;
+}
+
+void union_sets(int x, int y) {
+    x = find_set(x);
+    y = find_set(y);
+    if (x != y) {
+        if (size[x] < size[y])
+            swap(x, y);
+        parent[y] = x;
+        size[x] += size[y];
+    }
+}
+```
+
+And here is the implementation of union by rank based on the depth of the trees:
+
+```cpp
+void make_set(int x) {
+    parent(x) = x;
+    rank[x] = 0;
+}
+
+void union_sets(int x, int y) {
+    x = find_set(x);
+    y = find_set(y);
+    if (x != y) {
+        if (rank[x] < rank[y])
+            swap(x, y);
+        parent[y] = x;
+        if (rank[x] == rank[y])
+            rank[x]++;
+    }
+}
+```
+
+Both optimizations are equivalent in terms of time and space complexity. 
+So in practice you can use any of them. 
 
