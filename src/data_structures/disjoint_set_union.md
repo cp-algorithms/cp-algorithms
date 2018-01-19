@@ -158,3 +158,10 @@ void union_sets(int x, int y) {
 Both optimizations are equivalent in terms of time and space complexity. 
 So in practice you can use any of them. 
 
+### Time complexity
+
+As mentioned before, if we combine both optimizations - path compression with union by size / rank - we will reach reach nearly constant time queries.
+It turns out, that the final time complexity is $O(\alpha(n))$ on average, where $\alpha(n)$ is the inverse Ackerman function, which grows very slowly. 
+In fact so slowly, that it doesn't exceed 4 for all reasonable $n$ (approximately $n < 10^{600}$).
+
+We will not present a proof for this time complexity, since it is quite long and complicated. 
