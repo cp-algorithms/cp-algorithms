@@ -16,7 +16,8 @@ Thus the basic interface of this data structure consists of only three operation
 - `union_sets(x, y)` - brings together the two specified sets (the set in which the element $x$ is located, and the set in which the element $y$ is located.
 - `find_set(x)` - returns the representative of the set that contains the element $x$.
 This representative is an element of its corresponding set. It is selected in each set by the data structure itself (and can change over time, namely after `union_sets` calls).
-This representative can be used to check if two elements are part of the same set of not. $x$ and $y$ are exactly in the same set, if $\text{find_set}(x) == \text{find_set}(y)$. Otherwise they are in different sets. 
+This representative can be used to check if two elements are part of the same set of not. 
+$x$ and $y$ are exactly in the same set, if $2\text{find\_set}(x) == \text{find\_set}(y)$. Otherwise they are in different sets. 
 
 As described in more detail later, the data structure allows you to do each of these operations in almost $O(1)$ time on average.
 
@@ -83,7 +84,7 @@ The trick is to make the paths for all those nodes shorter, by setting the paren
 You can see the effect in the following image.
 On the left is a tree, and on the right side is the modified tree after calling `find_set(7)`, which shortens the paths for the visited nodes 7, 5, 3 and 2.
 
-![Path compression during call of $\text{find_set}(7)$](&imgroot&/DSU_path_compression.png)
+![Path compression during call of $\text{find\_set}(7)$](&imgroot&/DSU_path_compression.png)
 
 The new implementation of `find_set` is as follows:
 
@@ -165,3 +166,22 @@ It turns out, that the final time complexity is $O(\alpha(n))$ on average, where
 In fact so slowly, that it doesn't exceed 4 for all reasonable $n$ (approximately $n < 10^{600}$).
 
 We will not present a proof for this time complexity, since it is quite long and complicated. 
+
+## Applications and various improvements
+
+In this section we consider several applications of the data structure, both the trivial uses and some improvements to the data structure.
+
+### Connected components in a graph
+
+This is one of the obvious applications of DSU. 
+
+Formally the problem is: 
+initially we have an empty graph.
+We have to add vertices and undirected edges, and answer queries of the form $(a, b)$ - "are the vertices $a$ and $b$ in the same connected component of the graph?"
+
+Here we can directly apply the data structure, and get a solution that handles an addition of a vertex or an edge and a query in nearly constant time on average.
+
+This application is quite important, because nearly the same problem appears in [Kruskal's algorithm for finding a minimum spanning tree](./graph/mst_kruskal.html).
+Using DSU we can [improve](./graph/mst_kruskal_with_dsu.html) the $O(m \log n + n^2)$ complexity to $O(m \log n)$.
+
+
