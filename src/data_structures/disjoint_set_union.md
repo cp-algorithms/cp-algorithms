@@ -249,3 +249,42 @@ void process_query(int l, int r, int c) {
 There is one optimization:
 We can use **union by rank**, if we store the next unpainted cell in some array `end[]`.
 Then we can merge two sets into one ranked according to their heuristics, and we obtain the solution in $O(\alpha(n))$.
+
+### Support distances up to representative
+
+Sometimes in specific applications of the DSU you need to maintain the distance of a vertex to it set representative (i.e. the path length in the tree from the current node to the root of the tree).
+
+If we don't use path compression, the distance is just the number of recursive calls. 
+But this will be inefficient, since we loose quite a lot of speed by not using path compression.
+
+However it is possible to do path compression, if we store the **distance to the parent** as additional information for each node.
+
+In the implementation it is convenient to use an array of pairs for `parent[]` and the function `find_set` now returns two numbers: the representative of the set, and the distance to it. 
+
+```cpp
+void make_set(int v) {
+    parent(x) = make_pair(v, 0);
+    rank[v] = 0;
+}
+
+pair<int, int> find_set(int v) {
+    if (v != parent[v].first) {
+        int len = parent[v].second;
+        parent[v] = find_set(parent[v].first);
+        parent[v].second += len;
+    }
+    return parent[v];
+}
+
+void union_sets(int a, int b) {
+    a = find_set(a).first;
+    b = find_set(b).first;
+    if (a != b) {
+        if (rank[a] < rank[b])
+            swap(a, b);
+        parent[b] = make_pair(a, 1);
+        if (rank[a] == rank[b])
+            rank[a]++;
+    }
+}
+```
