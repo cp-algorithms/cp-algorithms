@@ -163,7 +163,7 @@ So in practice you can use any of them.
 
 As mentioned before, if we combine both optimizations - path compression with union by size / rank - we will reach reach nearly constant time queries.
 It turns out, that the final time complexity is $O(\alpha(n))$ on average, where $\alpha(n)$ is the inverse Ackerman function, which grows very slowly. 
-In fact so slowly, that it doesn't exceed 4 for all reasonable $n$ (approximately $n < 10^{600}$).
+In fact so slowly, that it doesn't exceed 4 for all reasonable $n$ (approximately $n <  10^{600}$).
 
 We will not present a proof for this time complexity, since it is quite long and complicated. 
 
@@ -207,3 +207,45 @@ how to store the sizes was already described in the Union by size section (the i
 
 In the same way - by storing it at the representative nodes - you can also store any other information about the sets.
 
+### Compress hops along a segment / Problem of painting subarrays offline
+
+One common application of the DSU is that if there is a set of vertices, and each vertex has an outgoing edge to another vertex. 
+With DSU you can find the end point, to which we get after following all edges from a given starting point, in almost constant time.
+
+A good example of this application it the **problem of painting subarrays**: 
+We have a segment of length $L$, each element has the color 0.
+We have to repaint the subarray $[l; r]$ with the color $c$ for each requests $(l, r, c)$.
+At the end we want to find the final color of each cell.
+We assume that we know all requests in advance, i.e. the task is offline.
+
+For the solution we can make a DSU, which for each cell stores a link to the next unpainted cell. 
+Thus initially each cell points to itself.
+After painting one requested repaint of a segment, all cells from that segment will point to the cell after the segment.
+
+Now to solve this problem, we consider the requests **in reverse order**: from last to first.
+To execute the query, we take help from our DSU.
+We find the left-most unpainted cell inside of a segment, repaint it, and with the pointer we move to the next empty cell to the right.
+
+Here we can use the DSU with path compression, but we cannot use union by rank / size (because it is important who becomes the leader after the merge).
+Therefore the complexity will be $O(\log n)$ per union (which is also quite fast).
+
+Implementation:
+
+```cpp
+void init() {
+    for (int i = 0; i < L; i++) {
+        make_set(i);
+    }
+}
+
+void process_query(int l, int r, int c) {
+    for (int v = find_set(l); v <= r; v = find_set(v)) {
+        answer[v] = c;
+        parent[v] = v + 1;
+    }
+}
+```
+
+There is one optimization:
+We can use **union by rank**, if we store the next unpainted cell in some array `end[]`.
+Then we can merge two sets into one ranked according to their heuristics, and we obtain the solution in $O(\alpha(n))$.
