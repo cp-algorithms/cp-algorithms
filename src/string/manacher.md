@@ -40,7 +40,7 @@ Such algorithm is slow, it can calculate the answer only in $O(n^2)$.
 
 The implementation of the trivial algorithm is:
 
-~~~~~
+```cpp
 vector<int> d1(n),  d2(n);
 for (int i = 0; i < n; i++) {
     d1[i] = 1;
@@ -53,7 +53,7 @@ for (int i = 0; i < n; i++) {
         d2[i]++;
     }
 }
-~~~~~
+```
 
 ## Manacher's algorithm
 
@@ -126,7 +126,7 @@ Also, other parts of Manacher's algorithm work obviously in linear time, we get 
 
 For calculating $d_1[]$, we get the following code:
 
-~~~~~
+```cpp
 vector<int> d1(n);
 for (int i = 0, l = 0, r = -1; i < n; i++) {
     int k = (i > r) ? 0 : min(d1[l + r - i], r - i);
@@ -139,11 +139,11 @@ for (int i = 0, l = 0, r = -1; i < n; i++) {
         r = i + k;
     }
 }
-~~~~~
+```
 
 For calculating $d_2[]$, the code looks similar, but with minor changes in arithmetical expressions:
 
-~~~~~
+```cpp
 vector<int> d2(n);
 for (int i = 0, l = 0, r = -1; i < n; i++) {
     int k = ((i > r) ? 0 : min(d2[l + r - i + 1], r - i + 1)) + 1;
@@ -156,7 +156,7 @@ for (int i = 0, l = 0, r = -1; i < n; i++) {
         r = i + k - 1;
     }
 }
-~~~~~
+```
 
 # Problems
 
