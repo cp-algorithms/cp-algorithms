@@ -61,7 +61,7 @@ We describe the algorithm to find all the sub-palindromes with odd length, i. e.
 
 For fast calculation we'll keep the **borders $(l, r)$** of the rightmost found sub-palindrome (i. e. the palindrome with maximal $r$). Initially we assume $l = 0, r = -1$.
 
-So, we want to calculate $d_2[i]$ for the next $i$, and all the previous values in $d_1[]$ have been already calculated. We do the following:
+So, we want to calculate $d_1[i]$ for the next $i$, and all the previous values in $d_1[]$ have been already calculated. We do the following:
 
 * If $i$ is outside the current sub-palindrome, i. e. $i > r$, we'll just launch the trivial algorithm.
     
