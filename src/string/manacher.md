@@ -69,20 +69,21 @@ So, we want to calculate $d_1[i]$ for the next $i$, and all the previous values 
 
 * Now consider the case when $i \le r$. We'll try to extract some information from the already calculated values in $d_1[]$. So, let's flip the position $i$ inside the sub-palindrome $(l, r)$, i. e. we'll get the position $j = l + (r - i)$, and we'll look on the value $d_1[j]$. Because $j$ is the position symmetrical to $i$, we'll **almost always** can assign $d_1[i] = d_1[j]$. Illustration of this (palindrome around $j$ is actually "copied" into the palindrome around $i$):
     
-    $
+    $$
     \ldots\ 
     \overbrace{
         s\_l\ \ldots\ 
         \underbrace{
             s\_{j-d_1[j]+1}\ \ldots\ s_j\ \ldots\ s\_{j+d_1[j]-1}\ 
-        }\_{palindrome}\ 
+        }\_\text{palindrome}\ 
         \ldots\ 
         \underbrace{
             s\_{i-d_1[j]+1}\ \ldots\ s_i\ \ldots\ s\_{i+d_1[j]-1}\ 
-        }\_{palindrome}\ 
-        \ldots\ s_r\ \ldots\ 
-    }^{palindrome}
-    $
+        }\_\text{palindrome}\ 
+        \ldots\ s_r\ 
+    }^\text{palindrome}\ 
+    \ldots
+    $$
     
     But there is a **tricky case** to be handled correctly: when the "inner" palindrome reaches the borders of the "outer" one, i. e. $j - d_1[j] + 1 \le l$ (or, which is the same, $i + d_1[j] - 1 \ge r$). Because the symmetry outside the "outer" palindrome is not guaranteed, just assigning $d_1[i] = d_1[j]$ will be incorrect: we have not enough data to state that the palindrome in the position $i$ has the same length.
     
@@ -90,21 +91,21 @@ So, we want to calculate $d_1[i]$ for the next $i$, and all the previous values 
     
     Illustration of this case (the palindrome with center $j$ is already "cut" to fit the "outer" palindrome):
     
-    $
+    $$
     \ldots\ 
     \overbrace{
         \underbrace{
             s_l\ \ldots\ s_j\ \ldots\ s_{j+(j-l)}\ 
-        }\_{palindrome}\ 
+        }\_\text{palindrome}\ 
         \ldots\ 
         \underbrace{
             s_{i-(r-i)}\ \ldots\ s_i\ \ldots\ s_r
-        }\_{palindrome}\ 
-    }^{palindrome}\ 
+        }\_\text{palindrome}\ 
+    }^\text{palindrome}\ 
     \underbrace{
         \ldots \ldots \ldots \ldots \ldots
-    }\_{try\ moving\ here}
-    $
+    }\_\text{try moving here}
+    $$
     
     It is shown on the illustration that, though the palindrome with center $j$ could be larger and go outside the "outer" palindrome, in the position $i$ we can use only the part that entirely fits into the "outer" palindrome. But the answer for the position $i$ can be much longer that this part, so next we'll run our trivial algorithm that will try to grow it outside our "outer" palindrome, i. e. to the region "try moving here".
 
