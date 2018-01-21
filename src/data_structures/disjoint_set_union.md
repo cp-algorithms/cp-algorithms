@@ -288,3 +288,72 @@ void union_sets(int a, int b) {
     }
 }
 ```
+
+### Support the parity of the path length. Problem of checking bipartiteness bipartiteness online.
+
+In the same way as computing the path length to the leader, it is possible to maintain the parity of the length of the path before him. 
+Why is this application in a separate paragraph?
+
+The unusual requirement of storing the parity of the path comes up in the following task:
+initially we are given an empty graph, it can be added edges, and we have to answer queries of the form "is the connected component containing this vertex **bipartite**?".
+
+To solve this problem, we make a DSU for storing of the components and store the parity of the path up to the representative for each vertex.
+Thus we can quickly check if adding an edge leads to a violation of the bipartiteness or not:
+namely if the ends of the ribs lie in the same connected component and have the same parity length to the leader, then adding this edge will produce a cycle of odd length, and the component will loose the bipartiteness property.
+
+The only difficulty that we face is to compute the parity in the `union_find` method. 
+
+If we add an edge $(a, b)$ that connects two connected components into one, then when you attach one tree to another we need adjust the parity.
+
+Lets derive a formula, which computes the parity issued to the leader of the set that will get attached to another set. 
+Let $x$ be the parity of the path length from vertex $a$ up to its leader $A$, and $y$ as the parity of the path length from vertex $b$ up to its leader $B$, and $t$ the desired parity that we have to assign to $B$ after the merge.
+The path contains the of the three parts: from $B$ to $b$, which has the parity $y$, from $b$ to $a$, which is connected by one edge and therefore has parity $1$, and from $a$ to $A$, which has parity $x$. Therefore we receive the formula ($\oplus$ denotes the XOR operation):
+
+$$t = x \oplus y \oplus 1$$
+
+Thus regardless of how many joins we perform, the parity of the edges is carried from on leader to another. 
+
+We give the implementation of the DSU that supports parity. As in the previous section we use a pair to store the ancestor and the parity. In addition for each set we store in the array `bipartite[]` whether it is still bipartite or not. 
+
+```cpp
+void make_set(int v) {
+    parent[v] = make_pair(v, 0);
+    rank[v] = 0;
+    bipartite[v] = true;
+}
+
+pair<int, int> find_set(int v) {
+    if (v != parent[v].first) {
+        int parity = parent[v].second;
+        parent[v] = find_set(parent[v].first);
+        parent[v].second ^= parity;
+    }
+    return parent[v];
+}
+ 
+void add_edge(int a, int b) {
+    pair<int, int> pa = find_set(a);
+    a = pa.first;
+    int x = pa.second;
+
+    pair<int, int> pb = find_set(b);
+    b = pb.first;
+    int y = pb.second;
+
+    if (a == b) {
+        if (x == y)
+            bipartite[a] = false;
+    } else {
+        if (rank[a] < rank[b])
+            swap (a, b);
+        parent[b] = make_pair(a, x^y^1);
+        bipartite[a] &= bipartite[b];
+        if (rank[a] == rank[b])
+            ++rank[a];
+    }
+}
+ 
+bool is_bipartite(int v) {
+    return bipartite[find_set(v).first];
+}
+```
