@@ -4,13 +4,13 @@
 
 ## Statement
 
-Given string $s$ length $n$. Find all the pairs $(i, j)$ such that substring $s[i\dots j]$ is a palindrome. String $t$ is a palindrome when $t = t_{rev}$ ($t_{rev}$ is a reversed string for $t$).
+Given string $s$ with length $n$. Find all the pairs $(i, j)$ such that substring $s[i\dots j]$ is a palindrome. String $t$ is a palindrome when $t = t_{rev}$ ($t_{rev}$ is a reversed string for $t$).
 
 ## More precise statement
 
 It's clear that in the worst case we can have $O(n^2)$ palindrome strings, and at the first glance it seems that there is no linear algorithm for this problem.
 
-But the information about the palindromes can be kept **in a more compact way**: for each position $i = 0\dots n-1$ we'll find the values $d_1[i]$ and $d_2[i]$, denoting the number of palindromes accordingly odd and even length with center in position $i$.
+But the information about the palindromes can be kept **in a more compact way**: for each position $i = 0\dots n-1$ we'll find the values $d_1[i]$ and $d_2[i]$, denoting the number of palindromes accordingly with odd and even lengths with centers in the position $i$.
 
 For instance, string $s = abababc$ has three palindromes with odd length with centers in the position $s[3] = b$, i. e. $d_1[3] = 3$:
 
@@ -20,15 +20,15 @@ And string $s = cbaabd$ has two palindromes with even length with centers in the
 
 $c\ \overbrace{b\ a\ \underbrace{a}_{s_3}\ b}^{d_2[3]=2} d$
 
-So the idea is that if we have a sub-palindrome with length $l$ with center in some position $i$, we also have sub-palindromes with lengths $l-2$, $l-4$ etc. with centers in $i$. So these two arrays $d_1[i]$ and $d_2[i]$ are enough to keep the information about all the sub-palindromes of the string.
+So the idea is that if we have a sub-palindrome with length $l$ with center in some position $i$, we also have sub-palindromes with lengths $l-2$, $l-4$ etc. with centers in $i$. So these two arrays $d_1[i]$ and $d_2[i]$ are enough to keep the information about all the sub-palindromes in the string.
 
-It's a surprising fact that there is an algorithm, which is simple enough, that calculated these "palindromity arrays" $d_1[]$ and $d_2[]$ in linear time. The algorithm is described in this article.
+It's a surprising fact that there is an algorithm, which is simple enough, that calculates these "palindromity arrays" $d_1[]$ and $d_2[]$ in linear time. The algorithm is described in this article.
 
 ## Solution
 
-In general, this problem has many solutions: with [String Hashing](/string/string-hashing.html) it can be solved in $O(n\cdot log n)$, and with [Suffix Trees](/string/suffix-tree-ukkonen.html) and fast LCA this problem can be solved in $O(n)$.
+In general, this problem has many solutions: with [String Hashing](/string/string-hashing.html) it can be solved in $O(n\cdot \log n)$, and with [Suffix Trees](/string/suffix-tree-ukkonen.html) and fast LCA this problem can be solved in $O(n)$.
 
-But the method described here is **sufficiently** simpler and has less hidden constant in the time and memory complexity. This algorithm was discovered by **Glenn K. Manacher** in 1975.
+But the method described here is **sufficiently** simpler and has less hidden constant in time and memory complexity. This algorithm was discovered by **Glenn K. Manacher** in 1975.
 
 ## Trivial algorithm
 
@@ -61,13 +61,13 @@ We describe the algorithm to find all the sub-palindromes with odd length, i. e.
 
 For fast calculation we'll keep the **borders $(l, r)$** of the rightmost found sub-palindrome (i. e. the palindrome with maximal $r$). Initially we assume $l = 0, r = -1$.
 
-So, let we want to calculate $d_2[i]$ for the next $i$, and all the previous values in $d_1[]$ have been already calculated.
+So, we want to calculate $d_2[i]$ for the next $i$, and all the previous values in $d_1[]$ have been already calculated. We do the following:
 
-* If $i$ is outside the current sub-palindrome, i. e. $i > r$, so we'll just launch the trivial algorithm.
+* If $i$ is outside the current sub-palindrome, i. e. $i > r$, we'll just launch the trivial algorithm.
     
-    So we'll increase $d_1[i]$ consecutively and check each time~--- if the current substring $[i - d_1[i]; i + d_1[i]]$ is a palindrome. When we'll find the first divergence or meet the boundaries of $s$, we'll stop. In this case we've finally calculated $d_1[i]$. After this, we must not forget to update $(l, r)$.
+    So we'll increase $d_1[i]$ consecutively and check each time if the current substring $[i - d_1[i]\dots i + d_1[i]]$ is a palindrome. When we find  first divergence or meet the boundaries of $s$, we'll stop. In this case we've finally calculated $d_1[i]$. After this, we must not forget to update $(l, r)$.
 
-* Now consider the case when $i \le r$. We'll try to extract some information from already calculated values in $d_1[]$. So, flip the position $i$ inside the sub-palindrome $(l, r)$, i. e. we'll get the position $j = l + (r - i)$, and we'll see the value $d_1[j]$. Because $j$ is the position symmetrical to $i$, we'll **almost always** can assign $d_1[i] = d_1[j]$. Illustration of this (palindrome around $j$ is actually "copied" in the palindrome around $i$):
+* Now consider the case when $i \le r$. We'll try to extract some information from the already calculated values in $d_1[]$. So, let's flip the position $i$ inside the sub-palindrome $(l, r)$, i. e. we'll get the position $j = l + (r - i)$, and we'll look on the value $d_1[j]$. Because $j$ is the position symmetrical to $i$, we'll **almost always** can assign $d_1[i] = d_1[j]$. Illustration of this (palindrome around $j$ is actually "copied" into the palindrome around $i$):
     
     $
     \ldots\ 
@@ -84,11 +84,11 @@ So, let we want to calculate $d_2[i]$ for the next $i$, and all the previous val
     }^{palindrome}
     $
     
-    But there is a **tricky case** to be handled correctly: when "the inner palindrome" reaches the borders of the outer one, i. e. $j - d_1[j] + 1 \le l$ (or, which is the same, $i + d_1[j] - 1 \ge r$). Because the symmetry outside the outer palindrome is not guaranteed, just assigning $d_1[i] = d_1[j]$ will be incorrect: we have not enough data to state that the palindrome in the position $i$ has the same length.
+    But there is a **tricky case** to be handled correctly: when the "inner" palindrome reaches the borders of the "outer" one, i. e. $j - d_1[j] + 1 \le l$ (or, which is the same, $i + d_1[j] - 1 \ge r$). Because the symmetry outside the "outer" palindrome is not guaranteed, just assigning $d_1[i] = d_1[j]$ will be incorrect: we have not enough data to state that the palindrome in the position $i$ has the same length.
     
-    Actually, we should cut the length of our palindrome, i. e. assign $d_1[i] = r - i$, to handle such situations correctly. After this we'll try to run the trivial algorithm which will try to increase $d_1[i]$ while it's possible.
+    Actually, we should "cut" the length of our palindrome, i. e. assign $d_1[i] = r - i$, to handle such situations correctly. After this we'll run the trivial algorithm which will try to increase $d_1[i]$ while it's possible.
     
-    Illustration of this case (the palindrome with center $j$ is already "cut" to the length when it fits the outer palindrome very closely):
+    Illustration of this case (the palindrome with center $j$ is already "cut" to fit the "outer" palindrome):
     
     $
     \ldots\ 
@@ -106,19 +106,19 @@ So, let we want to calculate $d_2[i]$ for the next $i$, and all the previous val
     }\_{try\ moving\ here}
     $
     
-    It is shown on the illustration that, though the palindrome with center $j$ could be longer and go outside the outer palindrome, in the position $i$ we can use only the part that entirely fits into the outer palindrome. But the answer for the position $i$ can be much longer that it part, so next we'll launch our trivial algorithm, that will try to grow it outside our outer palindrome, i. e. to the region "try moving here".
+    It is shown on the illustration that, though the palindrome with center $j$ could be larger and go outside the "outer" palindrome, in the position $i$ we can use only the part that entirely fits into the "outer" palindrome. But the answer for the position $i$ can be much longer that this part, so next we'll run our trivial algorithm that will try to grow it outside our "outer" palindrome, i. e. to the region "try moving here".
 
-At the end, it's necessary to remind that we should not forget to update the values $(l, r)$ after calculating the next $d_1[i]$.
+At the end, it's necessary to remind that we should not forget to update the values $(l, r)$ after calculating each $d_1[i]$.
 
-Also we'll repeat that the algorithm was described to calculate the array for odd palindromes $d_1[]$, for the array of even palindromes $d_2[]$ the algorithm is similar.
+Also we'll repeat that the algorithm was described to calculate the array for odd palindromes $d_1[]$, the algorithm is similar for the array of even palindromes $d_2[]$.
 
 ## Complexity of Manacher's algorithm
 
 At the first glance it's not obvious that this algorithm has linear time complexity, because we often run the naive algorithm while searching the answer for a particular position.
 
-But more careful analysis shows that the algorithm is linear. We need to mention [Z-function building algorithm](/string/z-function.html) which looks similar to this algorithm and also works in linear time.
+But more careful analysis shows that the algorithm is linear however. We need to mention [Z-function building algorithm](/string/z-function.html) which looks similar to this algorithm and also works in linear time.
 
-Actually, we can notice that every iteration of the trivial search makes $r$ increase by one. Also $r$ cannot be decreased during the algorithm. So, the trivial algorithm will make $O(n)$ iterations in total.
+Actually, we can notice that every iteration of trivial algorithm makes $r$ increase by one. Also $r$ cannot be decreased during the algorithm. So, trivial algorithm will make $O(n)$ iterations in total.
 
 Also, other parts of Manacher's algorithm work obviously in linear time, we get $O(n)$ time complexity.
 
@@ -141,7 +141,7 @@ for (int i = 0, l = 0, r = -1; i < n; i++) {
 }
 ~~~~~
 
-For calculating $d_2[]$, the following code looks similar, with minor changes for arithmetical expressions:
+For calculating $d_2[]$, the code looks similar, but with minor changes in arithmetical expressions:
 
 ~~~~~
 vector<int> d2(n);
