@@ -357,3 +357,101 @@ bool is_bipartite(int v) {
     return bipartite[find_set(v).first];
 }
 ```
+
+### Offline RMQ (range minimum query) in $O(\alpha(n))$ on average
+
+Formally the problem is stated in the following way.
+We need to implement a data structure which supports two kinds of queries:
+?????
+
+### Offline LCA (lowest common ancestor in a tree) in $O(\alpha(n))$ on average
+
+The algorithm for finding the LCA will be discussed in a separate article (currently not yet translated). 
+This algorithm compares favorable with other algorithms for finding the LCA due to its simplicity (especially compared to an optimal algorithm like the one from Farach-Colton and Bender).
+
+### Storing the DSU explicitly in a set list. Application of this idea when merging various data structures
+
+One of the alternative ways of storing the DSU is the preservation of each set in the form of an **explicitly stored list of its elements**.
+At the same time each element also stores the reference to the representative of his set.
+
+At first glance this looks like an inefficient data structure: 
+by combining two sets we will have to add one list to the end of another and have to update the leadership in all elements of one of the lists.
+
+However it turns out, the use of a **weighting heuristic** (similar to union by size) can significantly reduce the asymptotic complexity: 
+$O(m + n \log n)$ to perform $m$ queries on the $n$ elements.
+
+Under weighting heuristic we mean, that we will always **add the smaller of the two sets to the bigger set**. 
+Adding one set to another is easy to implement in `union_sets` an will take time proportional to the size of the added set.
+And the search for the leader in `find_set` will take $O(1)$ with this method of storing.
+
+Let us prove the **time complexity** $O(m + n \log n)$ for the execution of $m$ queries.
+We will fix an arbitrary element $x$ and count how often he was touched in the merge operation `union_sets`. 
+When the element $x$ gets touched the first time, the size of the new set will be at least 2.
+When it gets touched the second time, the resulting set will have size of at least 4, because the smaller set gets added to the bigger one.
+And so on. 
+This means, that $x$ can only be moved in at most $\log n$ merge operations.
+Thus the sum over all vertices gives $O(n \log n)$ plus $O(1)$ for each request.
+
+Here is an implementation:
+
+```cpp
+vector<int> lst[MAXN];
+int parent[MAXN];
+
+void make_set(int v) {
+    lst[v] = vector<int>(1, v);
+    parent[v] = v;
+}
+
+int find_set(int v) {
+    return parent[v];
+}
+
+void union_sets(int a, int b) {
+    a = find_set(a);
+    b = find_set(b);
+    if (a != b) {
+        if (lst[a].size() < lst[b].size())
+            swap(a, b);
+        while (!lst[b].empty()) {
+            int v = lst[b].back();
+            lst[b].pop_back();
+            parent[v] = a;
+            lst[a].push_back (v);
+        }
+    }
+}
+```
+
+This idea of adding the smaller part to a bigger part can also be used in a lot of solutions that have nothing to do with DSU.
+
+For example consider the following **problem**:
+we are given a tree, each leaf has a number assigned (same number can appear multiple times on different leaves). 
+We want to compute for every node of the tree the number of different numbers in the subtree.
+
+Applying to this task the same idea it is possible to obtain this solution:
+we can implement a [DFS](/graph/depth-first-search.md), which will return a pointer to a set of integers  - the list of numbers in that subtree.
+Then to get the answer for the current node (unless of course it is a leaf), we call DFS for all children of that node, and merge all received sets together.
+The amount of the resulting set will be the answer for the current node.
+To efficiently combine multiple sets we just apply the above-described recipe:
+we merge two sets by simply adding the smaller ones to the largest. 
+In the end we get a $O(n \log^2 n)$ solution, because one number will only added to a set at most $O(\log n)$ times.
+
+### Storing the DSU by maintaining a clear tree structure. Online bridge finding in $O(\alpha(n))$ on average
+
+One of the most powerful applications of DSU is that it allows you to store both as **compressed and uncompressed trees**.
+The compressed form can be used for merging of trees and for the verification if two vertices are in the same tree, and the uncompressed form can be used - for example - to search for paths between two given vertices, or other traversals of the tree structure. 
+
+In the implementation this means that in addition to the compressed ancestor array `parent[]` we will need to keep an array of uncompressed ancestors `real_parent[]`. 
+It is trivial that maintaining this additional array will not worsen the complexity:
+changes in it only occur when we merge two trees, and only in one element.
+
+On the other hand when applied in practice, we often need to connect trees using a specified edge other that using the two root nodes.
+This means that we have no other choice but to re-root one of the trees (make the ends of the edge the new root of the tree). 
+
+At first glance it seems that this re-rooting is very costly and will greatly worsen the time complexity. 
+Indeed, for rooting a tree at vertex $v$ we must go from the vertex to the old root and change directions in `parent[]` and `real_parent[]` for all nodes on that path.
+
+However in reality it isn't so bad, we can just re-root the smaller of the two trees similar to the ideas in the previous sections, and get $O(\log n)$ on average.
+
+More details (including proof of the time complexity) will be in the article **Online bridge finding in a graph in $O(\log n)$ on average** (currently not yet translated).
