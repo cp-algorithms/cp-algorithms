@@ -28,6 +28,7 @@ especially popular in field of competitive programming.*
 - [Finding Power of Factorial Divisor](./algebra/factorial-divisors.html)
 
 ### Data Structures
+- [Disjoint Set Union](./data_structures/disjoint_set_union.html)
 - [Fenwick Tree](./data_structures/fenwick.html)
 - [Sparse Table](./data_structures/sparse-table.html)
 - [Segment Tree](./data_structures/segment_tree.html)
