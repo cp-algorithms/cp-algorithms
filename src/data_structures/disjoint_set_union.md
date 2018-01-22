@@ -455,3 +455,27 @@ Indeed, for rooting a tree at vertex $v$ we must go from the vertex to the old r
 However in reality it isn't so bad, we can just re-root the smaller of the two trees similar to the ideas in the previous sections, and get $O(\log n)$ on average.
 
 More details (including proof of the time complexity) will be in the article **Online bridge finding in a graph in $O(\log n)$ on average** (currently not yet translated).
+
+## Historical retrospective
+
+The data structure DSU has been known for a long time.
+
+This way of storing this structure in the form **of a forest of trees** was apparently first described by Galler and Fisher in 1964 (Galler, Fisher, "An Improved Equivalence Algorithm), however a complete analysis of the time complexity was conducted much later.
+
+The optimizations path compression and Union by rank has been developed by Mcllroy and Morris, and independently of them also by Tritter.
+
+Hopcroft and Ullman showed in 1973 the time complexity $O(\log^\star n)$ (Hopcroft, Ullman "Set-merging algorithms") - here $\log^\star$ is the **iterated logarithm** (this is a slow-growing function, but still not as slow as the inverse Ackerman function).
+
+For the first time the evaluation of $O(\alpha(n))$ was shown in 1975 (Tarjan "Efficiency of a Good But Not Linear Set Union Algorithm"). 
+Later in 1985 he, along with Leeuwen, published multiple complexity analyses for several different rank heuristics and ways of compressing the path (Tarjan, Leeuwen "Worst-case Analysis of Set Union Algorithms").
+
+Finally in 1989 Fredman and Sachs proved that in the adopted model of computation **any** algorithm for the disjoint set union problem has to work in at least $O(\alpha(n))$ time on average (Fredman, Saks, "The cell probe complexity of dynamic data structures").
+
+However it should also be noted, that there are several articles **disputing** this provisional valuation and asserting that the DSU with path compression and Union by rank runs in $O(1)$ time on average (Zhang "The Union-Find Problem Is Linear", Wu, Otoo "A Simpler Proof of the Average Case Complexity of Union-Find with Path Compression").
+
+## Problems
+
+* [TIMUS - Anansi's Cobweb](http://acm.timus.ru/problem.aspx?space=1&num=1671)
+* [Codeforces - Roads not only in Berland](http://codeforces.com/contest/25/problem/D)
+* [TIMUS - Parity](http://acm.timus.ru/problem.aspx?space=1&num=1003)
+* [SPOJ - Strange Food Chain](http://www.spoj.com/problems/CHAIN/)
