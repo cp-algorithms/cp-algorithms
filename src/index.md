@@ -45,6 +45,7 @@ especially popular in field of competitive programming.*
 - [Suffix Tree](./string/suffix-tree-ukkonen.html)
 - [Z-function](./string/z-function.html)
 - [Prefix function](./string/prefix-function.html)
+- [Finding all sub-palindromes in O(N)](./string/manacher.html)
 
 ### Linear Algebra
 - [Gauss & System of Linear Equations](./linear_algebra/linear-system-gauss.html)
