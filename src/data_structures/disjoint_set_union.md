@@ -3,33 +3,34 @@
 # Disjoint Set Union
 
 This article discusses the data structure **Disjoint Set Union** or **DSU**.
-Often it is also called **Union Find** because of its two operations.
+Often it is also called **Union Find** because of its two main operations.
 
 This data structure provides the following capabilities.
-Initially there are several elements, each of which is a separate set.
-In one operation you can combine any two sets, and you can also query in which set a specific element is.
-The classical version also introduces a third operation, you can create a set from a new element.
+We are given several elements, each of which is a separate set.
+A DSU will have an operation to combine any two sets, and it will be able to tell in which set a specific element is.
+The classical version also introduces a third operation, it can create a set from a new element.
 
 Thus the basic interface of this data structure consists of only three operations:
 
-- `make_set(x)` - adds a new element $x$, creates a new set consisting of this element
-- `union_sets(x, y)` - brings together the two specified sets (the set in which the element $x$ is located, and the set in which the element $y$ is located.
-- `find_set(x)` - returns the representative of the set that contains the element $x$.
-This representative is an element of its corresponding set. It is selected in each set by the data structure itself (and can change over time, namely after `union_sets` calls).
+- `make_set(v)` - creates a new set consisting of the new element `v`
+- `union_sets(a, b)` - merges the two specified sets (the set in which the element `a` is located, and the set in which the element `b` is located)
+- `find_set(v)` - returns the representative (also called leader) of the set that contains the element `v`.
+This representative is an element of its corresponding set. 
+It is selected in each set by the data structure itself (and can change over time, namely after `union_sets` calls).
 This representative can be used to check if two elements are part of the same set of not. 
-$x$ and $y$ are exactly in the same set, if $\text{find\_set}(x) == \text{find\_set}(y)$. Otherwise they are in different sets. 
+`a` and `b` are exactly in the same set, if `find_set(a) == find_set(b)`. 
+Otherwise they are in different sets. 
 
 As described in more detail later, the data structure allows you to do each of these operations in almost $O(1)$ time on average.
 
-Also in one of the subsections an alternative structure of a DSU is explained, which allows to achieve the average complexity $O(\log n)$ for $m \ge n$ requests.
-And $O(1)$ when $m >> n$ (i.e. $m$ much bigger then $n$). 
+Also in one of the subsections an alternative structure of a DSU is explained, which achieves a slower average complexity of $O(\log n)$, but can be more powerful than the regular DSU structure.
 
 ## Build an efficient data structure
 
 We will store the sets in the form of **trees**: each tree will correspond to one set.
-And the root of the tree will be the representative of the set.
+And the root of the tree will be the representative/leader of the set.
 
-In the following image you can see that the representation of such trees.
+In the following image you can see the representation of such trees.
 
 ![Example-image of the set representation with trees](&imgroot&/DSU_example.png)
 
@@ -38,48 +39,47 @@ Then we combine the set containing the element 1 and the set containing the elem
 Then we combine the set containing the element 3 and the set containing the element 4.
 And in the last step we can the sets containing the elements 1 and 3 are merged.
 
-
-For the implementation this means, that we will maintain an array `parent` that stores a reference to its immediate ancestor in the tree.
+For the implementation this means that we will have to maintain an array `parent` that stores a reference to its immediate ancestor in the tree.
 
 ### Native implementation
 
 We can already write the first implementation of the Disjoint Set Union data structure. 
-It will be pretty inefficient at first, but later we can improve it using two techniques, so that it will take nearly constant time for each function call.
+It will be pretty inefficient at first, but later we can improve it using two optimizations, so that it will take nearly constant time for each function call.
 
 As we said, all the information about the sets of elements will be kept in an array `parent`. 
 
-To create a new set (operation `make_set(x)`), we simply create a tree with root in the vertex `x`, meaning that it is its own ancestor. 
+To create a new set (operation `make_set(v)`), we simply create a tree with root in the vertex `v`, meaning that it is its own ancestor. 
 
-To combine two sets (operation `union_sets(x, y)`), we first find the representative of the set in which `x` is located, and the representative of the set in which `y` is located. 
-If the representatives are identical, that we have nothing to do: the sets are already merged. 
+To combine two sets (operation `union_sets(a, b)`), we first find the representative of the set in which `a` is located, and the representative of the set in which `b` is located. 
+If the representatives are identical, that we have nothing to do, the sets are already merged. 
 Otherwise, we can simply specify that one of the representatives is the parent of the other representative - thereby combining the two trees.
 
-Finally the implementation of the find representative function (operation `find_set(x)`): 
-we simply climb the ancestors of the vertex `x` until we reach the root, i.e. that the reference to the ancestor leads to itself.
+Finally the implementation of the find representative function (operation `find_set(v)`): 
+we simply climb the ancestors of the vertex `v` until we reach the root, i.e. a vertex such that the reference to the ancestor leads to itself.
 This operation is easily implemented recursively.
 
 ```cpp
-void make_set(int x) {
-    parent(x) = x;
+void make_set(int v) {
+    parent[v] = v;
 }
 
-int find_set(int x) {
-    if (x == parent[x])
-        return x;
-    return find_set(parent[x]);
+int find_set(int v) {
+    if (v == parent[v])
+        return v;
+    return find_set(parent[v]);
 }
 
-void union_sets(int x, int y) {
-    x = find_set(x);
-    y = find_set(y);
-    if (x != y)
-        parent[y] = x;
+void union_sets(int a, int b) {
+    a = find_set(a);
+    b = find_set(b);
+    if (a != b)
+        parent[b] = a;
 }
 ```
 
 However this implementation is inefficient.
-It is easy to construct an example, so that the chains degenerate into long chains.
-In that case each call `find_set(x)` can take $O(n)$ time.
+It is easy to construct an example, so that the trees degenerate into long chains.
+In that case each call `find_set(v)` can take $O(n)$ time.
 
 This is far away from the complexity that we want to have (nearly constant time). 
 Therefore we will consider two optimizations that will allow to significantly accelerate the work.
@@ -88,28 +88,28 @@ Therefore we will consider two optimizations that will allow to significantly ac
 
 This optimization is designed for speeding up `find_set`.
 
-If we call `find_set(x)` for some vertex `x`, we actually find the representative `p` for all vertices that are passed on the path between `x` and the actual representative `p`. 
-The trick is to make the paths for all those nodes shorter, by setting the parent of each visited vertex to `p`. 
+If we call `find_set(v)` for some vertex `v`, we actually find the representative `p` for all vertices that we visit on the path between `v` and the actual representative `p`. 
+The trick is to make the paths for all those nodes shorter, by setting the parent of each visited vertex directly to `p`. 
 
-You can see the effect in the following image.
-On the left is a tree, and on the right side is the modified tree after calling `find_set(7)`, which shortens the paths for the visited nodes 7, 5, 3 and 2.
+You can see the operation in the following image.
+On the left is a tree, and on the right side is the compressed tree after calling `find_set(7)`, which shortens the paths for the visited nodes 7, 5, 3 and 2.
 
-![Path compression during call of $\text{find\_set}(7)$](&imgroot&/DSU_path_compression.png)
+![Path compression of call `find_set(7)`](&imgroot&/DSU_path_compression.png)
 
 The new implementation of `find_set` is as follows:
 
 ```cpp
-int find_set(int x) {
-    if (x == parent[x])
-        return x;
-    return parent[x] = find_set(parent[x]);
+int find_set(int v) {
+    if (v == parent[v])
+        return v;
+    return parent[v] = find_set(parent[v]);
 }
 ```
 
 The simple implementation does what was intended:
 first find the representative of the set (root vertex), and the in the process of stack unwinding the visited nodes are attached directly to the representative.
 
-This simple modification of the operation already achieves the time complexity $O(\log n)$ per call on average.
+This simple modification of the operation already achieves the time complexity $O(\log n)$ per call on average (here without proof).
 There is a second modification, that will make it even faster.
 
 ### Union by size / rank
@@ -120,27 +120,28 @@ In the native implementation the second tree always got attached to the first on
 In practice that can lead to trees containing chains of length $O(n)$. 
 With this optimization we will avoid this by choosing very carefully which tree gets attached.
 
-There are two possible approaches: 
-In the first approach we as the size of the trees as rank, and in the second one we use the depth of the tree (more precisely, the upper bound on the tree depth, because the depth will get smaller when applying path compression in the `find_set` method).
+There are many possible heuristics that can be used. 
+Most popular are the following two approaches: 
+In the first approach we use the size of the trees as rank, and in the second one we use the depth of the tree (more precisely, the upper bound on the tree depth, because the depth will get smaller when applying path compression).
 
 In both approaches the essence of the optimization is the same: we attach the tree with the lower rank to the one with the bigger rank.
 
 Here is the implementation of union by size:
 
 ```cpp
-void make_set(int x) {
-    parent(x) = x;
-    size[x] = 1;
+void make_set(int v) {
+    parent[v] = v;
+    size[v] = 1;
 }
 
-void union_sets(int x, int y) {
-    x = find_set(x);
-    y = find_set(y);
-    if (x != y) {
-        if (size[x] < size[y])
-            swap(x, y);
-        parent[y] = x;
-        size[x] += size[y];
+void union_sets(int a, int b) {
+    a = find_set(a);
+    b = find_set(b);
+    if (a != b) {
+        if (size[a] < size[b])
+            swap(a, b);
+        parent[b] = a;
+        size[a] += size[b];
     }
 }
 ```
@@ -148,20 +149,20 @@ void union_sets(int x, int y) {
 And here is the implementation of union by rank based on the depth of the trees:
 
 ```cpp
-void make_set(int x) {
-    parent(x) = x;
-    rank[x] = 0;
+void make_set(int v) {
+    parent(v) = v;
+    rank[v] = 0;
 }
 
-void union_sets(int x, int y) {
-    x = find_set(x);
-    y = find_set(y);
-    if (x != y) {
-        if (rank[x] < rank[y])
-            swap(x, y);
-        parent[y] = x;
-        if (rank[x] == rank[y])
-            rank[x]++;
+void union_sets(int a, int b) {
+    a = find_set(a);
+    b = find_set(b);
+    if (a != b) {
+        if (rank[a] < rank[b])
+            swap(a, b);
+        parent[b] = a;
+        if (rank[a] == rank[b])
+            rank[a]++;
     }
 }
 ```
@@ -172,10 +173,14 @@ So in practice you can use any of them.
 ### Time complexity
 
 As mentioned before, if we combine both optimizations - path compression with union by size / rank - we will reach reach nearly constant time queries.
-It turns out, that the final time complexity is $O(\alpha(n))$ on average, where $\alpha(n)$ is the inverse Ackerman function, which grows very slowly. 
+It turns out, that the final amortized time complexity is $O(\alpha(n))$, where $\alpha(n)$ is the inverse Ackerman function, which grows very slowly. 
 In fact so slowly, that it doesn't exceed 4 for all reasonable $n$ (approximately $n <  10^{600}$).
 
-We will not present a proof for this time complexity, since it is quite long and complicated. 
+Amortized complexity is the total time per operation, evaluated over a sequence of multiple operations.
+The idea is to guarantee the total time of the entire sequence, while allowing single operations to be much slower then the amortized time.
+E.g. in our case a single call might take $O(\log n)$ for a single call in the worst case, but if we do $m$ such calls back to back we will end up with an average time of $O(\log n)$.
+
+We will also not present a proof for this time complexity, since it is quite long and complicated. 
 
 ## Applications and various improvements
 
@@ -185,8 +190,8 @@ In this section we consider several applications of the data structure, both the
 
 This is one of the obvious applications of DSU. 
 
-Formally the problem is: 
-initially we have an empty graph.
+Formally the problem is defined in the following way: 
+Initially we have an empty graph.
 We have to add vertices and undirected edges, and answer queries of the form $(a, b)$ - "are the vertices $a$ and $b$ in the same connected component of the graph?"
 
 Here we can directly apply the data structure, and get a solution that handles an addition of a vertex or an edge and a query in nearly constant time on average.
@@ -210,21 +215,22 @@ it can process the matrix row by row.
 
 ### Store additional information for each set
 
-DSU allows you to easily store additional information pertaining to the sets.
+DSU allows you to easily store additional information in the sets.
 
 A simple example is the size of the sets:
 how to store the sizes was already described in the Union by size section (the information was stored by the current representative of the set).
 
 In the same way - by storing it at the representative nodes - you can also store any other information about the sets.
 
-### Compress hops along a segment / Problem of painting subarrays offline
+### Compress hops along a segment / Painting subarrays offline
 
-One common application of the DSU is that if there is a set of vertices, and each vertex has an outgoing edge to another vertex. 
+One common application of the DSU is the following: 
+There is a set of vertices, and each vertex has an outgoing edge to another vertex. 
 With DSU you can find the end point, to which we get after following all edges from a given starting point, in almost constant time.
 
-A good example of this application it the **problem of painting subarrays**: 
-We have a segment of length $L$, each element has the color 0.
-We have to repaint the subarray $[l; r]$ with the color $c$ for each requests $(l, r, c)$.
+A good example of this application is the **problem of painting subarrays**: 
+We have a segment of length $L$, each element initially has the color 0.
+We have to repaint the subarray $[l; r]$ with the color $c$ for each request $(l, r, c)$.
 At the end we want to find the final color of each cell.
 We assume that we know all requests in advance, i.e. the task is offline.
 
@@ -242,13 +248,14 @@ Therefore the complexity will be $O(\log n)$ per union (which is also quite fast
 Implementation:
 
 ```cpp
-void init() {
-    for (int i = 0; i < L; i++) {
-        make_set(i);
-    }
+for (int i = 0; i < L; i++) {
+    make_set(i);
 }
 
-void process_query(int l, int r, int c) {
+for (int i = m-1; i >= 0; i--) {
+    int l = query[i].l;
+    int r = query[i].r;
+    int c = query[i].c;
     for (int v = find_set(l); v <= r; v = find_set(v)) {
         answer[v] = c;
         parent[v] = v + 1;
@@ -257,7 +264,7 @@ void process_query(int l, int r, int c) {
 ```
 
 There is one optimization:
-We can use **union by rank**, if we store the next unpainted cell in some array `end[]`.
+We can use **union by rank**, if we store the next unpainted cell in an additional array `end[]`.
 Then we can merge two sets into one ranked according to their heuristics, and we obtain the solution in $O(\alpha(n))$.
 
 ### Support distances up to representative
@@ -265,7 +272,7 @@ Then we can merge two sets into one ranked according to their heuristics, and we
 Sometimes in specific applications of the DSU you need to maintain the distance of a vertex to it set representative (i.e. the path length in the tree from the current node to the root of the tree).
 
 If we don't use path compression, the distance is just the number of recursive calls. 
-But this will be inefficient, since we loose quite a lot of speed by not using path compression.
+But this will be inefficient.
 
 However it is possible to do path compression, if we store the **distance to the parent** as additional information for each node.
 
@@ -273,7 +280,7 @@ In the implementation it is convenient to use an array of pairs for `parent[]` a
 
 ```cpp
 void make_set(int v) {
-    parent(x) = make_pair(v, 0);
+    parent[v] = make_pair(v, 0);
     rank[v] = 0;
 }
 
@@ -299,7 +306,7 @@ void union_sets(int a, int b) {
 }
 ```
 
-### Support the parity of the path length. Problem of checking bipartiteness bipartiteness online.
+### Support the parity of the path length / Checking bipartiteness online.
 
 In the same way as computing the path length to the leader, it is possible to maintain the parity of the length of the path before him. 
 Why is this application in a separate paragraph?
@@ -309,15 +316,17 @@ initially we are given an empty graph, it can be added edges, and we have to ans
 
 To solve this problem, we make a DSU for storing of the components and store the parity of the path up to the representative for each vertex.
 Thus we can quickly check if adding an edge leads to a violation of the bipartiteness or not:
-namely if the ends of the ribs lie in the same connected component and have the same parity length to the leader, then adding this edge will produce a cycle of odd length, and the component will loose the bipartiteness property.
+namely if the ends of the edge lie in the same connected component and have the same parity length to the leader, then adding this edge will produce a cycle of odd length, and the component will loose the bipartiteness property.
 
 The only difficulty that we face is to compute the parity in the `union_find` method. 
 
-If we add an edge $(a, b)$ that connects two connected components into one, then when you attach one tree to another we need adjust the parity.
+If we add an edge $(a, b)$ that connects two connected components into one, then when you attach one tree to another we need to adjust the parity.
 
 Lets derive a formula, which computes the parity issued to the leader of the set that will get attached to another set. 
 Let $x$ be the parity of the path length from vertex $a$ up to its leader $A$, and $y$ as the parity of the path length from vertex $b$ up to its leader $B$, and $t$ the desired parity that we have to assign to $B$ after the merge.
-The path contains the of the three parts: from $B$ to $b$, which has the parity $y$, from $b$ to $a$, which is connected by one edge and therefore has parity $1$, and from $a$ to $A$, which has parity $x$. Therefore we receive the formula ($\oplus$ denotes the XOR operation):
+The path contains the of the three parts: 
+from $B$ to $b$, from $b$ to $a$, which is connected by one edge and therefore has parity $1$, and from $a$ to $A$. 
+Therefore we receive the formula ($\oplus$ denotes the XOR operation):
 
 $$t = x \oplus y \oplus 1$$
 
@@ -368,13 +377,12 @@ bool is_bipartite(int v) {
 }
 ```
 
-### Offline RMQ (range minimum query) in $O(\alpha(n))$ on average. Arpa's trick.
+### Offline RMQ (range minimum query) in $O(\alpha(n))$ on average / Arpa's trick.
 
-Formally the problem is stated in the following way.
 We are given an array `a[]` and we have to compute some minima in given segments of the array.
 
 The idea to solve this problem with DSU is the following:
-We will iterate `i` over the array and answer all queries `(L, R)` with `R == i`.
+We will iterate over the array and when we are at the `i`th element we will answer all queries `(L, R)` with `R == i`.
 To do this efficiently we will keep a DSU using the first `i` elements with the following structure: the parent of an element is the next smaller element to the right of it.
 Then using this structure the answer to a query will be the `a[find_set(L)]`, the smallest number to the right of `L`. 
 
@@ -383,16 +391,41 @@ This approach obviously only works offline, i.e. if we know all queries beforeha
 It is easy to see, that we can apply path compression. 
 And we can also use Union by rank, if we store the actual leader in an separate array.
 
+```cpp
+struct Query {
+    int L, R, idx;
+};
+
+vector<int> answer;
+vector<vector<Query>> container;
+```
+
+`container[i]` contains all queries with `R == i`.
+
+```cpp
+stack<int> s;
+for (int i = 0; i < n; i++) {
+    while (!s.empty() && a[s.top()] > a[i]) {
+        parent[s.top()] = i;
+        s.pop();
+    }
+    s.push(i);
+    for (Query q : container[i]) {
+        answer[q.idx] = a[find_set(q.L)];
+    }
+}
+```
+
 Nowadays this algorithm is known as Arpa's trick. 
 It is named after AmirReza Poorakhavan, who independently discovered and popularized this technique.
-Although this algorithm existed before. 
+Although this algorithm existed already before his discovery. 
 
 ### Offline LCA (lowest common ancestor in a tree) in $O(\alpha(n))$ on average
 
 The algorithm for finding the LCA will be discussed in a separate article (currently not yet translated). 
 This algorithm compares favorable with other algorithms for finding the LCA due to its simplicity (especially compared to an optimal algorithm like the one from Farach-Colton and Bender).
 
-### Storing the DSU explicitly in a set list. Application of this idea when merging various data structures
+### Storing the DSU explicitly in a set list / Applications of this idea when merging various data structures
 
 One of the alternative ways of storing the DSU is the preservation of each set in the form of an **explicitly stored list of its elements**.
 At the same time each element also stores the reference to the representative of his set.
@@ -400,11 +433,11 @@ At the same time each element also stores the reference to the representative of
 At first glance this looks like an inefficient data structure: 
 by combining two sets we will have to add one list to the end of another and have to update the leadership in all elements of one of the lists.
 
-However it turns out, the use of a **weighting heuristic** (similar to union by size) can significantly reduce the asymptotic complexity: 
+However it turns out, the use of a **weighting heuristic** (similar to Union by size) can significantly reduce the asymptotic complexity: 
 $O(m + n \log n)$ to perform $m$ queries on the $n$ elements.
 
 Under weighting heuristic we mean, that we will always **add the smaller of the two sets to the bigger set**. 
-Adding one set to another is easy to implement in `union_sets` an will take time proportional to the size of the added set.
+Adding one set to another is easy to implement in `union_sets` and will take time proportional to the size of the added set.
 And the search for the leader in `find_set` will take $O(1)$ with this method of storing.
 
 Let us prove the **time complexity** $O(m + n \log n)$ for the execution of $m$ queries.
@@ -453,14 +486,14 @@ we are given a tree, each leaf has a number assigned (same number can appear mul
 We want to compute for every node of the tree the number of different numbers in the subtree.
 
 Applying to this task the same idea it is possible to obtain this solution:
-we can implement a [DFS](/graph/depth-first-search.md), which will return a pointer to a set of integers  - the list of numbers in that subtree.
+we can implement a [DFS](./graph/depth-first-search.md), which will return a pointer to a set of integers  - the list of numbers in that subtree.
 Then to get the answer for the current node (unless of course it is a leaf), we call DFS for all children of that node, and merge all received sets together.
 The amount of the resulting set will be the answer for the current node.
 To efficiently combine multiple sets we just apply the above-described recipe:
-we merge two sets by simply adding the smaller ones to the largest. 
+we merge the sets by simply adding the smaller ones to the largest. 
 In the end we get a $O(n \log^2 n)$ solution, because one number will only added to a set at most $O(\log n)$ times.
 
-### Storing the DSU by maintaining a clear tree structure. Online bridge finding in $O(\alpha(n))$ on average
+### Storing the DSU by maintaining a clear tree structure / Online bridge finding in $O(\alpha(n))$ on average
 
 One of the most powerful applications of DSU is that it allows you to store both as **compressed and uncompressed trees**.
 The compressed form can be used for merging of trees and for the verification if two vertices are in the same tree, and the uncompressed form can be used - for example - to search for paths between two given vertices, or other traversals of the tree structure. 
