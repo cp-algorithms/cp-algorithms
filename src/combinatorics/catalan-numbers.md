@@ -3,13 +3,13 @@
 # Catalan Numbers
 Catalan numbers is a number sequence, which is found useful in a number of combinatorial problems, often involving recursively-defined objects.
 
-This sequence was named after the Belgian mathematician [Catalana](https://en.wikipedia.org/wiki/Eug%C3%A8ne_Charles_Catalan), who lived in the 19th century. (In fact it was known before to Euler, who lived a century before Catalana).
+This sequence was named after the Belgian mathematician [Catalan](https://en.wikipedia.org/wiki/Eug%C3%A8ne_Charles_Catalan), who lived in the 19th century. (In fact it was known before to Euler, who lived a century before Catalan).
 
 The first few numbers Catalan numbers, $C_n$ (starting from zero):
 
  $1, 1, 2, 5, 14, 42, 132, 429, 1430, \ldots$
 
-### Application in some Combinatorial problems
+### Application in some combinatorial problems
 
 The Catalan number $C_n$ is the solution for
 
