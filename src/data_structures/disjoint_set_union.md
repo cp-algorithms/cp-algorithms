@@ -29,6 +29,16 @@ And $O(1)$ when $m >> n$ (i.e. $m$ much bigger then $n$).
 We will store the sets in the form of **trees**: each tree will correspond to one set.
 And the root of the tree will be the representative of the set.
 
+In the following image you can see that the representation of such trees.
+
+![Example-image of the set representation with trees](&imgroot&/DSU_example.png)
+
+At the beginning every element starts as a single set, therefore each vertex is its own tree.
+Then we combine the set containing the element 1 and the set containing the element 2.
+Then we combine the set containing the element 3 and the set containing the element 4.
+And in the last step we can the sets containing the elements 1 and 3 are merged.
+
+
 For the implementation this means, that we will maintain an array `parent` that stores a reference to its immediate ancestor in the tree.
 
 ### Native implementation
