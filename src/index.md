@@ -27,6 +27,7 @@ especially popular in field of competitive programming.*
 - [Fibonacci Numbers](./algebra/fibonacci-numbers.html)
 
 ### Data Structures
+- [Disjoint Set Union](./data_structures/disjoint_set_union.html)
 - [Fenwick Tree](./data_structures/fenwick.html)
 - [Sparse Table](./data_structures/sparse-table.html)
 - [Segment Tree](./data_structures/segment_tree.html)
