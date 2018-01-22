@@ -368,11 +368,24 @@ bool is_bipartite(int v) {
 }
 ```
 
-### Offline RMQ (range minimum query) in $O(\alpha(n))$ on average
+### Offline RMQ (range minimum query) in $O(\alpha(n))$ on average. Arpa's trick.
 
 Formally the problem is stated in the following way.
-We need to implement a data structure which supports two kinds of queries:
-?????
+We are given an array `a[]` and we have to compute some minima in given segments of the array.
+
+The idea to solve this problem with DSU is the following:
+We will iterate `i` over the array and answer all queries `(L, R)` with `R == i`.
+To do this efficiently we will keep a DSU using the first `i` elements with the following structure: the parent of an element is the next smaller element to the right of it.
+Then using this structure the answer to a query will be the `a[find_set(L)]`, the smallest number to the right of `L`. 
+
+This approach obviously only works offline, i.e. if we know all queries beforehand.
+
+It is easy to see, that we can apply path compression. 
+And we can also use Union by rank, if we store the actual leader in an separate array.
+
+Nowadays this algorithm is known as Arpa's trick. 
+It is named after AmirReza Poorakhavan, who independently discovered and popularized this technique.
+Although this algorithm existed before. 
 
 ### Offline LCA (lowest common ancestor in a tree) in $O(\alpha(n))$ on average
 
