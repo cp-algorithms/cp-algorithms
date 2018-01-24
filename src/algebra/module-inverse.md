@@ -5,7 +5,7 @@
 ## Definition
 
 A [modular multiplicative inverse](http://en.wikipedia.org/wiki/Modular_multiplicative_inverse) of an integer $a$ is an integer $x$ such that $a \cdot x$ is congruent to $1$ modular some modulus $m$.
-To write it in a formal way: we want to find an interger $x$ so that 
+To write it in a formal way: we want to find an integer $x$ so that 
 $$a \cdot x \equiv 1 \mod m.$$
 We will also denote $x$ simply with $a^{-1}$.
 
@@ -105,7 +105,9 @@ $$i^{-1} \equiv -\left\lfloor \frac{m}{i} \right\rfloor \cdot (m \bmod i)^{-1} \
 
 ## Application: computing binomial coefficients modulo $m$.
 
-Quite often you come across the problem of computing [binomial coefficients](./combinatorics/binomial-coefficients.html) modulo some large prime $m$.
+Quite often you come across the problem of computing [binomial coefficients](./combinatorics/binomial-coefficients.html) modulo some $m$.
+
+### Binomial coefficient modulo large prime
 
 The formula for the binomial coefficients is
 $$\binom n k = \frac {n!} {k!(n-k)!},$$
@@ -131,6 +133,40 @@ long long binomial_coefficient(int n, int k) {
 
 We even can compute the binomial coefficient in $O(1)$ time if we precompute the inverses of all factorials in $O(\text{MAXN} \log m)$ using the regular method for computing the inverse, or even in $O(\text{MAXN})$ time using the congruence $(x!)^{-1} \equiv ((x-1)!)^{-1} \cdot x^{-1}$ and the method for computing all inverses in $O(m)$.
 
+### Binomial coefficient modulo prime power
+
+Here we want to compute the binomial coefficient modulo some prime power, i.e. $m = p^b$ for some prime $p$.
+If $p > \max(k, n-k)$, then we can use the same method as described in the previous section.
+But if $p \le \max(k, n-k)$, then at least one of $k!$ and $(n-k)!$ are not coprime with $m$, and therefore we cannot compute the inverses - they don't exist.
+Nevertheless we can compute the binomial coefficient.
+
+The idea is the following:
+We compute for each $x!$ the biggest exponent $e$ such that $p^c$ divides $x!$, i.e. $p^c ~|~ x!$.
+Let $c(x)$ be that number.
+And let $g(x) := \frac{x!}{p^{c(x)}}$.
+Then we can write the binomial coefficient as:
+$$\binom n k = \frac {g(n) p^{c(n)}} {g(k) p^{c(k)} g(n-k) p^{c(n-k)}} = \frac {g(n)} {g(k) g(n-k)}p^{c(n) - c(k) - c(n-k)}$$
+
+The interesting thing is, that $g(x)$ is now free from the prime divisor $p$.
+Therefore $g(x)$ is coprime to m, and we can compute the modular inverses of $g(k)$ and $g(n-k)$.
+
+After precomputing all values for $g$ and $c$ (which can be done efficiently using dynamic programming), we can compute the binomial coefficient in $O(\log m)$ time.
+Or precompute all inverses and all powers of $p$, and then compute the binomial coefficient in $O(1)$.
+
+Notice, if $c(n) - c(k) - c(n-k) \ge b$, than $p^b ~|~ p^{c(n) - c(k) - c(n-k)}$, and the binomial coefficient is $0$.
+
+### Binomial coefficient modulo an arbitrary number
+
+Now we compute the binomial coefficient modulo some arbitrary modulus $m$.
+
+Let the prime factorization of $m$ be $m = p_1^{e_1} p_2^{e_2} \cdots p_h^{e_h}$.
+We can compute the binomial coefficient modulo $p_i^{e_i}$ for every $i$.
+This gives us $h$ different congruences.
+Since all moduli $p_i^{e_i}$ are coprime, we can apply the [Chinese Remainder Theorem](./algebra/chinese-remainder-theorem.html) to compute the binomial coefficient modulo the product of the moduli, which is the desired binomial coefficient modulo $m$.
+
+
+
+
 ## Practice Problems
 
 * [UVa 11904 - One Unit Machine](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3055)
@@ -138,3 +174,4 @@ We even can compute the binomial coefficient in $O(1)$ time if we precompute the
 * [Codeforces 300C - Beautiful Numbers](http://codeforces.com/problemset/problem/300/C)
 * [Codeforces 622F - The Sum of the k-th Powers](http://codeforces.com/problemset/problem/622/F)
 * [Codeforces 717A - Festival Organization](http://codeforces.com/problemset/problem/717/A)
+* [Codeforces 896D - Nephren Runs a Cinema](http://codeforces.com/problemset/problem/896/D)
