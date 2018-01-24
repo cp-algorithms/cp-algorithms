@@ -103,6 +103,34 @@ $$(m \bmod i) \cdot i^{-1} \cdot (m \bmod i)^{-1} \equiv -\left\lfloor \frac{m}{
 which simplifies to:
 $$i^{-1} \equiv -\left\lfloor \frac{m}{i} \right\rfloor \cdot (m \bmod i)^{-1} \mod m,$$
 
+## Application: computing binomial coefficients modulo $m$.
+
+Quite often you come across the problem of computing [binomial coefficients](./combinatorics/binomial-coefficients.html) modulo some large prime $m$.
+
+The formula for the binomial coefficients is
+$$\binom n k = \frac {n!} {k!(n-k)!},$$
+so if we want to compute it modulo some prime $m > n$ we get
+$$\binom n k \equiv n! \cdot (k!)^{-1} \cdot ((n-k)!)^{-1} \mod m.$$
+
+First we precompute all factorials modulo $m$ up to $\text{MAXN}!$ in $O(\text{MAXN})$ time.
+
+```cpp
+factorial[0] = 1;
+for (int i = 1; i <= MAXN; i++) {
+    factorial[i] = factorial[i - 1] * i % m;
+}
+```
+
+And afterwards we can compute the binomial coefficient in $O(\log m)$ time.
+
+```cpp
+long long binomial_coefficient(int n, int k) {
+    return factorial[n] * inverse(k) % m * inverse(n - k) % m;
+}
+```
+
+We even can compute the binomial coefficient in $O(1)$ time if we precompute the inverses of all factorials in $O(\text{MAXN} \log m)$ using the regular method for computing the inverse, or even in $O(\text{MAXN})$ time using the congruence $(x!)^{-1} \equiv ((x-1)!)^{-1} \cdot x^{-1}$ and the method for computing all inverses in $O(m)$.
+
 ## Practice Problems
 
 * [UVa 11904 - One Unit Machine](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3055)
