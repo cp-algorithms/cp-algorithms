@@ -3,7 +3,7 @@
 # Modification of stack / queue for finding the minimum in $O(1)$
 
 In this article we will consider three problems: 
-first we will modify a stack in a way that allows up to find the smallest element of the stack in $O(1)$, then we will do the same thing with a queue, and finally we will use these data structures to find the minimum in all subsegments of a fixed length in an array in $O(n)$
+first we will modify a stack in a way that allows up to find the smallest element of the stack in $O(1)$, then we will do the same thing with a queue, and finally we will use these data structures to find the minimum in all subarrays of a fixed length in an array in $O(n)$
 
 ## Stack modification
 
@@ -132,4 +132,18 @@ if (s2.empty()) {
 int result = s2.top().first;
 s2.pop();
 ```
-    
+
+## Finding the minimum for all subarrays of fixed length
+
+Suppose we are given an array $A$ of length $N$ and a given $M \le N$.
+We have to find the minimum of each subarray of length $M$ in this array, i.e. we have to find:
+
+$$\min_{0 \le i \le M-1} A[i], \min_{1 \le i \le M} A[i], \min_{2 \le i \le M+1} A[i],~\dots~, \min_{N-M \le i \le N-1} A[i]$$
+
+We have to solve this problem in linear time, i.e. $O(n)$.
+
+We can use any of the two modified queues to solve the problem.
+The solutions should be clear:
+we add the first $M$ element of the array, find and output its minimum, then add the next element to the queue and remove the first element of the array, find and output its minimum, etc. 
+Since all operations with the queue are performed in constant time on average, the complexity of the whole algorithm will be $O(n)$.
+
