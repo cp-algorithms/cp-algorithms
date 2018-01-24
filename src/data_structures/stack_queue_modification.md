@@ -28,7 +28,7 @@ int new_min = st.empty() ? new_elem : min(new_elem, st.top().second);
 st.push({new_elem, new_min});
 ```
 
-* Extracting / removing an element:
+* Removing an element:
 ```cpp
 int result = st.top().first;
 st.pop();
@@ -63,7 +63,7 @@ deque<int> q;
 ```
 
 * Finding the minimum:
-k``cpp
+```cpp
 int minimum = q.front();
 ```
 
@@ -74,10 +74,62 @@ while (!q.empty() && q.back() > new_element)
 q.push_back(new_element);
 ```
 
-* Extracting an element:
+* Removing an element:
 ```cpp
 if (!q.empty() && q.front() == remove_element)
     q.pop_front();
 ```
 
 It is clear that on average all these operation only take $O(1)$ time (because every element can only be pushed and popped once).
+
+## Queue modification (method 2)
+
+Here we consider another way of modifying a queue to find the minimum in $O(1)$.
+This way is somewhat more complicated to implement, but we don't have the big disadvantage of the previous method:
+all elements are actually stored in it, and we can remove an element from the front without knowing its value.
+
+The idea is to reduce the problem to the problem of stacks, which was already solved by us.
+So we only need to learn how to simulate a queue using two stacks.
+
+We make two stacks, `s1` and `s2`. 
+Of course these stack will be modified so that we can find the minimum in $O(1)$. 
+We will add new elements to the stack `s1`, and remove elements from the stack `s2`.
+At the same time when we try to remove an element from `s2` and it is empty, we move all elements from `s1` to `s2` (which essentially reverses the order of those elements).
+Finally finding the minimum in a queue involves just finding the minimum of both stacks.
+
+Thus we perform all operations in $O(1)$ on average (each element will be once added to stack `s1`, once transferred to `s2`, and once popped from `s2`)
+
+Implementation:
+
+```cpp
+stack<pair<int, int>> s1, s2;
+```
+
+* Finding the minimum:
+```cpp
+if (s1.empty() || s2.empty()) 
+    minimum = s1.empty() ? s2.top().second : s1.top().second;
+else
+    minimum = min(s1.top().second, s2.top().second());
+```
+
+* Add element:
+```cpp
+int minimum = s1.empty() ? new_element : min(new_element, s1.top().second);
+s1.push({new_element, minimum});
+```
+
+* Removing an element:
+```cpp
+if (s2.empty()) {
+    while (!s1.empty()) {
+        int element = s1.top.first();
+        s1.pop();
+        int minimum = s2.empty() ? element : min(element, s2.top().second);
+        s2.push({element, minimum});
+    }
+}
+int result = s2.top().first;
+s2.pop();
+```
+    
