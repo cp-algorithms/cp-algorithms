@@ -84,6 +84,39 @@ It is clear that on average all these operation only take $O(1)$ time (because e
 
 ## Queue modification (method 2)
 
+This is a modification of method 1.
+We want to be able to remove elements without knowing which element we have to remove.
+We can just store for each element in the queue its index.
+And we also remember how many elements we already have added and removed.
+
+```cpp
+deque<pair<int, int>> q;
+int cnt_added = 0;
+int cnt_removed = 0;
+```
+
+* Finding the minimum:
+```cpp
+int minimum = q.front().first;
+```
+
+* Adding an element:
+```cpp
+while (!q.empty() && q.back().first > new_element)
+    q.pop_back();
+q.push_back({new_element, cnt_added});
+cnt_added++;
+```
+
+* Removing an element:
+```cpp
+if (!q.empty() && q.front().second == cnt_removed) 
+    q.pop_front();
+cnt_removed++;
+```
+
+## Queue modification (method 3)
+
 Here we consider another way of modifying a queue to find the minimum in $O(1)$.
 This way is somewhat more complicated to implement, but we don't have the big disadvantage of the previous method:
 all elements are actually stored in it, and we can remove an element from the front without knowing its value.
@@ -142,7 +175,7 @@ $$\min_{0 \le i \le M-1} A[i], \min_{1 \le i \le M} A[i], \min_{2 \le i \le M+1}
 
 We have to solve this problem in linear time, i.e. $O(n)$.
 
-We can use any of the two modified queues to solve the problem.
+We can use any of the three modified queues to solve the problem.
 The solutions should be clear:
 we add the first $M$ element of the array, find and output its minimum, then add the next element to the queue and remove the first element of the array, find and output its minimum, etc. 
 Since all operations with the queue are performed in constant time on average, the complexity of the whole algorithm will be $O(n)$.
