@@ -7,16 +7,16 @@ first we will modify a stack in a way that allows up to find the smallest elemen
 
 ## Stack modification
 
-We want to make it possible to find the smallest element in a stack in $O(1)$ time, while maintaining the same asymptotic behavior for adding and removing elements from the stack.
-Quick reminder, on a stack we only add and remove elements from the back.
+We want to modify the stack data structure in such a way, that it possible to find the smallest element in the stack in $O(1)$ time, while maintaining the same asymptotic behavior for adding and removing elements from the stack.
+Quick reminder, on a stack we only add and remove elements on one end.
 
-To do this, we will no only store the elements in the stack, but we will store each one in pairs: the element itself and the minimum in the stack starting from this element and below.
+To do this, we will no only store the elements in the stack, but we will store them in pairs: the element itself and the minimum in the stack starting from this element and below.
 
 ```cpp
 stack<pair<int, int>> st;
 ```
 
-It is clear that finding the minimum in the whole stack consists of only taking the value of `stack.top().second`.
+It is clear that finding the minimum in the whole stack consists only of looking at the value `stack.top().second`.
 
 It is also obvious that adding or removing a new element to the stack can be done in constant time.
 
@@ -30,7 +30,7 @@ st.push({new_elem, new_min});
 
 * Removing an element:
 ```cpp
-int result = st.top().first;
+int removed_element = st.top().first;
 st.pop();
 ```
 
@@ -51,7 +51,8 @@ Namely we will keep the queue in nondecreasing order (i.e. the smallest value wi
 This way the smallest element will always be in the head of the queue.
 Before adding a new element to the queue, it is enough to make a "cut":
 we will remove all trailing elements of the queue that are larger than the new element, and afterwards add the new element to the queue. 
-This way we don't break the order of the queue, and we will also not loose the current minimum if it is at any subsequent step a minimum. 
+This way we don't break the order of the queue, and we will also not loose the current element if it is at any subsequent step the minimum. 
+All the elements that we removed can never be a minimum itself, so this operation is allowed.
 When we want to extract an element from the head, it actually might not be there (because we removed it previously while adding a smaller element). 
 Therefore when deleting an element from a queue we need to know the value of the element.
 If the head of the queue has the same value, we can safely remove it, otherwise we do nothing.
@@ -86,7 +87,7 @@ It is clear that on average all these operation only take $O(1)$ time (because e
 
 This is a modification of method 1.
 We want to be able to remove elements without knowing which element we have to remove.
-We can just store for each element in the queue its index.
+We can accomplish that by storing the index for each element in the queue.
 And we also remember how many elements we already have added and removed.
 
 ```cpp
@@ -118,16 +119,16 @@ cnt_removed++;
 ## Queue modification (method 3)
 
 Here we consider another way of modifying a queue to find the minimum in $O(1)$.
-This way is somewhat more complicated to implement, but we don't have the big disadvantage of the previous method:
-all elements are actually stored in it, and we can remove an element from the front without knowing its value.
+This way is somewhat more complicated to implement, but this time we actually store all elements.
+And we also can remove an element from the front without knowing its value.
 
 The idea is to reduce the problem to the problem of stacks, which was already solved by us.
 So we only need to learn how to simulate a queue using two stacks.
 
 We make two stacks, `s1` and `s2`. 
-Of course these stack will be modified so that we can find the minimum in $O(1)$. 
+Of course these stack will be of the modified form, so that we can find the minimum in $O(1)$. 
 We will add new elements to the stack `s1`, and remove elements from the stack `s2`.
-At the same time when we try to remove an element from `s2` and it is empty, we move all elements from `s1` to `s2` (which essentially reverses the order of those elements).
+If at any time the stack `s2` is empty, we move all elements from `s1` to `s2` (which essentially reverses the order of those elements).
 Finally finding the minimum in a queue involves just finding the minimum of both stacks.
 
 Thus we perform all operations in $O(1)$ on average (each element will be once added to stack `s1`, once transferred to `s2`, and once popped from `s2`)
@@ -162,7 +163,7 @@ if (s2.empty()) {
         s2.push({element, minimum});
     }
 }
-int result = s2.top().first;
+int remove_element = s2.top().first;
 s2.pop();
 ```
 
@@ -170,7 +171,6 @@ s2.pop();
 
 Suppose we are given an array $A$ of length $N$ and a given $M \le N$.
 We have to find the minimum of each subarray of length $M$ in this array, i.e. we have to find:
-
 $$\min_{0 \le i \le M-1} A[i], \min_{1 \le i \le M} A[i], \min_{2 \le i \le M+1} A[i],~\dots~, \min_{N-M \le i \le N-1} A[i]$$
 
 We have to solve this problem in linear time, i.e. $O(n)$.
