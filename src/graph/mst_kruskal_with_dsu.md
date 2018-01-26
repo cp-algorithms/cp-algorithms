@@ -4,7 +4,7 @@
 
 Please see [main article on Kruskal's algorithm](./graph/mst_kruskal.html) for the problem statement and a description of Kruskal's algorithm.
 
-In this article we will consider the data structure "Disjoint Set Union" (The DSU) for implementation of the Kruskal's Minimum Spanning Tree algorithm, which will allow the algorithm to achieve the asymptotic complexity of $O(M log N)$.
+In this article we will consider the data structure ["Disjoint Set Union"](./data_structures/disjoint_set_union.html) for implementation of the Kruskal's Minimum Spanning Tree algorithm, which will allow the algorithm to achieve the time complexity of $O(M log N)$.
 
 ## Description
 
