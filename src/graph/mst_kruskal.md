@@ -2,19 +2,25 @@
 
 # Minimum spanning tree - Kruskal's algorithm
 
-Given a weighted undirected graph. We want to find a subtree of this graph which connects all vertices (i.e. a spanning tree), and is having the least weight (i.e. the sum of weights of all the edges is minimum) of all possible spanning trees. This spanning tree is called a minimum spanning tree.
+Given a weighted undirected graph.
+We want to find a subtree of this graph which connects all vertices (i.e. it is a spanning tree) and has the least weight (i.e. the sum of weights of all the edges is minimum) of all possible spanning trees.
+This spanning tree is called a minimum spanning tree.
+
+In the left image you can see a weighted undirected graph, and in the right image you can see the corresponding minimum spanning tree.
+
+![Random graph](&imgroot&/MST_before.png) ![MST of this graph](&imgroot&/MST_after.png)
 
 This article will discuss few important facts associated with minimum spanning trees, and then will give the simplest implementation of Kruskal's algorithm for finding minimum spanning tree.
 
 ## Properties of the minimum spanning tree
 
 * A minimum spanning tree of a graph is unique, if the weight of all the edges are distinct. Otherwise, there may be multiple minimum spanning trees.
-    (Specific algorithms typically output one of the possible minimum spanning trees).
+  (Specific algorithms typically output one of the possible minimum spanning trees).
 * Minimum spanning tree is also the tree with minimum product of weights of edges.
-    (It can be easily proved by replacing the weights of all edges to their logarithms)
+  (It can be easily proved by replacing the weights of all edges with their logarithms)
 * In a minimum spanning tree of a graph, the maximum weight of an edge is the minimum possible from all possible spanning trees of that graph.
-    (This follows from the validity of Kruskal's algorithm).
-* The maximum spanning tree (spanning tree with the sum of weights of edges being maximum) of a graph can be obtained similarly to that of the minimum spanning tree, by changing the signs of the weights of all the edges to their opposite and then applying any of the minimum spanning tree algorithm. 
+  (This follows from the validity of Kruskal's algorithm).
+* The maximum spanning tree (spanning tree with the sum of weights of edges being maximum) of a graph can be obtained similarly to that of the minimum spanning tree, by changing the signs of the weights of all the edges to their opposite and then applying any of the minimum spanning tree algorithm.
 
 ## Kruskal's algorithm
 
@@ -24,43 +30,49 @@ Kruskal's algorithm initially places all the nodes of the original graph isolate
 
 ## The simplest implementation
 
-The following code directly implements the algorithm described above, and is having $O(M \log N + N^2)$ time complexity. Sorting edges requires $O(M \log N)$ operations. Information regarding the subtree to which a vertex belongs is maintained with the help of an array tree_id[ ] - for each vertex $i$, tree_id[i] stores the number of the tree , to which $i$ belongs. For each edge, whether it belongs to the ends of different trees, can be determined in $O(1)$. Finally, the union of the two trees is carried out in $O(N)$ by a simple pass through tree_id[ ] array. Given that total merge operations are $N-1$, we obtain the asymptotic behavior of $O(M \log N + N^2)$.
+The following code directly implements the algorithm described above, and is having $O(M \log M + N^2)$ time complexity.
+Sorting edges requires $O(M \log N)$ (which is the same as $O(M \log M)$) operations.
+Information regarding the subtree to which a vertex belongs is maintained with the help of an array `tree_id[]` - for each vertex `v`, `tree_id[v]` stores the number of the tree , to which `v` belongs.
+For each edge, whether it belongs to the ends of different trees, can be determined in $O(1)$.
+Finally, the union of the two trees is carried out in $O(N)$ by a simple pass through `tree_id[]` array.
+Given that the total number of merge operations is $N-1$, we obtain the asymptotic behavior of $O(M \log N + N^2)$.
 
 ```cpp
-int m;
-vector < pair < int, pair < int, int > > > g (m);  //  stores edges (weight - the vertex 1 - vertex 2)
+struct Edge {
+    int u, v, weight;
+    bool operator<(Edge const& other) {
+        return weight < other.weight;
+    }
+};
+
+int n;
+vector<Edge> edges;
 
 int cost = 0;
-vector < pair < int, int > > res;
-
-sort (g.begin(), g.end()); // sorting edges
-
-vector < int > tree_id (n);
-
-for (int i = 0; i < n; ++i)
+vector<int> tree_id(n);
+vector<Edge> result;
+for (int i = 0; i < n; i++)
     tree_id[i] = i;
-    
-for (int i = 0; i < m; ++i)
-{ 
-    int a = g[i].second.first, b = g[i].second.second, l = g[i].first;
-    
-    if (tree_id[a] != tree_id[b])
-    {
-        cost += l;
-        res.push_back (make_pair (a, b));
 
-        int old_id = tree_id[b], new_id = tree_id[a];
-         
-        for (int j = 0; j < n; ++j)
-            if (tree_id[j] == old_id)
-                tree_id[j] = new_id;
+sort(edges.begin(), edges.end());
+   
+for (Edge e : edges) {
+    if (tree_id[e.u] != tree_id[e.v]) {
+        cost += e.weight;
+        result.push_back(e);
+
+        int old_id = tree_id[e.u], new_id = tree_id[e.v];
+        for (int i = 0; i < n; i++) {
+            if (tree_id[i] == old_id)
+                tree_id[i] = new_id;
+        }
     }
-} 
+}
 ```
 
 ## Improved implementation
 
-We can use the [**Disjoint Set Union** (DSU)](./data_structures/disjoint_set_union.html) data structure to write faster implementation of the Kruskal's algorithm with the time complexity of about $O(M \log N)$. [This article details such approach](./graph/mst_kruskal_with_dsu.html).
+We can use the [**Disjoint Set Union** (DSU)](./data_structures/disjoint_set_union.html) data structure to write a faster implementation of the Kruskal's algorithm with the time complexity of about $O(M \log N)$. [This article](./graph/mst_kruskal_with_dsu.html) details such approach.
 
 ## Practice Problems
 
