@@ -70,6 +70,39 @@ for (Edge e : edges) {
 }
 ```
 
+## Proof of correctness
+
+Why does Kruskal's algorithm give us the correct result?
+
+If the original graph was connected, then also the resulting graph will be connected.
+Because otherwise there would be two components that could be connected with at least one edge. Though this is impossible, because Kruskal would have have chosen one of these edges, since the ids of the components are different.
+Also the resulting graph doesn't contain any cycles, since we forbid this explicitly in the algorithm.
+Therefore the algorithm generates a spanning tree.
+
+So why does this algorithm give us a minimum spanning tree?
+
+We can show the proposal "if $F$ is a set of edges chosen by the algorithm at any stage in the algorithm, then there exists a MST that contains all edges of $F$" using induction.
+
+The proposal is obviously true at the beginning, the empty set is a subset of any MST.
+
+Now lets assume $F$ is some edge set at any stage of the algorithm, $T$ is a MST containing $F$ and $e$ is the new edge we want to add using Kruskal.
+
+If $e$ generates a cycle, then we don't add it, and so the proposal is still true after this step.
+
+In case that $T$ already contains $e$, the proposal is also true after this step.
+
+In case $T$ doesn't contain the edge $e$, then $T + e$ will contains a cycle $C$.
+This cycle will contain at least one edge $f$, that is not in $F$.
+The set of edges $T - f + e$ will also be a spanning tree. 
+Notice that the weight of $f$ cannot be smaller than the weight of $e$, because otherwise Kruskal would have chosen $f$ earlier.
+It also cannot have a bigger weight, since that would make the total weight of $T - f + e$ smaller than the total weight of $T$, which is impossible since $T$ is already a MST.
+This means that the weight of $e$ has to be the same as the weight of $f$.
+Therefore $T - f + e$ is also a MST, and it contains all edges from $F + e$.
+So also here the proposal is still fulfilled after the step.
+
+This proves the proposal.
+Which means that after iterating over all edges the resulting edge set will be connected, and will be contained in a MST, which means that it has to be a MST already.
+
 ## Improved implementation
 
 We can use the [**Disjoint Set Union** (DSU)](./data_structures/disjoint_set_union.html) data structure to write a faster implementation of the Kruskal's algorithm with the time complexity of about $O(M \log N)$. [This article](./graph/mst_kruskal_with_dsu.html) details such approach.
