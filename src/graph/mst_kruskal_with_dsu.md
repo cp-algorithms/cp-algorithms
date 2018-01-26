@@ -2,55 +2,72 @@
 
 # Minimum spanning tree - Kruskal with Disjoint Set Union
 
-Please see [main article on Kruskal's algorithm](./graph/mst_kruskal.html) for the problem statement and a description of Kruskal's algorithm.
+For an explanation of the MST problem and the Kruskal algorithm, first see the [main article on Kruskal's algorithm](./graph/mst_kruskal.html).
 
-In this article we will consider the data structure ["Disjoint Set Union"](./data_structures/disjoint_set_union.html) for implementation of the Kruskal's Minimum Spanning Tree algorithm, which will allow the algorithm to achieve the time complexity of $O(M log N)$.
+In this article we will consider the data structure ["Disjoint Set Union"](./data_structures/disjoint_set_union.html) for implementing Kruskal's algorithm, which will allow the algorithm to achieve the time complexity of $O(M \log N)$.
 
 ## Description
 
-Just as in the simple version of the Kruskal algorithm, we sort the all the edges of the graph in non-decreasing order of weights. Then put each vertex in its own tree (i.e. its set) via DSU `make_set()` function call - it will take a total of $O(N)$. Iterate through all the edges (in sorted order) and for each edge determine whether the ends belong to different trees (with two `find_set()` calls in $O(1)$ each). Finally, we need to perform the union of the two trees(sets), for which the DSU `union_sets()` function will be called - also in $O(1)$. So we get the total asymptotic complexity $O(M \log N + N + M)$ = $O(M \log N)$.
+Just as in the simple version of the Kruskal algorithm, we sort all the edges of the graph in non-decreasing order of weights.
+Then put each vertex in its own tree (i.e. its set) via calls to the `make_set` function - it will take a total of $O(N)$.
+We iterate through all the edges (in sorted order) and for each edge determine whether the ends belong to different trees (with two `find_set` calls in $O(1)$ each).
+Finally, we need to perform the union of the two trees (sets), for which the DSU `union_sets` function will be called - also in $O(1)$.
+So we get the total time complexity of $O(M \log N + N + M)$ = $O(M \log N)$.
 
 ## Implementation
 
-Here, a randomized version of the DSU is used.
+Here is an implementation of Kruskal's algorithm with Union by Rank.
 
 ```cpp
-vector <int> p(n);
+vector<int> parent, rank;
 
-int dsu_get (int v) {
-    return (v == p[v])?  v : (p[v] = dsu_get(p[v]));
+void make_set(int v) {
+    parent(v) = v;
+    rank[v] = 0;
 }
 
-void dsu_unite (int a, int b) {
-    a = dsu_get (a);
-    b = dsu_get (b);
-    if (rand() & 1)
-        swap(a, b);
-    if (a! = b)
-        p[a] = b;
+int find_set(int v) {
+    if (v == parent[v])
+        return v;
+    return parent[v] = find_set(parent[v]);
 }
 
-/*... In the main () function: ...*/
+void union_sets(int a, int b) {
+    a = find_set(a);
+    b = find_set(b);
+    if (a != b) {
+        if (rank[a] < rank[b])
+            swap(a, b);
+        parent[b] = a;
+        if (rank[a] == rank[b])
+            rank[a]++;
+    }
+}
 
-int m;
-vector < pair < int, pair < int, int > > > g;  // Weight - the top 1 - top 2
-/*... Read the count ...*/
+struct Edge {
+    int u, v, weight;
+    bool operator<(Edge const& other) {
+        return weight < other.weight;
+    }
+};
+
+int n;
+vector<Edge> edges;
 
 int cost = 0;
-vector < pair < int, int > > res;
+vector<Edge> result;
+parent.resize(n);
+rank.resize(n);
+for (int i = 0; i < n; i++)
+    make_set(i);
 
-sort(g.begin (), g.end ());
-p.resize(n);
+sort(edges.begin(), edges.end());
 
-for (int i = 0; i < n; ++i)
-    p [i] = i;
-    
-for (int i = 0; i < m; ++i) {
-    int a = g[i].second.first, b = g[i].second.second, l = g[i].first;
-    if(dsu_get(a)! = dsu_get(b)) {
-        cost + = l;
-        res.push_back (g[i] .second);
-        dsu_unite (a, b);
+for (Edge e : edges) {
+    if (find_set(e.u) != find_set(e.v)) {
+        cost += e.weight;
+        result.push_back(e);
+        union_sets(e.u, e.v);
     }
 }
 ```
