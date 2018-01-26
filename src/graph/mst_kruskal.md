@@ -60,7 +60,7 @@ for (int i = 0; i < m; ++i)
 
 ## Improved implementation
 
-We can use the **Disjoint Set Union** (DSU) data structure to write faster implementation of the Kruskal's algorithm with an asymptotic complexity of about $O(M \log N)$. [This article details such approach](./graph/mst_kruskal_with_dsu.html).
+We can use the [**Disjoint Set Union** (DSU)](./data_structures/disjoint_set_union.html) data structure to write faster implementation of the Kruskal's algorithm with the time complexity of about $O(M \log N)$. [This article details such approach](./graph/mst_kruskal_with_dsu.html).
 
 ## Practice Problems
 

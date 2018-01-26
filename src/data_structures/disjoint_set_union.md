@@ -41,7 +41,7 @@ And in the last step we can the sets containing the elements 1 and 3 are merged.
 
 For the implementation this means that we will have to maintain an array `parent` that stores a reference to its immediate ancestor in the tree.
 
-### Native implementation
+### Naive implementation
 
 We can already write the first implementation of the Disjoint Set Union data structure. 
 It will be pretty inefficient at first, but later we can improve it using two optimizations, so that it will take nearly constant time for each function call.
@@ -92,7 +92,7 @@ If we call `find_set(v)` for some vertex `v`, we actually find the representativ
 The trick is to make the paths for all those nodes shorter, by setting the parent of each visited vertex directly to `p`. 
 
 You can see the operation in the following image.
-On the left is a tree, and on the right side is the compressed tree after calling `find_set(7)`, which shortens the paths for the visited nodes 7, 5, 3 and 2.
+On the left there is a tree, and on the right side there is the compressed tree after calling `find_set(7)`, which shortens the paths for the visited nodes 7, 5, 3 and 2.
 
 ![Path compression of call `find_set(7)`](&imgroot&/DSU_path_compression.png)
 
@@ -174,13 +174,15 @@ So in practice you can use any of them.
 
 As mentioned before, if we combine both optimizations - path compression with union by size / rank - we will reach reach nearly constant time queries.
 It turns out, that the final amortized time complexity is $O(\alpha(n))$, where $\alpha(n)$ is the inverse Ackerman function, which grows very slowly. 
-In fact so slowly, that it doesn't exceed 4 for all reasonable $n$ (approximately $n <  10^{600}$).
+In fact it grows so slowly, that it doesn't exceed $4$ for all reasonable $n$ (approximately $n < 10^{600}$).
 
 Amortized complexity is the total time per operation, evaluated over a sequence of multiple operations.
 The idea is to guarantee the total time of the entire sequence, while allowing single operations to be much slower then the amortized time.
-E.g. in our case a single call might take $O(\log n)$ for a single call in the worst case, but if we do $m$ such calls back to back we will end up with an average time of $O(\log n)$.
+E.g. in our case a single call might take $O(\log n)$ in the worst case, but if we do $m$ such calls back to back we will end up with an average time of $O(\alpha(n))$.
 
-We will also not present a proof for this time complexity, since it is quite long and complicated. 
+We will also not present a proof for this time complexity, since it is quite long and complicated.
+
+Also, it's worth mentioning that DSU with union by size / rank, but without path compression works in $O(\log n)$ time per query.
 
 ## Applications and various improvements
 
@@ -188,9 +190,9 @@ In this section we consider several applications of the data structure, both the
 
 ### Connected components in a graph
 
-This is one of the obvious applications of DSU. 
+This is one of the obvious applications of DSU.
 
-Formally the problem is defined in the following way: 
+Formally the problem is defined in the following way:
 Initially we have an empty graph.
 We have to add vertices and undirected edges, and answer queries of the form $(a, b)$ - "are the vertices $a$ and $b$ in the same connected component of the graph?"
 
@@ -210,15 +212,15 @@ For the solution we simply iterate over all white pixels in the image, for each 
 Thus we will have a DSU with $n m$ nodes corresponding to image pixels.
 The resulting trees in the DSU are the desired connected components.
 
-The problem can also be solved by [DFS](./graph/depth-first-search.html) or [BFS](./graph/breadth-first-search.html), but the method described here has a small advantage: 
-it can process the matrix row by row.
+The problem can also be solved by [DFS](./graph/depth-first-search.html) or [BFS](./graph/breadth-first-search.html), but the method described here has an advantage: 
+it can process the matrix row by row (i.e. to process a row we only need the previous and the current row, and only need a DSU built for the elements of one row) in $O(\min(n, m))$ memory. 
 
 ### Store additional information for each set
 
 DSU allows you to easily store additional information in the sets.
 
 A simple example is the size of the sets:
-how to store the sizes was already described in the Union by size section (the information was stored by the current representative of the set).
+storing the sizes was already described in the Union by size section (the information was stored by the current representative of the set).
 
 In the same way - by storing it at the representative nodes - you can also store any other information about the sets.
 
@@ -228,18 +230,18 @@ One common application of the DSU is the following:
 There is a set of vertices, and each vertex has an outgoing edge to another vertex. 
 With DSU you can find the end point, to which we get after following all edges from a given starting point, in almost constant time.
 
-A good example of this application is the **problem of painting subarrays**: 
+A good example of this application is the **problem of painting subarrays**.
 We have a segment of length $L$, each element initially has the color 0.
-We have to repaint the subarray $[l; r]$ with the color $c$ for each request $(l, r, c)$.
+We have to repaint the subarray $[l; r]$ with the color $c$ for each query $(l, r, c)$.
 At the end we want to find the final color of each cell.
-We assume that we know all requests in advance, i.e. the task is offline.
+We assume that we know all the queries in advance, i.e. the task is offline.
 
 For the solution we can make a DSU, which for each cell stores a link to the next unpainted cell. 
 Thus initially each cell points to itself.
 After painting one requested repaint of a segment, all cells from that segment will point to the cell after the segment.
 
-Now to solve this problem, we consider the requests **in reverse order**: from last to first.
-To execute the query, we take help from our DSU.
+Now to solve this problem, we consider the queries **in the reverse order**: from last to first.
+To execute a query, we take help from our DSU.
 We find the left-most unpainted cell inside of a segment, repaint it, and with the pointer we move to the next empty cell to the right.
 
 Here we can use the DSU with path compression, but we cannot use union by rank / size (because it is important who becomes the leader after the merge).
@@ -269,7 +271,7 @@ Then we can merge two sets into one ranked according to their heuristics, and we
 
 ### Support distances up to representative
 
-Sometimes in specific applications of the DSU you need to maintain the distance of a vertex to it set representative (i.e. the path length in the tree from the current node to the root of the tree).
+Sometimes in specific applications of the DSU you need to maintain the distance between a vertex and the representative of its set (i.e. the path length in the tree from the current node to the root of the tree).
 
 If we don't use path compression, the distance is just the number of recursive calls. 
 But this will be inefficient.
@@ -306,7 +308,7 @@ void union_sets(int a, int b) {
 }
 ```
 
-### Support the parity of the path length / Checking bipartiteness online.
+### Support the parity of the path length / Checking bipartiteness online
 
 In the same way as computing the path length to the leader, it is possible to maintain the parity of the length of the path before him. 
 Why is this application in a separate paragraph?
@@ -316,7 +318,7 @@ initially we are given an empty graph, it can be added edges, and we have to ans
 
 To solve this problem, we make a DSU for storing of the components and store the parity of the path up to the representative for each vertex.
 Thus we can quickly check if adding an edge leads to a violation of the bipartiteness or not:
-namely if the ends of the edge lie in the same connected component and have the same parity length to the leader, then adding this edge will produce a cycle of odd length, and the component will loose the bipartiteness property.
+namely if the ends of the edge lie in the same connected component and have the same parity length to the leader, then adding this edge will produce a cycle of odd length, and the component will lose the bipartiteness property.
 
 The only difficulty that we face is to compute the parity in the `union_find` method. 
 
@@ -388,7 +390,7 @@ Then using this structure the answer to a query will be the `a[find_set(L)]`, th
 
 This approach obviously only works offline, i.e. if we know all queries beforehand.
 
-It is easy to see, that we can apply path compression. 
+It is easy to see that we can apply path compression.
 And we can also use Union by rank, if we store the actual leader in an separate array.
 
 ```cpp
@@ -441,10 +443,10 @@ Adding one set to another is easy to implement in `union_sets` and will take tim
 And the search for the leader in `find_set` will take $O(1)$ with this method of storing.
 
 Let us prove the **time complexity** $O(m + n \log n)$ for the execution of $m$ queries.
-We will fix an arbitrary element $x$ and count how often he was touched in the merge operation `union_sets`. 
-When the element $x$ gets touched the first time, the size of the new set will be at least 2.
-When it gets touched the second time, the resulting set will have size of at least 4, because the smaller set gets added to the bigger one.
-And so on. 
+We will fix an arbitrary element $x$ and count how often it was touched in the merge operation `union_sets`. 
+When the element $x$ gets touched the first time, the size of the new set will be at least $2$.
+When it gets touched the second time, the resulting set will have size of at least $4$, because the smaller set gets added to the bigger one.
+And so on.
 This means, that $x$ can only be moved in at most $\log n$ merge operations.
 Thus the sum over all vertices gives $O(n \log n)$ plus $O(1)$ for each request.
 
@@ -483,14 +485,14 @@ This idea of adding the smaller part to a bigger part can also be used in a lot 
 
 For example consider the following **problem**:
 we are given a tree, each leaf has a number assigned (same number can appear multiple times on different leaves). 
-We want to compute for every node of the tree the number of different numbers in the subtree.
+We want to compute the number of different numbers in the subtree for every node of the tree.
 
 Applying to this task the same idea it is possible to obtain this solution:
-we can implement a [DFS](./graph/depth-first-search.md), which will return a pointer to a set of integers  - the list of numbers in that subtree.
-Then to get the answer for the current node (unless of course it is a leaf), we call DFS for all children of that node, and merge all received sets together.
+we can implement a [DFS](./graph/depth-first-search.md), which will return a pointer to a set of integers - the list of numbers in that subtree.
+Then to get the answer for the current node (unless of course it is a leaf), we call DFS for all children of that node, and merge all the received sets together.
 The amount of the resulting set will be the answer for the current node.
 To efficiently combine multiple sets we just apply the above-described recipe:
-we merge the sets by simply adding the smaller ones to the largest. 
+we merge the sets by simply adding smaller ones to larger.
 In the end we get a $O(n \log^2 n)$ solution, because one number will only added to a set at most $O(\log n)$ times.
 
 ### Storing the DSU by maintaining a clear tree structure / Online bridge finding in $O(\alpha(n))$ on average
@@ -498,7 +500,7 @@ In the end we get a $O(n \log^2 n)$ solution, because one number will only added
 One of the most powerful applications of DSU is that it allows you to store both as **compressed and uncompressed trees**.
 The compressed form can be used for merging of trees and for the verification if two vertices are in the same tree, and the uncompressed form can be used - for example - to search for paths between two given vertices, or other traversals of the tree structure. 
 
-In the implementation this means that in addition to the compressed ancestor array `parent[]` we will need to keep an array of uncompressed ancestors `real_parent[]`. 
+In the implementation this means that in addition to the compressed ancestor array `parent[]` we will need to keep the array of uncompressed ancestors `real_parent[]`. 
 It is trivial that maintaining this additional array will not worsen the complexity:
 changes in it only occur when we merge two trees, and only in one element.
 
@@ -516,9 +518,9 @@ More details (including proof of the time complexity) will be in the article **O
 
 The data structure DSU has been known for a long time.
 
-This way of storing this structure in the form **of a forest of trees** was apparently first described by Galler and Fisher in 1964 (Galler, Fisher, "An Improved Equivalence Algorithm), however a complete analysis of the time complexity was conducted much later.
+This way of storing this structure in the form **of a forest of trees** was apparently first described by Galler and Fisher in 1964 (Galler, Fisher, "An Improved Equivalence Algorithm), however the complete analysis of the time complexity was conducted much later.
 
-The optimizations path compression and Union by rank has been developed by Mcllroy and Morris, and independently of them also by Tritter.
+The optimizations path compression and Union by rank has been developed by McIlroy and Morris, and independently of them also by Tritter.
 
 Hopcroft and Ullman showed in 1973 the time complexity $O(\log^\star n)$ (Hopcroft, Ullman "Set-merging algorithms") - here $\log^\star$ is the **iterated logarithm** (this is a slow-growing function, but still not as slow as the inverse Ackerman function).
 
