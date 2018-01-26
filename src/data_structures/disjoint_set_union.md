@@ -212,8 +212,8 @@ For the solution we simply iterate over all white pixels in the image, for each 
 Thus we will have a DSU with $n m$ nodes corresponding to image pixels.
 The resulting trees in the DSU are the desired connected components.
 
-The problem can also be solved by [DFS](./graph/depth-first-search.html) or [BFS](./graph/breadth-first-search.html), but the method described here has a small advantage: 
-it can process the matrix row by row.
+The problem can also be solved by [DFS](./graph/depth-first-search.html) or [BFS](./graph/breadth-first-search.html), but the method described here has an advantage: 
+it can process the matrix row by row (i.e. to process a row we only need the previous and the current row, and only need a DSU built for the elements of one row) in $O(\min(n, m))$ memory. 
 
 ### Store additional information for each set
 
