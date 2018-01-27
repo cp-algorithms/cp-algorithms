@@ -19,3 +19,28 @@ Now we will substitute $x=x'+\lceil x_1 \rceil$ so that $b' = b + k \cdot \lceil
 ## Complexity analysis
 
 We have to count at most $\dfrac{(k(n-1)+2b)n}{2}$ points. Among them we will count $\dfrac{\lfloor k \rfloor (n-1)+2\lfloor b \rfloor}{2}$ on the very first step. We may consider that $b$ is negligibly small because we can start with making it less than $1$. In that case we cay say that we got rid of about $\dfrac{\lfloor k \rfloor}{k} \geq \dfrac 1 2$ part of points. Thus we will finish in $O(\log n)$ steps.
+
+## Implementation
+
+Here is simple function which calculates number of integer points $(x;y)$ such that $\begin{cases}0 \leq x < n, \\\ 0 < y \leq \lfloor kx+b\rfloor\end{cases}$:
+
+```cpp
+int count_lattices(Fraction k, Fraction b, long long n) {
+    auto fk = k.floor();
+    auto fb = b.floor();
+    auto cnt = 0LL;
+    if (k >= 1 || b >= 1) {
+        cnt += (fk * (n - 1) + 2 * fb) * n / 2;
+        k -= fk;
+        b -= fb;
+    }
+    auto t = k * n + b;
+    auto ft = t.floor();
+    if (ft >= 1) {
+        cnt += count_lattices(1 / k, (t - t.floor()) / k, t.floor());
+    }
+    return cnt;
+}
+```
+
+Here `Fraction` is some class handling rational numbers. On practice it seems that if all denominators and numerators are at most $C$ by absolute value then in recursive calls they will be at most $C^2$ if you keep dividing numerators and denominators by their greatest common divisor. Given this assumption we can say that one may use doubles and require accuracy of $\varepsilon^2$ where $\varepsilon$ is accuracy with which $k$ and $b$ are given. That means that in floor one should consider that number is integer if it differs at most by $\varepsilon^2$ from integer.
