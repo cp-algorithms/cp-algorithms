@@ -424,7 +424,7 @@ Although this algorithm existed already before his discovery.
 
 ### Offline LCA (lowest common ancestor in a tree) in $O(\alpha(n))$ on average
 
-The algorithm for finding the LCA will be discussed in a separate article (currently not yet translated). 
+The algorithm for finding the LCA is discussed in the article [Lowest Common Ancestor - Tarjan's off-line algorithm](./graph/lca_tarjan.html).
 This algorithm compares favorable with other algorithms for finding the LCA due to its simplicity (especially compared to an optimal algorithm like the one from Farach-Colton and Bender).
 
 ### Storing the DSU explicitly in a set list / Applications of this idea when merging various data structures
