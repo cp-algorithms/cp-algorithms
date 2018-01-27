@@ -70,6 +70,7 @@ especially popular in field of competitive programming.*
 - [Circle-Line Intersection](./geometry/circle-line-intersection.html)
 - [Circle-Circle Intersection](./geometry/circle-circle-intersection.html)
 - [Pick's Theorem - area of lattice polygons](./geometry/picks-theorem.html)
+- [Lattice points of non-lattice polygon](./geometry/lattice-points.html)
 - [Area of simple polygon](./geometry/area-of-simple-polygon.html)
 - [Convex hull trick and Li Chao tree](./geometry/convex_hull_trick.html)
 
