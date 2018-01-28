@@ -141,7 +141,7 @@ But if $p \le \max(k, n-k)$, then at least one of $k!$ and $(n-k)!$ are not copr
 Nevertheless we can compute the binomial coefficient.
 
 The idea is the following:
-We compute for each $x!$ the biggest exponent $e$ such that $p^c$ divides $x!$, i.e. $p^c ~|~ x!$.
+We compute for each $x!$ the biggest exponent $c$ such that $p^c$ divides $x!$, i.e. $p^c ~|~ x!$.
 Let $c(x)$ be that number.
 And let $g(x) := \frac{x!}{p^{c(x)}}$.
 Then we can write the binomial coefficient as:
