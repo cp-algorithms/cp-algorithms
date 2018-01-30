@@ -921,7 +921,7 @@ struct Vertex {
     Vertex *l, *r;
     int sum;
 
-    Vertex(int val) : l(nullptr), r(nullptr), sum(0) {}
+    Vertex(int val) : l(nullptr), r(nullptr), sum(val) {}
     Vertex(Vertex *l, Vertex *r) : l(l), r(r), sum(0) {
         if (l) sum += l->sum;
         if (r) sum += r->sum;
