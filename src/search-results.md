@@ -1,1 +1,1 @@
-<!--?template searchres -->
+<!--?template searchres-->
