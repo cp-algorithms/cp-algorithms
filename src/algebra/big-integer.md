@@ -1,8 +1,8 @@
-<!--?title Long (Bignum) Arithmetic -->
+<!--?title Arbitrary-Precision Arithmetic -->
 
-# Long (Bignum) Arithmetic
+# Arbitrary-Precision Arithmetic
 
-Long arithmetic, also known as "bignum" or "arbitrary-precision" arithmetic is a set of data structures and algorithms which allows to process much greater numbers than can be fit in standard data types. Here are several types of long arithmetic.
+Arbitrary-Precision arithmetic, also known as "bignum" or simply "long arithmetic" is a set of data structures and algorithms which allows to process much greater numbers than can be fit in standard data types. Here are several types of arbitrary-precision arithmetic.
 
 ## Classical Integer Long Arithmetic
 
@@ -166,15 +166,15 @@ Chinese remainder theorem states that this representation is sufficient to uniqu
 
 This method allows to save memory compared to the classical approach (though the savings are not as dramatic as in factorization representation). Besides, it allows to perform fast addition, subtraction and multiplication in time proportional to the number of prime numbers used as modulos (see [Chinese remainder theorem](./algebra/chinese-remainder-theorem.html) article for implementation).
 
-The tradeoff is that converting the integer back to normal form is rather laborious and requires implementing classical long arithmetic with multiplication. Besides, this method doesn't support division.
+The tradeoff is that converting the integer back to normal form is rather laborious and requires implementing classical arbitrary-precision arithmetic with multiplication. Besides, this method doesn't support division.
 
-## Long Fractional Arithmetic
+## Fractional Arbitrary-Precision Arithmetic
 
 Fractions occur in programming competitions less frequently than integers, and long arithmetic is much trickier to implement for fractions, so programming competitions feature only a small subset of fractional long arithmetic.
 
-### Long Arithmetic in Irreducible Fractions
+### Arithmetic in Irreducible Fractions
 
-A number is represented as an irreducible fraction $\frac{a}{b}$, where $a$ and $b$ are integers. All operations on fractions can be represented as operations on integer numerators and denominators of these fractions. Usually this requires using classical long arithmetic for storing numerator and denominator, but sometimes a built-in 64-bit integer data type suffices.
+A number is represented as an irreducible fraction $\frac{a}{b}$, where $a$ and $b$ are integers. All operations on fractions can be represented as operations on integer numerators and denominators of these fractions. Usually this requires using classical arbitrary-precision arithmetic for storing numerator and denominator, but sometimes a built-in 64-bit integer data type suffices.
 
 ### Storing Floating Point Position as Separate Type
 
