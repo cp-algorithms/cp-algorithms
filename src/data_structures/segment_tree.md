@@ -941,8 +941,8 @@ int get_sum(Vertex* v, int tl, int tr, int l, int r) {
     if (l == tl && tr == r)
         return v->sum;
     int tm = (tl + tr) / 2;
-    return get_sum(t->l, tl, tm, l, min(r, tm))
-         + get_sum(t->r, tm+1, tr, max(l, tm+1), r);
+    return get_sum(v->l, tl, tm, l, min(r, tm))
+         + get_sum(v->r, tm+1, tr, max(l, tm+1), r);
 }
 
 Vertex* update(Vertex* v, int tl, int tr, int pos, int new_val) {
@@ -950,9 +950,9 @@ Vertex* update(Vertex* v, int tl, int tr, int pos, int new_val) {
         return new Vertex(new_val);
     int tm = (tl + tr) / 2;
     if (pos <= tm)
-        return new Vertex(update(t->l, tl, tm, pos, new_val), v->r);
+        return new Vertex(update(v->l, tl, tm, pos, new_val), v->r);
     else
-        return new Vertex(v->l, update(t->r, tm+1, tr, pos, new_val));
+        return new Vertex(v->l, update(v->r, tm+1, tr, pos, new_val));
 }
 ```
 
