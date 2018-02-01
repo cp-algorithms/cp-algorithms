@@ -1,16 +1,16 @@
-<!--?title Long Arithmetics -->
+<!--?title Arbitrary-Precision Arithmetic -->
 
-# Long Arithmetics
+# Arbitrary-Precision Arithmetic
 
-Long arithmetics is a set of data structures and algorithms which allows to process much greater numbers than can be fit in standard data types. Here are several types of long arithmetics.
+Arbitrary-Precision arithmetic, also known as "bignum" or simply "long arithmetic" is a set of data structures and algorithms which allows to process much greater numbers than can be fit in standard data types. Here are several types of arbitrary-precision arithmetic.
 
-## Classical Integer Long Arithmetics
+## Classical Integer Long Arithmetic
 
 The main idea is that the number is stored as an array of its "digits" in some base. Several most frequently used bases are decimal, powers of decimal ($10^4$ or $10^9$) and binary.
 
 Operations on numbers in this form are performed using "school" algorithms of column addition, subtraction, multiplication and division. It's also possible to use fast multiplication algorithms: fast Fourier transform and Karatsuba algorithm.
 
-Here we describe long arithmetics for only non-negative integers. To extend the algorithms to handle negative integers one has to introduce and maintain additional "negative number" flag or use two's complement integer representation.
+Here we describe long arithmetic for only non-negative integers. To extend the algorithms to handle negative integers one has to introduce and maintain additional "negative number" flag or use two's complement integer representation.
 
 ### Data Structure
 
@@ -150,7 +150,7 @@ while (a.size() > 1 && a.back() == 0)
 	a.pop_back();
 ```
 
-## Long Integer Arithmetics for Factorization Representation
+## Long Integer Arithmetic for Factorization Representation
 
 The idea is to store the integer as its factorization, i.e. the powers of primes which divide it.
 
@@ -158,7 +158,7 @@ This approach is very easy to implement, and allows to do multiplication and div
 
 This method is often used for calculations modulo non-prime number M; in this case a number is stored as powers of divisors of M which divide the number, plus the remainder modulo M.
 
-## Long Integer Arithmetics in prime modulos (Garner Algorithm)
+## Long Integer Arithmetic in prime modulos (Garner Algorithm)
 
 The idea is to choose a set of prime numbers (typically they are small enough to fit into standard integer data type) and to store an integer as a vector of remainders from division of the integer by each of those primes.
 
@@ -166,15 +166,15 @@ Chinese remainder theorem states that this representation is sufficient to uniqu
 
 This method allows to save memory compared to the classical approach (though the savings are not as dramatic as in factorization representation). Besides, it allows to perform fast addition, subtraction and multiplication in time proportional to the number of prime numbers used as modulos (see [Chinese remainder theorem](./algebra/chinese-remainder-theorem.html) article for implementation).
 
-The tradeoff is that converting the integer back to normal form is rather laborious and requires implementing classical long arithmetics with multiplication. Besides, this method doesn't support division.
+The tradeoff is that converting the integer back to normal form is rather laborious and requires implementing classical arbitrary-precision arithmetic with multiplication. Besides, this method doesn't support division.
 
-## Long Fractional Arithmetics
+## Fractional Arbitrary-Precision Arithmetic
 
-Fractions occur in programming competitions less frequently than integers, and long arithmetics is much trickier to implement for fractions, so programming competitions feature only a small subset of fractional long arithmetics.
+Fractions occur in programming competitions less frequently than integers, and long arithmetic is much trickier to implement for fractions, so programming competitions feature only a small subset of fractional long arithmetic.
 
-### Long Arithmetics in Irreducible Fractions
+### Arithmetic in Irreducible Fractions
 
-A number is represented as an irreducible fraction $\frac{a}{b}$, where $a$ and $b$ are integers. All operations on fractions can be represented as operations on integer numerators and denominators of these fractions. Usually this requires using classical long arithmetics for storing numerator and denominator, but sometimes a built-in 64-bit integer data type suffices.
+A number is represented as an irreducible fraction $\frac{a}{b}$, where $a$ and $b$ are integers. All operations on fractions can be represented as operations on integer numerators and denominators of these fractions. Usually this requires using classical arbitrary-precision arithmetic for storing numerator and denominator, but sometimes a built-in 64-bit integer data type suffices.
 
 ### Storing Floating Point Position as Separate Type
 

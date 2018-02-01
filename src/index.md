@@ -23,7 +23,7 @@ especially popular in field of competitive programming.*
 - [Enumerating submasks of a bitmask](./algebra/all-submasks.html)
 - [Gray code](./algebra/gray-code.html)
 - [Sieve of Eratosthenes Having Linear Time Complexity](./algebra/prime-sieve-linear.html)
-- [Long Arithmetics](./algebra/big-integer.html)
+- [Arbitrary-Precision Arithmetic](./algebra/big-integer.html)
 - [Fibonacci Numbers](./algebra/fibonacci-numbers.html)
 - [Finding Power of Factorial Divisor](./algebra/factorial-divisors.html)
 
