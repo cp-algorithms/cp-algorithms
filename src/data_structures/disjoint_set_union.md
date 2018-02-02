@@ -425,7 +425,7 @@ Although this algorithm existed already before his discovery.
 ### Offline LCA (lowest common ancestor in a tree) in $O(\alpha(n))$ on average
 
 The algorithm for finding the LCA is discussed in the article [Lowest Common Ancestor - Tarjan's off-line algorithm](./graph/lca_tarjan.html).
-This algorithm compares favorable with other algorithms for finding the LCA due to its simplicity (especially compared to an optimal algorithm like the one from [Farach-Colton and Bender](./graph/lca_farachcoltonbender.md)).
+This algorithm compares favorable with other algorithms for finding the LCA due to its simplicity (especially compared to an optimal algorithm like the one from [Farach-Colton and Bender](./graph/lca_farachcoltonbender.html)).
 
 ### Storing the DSU explicitly in a set list / Applications of this idea when merging various data structures
 
@@ -488,7 +488,7 @@ we are given a tree, each leaf has a number assigned (same number can appear mul
 We want to compute the number of different numbers in the subtree for every node of the tree.
 
 Applying to this task the same idea it is possible to obtain this solution:
-we can implement a [DFS](./graph/depth-first-search.md), which will return a pointer to a set of integers - the list of numbers in that subtree.
+we can implement a [DFS](./graph/depth-first-search.html), which will return a pointer to a set of integers - the list of numbers in that subtree.
 Then to get the answer for the current node (unless of course it is a leaf), we call DFS for all children of that node, and merge all the received sets together.
 The amount of the resulting set will be the answer for the current node.
 To efficiently combine multiple sets we just apply the above-described recipe:

@@ -89,7 +89,7 @@ especially popular in field of competitive programming.*
 - [Bellman-Ford - finding shortests paths with negative weights](./graph/bellman_ford.html)
 - [Finding Connected Components](./graph/search-for-connected-components.html)
 - [Lowest Common Ancestor](./graph/lca.html)
-- [Lowest Common Ancestor - Farach-Colton and Bender algorithm](./graph/lca_farachcoltonbender.md)
+- [Lowest Common Ancestor - Farach-Colton and Bender algorithm](./graph/lca_farachcoltonbender.html)
 - [Lowest Common Ancestor - Tarjan's off-line algorithm](./graph/lca_tarjan.html)
 - [Minimum Spanning Tree - Kruskal](./graph/mst_kruskal.html)
 - [Minimum Spanning Tree - Kruskal with Disjoint Set Union](./graph/mst_kruskal_with_dsu.html)
