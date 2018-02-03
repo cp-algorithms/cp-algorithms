@@ -58,6 +58,7 @@ especially popular in field of competitive programming.*
 - [The Inclusion-Exclusion Principle](./combinatorics/inclusion-exclusion.html)
 - [Binomial Coefficients](./combinatorics/binomial-coefficients.html)
 - [Catalan Numbers](./combinatorics/catalan-numbers.html)
+- [Placing Bishops on a Chessboard](./combinatorics/bishops-on-chessboard.html)
 
 ### Numerical Methods
 - [Ternary Search](./num_methods/ternary_search.html)
