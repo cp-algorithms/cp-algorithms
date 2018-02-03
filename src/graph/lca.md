@@ -1,141 +1,123 @@
 
 <!--?title Lowest Common Ancestor - O(sqrt(N)) and O(log N) with O(N) preprocessing -->
 
-# Lowest Common Ancestor - $O(\sqrt{N})$ and $O(log\ N)$ with $O(N)$ preprocessing
+# Lowest Common Ancestor - $O(\sqrt{N})$ and $O(\log N)$ with $O(N)$ preprocessing
 
 Given a tree $G$. Given queries of the form $(v_1, v_2)$, for each query you need to find the lowest common ancestor (or least common ancestor), i.e. a vertex $v$ that lies on the path from the root to $v_1$ and the path from the root to $v_2$, and the vertex should be the lowest. In other words, the desired vertex $v$ is the most bottom ancestor of $v_1$ and $v_2$. It is obvious that their lowest common ancestor lies on a shortest path from $v_1$ and $v_2$. Also, if $v_1$ is the ancestor of $v_2$, $v_1$ is their lowest common ancestor.
 
 ### The Idea of the Algorithm
 
-Before answering the queries, we need to do **preprocessing**. Run DFS from the root using preorder traversal and it will build an array $list$ which stores the visit order of the vertices (current vertex is added to the list at the entrance to the vertex and after return from its child (children)). This may also be called an euler tour of the tree. It is clear that the size of this list will be $O(N)$. We also need to build an array $first[1...N]$ which stores, for each vertex $i$, its first occurrence in $list$. That is, the first position in $list$ such that $list[first[i]] = i$. Also by using the DFS we can find the height of each node (distance from root to it) and store it at $height[1...N]$.
+Before answering the queries, we need to **preprocess** the tree.
+We make a [DFS](./graph/depth-first-search.html) traversal starting at the root and we build a list $\text{euler}$ which stores the order of the vertices that we visit (a vertex is added to the list when we first visit it, and after the return of the DFS traversals to its children).
+This is also called an Euler tour of the tree.
+It is clear that the size of this list will be $O(N)$.
+We also need to build an array $\text{first}[0..N-1]$ which stores for each vertex $i$ its first occurrence in $\text{euler}$.
+That is, the first position in $\text{euler}$ such that $\text{euler}[\text{first}[i]] = i$.
+Also by using the DFS we can find the height of each node (distance from root to it) and store it in the array $\text{height}[0..N-1]$.
 
-So how to answer the queries? Suppose the query is a pair of $v_1$ and $v_2$. Consider the elements in $list$ between indices $first[v_1]$ and $first[v_2]$. It is easy to notice that in this range there are $LCA(v_1, v_2)$ and many other peaks. However the $LCA(v_1, v_2)$ can be uniquely determined, that is, the vertex with the lowest height.
+So how can we answer queries using the Euler tour and the additional two arrays?
+Suppose the query is a pair of $v_1$ and $v_2$.
+Consider the vertices that we visit in the Euler tour between the first visit of $v_1$ and the first visit of $v_2$.
+It is easy to see, that the $\text{LCA}(v_1, v_2)$ is the vertex with the lowest height on this path.
+We already noticed, that the LCA has to be part of the shortest path between $v_1$ and $v_2$.
+Clearly it also has to be the vertex with the smallest height.
+And in the Euler tour we essentially use the shortest path, except that we additionally visit all subtrees that we find on the path.
+But all vertices in these subtrees are lower in the tree than the LCA and therefore have a larger height.
+So the $\text{LCA}(v_1, v_2)$ can be uniquely determined by finding the vertex with the smallest height in the Euler tour between $\text{first}(v_1)$ and $\text{first}(v_2)$.
 
-Let's illustrate this idea. Consider the following graph:
+Let's illustrate this idea.
+Consider the following graph and the Euler tour with the corresponding heights:
+<center>![LCA_Euler_Tour](&imgroot&/LCA_Euler.png)</center>
+$$\begin{array}{|l|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\text{Vertices:}   & 1 & 2 & 5 & 2 & 6 & 2 & 1 & 3 & 1 & 4 & 7 & 4 & 1 \\\\ \hline
+\text{Heights:} & 1 & 2 & 3 & 2 & 3 & 2 & 1 & 2 & 1 & 2 & 3 & 2 & 1 \\\\ \hline
+\end{array}$$
 
-<div style="text-align:center" markdown="1">
+The tour starting at vertex $6$ and ending at $4$ we visit the vertices $[6, 2, 1, 3, 1, 4]$.
+Among those vertices the vertex $1$ has the lowest height, therefore $\text{LCA(6, 4) = 1}$.
 
-![Example graph](&imgroot&/graph-lca.png "Example graph")
+To recap:
+to answer a query we just need **to find the vertex with smallest height** in the array $\text{euler}$ in the range from $\text{first}[v_1]$ to $\text{first}[v_2]$.
+Thus, **the LCA problem is reduced to the RMQ problem** (finding the minimum in an range problem).
 
-</div>
+Using [Sqrt-Decomposition](./data_structures/sqrt_decomposition.html), it is possible to obtain a solution answering each query in $O(\sqrt{N})$ with preprocessing in $O(N)$ time.
 
-In this example:
-
-$$\begin{eqnarray}
-list    &=& \\{1,2,1,3,4,3,5,3,6,7,6,3,1\\} \\\\\\
-height  &=& \\{1,2,1,2,3,2,3,2,3,4,3,2,1\\} \\\\\\
-\end{eqnarray}$$
-
-Thus, to answer the query, we just need **to find the vertex with smallest height** in the array $list$ in the range from $first[v_1]$ to $first[v_2]$. Thus, **the objective of finding LCA is reduced to the RMQ problem** (minimum in an interval problem).
-
-If you use the sqrt-decomposition, it is possible to obtain a solution, answering each query in $O(\sqrt{N})$ with preprocessing in $O(N)$ time.
-
-If you use segment tree, you can answer each query in $O(log\ N)$ with preprocessing in $O(N)$ time.
+Using a [Segment Tree](./data_structures/segment_tree.html) you can answer each query in $O(\log N)$ with preprocessing in $O(N)$ time.
 
 ### Implementation
 
-The implementation of described LCA algorithm is as follows, using a segment tree:
+In the following implementation of the LCA algorithm a Segment Tree is used.
 
 ```cpp
-typedef vector < vector<int> > graph;
-typedef vector<int>::const_iterator const_graph_iter;
+int n;
+vector<vector<int>> adj;
 
-vector<int> lca_height, lca_dfs_list, lca_first, lca_tree;
-vector<bool> lca_dfs_used;
+vector<int> height, euler, first, segtree;
+vector<bool> visited;
 
-// a preprocessing dfs to find the euler tour list and the height of each vertex
-void lca_dfs(const graph & g, int v, int h = 1)
+void dfs(int v, int h = 1)
 {
-    lca_dfs_used[v] = true;
-    lca_height[v] = h;
-    lca_dfs_list.push_back(v);
-    for (const_graph_iter i = g[v].begin(); i != g[v].end(); ++i) {
-        int& next = **i;
-        if (!lca_dfs_used[next]) {
-            lca_dfs(g, next, h+1);
-            lca_dfs_list.push_back(v);
+    visited[v] = true;
+    height[v] = h;
+    first[v] = euler.size();
+    euler.push_back(v);
+    for (int u : adj[v]) {
+        if (!visited[u]) {
+            dfs(u, h + 1);
+            euler.push_back(v);
         }
     }
 }
 
-// build the segment tree
-void lca_build_tree(int i, int l, int r)
+void build(int i, int l, int r)
 {
-    if (l == r)
-        lca_tree[i] = lca_dfs_list[l];
-    else
-    {
+    if (l == r) {
+        segtree[i] = euler[l];
+    } else {
         int m = (l + r) >> 1;
-        lca_build_tree(2*i, l, m);
-        lca_build_tree(2*i+1, m+1, r);
-        if (lca_height[lca_tree[2*i]] < lca_height[lca_tree[2*i+1]])
-            lca_tree[i] = lca_tree[2*i];
+        build(2 * i, l, m);
+        build(2 * i + 1, m + 1, r);
+        if (height[segtree[2 * i]] < height[segtree[2 * i + 1]])
+            segtree[i] = segtree[2 * i];
         else
-            lca_tree[i] = lca_tree[2*i+1];
+            segtree[i] = segtree[2 * i + 1];
     }
 }
 
-// the preprocessing function
-void lca_prepare(const graph & g, int root)
-{
-    int n = (int) g.size();
-    lca_height.resize(n);
-    lca_dfs_list.reserve(n**2);
-    lca_dfs_used.assign(n, 0);
-
-    lca_dfs(g, root);
-
-    int m = (int) lca_dfs_list.size();
-    lca_tree.assign(m * 4 + 1, -1);
-    lca_build_tree(1, 0, m-1);
-
-    lca_first.assign(n, -1);
-    for (int i = 0; i < m; ++i)
-    {
-        int v = lca_dfs_list[i];
-        if (lca_first[v] == -1)
-            lca_first[v] = i;
-    }
-}
-
-// queries the segment tree for the element with minimum height between l and r
-int lca_tree_min(int i, int sl, int sr, int l, int r)
+int minimum(int i, int sl, int sr, int l, int r)
 {
     if (sl == l && sr == r)
-        return lca_tree[i];
+        return segtree[i];
     int sm = (sl + sr) >> 1;
     if (r <= sm)
-        return lca_tree_min(2*i, sl, sm, l, r);
+        return minimum(2 * i, sl, sm, l, r);
     if (l > sm)
-        return lca_tree_min(2*i+1, sm+1, sr, l, r);
-    int ans1 = lca_tree_min(2*i, sl, sm, l, sm);
-    int ans2 = lca_tree_min(2*i+1, sm+1, sr, sm+1, r);
-    return lca_height[ans1] < lca_height[ans2] ? ans1 : ans2;
+        return minimum(2 * i + 1, sm + 1, sr, l, r);
+    int ans1 = minimum(2 * i, sl, sm, l, sm);
+    int ans2 = minimum(2 * i + 1, sm + 1, sr, sm + 1, r);
+    return height[ans1] < height[ans2] ? ans1 : ans2;
 }
 
-// function to be called for lca between a and b
-int lca(int a, int b)
+int lca(int u, int v)
 {
-    int left = lca_first[a], right = lca_first[b];
-    if (left > right) swap(left, right);
-    return lca_tree_min(1, 0, (int)lca_dfs_list.size()-1, left, right);
+    int left = first[u], right = first[v];
+    if (left > right)
+        swap(left, right);
+    return minimum(1, 0, euler.size() - 1, left, right);
 }
 
-int main()
+void preprocess(int root)
 {
-    graph g; // graph is a adjacency list defined at the beginning
-    int root; // the root of the graph
+    height.resize(n);
+    first.resize(n);
+    euler.reserve(n * 2);
+    visited.assign(n, false);
+    dfs(root);
 
-    // read the graph to g
-    // define root
-
-    lca_prepare(g, root);
-
-    while (true) {
-        int v1, v2; // the query
-        // read query vertices v1 and v2
-        int v = lca (v1, v2); // answer of the query
-    }
+    int m = euler.size();
+    segtree.resize(m * 4);
+    build(1, 0, m - 1);
 }
 ```
 
