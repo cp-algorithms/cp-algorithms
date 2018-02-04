@@ -31,9 +31,9 @@ The number of squares in diagonal `i` can be calculated as follows:
 ```cpp
 int squares (int i) {
     if (i & 1)
-          return i / 4 * 2 + 1;
+        return i / 4 * 2 + 1;
     else
-          return (i - 1) / 4 * 2 + 2;
+        return (i - 1) / 4 * 2 + 2;
 }
 ```
 
