@@ -90,6 +90,7 @@ especially popular in field of competitive programming.*
 - [Bellman-Ford - finding shortests paths with negative weights](./graph/bellman_ford.html)
 - [Finding Connected Components](./graph/search-for-connected-components.html)
 - [Lowest Common Ancestor](./graph/lca.html)
+- [Lowest Common Ancestor - Binary Lifting](./graph/lca_binary_lifting.html)
 - [Lowest Common Ancestor - Farach-Colton and Bender algorithm](./graph/lca_farachcoltonbender.html)
 - [Solve RMQ by finding LCA](./graph/rmq_linear.html)
 - [Lowest Common Ancestor - Tarjan's off-line algorithm](./graph/lca_tarjan.html)
