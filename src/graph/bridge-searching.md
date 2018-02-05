@@ -20,7 +20,7 @@ Now we have to learn to check this fact for each vertex efficiently. We'll use "
 
 So, let $tin[v]$ denote entry time for node $v$. We introduce an array $fup$ which will let us check the fact for each vertex $v$. $fup[v]$ is the minimum of $tin[v]$, the entry times $tin[p]$ for each node $p$ that is connected to node $v$ via a back-edge $(v, p)$ and the values of $fup[to]$ for each vertex $to$ which is a direct descendant of $v$ in the DFS tree:
 
-$$fup[v] = \min \Biggl\\{ {\begin{array}l tin[v] \\\\ tin[p] \text{ for all }p\text{ for which }(v, p)\text{ is a back edge} \\\ fup[to] \text{ for all }to\text{ for which }(v, to)\text{ is a tree edge} \end{array}}$$
+$$fup[v] = \min \begin{cases} tin[v] \\\\ tin[p] \text{ for all }p\text{ for which }(v, p)\text{ is a back edge} \\\ fup[to] \text{ for all }to\text{ for which }(v, to)\text{ is a tree edge} \end{cases}$$
 
 Now, there is a back edge from vertex $v$ or one of its descendants to one of its ancestors if and only if vertex $v$ has a child $to$ for which $fup[to] \leq tin[v]$. If $fup[to] = tin[v]$, the back edge comes directly to $v$, otherwise it comes to one of the ancestors of $v$.
 
@@ -39,43 +39,44 @@ To implement this, we need a depth first search function which accepts the paren
 C++ implementation <span class="toggle-code">Show/Hide</span>
 
 ```cpp
-const int MAXN = ...;
-vector<int> g[MAXN];
-bool used[MAXN];
-int timer, tin[MAXN], fup[MAXN];
+int n; // number of nodes
+vector<vector<int>> adj; // adjacency list of graph
+
+vector<bool> visited;
+vector<int> tin, fup;
+int timer;
  
-void dfs (int v, int p = -1) {
-    used[v] = true;
+void dfs(int v, int p = -1) {
+    visited[v] = true;
     tin[v] = fup[v] = timer++;
-    for (size_t i = 0; i < g[v].size(); ++i) {
-        int to = g[v][i];
-        if (to == p)  continue;
-        if (used[to])
-            fup[v] = min (fup[v], tin[to]);
-        else {
-            dfs (to, v);
-            fup[v] = min (fup[v], fup[to]);
+    for (int to : adj[v]) {
+        if (to == p) continue;
+        if (visited[to]) {
+            fup[v] = min(fup[v], tin[to]);
+        } else {
+            dfs(to, v);
+            fup[v] = min(fup[v], fup[to]);
             if (fup[to] > tin[v])
-                IS_BRIDGE(v,to);
+                IS_BRIDGE(v, to);
         }
     }
 }
  
 void find_bridges() {
     timer = 0;
-    for (int i = 0; i < n; ++i)
-        used[i] = false;
-    for (int i = 0; i < n; ++i)
-        if (!used[i])
-            dfs (i);
+    visited.assign(n, false);
+    tin.assign(n, -1);
+    fup.assign(n, -1);
+    for (int i = 0; i < n; ++i) {
+        if (!visited[i])
+            dfs(i);
+    }
 }
 ```
 
 Main function is `find_bridges`; it performs necessary initialization and starts depth first search in each connected component of the graph.
 
 Function `IS_BRIDGE(a, b)` is some function that will process the fact that edge $(a, b)$ is a bridge, for example, print it.
-
-Constant `MAXN` at beginning of code should be initialized to the maximum possible number of vertices in the input graph.
 
 Note that this implementation malfunctions if the graph has multiple edges, since it ignores them. Of course, multiple edges will never be a part of the answer, so `IS_BRIDGE` can check additionally that the reported bridge does is not a multiple edge. Alternatively it's possible to pass to `dfs` the index of the edge used to enter the vertex instead of the parent vertex (and store the indices of all vertices).
 
