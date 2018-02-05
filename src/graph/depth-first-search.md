@@ -4,71 +4,90 @@
 
 Depth First Search is one of the main graph algorithms.
 
-Depth First Search finds the lexicographically first path in the graph from a source vertex $u$ to each vertex.
+Depth First Search finds the lexicographical first path in the graph from a source vertex $u$ to each vertex.
+Depth First Search will also find the shortest paths on a tree, but on general graphs this is not the case.
 
 The algorithm works in $O(m + n)$ time where $n$ is the number of vertices and $m$ is the number of edges.
+
+## Description of the algorithm
+
+The idea behind DFS is to go as deep into the graph as possible, and backtrack once you are at a vertex without any unvisited adjacent vertices.
+
+It is very easy to describe / implement the algorithm recursively:
+We start the search at one vertex.
+After visiting a vertex, we further perform a DFS for each adjacent vertex that we haven't visited before.
+This way we visit all vertices that are reachable from the starting vertex.
+
+For more details check out the implementation.
 
 ## Applications of Depth First Search
 
 * Find any path in the graph from source vertex $u$ to all vertices.
 
-* Find lexicographically first path in the graph from source $u$ to all vertices.
+* Find lexicographical first path in the graph from source $u$ to all vertices.
 
-* Check if a vertex in a tree is an ancestor of some other vertex.
+* Check if a vertex in a tree is an ancestor of some other vertex:
 
-  At the beginning and end of each search call, remember the entry and exit "time" of each vertex. Now, you can find the answer for any pair of vertices $(i, j)$ in $O(1)$: vertex i is an ancestor of vertex j if and only if $entry[i] < entry[j]$ and $exit[i] > exit[j]$.
+  At the beginning and end of each search call we remember the entry and exit "time" of each vertex.
+  Now you can find the answer for any pair of vertices $(i, j)$ in $O(1)$:
+  vertex $i$ is an ancestor of vertex $j$ if and only if $\text{entry}[i] < \text{entry}[j]$ and $\text{exit}[i] > \text{exit}[j]$.
 
 * Find the lowest common ancestor (LCA) of two vertices.
 
-* Topological sorting.
+* Topological sorting:
 
-  Run a series of depth first searches so as to visit each vertex exactly once in $O(n + m)$ time. The required topological ordering will be the vertices sorted in descending order of exit time.
+  Run a series of depth first searches so as to visit each vertex exactly once in $O(n + m)$ time.
+  The required topological ordering will be the vertices sorted in descending order of exit time.
 
 * Check whether a given graph is acyclic and find cycles in a graph.
 
-* Find strongly connected components in a directed graph.
+* Find strongly connected components in a directed graph:
 
- First do a topological sorting of the graph. Then transpose the graph and run another series of depth first searches in the order defined by the topological sort. For each BFS call the component created by it is a strongly connected component.
+  First do a topological sorting of the graph.
+  Then transpose the graph and run another series of depth first searches in the order defined by the topological sort. For each DFS call the component created by it is a strongly connected component.
 
-* Find bridges in an undirected graph.
+* Find bridges in an undirected graph:
 
   First convert the given graph into a directed graph by running a series of depth first searches and making each edge directed as we go through it, in the direction we went. Second, find the strongly connected components in this directed graph. Bridges are the edges whose ends belong to different strongly connected components.
 
 ## Implementation
 
 ```cpp
-vector<vector<int>> g; // graph represented as an adjacency list
+vector<vector<int>> adj; // graph represented as an adjacency list
 int n; // number of vertices
 
-vector<int> color; // vertex color (0, 1, or 2)
+vector<bool> visited;
 
-vector<int> time_in, time_out; // entry and exit "times" for each vertex
-int dfs_timer = 0; // "timer" to determine the current time
+void dfs(int v) {
+	visited[v] = true;
+	for (int u : adj[v])
+		if (!visited[u])
+			dfs(u);
+}
+```
+This is the most simple implementation of Depth First Search.
+As described int the applications it might be useful to also compute the entry and exit times and vertex color.
+We will color all vertices with the color 0, if we haven't visited them, with the color 1 if we visited them, and with the color 2, if we already exited the vertex.
+
+Here is a generic implementation that additionally computes those:
+
+```cpp
+vector<vector<int>> adj; // graph represented as an adjacency list
+int n; // number of vertices
+
+vector<int> color;
+
+vector<int> time_in, time_out;
+int dfs_timer = 0;
 
 void dfs(int v) {
 	time_in[v] = dfs_timer++;
 	color[v] = 1;
-	for (vector <int>::iterator i = g[v].begin(); i != g[v].end(); ++i)
-		if (color[*i] == 0)
-			dfs(*i);
+	for (int u : adj[v])
+		if (color[u] == 0)
+			dfs(u);
 	color[v] = 2;
 	time_out[v] = dfs_timer++;
-}
-```
-
-This is the most generic implementation of Depth First Search. In many cases entry and exit times and vertex colors are not important, so they can be discarded. In this case it will be necessary to store a boolean array $used[]$ to keep track of visited vertices. Here is the simplest implementation of DFS:
-
-```cpp
-vector<vector<int>> g; // graph represented as an adjacency list
-int n; // number of vertices
-
-vector<bool> used;
-
-void dfs(int v) {
-	used[v] = true;
-	for (vector<int>::iterator i = g[v].begin(); i != g[v].end(); ++i)
-		if (!used[*i])
-			dfs(*i);
 }
 ```
 
