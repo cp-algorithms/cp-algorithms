@@ -29,32 +29,29 @@ C++ implementation <span class="toggle-code">Show/Hide</span>
 
 ```cpp
 int n; // number of vertices
-vector<int> g[MAXN]; // count
-bool used[MAXN];
+vector<vector<int>> adj; // adjacency list of graph
+vector<bool> visited;
 vector<int> ans;
 
-void dfs (int v) {
-    used[v] = true;
-    for (size_t i=0; i<g[v].size(); ++i) {
-        int to = g[v][i];
-        if (!used[to])
-            dfs (to);
+void dfs(int v) {
+    visited[v] = true;
+    for (int u : adj[v]) {
+        if (!visited[u])
+            dfs(u);
     }
     ans.push_back(v);
 }
  
 void topological_sort() {
-    for (int i=0; i<n; ++i)
-        used[i] = false;
+    visited.assign(n, false);
     ans.clear();
-    for (int i=0; i<n; ++i)
-        if (!used[i])
+    for (int i = 0; i < n; ++i) {
+        if (!visited[i])
             dfs(i);
+    }
     reverse(ans.begin(), ans.end());
 }
 ```
-
-Here the constant `MAXN` must be set to the maximum possible number of vertices in the graph.
 
 The main function of the solution is `topological_sort`, which initializes DFS variables, launches DFS and receives the answer in the vector `ans`.
 
