@@ -1,4 +1,5 @@
-# Lowest common ancestor. Farach-Colton and Bender algorithm.
+<!--?title Lowest Common Ancestor - Farach-Colton and Bender algorithm -->
+# Lowest Common Ancestor - Farach-Colton and Bender Algorithm
 
 Let $G$ be a tree.
 For every query of the form $(u, v)$ we want to find the lowest common ancestor of the nodes $u$ and $v$, i.e. we want to find a node $w$ that lies on the path from $u$ to the root node, that lies on the path from $v$ to the root node, and if there are multiple nodes we pick the one that is farthest away from the root node.
@@ -28,7 +29,7 @@ In that article the minimum of a range was either found by sqrt-decomposition in
 In this article we look at how we can solve the given range minimum queries in $O(1)$ time, while still only taking $O(N)$ time for preprocessing.
 
 Note that the reduced RMQ problem is very specific:
-any two adjacent elements in the array differ exactly by one (since the elements of the array are nothing more than the heights of the nodes visited in order of traversal, and we either go to an descendant, then the next element will be one bigger, or go back to the ancestor, then the next element is one lower).
+any two adjacent elements in the array differ exactly by one (since the elements of the array are nothing more than the heights of the nodes visited in order of traversal, and we either go to a descendant, in which case the next element is one bigger, or go back to the ancestor, in which case the next element is one lower).
 The Farach-Colton and Bender algorithm describes a solution for exactly this specialized RMQ problem.
 
 Let's denote with $A$ the array on which we want to perform the range minimum queries.
@@ -42,7 +43,7 @@ You can build the table easily in $O(N \log N)$ by noting that $T[i][j] = \min(T
 How can we answer a query RMQ in $O(1)$ using this data structure?
 Let the received query be $[l,r]$, then the answer is $\min(T[l][\text{sz}], T[r-2^{\text{sz}}+1][\text{sz}])$, where $\text{sz}$ is the biggest exponent such that $2^{\text{sz}}$ is not bigger than the range length $r-l+1$. 
 Indeed we can take the range $[l, r]$ and cover it two segments of length $2^{\text{sz}}$ - one starting in $l$ and the other ending in $r$.
-These segments overlap, but this doesn't interfere our computation.
+These segments overlap, but this doesn't interfere with our computation.
 To really achieve the time complexity of $O(1)$ per query, we need to know the values of $\text{sz}$ for all possible lengths from $1$ to $N$.
 But this can be easily precomputed.
 
