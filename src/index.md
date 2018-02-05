@@ -83,6 +83,7 @@ especially popular in field of competitive programming.*
 - [Kirchhoff Theorem](./graph/kirchhoff-theorem.html)
 - [Topological Sorting](./graph/topological-sort.html)
 - [Finding Bridges in O(N+M)](./graph/bridge-searching.html)
+- [Finding Bridges Online](./graph/bridge-searching-online.html)
 - [Finding Articulation Points in O(N+M)](./graph/cutpoints.html)
 - [Checking a graph for acyclicity and finding a cycle in O(M)](./graph/finding-cycle.html)
 - [Finding a Negative Cycle in the Graph](./graph/finding-negative-cycle-in-graph.html)
