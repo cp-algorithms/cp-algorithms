@@ -1,5 +1,6 @@
 <!--?title Main Page-->
-#E-Maxx Algorithms in English
+
+<h1 data-toc="off">E-Maxx Algorithms in English</h1>
 
 *The goal of this project is to translate at least some pages of the wonderful resource
 [http://e-maxx.ru/algo](http://e-maxx.ru/algo) which provides descriptions of many special algorithms
