@@ -4,7 +4,7 @@
 
 Consider a directed or undirected graph without loops and multiple edges. We have to check whether it is acyclic, and if it is not, then find any cycle.
 
-We can solve this problem by using [depth first search](./graph/depth-first-search.html) in $O(M)$ where $M$ is number of edges.
+We can solve this problem by using [Depth First Search](./graph/depth-first-search.html) in $O(M)$ where $M$ is number of edges.
 
 ## Algorithm
 
@@ -15,55 +15,54 @@ The cycle itself can be reconstructed using parent array.
 
 Here is an implementation for directed graph.
 
-C++ implementation <span class="toggle-code">Show/Hide</span>
-
 ```cpp
 int n;
-vector <vector <int>> g;
-vector <char> cl;
-vector <int> p;
-int cycle_st, cycle_end;
+vector<vector<int>> adj;
+vector<char> color;
+vector<int> parent;
+int cycle_start, cycle_end;
 
-bool dfs (int v) {
-    cl [v] = 1;
-    for (size_t i = 0; i <g [v] .size (); ++ i) {
-        int to = g [v] [i];
-        if (cl [to] == 0) {
-            p [to] = v;
-            if (dfs (to)) return true;
-        }
-        else if (cl [to] == 1) {
+bool dfs(int v) {
+    color[v] = 1;
+    for (int u : adj[v]) {
+        if (color[u] == 0) {
+            parent[u] = v;
+            if (dfs(u))
+                return true;
+        } else if (color[u] == 1) {
             cycle_end = v;
-            cycle_st = to;
+            cycle_start = u;
             return true;
         }
     }
-    cl [v] = 2;
+    color[v] = 2;
     return false;
 }
 
-int main () {
-    ... reading the graph ...
+void find_cycle() {
+    color.assign(n, 0);
+    parent.assign(n, -1);
+    cycle_start = -1;
 
-    p.assign (n, -1);
-    cl.assign (n, 0);
-    cycle_st = -1;
-    for (int i = 0; i <n; ++ i)
-        if (dfs (i))
+    for (int v = 0; v < n; v++) {
+        if (dfs(v))
             break;
+    }
 
-    if (cycle_st == -1)
-        puts ("Acyclic");
-    else {
-        puts ("Cyclic");
-        vector <int> cycle;
-        cycle.push_back (cycle_st);
-        for (int v = cycle_end; v! = cycle_st; v = p [v])
-            cycle.push_back (v);
-        cycle.push_back (cycle_st);
-        reverse (cycle.begin (), cycle.end ());
-        for (size_t i = 0; i <cycle.size (); ++ i)
-            printf ("% d", cycle [i] +1);
+    if (cycle_start == -1) {
+        cout << "Acyclic" << endl;
+    } else {
+        vector<int> cycle;
+        cycle.push_back(cycle_start);
+        for (int v = cycle_end; v != cycle_start; v = parent[v])
+            cycle.push_back(v);
+        cycle.push_back(cycle_start);
+        reverse(cycle.begin(), cycle.end());
+
+        cout << "Cycle found: ";
+        for (int v : cycle)
+            cout << v << " ";
+        cout << endl;
     }
 }
 ```
