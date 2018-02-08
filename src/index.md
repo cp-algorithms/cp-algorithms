@@ -90,7 +90,7 @@ especially popular in field of competitive programming.*
 - [Floyd-Warshall - finding all shortest paths](./graph/all-pair-shortest-path-floyd-warshall.html)
 - [Number of paths of fixed length / Shortest paths of fixed length](./graph/fixed_length_paths.html)
 - [Dijkstra - finding shortest paths from given vertex](./graph/dijkstra.html)
-- [Bellman-Ford - finding shortests paths with negative weights](./graph/bellman_ford.html)
+- [Bellman-Ford - finding shortest paths with negative weights](./graph/bellman_ford.html)
 - [Finding Connected Components](./graph/search-for-connected-components.html)
 - [Lowest Common Ancestor](./graph/lca.html)
 - [Lowest Common Ancestor - Binary Lifting](./graph/lca_binary_lifting.html)
