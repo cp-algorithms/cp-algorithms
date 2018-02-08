@@ -28,14 +28,14 @@ $$(a \lor \lnot b) \land (\lnot a \lor b) \land (\lnot a \lor \lnot b) \land (a 
 
 The oriented graph will contain the following vertices and edges:
 
-$$\begin{array}{ccc}
+$$\begin{array}{cccc}
 \lnot a \Rightarrow \lnot b & a \Rightarrow b & a \Rightarrow \lnot b & \lnot a \Rightarrow \lnot c\\\\
 b \Rightarrow a & \lnot b \Rightarrow \lnot a & b \Rightarrow \lnot a & c \Rightarrow a\\\\
 \end{array}$$
 
 You can see the implication graph in the following image:
 
-!["Implication Graph of 2-SAT example"](&imgroot&/2SAT.png)
+<center>!["Implication Graph of 2-SAT example"](&imgroot&/2SAT.png)</center>
 
 It is worth paying attention to the property of the implication graph:
 if there is an edge $a \Rightarrow b$, then there also is an edge $\lnot b \Rightarrow \lnot a$. 
@@ -55,7 +55,7 @@ The following image shows all strongly connected components for the example.
 As we can check easily, neither of the four components contain a vertex $x$ and its negation $\lnot x$, therefore the example has a solution.
 We will learn in the next paragraphs how to compute a valid assignment, but just for demonstration purposes the solution $a = \text{false}$, $b = \text{false}$, $c = \text{false}$ is given.
 
-!["Strongly Connected Components of the 2-SAT example"](&imgroot&/2SAT_SCC.png)
+<center>!["Strongly Connected Components of the 2-SAT example"](&imgroot&/2SAT_SCC.png)</center>
 
 Now we construct the algorithm for finding the solution of the 2-SAT problem on the assumption that the solution exists.
 
@@ -64,7 +64,7 @@ In that case the choice of either $\text{true}$ or $\text{false}$ for $x$ will l
 Let's learn how to choose a value, such that we don't generate a contradiction.
 
 Let us sort the strongly connected components in topological order (i.e. $\text{comp}[v] \le \text{comp}[u]$ if there is a path from $v$ to $u$) and let $\text{comp}[v]$ denote the index of strongly connected component to which the vertex $v$ belongs.
-Then, if $\text{comp}[x] \lt \text{comp}[\lnot x]$ we assign $x$ with $\text{false}$ and $\text{true}$ otherwise.
+Then, if $\text{comp}[x] < \text{comp}[\lnot x]$ we assign $x$ with $\text{false}$ and $\text{true}$ otherwise.
 
 Let us prove that with this assignment of the variables we do not arrive at a contradiction.
 Suppose $x$ is assigned with $\text{true}$.
@@ -75,8 +75,7 @@ Because we assigned $\text{true}$ it has to hold that the index of strongly conn
 This means that $\lnot x$ is located on the left of the component containing $x$, and the later vertex cannot reach the first.
 
 Secondly we prove that there doesn't exist a variable $y$, such that the vertices $y$ and $\lnot y$ are both reachable from $x$ in the implication graph.
-This would cause a contradiction, because $x = \text{true}$ implies that $y = \text{true}$ and $
-lnot y = \text{true}$.
+This would cause a contradiction, because $x = \text{true}$ implies that $y = \text{true}$ and $\lnot y = \text{true}$.
 Let us prove this by contradiction.
 Suppose that $y$ and $\lnot y$ are both reachable from $x$, then by the property of the implication graph $\lnot x$ is reachable from both $y$ and $\lnot y$.
 By transitivity this results that $\lnot x$ is reachable by $x$, which contradicts the assumption.
