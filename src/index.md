@@ -66,7 +66,7 @@ especially popular in field of competitive programming.*
 - [Newton's method for finding roots](./num_methods/roots_newton.html)
 
 ### Geometry
-- [Basic point handling](./geometry/basic-geometry.html)
+- [Basic Geometry](./geometry/basic-geometry.html)
 - [Length of the union of intervals on a line in O(N\*logN)](./geometry/length-of-segments-union.html)
 - [Oriented area of a triangle and predicate "clockwise"](./geometry/oriented-triangle-area.html)
 - [Intersection Point of Lines](./geometry/lines-intersection.html)
