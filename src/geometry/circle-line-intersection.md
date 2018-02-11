@@ -8,7 +8,7 @@ Given the coordinates of the center of a circle and it's radius, and the equatio
 
 Instead of solving the system of two equations, we will approach the problem geometrically. This way we get a more accurate solution from the point of view of numerical stability.
 
-We assume without loss of generality that the circle is centered at the origin. If it's not, we translate it there and correct the $C$ constant in the line equation. So we have a circle centered at $(0,0)$ of radius $r$ and a line with equation $Ax+By+C=0$.
+We assume without loss of generality that the circle is centered at the origin. If it's not, we translate it there and correct the `C` constant in the line equation. So we have a circle centered at $(0,0)$ of radius `r` and a line with equation $Ax+By+C=0$.
 
 Let's start by find the point on the line which is closest to the origin $(x_0, y_0)$. First, it has to be at a distance
 
@@ -21,13 +21,13 @@ $$ y_0 = - \frac{BC}{A^2 + B^2} $$
 
 The minus signs are not obvious, but they can be easily verified by substituting $x_0$ and $y_0$ in the equation of the line.
 
-At this stage we can determine the number of intersection points, and even find the solution when there is one or zero points. Indeed, if the distance from $(x_0, y_0)$ to the origin $d_0$ is greater than the radius $r$, the answer is **zero points**. If $d_0=r$, the answer is **one point** $(x_0, y_0)$. If $d_0<r$, there are two points of intersection, and now we have to find their coordinates.
+At this stage we can determine the number of intersection points, and even find the solution when there is one or zero points. Indeed, if the distance from $(x_0, y_0)$ to the origin $d_0$ is greater than the radius `r`, the answer is **zero points**. If $d_0=r$, the answer is **one point** $(x_0, y_0)$. If $d_0<r$, there are two points of intersection, and now we have to find their coordinates.
 
-So, we know that the point $(x_0, y_0)$ is inside the circle. The two points of intersection, $(a_x, a_y)$ and $(b_x, b_y)$, must belong to the line $Ax+By+C=0$ and must be at the same distance $d$ from $(x_0, y_0)$, and this distance is easy to find:
+So, we know that the point $(x_0, y_0)$ is inside the circle. The two points of intersection, $(a_x, a_y)$ and $(b_x, b_y)$, must belong to the line $Ax+By+C=0$ and must be at the same distance `d` from $(x_0, y_0)$, and this distance is easy to find:
 
 $$ d = \sqrt{r^2 - \frac{C^2}{A^2 + B^2}} $$
 
-Note that the vector $(-B, A)$ is collinear to the line, and thus we can find the points in question by adding and subtracting  vector $(-B,A)$, scaled to the length $d$, to the point $(x_0, y_0)$. 
+Note that the vector $(-B, A)$ is collinear to the line, and thus we can find the points in question by adding and subtracting  vector $(-B,A)$, scaled to the length `d`, to the point $(x_0, y_0)$. 
 
 Finally, the equations of the two points of intersection are:
 
@@ -39,7 +39,7 @@ Had we solved the original system of equations using algebraic methods, we would
 
 ## Implementation
 
-As indicated at the outset, we assume that the circle is centered at the origin, and therefore the input to the program is the radius $r$ of the circle and the parameters $A$, $B$ and $C$ of the equation of the line.
+As indicated at the outset, we assume that the circle is centered at the origin, and therefore the input to the program is the radius `r` of the circle and the parameters `A`, `B` and `C` of the equation of the line.
 
 ```cpp
 double r, a, b, c; // given as input

@@ -25,6 +25,6 @@ double area(const vector<point>& fig) {
 ```
 
 ## Method 2
-We can choose a point $O$ arbitrarily, iterate over all edges adding the oriented area of the triangle formed by the edge and point $O$. Again, due to the sign of area, extra area will be reduced.
+We can choose a point `O` arbitrarily, iterate over all edges adding the oriented area of the triangle formed by the edge and point `O`. Again, due to the sign of area, extra area will be reduced.
 
 This method is better as it can be generalized to more complex cases (such as when some sides are arcs instead of straight lines)

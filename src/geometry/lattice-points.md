@@ -30,12 +30,12 @@ Then we should start with summing up points below $y=\lfloor k \rfloor \cdot x +
 $$\sum\limits_{x=0}^{n - 1} \lfloor k \rfloor \cdot x + \lfloor b \rfloor=\dfrac{(\lfloor k \rfloor(n-1)+2\lfloor b \rfloor) n}{2}.$$
 Now we are interested only in points $(x;y)$ such that $\lfloor k \rfloor \cdot x + \lfloor b \rfloor < y \leq k\cdot x + b$.
 This amount is the same as the number of points such that $0 < y \leq (k - \lfloor k \rfloor) \cdot x + (b - \lfloor b \rfloor)$.
-So we reduced our problem to $k'= k - \lfloor k \rfloor$, $b' = b - \lfloor b \rfloor$ and both $k'$ and $b'$ less than $1$ now.
-Here is a picture, we just summed up blue points and subtracted the blue linear function from the black one to reduce problem to smaller values for $k$ and $b$:
+So we reduced our problem to $k'= k - \lfloor k \rfloor$, $b' = b - \lfloor b \rfloor$ and both $k'$ and $b'$ less than `1` now.
+Here is a picture, we just summed up blue points and subtracted the blue linear function from the black one to reduce problem to smaller values for `k` and `b`:
 <center>![Subtracting floored linear function](&imgroot&/lattice.png)</center>
 
 - $k < 1$ and $b < 1$.
-If $\lfloor k \cdot n + b\rfloor$ equals $0$, we can safely return $0$.
+If $\lfloor k \cdot n + b\rfloor$ equals `0`, we can safely return `0`.
 If this is not the case, we can say that there are no lattice points such that $x < 0$ and $0 < y \leq k \cdot x + b$.
 That means that we will have the same answer if we consider new reference system in which $O'=(n;\lfloor k\cdot n + b\rfloor)$, axis $x'$ is directed down and axis $y'$ is directed to the left.
 For this reference system we are interested in lattice points on the set
@@ -49,7 +49,7 @@ As you see, in new reference system linear function will have coefficient $\tfra
 
 We have to count at most $\dfrac{(k(n-1)+2b)n}{2}$ points.
 Among them we will count $\dfrac{\lfloor k \rfloor (n-1)+2\lfloor b \rfloor}{2}$ on the very first step.
-We may consider that $b$ is negligibly small because we can start with making it less than $1$.
+We may consider that `b` is negligibly small because we can start with making it less than `1`.
 In that case we cay say that we count about $\dfrac{\lfloor k \rfloor}{k} \geq \dfrac 1 2$  of all points.
 Thus we will finish in $O(\log n)$ steps.
 
@@ -77,6 +77,6 @@ int count_lattices(Fraction k, Fraction b, long long n) {
 ```
 
 Here `Fraction` is some class handling rational numbers.
-On practice it seems that if all denominators and numerators are at most $C$ by absolute value then in the recursive calls they will be at most $C^2$ if you keep dividing numerators and denominators by their greatest common divisor.
-Given this assumption we can say that one may use doubles and require accuracy of $\varepsilon^2$ where $\varepsilon$ is accuracy with which $k$ and $b$ are given.
+On practice it seems that if all denominators and numerators are at most `C` by absolute value then in the recursive calls they will be at most $C^2$ if you keep dividing numerators and denominators by their greatest common divisor.
+Given this assumption we can say that one may use doubles and require accuracy of $\varepsilon^2$ where $\varepsilon$ is accuracy with which `k` and `b` are given.
 That means that in floor one should consider numbers as integer if they differs at most by $\varepsilon^2$ from an integer.

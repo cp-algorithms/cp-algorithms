@@ -16,11 +16,11 @@ Using Cramer's rule, we immediately find the solution for the system, which will
 $$ x = - \frac{ \left|\matrix{C_1&B_1 \cr C_2&B_2}\right| }{ \left|\matrix{A_1&B_1 \cr A_2&B_2}\right| } = - \frac{ C_1 B_2 - C_2 B_1 }{ A_1 B_2 - A_2 B_1 }, $$
 $$ y = - \frac{ \left|\matrix{A_1&C_1 \cr A_2&C_2}\right| }{ \left|\matrix{A_1&B_1 \cr A_2&B_2}\right| } = - \frac{ A_1 C_2 - A_2 C_1 }{ A_1 B_2 - A_2 B_1 }. $$
 
-If the denominator equals $0$, i.e.
+If the denominator equals `0`, i.e.
 
 $$ \left|\matrix{A_1&B_1 \cr A_2&B_2}\right| = A_1 B_2 - A_2 B_1 = 0 $$
 
-then either the system has no solutions (the lines are parallel and distinct) or there are infinitely many solutions (the lines overlap). If we need to distinguish these two cases, we have to check if coefficients $C$ are proportional with the same ratio as the coefficients $A$ and $B$. To do that we only have calculate the following determinants, and if they both equal $0$, the lines overlap:
+then either the system has no solutions (the lines are parallel and distinct) or there are infinitely many solutions (the lines overlap). If we need to distinguish these two cases, we have to check if coefficients `C` are proportional with the same ratio as the coefficients `A` and `B`. To do that we only have calculate the following determinants, and if they both equal `0`, the lines overlap:
 
 $$ \left|\matrix{ A_1 & C_1 \cr A_2 & C_2 }\right|, \left|\matrix{ B_1 & C_1 \cr B_2 & C_2 }\right| $$
 
