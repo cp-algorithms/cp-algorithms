@@ -2,7 +2,9 @@
 
 # Basic Geometry
 
-In this article we will consider basic operations on points in Euclidean space which maintains the foundation of the whole analytical geometry. We will consider for each point $\mathbf r$ vector $\vec{\mathbf r}$ directed from $\mathbf 0$ to $\mathbf r$. Later here we will always consider points as vectors and will not distinguish $\mathbf r$ and $\vec{\mathbf r}$ using term point as synonym to vector.
+In this article we will consider basic operations on points in Euclidean space which maintains the foundation of the whole analytical geometry.
+We will consider for each point $\mathbf r$ the vector $\vec{\mathbf r}$ directed from $\mathbf 0$ to $\mathbf r$.
+Later we will not distinguish between $\mathbf r$ and $\vec{\mathbf r}$ and use the term **point** as a synonym for **vector**.
 
 ## Linear operations
 
@@ -13,32 +15,32 @@ struct point2d {
     ftype x, y;
     point2d() {}
     point2d(ftype x, ftype y): x(x), y(y) {}
-    point2d operator += (const point2d &t) {
+    point2d operator+=(const point2d &t) {
         x += t.x;
         y += t.y;
         return *this;
     }
-    point2d operator -= (const point2d &t) {
+    point2d operator-=(const point2d &t) {
         x -= t.x;
         y -= t.y;
         return *this;
     }
-    point2d operator *= (ftype t) {
+    point2d operator*=(ftype t) {
         x *= t;
         y *= t;
         return *this;
     }
-    point2d operator + (const point2d &t) const {
+    point2d operator+(const point2d &t) const {
         return point2d(*this) += t;
     }
-    point2d operator - (const point2d &t) const {
+    point2d operator-(const point2d &t) const {
         return point2d(*this) -= t;
     }
-    point2d operator * (ftype t) const {
+    point2d operator*(ftype t) const {
         return point2d(*this) *= t;
     }
 };
-point2d operator * (ftype a, point2d b) {
+point2d operator*(ftype a, point2d b) {
     return b * a;
 }
 ```
@@ -48,35 +50,35 @@ struct point3d {
     ftype x, y, z;
     point3d() {}
     point3d(ftype x, ftype y, ftype z): x(x), y(y), z(z) {}
-    point3d operator += (const point3d &t) {
+    point3d operator+=(const point3d &t) {
         x += t.x;
         y += t.y;
         z += t.z;
         return *this;
     }
-    point3d operator -= (const point3d &t) {
+    point3d operator-=(const point3d &t) {
         x -= t.x;
         y -= t.y;
         z -= t.z;
         return *this;
     }
-    point3d operator *= (ftype t) {
+    point3d operator*=(ftype t) {
         x *= t;
         y *= t;
         z *= t;
         return *this;
     }
-    point3d operator + (const point3d &t) const {
+    point3d operator+(const point3d &t) const {
         return point3d(*this) += t;
     }
-    point3d operator - (const point3d &t) const {
+    point3d operator-(const point3d &t) const {
         return point3d(*this) -= t;
     }
-    point3d operator * (ftype t) const {
+    point3d operator*(ftype t) const {
         return point3d(*this) *= t;
     }
 };
-point3d operator * (ftype a, point3d b) {
+point3d operator*(ftype a, point3d b) {
     return b * a;
 }
 ```
