@@ -60,6 +60,7 @@ especially popular in field of competitive programming.*
 - [Binomial Coefficients](./combinatorics/binomial-coefficients.html)
 - [Catalan Numbers](./combinatorics/catalan-numbers.html)
 - [Placing Bishops on a Chessboard](./combinatorics/bishops-on-chessboard.html)
+- [Stars and bars](./combinatorics/stars_and_bars.html)
 
 ### Numerical Methods
 - [Ternary Search](./num_methods/ternary_search.html)
