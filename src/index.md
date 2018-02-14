@@ -82,7 +82,6 @@ especially popular in field of competitive programming.*
 - [Breadth First Search](./graph/breadth-first-search.html)
 - [Depth First Search](./graph/depth-first-search.html)
 - [Bipartite Graph Check](./graph/bipartite-check.html)
-- [Kirchhoff Theorem](./graph/kirchhoff-theorem.html)
 - [Topological Sorting](./graph/topological-sort.html)
 - [Finding Bridges in O(N+M)](./graph/bridge-searching.html)
 - [Finding Bridges Online](./graph/bridge-searching-online.html)
@@ -99,8 +98,10 @@ especially popular in field of competitive programming.*
 - [Lowest Common Ancestor - Farach-Colton and Bender algorithm](./graph/lca_farachcoltonbender.html)
 - [Solve RMQ by finding LCA](./graph/rmq_linear.html)
 - [Lowest Common Ancestor - Tarjan's off-line algorithm](./graph/lca_tarjan.html)
+- [Minimum Spanning Tree - Prim's Algorithm](./graph/mst_prim.html)
 - [Minimum Spanning Tree - Kruskal](./graph/mst_kruskal.html)
 - [Minimum Spanning Tree - Kruskal with Disjoint Set Union](./graph/mst_kruskal_with_dsu.html)
+- [Kirchhoff Theorem](./graph/kirchhoff-theorem.html)
 - [Strongly Connected Components and Condensation Graph](./graph/strongly-connected-components.html)
 - [2-SAT](./graph/2SAT.html)
 
