@@ -103,6 +103,7 @@ especially popular in field of competitive programming.*
 - [Minimum Spanning Tree - Kruskal with Disjoint Set Union](./graph/mst_kruskal_with_dsu.html)
 - [Kirchhoff Theorem](./graph/kirchhoff-theorem.html)
 - [Strongly Connected Components and Condensation Graph](./graph/strongly-connected-components.html)
+- [Maximal flow - Ford-Fulkerson and Edmonds-Karp](./graph/edmonds_karp.html)
 - [2-SAT](./graph/2SAT.html)
 
 ### Sequences
