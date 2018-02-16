@@ -1,0 +1,8 @@
+langauge: cpp
+compiler: gcc
+dist: trusty
+
+before_script:
+  - cd test
+script:
+  - ./test.sh
