@@ -10,7 +10,7 @@ The only drawback of this data structure is, that it can only be used on _immuta
 This means, that the array cannot be changed between two queries.
 If any element in the array changes, the complete data structure has to be recomputed. 
 
-### Intuition
+## Intuition
 
 Any non-negative number can be uniquely represented as a sum of decreasing powers of two. 
 This is just a variant of the binary representation of a number. 
@@ -24,7 +24,7 @@ And also here the union consists of at most $\lceil \log_2(\text{length of inter
 The main idea behind Sparse Tables is to precompute all answers for range queries with power of two length. 
 Afterwards a different range query can be answered by splitting the range into ranges with power of two lengths, looking up the precomputed answers, and combining them to receive a complete answer. 
 
-### Precomputation
+## Precomputation
 
 We will use a 2-dimensional array for storing the answers to the precomputed queries. 
 $\text{st}\[i\]\[j\]$ will store the answer for the range $[i, i + 2^j - 1]$ of length $2^j$. 
@@ -52,7 +52,7 @@ For range sum queries it will compute the sum, for range minimum queries it will
 
 The time complexity of the precomputation is $O(\text{N} \log \text{N})$. 
 
-### Range Sum Queries
+## Range Sum Queries
 
 For this type of queries, we want to find the sum of all values in a range. 
 Therefore the natural definition of the function $f$ is $f(x, y) = x + y$. 
@@ -84,7 +84,7 @@ for (int j = K; j >= 0; j--) {
 
 Time complexity for a Range Sum Query is $O(K) = O(\log \text{MAXN})$.
 
-### Range Minimum Queries (RMQ)
+## Range Minimum Queries (RMQ)
 
 These are the queries where the Sparse Table shines. 
 When computing the minimum of a range, it doesn't matter if we process a value in the range once or twice. 
