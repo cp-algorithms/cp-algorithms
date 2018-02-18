@@ -79,3 +79,23 @@ Template for the pages (the one which creates small violet header and footer, de
  `<!--?template myfunnytemplate-->`
 
 The templates are cached for about 3600 seconds, rather than 300 seconds for ordinary pages, so be patient :)
+
+## Tests
+
+If your article involves code snippets, then it would be great you also contribute tests for them.
+This way we can make sure that the snippets actually work, and don't contain any bugs.
+
+Creating tests works like this:
+You have to name each snippet that you want to test in the markdown article:
+
+    ```cpp snippet-name
+    // some code
+    ```
+
+In the directory `test` you find a script `extract_snippets.py` that you can run.
+This script extracts from every article all named snippets, and puts them in C++ header files: `snippet-name.h`
+In the folder you can create a cpp file, that includes these snippets headers, and tests their behaviour.
+If the snippets don't work, the test program should return 1 instead of 0.
+
+You can run all tests with the script `test.sh`.
+Also, every pull-request will automatically tested via [Travis CI](https://travis-ci.org/e-maxx-eng/e-maxx-eng/), and the result of the tests will be shown.
