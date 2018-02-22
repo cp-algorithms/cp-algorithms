@@ -36,7 +36,7 @@ The following image show a flow network.
 The first value of each edge represents the flow, which is initially 0, and the second value represents the capacity.
 <center>![Flow network](&imgroot&/Flow1.png)</center>
 
-We value of a flow of a network is the sum of all flows that come out of the source $s$, or equivalent or the flows that drains in the sink $t$.
+We value of a flow of a network is the sum of all flows that gets produced in source $s$, or equivalent or the flows that is consumed in the sink $t$.
 A **maximal flow** is a flow with the maximal possible value.
 Finding this maximal flow of a flow network is the problem that we want to solve.
 
