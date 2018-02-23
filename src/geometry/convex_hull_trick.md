@@ -76,7 +76,7 @@ Here is the illustration of what is going on in the vertex when we add new funct
 
 Let's go to implementation now. Once again we will use complex numbers to keep linear functions.
 
-```cpp
+```cpp lichaotree_line_definition
 typedef int ftype;
 typedef complex<ftype> point;
 #define x real
@@ -91,7 +91,9 @@ ftype f(point a,  ftype x) {
 }
 ```
 We will keep functions in the array $line$ and use binary indexing of the segment tree. If you want to use it on large numbers or doubles, you should use a dynamic segment tree. 
-```cpp
+The segment tree should be initialized with default values, e.g. with lines $0x + \infty$.
+
+```cpp lichaotree_addline
 const int maxn = 2e5;
  
 point line[4 * maxn];
@@ -113,15 +115,15 @@ void add_line(point nw, int v = 1, int l = 0, int r = maxn) {
 }
 ```
 Now to get the minimum in some point $x$ we simply choose the minimum value along the path to the point.
-```cpp
+```cpp lichaotree_getminimum
 int get(int x, int v = 1, int l = 0, int r = maxn) {
     int m = (l + r) / 2;
     if(r - l == 1) {
-        return f(ln[v], x);
+        return f(line[v], x);
     } else if(x < m) {
-        return min(f(ln[v], x), get(x, 2 * v, l, m));
+        return min(f(line[v], x), get(x, 2 * v, l, m));
     } else {
-        return min(f(ln[v], x), get(x, 2 * v + 1, m, r));
+        return min(f(line[v], x), get(x, 2 * v + 1, m, r));
     }
 }
 ```
