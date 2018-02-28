@@ -105,6 +105,7 @@ especially popular in field of competitive programming.*
 - [Strongly Connected Components and Condensation Graph](./graph/strongly-connected-components.html)
 - [Maximum flow - Ford-Fulkerson and Edmonds-Karp](./graph/edmonds_karp.html)
 - [Maximum flow - Push-relabel algorithm](./graph/push-relabel.html)
+- [Flows with demands](./graph/flow_with_demands.html)
 - [2-SAT](./graph/2SAT.html)
 
 ### Sequences
