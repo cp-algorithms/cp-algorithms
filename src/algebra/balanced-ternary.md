@@ -35,7 +35,7 @@ This system allows to write negative values without leading minus sign: you can 
 
 Note that negative number starts with `Z` and positive with `1`.
 
-###Conversion algorithm
+## Conversion algorithm
 
 It is easy to convert represent number in **balanced ternary** via temporary representing it as normal ternary. When value is
 in standard ternary, its digits are either `0` or `1` or `2`. Iterating from the lowest digit we can safely skip any `0`s and `1`s,
