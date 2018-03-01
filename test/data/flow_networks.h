@@ -20,7 +20,7 @@ struct FlowNetwork {
 };
 
 vector<FlowNetwork> flow_networks = {
-    // test flow network from the e-maxx-eng article
+    // flow network from the e-maxx-eng article
     {{
         {0, 7, 0, 0, 4, 0},
         {0, 0, 5, 3, 0, 0},
@@ -29,7 +29,7 @@ vector<FlowNetwork> flow_networks = {
         {0, 3, 0, 2, 0, 0},
         {0, 0, 0, 0, 0, 0}
     }, 0, 5, 10}, 
-    // test flow network from wikipedia (Edmonds-Karp article)
+    // flow network from wikipedia (Edmonds-Karp article)
     {{
         {0, 3, 0, 3, 0, 0, 0},
         {0, 0, 4, 0, 0, 0, 0},
@@ -39,11 +39,30 @@ vector<FlowNetwork> flow_networks = {
         {0, 0, 0, 0, 0, 0, 9},
         {0, 0, 0, 0, 0, 0, 0}
      }, 0, 6, 5}, 
-    // test worst case flow network (for Ford-Fulkerson) from wikipedia
+    // worst case flow network (for Ford-Fulkerson) from wikipedia
     {{
         {0, 1000, 1000, 0},
         {0, 0, 1, 1000},
         {0, 0, 0, 1000},
         {0, 0, 0, 0}
-    }, 0, 3, 2000}
+    }, 0, 3, 2000},
+    // example from brilliant.org
+    {{
+         {0, 16, 0, 13, 0, 0},
+         {0, 0, 12, 10, 0, 0},
+         {0, 0, 0, 9, 0, 20},
+         {0, 4, 0, 0, 14, 0},
+         {0, 0, 7, 0, 0, 4},
+         {0, 0, 0, 0, 0, 0}
+     }, 0, 5, 23},
+     {{
+         {0, 10, 5, 15, 0, 0, 0, 0},
+         {0, 0, 4, 0, 9, 15, 0, 0},
+         {0, 0, 0, 4, 0, 8, 0, 0},
+         {0, 0, 0, 0, 0, 0, 16, 0},
+         {0, 0, 0, 0, 0, 15, 0, 10},
+         {0, 0, 0, 0, 0, 0, 15, 10},
+         {0, 0, 6, 0, 0, 0, 0, 10},
+         {0, 0, 0, 0, 0, 0, 0, 0}
+      }, 0, 7, 28},
 };
