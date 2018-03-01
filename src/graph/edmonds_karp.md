@@ -183,13 +183,17 @@ A **$s$-$t$-cut** is a partition of the vertices of a flow network into two sets
 The capacity of a $s$-$t$-cut is defined as the sum of capacities of the edges from the source side to the sink side.
 
 Obviously we cannot send more flow from $s$ to $t$ than the capacity of any $s$-$t$-cut.
-Therefore the maximal flow is bounded by the minimum cut capacity.
+Therefore the maximum flow is bounded by the minimum cut capacity.
 
 The max-flow min-cut theorem theorem goes even farther.
-It says that the capacity of the maximal flow has to be equal to the capacity of the minimal cut.
+It says that the capacity of the maximum flow has to be equal to the capacity of the minimum cut.
 
-In the following image you can see the minimal cut of the flow network we used earlier.
-It shows that the capacity of the cut $\\{s, A, D\\}$ and $\\{B, C, t\\}$ is $5 + 3 + 2 = 10$, which is equal to the maximal flow that we found.
+In the following image you can see the minimum cut of the flow network we used earlier.
+It shows that the capacity of the cut $\\{s, A, D\\}$ and $\\{B, C, t\\}$ is $5 + 3 + 2 = 10$, which is equal to the maximum flow that we found.
 Other cuts will have a bigger capacity, like the capacity between $\\{s, A\\}$ and $\\{B, C, D, t\\}$ is $4 + 3 + 5 = 12$.
 <center>![Minimum cut](&imgroot&/Cut.png)</center>
 
+A minimum cut can be found after performing a maximum flow computation using the Ford-Fulkerson method.
+One possible minimum cut is the following:
+the set of all vertices that can be reached from $s$ in the residual graph (using edges with positive residual capacity), and the set of all the other vertices.
+This partition can be easily found using [DFS](./graph/depth-first-search.html) starting at $s$.
