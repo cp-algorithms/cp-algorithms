@@ -99,7 +99,7 @@ void push(int u, int v)
     flow[v][u] -= d;
     excess[u] -= d;
     excess[v] += d;
-    if (excess[v] == d)
+    if (d && excess[v] == d)
         excess_vertices.push(v);
 }
 
