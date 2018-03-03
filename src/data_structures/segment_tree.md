@@ -635,7 +635,7 @@ void update(int v, int tl, int tr, int l, int r, int add) {
     } else {
         int tm = (tl + tr) / 2;
         update(v*2, tl, tm, l, min(r, tm), add);
-        update(v*2+1, tm+1, tr, max(tl, tm+1), tr, add);
+        update(v*2+1, tm+1, tr, max(l, tm+1), r, add);
     }
 }
 
@@ -701,7 +701,7 @@ void update(int v, int tl, int tr, int l, int r, int new_val) {
         push(v);
         int tm = (tl + tr) / 2;
         update(v*2, tl, tm, l, min(r, tm), new_val);
-        update(v*2+1, tm+1, tr, max(tl, tm+1), tr, new_val);
+        update(v*2+1, tm+1, tr, max(l, tm+1), r, new_val);
     }
 }
 
@@ -752,7 +752,7 @@ void update(int v, int tl, int tr, int l, int r, int addend) {
         push(v);
         int tm = (tl + tr) / 2;
         update(v*2, tl, tm, l, min(r, tm), addend);
-        update(v*2+1, tm+1, tr, max(tl, tm+1), tr, addend);
+        update(v*2+1, tm+1, tr, max(l, tm+1), r, addend);
         t[v] = max(t[v*2], t[v*2+1]);
     }
 }
@@ -765,7 +765,7 @@ int query(int v, int tl, int tr, int l, int r) {
     push(v);
     int tm = (tl + tr) / 2;
     return max(query(v*2, tl, tm, l, min(r, tm)), 
-               query(v*2+1, tm+1, tr, max(tl, tm+1), tr));
+               query(v*2+1, tm+1, tr, max(l, tm+1), r));
 }
 ```
 
