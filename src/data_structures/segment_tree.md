@@ -840,7 +840,7 @@ int sum_x(int vx, int tlx, int trx, int lx, int rx, int ly, int ry) {
         return sum_y(vx, 1, 0, m-1, ly, ry);
     int tmx = (tlx + trx) / 2;
     return sum_x(vx*2, tlx, tmx, lx, min(rx, tmx), ly, ry)
-         + sum_x(vx*2+1, tmx+1, tmr, max(lx, tmx+1), ly, ry);
+         + sum_x(vx*2+1, tmx+1, trx, max(lx, tmx+1), rx, ly, ry);
 }
 ```
 
