@@ -117,6 +117,7 @@ especially popular in field of competitive programming.*
 - [K-th order statistic in O(N)](./sequences/k-th.html)
 
 ### Schedules
+- [Scheduling jobs on one machine](./schedules/schedule_one_machine.html)
 - [The Optimal Schedule Of Jobs Given Their Deadlines And Durations](./schedules/schedule-with-completion-duration.html)
 
 ### Miscellaneous
