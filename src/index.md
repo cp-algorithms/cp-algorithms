@@ -118,6 +118,7 @@ especially popular in field of competitive programming.*
 
 ### Schedules
 - [Scheduling jobs on one machine](./schedules/schedule_one_machine.html)
+- [Scheduling jobs on two machines](./schedules/schedule_two_machines.html)
 - [The Optimal Schedule Of Jobs Given Their Deadlines And Durations](./schedules/schedule-with-completion-duration.html)
 
 ### Miscellaneous
