@@ -119,7 +119,7 @@ especially popular in field of competitive programming.*
 ### Schedules
 - [Scheduling jobs on one machine](./schedules/schedule_one_machine.html)
 - [Scheduling jobs on two machines](./schedules/schedule_two_machines.html)
-- [The Optimal Schedule Of Jobs Given Their Deadlines And Durations](./schedules/schedule-with-completion-duration.html)
+- [Optimal schedule of jobs given their deadlines and durations](./schedules/schedule-with-completion-duration.html)
 
 ### Miscellaneous
 - [15 Puzzle Game: Existence Of The Solution](./others/15-puzzle.html)
