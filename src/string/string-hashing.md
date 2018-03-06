@@ -145,6 +145,8 @@ For every substring length $l$ we construct an array of hashes of all substrings
 The number of different elements in the array is equal to the number of distinct substrings of length $l$ in the string.
 This number is added to the final answer.
 
+For convenience we will use $h[i]$ as the hash of the prefix with $i$ characters, and define $h[0] = 0$.
+
 ```cpp hashing_count_unique_substrings
 int count_unique_substrings(string const& s) {
     int n = s.size();
@@ -156,17 +158,15 @@ int count_unique_substrings(string const& s) {
     for (int i = 1; i < n; i++)
         p_pow[i] = (p_pow[i-1] * p) % m;
 
-    vector<long long> h(n);
+    vector<long long> h(n + 1, 0);
     for (int i = 0; i < n; i++)
-        h[i] = ((i ? h[i-1] : 0) + (s[i] - 'a' + 1) * p_pow[i]) % m;
+        h[i+1] = (h[i] + (s[i] - 'a' + 1) * p_pow[i]) % m;
 
     int cnt = 0;
     for (int l = 1; l <= n; l++) {
         set<long long> hs;
         for (int i = 0; i <= n - l; i++) {
-            long long cur_h = h[i + l - 1];
-            if (i)
-                cur_h = (cur_h + m - h[i-1]) % m;
+            long long cur_h = (h[i + l] + m - h[i]) % m;
             cur_h = (cur_h * p_pow[n-i-1]) % m;
             hs.insert(cur_h);
         }
