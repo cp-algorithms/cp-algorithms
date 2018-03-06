@@ -2,209 +2,195 @@
 
 # String Hashing
 
-Hashing algorithms are helpful in solving a lot of problems. But they have a big flaw that sometimes they are not 100% deterministically correct because when there are plenty of strings, hashes may collide. However, in a wide majority of tasks this can be safely ignored as the probability of the hashes of two different strings colliding is still very small.
+Hashing algorithms are helpful in solving a lot of problems.
+
+The problem we want to solve is the problem, we want to compare strings efficiently.
+The brute force way of doing so is just to compare the letters of both strings, which has a time complexity of $O(\min(n_1, n_2))$ if $n_1$ and $n_2$ are the sizes of the two strings.
+We want to do better.
+The idea behind strings is the following: we convert each string into an integer, and compare those instead of the strings.
+Comparing two strings is then an $O(1)$ operation.
+
+For the conversion we need a so-called **hash function**.
+The goal of it is to convert a string into a integer, the so-called **hash** of the string.
+The following condition has to hold: if two two strings $s$ and $t$ are equal ($s = t$), then also their hashes have to be equal ($\text{hash}(s) = \text{hash}(t)$).
+Otherwise we will not be able to compare strings.
+
+Notice, the opposite direction doesn't have to hold.
+It the hashes are equal ($\text{hash}(s) = \text{hash}(t)$), then the strings do not necessarily have to be equal.
+E.g. a valid hash function would be simply $\text{hash}(s) = 0$ for each $s$.
+Now, this is just a stupid example, because this function will be completely useless, but it is a valid hash function.
+The reason why the opposite direction doesn't have to hold, if because there are exponential many strings.
+If we only want this hash function to distinguish between all strings consisting of lowercase characters of length smaller than 15, then already the hash wouldn't fit into a 64 bit integer (e.g. unsigned long long) any more, because there are so many of them.
+And of course we don't want to compare arbitrary long integers, because this will also have the complexity $O(n)$.
+
+So usually we want the hash function to map strings onto numbers of a fixed range $[0, m)$, then comparing strings is just comparison of two integers with fixed length.
+And of course we want $\text{hash}(s) \neq \text{hash}(t)$ to be very likely, if $s \neq t$.
+
+That's the important part that you have to keep in mind.
+Using hashing will not be 100% deterministically correct, because two complete different strings might have the same hash (the hashes collide).
+However, in a wide majority of tasks this can be safely ignored as the probability of the hashes of two different strings colliding is still very small.
+And we will discuss some techniques in this article how to keep the probability of collisions very low.
 
 ## Calculation of the hash of a string
 
-The best and most widely used way to define the hash of a string $S$ is the following function:
+The good and widely used way to define the hash of a string $s$ of length $n$ is
+$$\begin{align}
+\text{hash}(s) &= s[0] + s[1] \cdot p + s[2] \cdot p^2 + ... + s[n-1] \cdot p^{n-1} \mod m \\\\
+&= \sum_{i=0}^{n-1} s[i] \cdot p^i \mod m,
+\end{align}$$
+where $p$ and $m$ are some chosen, positive numbers.
+It is called a **polynomial rolling hash function**.
 
-$ hash(S) = S[0] + S[1] \cdot P + S[2] \cdot P ^ 2 + S[3] \cdot P ^ 3 + ... + S[N] \cdot P ^ N $
-where $P$ is some number.
+It is reasonable to make $p$ a prime number roughly equal to the number of characters in the input alphabet.
+For example, if the input is composed of only lowercase letters of English alphabet, $p = 31$ is a good choice.
+If the input may contain both uppercase and lowercase letters, then $p = 53$ is a possible choice.
+The code in this article will use $p = 31$.
 
-It is reasonable to make $P$ a prime number roughly equal to the number of characters in the input alphabet. For example, if the input is composed of only lowercase letters of English alphabet, $P = 31$ is a good choice. If the input may contain both uppercase and lowercase letters, then $P = 53$ is a possible choice.
+Obviously $m$ should be a large number, since the probability of two random strings colliding is about $\approx \frac{1}{p}$.
+Sometimes $m = 2^{64}$ is chosen, since then the integer overflows of 64 bit integers work exactly like the modulo operation.
+However there exists a method, which generates colliding strings (which work independent from the choice of $p$).
+So in practice $m = 2^{64}$ is not recommended.
+A good choice for $m$ is some large prime number.
+The code in this article will just use $m = 10^9+9$.
+This is a large number, but still small enough so that we can perform multiplication of two values using 64 bit integers.
 
-The code in this article will use $P = 31$.
+Here is an example of calculating the hash of a string $s$, which contains only lowercase letters.
+We convert each character of $s$ to an integer.
+Here we use the conversion $a \rightarrow 1$, $b \rightarrow 2$, $\dots$, $z \rightarrow 26$.
+Converting $a \rightarrow 0$ is not a good idea, because then the hashes of the strings $a$, $aa$, $aaa$, $\dots$ all evaluate to $0$.
 
-Of course, it is desirable to store the hash value in the largest numeric type - int64 i.e. unsigned long long. It is obvious that if the length of the string gets to about 20 characters, the hash value will overflow. But the key point to notice here is that we do not care about these overflows, as these overflows are equivalent to keeping the hash modulo $2^{64}$ at all times.
-
-Example of calculating the hash of a string $s$, which contains only lowercase letters:
-```cpp
-const int p = 31;
-unsigned long long hash = 0, p_pow = 1;
-for (size_t i = 0; i <s.length (); ++ i)
-{
-    // Generally, it is recommended to take the "value" of 'a' to be 1
-    // so that strings like "aaaaa" do not all hash to the value 0
-    hash + = (s [i] - 'a' + 1) * p_pow;
-    p_pow * = p;
+```cpp hashing_function
+long long compute_hash(string const& s) {
+    const int p = 31;
+    const int m = 1e9 + 9;
+    long long hash_value = 0;
+    long long p_pow = 1;
+    for (char c : s) {
+        hash_value = (hash_value + (c - 'a' + 1) * p_pow) % m;
+        p_pow = (p_pow * p) % m;
+    }
+    return hash_value;
 }
 ```
 
-In the majority of tasks, it makes sense to first calculate all the necessary powers of $P$ and store them in an array.
+Precomputing the powers of $p$ might give a performance boost.
 
 ## Example tasks
 
 ### Search for duplicate strings in an array of strings
 
-Problem: Given a list of strings $S [1..N]$, each no longer than $M$ characters, find all the duplicate strings and divide them into groups so that each group contains only the same string.
+Problem: Given a list of $n$ strings $s_i$, each no longer than $m$ characters, find all the duplicate strings and divide them into groups.
 
-From the obvious algorithm involving sorting the strings, we would get a time complexity of $O(NM log N)$ where the sorting requires $O(N log N)$ comparisons and each comparison take $O(M)$ time. However by using hashes, we reduce the comparison time to $O(1)$, giving us an algorithm that runs in $O(NM + N log N)$ time.
+From the obvious algorithm involving sorting the strings, we would get a time complexity of $O(n m \log n)$ where the sorting requires $O(n \log n)$ comparisons and each comparison take $O(m)$ time.
+However by using hashes, we reduce the comparison time to $O(1)$, giving us an algorithm that runs in $O(n m + n \log n)$ time.
 
-Algorithm: Calculate the hash of each string, and sort the strings on the basis of these hashes.
+We calculate the hash for each string, sort the hashes together with the indices, and then group the indices by identical hashes.
 
-```cpp
-vector <string> s (n);
-// ... Input the strings...
+```cpp hashing_group_identical_strings
+vector<vector<int>> group_identical_strings(vector<string> const& s) {
+    int n = s.size();
+    vector<pair<long long, int>> hashes(n);
+    for (int i = 0; i < n; i++)
+        hashes[i] = {compute_hash(s[i]), i};
 
-// Calculate all powers of p up to 10,000 - the maximum length of a string
-const int p = 31;
-vector <unsigned long long> p_pow (10000);
-p_pow [0] = 1;
-for (size_t i = 1; i <p_pow.size (); ++ i)
-    p_pow [i] = p_pow [i-1] * p;
+    sort(hashes.begin(), hashes.end());
 
-// Calculate the hash of each string
-
-// hashes[] stores the hash value and the index of the string in the array s
-vector <pair <unsigned long long, int>> hashes (n);
-for (int i = 0; i <n; ++ i)
-{
-    unsigned long long hash = 0;
-    for (size_t j = 0; j <s [i] .length (); ++ j)
-        hash + = (s [i] [j] - 'a' + 1) * p_pow [j];
-    hashes [i] = make_pair (hash, i);
-}
-
-// Sort by hashes
-sort (hashes.begin (), hashes.end ());
-
-// Display the answer
-for (int i = 0, group = 0; i <n; ++ i)
-{
-    if (i == 0 || hashes [i] .first! = hashes [i-1] .first)
-        cout << "\n Group" << ++ group << ":";
-    cout << " " << hashes [i] .second;
+    vector<vector<int>> groups;
+    for (int i = 0; i < n; i++) {
+        if (i == 0 || hashes[i].first != hashes[i-1].first)
+            groups.emplace_back();
+        groups.back().push_back(hashes[i].second);
+    }
+    return groups;
 }
 ```
 
-### Fast calculation of hashes of substrings of given string $S$
+### Fast hash calculation of substrings of given string
 
-Problem: Given a string $S$ and indices $I$ and $J$, find the hash of the substring $S [I..J]$.
+Problem: Given a string $s$ and indices $i$ and $j$, find the hash of the substring $s [i \dots j]$.
 
 By definition, we have:
+$$\text{hash}(s[i \dots j]) = \sum_{k = i}^j s[k] \cdot p^{k-i} \mod m$$
+Multiplying by $p^i$ gives:
+$$\begin{align}
+\text{hash}(s[i \dots j]) \cdot p^i &= \sum_{k = i}^j s[k] \cdot p^k \mod m \\\\
+&= \text{hash}(s[0 \dots j]) - \text{hash}(s[0 \dots i-1]) \mod m
+\end{align}$$
 
-$ H [I..J] = S [I] + S [I + 1] * P + S [I + 2] * P ^ 2 + ... + S [J] * P ^ (J - I) $
+So by knowing the hash value of each prefix of the string $s$, we can compute the hash of any substring directly using this formula.
+The only problem that we face in calculating it is that we must be able to divide $\text{hash}(s[0 \dots j]) - \text{hash}(s[0 \dots i-1])$ by $p^i$.
+Therefore we need to find the [modular multiplicative inverse](./algebra/module-inverse.html) of $p^i$ and then perform multiplication with this inverse.
+We can precompute the inverse of every $p^i$, which allows computing the hash of any substring of $s$ in $O(1)$ time.
 
-from:
-
-$ H [I..J] * P^I = S [I] * P^I + ... + S [J] * P^J$, that is
-
-$ H [I..J] * P^I = H [0..J] - H [0..I-1] $
-
-The above property is very important, because from the above property, it follows that, knowing only the hashes of all prefixes of string $S$, we can calculate the hash of any substring in $O(1)$.
-
-The only problem that we face in calculating these hashes is that we must be able to divide $H[0..J] - H[0..I-1]$ by $P^I$. This is not easy, because in general we compute hashes modulo $2^{64}$. Therefore, for division by $P^I$, we need to find the modular multiplicative inverse of $P ^ I$ (using the Extended Euclidean Algorithm) and then perform multiplication with this inverse.
-
-However, there does exist an easier way. In most cases, rather than calculating the hashes of substring exactly, we calculate the hash multiplied by some particular power of $P$, which is sufficient for our purposes.
-
-Suppose we have two hashes of two substrings, one multiplied by $P^I$ and the other by $P^J$. If $I < J$ then we multiply the first hash by $P^{J - I}$, otherwise we multiply the second hash by $P^{I - J}$. By doing this, we get both the hashes multiplied
-by the same power of $P$ (which is the maximum of $I$ and $J$) and now these hashes can be compared easily with no need for any division.
-
-For example, the following code calculates the hashes of all prefixes and then compares any two substrings in $O(1)$:
-
-```cpp
-// input data
-// s - the input string
-// len - the length of the two substrings to be compared
-// i1 - the start index of the first substring
-// i2 - the start index of the second substring
-string s; int i1, i2, len;
-
-// calculate all powers of p
-const int p = 31;
-vector <unsigned long long> p_pow (s.length ());
-p_pow [0] = 1;
-for (size_t i = 1; i <p_pow.size (); ++ i)
-    p_pow [i] = p_pow [i-1] * p;
-
-// Calculate the hashes of all prefixes
-vector <unsigned long long> h (s.length ());
-for (size_t i = 0; i <s.length (); ++ i)
-{
-    h [i] = (s [i] - 'a' + 1) * p_pow [i];
-    if (i) h [i] + = h [i-1];
-}
-
-// Get the hashes of two substrings
-unsigned long long h1 = h [i1 + len-1];
-if (i1) h1 - = h [i1-1];
-unsigned long long h2 = h [i2 + len-1];
-if (i2) h2 - = h [i2-1];
-
-// Get the two hashes multiplied by the same power of P and then
-// compare them
-if (i1 <i2 && h1 * p_pow [i2-i1] == h2 ||
-    i1> i2 && h1 == h2 * p_pow [i1-i2])
-    cout << "equal" << endl;
-else
-    cout << "different" << endl;
-```
+However, there does exist an easier way.
+In most cases, rather than calculating the hashes of substring exactly, it is enough to compute the hash multiplied by some power of $p$.
+Suppose we have two hashes of two substrings, one multiplied by $p^i$ and the other by $p^j$.
+If $i < j$ then we multiply the first hash by $p^{j-i}$, otherwise we multiply the second hash by $p^{i-j}$.
+By doing this, we get both the hashes multiplied by the same power of $p$ (which is the maximum of $i$ and $j$) and now these hashes can be compared easily with no need for any division.
 
 ## Applications of Hashing
 
 Here are some typical applications of Hashing:
 
-* Rabin-Karp Algorithm for string matching in a string in $O (N)$ time.
-
-* Calculating the number of different substrings of a string in $O (N ^ 2 log N)$ (see below)
-
+* [Rabin-Karp algorithm](./string/rabin-karp.html) for pattern matching in a string in $O(n)$ time
+* Calculating the number of different substrings of a string in $O(n^2 \log n)$ (see below)
 * Calculating the number of palindromic substrings in a string.
 
-### Determine the number of different substrings in  a string
+### Determine the number of different substrings in a string
 
-Problem: Given a string $S$ of length $N$, consisting only of lowercase English letters, find the number of different substrings in this string.
+Problem: Given a string $s$ of length $n$, consisting only of lowercase English letters, find the number of different substrings in this string.
 
-To solve this problem, first let's apply the brute force approach over substring length one by one: $L = 1 .. N$.
+To solve this problem, we iterate over all substring lengths $l = 1 \dots n$.
+For every substring length $l$ we construct an array of hashes of all substrings of length $l$ multiplied by the same power of $p$.
+The number of different elements in the array is equal to the number of distinct substrings of length $l$ in the string.
+This number is added to the final answer.
 
-For every substring length $L$, we construct an array of hashes of all substrings of length $L$. Further, we get these hashes multiplied by the same power of $P$, and then sort the array. The number of different elements in the array is equal to the number of distinct substrings of length $L$ in the string. This number is added to the final answer.
+```cpp hashing_count_unique_substrings
+int count_unique_substrings(string const& s) {
+    int n = s.size();
+    
+    const int p = 31;
+    const int m = 1e9 + 9;
+    vector<long long> p_pow(n);
+    p_pow[0] = 1;
+    for (int i = 1; i < n; i++)
+        p_pow[i] = (p_pow[i-1] * p) % m;
 
-### Implementation
+    vector<long long> h(n);
+    for (int i = 0; i < n; i++)
+        h[i] = ((i ? h[i-1] : 0) + (s[i] - 'a' + 1) * p_pow[i]) % m;
 
-```cpp
-string s; // Input string
-int n = (int) s.length ();
-
-// Calculate all powers of p
-const int p = 31;
-vector <unsigned long long> p_pow (s.length ());
-p_pow [0] = 1;
-for (size_t i = 1; i <p_pow.size (); ++ i)
-    p_pow [i] = p_pow [i-1] * p;
-
-// Calculate the hashes of all prefixes
-vector <unsigned long long> h (s.length ());
-for (size_t i = 0; i <s.length (); ++ i)
-{
-    h [i] = (s [i] - 'a' + 1) * p_pow [i];
-    if (i) h [i] + = h [i-1];
-}
-
-int result = 0; // stores the final answer
-
-// Iterate over length of substrings from 1 to n
-for (int l = 1; l <= n; ++ l)
-{
-    // Need to find the number of distinct substrings of length l
-
-    // Get the hashes for all substrings of length l
-    vector <long long> hs (n-l + 1);
-    for (int i = 0; i <n-l + 1; ++ i)
-    {
-        long long cur_h = h [i + l-1];
-        if (i) cur_h - = h [i-1];
-        // Get all the hashes to the same degree
-        cur_h * = p_pow [n-i-1];
-        hs [i] = cur_h;
+    int cnt = 0;
+    for (int l = 1; l <= n; l++) {
+        set<long long> hs;
+        for (int i = 0; i <= n - l; i++) {
+            long long cur_h = h[i + l - 1];
+            if (i)
+                cur_h = (cur_h + m - h[i-1]) % m;
+            cur_h = (cur_h * p_pow[n-i-1]) % m;
+            hs.insert(cur_h);
+        }
+        cnt += hs.size();
     }
-
-    // Count the number of different hashes
-    sort (hs.begin (), hs.end ());
-    hs.erase (unique (hs.begin (), hs.end ()), hs.end ());
-    result + = (int) hs.size ();
+    return cnt;
 }
-
-cout << result;
 ```
+
+## Improve no-collision probability
+
+Quite often the above mentioned polynomial hash is good enough, and no collisions will happen during tests.
+Remember, the probability that collision happens is only $\approx \frac{1}{m}$.
+For $m = 10^9 + 9$ the probability is $\approx 10^{-9}$ which is quite low.
+But notice, that we only did one comparison.
+What if we compared a string $s$ with $10^6$ different strings.
+The probability that the at least one collision happens is now $\approx 10^{-3}$.
+And if we want to compare $10^6$ different strings with each other (e.g. by counting how many unique strings exists), then the probability of at least one collision happening is already $\approx 1$.
+It is pretty much guaranteed that this task will end will a collision and returns the wrong result.
+
+There is a really easy trick to get better probabilities.
+We can just compute two different hashes for each string (by using two different $p$, and/or different $m$, and compare these pairs instead.
+If $m$ is about $10^9$ for each of the two hash functions, than this is more or less equivalent as having one hash function with $m \approx 10^{18}$.
+When comparing $10^6$ strings with each other, the probability that at least one collision happens is now reduced to $\approx 10^{-6}$.
 
 ## Practice Problems
 
