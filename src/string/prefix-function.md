@@ -313,9 +313,9 @@ We have to compute the number of occurrences of $s$ in the $k$-th Gray string.
 Recall that Gray's strings are define in the following way:
 $$\begin{align}
 g_1 &= "a"\\\\
-g_1 &= "aba"\\\\
-g_1 &= "abacaba"\\\\
-g_1 &= "abacabadabacaba"
+g_2 &= "aba"\\\\
+g_3 &= "abacaba"\\\\
+g_4 &= "abacabadabacaba"
 \end{align}$$
 
 In such cases even constructing the string $t$ will be impossible, because of its astronomical length.
