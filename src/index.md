@@ -44,6 +44,7 @@ especially popular in field of competitive programming.*
 ### String Processing
 - [String Hashing](./string/string-hashing.html)
 - [Rabin-Karp for String Matching](./string/rabin-karp.html)
+- [Expression parsing](./string/expression_parsing.html)
 - [Suffix Array](./string/suffix-array.html)
 - [Suffix Tree](./string/suffix-tree-ukkonen.html)
 - [Z-function](./string/z-function.html)
