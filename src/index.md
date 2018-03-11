@@ -50,6 +50,7 @@ especially popular in field of competitive programming.*
 - [Z-function](./string/z-function.html)
 - [Prefix function](./string/prefix-function.html)
 - [Finding all sub-palindromes in O(N)](./string/manacher.html)
+- [Lyndon factorization](./string/lyndon_factorization.html)
 
 ### Linear Algebra
 - [Gauss & System of Linear Equations](./linear_algebra/linear-system-gauss.html)
