@@ -27,6 +27,7 @@ especially popular in field of competitive programming.*
 - [Arbitrary-Precision Arithmetic](./algebra/big-integer.html)
 - [Fibonacci Numbers](./algebra/fibonacci-numbers.html)
 - [Finding Power of Factorial Divisor](./algebra/factorial-divisors.html)
+- [Fast Fourier transform](./algebra/fft.html)
 
 ### Data Structures
 - [Disjoint Set Union](./data_structures/disjoint_set_union.html)
