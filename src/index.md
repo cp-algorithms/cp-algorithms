@@ -51,6 +51,7 @@ especially popular in field of competitive programming.*
 - [Prefix function](./string/prefix-function.html)
 - [Finding all sub-palindromes in O(N)](./string/manacher.html)
 - [Lyndon factorization](./string/lyndon_factorization.html)
+- [Aho-Corasick algorithm](./string/aho_corasick.html)
 
 ### Linear Algebra
 - [Gauss & System of Linear Equations](./linear_algebra/linear-system-gauss.html)

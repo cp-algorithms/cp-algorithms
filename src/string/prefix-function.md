@@ -250,7 +250,7 @@ $$\underbrace{s_0 ~ s_1 ~ \dots ~ s_{n-1} ~ \\#}\_{\text{need to store}} ~ \unde
 
 Indeed, in such a situation, knowing the next character $c \in t$ and the value of the prefix function of the previous position is enough information to compute the next value of the prefix function, without using any previous characters of the string $t$ and the value of the prefix function in them.
 
-In other words, we can construct an **automaton**: the state in it is the current value of the prefix function, and the transition from one state to another will be performed via the next character.
+In other words, we can construct an **automaton** (a finite state machine): the state in it is the current value of the prefix function, and the transition from one state to another will be performed via the next character.
 
 Thus, even without having the string $t$, we can construct such a transition table $(\text{old}\\_\pi, c) \rightarrow \text{new}\\_\pi$ using the same algorithm as for calculating the transition table:
 
