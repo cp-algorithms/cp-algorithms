@@ -224,7 +224,7 @@ storing the sizes was already described in the Union by size section (the inform
 
 In the same way - by storing it at the representative nodes - you can also store any other information about the sets.
 
-### Compress hops along a segment / Painting subarrays offline
+### Compress jumps along a segment / Painting subarrays offline
 
 One common application of the DSU is the following: 
 There is a set of vertices, and each vertex has an outgoing edge to another vertex. 
@@ -241,7 +241,9 @@ Thus initially each cell points to itself.
 After painting one requested repaint of a segment, all cells from that segment will point to the cell after the segment.
 
 Now to solve this problem, we consider the queries **in the reverse order**: from last to first.
-To execute a query, we take help from our DSU.
+This way when we execute a query, we only have to paint exactly the unpainted cells in the subarray $[l; r]$.
+All other cells already contain their final color.
+To quickly iterate over all unpainted cells, we use the DSU.
 We find the left-most unpainted cell inside of a segment, repaint it, and with the pointer we move to the next empty cell to the right.
 
 Here we can use the DSU with path compression, but we cannot use union by rank / size (because it is important who becomes the leader after the merge).
@@ -490,7 +492,7 @@ We want to compute the number of different numbers in the subtree for every node
 Applying to this task the same idea it is possible to obtain this solution:
 we can implement a [DFS](./graph/depth-first-search.html), which will return a pointer to a set of integers - the list of numbers in that subtree.
 Then to get the answer for the current node (unless of course it is a leaf), we call DFS for all children of that node, and merge all the received sets together.
-The amount of the resulting set will be the answer for the current node.
+The size of the resulting set will be the answer for the current node.
 To efficiently combine multiple sets we just apply the above-described recipe:
 we merge the sets by simply adding smaller ones to larger.
 In the end we get a $O(n \log^2 n)$ solution, because one number will only added to a set at most $O(\log n)$ times.
