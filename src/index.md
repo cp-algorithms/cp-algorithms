@@ -53,6 +53,7 @@ especially popular in field of competitive programming.*
 - [Finding all sub-palindromes in O(N)](./string/manacher.html)
 - [Lyndon factorization](./string/lyndon_factorization.html)
 - [Aho-Corasick algorithm](./string/aho_corasick.html)
+- [Finding repetitions](./string/main_lorentz.html)
 
 ### Linear Algebra
 - [Gauss & System of Linear Equations](./linear_algebra/linear-system-gauss.html)
