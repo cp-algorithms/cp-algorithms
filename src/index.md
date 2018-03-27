@@ -98,6 +98,7 @@ especially popular in field of competitive programming.*
 - [Floyd-Warshall - finding all shortest paths](./graph/all-pair-shortest-path-floyd-warshall.html)
 - [Number of paths of fixed length / Shortest paths of fixed length](./graph/fixed_length_paths.html)
 - [Dijkstra - finding shortest paths from given vertex](./graph/dijkstra.html)
+- [Dijkstra on sparse graphs](./graph/dijkstra_sparse.html)
 - [Bellman-Ford - finding shortest paths with negative weights](./graph/bellman_ford.html)
 - [D´Esopo-Pape algorithm](./graph/desopo_pape.html)
 - [Finding Connected Components](./graph/search-for-connected-components.html)
