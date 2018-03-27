@@ -1,33 +1,32 @@
 <!--?title Dijkstra Algorithm -->
 
 # Dijkstra Algorithm
-### Finding Shortest Paths from Given Vertex to all Other Vertices
 
-You are given a directed or undirected weighted graph with $n$ vertices and $m$ edges. The weights of all edges are non-negative. You are also given a starting vertex $s$. Find the lengths of the shortest paths from vertex $s$ to all other vertices, and output the shortest paths themselves.
+You are given a directed or undirected weighted graph with $n$ vertices and $m$ edges. The weights of all edges are non-negative. You are also given a starting vertex $s$. This article discusses finding the lengths of the shortest paths from a starting vertex $s$ to all other vertices, and output the shortest paths themselves.
 
-This problem is also called "single-source shortest paths problem".
+This problem is also called **single-source shortest paths problem**.
 
 ## Algorithm
 
 Here is an algorithm described by the Dutch computer scientist Edsger W. Dijkstra in 1959.
 
-Let's create an array $d[]$ where for each vertex $v$ we store the current length of the shortest path from $s$ to $v$ $d[v]$. Initially $d[s] = 0$, and for all other vertices this length equals infinity. In a computer implementation a sufficiently large number (which is guaranteed to be greater than any possible path length) is chosen as infinity:
+Let's create an array $d[]$ where for each vertex $v$ we store the current length of the shortest path from $s$ to $v$ in $d[v]$.
+Initially $d[s] = 0$, and for all other vertices this length equals infinity.
+In the implementation a sufficiently large number (which is guaranteed to be greater than any possible path length) is chosen as infinity.
 
-$$d[v] = \infty, v \ne s$$
+$$d[v] = \infty,~ v \ne s$$
 
-In addition, we maintain a boolean array $u[]$ which stores for each vertex $v$ whether it's marked. Initially all vertices are unmarked:
+In addition, we maintain a Boolean array $u[]$ which stores for each vertex $v$ whether it's marked. Initially all vertices are unmarked:
 
 $$u[v] = {\rm false}$$
 
 The Dijkstra's algorithm runs for $n$ iterations. At each iteration a vertex $v$ is chosen as unmarked vertex which has the least value $d[v]$:
 
-$$d[v] = \min_{p: u[p]={\rm false}} d[p]$$
-
 Evidently, in the first iteration the starting vertex $s$ will be selected.
 
-Thus selected vertex $v$ is marked. Next, from vertex $v$ **relaxations** are performed: all edges of the form $(v,to)$ are considered, and for each vertex $to$ the algorithm tries to improve the value $d[to]$. If the length of the current edge equals $len$, the code for relaxation is:
+The selected vertex $v$ is marked. Next, from vertex $v$ **relaxations** are performed: all edges of the form $(v,\text{to})$ are considered, and for each vertex $\text{to}$ the algorithm tries to improve the value $d[\text{to}]$. If the length of the current edge equals $len$, the code for relaxation is:
 
-$$d[to] = \min (d[to], d[v] + len)$$
+$$d[\text{to}] = \min (d[\text{to}], d[v] + len)$$
 
 After all such edges are considered, the current iteration ends. Finally, after $n$ iterations, all vertices will be marked, and the algorithm terminates. We claim that the found values $d[v]$ are the lengths of shortest paths from $s$ to all vertices $v$.
 
@@ -39,9 +38,9 @@ Usually one needs to know not only the lengths of shortest paths but also the sh
 
 $$P = (s, \ldots, p[p[p[v]]], p[p[v]], p[v], v)$$
 
-Building this array of predecessors is very simple: for each successful relaxation, i.e. when for some selected vertex $v$, there is an improvement in the distance to some vertex $to$, we update the predecessor vertex for $to$ with vertex $v$:
+Building this array of predecessors is very simple: for each successful relaxation, i.e. when for some selected vertex $v$, there is an improvement in the distance to some vertex $\text{to}$, we update the predecessor vertex for $\text{to}$ with vertex $v$:
 
-$$p[to] = v$$
+$$p[\text{to}] = v$$
 
 ## Proof
 
@@ -71,7 +70,7 @@ Q.E.D.
 
 ## Implementation
 
-Dijkstra's algorithm performs $n$ iterations. On each iteration it selects an unmarked vertex $v$ with the lowest value $d[v]$, marks it and checks all the edges $(v, to)$ attempting to improve the value $d[to]$.
+Dijkstra's algorithm performs $n$ iterations. On each iteration it selects an unmarked vertex $v$ with the lowest value $d[v]$, marks it and checks all the edges $(v, \text{to})$ attempting to improve the value $d[\text{to}]$.
 
 The running time of the algorithm consists of:
 
@@ -82,40 +81,31 @@ For the simplest implementation of these operations on each iteration vertex sea
 
 $$O(n^2+m)$$ 
 
-```cpp
+```cpp dijkstra_dense
 const int INF = 1000000000;
+vector<vector<pair<int, int>>> adj;
 
-int main() {
-    int n;
-    /*... read n ...*/
-   
-    vector<vector<pair<int, int > > > g(n);
-    /*... read graph ...*/
-    
-    int s = ...; // read starting vertex
+void dijkstra(int s, vector<int> & d, vector<int> & p) {
+    int n = adj.size();
+    d.assign(n, INF);
+    p.assign(n, -1);
+    vector<bool> u(n, false);
 
-    vector<int> d(n, INF), p(n);
-    
     d[s] = 0;
-    
-    vector<char> u(n);
-    
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; i++) {
         int v = -1;
-        
-        for (int j = 0; j < n; ++j)
+        for (int j = 0; j < n; j++) {
             if (!u[j] && (v == -1 || d[j] < d[v]))
                 v = j;
+        }
         
         if (d[v] == INF)
             break;
         
         u[v] = true;
-        
-        for (size_t j = 0; j < g[v].size(); ++j) {
-            
-            int to = g[v][j].first,
-            int len = g[v][j].second;
+        for (auto edge : adj[v]) {
+            int to = edge.first;
+            int len = edge.second;
             
             if (d[v] + len < d[to]) {
                 d[to] = d[v] + len;
@@ -126,20 +116,25 @@ int main() {
 }
 ```
 
-Here the graph $g$ is stored as adjacency list: for each vertex $v$ $g[v]$ contains the list of edges going from this vertex, i.e. the list of `pair<int,int>` where the first element in the pair is the vertex at the other end of the edge, and the second element is the edge weight.
+Here the graph $\text{adj}$ is stored as adjacency list: for each vertex $v$ $\text{adj}[v]$ contains the list of edges going from this vertex, i.e. the list of `pair<int,int>` where the first element in the pair is the vertex at the other end of the edge, and the second element is the edge weight.
 
-First of all, the code initializes arrays: distances $d[]$, labels $u[]$ and predecessors $p[]$. Then it performs $n$ iterations. At each iteration the vertex $v$ is selected which has the smallest distance $d[v]$ among all the unmarked vertices. If the distance to selected vertex $v$ is equal to infinity, the algorithm stops. Otherwise the vertex is marked, and all the edges going out from this vertex are checked. If relaxation along the edge is possible (i.e. distance $d[to]$ can be improved), the distance $d[to]$ and predecessor $p[to]$ are updated.
+The function takes the starting vertex $s$ and two vectors that will be used as return values.
+
+First of all, the code initializes arrays: distances $d[]$, labels $u[]$ and predecessors $p[]$. Then it performs $n$ iterations. At each iteration the vertex $v$ is selected which has the smallest distance $d[v]$ among all the unmarked vertices. If the distance to selected vertex $v$ is equal to infinity, the algorithm stops. Otherwise the vertex is marked, and all the edges going out from this vertex are checked. If relaxation along the edge is possible (i.e. distance $d[\text{to}]$ can be improved), the distance $d[\text{to}]$ and predecessor $p[\text{to}]$ are updated.
 
 After performing all the iterations array $d[]$ stores the lengths of the shortest paths to all vertices, and array $p[]$ stores the predecessors of all vertices (except starting vertex $s$). The path to any vertex $t$ can be restored in the following way:
 
-```cpp
-vector<int> path;
+```cpp dijkstra_restore_path
+vector<int> restore_path(int s, int t, vector<int> const& p) {
+    vector<int> path;
 
-for (int v = t; v != s; v = p[v])
-    path.push_back(v);
-path.push_back(s);
+    for (int v = t; v != s; v = p[v])
+        path.push_back(v);
+    path.push_back(s);
 
-reverse(path.begin(), path.end());
+    reverse(path.begin(), path.end());
+    return path;
+}
 ```
 
 ## References
@@ -180,7 +175,7 @@ reverse(path.begin(), path.end());
 * [UVA 11374 - Airport Express](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2369)
 * [UVA 11097 - Poor My Problem](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2038)
 * [UVA 13172 - The music teacher](https://uva.onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=5083)
-* [Codeforces - Dirty Arkadys Kichen](http://codeforces.com/contest/827/problem/F)
+* [Codeforces - Dirty Arkady's Kitchen](http://codeforces.com/contest/827/problem/F)
 * [SPOJ - Delivery Route](http://www.spoj.com/problems/DELIVER/)
 * [SPOJ - Costly Chess](http://www.spoj.com/problems/CCHESS/)
 
