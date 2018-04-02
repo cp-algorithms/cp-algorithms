@@ -69,6 +69,10 @@ especially popular in field of competitive programming.*
 - [Burnside's lemma / Pólya enumeration theorem](./combinatorics/burnside.html)
 - [Stars and bars](./combinatorics/stars_and_bars.html)
 
+### Game Theory
+
+- [Games on arbitrary graphs](./game_theory/games_on_graphs.html)
+
 ### Numerical Methods
 - [Ternary Search](./num_methods/ternary_search.html)
 - [Newton's method for finding roots](./num_methods/roots_newton.html)
