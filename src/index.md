@@ -65,6 +65,7 @@ especially popular in field of competitive programming.*
 - [Binomial Coefficients](./combinatorics/binomial-coefficients.html)
 - [Catalan Numbers](./combinatorics/catalan-numbers.html)
 - [Placing Bishops on a Chessboard](./combinatorics/bishops-on-chessboard.html)
+- [Balanced bracket sequences](./combinatorics/bracket_sequences.html)
 - [Burnside's lemma / Pólya enumeration theorem](./combinatorics/burnside.html)
 - [Stars and bars](./combinatorics/stars_and_bars.html)
 
