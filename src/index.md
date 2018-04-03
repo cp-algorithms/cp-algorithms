@@ -115,6 +115,7 @@ especially popular in field of competitive programming.*
 - [Minimum Spanning Tree - Prim's Algorithm](./graph/mst_prim.html)
 - [Minimum Spanning Tree - Kruskal](./graph/mst_kruskal.html)
 - [Minimum Spanning Tree - Kruskal with Disjoint Set Union](./graph/mst_kruskal_with_dsu.html)
+- [Prüfer code](./graph/pruefer_code.html)
 - [Kirchhoff Theorem](./graph/kirchhoff-theorem.html)
 - [Strongly Connected Components and Condensation Graph](./graph/strongly-connected-components.html)
 - [Maximum flow - Ford-Fulkerson and Edmonds-Karp](./graph/edmonds_karp.html)
