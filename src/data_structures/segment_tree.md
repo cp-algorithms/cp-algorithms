@@ -931,7 +931,7 @@ struct Vertex {
 Vertex* build(int a[], int tl, int tr) {
     if (tl == tr)
         return new Vertex(a[tl]);
-    int tmx = (tlx + trx) / 2;
+    int tm = (tl + tr) / 2;
     return new Vertex(build(a, tl, tm), build(a, tm+1, tr));
 }
 
