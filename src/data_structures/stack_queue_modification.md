@@ -1,6 +1,6 @@
-<!--?title Modification of stack / queue for finding the minimum in $O(1)$ -->
+<!--?title Minimum stack / Minimum queue -->
 
-# Modification of stack / queue for finding the minimum in $O(1)$
+# Minimum stack / Minimum queue
 
 In this article we will consider three problems: 
 first we will modify a stack in a way that allows up to find the smallest element of the stack in $O(1)$, then we will do the same thing with a queue, and finally we will use these data structures to find the minimum in all subarrays of a fixed length in an array in $O(n)$
