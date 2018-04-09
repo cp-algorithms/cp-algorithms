@@ -9,7 +9,7 @@ We recall in the derivation of the complexity of Dijkstra's algorithm we used tw
 the time of finding the unmarked vertex with the smallest distance $d[v]$, and the time of the relaxation, i.e. the time of changing the values $d[\text{to}]$.
 
 In the simplest implementation these operations require $O(n)$ and $O(1)$ time.
-Therefore, since we perform the first operation $O(n)$ times, and the second one $O(m)$ times, we obtained the complexity $O(n^2 m)$.
+Therefore, since we perform the first operation $O(n)$ times, and the second one $O(m)$ times, we obtained the complexity $O(n^2 + m)$.
 
 It is clear, that this complexity is optimal for a dense graph, i.e. when $m \approx n^2$.
 However in sparse graphs, when $m$ is much smaller than the maximal number of edges $n^2$, the complexity gets less optimal because of the first term.
