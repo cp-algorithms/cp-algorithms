@@ -42,3 +42,7 @@ for (int st = 0; st < n; ++st) {
 
 cout << (is_bipartite ? "YES" : "NO") << endl;
 ```
+
+### Practice problems:
+
+- [SPOJ - BUGLIFE](http://www.spoj.com/problems/BUGLIFE/)
