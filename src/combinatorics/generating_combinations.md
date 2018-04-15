@@ -26,11 +26,7 @@ bool next_combination(vector<int>& a, int n) {
 }
 ```
 
-In terms of performance, this algorithm is (on average) linear, if $K << N$ (that is, if $K!=N$ then 
-the algorithm is $O(N)$). This can be determined by proving that $a[i] < n - k + i + 1$ is valid
-for $\binom{n+1}{k}$ iterations in total.
-
-## Combinations of $K$ elements out of $N$ elements ordered with changes to exactly one element
+## Generate all combinations of size K such that adjacent combinations differ by one element
 Consider the problem - Write all combinations of subsets of $N$ whose cardinality is $K$ in such
 an order, that adjacent combinations differ exactly by one element.
 
@@ -52,27 +48,48 @@ be obtained as follows:
 $$G(N) = 0G(N-1) \cup 1G(N-1)^\text{R}$$
 
 That is, consider the Gray Code sequence for $N-1$, and prefix $0$ before every term. And consider the 
-inverted Gray Code sequence for $N-1$ (i.e bitwise compliment) and prefix a $1$ before every mask, and
+reversed Gray Code sequence for $N-1$ and prefix a $1$ before every mask, and
 concatenate these two sequences.
 
 Now we may produce our proof.
 
 First, we prove that the first and last masks differ exactly in two bits. To do this, it is sufficient to note
-that the first mask of the sequence $G(N)$, will be of the form $N-K$ $0$s, followed by $K$ $1$s. (As,
-the first bit is set as $0$, after which $(N-K-1)$ $0$s follow, after which $K$ set bits follow.)
+that the first mask of the sequence $G(N)$, will be of the form $N-K$ $0$s, followed by $K$ $1$s. As,
+the first bit is set as $0$, after which $(N-K-1)$ $0$s follow, after which $K$ set bits follow and the last mask will be of the form $1$, then $(N-K)$ $0$s, then $K-1$ $1$s.
 
-Similarly, the last mask will be of the form $1$, then $(N-K-1)$ $0$s, then $K-1$ $1$s.
+Now we shall apply the principle of mathematical induction, to derive $G(N)$.
 
-Now let us complete the proof using mathematical induction on the above recursive formula for $G(N)$.
+Given our task is to show that any two adjacent codes also differ exactly in two bits, we can do this by considering our recursive equation for the generation of Gray Codes. Let us assume the content of the two halves formed from $G(N-1)$ be true. Now we will need to prove that the new consecutive pair formed at the junction, (by the concatenation of these two halves) is also valid, i.e. they differ by exactly two bits.
 
-Now, we must show that any two adjacent codes also differ exactly in two bits. This can be done by inspecting our
-recursive formula for generating Gray Codes. Let us assume that both halves are true, (i.e. assume that $G(N-1)$
-has been properly constructed). To prove the validity now in general, we just have to prove the validity of
-the "gluing" part of the equation, that is the validity between the last term of the first sequence with the first term
-of the second sequence. This is how the principle of mathematical induction is applied here.
+This can be done, as we know the last mask of the first half and the first mask of the second half. The last mask of the first half would be $1$, then $(N-K-1)$ $0$s, then $K-1$ $1$s. And the first mask of the second half would be $0$, then $(N-K-2)$ $0$s would follow, and then $K$ $1$s. Thus, comparing the two masks, we find exactly two bits that differ.
 
 The following is a naive implementation working by generating all $2^{n}$ possible subsets, and finding subsets of cardinality
 $K$.
+
+```cpp generate_all_combinations_naive
+int gray_code (int n) {
+	return n ^ (n >> 1);
+}
+
+int count_bits (int n) {
+	int res = 0;
+	for (; n; n >> = 1)
+		res + = n & 1;
+	return res;
+}
+
+void all_combinations (int n, int k) {
+	for (int i = 0; i <(1 << n); ++ i) {
+		int cur = gray_code (i);
+		if (count_bits (cur) == k) {
+			for (int j = 0; j <n; ++ j)
+				if (cur & (1 << j))
+					printf ("% d", j + 1);
+			puts ("");
+		}
+	}
+}
+```
 
 It's worth mentioning that a more efficient implementation exists that only resorts to building valid combinations and thus
 works in $O\left(N \cdot \binom{N}{K}\right)$ however it is recursive in nature and for smaller values of $N$ it probably has a larger constant
