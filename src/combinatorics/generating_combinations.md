@@ -12,18 +12,20 @@ current combination, and find the rightmost element that has not yet reached its
 finding this element, we increment it by $1$, and assign the lowest valid value to all subsequent
 elements.
 
-    bool next_combination (vector <int> & a, int n) {
-      int k = (int) a.size ();
-      for (int i = k - 1; i >= 0; --i)
-        if( a[i] < n - k + i + 1 ) {
-          ++a[i];
-          for(int j = i + 1; j < k; ++j)
-            a [j] = a [j-1] + 1;
-          return true;
+```cpp next_combination
+bool next_combination(vector<int>& a, int n) {
+    int k = (int)a.size();
+    for (int i = k - 1; i >= 0; i--)
+        if (a[i] < n - k + i + 1) {
+            a[i]++;
+            for (int j = i + 1; j < k; j++)
+                a[j] = a[j - 1] + 1;
+            return true;
         }
-      return false;
-    }
-    
+    return false;
+}
+```
+
 In terms of performance, this algorithm is (on average) linear, if $K << N$ (that is, if $K!=N$ then 
 the algorithm is $O(N)$). This can be determined by proving that $a[i] < n - k + i + 1$ is valid
 for $\binom{n+1}{k}$ iterations in total.
@@ -38,7 +40,7 @@ If we assign a bitmask to each subset, then by generating and iterating over the
 
 The task of generating $K$ cardinal combinations can also be solved using Gray Codes, in the following way -
 Generate Gray Codes for numbers from $0$ to $2^N - 1$ and leave only those codes containing $K$ $1$s.
-The surprising fact is that in the resulting sequence of $K$ set bits, any two neighbouring masks (including the
+The surprising fact is that in the resulting sequence of $K$ set bits, any two neighboring masks (including the
 first and last mask - neighboring in a cyclic sense) - will differ exactly by two bits, which is our objective (remove
 a number, add a number).
 
@@ -47,7 +49,7 @@ Let us prove this:
 For the proof, we recall the fact that the sequence $G(N)$ (representing the $N$<sup>th</sup> Gray Code can 
 be obtained as follows:
 
-$G(N) = 0G(N-1) \cup 1G(N-1)$<sup>R</sup>
+$$G(N) = 0G(N-1) \cup 1G(N-1)^\text{R}$$
 
 That is, consider the Gray Code sequence for $N-1$, and prefix $0$ before every term. And consider the 
 inverted Gray Code sequence for $N-1$ (i.e bitwise compliment) and prefix a $1$ before every mask, and
@@ -72,31 +74,34 @@ of the second sequence. This is how the principle of mathematical induction is a
 The following is a naive implementation working by generating all $2^{n}$ possible subsets, and finding subsets of cardinality
 $K$.
 
-It's worth mentioning that a more efficient implementation exists that only resorts to bulding valid combinations and thus
-works in $O(N* \binom{N}{K})$ however it is recursive in nature and for smaller values of $N$ it probably has a larger constant
+It's worth mentioning that a more efficient implementation exists that only resorts to building valid combinations and thus
+works in $O\left(N \cdot \binom{N}{K}\right)$ however it is recursive in nature and for smaller values of $N$ it probably has a larger constant
 than the previous solution.
 
 The implementation is derived from the formula:
 
-$G(N, K) = 0G(N-1, K) \cup 1G(N-1, K-1)$<sup>R</sup>
+$$G(N, K) = 0G(N-1, K) \cup 1G(N-1, K-1)^\text{R}$$
 
 This formula is obtained by modifying the general equation to determine the Gray code, and works by selecting the
 subsequence from appropriate elements.
 
-Its implementation is as follows -
-    
-    bool ans [MAXN];
-    
-    void gen (int n, int k, int l, int r, bool rev, int old_n) {
-        if (k>n || k<0) return;
-        if (!n) {
-            for(int i = 0; i < old_n; ++i)
-                printf("%d", (int) ans[i]);
-            puts("");
-            return;
-        }
-        ans [rev?r:l] = false;
-        gen(n-1, k, !rev? l+1:l, !rev? r:r-1, rev, old_n);
-        ans [rev?r:l] = true;
-        gen(n-1, k-1, !rev?l+1:l, !rev?r:r-1, !rev, old_n);
+Its implementation is as follows:
+
+```cpp generate_all_combinations_fast
+bool ans[MAXN];
+
+void gen(int n, int k, int l, int r, bool rev, int old_n) {
+    if (k > n || k < 0)
+        return;
+    if (!n) {
+        for (int i = 0; i < old_n; ++i)
+            printf("%d", (int)ans[i]);
+        puts("");
+        return;
     }
+    ans[rev ? r : l] = false;
+    gen(n - 1, k, !rev ? l + 1 : l, !rev ? r : r - 1, rev, old_n);
+    ans[rev ? r : l] = true;
+    gen(n - 1, k - 1, !rev ? l + 1 : l, !rev ? r : r - 1, !rev, old_n);
+}
+```
