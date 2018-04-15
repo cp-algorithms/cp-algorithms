@@ -110,12 +110,12 @@ Its implementation is as follows:
 ```cpp generate_all_combinations_fast
 vector<int> ans;
 
-void gen(int n, int k, int l, int r, bool rev) {
+void gen(int n, int k, int idx, bool rev) {
     if (k > n || k < 0)
         return;
 
     if (!n) {
-        for (int i = 0; i < (int)ans.size(); ++i) {
+        for (int i = 0; i < idx; ++i) {
             if (ans[i])
                 cout << i + 1;
         }
@@ -123,14 +123,14 @@ void gen(int n, int k, int l, int r, bool rev) {
         return;
     }
 
-    ans[rev ? r : l] = false;
-    gen(n - 1, k, !rev ? l + 1 : l, !rev ? r : r - 1, rev);
-    ans[rev ? r : l] = true;
-    gen(n - 1, k - 1, !rev ? l + 1 : l, !rev ? r : r - 1, !rev);
+    ans[idx] = rev;
+    gen(n - 1, k - rev, idx + 1, false);
+    ans[idx] = !rev;
+    gen(n - 1, k - !rev, idx + 1, true);
 }
 
 void all_combinations(int n, int k) {
     ans.resize(n);
-    gen(n, k, 0, n-1, false);
+    gen(n, k, 0, false);
 }
 ```
