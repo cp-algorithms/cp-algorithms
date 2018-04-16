@@ -23,7 +23,7 @@ Let $g = {\rm gcd (a, n)}$ i.e. Their greatest common divisor (which in this cas
 
 Then, if $b$ is not divisible by $g$, then there is no solution. In fact, for any $x$ the left side of the equation $(a\cdot x)\pmod n$ , is always divisible by $g$, while the right-hand side does not divisible by it, hence it follows that there are no solutions.
 
-If $g$ divides $b$, then dividing both sides of the equation into this g(i.e., dividing $a$, $b$ and $n$ on $g$), we come to a new equation:
+If $g$ divides $b$, then dividing both sides of the equation into this g  (i.e., dividing $a$, $b$ and $n$ on $g$), we come to a new equation:
 
 $$a^\prime\cdot x = b^\prime\pmod{n^\prime}$$
 
