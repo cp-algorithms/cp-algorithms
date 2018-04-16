@@ -11,15 +11,15 @@ It is required to find the value $x$ from the interval $[0, n-1]$ (clearly, on t
 
 ## Solution by finding the inverse element
 
-Let us first consider a simpler case where $a$ and $n$ are coprime ($\gcd(a, n) = 1$).
-Then one can find the inverse of $a$, and multiplying both sides of the equation with the inverse, and we can get a unique solution.
+Let us first consider a simpler case where $a$ and $n$ are **coprime** ($\gcd(a, n) = 1$).
+Then one can find the [inverse](./algebra/module-inverse.html) of $a$, and multiplying both sides of the equation with the inverse, and we can get a **unique** solution.
 
 $$x = b \cdot a ^ {- 1} \pmod n$$
 
-Now consider the case where $a$ and $n$ are not coprime ($\gcd(a, n) != 1$).
+Now consider the case where $a$ and $n$ are **not coprime** ($\gcd(a, n) != 1$).
 Then the solution will not always exist (for example $2 \cdot x = 1 \pmod 4$ has no solution).
 
-Let $g = \gcd(a, n)$, i.e. the greatest common divisor of $a$ and $n$ (which in this case is greater than one).
+Let $g = \gcd(a, n)$, i.e. the [greatest common divisor](./algebra/euclid-algorithm.html) of $a$ and $n$ (which in this case is greater than one).
 
 Then, if $b$ is not divisible by $g$, there is no solution. In fact, for any $x$ the left side of the equation $a \cdot x \pmod n$ , is always divisible by $g$, while the right-hand side is not divisible by it, hence it follows that there are no solutions.
 
@@ -31,12 +31,12 @@ in which $a^\prime$ and $n^\prime$ are already relatively prime, and we have alr
 We get as solution for $x^\prime$.
 
 It is clear that this $x^\prime$ will also be a solution of the original equation.
-However it will not be the only solution.
+However it will **not be the only solution**.
 It can be shown that the original equation has exactly $g$ solutions, and they will look like this:
 
 $$x_i = (x^\prime + i\cdot n^\prime) \pmod n \quad \text{for } i = 0 \ldots g-1$$
 
-Summarizing, we can say that the number of solutions of the linear modular equation is equal to either $g = \gcd(a, n)$ or to zero.
+Summarizing, we can say that the **number of solutions** of the linear congruence equation is equal to either $g = \gcd(a, n)$ or to zero.
 
 ## Solution with the Advanced Euclidean Algorithm
 
@@ -46,10 +46,6 @@ $$a \cdot x + n \cdot k = b,$$
 
 where $x$ and $k$ are unknown integers.
 
-The method of solving this equation is described in the corresponding article Linear Diophantine equations of the second order, and it consists of applying the Extended Euclidean Algorithm.
+The method of solving this equation is described in the corresponding article [Linear Diophantine equations](./algebra/linear-diophantine-equation.html) and it consists of applying the [Extended Euclidean Algorithm](./algebra/extended-euclid-algorithm.html).
 
 It also describes the method of obtaining all solutions of this equation from one found solution, and incidentally this method, when carefully considered, is absolutely equivalent to the method described in the previous section.
-
-[Extended Euclidean Algorithm](https://e-maxx-eng.appspot.com/algebra/euclid-algorithm.html)
-
-[Modular Inverse](https://e-maxx-eng.appspot.com/algebra/module-inverse.html)
