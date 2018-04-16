@@ -1,53 +1,54 @@
-<!--?title Modular linear equation -->
-#Modular linear equation of the first order#
-
-##Formulation of the problem##
+<!--?title Linear Congruence Equation -->
+# Linear Congruence Equation
 
 This equation is of the form:
 
-$$a \cdot x = b \pmod n$$,
+$$a \cdot x = b \pmod n,$$
 
-Where $a$, $b$ and $n$ are given integers and $x$ is an unknown integer.
+where $a$, $b$ and $n$ are given integers and $x$ is an unknown integer.
 
-It is required to find the value $x$ lying in the interval [0, n-1] (since on the entire number line, clearly, there can be infinitely many solutions that will differ from each other in $n \cdot k$ , where k - any integer). If the solution is not unique, then we will consider how to get all the solutions.
+It is required to find the value $x$ from the interval $[0, n-1]$ (clearly, on the entire number line there can be infinitely many solutions that will differ from each other in $n \cdot k$ , where $k$ is any integer). If the solution is not unique, then we will consider how to get all the solutions.
 
-##Solution by finding the Reverse element##
+## Solution by finding the inverse element
 
-Let us first consider a simpler case-when $a$ and $n$ are coprime(gcd(a, n) = 1) or relatively prime to each other. Then one can find the inverse of $a$, and multiplying both sides of the equation by inverse of $a$, we can get a unique solution.
+Let us first consider a simpler case where $a$ and $n$ are coprime ($\gcd(a, n) = 1$).
+Then one can find the inverse of $a$, and multiplying both sides of the equation with the inverse, and we can get a unique solution.
 
 $$x = b \cdot a ^ {- 1} \pmod n$$
 
-Now consider the case when a and n not coprime(gcd(a, n) != 1). Then the solution will not always exist (for example, $2\cdot x = 1\pmod 4$ ).
+Now consider the case where $a$ and $n$ are not coprime ($\gcd(a, n) != 1$).
+Then the solution will not always exist (for example $2 \cdot x = 1 \pmod 4$ has no solution).
 
-Let $g = {\rm gcd (a, n)}$ i.e. Their greatest common divisor (which in this case is greater than one).
+Let $g = \gcd(a, n)$, i.e. the greatest common divisor of $a$ and $n$ (which in this case is greater than one).
 
-Then, if $b$ is not divisible by $g$, then there is no solution. In fact, for any $x$ the left side of the equation $(a\cdot x)\pmod n$ , is always divisible by $g$, while the right-hand side does not divisible by it, hence it follows that there are no solutions.
+Then, if $b$ is not divisible by $g$, there is no solution. In fact, for any $x$ the left side of the equation $a \cdot x \pmod n$ , is always divisible by $g$, while the right-hand side is not divisible by it, hence it follows that there are no solutions.
 
-If $g$ divides $b$, then dividing both sides of the equation into this g (i.e., dividing $a$, $b$ and $n$ on $g$), we come to a new equation:
+If $g$ divides $b$, then by dividing both sides of the equation by $g$ (i.e. dividing $a$, $b$ and $n$ by $g$), we receive a new equation:
 
 $$a^\prime\cdot x = b^\prime\pmod{n^\prime}$$
 
-in which $a^\prime$ and $n^\prime$ will already be reatively prime, and we have already learned such an equation. We denote its solution in terms of $x^\prime$ .
+in which $a^\prime$ and $n^\prime$ are already relatively prime, and we have already learned how to handle such an equation.
+We get as solution for $x^\prime$.
 
-It is clear that this $x^\prime$ will also be a solution of the original equation. However, if g > 1 , then it will not be the only solution. It can be shown that the original equation will have exactly g solutions, and they will look like:
+It is clear that this $x^\prime$ will also be a solution of the original equation.
+However it will not be the only solution.
+It can be shown that the original equation has exactly $g$ solutions, and they will look like this:
 
-$x_i = (x^\prime + i\cdot n^\prime) \pmod n$,
+$$x_i = (x^\prime + i\cdot n^\prime) \pmod n \quad \text{for } i = 0 \ldots g-1$$
 
-$i = 0\ldots(g-1)$
+Summarizing, we can say that the number of solutions of the linear modular equation is equal to either $g = \gcd(a, n)$ or to zero.
 
-Summarizing, we can say that the number of solutions of the linear modular equation is equal to either $g = {\rm gcd (a, n)}$ , or zero.
+## Solution with the Advanced Euclidean Algorithm
 
-##Solution with the Advanced Euclidean Algorithm##
+We can rewrite the linear congruence to the following Diophantine equation:
 
-We reduce our modular equation to the Diophantine equation as follows:
+$$a \cdot x + n \cdot k = b,$$
 
-$$a \cdot x + n \cdot k = b$$,
+where $x$ and $k$ are unknown integers.
 
-Where $x$ and $k$ are unknown integers.
+The method of solving this equation is described in the corresponding article Linear Diophantine equations of the second order, and it consists of applying the Extended Euclidean Algorithm.
 
-The method of solving this equation is described in the corresponding article Linear Diophantine equations of the second order , and it consists in the application of the Euclidean Extended Algorithm .
-
-It also describes the method of obtaining all solutions of this equation from one solution found, and, incidentally, this method, when carefully considered, is absolutely equivalent to the method described in the preceding paragraph.
+It also describes the method of obtaining all solutions of this equation from one found solution, and incidentally this method, when carefully considered, is absolutely equivalent to the method described in the previous section.
 
 [Extended Euclidean Algorithm](https://e-maxx-eng.appspot.com/algebra/euclid-algorithm.html)
 
