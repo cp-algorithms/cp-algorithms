@@ -44,6 +44,7 @@ the previous point once added to the hull.
 
 The final convex hull is obtained from the union of the upper and lower convex hull, and the implementation is as follows -
 
+## Implementation
 ```cpp grahams_scan
 struct pt {
 	double x, y;
