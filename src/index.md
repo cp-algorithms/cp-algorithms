@@ -92,6 +92,7 @@ especially popular in field of competitive programming.*
 - [Lattice points of non-lattice polygon](./geometry/lattice-points.html)
 - [Area of simple polygon](./geometry/area-of-simple-polygon.html)
 - [Convex hull trick and Li Chao tree](./geometry/convex_hull_trick.html)
+- [Convex hull construction using Graham's Scan](./geometry/grahams-scan-convex-hull.html)
 
 ### Graphs
 - [Breadth First Search](./graph/breadth-first-search.html)
