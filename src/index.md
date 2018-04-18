@@ -10,6 +10,7 @@ especially popular in field of competitive programming.*
 
 ### Algebra
 - [Euler's Totient Function](./algebra/phi-function.html)
+- [Number of divisors / sum of divisors](./algebra/divisors.html)
 - [Euclidean algorithm for finding the GCD (greatest common divisor)](./algebra/euclid-algorithm.html)
 - [Sieve of Eratosthenes](./algebra/sieve-of-eratosthenes.html)
 - [Extended Euclidean Algorithm](./algebra/extended-euclid-algorithm.html)
