@@ -401,7 +401,7 @@ Now we switch the objective a little bit.
 We still want to to multiply two polynomials in $O(n \log n)$ time, but this time we want to compute the coefficients modulo some prime number $p$.
 Of course for this task we can use the normal DFT and apply the modulo operator to the result.
 However, doing so might lead to rounding errors, especially when dealing with large numbers.
-The **number theoretic transform (NNT)** has the advantage, that it only works with integer, and therefore the result are guaranteed to be correct.
+The **number theoretic transform (NTT)** has the advantage, that it only works with integer, and therefore the result are guaranteed to be correct.
  
 The discrete Fourier transform is based on complex numbers, and the $n$-th roots of unity.
 To efficiently compute it, we extensively use properties of the roots (e.g. that there is one root that generates all other roots by exponentiation).
