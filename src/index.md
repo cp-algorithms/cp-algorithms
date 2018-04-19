@@ -127,6 +127,7 @@ especially popular in field of competitive programming.*
 - [Maximum flow - Push-relabel algorithm](./graph/push-relabel.html)
 - [Maximum flow - Push-relabel algorithm improved](./graph/push-relabel-faster.html)
 - [Flows with demands](./graph/flow_with_demands.html)
+- [Minimum-cost flow](./graph/min_cost_flow.html)
 - [Edge connectivity / Vertex connectivity](./graph/edge_vertex_connectivity.html)
 - [2-SAT](./graph/2SAT.html)
 
