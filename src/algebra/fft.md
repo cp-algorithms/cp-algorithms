@@ -522,3 +522,12 @@ We want to find all ways to attach the first stripe to the second one, such that
 
 The problem doesn't actually differ much from the previous problem.
 Attaching two stripes just means that we perform a cyclic shift on the second array, and we can attach the two stripes, if scalar product of the two arrays is $0$.
+
+## Practice problems
+
+- [SPOJ - POLYMUL](http://www.spoj.com/problems/POLYMUL/)
+- [SPOJ - MAXMATCH](http://www.spoj.com/problems/MAXMATCH/)
+- [SPOJ - ADAMATCH](http://www.spoj.com/problems/ADAMATCH/)
+- [Codeforces - Yet Another String Matching Problem](http://codeforces.com/problemset/problem/954/I)
+- [Codeforces - Lightsabers (hard)](http://codeforces.com/problemset/problem/958/F3)
+- [Codeforces - Dasha and cyclic table](http://codeforces.com/contest/754/problem/E)
