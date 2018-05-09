@@ -39,7 +39,24 @@ For more details check out the implementation.
   Run a series of depth first searches so as to visit each vertex exactly once in $O(n + m)$ time.
   The required topological ordering will be the vertices sorted in descending order of exit time.
 
-* Check whether a given graph is acyclic and find cycles in a graph.
+* Classfication of edges of a graph is based on the starting and finishing time of the nodes $(u,v)$ forming and edge from $u$ to $v$.
+
+If $v$ is not visited:
+
+1. Tree Edge - If $v$ is visited after $u$ then edge $(u,v)$ is called a tree edge. In other words, if $v$ is visited for the first time and $u$ is currently being visited then $(u,v)$ is called tree edge.
+	These edges form a DFS tree and hence the name tree edges.
+
+If $v$ is visited before $u$:
+
+2. Back edges - If $v$ is **currently** being visited and has descendant $u$ then edge $(u,v)$ is a back edge. These edges complete a cycle as there is a path from ancestor $v$ to descendant $u$ (in recursion of DFS) and edge from descendant $u$ to ancestor $v$ (back edge) thus cycle is formed. Cycles can be detected using back edges.
+
+3. Forward Edges - If $v$ is a descendant of $u$, then edge $(u, v)$ is a forward edge. In other words, If $v$ is **visited** and $startTime[u] < startTime[v]$ then edge $(u,v)$ forms a forward edge.
+4. Cross Edges: if $v$ is neither an ancestor or descendant of $u$, then edge $(u, v)$ is a cross edge. In other words, If $v$ is **visited** and $startTime[u] > startTime[v]$ then $(u,v)$ is a cross edge.
+
+
+NOTE: Undirected graphs cannot contain forward and cross edges.
+
+* Check whether a given graph is acyclic and find cycles in a graph. (As mentioned above by counting back edges in every connected components).
 
 * Find strongly connected components in a directed graph:
 
