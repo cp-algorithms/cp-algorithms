@@ -5,7 +5,7 @@
 Depth First Search is one of the main graph algorithms.
 
 Depth First Search finds the lexicographical first path in the graph from a source vertex $u$ to each vertex.
-Depth First Search will also find the shortest paths on a tree, but on general graphs this is not the case.
+Depth First Search will also find the shortest paths in a tree (because there only exists one simple path), but on general graphs this is not the case.
 
 The algorithm works in $O(m + n)$ time where $n$ is the number of vertices and $m$ is the number of edges.
 
@@ -39,7 +39,7 @@ For more details check out the implementation.
   Run a series of depth first searches so as to visit each vertex exactly once in $O(n + m)$ time.
   The required topological ordering will be the vertices sorted in descending order of exit time.
 
-* Classfication of edges of a graph is based on the starting and finishing time of the nodes $(u,v)$ forming and edge from $u$ to $v$.
+* Classification of edges of a graph is based on the starting and finishing time of the nodes $(u,v)$ forming and edge from $u$ to $v$.
 
 If $v$ is not visited:
 
@@ -83,7 +83,7 @@ void dfs(int v) {
 }
 ```
 This is the most simple implementation of Depth First Search.
-As described int the applications it might be useful to also compute the entry and exit times and vertex color.
+As described in the applications it might be useful to also compute the entry and exit times and vertex color.
 We will color all vertices with the color 0, if we haven't visited them, with the color 1 if we visited them, and with the color 2, if we already exited the vertex.
 
 Here is a generic implementation that additionally computes those:
