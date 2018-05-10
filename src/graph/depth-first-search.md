@@ -5,7 +5,7 @@
 Depth First Search is one of the main graph algorithms.
 
 Depth First Search finds the lexicographical first path in the graph from a source vertex $u$ to each vertex.
-Depth First Search will also find the shortest paths on a tree, but on general graphs this is not the case.
+Depth First Search will also find the shortest paths in a tree (because there only exists one simple path), but on general graphs this is not the case.
 
 The algorithm works in $O(m + n)$ time where $n$ is the number of vertices and $m$ is the number of edges.
 
@@ -39,7 +39,8 @@ For more details check out the implementation.
   Run a series of depth first searches so as to visit each vertex exactly once in $O(n + m)$ time.
   The required topological ordering will be the vertices sorted in descending order of exit time.
 
-* Check whether a given graph is acyclic and find cycles in a graph.
+
+* Check whether a given graph is acyclic and find cycles in a graph. (As mentioned above by counting back edges in every connected components).
 
 * Find strongly connected components in a directed graph:
 
@@ -49,6 +50,27 @@ For more details check out the implementation.
 * Find bridges in an undirected graph:
 
   First convert the given graph into a directed graph by running a series of depth first searches and making each edge directed as we go through it, in the direction we went. Second, find the strongly connected components in this directed graph. Bridges are the edges whose ends belong to different strongly connected components.
+
+## Classification of edges of a graph
+
+We can classify the edges using the entry and exit time of the end nodes $u$ and $v$ of the edges $(u,v)$.
+These classifications are often used for problems like [finding bridges](./graph/bridge-searching.html) and [finding articulation points](./graph/cutpoints.html).
+
+We perform a DFS and classify the encountered edges using the following rules:
+
+If $v$ is not visited:
+
+* Tree Edge - If $v$ is visited after $u$ then edge $(u,v)$ is called a tree edge. In other words, if $v$ is visited for the first time and $u$ is currently being visited then $(u,v)$ is called tree edge.
+These edges form a DFS tree and hence the name tree edges.
+
+If $v$ is visited before $u$:
+
+* Back edges - If $v$ is an ancestor of $u$, then the edge $(u,v)$ is a back edge. $v$ is an ancestor exactly if we already entered $v$, but not exited it yet. Back edges complete a cycle as there is a path from ancestor $v$ to descendant $u$ (in the recursion of DFS) and an edge from descendant $u$ to ancestor $v$ (back edge), thus a cycle is formed. Cycles can be detected using back edges.
+
+* Forward Edges - If $v$ is a descendant of $u$, then edge $(u, v)$ is a forward edge. In other words, if we already visited and exited $v$ and $\text{entry}[u] < \text{entry}[v]$ then the edge $(u,v)$ forms a forward edge.
+* Cross Edges: if $v$ is neither an ancestor or descendant of $u$, then edge $(u, v)$ is a cross edge. In other words, if we already visited and exited $v$ and $\text{entry}[u] > \text{entry}[v]$ then $(u,v)$ is a cross edge.
+
+Note: Forward edges and cross edges only exist in directed graphs.
 
 ## Implementation
 
@@ -60,13 +82,14 @@ vector<bool> visited;
 
 void dfs(int v) {
 	visited[v] = true;
-	for (int u : adj[v])
+	for (int u : adj[v]) {
 		if (!visited[u])
 			dfs(u);
+    }
 }
 ```
 This is the most simple implementation of Depth First Search.
-As described int the applications it might be useful to also compute the entry and exit times and vertex color.
+As described in the applications it might be useful to also compute the entry and exit times and vertex color.
 We will color all vertices with the color 0, if we haven't visited them, with the color 1 if we visited them, and with the color 2, if we already exited the vertex.
 
 Here is a generic implementation that additionally computes those:
