@@ -133,6 +133,7 @@ especially popular in field of competitive programming.*
 
 ### Sequences
 - [RMQ task (Range Minimum Query - the smallest element in an interval)](./sequences/rmq.html)
+- [Longest increasing subsequence](./sequences/longest_increasing_subsequence.html)
 - [K-th order statistic in O(N)](./sequences/k-th.html)
 
 ### Schedules
