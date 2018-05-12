@@ -33,7 +33,7 @@ $$\text{InverseDFT}(y_0, y_1, \dots, y_{n-1}) = (a_0, a_1, \dots, a_{n-1})$$
 
 Thus, if a direct DFT computes the values of the polynomial at the points at the $n$-th roots, the inverse DFT can restore the coefficients of the polynomial using those values.
 
-## Application of the DFT: fast multiplication of polynomials
+### Application of the DFT: fast multiplication of polynomials
 
 Let there be two polynomials $A$ and $B$.
 We compute the DFT for each of them: $\text{DFT}(A)$ and $\text{DFT}(B)$.
@@ -59,7 +59,7 @@ We can accomplish this by adding coefficients with the value $0$.
 And also, since the result of the product of two polynomials is a polynomial of degree $2 (n - 1)$, we have to double the degrees of each polynomial (again by padding $0$s).
 From a vector with $n$ values we cannot reconstruct the desired polynomial with $2n - 1$ coefficients.
 
-## Fast Fourier Transform
+### Fast Fourier Transform
 
 The **fast Fourier transform** is a method that allows computing the DFT in $O(n \log n)$ time.
 The basic idea of the FFT is to apply divide and conquer.
@@ -107,7 +107,7 @@ y_{k+n/2} &= y_k^0 - w_n^k y_k^1, &\quad k = 0 \dots \frac{n}{2} - 1.
 
 Thus we learned how to compute the DFT in $O(n \log n)$ time.
 
-## Inverse FFT
+### Inverse FFT
 
 Let the vector $(y_0, y_1, \dots y_{n-1})$ - the values of polynomial $A$ of degree $n - 1$ in the points $x = w_n^k$ - be given.
 We want to restore the coefficients $(a_0, a_1, \dots, a_{n-1})$ of the polynomial.
@@ -167,7 +167,7 @@ we notice that these problems are almost the same, so the coefficients $a_k$ can
 
 Thus the computation of the inverse DFT is almost the same as the calculation of the direct DFT, and it also can be performed in $O(n \log n)$ time.
 
-## Implementation
+### Implementation
 
 Here we present a simple recursive **implementation of the FFT** and the inverse FFT, both in one function, since the difference between the forward and the inverse FFT are so minimal.
 To store the complex numbers we use the complex type in the C++ STL.
@@ -253,7 +253,7 @@ The only thing we have to do afterwards, is to normalize the number:
 
 Since the length of the product of two numbers never exceed the total length of both numbers, the size of the vector is enough to perform all carry operations.
 
-## Improved implementation: in-place computation
+### Improved implementation: in-place computation
 
 To increase the efficiency we will switch from the recursive implementation to an iterative one.
 In the above recursive implementation we explicitly separated the vector $a$ into two vectors - the element on the even positions got assigned to one temporary vector, and the elements on odd positions to another.
@@ -481,6 +481,29 @@ The constants `mod`, `root`, `root_pw` determine the module and the root, and `r
 
 In practice this implementation is slower than the implementation using complex numbers (due to the huge number of modulo operations), but it has some advantages such as less memory usage and no rounding errors.
 
+## Multiplication with arbitrary modulus
+
+Here we want to achieve the same goal as in previous section.
+Multiplying two polynomial $A(x)$ and $B(x)$, and computing the coefficients modulo some number $M$.
+The number theoretic transform only works for certain prime numbers.
+What about the case when the modulus is not of the desired form?
+
+One option would be to perform multiple number theoretic transforms with different prime numbers of the form $c 2^k + 1$, then apply the [Chinese Remainder Theorem](./algebra/chinese-remainder-theorem.html) to compute the final coefficients.
+
+Another options is to distribute the polynomials $A(x)$ and $B(x)$ into two smaller polynomials each
+$$\begin{align}
+A(x) &= A_1(x) + A_2(x) \cdot C \\\\
+B(x) &= B_1(x) + B_2(x) \cdot C
+\end{align}$$
+with $C \approx \sqrt{M}$.
+
+Then the product of $A(x)$ and $B(x)$ can then be represented as:
+$$A(x) \cdot B(x) = A_1(x) \cdot B_1(x) + \left(A_1(x) \cdot B_2(x) + A_2(x) \cdot B_1(x)\right)\cdot C + \left(A_2(x) \cdot B_2(x)\right)\cdot C^2$$
+
+The polynomials $A_1(x)$, $A_2(x)$, $B_1(x)$ and $B_2(x)$ contain only coefficients smaller than $\sqrt{M}$, therefore the coefficients of all the appearing products are smaller than $M \cdot n$, which is usually small enough to handle with typical floating point types.
+
+This approach therefore requires computing the products of polynomials with smaller coefficients (by using the normal FFT and inverse FFT), and then the original product can be restored using modular addition and multiplication in $O(n)$ time.
+
 ## Applications
 
 DFT can be used in a huge variety of other problems, which at the first glance have nothing to do with multiplying polynomials.
@@ -523,6 +546,47 @@ We want to find all ways to attach the first stripe to the second one, such that
 The problem doesn't actually differ much from the previous problem.
 Attaching two stripes just means that we perform a cyclic shift on the second array, and we can attach the two stripes, if scalar product of the two arrays is $0$.
 
+### String matching
+
+We are given two strings, a text $T$ and a pattern $P$, consisting of lowercase letters.
+We have to compute all the occurrences of the pattern in the text.
+
+We create a polynomial for each string ($T[i]$ and $P[I]$ are numbers between $0$ and $25$ corresponding to the $26$ letters of the alphabet):
+$$A(x) = a_0 x^0 + a_1 x^1 + \dots + a_{n-1} x^{n-1}, \quad n = |T|$$
+with
+$$a_i = \cos(\alpha_i) + i \sin(\alpha_i), \quad \alpha_i = \frac{2 \pi T[i]}{26}.$$
+
+And
+$$B(x) = b_0 x^0 + b_1 x^1 + \dots + b_{m-1} x^{m-1}, \quad m = |P|$$
+with
+$$b_i = \cos(\beta_i) - i \sin(\beta_i), \quad \beta_i = \frac{2 \pi P[m-i-1]}{26}.$$
+
+Notice that with the expression $P[m-i-1]$ explicitly reverses the pattern.
+
+The $(m-1+i)$th coefficients of the product of the two polynomials $C(x) = A(x) \cdot B(x)$ will tell us, if the pattern appears in the text at position $i$.
+
+$$c_{m-1+i} = \sum_{j = 0}^{m-1} a_{i+j} \cdot b_{m-1-j} = \sum_{j=0}^{m-1} \left(\cos(\alpha_{i+j}) + i \sin(\alpha_{i+j})\right) \cdot \left(\cos(\beta_j) - i \sin(\beta_j)\right)
+$$
+with $\alpha_{i+j} = \frac{2 \pi T[i+j]}{26}$ and $\beta_j = \frac{2 \pi P[j]}{26}$
+
+If there is a match, than $T[i+j] = P[j]$, and therefore $\alpha_{i+j} = \beta_j$.
+This gives (using the Pythagorean trigonometric identity):
+$$\begin{align}
+c_{m-1+i} &= \sum_{j = 0}^{m-1}  \left(\cos(\alpha_{i+j}) + i \sin(\alpha_{i+j})\right) \cdot \left(\cos(\alpha_{i+j}) - i \sin(\alpha_{i+j})\right) \\\\
+&= \sum_{j = 0}^{m-1} \cos(\alpha_{i+j})^2 + \sin(\alpha_{i+j})^2 = \sum_{j = 0}^{m-1} 1 = m
+\end{align}$$
+
+If there isn't a match, then at least a character is different, which leads that one of the products $a_{i+1} \cdot b_{m-1-j}$ is not equal to $1$, which leads to the coefficient $c_{m-1+i} \ne m$.
+
+### String matching with wildcards
+
+This is an extension of the previous problem.
+This time we allow that the pattern contains the wildcard character $ * $, which can match every possible letter.
+E.g. the pattern $a*c$ appears in the text $abccaacc$ at exactly three positions, at index $0$, index $4$ and index $5$.
+
+We create the exact same polynomials, except that we set $b_i = 0$ if $P[m-i-1] = *$.
+If $x$ is the number of wildcards in $P$, then we will have a match of $P$ in $T$ at index $i$ if $c_{m-1+i} = m - x$.
+
 ## Practice problems
 
 - [SPOJ - POLYMUL](http://www.spoj.com/problems/POLYMUL/)
@@ -530,4 +594,5 @@ Attaching two stripes just means that we perform a cyclic shift on the second ar
 - [SPOJ - ADAMATCH](http://www.spoj.com/problems/ADAMATCH/)
 - [Codeforces - Yet Another String Matching Problem](http://codeforces.com/problemset/problem/954/I)
 - [Codeforces - Lightsabers (hard)](http://codeforces.com/problemset/problem/958/F3)
+- [Kattis - K-Inversions](https://open.kattis.com/problems/kinversions)
 - [Codeforces - Dasha and cyclic table](http://codeforces.com/contest/754/problem/E)
