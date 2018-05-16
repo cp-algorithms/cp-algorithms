@@ -150,7 +150,7 @@ And here is the implementation of union by rank based on the depth of the trees:
 
 ```cpp
 void make_set(int v) {
-    parent(v) = v;
+    parent[v] = v;
     rank[v] = 0;
 }
 
