@@ -42,9 +42,17 @@ Sorting uses $O(n \log n)$ comparisons, and since comparing two strings will add
 
 Strictly speaking the following algorithm will not sort the suffixes, but rather the cyclic shifts of a string.
 However we can very easily derive an algorithm for sorting suffixes from it:
-it is enough to assign an arbitrary character to the end of the string which is smaller than any character from the string.
+it is enough to append an arbitrary character to the end of the string which is smaller than any character from the string.
 It is common to use the symbol $\\$$.
-Then the order of the sorted cyclic shifts is equivalent to the order of the sorted suffixes.
+Then the order of the sorted cyclic shifts is equivalent to the order of the sorted suffixes, as demonstrated here with the string $dabbb$.
+
+$$\begin{align}
+1. ~~ abbb$d ~&~ abbb \\\\
+4. ~~ b$dabb ~&~ b \\\\
+3. ~~ bb$dab ~&~ bb \\\\
+2. ~~ bbb$da ~&~ bbb \\\\
+0. ~~ dabbb$ ~&~ dabbb
+\end{align}$$
 
 Since we are going to sort cyclic shifts, we will consider **cyclic substrings**.
 We will use the notation $s[i \dots j]$ for the substring of $s$ even if $i > j$.
