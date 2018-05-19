@@ -17,7 +17,7 @@ The LCA of two nodes $u$ and $v$ is the node between the occurrences of $u$ and 
 
 In the following picture you can see a possible Euler-Tour of a graph and in the list below you can see the visited nodes and their heights.
 
-<center>![LCA_Euler_Tour](&imgroot&/LCA_Euler.png)</center>
+<center>![LCA_Euler_Tour](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/LCA_Euler.png)</center>
 $$\begin{array}{|l|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
 \text{Nodes:}   & 1 & 2 & 5 & 2 & 6 & 2 & 1 & 3 & 1 & 4 & 7 & 4 & 1 \\\\ \hline

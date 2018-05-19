@@ -12,7 +12,7 @@ Naive approach will give you $O(n^2)$ complexity which can be improved to $O(n \
 
 Idea of this approach is to maintain a lower convex hull of linear functions. Actually it would be a bit more convenient to consider them not as linear functions but as points $(k;b)$ on the plane such that we will have to find the point which has the least dot product with a given point $(x;1)$, that is, for this point $kx+b$ is minimized which is the same as initial problem. Such minimum will necessarily be on lower convex envelope of these points as can be seen below:
 
-<center> ![lower convex hull](&imgroot&/convex_hull_trick.png) </center>
+<center> ![lower convex hull](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/convex_hull_trick.png) </center>
 
 One have to keep points in convex hull alongside with normal vectors of edges of convex hull. When you have $(x;1)$ query you'll have to find normal vector closest to it in terms of angles between them, then optimum linear function will correspond to one of its endpoints. To see that one should note that points having same dot product with $(x;1)$ lie on same line which is orthogonal to $(x;1)$ so optimum linear function will be the one in which tangent to convex hull which is collinear with normal to $(x;1)$ touches the hull. This point can be found as one such that normals of edges lying to the left and to the right of it are headed in different sides of $(x;1)$.
 
@@ -72,7 +72,7 @@ Assume we're in some vertex corresponding to half-segment $[l;r)$ and the functi
 
 Here is the illustration of what is going on in the vertex when we add new function:
 
-<center>![Li Chao Tree vertex](&imgroot&/li_chao_vertex.png)</center>
+<center>![Li Chao Tree vertex](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/li_chao_vertex.png)</center>
 
 Let's go to implementation now. Once again we will use complex numbers to keep linear functions.
 

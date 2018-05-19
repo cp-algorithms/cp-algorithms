@@ -32,7 +32,7 @@ Now we are interested only in points $(x;y)$ such that $\lfloor k \rfloor \cdot 
 This amount is the same as the number of points such that $0 < y \leq (k - \lfloor k \rfloor) \cdot x + (b - \lfloor b \rfloor)$.
 So we reduced our problem to $k'= k - \lfloor k \rfloor$, $b' = b - \lfloor b \rfloor$ and both $k'$ and $b'$ less than $1$ now.
 Here is a picture, we just summed up blue points and subtracted the blue linear function from the black one to reduce problem to smaller values for $k$ and $b$:
-<center>![Subtracting floored linear function](&imgroot&/lattice.png)</center>
+<center>![Subtracting floored linear function](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/lattice.png)</center>
 
 - $k < 1$ and $b < 1$.
 If $\lfloor k \cdot n + b\rfloor$ equals $0$, we can safely return $0$.
@@ -42,7 +42,7 @@ For this reference system we are interested in lattice points on the set
 $$\left\\{(x;y)~\bigg|~0 \leq x < \lfloor k \cdot n + b\rfloor,~ 0 < y \leq \dfrac{x+(k\cdot n+b)-\lfloor k\cdot n + b \rfloor}{k}\right\\}$$
 which returns us back to the case $k>1$.
 You can see new reference point $O'$ and axes $X'$ and $Y'$ in the picture below:
-<center>![New reference and axes](&imgroot&/mirror.png)</center>
+<center>![New reference and axes](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/mirror.png)</center>
 As you see, in new reference system linear function will have coefficient $\tfrac 1 k$ and its zero will be in the point $\lfloor k\cdot n + b \rfloor-(k\cdot n+b)$ which makes formula above correct.
 
 ## Complexity analysis

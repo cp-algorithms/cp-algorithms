@@ -8,7 +8,7 @@ This spanning tree is called a minimum spanning tree.
 
 In the left image you can see a weighted undirected graph, and in the right image you can see the corresponding minimum spanning tree.
 
-![Random graph](&imgroot&/MST_before.png) ![MST of this graph](&imgroot&/MST_after.png)
+![Random graph](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/MST_before.png) ![MST of this graph](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/MST_after.png)
 
 This article will discuss few important facts associated with minimum spanning trees, and then will give the simplest implementation of Kruskal's algorithm for finding minimum spanning tree.
 

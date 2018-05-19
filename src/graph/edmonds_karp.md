@@ -34,7 +34,7 @@ The source $s$ is origin of all the water, and the water can only drain in the s
 
 The following image show a flow network.
 The first value of each edge represents the flow, which is initially 0, and the second value represents the capacity.
-<center>![Flow network](&imgroot&/Flow1.png)</center>
+<center>![Flow network](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/Flow1.png)</center>
 
 We value of a flow of a network is the sum of all flows that gets produced in source $s$, or equivalent or the flows that is consumed in the sink $t$.
 A **maximal flow** is a flow with the maximal possible value.
@@ -44,7 +44,7 @@ In the visualization with water pipes, the problem can be formulated in the foll
 how much water can we push through the pipes from the source to the sink.
 
 The following image show the maximal flow in the flow network.
-<center>![Maximal flow](&imgroot&/Flow9.png)</center>
+<center>![Maximal flow](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/Flow9.png)</center>
 
 ## Ford-Fulkerson method
 
@@ -70,19 +70,19 @@ we update $f((u, v)) ~\text{+=}~ C$ and $f((v, u)) ~\text{-=}~ C$ for every edge
 Here is an example to demonstrate the method.
 We use the same flow network as above.
 Initially we start with a flow of 0.
-<center>![Flow network](&imgroot&/Flow1.png)</center>
+<center>![Flow network](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/Flow1.png)</center>
 
 We can find the path $s - A - B - t$ with the residual capacities 7, 5 and 8.
 Their minimum is 5, therefore we can increase the flow along this path by 5.
 This gives a flow of 5 for the network.
-<center>![First path](&imgroot&/Flow2.png) ![Network after first path](&imgroot&/Flow3.png)</center>
+<center>![First path](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/Flow2.png) ![Network after first path](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/Flow3.png)</center>
 
 Again we look for an augmenting path, this time we find $s - D - A - C - t$ with the residual capacities 4, 3, 3 and 5.
 Therefore we can increase the flow by 3 and we get a flow of 8 for the network.
-<center>![Second path](&imgroot&/Flow4.png) ![Network after second path](&imgroot&/Flow5.png)</center>
+<center>![Second path](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/Flow4.png) ![Network after second path](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/Flow5.png)</center>
 
 This time we find the path $s - D - C - B - t$ with the residual capacities 1, 2, 3 and 3, and we increase by 1.
-<center>![Third path](&imgroot&/Flow6.png) ![Network after third path](&imgroot&/Flow7.png)</center>
+<center>![Third path](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/Flow6.png) ![Network after third path](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/Flow7.png)</center>
 
 This time we find the augmenting path $s - A - D - C - t$ with the residual capacities 2, 3, 1 and 2.
 We can increase by 1.
@@ -92,7 +92,7 @@ In the original flow network we are not allowed to send any flow from $A$ to $D$
 But because we already have a flow of 3 from $D$ to $A$ this is possible.
 The intuition of it is the following:
 Instead of sending a flow of 3 from $D$ to $A$, we only send 2 and compensate this by sending an additional flow of 1 from $s$ to $A$, which allows us to send an additional flow of 1 along the path $D - C - t$.
-<center>![Fourth path](&imgroot&/Flow8.png) ![Network after fourth path](&imgroot&/Flow9.png)</center>
+<center>![Fourth path](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/Flow8.png) ![Network after fourth path](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/Flow9.png)</center>
 
 Now it is impossible to find an augmenting path between $s$ and $t$, therefore this flow of $10$ is the maximal possible.
 We have found the maximal flow.
@@ -191,7 +191,7 @@ It says that the capacity of the maximum flow has to be equal to the capacity of
 In the following image you can see the minimum cut of the flow network we used earlier.
 It shows that the capacity of the cut $\\{s, A, D\\}$ and $\\{B, C, t\\}$ is $5 + 3 + 2 = 10$, which is equal to the maximum flow that we found.
 Other cuts will have a bigger capacity, like the capacity between $\\{s, A\\}$ and $\\{B, C, D, t\\}$ is $4 + 3 + 5 = 12$.
-<center>![Minimum cut](&imgroot&/Cut.png)</center>
+<center>![Minimum cut](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/Cut.png)</center>
 
 A minimum cut can be found after performing a maximum flow computation using the Ford-Fulkerson method.
 One possible minimum cut is the following:
