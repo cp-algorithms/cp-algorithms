@@ -19,7 +19,7 @@ The array `A` will be partitioned into 3 parts: the prefix of the array up to th
 The root of the tree will be a node corresponding to the minimum element of the array `A`, the left subtree will be the Cartesian tree of the prefix, and the right subtree will be a Cartesian tree of the suffix.
 
 In the following image you can see one array of length 10 and the corresponding Cartesian tree.
-<center>![Image of Cartesian Tree](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/CartesianTree.png)</center>
+<center>![Image of Cartesian Tree](&imgroot&/CartesianTree.png)</center>
 
 The range minimum query `[l, r]` is equivalent to the lowest common ancestor query `[l', r']`, where `l'` is the node corresponding to the element `A[l]` and `r'` the node corresponding to the element `A[r]`.
 Indeed the node corresponding to the smallest element in the range has to be an ancestor of all nodes in the range, therefor also from `l'` and `r'`.
@@ -28,7 +28,7 @@ And is also has to be the lowest ancestor, because otherwise `l'` and `r'` would
 
 In the following image you can see the LCA queries for the RMQ queries `[1, 3]` and `[5, 9]`.
 In the first query the LCA of the nodes `A[1]` and `A[3]` is the node corresponding to `A[2]` which has the value 2, and in the second query the LCA of `A[5]` and `A[9]` is the node corresponding to `A[8]` which has the value 3.
-<center>![LCA queries in the Cartesian Tree](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/CartesianTreeLCA.png)</center>
+<center>![LCA queries in the Cartesian Tree](&imgroot&/CartesianTreeLCA.png)</center>
 
 Such a tree can be built in $O(N)$ time and the Farach-Colton and Benders algorithm can preprocess the tree in $O(N)$ and find the LCA in $O(1)$.
 

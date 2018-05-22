@@ -25,7 +25,7 @@ $$\left|\bigcup_{i=1}^n A_i \right| = \sum_{\emptyset \neq J\subseteq \\{1,2,\ld
 
 Let the diagram show three sets $A$, $B$ and $C$:
 
-![Venn diagram](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/venn-inclusion-exclusion.png "Venn diagram")
+![Venn diagram](&imgroot&/venn-inclusion-exclusion.png "Venn diagram")
 
 Then the area of their union $A \cup B \cup C$ is equal to the sum of the areas $A$, $B$ and $C$ less double-covered areas $A \cap B$, $A \cap C$, $B \cap C$, but with the addition of the area covered by three sets $A \cap B \cap C$:
 

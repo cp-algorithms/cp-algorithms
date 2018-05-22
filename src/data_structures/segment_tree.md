@@ -40,7 +40,7 @@ This is why the data structure is called "Segment Tree", even though in most imp
 
 Here is a visual representation of such a Segment Tree over the array $a = [1, 3, -2, 8, -7]$:
 
-!["Sum Segment Tree"](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/sum-segment-tree.png)
+!["Sum Segment Tree"](&imgroot&/sum-segment-tree.png)
 
 From this short description of the data structure, we can already conclude that a Segment Tree only requires a linear number of vertices. 
 The first level of the tree contains a single note (the root), the second level will contain two vertices, in the third it will contain four vertices, until the number of vertices reaches $n$. 
@@ -98,7 +98,7 @@ Again the array $a = [1, 3, -2, 8, -7]$ is used, and here we want to compute the
 The colored vertices will be visited, and we will use the precomputed values of the green vertices.
 This gives us the result $-2 + 1 = -1$.
 
-!["Sum Segment Tree Query"](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/sum-segment-tree-query.png)
+!["Sum Segment Tree Query"](&imgroot&/sum-segment-tree-query.png)
 
 Why is the complexity of this algorithm $O(\log n)$?
 To show this complexity we look at each level of the tree. 
@@ -140,7 +140,7 @@ Again here is a visualization using the same array.
 Here we perform the update $a[2] = 3$.
 The green vertices are the vertices that we visit and update.
 
-!["Sum Segment Tree Update"](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/img/sum-segment-tree-update.png)
+!["Sum Segment Tree Update"](&imgroot&/sum-segment-tree-update.png)
 
 ### Implementation ### {#implementation}
 
