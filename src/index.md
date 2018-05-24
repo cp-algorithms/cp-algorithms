@@ -10,6 +10,7 @@ especially popular in field of competitive programming.*
 
 ### Algebra
 - [Euler's Totient Function](./algebra/phi-function.html)
+- [Number of divisors / sum of divisors](./algebra/divisors.html)
 - [Euclidean algorithm for finding the GCD (greatest common divisor)](./algebra/euclid-algorithm.html)
 - [Sieve of Eratosthenes](./algebra/sieve-of-eratosthenes.html)
 - [Extended Euclidean Algorithm](./algebra/extended-euclid-algorithm.html)
@@ -126,11 +127,13 @@ especially popular in field of competitive programming.*
 - [Maximum flow - Push-relabel algorithm](./graph/push-relabel.html)
 - [Maximum flow - Push-relabel algorithm improved](./graph/push-relabel-faster.html)
 - [Flows with demands](./graph/flow_with_demands.html)
+- [Minimum-cost flow](./graph/min_cost_flow.html)
 - [Edge connectivity / Vertex connectivity](./graph/edge_vertex_connectivity.html)
 - [2-SAT](./graph/2SAT.html)
 
 ### Sequences
 - [RMQ task (Range Minimum Query - the smallest element in an interval)](./sequences/rmq.html)
+- [Longest increasing subsequence](./sequences/longest_increasing_subsequence.html)
 - [K-th order statistic in O(N)](./sequences/k-th.html)
 
 ### Schedules
