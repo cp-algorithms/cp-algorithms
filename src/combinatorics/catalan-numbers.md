@@ -74,6 +74,10 @@ The number of monotonic paths in the lattice $(n - 1) \times (n + 1)$ are $\bino
 
 $$C_n = \binom{2n}{n} - \binom{2n}{n-1} = \frac{1}{n + 1} \binom{2n}{n} , {n} \geq 0$$
 
+## Reference
+
+- [Catalan Number by Tom Davis](http://www.geometer.org/mathcircles/catalan.pdf)
+
 ## Practice Problems
 - [Codechef - PANSTACK](https://www.codechef.com/APRIL12/problems/PANSTACK/)
 - [Spoj - Skyline](http://www.spoj.com/problems/SKYLINE/)
