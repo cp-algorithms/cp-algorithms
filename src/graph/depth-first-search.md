@@ -42,6 +42,8 @@ For more details check out the implementation.
 
 * Check whether a given graph is acyclic and find cycles in a graph. (As mentioned above by counting back edges in every connected components).
 
+* Classification of edges of graph into tree, forward, backward edges. [Link](https://courses.csail.mit.edu/6.006/fall11/rec/rec14.pdf)
+
 * Find strongly connected components in a directed graph:
 
   First do a topological sorting of the graph.
