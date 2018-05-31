@@ -60,6 +60,10 @@ Here `my-image.png` should be your file name, while `&imgroot&` is some magic wh
 
 Larger images should be posted to some image-hosting, like [PostImage](http://postimage.org) or [ImgUr](http://imgur.com/) - they will then give you the url to insert into the page.
 
+## Modifying CSS and JS files
+
+This is not something you usually need to do, when just writing content. It is rather for exceptional cases there arose necessity to improve general page style or behavior. These files are (due to certain technical reasons) in the other branch of the same github repository: https://github.com/e-maxx-eng/e-maxx-eng/tree/gh-pages - please, be careful here, as usually changes will affect the whole site. Also make sure site's cache and your browser cache is expired after changes done, otherwise testing could be bewildering.
+
 ## Creating anchors and link to them
 
 It is possible to generate HTLM anchors for sections of an article.
