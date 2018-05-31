@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <meta name="viewport" content="width=980">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <base href="&baseurl&"/>
     <title>&title& - E-Maxx Algorithms</title>
@@ -23,14 +23,29 @@
     <meta name="google-site-verification" content="qSnbeMPNVgZ3kIpGVsPIAPIvEdwYSg583kPdwgJtFO8" />
     <meta name="yandex-verification" content="dac3ebdbebe78eec" />
     <style>
-        body { font-size: 28px; }
+        body { font-size: 34px; }
         @media only screen and (min-device-width: 400px) {
-            body { font-size: 20px; }
+            body { font-size: 24px; }
         }
         @media only screen and (min-device-width: 600px) {
             body { font-size: 14px; }
         }
     </style>
+    <script>
+        window.onresize = function(){
+            var w0 = 980;
+            var w1 = $(window).width();
+            if (w1 < w0) {
+                var zoom = Math.floor(w1 * 100 / w0);
+                document.body.style.zoom = "" + zoom + "%";
+            } else {
+                document.body.style.zoom = "";
+            }
+        };
+        $(function() {
+            setTimeout(window.onresize, 350);
+        });
+    </script>
 </head>
 <body>
 <div id="container">
