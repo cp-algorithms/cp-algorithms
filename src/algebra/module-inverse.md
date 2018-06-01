@@ -73,14 +73,14 @@ Even though this method is easier to understand than the method described in pre
 ## Finding the modular inverse for every numbers modulo $m$
 
 The problem is the following: 
-we want to compute the modular inverse for every number in range $[1, m-1]$.
+we want to compute the modular inverse for every number in the range $[1, m-1]$.
 
 Applying the algorithms described in the previous sections, we can obtain a solution with complexity $O(m \log m)$. 
 
 Here we present a better algorithm with complexity $O(m)$.
-However for this specific algorithm we require the modulus $m$ to be prime.
+However for this specific algorithm we require that the modulus $m$ is prime.
 
-We denote by $\text{inv}[i]$ the modular inverse of $i$. Then for $i > 1$ we following equation is valid:
+We denote by $\text{inv}[i]$ the modular inverse of $i$. Then for $i > 1$ the following equation is valid:
 
 $$\text{inv}[i] = - \left\lfloor \frac{m}{i} \right\rfloor \cdot \text{inv}[m \bmod i] \bmod m$$
 
