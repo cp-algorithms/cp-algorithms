@@ -127,7 +127,7 @@ And afterwards we can compute the binomial coefficient in $O(\log m)$ time.
 
 ```cpp
 long long binomial_coefficient(int n, int k) {
-    return factorial[n] * inverse(k) % m * inverse(n - k) % m;
+    return factorial[n] * inverse(factorial[k]) % m * inverse(factorial[n - k]) % m;
 }
 ```
 
