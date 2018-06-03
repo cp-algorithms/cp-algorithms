@@ -76,9 +76,24 @@ $(function() {
         });
     }
     
+    window.onresize = function(){
+        var w0 = 980;
+        var w1 = $(window).width();
+        if (w1 < w0) {
+            var zoom = Math.floor(w1 * 100 / w0);
+            document.body.style.zoom = "" + zoom + "%";
+            document.body.style.MozTransform = 'scale(0.' + zoom + ')';
+            document.body.style.MozTransformOrigin = '0 0';
+        } else {
+            document.body.style.zoom = "";
+            document.body.style.MozTransform = '';
+        }
+    };
+    
     tableOfContent();
     visitors();
     setTimeout(sendCnt, 5000);
+    setTimeout(window.onresize, 350);
 });
 
 
