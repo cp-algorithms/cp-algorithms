@@ -20,7 +20,7 @@ Now we have to learn to check this fact for each vertex efficiently. We'll use "
 
 So, let $tin[v]$ denote entry time for node $v$. We introduce an array $fup$ which will let us check the fact for each vertex $v$. $fup[v]$ is the minimum of $tin[v]$, the entry times $tin[p]$ for each node $p$ that is connected to node $v$ via a back-edge $(v, p)$ and the values of $fup[to]$ for each vertex $to$ which is a direct descendant of $v$ in the DFS tree:
 
-$$fup[v] = \min \begin{cases} tin[v] \\\\ tin[p]& \text{ for all }p\text{ for which }(v, p)\text{ is a back edge} \\\ fup[to] * \text{ for all }to\text{ for which }(v, to)\text{ is a tree edge} \end{cases}$$
+$$fup[v] = \min \begin{cases} tin[v] \\\\ tin[p]& \text{ for all }p\text{ for which }(v, p)\text{ is a back edge} \\\ fup[to]& \text{ for all }to\text{ for which }(v, to)\text{ is a tree edge} \end{cases}$$
 
 Now, there is a back edge from vertex $v$ or one of its descendants to one of its ancestors if and only if vertex $v$ has a child $to$ for which $fup[to] \leq tin[v]$. If $fup[to] = tin[v]$, the back edge comes directly to $v$, otherwise it comes to one of the ancestors of $v$.
 
