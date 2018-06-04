@@ -18,7 +18,7 @@ Now we have to learn to check this fact for each vertex efficiently. We'll use "
 
 So, let $tin[v]$ denote entry time for node $v$. We introduce an array $fup[v]$ which will let us check the fact for each vertex $v$. $fup[v]$ is the minimum of $tin[v]$, the entry times $tin[p]$ for each node $p$ that is connected to node $v$ via a back-edge $(v, p)$ and the values of $fup[to]$ for each vertex $to$ which is a direct descendant of $v$ in the DFS tree:
 
-$$fup[v] = \min \begin{cases} tin[v] \\\\ tin[p] \text{ for all }p\text{ for which }(v, p)\text{ is a back edge} \\\ fup[to] \text{ for all }to\text{ for which }(v, to)\text{ is a tree edge} \end{cases}$$
+$$fup[v] = \min \begin{cases} tin[v] \\\\ tin[p] &\text{ for all }p\text{ for which }(v, p)\text{ is a back edge} \\\ fup[to]& \text{ for all }to\text{ for which }(v, to)\text{ is a tree edge} \end{cases}$$
 
 Now, there is a back edge from vertex $v$ or one of its descendants to one of its ancestors if and only if vertex $v$ has a child $to$ for which $fup[to] < tin[v]$. If $fup[to] = tin[v]$, the back edge comes directly to $v$, otherwise it comes to one of the ancestors of $v$.
 
@@ -28,8 +28,8 @@ Thus, the vertex $v$ in the DFS tree is an articulation point if and only if $fu
 
 The implementation needs to distinguish three cases: when we go down the edge in DFS tree, when we find a back edge to an ancestor of the vertex and when we return to a parent of the vertex. These are the cases:
 
-- $used[to] = false$ - the edge is part of DFS tree;
-- $used[to] = true$ && $to \neq parent$ - the edge is back edge to one of the ancestors;
+- $visited[to] = false$ - the edge is part of DFS tree;
+- $visited[to] = true$ && $to \neq parent$ - the edge is back edge to one of the ancestors;
 - $to = parent$ - the edge leads back to parent in DFS tree.
 
 To implement this, we need a depth first search function which accepts the parent vertex of the current node.
