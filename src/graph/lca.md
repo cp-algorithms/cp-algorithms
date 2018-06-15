@@ -49,76 +49,71 @@ Using a [Segment Tree](./data_structures/segment_tree.html) you can answer each 
 
 In the following implementation of the LCA algorithm a Segment Tree is used.
 
-```cpp
-int n;
-vector<vector<int>> adj;
+```cpp lca
+struct LCA {
+    vector<int> height, euler, first, segtree;
+    vector<bool> visited;
+    int n;
 
-vector<int> height, euler, first, segtree;
-vector<bool> visited;
+    LCA(vector<vector<int>> &adj, int root = 0) {
+        n = adj.size();
+        height.resize(n);
+        first.resize(n);
+        euler.reserve(n * 2);
+        visited.assign(n, false);
+        dfs(adj, root);
+        int m = euler.size();
+        segtree.resize(m * 4);
+        build(1, 0, m - 1);
+    }
 
-void dfs(int v, int h = 1)
-{
-    visited[v] = true;
-    height[v] = h;
-    first[v] = euler.size();
-    euler.push_back(v);
-    for (int u : adj[v]) {
-        if (!visited[u]) {
-            dfs(u, h + 1);
-            euler.push_back(v);
+    void dfs(vector<vector<int>> &adj, int node, int h = 0) {
+        visited[node] = true;
+        height[node] = h;
+        first[node] = euler.size();
+        euler.push_back(node);
+        for (auto to : adj[node]) {
+            if (!visited[to]) {
+                dfs(adj, to, h + 1);
+                euler.push_back(node);
+            }
         }
     }
-}
 
-void build(int i, int l, int r)
-{
-    if (l == r) {
-        segtree[i] = euler[l];
-    } else {
-        int m = (l + r) >> 1;
-        build(2 * i, l, m);
-        build(2 * i + 1, m + 1, r);
-        if (height[segtree[2 * i]] < height[segtree[2 * i + 1]])
-            segtree[i] = segtree[2 * i];
-        else
-            segtree[i] = segtree[2 * i + 1];
+    void build(int node, int b, int e) {
+        if (b == e) {
+            segtree[node] = euler[b];
+        } else {
+            int mid = (b + e) / 2;
+            build(node << 1, b, mid);
+            build(node << 1 | 1, mid + 1, e);
+            int l = segtree[node << 1], r = segtree[node << 1 | 1];
+            segtree[node] = (height[l] < height[r]) ? l : r;
+        }
     }
-}
 
-int minimum(int i, int sl, int sr, int l, int r)
-{
-    if (sl == l && sr == r)
-        return segtree[i];
-    int sm = (sl + sr) >> 1;
-    if (r <= sm)
-        return minimum(2 * i, sl, sm, l, r);
-    if (l > sm)
-        return minimum(2 * i + 1, sm + 1, sr, l, r);
-    int ans1 = minimum(2 * i, sl, sm, l, sm);
-    int ans2 = minimum(2 * i + 1, sm + 1, sr, sm + 1, r);
-    return height[ans1] < height[ans2] ? ans1 : ans2;
-}
+    int query(int node, int b, int e, int L, int R) {
+        if (b > R || e < L)
+            return -1;
+        if (b >= L && e <= R)
+            return segtree[node];
+        int mid = (b + e) >> 1;
 
-int lca(int u, int v)
-{
-    int left = first[u], right = first[v];
-    if (left > right)
-        swap(left, right);
-    return minimum(1, 0, euler.size() - 1, left, right);
-}
+        int left = query(node << 1, b, mid, L, R);
+        int right = query(node << 1 | 1, mid + 1, e, L, R);
+        if (left == -1) return right;
+        if (right == -1) return left;
+        return height[left] < height[right] ? left : right;
+    }
 
-void preprocess(int root)
-{
-    height.resize(n);
-    first.resize(n);
-    euler.reserve(n * 2);
-    visited.assign(n, false);
-    dfs(root);
+    int lca(int u, int v) {
+        int left = first[u], right = first[v];
+        if (left > right)
+            swap(left, right);
+        return query(1, 0, euler.size() - 1, left, right);
+    }
+};
 
-    int m = euler.size();
-    segtree.resize(m * 4);
-    build(1, 0, m - 1);
-}
 ```
 
 ## Practice Problems
