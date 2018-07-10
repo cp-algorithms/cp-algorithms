@@ -410,7 +410,7 @@ But the same properties hold for the $n$-th roots of unity in modular arithmetic
 A $n$-th root of unity under a primitive field is such a number $w_n$ that satisfies:
 $$\begin{align}
 (w_n)^n &= 1 \pmod{p}, \\\\
-(w_n)^n &\ne 1 \pmod{p}, \quad 1 \le k < n.
+(w_n)^k &\ne 1 \pmod{p}, \quad 1 \le k < n.
 \end{align}$$
 The other $n-1$ roots can be obtained as powers of the root $w_n$.
 
