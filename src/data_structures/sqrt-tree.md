@@ -100,102 +100,245 @@ For more details, see the code below.
 
 So, using this, we can answer the queries in $O(1)$ each. Hooray! :)
 
+# Updating elements
+
+We can also update elements in Sqrt Tree. Both single element updates and updates on a segment are supported.
+
+## Updating a single element
+
+Consider a query $\text{update}(x, val)$ that does the assignment $a_x = val$. We need to perform this query fast enough.
+
+### Naive approach
+
+First, let's take a look of what is changed in the tree when a single element changes. Consider a tree node with length $l$ and its arrays: $\text{prefixOp}$, $\text{suffixOp}$ and $\text{between}$. It is easy to see that only $O(\sqrt{l})$ elements from $\text{prefixOp}$ and $\text{suffixOp}$ change (only inside the block with the changed element). $O(l)$ elements are changed in $\text{between}$. Therefore, $O(l)$ elements in the tree node are updated.
+
+We remember that any element $x$ is present in exactly one tree node at each layer. Root node (layer $0$) has length $O(n)$, nodes on layer $1$ have length $O(\sqrt{n})$, nodes on layer $2$ have length $O(\sqrt{\sqrt{n}})$, etc. So the time complexity per update is $O(n + \sqrt{n} + \sqrt{\sqrt{n}} + \dots) = O(n)$.
+
+But it's too slow. Can it be done faster?
+
+### An sqrt-tree inside the sqrt-tree
+
+Note that the bottleneck of updating is rebuilding $\text{between}$ of the root node. To optimize the tree, let's get rid of this array! Instead of $\text{between}$ array, we store another sqrt-tree for the root node. Let's call it $\text{index}$. It plays the same role as $\text{between}$&mdash; answers the queries on segments of blocks. Note that the rest of the tree nodes don't have $\text{index}$, they keep their $\text{between}$ arrays.
+
+A sqrt-tree is _indexed_, if its root node has $\text{index}$. A sqrt-tree with $\text{between}$ array in its root node is _unindexed_. Note that $\text{index}$ **is _unindexed_ itself**.
+
+So, we have the following algorithm for updating an _indexed_ tree:
+
+* Update $\text{prefixOp}$ and $\text{suffixOp}$ in $O(\sqrt{n})$.
+
+* Update $\text{index}$. It has length $O(\sqrt{n})$ and we need to update only one item in it (that represents the changed block). So, the time complexity for this step is $O(\sqrt{n})$. We can use the the algorithm described in the beginning of this section (the "slow" one) to do it.
+
+* Go into the child node that represents the changed block and update it in $O(\sqrt{n})$ with the "slow" algorithm.
+
+Note that the query complexity is still $O(1)$: we need to use $\text{index}$ in query no more than once, and this will take $O(1)$ time.
+
+So, total time complexity for updating a single element is $O(\sqrt{n})$. Hooray! :)
+
+## Updating a segment
+
+Sqrt-tree also can do things like assigning an element on a segment. $\text{massUpdate}(x, l, r)$ means $a_i = x$ for all $l \le i \le r$.
+
+There are two approaches to do this: one of them does $\text{massUpdate}$ in $O(\sqrt{n}\cdot \log \log n)$, keeping $O(1)$ per query. The second one does $\text{massUpdate}$ in $O(\sqrt{n})$, but the query complexity becomes $O(\log \log n)$.
+
+We will do lazy propagation in the same way as it is done in segment trees: we mark some nodes as _lazy_, meaning that we'll push them when it's necessary. But one thing is different from segment trees: pushing a node is expensive, so it cannot be done in queries. On the layer $0$, pushing a node takes $O(\sqrt{n})$ time. So, we don't push nodes inside queries, we only look if the current node or its parent are _lazy_, and just take it into account while performing queries.
+
+### First approach
+
+In the first approach, we say that only nodes on layer $1$ (with length $O(\sqrt{n}$) can be _lazy_. When pushing such node, it updates all its subtree including itself in $O(\sqrt{n}\cdot \log \log n)$. The $\text{massUpdate}$ process is done as follows:
+
+* Consider the nodes on layer $1$ and blocks corresponding to them.
+
+* Some blocks are entirely covered by $\text{massUpdate}$. Mark them as _lazy_ in $O(\sqrt{n})$.
+
+* Some blocks are partially covered. Note there are no more than two blocks of this kind. Rebuild them in $O(\sqrt{n}\cdot \log \log n)$. If they were _lazy_, take it into account.
+
+* Update $\text{prefixOp}$ and $\text{suffixOp}$ for partially covered blocks in $O(\sqrt{n})$ (because there are only two such blocks).
+
+* Rebuild the $\text{index}$ in $O(\sqrt{n}\cdot \log \log n)$.
+
+So we can do $\text{massUpdate}$ fast. But how lazy propagation affects queries? They will have the following modifications:
+
+* If our query entirely lies in a _lazy_ block, calculate it and take _lazy_ into account. $O(1)$.
+
+* If our query consists of many blocks, some of which are _lazy_, we need to take care of _lazy_ only on the leftmost and the rightmost block. The rest of the blocks are calculated using $\text{index}$, which already knows the answer on _lazy_ block (because it's rebuilt after each modification). $O(1)$.
+
+The query complexity still remains $O(1)$.
+
+### Second approach
+
+In this approach, each node can be _lazy_ (except root). Even nodes in $\text{index}$ can be _lazy_. So, while processing a query, we have to look for _lazy_ tags in all the parent nodes, i. e. query complexity will be $O(\log \log n)$.
+
+But $\text{massUpdate}$ becomes faster. It looks in the following way:
+
+* Some blocks are fully covered with $\text{massUpdate}$. So, _lazy_ tags are added to them. It is $O(\sqrt{n})$.
+
+* Update $\text{prefixOp}$ and $\text{suffixOp}$ for partially covered blocks in $O(\sqrt{n})$ (because there are only two such blocks).
+
+* Do not forget to update the index. It is $O(\sqrt{n})$ (we use the same $\text{massUpdate}$ algorithm).
+
+* Update $\text{between}$ array for _unindexed_ subtrees. 
+
+* Go into the nodes representing partially covered blocks and call $\text{massUpdate}$ recursively.
+
+Note that when we do the recursive call, we do prefix or suffix $\text{massUpdate}$. But for prefix and suffix updates we can have no more than one partially covered child. So, we visit one node on layer $1$, two nodes on layer $2$ and two nodes on any deeper level. So, the time complexity is $O(\sqrt{n} + \sqrt{\sqrt{n}} + \dots) = O(\sqrt{n})$. The approach here is similar to the segment tree mass update.
+
 # Implementation
 
+The following implementation of Sqrt Tree can perform the following operations: build in $O(n \cdot \log \log n)$, answer queries in $O(1)$ and update an element in $O(\sqrt{n})$.
+
 ~~~~~
-int op(int a, int b);
+SqrtTreeItem op(const SqrtTreeItem &a, const SqrtTreeItem &b);
 
 inline int log2Up(int n) {
-    int res = 0;
-    while ((1 << res) < n) {
-        res++;
-    }
-    return res;
+	int res = 0;
+	while ((1 << res) < n) {
+		res++;
+	}
+	return res;
 }
 
 class SqrtTree {
-    private:
-        int n, lg;
-        vector<int> v;
-        vector<int> clz;
-        vector<int> layers;
-        vector<int> onLayer;
-        vector< vector<int> > pref;
-        vector< vector<int> > suf;
-        vector< vector<int> > between;
-        
-        void build(int layer, int lBound, int rBound) {
-            if (layer >= (int)layers.size()) {
-                return;
-            }
-            int bSzLog = (layers[layer]+1) >> 1;
-            int bCntLog = layers[layer] >> 1;
-            int bSz = 1 << bSzLog;
-            int bCnt = 0;
-            for (int l = lBound; l < rBound; l += bSz) {
-                bCnt++;
-                int r = min(l + bSz, rBound);
-                pref[layer][l] = v[l];
-                for (int i = l+1; i < r; i++) {
-                    pref[layer][i] = op(pref[layer][i-1], v[i]);
-                }
-                suf[layer][r-1] = v[r-1];
-                for (int i = r-2; i >= l; i--) {
-                    suf[layer][i] = op(v[i], suf[layer][i+1]);
-                }
-                build(layer+1, l, r);
-            }
-            for (int i = 0; i < bCnt; i++) {
-                int ans = 0;
-                for (int j = i; j < bCnt; j++) {
-                    int add = suf[layer][lBound + (j << bSzLog)];
-                    ans = (i == j) ? add : op(ans, add);
-                    between[layer][lBound + (i << bCntLog) + j] = ans;
-                }
-            }
-        }
-    public:
-        inline int query(int l, int r) {
-            if (l == r) {
-                return v[l];
-            }
-            if (l + 1 == r) {
-                return op(v[l], v[r]);
-            }
-            int layer = onLayer[clz[l ^ r]];
-            int bSzLog = (layers[layer]+1) >> 1;
-            int bCntLog = layers[layer] >> 1;
-            int lBound = (l >> layers[layer]) << layers[layer];
-            int lBlock = ((l - lBound) >> bSzLog) + 1;
-            int rBlock = ((r - lBound) >> bSzLog) - 1;
-            int ans = suf[layer][l];
-            if (lBlock <= rBlock) {
-                ans = op(ans, between[layer][lBound + (lBlock << bCntLog) + rBlock]);
-            }
-            ans = op(ans, pref[layer][r]);
-            return ans;
-        }
-        
-        SqrtTree(const vector<int>& v)
-            : n((int)v.size()), lg(log2Up(n)), v(v), clz(1 << lg), onLayer(lg+1) {
-            clz[0] = 0;
-            for (int i = 1; i < (int)clz.size(); i++) {
-                clz[i] = clz[i >> 1] + 1;
-            }
-            int tlg = lg;
-            while (tlg > 1) {
-                onLayer[tlg] = (int)layers.size();
-                layers.push_back(tlg);
-                tlg = (tlg+1) >> 1;
-            }
-            for (int i = lg-1; i >= 0; i--) {
-                onLayer[i] = max(onLayer[i], onLayer[i+1]);
-            }
-            pref.assign(layers.size(), vector<int>(n));
-            suf.assign(layers.size(), vector<int>(n));
-            between.assign(layers.size(), vector<int>(1 << lg));
-            build(0, 0, n);
-        }
+private:
+	int n, lg, indexSz;
+	vector<SqrtTreeItem> v;
+	vector<int> clz, layers, onLayer;
+	vector< vector<SqrtTreeItem> > pref, suf, between;
+	
+	inline void buildBlock(int layer, int l, int r) {
+		pref[layer][l] = v[l];
+		for (int i = l+1; i < r; i++) {
+			pref[layer][i] = op(pref[layer][i-1], v[i]);
+		}
+		suf[layer][r-1] = v[r-1];
+		for (int i = r-2; i >= l; i--) {
+			suf[layer][i] = op(v[i], suf[layer][i+1]);
+		}
+	}
+	
+	inline void buildBetween(int layer, int lBound, int rBound, int betweenOffs) {
+		int bSzLog = (layers[layer]+1) >> 1;
+		int bCntLog = layers[layer] >> 1;
+		int bSz = 1 << bSzLog;
+		int bCnt = (rBound - lBound + bSz - 1) >> bSzLog;
+		for (int i = 0; i < bCnt; i++) {
+			SqrtTreeItem ans;
+			for (int j = i; j < bCnt; j++) {
+				SqrtTreeItem add = suf[layer][lBound + (j << bSzLog)];
+				ans = (i == j) ? add : op(ans, add);
+				between[layer-1][betweenOffs + lBound + (i << bCntLog) + j] = ans;
+			}
+		}
+	}
+	
+	inline void buildBetweenZero() {
+		int bSzLog = (lg+1) >> 1;
+		for (int i = 0; i < indexSz; i++) {
+			v[n+i] = suf[0][i << bSzLog];
+		}
+		build(1, n, n + indexSz, (1 << lg) - n);
+	}
+	
+	inline void updateBetweenZero(int bid) {
+		int bSzLog = (lg+1) >> 1;
+		v[n+bid] = suf[0][bid << bSzLog];
+		update(1, n, n + indexSz, (1 << lg) - n, n+bid);
+	}
+	
+	void build(int layer, int lBound, int rBound, int betweenOffs) {
+		if (layer >= (int)layers.size()) {
+			return;
+		}
+		int bSz = 1 << ((layers[layer]+1) >> 1);
+		for (int l = lBound; l < rBound; l += bSz) {
+			int r = min(l + bSz, rBound);
+			buildBlock(layer, l, r);
+			build(layer+1, l, r, betweenOffs);
+		}
+		if (layer == 0) {
+			buildBetweenZero();
+		} else {
+			buildBetween(layer, lBound, rBound, betweenOffs);
+		}
+	}
+	
+	void update(int layer, int lBound, int rBound, int betweenOffs, int x) {
+		if (layer >= (int)layers.size()) {
+			return;
+		}
+		int bSzLog = (layers[layer]+1) >> 1;
+		int bSz = 1 << bSzLog;
+		int blockIdx = (x - lBound) >> bSzLog;
+		int l = lBound + (blockIdx << bSzLog);
+		int r = min(l + bSz, rBound);
+		buildBlock(layer, l, r);
+		if (layer == 0) {
+			updateBetweenZero(blockIdx);
+		} else {
+			buildBetween(layer, lBound, rBound, betweenOffs);
+		}
+		update(layer+1, l, r, betweenOffs, x);
+	}
+	
+	inline SqrtTreeItem query(int l, int r, int betweenOffs, int base) {
+		if (l == r) {
+			return v[l];
+		}
+		if (l + 1 == r) {
+			return op(v[l], v[r]);
+		}
+		int layer = onLayer[clz[(l - base) ^ (r - base)]];
+		int bSzLog = (layers[layer]+1) >> 1;
+		int bCntLog = layers[layer] >> 1;
+		int lBound = (((l - base) >> layers[layer]) << layers[layer]) + base;
+		int lBlock = ((l - lBound) >> bSzLog) + 1;
+		int rBlock = ((r - lBound) >> bSzLog) - 1;
+		SqrtTreeItem ans = suf[layer][l];
+		if (lBlock <= rBlock) {
+			SqrtTreeItem add = (layer == 0) ? (
+				query(n + lBlock, n + rBlock, (1 << lg) - n, n)
+			) : (
+				between[layer-1][betweenOffs + lBound + (lBlock << bCntLog) + rBlock]
+			);
+			ans = op(ans, add);
+		}
+		ans = op(ans, pref[layer][r]);
+		return ans;
+	}
+public:
+	inline SqrtTreeItem query(int l, int r) {
+		return query(l, r, 0, 0);
+	}
+	
+	inline void update(int x, const SqrtTreeItem &item) {
+		v[x] = item;
+		update(0, 0, n, 0, x);
+	}
+	
+	SqrtTree(const vector<SqrtTreeItem>& a)
+		: n((int)a.size()), lg(log2Up(n)), v(a), clz(1 << lg), onLayer(lg+1) {
+		clz[0] = 0;
+		for (int i = 1; i < (int)clz.size(); i++) {
+			clz[i] = clz[i >> 1] + 1;
+		}
+		int tlg = lg;
+		while (tlg > 1) {
+			onLayer[tlg] = (int)layers.size();
+			layers.push_back(tlg);
+			tlg = (tlg+1) >> 1;
+		}
+		for (int i = lg-1; i >= 0; i--) {
+			onLayer[i] = max(onLayer[i], onLayer[i+1]);
+		}
+		int betweenLayers = max(0, (int)layers.size() - 1);
+		int bSzLog = (lg+1) >> 1;
+		int bSz = 1 << bSzLog;
+		indexSz = (n + bSz - 1) >> bSzLog;
+		v.resize(n + indexSz);
+		pref.assign(layers.size(), vector<SqrtTreeItem>(n + indexSz));
+		suf.assign(layers.size(), vector<SqrtTreeItem>(n + indexSz));
+		between.assign(betweenLayers, vector<SqrtTreeItem>((1 << lg) + bSz));
+		build(0, 0, n, 0);
+	}
 };
 
 ~~~~~
