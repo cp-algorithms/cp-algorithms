@@ -97,7 +97,7 @@ This can be done trivially, for example, by using **counting sort**.
 For each character we count how many times it appears in the string, and then use this information to create the array $p[]$.
 After that we go through the array $p[]$ and construct $c[]$ by comparing adjacent characters.
 ```cpp suffix_array_sort_cyclic2
-    vector<int> p(n), c(n), cnt(alphabet, 0);
+    vector<int> p(n), c(n), cnt(max(alphabet, n), 0);
     for (int i = 0; i < n; i++)
         cnt[s[i]]++;
     for (int i = 1; i < alphabet; i++)
@@ -167,7 +167,7 @@ We use temporary arrays $pn[]$ and $cn[]$ to store the permutation by the second
             if (pn[i] < 0)
                 pn[i] += n;
         }
-        fill(cnt.begin(), cnt.end(), 0);
+        fill(cnt.begin(), cnt.begin() + classes, 0);
         for (int i = 0; i < n; i++)
             cnt[c[pn[i]]]++;
         for (int i = 1; i < classes; i++)
