@@ -13,9 +13,9 @@ This code was invented by Frank Gray in 1953.
 Let's look at the bits of number $n$ and the bits of number $G(n)$. Notice that $i$-th bit of $G(n)$ equals 1 only when $i$-th bit of $n$ equals 1 and $i + 1$-th bit equals 0 or the other way around ($i$-th bit equals 0 and $i + 1$-th bit equals 1). Thus, $G(n) = n \oplus (n >> 1)$:  
 
 ```cpp
-  int g (int n) { 
-	  return n ^ (n >> 1); 
-  }
+int g (int n) {
+    return n ^ (n >> 1);
+}
 ```
 
 ## Finding inverse Gray code
@@ -35,12 +35,12 @@ $$\begin{align}
 The easiest way to write it in code is:
 
 ```cpp
-  int rev_g (int g) {
-    int n = 0;
-    for (; g; g >>= 1)
-      n ^= g;
-    return n;
-  }
+int rev_g (int g) {
+  int n = 0;
+  for (; g; g >>= 1)
+    n ^= g;
+  return n;
+}
 ```
 
 ## Practical applications
@@ -67,5 +67,3 @@ Gray codes have some useful applications, sometimes quite unexpected:
 
 ## Practice Problems
 *   <a href="http://acm.sgu.ru/problem.php?contest=0&problem=249">SGU #249 <b>"Matrix"</b> &nbsp;&nbsp;&nbsp;&nbsp; [Difficulty: medium]</a>
-
-
