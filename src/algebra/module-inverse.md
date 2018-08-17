@@ -70,7 +70,7 @@ From these results, we can easily find the modular inverse using the [binary exp
 
 Even though this method is easier to understand than the method described in previous paragraph, in the case when $m$ is not a prime number, we need to calculate Euler phi function, which involves factorization of $m$, which might be very hard. If the prime factorization of $m$ is known, then the complexity of this method is $O(\log m)$.
 
-## Finding the modular inverse for every numbers modulo $m$
+## Finding the modular inverse for every number modulo $m$
 
 The problem is the following: 
 we want to compute the modular inverse for every number in the range $[1, m-1]$.
