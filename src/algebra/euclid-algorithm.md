@@ -18,7 +18,7 @@ The algorithm was first described in Euclid's "Elements" (circa 300 BC), but it 
 
 The algorithm is extremely simple:
 
-$$gcd(a, b) = \begin{cases}a,&if $b = 0$\cr gcd(b, a\mod b),&otherwise\end{cases}$$
+$$gcd(a, b) = \begin{cases}a,&\text{if }b = 0 \\\\ gcd(b, a\mod b),&\text{otherwise}\end{cases}$$
 
 ## Implementation
 
