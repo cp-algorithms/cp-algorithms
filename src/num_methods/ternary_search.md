@@ -16,17 +16,17 @@ The task is to find the maximum of function $f(x)$ on the interval $[l; r]$.
 
 Consider any 2 points $m_1$, and $m_2$ in this interval: $l < m_1 < m_2 < r$. We evaluate the function at $m_1$ and $m_2$, i.e. find the values of $f(m_1)$ and $f(m_2)$. Now, we get one of three options:
 
-- $f(m_1) < f(m_2)$
+-   $f(m_1) < f(m_2)$
 
-  The desired maximum can not be located on the left side of $m_1$, i.e. on the interval $[l; m_1]$, since either both points $m_1$ and $m_2$ or just $m_1$ belong to the area where the function increases. In either case, this means that we have to search for the maximum in the segment $[m_1, r]$.
+    The desired maximum can not be located on the left side of $m_1$, i.e. on the interval $[l; m_1]$, since either both points $m_1$ and $m_2$ or just $m_1$ belong to the area where the function increases. In either case, this means that we have to search for the maximum in the segment $[m_1, r]$.
 
-- $f(m_1) > f(m_2)$
+-   $f(m_1) > f(m_2)$
 
-  This situation is symmetrical to the previous one: the maximum can not be located on the right side of $m_2$, i.e. on the interval $[m_2; r]$, and the search space is reduced to the segment $[l; m_2]$.
+    This situation is symmetrical to the previous one: the maximum can not be located on the right side of $m_2$, i.e. on the interval $[m_2; r]$, and the search space is reduced to the segment $[l; m_2]$.
 
-- $f(m_1) = f(m_2)$
+-   $f(m_1) = f(m_2)$
 
-  We can see that either both of these points belong to the area where the value of the function is maximized, or $m_1$ is in the area of increasing values and $m_2$ is in the area of descending values (here we used the strictness of function increasing/decreasing). Thus, the search space is reduced to $[m_1; m_2]$. To simplify the code, this case can be combined with any of the previous cases.
+    We can see that either both of these points belong to the area where the value of the function is maximized, or $m_1$ is in the area of increasing values and $m_2$ is in the area of descending values (here we used the strictness of function increasing/decreasing). Thus, the search space is reduced to $[m_1; m_2]$. To simplify the code, this case can be combined with any of the previous cases.
 
 Thus, based on the comparison of the values in the two inner points, we can replace the current interval $[l; r]$ with a new, shorter interval $[l^\prime; r^\prime]$. Repeatedly applying the described procedure to the interval, we can get arbitrarily short interval. Eventually its length will be less than a certain pre-defined constant (accuracy), and the process can be stopped. This is a numerical method, so we can assume that after that the function reaches its maximum at all points of the last interval $[l; r]$. Without loss of generality, we can take $f(l)$ as the return value.
 

@@ -39,20 +39,20 @@ It is clear that initially, when the graph is empty, it contains $n$ 2-edge-conn
 
 When adding the next edge $(a, b)$ there can occur three situations:
 
-* Both vertices $a$ and $b$ are in the same 2-edge-connected component - then this edge is not a bridge, and does not change anything in the forest structure, so we can just skip this edge.
+*   Both vertices $a$ and $b$ are in the same 2-edge-connected component - then this edge is not a bridge, and does not change anything in the forest structure, so we can just skip this edge.
 
- Thus, in this case the number of bridges does not change.
+    Thus, in this case the number of bridges does not change.
 
-* The vertices $a$ and $b$ are in completely different connected components, i.e. each one is part of a different tree.
-  In this case, the edge $(a, b)$ becomes a new bridge, and these two trees are combined into one (and all the old bridges remain).
+*   The vertices $a$ and $b$ are in completely different connected components, i.e. each one is part of a different tree.
+    In this case, the edge $(a, b)$ becomes a new bridge, and these two trees are combined into one (and all the old bridges remain).
 
-  Thus, in this case the number of bridges increases by one.
+    Thus, in this case the number of bridges increases by one.
 
-* The vertices $a$ and $b$ are in one connected component, but in different 2-edge-connected components.
-  In this case, this edge forms a cycle along with some of the old bridges.
-  All these bridges end being bridges, and the resulting cycle must be compressed into a new 2-edge-connected component.
+*   The vertices $a$ and $b$ are in one connected component, but in different 2-edge-connected components.
+    In this case, this edge forms a cycle along with some of the old bridges.
+    All these bridges end being bridges, and the resulting cycle must be compressed into a new 2-edge-connected component.
 
-  Thus, in this case the number of bridges decreases by two or more.
+    Thus, in this case the number of bridges decreases by two or more.
 
 Consequently the whole task is reduced to the effective implementation of all these operations over the forest of 2-edge-connected components.
 
