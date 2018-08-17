@@ -25,7 +25,7 @@ $$ \underbrace{a[0], a[1], \dots, a[s-1]}\_{\text{b[0]}}, \underbrace{a[s], \dot
 The last block may have fewer elements than the others (if $n$ not a multiple of $s$), it is not important to the discussion (as it can be handled easily).
 Thus, for each block $k$, we know the sum of elements on it $b[k]$:
 
-$$ b[k] = \sum\limits_{i=k\cdot s}^{\min {\(n-1,(k+1)\cdot s - 1}\)} a[i] $$
+$$ b[k] = \sum\limits_{i=k\cdot s}^{\min {(n-1,(k+1)\cdot s - 1})} a[i] $$
 
 So, we have calculated the values of $b[k]$ (this required $O(n)$ operations). How can they help us to answer each query $[l; r]$ ?
 Notice that if the interval $[l; r]$ is long enough, it will contain several whole blocks, and for those blocks we can find the sum of elements in them in a single operation. As a result, the interval $[l; r]$ will contain parts of only two blocks, and we'll have to calculate the sum of elements in these parts trivially.
