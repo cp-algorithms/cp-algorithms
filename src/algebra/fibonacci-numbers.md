@@ -89,11 +89,11 @@ As these two formulas would require very high accuracy when working with fractio
 
 It is easy to prove the following relation:
 
-$$\pmatrix{F_{n-1} & F_{n} \cr} = \pmatrix{F_{n-2} & F_{n-1} \cr} \cdot \pmatrix{0 & 1 \cr 1 & 1 \cr}$$
+$$\begin{pmatrix}F_{n-1} & F_{n} \cr\end{pmatrix} = \begin{pmatrix}F_{n-2} & F_{n-1} \cr\end{pmatrix} \cdot \begin{pmatrix}0 & 1 \cr 1 & 1 \cr\end{pmatrix}$$
 
-Denoting $P \equiv \pmatrix{0 & 1 \cr 1 & 1 \cr}$, we have:
+Denoting $P \equiv \begin{pmatrix}0 & 1 \cr 1 & 1 \cr\end{pmatrix}$, we have:
 
-$$\pmatrix{F_n & F_{n+1} \cr} = \pmatrix{F_0 & F_1 \cr} \cdot P^n$$
+$$\begin{pmatrix}F_n & F_{n+1} \cr\end{pmatrix} = \begin{pmatrix}F_0 & F_1 \cr\end{pmatrix} \cdot P^n$$
 
 Thus, in order to find $F_n$, we must raise the matrix $P$ to $n$. This can be done in $O(\log n)$ (see [Binary exponentiation](./algebra/binary-exp.html)).
 

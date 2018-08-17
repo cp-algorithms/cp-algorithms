@@ -16,13 +16,13 @@ Here we describe long arithmetic for only non-negative integers. To extend the a
 
 We'll store numbers as a `vector<int>`, in which each element is a single "digit" of the number.
 
-```
+```cpp
 typedef vector<int> lnum;
 ```
 
 To improve performance we'll use $10^9$ as the base, so that each "digit" of the long number contains 9 decimal digits at once.
 
-```
+```cpp
 const int base = 1000*1000*1000;
 ```
 
@@ -32,7 +32,7 @@ Digits will be stored in order from least to most significant. All operations wi
 
 Printing the long integer is the easiest operation. First we print the last element of the vector (or 0 if the vector is empty), followed by the rest of the elements padded with leading zeros if necessary so that they are exactly 9 digits long.
 
-```
+```cpp
 printf ("%d", a.empty() ? 0 : a.back());
 for (int i=(int)a.size()-2; i>=0; --i)
 	printf ("%09d", a[i]);
@@ -44,7 +44,7 @@ Note that we cast `a.size()` to integer to avoid unsigned integer underflow if v
 
 To read a long integer, read its notation into a `string` and then convert it to "digits":
 
-```
+```cpp
 for (int i=(int)s.length(); i>0; i-=9)
 	if (i < 9)
 		a.push_back (atoi (s.substr (0, i).c_str()));
@@ -54,7 +54,7 @@ for (int i=(int)s.length(); i>0; i-=9)
 
 If we use an array of `char` instead of a `string`, the code will be even shorter:
 
-```
+```cpp
 for (int i=(int)strlen(s); i>0; i-=9) {
 	s[i] = 0;
 	a.push_back (atoi (i>=9 ? s+i-9 : s));
@@ -63,7 +63,7 @@ for (int i=(int)strlen(s); i>0; i-=9) {
 
 If the input can contain leading zeros, they can be removed as follows:
 
-```
+```cpp
 while (a.size() > 1 && a.back() == 0)
 	a.pop_back();
 ```
@@ -72,7 +72,7 @@ while (a.size() > 1 && a.back() == 0)
 
 Increment long integer $a$ by $b$ and store result in $a$:
 
-```
+```cpp
 int carry = 0;
 for (size_t i=0; i<max(a.size(),b.size()) || carry; ++i) {
 	if (i == a.size())
@@ -87,7 +87,7 @@ for (size_t i=0; i<max(a.size(),b.size()) || carry; ++i) {
 
 Decrement long integer $a$ by $b$ ($a \ge b$) and store result in $a$:
 
-```
+```cpp
 int carry = 0;
 for (size_t i=0; i<b.size() || carry; ++i) {
 	a[i] -= carry + (i < b.size() ? b[i] : 0);
@@ -104,7 +104,7 @@ Note that after performing subtraction we remove leading zeros to keep up with t
 
 Multiply long integer $a$ by short integer $b$ ($b < base$) and store result in $a$:
 
-```
+```cpp
 int carry = 0;
 for (size_t i=0; i<a.size() || carry; ++i) {
 	if (i == a.size())
@@ -123,7 +123,7 @@ Additional optimization: If runtime is extremely important, you can try to repla
 
 Multiply long integers $a$ and $b$ and store result in $c$:
 
-```
+```cpp
 lnum c (a.size()+b.size());
 for (size_t i=0; i<a.size(); ++i)
 	for (int j=0, carry=0; j<(int)b.size() || carry; ++j) {
@@ -139,7 +139,7 @@ while (c.size() > 1 && c.back() == 0)
 
 Divide long integer $a$ by short integer $b$ ($b < base$), store integer result in $a$ and remainder in `carry`:
 
-```
+```cpp
 int carry = 0;
 for (int i=(int)a.size()-1; i>=0; --i) {
 	long long cur = a[i] + carry * 1ll * base;

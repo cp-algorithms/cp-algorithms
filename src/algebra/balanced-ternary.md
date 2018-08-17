@@ -1,7 +1,7 @@
 <!--?title Balanced Ternary-->
 #Balanced Ternary
 
-<img src="http://ternary.3neko.ru/photo/setun1_small.jpg" alt="Setun computer using Balanced Ternary system" align="right" width="200"/>
+!["Setun computer using Balanced Ternary system"](http://ternary.3neko.ru/photo/setun1_small.jpg)
 
 This is a non-standard but still positional **numeral system**. It's feature is that digits can have one of values `-1`, `0` and `1`.
 Nevertheless its base is still `3` (because there are three possible values). Since it is not convenient to write `-1` as a digit

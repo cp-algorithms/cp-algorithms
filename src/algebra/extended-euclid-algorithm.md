@@ -32,10 +32,10 @@ $$ g = b \cdot x_1 + a \cdot \left( y_1 - \left\lfloor \frac{b}{a} \right\rfloor
 
 We found the values of $x$ and $y$:
 
-$$ \cases{
+$$ \begin{cases}
 x = y_1 - \left\lfloor \frac{b}{a} \right\rfloor \cdot x_1 \cr
 y = x_1
-} $$
+\end{cases} $$
 
 ## Implementation
 

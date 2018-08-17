@@ -581,7 +581,7 @@ If there isn't a match, then at least a character is different, which leads that
 ### String matching with wildcards
 
 This is an extension of the previous problem.
-This time we allow that the pattern contains the wildcard character $ * $, which can match every possible letter.
+This time we allow that the pattern contains the wildcard character $\*$, which can match every possible letter.
 E.g. the pattern $a*c$ appears in the text $abccaacc$ at exactly three positions, at index $0$, index $4$ and index $5$.
 
 We create the exact same polynomials, except that we set $b_i = 0$ if $P[m-i-1] = *$.

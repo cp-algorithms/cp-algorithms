@@ -135,7 +135,7 @@ $$3^n - (3 \cdot 2^n - 3 \cdot 1 + 0)$$
 
 Consider the following equation:
 $$x_1 + x_2 + x_3 + x_4 + x_5 + x_6 = 20$$
-where $ 0 \le x_i \le 8 (i = 1,2,\ldots 6)$.
+where $0 \le x_i \le 8 (i = 1,2,\ldots 6)$.
 
 Task: count the number of solutions to the equation.
 

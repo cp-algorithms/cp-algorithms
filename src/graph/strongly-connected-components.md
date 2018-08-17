@@ -49,6 +49,7 @@ Algorithm asymptotics is $O(n + m)$, because it is just two depth (breadth) firs
 Finally, it is appropriate to mention [topological sort](http://e-maxx-eng.appspot.com/graph/topological-sort.html) here. First of all, step 1 of the algorithm represents topological sort of graph $G$ (actually this is exactly what vertices' sort by exit time means). Secondly, the algorithm's scheme generates strongly connected components by decreasing order of their exit times, thus it generates components - vertices of condensation graph - in topological sort order.
 
 ## Implementation
+```cpp
     vector < vector<int> > g, gr;
     vector<char> used;
     vector<int> order, component;
@@ -93,6 +94,7 @@ Finally, it is appropriate to mention [topological sort](http://e-maxx-eng.appsp
             }
         }
     }
+```
 
 Here, $g$ is graph, $gr$ is transposed graph. Function $dfs1$ implements depth first search on graph $G$, function $dfs2$ - on transposed graph $G^T$. Function $dfs1$ fills the list $order$ with vertices in increasing order of their exit times (actually, it is making a topological sort). Function $dfs2$ stores all reached vertices in list $component$, that is going to store next strongly connected component after each run.
 

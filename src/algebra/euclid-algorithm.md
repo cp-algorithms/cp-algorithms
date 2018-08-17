@@ -18,7 +18,7 @@ The algorithm was first described in Euclid's "Elements" (circa 300 BC), but it 
 
 The algorithm is extremely simple:
 
-$$gcd(a, b) = \cases{a,&if $b = 0$\cr gcd(b, a\mod b),&otherwise}$$
+$$gcd(a, b) = \begin{cases}a,&\text{if }b = 0 \\\\ gcd(b, a\mod b),&\text{otherwise}\end{cases}$$
 
 ## Implementation
 
@@ -76,7 +76,7 @@ $$
 So, recalling that $d \mid b$, we obtain the system:
 
 $$
-\cases{d \mid b,\cr d \mid (a \mod b)\cr}
+\begin{cases}d \mid b,\cr d \mid (a \mod b)\cr\end{cases}
 $$
 
 Now we use the fact that for any three numbers $p$, $q$, $r$, if $p\mid q$ and $p\mid r$ then $p\mid gcd(q, r)$, In our case, we get:
