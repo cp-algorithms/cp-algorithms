@@ -24,11 +24,13 @@ Given Gray code $g$, restore the original number $n$.
 
 We will move from the most significant bits to the least significant ones (the least significant bit has index 1 and the most significant bit has index $k$). The relation between the bits $n_i$ of number $n$ and the bits $g_i$ of number $g$:
 
-  $n_k = g_k$, <br>
-  $n_{k-1} = g_{k-1} \oplus n_k = g_k \oplus g_{k-1}$, <br>
-  $n_{k-2} = g_{k-2} \oplus n_{k-1} = g_k \oplus g_{k-1} \oplus g_{k-2}$, <br>
-  $n_{k-3} = g_{k-3} \oplus n_{k-2} = g_k \oplus g_{k-1} \oplus g_{k-2} \oplus g_{k-3}$, <br>
-  $...$ <br>
+$$\begin{align}
+  n_k &= g_k, \\\\
+  n_{k-1} &= g_{k-1} \oplus n_k = g_k \oplus g_{k-1}, \\\\
+  n_{k-2} &= g_{k-2} \oplus n_{k-1} = g_k \oplus g_{k-1} \oplus g_{k-2}, \\\\
+  n_{k-3} &= g_{k-3} \oplus n_{k-2} = g_k \oplus g_{k-1} \oplus g_{k-2} \oplus g_{k-3}, \\\\
+  \vdots
+\end{align}$$
 
 The easiest way to write it in code is:
 
@@ -43,12 +45,12 @@ The easiest way to write it in code is:
 
 ## Practical applications
 Gray codes have some useful applications, sometimes quite unexpected:
-<ul>
-<li>Gray code of $n$ bits forms a Hamiltonian cycle on a hypercube, where each bit corresponds to one dimension. 
-</li>
-<li>Gray codes are used to minimize the errors in digital-to-analog signals conversion (for example, in sensors). 
-</li>
-<li>Gray code can be used to solve the Towers of Hanoi problem.
+
+*   Gray code of $n$ bits forms a Hamiltonian cycle on a hypercube, where each bit corresponds to one dimension. 
+
+*   Gray codes are used to minimize the errors in digital-to-analog signals conversion (for example, in sensors). 
+
+*   Gray code can be used to solve the Towers of Hanoi problem.
     Let $n$ denote number of disks. Start with Gray code of length $n$ which
     consists of all zeroes ($G(0)$) and move between consecutive Gray codes (from $G(i)$ to $G(i+1)$).
     Let $i$-th bit of current Gray code represent $n$-th disk 
@@ -59,10 +61,10 @@ Gray codes have some useful applications, sometimes quite unexpected:
     if $n$ is odd then sequence of the smallest disk moves looks like $f \to t \to r \to f \to t \to r \to ...$
     where $f$ is the initial rod, $t$ is the terminal rod and $r$ is the remaining rod), and 
     if $n$ is even: $f \to r \to t \to f \to r \to t \to ...$.
-</li>
-<li>Gray codes are also used in genetic algorithms theory.
-</li>
-</ul>
+
+*   Gray codes are also used in genetic algorithms theory.
+
+
 ## Practice Problems
 *   <a href="http://acm.sgu.ru/problem.php?contest=0&problem=249">SGU #249 <b>"Matrix"</b> &nbsp;&nbsp;&nbsp;&nbsp; [Difficulty: medium]</a>
 
