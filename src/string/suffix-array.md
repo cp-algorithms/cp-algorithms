@@ -9,22 +9,22 @@ A **suffix array** will contain integers that represent the **starting indexes**
 
 As an example look at the string $s = abaab$.
 All suffixes are as follows
-$$\begin{align}
-0. ~&~ abaab \\\\
-1. ~&~ baab \\\\
-2. ~&~ aab \\\\
-3. ~&~ ab \\\\
-4. ~&~ b
-\end{align}$$
+$$\begin{array}{ll}
+0. & abaab \\\\
+1. & baab \\\\
+2. & aab \\\\
+3. & ab \\\\
+4. & b
+\end{array}$$
 
 After sorting these strings:
-$$\begin{align}
-2. ~&~ aab \\\\
-3. ~&~ ab \\\\
-0. ~&~ abaab \\\\
-4. ~&~ b \\\\
-1. ~&~ baab
-\end{align}$$
+$$\begin{array}{ll}
+2. & aab \\\\
+3. & ab \\\\
+0. & abaab \\\\
+4. & b \\\\
+1. & baab
+\end{array}$$
 
 Therefore the suffix array for $s$ will be $(2,~ 3,~ 0,~ 4,~ 1)$.
 
@@ -46,13 +46,13 @@ it is enough to append an arbitrary character to the end of the string which is 
 It is common to use the symbol $\\$$.
 Then the order of the sorted cyclic shifts is equivalent to the order of the sorted suffixes, as demonstrated here with the string $dabbb$.
 
-$$\begin{align}
-1. ~~ abbb$d ~&~ abbb \\\\
-4. ~~ b$dabb ~&~ b \\\\
-3. ~~ bb$dab ~&~ bb \\\\
-2. ~~ bbb$da ~&~ bbb \\\\
-0. ~~ dabbb$ ~&~ dabbb
-\end{align}$$
+$$\begin{array}{lll}
+1. & abbb\\$d & abbb \\\\
+4. & b\\$dabb & b \\\\
+3. & bb\\$dab & bb \\\\
+2. & bbb\\$da & bbb \\\\
+0. & dabbb\\$ & dabbb
+\end{array}$$
 
 Since we are going to sort cyclic shifts, we will consider **cyclic substrings**.
 We will use the notation $s[i \dots j]$ for the substring of $s$ even if $i > j$.

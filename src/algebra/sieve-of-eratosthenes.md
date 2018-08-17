@@ -39,7 +39,7 @@ Now, let's evaluate this sum using the integral of a same function over $k$ from
 
 $$\sum_{k = 2}^{\frac n {\ln n}} \frac 1 {k \ln k} \approx \int_2^{\frac n {\ln n}} \frac 1 {k \ln k} dk.$$
 
-The antiderivative for the integrand is  $ \ln \ln k$. Using a substitution and removing terms of lower order, we'll get the result:
+The antiderivative for the integrand is  $\ln \ln k$. Using a substitution and removing terms of lower order, we'll get the result:
 
 $$\int_2^{\frac n {\ln n}} \frac 1 {k \ln k} dk = \ln \ln \frac n {\ln n} - \ln \ln 2 = \ln(\ln n - \ln \ln n) - \ln \ln 2 \approx \ln \ln n.$$
 
