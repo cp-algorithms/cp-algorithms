@@ -32,33 +32,37 @@ $$= n \cdot \left(1 - \frac{1}{p_1}\right) \cdot \left(1 - \frac{1}{p_2}\right) 
 
 `C++` implementation using factorization in $O(\sqrt{n})$ <span class="toggle-code">Show/Hide</span>
 
-	int phi(int n) {
-		int result = n;
-		for(int i = 2; i * i <= n; ++i)
-			if(n % i == 0) {
-				while(n % i == 0)
-					n /= i;
-				result -= result / i;
-			}
-		if(n > 1)
-			result -= result / n;
-		return result;
-	}
+```cpp
+int phi(int n) {
+    int result = n;
+    for(int i = 2; i * i <= n; ++i)
+        if(n % i == 0) {
+            while(n % i == 0)
+                n /= i;
+            result -= result / i;
+        }
+    if(n > 1)
+        result -= result / n;
+    return result;
+}
+```
 
 `Python 3` implementation <span class="toggle-code">Show/Hide</span>
 
-    def phi(n):
-	    result = n
-	    i = 2
-	    while i * i <= n:
-		    if n % i == 0:
-			    while n % i == 0:
-				    n //= i
-			    result -= result // i
-		    i += 1
-	    if n > 1:
-		    result -= result // n
-	    return result
+```python
+def phi(n):
+    result = n
+    i = 2
+    while i * i <= n:
+        if n % i == 0:
+            while n % i == 0:
+                n //= i
+            result -= result // i
+        i += 1
+    if n > 1:
+        result -= result // n
+    return result
+```
 
 ## Applications of Euler's totient function
 

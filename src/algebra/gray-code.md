@@ -12,7 +12,7 @@ This code was invented by Frank Gray in 1953.
 
 Let's look at the bits of number $n$ and the bits of number $G(n)$. Notice that $i$-th bit of $G(n)$ equals 1 only when $i$-th bit of $n$ equals 1 and $i + 1$-th bit equals 0 or the other way around ($i$-th bit equals 0 and $i + 1$-th bit equals 1). Thus, $G(n) = n \oplus (n >> 1)$:  
 
-```   
+```cpp
   int g (int n) { 
 	  return n ^ (n >> 1); 
   }
@@ -32,7 +32,7 @@ We will move from the most significant bits to the least significant ones (the l
 
 The easiest way to write it in code is:
 
-```
+```cpp
   int rev_g (int g) {
     int n = 0;
     for (; g; g >>= 1)

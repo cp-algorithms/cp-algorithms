@@ -186,7 +186,7 @@ Note that when we do the recursive call, we do prefix or suffix $\text{massUpdat
 
 The following implementation of Sqrt Tree can perform the following operations: build in $O(n \cdot \log \log n)$, answer queries in $O(1)$ and update an element in $O(\sqrt{n})$.
 
-~~~~~
+~~~~~cpp
 SqrtTreeItem op(const SqrtTreeItem &a, const SqrtTreeItem &b);
 
 inline int log2Up(int n) {
