@@ -51,6 +51,7 @@ especially popular in field of competitive programming.*
 - [Expression parsing](./string/expression_parsing.html)
 - [Suffix Array](./string/suffix-array.html)
 - [Suffix Tree](./string/suffix-tree-ukkonen.html)
+- [Suffix Automaton](./string/suffix-automaton.html)
 - [Z-function](./string/z-function.html)
 - [Prefix function](./string/prefix-function.html)
 - [Finding all sub-palindromes in O(N)](./string/manacher.html)
