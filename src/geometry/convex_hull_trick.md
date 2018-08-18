@@ -53,12 +53,12 @@ void add_line(ftype k, ftype b) {
 }
  
 ```
-Now to get the minimum value in some point we will find the first normal vector in the convex hull that is directed counter-clockwise from $(x;1)$. The left endpoint of such edge will be the answer. To check if vector $a$ is directed counter-clockwise of vector $b$ we should check if their cross product $[a,b]$ is negative.
+Now to get the minimum value in some point we will find the first normal vector in the convex hull that is directed counter-clockwise from $(x;1)$. The left endpoint of such edge will be the answer. To check if vector $a$ is not directed counter-clockwise of vector $b$, we should check if their cross product $[a,b]$ is positive.
 ```cpp
 int get(ftype x) {
     point query = {x, 1};
     auto it = lower_bound(vecs.begin(), vecs.end(), query, [](point a, point b) {
-        return cross(a, b) < 0;
+        return cross(a, b) > 0;
     });
     return dot(query, hull[it - vecs.begin()]);
 }
