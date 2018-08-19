@@ -1,9 +1,9 @@
 <!--?title Binary Exponentiation-->
 # Binary Exponentiation
 
-Binary exponentiation is a trick which allows to calculate $a^n$ using only $O(\log n)$ multiplications (instead of $O(n)$ multiplications required by naive approach). 
+Binary exponentiation (also known as exponentiation by squaring) is a trick which allows to calculate $a^n$ using only $O(\log n)$ multiplications (instead of $O(n)$ multiplications required by naive approach). 
 
-It also has important applications in many tasks unrelated to arithmetics, since it
+It also has important applications in many tasks unrelated to arithmetic, since it
 can be used with any operations that have the property of **associativity**:
 
 $$(X \cdot Y) \cdot Z = X \cdot (Y \cdot Z)$$
@@ -16,93 +16,107 @@ to other problems which we will discuss below.
 Raising $a$ to the power of $n$ is expressed naively as multiplication by $a$ done $n - 1$ times:
 $a^{n} = a \cdot a \cdot \ldots \cdot a$. However, this approach is not practical for large $a$ or $n$. 
 
-Recall that
 $a^{b+c} = a^b \cdot a^c$ and $a^{2b} = a^b \cdot a^b = (a^b)^2$.
 
-Let's write $n$ in binary system, for example:
+The idea of binary exponentiation is, that we split the work using the binary representation of the exponent.
 
-$$3^{11} = 3^{1011_{2}} = 3^{8} \cdot 3^{2} \cdot 3^{1}$$
+Let's write $n$ in base 2, for example:
+$$3^{13} = 3^{1101_2} = 3^8 \cdot 3^4 \cdot 3^1$$
 
-So we only need to find the sequence of numbers in which each one is a square of the previous one:
+Since the number $n$ has exactly $\lfloor \log_2 n \rfloor + 1$ digits in base 2, we only need to perform $O(\log n)$ multiplications, if we know the powers $a^1, a^2, a^4, a^8, \dots, a^{\lfloor \log n \rfloor}$.
 
-$3^{1} = 3$
+So we only need to know a fast way to compute those.
+Luckily this is very easy, since an element in the sequence is just the square of the previous element.
 
-$3^{2} = (3^1)^2 = 3 \cdot 3 = 9$
+$$\begin{align}
+3^1 &= 3 \\\\
+3^2 &= \left(3^1\right)^2 = 3^2 = 9 \\\\
+3^4 &= \left(3^2\right)^2 = 9^2 = 81 \\\\
+3^8 &= \left(3^4\right)^2 = 81^2 = 6561
+\end{align}
 
-$3^{4} = (3^2)^2 = 9 \cdot 9 = 81$
+So to get the final answer for $3^{13}$, we only need to multiply three of them (skipping $3^2$ because the corresponding bit in $n$ is not set):
+$3^{13} = 6561 \cdot 81 \cdot 3 = 1594323$
 
-$3^{8} = (3^4)^2 = 81 \cdot 81 = 6561$
+The final complexity of this algorithm is $O(\log n)$: we have to compute $\log n$ powers of $a$, and then have to do at most $\log n$ multiplications to get the final answer from them.
 
-The get the final answer, we multiply three of them (skipping $3^4$ because corresponding bit in $n$ is zero):
-$3^{11} = 6561 \cdot 9 \cdot 3 = 177147$.
+The following recursive approach expresses the same idea: 
 
-The complexity of this algorithm is $O(\log n)$: there are $\log n$ powers of $a$ to be calculated, and at most $\log n$ multiplications are required to get the final answer from them.
-
-A recursive approach expresses the same idea as a recursion: 
-
-$a^n = (a^{n/2})^2$ for even $n$,
-$a^n = (a^{(n-1)/2})^2 \cdot a$ for odd $n$,
-$a^1 = a$.
+$$a^n = \begin{cases}
+1 &\text{if } n == 0 \\\\
+\left(a^{\frac{n}{2}}\right)^2 &\text{if } n > 0 \text{ and } n \text{ even}\\\\
+\left(a^{\frac{n - 1}{2}}\right)^2 \cdot a &\text{if } n > 0 \text{ and } n \text{ odd}\\\\
+\end{cases}$$
 
 ## Implementation
 
-The first approach described above can be implemented with a single loop.
+First the recursive approach, which is a direct translation of the recursive formula:
 
-**Non-recursive** approach in Python 3 <span class="toggle-code">Show/Hide</span>:
-```python
-def binpow(a, b):
-    res = 1
-    cur = a
-    while b > 0:
-	    if b & 1:
-		    res *= cur
-	    cur *= cur
-	    b >>= 1
-    return res
-```
-Approach in C++ <span class="toggle-code">Show/Hide</span>:
 ```cpp
-long long binpow(long long a,long long b)
-{
-	long long res = 1;
-	while (b){
-		if (b & 1) res = res * a;
-		a = (a * a);
-		b >>= 1;
-	}
-	return res;
+long long binpow(long long a, long long b) {
+    if (b == 0)
+        return 1;
+    long long res = binpow(a, b / 2);
+    if (b % 2)
+        return res * res * a;
+    else
+        return res * res;
 }
 ```
-This approach builds the result starting from smallest degrees of $a$. If we use recursion
-instead of loop we can work in "inverse" direction, starting from largest degrees and dividing
-$b$ by two at each step.
 
-**Recursive** approach in Python 3 <span class="toggle-code">Show/Hide</span>:
-```python
-def binpow(a, b):
-    if b == 1:
-	    return a
-    res = binpow(a, b // 2)
-    return res * res * (a if b % 2 != 0 else 1)
-```
-Approach in C++ <span class="toggle-code">Show/Hide</span>:
+The second approach accomplishes the same task without recusion.
+It computes all the powers in a loop, and multiplies the ones with the corresponding set bit in $n$.
+Although the complexity of both approaches is identical, this approach will be faster in practice since we have the overhead of the recursive calls.
+
 ```cpp
-long long binpow(long long a,long long b)
-{
-	if (b == 1) return a;
-	long long res = binpow(a, b/2);
-	if (b % 2) return res*res*a;
-	else return res * res;
+long long binpow(long long a, long long b) {
+    long long res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = res * a;
+        a = a * a;
+        b >>= 1;
+    }
+    return res;
 }
 ```
 
 ## Applications
 
-### Effective computation of Fibonacci Numbers
+### Effective computation of large exponents modulo a number
+
+**Problem:**
+Compute $x^n \bmod m$.
+This is a very common operation. For instance it is used in computing the [modular multiplicative inverse](./algebra/module-inverse.html).
+
+**Solution:** 
+Since we know that the module operator doesn't interfer with multiplications ($a \cdot b \equiv (a \bmod m) \cdot (b \bmod m) \pmod m$), we can directly use the same code, and just replace every multiplication with a modular multiplication:
+
+```cpp
+long long binpow(long long a, long long b, long long m) {
+    a %= m;
+    long long res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = res * a % m;
+        a = a * a % m;
+        b >>= 1;
+    }
+    return res;
+}
+```
+
+### Effective computation of Fibonacci numbers
 
 **Problem:** Compute $n$-th Fibonacci number $F_n$.
 
-**Solution:** For more details, see the [Fibonacci Sequence article](./algebra/fibonacci-numbers.html). We will only go through an overview of the algorithm. To compute the next Fibonacci number, only the two previous ones are needed, as $F_n = F_{n-1} + F_{n-2}$. We can build a $2 \times 2$ matrix that matches this transformation: the transition from $F_i$ and $F_{i+1}$ to $F_{i+1}$ and $F_{i+2}$. For example, applying this transformation to the pair $F_0$ and $F_1$ would change it into $F_1$ and $F_2$. Therefore, we can raise this transformation matrix to the $n$-th power to find $F_n$ in time complexity $O(\log n)$.
+**Solution:** For more details, see the [Fibonacci Number article](./algebra/fibonacci-numbers.html).
+We will only go through an overview of the algorithm.
+To compute the next Fibonacci number, only the two previous ones are needed, as $F_n = F_{n-1} + F_{n-2}$.
+We can build a $2 \times 2$ matrix that describes this transformation:
+the transition from $F_i$ and $F_{i+1}$ to $F_{i+1}$ and $F_{i+2}$.
+For example, applying this transformation to the pair $F_0$ and $F_1$ would change it into $F_1$ and $F_2$.
+Therefore, we can raise this transformation matrix to the $n$-th power to find $F_n$ in time complexity $O(\log n)$.
 
 ### Applying a permutation $k$ times
 
@@ -110,7 +124,7 @@ long long binpow(long long a,long long b)
 
 **Solution:** Simply raise the permutation to $k$-th power using binary exponentiation, and then apply it to the sequence. This will give you a time complexity of $O(n \log k)$.
 
-(**Note:** This task can be solved more efficiently in linear time by building the permutation graph and considering each cycle independently. You could then compute $k$ modulo the size of the cycle and find the final position for each number which is part of this cycle.)
+**Note:** This task can be solved more efficiently in linear time by building the permutation graph and considering each cycle independently. You could then compute $k$ modulo the size of the cycle and find the final position for each number which is part of this cycle.
 
 ### Fast application of a set of geometric operations to a set of points
 
@@ -179,7 +193,10 @@ Now, once every transformation is described as a matrix, the sequence of transfo
 
 **Solution:** This problem is considered in more detail in [a separate article](./graph/fixed_length_paths.html). The algorithm consists of raising the adjacency matrix $M$ of the graph (a matrix where $m_{ij} = 1$ if there is an edge from $i$ to $j$, or $0$ otherwise) to the $k$-th power. Now $m_{ij}$ will be the number of paths of length $k$ from $i$ to $j$. The time complexity of this solution is $O(n^3 \log k)$.
 
-(**Note:** In that same article, another variation of this problem is considered: when the edges are weighted and it is required to find the minimum weight path containing exactly $k$ edges. As shown in that article, this problem is also solved by exponentiation of the adjacency matrix. The matrix would have the weight of the edge from $i$ to $j$, or $\infty$ if there is no such edge. Instead of the usual operation of multiplying two matrices, a modified one should be used: instead of multiplication, a sum is taken, and instead of a summation, a minimum is taken. That is, $result_{ij} = \min\limits_{1\ \leq\ k\ \leq\ n}(a_{ik} + b_{kj})$).
+**Note:** In that same article, another variation of this problem is considered: when the edges are weighted and it is required to find the minimum weight path containing exactly $k$ edges. As shown in that article, this problem is also solved by exponentiation of the adjacency matrix. The matrix would have the weight of the edge from $i$ to $j$, or $\infty$ if there is no such edge.
+Instead of the usual operation of multiplying two matrices, a modified one should be used:
+instead of multiplication, both values are added, and instead of a summation, a minimum is taken.
+That is: $result_{ij} = \min\limits_{1\ \leq\ k\ \leq\ n}(a_{ik} + b_{kj})$.
 
 ### Variation of binary exponentiation: multiplying two numbers modulo $m$
 
@@ -187,12 +204,13 @@ Now, once every transformation is described as a matrix, the sequence of transfo
 
 **Solution:** We simply apply the binary construction algorithm described above, only performing additions instead of multiplications. In other words, we have "expanded" the multiplication of two numbers to $O (\log m)$ operations of addition and multiplication by two (which, in essence, is an addition).
 
-$$a \cdot b = \\left\\{\begin{array}{ll}
-2 \times \left\lfloor{\frac{a}{2}}\right\rfloor \cdot b & \mbox{if }\ a\ is\ even \\\
-2 \times \left\lfloor{\frac{a}{2}}\right\rfloor \cdot b + b & \mbox{if }\ a\ is\ odd \\\
-\end{array}\\right.$$
+$$a \cdot b = \begin{cases}
+0 &\text{if }a = 0 \\\\
+2 \cdot \frac{a}{2} \cdot b &\text{if }a > 0 \text{ and }a \text{ even} \\\\
+2 \cdot \frac{a-1}{2} \cdot b + b &\text{if }a > 0 \text{ and }a \text{ odd}
+\end{cases}$$
 
-(**Note:** You can solve this task in a different way by using floating-point operations. First compute the expression $\frac{a \cdot b}{m}$ using floating-point numbers and cast it to an unsigned integer $q$. Subtract $q \cdot m$ from $a \cdot b$ using unsigned integer arithmetics and take it modulo $m$ to find the answer. This solution looks rather unreliable, but it is very fast, and very easy to implement. See [here](https://cs.stackexchange.com/questions/77016/modular-multiplication) for more information.)
+**Note:** You can solve this task in a different way by using floating-point operations. First compute the expression $\frac{a \cdot b}{m}$ using floating-point numbers and cast it to an unsigned integer $q$. Subtract $q \cdot m$ from $a \cdot b$ using unsigned integer arithmetics and take it modulo $m$ to find the answer. This solution looks rather unreliable, but it is very fast, and very easy to implement. See [here](https://cs.stackexchange.com/questions/77016/modular-multiplication) for more information.
 
 ## Practice Problems
 
