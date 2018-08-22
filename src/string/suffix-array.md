@@ -299,7 +299,7 @@ We have compute the longest common prefix (**LCP**) for two suffixes of a string
 
 Unlike the previous method this one will only use $O(|s|)$ memory.
 The result of the preprocessing will be an array (which itself is an important source of information about the string, and therefore also used to solve other tasks).
-Answering LCP queries can be answered by performing RMQ queries (range minimum queries) in this array, so for different implementations it is possible to achieve logarithmic and even constant query time. 
+LCP queries can be answered by performing RMQ queries (range minimum queries) in this array, so for different implementations it is possible to achieve logarithmic and even constant query time. 
 
 The basis for this algorithm is the following idea:
 we will compute the longest common prefix for each **pair of adjacent suffixes in the sorted order**.
@@ -307,17 +307,17 @@ In other words we construct an array $\text{lcp}[0 \dots n-2]$, where $\text{lcp
 This array will give us an answer for any two adjacent suffixes of the string.
 Then the answer for arbitrary two suffixes, not necessarily neighboring ones, can be obtained from this array.
 In fact, let the request be to compute the LCP of the suffixes $p[i]$ and $p[j]$.
-Then the answer to this query will be $\min\\{p[i],~ p[i+1],~ \dots,~ p[j-1]\\}$.
+Then the answer to this query will be $\min(lcp[i],~ lcp[i+1],~ \dots,~ lcp[j-1])$.
 
 Thus if we have such an array $\text{lcp}$, then the problem is reduced to the [RMQ](./sequences/rmq.html), which has many wide number of different solutions with different complexities.
 
 So the main task is to **build** this array $\text{lcp}$.
-We will uses **Kasai's algorithm**, which can compute this array in $O(n)$ time.
+We will use **Kasai's algorithm**, which can compute this array in $O(n)$ time.
 
 Let's look at two adjacent suffixes in the sorted order (order of the suffix array).
-Let their staring positions be $i$ and $j$ and their $\text{lcp}$ equal to $k > 0$.
+Let their starting positions be $i$ and $j$ and their $\text{lcp}$ equal to $k > 0$.
 If we remove the first letter of both suffixes - i.e. we take the suffixes $i+1$ and $j+1$ - then it should be obvious that the $\text{lcp}$ of these two is $k - 1$.
-However we cannot use this value and write it in the $\text{lcp}$ array, because these two two suffixes might not be next to each other in the sorted order.
+However we cannot use this value and write it in the $\text{lcp}$ array, because these two suffixes might not be next to each other in the sorted order.
 The suffix $i+1$ will of course be smaller than the suffix $j+1$, but there might be some suffixes between them.
 However, since we know that the LCP between two suffixes is the minimum value of all transitions, we also know that the LCP between any two pairs in that interval has to be at least $k-1$, especially also between $i+1$ and the next suffix.
 And possibly it can be bigger.
