@@ -10,24 +10,29 @@ Later we will not distinguish between $\mathbf r$ and $\vec{\mathbf r}$ and use 
 
 Both 2D and 3D points maintain linear space, which means that for them sum of points and multiplication of point by some number are defined. Here are those basic implementations for 2D:
 
-```cpp
+```cpp point2d
 struct point2d {
     ftype x, y;
     point2d() {}
     point2d(ftype x, ftype y): x(x), y(y) {}
-    point2d operator+=(const point2d &t) {
+    point2d& operator+=(const point2d &t) {
         x += t.x;
         y += t.y;
         return *this;
     }
-    point2d operator-=(const point2d &t) {
+    point2d& operator-=(const point2d &t) {
         x -= t.x;
         y -= t.y;
         return *this;
     }
-    point2d operator*=(ftype t) {
+    point2d& operator*=(ftype t) {
         x *= t;
         y *= t;
+        return *this;
+    }
+    point2d& operator/=(ftype t) {
+        x /= t;
+        y /= t;
         return *this;
     }
     point2d operator+(const point2d &t) const {
@@ -39,33 +44,42 @@ struct point2d {
     point2d operator*(ftype t) const {
         return point2d(*this) *= t;
     }
+    point2d operator/(ftype t) const {
+        return point2d(*this) /= t;
+    }
 };
 point2d operator*(ftype a, point2d b) {
     return b * a;
 }
 ```
 And 3D points:
-```cpp
+```cpp point3d
 struct point3d {
     ftype x, y, z;
     point3d() {}
     point3d(ftype x, ftype y, ftype z): x(x), y(y), z(z) {}
-    point3d operator+=(const point3d &t) {
+    point3d& operator+=(const point3d &t) {
         x += t.x;
         y += t.y;
         z += t.z;
         return *this;
     }
-    point3d operator-=(const point3d &t) {
+    point3d& operator-=(const point3d &t) {
         x -= t.x;
         y -= t.y;
         z -= t.z;
         return *this;
     }
-    point3d operator*=(ftype t) {
+    point3d& operator*=(ftype t) {
         x *= t;
         y *= t;
         z *= t;
+        return *this;
+    }
+    point3d& operator/=(ftype t) {
+        x /= t;
+        y /= t;
+        z /= t;
         return *this;
     }
     point3d operator+(const point3d &t) const {
@@ -76,6 +90,9 @@ struct point3d {
     }
     point3d operator*(ftype t) const {
         return point3d(*this) *= t;
+    }
+    point3d operator/(ftype t) const {
+        return point3d(*this) /= t;
     }
 };
 point3d operator*(ftype a, point3d b) {
@@ -113,7 +130,7 @@ $$\mathbf a\cdot \mathbf b = (x_1 \cdot \mathbf e_x + y_1 \cdot\mathbf e_y + z_1
 That is also the algebraic definition of the dot product.
 From this we can write functions which calculate it.
 
-```cpp
+```cpp dotproduct
 ftype dot(point2d a, point2d b) {
     return a.x * b.x + a.y * b.y;
 }
@@ -137,7 +154,7 @@ For example
 
 Note that all these functions do not depend on the number of dimensions, hence they will be the same for the 2D and 3D case:
 
-```cpp
+```cpp dotproperties
 ftype norm(point2d a) {
     return dot(a, a);
 }
@@ -158,7 +175,7 @@ You can see the vector $\mathbf a$ alongside with several such vectors having sa
 
 <center>![Vectors having same dot product with a](https://i.imgur.com/eyO7St4.png)</center>
 
-In 3D such vectors will rather form a plane than a line.
+In 2D these vectors will form a line, in 3D they will form a plane.
 Note that this result allows us to define a line in 2D as $\mathbf r\cdot \mathbf n=C$ or $(\mathbf r - \mathbf r_0)\cdot \mathbf n=0$ where $\mathbf n$ is vector orthogonal to the line and $\mathbf r_0$ is any vector already present on the line and $C = \mathbf r_0\cdot \mathbf n$.
 In the same manner a plane can be defined in 3D.
 
@@ -213,7 +230,7 @@ Note that it also equals $|\mathbf a| \cdot |\mathbf b| \sin \theta$ where $\the
 
 Let's implement all this stuff!
 
-```cpp
+```cpp crossproduct
 point3d cross(point3d a, point3d b) {
     return point3d(a.y * b.z - a.z * b.y,
                    a.z * b.x - a.x * b.z,
@@ -229,8 +246,8 @@ ftype cross(point2d a, point2d b) {
 
 ### Properties
 
-As for the cross product, it equals to the zero vector iff the vectors $\mathbf a$ and $\mathbf b$ are collinear.
-The same thing holds for the triple product, it is equal to zero iff the vectors $\mathbf a$, $\mathbf b$ and $\mathbf c$ are coplanar.
+As for the cross product, it equals to the zero vector iff the vectors $\mathbf a$ and $\mathbf b$ are collinear (they form a common line, i.e. they are parallel).
+The same thing holds for the triple product, it is equal to zero iff the vectors $\mathbf a$, $\mathbf b$ and $\mathbf c$ are coplanar (they form a common plane).
 
 From this we can obtain universal equations defining lines and planes.
 A line can be defined via its direction vector $\mathbf d$ and an initial point $\mathbf r_0$ or by two points $\mathbf a$ and $\mathbf b$.
@@ -254,7 +271,7 @@ $$(\mathbf a_1 + t \cdot \mathbf d_1 - \mathbf a_2)\times \mathbf d_2=0 \quad\Ri
 
 Let's implement function to intersect two lines.
 
-```cpp
+```cpp line_intersection
 point2d intersect(point2d a1, point2d d1, point2d a2, point2d d2) {
     return a1 + cross(a2 - a1, d2) / cross(d1, d2) * d1;
 }
@@ -271,7 +288,7 @@ $$\begin{cases}\mathbf r\cdot \mathbf n_1 = \mathbf a_1\cdot \mathbf n_1, \\\ \m
 Instead of thinking on geometric approach, you can work out an algebraic one which can be obtained immediately.
 For example, given that you already implemented a point class, it will be easy for you to solve this system using Cramer's rule because the triple product is simply the determinant of the matrix obtained from the vectors being its columns:
 
-```cpp
+```cpp plane_intersection
 point3d intersect(point3d a1, point3d n1, point3d a2, point3d n2, point3d a3, point3d n3) {
     point3d x(n1.x, n2.x, n3.x);
     point3d y(n1.y, n2.y, n3.y);
