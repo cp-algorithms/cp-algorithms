@@ -1,38 +1,40 @@
-<!--?title Length of the union of intervals on a line -->
+<!--?title Length of the union of segments -->
+# Length of the union of segments
 
-# Length of the union of intervals on a line in $O(n\log n)$
+Given $n$ segments on a line, each described by a pair of coordinates $(a_{i1}, a_{i2})$.
+We have to find the length of their union.
 
-Given $n$ segments on a line, each one by a pair of coordinates $(x_{2i}, x_{2i+1})$, find the length of their union.
-
-The following algorithm was proposed by Klee in 1977. It works in $O(n\log n)$ and has been proved to be the asymptotically fastest.
+The following algorithm was proposed by Klee in 1977.
+It works in $O(n\log n)$ and has been proven to be the asymptotically optimal.
 
 ## Solution
 
-Store in an array $X$ the endpoints of all the segments sorted by its value, with the left end first if their values are equal, and wether it is a left end or a right end of a segment. Now go through the array keeping a counter $C$ of overlapping segments. If $C$ is non-zero, then add $x_i-x_{i-1}$ to the answer; if the current element is a left end we increase this counter, and otherwise we decrease it.
+We store in an array $x$ the endpoints of all the segments sorted by their values.
+And additionally we store whether it is a left end or a right end of a segment.
+Now we iterate over the array, keeping a counter $c$ of currently opened segments.
+Whenever the current element is a left end, we increase this counter, and otherwise we decrease it.
+To compute the answer, we take the length between the last to $x$ values $x_i - x_{i-1}$, whenever we come to a new coordinate, and there is currently at least one segment is open.
 
 ## Implementation
 
 ```cpp
-unsigned segments_union_measure (const vector < pair<int,bool> > & a)
-{
-    unsigned n = a.size();
-    vector < pair<int,bool> > x (n*2);
-    for (unsigned i=0; i < n; i++)
-    {
-        x[i*2] = make_pair (a[i].first, false);
-        x[i*2+1] = make_pair (a[i].second, true);
+int length_union(const vector<pair<int, int>> &a) {
+    int n = a.size();
+    vector<pair<int, bool>> x(n*2);
+    for (int i = 0; i < n; i++) {
+        x[i*2] = {a[i].first, false};
+        x[i*2+1] = {a[i].second, true};
     }
 
-    sort (x.begin(), x.end());
+    sort(x.begin(), x.end());
 
-    unsigned result = 0;
-    unsigned c = 0;
-    for (unsigned i=0; i < n*2; i++)
-    {
-        if (c && i)
-            result += unsigned (x[i].first - x[i-1].first);
+    int result = 0;
+    int c = 0;
+    for (int i = 0; i < n * 2; i++) {
+        if (i > 0 && x[i].first > x[i].second && c > 0)
+            result += x[i].first - x[i-1].first;
         if (x[i].second)
-            ++c;
+            c++;
         else
             --c;
     }

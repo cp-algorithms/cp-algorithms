@@ -85,7 +85,7 @@ especially popular in field of competitive programming.*
 
 ### Geometry
 - [Basic Geometry](./geometry/basic-geometry.html)
-- [Length of the union of intervals on a line in O(N\*logN)](./geometry/length-of-segments-union.html)
+- [Length of the union of segments](./geometry/length-of-segments-union.html)
 - [Oriented area of a triangle and predicate "clockwise"](./geometry/oriented-triangle-area.html)
 - [Intersection Point of Lines](./geometry/lines-intersection.html)
 - [Circle-Line Intersection](./geometry/circle-line-intersection.html)
