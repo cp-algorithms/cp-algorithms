@@ -54,7 +54,7 @@ The function `inc` works with the same analogy, but "jumps" in the direction of 
 
 1. sums of the ranges $[g(j); j]$ that satisfy the condition $g(j) \le i \le j$ are increased by `delta` , that is `t[j] += delta` .
 
-It is obvious that complexity of both `sum` and `upd` do depend on the function $g$. We will define the function $g$ in such a way that both of the operations have a logarithmic complexity $O(lg N)$.
+It is obvious that complexity of both `sum` and `inc` do depend on the function $g$. We will define the function $g$ in such a way that both of the operations have a logarithmic complexity $O(lg N)$.
 
 **Definition of $g(i)$.** Let us consider the least significant digit of $i$ in binary. If this digit is $0$, then let $g(i) = i$. Otherwise, the binary representation of $i$ will end with at least one $1$ bit. We will flip all these tailing $1$'s (so they become $0$'s) and define the result as a value of $g(i)$.
 
