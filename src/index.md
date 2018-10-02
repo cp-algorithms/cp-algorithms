@@ -63,6 +63,7 @@ especially popular in field of competitive programming.*
 - [Gauss & System of Linear Equations](./linear_algebra/linear-system-gauss.html)
 - [Gauss & Determinant](./linear_algebra/determinant-gauss.html)
 - [Kraut & Determinant](./linear_algebra/determinant-kraut.html)
+- [Rank of a matrix](./linear_algebra/rank-matrix.html)
 
 ### Combinatorics
 - [The Inclusion-Exclusion Principle](./combinatorics/inclusion-exclusion.html)
