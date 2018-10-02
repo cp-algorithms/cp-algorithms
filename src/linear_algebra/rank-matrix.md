@@ -12,6 +12,10 @@ Note that if the matrix is square and its determinant is non-zero, then the rank
 
 You can search for the rank using [Gaussian elimination](https://cp-algorithms.com/linear_algebra/linear-system-gauss.html). We will perform the same operations as when solving the system or finding its determinant. But if at any step in the $i$-th column there are zero-rows among the rows not selected before, then we skip this step and decrease the rank by one (Initially, the rank is set equal to $\max (N, M)$). Otherwise, if we have found a row with a non-zero element in the $i$-th column at the $i$-th step, then we mark this row as a selected one and perform the usual operations of taking this row away from the rest.
 
+##Complexity
+
+This algorithm runs in $\mathcal{O}(n^3)$.
+
 ##Implementation
 
     const double EPS = 1E-9;
