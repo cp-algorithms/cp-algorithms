@@ -18,7 +18,7 @@ The most important property of the condensation graph is that it is **acyclic**.
 The algorithm described in the next section extracts all strongly connected components in a given graph. It is quite easy to build a condensation graph then.
 
 ## Description of the algorithm
-Described algorithm was independently suggested by Kosaraju and Sharir at 1979. This is an easy-to-implement algorithm based on two series of [depth first search](http://e-maxx-eng.appspot.com/graph/depth-first-search.html), and working for $O(n + m)$ time.
+Described algorithm was independently suggested by Kosaraju and Sharir at 1979. This is an easy-to-implement algorithm based on two series of [depth first search](https://cp-algorithms.com/graph/depth-first-search.html), and working for $O(n + m)$ time.
 
 **On the first step** of the algorithm we are doing sequence of depth first searches, visiting the entire graph. We start at each vertex of the graph and run a depth first search from every non-visited vertex. For each vertex we are keeping track of **exit time** $tout[v]$. These exit times have a key role in an algorithm and this role is expressed in next theorem.
 
@@ -46,7 +46,7 @@ Thus, we built next **algorithm** for selecting strongly connected components:
 
 Algorithm asymptotics is $O(n + m)$, because it is just two depth (breadth) first searches.
 
-Finally, it is appropriate to mention [topological sort](http://e-maxx-eng.appspot.com/graph/topological-sort.html) here. First of all, step 1 of the algorithm represents topological sort of graph $G$ (actually this is exactly what vertices' sort by exit time means). Secondly, the algorithm's scheme generates strongly connected components by decreasing order of their exit times, thus it generates components - vertices of condensation graph - in topological sort order.
+Finally, it is appropriate to mention [topological sort](https://cp-algorithms.com/graph/topological-sort.html) here. First of all, step 1 of the algorithm represents topological sort of graph $G$ (actually this is exactly what vertices' sort by exit time means). Secondly, the algorithm's scheme generates strongly connected components by decreasing order of their exit times, thus it generates components - vertices of condensation graph - in topological sort order.
 
 ## Implementation
 ```cpp
