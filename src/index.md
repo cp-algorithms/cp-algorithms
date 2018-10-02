@@ -44,6 +44,7 @@ especially popular in field of competitive programming.*
 
 ### Dynamic Programming
 - [Dynamic Programming on Broken Profile. Problem "Parquet"](./dynamic_programming/profile-dynamics.html)
+- [Finding the largest zero submatrix](./dynamic_programming/zero_matrix.html)
 
 ### String Processing
 - [String Hashing](./string/string-hashing.html)
