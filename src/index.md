@@ -44,6 +44,7 @@ especially popular in field of competitive programming.*
 
 ### Dynamic Programming
 - [Dynamic Programming on Broken Profile. Problem "Parquet"](./dynamic_programming/profile-dynamics.html)
+- [Divide and Conquer DP](./dynamic_programming/divide-and-conquer-dp.html)
 
 ### String Processing
 - [String Hashing](./string/string-hashing.html)
