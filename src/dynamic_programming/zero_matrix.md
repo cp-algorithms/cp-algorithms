@@ -14,13 +14,13 @@ First, we calculate the following auxiliary matrix: `d[i][j]`, nearest row that 
 While iterating from top-left to bottom-right, when we stand in row `i`, we know the values from the previous row, so, it is enough to update just the elements with value `1`. We can save the values in a simple array `d[i]`, `i = 1...m - 1`, because we will use just the information from the current row:
 
 ```cpp
-vector<int> d (m, -1);
-for (int i=0; i<n; ++i) {
-  for (int j=0; j<m; ++j){
-    if (a[i][j] == 1){
-      d[j] = i;
+vector<int> d(m, -1);
+for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < m; ++j) {
+        if (a[i][j] == 1) {
+            d[j] = i;
+        }
     }
-  }
 }
 ```
 
@@ -51,34 +51,40 @@ It should also be noted that this algorithm consumes `O(m)` memory (not counting
 ### Implementation
 
 ```cpp
-int n, m;
-cin >> n >> m;
-vector <vector<int> > a (n, vector<int> (m));
-for (int i=0; i<n; ++i)
-  for (int j=0; j<m; ++j)
-    cin >> a[i][j];
- 
-int ans = 0;
-vector<int> d (m, -1), d1 (m), d2 (m);
-stack<int> st;
-for (int i=0; i<n; ++i) {
-  for (int j=0; j<m; ++j)
-    if (a[i][j] == 1)
-      d[j] = i;
-  while (!st.empty()) st.pop();
-  for (int j=0; j<m; ++j) {
-    while (!st.empty() && d[st.top()] <= d[j])  st.pop();
-    d1[j] = st.empty() ? -1 : st.top();
-    st.push (j);
-  }
-  while (!st.empty()) st.pop();
-  for (int j=m-1; j>=0; --j) {
-    while (!st.empty() && d[st.top()] <= d[j])  st.pop();
-    d2[j] = st.empty() ? m : st.top();
-    st.push (j);  
-  }
-  for (int j=0; j<m; ++j)
-    ans = max (ans, (i - d[j]) * (d2[j] - d1[j] - 1));
+int zero_matrix(vector<vector<int>> a) {
+    int n = a.size();
+    int m = a[0].size();
+
+    int ans = 0;
+    vector<int> d(m, -1), d1(m), d2(m);
+    stack<int> st;
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            if (a[i][j] == 1)
+                d[j] = i;
+        }
+
+        for (int j = 0; j < m; ++j) {
+            while (!st.empty() && d[st.top()] <= d[j])
+                st.pop();
+            d1[j] = st.empty() ? -1 : st.top();
+            st.push(j);
+        }
+        while (!st.empty())
+            st.pop();
+
+        for (int j = m - 1; j >= 0; --j) {
+            while (!st.empty() && d[st.top()] <= d[j])
+                st.pop();
+            d2[j] = st.empty() ? m : st.top();
+            st.push(j);
+        }
+        while (!st.empty())
+            st.pop();
+
+        for (int j = 0; j < m; ++j)
+            ans = max(ans, (i - d[j]) * (d2[j] - d1[j] - 1));
+    }
+    return ans;
 }
-cout << ans;
 ```
