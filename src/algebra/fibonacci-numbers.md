@@ -97,6 +97,17 @@ $$\begin{pmatrix}F_n & F_{n+1} \cr\end{pmatrix} = \begin{pmatrix}F_0 & F_1 \cr\e
 
 Thus, in order to find $F_n$, we must raise the matrix $P$ to $n$. This can be done in $O(\log n)$ (see [Binary exponentiation](./algebra/binary-exp.html)).
 
+### Fast Doubling Method
+Using above method we can find these equations:
+$$ \begin{array}{rll}
+                        F(2k) &= F(k) \left[ 2F(k+1) - F(k) \right]. \\\
+                        F(2k+1) &= F(k+1)^2 + F(k)^2.
+\end{array}$$
+Thus using above two equations fibonacci numbers can be calculated easily by the following code:
+
+The above code returns $F_n$ and $F_{n+1}$ as a pair.
+
+
 ## Periodicity modulo p
 
 Consider the Fibonacci sequence modulo $p$. We will prove the sequence is periodic and the period begins with $F_1 = 1$ (that is, the pre-period contains only $F_0$).
