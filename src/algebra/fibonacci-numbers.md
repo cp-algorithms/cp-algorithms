@@ -106,7 +106,15 @@ $$ \begin{array}{rll}
 Thus using above two equations fibonacci numbers can be calculated easily by the following code:
 
 The above code returns $F_n$ and $F_{n+1}$ as a pair.
-
+```cpp
+pair<int, int> fib (int n) {
+  if (n == 0) return make_pair(0LL, 1LL);
+  auto p = fib(n >> 1);
+  int c = p.first * (2 * p.second - p.first),
+     d = p.first * p.first + p.second * p.second;
+   return (n & 1) ? make_pair(d, c + d) : make_pair(c, d);
+}
+```
 
 ## Periodicity modulo p
 
