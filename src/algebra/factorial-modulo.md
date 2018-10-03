@@ -32,4 +32,4 @@ $$
 n!\,\% \, p & = \underbrace{ \ldots \cdot 1 } \cdot \underbrace{ \ldots \cdot 2} \cdot \ldots \cdot \underbrace{ \ldots \cdot (p-1)} \cdot \underbrace{ \ldots \cdot 1 } \cdot \underbrace{ \ldots \cdot 1} \cdot \underbrace{ \ldots \cdot 2} \cdots
 \end{array}
 $$
-And again, we came to the "modified" factorial, but smaller dimension (as much as it was full of blocks, and they were \left\lfloor n / p \right\rfloor). Thus, the calculation of "modified" the factorial n!_{\%p} we drove over O(p) operations to the calculation already (n/p)!_{\%p}. Revealing this recursive dependence, we obtain that the recursion depth is O (\log_p n), the total asymptotic behavior of the algorithm is obtained O(p \log_p n).
+And again, we receive "modified" factorial form but with smaller dimension ($\lfloor n / p \rfloor$ blocks remain). Thus, in the calculation of "modified" the factorial $n!_{\%p}$ we drove over $O(p)$ operations to the calculation of $(n/p)!_{\%p}$. Revealing this recursive dependence, we obtain that the recursion depth is $O(\log_p n)$, the total asymptotic behavior of the algorithm is thus $O(p \log_p n)$.
