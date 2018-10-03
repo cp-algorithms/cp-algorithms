@@ -33,3 +33,20 @@ n!\,\% \, p & = \underbrace{ \ldots \cdot 1 } \cdot \underbrace{ \ldots \cdot 2}
 \end{array}
 $$
 And again, we receive "modified" factorial form but with smaller dimension ($\lfloor n / p \rfloor$ blocks remain). Thus, in the calculation of "modified" the factorial $n!_{\%p}$ we drove over $O(p)$ operations to the calculation of $(n/p)!_{\%p}$. Revealing this recursive dependence, we obtain that the recursion depth is $O(\log_p n)$, the total asymptotic behavior of the algorithm is thus $O(p \log_p n)$.
+
+## Implementation
+We don't need recursion because it is the case of tail recursion and thus can be easily implemented using iteration.
+```cpp
+int factmod (int n, int p) {
+	int res = 1;
+	while (n > 1) {
+		res = (res * ((n/p) % 2 ?  p-1 : 1)) % p;
+		for (int i=2; i<=n%p; ++i)
+			res = (res * i) % p;
+		n /= p;
+	}
+	return res % p;
+}
+```
+
+This implementation works in $O(p \log_p n)$.
