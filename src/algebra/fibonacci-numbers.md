@@ -98,21 +98,27 @@ $$\begin{pmatrix}F_n & F_{n+1} \cr\end{pmatrix} = \begin{pmatrix}F_0 & F_1 \cr\e
 Thus, in order to find $F_n$, we must raise the matrix $P$ to $n$. This can be done in $O(\log n)$ (see [Binary exponentiation](./algebra/binary-exp.html)).
 
 ### Fast Doubling Method
+
 Using above method we can find these equations:
 $$ \begin{array}{rll}
-                        F(2k) &= F(k) \left[ 2F(k+1) - F(k) \right]. \\\
-                        F(2k+1) &= F(k+1)^2 + F(k)^2.
+                        F_{2k} &= F_k \left( 2F_{k+1} - F_{k} \right). \\\
+                        F_{2k+1} &= F_{k+1}^2 + F_{k}^2.
 \end{array}$$
-Thus using above two equations fibonacci numbers can be calculated easily by the following code:
+Thus using above two equations Fibonacci numbers can be calculated easily by the following code:
 
 The above code returns $F_n$ and $F_{n+1}$ as a pair.
 ```cpp
 pair<int, int> fib (int n) {
-  if (n == 0) return make_pair(0LL, 1LL);
-  auto p = fib(n >> 1);
-  int c = p.first * (2 * p.second - p.first),
-     d = p.first * p.first + p.second * p.second;
-   return (n & 1) ? make_pair(d, c + d) : make_pair(c, d);
+    if (n == 0)
+        return {0, 1};
+
+    auto p = fib(n >> 1);
+    int c = p.first * (2 * p.second - p.first);
+    int d = p.first * p.first + p.second * p.second;
+    if (n & 1)
+        return {d, c + d};
+    else
+        return {c, d};
 }
 ```
 
