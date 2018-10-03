@@ -26,4 +26,10 @@ n!\,\% \, p & = \underbrace{1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-
 \end{array}
 $$
 
-
+The General part of the blocks it is easy to count — it's just $(p-1)!\ \mathrm{mod}\ p$ that you can calculate programmatically or via Wilson theorum, accroding to which $(p-1)!\ {\rm mod}\ p = p-1$. To multiply these common parts of all blocks, we can raise the value to the degree modulo $p$ which can be done in $O(\log n)$ operations using Binary Exponentiation; however, you may notice that we actually built negative one in some degree, and therefore the result will always be either $1$ or $p-1$, depending on the parity of the index. The value of the last partial block can be calculated separately in $O(p)$. Leaving only the last elements of the blocks, we can examine that:
+$$
+\begin{array}{cll}
+n!\,\% \, p & = \underbrace{ \ldots \cdot 1 } \cdot \underbrace{ \ldots \cdot 2} \cdot \ldots \cdot \underbrace{ \ldots \cdot (p-1)} \cdot \underbrace{ \ldots \cdot 1 } \cdot \underbrace{ \ldots \cdot 1} \cdot \underbrace{ \ldots \cdot 2} \cdots
+\end{array}
+$$
+And again, we came to the "modified" factorial, but smaller dimension (as much as it was full of blocks, and they were \left\lfloor n / p \right\rfloor). Thus, the calculation of "modified" the factorial n!_{\%p} we drove over O(p) operations to the calculation already (n/p)!_{\%p}. Revealing this recursive dependence, we obtain that the recursion depth is O (\log_p n), the total asymptotic behavior of the algorithm is obtained O(p \log_p n).
