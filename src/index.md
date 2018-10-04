@@ -29,6 +29,7 @@ especially popular in field of competitive programming.*
 - [Arbitrary-Precision Arithmetic](./algebra/big-integer.html)
 - [Fibonacci Numbers](./algebra/fibonacci-numbers.html)
 - [Finding Power of Factorial Divisor](./algebra/factorial-divisors.html)
+- [Factorial modulo $p$](./algebra/factorial-modulo.html)
 - [Fast Fourier transform](./algebra/fft.html)
 
 ### Data Structures
@@ -44,6 +45,7 @@ especially popular in field of competitive programming.*
 
 ### Dynamic Programming
 - [Dynamic Programming on Broken Profile. Problem "Parquet"](./dynamic_programming/profile-dynamics.html)
+- [Finding the largest zero submatrix](./dynamic_programming/zero_matrix.html)
 
 ### String Processing
 - [String Hashing](./string/string-hashing.html)
@@ -63,6 +65,7 @@ especially popular in field of competitive programming.*
 - [Gauss & System of Linear Equations](./linear_algebra/linear-system-gauss.html)
 - [Gauss & Determinant](./linear_algebra/determinant-gauss.html)
 - [Kraut & Determinant](./linear_algebra/determinant-kraut.html)
+- [Rank of a matrix](./linear_algebra/rank-matrix.html)
 
 ### Combinatorics
 - [The Inclusion-Exclusion Principle](./combinatorics/inclusion-exclusion.html)

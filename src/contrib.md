@@ -6,7 +6,7 @@
 
 We collaborate via means of github.
 
-Generated pages are compiled and published at [http://e-maxx-eng.appspot.com](http://e-maxx-eng.appspot.com).
+Generated pages are compiled and published at [https://cp-algorithms.com](https://cp-algorithms.com).
 
 And sources (to which you may want to contribute) are [here](http://github.com/e-maxx-eng/e-maxx-eng/tree/master/src).
 
