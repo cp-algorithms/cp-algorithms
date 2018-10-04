@@ -116,3 +116,5 @@ There exist other problems which can be solved using sqrt decomposition, for exa
 * [Codeforces - Till I Collapse](http://codeforces.com/contest/786/problem/C)
 * [Codeforces - Destiny](http://codeforces.com/contest/840/problem/D)
 * [Codeforces - Holes](http://codeforces.com/contest/13/problem/E)
+* [Codeforces - Powerful array](http://codeforces.com/problemset/problem/86/D)
+* [SPOJ - DQUERY](https://www.spoj.com/problems/DQUERY)
