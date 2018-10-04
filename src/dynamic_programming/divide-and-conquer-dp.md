@@ -6,7 +6,7 @@ Divide and Conquer is a dynamic programming optimization.
 
 ### Preconditions
 Some dynamic programming problems have a recurrence of this form: $$dp(i, j) =
-\argmin\_{k \leq j} \{ dp(i - 1, k) + C(k, j) \}$$ where $C(k, j)$ is some cost
+\min_{k \leq j} \\{ dp(i - 1, k) + C(k, j) \\}$$ where $C(k, j)$ is some cost
 function. 
 
 Say $1 \leq i \leq n$ and $1 \leq j \leq m$, and evaluating $C$ takes $O(1)$
@@ -19,7 +19,7 @@ divide-and-conquer DP. This known as the _monotonicity condition_. The optimal
 "splitting point" for a fixed $i$ increases as $j$ increases.
 
 This lets us solve for all states more efficiently. Say we compute $opt(i, j)$
-for some fixed $i$ and $j$. Then for any $j' < j$, $opt(i, j') \leq opt(i, j)$.
+for some fixed $i$ and $j$. Then for any $j' < j$ we know that $opt(i, j') \leq opt(i, j)$.
 This means when computing $opt(i, j')$, we don't have to consider as many
 splitting points!
 
@@ -38,44 +38,32 @@ levels.
 
 Even though implementation varies based on problem, here's a fairly generic
 template.
+The function `compute` computes one row $i$ of states `dp_cur`, given the previous row $i-1$ of states `dp_before`.
+It has to be called with `compute(0, n-1, 0, n-1)`.
 
 ```cpp
-	template <typename F>
-	struct DP {
-		// Assuming indexes [1, n] (inclusive)
-		vector<ll> before, cur;
-		int n;
-		// make this fast!
-		F score;
+int n;
+long long C(int i, int j);
+vector<long long> dp_before(n), dp_cur(n);
 
-		DP(const vector<ll>& old, F& score):
-			before(begin(old), end(old)), cur(old.size()), n((int)old.size() - 1), score(score) {}
+// compute dp_cur[l], ... dp_cur[r] (inclusive)
+void compute(int l, int r, int optl, int optr)
+{
+    if (l > r)
+        return;
+    int mid = (l + r) >> 1;
+    pair<long long, int> best = {INF, -1};
 
-		inline int lo(int idx) {
-			return 1;
-		}
+    for (int k = optl; k <= min(mid, optr); k++) {
+        best = min(best, {dp_before[k - 1] + C(k, mid), k});
+    }
 
-		inline int hi(int idx) {
-			return idx;
-		}
+    dp_cur[mid] = best.first;
+    int opt = best.second;
 
-		// compute cur[l], ... cur[r] (inclusive).
-		void compute(int l, int r, int optl, int optr) {
-			if (l > r) return;
-			int mid = (l + r) >> 1;
-			pair<ll, int> best = {INF, -1};
-
-			for (int k = max(lo(mid), optl); k <= min(hi(mid), optr); ++k) {
-				best = min(best, {before[k - 1] + score(k, mid), k});
-			}
-
-			cur[mid] = best.first;
-			int opt = best.second;
-
-			compute(l, mid - 1, optl, opt);
-			compute(mid + 1, r, opt, optr);
-		}
-	};
+    compute(l, mid - 1, optl, opt);
+    compute(mid + 1, r, opt, optr);
+}
 ```
 
 ### Things to look out for
