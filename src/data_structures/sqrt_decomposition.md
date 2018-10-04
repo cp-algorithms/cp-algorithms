@@ -108,6 +108,44 @@ Finally, those two classes of problems can be combined if the task requires doin
 
 There exist other problems which can be solved using sqrt decomposition, for example, a problem about maintaining a set of numbers which would allow adding/deleting numbers, checking whether a number belongs to the set and finding $k$-th largest number. To solve it one has to store numbers in increasing order, split into several blocks with $\sqrt{n}$ numbers in each. Every time a number is added/deleted, the blocks have to be rebalanced by moving numbers between beginnings and ends of adjacent blocks.
 
+## Mo's algorithm
+Using the idea of sqrt decomposition we can answer range queries ($Q$) offline in $O((N+Q)\sqrt{N})$. Idea is to answer queries of a block when traversing block form left to right based on left index of the queries. In other words, we first answer queries which have left index lying in block 0, then answer queries which have left index in block 1 and so on. This is only possible when we are allowed to answer the queries in offline mode. 
+In Mo's algorithm we use two functions for adding an index and for removing an index from the range which we are currently maintaining. 
+
+```python
+def remove (position):
+  # CODE FOR REMOVING INDEX
+  # UPDATE answer
+def add (position):
+  # CODE FOR ADDING INDEX
+  # UPDATE answer
+
+cur_L, cur_R = 0, 0
+answer = 0
+Queries.sort() # Based on the block of left index
+for each query in Queries:
+  # cur_L should go to L, cur_R should go to R
+  while cur_L >= L:
+    add(cur_L)
+    cur_L--
+  while cur_L < R:
+    add(cur_R)
+    cur_R++
+  while cur_L <= L:
+    remove(cur_L)
+    cur_L++
+  while cur_R > R:
+    remove(cur_R)
+    cur_R--
+  answer[query]=output
+```
+Based on the problem we can can modify add/remove function. For example if we are asked to find range sum queries then add function will simply add the value of the position and subsequently update the answer variable. On the other hand remove function will subtract the value at position and subsequently update the answer variable.
+Thus finally the complexity is $O((N+Q)F\sqrt{N})$ where $O(F)$  is the complexity of add/remove function.
+
+* Block size of precisely $(O\sqrt{N})$ doesn't always offer the best runtime. For example, if $\sqrt{N}=750$ then it may happen that block size of $700$ or $800$ may run better.
+
+* Sort the odd blocks in increasing order of right index and for even blocks sort the blocks based on decreasing right index. Why? This will minimise the number of add/remove operations of the right index. In odd blocks right index will increase to maximum and in even blocks it will reach the minimum and so on.
+
 ## Practice Problems
 
 * [UVA - 12003 - Array Transformer](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3154)
@@ -116,3 +154,4 @@ There exist other problems which can be solved using sqrt decomposition, for exa
 * [Codeforces - Till I Collapse](http://codeforces.com/contest/786/problem/C)
 * [Codeforces - Destiny](http://codeforces.com/contest/840/problem/D)
 * [Codeforces - Holes](http://codeforces.com/contest/13/problem/E)
+* [Codeforces - XOR and Favorite Number (Mo's)](https://codeforces.com/problemset/problem/617/E)
