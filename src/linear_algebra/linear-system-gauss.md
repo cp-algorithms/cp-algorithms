@@ -193,3 +193,4 @@ Thus, the solution turns into two-step: First, Gauss-Jordan algorithm is applied
 * [Spoj - Xor Maximization](http://www.spoj.com/problems/XMAX/)
 * [Codechef - Knight Moving](https://www.codechef.com/SEP12/problems/KNGHTMOV)
 * [Lightoj - Graph Coloring](http://lightoj.com/volume_showproblem.php?problem=1279)
+* [UVA 12910 - Snakes and Ladders](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=4775)
