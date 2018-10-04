@@ -85,6 +85,7 @@ especially popular in field of competitive programming.*
 ### Numerical Methods
 - [Ternary Search](./num_methods/ternary_search.html)
 - [Newton's method for finding roots](./num_methods/roots_newton.html)
+- [Integration by Simpson's formula](./num_methods/simpson-integration.html)
 
 ### Geometry
 - [Basic Geometry](./geometry/basic-geometry.html)
