@@ -145,7 +145,7 @@ int count_primes(int n) {
         if (is_prime[i]) {
             primes.push_back(i);
             for (int j = i * i; j <= nsqrt; j += i)
-                is_prime[j] = true;
+                is_prime[j] = false;
         }
     }
 
