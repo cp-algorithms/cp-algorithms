@@ -29,6 +29,7 @@ especially popular in field of competitive programming.*
 - [Arbitrary-Precision Arithmetic](./algebra/big-integer.html)
 - [Fibonacci Numbers](./algebra/fibonacci-numbers.html)
 - [Finding Power of Factorial Divisor](./algebra/factorial-divisors.html)
+- [Factorial modulo $p$](./algebra/factorial-modulo.html)
 - [Fast Fourier transform](./algebra/fft.html)
 
 ### Data Structures
@@ -44,6 +45,7 @@ especially popular in field of competitive programming.*
 
 ### Dynamic Programming
 - [Dynamic Programming on Broken Profile. Problem "Parquet"](./dynamic_programming/profile-dynamics.html)
+- [Finding the largest zero submatrix](./dynamic_programming/zero_matrix.html)
 - [Divide and Conquer DP](./dynamic_programming/divide-and-conquer-dp.html)
 
 ### String Processing
@@ -64,6 +66,7 @@ especially popular in field of competitive programming.*
 - [Gauss & System of Linear Equations](./linear_algebra/linear-system-gauss.html)
 - [Gauss & Determinant](./linear_algebra/determinant-gauss.html)
 - [Kraut & Determinant](./linear_algebra/determinant-kraut.html)
+- [Rank of a matrix](./linear_algebra/rank-matrix.html)
 
 ### Combinatorics
 - [The Inclusion-Exclusion Principle](./combinatorics/inclusion-exclusion.html)
@@ -89,6 +92,7 @@ especially popular in field of competitive programming.*
 - [Length of the union of segments](./geometry/length-of-segments-union.html)
 - [Oriented area of a triangle](./geometry/oriented-triangle-area.html)
 - [Intersection Point of Lines](./geometry/lines-intersection.html)
+- [Intersection of Segments](./geometry/segments-intersection.html)
 - [Circle-Line Intersection](./geometry/circle-line-intersection.html)
 - [Circle-Circle Intersection](./geometry/circle-circle-intersection.html)
 - [Pick's Theorem - area of lattice polygons](./geometry/picks-theorem.html)
@@ -96,6 +100,8 @@ especially popular in field of competitive programming.*
 - [Area of simple polygon](./geometry/area-of-simple-polygon.html)
 - [Convex hull trick and Li Chao tree](./geometry/convex_hull_trick.html)
 - [Convex hull construction using Graham's Scan](./geometry/grahams-scan-convex-hull.html)
+- [Check if points belong to the convex polygon in O(log N)](./geometry/point-in-convex-polygon.html)
+
 
 ### Graphs
 - [Breadth First Search](./graph/breadth-first-search.html)
