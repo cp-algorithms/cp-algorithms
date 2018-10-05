@@ -156,7 +156,7 @@ int count_primes(int n) {
         int start = k * S;
         for (int p : primes) {
             int start_idx = (start + p - 1) / p;
-            int j = max(start_idx, 2) * p - start;
+            int j = max(start_idx, p) * p - start;
             for (; j < S; j += p)
                 block[j] = false;
         }
