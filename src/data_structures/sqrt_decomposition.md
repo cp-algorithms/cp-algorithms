@@ -109,42 +109,113 @@ Finally, those two classes of problems can be combined if the task requires doin
 There exist other problems which can be solved using sqrt decomposition, for example, a problem about maintaining a set of numbers which would allow adding/deleting numbers, checking whether a number belongs to the set and finding $k$-th largest number. To solve it one has to store numbers in increasing order, split into several blocks with $\sqrt{n}$ numbers in each. Every time a number is added/deleted, the blocks have to be rebalanced by moving numbers between beginnings and ends of adjacent blocks.
 
 ## Mo's algorithm
-Using the idea of sqrt decomposition we can answer range queries ($Q$) offline in $O((N+Q)\sqrt{N})$. Idea is to answer queries of a block when traversing block form left to right based on left index of the queries. In other words, we first answer queries which have left index lying in block 0, then answer queries which have left index in block 1 and so on. This is only possible when we are allowed to answer the queries in offline mode. 
+
+A similar idea, based on sqrt decomposition, can be used to answer range queries ($Q$) offline in $O((N+Q)\sqrt{N})$.
+This might sound like a lot worse than the methods in the previous section, since this is a slightly worse complexity than we had earlier and cannot update values between two queries.
+But in a lot of situations this method has advantages.
+During a normal sqrt decomposition, we have to precompute the answers for each block, and merge them during answering queries.
+In some problems this merging step can be quite problematic.
+E.g. when each queries asks to find the **mode** of its range (the number that appears the most often).
+For this each block would have to store the count of each number in it in some sort of data structure, and we cannot longer perform the merge step fast enough any more.
+**Mo's algorithm** uses a completely different approach, that can answer these kind of queries fast, because it only keeps track of one data structure, and the only operations with it are easy and fast.
+
+The idea is to answer the queries in a special order based on the indices.
+We will first answer all queries which have the left index in block 0, then answer all queries which have left index in block 1 and so on.
+And also we will have to answer the queries of a block is a special order, namely sorted by the right index of the queries.
+
+As already said we will use a single data structure.
+This data structure will store information about the range.
+At the beginning this range will be empty.
+When we want to answer the next query (in the special order), we simply extend or reduce the range, by adding/removing elements on both sides of the current range, until we transformed it into the query range.
+This way, we only need to add or remove a single element once at a time, which should be pretty easy operations in out data structure.
+
+Since we change the order of answering the queries, this is only possible when we are allowed to answer the queries in offline mode. 
+
+### Implementation
+
 In Mo's algorithm we use two functions for adding an index and for removing an index from the range which we are currently maintaining. 
 
-```python
-def remove (position):
-  # CODE FOR REMOVING INDEX
-  # UPDATE answer
-def add (position):
-  # CODE FOR ADDING INDEX
-  # UPDATE answer
+```cpp
+void remove(idx);  // TODO: remove value at idx from data structure
+void add(idx);     // TODO: add value at idx from data structure
+int get_answer();  // TODO: extract the current answer of the data structure
 
-cur_L, cur_R = 0, 0
-answer = 0
-Queries.sort() # Based on the block of left index
-for each query in Queries:
-  # cur_L should go to L, cur_R should go to R
-  while cur_L >= L:
-    add(cur_L)
-    cur_L--
-  while cur_L < R:
-    add(cur_R)
-    cur_R++
-  while cur_L <= L:
-    remove(cur_L)
-    cur_L++
-  while cur_R > R:
-    remove(cur_R)
-    cur_R--
-  answer[query]=output
+int block_size;
+
+struct Query {
+    int l, r, idx;
+    bool operator<(Query other) const
+    {
+        return make_pair(l / block_size, r) <
+               make_pair(other.l / block_size, other.r);
+    }
+};
+
+vector<int> mo_s_algorithm(vector<Query> queries) {
+    vector<int> answers(queries.size());
+    sort(queries.begin(), queries.end());
+
+    // TODO: initialize data structure
+
+    int cur_l = 0;
+    int cur_r = -1;
+    // invariant: data structure will always reflect the range [cur_l, cur_r]
+    for (Query q : queries) {
+        while (cur_l > q.l) {
+            cur_l--;
+            add(cur_l);
+        }
+        while (cur_r < q.r) {
+            cur_r++;
+            add(cur_r);
+        }
+        while (cur_l < q.l) {
+            remove(cur_l);
+            cur_l++;
+        }
+        while (cur_r > q.r) {
+            remove(cur_r);
+            cur_r--;
+        }
+        answers[q.idx] = get_answer();
+    }
+    return answers;
+}
 ```
-Based on the problem we can can modify add/remove function. For example if we are asked to find range sum queries then add function will simply add the value of the position and subsequently update the answer variable. On the other hand remove function will subtract the value at position and subsequently update the answer variable.
-Thus finally the complexity is $O((N+Q)F\sqrt{N})$ where $O(F)$  is the complexity of add/remove function.
 
-* Block size of precisely $(O\sqrt{N})$ doesn't always offer the best runtime. For example, if $\sqrt{N}=750$ then it may happen that block size of $700$ or $800$ may run better.
+Based on the problem we can can use a different data structure and modify the `add`/`remove`/`get_answer` functions accordingly.
+For example if we are asked to find range sum queries then we use a simple integer as data structure, which is $0$ at the beginning.
+The `add` function will simply add the value of the position and subsequently update the answer variable.
+On the other hand `remove` function will subtract the value at position and subsequently update the answer variable.
+And `get_answer` just returns the integer.
 
-* Sort the odd blocks in increasing order of right index and for even blocks sort the blocks based on decreasing right index. Why? This will minimise the number of add/remove operations of the right index. In odd blocks right index will increase to maximum and in even blocks it will reach the minimum and so on.
+For answering mode-queries, we can use a binary search tree (e.g. `map<int, int>`) for storing how often each number appears in the current range, and a second binary search tree (e.g. `set<pair<int, int>>`) for keeping counts of the numbers (e.g. as count-number pairs) in order.
+The `add` method removes the current number from the second BST, increases the count in the first one, and inserts the number back into the second one.
+`remove` does the same thing, it only decreases the count.
+And `get_answer` just looks at second tree and returns the best value in $O(1)$.
+
+### Complexity
+
+
+Sorting all queries will take $O(Q \log Q)$.
+
+How about the other operations?
+How many times will the `add` and `remove` be called?
+
+Let's say the block size is $S$.
+
+If we look only look at all queries that with the left index in the same block.
+The queries are sorted by the right index.
+Therefore we will call `add(cur_r)` and `remove(cur_r)` only $O(N)$ times for all these queries combined.
+This gives $O(\frac{N}{S} N)$ calls for all blocks.
+
+The value of `cur_l` can change by at most $O(S)$ during between two queries.
+Therefore we have an additional $O(S Q)$ calls of `add(cur_l)` and `remove(cur_l)`.
+
+For $S \approx \sqrt{N}$ this gives $O((N + Q) \sqrt{N})$ operations in total. 
+Thus the complexity is $O((N+Q)F\sqrt{N})$ where $O(F)$  is the complexity of `add` and `remove` function.
+
+Notice, the block size of precisely $\sqrt{N}$ doesn't always offer the best runtime. For example, if $\sqrt{N}=750$ then it may happen that block size of $700$ or $800$ may run better.
 
 ## Practice Problems
 
