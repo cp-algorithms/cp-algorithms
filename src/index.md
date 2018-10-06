@@ -102,6 +102,7 @@ especially popular in field of competitive programming.*
 - [Convex hull trick and Li Chao tree](./geometry/convex_hull_trick.html)
 - [Convex hull construction using Graham's Scan](./geometry/grahams-scan-convex-hull.html)
 - [Check if points belong to the convex polygon in O(log N)](./geometry/point-in-convex-polygon.html)
+- [Point location in O(log N)](./geometry/point-location.html)
 
 
 ### Graphs
