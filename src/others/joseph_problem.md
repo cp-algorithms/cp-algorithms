@@ -2,17 +2,21 @@
 
 # Joseph's Problem
 
-Problem situation - Given the natural numbers $n$ and $k$. All natural numbers from $1$ to $n$ are written in a circle. First count the $k^{th}$ number starting from the first one and delete it. Then $k$ numbers are counted starting from the next one and the $k^{th}$ is removed again, and so on. The process stops when one number remains. It is required to find the last number.
+Problem situation - Given the natural numbers $n$ and $k$.
+All natural numbers from $1$ to $n$ are written in a circle. First count the $k$-th number starting from the first one and delete it. Then $k$ numbers are counted starting from the next one and the $k$-th one is removed again, and so on.
+The process stops when one number remains. It is required to find the last number.
 
 This task was set by **Joseph** (Flavius Josephus) in the 1st century (though in a somewhat narrower formulation: for $k = 2$).
 
-This problem can be solved by modeling. Simplest modeling will work $O(n^{2})$. Using [segment tree](https://cp-algorithms.com/data_structures/segment_tree.html), we can perform modeling in $O(n \log n)$.
+This problem can be solved by modeling the procedure.
+Brute force modeling will work $O(n^{2})$. Using a [segment tree](/data_structures/segment_tree.html) we can improve it to $O(n \log n)$.
+We want something better though.
 
 ## Modeling a $O(n)$ solution
 
 We will try to find a pattern expressing the answer for the problem $J_{n, k}$ through the solution of the previous problems.
 
-Using modeling, we construct a table of values, for example, the following:
+Using brute force modeling we can construct a table of values, for example, the following:
 
 $$\begin{matrix} n\setminus k & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\cr
 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1\cr
@@ -29,55 +33,74 @@ $$\begin{matrix} n\setminus k & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\cr
 
 And here we can clearly see the following **pattern**:
 
-$$J_ {n, k} = (J _ {(n-1), k} + k - 1) \ \% \ n + 1 $$
+$$J_ {n, k} = (J _ {(n-1), k} + k - 1) \ \bmod n + 1 $$
 $$J_ {1, k} = 1 $$
 
-Here, 1-indexing somewhat spoils the elegance of the formula; but if you number the positions from scratch, you get a very clear formula:
+Here, 1-indexing somewhat spoils the elegance of the formula; if you number the positions from 0, you get a very clear formula:
 
-$$J_ {n, k} = (J _ {(n-1), k} + k) \ \% \ n = \sum_{i=1}^n k \ \% \ i$$
+$$J_ {n, k} = (J _ {(n-1), k} + k) \ \bmod n$$
 
-So, we found a solution to the problem of Joseph, working for $O(n)$ operations.
+So, we found a solution to the problem of Joseph, working in $O(n)$ operations.
 
 Simple **recursive implementation** (in 1-indexing)
 
 ```
-  int joseph (int n, int k) {
-	  return n>1 ? (joseph (n-1, k) + k - 1) % n + 1 : 1;
-  }
+int joseph(int n, int k) {
+    return n > 1 ? (joseph(n-1, k) + k - 1) % n + 1 : 1;
+}
 ```
 
 **Non-recursive form** :
+
 ```
-  int joseph (int n, int k) {
-	  int res = 0;
-	  for (int i=1; i<=n; ++i)
-		  res = (res + k) % i;
-	  return res + 1;
-  }
+int joseph(int n, int k) {
+    int res = 0;
+    for (int i = 1; i <= n; ++i)
+  	  res = (res + k) % i;
+    return res + 1;
+}
 ```
+
+This formula can also be found analytically.
+Again here we assume 0-indexed.
+After we killed the first person, we have $n-1$ people left.
+And when we repeat the procedure then we will start with the person that had originally the index $k \bmod m$.
+$J_{(n-1), k}$ would be the answer for the remaining circle, if we start counting at $0$, but because we actually start with $k$ we have $J_ {n, k} = (J _ {(n-1), k} + k) \ \bmod n$.
+
+
 ## Modeling a $O(k \log n)$ solution
 
-For relatively small $k$ we can come up with a more optimal solution than the above recursive solution in $O(n)$. If $k$ is small, then it is even intuitively clear that the algorithm does a lot of unnecessary actions, serious changes occur only when taking modulo $n$, and up to this point the algorithm simply adds the number $k$ to the answer several times. Accordingly, we can get rid of these unnecessary steps.
+For relatively small $k$ we can come up with a better solution than the above recursive solution in $O(n)$.
+If $k$ is a lot smaller than $n$, then we can kill multiple people ($\lfloor \frac{n}{k} \rfloor$) in one run without looping over.
+Afterwards we have $n - \lfloor \frac{n}{k} \rfloor$ people left, and we start with the $(\lfloor \frac{n}{k} \rfloor \cdot n)$-th person.
+So we have to shift by that many.
+We can notice that $\lfloor \frac{n}{k} \rfloor \cdot n$ is simply $n \bmod k$.
+And since we removed every $k$-th person, we have to add the number of people that we removed before the result index.
 
-A small complication arising from this is that after removing these numbers we will have a task with a smaller $n$, but the starting position is not in the first number, and somewhere in other place. Therefore, by invoking recursively ourselves from a problem with a new $n$, we then have to carefully transfer the result into our numbering system from its own.
-
-Also, we need to analyze the case when $n$ becomes less than $k$ - In this case, the above optimization will degenerate into an infinite loop.
+Also, we need to handle the case when $n$ becomes less than $k$ - in this case, the above optimization would degenerate into an infinite loop.
 
 **Implementation** (for convenience in 0-indexing):
+
 ```
-  int joseph (int n, int k) {
-	  if (n == 1)  return 0;
-	  if (k == 1)  return n-1;
-	  if (k > n)  return (joseph (n-1, k) + k) % n;
-	  int cnt = n / k;
-	  int res = joseph (n - cnt, k);
-	  res -= n % k;
-	  if (res < 0)  res += n;
-	  else  res += res / (k - 1);
-	  return res;
-  }
+int joseph(int n, int k) {
+    if (n == 1)
+        return 0;
+    if (k == 1)
+        return n-1;
+    if (k > n)
+        return (joseph(n-1, k) + k) % n;
+    int cnt = n / k;
+    int res = joseph(n - cnt, k);
+    res -= n % k;
+    if (res < 0)
+        res += n;
+    else
+        res += res / (k - 1);
+    return res;
+}
 ```
-Let us estimate the **asymptotics of** this algorithm. Immediately note that the case $n < k$ is analyzed by the old solution, which will work in this case for $O(k)$. Now consider the algorithm itself. In fact, on each iteration of it, instead of $n$ numbers, we get about $n \left( 1 - \frac{1}{k} \right)$ numbers, so the total number of $x$ iterations of the algorithm can be found roughly from the following equation:
+
+Let us estimate the **complexity** of this algorithm. Immediately note that the case $n < k$ is analyzed by the old solution, which will work in this case for $O(k)$. Now consider the algorithm itself. In fact, on each iteration of it, instead of $n$ numbers, we get about $n \left( 1 - \frac{1}{k} \right)$ numbers, so the total number of $x$ iterations of the algorithm can be found roughly from the following equation:
 
 $$ n \left(1 - \frac{1}{k} \right) ^ x = 1, $$
 
@@ -90,7 +113,7 @@ using the decomposition of the logarithm into Taylor series, we obtain an approx
 
 $$x \approx k \ln n$$
 
-Thus, the asymptotics of the algorithm is actually $O (k \log n)$.
+Thus, the complexity of the algorithm is actually $O (k \log n)$.
 
 ## Analytical solution for $k = 2$
 
