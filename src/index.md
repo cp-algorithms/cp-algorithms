@@ -151,6 +151,7 @@ especially popular in field of competitive programming.*
 - [Optimal schedule of jobs given their deadlines and durations](./schedules/schedule-with-completion-duration.html)
 
 ### Miscellaneous
+- [Josephus problem](./others/josephus_problem.html)
 - [15 Puzzle Game: Existence Of The Solution](./others/15-puzzle.html)
 
 ---
