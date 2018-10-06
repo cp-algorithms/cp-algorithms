@@ -1,12 +1,12 @@
-<!--?title Joseph's Problem -->
+<!--?title Josephus Problem -->
 
-# Joseph's Problem
+# Josephus Problem
 
 Problem situation - Given the natural numbers $n$ and $k$.
 All natural numbers from $1$ to $n$ are written in a circle. First count the $k$-th number starting from the first one and delete it. Then $k$ numbers are counted starting from the next one and the $k$-th one is removed again, and so on.
 The process stops when one number remains. It is required to find the last number.
 
-This task was set by **Joseph** (Flavius Josephus) in the 1st century (though in a somewhat narrower formulation: for $k = 2$).
+This task was set by **Flavius Josephus** in the 1st century (though in a somewhat narrower formulation: for $k = 2$).
 
 This problem can be solved by modeling the procedure.
 Brute force modeling will work $O(n^{2})$. Using a [segment tree](/data_structures/segment_tree.html) we can improve it to $O(n \log n)$.
@@ -45,7 +45,7 @@ So, we found a solution to the problem of Joseph, working in $O(n)$ operations.
 Simple **recursive implementation** (in 1-indexing)
 
 ```
-int joseph(int n, int k) {
+int josephus(int n, int k) {
     return n > 1 ? (joseph(n-1, k) + k - 1) % n + 1 : 1;
 }
 ```
@@ -53,7 +53,7 @@ int joseph(int n, int k) {
 **Non-recursive form** :
 
 ```
-int joseph(int n, int k) {
+int josephus(int n, int k) {
     int res = 0;
     for (int i = 1; i <= n; ++i)
   	  res = (res + k) % i;
@@ -82,7 +82,7 @@ Also, we need to handle the case when $n$ becomes less than $k$ - in this case, 
 **Implementation** (for convenience in 0-indexing):
 
 ```
-int joseph(int n, int k) {
+int josephus(int n, int k) {
     if (n == 1)
         return 0;
     if (k == 1)
