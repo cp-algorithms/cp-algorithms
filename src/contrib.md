@@ -1,5 +1,4 @@
 <!--?title For Contributors-->
-<!--?imgroot &imgroot&-->
 #How to Contribute
 
 ## General information
