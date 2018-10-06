@@ -134,4 +134,3 @@ $$J_{n, 2} = 1 + 2 \left(n-2^{\lfloor \log_2 n \rfloor} \right)$$
 ## Analytical solution for $k > 2$
 
 Despite the simple form of the problem and a large number of articles on this and related problems, a simple analytical representation of the solution of Joseph's problem has not yet been found. For small $k$, some formulas are derived, but apparently they are all difficult to apply in practice (for example, see Halbeisen, Hungerbuhler "the Josephus Problem" and Odlyzko, Wilf "Functional iteration and the Josephus problem").
-
