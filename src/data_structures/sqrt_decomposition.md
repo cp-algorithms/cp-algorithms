@@ -225,4 +225,6 @@ Notice, the block size of precisely $\sqrt{N}$ doesn't always offer the best run
 * [Codeforces - Till I Collapse](http://codeforces.com/contest/786/problem/C)
 * [Codeforces - Destiny](http://codeforces.com/contest/840/problem/D)
 * [Codeforces - Holes](http://codeforces.com/contest/13/problem/E)
-* [Codeforces - XOR and Favorite Number (Mo's)](https://codeforces.com/problemset/problem/617/E)
+* [Codeforces - XOR and Favorite Number](https://codeforces.com/problemset/problem/617/E)
+* [Codeforces - Powerful array](http://codeforces.com/problemset/problem/86/D)
+* [SPOJ - DQUERY](https://www.spoj.com/problems/DQUERY)
