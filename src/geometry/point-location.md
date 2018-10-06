@@ -35,7 +35,7 @@ Now let's process the events for a fixed x-coordinate.
  - Finally, for each _get_ event we must check if the point lies on some vertical edge by performing a binary search in $vert$.
 If the point doesn't lie on any vertical edge, we must find the answer for this query in $t$.
 To do this, we again make a binary search.
-In order to handle some degenerate cases, we must answer all _get_ events again after we processed all the events for this x-coordinate and choose the best of two answers.<br>
+In order to handle some degenerate cases (e.g. in case of the triangle $(0,~0)$, $(0,~2)$, $(1, 1)$ when we query the point $(0,~0)$), we must answer all _get_ events again after we processed all the events for this x-coordinate and choose the best of two answers.
 
 Now let's choose a comparator for the set $t$.
 This comparator should check if one edge doesn't lie above other for every x-coordinate they both cover. Suppose that we have two edges $(a, b)$ and $(c, d)$. Then the comparator is (in pseudocode):<br>
