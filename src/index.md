@@ -103,7 +103,7 @@ especially popular in field of competitive programming.*
 - [Convex hull construction using Graham's Scan](./geometry/grahams-scan-convex-hull.html)
 - [Check if points belong to the convex polygon in O(log N)](./geometry/point-in-convex-polygon.html)
 - [Finding the nearest pair of points](./geometry/nearest_points.html)
-
+- [Point location in O(log N)](./geometry/point-location.html)
 
 ### Graphs
 - [Breadth First Search](./graph/breadth-first-search.html)
@@ -138,6 +138,7 @@ especially popular in field of competitive programming.*
 - [Maximum flow - Push-relabel algorithm improved](./graph/push-relabel-faster.html)
 - [Flows with demands](./graph/flow_with_demands.html)
 - [Minimum-cost flow](./graph/min_cost_flow.html)
+- [Assignment problem. Solution using min-cost-flow in O (N^5)](./graph/assignment-problem-min-flow.html)
 - [Edge connectivity / Vertex connectivity](./graph/edge_vertex_connectivity.html)
 - [2-SAT](./graph/2SAT.html)
 
@@ -152,6 +153,7 @@ especially popular in field of competitive programming.*
 - [Optimal schedule of jobs given their deadlines and durations](./schedules/schedule-with-completion-duration.html)
 
 ### Miscellaneous
+- [Josephus problem](./others/josephus_problem.html)
 - [15 Puzzle Game: Existence Of The Solution](./others/15-puzzle.html)
 
 ---
