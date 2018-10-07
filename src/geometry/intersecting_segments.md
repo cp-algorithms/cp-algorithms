@@ -1,6 +1,7 @@
 <!--?title Search for a pair of intersecting segments by sweeping line algorithm -->
 
 # Search for a pair of intersecting segments by sweeping line algorithm in $O(n \log n)$
+
 Given $n$ line segments on the plane. It is required to check whether at least two of them intersect with each other. (If the answer is yes, then print this pair of intersecting segments; it is enough to choose any of them among several answers.)
 
 The naive solution algorithm is to iterate over all pairs of segments in $O(n^2)$ and check for each pair whether they intersect or not. This article describes an algorithm with the runtime time $O(n \log n)$, which is based on the principle of **scanning(sweeping) straight line**.
@@ -9,17 +10,17 @@ The naive solution algorithm is to iterate over all pairs of segments in $O(n^2)
 
 Let's draw a vertical line $x = -\infty$ mentally and start moving this line to the right. In the course of its movement, this line will meet with segments, and at any time each segment will intersect with our line at one point (we will assume that there are no vertical segments).
 
-
+![sweep line and line segment intersection](&imgroot&/sweep_line_1.png)
 
 Thus, for each segment, at some point in time, its point will appear on the scanning line, then with the movement of the line, this point will move, and finally, at some point, the segment will disappear from the line.
 
 We are interested in the **relative order of the segments** along the vertical. Namely, we will store a list of segments crossing the scanning line at a given time, where the segments will be sorted by their $y$-coordinate on the scanning line.
 
-
+![relative order of the segments across sweep line](&imgroot&/sweep_line_2.png)
 
 This order is interesting because the intersecting segments will have the same $y$-coordinate at least at one time:
 
-
+![intersection point having same y-coordinate](&imgroot&/sweep_line_3.png)
 
 We formulate key statements:
 
