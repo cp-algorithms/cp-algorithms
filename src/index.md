@@ -46,6 +46,7 @@ especially popular in field of competitive programming.*
 ### Dynamic Programming
 - [Dynamic Programming on Broken Profile. Problem "Parquet"](./dynamic_programming/profile-dynamics.html)
 - [Finding the largest zero submatrix](./dynamic_programming/zero_matrix.html)
+- [Divide and Conquer DP](./dynamic_programming/divide-and-conquer-dp.html)
 
 ### String Processing
 - [String Hashing](./string/string-hashing.html)
@@ -85,12 +86,14 @@ especially popular in field of competitive programming.*
 ### Numerical Methods
 - [Ternary Search](./num_methods/ternary_search.html)
 - [Newton's method for finding roots](./num_methods/roots_newton.html)
+- [Integration by Simpson's formula](./num_methods/simpson-integration.html)
 
 ### Geometry
 - [Basic Geometry](./geometry/basic-geometry.html)
 - [Length of the union of segments](./geometry/length-of-segments-union.html)
 - [Oriented area of a triangle](./geometry/oriented-triangle-area.html)
 - [Intersection Point of Lines](./geometry/lines-intersection.html)
+- [Intersection of Segments](./geometry/segments-intersection.html)
 - [Circle-Line Intersection](./geometry/circle-line-intersection.html)
 - [Circle-Circle Intersection](./geometry/circle-circle-intersection.html)
 - [Pick's Theorem - area of lattice polygons](./geometry/picks-theorem.html)
@@ -99,6 +102,7 @@ especially popular in field of competitive programming.*
 - [Convex hull trick and Li Chao tree](./geometry/convex_hull_trick.html)
 - [Convex hull construction using Graham's Scan](./geometry/grahams-scan-convex-hull.html)
 - [Check if points belong to the convex polygon in O(log N)](./geometry/point-in-convex-polygon.html)
+- [Point location in O(log N)](./geometry/point-location.html)
 
 
 ### Graphs
@@ -134,6 +138,7 @@ especially popular in field of competitive programming.*
 - [Maximum flow - Push-relabel algorithm improved](./graph/push-relabel-faster.html)
 - [Flows with demands](./graph/flow_with_demands.html)
 - [Minimum-cost flow](./graph/min_cost_flow.html)
+- [Assignment problem. Solution using min-cost-flow in O (N^5)](./graph/assignment-problem-min-flow.html)
 - [Edge connectivity / Vertex connectivity](./graph/edge_vertex_connectivity.html)
 - [2-SAT](./graph/2SAT.html)
 
@@ -148,6 +153,7 @@ especially popular in field of competitive programming.*
 - [Optimal schedule of jobs given their deadlines and durations](./schedules/schedule-with-completion-duration.html)
 
 ### Miscellaneous
+- [Josephus problem](./others/josephus_problem.html)
 - [15 Puzzle Game: Existence Of The Solution](./others/15-puzzle.html)
 
 ---

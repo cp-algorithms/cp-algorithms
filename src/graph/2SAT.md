@@ -146,4 +146,5 @@ bool solve_2SAT() {
 ```
 ## Practice Problems
  * [UVA: Rectangles](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3081)
+ * [Codeforces: The Door Problem](http://codeforces.com/contest/776/problem/D)
  
