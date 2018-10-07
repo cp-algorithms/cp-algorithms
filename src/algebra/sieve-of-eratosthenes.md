@@ -132,7 +132,7 @@ We can work on blocks by turns, i.e. for every block $k$ we will go through all 
 It is worth working on the first block differently: first, all the prime numbers from $[1; \sqrt n]$  shouldn't remove themselves; second, the numbers $0$ and $1$ should be marked as non-prime numbers.
 While working on the last block it should not be forgotten that the last needed number $n$ is not necessary located in the end of the block.
 
-Here we have an implementation that counts the number of primes smaller than $n$ using block sieving.
+Here we have an implementation that counts the number of primes smaller than or equal to $n$ using block sieving.
 
 ```cpp
 int count_primes(int n) {
