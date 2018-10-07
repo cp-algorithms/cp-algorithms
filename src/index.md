@@ -139,6 +139,7 @@ especially popular in field of competitive programming.*
 - [Minimum-cost flow](./graph/min_cost_flow.html)
 - [Edge connectivity / Vertex connectivity](./graph/edge_vertex_connectivity.html)
 - [2-SAT](./graph/2SAT.html)
+- [Heavy-light decomposition](./graph/hld.html)
 
 ### Sequences
 - [RMQ task (Range Minimum Query - the smallest element in an interval)](./sequences/rmq.html)
