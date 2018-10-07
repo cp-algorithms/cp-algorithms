@@ -34,7 +34,8 @@ $$A_2 = \{p_i \ | \ i = m + 1 \ldots n-1 \}.$$
 
 Now, calling recursively on each of the sets $A_1$ and $A_2$, we will find the answers $h_1$ and $h_2$ for each of the halves. And take the best of them: $h = \min(h_1, h_2)$.
 
-Now we need to make a **merge stage**, i.e. try to find such pairs of points, the distance between which is less than $h$, with one point lying in $A_1$, and the other in $A_2$. It is obvious that it is sufficient to consider only those points that are separated from the vertical line by a distance less than $h$, i.e. the set $B$ of the points considered at this stage is equal to:
+Now we need to make a **merge stage**, i.e. we try to find such pairs of points, for which the distance between which is less than $h$ and one point is lying in $A_1$ and the other in $A_2$.
+It is obvious that it is sufficient to consider only those points that are separated from the vertical line by a distance less than $h$, i.e. the set $B$ of the points considered at this stage is equal to:
 
 $$B = \{ p_i\ | \ | x_i - x_m\ | < h \}.$$ 
 
@@ -70,65 +71,78 @@ So, we have proved that in a rectangle $2h \times h$ can not be more than $4 \cd
 
 We introduce a data structure to store a point (its coordinates and a number) and comparison operators required for two types of sorting:
 
-```
+```cpp nearest_pair_def
 struct pt {
-  int x, y, id;
+    int x, y, id;
+};
+
+struct cmp_x {
+    bool operator()(const pt & a, const pt & b) const {
+        return a.x < b.x || (a.x == b.x && a.y < b.y);
+    }
 };
  
-inline bool cmp_x (const pt & a, const pt & b) {
-  return a.x < b.x || a.x == b.x && a.y < b.y;
-}
+struct cmp_y {
+    bool operator()(const pt & a, const pt & b) const {
+        return a.y < b.y;
+    }
+};
  
-inline bool cmp_y (const pt & a, const pt & b) {
-  return a.y < b.y;
-}
- 
-pt a[MAXN];
+int n;
+vector<pt> a;
 ```
 
 For a convenient implementation of recursion, we introduce an auxiliary function upd_ans(), which will calculate the distance between two points and check whether it is better than the current answer:
 
-```
+```cpp nearest_pair_update
 double mindist;
-int ansa, ansb;
+pair<int, int> best_pair;
  
-inline void upd_ans (const pt & a, const pt & b) {
-  double dist = sqrt ((a.x-b.x)*(a.x-b.x) + (a.y-b.y)*(a.y-b.y) + .Zero);
-  if (dist < mindist)
-    mindist = dist, ansa = a.id, ansb = b.id;
+void upd_ans(const pt & a, const pt & b) {
+    double dist = sqrt((a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y));
+    if (dist < mindist) {
+        mindist = dist;
+        best_pair = {a.id, b.id};
+    }
 }
 ```
 
-Finally, the implementation of the recursion itself. It is assumed that before calling it, the array $a[]$ is already sorted by $x$-coordinate. In recursion we pass just two pointers $l, r$, which indicate that it should look for the answer for $a[l \ldots r]$. If the distance between $r$ and $l$ is too small, the recursion must be stopped, and perform a trivial algorithm to find the nearest pair and then sort the subarray by $y$-coordinate.
+Finally, the implementation of the recursion itself. It is assumed that before calling it, the array $a[]$ is already sorted by $x$-coordinate. In recursion we pass just two pointers $l, r$, which indicate that it should look for the answer for $a[l \ldots r)$. If the distance between $r$ and $l$ is too small, the recursion must be stopped, and perform a trivial algorithm to find the nearest pair and then sort the subarray by $y$-coordinate.
 
 To merge two sets of points received from recursive calls into one (ordered by $y$-coordinate), we use the standard STL $merge()$ function, and create an auxiliary buffer $t[]$(one for all recursive calls). (Using inplace_merge () is impractical because it generally does not work in linear time.)
 
 Finally, the set $B$ is stored in the same array $t$.
 
-```
-void rec (int l, int r) {
-  if (r - l <= 3) {
-	  for (int i=l; i<=r; ++i)
-			for (int j=i+1; j<=r; ++j)
-				upd_ans (a[i], a[j]);
-		sort (a+l, a+r+1, &cmp_y);
-		return;
-	}
- 
-	int m = (l + r) >> 1;
-	int midx = a[m].x;
-	rec (l, m),  rec (m+1, r);
-	static pt t[MAXN];
-	merge (a+l, a+m+1, a+m+1, a+r+1, t, &cmp_y);
-	copy (t, t+r-l+1, a+l);
- 
-	int tsz = 0;
-	for (int i=l; i<=r; ++i)
-		if (abs (a[i].x - midx) < mindist) {
-			for (int j=tsz-1; j>=0 && a[i].y - t[j].y < mindist; --j)
-				upd_ans (a[i], t[j]);
-			t[tsz++] = a[i];
-		}
+```cpp nearest_pair_rec
+vector<pt> t;
+
+void rec(int l, int r) {
+    if (r - l <= 3) {
+        for (int i = l; i < r; ++i) {
+            for (int j = i + 1; j < r; ++j) {
+                upd_ans(a[i], a[j]);
+            }
+        }
+        sort(a.begin() + l, a.begin() + r, cmp_y());
+        return;
+    }
+
+    int m = (l + r) >> 1;
+    int midx = a[m].x;
+    rec(l, m);
+    rec(m, r);
+
+    merge(a.begin() + l, a.begin() + m, a.begin() + m, a.begin() + r, t.begin(), cmp_y());
+    copy(t.begin(), t.begin() + r - l, a.begin() + l);
+
+    int tsz = 0;
+    for (int i = l; i < r; ++i) {
+        if (abs(a[i].x - midx) < mindist) {
+            for (int j = tsz - 1; j >= 0 && a[i].y - t[j].y < mindist; --j)
+                upd_ans(a[i], t[j]);
+            t[tsz++] = a[i];
+        }
+    }
 }
 ```
 
@@ -136,10 +150,11 @@ By the way, if all the coordinates are integer, then at the time of the recursio
 
 In the main program, recursion should be called as follows:
 
-```
-sort (a, a+n, &cmp_x);
+```cpp nearest_pair_main
+t.resize(n);
+sort(a.begin(), a.end(), cmp_x());
 mindist = 1E20;
-rec (0, n-1);;
+rec(0, n);
 ```
 
 ## Generalization: finding a triangle with minimal perimeter
@@ -148,9 +163,7 @@ The algorithm described above is interestingly generalized to this problem: amon
 
 In fact, to solve this problem, the algorithm remains the same: we divide the field into two halves of the vertical line, call the solution recursively on both halves, choose the minimum $minper$ from the found perimeters, build a strip with the thickness of $minper / 2$, and iterate through all triangles that can improve the answer. (Note that the triangle with perimeter $\le minper$ has the longest side $\le minper / 2$.)
 
-## Tasks in online judges
-
-A list of tasks that are reduced to finding the two nearest points:
+## Practice problems
 
 * [UVA 10245 "The Closest Pair Problem" [difficulty: low]](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1186)
 * [SPOJ #8725 CLOPPAIR "Closest Point Pair" [difficulty: low]](https://www.spoj.com/problems/CLOPPAIR/)
