@@ -104,6 +104,7 @@ especially popular in field of competitive programming.*
 - [Convex hull construction using Graham's Scan](./geometry/grahams-scan-convex-hull.html)
 - [Check if points belong to the convex polygon in O(log N)](./geometry/point-in-convex-polygon.html)
 - [Finding the nearest pair of points](./geometry/nearest_points.html)
+- [Search for a pair of intersecting segments](./geometry/intersecting_segments.html)
 - [Point location in O(log N)](./geometry/point-location.html)
 
 ### Graphs
