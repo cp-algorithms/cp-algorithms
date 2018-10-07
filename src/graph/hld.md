@@ -100,4 +100,72 @@ Similar to the above problems, the solution is to simply apply heavy-light decom
 Each repainting on the path $(a, b)$ will turn into two updates $(a, l)$ and $(b, l)$, where $l$ is the lowest common ancestor of the vertices $a$ and $b$.   
 $\mathcal{O}(\log n)$ per path for $\mathcal{O}(\log n)$ paths leads to a complexity of $\mathcal{O}(\log^2 n)$ per update.
 
+## Implementation
 
+Certain parts of the above discussed approach can be modified to make implementation easier without losing efficiency.
+
+* The definition of **heavy edge** can be changed to **the edge leading to the child with largest subtree**, with ties broken arbitrarily. This may result is some light edges being converted to heavy, which means some heavy paths will combine to form a single path, but all heavy paths will remain disjoint. It is also still guaranteed that going down a light edge reduces subtree size to half or less.
+* Instead of a building segment tree over every heavy path, a single segment tree can be used with disjoint segments allocated to each heavy path.
+* It has been mentioned that answering queries requires calculation of the LCA. While LCA can be calculated separately, it is also possible to integrate LCA calculation in the process of answering queries.
+
+To perform heavy-light decomposition:
+
+```cpp
+vector<int> parent, depth, heavy, head, pos;
+int cur_pos;
+
+int dfs(int v, vector<vector<int> > &g) {
+    int size = 1, max_c_size = 0;
+    for (int c : g[v]) if (c != parent[v]) {
+        parent[c] = v, depth[c] = depth[v] + 1;
+        int c_size = dfs(c, g);
+        size += c_size;
+        if (c_size > max_c_size)
+            max_c_size = c_size, heavy[v] = c;
+    }
+    return size;
+}
+
+int decompose(int v, int h, vector<vector<int> > &g) {
+    head[v] = h, pos[v] = cur_pos++;
+    if (heavy[v] != -1)
+        decompose(heavy[v], h, g);
+    for (int c : g[v]) if (c != parent[v] && c != heavy[v])
+        decompose(c, c, g);
+}
+
+void init(vector<vector<int> > &g) {
+    int n = g.size();
+    parent = vector<int>(n);
+    depth = vector<int>(n);
+    heavy = vector<int>(n, -1);
+    head = vector<int>(n);
+    pos = vector<int>(n);
+    cur_pos = 0;
+
+    dfs(0, g);
+    decompose(0, 0, g);
+}
+```
+
+The adjacency list of the tree must be passed to the `init` function, and decomposition is performed assuming vertex `0` as root.
+
+The `dfs` function is used to calculate `heavy[v]`, the child at the other end of the heavy edge from `v`, for every vertex `v`. Additionally `dfs` also stores the parent and depth of each vertex, which will be useful later during queries.
+
+The `decompose` function assigns for each vertex `v` the values `head[v]` and `pos[v]`, which are respectively the head of the heavy path `v` belongs to and the position of `v` on the single segment tree that covers all vertices.
+
+To answer queries on paths, for example the maximum query discussed, we can do something like this:
+```cpp
+int query(int a, int b) {
+    int res = 0;
+    for (; head[a] != head[b]; b = parent[head[b]]) {
+        if (depth[head[a]] > depth[head[b]]) swap(a, b);
+        int cur_heavy_path_max = segment_tree_query(pos[head[b]], pos[b]);
+        res = max(res, cur_heavy_path_max);
+    }
+    if (depth[a] > depth[b]) swap(a, b);
+    int last_heavy_path_max = segment_tree_query(pos[a], pos[b]);
+    res = max(res, last_heavy_path_max);
+    return res;
+}
+```
