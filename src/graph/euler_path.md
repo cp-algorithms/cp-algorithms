@@ -10,7 +10,7 @@ The problem is to find the Eulerian path in an **undirected multigraph with loop
 
 First, check if there is a Eulerian path. Then we find all simple cycles and combine them into one - this will be the Eulerian cycle. If the graph is such that the Eulerian path is not a cycle, then add the missing edge, find the Eulerian cycle, then remove the extra edge.
 
-To check if there is a Eulerian path, use the following theorem. A Eulerian cycle exists if and only if the degrees of all vertices are even. A Eulerian path exists if and only if the number of vertices with odd degrees is two (or zero, in the case of the existence of a Euleria cycle).
+To check if there is a Eulerian path, use the following theorem. A Eulerian cycle exists if and only if the degrees of all vertices are even. A Eulerian path exists if and only if the number of vertices with odd degrees is two (or zero, in the case of the existence of a Eulerian cycle).
 
 In addition, of course, the graph must be sufficiently connected (i.e., if you remove all isolated vertices from it, you should get a connected graph).
 
