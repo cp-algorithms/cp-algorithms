@@ -138,6 +138,7 @@ especially popular in field of competitive programming.*
 - [Maximum flow - Ford-Fulkerson and Edmonds-Karp](./graph/edmonds_karp.html)
 - [Maximum flow - Push-relabel algorithm](./graph/push-relabel.html)
 - [Maximum flow - Push-relabel algorithm improved](./graph/push-relabel-faster.html)
+- [Maximum flow - Dinic's algorithm](./graph/dinic.html)
 - [Flows with demands](./graph/flow_with_demands.html)
 - [Minimum-cost flow](./graph/min_cost_flow.html)
 - [Assignment problem. Solution using min-cost-flow in O (N^5)](./graph/Assignment-problem-min-flow.html)
