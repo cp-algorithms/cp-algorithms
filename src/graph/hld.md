@@ -1,7 +1,4 @@
-
-
 <!--?title Heavy-light decomposition -->
-
 # Heavy-light decomposition
 
 **Heavy-light decomposition** is a fairly general technique that allows us to effectively solve many problems that come down to **queries on a tree** .
@@ -11,7 +8,7 @@
 
 Let there be a tree $G$ of $n$ vertices, with an arbitrary root.
 
-The essence of this tree decomposition is to **split the tree into several paths** so that for any vertex $v$ it turns out that if we rise from $v$ to the root, then the number of such paths we will need to traverse is no more than $\log n$. In addition, none of these paths should intersect with another.
+The essence of this tree decomposition is to **split the tree into several paths** so that we can reach the root vertex from any $v$ by traversing at most $\log n$ paths. In addition, none of these paths should intersect with another.
 
 It is clear that if we find such a decomposition for any tree, it will allow us to reduce certain single queries of the form *“calculate something on the path from $a$ to $b$”* to several queries of the type *”calculate something on the segment $[l;r]$ of the $k^{th}$ path”*.
 
@@ -26,7 +23,7 @@ $$
 s(c) \ge \frac{s(v)}{2} \iff \text{edge }(v, c)\text{ is heavy}
 $$
 
-All other edges are labelled **light**.
+All other edges are labeled **light**.
 
 It is obvious that at most one heavy edge can emanate from one vertex downward, because otherwise the vertex $v$ would have at least two children of size $\ge \frac{s(v)}{2}$, but size of subtree of $v$, $s(v) < 1 + 2 \frac{s(v)}{2}$ which leads to a contradiction.
 
@@ -51,7 +48,7 @@ Since we can move from one heavy path to another only through a light edge (each
 
 The following image illustrates the decomposition of a sample tree. The heavy edges are thicker than the light edges. The heavy paths are marked by dotted boundaries.
 
-![img](&imgroot&/hld.png)
+<center>![Image of HLD](&imgroot&/hld.png)</center>
 
 
 ## Sample problems
@@ -73,10 +70,10 @@ In order to answer a query $(a, b)$, we find the [lowest common ancestor](https:
 
 One should be careful with the case when, for example, $a$ and $l$ are on the same heavy path - then the maximum query on this path should be done not on any prefix, but on the internal section between $a$ and $l$.
 
-Responding to the subqueries $(a, l)$ and $(b, l)$ each requires going through $\mathcal{O}(\log n)$ heavy paths and for each path a maximum query is made on some section of the path, which again requires $\mathcal{O}(\log n)$ operations in the segment tree.  
+Responding to the subqueries $(a, l)$ and $(b, l)$ each requires going through $\mathcal{O}(\log n)$ heavy paths and for each path a maximum query is made on some section of the path, which again requires $\mathcal{O}(\log n)$ operations in the segment tree.
 Hence, one query $(a, b)$ takes $\mathcal{O}(\log^2 n)$ time.
 
-If you additionally calculate and store maximums of all prefixes for each heavy path, then you get a $\mathcal{O}(n \log n)$ solution because all maximum queries are on prefixes except at most once when we reach the ancestor $l$.
+If you additionally calculate and store maximums of all prefixes for each heavy path, then you get a $\mathcal{O}(\log n)$ solution because all maximum queries are on prefixes except at most once when we reach the ancestor $l$.
 
 
 ###  Sum of the numbers on the path between two vertices
@@ -85,7 +82,7 @@ Given a tree, each vertex is assigned a value. There are queries of the form $(a
 
 This task can be solved similar to the previous problem of maximums with the help of heavy-light decomposition by building segment trees on heavy paths. Prefix sums can be used instead if there are no updates. However, this problem can be solved by simpler techniques too.
 
-If there are no updates, then it is possible to find out the sum on the path between two vertices in parallel with the LCA search of two vertices by [binary lifting](./graph/lca_binary_lifting.html) — for this, along with the $2^k$-th ancestors of each vertex it is also necessary to store the sum on the paths upto those ancestors during the preprocessing.
+If there are no updates, then it is possible to find out the sum on the path between two vertices in parallel with the LCA search of two vertices by [binary lifting](./graph/lca_binary_lifting.html) — for this, along with the $2^k$-th ancestors of each vertex it is also necessary to store the sum on the paths up to those ancestors during the preprocessing.
 
 There is a fundamentally different approach to this problem - to consider the [Euler tour](https://en.wikipedia.org/wiki/Euler_tour_technique) of the tree, and build a segment tree on it. This algorithm is considered in an [article about a similar problem](http://e-maxx.ru/algo/tree_painting). Again, if there are no updates, storing prefix sums is enough and a segment tree is not required.
 
@@ -114,28 +111,33 @@ To perform heavy-light decomposition:
 vector<int> parent, depth, heavy, head, pos;
 int cur_pos;
 
-int dfs(int v, vector<vector<int> > &g) {
-    int size = 1, max_c_size = 0;
-    for (int c : g[v]) if (c != parent[v]) {
-        parent[c] = v, depth[c] = depth[v] + 1;
-        int c_size = dfs(c, g);
-        size += c_size;
-        if (c_size > max_c_size)
-            max_c_size = c_size, heavy[v] = c;
+int dfs(int v, vector<vector<int>> const& adj) {
+    int size = 1;
+    int max_c_size = 0;
+    for (int c : adj[v]) {
+        if (c != parent[v]) {
+            parent[c] = v, depth[c] = depth[v] + 1;
+            int c_size = dfs(c, adj);
+            size += c_size;
+            if (c_size > max_c_size)
+                max_c_size = c_size, heavy[v] = c;
+        }
     }
     return size;
 }
 
-int decompose(int v, int h, vector<vector<int> > &g) {
+int decompose(int v, int h, vector<vector<int>> const& adj) {
     head[v] = h, pos[v] = cur_pos++;
     if (heavy[v] != -1)
-        decompose(heavy[v], h, g);
-    for (int c : g[v]) if (c != parent[v] && c != heavy[v])
-        decompose(c, c, g);
+        decompose(heavy[v], h, adj);
+    for (int c : adj[v]) {
+        if (c != parent[v] && c != heavy[v])
+            decompose(c, c, adj);
+    }
 }
 
-void init(vector<vector<int> > &g) {
-    int n = g.size();
+void init(vector<vector<int>> const& adj) {
+    int n = adj.size();
     parent = vector<int>(n);
     depth = vector<int>(n);
     heavy = vector<int>(n, -1);
@@ -143,8 +145,8 @@ void init(vector<vector<int> > &g) {
     pos = vector<int>(n);
     cur_pos = 0;
 
-    dfs(0, g);
-    decompose(0, 0, g);
+    dfs(0, adj);
+    decompose(0, 0, adj);
 }
 ```
 
@@ -155,15 +157,18 @@ The `dfs` function is used to calculate `heavy[v]`, the child at the other end o
 The `decompose` function assigns for each vertex `v` the values `head[v]` and `pos[v]`, which are respectively the head of the heavy path `v` belongs to and the position of `v` on the single segment tree that covers all vertices.
 
 To answer queries on paths, for example the maximum query discussed, we can do something like this:
+
 ```cpp
 int query(int a, int b) {
     int res = 0;
     for (; head[a] != head[b]; b = parent[head[b]]) {
-        if (depth[head[a]] > depth[head[b]]) swap(a, b);
+        if (depth[head[a]] > depth[head[b]])
+            swap(a, b);
         int cur_heavy_path_max = segment_tree_query(pos[head[b]], pos[b]);
         res = max(res, cur_heavy_path_max);
     }
-    if (depth[a] > depth[b]) swap(a, b);
+    if (depth[a] > depth[b])
+        swap(a, b);
     int last_heavy_path_max = segment_tree_query(pos[a], pos[b]);
     res = max(res, last_heavy_path_max);
     return res;
