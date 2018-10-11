@@ -80,7 +80,8 @@ Here we carefully cast the floating point number to an integer, taking into acco
 
 ### Pascal's Triangle
 
-By using the recurrence relation we can construct a table of binomial coefficients (Pascal's triangle) and take the result from it. The advantage of this method is that intermediate results never exceed the answer and calculating each new table element requires only one addition. The flaw is slow execution for large $n$ and $k$ if you just need a single value and not the whole table (because in order to calculate $\binom n k$ you will need to build a table of all $\binom i j, 1 \le i \le n, 1 \le j \le n$, or at least to $1 \le j \le \min (i, 2k)$). C++ implementation:
+By using the recurrence relation we can construct a table of binomial coefficients (Pascal's triangle) and take the result from it. The advantage of this method is that intermediate results never exceed the answer and calculating each new table element requires only one addition. The flaw is slow execution for large $n$ and $k$ if you just need a single value and not the whole table (because in order to calculate $\binom n k$ you will need to build a table of all $\binom i j, 1 \le i \le n, 1 \le j \le n$, or at least to $1 \le j \le \min (i, 2k)$). The time complexity can be considered to be $\mathcal{O}(n^2)$.  
+C++ implementation:
 
 ```cpp
 const int maxn = ...;
@@ -92,15 +93,21 @@ for (int n=0; n<=maxn; ++n) {
 }
 ```
 
-If the entire table of values is not necessary, storing only two last rows of it is sufficient (current $n$-th row and the previous $n-1$-th).
+If the entire table of values is not necessary, storing only two last rows of it is sufficient (current $n$-th row and the previous $n-1$-th). 
 
 ### Calculation in $O(1)$
 
-Finally, in some situations it is beneficial to pre-calculate all the factorials in order to produce any necessary binomial coefficient with only two divisions later. This can be advantageous when using [long arithmetic](./algebra/big-integer.html), when the memory does not allow precalculation of the whole Pascal's triangle, or when you need to do calculations for some prime modulo (if the modulo is not prime, there are difficulties when dividing the numerator by the denominator, which can be overcome by factoring modulo and storing all numbers in the form of vectors of powers of these primes; see the section [Long arithmetic in factored form](./algebra/big-integer.html)).
+Finally, in some situations it is beneficial to pre-calculate all the factorials in order to produce any necessary binomial coefficient with only two divisions later. This can be advantageous when using [long arithmetic](./algebra/big-integer.html), when the memory does not allow precalculation of the whole Pascal's triangle.
+
 
 ## Computing binomial coefficients modulo $m$.
 
-Quite often you come across the problem of computing binomial coefficients modulo some $m$.
+Quite often you come across the problem of computing [binomial coefficients](./combinatorics/binomial-coefficients.html) modulo some $m$.
+
+### Binomial coefficient for small $n$
+
+The previously discussed approach of Pascal's triangle can be used to calculate all values of $\binom{n}{k} \bmod m$ for reasonably small $n$, since it requires time complexity $\mathcal{O}(n^2)$. This approach can handle any modulo, since only addition operations are used.
+
 
 ### Binomial coefficient modulo large prime
 
@@ -126,7 +133,7 @@ long long binomial_coefficient(int n, int k) {
 }
 ```
 
-We even can compute the binomial coefficient in $O(1)$ time if we precompute the inverses of all factorials in $O(\text{MAXN} \log m)$ using the regular method for computing the inverse, or even in $O(\text{MAXN})$ time using the congruence $(x!)^{-1} \equiv ((x-1)!)^{-1} \cdot x^{-1}$ and the method for computing all inverses in $O(m)$.
+We even can compute the binomial coefficient in $O(1)$ time if we precompute the inverses of all factorials in $O(\text{MAXN} \log m)$ using the regular method for computing the inverse, or even in $O(\text{MAXN})$ time using the congruence $(x!)^{-1} \equiv ((x-1)!)^{-1} \cdot x^{-1}$ and the method for [computing all inverses](./algebra/module-inverse.html#mod-inv-all-num) in $O(n)$.
 
 ### Binomial coefficient modulo prime power
 
@@ -145,7 +152,7 @@ $$\binom n k = \frac {g(n) p^{c(n)}} {g(k) p^{c(k)} g(n-k) p^{c(n-k)}} = \frac {
 The interesting thing is, that $g(x)$ is now free from the prime divisor $p$.
 Therefore $g(x)$ is coprime to m, and we can compute the modular inverses of $g(k)$ and $g(n-k)$.
 
-After precomputing all values for $g$ and $c$ (which can be done efficiently using dynamic programming), we can compute the binomial coefficient in $O(\log m)$ time.
+After precomputing all values for $g$ and $c$, which can be done efficiently using dynamic programming in $\mathcal{O}(n)$, we can compute the binomial coefficient in $O(\log m)$ time.
 Or precompute all inverses and all powers of $p$, and then compute the binomial coefficient in $O(1)$.
 
 Notice, if $c(n) - c(k) - c(n-k) \ge b$, than $p^b ~|~ p^{c(n) - c(k) - c(n-k)}$, and the binomial coefficient is $0$.
@@ -158,6 +165,15 @@ Let the prime factorization of $m$ be $m = p_1^{e_1} p_2^{e_2} \cdots p_h^{e_h}$
 We can compute the binomial coefficient modulo $p_i^{e_i}$ for every $i$.
 This gives us $h$ different congruences.
 Since all moduli $p_i^{e_i}$ are coprime, we can apply the [Chinese Remainder Theorem](./algebra/chinese-remainder-theorem.html) to compute the binomial coefficient modulo the product of the moduli, which is the desired binomial coefficient modulo $m$.
+
+### Binomial coefficient for large $n$ and small modulo
+
+When $n$ is too large, the $\mathcal{O}(n)$ algorithms discussed above become impractical. However, if the modulo $m$ is small there are still ways to calculate $\binom{n}{k} \bmod m$.
+  
+For prime modulo, [Lucas's theorem](https://en.wikipedia.org/wiki/Lucas's_theorem) can be applied which breaks the problem of computing $\binom{n}{k} \bmod m$ into $\log_m n$ problems of the form $\binom{x_i}{y_i} \bmod m$ where $x_i, y_i < m$.  
+For non-prime but square-free $m$, Lucas's theorem can be applied as before for each prime factor of $m$, and then Chinese Remainder Theorem can be used to compute the answer.  
+For non-prime but not necessarily square-free $m$, Lucas's theorem can no longer be applied. However, there exists a [generalization of Lucas's theorem for prime powers](https://web.archive.org/web/20170202003812/http://www.dms.umontreal.ca/~andrew/PDF/BinCoeff.pdf) which can be used instead.
+
 
 ## Practice Problems
 * [Codechef - Number of ways](https://www.codechef.com/LTIME24/problems/NWAYS/)
@@ -176,3 +192,10 @@ Since all moduli $p_i^{e_i}$ are coprime, we can apply the [Chinese Remainder Th
 * [DevSkill - Parandthesis](https://devskill.com/CodingProblems/ViewProblem/255)
 * [Codeforces - Bacterial Melee](http://codeforces.com/contest/760/problem/F)
 * [Codeforces - Points, Lines and Ready-made Titles](http://codeforces.com/contest/872/problem/E)
+* [SPOJ - The Ultimate Riddle](https://www.spoj.com/problems/DCEPC13D/)
+* [CodeChef - Long Sandwich](https://www.codechef.com/MAY17/problems/SANDWICH/)
+
+## References
+* [Blog fishi.devtail.io](https://fishi.devtail.io/weblog/2015/06/25/computing-large-binomial-coefficients-modulo-prime-non-prime/)
+* [Question on Mathematics StackExchange](https://math.stackexchange.com/questions/95491/n-choose-k-bmod-m-using-chinese-remainder-theorem)
+* [Question on CodeChef Discuss](https://discuss.codechef.com/questions/98129/your-approach-to-solve-sandwich)
