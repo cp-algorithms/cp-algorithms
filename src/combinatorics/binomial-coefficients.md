@@ -1,3 +1,4 @@
+
 <!--?title Binomial Coefficients-->
 # Binomial Coefficients
 
@@ -96,6 +97,67 @@ If the entire table of values is not necessary, storing only two last rows of it
 ### Calculation in $O(1)$
 
 Finally, in some situations it is beneficial to pre-calculate all the factorials in order to produce any necessary binomial coefficient with only two divisions later. This can be advantageous when using [long arithmetic](./algebra/big-integer.html), when the memory does not allow precalculation of the whole Pascal's triangle, or when you need to do calculations for some prime modulo (if the modulo is not prime, there are difficulties when dividing the numerator by the denominator, which can be overcome by factoring modulo and storing all numbers in the form of vectors of powers of these primes; see the section [Long arithmetic in factored form](./algebra/big-integer.html)).
+
+## Computing binomial coefficients modulo $m$.
+
+Quite often you come across the problem of computing binomial coefficients modulo some $m$.
+
+### Binomial coefficient modulo large prime
+
+The formula for the binomial coefficients is
+$$\binom n k = \frac {n!} {k!(n-k)!},$$
+so if we want to compute it modulo some prime $m > n$ we get
+$$\binom n k \equiv n! \cdot (k!)^{-1} \cdot ((n-k)!)^{-1} \mod m.$$
+
+First we precompute all factorials modulo $m$ up to $\text{MAXN}!$ in $O(\text{MAXN})$ time.
+
+```cpp
+factorial[0] = 1;
+for (int i = 1; i <= MAXN; i++) {
+    factorial[i] = factorial[i - 1] * i % m;
+}
+```
+
+And afterwards we can compute the binomial coefficient in $O(\log m)$ time.
+
+```cpp
+long long binomial_coefficient(int n, int k) {
+    return factorial[n] * inverse(factorial[k]) % m * inverse(factorial[n - k]) % m;
+}
+```
+
+We even can compute the binomial coefficient in $O(1)$ time if we precompute the inverses of all factorials in $O(\text{MAXN} \log m)$ using the regular method for computing the inverse, or even in $O(\text{MAXN})$ time using the congruence $(x!)^{-1} \equiv ((x-1)!)^{-1} \cdot x^{-1}$ and the method for computing all inverses in $O(m)$.
+
+### Binomial coefficient modulo prime power
+
+Here we want to compute the binomial coefficient modulo some prime power, i.e. $m = p^b$ for some prime $p$.
+If $p > \max(k, n-k)$, then we can use the same method as described in the previous section.
+But if $p \le \max(k, n-k)$, then at least one of $k!$ and $(n-k)!$ are not coprime with $m$, and therefore we cannot compute the inverses - they don't exist.
+Nevertheless we can compute the binomial coefficient.
+
+The idea is the following:
+We compute for each $x!$ the biggest exponent $c$ such that $p^c$ divides $x!$, i.e. $p^c ~|~ x!$.
+Let $c(x)$ be that number.
+And let $g(x) := \frac{x!}{p^{c(x)}}$.
+Then we can write the binomial coefficient as:
+$$\binom n k = \frac {g(n) p^{c(n)}} {g(k) p^{c(k)} g(n-k) p^{c(n-k)}} = \frac {g(n)} {g(k) g(n-k)}p^{c(n) - c(k) - c(n-k)}$$
+
+The interesting thing is, that $g(x)$ is now free from the prime divisor $p$.
+Therefore $g(x)$ is coprime to m, and we can compute the modular inverses of $g(k)$ and $g(n-k)$.
+
+After precomputing all values for $g$ and $c$ (which can be done efficiently using dynamic programming), we can compute the binomial coefficient in $O(\log m)$ time.
+Or precompute all inverses and all powers of $p$, and then compute the binomial coefficient in $O(1)$.
+
+Notice, if $c(n) - c(k) - c(n-k) \ge b$, than $p^b ~|~ p^{c(n) - c(k) - c(n-k)}$, and the binomial coefficient is $0$.
+
+### Binomial coefficient modulo an arbitrary number
+
+Now we compute the binomial coefficient modulo some arbitrary modulus $m$.
+
+Let the prime factorization of $m$ be $m = p_1^{e_1} p_2^{e_2} \cdots p_h^{e_h}$.
+We can compute the binomial coefficient modulo $p_i^{e_i}$ for every $i$.
+This gives us $h$ different congruences.
+Since all moduli $p_i^{e_i}$ are coprime, we can apply the [Chinese Remainder Theorem](./algebra/chinese-remainder-theorem.html) to compute the binomial coefficient modulo the product of the moduli, which is the desired binomial coefficient modulo $m$.
 
 ## Practice Problems
 * [Codechef - Number of ways](https://www.codechef.com/LTIME24/problems/NWAYS/)
