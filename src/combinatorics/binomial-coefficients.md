@@ -135,7 +135,7 @@ long long binomial_coefficient(int n, int k) {
 
 We even can compute the binomial coefficient in $O(1)$ time if we precompute the inverses of all factorials in $O(\text{MAXN} \log m)$ using the regular method for computing the inverse, or even in $O(\text{MAXN})$ time using the congruence $(x!)^{-1} \equiv ((x-1)!)^{-1} \cdot x^{-1}$ and the method for [computing all inverses](./algebra/module-inverse.html#mod-inv-all-num) in $O(n)$.
 
-### Binomial coefficient modulo prime power
+### Binomial coefficient modulo prime power  {#mod-prime-pow}
 
 Here we want to compute the binomial coefficient modulo some prime power, i.e. $m = p^b$ for some prime $p$.
 If $p > \max(k, n-k)$, then we can use the same method as described in the previous section.
@@ -170,9 +170,14 @@ Since all moduli $p_i^{e_i}$ are coprime, we can apply the [Chinese Remainder Th
 
 When $n$ is too large, the $\mathcal{O}(n)$ algorithms discussed above become impractical. However, if the modulo $m$ is small there are still ways to calculate $\binom{n}{k} \bmod m$.
   
-For prime modulo, [Lucas's theorem](https://en.wikipedia.org/wiki/Lucas's_theorem) can be applied which breaks the problem of computing $\binom{n}{k} \bmod m$ into $\log_m n$ problems of the form $\binom{x_i}{y_i} \bmod m$ where $x_i, y_i < m$.  
-For non-prime but square-free $m$, Lucas's theorem can be applied as before for each prime factor of $m$, and then Chinese Remainder Theorem can be used to compute the answer.  
-For non-prime but not necessarily square-free $m$, Lucas's theorem can no longer be applied. However, there exists a [generalization of Lucas's theorem for prime powers](https://web.archive.org/web/20170202003812/http://www.dms.umontreal.ca/~andrew/PDF/BinCoeff.pdf) which can be used instead.
+When the modulo $m$ is prime, there are 2 options:
+
+* [Lucas's theorem](https://en.wikipedia.org/wiki/Lucas's_theorem) can be applied which breaks the problem of computing $\binom{n}{k} \bmod m$ into $\log_m n$ problems of the form $\binom{x_i}{y_i} \bmod m$ where $x_i, y_i < m$.  If each reduced coefficient is calculated using precomputed factorials and inverse factorials, the complexity is $\mathcal{O}(m + \log_m n)$.
+* The method of computing [factorial modulo P](./algebra/factorial-modulo.html) can be used to get the required $g$ and $c$ values and use them as described in the section of [modulo prime power](#mod-prime-pow). This takes $\mathcal{O}(m \log_m n)$.
+
+When $m$ is not prime but square-free, the prime factors of $m$ can be obtained and and the coefficient modulo each prime factor can be calculated using either of the above methods, and the overall answer can be obtained by the Chinese Remainder Theorem.
+
+When $m$ is not square-free, a [generalization of Lucas's theorem for prime powers](https://web.archive.org/web/20170202003812/http://www.dms.umontreal.ca/~andrew/PDF/BinCoeff.pdf) can be applied instead of Lucas's theorem.
 
 
 ## Practice Problems
