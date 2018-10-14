@@ -42,6 +42,7 @@ especially popular in field of competitive programming.*
 - [Sqrt Tree](./data_structures/sqrt-tree.html)
 - [Minimum Stack / Minimum Queue](./data_structures/stack_queue_modification.html)
 - [Randomized Heap](./data_structures/randomized_heap.html)
+- [Deleting from a data structure in O(T(n)log n)](./data_structures/deleting_in_log_n.html)
 
 ### Dynamic Programming
 - [Dynamic Programming on Broken Profile. Problem "Parquet"](./dynamic_programming/profile-dynamics.html)
@@ -93,6 +94,7 @@ especially popular in field of competitive programming.*
 - [Length of the union of segments](./geometry/length-of-segments-union.html)
 - [Oriented area of a triangle](./geometry/oriented-triangle-area.html)
 - [Intersection Point of Lines](./geometry/lines-intersection.html)
+- [Check if two segments intersect](./geometry/check-segments-intersection.html)
 - [Intersection of Segments](./geometry/segments-intersection.html)
 - [Circle-Line Intersection](./geometry/circle-line-intersection.html)
 - [Circle-Circle Intersection](./geometry/circle-circle-intersection.html)
@@ -102,8 +104,10 @@ especially popular in field of competitive programming.*
 - [Convex hull trick and Li Chao tree](./geometry/convex_hull_trick.html)
 - [Convex hull construction using Graham's Scan](./geometry/grahams-scan-convex-hull.html)
 - [Check if points belong to the convex polygon in O(log N)](./geometry/point-in-convex-polygon.html)
+- [Finding the nearest pair of points](./geometry/nearest_points.html)
+- [Search for a pair of intersecting segments](./geometry/intersecting_segments.html)
+- [Delaunay triangulation and Voronoi diagram](./geometry/delaunay.html)
 - [Point location in O(log N)](./geometry/point-location.html)
-
 
 ### Graphs
 - [Breadth First Search](./graph/breadth-first-search.html)
@@ -132,16 +136,20 @@ especially popular in field of competitive programming.*
 - [Minimum Spanning Tree - Kruskal with Disjoint Set Union](./graph/mst_kruskal_with_dsu.html)
 - [Prüfer code](./graph/pruefer_code.html)
 - [Kirchhoff Theorem](./graph/kirchhoff-theorem.html)
+- [Eulerian Path](./graph/euler_path.html)
 - [Strongly Connected Components and Condensation Graph](./graph/strongly-connected-components.html)
 - [Maximum flow - Ford-Fulkerson and Edmonds-Karp](./graph/edmonds_karp.html)
 - [Maximum flow - Push-relabel algorithm](./graph/push-relabel.html)
 - [Maximum flow - Push-relabel algorithm improved](./graph/push-relabel-faster.html)
+- [Maximum flow - Dinic's algorithm](./graph/dinic.html)
 - [Maximum flow - MPM algorithm](./graph/mpm.html)
 - [Flows with demands](./graph/flow_with_demands.html)
 - [Minimum-cost flow](./graph/min_cost_flow.html)
-- [Assignment problem. Solution using min-cost-flow in O (N^5)](./graph/assignment-problem-min-flow.html)
+- [Assignment problem. Solution using min-cost-flow in O (N^5)](./graph/Assignment-problem-min-flow.html)
 - [Edge connectivity / Vertex connectivity](./graph/edge_vertex_connectivity.html)
+- [Tree painting](./graph/tree_painting.html)
 - [2-SAT](./graph/2SAT.html)
+- [Heavy-light decomposition](./graph/hld.html)
 
 ### Sequences
 - [RMQ task (Range Minimum Query - the smallest element in an interval)](./sequences/rmq.html)
@@ -156,7 +164,43 @@ especially popular in field of competitive programming.*
 ### Miscellaneous
 - [Josephus problem](./others/josephus_problem.html)
 - [15 Puzzle Game: Existence Of The Solution](./others/15-puzzle.html)
+- [Search the subsegment with the maximum/minimum sum](./others/maximum_average_segment.html)
 
 ---
 
 [Information for contributors](./contrib.html) and [Test-Your-Page form](./test.php)
+
+<script>
+$(function() {
+    $('h3+ul').each(prepareLists);
+});
+
+function prepareLists(index, elem) {
+    elem = $(elem);
+    var items = elem.find('li');
+    if (items.size() <= 3) {
+        return;
+    }
+    for (var i = 2; i < items.size(); i++) {
+        $(items[i]).hide();
+    }
+    var dots = $('<li class="aux">...click to see more...</li>');
+    dots.css('cursor', 'pointer').css('font-style', 'italic').css('color', '#777');
+    dots.click(function() {
+        unrollList(elem);
+    });
+    elem.append(dots);
+}
+
+function unrollList(elem) {
+    var item = elem.find('.aux');
+    item.remove();
+    unrollItem(elem.find(':hidden:first'));
+}
+
+function unrollItem(item) {
+    item.show(10, function() {
+        unrollItem(item.next());
+    });
+}
+</script>
