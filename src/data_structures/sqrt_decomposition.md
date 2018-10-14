@@ -47,28 +47,28 @@ Let's start with the simplest implementation:
 // input data
 int n;
 vector<int> a (n);
- 
+
 // preprocessing
 int len = (int) sqrt (n + .0) + 1; // size of the block and the number of blocks
 vector<int> b (len);
 for (int i=0; i<n; ++i)
-	b[i / len] += a[i];
- 
+    b[i / len] += a[i];
+
 // answering the queries
 for (;;) {
-	int l, r; 
+    int l, r;
   // read input data for the next query
-	int sum = 0;
-	for (int i=l; i<=r; )
-		if (i % len == 0 && i + len - 1 <= r) {
-			// if the whole block starting at i belongs to [l; r]
-			sum += b[i / len];
-			i += len;
-		}
-		else {
-			sum += a[i];
-			++i;
-		}
+    int sum = 0;
+    for (int i=l; i<=r; )
+        if (i % len == 0 && i + len - 1 <= r) {
+            // if the whole block starting at i belongs to [l; r]
+            sum += b[i / len];
+            i += len;
+        }
+        else {
+            sum += a[i];
+            ++i;
+        }
 }
 ```
 
@@ -78,29 +78,29 @@ This implementation has unreasonably many division operations (which are much sl
 int sum = 0;
 int c_l = l / len,   c_r = r / len;
 if (c_l == c_r)
-	for (int i=l; i<=r; ++i)
-		sum += a[i];
+    for (int i=l; i<=r; ++i)
+        sum += a[i];
 else {
-	for (int i=l, end=(c_l+1)*len-1; i<=end; ++i)
-		sum += a[i];
-	for (int i=c_l+1; i<=c_r-1; ++i)
-		sum += b[i];
-	for (int i=c_r*len; i<=r; ++i)
-		sum += a[i];
+    for (int i=l, end=(c_l+1)*len-1; i<=end; ++i)
+        sum += a[i];
+    for (int i=c_l+1; i<=c_r-1; ++i)
+        sum += b[i];
+    for (int i=c_r*len; i<=r; ++i)
+        sum += a[i];
 }
 ```
 
 ## Other problems
 
-So far we were discussing the problem of finding the sum of elements of a continuous subarray. This problem can be extended to allow to **update individual array elements**. If an element $a[i]$ changes, it's sufficient to update the value of $b[k]$ for the block to which this element belongs ($k = i / s$) in one operation: 
+So far we were discussing the problem of finding the sum of elements of a continuous subarray. This problem can be extended to allow to **update individual array elements**. If an element $a[i]$ changes, it's sufficient to update the value of $b[k]$ for the block to which this element belongs ($k = i / s$) in one operation:
 
 $$ b[k] += a_{new}[i] - a_{old}[i] $$
 
 On the other hand, the task of finding the sum of elements can be replaced with the task of finding minimal/maximal element of a subarray. If this problem has to address individual elements' updates as well, updating the value of $b[k]$ is also possible, but it will require iterating through all values of block $k$ in $O(s) = O(\sqrt{n})$ operations.
 
-Sqrt decomposition can be applied in a similar way to a whole class of other problems: finding the number of zero elements, finding the first non-zero element, counting elements which satisfy a certain property etc. 
+Sqrt decomposition can be applied in a similar way to a whole class of other problems: finding the number of zero elements, finding the first non-zero element, counting elements which satisfy a certain property etc.
 
-Another class of problems appears when we need to **update array elements on intervals**: increment existing elements or replace them with a given value. 
+Another class of problems appears when we need to **update array elements on intervals**: increment existing elements or replace them with a given value.
 
 For example, let's say we can do two types of operations on an array: add a given value $\delta$ to all array elements on interval $[l; r]$ or query the value of element $a[i]$. Let's store the value which has to be added to all elements of block $k$ in $b[k]$ (initially all $b[k] = 0$). During each "add" operation we need to add $\delta$ to $b[k]$ for all blocks which belong to interval $[l; r]$ and to add $\delta$ to $a[i]$ for all elements which belong to the "tails" of the interval. The answer a query $i$ is simply $a[i] + b[i/s]$. This way "add" operation has $O(\sqrt{n})$ complexity, and answering a query has $O(1)$ complexity.
 
@@ -129,11 +129,11 @@ At the beginning this range will be empty.
 When we want to answer the next query (in the special order), we simply extend or reduce the range, by adding/removing elements on both sides of the current range, until we transformed it into the query range.
 This way, we only need to add or remove a single element once at a time, which should be pretty easy operations in out data structure.
 
-Since we change the order of answering the queries, this is only possible when we are allowed to answer the queries in offline mode. 
+Since we change the order of answering the queries, this is only possible when we are allowed to answer the queries in offline mode.
 
 ### Implementation
 
-In Mo's algorithm we use two functions for adding an index and for removing an index from the range which we are currently maintaining. 
+In Mo's algorithm we use two functions for adding an index and for removing an index from the range which we are currently maintaining.
 
 ```cpp
 void remove(idx);  // TODO: remove value at idx from data structure
@@ -212,10 +212,23 @@ This gives $O(\frac{N}{S} N)$ calls for all blocks.
 The value of `cur_l` can change by at most $O(S)$ during between two queries.
 Therefore we have an additional $O(S Q)$ calls of `add(cur_l)` and `remove(cur_l)`.
 
-For $S \approx \sqrt{N}$ this gives $O((N + Q) \sqrt{N})$ operations in total. 
+For $S \approx \sqrt{N}$ this gives $O((N + Q) \sqrt{N})$ operations in total.
 Thus the complexity is $O((N+Q)F\sqrt{N})$ where $O(F)$  is the complexity of `add` and `remove` function.
 
-Notice, the block size of precisely $\sqrt{N}$ doesn't always offer the best runtime. For example, if $\sqrt{N}=750$ then it may happen that block size of $700$ or $800$ may run better.
+### Tips for improving runtime
+
+* Block size of precisely $\sqrt{N}$ doesn't always offer the best runtime. For example, if $\sqrt{N}=750$ then it may happen that block size of $700$ or $800$ may run better.
+* In odd blocks sort the right index in ascending order and in even blocks sort it in descending order. This will minimize the movement of right pointer, as the normal sorting will move the right pointer from the end back to the beginning at the start of every block. With the improved version this resetting is no more necessary.
+
+```cpp
+bool cmp(pair<int, int> p, pair<int, int> q) {
+    if (p.first / BLOCK_SIZE != q.first / BLOCK_SIZE)
+        return p < q;
+    return (p.first / BLOCK_SIZE & 1) ^ (p.second < q.second);
+}
+```
+
+You can read about even faster sorting approach [here](https://codeforces.com/blog/entry/61203).
 
 ## Practice Problems
 
