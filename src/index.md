@@ -93,6 +93,7 @@ especially popular in field of competitive programming.*
 - [Length of the union of segments](./geometry/length-of-segments-union.html)
 - [Oriented area of a triangle](./geometry/oriented-triangle-area.html)
 - [Intersection Point of Lines](./geometry/lines-intersection.html)
+- [Check if two segments intersect](./geometry/check-segments-intersection.html)
 - [Intersection of Segments](./geometry/segments-intersection.html)
 - [Circle-Line Intersection](./geometry/circle-line-intersection.html)
 - [Circle-Circle Intersection](./geometry/circle-circle-intersection.html)
@@ -102,9 +103,10 @@ especially popular in field of competitive programming.*
 - [Convex hull trick and Li Chao tree](./geometry/convex_hull_trick.html)
 - [Convex hull construction using Graham's Scan](./geometry/grahams-scan-convex-hull.html)
 - [Check if points belong to the convex polygon in O(log N)](./geometry/point-in-convex-polygon.html)
+- [Finding the nearest pair of points](./geometry/nearest_points.html)
+- [Search for a pair of intersecting segments](./geometry/intersecting_segments.html)
 - [Delaunay triangulation and Voronoi diagram](./geometry/delaunay.html)
 - [Point location in O(log N)](./geometry/point-location.html)
-
 
 ### Graphs
 - [Breadth First Search](./graph/breadth-first-search.html)
@@ -137,11 +139,13 @@ especially popular in field of competitive programming.*
 - [Maximum flow - Ford-Fulkerson and Edmonds-Karp](./graph/edmonds_karp.html)
 - [Maximum flow - Push-relabel algorithm](./graph/push-relabel.html)
 - [Maximum flow - Push-relabel algorithm improved](./graph/push-relabel-faster.html)
+- [Maximum flow - Dinic's algorithm](./graph/dinic.html)
 - [Flows with demands](./graph/flow_with_demands.html)
 - [Minimum-cost flow](./graph/min_cost_flow.html)
-- [Assignment problem. Solution using min-cost-flow in O (N^5)](./graph/assignment-problem-min-flow.html)
+- [Assignment problem. Solution using min-cost-flow in O (N^5)](./graph/Assignment-problem-min-flow.html)
 - [Edge connectivity / Vertex connectivity](./graph/edge_vertex_connectivity.html)
 - [2-SAT](./graph/2SAT.html)
+- [Heavy-light decomposition](./graph/hld.html)
 
 ### Sequences
 - [RMQ task (Range Minimum Query - the smallest element in an interval)](./sequences/rmq.html)
@@ -156,7 +160,43 @@ especially popular in field of competitive programming.*
 ### Miscellaneous
 - [Josephus problem](./others/josephus_problem.html)
 - [15 Puzzle Game: Existence Of The Solution](./others/15-puzzle.html)
+- [Search the subsegment with the maximum/minimum sum](./others/maximum_average_segment.html)
 
 ---
 
 [Information for contributors](./contrib.html) and [Test-Your-Page form](./test.php)
+
+<script>
+$(function() {
+    $('h3+ul').each(prepareLists);
+});
+
+function prepareLists(index, elem) {
+    elem = $(elem);
+    var items = elem.find('li');
+    if (items.size() <= 3) {
+        return;
+    }
+    for (var i = 2; i < items.size(); i++) {
+        $(items[i]).hide();
+    }
+    var dots = $('<li class="aux">...click to see more...</li>');
+    dots.css('cursor', 'pointer').css('font-style', 'italic').css('color', '#777');
+    dots.click(function() {
+        unrollList(elem);
+    });
+    elem.append(dots);
+}
+
+function unrollList(elem) {
+    var item = elem.find('.aux');
+    item.remove();
+    unrollItem(elem.find(':hidden:first'));
+}
+
+function unrollItem(item) {
+    item.show(10, function() {
+        unrollItem(item.next());
+    });
+}
+</script>
