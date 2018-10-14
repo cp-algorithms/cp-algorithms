@@ -135,6 +135,7 @@ especially popular in field of competitive programming.*
 - [Minimum Spanning Tree - Kruskal with Disjoint Set Union](./graph/mst_kruskal_with_dsu.html)
 - [Prüfer code](./graph/pruefer_code.html)
 - [Kirchhoff Theorem](./graph/kirchhoff-theorem.html)
+- [Eulerian Path](./graph/euler_path.html)
 - [Strongly Connected Components and Condensation Graph](./graph/strongly-connected-components.html)
 - [Maximum flow - Ford-Fulkerson and Edmonds-Karp](./graph/edmonds_karp.html)
 - [Maximum flow - Push-relabel algorithm](./graph/push-relabel.html)
