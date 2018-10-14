@@ -215,7 +215,17 @@ Therefore we have an additional $O(S Q)$ calls of `add(cur_l)` and `remove(cur_l
 For $S \approx \sqrt{N}$ this gives $O((N + Q) \sqrt{N})$ operations in total. 
 Thus the complexity is $O((N+Q)F\sqrt{N})$ where $O(F)$  is the complexity of `add` and `remove` function.
 
-Notice, the block size of precisely $\sqrt{N}$ doesn't always offer the best runtime. For example, if $\sqrt{N}=750$ then it may happen that block size of $700$ or $800$ may run better.
+### Tips for improving runtime
+* Block size of precisely $\sqrt{N}$ doesn't always offer the best runtime. For example, if $\sqrt{N}=750$ then it may happen that block size of $700$ or $800$ may run better.
+* In odd blocks sort right index in ascending order and in even blocks sort in descending order (Why?). This will minimise the movement of right pointer as it will first move like Initial->right->end instead of Initial->right->(Return left for next query)->end otherwise. 
+```cpp
+bool cmp ( pair<int,int> p , pair<int,int> q ){
+	if ( p.first / BLOCK_SIZE != q.first / BLOCK_SIZE )
+		return p < q ;
+	return ( p.first / BLOCK_SIZE ) & 1 ) ^ ( p.second < q.second ) ; 
+}
+```
+You can read about even faster sorting approach [here](https://codeforces.com/blog/entry/61203).
 
 ## Practice Problems
 
