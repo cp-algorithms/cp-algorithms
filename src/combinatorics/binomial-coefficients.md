@@ -1,4 +1,3 @@
-
 <!--?title Binomial Coefficients-->
 # Binomial Coefficients
 
@@ -102,7 +101,7 @@ Finally, in some situations it is beneficial to pre-calculate all the factorials
 
 ## Computing binomial coefficients modulo $m$.
 
-Quite often you come across the problem of computing [binomial coefficients](./combinatorics/binomial-coefficients.html) modulo some $m$.
+Quite often you come across the problem of computing binomial coefficients modulo some $m$.
 
 ### Binomial coefficient for small $n$
 

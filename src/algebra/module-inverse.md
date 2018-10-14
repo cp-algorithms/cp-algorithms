@@ -1,6 +1,4 @@
-
 <!--?title Modular Inverse -->
-
 # Modular Multiplicative Inverse
 
 ## Definition
