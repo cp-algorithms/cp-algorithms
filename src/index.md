@@ -143,6 +143,7 @@ especially popular in field of competitive programming.*
 - [Minimum-cost flow](./graph/min_cost_flow.html)
 - [Assignment problem. Solution using min-cost-flow in O (N^5)](./graph/Assignment-problem-min-flow.html)
 - [Edge connectivity / Vertex connectivity](./graph/edge_vertex_connectivity.html)
+- [Tree painting](./graph/tree_painting.html)
 - [2-SAT](./graph/2SAT.html)
 - [Heavy-light decomposition](./graph/hld.html)
 
