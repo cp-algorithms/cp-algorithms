@@ -33,7 +33,7 @@ This system allows you to write negative values without leading minus sign: you 
     -5   Z11
 ```
 
-Note that negative number starts with `Z` and positive with `1`.
+Note that a negative number starts with `Z` and positive with `1`.
 
 ## Conversion algorithm
 
