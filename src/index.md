@@ -138,6 +138,7 @@ especially popular in field of competitive programming.*
 - [Flows with demands](./graph/flow_with_demands.html)
 - [Minimum-cost flow](./graph/min_cost_flow.html)
 - [Edge connectivity / Vertex connectivity](./graph/edge_vertex_connectivity.html)
+- [Tree painting](./graph/tree_painting.html)
 - [2-SAT](./graph/2SAT.html)
 
 ### Sequences
