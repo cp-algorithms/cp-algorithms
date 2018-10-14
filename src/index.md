@@ -42,6 +42,7 @@ especially popular in field of competitive programming.*
 - [Sqrt Tree](./data_structures/sqrt-tree.html)
 - [Minimum Stack / Minimum Queue](./data_structures/stack_queue_modification.html)
 - [Randomized Heap](./data_structures/randomized_heap.html)
+- [Deleting from a data structure in O(T(n)log n)](./data_structures/deleting_in_log_n.html)
 
 ### Dynamic Programming
 - [Dynamic Programming on Broken Profile. Problem "Parquet"](./dynamic_programming/profile-dynamics.html)
