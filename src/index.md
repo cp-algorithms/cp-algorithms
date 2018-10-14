@@ -164,3 +164,38 @@ especially popular in field of competitive programming.*
 ---
 
 [Information for contributors](./contrib.html) and [Test-Your-Page form](./test.php)
+
+<script>
+$(function() {
+    $('h3+ul').each(prepareLists);
+});
+
+function prepareLists(index, elem) {
+    elem = $(elem);
+    var items = elem.find('li');
+    if (items.size() <= 3) {
+        return;
+    }
+    for (var i = 2; i < items.size(); i++) {
+        $(items[i]).hide();
+    }
+    var dots = $('<li class="aux">...click to see more...</li>');
+    dots.css('cursor', 'pointer').css('font-style', 'italic').css('color', '#777');
+    dots.click(function() {
+        unrollList(elem);
+    });
+    elem.append(dots);
+}
+
+function unrollList(elem) {
+    var item = elem.find('.aux');
+    item.remove();
+    unrollItem(elem.find(':hidden:first'));
+}
+
+function unrollItem(item) {
+    item.show(10, function() {
+        unrollItem(item.next());
+    });
+}
+</script>
