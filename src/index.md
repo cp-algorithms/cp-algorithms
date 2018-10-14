@@ -106,6 +106,7 @@ especially popular in field of competitive programming.*
 - [Check if points belong to the convex polygon in O(log N)](./geometry/point-in-convex-polygon.html)
 - [Finding the nearest pair of points](./geometry/nearest_points.html)
 - [Search for a pair of intersecting segments](./geometry/intersecting_segments.html)
+- [Delaunay triangulation and Voronoi diagram](./geometry/delaunay.html)
 - [Point location in O(log N)](./geometry/point-location.html)
 
 ### Graphs
