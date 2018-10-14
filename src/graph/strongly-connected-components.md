@@ -51,7 +51,7 @@ Finally, it is appropriate to mention [topological sort](./graph/topological-sor
 ## Implementation
 ```cpp
     vector < vector<int> > g, gr;
-    vector<char> used;
+    vector<bool> used;
     vector<int> order, component;
      
     void dfs1 (int v) {
