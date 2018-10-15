@@ -164,6 +164,7 @@ especially popular in field of competitive programming.*
 ### Miscellaneous
 - [Josephus problem](./others/josephus_problem.html)
 - [15 Puzzle Game: Existence Of The Solution](./others/15-puzzle.html)
+- [The Stern-Brocot Tree and Farey Sequences](./others/stern_brocot_tree_farey_sequences.html)
 - [Search the subsegment with the maximum/minimum sum](./others/maximum_average_segment.html)
 
 ---
