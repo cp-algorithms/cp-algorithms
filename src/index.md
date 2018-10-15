@@ -94,6 +94,7 @@ especially popular in field of competitive programming.*
 - [Length of the union of segments](./geometry/length-of-segments-union.html)
 - [Oriented area of a triangle](./geometry/oriented-triangle-area.html)
 - [Intersection Point of Lines](./geometry/lines-intersection.html)
+- [Finding the equation of a line for a segment](./geometry/segment-to-line.html)
 - [Check if two segments intersect](./geometry/check-segments-intersection.html)
 - [Intersection of Segments](./geometry/segments-intersection.html)
 - [Circle-Line Intersection](./geometry/circle-line-intersection.html)
