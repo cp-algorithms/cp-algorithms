@@ -69,7 +69,7 @@ Also this implementation handles finding the next with brute-force, which requir
 A better way would be to store the graph as an adjacency list, and remove edges in $O(1)$ and mark the reversed edges in separate list.
 This way we can archive a $O(N)$ algorithm.
 
-```
+```cpp
 int main() {
     int n;
     vector<vector<int>> g(n, vector<int>(n));

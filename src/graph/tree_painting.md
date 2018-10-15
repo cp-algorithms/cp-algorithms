@@ -43,7 +43,7 @@ A single modification in the segment tree is performed in $O(log N)$.
 
 Here is the full implementation of the solution, including LCA computation:
 
-```
+```cpp
 const int INF = 1000 * 1000 * 1000;
 
 typedef vector<vector<int>> graph;
