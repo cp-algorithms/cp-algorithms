@@ -14,7 +14,7 @@ where it should be noted that the second quantity is not strictly a fraction, bu
 
 At every subsequent iteration, consider all adjacent fractions $\frac{a}{b}$ and $\frac{c}{d}$ and insert their mediant $\frac{a+c}{b+d}$ between them.
 
-The first few iterations look like
+The first few iterations look like this:
 $$
 \begin{array}{c}
     \frac{0}{1}, \frac{1}{1}, \frac{1}{0} \\\\
@@ -45,7 +45,7 @@ Given that ordering was upheld at the zeroth iteration, it will be maintained at
 
 **Irreducibility.** To prove this we will show that for any two adjacent fractions $\frac{a}{b}$ and $\frac{c}{d}$ we have that
 $$
-    bc - ad = 1
+    bc - ad = 1.
 $$
 We recall that a Diophantine equation with two variables $ax+by=c$ has a solution iff $c$ is a multiple of $\gcd(a,b)$. In our case this means that $\gcd(a,b) = \gcd(c,d) = 1$, which is what we wanted to show.
 
@@ -64,28 +64,28 @@ which, using that $bc-ad=1$, can be easily shown to be true.
 
 From this we see that the property is always maintained and thus all fractions are irreducible.
 
-**The precence of all fractions.** This proof is closely related to locating a fraction in the Stern-Brocot tree. From the ordering property we have that left subtree of a fraction contains only fractions smaller than the parent fraction, and the right subtree contains only fractions larger than the parent fraction. This means we can search for a fraction by traversing the tree from the root, going left if the target is smaller than the fraction and going right if the target is larger.
+**The presence of all fractions.** This proof is closely related to locating a fraction in the Stern-Brocot tree. From the ordering property we have that left subtree of a fraction contains only fractions smaller than the parent fraction, and the right subtree contains only fractions larger than the parent fraction. This means we can search for a fraction by traversing the tree from the root, going left if the target is smaller than the fraction and going right if the target is larger.
 
 Pick an arbitrary positive target fraction $\frac{x}{y}$. It is obviously between $\frac{0}{1}$ and $\frac{1}{0}$, so the only way for the fraction to not be in the tree is if it takes an infinite number of steps to get to it.
 
-If that is the case we would at all iterations have that
+If that is the case we would at all iterations have
 $$
     \frac{a}{b} \lt \frac{x}{y} \lt \frac{c}{d}
 $$
-which (using the fact than an integer $x \gt 0 \iff x \ge 1$) can be rewritten as
+which (using the fact than an integer $z \gt 0 \iff z \ge 1$) can be rewritten as
 $$\begin{align}
     bx - ay &\ge 1 \\\\
-    cy - dx &\ge 1
+    cy - dx &\ge 1.
 \end{align}$$
 Now multiply the first inequality by $c+d$ and the second with $a+b$ and add them to get
 $$
-    (c+d)(bx - ay) + (a+b)(cy - dx) \ge a+b+c+d
+    (c+d)(bx - ay) + (a+b)(cy - dx) \ge a+b+c+d.
 $$
 Expanding this and using the previously shown property $bc-ad=1$ we get that
 $$
-    x+y \ge a+b+c+d
+    x+y \ge a+b+c+d.
 $$
-And given that at every iteration ar least one of $a,b,c,d$ will increase, the fraction searching process will contain no more than $x+y$ iterations. This contradicts the assumption that the path to $\frac{x}{y}$ was infinite and hence $\frac{x}{y}$ must be part of the tree.
+And given that at every iteration at least one of $a,b,c,d$ will increase, the fraction searching process will contain no more than $x+y$ iterations. This contradicts the assumption that the path to $\frac{x}{y}$ was infinite and hence $\frac{x}{y}$ must be part of the tree.
 
 ## Tree Building Algorithm
 To build any subtree of the Stern-Brocot tree it suffices to know the left and right ancestor. On the first level the left and right ancestor is $\frac{0}{1}$ and $\frac{1}{0}$ respectively. Using these we calculate the mediant and proceed one level deeper, with the median replacing the right ancestor in the left subtree, and vice versa.
@@ -94,12 +94,12 @@ This pseudocode tries to build the entire infinite tree:
 
 ```cpp
 void build(int a = 0, int b = 1, int c = 1, int d = 0, int level = 1) {
-	int x = a + c,  y = b + d;
+    int x = a + c, y = b + d;
 
     ... output the current fraction x/y at the current level in the tree
-	
-	build(a, b, x, y, level + 1);
-	build(x, y, c, d, level + 1);
+    
+    build(a, b, x, y, level + 1);
+    build(x, y, c, d, level + 1);
 }
 ```
 
@@ -110,13 +110,13 @@ Here is an implementation that returns the path to a given fraction $\frac{x}{y}
 
 ```cpp
 string find(int x, int y, int a = 0, int b = 1, int c = 1, int d = 0) {
-	int m = a + c,  n = b + d;
-	if (x == m && y == n)
-		return "";
-	if (x*n < y*m)
-		return 'L' + find(x, y, a, b, m, n);
-	else
-		return 'R' + find(x, y, m, n, c, d);
+    int m = a + c, n = b + d;
+    if (x == m && y == n)
+        return "";
+    if (x*n < y*m)
+        return 'L' + find(x, y, a, b, m, n);
+    else
+        return 'R' + find(x, y, m, n, c, d);
 }
 ```
 
@@ -126,7 +126,7 @@ Irrational numbers in the Stern-Brocot number system corresponds to infinite seq
 
 The Farey sequence or order $n$ is the sorted sequence of fractions between $0$ and $1$ whose denominators do not exceed $n$.
 
-The sequences are named after English geologist John Farey, who in 1816 conjectured that any fraction in a Farey sequence is the mediant of its neighbors. This was proven some time later by Cauchy, but independent of both of them mathematician Haros had come to almost the same conclusion in 1802.
+The sequences are named after English geologist John Farey, who in 1816 conjectured that any fraction in a Farey sequence is the mediant of its neighbors. This was proven some time later by Cauchy, but independent of both of them the mathematician Haros had come to almost the same conclusion in 1802.
 
 The Farey sequences has many interesting properties on their own, but the connection to Stern-Brocot tree is the most obvious. In fact, the Farey sequence can be obtained by trimming branches from the tree.
 
@@ -139,5 +139,5 @@ $$
 $$
 or equivalently by unraveling the recursion we get
 $$
-    L_n = 1 + \sum_{k=1}^n \varphi(k)
+    L_n = 1 + \sum_{k=1}^n \varphi(k).
 $$
