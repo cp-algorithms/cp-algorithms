@@ -4,8 +4,8 @@
 !["Setun computer using Balanced Ternary system"](http://ternary.3neko.ru/photo/setun1_small.jpg)
 
 This is a non-standard but still positional **numeral system**. It's feature is that digits can have one of values `-1`, `0` and `1`.
-Nevertheless its base is still `3` (because there are three possible values). Since it is not convenient to write `-1` as a digit
-we'll use letter `Z` further for this purpose. If you think it is quite strange system - look at the picture - here is one of the
+Nevertheless, its base is still `3` (because there are three possible values). Since it is not convenient to write `-1` as a digit,
+we'll use letter `Z` further for this purpose. If you think it is quite a strange system - look at the picture - here is one of the
 computers utilizing it.
 
 So here are few first numbers written in balanced ternary:
@@ -23,7 +23,7 @@ So here are few first numbers written in balanced ternary:
     9    100
 ```
 
-This system allows to write negative values without leading minus sign: you can simply invert digits in any positive number
+This system allows you to write negative values without leading minus sign: you can simply invert digits in any positive number.
 
 ```nohighlight
     -1   Z
@@ -33,26 +33,28 @@ This system allows to write negative values without leading minus sign: you can 
     -5   Z11
 ```
 
-Note that negative number starts with `Z` and positive with `1`.
+Note that a negative number starts with `Z` and positive with `1`.
 
 ## Conversion algorithm
 
-It is easy to convert represent number in **balanced ternary** via temporary representing it as normal ternary. When value is
+It is easy to represent a given number in **balanced ternary** via temporary representing it in normal ternary number system. When value is
 in standard ternary, its digits are either `0` or `1` or `2`. Iterating from the lowest digit we can safely skip any `0`s and `1`s,
 however `2` should be turned into `Z` with adding `1` to the next digit. Digits `3` should be turned into `0` on the same terms -
 such digits are not present in the number initially but they can be encountered after increasing some `2`s.
 
-**Example:** let us convert `64` to balanced ternary. At first we use normal ternary to rewrite the number:
+**Example:** Let us convert `64` to balanced ternary. At first we use normal ternary to rewrite the number:
 
-$$ 64 = 02201_{3} $$
+$$ 64_{10} = 02101_{3} $$
 
 Let us process it from the least significant (rightmost) digit:
 
-- `1` is skipped as is, `0` at the next position too;
-- `2` is turned into `Z` increasing the following digit, so we get `03Z01` (temporarily);
-- `3` is turned into `0` increasing the following digit (which, luckily, was `0`).
+- `1`,`0`and `1` are skipped as it is.( Because `0` and `1` are allowed in balanced ternary )
+- `2` is turned into `Z` increasing the digit to its left, so we get `1Z101`.
 
-So the result is `10Z01`.
+So the result is `1Z101`.
+
+Let us convert it back to the decimal system by adding the weighted positional values:
+$$ 1Z101 = 81 \cdot 1 + 27 \cdot (-1) + 9 \cdot 1 + 3 \cdot 0 + 1 \cdot 1 = 64_{10} $$
 
 ## Practice Problems
 

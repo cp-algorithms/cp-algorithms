@@ -124,12 +124,12 @@ After all, it's worth mentioning there exist data structures that automatically 
 ### Block sieving
 
 It follows from the optimization "sieving till root" that there is no need to keep the whole array `is_prime[1...n]` at all time.
-For performing of sieving it's enough to keep just prime numbers until root of $n$, i.e. `prime[1... \sqrt n]`, split the complete range into blocks, and sieve each block separately.
+For performing of sieving it's enough to keep just prime numbers until root of $n$, i.e. `prime[1... sqrt(n)]`, split the complete range into blocks, and sieve each block separately.
 In doing so, we never have to keep multiple blocks in memory at the same time, and the CPU handles caching a lot better.
 
-Let $s$ be a constant which determines the size of the block, then we have $\lceil {\frac n s} \rceil$ blocks altogether, and block $k$ ($k = 0 ... \lfloor {\frac n s} \rfloor$) contains numbers in a segment $[ks; ks + s - 1]$.
-We can work on blocks by turns, i.e. for every block $k$ we will go through all the prime numbers (from $1$ to $\sqrt n$) and perform sieving by them.
-It is worth working on the first block differently: first, all the prime numbers from $[1; \sqrt n]$  shouldn't remove themselves; second, the numbers $0$ and $1$ should be marked as non-prime numbers.
+Let $s$ be a constant which determines the size of the block, then we have $\lceil {\frac n s} \rceil$ blocks altogether, and the block $k$ ($k = 0 ... \lfloor {\frac n s} \rfloor$) contains the numbers in a segment $[ks; ks + s - 1]$.
+We can work on blocks by turns, i.e. for every block $k$ we will go through all the prime numbers (from $1$ to $\sqrt n$) and perform sieving using them.
+It is worth noting, that we have to modify the strategy a little bit when handling the first numbers: first, all the prime numbers from $[1; \sqrt n]$  shouldn't remove themselves; and second, the numbers $0$ and $1$ should be marked as non-prime numbers.
 While working on the last block it should not be forgotten that the last needed number $n$ is not necessary located in the end of the block.
 
 Here we have an implementation that counts the number of primes smaller than or equal to $n$ using block sieving.
