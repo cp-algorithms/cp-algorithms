@@ -1,6 +1,6 @@
 
 <!--?title Assignment problem solution using min-cost-flo< -->
-#Solving assignment problem using min-cost-flow
+# Solving assignment problem using min-cost-flow
 
 The **assignment problem** has two equivalent statements:
 
@@ -9,7 +9,7 @@ The **assignment problem** has two equivalent statements:
 
 Here we will consider the solution of the problem based on the algorithm for finding the [minimum cost flow (min-cost-flow)](./graph/min_cost_flow.html), solving the assignment problem in $\mathcal{O}(N^5)$.
 
-##Description
+## Description
 
 Let's build a bipartite network: there is a source $S$, a drain $T$, in the first part there are $N$ vertices (corresponding to rows of the matrix, or orders), in the second there are also $N$ vertices (corresponding to the columns of the matrix, or machines). Between each vertex $i$ of the first set and each vertex $j$ of the second set, we draw an edge with bandwidth 1 and cost $A_{ij}$. From the source $S$ we draw edges to all vertices $i$ of the first set with bandwidth 1 and cost 0. We draw an edge with bandwidth 1 and cost 0 from each vertex of the second set $j$ to the drain $T$.
 
@@ -17,7 +17,7 @@ We find in the resulting network the maximum flow of the minimum cost. Obviously
 
 The complexity of this solution of the assignment problem depends on the algorithm by which the search for the maximum flow of the minimum cost is performed. The complexity will be $\mathcal{O}(N^5)$ using [Dijkstra](./graph/dijkstra.html) or $\mathcal{O}(N^6)$ using [Bellman-Ford](./graph/bellman_ford.html).
 
-##Implementation
+## Implementation
 
 The implementation given here is long, it can probably be significantly reduced.
 It uses the [D´Esopo-Pape algorithm](./graph/desopo_pape.html) for finding shortest paths.
