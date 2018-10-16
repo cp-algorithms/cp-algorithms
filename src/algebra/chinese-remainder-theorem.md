@@ -38,6 +38,7 @@ $$
     a = x_1 + x_2 p_1 + x_3 p_1 p_2 + \ldots + x_k p_1 \ldots p_{k-1}
 $$
 which is called the mixed radix representation of $a$.
+Garner's algorithm computes the coefficients $x_1, \ldots, x_k$.
 
 Let $r_{ij}$ denote the inverse of $p_i$ modulo $p_j$
 $$
@@ -65,14 +66,15 @@ $$
 Now, we can clearly see an emerging pattern, which can be expressed by the following code:
 
 ```cpp
-for (int i=0; i<k; ++i) {
-	x[i] = a[i];
-	for (int j=0; j<i; ++j) {
-		x[i] = r[j][i] * (x[i] - x[j]);
- 
-		x[i] = x[i] % p[i];
-		if (x[i] < 0)  x[i] += p[i];
-	}
+for (int i = 0; i < k; ++i) {
+    x[i] = a[i];
+    for (int j = 0; j < i; ++j) {
+        x[i] = r[j][i] * (x[i] - x[j]);
+
+        x[i] = x[i] % p[i];
+        if (x[i] < 0)
+            x[i] += p[i];
+    }
 }
 ```
 
@@ -86,85 +88,85 @@ It is worth noting that in practice, we almost always need to compute the answer
 
 ## Implementation of Garner's Algorithm
 
-It is convenient to implement this algorithm using Java, because it has built-in support for large numbers through the BigInteger class.
+It is convenient to implement this algorithm using Java, because it has built-in support for large numbers through the `BigInteger` class.
 
-The following implementation of Garner's algorithm supports addition, subtraction and multiplication. In this code, we take 100 prime numbers greater than $10^9$, which allows numbers as large as $10^{900}$.
+Here we show an implementation that can store big numbers in the form of a set of congruence equations.
+It supports addition, subtraction and multiplication.
+And with Garner's algorithm we can convert the set of equations into the unique integer.
+In this code, we take 100 prime numbers greater than $10^9$, which allows numbers as large as $10^{900}$.
 
 ```java
 final int SZ = 100;
 int pr[] = new int[SZ];
 int r[][] = new int[SZ][SZ];
- 
+
 void init() {
-	for (int x=1000*1000*1000, i=0; i<SZ; ++x)
-		if (BigInteger.valueOf(x).isProbablePrime(100))
-			pr[i++] = x;
- 
-	for (int i=0; i<SZ; ++i)
-		for (int j=i+1; j<SZ; ++j)
-			r[i][j] = BigInteger.valueOf( pr[i] ).modInverse(
-					BigInteger.valueOf( pr[j] ) ).intValue();
+    for (int x = 1000 * 1000 * 1000, i = 0; i < SZ; ++x)
+        if (BigInteger.valueOf(x).isProbablePrime(100))
+            pr[i++] = x;
+
+    for (int i = 0; i < SZ; ++i)
+        for (int j = i + 1; j < SZ; ++j)
+            r[i][j] =
+                BigInteger.valueOf(pr[i]).modInverse(BigInteger.valueOf(pr[j])).intValue();
 }
- 
- 
+
 class Number {
- 
-	int a[] = new int[SZ];
- 
-	public Number() {
-	}
- 
-	public Number (int n) {
-		for (int i=0; i<SZ; ++i)
-			a[i] = n % pr[i];
-	}
- 
-	public Number (BigInteger n) {
-		for (int i=0; i<SZ; ++i)
-			a[i] = n.mod( BigInteger.valueOf( pr[i] ) ).intValue();
-	}
- 
-	public Number add (Number n) {
-		Number result = new Number();
-		for (int i=0; i<SZ; ++i)
-			result.a[i] = (a[i] + n.a[i]) % pr[i];
-		return result;
-	}
- 
-	public Number subtract (Number n) {
-		Number result = new Number();
-		for (int i=0; i<SZ; ++i)
-			result.a[i] = (a[i] - n.a[i] + pr[i]) % pr[i];
-		return result;
-	}
- 
-	public Number multiply (Number n) {
-		Number result = new Number();
-		for (int i=0; i<SZ; ++i)
-			result.a[i] = (int)( (a[i] * 1l * n.a[i]) % pr[i] );
-		return result;
-	}
- 
-	public BigInteger bigIntegerValue (boolean can_be_negative) {
-		BigInteger result = BigInteger.ZERO,
-			mult = BigInteger.ONE;
-		int x[] = new int[SZ];
-		for (int i=0; i<SZ; ++i) {
-			x[i] = a[i];
-			for (int j=0; j<i; ++j) {
-				long cur = (x[i] - x[j]) * 1l * r[j][i];
-				x[i] = (int)( (cur % pr[i] + pr[i]) % pr[i] );					
-			}
-			result = result.add( mult.multiply( BigInteger.valueOf( x[i] ) ) );
-			mult = mult.multiply( BigInteger.valueOf( pr[i] ) );
-		}
- 
-		if (can_be_negative)
-			if (result.compareTo( mult.shiftRight(1) ) >= 0)
-				result = result.subtract( mult );
- 
-		return result;
-	}
+    int a[] = new int[SZ];
+
+    public Number() {
+    }
+
+    public Number(int n) {
+        for (int i = 0; i < SZ; ++i)
+            a[i] = n % pr[i];
+    }
+
+    public Number(BigInteger n) {
+        for (int i = 0; i < SZ; ++i)
+            a[i] = n.mod(BigInteger.valueOf(pr[i])).intValue();
+    }
+
+    public Number add(Number n) {
+        Number result = new Number();
+        for (int i = 0; i < SZ; ++i)
+            result.a[i] = (a[i] + n.a[i]) % pr[i];
+        return result;
+    }
+
+    public Number subtract(Number n) {
+        Number result = new Number();
+        for (int i = 0; i < SZ; ++i)
+            result.a[i] = (a[i] - n.a[i] + pr[i]) % pr[i];
+        return result;
+    }
+
+    public Number multiply(Number n) {
+        Number result = new Number();
+        for (int i = 0; i < SZ; ++i)
+            result.a[i] = (int)((a[i] * 1l * n.a[i]) % pr[i]);
+        return result;
+    }
+
+    public BigInteger bigIntegerValue(boolean can_be_negative) {
+        BigInteger result = BigInteger.ZERO, mult = BigInteger.ONE;
+        int x[] = new int[SZ];
+        for (int i = 0; i < SZ; ++i) {
+            x[i] = a[i];
+            for (int j = 0; j < i; ++j) {
+                long cur = (x[i] - x[j]) * 1l * r[j][i];
+                x[i] = (int)((cur % pr[i] + pr[i]) % pr[i]);
+            }
+            result = result.add(mult.multiply(BigInteger.valueOf(x[i])));
+            mult = mult.multiply(BigInteger.valueOf(pr[i]));
+        }
+
+        if (can_be_negative)
+            if (result.compareTo(mult.shiftRight(1)) >= 0)
+                result = result.subtract(mult);
+
+        return result;
+    }
 }
 ```
 
@@ -172,8 +174,8 @@ class Number {
 
 * Let $p$ be the product of all primes.
 
-* Modular scheme itself does not allow representing negative numbers. However, it can be seen that if we know that the absolute values our numbers are smaller than $p / 2$, then we know that it must be negative when the resulting number is greater than $p / 2$. The flag $can\\_be\\_negative$ in this code allows converting it to negative in this case. 
+* Modular scheme itself does not allow representing negative numbers. However, it can be seen that if we know that the absolute values our numbers are smaller than $p / 2$, then we know that it must be negative when the resulting number is greater than $p / 2$. The flag `can_be_negative` in this code allows converting it to negative in this case.
 
-## Practice Problem:
+## Practice Problems:
 * [Hackerrank - Number of sequences](https://www.hackerrank.com/contests/w22/challenges/number-of-sequences)
 * [Codeforces - Remainders Game](http://codeforces.com/problemset/problem/687/B)
