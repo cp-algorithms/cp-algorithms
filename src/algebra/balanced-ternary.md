@@ -42,19 +42,35 @@ in standard ternary, its digits are either `0` or `1` or `2`. Iterating from the
 however `2` should be turned into `Z` with adding `1` to the next digit. Digits `3` should be turned into `0` on the same terms -
 such digits are not present in the number initially but they can be encountered after increasing some `2`s.
 
-**Example:** Let us convert `64` to balanced ternary. At first we use normal ternary to rewrite the number:
+**Example 1:** Let us convert `64` to balanced ternary. At first we use normal ternary to rewrite the number:
 
 $$ 64_{10} = 02101_{3} $$
 
 Let us process it from the least significant (rightmost) digit:
 
-- `1`,`0`and `1` are skipped as it is.( Because `0` and `1` are allowed in balanced ternary )
+- `1`,`0` and `1` are skipped as it is.( Because `0` and `1` are allowed in balanced ternary )
 - `2` is turned into `Z` increasing the digit to its left, so we get `1Z101`.
 
-So the result is `1Z101`.
+The final result is `1Z101`.
 
 Let us convert it back to the decimal system by adding the weighted positional values:
 $$ 1Z101 = 81 \cdot 1 + 27 \cdot (-1) + 9 \cdot 1 + 3 \cdot 0 + 1 \cdot 1 = 64_{10} $$
+
+**Example 2:** Let us convert `237` to balanced ternary. At first we use normal ternary to rewrite the number:
+
+$$ 237_{10} = 22210_{3} $$
+
+Let us process it from the least significant (rightmost) digit:
+
+- `0` and `1` are skipped as it is.( Because `0` and `1` are allowed in balanced ternary )
+- `2` is turned into `Z` increasing the digit to its left, so we get `23Z10`.
+- `3` is turned into `0` increasing the digit to its left, so we get `30Z10`.
+- `3` is turned into `0` increasing the digit to its left( which is by default `0` ), and so we get `100Z10`.
+
+The final result is `100Z10`.
+
+Let us convert it back to the decimal system by adding the weighted positional values:
+$$ 100Z10 = 243 \cdot 1 + 81 \cdot 0 + 27 \cdot 0 + 9 \cdot (-1) + 3 \cdot 1 + 1 \cdot 0 = 237_{10} $$
 
 ## Practice Problems
 
