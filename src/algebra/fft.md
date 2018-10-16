@@ -540,7 +540,7 @@ Thus these coefficients are the answer to the problem, and we were still able to
 
 ### Two stripes
 
-We are given two Boolean stripes (cyclic arrays of with values values $0$ and $1$) $a$ and $b$.
+We are given two Boolean stripes (cyclic arrays of values $0$ and $1$) $a$ and $b$.
 We want to find all ways to attach the first stripe to the second one, such that at no position we have a $1$ of the first stripe next to a $1$ of the second stripe.
 
 The problem doesn't actually differ much from the previous problem.

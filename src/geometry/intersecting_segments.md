@@ -56,7 +56,7 @@ The final **asymptotic behavior of the algorithm** is thus $O(n \log n)$.
 
 We present the full implementation of the described algorithm:
 
-```
+```cpp
 const double EPS = 1E-9;
 
 struct pt {

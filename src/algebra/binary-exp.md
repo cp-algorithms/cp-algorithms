@@ -33,7 +33,7 @@ $$\begin{align}
 3^2 &= \left(3^1\right)^2 = 3^2 = 9 \\\\
 3^4 &= \left(3^2\right)^2 = 9^2 = 81 \\\\
 3^8 &= \left(3^4\right)^2 = 81^2 = 6561
-\end{align}
+\end{align}$$
 
 So to get the final answer for $3^{13}$, we only need to multiply three of them (skipping $3^2$ because the corresponding bit in $n$ is not set):
 $3^{13} = 6561 \cdot 81 \cdot 3 = 1594323$

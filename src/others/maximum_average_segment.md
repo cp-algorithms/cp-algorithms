@@ -39,7 +39,7 @@ The implementation is given in 0-indexed arrays, not in 1-numbering as described
 
 We first give a solution that finds a simple numerical answer without finding the indices of the desired segment:
 
-```
+```cpp
 int ans = a[0], sum = 0, min_sum = 0;
 
 for (int r = 0; r < n; ++r) {
@@ -51,7 +51,7 @@ for (int r = 0; r < n; ++r) {
 
 Now we give a full version of the solution, which additionally also finds the boundaries of the desired segment:
 
-```
+```cpp
 int ans = a[0], ans_l = 0, ans_r = 0;
 int sum = 0, min_sum = 0, min_pos = -1;
 
@@ -92,7 +92,7 @@ One way or another, it turns out that really when searching for an answer, you c
 
 As in algorithm 1, we first gave a simplified implementation that looks for only a numerical answer without finding the boundaries of the desired segment:
 
-```
+```cpp
 int ans = a[0], sum = 0;
 
 for (int r = 0; r < n; ++r) {
@@ -104,7 +104,7 @@ for (int r = 0; r < n; ++r) {
 
 A complete solution, maintaining the indexes of the boundaries of the corresponding segment:
 
-```
+```cpp
 int ans = a[0], ans_l = 0, ans_r = 0;
 int sum = 0, minus_pos = -1;
 
