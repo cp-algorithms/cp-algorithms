@@ -9,27 +9,37 @@ especially popular in field of competitive programming.*
 ## Articles
 
 ### Algebra
+
+#### Number-theoretic functions
+
 - [Euler's totient function](./algebra/phi-function.html)
 - [Number of divisors / sum of divisors](./algebra/divisors.html)
-- [Euclidean algorithm for computing the greatest common divisor](./algebra/euclid-algorithm.html)
+
+#### Prime numbers
 - [Sieve of Eratosthenes](./algebra/sieve-of-eratosthenes.html)
+- [Sieve of Eratosthenes Having Linear Time Complexity](./algebra/prime-sieve-linear.html)
+
+#### Modular arithmetic
+
+- [Modular Inverse](./algebra/module-inverse.html)
+- [Linear Congruence Equation](./algebra/linear_congruence_equation.html)
+- [Chinese Remainder Theorem](./algebra/chinese-remainder-theorem.html)
+- [Factorial modulo $p$](./algebra/factorial-modulo.html)
+
+
+- [Euclidean algorithm for computing the greatest common divisor](./algebra/euclid-algorithm.html)
 - [Extended Euclidean Algorithm](./algebra/extended-euclid-algorithm.html)
 - [Binary Exponentiation](./algebra/binary-exp.html)
 - [Balanced Ternary](./algebra/balanced-ternary.html)
 - [Linear Diophantine Equations](./algebra/linear-diophantine-equation.html)
-- [Linear Congruence Equation](./algebra/linear_congruence_equation.html)
-- [Modular Inverse](./algebra/module-inverse.html)
-- [Chinese Remainder Theorem](./algebra/chinese-remainder-theorem.html)
 - [Primitive Root](./algebra/primitive-root.html)
 - [Discrete Root](./algebra/discrete-root.html)
 - [Discrete Log](./algebra/discrete-log.html)
 - [Enumerating submasks of a bitmask](./algebra/all-submasks.html)
 - [Gray code](./algebra/gray-code.html)
-- [Sieve of Eratosthenes Having Linear Time Complexity](./algebra/prime-sieve-linear.html)
 - [Arbitrary-Precision Arithmetic](./algebra/big-integer.html)
 - [Fibonacci Numbers](./algebra/fibonacci-numbers.html)
 - [Finding Power of Factorial Divisor](./algebra/factorial-divisors.html)
-- [Factorial modulo $p$](./algebra/factorial-modulo.html)
 - [Fast Fourier transform](./algebra/fft.html)
 
 ### Data Structures
@@ -90,55 +100,92 @@ especially popular in field of competitive programming.*
 - [Integration by Simpson's formula](./num_methods/simpson-integration.html)
 
 ### Geometry
+
+#### Elementary algorithms, intersections
+
 - [Basic Geometry](./geometry/basic-geometry.html)
-- [Length of the union of segments](./geometry/length-of-segments-union.html)
-- [Oriented area of a triangle](./geometry/oriented-triangle-area.html)
-- [Intersection Point of Lines](./geometry/lines-intersection.html)
 - [Finding the equation of a line for a segment](./geometry/segment-to-line.html)
+- [Intersection Point of Lines](./geometry/lines-intersection.html)
 - [Check if two segments intersect](./geometry/check-segments-intersection.html)
 - [Intersection of Segments](./geometry/segments-intersection.html)
 - [Circle-Line Intersection](./geometry/circle-line-intersection.html)
 - [Circle-Circle Intersection](./geometry/circle-circle-intersection.html)
+- [Length of the union of segments](./geometry/length-of-segments-union.html)
+
+#### Polygons
+
+- [Oriented area of a triangle](./geometry/oriented-triangle-area.html)
+- [Area of simple polygon](./geometry/area-of-simple-polygon.html)
+- [Check if points belong to the convex polygon in O(log N)](./geometry/point-in-convex-polygon.html)
 - [Pick's Theorem - area of lattice polygons](./geometry/picks-theorem.html)
 - [Lattice points of non-lattice polygon](./geometry/lattice-points.html)
-- [Area of simple polygon](./geometry/area-of-simple-polygon.html)
-- [Convex hull trick and Li Chao tree](./geometry/convex_hull_trick.html)
+
+#### Convex hull
+
 - [Convex hull construction using Graham's Scan](./geometry/grahams-scan-convex-hull.html)
-- [Check if points belong to the convex polygon in O(log N)](./geometry/point-in-convex-polygon.html)
-- [Finding the nearest pair of points](./geometry/nearest_points.html)
+- [Convex hull trick and Li Chao tree](./geometry/convex_hull_trick.html)
+
+#### Sweep-line
+
 - [Search for a pair of intersecting segments](./geometry/intersecting_segments.html)
-- [Delaunay triangulation and Voronoi diagram](./geometry/delaunay.html)
 - [Point location in O(log N)](./geometry/point-location.html)
 
+#### Miscellaneous
+
+- [Finding the nearest pair of points](./geometry/nearest_points.html)
+- [Delaunay triangulation and Voronoi diagram](./geometry/delaunay.html)
+
 ### Graphs
+
+#### Graph traversal
+
 - [Breadth First Search](./graph/breadth-first-search.html)
 - [Depth First Search](./graph/depth-first-search.html)
-- [Bipartite Graph Check](./graph/bipartite-check.html)
-- [Topological Sorting](./graph/topological-sort.html)
+
+#### Connected components, bridges, articulations points
+
+- [Finding Connected Components](./graph/search-for-connected-components.html)
 - [Finding Bridges in O(N+M)](./graph/bridge-searching.html)
 - [Finding Bridges Online](./graph/bridge-searching-online.html)
 - [Finding Articulation Points in O(N+M)](./graph/cutpoints.html)
-- [Checking a graph for acyclicity and finding a cycle in O(M)](./graph/finding-cycle.html)
-- [Finding a Negative Cycle in the Graph](./graph/finding-negative-cycle-in-graph.html)
-- [Floyd-Warshall - finding all shortest paths](./graph/all-pair-shortest-path-floyd-warshall.html)
-- [Number of paths of fixed length / Shortest paths of fixed length](./graph/fixed_length_paths.html)
+- [Strongly Connected Components and Condensation Graph](./graph/strongly-connected-components.html)
+
+#### Single-source shortest paths
+
 - [Dijkstra - finding shortest paths from given vertex](./graph/dijkstra.html)
 - [Dijkstra on sparse graphs](./graph/dijkstra_sparse.html)
 - [Bellman-Ford - finding shortest paths with negative weights](./graph/bellman_ford.html)
 - [D´Esopo-Pape algorithm](./graph/desopo_pape.html)
-- [Finding Connected Components](./graph/search-for-connected-components.html)
+
+#### All-pairs shortest paths
+
+- [Floyd-Warshall - finding all shortest paths](./graph/all-pair-shortest-path-floyd-warshall.html)
+- [Number of paths of fixed length / Shortest paths of fixed length](./graph/fixed_length_paths.html)
+
+#### Spanning trees
+
+- [Minimum Spanning Tree - Prim's Algorithm](./graph/mst_prim.html)
+- [Minimum Spanning Tree - Kruskal](./graph/mst_kruskal.html)
+- [Minimum Spanning Tree - Kruskal with Disjoint Set Union](./graph/mst_kruskal_with_dsu.html)
+- [Kirchhoff Theorem](./graph/kirchhoff-theorem.html)
+- [Prüfer code](./graph/pruefer_code.html)
+
+#### Cycles
+
+- [Checking a graph for acyclicity and finding a cycle in O(M)](./graph/finding-cycle.html)
+- [Finding a Negative Cycle in the Graph](./graph/finding-negative-cycle-in-graph.html)
+- [Eulerian Path](./graph/euler_path.html)
+
+#### Lowest common ancestor
+
 - [Lowest Common Ancestor](./graph/lca.html)
 - [Lowest Common Ancestor - Binary Lifting](./graph/lca_binary_lifting.html)
 - [Lowest Common Ancestor - Farach-Colton and Bender algorithm](./graph/lca_farachcoltonbender.html)
 - [Solve RMQ by finding LCA](./graph/rmq_linear.html)
 - [Lowest Common Ancestor - Tarjan's off-line algorithm](./graph/lca_tarjan.html)
-- [Minimum Spanning Tree - Prim's Algorithm](./graph/mst_prim.html)
-- [Minimum Spanning Tree - Kruskal](./graph/mst_kruskal.html)
-- [Minimum Spanning Tree - Kruskal with Disjoint Set Union](./graph/mst_kruskal_with_dsu.html)
-- [Prüfer code](./graph/pruefer_code.html)
-- [Kirchhoff Theorem](./graph/kirchhoff-theorem.html)
-- [Eulerian Path](./graph/euler_path.html)
-- [Strongly Connected Components and Condensation Graph](./graph/strongly-connected-components.html)
+
+#### Flows and related problems
+
 - [Maximum flow - Ford-Fulkerson and Edmonds-Karp](./graph/edmonds_karp.html)
 - [Maximum flow - Push-relabel algorithm](./graph/push-relabel.html)
 - [Maximum flow - Push-relabel algorithm improved](./graph/push-relabel-faster.html)
@@ -147,6 +194,14 @@ especially popular in field of competitive programming.*
 - [Flows with demands](./graph/flow_with_demands.html)
 - [Minimum-cost flow](./graph/min_cost_flow.html)
 - [Assignment problem. Solution using min-cost-flow in O (N^5)](./graph/Assignment-problem-min-flow.html)
+
+#### Matchings and related problems
+
+- [Bipartite Graph Check](./graph/bipartite-check.html)
+
+#### Miscellaneous
+
+- [Topological Sorting](./graph/topological-sort.html)
 - [Edge connectivity / Vertex connectivity](./graph/edge_vertex_connectivity.html)
 - [Tree painting](./graph/tree_painting.html)
 - [2-SAT](./graph/2SAT.html)
