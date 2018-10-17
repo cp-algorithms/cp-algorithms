@@ -286,5 +286,5 @@ vector<pair<int, int>> point_location(DCEL planar, vector<pt> queries)
 }
 ```
 
-##Problems
+## Problems
 [TIMUS1848 - Fly Hunt](http://acm.timus.ru/problem.aspx?space=1&num=1848&locale=en)

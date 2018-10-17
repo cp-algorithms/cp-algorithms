@@ -94,6 +94,7 @@ especially popular in field of competitive programming.*
 - [Length of the union of segments](./geometry/length-of-segments-union.html)
 - [Oriented area of a triangle](./geometry/oriented-triangle-area.html)
 - [Intersection Point of Lines](./geometry/lines-intersection.html)
+- [Finding the equation of a line for a segment](./geometry/segment-to-line.html)
 - [Check if two segments intersect](./geometry/check-segments-intersection.html)
 - [Intersection of Segments](./geometry/segments-intersection.html)
 - [Circle-Line Intersection](./geometry/circle-line-intersection.html)
@@ -164,43 +165,9 @@ especially popular in field of competitive programming.*
 ### Miscellaneous
 - [Josephus problem](./others/josephus_problem.html)
 - [15 Puzzle Game: Existence Of The Solution](./others/15-puzzle.html)
+- [The Stern-Brocot Tree and Farey Sequences](./others/stern_brocot_tree_farey_sequences.html)
 - [Search the subsegment with the maximum/minimum sum](./others/maximum_average_segment.html)
 
 ---
 
 [Information for contributors](./contrib.html) and [Test-Your-Page form](./test.php)
-
-<script>
-$(function() {
-    $('h3+ul').each(prepareLists);
-});
-
-function prepareLists(index, elem) {
-    elem = $(elem);
-    var items = elem.find('li');
-    if (items.size() <= 3) {
-        return;
-    }
-    for (var i = 2; i < items.size(); i++) {
-        $(items[i]).hide();
-    }
-    var dots = $('<li class="aux">...click to see more...</li>');
-    dots.css('cursor', 'pointer').css('font-style', 'italic').css('color', '#777');
-    dots.click(function() {
-        unrollList(elem);
-    });
-    elem.append(dots);
-}
-
-function unrollList(elem) {
-    var item = elem.find('.aux');
-    item.remove();
-    unrollItem(elem.find(':hidden:first'));
-}
-
-function unrollItem(item) {
-    item.show(10, function() {
-        unrollItem(item.next());
-    });
-}
-</script>

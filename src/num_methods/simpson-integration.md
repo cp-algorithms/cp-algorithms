@@ -1,6 +1,6 @@
 <!--?title Simpson integration -->
 
-#Integration by Simpson's formula
+# Integration by Simpson's formula
 
 We are going to calculate the value of a definite integral
 
@@ -8,7 +8,7 @@ $$\int_a ^ b f (x) dx$$
 
 The solution described here was published in one of the dissertations of **Thomas Simpson** in 1743.
 
-##Simpson's formula
+## Simpson's formula
 
 Let $n$ be some natural number. We divide the integration segment $[a; b]$ into $2n$ equal parts:
 
@@ -29,7 +29,7 @@ Adding these values over all segments, we obtain the final **Simpson's formula**
 
 $$\int_a ^ b f (x) dx \approx \left(f (x_0) + 4 f (x_1) + 2 f (x_2) + 4f(x_3) + 2 f(x_4) + \ldots + 4 f(x_{2N-1}) + f(x_{2N}) \right)\frac {h} {3} $$
 
-##Error
+## Error
 The error in approximating an integral by Simpson's formula is
 
 $$ -\tfrac{1}{90} \left(\tfrac{b-a}{2}\right)^5 f^{(4)}(\xi)$$
@@ -38,7 +38,7 @@ where $\xi$ is some number between $a$ and $b$.
 
 The error is asymptotically proportional to $(b-a)^5$. However, the above derivations suggest an error proportional to $(b-a)^4$. Simpson's rule gains an extra order because the points at which the integrand is evaluated are distributed symmetrically in the interval $[a, b]$.
 
-##Implementation
+## Implementation
 
 Here $f(x)$ is some user function.
 
