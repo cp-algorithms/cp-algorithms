@@ -10,9 +10,9 @@ Also we have some queries $q(l, r)$. For each query, we need to compute $a_l \ci
 
 Sqrt Tree can process such queries in $O(1)$ time with $O(n \cdot \log \log n)$ preprocessing time and $O(n \cdot \log \log n)$ memory.
 
-# Description
+## Description
 
-## Building sqrt decomposition
+### Building sqrt decomposition
 
 Let's make a [sqrt decomposition](/data_structures/sqrt_decomposition.html). We divide our array in $\sqrt{n}$ blocks, each block has size $\sqrt{n}$. For each block, we compute:
 
@@ -55,7 +55,7 @@ We already can answer some queries using these arrays. If the query doesn't fit 
 
 But if we have queries that entirely fit into one block, we cannot process them using these three arrays. So, we need to do something.
 
-## Making a tree
+### Making a tree
 
 We cannot answer only the queries that entirely fit in one block. But what **if we build the same structure as described above for each block?** Yes, we can do it. And we do it recursively, until we reach the block size of $1$ or $2$. Answers for such blocks can be calculated easily in $O(1)$.
 
@@ -67,7 +67,7 @@ Now we can answer the queries in $O(\log \log n)$. We can go down on the tree un
 
 OK, now we can do $O(\log \log n)$ per query. Can it be done faster?
 
-## Optimizing the query complexity
+### Optimizing the query complexity
 
 One of the most obvious optimization is to binary search the tree node we need. Using binary search, we can reach the $O(\log \log \log n)$ complexity per query. Can we do it even faster?
 
@@ -100,15 +100,15 @@ For more details, see the code below.
 
 So, using this, we can answer the queries in $O(1)$ each. Hooray! :)
 
-# Updating elements
+## Updating elements
 
 We can also update elements in Sqrt Tree. Both single element updates and updates on a segment are supported.
 
-## Updating a single element
+### Updating a single element
 
 Consider a query $\text{update}(x, val)$ that does the assignment $a_x = val$. We need to perform this query fast enough.
 
-### Naive approach
+#### Naive approach
 
 First, let's take a look of what is changed in the tree when a single element changes. Consider a tree node with length $l$ and its arrays: $\text{prefixOp}$, $\text{suffixOp}$ and $\text{between}$. It is easy to see that only $O(\sqrt{l})$ elements from $\text{prefixOp}$ and $\text{suffixOp}$ change (only inside the block with the changed element). $O(l)$ elements are changed in $\text{between}$. Therefore, $O(l)$ elements in the tree node are updated.
 
@@ -116,7 +116,7 @@ We remember that any element $x$ is present in exactly one tree node at each lay
 
 But it's too slow. Can it be done faster?
 
-### An sqrt-tree inside the sqrt-tree
+#### An sqrt-tree inside the sqrt-tree
 
 Note that the bottleneck of updating is rebuilding $\text{between}$ of the root node. To optimize the tree, let's get rid of this array! Instead of $\text{between}$ array, we store another sqrt-tree for the root node. Let's call it $\text{index}$. It plays the same role as $\text{between}$&mdash; answers the queries on segments of blocks. Note that the rest of the tree nodes don't have $\text{index}$, they keep their $\text{between}$ arrays.
 
@@ -134,7 +134,7 @@ Note that the query complexity is still $O(1)$: we need to use $\text{index}$ in
 
 So, total time complexity for updating a single element is $O(\sqrt{n})$. Hooray! :)
 
-## Updating a segment
+### Updating a segment
 
 Sqrt-tree also can do things like assigning an element on a segment. $\text{massUpdate}(x, l, r)$ means $a_i = x$ for all $l \le i \le r$.
 
@@ -142,7 +142,7 @@ There are two approaches to do this: one of them does $\text{massUpdate}$ in $O(
 
 We will do lazy propagation in the same way as it is done in segment trees: we mark some nodes as _lazy_, meaning that we'll push them when it's necessary. But one thing is different from segment trees: pushing a node is expensive, so it cannot be done in queries. On the layer $0$, pushing a node takes $O(\sqrt{n})$ time. So, we don't push nodes inside queries, we only look if the current node or its parent are _lazy_, and just take it into account while performing queries.
 
-### First approach
+#### First approach
 
 In the first approach, we say that only nodes on layer $1$ (with length $O(\sqrt{n}$) can be _lazy_. When pushing such node, it updates all its subtree including itself in $O(\sqrt{n}\cdot \log \log n)$. The $\text{massUpdate}$ process is done as follows:
 
@@ -164,7 +164,7 @@ So we can do $\text{massUpdate}$ fast. But how lazy propagation affects queries?
 
 The query complexity still remains $O(1)$.
 
-### Second approach
+#### Second approach
 
 In this approach, each node can be _lazy_ (except root). Even nodes in $\text{index}$ can be _lazy_. So, while processing a query, we have to look for _lazy_ tags in all the parent nodes, i. e. query complexity will be $O(\log \log n)$.
 
@@ -182,7 +182,7 @@ But $\text{massUpdate}$ becomes faster. It looks in the following way:
 
 Note that when we do the recursive call, we do prefix or suffix $\text{massUpdate}$. But for prefix and suffix updates we can have no more than one partially covered child. So, we visit one node on layer $1$, two nodes on layer $2$ and two nodes on any deeper level. So, the time complexity is $O(\sqrt{n} + \sqrt{\sqrt{n}} + \dots) = O(\sqrt{n})$. The approach here is similar to the segment tree mass update.
 
-# Implementation
+## Implementation
 
 The following implementation of Sqrt Tree can perform the following operations: build in $O(n \cdot \log \log n)$, answer queries in $O(1)$ and update an element in $O(\sqrt{n})$.
 
