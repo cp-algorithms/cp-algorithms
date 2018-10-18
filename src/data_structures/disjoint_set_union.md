@@ -166,9 +166,27 @@ void union_sets(int a, int b) {
     }
 }
 ```
+Both optimizations are equivalent in terms of time and space complexity. So in practice you can use any of them.
 
-Both optimizations are equivalent in terms of time and space complexity. 
-So in practice you can use any of them. 
+### Randomized linking
+
+This optimization may be a substitute for the union by size / rank, basically you will randomly attach a tree in the other instead of choosing base in the rank of each tree.
+
+The complexity of this optimization is more difficult to be analized, but it can be proved that the complexity is the same of the union by rank. You can read more about [here](http://www.cis.upenn.edu/~sanjeev/papers/soda14_disjoint_set_union.pdf).
+
+Since you will not need to store any additional information over the sets, this implementation will be cleaner and easier than the implementation of union by rank.
+
+
+```cpp
+void union_sets(int a, int b) {
+    a = find_set(a);
+    b = find_set(b);
+    if (a != b) {
+        if (rand()%2) swap(a, b);
+        parent[b] = a;
+    }
+}
+```
 
 ### Time complexity
 
