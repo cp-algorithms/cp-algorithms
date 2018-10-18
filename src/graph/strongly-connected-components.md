@@ -1,6 +1,6 @@
 <!--?title Strongly Connected Components and Condensation graph -->
 
-#Finding strongly connected components<br/>Building condensation graph
+# Finding strongly connected components<br/>Building condensation graph
 
 ## Definitions
 You are given a directed graph $G$ with vertices $V$ and edges $E$. It is possible that there are loops and multiple edges. Let's denote $n$ as number of vertices and $m$ as number of edges in $G$.
