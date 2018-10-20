@@ -81,7 +81,7 @@ especially popular in field of competitive programming.*
 
 ### Linear Algebra
 
-- **Equation systems**
+- **Matrices**
     - [Gauss & System of Linear Equations](./linear_algebra/linear-system-gauss.html)
     - [Gauss & Determinant](./linear_algebra/determinant-gauss.html)
     - [Kraut & Determinant](./linear_algebra/determinant-kraut.html)
@@ -102,11 +102,6 @@ especially popular in field of competitive programming.*
     - [Placing Bishops on a Chessboard](./combinatorics/bishops-on-chessboard.html)
     - [Balanced bracket sequences](./combinatorics/bracket_sequences.html)
     - [Counting labeled graphs](./combinatorics/counting_labeled_graphs.html)
-
-### Game Theory
-
-- **Tasks**
-    - [Games on arbitrary graphs](./game_theory/games_on_graphs.html)
 
 ### Numerical Methods
 
@@ -196,27 +191,23 @@ especially popular in field of competitive programming.*
     - [2-SAT](./graph/2SAT.html)
     - [Heavy-light decomposition](./graph/hld.html)
 
-### Sequences
+### Miscellaneous
 
-- **Tasks**
+- **Sequences**
     - [RMQ task (Range Minimum Query - the smallest element in an interval)](./sequences/rmq.html)
     - [Longest increasing subsequence](./sequences/longest_increasing_subsequence.html)
+    - [Search the subsegment with the maximum/minimum sum](./others/maximum_average_segment.html)
     - [K-th order statistic in O(N)](./sequences/k-th.html)
-
-### Schedules
-
-- **Computing optimal schedules**
+- **Game Theory**
+    - [Games on arbitrary graphs](./game_theory/games_on_graphs.html)
+- **Schedules**
     - [Scheduling jobs on one machine](./schedules/schedule_one_machine.html)
     - [Scheduling jobs on two machines](./schedules/schedule_two_machines.html)
     - [Optimal schedule of jobs given their deadlines and durations](./schedules/schedule-with-completion-duration.html)
-
-### Miscellaneous
-
-- **Tasks**
+- **Miscellaneous**
     - [Josephus problem](./others/josephus_problem.html)
     - [15 Puzzle Game: Existence Of The Solution](./others/15-puzzle.html)
     - [The Stern-Brocot Tree and Farey Sequences](./others/stern_brocot_tree_farey_sequences.html)
-    - [Search the subsegment with the maximum/minimum sum](./others/maximum_average_segment.html)
 
 ---
 
