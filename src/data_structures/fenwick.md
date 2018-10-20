@@ -11,7 +11,7 @@ Fenwick tree is a data structure which:
 * requires $O(N)$ memory, or in other words, exactly the same memory required for $A$;
 * is easy to use and code, especially, in the case of multidimensional arrays.
 
-> Fenwick tree is also called Binary Indexed Tree.
+Fenwick tree is also called Binary Indexed Tree.
 
 The most common application of Fenwick tree is _calculating the sum of a range_ (i.e. $f(A_1, A_2, \dots, A_k) = A_1 + A_2 + \dots + A_k$).
 
@@ -27,7 +27,7 @@ $$T_i = \sum_{j = g(i)}^{i}{A_j}$$
 
 where $g$ is some function that satisfies $(g(i) \le i)$ and we will define it a bit later.
 
-> **Note:** Fenwick tree presented here **does support** 0-based indexing (in case you were told that it does not support it).
+**Note:** Fenwick tree presented here **does support** 0-based indexing (in case you were told that it does not support it).
 
 Now we can write pseudo-code for the two operations mentioned above &mdash; get the sum of elements of $A$ in range $[0; r]$ and update some element $A_i$:
 
@@ -91,12 +91,11 @@ where `|` is a logical OR operator.
 
 ```cpp
 struct FenwickTree {
-    vector<int> bit; // binary indexed tree
+    int bit[MAXN]; // binary indexed tree
     int n;
 
     void init(int n) {
-        this->n = n;
-        bit.assign(n, 0);
+        fill(bit, bit+n, 0);
     }
     int sum(int r) {
         int ret = 0;
@@ -125,12 +124,11 @@ It is obvious that there is no way of finding minimum of range $[l; r]$ using Fe
 
 ```cpp
 struct FenwickTreeMin {
-    vector<int> bit;
+    int bit[MAXN];
     int n;
     const int INF = (int)1e9;
     void init (int n) {
-        this->n = n;
-        bit.assign (n, INF);
+        fill(bit, bit+n, INF);
     }
     int getmin (int r) {
         int ret = INF;
@@ -156,7 +154,7 @@ As claimed before, it is easy to implement Fenwick Tree for multidimensional arr
 
 ```cpp
 struct FenwickTree2D {
-    vector <vector <int> > bit;
+    int bit[MAXN][MAXM];
     int n, m;
     // init(...) { ... }
     int sum (int x, int y) {
