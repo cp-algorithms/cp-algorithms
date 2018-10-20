@@ -1,6 +1,6 @@
 <!--?title Divide and Conquer DP-->
 
-#Divide and Conquer DP
+# Divide and Conquer DP
 
 Divide and Conquer is a dynamic programming optimization.
 

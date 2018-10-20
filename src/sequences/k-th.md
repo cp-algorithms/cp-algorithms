@@ -6,7 +6,7 @@ Given an array __A__ of size __N__ and a number __K__. The challenge is to find 
 
 The basic idea - to use the idea of quick sort algorithm. Actually, the algorithm is simple, it is more difficult to prove that it runs in an average of O(N), in contrast to the quick sort.
 
-# Implementation (not recursive):
+## Implementation (not recursive):
 
 ```cpp
 template <class T>
