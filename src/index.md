@@ -166,6 +166,7 @@ especially popular in field of competitive programming.*
 - **Cycles**
     - [Checking a graph for acyclicity and finding a cycle in O(M)](./graph/finding-cycle.html)
     - [Finding a Negative Cycle in the Graph](./graph/finding-negative-cycle-in-graph.html)
+    - [Floyd's cycle detection](./algebra/floyd-cycle-detection.html)
     - [Eulerian Path](./graph/euler_path.html)
 - **Lowest common ancestor**
     - [Lowest Common Ancestor](./graph/lca.html)
