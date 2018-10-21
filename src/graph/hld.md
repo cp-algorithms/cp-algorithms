@@ -84,7 +84,7 @@ This task can be solved similar to the previous problem of maximums with the hel
 
 If there are no updates, then it is possible to find out the sum on the path between two vertices in parallel with the LCA search of two vertices by [binary lifting](./graph/lca_binary_lifting.html) — for this, along with the $2^k$-th ancestors of each vertex it is also necessary to store the sum on the paths up to those ancestors during the preprocessing.
 
-There is a fundamentally different approach to this problem - to consider the [Euler tour](https://en.wikipedia.org/wiki/Euler_tour_technique) of the tree, and build a segment tree on it. This algorithm is considered in an [article about a similar problem](http://e-maxx.ru/algo/tree_painting). Again, if there are no updates, storing prefix sums is enough and a segment tree is not required.
+There is a fundamentally different approach to this problem - to consider the [Euler tour](https://en.wikipedia.org/wiki/Euler_tour_technique) of the tree, and build a segment tree on it. This algorithm is considered in an [article about a similar problem](./graph/tree_painting.html). Again, if there are no updates, storing prefix sums is enough and a segment tree is not required.
 
 Both of these methods provide relatively simple solutions taking $\mathcal{O}(\log n)$ for one query.
 

@@ -224,7 +224,7 @@ Thus the complexity is $O((N+Q)F\sqrt{N})$ where $O(F)$  is the complexity of `a
 bool cmp(pair<int, int> p, pair<int, int> q) {
     if (p.first / BLOCK_SIZE != q.first / BLOCK_SIZE)
         return p < q;
-    return (p.first / BLOCK_SIZE & 1) ^ (p.second < q.second);
+    return (p.first / BLOCK_SIZE & 1) ? (p.second < q.second) : (p.second > q.second);
 }
 ```
 

@@ -1,6 +1,6 @@
 <!--?title Demo Article-->
 
-#Demo Article
+# Demo Article
 
 _You can [see the source of this article](https://raw.githubusercontent.com/e-maxx-eng/e-maxx-eng/master/src/demo-article.md) to better understand formatting features._
 
@@ -33,7 +33,7 @@ the preceding paragraph <span class="toggle-code">Show/Hide</span>
 		return result;
 	}
 
-###TeX and Markdown references
+### TeX and Markdown references
 
 We use [Markdown](https://daringfireball.net/projects/markdown) for source texts and
 convert them automatically to HTML.
@@ -47,7 +47,7 @@ And here is the formula in the separate block:
 
 $$E = mc^{2}$$
 
-###Adding images
+### Adding images
 
 Small images could be pushed along with texts to the [/img](https://github.com/e-maxx-eng/e-maxx-eng/tree/master/img) subfolder. Let them be in `PNG` format and less than `200kb`. Then you can refer to them inside the article like this (see the source here):
 

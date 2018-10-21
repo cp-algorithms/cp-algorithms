@@ -531,16 +531,17 @@ We have to compute the products of $a$ with every cyclic shift of $b$.
 We generate two new arrays of size $2n$:
 We reverse $a$ and append $n$ zeros to it.
 And we just append $b$ to itself.
-When we multiply these two arrays as polynomials, and look at the coefficient $c[n],~ c[n+1],~ c[2n-1]$ of the product $c$, we get:
+When we multiply these two arrays as polynomials, and look at the coefficient $c[n-1],~ c[n],~ c[2n-2]$ of the product $c$, we get:
 $$c[k] = \sum_{i+j=k} a[i] b[j]$$
 And since all the elements $a[i] = 0$ for $i \ge n$:
 $$c[k] = \sum_{i=0}^{n-1} a[i] b[k-i]$$
-It is easy to see that this sum is just the scalar product of the vector $a$ with the $(k - n - 1)$-th cyclic shift.
+It is easy to see that this sum is just the scalar product of the vector $a$ with the $(k - (n - 1))$-th cyclic left shift.
 Thus these coefficients are the answer to the problem, and we were still able to obtain it in $O(n \log n)$ time.
+Note here that $c[2n-1]$ also gives us the $n$th cyclic shift but that is the same as the $0$th cyclic shift so we don't need to consider that seperately into our answer.
 
 ### Two stripes
 
-We are given two Boolean stripes (cyclic arrays of with values values $0$ and $1$) $a$ and $b$.
+We are given two Boolean stripes (cyclic arrays of values $0$ and $1$) $a$ and $b$.
 We want to find all ways to attach the first stripe to the second one, such that at no position we have a $1$ of the first stripe next to a $1$ of the second stripe.
 
 The problem doesn't actually differ much from the previous problem.

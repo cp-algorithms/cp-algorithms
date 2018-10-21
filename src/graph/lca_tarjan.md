@@ -8,7 +8,7 @@ The node $v$ is also an ancestor of $v$, so the LCA can also be one of the two n
 In this article we will solve the problem off-line, i.e. we assume that all queries are known in advance, and we therefore answer the queries in any order we like.
 The following algorithm allows to answer all $m$ queries in $O(n + m)$ total time, i.e. for sufficiently large $m$ in $O(1)$ for each query.
 
-# Algorithm
+## Algorithm
 
 The algorithm is named after Robert Tarjan, who discovered it in 1979 and also made many other contributions to the [Disjoint Set Union](./data_structures/disjoint_set_union.html) data structure, which will be heavily used in this algorithm.
 
