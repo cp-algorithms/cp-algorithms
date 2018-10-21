@@ -113,7 +113,7 @@ especially popular in field of competitive programming.*
 
 ### Geometry
 
-- **Elementary algorithms, intersections**
+- **Elementary operations**
     - [Basic Geometry](./geometry/basic-geometry.html)
     - [Finding the equation of a line for a segment](./geometry/segment-to-line.html)
     - [Intersection Point of Lines](./geometry/lines-intersection.html)
