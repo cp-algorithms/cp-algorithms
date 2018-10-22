@@ -140,3 +140,6 @@ def findArrayDuplicate(array):
         if slow == finder:
             return slow
 ```
+
+## Reference
+* [Find Duplicate by Keith Schwarz](http://keithschwarz.com/interesting/code/?dir=find-duplicate)
