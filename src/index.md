@@ -198,7 +198,6 @@ especially popular in field of competitive programming.*
     - [Longest increasing subsequence](./sequences/longest_increasing_subsequence.html)
     - [Search the subsegment with the maximum/minimum sum](./others/maximum_average_segment.html)
     - [K-th order statistic in O(N)](./sequences/k-th.html)
-    - [Floyd's cycle detection](./sequences/floyd-cycle-detection.html)
 - **Game Theory**
     - [Games on arbitrary graphs](./game_theory/games_on_graphs.html)
 - **Schedules**
