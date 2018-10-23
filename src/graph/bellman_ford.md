@@ -42,11 +42,11 @@ void solve()
 {
     vector<int> d (n, INF);
     d[v] = 0;
-for (int i=0; i<n-1; ++i)
+    for (int i=0; i<n-1; ++i)
         for (int j=0; j<m; ++j)
             if (d[e[j].a] < INF)
                 d[e[j].b] = min (d[e[j].b], d[e[j].a] + e[j].cost);
-// display d, for example, on the screen
+    // display d, for example, on the screen
 }
 ```
 
@@ -207,6 +207,53 @@ d[e[j].b] = max (-INF, d[e[j].a] + e[j].cost);
 The above implementation looks for a negative cycle reachable from some starting vertex $v$; however, the algorithm can be modified to just looking for any negative cycle in the graph. For this we need to put all the distance $d[i]$ to zero and not infinity — as if we are looking for the shortest path from all vertices simultaneously; the validity of the detection of a negative cycle is not affected. 
 
 For more on this topic — see separate article, [Finding a negative cycle in the graph](./graph/finding-negative-cycle-in-graph.html).
+
+## Shortest Path Faster Algorithm (SPFA)
+
+SPFA is a improvement of the Bellman-Ford algorithm which takes advantage of the fact that not all attempts at relaxation will work. The main idea is to create a queue containing only the vertices that were relaxed but that still could not relax their neighbors and whenever you can relax some neighbor you should put him in the queue. This algorithm can also be used to detect negative cycles as the Bellman-Ford.
+
+The worst case of this algorithm is equal to the $O(nm)$ of the Bellman-Ford but in practice it works in much better speed and there are even [people who say it works in $O(m)$ on average](https://en.wikipedia.org/wiki/Shortest_Path_Faster_Algorithm#Average-case_performance).
+
+There are some care to be taken in the implementaton, such as the fact that the algorithm continues forever if there is a negative cycle, to solve this it is possible to create a counter of how many times a vertex has been relaxed and stop the algorithm when it is seen that some vertex was relaxed more than $n$ times. Note that there is no reason to put a vertice in the queue if it is already in.
+
+```cpp
+void solve() 
+{
+    vector<int> d (n, INF);
+    vector<int> cont(n, INF); //to count the number of times that a vertice was pushed to the queue
+    vector<bool> inq (n, 0); //to verify if a vertice is already in the queue
+    queue<int> q;
+    
+    d[v] = 0;
+    q.push(v);
+    while(!q.empty())
+    {
+        int v=q.front();
+        q.pop();
+        isq[v]=0;
+        
+        for(auto edge : adj[v])
+        {
+            int to = edge.first;
+            int len = edge.second;
+            
+            if (d[v] + len < d[to])
+            {
+                d[to] = d[v] + len;
+                if(!inq[to])
+                {
+                    q.push(to);
+                    inq[to]=1;
+                    cont[to]++;
+                    if(cont[to]>n)
+                        break; //a negative cycle was detected
+                }
+            }
+        }
+    }
+}
+```
+
 
 ## Related problems in online judges
 
