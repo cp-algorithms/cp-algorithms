@@ -212,7 +212,7 @@ For more on this topic — see separate article, [Finding a negative cycle in th
 
 SPFA is a improvement of the Bellman-Ford algorithm which takes advantage of the fact that not all attempts at relaxation will work. The main idea is to create a queue containing only the vertices that were relaxed but that still could not relax their neighbors and whenever you can relax some neighbor you should put him in the queue. This algorithm can also be used to detect negative cycles as the Bellman-Ford.
 
-The worst case of this algorithm is equal to the $O(nm)$ of the Bellman-Ford but in practice it works in much better speed and there are even [people who say it works in $O(m)$ on average](https://en.wikipedia.org/wiki/Shortest_Path_Faster_Algorithm#Average-case_performance).
+The worst case of this algorithm is equal to the $O(nm)$ of the Bellman-Ford but in practice it works in much better speed and there are even [people who say it works in $O(m)$ on average](https://en.wikipedia.org/wiki/Shortest_Path_Faster_Algorithm#Average-case_performance). Be careful because this algorithm is still deterministic and it is easy to create counterexamples that make the algorithm run again in $O(nm)$.
 
 There are some care to be taken in the implementaton, such as the fact that the algorithm continues forever if there is a negative cycle, to solve this it is possible to create a counter of how many times a vertex has been relaxed and stop the algorithm when it is seen that some vertex was relaxed more than $n$ times. Note that there is no reason to put a vertice in the queue if it is already in.
 
