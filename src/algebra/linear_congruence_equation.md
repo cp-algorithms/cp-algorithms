@@ -25,10 +25,10 @@ Then, if $b$ is not divisible by $g$, there is no solution. In fact, for any $x$
 
 If $g$ divides $b$, then by dividing both sides of the equation by $g$ (i.e. dividing $a$, $b$ and $n$ by $g$), we receive a new equation:
 
-$$a^\prime \cdot x^\prime = b^\prime \pmod{n^\prime}$$
+$$a^\prime \cdot x = b^\prime \pmod{n^\prime}$$
 
 in which $a^\prime$ and $n^\prime$ are already relatively prime, and we have already learned how to handle such an equation.
-We get as solution for $x^\prime$.
+We get $x^\prime$ as solution for $x$.
 
 It is clear that this $x^\prime$ will also be a solution of the original equation.
 However it will **not be the only solution**.
