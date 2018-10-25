@@ -16,7 +16,7 @@ Then one can find the [inverse](./algebra/module-inverse.html) of $a$, and multi
 
 $$x = b \cdot a ^ {- 1} \pmod n$$
 
-Now consider the case where $a$ and $n$ are **not coprime** ($\gcd(a, n) != 1$).
+Now consider the case where $a$ and $n$ are **not coprime** ($\gcd(a, n) \ne 1$).
 Then the solution will not always exist (for example $2 \cdot x = 1 \pmod 4$ has no solution).
 
 Let $g = \gcd(a, n)$, i.e. the [greatest common divisor](./algebra/euclid-algorithm.html) of $a$ and $n$ (which in this case is greater than one).
@@ -25,7 +25,7 @@ Then, if $b$ is not divisible by $g$, there is no solution. In fact, for any $x$
 
 If $g$ divides $b$, then by dividing both sides of the equation by $g$ (i.e. dividing $a$, $b$ and $n$ by $g$), we receive a new equation:
 
-$$a^\prime\cdot x = b^\prime\pmod{n^\prime}$$
+$$a^\prime \cdot x^\prime = b^\prime \pmod{n^\prime}$$
 
 in which $a^\prime$ and $n^\prime$ are already relatively prime, and we have already learned how to handle such an equation.
 We get as solution for $x^\prime$.
