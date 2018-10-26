@@ -11,7 +11,7 @@ Fenwick tree is a data structure which:
 * requires $O(N)$ memory, or in other words, exactly the same memory required for $A$;
 * is easy to use and code, especially, in the case of multidimensional arrays.
 
-> Fenwick tree is also called Binary Indexed Tree.
+Fenwick tree is also called Binary Indexed Tree.
 
 The most common application of Fenwick tree is _calculating the sum of a range_ (i.e. $f(A_1, A_2, \dots, A_k) = A_1 + A_2 + \dots + A_k$).
 
@@ -27,19 +27,19 @@ $$T_i = \sum_{j = g(i)}^{i}{A_j}$$
 
 where $g$ is some function that satisfies $(g(i) \le i)$ and we will define it a bit later.
 
-> **Note:** Fenwick tree presented here **does support** 0-based indexing (in case you were told that it does not support it).
+**Note:** Fenwick tree presented here **does support** 0-based indexing (in case you were told that it does not support it).
 
 Now we can write pseudo-code for the two operations mentioned above &mdash; get the sum of elements of $A$ in range $[0; r]$ and update some element $A_i$:
 
 ```python
-def sum (int r):
+def sum(int r):
     res = 0
     while (r >= 0):
         res += t[r]
         r = g(r) - 1
     return res
 
-def inc (int i, int delta):
+def inc(int i, int delta):
     for all j, where g(j) <= i <= j
         t[j] += delta
 ```
@@ -91,7 +91,7 @@ where `|` is a logical OR operator.
 
 ```cpp
 struct FenwickTree {
-    vector<int> bit; // binary indexed tree
+    vector<int> bit;  // binary indexed tree
     int n;
 
     void init(int n) {
@@ -100,16 +100,16 @@ struct FenwickTree {
     }
     int sum(int r) {
         int ret = 0;
-        for (; r >= 0; r = (r & (r+1)) - 1)
+        for (; r >= 0; r = (r & (r + 1)) - 1)
             ret += bit[r];
         return ret;
     }
     void add(int idx, int delta) {
-        for (; idx < n; idx = idx | (idx+1))
+        for (; idx < n; idx = idx | (idx + 1))
             bit[idx] += delta;
     }
     int sum(int l, int r) {
-        return sum(r) - sum(l-1);
+        return sum(r) - sum(l - 1);
     }
     void init(vector<int> a) {
         init(a.size());
@@ -128,22 +128,22 @@ struct FenwickTreeMin {
     vector<int> bit;
     int n;
     const int INF = (int)1e9;
-    void init (int n) {
+    void init(int n) {
         this->n = n;
-        bit.assign (n, INF);
+        bit.assign(n, INF);
     }
-    int getmin (int r) {
+    int getmin(int r) {
         int ret = INF;
-        for (; r >= 0; r = (r & (r+1)) - 1)
+        for (; r >= 0; r = (r & (r + 1)) - 1)
             ret = min(ret, bit[r]);
         return ret;
     }
-    void update (int idx, int val) {
-        for (; idx < n; idx = idx | (idx+1))
+    void update(int idx, int val) {
+        for (; idx < n; idx = idx | (idx + 1))
             bit[idx] = min(bit[idx], val);
     }
-    void init (vector<int> a) {
-        init (a.size());
+    void init(vector<int> a) {
+        init(a.size());
         for (size_t i = 0; i < a.size(); i++)
             update(i, a[i]);
     }
@@ -156,19 +156,19 @@ As claimed before, it is easy to implement Fenwick Tree for multidimensional arr
 
 ```cpp
 struct FenwickTree2D {
-    vector <vector <int> > bit;
+    vector<vector<int>> bit;
     int n, m;
     // init(...) { ... }
-    int sum (int x, int y) {
+    int sum(int x, int y) {
         int ret = 0;
-        for (int i = x; i >= 0; i = (i & (i+1)) - 1)
-            for (int j = y; j >= 0; j = (j & (j+1)) - 1)
+        for (int i = x; i >= 0; i = (i & (i + 1)) - 1)
+            for (int j = y; j >= 0; j = (j & (j + 1)) - 1)
                 ret += bit[i][j];
         return ret;
     }
     void add(int x, int y, int delta) {
-        for (int i = x; i < n; i = i | (i+1))
-            for (int j = y; j < m; j = j | (j+1))
+        for (int i = x; i < n; i = i | (i + 1))
+            for (int j = y; j < m; j = j | (j + 1))
                 bit[i][j] += delta;
     }
 };
@@ -212,5 +212,5 @@ struct FenwickTree2D {
 
 ### Other sources
 
-* [Fenwick tree on Wikipedia](http://en.wikipedia.org/wiki/Fenwick_tree)  
+* [Fenwick tree on Wikipedia](http://en.wikipedia.org/wiki/Fenwick_tree)
 * [Binary indexed trees tutorial on TopCoder](https://www.topcoder.com/community/data-science/data-science-tutorials/binary-indexed-trees/)

@@ -16,11 +16,11 @@ At every subsequent iteration, consider all adjacent fractions $\frac{a}{b}$ and
 
 The first few iterations look like this:
 $$
-\begin{array}{c}
-    \frac{0}{1}, \frac{1}{1}, \frac{1}{0} \\\\
-    \frac{0}{1}, \frac{1}{2}, \frac{1}{1}, \frac{2}{1}, \frac{1}{0} \\\\
-    \frac{0}{1}, \frac{1}{3}, \frac{1}{2}, \frac{2}{3}, \frac{1}{1}, \frac{3}{2}, \frac{2}{1}, \frac{3}{1} \frac{1}{0}
-\end{array}
+    \begin{array}{c}
+    \dfrac{0}{1}, \dfrac{1}{1}, \dfrac{1}{0} \\\\\\\\
+    \dfrac{0}{1}, \dfrac{1}{2}, \dfrac{1}{1}, \dfrac{2}{1}, \dfrac{1}{0} \\\\\\\\
+    \dfrac{0}{1}, \dfrac{1}{3}, \dfrac{1}{2}, \dfrac{2}{3}, \dfrac{1}{1}, \dfrac{3}{2}, \dfrac{2}{1}, \dfrac{3}{1}, \dfrac{1}{0}
+    \end{array}
 $$
 
 Continuing this process to infinity this covers *all* positive fractions. Additionally, all fractions will be *unique* and *irreducible*. Finally, the fractions will also appear in ascending order.
@@ -41,13 +41,13 @@ $$
 $$
 The two inequalities can be easily shown by rewriting the fractions with common denominators.
 
-Given that ordering was upheld at the zeroth iteration, it will be maintained at every subsequent iteration.
+As the ordering is ascending in the zeroth iteration, it will be maintained at every subsequent iteration.
 
 **Irreducibility.** To prove this we will show that for any two adjacent fractions $\frac{a}{b}$ and $\frac{c}{d}$ we have that
 $$
     bc - ad = 1.
 $$
-We recall that a Diophantine equation with two variables $ax+by=c$ has a solution iff $c$ is a multiple of $\gcd(a,b)$. In our case this means that $\gcd(a,b) = \gcd(c,d) = 1$, which is what we wanted to show.
+Recall that a Diophantine equation with two variables $ax+by=c$ has a solution iff $c$ is a multiple of $\gcd(a,b)$. In our case this implies that $\gcd(a,b) = \gcd(c,d) = 1$, which is what we want to show.
 
 Clearly at the zeroth iteration $bc - ad = 1$. What remains to be shown is that mediants retain this property.
 
@@ -57,8 +57,8 @@ $$
 $$
 the new expressions become
 $$\begin{align}
-    b(a+c) - a(b+d) &= 0 \\\\
-    c(b+d) - d(a+c) &= 0
+    b(a+c) - a(b+d) &= 1 \\\\
+    c(b+d) - d(a+c) &= 1
 \end{align}$$
 which, using that $bc-ad=1$, can be easily shown to be true.
 
