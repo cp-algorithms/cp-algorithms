@@ -197,3 +197,5 @@ However, this algorithm also has its own weaknesses.
 * [SPOJ - Binary Sequence of Prime Numbers](http://www.spoj.com/problems/BSPRIME/)
 * [UVA 11353 - A Different Kind of Sorting](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2338)
 * [SPOJ - Printing some primes (hard)](http://www.spoj.com/problems/PRIMES2/)
+* [Codeforces - Nodbach Problem](https://codeforces.com/problemset/problem/17/A)
+* [Codefoces - Colliders](https://codeforces.com/problemset/problem/154/B)
