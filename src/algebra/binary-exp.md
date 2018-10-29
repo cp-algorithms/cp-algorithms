@@ -106,6 +106,8 @@ long long binpow(long long a, long long b, long long m) {
 }
 ```
 
+**Note:** If $m$ is a prime number, because of [Fermat's little theorem](http://en.wikipedia.org/wiki/Fermat's_little_theorem), we can speed up a bit this algorithm by calculating $a ^ {b \mod m-1}$ instead of $a ^ b$
+
 ### Effective computation of Fibonacci numbers
 
 **Problem:** Compute $n$-th Fibonacci number $F_n$.
