@@ -17,7 +17,7 @@ especially popular in field of competitive programming.*
     - [Fibonacci Numbers](./algebra/fibonacci-numbers.html)
 - **Prime numbers**
     - [Sieve of Eratosthenes](./algebra/sieve-of-eratosthenes.html)
-    - [Sieve of Eratosthenes Having Linear Time Complexity](./algebra/prime-sieve-linear.html)
+    - [Sieve of Eratosthenes With Linear Time Complexity](./algebra/prime-sieve-linear.html)
 - **Number-theoretic functions**
     - [Euler's totient function](./algebra/phi-function.html)
     - [Number of divisors / sum of divisors](./algebra/divisors.html)

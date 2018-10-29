@@ -1,4 +1,4 @@
-<!--?title Sieve of Eratosthenes Having Linear Time Complexity -->
+<!--?title Sieve of Eratosthenes With Linear Time Complexity -->
 
 # Sieve of Eratosthenes Having Linear Time Complexity
 

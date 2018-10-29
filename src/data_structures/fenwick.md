@@ -209,6 +209,8 @@ struct FenwickTree2D {
 * [GYM - Cairo Market](http://codeforces.com/problemset/gymProblem/101055/D)
 * [Codeforces - Goodbye Souvenir](http://codeforces.com/contest/849/problem/E)
 * [SPOJ - Ada and Species](http://www.spoj.com/problems/ADACABAA/)
+* [Codeforces - Thor](https://codeforces.com/problemset/problem/704/A)
+* [Latin American Regionals 2017 - Fundraising](http://matcomgrader.com/problem/9346/fundraising/)
 
 ### Other sources
 

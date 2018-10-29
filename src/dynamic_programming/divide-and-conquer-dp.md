@@ -82,4 +82,4 @@ both!
 
 ## References
 - [Quora Answer by Michael Levin](https://www.quora.com/What-is-divide-and-conquer-optimization-in-dynamic-programming)
-- [Video Tutorial by "Sothe" the Algorithm Wolf](https://www.youtube.com/watch?v=wLyEWuDWnzI)
+- [Video Tutorial by "Sothe" the Algorithm Wolf](https://www.youtube.com/watch?v=wLXEWuDWnzI)

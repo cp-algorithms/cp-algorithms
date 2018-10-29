@@ -365,3 +365,4 @@ The problem can be solved in the same way by constructing the automaton of the p
 * [UVA 11019 - Matrix Matcher](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1960)
 * [SPOJ - Pattern Find](http://www.spoj.com/problems/NAJPF/)
 * [Codeforces - Anthem of Berland](http://codeforces.com/contest/808/problem/G)
+* [Codeforces - MUH and Cube Walls](http://codeforces.com/problemset/problem/471/D)
