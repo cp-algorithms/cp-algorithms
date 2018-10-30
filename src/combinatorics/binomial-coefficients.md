@@ -1,7 +1,7 @@
 <!--?title Binomial Coefficients-->
 # Binomial Coefficients
 
-Binomial coefficients $\binom n k$ are the numbers of ways to select a set of $k$ elements from $n$ different elements without taking into account the order of arrangement of these elements (i.e., the numbers of unordered sets).
+Binomial coefficients $\binom n k$ are the number of ways to select a set of $k$ elements from $n$ different elements without taking into account the order of arrangement of these elements (i.e., the number of unordered sets).
 
 Binomial coefficients are also the coefficients in the expansion of $(a + b) ^ n$ (so-called binomial theorem):
 
@@ -17,11 +17,11 @@ $$ \binom n k = \frac {n!} {k!(n-k)!} $$
 
 This formula can be easily deduced from the problem of ordered arrangement (number of ways to select $k$ different elements from $n$ different elements). First, let's count the number of ordered selections of $k$ elements. There are $n$ ways to select the first element, $n-1$ ways to select the second element, $n-2$ ways to select the third element, and so on. As a result, we get the formula of the number of ordered arrangements: $n (n-1) (n-2) \cdots (n - k + 1) = \frac {n!} {(n-k)!}$. We can easily move to unordered arrangements, noting that each unordered arrangement corresponds to exactly $k!$ ordered arrangements ($k!$ is the number of possible permutations of $k$ elements). We get the final formula by dividing $\frac {n!} {(n-k)!}$ by $k!$.
 
-**Recurrent formula** (which is associated with the famous "Pascal's Triangle"):
+**Recurrence formula** (which is associated with the famous "Pascal's Triangle"):
 
 $$ \binom n k = \binom {n-1} {k-1} + \binom {n-1} k $$
 
-It is easy to deduce through the previous formula.
+It is easy to deduce this using the analytic formula.
 
 Note that for $n \lt k$ the value of $\binom n k$ is assumed to be zero.
 
@@ -53,12 +53,12 @@ $$ \binom n 0 + \binom {n-1} 1 + \cdots + \binom {n-k} k + \cdots + \binom 0 n =
 The first, straightforward formula is very easy to code, but this method is likely to overflow even for relatively small values of $n$ and $k$ (even if the answer completely fit into some datatype, the calculation of the intermediate factorials can lead to overflow). Therefore, this method often can only be used with [long arithmetic](./algebra/big-integer.html):
 
 ```cpp
-int C (int n, int k) {
-	int res = 1;
-	for (int i=n-k+1; i<=n; ++i)
-		res *= i;
-	for (int i=2; i<=k; ++i)
-		res /= i;
+int C(int n, int k) {
+    int res = 1;
+    for (int i = n - k + 1; i <= n; ++i)
+        res *= i;
+    for (int i = 2; i <= k; ++i)
+        res /= i;
 }
 ```
 
@@ -67,11 +67,11 @@ int C (int n, int k) {
 Note that in the above implementation numerator and denominator have the same number of factors ($k$), each of which is greater than or equal to 1. Therefore, we can replace our fraction with a product $k$ fractions, each of which is real-valued. However, on each step after multiplying current answer by each of the next fractions the answer will still be integer (this follows from the property of factoring in). C++ implementation:
 
 ```cpp
-int C (int n, int k) {
-	double res = 1;
-	for (int i=1; i<=k; ++i)
-		res = res * (n-k+i) / i;
-	return (int) (res + 0.01);
+int C(int n, int k) {
+    double res = 1;
+    for (int i = 1; i <= k; ++i)
+        res = res * (n - k + i) / i;
+    return (int)(res + 0.01);
 }
 ```
 
@@ -79,24 +79,25 @@ Here we carefully cast the floating point number to an integer, taking into acco
 
 ### Pascal's Triangle
 
-By using the recurrence relation we can construct a table of binomial coefficients (Pascal's triangle) and take the result from it. The advantage of this method is that intermediate results never exceed the answer and calculating each new table element requires only one addition. The flaw is slow execution for large $n$ and $k$ if you just need a single value and not the whole table (because in order to calculate $\binom n k$ you will need to build a table of all $\binom i j, 1 \le i \le n, 1 \le j \le n$, or at least to $1 \le j \le \min (i, 2k)$). The time complexity can be considered to be $\mathcal{O}(n^2)$.  
+By using the recurrence relation we can construct a table of binomial coefficients (Pascal's triangle) and take the result from it. The advantage of this method is that intermediate results never exceed the answer and calculating each new table element requires only one addition. The flaw is slow execution for large $n$ and $k$ if you just need a single value and not the whole table (because in order to calculate $\binom n k$ you will need to build a table of all $\binom i j, 1 \le i \le n, 1 \le j \le n$, or at least to $1 \le j \le \min (i, 2k)$). The time complexity can be considered to be $\mathcal{O}(n^2)$.
 C++ implementation:
 
 ```cpp
 const int maxn = ...;
-int C[maxn+1][maxn+1];
-for (int n=0; n<=maxn; ++n) {
-	C[n][0] = C[n][n] = 1;
-	for (int k=1; k<n; ++k)
-		C[n][k] = C[n-1][k-1] + C[n-1][k];
+int C[maxn + 1][maxn + 1];
+C[0][0] = 1;
+for (int n = 1; n <= maxn; ++n) {
+    C[n][0] = C[n][n] = 1;
+    for (int k = 1; k < n; ++k)
+        C[n][k] = C[n - 1][k - 1] + C[n - 1][k];
 }
 ```
 
-If the entire table of values is not necessary, storing only two last rows of it is sufficient (current $n$-th row and the previous $n-1$-th). 
+If the entire table of values is not necessary, storing only two last rows of it is sufficient (current $n$-th row and the previous $n-1$-th).
 
 ### Calculation in $O(1)$
 
-Finally, in some situations it is beneficial to pre-calculate all the factorials in order to produce any necessary binomial coefficient with only two divisions later. This can be advantageous when using [long arithmetic](./algebra/big-integer.html), when the memory does not allow precalculation of the whole Pascal's triangle.
+Finally, in some situations it is beneficial to precompute all the factorials in order to produce any necessary binomial coefficient with only two divisions later. This can be advantageous when using [long arithmetic](./algebra/big-integer.html), when the memory does not allow precomputation of the whole Pascal's triangle.
 
 
 ## Computing binomial coefficients modulo $m$.
@@ -168,13 +169,13 @@ Since all moduli $p_i^{e_i}$ are coprime, we can apply the [Chinese Remainder Th
 ### Binomial coefficient for large $n$ and small modulo
 
 When $n$ is too large, the $\mathcal{O}(n)$ algorithms discussed above become impractical. However, if the modulo $m$ is small there are still ways to calculate $\binom{n}{k} \bmod m$.
-  
+
 When the modulo $m$ is prime, there are 2 options:
 
 * [Lucas's theorem](https://en.wikipedia.org/wiki/Lucas's_theorem) can be applied which breaks the problem of computing $\binom{n}{k} \bmod m$ into $\log_m n$ problems of the form $\binom{x_i}{y_i} \bmod m$ where $x_i, y_i < m$.  If each reduced coefficient is calculated using precomputed factorials and inverse factorials, the complexity is $\mathcal{O}(m + \log_m n)$.
 * The method of computing [factorial modulo P](./algebra/factorial-modulo.html) can be used to get the required $g$ and $c$ values and use them as described in the section of [modulo prime power](#mod-prime-pow). This takes $\mathcal{O}(m \log_m n)$.
 
-When $m$ is not prime but square-free, the prime factors of $m$ can be obtained and and the coefficient modulo each prime factor can be calculated using either of the above methods, and the overall answer can be obtained by the Chinese Remainder Theorem.
+When $m$ is not prime but square-free, the prime factors of $m$ can be obtained and the coefficient modulo each prime factor can be calculated using either of the above methods, and the overall answer can be obtained by the Chinese Remainder Theorem.
 
 When $m$ is not square-free, a [generalization of Lucas's theorem for prime powers](https://web.archive.org/web/20170202003812/http://www.dms.umontreal.ca/~andrew/PDF/BinCoeff.pdf) can be applied instead of Lucas's theorem.
 
