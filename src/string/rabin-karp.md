@@ -1,53 +1,45 @@
 <!--?title Rabin-Karp Algorithm-->
 
-# Rabin-Karp Algorithm for string matching in O(|S| + |T|)
+# Rabin-Karp Algorithm for string matching
 
-
-This algorithm is based on the concept of hashing, so if you are not familiar with string hashing,  refer to the [string hashing](./string/string-hashing.html) article.
-
+This algorithm is based on the concept of hashing, so if you are not familiar with string hashing, refer to the [string hashing](./string/string-hashing.html) article.
  
 This algorithm was authored by Rabin and Karp in 1987.
 
-Problem: Given two strings - a pattern $S$ and a text $T$, determine if the pattern appears in the text and if it does, enumerate all its
-occurrences in $O(|S| + |T|)$ time.
+Problem: Given two strings - a pattern $s$ and a text $t$, determine if the pattern appears in the text and if it does, enumerate all its occurrences in $O(|s| + |t|)$ time.
 
-Algorithm: Calculate the hash for the pattern $S$. Calculate hash values for all the prefixes of the text $T$. Now, we can compare a substring of length $|S|$ with $S$ in constant time using the calculated hashes. So, compare each substring of length $|S|$ with the pattern. This will take a total of $O(|T|)$ time. Hence the final complexity of the algorithm is $O(|T| + |S|)$:  $O(|S|)$ is required for calculating the hash of the pattern and $O(|T|)$ for comparing each substring of length $|S|$ with the pattern.
-
+Algorithm: Calculate the hash for the pattern $s$.
+Calculate hash values for all the prefixes of the text $t$.
+Now, we can compare a substring of length $|s|$ with $s$ in constant time using the calculated hashes.
+So, compare each substring of length $|s|$ with the pattern. This will take a total of $O(|t|)$ time.
+Hence the final complexity of the algorithm is $O(|t| + |s|)$: $O(|s|)$ is required for calculating the hash of the pattern and $O(|t|)$ for comparing each substring of length $|s|$ with the pattern.
 
 ## Implementation
-```cpp
-string s, t; // input 
+```cpp rabin_karp
+vector<int> rabin_karp(string const& s, string const& t) {
+    const int p = 31; 
+    const int m = 1e9 + 9;
+    int S = s.size(), T = t.size();
 
-// calculate all powers of p 
-const int p = 31; 
-vector<unsigned long long> p_pow(max(s.length(), t.length())); 
-p_pow[0] = 1; 
-for (size_t i = 1; i < p_pow.size(); ++i) 
-    p_pow[i] = p_pow[i-1] * p; 
+    vector<long long> p_pow(max(S, T)); 
+    p_pow[0] = 1; 
+    for (int i = 1; i < (int)p_pow.size(); i++) 
+        p_pow[i] = (p_pow[i-1] * p) % m;
 
-// calculate hashes of all prefixes of text T 
-vector<unsigned long long> h(t.length()); 
-for (size_t i = 0; i < t.length(); i++) 
-{ 
-    h[i] = (t[i] - 'a' + 1) * p_pow[i]; 
-    if (i) h[i] + = h[i - 1]; 
-} 
+    vector<long long> h(T + 1, 0); 
+    for (int i = 0; i < T; i++)
+        h[i+1] = (h[i] + (t[i] - 'a' + 1) * p_pow[i]) % m; 
+    long long h_s = 0; 
+    for (int i = 0; i < S; i++) 
+        h_s = (h_s + (s[i] - 'a' + 1) * p_pow[i]) % m; 
 
-// calculate the hash of the pattern S 
-unsigned long long h_s = 0; 
-for (size_t i = 0; i < s.length(); i++) 
-    h_s += (s[i] - 'a' + 1) * p_pow[i]; 
-
-// iterate over all substrings of T having length |S| and compare them
-// with S 
-for (size_t i = 0; i + s.length() - 1 < t.length(); i++) 
-{ 
-    unsigned long long cur_h = h[i + s.length () - 1]; 
-    if (i) cur_h -= h [i - 1]; 
-
-    // get the hashes multiplied to the same degree of p and compare them 
-    if (cur_h == H_s * p_pow[i]) 
-	    cout << i << ''; 
+    vector<int> occurences;
+    for (int i = 0; i + S - 1 < T; i++) { 
+        long long cur_h = (h[i+S] + m - h[i]) % m; 
+        if (cur_h == h_s * p_pow[i] % m)
+            occurences.push_back(i);
+    }
+    return occurences;
 }
 ```
 
@@ -55,4 +47,5 @@ for (size_t i = 0; i + s.length() - 1 < t.length(); i++)
 
 * [SPOJ - Pattern Find](http://www.spoj.com/problems/NAJPF/)
 * [Codeforces - Good Substrings](http://codeforces.com/problemset/problem/271/D)
+* [Codeforces - Palindromic characteristics](https://codeforces.com/problemset/problem/835/D)
 

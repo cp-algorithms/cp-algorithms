@@ -3,7 +3,7 @@
 
 A Linear Diophantine Equation (in two variables) is an equation of the general form:
 
-$ax + by = c$
+$$ax + by = c$$
 
 where $a$, $b$, $c$ are given integers, and $x$, $y$ are unknown integers.
 
@@ -22,24 +22,24 @@ A degenerate case that need to be taken care of is when $a = b = 0$. It is easy 
 
 To find one solution of the Diophantine equation with 2 unknowns, you can use the extended Euclidean algorithm. First, assume that $a$ and $b$ are non-negative. When we apply extended Euclidean algorithm for $a$ and $b$, we can find their greatest common divisor $g$ and 2 numbers $x_g$ and $y_g$ such that:
 
-$a x_g + b y_g = g$
+$$a x_g + b y_g = g$$
 
-If $c$ is divisible by $g = gcd(a, b)$, then the given Diophantine equation has a solution, otherwise it does not have any solution. The proof is straight-forward: a linear combination of two numbers is divisible by their common divisor.
+If $c$ is divisible by $g = \gcd(a, b)$, then the given Diophantine equation has a solution, otherwise it does not have any solution. The proof is straight-forward: a linear combination of two numbers is divisible by their common divisor.
 
 Now supposed that $c$ is divisible by $g$, then we have:
 
-$ a \cdot x_g \cdot (c / g) + b \cdot y_g \cdot (c / g) = c$
+$$a \cdot x_g \cdot \frac{c}{g} + b \cdot y_g \cdot \frac{c}{g} = c$$
 
-One of the solutions of the Diophantine equation is:
+Therefore one of the solutions of the Diophantine equation is:
 
-$ x_0 = x_g \cdot (c / g)$,
-$ y_0 = y_g \cdot (c / g)$.
+$$x_0 = x_g \cdot \frac{c}{g},$$
+$$y_0 = y_g \cdot \frac{c}{g}.$$
 
 The above idea still works when $a$ or $b$ or both of them are negative. We only need to change the sign of $x_0$ and $y_0$ when necessary.
 
 Finally, we can implement this idea as follows (note that this code does not consider the case $a = b = 0$):
 
-```cpp
+```cpp linear_diophantine_any
 int gcd(int a, int b, int &x, int &y) {
     if (a == 0) {
         x = 0; y = 1;
@@ -72,16 +72,16 @@ From one solution $(x_0, y_0)$, we can obtain all the solutions of the given equ
 
 Let $g = gcd(a, b)$ and let $x_0, y_0$ be integers which satisfy the following:
 
-$a \cdot x_0 + b \cdot y_0 = c$
+$$a \cdot x_0 + b \cdot y_0 = c$$
 
 Now, we should see that adding $b / g$ to $x_0$, and, at the same time subtracting $a / g$ from $y_0$ will not break the equality:
 
-$a \cdot (x_0 + b / g) + b \cdot (y_0 - a / g) = a \cdot x_0 + b \cdot y_0 + a \cdot b / g - b \cdot a / g = c$
+$$a \cdot \left(x_0 + \frac{b}{g}\right) + b \cdot \left(y_0 - \frac{a}{g}\right) = a \cdot x_0 + b \cdot y_0 + a \cdot \frac{b}{g} - b \cdot \frac{a}{g} = c$$
 
 Obviously, this process can be repeated again, so all the numbers of the form:
 
-$x = x_0 + k \cdot b / g$
-$y = y_0 - k \cdot a / g$
+$$x = x_0 + k \cdot \frac{b}{g}$$
+$$y = y_0 - k \cdot \frac{a}{g}$$
 
 are solutions of the given Diophantine equation.
 
@@ -105,50 +105,51 @@ The final solution is all solutions with x in intersection of $[lx_1, rx_1]$ and
 
 Following is the code implementing this idea:
 
-```cpp
+```cpp linear_diophantine_all
 void shift_solution (int & x, int & y, int a, int b, int cnt) {
 	x += cnt * b;
 	y -= cnt * a;
 }
- 
+
 int find_all_solutions (int a, int b, int c, int minx, int maxx, int miny, int maxy) {
 	int x, y, g;
 	if (! find_any_solution (a, b, c, x, y, g))
 		return 0;
 	a /= g;  b /= g;
- 
+
 	int sign_a = a>0 ? +1 : -1;
 	int sign_b = b>0 ? +1 : -1;
- 
+
 	shift_solution (x, y, a, b, (minx - x) / b);
 	if (x < minx)
 		shift_solution (x, y, a, b, sign_b);
 	if (x > maxx)
 		return 0;
 	int lx1 = x;
- 
+
 	shift_solution (x, y, a, b, (maxx - x) / b);
 	if (x > maxx)
 		shift_solution (x, y, a, b, -sign_b);
 	int rx1 = x;
- 
+
 	shift_solution (x, y, a, b, - (miny - y) / a);
 	if (y < miny)
 		shift_solution (x, y, a, b, -sign_a);
 	if (y > maxy)
 		return 0;
 	int lx2 = x;
- 
+
 	shift_solution (x, y, a, b, - (maxy - y) / a);
 	if (y > maxy)
 		shift_solution (x, y, a, b, sign_a);
 	int rx2 = x;
- 
+
 	if (lx2 > rx2)
 		swap (lx2, rx2);
 	int lx = max (lx1, lx2);
 	int rx = min (rx1, rx2);
- 
+
+	if (lx > rx) return 0;
 	return (rx - lx) / abs(b) + 1;
 }
 ```
@@ -163,13 +164,12 @@ The idea is similar to previous section: We find any solution of the Diophantine
 
 Finally, use the knowledge of the set of all solutions to find the minimum:
 
-$x' = x + k \cdot (b / g)$,
-
-$y' = y - k \cdot (a / g)$.
+$$x' = x + k \cdot \frac{b}{g},$$
+$$y' = y - k \cdot \frac{a}{g}.$$
 
 Note that $x + y$ change as follows:
 
-$x' + y' = x + y + k \cdot (b/g - a/g) = x + y + k \cdot (b - a) / g$.
+$$x' + y' = x + y + k \cdot \left(\frac{b}{g} - \frac{a}{g}\right) = x + y + k \cdot \frac{b-a}{g}$$
 
 If $a < b$, we need to select smallest possible value of $k$. If $a > b$, we need to select the largest possible value of $k$. If $a = b$, all solution will have the same sum $x + y$.
 

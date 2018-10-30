@@ -89,13 +89,38 @@ As these two formulas would require very high accuracy when working with fractio
 
 It is easy to prove the following relation:
 
-$$\pmatrix{F_{n-1} & F_{n} \cr} = \pmatrix{F_{n-2} & F_{n-1} \cr} \cdot \pmatrix{0 & 1 \cr 1 & 1 \cr}$$
+$$\begin{pmatrix}F_{n-1} & F_{n} \cr\end{pmatrix} = \begin{pmatrix}F_{n-2} & F_{n-1} \cr\end{pmatrix} \cdot \begin{pmatrix}0 & 1 \cr 1 & 1 \cr\end{pmatrix}$$
 
-Denoting $P \equiv \pmatrix{0 & 1 \cr 1 & 1 \cr}$, we have:
+Denoting $P \equiv \begin{pmatrix}0 & 1 \cr 1 & 1 \cr\end{pmatrix}$, we have:
 
-$$\pmatrix{F_n & F_{n+1} \cr} = \pmatrix{F_0 & F_1 \cr} \cdot P^n$$
+$$\begin{pmatrix}F_n & F_{n+1} \cr\end{pmatrix} = \begin{pmatrix}F_0 & F_1 \cr\end{pmatrix} \cdot P^n$$
 
 Thus, in order to find $F_n$, we must raise the matrix $P$ to $n$. This can be done in $O(\log n)$ (see [Binary exponentiation](./algebra/binary-exp.html)).
+
+### Fast Doubling Method
+
+Using above method we can find these equations:
+$$ \begin{array}{rll}
+                        F_{2k} &= F_k \left( 2F_{k+1} - F_{k} \right). \\\
+                        F_{2k+1} &= F_{k+1}^2 + F_{k}^2.
+\end{array}$$
+Thus using above two equations Fibonacci numbers can be calculated easily by the following code:
+
+The above code returns $F_n$ and $F_{n+1}$ as a pair.
+```cpp
+pair<int, int> fib (int n) {
+    if (n == 0)
+        return {0, 1};
+
+    auto p = fib(n >> 1);
+    int c = p.first * (2 * p.second - p.first);
+    int d = p.first * p.first + p.second * p.second;
+    if (n & 1)
+        return {d, c + d};
+    else
+        return {c, d};
+}
+```
 
 ## Periodicity modulo p
 
@@ -109,7 +134,7 @@ There can only be $p$ different remainders modulo $p$, and at most $p^2$ differe
 
 We now choose two pairs of identical remainders with the smallest indices in the sequence. Let the pairs be $(F_a,\ F_{a + 1})$ and $(F_b,\ F_{b + 1})$. We will prove that $a = 1$. If this was false, there would be two previous pairs $(F_{a-1},\ F_a)$ and $(F_{b-1},\ F_b)$, which, by the property of Fibonacci numbers, would also be equal. However, this contradicts the fact that we had chosen pairs with the smallest indices, completing our proof.
 
-##Practice Problems
+## Practice Problems
 
 * [SPOJ - Euclid Algorithm Revisited](http://www.spoj.com/problems/MAIN74/)
 * [SPOJ - Fibonacci Sum](http://www.spoj.com/problems/FIBOSUM/)

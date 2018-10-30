@@ -36,7 +36,7 @@ For each such segment we store the sum of the numbers on it.
 
 We can say, that these segments form a binary tree: 
 the root of this tree is the segment $a[0 \dots n-1]$, and each vertex (except leaf vertices) has exactly two child vertices. 
-This is why the data structure is called "Segment Tree", even though in most implementations the tree is not constructed explicitly (see [Implementation](data_structures/segment_tree.html#implementation)).
+This is why the data structure is called "Segment Tree", even though in most implementations the tree is not constructed explicitly (see [Implementation](#implementation)).
 
 Here is a visual representation of such a Segment Tree over the array $a = [1, 3, -2, 8, -7]$:
 
@@ -142,7 +142,7 @@ The green vertices are the vertices that we visit and update.
 
 !["Sum Segment Tree Update"](&imgroot&/sum-segment-tree-update.png)
 
-### <a name="implementation"></a>Implementation
+### Implementation ### {#implementation}
 
 The main consideration is how to store the Segment Tree.
 Of course we can define a $\text{Vertex}$ struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
@@ -163,7 +163,7 @@ There will be some elements in the sum array, that will not correspond to any ve
 
 So, we store the Segment Tree simply as an array $t[]$ with a size of four times the input size $n$:
 
-```cpp
+```cpp segment_tree_implementation_definition
 int n, t[4*MAXN];
 ```
 
@@ -171,7 +171,7 @@ The procedure for constructing the Segment Tree from a given array $a[]$ looks l
 it is a recursive function with the parameters $a[]$ (the input array), $v$ (the index of the current vertex), and the boundaries $tl$ and $tr$ of the current segment. 
 In the main program this function will be called with the parameters of the root vertex: $v = 1$, $tl = 0$, and $tr = n - 1$. 
 
-```cpp
+```cpp segment_tree_implementation_build
 void build(int a[], int v, int tl, int tr) {
     if (tl == tr) {
         t[v] = a[tl];
@@ -187,7 +187,7 @@ void build(int a[], int v, int tl, int tr) {
 Further the function for answering sum queries is also a recursive function, which receives as parameters information about the current vertex/segment (i.e. the index $v$ and the boundaries $tl$ and $tr$) and also the information about the boundaries of the query, $l$ and $r$. 
 In order to simplify the code, this function always does two recursive calls, even if only one is necessary - in that case the superfluous recursive call will have $l > r$, and this can easily be caught using an additional check at the beginning of the function.
 
-```cpp
+```cpp segment_tree_implementation_sum
 int sum(int v, int tl, int tr, int l, int r) {
     if (l > r) 
         return 0;
@@ -202,16 +202,16 @@ int sum(int v, int tl, int tr, int l, int r) {
 
 Finally the update query. The function will also receive information about the current vertex/segment, and additionally also the parameter of the update query (i.e. the position of the element and its new value).
 
-```cpp
+```cpp segment_tree_implementation_update
 void update(int v, int tl, int tr, int pos, int new_val) {
     if (tl == tr) {
-        t[v] = new_value;
+        t[v] = new_val;
     } else {
         int tm = (tl + tr) / 2;
         if (pos <= tm)
-            update(v*2, tl, tm, pos, new_value);
+            update(v*2, tl, tm, pos, new_val);
         else
-            update(v*2+1, tm+1, tr, pos, new_value);
+            update(v*2+1, tm+1, tr, pos, new_val);
         t[v] = t[v*2] + t[v*2+1];
     }
 }
@@ -250,7 +250,7 @@ in addition to the maximum we also store the number of occurrences of it in the 
 Determining the correct pair to store at $t[v]$ can still be done in constant time using the information of the pairs stored at the child vertices. 
 Combining two such pairs should be done in a separate function, since this will be a operation that we will do while building the tree, while answering maximum queries and while performing modifications.
 
-```cpp
+```cpp segment_tree_maximum_and_count
 pair<int, int> t[4*MAXN];
 
 pair<int, int> combine(pair<int, int> a, pair<int, int> b) {
@@ -293,7 +293,6 @@ void update(int v, int tl, int tr, int pos, int new_val) {
             update(v*2+1, tm+1, tr, pos, new_val);
         t[v] = combine(t[v*2], t[v*2+1]);
     }
-
 }
 ```
 #### Compute the greatest common divisor / least common multiple
@@ -321,7 +320,7 @@ Notice, if we chose the right child, we have to subtract the number of zeros of 
 
 In the implementation we can handle the special case, $a[]$ containing less than $k$ zeros, by returning -1.
 
-```cpp
+```cpp segment_tree_kth_zero
 int find_kth(int v, int tl, int tr, int k) {
     if (k > t[v])
         return -1;
@@ -338,7 +337,7 @@ int find_kth(int v, int tl, int tr, int k) {
 #### Searching for an array prefix with a given amount
 
 The task is as follows: 
-for a given value $x$ we have to quickly find smallest index $i$ such that the sum of the first $i$ elements of the array $a[]$ is greater or equal to $x$ (assuming that the array $a[]$ only contains nonnegative values).
+for a given value $x$ we have to quickly find smallest index $i$ such that the sum of the first $i$ elements of the array $a[]$ is greater or equal to $x$ (assuming that the array $a[]$ only contains non-negative values).
 
 This task can be solved using binary search, computing the sum of the prefixes with the Segment Tree.
 However this will lead to a $O(\log^2 n)$ solution.
@@ -371,7 +370,7 @@ Hence the answer to the current vertex is the maximum of these three values.
 Computing the maximum prefix / suffix sum is even easier. 
 Here is the implementation of the $\text{combine}$ function, which receives only data from the left and right child, and returns the data of the current vertex. 
 
-```cpp
+```cpp segment_tree_maximal_sum_subsegments1
 struct data {
     int sum, pref, suff, ans;
 };
@@ -390,11 +389,12 @@ Using the $\text{combine}$ function it is easy to build the Segment Tree.
 We can implement it in exactly the same way as in the previous implementations.
 To initialize the leaf vertices, we additionally create the auxiliary function $\text{make_data}$, which will return a $\text{data}$ object holding the information of a single value.
 
-```cpp
+```cpp segment_tree_maximal_sum_subsegments2
 data make_data(int val) {
     data res;
     res.sum = val;
     res.pref = res.suff = res.ans = max(0, val);
+    return res;
 }
 
 void build(int a[], int v, int tl, int tr) {
@@ -426,7 +426,7 @@ It only remains, how to compute the answer to a query.
 To answer it, we go down the tree as before, breaking the query into several subsegments that coincide with the segments of the Segment Tree, and combine the answers in them into a single answer for the query.
 Then it should be clear, that the work is exactly the same as in the simple Segment Tree, but instead of summing / minimizing / maximizing the values, we use the $\text{combine}$ function.
 
-```cpp
+```cpp segment_tree_maximal_sum_subsegments3
 data query(int v, int tl, int tr, int l, int r) {
     if (l > r) 
         return make_data(0);
@@ -472,7 +472,7 @@ The C++ STL already has an implementation of this algorithm.
 
 Because this structure of the Segment Tree and the similarities to the merge sort algorithm, the data structure is also often called "Merge Sort Tree".
 
-```cpp
+```cpp segment_tree_smallest_number_greater1
 vector<int> t[4*MAXN];
 
 void build(int a[], int v, int tl, int tr) {
@@ -501,7 +501,7 @@ Since the vertex contains the list of elements in sorted order, we can simply pe
 
 Thus the answer to the query in one segment of the tree takes $O(\log n)$ time, and the entire query is processed in $O(\log^2 n)$.
 
-```cpp
+```cpp segment_tree_smallest_number_greater2
 int query(int v, int tl, int tr, int l, int r, int x) {
     if (l > r)
         return INF;
@@ -513,7 +513,7 @@ int query(int v, int tl, int tr, int l, int r, int x) {
     }
     int tm = (tl + tr) / 2;
     return min(query(v*2, tl, tm, l, min(r, tm), x), 
-               query(v*2+1, tm+1, tr, max(l, tm+1, r), x));
+               query(v*2+1, tm+1, tr, max(l, tm+1), r, x));
 }
 ```
 
@@ -635,7 +635,7 @@ void update(int v, int tl, int tr, int l, int r, int add) {
     } else {
         int tm = (tl + tr) / 2;
         update(v*2, tl, tm, l, min(r, tm), add);
-        update(v*2+1, tm+1, tr, max(tl, tm+1), tr, add);
+        update(v*2+1, tm+1, tr, max(l, tm+1), r, add);
     }
 }
 
@@ -701,7 +701,7 @@ void update(int v, int tl, int tr, int l, int r, int new_val) {
         push(v);
         int tm = (tl + tr) / 2;
         update(v*2, tl, tm, l, min(r, tm), new_val);
-        update(v*2+1, tm+1, tr, max(tl, tm+1), tr, new_val);
+        update(v*2+1, tm+1, tr, max(l, tm+1), r, new_val);
     }
 }
 
@@ -752,7 +752,7 @@ void update(int v, int tl, int tr, int l, int r, int addend) {
         push(v);
         int tm = (tl + tr) / 2;
         update(v*2, tl, tm, l, min(r, tm), addend);
-        update(v*2+1, tm+1, tr, max(tl, tm+1), tr, addend);
+        update(v*2+1, tm+1, tr, max(l, tm+1), r, addend);
         t[v] = max(t[v*2], t[v*2+1]);
     }
 }
@@ -765,7 +765,7 @@ int query(int v, int tl, int tr, int l, int r) {
     push(v);
     int tm = (tl + tr) / 2;
     return max(query(v*2, tl, tm, l, min(r, tm)), 
-               query(v*2+1, tm+1, tr, max(tl, tm+1), tr));
+               query(v*2+1, tm+1, tr, max(l, tm+1), r));
 }
 ```
 
@@ -840,7 +840,7 @@ int sum_x(int vx, int tlx, int trx, int lx, int rx, int ly, int ry) {
         return sum_y(vx, 1, 0, m-1, ly, ry);
     int tmx = (tlx + trx) / 2;
     return sum_x(vx*2, tlx, tmx, lx, min(rx, tmx), ly, ry)
-         + sum_x(vx*2+1, tmx+1, tmr, max(lx, tmx+1), ly, ry);
+         + sum_x(vx*2+1, tmx+1, trx, max(lx, tmx+1), rx, ly, ry);
 }
 ```
 
@@ -921,7 +921,7 @@ struct Vertex {
     Vertex *l, *r;
     int sum;
 
-    Vertex(int val) : l(nullptr), r(nullptr), sum(0) {}
+    Vertex(int val) : l(nullptr), r(nullptr), sum(val) {}
     Vertex(Vertex *l, Vertex *r) : l(l), r(r), sum(0) {
         if (l) sum += l->sum;
         if (r) sum += r->sum;
@@ -931,7 +931,7 @@ struct Vertex {
 Vertex* build(int a[], int tl, int tr) {
     if (tl == tr)
         return new Vertex(a[tl]);
-    int tmx = (tlx + trx) / 2;
+    int tm = (tl + tr) / 2;
     return new Vertex(build(a, tl, tm), build(a, tm+1, tr));
 }
 
@@ -941,8 +941,8 @@ int get_sum(Vertex* v, int tl, int tr, int l, int r) {
     if (l == tl && tr == r)
         return v->sum;
     int tm = (tl + tr) / 2;
-    return getsum(t->l, tl, tm, l, min(r, tm))
-         + getsum(t->r, tm+1, tr, max(l, tm+1), r);
+    return get_sum(v->l, tl, tm, l, min(r, tm))
+         + get_sum(v->r, tm+1, tr, max(l, tm+1), r);
 }
 
 Vertex* update(Vertex* v, int tl, int tr, int pos, int new_val) {
@@ -950,9 +950,9 @@ Vertex* update(Vertex* v, int tl, int tr, int pos, int new_val) {
         return new Vertex(new_val);
     int tm = (tl + tr) / 2;
     if (pos <= tm)
-        return new Vertex(update(t->l, tl, tm, pos, new_val), v->r);
+        return new Vertex(update(v->l, tl, tm, pos, new_val), v->r);
     else
-        return new Vertex(v->l, update(t->r, tm+1, tr, pos, new_val));
+        return new Vertex(v->l, update(v->r, tm+1, tr, pos, new_val));
 }
 ```
 
