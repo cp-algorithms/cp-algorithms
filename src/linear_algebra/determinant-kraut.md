@@ -4,20 +4,18 @@
 
 In this article, we'll describe how to find the determinant of the matrix using Kraut method, which works in $O(N^3)$.
 
-The Kraut algorithm finds decomposition of matrix $A$ as $A = L U$ where L is lower and U is upper triangular matrix. Without loss of generality, we can assume that all the diagonal elements of L are equal to 1. But knowing these matrices, it is easy to calculate the determinant of A: it is equal to the product of all the elements on the main diagonal of the matrix U.
+The Kraut algorithm finds decomposition of matrix $A$ as $A = L U$ where $L$ is lower triangular and $U$ is upper triangular matrix. Without loss of generality, we can assume that all the diagonal elements of $L$ are equal to 1. Once we know these matrices, it is easy to calculate the determinant of $A$: it is equal to the product of all the elements on the main diagonal of the matrix $U$.
 
-There is a theorem stating that any invertible matrix has a LU-decomposition, and it is unique, if and only if all its principle minors are non-zero. It should be recalled that we consider only such decomposition in which the diagonal L consists of ones.
+There is a theorem stating that any invertible matrix has a LU-decomposition, and it is unique, if and only if all its principle minors are non-zero. We consider only such decomposition in which the diagonal of matrix $L$ consists of ones.
 
-Let A be the matrix and N is its size. We will find the elements of the matrices L and U using the following steps:
+Let $A$ be the matrix and $N$ - its size. We will find the elements of the matrices $L$ and $U$ using the following steps:
 
-1. Let $L_{i i} = 1$ for $i = 1, 2, ..., N$
+1. Let $L_{i i} = 1$ for $i = 1, 2, ..., N$.
 2. For each $j = 1, 2, ..., N$ perform:
-    - For $i = 1, 2, ..., j$ find value $U_{ij}$:
-      $U_{ij} = A_{ij} - Sum( L_{ik} * U_{kj} )$
-      where the sum is over all $k = 1, 2, ..., i-1$.
-    - Next, for $i = j+1, j+2, ..., N$ have:
-      $L_{ij} = (A_{ij} - Sum( L_{ik} * U_{kj} )) / U_{jj}$,
-      where the sum is taken over all $k = 1, 2, ..., j-1$.
+    - For $i = 1, 2, ..., j$ find values 
+      $$U_{ij} = A_{ij} - \sum_{k=1}^{i-1} L_{ik} \cdot U_{kj}$$
+    - Next, for $i = j+1, j+2, ..., N$ find values
+      $$L_{ij} = \frac{1}{U_{jj}} \left(A_{ij} - \sum_{k=1}^{j-1} L_{ik} \cdot U_{kj} \right)$$.
 
 ## Implementation
 

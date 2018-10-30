@@ -53,12 +53,12 @@ void add_line(ftype k, ftype b) {
 }
  
 ```
-Now to get the minimum value in some point we will find the first normal vector in the convex hull that is directed counter-clockwise from $(x;1)$. The left endpoint of such edge will be the answer. To check if vector $a$ is directed counter-clockwise of vector $b$ we should check if their cross product $[a,b]$ is negative.
+Now to get the minimum value in some point we will find the first normal vector in the convex hull that is directed counter-clockwise from $(x;1)$. The left endpoint of such edge will be the answer. To check if vector $a$ is not directed counter-clockwise of vector $b$, we should check if their cross product $[a,b]$ is positive.
 ```cpp
 int get(ftype x) {
     point query = {x, 1};
     auto it = lower_bound(vecs.begin(), vecs.end(), query, [](point a, point b) {
-        return cross(a, b) < 0;
+        return cross(a, b) > 0;
     });
     return dot(query, hull[it - vecs.begin()]);
 }
@@ -76,7 +76,7 @@ Here is the illustration of what is going on in the vertex when we add new funct
 
 Let's go to implementation now. Once again we will use complex numbers to keep linear functions.
 
-```cpp
+```cpp lichaotree_line_definition
 typedef int ftype;
 typedef complex<ftype> point;
 #define x real
@@ -91,7 +91,9 @@ ftype f(point a,  ftype x) {
 }
 ```
 We will keep functions in the array $line$ and use binary indexing of the segment tree. If you want to use it on large numbers or doubles, you should use a dynamic segment tree. 
-```cpp
+The segment tree should be initialized with default values, e.g. with lines $0x + \infty$.
+
+```cpp lichaotree_addline
 const int maxn = 2e5;
  
 point line[4 * maxn];
@@ -113,19 +115,21 @@ void add_line(point nw, int v = 1, int l = 0, int r = maxn) {
 }
 ```
 Now to get the minimum in some point $x$ we simply choose the minimum value along the path to the point.
-```cpp
+```cpp lichaotree_getminimum
 int get(int x, int v = 1, int l = 0, int r = maxn) {
     int m = (l + r) / 2;
     if(r - l == 1) {
-        return f(ln[v], x);
+        return f(line[v], x);
     } else if(x < m) {
-        return min(f(ln[v], x), get(x, 2 * v, l, m));
+        return min(f(line[v], x), get(x, 2 * v, l, m));
     } else {
-        return min(f(ln[v], x), get(x, 2 * v + 1, m, r));
+        return min(f(line[v], x), get(x, 2 * v + 1, m, r));
     }
 }
 ```
 
 ## Problems
 
-[CodeChef - Polynomials](https://www.codechef.com/NOV17/problems/POLY)
+* [CS Academy - Squared Ends](https://csacademy.com/contest/archive/task/squared-ends)
+* [Codeforces - Escape Through Leaf](http://codeforces.com/contest/932/problem/F)
+* [CodeChef - Polynomials](https://www.codechef.com/NOV17/problems/POLY)

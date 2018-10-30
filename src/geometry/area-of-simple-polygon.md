@@ -12,7 +12,7 @@ $$A = \sum_{(p,q)\in \text{edges}} \frac{(p_x - q_x) \cdot (p_y + q_y)}{2}$$
 
 Code:
 
-```
+```cpp
 double area(const vector<point>& fig) {
     double res = 0;
     for (unsigned i = 0; i < fig.size(); i++) {

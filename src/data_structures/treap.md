@@ -53,7 +53,7 @@ We implement **Build** operation with $O (N \log N)$ complexity using $N$ **Inse
 
 ## Implementation
 
-```
+```cpp
 struct item {
 	int key, prior;
 	item * l, * r;
@@ -113,7 +113,7 @@ To extend the functionality of the treap, it is often necessary to store the num
 
 When a tree changes (nodes are added or removed etc.), `cnt` of some nodes should be updated accordingly. We'll create two functions: `cnt()` will return the current value of `cnt` or 0 if the node does not exist, and `upd_cnt()` will update the value of `cnt` for this node assuming that for its children L and R the values of `cnt` have already been updated. Evidently it's sufficient to add calls of `upd_cnt()` to the end of `insert`, `erase`, `split` and `merge` to keep `cnt` values up-to-date.
 
-```
+```cpp
 int cnt (pitem t) {
 	return t ? t->cnt : 0;
 }
@@ -147,7 +147,7 @@ Now it's clear how to calculate the implicit key of current node quickly. Since 
 
 Here are the new implementations of **Split** and **Merge**:
 
-```
+```cpp
 void merge (pitem & t, pitem l, pitem r) {
 	if (!l || !r)
 		t = l ? l : r;
@@ -187,7 +187,7 @@ Now let's consider the implementation of various operations on implicit treaps:
 
 Here is an example implementation of the implicit treap with reverse on the interval. For each node we store field called `value` which is the actual value of the array element at current position. We also provide implementation of the function `output()`, which outputs an array that corresponds to the current state of the implicit treap.
 
-```
+```cpp
 typedef struct item * pitem;
 struct item {
 	int prior, value, cnt;

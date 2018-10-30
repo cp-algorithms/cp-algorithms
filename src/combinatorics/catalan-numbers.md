@@ -3,18 +3,18 @@
 # Catalan Numbers
 Catalan numbers is a number sequence, which is found useful in a number of combinatorial problems, often involving recursively-defined objects.
 
-This sequence was named after the Belgian mathematician [Catalana](https://en.wikipedia.org/wiki/Eug%C3%A8ne_Charles_Catalan), who lived in the 19th century. (In fact it was known before to Euler, who lived a century before Catalana).
+This sequence was named after the Belgian mathematician [Catalan](https://en.wikipedia.org/wiki/Eug%C3%A8ne_Charles_Catalan), who lived in the 19th century. (In fact it was known before to Euler, who lived a century before Catalan).
 
 The first few numbers Catalan numbers, $C_n$ (starting from zero):
 
  $1, 1, 2, 5, 14, 42, 132, 429, 1430, \ldots$
 
-### Application in some Combinatorial problems
+### Application in some combinatorial problems
 
 The Catalan number $C_n$ is the solution for
 
 - Number of correct bracket sequence consisting of $n$ opening and $n$ closing brackets.
-- The number of rooted full binary trees with $n + 1$ leaves (tops are not numbered). A rooted binary tree is full if every vertex has either two children or no children.
+- The number of rooted full binary trees with $n + 1$ leaves (vertices are not numbered). A rooted binary tree is full if every vertex has either two children or no children.
 - The number of ways to completely parenthesize $n + 1$ factors.
 - The number of triangulations of a convex polygon with $n + 2$ sides (i.e. the number of partitions of polygon into disjoint triangles by using the diagonals).
 - The number of ways to connect the $2n$ points on a circle to form $n$ disjoint chords.
@@ -61,7 +61,7 @@ void init() {
 }
 ```
 
-###Analytical formula
+### Analytical formula
 $$C_n = \frac{1}{n + 1} {\binom{2n}{n}}$$
 
 (here $\binom{n}{k}$ denotes the usual binomial coefficient, i.e. number of ways to select $k$ objects from set of $n$ objects).
@@ -73,6 +73,10 @@ Now we count the number of monotonic paths which cross the main diagonal. Consid
 The number of monotonic paths in the lattice $(n - 1) \times (n + 1)$ are $\binom{2n}{n-1}$ . Let us call such paths as "bad" paths. As a result, to obtain the number of monotonic paths which do not cross the main diagonal, we subtract the above "bad" paths, obtaining the formula:
 
 $$C_n = \binom{2n}{n} - \binom{2n}{n-1} = \frac{1}{n + 1} \binom{2n}{n} , {n} \geq 0$$
+
+## Reference
+
+- [Catalan Number by Tom Davis](http://www.geometer.org/mathcircles/catalan.pdf)
 
 ## Practice Problems
 - [Codechef - PANSTACK](https://www.codechef.com/APRIL12/problems/PANSTACK/)
