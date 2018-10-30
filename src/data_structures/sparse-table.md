@@ -118,14 +118,18 @@ for (int j = 1; j <= K; j++)
         st[i][j] = min(st[i][j-1], st[i + (1 << (j - 1))][j - 1]);
 ```
 
-And the minimum of a range $[L, R]$ can be computed with:
+And the minimum of a range $[L, R]$ can be computed with: 
 
 ```cpp sparse_table_minimum_query
 int j = log[R - L + 1];
 int minimum = min(st[L][j], st[R - (1 << j) + 1][j]);
 ```
  
-Time complexity for a Range Minimum Query is $O(1)$.
+Time complexity for a Range Minimum Query is $O(1)$. 
+
+## Modification to support more types of query
+
+One of the main weakness is that this data structure only supports queries of [indempotent functions](https://en.wikipedia.org/wiki/Idempotence). A modification of this data structure to handle with any type of associative function called [Disjoint Sparse Table is described here](https://discuss.codechef.com/questions/117696/tutorial-disjoint-sparse-table). 
 
 ## Practice Problems
 
