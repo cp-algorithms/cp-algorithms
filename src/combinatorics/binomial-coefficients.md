@@ -1,7 +1,7 @@
 <!--?title Binomial Coefficients-->
 # Binomial Coefficients
 
-Binomial coefficients $\binom n k$ are the numbers of ways to select a set of $k$ elements from $n$ different elements without taking into account the order of arrangement of these elements (i.e., the numbers of unordered sets).
+Binomial coefficients $\binom n k$ are the number of ways to select a set of $k$ elements from $n$ different elements without taking into account the order of arrangement of these elements (i.e., the number of unordered sets).
 
 Binomial coefficients are also the coefficients in the expansion of $(a + b) ^ n$ (so-called binomial theorem):
 
@@ -21,7 +21,7 @@ This formula can be easily deduced from the problem of ordered arrangement (numb
 
 $$ \binom n k = \binom {n-1} {k-1} + \binom {n-1} k $$
 
-It is easy to deduce through the previous formula.
+It is easy to deduce this using the analytic formula.
 
 Note that for $n \lt k$ the value of $\binom n k$ is assumed to be zero.
 
@@ -85,7 +85,8 @@ C++ implementation:
 ```cpp
 const int maxn = ...;
 int C[maxn+1][maxn+1];
-for (int n=0; n<=maxn; ++n) {
+C[0][0] = 1;
+for (int n=1; n<=maxn; ++n) {
 	C[n][0] = C[n][n] = 1;
 	for (int k=1; k<n; ++k)
 		C[n][k] = C[n-1][k-1] + C[n-1][k];
@@ -174,7 +175,7 @@ When the modulo $m$ is prime, there are 2 options:
 * [Lucas's theorem](https://en.wikipedia.org/wiki/Lucas's_theorem) can be applied which breaks the problem of computing $\binom{n}{k} \bmod m$ into $\log_m n$ problems of the form $\binom{x_i}{y_i} \bmod m$ where $x_i, y_i < m$.  If each reduced coefficient is calculated using precomputed factorials and inverse factorials, the complexity is $\mathcal{O}(m + \log_m n)$.
 * The method of computing [factorial modulo P](./algebra/factorial-modulo.html) can be used to get the required $g$ and $c$ values and use them as described in the section of [modulo prime power](#mod-prime-pow). This takes $\mathcal{O}(m \log_m n)$.
 
-When $m$ is not prime but square-free, the prime factors of $m$ can be obtained and and the coefficient modulo each prime factor can be calculated using either of the above methods, and the overall answer can be obtained by the Chinese Remainder Theorem.
+When $m$ is not prime but square-free, the prime factors of $m$ can be obtained and the coefficient modulo each prime factor can be calculated using either of the above methods, and the overall answer can be obtained by the Chinese Remainder Theorem.
 
 When $m$ is not square-free, a [generalization of Lucas's theorem for prime powers](https://web.archive.org/web/20170202003812/http://www.dms.umontreal.ca/~andrew/PDF/BinCoeff.pdf) can be applied instead of Lucas's theorem.
 
