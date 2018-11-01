@@ -56,3 +56,8 @@ double simpson_integration(double a, double b){
     return s;
 }
 ```
+
+
+## Practice Problems
+
+* [URI - Environment Protection](https://www.urionlinejudge.com.br/judge/en/problems/view/1297)
