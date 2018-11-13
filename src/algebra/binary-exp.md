@@ -1,7 +1,7 @@
 <!--?title Binary Exponentiation-->
 # Binary Exponentiation
 
-Binary exponentiation (also known as exponentiation by squaring) is a trick which allows to calculate $a^n$ using only $O(\log n)$ multiplications (instead of $O(n)$ multiplications required by naive approach). 
+Binary exponentiation (also known as exponentiation by squaring) is a trick which allows to calculate $a^n$ using only $O(\log n)$ multiplications (instead of $O(n)$ multiplications required by naive approach).
 
 It also has important applications in many tasks unrelated to arithmetic, since it
 can be used with any operations that have the property of **associativity**:
@@ -14,7 +14,7 @@ to other problems which we will discuss below.
 ## Algorithm
 
 Raising $a$ to the power of $n$ is expressed naively as multiplication by $a$ done $n - 1$ times:
-$a^{n} = a \cdot a \cdot \ldots \cdot a$. However, this approach is not practical for large $a$ or $n$. 
+$a^{n} = a \cdot a \cdot \ldots \cdot a$. However, this approach is not practical for large $a$ or $n$.
 
 $a^{b+c} = a^b \cdot a^c$ and $a^{2b} = a^b \cdot a^b = (a^b)^2$.
 
@@ -40,7 +40,7 @@ $3^{13} = 6561 \cdot 81 \cdot 3 = 1594323$
 
 The final complexity of this algorithm is $O(\log n)$: we have to compute $\log n$ powers of $a$, and then have to do at most $\log n$ multiplications to get the final answer from them.
 
-The following recursive approach expresses the same idea: 
+The following recursive approach expresses the same idea:
 
 $$a^n = \begin{cases}
 1 &\text{if } n == 0 \\\\
@@ -64,7 +64,7 @@ long long binpow(long long a, long long b) {
 }
 ```
 
-The second approach accomplishes the same task without recusion.
+The second approach accomplishes the same task without recursion.
 It computes all the powers in a loop, and multiplies the ones with the corresponding set bit in $n$.
 Although the complexity of both approaches is identical, this approach will be faster in practice since we have the overhead of the recursive calls.
 
@@ -89,8 +89,8 @@ long long binpow(long long a, long long b) {
 Compute $x^n \bmod m$.
 This is a very common operation. For instance it is used in computing the [modular multiplicative inverse](./algebra/module-inverse.html).
 
-**Solution:** 
-Since we know that the module operator doesn't interfer with multiplications ($a \cdot b \equiv (a \bmod m) \cdot (b \bmod m) \pmod m$), we can directly use the same code, and just replace every multiplication with a modular multiplication:
+**Solution:**
+Since we know that the module operator doesn't interfere with multiplications ($a \cdot b \equiv (a \bmod m) \cdot (b \bmod m) \pmod m$), we can directly use the same code, and just replace every multiplication with a modular multiplication:
 
 ```cpp
 long long binpow(long long a, long long b, long long m) {
@@ -105,6 +105,9 @@ long long binpow(long long a, long long b, long long m) {
     return res;
 }
 ```
+
+**Note:** If $m$ is a prime number we can speed up a bit this algorithm by calculating $x ^ {n \mod (m-1)}$ instead of $x ^ n$.
+This follows directly from [Fermat's little theorem](./algebra/module-inverse.html#toc-tgt-2).
 
 ### Effective computation of Fibonacci numbers
 

@@ -66,4 +66,4 @@ Gray codes have some useful applications, sometimes quite unexpected:
 
 
 ## Practice Problems
-*   <a href="http://acm.sgu.ru/problem.php?contest=0&problem=249">SGU #249 <b>"Matrix"</b> &nbsp;&nbsp;&nbsp;&nbsp; [Difficulty: medium]</a>
+*   <a href="http://codeforces.com/problemsets/acmsguru/problem/99999/249">SGU #249 <b>"Matrix"</b> &nbsp;&nbsp;&nbsp;&nbsp; [Difficulty: medium]</a>

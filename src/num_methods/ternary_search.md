@@ -86,3 +86,4 @@ Instead of the criterion `r - l > eps`, we can select a constant number of itera
 * [GYM - Chasing the Cheetahs (A)](http://codeforces.com/gym/100829)
 * [UVA - 12197 - Trick or Treat](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3349)
 * [SPOJ - Building Construction](http://www.spoj.com/problems/KOPC12A/)
+* [Codeforces - Devu and his Brother](https://codeforces.com/problemset/problem/439/D)

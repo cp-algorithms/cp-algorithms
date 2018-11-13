@@ -1,9 +1,11 @@
 <!--?title Main Page-->
 <h1 data-toc="off">E-Maxx Algorithms in English</h1>
 
-*The goal of this project is to translate at least some pages of the wonderful resource
-[http://e-maxx.ru/algo](http://e-maxx.ru/algo) which provides descriptions of many special algorithms
-especially popular in field of competitive programming.*
+*The goal of this project is to translate the wonderful resource
+[http://e-maxx.ru/algo](http://e-maxx.ru/algo) which provides descriptions of many algorithms
+and data structures especially popular in field of competitive programming.
+Moreover we want to improve the collected knowledge by extending the articles
+and adding new articles to the collection.*
 
 ## Articles
 
@@ -153,6 +155,7 @@ especially popular in field of competitive programming.*
     - [Dijkstra - finding shortest paths from given vertex](./graph/dijkstra.html)
     - [Dijkstra on sparse graphs](./graph/dijkstra_sparse.html)
     - [Bellman-Ford - finding shortest paths with negative weights](./graph/bellman_ford.html)
+    - [0-1 BFS](./graph/01_bfs.html)
     - [D´Esopo-Pape algorithm](./graph/desopo_pape.html)
 - **All-pairs shortest paths**
     - [Floyd-Warshall - finding all shortest paths](./graph/all-pair-shortest-path-floyd-warshall.html)

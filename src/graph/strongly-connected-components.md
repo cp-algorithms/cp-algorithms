@@ -46,7 +46,7 @@ Thus, we built next **algorithm** for selecting strongly connected components:
 
 Algorithm asymptotic is $O(n + m)$, because it is just two depth (breadth) first searches.
 
-Finally, it is appropriate to mention [topological sort](./graph/topological-sort.html) here. First of all, step 1 of the algorithm represents topological sort of graph $G$ (actually this is exactly what vertices' sort by exit time means). Secondly, the algorithm's scheme generates strongly connected components by decreasing order of their exit times, thus it generates components - vertices of condensation graph - in topological sort order.
+Finally, it is appropriate to mention [topological sort](./graph/topological-sort.html) here. First of all, step 1 of the algorithm represents reversed topological sort of graph $G$ (actually this is exactly what vertices' sort by exit time means). Secondly, the algorithm's scheme generates strongly connected components by decreasing order of their exit times, thus it generates components - vertices of condensation graph - in topological sort order.
 
 ## Implementation
 ```cpp
