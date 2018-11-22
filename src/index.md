@@ -123,6 +123,7 @@ and adding new articles to the collection.*
     - [Intersection of Segments](./geometry/segments-intersection.html)
     - [Circle-Line Intersection](./geometry/circle-line-intersection.html)
     - [Circle-Circle Intersection](./geometry/circle-circle-intersection.html)
+    - [Common tangents to two circles](./geometry/tangents-to-two-circles.html)
     - [Length of the union of segments](./geometry/length-of-segments-union.html)
 - **Polygons**
     - [Oriented area of a triangle](./geometry/oriented-triangle-area.html)
