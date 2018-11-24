@@ -14,7 +14,7 @@ We have to clearly distinguish between the number of objects and the number of r
 
 Different representations can correspond to the same objects, but of course any representation corresponds to exactly one object.
 Consequently the set of all representations is divided into equivalence classes.
-Our task is to compute the number of objects, of equivalently, the number of equivalence classes.
+Our task is to compute the number of objects, or equivalently, the number of equivalence classes.
 The following example will make the difference between object and representation clearer.
 
 ### Example: coloring of binary trees
