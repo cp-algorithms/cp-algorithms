@@ -10,8 +10,7 @@ The described algorithm will also work in the case when one (or both) circles de
 ## The number of common tangents
 The number of common tangents to two circles can be **0,1,2,3,4** and **infinite**.
 Look at the images for different cases.
-
-<center><img src="&imgroot&/tangents-to-two-circles.png" alt="Different cases of tangents common to two circles" style="width: 850px;"/></center>
+<center>!["Different cases of tangents common to two circles"](&imgroot&/tangents-to-two-circles.png)</center>
 
 Here, we won't be considering **degenerate** cases, i.e *when the circles coincide (in this case they have infinitely many common tangents), or one circle lies inside the other (in this case they have no common tangents, or if the circles are tangent, there is one common tangent).*
 
