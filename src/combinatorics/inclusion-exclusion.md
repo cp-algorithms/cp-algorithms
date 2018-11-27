@@ -83,7 +83,7 @@ Consider its generalization to calculate number of elements which are present in
 
 $$\left|\bigcup_{|B|=r}\left[\bigcap_{i \in B} A_i \cap \bigcap_{j \not\in B} \overline{A_j}\right]\right|=\sum_{m=r}^n (-1)^{m-r}\dbinom{m}{r} \sum_{|X|=m} \left|\bigcap_{i \in X} A_{i}\right|$$
 
-To proove this formula, consider some particular $B$. Due to basic inclusion-exclusion principle we can say about it that:
+To prove this formula, consider some particular $B$. Due to basic inclusion-exclusion principle we can say about it that:
 
 $$\left|\bigcap_{i \in B} A_i \cap \bigcap_{j \not \in B} \overline{A_j}\right|=\sum_{m=r}^{n} (-1)^{m-r} \sum_{\substack{|X|=m \newline B \subset X}}\left|\bigcap_{i\in X} A_{i}\right|$$
 
@@ -228,7 +228,7 @@ Notice first that we can easily count the number of strings that satisfy at once
 
 Learn now to solve the first version of the problem: when the string must satisfy exactly $k$ of the patterns.
 
-To solve it, iterate and fix a specific subset $X$ from the set of patterns consisting of $k$ patterns. Then we have to count the number of strings that satisfy this set of patterns, and only matches it, that is, they don't match any other pattern. We will use the inclusion-exclusion principle in a slightly different manner: we sum on all supersets $Y$ (subsets from the original set of strings that cointain $X$), and either add to the current answer of subtract it from the number of strings:
+To solve it, iterate and fix a specific subset $X$ from the set of patterns consisting of $k$ patterns. Then we have to count the number of strings that satisfy this set of patterns, and only matches it, that is, they don't match any other pattern. We will use the inclusion-exclusion principle in a slightly different manner: we sum on all supersets $Y$ (subsets from the original set of strings that contain $X$), and either add to the current answer of subtract it from the number of strings:
 
 $$ ans(X) = \sum_{Y \supseteq X} (-1)^{|Y|-k} \cdot f(Y) $$
 

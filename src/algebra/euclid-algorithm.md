@@ -62,7 +62,7 @@ Let $d = \gcd(a, b)$. Then by definition $d\mid a$ and $d\mid b$.
 Now let's represent the remainder of the division of $a$ by $b$ as follows:
 $$a \bmod b = a - b \cdot \Bigl\lfloor\dfrac{a}{b}\Bigr\rfloor$$
 
-From this it follows that $d \mid (a \bmod b)$, which means we have the system of divisiblities:
+From this it follows that $d \mid (a \bmod b)$, which means we have the system of divisibilities:
 $$\begin{cases}d \mid b,\\\\ d \mid (a \mod b)\end{cases}$$
 
 Now we use the fact that for any three numbers $p$, $q$, $r$, if $p\mid q$ and $p\mid r$ then $p\mid \gcd(q, r)$. In our case, we get:
