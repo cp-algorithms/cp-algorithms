@@ -325,7 +325,7 @@ int find_kth(int v, int tl, int tr, int k) {
     if (k > t[v])
         return -1;
     if (tl == tr)
-        return tl;
+        return t[v];
     int tm = (tl + tr) / 2;
     if (t[v*2] >= k)
         return find_kth(v*2, tl, tm, k);
