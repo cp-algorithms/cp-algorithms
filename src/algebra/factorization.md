@@ -218,7 +218,7 @@ In this case we haven't found a proper factor, and we have to repeat the algorit
 To find the cycle efficiently, we can use **Floyd's cycle-finding algorithm**, which finds the cycle in linear time.
 Therefore the algorithm runs (usually) in $O(\sqrt[4]{n} \log(n))$ time.
 
-The following code includes a function `mult`, that multiplies two integers $\le 10^18$ without overflow using a similar idea as [binary exponentiation](./algebra/binary-exp.html).
+The following code includes a function `mult`, that multiplies two integers $\le 10^{18}$ without overflow using a similar idea as [binary exponentiation](./algebra/binary-exp.html).
 
 ```cpp pollard_rho
 long long mult(long long a, long long b, long long mod) {
