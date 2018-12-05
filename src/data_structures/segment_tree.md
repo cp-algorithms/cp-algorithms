@@ -760,7 +760,7 @@ void update(int v, int tl, int tr, int l, int r, int addend) {
 int query(int v, int tl, int tr, int l, int r) {
     if (l > r)
         return -INF;
-    if (tl == tr)
+    if (l <= tl && tr <= r)
         return t[v];
     push(v);
     int tm = (tl + tr) / 2;
