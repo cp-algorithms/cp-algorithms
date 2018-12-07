@@ -472,7 +472,7 @@ Given that the suffix automaton is a directed acyclic graph, the number of diffe
 
 Namely, let $d[v]$ be the number of ways, starting at the state $v$ (including the path of length zero).
 Then we have the recursion:
-$$d[v] = 1 + \sum_{w : (v, w, c) \in SA} d[w]$$
+$$d[v] = 1 + \sum_{w : (v, w, c) \in DAWG} d[w]$$
 I.e. $d[v]$ can be expressed as the sum of answers for all ends of the transitions of $v$.
 
 The number of different substrings is the value $d[t_0] - 1$ (since we don't count the empty substring).
