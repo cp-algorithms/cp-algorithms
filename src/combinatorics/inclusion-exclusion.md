@@ -159,7 +159,7 @@ Combining all this into the formula of inclusions-exceptions and given that we s
 
 $$\binom{25}{5} - \left(\binom{6}{1} \cdot \binom{16}{5} - \binom{6}{2} \cdot \binom{7}{5}\right) $$
 
-### The number of relatively primes in a given interval
+### The number of relative primes in a given interval
 
 Task: given two numbers $n$ and $r$, count the number of integers in the interval $[1;r]$ that are relatively prime to n (their greatest common divisor is $1$).
 
