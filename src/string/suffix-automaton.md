@@ -122,7 +122,7 @@ But then at every occurrence of $w$ also appears the substring $u$, which means 
 Consider an $endpos$-equivalence class.
 Sort all the substrings in this class by non-increasing length.
 Then in the resulting sequence each substring will be one shorter than the previous one, and at the same time will be a suffix of the previous one.
-In other words the substrings in the same equivalence class are actually each others suffixes, and take all possible lengths in a certain interval $[x; y]$.
+In other words, in a same equivalence class, the shorter substrings are actually suffixes of the longer substrings, and they take all possible lengths in a certain interval $[x; y]$.
 
 Proof:
 Fix come $endpos$-equivalent class.
