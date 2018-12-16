@@ -10,7 +10,7 @@ This is the most basic algorithm to find a prime factorization.
 
 We divide by each possible divisor $d$.
 We can notice, that it is impossible that all prime factors of a composite number $n$ are bigger than $\sqrt{n}$.
-Therefore we only need to test the divisors $2 \le d \sqrt{n}$, which gives us the prime factorization in $O(\sqrt{n})$.
+Therefore, we only need to test the divisors $2 \le d \sqrt{n}$, which gives us the prime factorization in $O(\sqrt{n})$.
 
 The smallest divisor has to be a prime number.
 We remove the factor from the number, and repeat the process.
@@ -94,8 +94,8 @@ vector<long long> trial_division3(long long n) {
 }
 ```
 
-If we extend this further with more primes we can even reach better percentages.
-However also the skip lists will get a lot bigger.
+If we extend this further with more primes, we can even reach better percentages.
+However, also the skip lists will get a lot bigger.
 
 ### Precomputed primes
 
@@ -142,7 +142,7 @@ $$a^{(p - 1)^k} \equiv a^{k \cdot (p - 1)} \equiv 1 \pmod{p}.$$
 So for any $M$ with $M ~|~ p - 1$ we know that $a^M \equiv 1$.
 This means that $a^M - 1 = p \cdot r$, and because of that also $p ~|~ \gcd(a^M - 1, n)$.
 
-Therefore if $p - 1$ for a factor $p$ of $n$ divides $M$, we can extract the factor $p$ by [Euclid's algorithm](./algebra/euclid-algorithm.html).
+Therefore, if $p - 1$ for a factor $p$ of $n$ divides $M$, we can extract the factor $p$ by [Euclid's algorithm](./algebra/euclid-algorithm.html).
 
 It is clear, that the smallest $M$ that can is a multiple of every $B$-powersmooth number is $\text{lcm}(1,~2~,3~,4~,~\dots,~B)$.
 Or alternatively:
@@ -211,12 +211,12 @@ Even if we don't know $p$ and the cycle-start, cycle-length, ... we can find it 
 There is a cycle in the sequence $\{x_i \bmod p\}_{i \le j}$ if and only if there are two indices $s, t \le j$ and $t$ with $x_s \bmod p = x_t \bmod p$.
 This equation can be rewritten as $x_s - x_t \equiv 0 \bmod p$ which is the same as $p ~|~ \gcd(x_s - x_t, n)$.
 
-Therefore if we find two indices $s$ and $t$ with $g = \gcd(x_s - x_t, n) > 1$, we have found a factor $g$ of $n$.
+Therefore, if we find two indices $s$ and $t$ with $g = \gcd(x_s - x_t, n) > 1$, we have found a factor $g$ of $n$.
 Notice that it is possible that $g = n$.
 In this case we haven't found a proper factor, and we have to repeat the algorithm with different parameter (different starting value $x_0$, different constant $c$ in the polynomial function $f$).
 
 To find the cycle efficiently, we can use **Floyd's cycle-finding algorithm**, which finds the cycle in linear time.
-Therefore the algorithm runs (usually) in $O(\sqrt[4]{n} \log(n))$ time.
+Therefore, the algorithm runs (usually) in $O(\sqrt[4]{n} \log(n))$ time.
 
 The following code includes a function `mult`, that multiplies two integers $\le 10^{18}$ without overflow using a similar idea as [binary exponentiation](./algebra/binary-exp.html).
 
