@@ -22,7 +22,7 @@ Here is an implementation of Kruskal's algorithm with Union by Rank.
 vector<int> parent, rank;
 
 void make_set(int v) {
-    parent(v) = v;
+    parent[v] = v;
     rank[v] = 0;
 }
 
