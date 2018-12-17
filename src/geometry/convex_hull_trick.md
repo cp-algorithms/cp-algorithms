@@ -10,15 +10,26 @@ Naive approach will give you $O(n^2)$ complexity which can be improved to $O(n \
 
 ## Convex hull trick
 
-Idea of this approach is to maintain a lower convex hull of linear functions. Actually it would be a bit more convenient to consider them not as linear functions but as points $(k;b)$ on the plane such that we will have to find the point which has the least dot product with a given point $(x;1)$, that is, for this point $kx+b$ is minimized which is the same as initial problem. Such minimum will necessarily be on lower convex envelope of these points as can be seen below:
+The idea of this approach is to maintain a lower convex hull of linear functions.
+Actually it would be a bit more convenient to consider them not as linear functions, but as points $(k;b)$ on the plane such that we will have to find the point which has the least dot product with a given point $(x;1)$, that is, for this point $kx+b$ is minimized which is the same as initial problem.
+Such minimum will necessarily be on lower convex envelope of these points as can be seen below:
 
 <center> ![lower convex hull](&imgroot&/convex_hull_trick.png) </center>
 
-One have to keep points in convex hull alongside with normal vectors of edges of convex hull. When you have $(x;1)$ query you'll have to find normal vector closest to it in terms of angles between them, then optimum linear function will correspond to one of its endpoints. To see that one should note that points having same dot product with $(x;1)$ lie on same line which is orthogonal to $(x;1)$ so optimum linear function will be the one in which tangent to convex hull which is collinear with normal to $(x;1)$ touches the hull. This point can be found as one such that normals of edges lying to the left and to the right of it are headed in different sides of $(x;1)$.
+One has to keep points on the convex hull and normal vectors of the hull's edges.
+When you have a $(x;1)$ query you'll have to find the normal vector closest to it in terms of angles between them, then the optimum linear function will correspond to one of its endpoints.
+To see that, one should note that points having a constant dot product with $(x;1)$ lie on a line which is orthogonal to $(x;1)$, so the optimum linear function will be the one in which tangent to convex hull which is collinear with normal to $(x;1)$ touches the hull.
+This point is the one such that normals of edges lying to the left and to the right of it are headed in different sides of $(x;1)$.
 
-This approach is useful when queries of adding linear functions are monotone in terms of $k$ or if we work offline, i.e. we may firstly add all linear functions and answer queries afterwards. So we cannot solve the cities/gasoline problems using this way. That would require handling online queries. When it comes to deal with online queries however, things will go tough and one will have to use some kind of set data structure to implement a proper convex hull. Online approach will however not be considered in this article due to its hardness and because second approach (which is Li Chao tree) allows to solve the problem way simpler. Worth mentioning that one can still use this approach in online without complications by square-root-decomposition. That is, rebuild convex hull from scratch each $\sqrt n$ new lines. 
+This approach is useful when queries of adding linear functions are monotone in terms of $k$ or if we work offline, i.e. we may firstly add all linear functions and answer queries afterwards.
+So we cannot solve the cities/gasoline problems using this way.
+That would require handling online queries.
+When it comes to deal with online queries however, things will go tough and one will have to use some kind of set data structure to implement a proper convex hull.
+Online approach will however not be considered in this article due to its hardness and because second approach (which is Li Chao tree) allows to solve the problem way more simply.
+Worth mentioning that one can still use this approach online without complications by square-root-decomposition.
+That is, rebuild convex hull from scratch each $\sqrt n$ new lines. 
 
-To implement this approach one should begin with some wrap for points class, here we suggest to use C++ complex number type.
+To implement this approach one should begin with some geometric utility functions, here we suggest to use the C++ complex number type.
 
 ```cpp
 typedef int ftype;
@@ -35,7 +46,11 @@ ftype cross(point a, point b) {
 }
 ```
 
-Here we will assume that when linear functions are added, their $k$ only increases and we want to find minimum values. We will keep points in vector $hull$ and normal vectors in vector $vecs$. When we add a new point, we have to look at the angle formed between last edge in convex hull and vector from last point in convex hull to new point. This angle have to be directed counter-clockwise, that is the dot product of the last normal vector in the hull (directed inside hull) and the vector from the last point to the new one has to be non-negative. As long as this isn't true, we should erase the last point in the convex hull alongside with the corresponding edge.
+Here we will assume that when linear functions are added, their $k$ only increases and we want to find minimum values.
+We will keep points in vector $hull$ and normal vectors in vector $vecs$.
+When we add a new point, we have to look at the angle formed between last edge in convex hull and vector from last point in convex hull to new point.
+This angle has to be directed counter-clockwise, that is the dot product of the last normal vector in the hull (directed inside hull) and the vector from the last point to the new one has to be non-negative.
+As long as this isn't true, we should erase the last point in the convex hull alongside with the corresponding edge.
 
 ```cpp
 vector<point> hull, vecs;
