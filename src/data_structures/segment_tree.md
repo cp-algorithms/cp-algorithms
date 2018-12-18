@@ -494,7 +494,7 @@ And thanks to this implementation its construction also take $O(n \log n)$ time,
 Now consider the answer to the query. 
 We will go down the tree, like in the regular Segment Tree, and breaking our segment $a[l \dots r]$ into several subsegments (into at most $O(\log n)$ pieces). 
 It is clear that the answer of the whole answer is the minimum of each of the subqueries.
-So now we only need to understand, how to how to response to a query on one such subsegment that corresponds with some vertex of the tree.
+So now we only need to understand, how to response to a query on one such subsegment that corresponds with some vertex of the tree.
 
 We are at some vertex of the Segment Tree and we want to compute the answer to the query, i.e. find the minimum number greater that or equal to a given number $x$. 
 Since the vertex contains the list of elements in sorted order, we can simply perform a binary search on this list and return the first number, greater than or equal to $x$.
