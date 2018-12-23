@@ -174,6 +174,103 @@ struct FenwickTree2D {
 };
 ```
 
+## Extending Fenwick Tree
+Fenwick tree can support operations:
+1. Point Update and Range Query
+2. Range Update and Point Query
+3. Range Update and Range Query
+
+#### 1. Point Update and Range Query
+This is the ordinary fenwick tree as explained above.
+#### 2. Range Update and Point Query
+Let $A$ be the original array, we use another array $B$ of same of as that of $A$ which will help in range updates. All the elements of $B$ will initially be zero.
+
+Suppose that we want to increment interval $[i,j]$ by $x$. We make two point update operations on fenwick tree based on array $B$ which are $add(B,i,x)$ and $add(B,j+1,-x)$. If we take prefix sum using ordinary range sum method, then basically we are done. For interval $\left[0,i \right)$ prefix sum on B will be 0. For interval $[i,j]$ prefix sum on B will give updates and on addition with $A$, we can get out answer. For interval to right of $j$, we have already added $-x$ which will cancel the effect of first point update.
+
+```cpp
+// B[] is the additonal array as described above.
+void update(int idx, int val){
+  while(idx<=N){
+    B[idx]+=val;
+    idx+=idx&-idx;
+  }
+}
+void update(int l, int r, int val){
+  update(l, val);
+  update(r+1,-val);
+}
+
+int query(int idx){
+  int ret=0;
+  while(idx>0){
+    ret+=B[idx];
+    idx-=idx&-idx;
+  }
+  return ret+A[idx];
+}
+```
+
+#### 3. Range Updates and Range Queries
+Similar to above concept we will use two BITs namely $B_1[]$ and $B_2[]$. We assume that the given array will be intially $0$. Otherwise we can do point updates $N$ times using the method below.
+
+Suppose that we want to increment in interval $[l,r]$ by value $x$. Similarly, to above method we perform two point updates on $B_1$ which are $add(B1,l,x)$ and $add(B1,r+1,-x)$. We also update $B_2$ which is explained later.
+```python
+add(l, r, x):
+  add(B1, l,      x);
+  add(B1, r+1,   -x);
+  add(B2, l,      x*(l - 1));
+  add(B2, r+1    -x*(r + 1));
+```
+Now if we want to query range sum then we have the following cases:
+$$
+sum[0,idx]=
+\begin{cases}
+0 & idx \lt l \\\\
+x* (idx-(l-1)) & l \le idx \le r \\\\
+x * (r-l+1) & idx \gt r \\\\
+\end{cases}
+$$
+
+We can write range sum as difference of two terms, where we use $B_1$ for first term and $B_2$ for second term. The difference of the queries will give us sum over $[0,idx]$. 
+$$
+sum[0,idx]= sum(B_1, idx)* idx - sum(B_2, idx) =
+\begin{cases}
+0 - 0 & idx \lt l\\\\
+x* idx - x* (l-1) & l \le idx \le r \\\\
+0 - 0 & idx \gt r\\\\
+\end{cases}
+$$
+Thus we use $B_2$ for shaving off extra term when we multiply $B_1[i]\times i$. We can find range sum by calling for $l \, \text{and} \, r$ and taking difference of them again. 
+
+The following code is in python for brevity.
+
+```python
+def add(b, idx, x):
+  while(idx <=N):
+    b[idx]+=x
+    idx+=idx&-idx
+      
+def add(l,r,x):
+  add(B1, l, x)
+  add(B1, r+1, -x)
+  add(B2, l, x*(l-1))
+  add(B2, r+1 -x*r)
+  
+
+def sum(b, idx):
+  total=0
+  while(idx>0):
+    total+=b[idx]
+    idx-=idx&-idx
+  return total
+
+def sum(idx):
+  return sum(B1, idx)*idx -  sum(B2, idx)
+  
+def sum(l,r):
+  return sum(r) - sum(l-1)
+```
+
 ## Practice Problems
 
 * [UVA 12086 - Potentiometers](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3238)
@@ -216,3 +313,4 @@ struct FenwickTree2D {
 
 * [Fenwick tree on Wikipedia](http://en.wikipedia.org/wiki/Fenwick_tree)
 * [Binary indexed trees tutorial on TopCoder](https://www.topcoder.com/community/data-science/data-science-tutorials/binary-indexed-trees/)
+* [Range updates and queries ](https://programmingcontests.quora.com/Tutorial-Range-Updates-in-Fenwick-Tree)
