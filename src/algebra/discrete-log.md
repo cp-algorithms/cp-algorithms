@@ -6,7 +6,7 @@ The discrete logarithm is an integer $x$ solving the equation
 
 $a^x \equiv b \pmod m$
 
-where $a$ and $m$ are relatively prime. (`Note`: if they are not relatively prime, then the algorithm described below is incorret, though it can be modified so that it can work).
+where $a$ and $m$ are relatively prime. (`Note`: if they are not relatively prime, then the algorithm described below is incorrect, though it can be modified so that it can work).
 
 In this article, we describe the `Baby step - giant step` algorithm, proposed by Shanks in 1971, which has complexity $O(\sqrt{m} \log m)$. This algorithm is also known as `meet-in-the-middle`, because of it uses technique separation of tasks in half.
 
@@ -30,7 +30,7 @@ Using the fact that $a$ and $m$ are relatively prime, we obtain:
 
 $a^{np} \equiv ba^q \pmod m$
 
-This new equation can be rewriten in a simplified form:
+This new equation can be rewritten in a simplified form:
 
 $f_1(p) = f_2(q)$.
 
