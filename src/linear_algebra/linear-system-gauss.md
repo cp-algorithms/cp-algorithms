@@ -15,7 +15,7 @@ where the coefficients $a_{ij}$ (for $i$ from 1 to $n$, $j$ from 1 to $m$) and $
 
 This problem also has a simple matrix representation:
 $$Ax = b$$,
-where $A$ is a matrix of size $n \times m$ of coefficients $a_{ij}$ and $b$ is the column vector of size $m$.
+where $A$ is a matrix of size $n \times m$ of coefficients $a_{ij}$ and $b$ is the column vector of size $n$.
 
 It is worth noting that the method presented in this article can also be used to solve the equation modulo any number p, i.e.:
 
