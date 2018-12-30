@@ -92,3 +92,10 @@ void convex_hull(vector<pt>& a) {
         a.push_back(down[i]);
 }
 ```
+
+## Practice Problems
+
+* [Kattis - Convex Hull](https://open.kattis.com/problems/convexhull)
+* [Kattis - Keep the Parade Safe](https://open.kattis.com/problems/parade)
+* [Timus 1185: Wall](http://acm.timus.ru/problem.aspx?space=1&num=1185)
+* [Usaco 2014 January Contest, Gold - Cow Curling](http://usaco.org/index.php?page=viewproblem2&cpid=382)
