@@ -11,7 +11,7 @@ Fenwick tree is a data structure which:
 * requires $O(N)$ memory, or in other words, exactly the same memory required for $A$;
 * is easy to use and code, especially, in the case of multidimensional arrays.
 
-Fenwick tree is also called Binary Indexed Tree.
+Fenwick tree is also called **Binary Indexed Tree**, or just **BIT** abbreviated.
 
 The most common application of Fenwick tree is _calculating the sum of a range_ (i.e. $f(A_1, A_2, \dots, A_k) = A_1 + A_2 + \dots + A_k$).
 
@@ -175,20 +175,23 @@ struct FenwickTree2D {
 ```
 
 ## Extending Fenwick Tree
+
 Fenwick tree can support operations:
+
 1. Point Update and Range Query
 2. Range Update and Point Query
 3. Range Update and Range Query
 
-#### 1. Point Update and Range Query
-This is the ordinary fenwick tree as explained above.
-#### 2. Range Update and Point Query
+### 1. Point Update and Range Query
+This is just the ordinary Fenwick tree as explained above.
+
+### 2. Range Update and Point Query
 Let $A$ be the original array, we use another array $B$ of same of as that of $A$ which will help in range updates. All the elements of $B$ will initially be zero.
 
-Suppose that we want to increment interval $[i,j]$ by $x$. We make two point update operations on fenwick tree based on array $B$ which are $add(B,i,x)$ and $add(B,j+1,-x)$. If we take prefix sum using ordinary range sum method, then basically we are done. For interval $\left[0,i \right)$ prefix sum on B will be 0. For interval $[i,j]$ prefix sum on B will give updates and on addition with $A$, we can get out answer. For interval to right of $j$, we have already added $-x$ which will cancel the effect of first point update.
+Suppose that we want to increment interval $[i,j]$ by $x$. We make two point update operations on Fenwick tree based on array $B$ which are $add(B,i,x)$ and $add(B,j+1,-x)$. If we take prefix sum using ordinary range sum method, then basically we are done. For interval $\left[0,i \right)$ prefix sum on B will be 0. For interval $[i,j]$ prefix sum on B will give updates and on addition with $A$, we can get out answer. For interval to right of $j$, we have already added $-x$ which will cancel the effect of first point update.
 
 ```cpp
-// B[] is the additonal array as described above.
+// B[] is the additional array as described above.
 void update(int idx, int val){
   while(idx<=N){
     B[idx]+=val;
@@ -210,8 +213,8 @@ int query(int idx){
 }
 ```
 
-#### 3. Range Updates and Range Queries
-Similar to above concept we will use two BITs namely $B_1[]$ and $B_2[]$. We assume that the given array will be intially $0$. Otherwise we can do point updates $N$ times using the method below.
+### 3. Range Updates and Range Queries
+Similar to above concept we will use two BITs namely $B_1[]$ and $B_2[]$. We assume that the given array will be initially $0$. Otherwise we can do point updates $N$ times using the method below.
 
 Suppose that we want to increment in interval $[l,r]$ by value $x$. Similarly, to above method we perform two point updates on $B_1$ which are $add(B1,l,x)$ and $add(B1,r+1,-x)$. We also update $B_2$ which is explained later.
 ```python
