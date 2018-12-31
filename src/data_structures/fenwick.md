@@ -224,23 +224,23 @@ add(l, r, x):
   add(B2, l,      x*(l - 1));
   add(B2, r+1    -x*(r + 1));
 ```
-Now if we want to query range sum then we have the following cases:
+After the range update $(l, r, x)$ the range sum query should return the following values:
 $$
 sum[0,idx]=
 \begin{cases}
-0 & idx \lt l \\\\
-x* (idx-(l-1)) & l \le idx \le r \\\\
-x * (r-l+1) & idx \gt r \\\\
+0 & idx < l \\\\
+x \cdot (idx-(l-1)) & l \le idx \le r \\\\
+x \cdot (r-l+1) & idx > r \\\\
 \end{cases}
 $$
 
 We can write range sum as difference of two terms, where we use $B_1$ for first term and $B_2$ for second term. The difference of the queries will give us sum over $[0,idx]$. 
 $$
-sum[0,idx]= sum(B_1, idx)* idx - sum(B_2, idx) =
+sum[0,idx]= sum(B_1, idx) \cdot idx - sum(B_2, idx) =
 \begin{cases}
-0 - 0 & idx \lt l\\\\
-x* idx - x* (l-1) & l \le idx \le r \\\\
-0 - 0 & idx \gt r\\\\
+0 - 0 & idx < l\\\\
+x \cdot idx - x \cdot (l-1) & l \le idx \le r \\\\
+0 \cdot idx - (x \cdot (l-1) - (x \cdot r)) & idx > r \\\\
 \end{cases}
 $$
 Thus we use $B_2$ for shaving off extra term when we multiply $B_1[i]\times i$. We can find range sum by calling for $l \, \text{and} \, r$ and taking difference of them again. 
