@@ -37,7 +37,7 @@ There can be three different cases:
 - $s[j] = s[k]$: if this is the case, then adding the symbol $s[j]$ to $s_2$ doesn't violate its pre-simplicity.
   So we simply increment the pointers $j$ and $k$.
 - $s[j] > s[k]$: here, the string $s_2 + s[j]$ becomes simple.
-  We can increment $j$ and reset $k$ back to the beginning of $s_2$, so that the next character can be compared with the beginning of of the simple word.
+  We can increment $j$ and reset $k$ back to the beginning of $s_2$, so that the next character can be compared with the beginning of the simple word.
 - $s[j] < s[k]$: the string $s_2 + s[j]$ is no longer pre-simple.
   Therefore we will split the pre-simple string $s_2$ into its simple strings and the remainder, possibly empty.
   The simple string will have the length $j - k$.

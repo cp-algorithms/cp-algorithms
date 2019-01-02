@@ -62,7 +62,7 @@ $$A \odot B = C~~\Longleftrightarrow~~C_{i j} = \min_{p = 1 \ldots n}\left(A_{i 
 Thus the solution of the task can be represented using the modified multiplication:
 $$L_k = \underbrace{G \odot \ldots \odot G}_{k~\text{times}} = G^{\odot k}$$
 
-It remains to note that we also also can compute this exponentiation efficiently with [Binary exponentiation](./algebra/binary-exp.html), because the modified multiplication is obviously associative.
+It remains to note that we also can compute this exponentiation efficiently with [Binary exponentiation](./algebra/binary-exp.html), because the modified multiplication is obviously associative.
 So also this solution has $O(n^3 \log k)$ complexity.
 
 ## Generalization of the problems for paths with length up to $k$

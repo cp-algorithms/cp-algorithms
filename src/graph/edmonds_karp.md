@@ -185,7 +185,7 @@ The capacity of a $s$-$t$-cut is defined as the sum of capacities of the edges f
 Obviously we cannot send more flow from $s$ to $t$ than the capacity of any $s$-$t$-cut.
 Therefore the maximum flow is bounded by the minimum cut capacity.
 
-The max-flow min-cut theorem theorem goes even farther.
+The max-flow min-cut theorem goes even further.
 It says that the capacity of the maximum flow has to be equal to the capacity of the minimum cut.
 
 In the following image you can see the minimum cut of the flow network we used earlier.

@@ -85,7 +85,7 @@ The main difference to the implementation with `set` is that we cannot remove el
 Therefore we have to cheat a little bit.
 We simply don't delete the old pair from the queue.
 As a result a vertex can appear multiple times with different distance in the queue at the same time.
-Among these pairs we are only interested in the pairs where the first element is equal to the corresponding value in $d[]$, all the other other pairs are old.
+Among these pairs we are only interested in the pairs where the first element is equal to the corresponding value in $d[]$, all the other pairs are old.
 Therefore we need to make a small modification:
 at the beginning of each iteration, after extracting the next pair, we check if it an important pair or if it is already an old and handled pair.
 This check is important, otherwise the complexity can increase up to $O(n m)$.

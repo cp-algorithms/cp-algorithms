@@ -2,7 +2,7 @@
 
 # Floyd-Warshall Algorithm
 
-Given an undirected weighted graph $G$ with $n$ vertices. The task is to find the length of the shortest path $d_{ij}$ between each each pair of vertices $i$ and $j$.
+Given an undirected weighted graph $G$ with $n$ vertices. The task is to find the length of the shortest path $d_{ij}$ between each pair of vertices $i$ and $j$.
 
 The graph may have negative weight edges, but no negative weight cycles (for then the shortest path is undefined).
 
