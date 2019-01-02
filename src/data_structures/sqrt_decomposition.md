@@ -183,7 +183,7 @@ vector<int> mo_s_algorithm(vector<Query> queries) {
 }
 ```
 
-Based on the problem we can can use a different data structure and modify the `add`/`remove`/`get_answer` functions accordingly.
+Based on the problem we can use a different data structure and modify the `add`/`remove`/`get_answer` functions accordingly.
 For example if we are asked to find range sum queries then we use a simple integer as data structure, which is $0$ at the beginning.
 The `add` function will simply add the value of the position and subsequently update the answer variable.
 On the other hand `remove` function will subtract the value at position and subsequently update the answer variable.

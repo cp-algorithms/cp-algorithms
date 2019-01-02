@@ -346,7 +346,7 @@ In the previous implementation we iterated all bits of the index and created the
 However we can reverse the bits in a different way.
 
 Suppose that $j$ already contains the reverse of $i$.
-Then by to go to $i + 1$, we have to increment $i$, and we also also have to increment $j$, but in a "reversed" number system.
+Then by to go to $i + 1$, we have to increment $i$, and we also have to increment $j$, but in a "reversed" number system.
 Adding one in the conventional binary system is equivalent to flip all tailing ones into zeros and flipping the zero right before them into a one.
 Equivalently in the "reversed" number system, we flip all leading ones, and the also the next zero.
 
@@ -398,7 +398,7 @@ Also we can precompute all roots of unity and their powers.
 ## Number theoretic transform
 
 Now we switch the objective a little bit.
-We still want to to multiply two polynomials in $O(n \log n)$ time, but this time we want to compute the coefficients modulo some prime number $p$.
+We still want to multiply two polynomials in $O(n \log n)$ time, but this time we want to compute the coefficients modulo some prime number $p$.
 Of course for this task we can use the normal DFT and apply the modulo operator to the result.
 However, doing so might lead to rounding errors, especially when dealing with large numbers.
 The **number theoretic transform (NTT)** has the advantage, that it only works with integer, and therefore the result are guaranteed to be correct.
@@ -423,7 +423,7 @@ $$\begin{align}
 Thus if $w_n$ is a $n$-th root of unity, then $w_n^2$ is a $\frac{n}{2}$-th root of unity.
 And consequently for all smaller powers of two there exist roots of the required degree, and they can be computed using $w_n$.
 
-For computing the inverse DFT, we need need the inverse $w_n^{-1}$ of $w_n$.
+For computing the inverse DFT, we need the inverse $w_n^{-1}$ of $w_n$.
 But for a prime modulus the inverse always exists.
 
 Thus all the properties that we need from the complex roots are also available in modular arithmetic, provided that we have a large enough module $p$ for which a $n$-th root of unity exists.

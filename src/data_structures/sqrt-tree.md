@@ -126,7 +126,7 @@ So, we have the following algorithm for updating an _indexed_ tree:
 
 * Update $\text{prefixOp}$ and $\text{suffixOp}$ in $O(\sqrt{n})$.
 
-* Update $\text{index}$. It has length $O(\sqrt{n})$ and we need to update only one item in it (that represents the changed block). So, the time complexity for this step is $O(\sqrt{n})$. We can use the the algorithm described in the beginning of this section (the "slow" one) to do it.
+* Update $\text{index}$. It has length $O(\sqrt{n})$ and we need to update only one item in it (that represents the changed block). So, the time complexity for this step is $O(\sqrt{n})$. We can use the algorithm described in the beginning of this section (the "slow" one) to do it.
 
 * Go into the child node that represents the changed block and update it in $O(\sqrt{n})$ with the "slow" algorithm.
 

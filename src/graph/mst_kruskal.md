@@ -75,7 +75,7 @@ for (Edge e : edges) {
 Why does Kruskal's algorithm give us the correct result?
 
 If the original graph was connected, then also the resulting graph will be connected.
-Because otherwise there would be two components that could be connected with at least one edge. Though this is impossible, because Kruskal would have have chosen one of these edges, since the ids of the components are different.
+Because otherwise there would be two components that could be connected with at least one edge. Though this is impossible, because Kruskal would have chosen one of these edges, since the ids of the components are different.
 Also the resulting graph doesn't contain any cycles, since we forbid this explicitly in the algorithm.
 Therefore the algorithm generates a spanning tree.
 
