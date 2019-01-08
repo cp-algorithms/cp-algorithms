@@ -30,7 +30,7 @@ Otherwise it is.
 If there are several bracket types involved, then the algorithm needs to be changes.
 Instead of a counter $\text{depth}$ we create a stack, in which we will store all opening brackets that we meet.
 If the current bracket character is an opening one, we put it onto the stack.
-If is is a closing one, then we check if the stack is non-empty, and if the top element of the stack is of the same type as the current closing bracket.
+If it is a closing one, then we check if the stack is non-empty, and if the top element of the stack is of the same type as the current closing bracket.
 If both conditions are fulfilled, then we remove the opening bracket from the stack.
 If at any time one of the conditions is not fulfilled, or at the end the stack is not empty, then the string is not balanced.
 Otherwise it is.
