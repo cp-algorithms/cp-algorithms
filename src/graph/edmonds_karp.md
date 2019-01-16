@@ -107,11 +107,11 @@ In case of irrational capacities, the algorithm might never terminate, and might
 ## Edmonds-Karp algorithm
 
 Edmonds-Karp algorithm is just an implementation of the Ford-Fulkerson method that uses [BFS](./graph/breadth-first-search.html) for finding augmenting paths.
-The algorithms was first published by Yefim Dinitz in 1970, and later independently published by Jack Edmonds and Richard Karp in 1972.
+The algorithm was first published by Yefim Dinitz in 1970, and later independently published by Jack Edmonds and Richard Karp in 1972.
 
 The complexity can be given independently of the maximal flow.
 The algorithm runs in $O(V E^2)$ time, even for irrational capacities.
-The intuition is, that every time we find an augmenting path one of the edges becomes be saturated, and the distance from the edge to $s$ will be longer, if it appears later again in an augmenting path.
+The intuition is, that every time we find an augmenting path one of the edges becomes saturated, and the distance from the edge to $s$ will be longer, if it appears later again in an augmenting path.
 And the length of a simple paths is bounded by $V$.
 
 ### Implementation
