@@ -23,11 +23,14 @@ Fenwick tree was first described in a paper titled "A new data structure for cum
 
 For the sake of simplicity, we will assume that function $f$ is just a *sum function*.
 
-Given an array of integers $A[0 \dots N-1]$. Fenwick tree is an array $T[0 \dots N-1]$, where each of its elements is equal to the sum of elements of $A$ in some range $[g(i); i]$:
-
+Given an array of integers $A[0 \dots N-1]$.
+A Fenwick tree is just an array $T[0 \dots N-1]$, where each of its elements is equal to the sum of elements of $A$ in some range $[g(i); i]$:
 $$T_i = \sum_{j = g(i)}^{i}{A_j},$$
 where $g$ is some function that satisfies $0 \le g(i) \le i$.
 We will define the function in the next few paragraphs.
+
+The data structure is called tree, because there is a nice representation of the data structure as tree, although we don't need to model an actual tree with vertices and nodes.
+We will only need to maintain the array $T$ to handle all queries.
 
 **Note:** The Fenwick tree presented here uses zero-based indexing.
 Many people will actually use a version of the Fenwick tree that uses one-based indexing.
@@ -44,8 +47,8 @@ def sum(int r):
         r = g(r) - 1
     return res
 
-def inc(int i, int delta):
-    for all j, where g(j) <= i <= j
+def increase(int i, int delta):
+    for all j with g(j) <= i <= j:
         t[j] += delta
 ```
 
