@@ -789,7 +789,7 @@ Here is the implementation of the construction of a 2D Segment Tree.
 It actually represents two separate blocks: 
 the construction of a Segment Tree along the $x$ coordinate ($\text{build}_x$), and the $y$ coordinate ($\text{build}_y$).
 For the leaf nodes in $\text{build}_y$ we have to separate two cases: 
-when the current segment of the first coordinate $[tlx \dots trx]$ has length 1, and when it has a length greater than one. In the first case, we just take the corresponding value from the matrix, and int the second case we we can combine the values of two Segment Trees from the left and the right son in the coordinate $x$.
+when the current segment of the first coordinate $[tlx \dots trx]$ has length 1, and when it has a length greater than one. In the first case, we just take the corresponding value from the matrix, and int the second case we can combine the values of two Segment Trees from the left and the right son in the coordinate $x$.
 
 ```cpp
 void build_y(int vx, int lx, int rx, int vy, int ly, int ry) {

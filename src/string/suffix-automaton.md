@@ -169,7 +169,7 @@ The fact that we can construct a tree using the sets $endpos$ follows directly f
 Let us now consider an arbitrary state $v \ne t_0$, and its suffix link $link(v)$.
 From the definition of the suffix link and from Lemma 2 it follows that
 $$endpos(v) \subseteq endpos(link(v)),$$
-which together with with the previous lemma proves the assertion:
+which together with the previous lemma proves the assertion:
 the tree of suffix links is essentially a tree of sets $endpos$.
 
 Here is an **example** of a tree of suffix links in the suffix automaton build for the string $"abcbc"$.

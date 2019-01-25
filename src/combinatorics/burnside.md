@@ -4,7 +4,7 @@
 ## Burnside's lemma
 
 **Burnside's lemma** was formulated and proven by **Burnside** in 1897, but historically it was already discovered in 1887 by **Frobenius**, and even earlier in 1845 by **Cauchy**.
-Therefore is is also sometimes named the **Cauchy-Frobenius lemma**.
+Therefore it is also sometimes named the **Cauchy-Frobenius lemma**.
 
 Burnside's lemma allows us to count the number of equivalence classes in sets, based on internal symmetry.
 
@@ -79,7 +79,7 @@ The proof was published by Kenneth P. Bogart in 1991.
 We need to prove the following statement:
 $$|\text{Classes}| \cdot |G| = \sum_{\pi \in G} I(\pi)$$
 
-The value on the right side is nothing more the the number of "invariant pairs" $(f, \pi)$, i.e. pairs such that $f \pi \equiv f$.
+The value on the right side is nothing more than the number of "invariant pairs" $(f, \pi)$, i.e. pairs such that $f \pi \equiv f$.
 It is obvious that we can change the order of summation.
 We let the sum iterate over all elements $f$ and sum over the values $J(f)$ - the number of permutations for which $f$ is a fixed point.
 $$|\text{Classes}| \cdot |G| = \sum_{f} J(f)$$
@@ -147,7 +147,7 @@ $$\begin{align}
 \pi_{n-1} &= n 1 2 3\dots\end{align}$$
 
 Let us find an explicit formula for calculating $C(\pi_i)$.
-First we note, that that the permutation $\pi_i$ has at the $j$-th position the value $i + j$ (taken modulo $n$).
+First we note, that the permutation $\pi_i$ has at the $j$-th position the value $i + j$ (taken modulo $n$).
 If we check the cycle structure for $\pi_i$.
 We see that $1$ goes to $1 + i$, $1 + i$ goes to $1 + 2i$, which goes to $1 + 3i$, etc., until we come to a number of the form $1 + k n$.
 Similar statements can be mode for the remaining elements.

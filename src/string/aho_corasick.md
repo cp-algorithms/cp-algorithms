@@ -179,7 +179,7 @@ Initially we are at the root of the trie.
 If we are at any time at state $v$, and the next letter is $c$, then we transition to the next state with $\text{go}(v, c)$, thereby either increasing the length of the current match substring by $1$, or decreasing it by following a suffix link.
 
 How can we find out for a state $v$, if there are any matches with strings for the set?
-First, it is clear that if we stand on a $\text{leaf}$ vertex, then then string corresponding to the vertex ends at this position in the text.
+First, it is clear that if we stand on a $\text{leaf}$ vertex, then the string corresponding to the vertex ends at this position in the text.
 However this is by no means the only possible case of achieving a match:
 if we can reach one or more  $\text{leaf}$ vertices by moving along the suffix links, then there will be also a match corresponding to each found $\text{leaf}$ vertex.
 A simple example demonstrating this situation can be creating using the set of strings $\\{dabce, abc, bc\\}$ and the text $dabc$.

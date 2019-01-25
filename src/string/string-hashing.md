@@ -12,7 +12,7 @@ Comparing two strings is then an $O(1)$ operation.
 
 For the conversion we need a so-called **hash function**.
 The goal of it is to convert a string into a integer, the so-called **hash** of the string.
-The following condition has to hold: if two two strings $s$ and $t$ are equal ($s = t$), then also their hashes have to be equal ($\text{hash}(s) = \text{hash}(t)$).
+The following condition has to hold: if two strings $s$ and $t$ are equal ($s = t$), then also their hashes have to be equal ($\text{hash}(s) = \text{hash}(t)$).
 Otherwise we will not be able to compare strings.
 
 Notice, the opposite direction doesn't have to hold.
