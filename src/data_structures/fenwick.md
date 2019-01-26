@@ -303,7 +303,7 @@ struct FenwickTreeOneBasedIndexing {
 
 ## Range operations
 
-A Fenwick tree can support the following operations:
+A Fenwick tree can support the following range operations:
 
 1. Point Update and Range Query
 2. Range Update and Point Query
@@ -351,64 +351,71 @@ int point_query(int idx) {
 Notice: of course it is also possible to increase a single point $A[i]$ with `range_add(i, i, val)`.
 
 ### 3. Range Updates and Range Queries
-Similar to above concept we will use two BITs namely $B_1[]$ and $B_2[]$. We assume that the given array will be initially $0$. Otherwise we can do point updates $N$ times using the method below.
 
-Suppose that we want to increment in interval $[l,r]$ by value $x$. Similarly, to above method we perform two point updates on $B_1$ which are $add(B1,l,x)$ and $add(B1,r+1,-x)$. We also update $B_2$ which is explained later.
+To support both range updates and range queries we will use two BITs namely $B_1[]$ and $B_2[]$, initialized with zeros.
+
+Suppose that we want to increment the interval $[l; r]$ by the value $x$.
+Similarly as in the previous method, we perform two point updates on $B_1$: `add(B1, l, x)` and `add(B1, r+1, -x)`.
+And we also update $B_2$. The details will be explained later.
+
 ```python
-add(l, r, x):
-  add(B1, l,      x);
-  add(B1, r+1,   -x);
-  add(B2, l,      x*(l - 1));
-  add(B2, r+1    -x*(r + 1));
+def range_add(l, r, x):
+    add(B1, l, x)
+    add(B1, r+1, -x)
+    add(B2, l, x*(l-1))
+    add(B2, r+1, -x*r))
 ```
 After the range update $(l, r, x)$ the range sum query should return the following values:
 $$
-sum[0,idx]=
+sum[0; i]=
 \begin{cases}
-0 & idx < l \\\\
-x \cdot (idx-(l-1)) & l \le idx \le r \\\\
-x \cdot (r-l+1) & idx > r \\\\
+0 & i < l \\\\
+x \cdot (i-(l-1)) & l \le i \le r \\\\
+x \cdot (r-l+1) & i > r \\\\
 \end{cases}
 $$
 
-We can write range sum as difference of two terms, where we use $B_1$ for first term and $B_2$ for second term. The difference of the queries will give us sum over $[0,idx]$. 
-$$
-sum[0,idx]= sum(B_1, idx) \cdot idx - sum(B_2, idx) =
-\begin{cases}
-0 - 0 & idx < l\\\\
-x \cdot idx - x \cdot (l-1) & l \le idx \le r \\\\
-0 \cdot idx - (x \cdot (l-1) - (x \cdot r)) & idx > r \\\\
+We can write the range sum as difference of two terms, where we use $B_1$ for first term and $B_2$ for second term.
+The difference of the queries will give us prefix sum over $[0; i]$. 
+$$\begin{align}
+sum[0; i] &= sum(B_1, i) \cdot i - sum(B_2, i) \\\\
+&= \begin{cases}
+0 \cdot i - 0 & i < l\\\\
+x \cdot i - x \cdot (l-1) & l \le i \le r \\\\
+0 \cdot i - (x \cdot (l-1) - x \cdot r) & i > r \\\\
 \end{cases}
+\end{align}
 $$
-Thus we use $B_2$ for shaving off extra term when we multiply $B_1[i]\times i$. We can find range sum by calling for $l \, \text{and} \, r$ and taking difference of them again. 
 
-The following code is in python for brevity.
+The last expression is exactly equal to the required terms.
+Thus we can use $B_2$ for shaving off extra terms when we multiply $B_1[i]\times i$.
+
+We can find arbitrary range sums by computing the prefix sums for $l-1$ and $r$ and taking the difference of them again. 
 
 ```python
 def add(b, idx, x):
-  while(idx <=N):
-    b[idx]+=x
-    idx+=idx&-idx
-      
-def add(l,r,x):
-  add(B1, l, x)
-  add(B1, r+1, -x)
-  add(B2, l, x*(l-1))
-  add(B2, r+1 -x*r)
-  
+    while idx <= N:
+        b[idx] += x
+        idx += idx & -idx
+
+def range_add(l,r,x):
+    add(B1, l, x)
+    add(B1, r+1, -x)
+    add(B2, l, x*(l-1))
+    add(B2, r+1, -x*r)
 
 def sum(b, idx):
-  total=0
-  while(idx>0):
-    total+=b[idx]
-    idx-=idx&-idx
-  return total
+    total = 0
+    while idx > 0:
+        total += b[idx]
+        idx -= idx & -idx
+    return total
 
-def sum(idx):
-  return sum(B1, idx)*idx -  sum(B2, idx)
-  
-def sum(l,r):
-  return sum(r) - sum(l-1)
+def prefix_sum(idx):
+    return sum(B1, idx)*idx -  sum(B2, idx)
+
+def range_sum(l, r):
+    return sum(r) - sum(l-1)
 ```
 
 ## Practice Problems
