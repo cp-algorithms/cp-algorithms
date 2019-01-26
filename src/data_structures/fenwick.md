@@ -23,11 +23,14 @@ Fenwick tree was first described in a paper titled "A new data structure for cum
 
 For the sake of simplicity, we will assume that function $f$ is just a *sum function*.
 
-Given an array of integers $A[0 \dots N-1]$. Fenwick tree is an array $T[0 \dots N-1]$, where each of its elements is equal to the sum of elements of $A$ in some range $[g(i); i]$:
-
+Given an array of integers $A[0 \dots N-1]$.
+A Fenwick tree is just an array $T[0 \dots N-1]$, where each of its elements is equal to the sum of elements of $A$ in some range $[g(i); i]$:
 $$T_i = \sum_{j = g(i)}^{i}{A_j},$$
 where $g$ is some function that satisfies $0 \le g(i) \le i$.
 We will define the function in the next few paragraphs.
+
+The data structure is called tree, because there is a nice representation of the data structure as tree, although we don't need to model an actual tree with vertices and nodes.
+We will only need to maintain the array $T$ to handle all queries.
 
 **Note:** The Fenwick tree presented here uses zero-based indexing.
 Many people will actually use a version of the Fenwick tree that uses one-based indexing.
@@ -44,8 +47,8 @@ def sum(int r):
         r = g(r) - 1
     return res
 
-def inc(int i, int delta):
-    for all j, where g(j) <= i <= j
+def increase(int i, int delta):
+    for all j with g(j) <= i <= j:
         t[j] += delta
 ```
 
@@ -193,7 +196,7 @@ struct FenwickTreeMin {
 };
 ```
 
-Notice: it is possible to implement a Fenwick tree that can handle arbitrary minimum range queries and arbitrary updates.
+Note: it is possible to implement a Fenwick tree that can handle arbitrary minimum range queries and arbitrary updates.
 The paper [Efficient Range Minimum Queries using Binary Indexed Trees](http://ioinformatics.org/oi/pdf/v9_2015_39_44.pdf) describes such an approach.
 However with that approach you need to maintain a second binary indexed trees over the data, with a slightly different structure, since you one tree is not enough to store the values of all elements in the array.
 The implementation is also a lot harder compared to the normal implementation for sums.
@@ -298,6 +301,123 @@ struct FenwickTreeOneBasedIndexing {
 };
 ```
 
+## Range operations
+
+A Fenwick tree can support the following range operations:
+
+1. Point Update and Range Query
+2. Range Update and Point Query
+3. Range Update and Range Query
+
+### 1. Point Update and Range Query
+
+This is just the ordinary Fenwick tree as explained above.
+
+### 2. Range Update and Point Query
+
+Using simple tricks we can also do the reverse operations: increasing ranges and querying for single values.
+
+Let the Fenwick tree be initialized with zeros.
+Suppose that we want to increment the interval $[l; r]$ by $x$.
+We make two point update operations on Fenwick tree which are `add(l, x)` and `add(r+1, -x)`.
+
+If we want to get the value of $A[i]$, we just need to take the prefix sum using the ordinary range sum method.
+To see why this is true, we can just focus on the previous increment operation again.
+If $i < l$, then the two update operations have no effect on the query and we get the sum $0$.
+If $i \in [l; r]$, then we get the answer $x$ because of the first update operation.
+And if $i > r$, then the second update operation will cancel the effect of first one.
+
+The following implementation uses one-based indexing.
+
+```cpp
+void add(int idx, int val) {
+    for (++idx; idx < n; idx += idx & -idx)
+        bit[idx] += val;
+}
+
+void range_add(int l, int r, int val) {
+    add(l, val);
+    add(r + 1, -val);
+}
+
+int point_query(int idx) {
+    int ret = 0;
+    for (++idx; idx > 0; idx -= idx & -idx)
+        ret += bit[idx];
+    return ret;
+}
+```
+
+Note: of course it is also possible to increase a single point $A[i]$ with `range_add(i, i, val)`.
+
+### 3. Range Updates and Range Queries
+
+To support both range updates and range queries we will use two BITs namely $B_1[]$ and $B_2[]$, initialized with zeros.
+
+Suppose that we want to increment the interval $[l; r]$ by the value $x$.
+Similarly as in the previous method, we perform two point updates on $B_1$: `add(B1, l, x)` and `add(B1, r+1, -x)`.
+And we also update $B_2$. The details will be explained later.
+
+```python
+def range_add(l, r, x):
+    add(B1, l, x)
+    add(B1, r+1, -x)
+    add(B2, l, x*(l-1))
+    add(B2, r+1, -x*r))
+```
+After the range update $(l, r, x)$ the range sum query should return the following values:
+$$
+sum[0; i]=
+\begin{cases}
+0 & i < l \\\\
+x \cdot (i-(l-1)) & l \le i \le r \\\\
+x \cdot (r-l+1) & i > r \\\\
+\end{cases}
+$$
+
+We can write the range sum as difference of two terms, where we use $B_1$ for first term and $B_2$ for second term.
+The difference of the queries will give us prefix sum over $[0; i]$.
+$$\begin{align}
+sum[0; i] &= sum(B_1, i) \cdot i - sum(B_2, i) \\\\
+&= \begin{cases}
+0 \cdot i - 0 & i < l\\\\
+x \cdot i - x \cdot (l-1) & l \le i \le r \\\\
+0 \cdot i - (x \cdot (l-1) - x \cdot r) & i > r \\\\
+\end{cases}
+\end{align}
+$$
+
+The last expression is exactly equal to the required terms.
+Thus we can use $B_2$ for shaving off extra terms when we multiply $B_1[i]\times i$.
+
+We can find arbitrary range sums by computing the prefix sums for $l-1$ and $r$ and taking the difference of them again.
+
+```python
+def add(b, idx, x):
+    while idx <= N:
+        b[idx] += x
+        idx += idx & -idx
+
+def range_add(l,r,x):
+    add(B1, l, x)
+    add(B1, r+1, -x)
+    add(B2, l, x*(l-1))
+    add(B2, r+1, -x*r)
+
+def sum(b, idx):
+    total = 0
+    while idx > 0:
+        total += b[idx]
+        idx -= idx & -idx
+    return total
+
+def prefix_sum(idx):
+    return sum(B1, idx)*idx -  sum(B2, idx)
+
+def range_sum(l, r):
+    return sum(r) - sum(l-1)
+```
+
 ## Practice Problems
 
 * [UVA 12086 - Potentiometers](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3238)
@@ -340,3 +460,4 @@ struct FenwickTreeOneBasedIndexing {
 
 * [Fenwick tree on Wikipedia](http://en.wikipedia.org/wiki/Fenwick_tree)
 * [Binary indexed trees tutorial on TopCoder](https://www.topcoder.com/community/data-science/data-science-tutorials/binary-indexed-trees/)
+* [Range updates and queries ](https://programmingcontests.quora.com/Tutorial-Range-Updates-in-Fenwick-Tree)
