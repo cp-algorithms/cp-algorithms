@@ -376,7 +376,7 @@ x \cdot (r-l+1) & i > r \\\\
 $$
 
 We can write the range sum as difference of two terms, where we use $B_1$ for first term and $B_2$ for second term.
-The difference of the queries will give us prefix sum over $[0; i]$. 
+The difference of the queries will give us prefix sum over $[0; i]$.
 $$\begin{align}
 sum[0; i] &= sum(B_1, i) \cdot i - sum(B_2, i) \\\\
 &= \begin{cases}
@@ -390,7 +390,7 @@ $$
 The last expression is exactly equal to the required terms.
 Thus we can use $B_2$ for shaving off extra terms when we multiply $B_1[i]\times i$.
 
-We can find arbitrary range sums by computing the prefix sums for $l-1$ and $r$ and taking the difference of them again. 
+We can find arbitrary range sums by computing the prefix sums for $l-1$ and $r$ and taking the difference of them again.
 
 ```python
 def add(b, idx, x):
