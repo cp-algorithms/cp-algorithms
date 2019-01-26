@@ -318,14 +318,14 @@ This is just the ordinary Fenwick tree as explained above.
 Using simple tricks we can also do the reverse operations: increasing ranges and querying for single values.
 
 Let the Fenwick tree be initialized with zeros.
-Suppose that we want to increment the interval $[i; j]$ by $x$.
-We make two point update operations on Fenwick tree which are `add(i, x)` and `add(j+1, -x)`.
+Suppose that we want to increment the interval $[l; r]$ by $x$.
+We make two point update operations on Fenwick tree which are `add(l, x)` and `add(r+1, -x)`.
 
-If we want to get the value of $A[k]$, we just need to take the prefix sum using the ordinary range sum method.
+If we want to get the value of $A[i]$, we just need to take the prefix sum using the ordinary range sum method.
 To see why this is true, we can just focus on the previous increment operation again.
-If $k < i$, then the two update operations have no effect on the query and we get the sum $0$.
-If $k \in [i; j]$, then we get the answer $x$ because of the first update operation.
-And if $k > j$, then the second update operation will cancel the effect of first one.
+If $i < l$, then the two update operations have no effect on the query and we get the sum $0$.
+If $i \in [l; r]$, then we get the answer $x$ because of the first update operation.
+And if $i > r$, then the second update operation will cancel the effect of first one.
 
 The following implementation uses one-based indexing.
 
