@@ -301,44 +301,54 @@ struct FenwickTreeOneBasedIndexing {
 };
 ```
 
-## Extending Fenwick Tree
+## Range operations
 
-Fenwick tree can support operations:
+A Fenwick tree can support the following operations:
 
 1. Point Update and Range Query
 2. Range Update and Point Query
 3. Range Update and Range Query
 
 ### 1. Point Update and Range Query
+
 This is just the ordinary Fenwick tree as explained above.
 
 ### 2. Range Update and Point Query
-Let $A$ be the original array, we use another array $B$ of same of as that of $A$ which will help in range updates. All the elements of $B$ will initially be zero.
 
-Suppose that we want to increment interval $[i,j]$ by $x$. We make two point update operations on Fenwick tree based on array $B$ which are $add(B,i,x)$ and $add(B,j+1,-x)$. If we take prefix sum using ordinary range sum method, then basically we are done. For interval $\left[0,i \right)$ prefix sum on B will be 0. For interval $[i,j]$ prefix sum on B will give updates and on addition with $A$, we can get out answer. For interval to right of $j$, we have already added $-x$ which will cancel the effect of first point update.
+Using simple tricks we can also do the reverse operations: increasing ranges and querying for single values.
+
+Let the Fenwick tree be initialized with zeros.
+Suppose that we want to increment the interval $[i; j]$ by $x$.
+We make two point update operations on Fenwick tree which are `add(i, x)` and `add(j+1, -x)`.
+
+If we want to get the value of $A[k]$, we just need to take the prefix sum using the ordinary range sum method.
+To see why this is true, we can just focus on the previous increment operation again.
+If $k < i$, then the two update operations have no effect on the query and we get the sum $0$.
+If $k \in [i; j]$, then we get the answer $x$ because of the first update operation.
+And if $k > j$, then the second update operation will cancel the effect of first one.
+
+The following implementation uses one-based indexing.
 
 ```cpp
-// B[] is the additional array as described above.
-void update(int idx, int val){
-  while(idx<=N){
-    B[idx]+=val;
-    idx+=idx&-idx;
-  }
-}
-void update(int l, int r, int val){
-  update(l, val);
-  update(r+1,-val);
+void add(int idx, int val) {
+    for (++idx; idx < n; idx += idx & -idx)
+        bit[idx] += val;
 }
 
-int query(int idx){
-  int ret=0;
-  while(idx>0){
-    ret+=B[idx];
-    idx-=idx&-idx;
-  }
-  return ret+A[idx];
+void range_add(int l, int r, int val) {
+    add(l, val);
+    add(r + 1, -val);
+}
+
+int point_query(int idx) {
+    int ret = 0;
+    for (++idx; idx > 0; idx -= idx & -idx)
+        ret += bit[idx];
+    return ret;
 }
 ```
+
+Notice: of course it is also possible to increase a single point $A[i]$ with `range_add(i, i, val)`.
 
 ### 3. Range Updates and Range Queries
 Similar to above concept we will use two BITs namely $B_1[]$ and $B_2[]$. We assume that the given array will be initially $0$. Otherwise we can do point updates $N$ times using the method below.
