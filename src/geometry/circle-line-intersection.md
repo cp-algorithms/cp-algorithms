@@ -2,7 +2,7 @@
 
 # Circle-Line Intersection
 
-Given the coordinates of the center of a circle and it's radius, and the equation of a line, you're required to find the points of intersection.
+Given the coordinates of the center of a circle and its radius, and the equation of a line, you're required to find the points of intersection.
 
 ## Solution
 
