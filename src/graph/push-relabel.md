@@ -53,11 +53,11 @@ The Ford-Fulkerson algorithm keeps a valid flow at all time and improves it unti
 First we have to initialize the graph with a valid preflow and labeling function.
 
 Using the empty preflow - like it is done in the Ford-Fulkerson algorithm - is not possible, because then there will be an augmenting path and this implies that there doesn't exists a valid labeling.
-Therefore we will initialize each edges outgoing from $s$ with it's maximal capacity: $f((s, u)) = c((s, u))$.
+Therefore we will initialize each edges outgoing from $s$ with its maximal capacity: $f((s, u)) = c((s, u))$.
 And all other edges with zero.
 In this case there exists a valid labeling, namely $h(s) = |V|$ for the source vertex and $h(u) = 0$ for all other.
 
-Now lets describe the two operations in more detail.
+Now let's describe the two operations in more detail.
 
 With the `push` operation we try to push as much excess flow from one vertex $u$ to a neighboring vertex $v$.
 We have one rule: we are only allowed to push flow from $u$ to $v$ if $h(u) = h(v) + 1$.

@@ -107,10 +107,10 @@ And since the height of the tree is $O(\log n)$, we receive the desired running 
 
 We can show that this proposition (at most four vertices each level) is true by induction.
 At the first level, we only visit one vertex, the root vertex, so here we visit less than four vertices. 
-Now lets look at an arbitrary level.
+Now let's look at an arbitrary level.
 By induction hypothesis, we visit at most four vertices. 
 If we only visit at most two vertices, the next level has at most four vertices. That trivial, because each vertex can only cause at most two recursive calls. 
-So lets assume that we visit three or four vertices in the current level. 
+So let's assume that we visit three or four vertices in the current level. 
 From those vertices, we will analyze the vertices in the middle more carefully. 
 Since the sum query asks for the sum of a continuous subarray, we know that segments corresponding to the visited vertices in the middle we be completely covered by the segment of the sum query. 
 Therefore these vertices will not make any recursive calls. 
@@ -125,7 +125,7 @@ And if we stop partitioning whenever the query segment coincides with the vertex
 
 ### Update queries
 
-Now we want to modify a specific element in the array, lets say we want to do the assignment $a[i] = x$. 
+Now we want to modify a specific element in the array, let's say we want to do the assignment $a[i] = x$. 
 And we have to rebuild the Segment Tree, such that it correspond to the new, modified array. 
 
 This query is easier than the sum query. 
@@ -978,7 +978,7 @@ So the leaf vertices will store how often the values $0$, $1$, $\dots$, $n-1$ wi
 In other words we create a regular Segment Tree with sum queries over the histogram of the array.
 But instead of creating all $n$ Segment Trees for every possible prefix, we will create one persistent one, that will contain the same information.
 We will start with an empty Segment Tree (all counts will be $0$), and add the elements $a[0]$, $a[1]$, $\dots$, $a[n-1]$ one after each other.
-For each modification we will receive a new root vertex, lets call $root_i$ the root of the Segment Tree after inserting the first $i$ elements of the array $a$.
+For each modification we will receive a new root vertex, let's call $root_i$ the root of the Segment Tree after inserting the first $i$ elements of the array $a$.
 The Segment Tree rooted at $root_i$ will contain the histogram of the prefix $a[0 \dots i-1]$.
 Using this Segment Tree we can find in $O(\log n)$ time the position of the $k$-th element using the same technique discussed in [Counting the number of zeros, searching for the $k$-th zero](data_structures/segment_tree.html#counting-zero-search-kth).
 

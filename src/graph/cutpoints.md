@@ -10,9 +10,11 @@ The algorithm described here is based on [depth first search](./graph/depth-firs
 
 Pick an arbitrary vertex of the graph $root$ and run [depth first search](./graph/depth-first-search.html) from it. Note the following fact (which is easy to prove):
 
-- Let's say we are in the DFS, looking through the edges starting from vertex $v\ne root$. If the current edge $(v, to)$ is such that none of the vertices $to$ or its descendants in the DFS traversal tree has a back-edge to any of ancestors of $v$, then $v$ is articulation point. Otherwise, $v$ is not an articulation point.
+- Let's say we are in the DFS, looking through the edges starting from vertex $v\ne root$.
+If the current edge $(v, to)$ is such that none of the vertices $to$ or its descendants in the DFS traversal tree has a back-edge to any of ancestors of $v$, then $v$ is an articulation point. Otherwise, $v$ is not an articulation point.
 
-- Let's consider the remaining case of $v=root$. This vertex will be the point of articulation if and only if this vertex has more than one children in DFS tree.
+- Let's consider the remaining case of $v=root$.
+This vertex will be the point of articulation if and only if this vertex has more than one child in the DFS tree.
 
 Now we have to learn to check this fact for each vertex efficiently. We'll use "time of entry into node" computed by the depth first search.
 
