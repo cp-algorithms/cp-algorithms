@@ -64,7 +64,9 @@ $$O(\sqrt {m} \log m).$$
 
 ### The simplest implementation
 
-In the following code, the function `powmod` calculates $a^b \pmod m$ and the function `solve` produces a proper solution to the problem. It returns $-1$ if there is no solution and returns one of the possible solutions otherwise.
+In the following code, the function `powmod` calculates $a^b \pmod m$ and the function `solve` produces a proper solution to the problem.
+It returns $-1$ if there is no solution and returns one of the possible solutions otherwise.
+The resulting discrete logarithm can be big, but you can make it smaller using [Euler's theorem](./algebra/phi-function.html#toc-tgt-2).
 
 ```cpp
 int powmod(int a, int b, int m) {
@@ -85,7 +87,7 @@ int solve(int a, int b, int m) {
 	for (int p = n; p >= 1; --p)
 		vals[powmod(a, p * n, m)] = p;
 	for (int q = 0; q <= n; ++q) {
-		int cur = (powmod (a, q, m) * b) % m;
+		int cur = (powmod(a, q, m) * b) % m;
 		if (vals.count(cur)) {
 			int ans = vals[cur] * n - q;
 			return ans;
@@ -106,7 +108,10 @@ We also need to change the second step accordingly.
 
 ## Improved implementation
 
-A possible improvement is to get rid of binary exponentiation. This can be done by keeping a variable that is multiplied by $a$ each time we increase $q$ and a variable that is multiplied by $a^n$ each time we increase $p$. With this change, the complexity of the algorithm is still the same, but now the $\log$ factor is only for `map`. Instead of a `map`, we can also use a hash table (`unordered_map` in C++) which has the average time complexity $O(1)$ for inserting and searching.
+A possible improvement is to get rid of binary exponentiation.
+This can be done by keeping a variable that is multiplied by $a$ each time we increase $q$ and a variable that is multiplied by $a^n$ each time we increase $p$.
+With this change, the complexity of the algorithm is still the same, but now the $\log$ factor is only for the `map`.
+Instead of a `map`, we can also use a hash table (`unordered_map` in C++) which has the average time complexity $O(1)$ for inserting and searching.
 
 ```cpp
 int solve(int a, int b, int m) {

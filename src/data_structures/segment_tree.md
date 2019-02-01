@@ -71,7 +71,7 @@ The time complexity of the construction is $O(n)$.
 For now we are going to answer sum queries. As an input we receive two integers $l$ and $r$, and we have to compute the sum of the segment $a[l \dots r]$ in $O(\log n)$ time. 
 
 To do this, we will traverse the Segment Tree and use the precomputed sums of the segments.
-Lets assume that we are currently at the vertex that covers the segment $a[tl \dots tr]$.
+Let's assume that we are currently at the vertex that covers the segment $a[tl \dots tr]$.
 There are three possible cases. 
 
 The easiest case is when the segment $a[l \dots r]$ is equal to the corresponding segment of the current vertex (i.e. $a[l \dots r] = a[tl \dots tr]$), then we are finished and can return the precomputed sum that is stored in the vertex.

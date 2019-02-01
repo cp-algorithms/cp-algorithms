@@ -20,7 +20,7 @@ It is obvious that the constructed adjacency matrix if the answer to the problem
 It contains the number of paths of length $1$ between each pair of vertices.
 
 We will build the solution iteratively:
-Lets assume we know the answer for some $k$.
+Let's assume we know the answer for some $k$.
 Here we describe a method how we can construct the answer for $k + 1$.
 Denote by $C_k$ the matrix for the case $k$, and by $C_{k+1}$ the matrix we want to construct.
 With the following formula we can compute every entry of $C_{k+1}$:
