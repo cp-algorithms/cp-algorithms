@@ -64,7 +64,9 @@ $$O(\sqrt {m} \log m).$$
 
 ### The simplest implementation
 
-In the following code, the function `powmod` calculates $a^b \pmod m$ and the function `solve` produces a proper solution to the problem. It returns $-1$ if there is no solution and returns one of the possible solutions otherwise.
+In the following code, the function `powmod` calculates $a^b \pmod m$ and the function `solve` produces a proper solution to the problem.
+It returns $-1$ if there is no solution and returns one of the possible solutions otherwise.
+The resulting discrete logarithm can be big, but you can make it smaller using [Euler's theorem](./algebra/phi-function.html#toc-tgt-2).
 
 ```cpp
 int powmod(int a, int b, int m) {
