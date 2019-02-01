@@ -347,7 +347,7 @@ The only difficulty that we face is to compute the parity in the `union_find` me
 
 If we add an edge $(a, b)$ that connects two connected components into one, then when you attach one tree to another we need to adjust the parity.
 
-Lets derive a formula, which computes the parity issued to the leader of the set that will get attached to another set.
+Let's derive a formula, which computes the parity issued to the leader of the set that will get attached to another set.
 Let $x$ be the parity of the path length from vertex $a$ up to its leader $A$, and $y$ as the parity of the path length from vertex $b$ up to its leader $B$, and $t$ the desired parity that we have to assign to $B$ after the merge.
 The path contains the of the three parts:
 from $B$ to $b$, from $b$ to $a$, which is connected by one edge and therefore has parity $1$, and from $a$ to $A$.

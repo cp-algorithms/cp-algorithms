@@ -22,7 +22,7 @@ We now construct a directed graph of these implications:
 for each variable $x$ there will be two vertices $v_x$ and $v_{\lnot x}$.
 The edges will correspond to the implications.
 
-Lets look at the example in 2-CNF form:
+Let's look at the example in 2-CNF form:
 
 $$(a \lor \lnot b) \land (\lnot a \lor b) \land (\lnot a \lor \lnot b) \land (a \lor \lnot c)$$
 
