@@ -4,35 +4,36 @@
 
 The discrete logarithm is an integer $x$ solving the equation
 
-$a^x \equiv b \pmod m$
+$$a^x \equiv b \pmod m,$$
 
-where $a$ and $m$ are relatively prime. (`Note`: if they are not relatively prime, then the algorithm described below is incorrect, though it can be modified so that it can work).
+where $a$ and $m$ are relatively prime.
+**Note**, if they are not relatively prime, then the algorithm described below is incorrect, though it can be modified so that it can work.
 
-In this article, we describe the `Baby step - giant step` algorithm, proposed by Shanks in 1971, which has the time complexity $O(\sqrt{m} \log m)$. This algorithm is also known as `meet-in-the-middle` because it uses the technique of separating tasks in half.
+In this article, we describe the **Baby step - giant step** algorithm, proposed by Shanks in 1971, which has the time complexity $O(\sqrt{m} \log m)$. This algorithm is also known as **meet-in-the-middle** because it uses the technique of separating tasks in half.
 
 ## Algorithm
 
 Consider the equation:
 
-$a^x \equiv b \pmod m$
+$$a^x \equiv b \pmod m,$$
 
 where $a$ and $m$ are relatively prime.
 
-Let $x = np - q$, where $n$ is some pre-selected constant (we will describe how to select $n$ later). $p$ is known as `giant step`, since increasing it by one increases $x$ by $n$. Similarly, $q$ is known as `baby step`.
+Let $x = np - q$, where $n$ is some pre-selected constant (we will describe how to select $n$ later). $p$ is known as **giant step**, since increasing it by one increases $x$ by $n$. Similarly, $q$ is known as **baby step**.
 
 Obviously, any number $x$ in the interval $[0; m)$ can be represented in this form, where $p \in [1; \lceil \frac{m}{n} \rceil ]$ and $q \in [0; n]$.
 
 Then, the equation becomes:
 
-$a^{np - q} \equiv b \pmod m$.
+$$a^{np - q} \equiv b \pmod m.$$
 
 Using the fact that $a$ and $m$ are relatively prime, we obtain:
 
-$a^{np} \equiv ba^q \pmod m$
+$$a^{np} \equiv ba^q \pmod m$$
 
 This new equation can be rewritten in a simplified form:
 
-$f_1(p) = f_2(q)$.
+$$f_1(p) = f_2(q).$$
 
 This problem can be solved using the meet-in-the-middle method as follows:
 
@@ -45,19 +46,19 @@ We can calculate $f_1(p)$ in $O(\log m)$ using the [binary exponentation algorit
 
 In the first step of the algorithm, we need to calculate $f_1$ for every possible argument $p$ and then sort the values. Thus, this step has complexity:
 
-$O(\lceil \frac{m}{n} \rceil (\log m + \log \lceil \frac{m}{n} \rceil )) = O( \lceil \frac {m}{n} \rceil \log m)$
+$$O\left(\left\lceil \frac{m}{n} \right\rceil \left(\log m + \log \left\lceil \frac{m}{n} \right\rceil \right)\right) = O\left( \left\lceil \frac {m}{n} \right\rceil \log m\right)$$
 
 In the second step of the algorithm, we need to calculate $f_2(q)$ for every possible argument $q$ and then do a binary search on the array of values of $f_1$, thus this step has complexity:
 
-$O(n (\log m + \log \frac{m}{n} ) ) = O(n \log m)$.
+$$O\left(n \left(\log m + \log \frac{m}{n} \right) \right) = O\left(n \log m\right).$$
 
 Now, when we add these two complexities, we get $\log m$ multiplied by the sum of $n$ and $m/n$, which is minimal when $n = m/n$, which means, to achieve optimal performance, $n$ should be chosen such that:
 
-$n = \sqrt{m}$.
+$$n = \sqrt{m}.$$
 
 Then, the complexity of the algorithm becomes:
 
-$O(\sqrt {m} \log m)$.
+$$O(\sqrt {m} \log m).$$
 
 ## Implementation
 
@@ -105,7 +106,7 @@ We also need to change the second step accordingly.
 
 ## Improved implementation
 
-A possible improvement is to get rid of binary exponentiation. This can be done by keeping a variable that is multiplied by $a$ each time we increase $q$ and a variable that is multiplied by $a^n$ each time we increase $p$. With this change, the complexity of the algorithm is still the same, but now the $log$ factor is only for `map`. Instead of a `map`, we can also use a hash table (`unordered_map` in C++) which has the average time complexity $O(1)$ for inserting and searching.
+A possible improvement is to get rid of binary exponentiation. This can be done by keeping a variable that is multiplied by $a$ each time we increase $q$ and a variable that is multiplied by $a^n$ each time we increase $p$. With this change, the complexity of the algorithm is still the same, but now the $\log$ factor is only for `map`. Instead of a `map`, we can also use a hash table (`unordered_map` in C++) which has the average time complexity $O(1)$ for inserting and searching.
 
 ```cpp
 int solve(int a, int b, int m) {
