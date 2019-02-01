@@ -2,7 +2,7 @@
 
 # Discrete Root
 
-The problem of finding discrete root is defined as follows. Given a prime $n$ and two integers $a$ and $k$, find all $x$ for which:
+The problem of finding a discrete root is defined as follows. Given a prime $n$ and two integers $a$ and $k$, find all $x$ for which:
 
 $x^k \equiv a \pmod n$
 
@@ -14,7 +14,7 @@ Let's apply the concept of a [primitive root](./algebra/primitive-root.html) mod
 
 We can easily discard the case where $a = 0$. In this case, obviously there is only one answer: $x = 0$.
 
-Since we jnow that $n$ is a prime, any number between 1 and $n-1$ can be represented as a power of the primitive root, and we can represent the discrete root problem as follows:
+Since we know that $n$ is a prime and any number between 1 and $n-1$ can be represented as a power of the primitive root, we can represent the discrete root problem as follows:
 
 $(g^y)^k \equiv a \pmod n$
 
@@ -26,7 +26,7 @@ This, in turn, can be rewritten as
 
 $(g^k)^y \equiv a \pmod n$
 
-Now we have one unknown $y$, which is a discrete logarithm problem. The solution can be found using Shanks' baby-step-giant-step algorithm in $O(\sqrt {n} \log n)$ (or we can verify that there are no solutions).
+Now we have one unknown $y$, which is a discrete logarithm problem. The solution can be found using Shanks' baby-step giant-step algorithm in $O(\sqrt {n} \log n)$ (or we can verify that there are no solutions).
 
 Having found one solution $y_0$, one of solutions of discrete root problem will be $x_0 = g^{y_0} \pmod n$.
 
@@ -46,11 +46,11 @@ where $l$ is chosen such that the fraction must be an integer. For this to be tr
 
 $x = g^{y_0 + i \frac {\phi (n)}{gcd(k, \phi (n))}} \pmod n \forall i \in Z$.
 
-This is the final formula for all solutions of discrete root problem.
+This is the final formula for all solutions of the discrete root problem.
 
 ## Implementation
 
-Here is a full implementation, including routines for finding the primitive root, discrete log and finding and printing all solutions.
+Here is a full implementation, including procedures for finding the primitive root, discrete log and finding and printing all solutions.
 
 ```cpp
 int gcd(int a, int b) {
