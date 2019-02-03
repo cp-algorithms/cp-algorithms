@@ -1,7 +1,7 @@
 <!--?title 0-1 BFS -->
 # 0-1 BFS
 
-It is well-known, that you can find the shortest paths between a single source and all other vertices in $O(|E|)$ using [Breath First Search](./graph/breadth-first-search.html) in an **unweighted graph**, i.e. the distance is the minimal number of edges that you need to traverse from the source to another vertex.
+It is well-known, that you can find the shortest paths between a single source and all other vertices in $O(|E|)$ using [Breadth First Search](./graph/breadth-first-search.html) in an **unweighted graph**, i.e. the distance is the minimal number of edges that you need to traverse from the source to another vertex.
 We can interpret such a graph also as a weighted graph, where every edge has the weight $1$.
 If not all edges in graph have the same weight, that we need a more general algorithm, like [Dijkstra](./graph/dijkstra.html) which runs in $O(|V|^2 + |E|)$ or $O(|E| \log |V|)$ time.
 
@@ -76,3 +76,7 @@ We can extend this even further if we allow the weights of the edges to be even 
 If every edge in the graph has a weight $\le k$, than the distances of vertices in the queue will differ by at most $k$ from the distance of $v$ to the source.
 So we can keep $k + 1$ buckets for the vertices in the queue, and whenever the bucket corresponding to the smallest distance gets empty, we make a cyclic shift to get the bucket with the next higher distance.
 This extension is called **Dial's algorithm**.
+
+## Practice problems
+
+- [CodeChef - Chef and Reversing](https://www.codechef.com/problems/REVERSE)
