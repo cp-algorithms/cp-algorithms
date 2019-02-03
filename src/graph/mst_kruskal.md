@@ -85,7 +85,7 @@ We can show the proposal "if $F$ is a set of edges chosen by the algorithm at an
 
 The proposal is obviously true at the beginning, the empty set is a subset of any MST.
 
-Now lets assume $F$ is some edge set at any stage of the algorithm, $T$ is a MST containing $F$ and $e$ is the new edge we want to add using Kruskal.
+Now let's assume $F$ is some edge set at any stage of the algorithm, $T$ is a MST containing $F$ and $e$ is the new edge we want to add using Kruskal.
 
 If $e$ generates a cycle, then we don't add it, and so the proposal is still true after this step.
 

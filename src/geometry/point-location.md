@@ -17,7 +17,7 @@ We will solve this problem offline using the sweep line algorithm. Let's iterate
 The events will be of four types: _add_, _remove_, _vertical_, _get_.
 For each vertical edge (both endpoints have the same x-coordinate) we will add one _vertical_ event for the corresponding x-coordinate.
 For every other edge we will add one _add_ event for the minimum of x-coordinates of the endpoints and one _remove_ event for the maximum of x-coordinates of the endpoints.
-Finally, for each query point we will add one _get_ event for it's x-coordinate.
+Finally, for each query point we will add one _get_ event for its x-coordinate.
 
 For each x-coordinate we will sort the events by their types in order (_vertical_, _get_, _remove_, _add_).
 The following image shows all events in sorted order for each x-coordinate.

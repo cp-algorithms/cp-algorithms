@@ -129,7 +129,7 @@ Time complexity for a Range Minimum Query is $O(1)$.
 
 ## Similar data structures supporting more types of queries
 
-One of the main weakness of the $O(1)$ approach discussed in the previous section is, that this approach only supports queries of [indempotent functions](https://en.wikipedia.org/wiki/Idempotence).
+One of the main weakness of the $O(1)$ approach discussed in the previous section is, that this approach only supports queries of [idempotent functions](https://en.wikipedia.org/wiki/Idempotence).
 I.e. it works great for range minimum queries, but it is not possible to answer range sum queries using this approach.
 
 There are similar data structures that can handle any type of associative functions and answer range queries in $O(1)$.

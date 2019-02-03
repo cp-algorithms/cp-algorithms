@@ -3,7 +3,7 @@
 
 !["Setun computer using Balanced Ternary system"](http://ternary.3neko.ru/photo/setun1_small.jpg)
 
-This is a non-standard but still positional **numeral system**. It's feature is that digits can have one of values `-1`, `0` and `1`.
+This is a non-standard but still positional **numeral system**. Its feature is that digits can have one of the values `-1`, `0` and `1`.
 Nevertheless, its base is still `3` (because there are three possible values). Since it is not convenient to write `-1` as a digit,
 we'll use letter `Z` further for this purpose. If you think it is quite a strange system - look at the picture - here is one of the
 computers utilizing it.
