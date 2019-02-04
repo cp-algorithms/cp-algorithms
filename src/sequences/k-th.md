@@ -1,12 +1,12 @@
 <!--?title K-th order statistic in O(N)-->
 
-#K-th order statistic in O(N)
+# K-th order statistic in O(N)
 
 Given an array __A__ of size __N__ and a number __K__. The challenge is to find __K__-th largest number in the array, i.e., __K__-th order statistic.
 
 The basic idea - to use the idea of quick sort algorithm. Actually, the algorithm is simple, it is more difficult to prove that it runs in an average of O(N), in contrast to the quick sort.
 
-#Implementation (not recursive):
+## Implementation (not recursive):
 
 ```cpp
 template <class T>
@@ -63,5 +63,7 @@ T order_statistics (std::vector<T> a, unsigned n, unsigned k)
 ```
 
 To note, in the standard C ++ library, this algorithm has already been implemented - it is called nth_element.
+
 ## Practice Problems
- - [CODECHEF: Median](https://www.codechef.com/problems/CD1IT1)
+
+- [CODECHEF: Median](https://www.codechef.com/problems/CD1IT1)

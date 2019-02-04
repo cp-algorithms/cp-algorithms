@@ -1,6 +1,6 @@
 <!--?title Strongly Connected Components and Condensation graph -->
 
-#Finding strongly connected components<br/>Building condensation graph
+# Finding strongly connected components<br/>Building condensation graph
 
 ## Definitions
 You are given a directed graph $G$ with vertices $V$ and edges $E$. It is possible that there are loops and multiple edges. Let's denote $n$ as number of vertices and $m$ as number of edges in $G$.
@@ -46,12 +46,12 @@ Thus, we built next **algorithm** for selecting strongly connected components:
 
 Algorithm asymptotic is $O(n + m)$, because it is just two depth (breadth) first searches.
 
-Finally, it is appropriate to mention [topological sort](./graph/topological-sort.html) here. First of all, step 1 of the algorithm represents topological sort of graph $G$ (actually this is exactly what vertices' sort by exit time means). Secondly, the algorithm's scheme generates strongly connected components by decreasing order of their exit times, thus it generates components - vertices of condensation graph - in topological sort order.
+Finally, it is appropriate to mention [topological sort](./graph/topological-sort.html) here. First of all, step 1 of the algorithm represents reversed topological sort of graph $G$ (actually this is exactly what vertices' sort by exit time means). Secondly, the algorithm's scheme generates strongly connected components by decreasing order of their exit times, thus it generates components - vertices of condensation graph - in topological sort order.
 
 ## Implementation
 ```cpp
     vector < vector<int> > g, gr;
-    vector<char> used;
+    vector<bool> used;
     vector<int> order, component;
      
     void dfs1 (int v) {
@@ -103,11 +103,12 @@ Here, $g$ is graph, $gr$ is transposed graph. Function $dfs1$ implements depth f
 * Thomas Cormen, Charles Leiserson, Ronald Rivest, Clifford Stein. Introduction to Algorithms [2005].
 * M. Sharir. A strong-connectivity algorithm and its applications in data-flow analysis [1979].
 
-##Practice Problems
-- [SPOJ - Submerging Islands](http://www.spoj.com/problems/SUBMERGE/)
-- [SPOJ - Good Travels](http://www.spoj.com/problems/GOODA/)
-- [SPOJ - Lego](http://www.spoj.com/problems/LEGO/)
-- [Codechef - Chef and Round Run](https://www.codechef.com/AUG16/problems/CHEFRRUN)
+## Practice Problems
+
+* [SPOJ - Submerging Islands](http://www.spoj.com/problems/SUBMERGE/)
+* [SPOJ - Good Travels](http://www.spoj.com/problems/GOODA/)
+* [SPOJ - Lego](http://www.spoj.com/problems/LEGO/)
+* [Codechef - Chef and Round Run](https://www.codechef.com/AUG16/problems/CHEFRRUN)
 * [Dev Skills - A Song of Fire and Ice](https://devskill.com/CodingProblems/ViewProblem/79)
 * [UVA - 11838 - Come and Go](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2938)
 * [UVA 247 - Calling Circles](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=183)

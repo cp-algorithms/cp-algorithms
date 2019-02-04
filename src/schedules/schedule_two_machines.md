@@ -30,7 +30,7 @@ In general we get the equation:
 $$x_k = \max\left(\sum_{i=1}^k a_i - \sum_{i=1}^{k-1} b_i - \sum_{i=1}^{k-1} x_i, 0 \right)$$
 
 We can now calculate the **total idle time** $F(x)$.
-It is claimed that that is has the form
+It is claimed that it has the form
 $$F(x) = \max_{k=1 \dots n} K_i,$$
 where
 $$K_i = \sum_{i=1}^k a_i - \sum_{i=1}^{k-1} b_i.$$

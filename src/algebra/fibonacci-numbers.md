@@ -40,7 +40,10 @@ $$N = F_{k_1} + F_{k_2} + \ldots + F_{k_r}$$
 
 such that $k_1 \ge k_2 + 2,\ k_2 \ge k_3 + 2,\  \ldots,\  k_r \ge 2$ (i.e.: the representation cannot use two consecutive Fibonacci numbers).
 
-It follows that any number can be uniquely encoded in the Fibonacci coding, for example:
+It follows that any number can be uniquely encoded in the Fibonacci coding.
+And we can describe this representation with binary codes $d_0 d_1 d_2 \dots d_s 1$, where $d_i$ is $1$ if $F_{i+2}$ is used in the representation.
+The code will be appended by a $1$ do indicate the end of the code word.
+Notice that this is the only occurrence where two consecutive 1-bits appear.
 
 $$\begin{eqnarray}
 1 &=& 1 &=& F_2 &=& (11)_F \\\
@@ -48,10 +51,8 @@ $$\begin{eqnarray}
 6 &=& 5 + 1 &=& F_5 + F_2 &=& (10011)_F \\\
 8 &=& 8 &=& F_6 &=& (000011)_F \\\
 9 &=& 8 + 1 &=& F_6 + F_2 &=& (100011)_F \\\
-19 &=& 13 + 5 + 1 &=& F_7 + F_5 + F_2 &=& (1010011)_F
+19 &=& 13 + 5 + 1 &=& F_7 + F_5 + F_2 &=& (1001011)_F
 \end{eqnarray}$$
-
-and there are no consecutive 1-bits, except for the ending $1$ bit, which simply indicates the end of the code word.
 
 The encoding of an integer $n$ can be done with a simple greedy algorithm:
 
@@ -134,7 +135,7 @@ There can only be $p$ different remainders modulo $p$, and at most $p^2$ differe
 
 We now choose two pairs of identical remainders with the smallest indices in the sequence. Let the pairs be $(F_a,\ F_{a + 1})$ and $(F_b,\ F_{b + 1})$. We will prove that $a = 1$. If this was false, there would be two previous pairs $(F_{a-1},\ F_a)$ and $(F_{b-1},\ F_b)$, which, by the property of Fibonacci numbers, would also be equal. However, this contradicts the fact that we had chosen pairs with the smallest indices, completing our proof.
 
-##Practice Problems
+## Practice Problems
 
 * [SPOJ - Euclid Algorithm Revisited](http://www.spoj.com/problems/MAIN74/)
 * [SPOJ - Fibonacci Sum](http://www.spoj.com/problems/FIBOSUM/)

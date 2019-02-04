@@ -15,7 +15,7 @@ where the coefficients $a_{ij}$ (for $i$ from 1 to $n$, $j$ from 1 to $m$) and $
 
 This problem also has a simple matrix representation:
 $$Ax = b$$,
-where $A$ is a matrix of size $n \times m$ of coefficients $a_{ij}$ and $b$ is the column vector of size $m$.
+where $A$ is a matrix of size $n \times m$ of coefficients $a_{ij}$ and $b$ is the column vector of size $n$.
 
 It is worth noting that the method presented in this article can also be used to solve the equation modulo any number p, i.e.:
 
@@ -54,7 +54,7 @@ In many implementations, when $a_{ii} \neq 0$, you can see people still swap the
 
 ## Degenerate cases
 
-In the case where $m = n$ and the system is degenerate (i.e. it has non-zero determinant, and has unique solution), the algorithm described above will transform $A$ into identity matrix.
+In the case where $m = n$ and the system is non-degenerate (i.e. it has non-zero determinant, and has unique solution), the algorithm described above will transform $A$ into identity matrix.
 
 Now we consider the `general case`, where $n$ and $m$ are not necessarily equal, and the system can be non-degenerate. In these cases, the pivoting element in $i$th step may not be found. This means that on the $i$th column, starting from the current line, all contains zeros. In this case, either there is no possible value of variable $x_i$ (meaning the SLAE has no solution), or $x_i$ is an independent variable and can take arbitrary value. When implementing Gauss-Jordan, you should continue the work for subsequent variables and just skip the $i$th column (this is equivalent to removing the $i$th column of the matrix).
 

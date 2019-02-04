@@ -1,7 +1,7 @@
 <!--?title Fast Fourier transform -->
 # Fast Fourier transform
 
-In this article we will discuss an algorithm that allows us to multiply two polynomials of length $n$ in $O(n \log n)$ time, which is better than the trivial multiplication which takes takes $O(n^2)$ time.
+In this article we will discuss an algorithm that allows us to multiply two polynomials of length $n$ in $O(n \log n)$ time, which is better than the trivial multiplication which takes $O(n^2)$ time.
 Obviously also multiplying two long numbers can be reduced to multiplying polynomials, so also two long numbers can be multiplied in $O(n \log n)$ time (where $n$ is the number of digits in the numbers).
 
 The discovery of the **Fast Fourier transformation (FFT)** is attributed to Cooley and Tukey, who published an algorithm in 1965.
@@ -80,7 +80,7 @@ $$A(x) = A_0(x^2) + x A_1(x^2).$$
 The polynomials $A_0$ and $A_1$ are only half as much coefficients as the polynomial $A$.
 If we can compute the $\text{DFT}(A)$ in linear time using $\text{DFT}(A_0)$ and $\text{DFT}(A_1)$, then we get the recurrence $T_{\text{DFT}}(n) = 2 T_{\text{DFT}}\left(\frac{n}{2}\right) + O(n)$ for the time complexity, which results in $T_{\text{DFT}}(n) = O(n \log n)$ by the **master theorem**.
 
-Lets learn how we can accomplish that.
+Let's learn how we can accomplish that.
 
 Suppose we have computed the vectors $\left(y_k^0\right)\_{k=0}^{n/2-1} = \text{DFT}(A_0)$ and $\left(y_k^1\right)\_{k=0}^{n/2-1} = \text{DFT}(A_1)$.
 Let us find a expression for $\left(y_k\right)_{k=0}^{n-1} = \text{DFT}(A)$.
@@ -346,7 +346,7 @@ In the previous implementation we iterated all bits of the index and created the
 However we can reverse the bits in a different way.
 
 Suppose that $j$ already contains the reverse of $i$.
-Then by to go to $i + 1$, we have to increment $i$, and we also also have to increment $j$, but in a "reversed" number system.
+Then by to go to $i + 1$, we have to increment $i$, and we also have to increment $j$, but in a "reversed" number system.
 Adding one in the conventional binary system is equivalent to flip all tailing ones into zeros and flipping the zero right before them into a one.
 Equivalently in the "reversed" number system, we flip all leading ones, and the also the next zero.
 
@@ -398,7 +398,7 @@ Also we can precompute all roots of unity and their powers.
 ## Number theoretic transform
 
 Now we switch the objective a little bit.
-We still want to to multiply two polynomials in $O(n \log n)$ time, but this time we want to compute the coefficients modulo some prime number $p$.
+We still want to multiply two polynomials in $O(n \log n)$ time, but this time we want to compute the coefficients modulo some prime number $p$.
 Of course for this task we can use the normal DFT and apply the modulo operator to the result.
 However, doing so might lead to rounding errors, especially when dealing with large numbers.
 The **number theoretic transform (NTT)** has the advantage, that it only works with integer, and therefore the result are guaranteed to be correct.
@@ -423,7 +423,7 @@ $$\begin{align}
 Thus if $w_n$ is a $n$-th root of unity, then $w_n^2$ is a $\frac{n}{2}$-th root of unity.
 And consequently for all smaller powers of two there exist roots of the required degree, and they can be computed using $w_n$.
 
-For computing the inverse DFT, we need need the inverse $w_n^{-1}$ of $w_n$.
+For computing the inverse DFT, we need the inverse $w_n^{-1}$ of $w_n$.
 But for a prime modulus the inverse always exists.
 
 Thus all the properties that we need from the complex roots are also available in modular arithmetic, provided that we have a large enough module $p$ for which a $n$-th root of unity exists.
@@ -531,16 +531,17 @@ We have to compute the products of $a$ with every cyclic shift of $b$.
 We generate two new arrays of size $2n$:
 We reverse $a$ and append $n$ zeros to it.
 And we just append $b$ to itself.
-When we multiply these two arrays as polynomials, and look at the coefficient $c[n],~ c[n+1],~ c[2n-1]$ of the product $c$, we get:
+When we multiply these two arrays as polynomials, and look at the coefficient $c[n-1],~ c[n],~ c[2n-2]$ of the product $c$, we get:
 $$c[k] = \sum_{i+j=k} a[i] b[j]$$
 And since all the elements $a[i] = 0$ for $i \ge n$:
 $$c[k] = \sum_{i=0}^{n-1} a[i] b[k-i]$$
-It is easy to see that this sum is just the scalar product of the vector $a$ with the $(k - n - 1)$-th cyclic shift.
+It is easy to see that this sum is just the scalar product of the vector $a$ with the $(k - (n - 1))$-th cyclic left shift of $b$.
 Thus these coefficients are the answer to the problem, and we were still able to obtain it in $O(n \log n)$ time.
+Note here that $c[2n-1]$ also gives us the $n$-th cyclic shift but that is the same as the $0$-th cyclic shift so we don't need to consider that separately into our answer.
 
 ### Two stripes
 
-We are given two Boolean stripes (cyclic arrays of with values values $0$ and $1$) $a$ and $b$.
+We are given two Boolean stripes (cyclic arrays of values $0$ and $1$) $a$ and $b$.
 We want to find all ways to attach the first stripe to the second one, such that at no position we have a $1$ of the first stripe next to a $1$ of the second stripe.
 
 The problem doesn't actually differ much from the previous problem.
