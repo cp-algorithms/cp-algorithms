@@ -204,6 +204,7 @@ and adding new articles to the collection.*
     - [K-th order statistic in O(N)](./sequences/k-th.html)
 - **Game Theory**
     - [Games on arbitrary graphs](./game_theory/games_on_graphs.html)
+    - [Sprague-Grundy theorem. Nim](./game_theory/sprague-grundy-nim.html)
 - **Schedules**
     - [Scheduling jobs on one machine](./schedules/schedule_one_machine.html)
     - [Scheduling jobs on two machines](./schedules/schedule_two_machines.html)
