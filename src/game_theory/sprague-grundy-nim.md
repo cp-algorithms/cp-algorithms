@@ -4,7 +4,7 @@
 ## Introduction
 
 This theorem describes the so-called **impartial** two-player games,
-that is those in which the available moves and winning/losing depends only on the state on the game.
+that is those in which the available moves and winning/losing depends only on the state of the game.
 In other words, the only difference between the two players is that one of them moves first.
 
 Additionally, we assume that the game has **perfect information**, i.e. no information is hidden from the players (they know the rules and the possible move).
@@ -120,7 +120,7 @@ Moreover, this number can be found in the following recursive way:
 $$ x = \text{mex} \\{ x_1, \ldots, x_k \\}, $$
 where $x_i$ is the Grundy value for state $v_i$ and the function $\text{mex}$ (*minimum excludant*) is the smallest non-negative integer not found in the given set.
 
-Viewing the game as a graph, we can gradually calculate the Grundy values starting from vertices without outcoming edges.
+Viewing the game as a graph, we can gradually calculate the Grundy values starting from vertices without outgoing edges.
 Grundy value being equal to zero means a state is losing.
 
 **Proof.**
