@@ -111,7 +111,7 @@ Since the game is acyclic, sooner or later the current player won't be able to u
 ### Sprague-Grundy theorem
 
 **Sprague-Grundy theorem.**
-Let's consider a state $v$ of a two-player impartial game and $v_i$ be states reachable from it
+Let's consider a state $v$ of a two-player impartial game and let $v_i$ be the states reachable from it
 (where $i \in \\{ 1, 2, \dots, k \\} , k \ge 0$ ).
 To this state we can assign a fully equivalent game of Nim with one pile of size $x$.
 The number $x$ is called the Grundy value or nim-value of state $v$.
