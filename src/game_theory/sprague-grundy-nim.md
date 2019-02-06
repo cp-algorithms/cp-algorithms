@@ -77,7 +77,7 @@ Since $y < x$, $y \oplus x$ can't be zero, so $t \neq 0$.
 That means any reachable state is a winning one (by the assumption of induction), so we are in a losing position.
 
 * Let $s \neq 0$.
-Consider the binary form of the number $s$.
+Consider the binary representation of the number $s$.
 Let $d$ be the number of its leading (biggest value) non-zero bit.
 Our move will be on a pile whose size's bit number $d$ is set (It must exist, otherwise the bit wouldn't be set in $s$).
 We will reduce its size $x$ to $y = x \oplus s$.
