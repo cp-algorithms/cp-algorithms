@@ -86,7 +86,7 @@ int generator(int p) {
 	for (int res = 2; res <= p; ++res) {
 		bool ok = true;
 		for (int factor : fact) {
-			if (powmod(res, phi / factor, p) != 1) {
+			if (powmod(res, phi / factor, p) == 1) {
 				ok = false;
 				break;
 			}
