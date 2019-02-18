@@ -165,6 +165,7 @@ and adding new articles to the collection.*
     - [Minimum Spanning Tree - Prim's Algorithm](./graph/mst_prim.html)
     - [Minimum Spanning Tree - Kruskal](./graph/mst_kruskal.html)
     - [Minimum Spanning Tree - Kruskal with Disjoint Set Union](./graph/mst_kruskal_with_dsu.html)
+    - [Second best Minimum Spanning Tree - Using Kruskal and Lowest Common Ancestor](./graph/second_best_mst.html)
     - [Kirchhoff Theorem](./graph/kirchhoff-theorem.html)
     - [Prüfer code](./graph/pruefer_code.html)
 - **Cycles**
