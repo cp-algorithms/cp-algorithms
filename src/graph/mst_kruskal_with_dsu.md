@@ -72,6 +72,8 @@ for (Edge e : edges) {
 }
 ```
 
+Notice: since the MST will contain exactly $N-1$ edges, we can stop the for loop once we found that many.
+
 ## Practice Problems
 
 See [main article on Kruskal's algorithm](./graph/mst_kruskal.html) for the list of practice problems on this topic.
