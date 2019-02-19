@@ -71,10 +71,8 @@ for (Edge e : edges) {
     }
 }
 ```
-## Some optimizations 
-We can improve this algorithm as -
-1. Once the number of edges selected are $N-1$, i.e. a tree is formed then we can break the iteration as in worst case number of edges can be $N^2$.
-2. MST computation can be made faster if the edge weights are in a small range, as then for sorting we can use counting sort with runs in linear time.
+
+Notice: since the MST will contain exactly $N-1$ edges, we can stop the for loop once we found that many.
 
 ## Practice Problems
 
