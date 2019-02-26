@@ -165,6 +165,7 @@ and adding new articles to the collection.*
     - [Minimum Spanning Tree - Prim's Algorithm](./graph/mst_prim.html)
     - [Minimum Spanning Tree - Kruskal](./graph/mst_kruskal.html)
     - [Minimum Spanning Tree - Kruskal with Disjoint Set Union](./graph/mst_kruskal_with_dsu.html)
+    - [Second best Minimum Spanning Tree - Using Kruskal and Lowest Common Ancestor](./graph/second_best_mst.html)
     - [Kirchhoff Theorem](./graph/kirchhoff-theorem.html)
     - [Prüfer code](./graph/pruefer_code.html)
 - **Cycles**
@@ -204,6 +205,7 @@ and adding new articles to the collection.*
     - [K-th order statistic in O(N)](./sequences/k-th.html)
 - **Game Theory**
     - [Games on arbitrary graphs](./game_theory/games_on_graphs.html)
+    - [Sprague-Grundy theorem. Nim](./game_theory/sprague-grundy-nim.html)
 - **Schedules**
     - [Scheduling jobs on one machine](./schedules/schedule_one_machine.html)
     - [Scheduling jobs on two machines](./schedules/schedule_two_machines.html)
