@@ -60,7 +60,7 @@ Now we consider the `general case`, where $n$ and $m$ are not necessarily equal,
 
 So, some of the variables in the process can be found to be independent. When the number of variables, $m$ is greater than the number of equations, $n$, then at least $m - n$ independent variables will be found.
 
-In general, if you find at least one independent variable, it can take any arbitrary value, while the other (dependent) variables are expressed through it.  This means that when we work in the field of real numbers, the system potentially has infinitely many solutions. But you should remember that when there are independent variables, SLAE can have no solution at all. This happens when the remaining untreated equations have at least one non-zero constant term. You can check this by assigning zeros to all independent variables, calculate other variables, and then plug in to the original SLAE to check if they satisfy.
+In general, if you find at least one independent variable, it can take any arbitrary value, while the other (dependent) variables are expressed through it.  This means that when we work in the field of real numbers, the system potentially has infinitely many solutions. But you should remember that when there are independent variables, SLAE can have no solution at all. This happens when the remaining untreated equations have at least one non-zero constant term. You can check this by assigning zeros to all independent variables, calculate other variables, and then plug in to the original SLAE to check if they satisfy it.
 
 ## Implementation
 
@@ -127,7 +127,7 @@ Implementation notes:
 Now we should estimate the complexity of this algorithm. The algorithm consists of $m$ phases, in each phase:
 
 * Search and reshuffle the pivoting row. This takes $O(n + m)$ when using heuristic mentioned above.
-* If there reference element in the current column is found - then we must add this equation to all other equations, which takes time $O(nm)$.
+* If the pivot element in the current column is found - then we must add this equation to all other equations, which takes time $O(nm)$.
 
 So, the final complexity of the algorithm is $O(\min (n, m) . nm)$.
 In case $n = m$, the complexity is simply $O(n^3)$.
@@ -143,7 +143,7 @@ The previous implementation can be sped up by two times, by dividing the algorit
 
 Reverse phase only takes $O(nm)$, which is much faster than forward phase. In forward phase, we reduce the number of operations by half, thus reducing the running time of the implementation.
 
-## Solving SLAE
+## Solving modular SLAE
 
 For solving SLAE in some module, we can still use the described algorithm. However, in case the module is equal to two, we can perform Gauss-Jordan elimination much more effectively using bitwise operations and C++ bitset data types:
 
