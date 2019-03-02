@@ -34,7 +34,7 @@ The algorithm is a `sequential elimination` of the variables in each equation, u
 
 Gaussian elimination is based on two simple transformation:
 * It is possible to exchange two equations
-* Any equation can be replaced by a linear combination of the that row (with non-zero coefficient), and some other rows (with arbitrary coefficients).
+* Any equation can be replaced by a linear combination of that row (with non-zero coefficient), and some other rows (with arbitrary coefficients).
 
 In the first step, Gauss-Jordan algorithm divides the first row by $a_{11}$. Then, the algorithm adds the first row to the remaining rows such that the coefficients in the first column becomes all zeros. To achieve this, on the i-th row, we must add the first row multiplied by $- a_{i1}$. Note that, this operation must also be performed on vector $b$. In a sense, it behaves as if vector $b$ was the $m+1$-th column of matrix $A$.
 
@@ -50,7 +50,7 @@ The described scheme left out many details. At the $i$th step, if $a_{ii}$ is ze
 
 Note that, here we swap rows but not columns. This is because if you swap columns, then when you find a solution, you must remember to swap back to correct places. Thus, swapping rows is much easier to do.
 
-In many implementations, when $a_{ii} \neq 0$, you can see people still swap the $i$th row with some pivoting row, using some heuristics such as choosing the pivoting row with maximum absolute value of $a_{ji}$. This heuristic is used to reduce the value range of the matrix in later step. Without this heuristic, even for matrices of size about $20$, the error will be too big and can cause overflow for floating points data types of C++.
+In many implementations, when $a_{ii} \neq 0$, you can see people still swap the $i$th row with some pivoting row, using some heuristics such as choosing the pivoting row with maximum absolute value of $a_{ji}$. This heuristic is used to reduce the value range of the matrix in later steps. Without this heuristic, even for matrices of size about $20$, the error will be too big and can cause overflow for floating points data types of C++.
 
 ## Degenerate cases
 
@@ -60,7 +60,7 @@ Now we consider the `general case`, where $n$ and $m$ are not necessarily equal,
 
 So, some of the variables in the process can be found to be independent. When the number of variables, $m$ is greater than the number of equations, $n$, then at least $m - n$ independent variables will be found.
 
-In general, if you find at least on independent variable, it can take any arbitrary value, while the other (dependent) variables are expressed through it.  This means that when we work in the field of real numbers, the system potentially has infinitely many solutions. But you should remember that when there are independent variables, SLAE can have no solution at all. This happens when the remaining untreated equations has at least one non-zero constant term. You can check this by assigning zeros to all independent variables, calculate other variables, and then plug in to the original SLAE to check if they satisfies.
+In general, if you find at least one independent variable, it can take any arbitrary value, while the other (dependent) variables are expressed through it.  This means that when we work in the field of real numbers, the system potentially has infinitely many solutions. But you should remember that when there are independent variables, SLAE can have no solution at all. This happens when the remaining untreated equations have at least one non-zero constant term. You can check this by assigning zeros to all independent variables, calculate other variables, and then plug in to the original SLAE to check if they satisfy it.
 
 ## Implementation
 
@@ -127,7 +127,7 @@ Implementation notes:
 Now we should estimate the complexity of this algorithm. The algorithm consists of $m$ phases, in each phase:
 
 * Search and reshuffle the pivoting row. This takes $O(n + m)$ when using heuristic mentioned above.
-* If there reference element in the current column is found - then we must add this equation to all other equations, which takes time $O(nm)$.
+* If the pivot element in the current column is found - then we must add this equation to all other equations, which takes time $O(nm)$.
 
 So, the final complexity of the algorithm is $O(\min (n, m) . nm)$.
 In case $n = m$, the complexity is simply $O(n^3)$.
@@ -136,14 +136,14 @@ Note that when the SLAE is not on real numbers, but is in the modulo two, then t
 
 ## Acceleration of the algorithm
 
-The previous implementation can be speed up by two times, by dividing the algorithm into two phases: forward and reverse:
+The previous implementation can be sped up by two times, by dividing the algorithm into two phases: forward and reverse:
 
 * Forward phase: Similar to the previous implementation, but the current row is only added to the rows after it. As a result, we obtain a triangular matrix instead of diagonal.
 * Reverse phase: When the matrix is triangular, we first calculate the value of the last variable. Then plug this value to find the value of next variable. Then plug these two values to find the next variables...
 
 Reverse phase only takes $O(nm)$, which is much faster than forward phase. In forward phase, we reduce the number of operations by half, thus reducing the running time of the implementation.
 
-## Solving SLAE
+## Solving modular SLAE
 
 For solving SLAE in some module, we can still use the described algorithm. However, in case the module is equal to two, we can perform Gauss-Jordan elimination much more effectively using bitwise operations and C++ bitset data types:
 
