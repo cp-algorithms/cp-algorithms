@@ -13,7 +13,7 @@ Let the array $d$ contain the shortest path lengths, i.e. $d_i$ is the current l
 Initially this array is filled with infinity for every vertex, except $d_{v_0} = 0$.
 After the algorithm finishes, this array will contain the shortest distances.
 
-Let the array $p$ contain the current ancestors, i.e. $p_i$ is the direct anchestor of the vertex $i$ on the current shortest path from $v_0$ to $i$.
+Let the array $p$ contain the current ancestors, i.e. $p_i$ is the direct ancestor of the vertex $i$ on the current shortest path from $v_0$ to $i$.
 Just like the array $d$, the array $p$ changes gradually during the algorithm and at the end takes its final values.
 
 Now to the algorithm.
@@ -35,7 +35,7 @@ Let $v$ be the second end of the current edge, and $w$ its weight.
 $d_v$ is set to $d_u + w$.
 - If $v$ belongs to $M_1$, then we try to improve the value of $d_v$: $d_v = \min(d_v, d_u + w)$.
 Since $v$ is already in $M_1$, we don't need to insert it into $M_1$ and the queue.
-- If $v$ belongs to $M_1$, and if $d_v$ can be improved $d_v > d_u + w$, then we improve $d_v$ and insert the vertex $v$ back to the set $M_1$, placing it at the beginning of the queue.
+- If $v$ belongs to $M_0$, and if $d_v$ can be improved $d_v > d_u + w$, then we improve $d_v$ and insert the vertex $v$ back to the set $M_1$, placing it at the beginning of the queue.
 
 And of course, with each update in the array $d$ we also have to update the corresponding element in the array $p$.
 
