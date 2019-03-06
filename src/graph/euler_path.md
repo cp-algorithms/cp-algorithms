@@ -13,7 +13,7 @@ We can use the following theorem. An Eulerian cycle exists if and only if the de
 And an Eulerian path exists if and only if the number of vertices with odd degrees is two (or zero, in the case of the existence of a Eulerian cycle).
 In addition, of course, the graph must be sufficiently connected (i.e., if you remove all isolated vertices from it, you should get a connected graph).
 
-The find the Eulerian path / Eulerian cycle we can do the following strategies:
+The find the Eulerian path / Eulerian cycle we can use the following strategy:
 We find all simple cycles and combine them into one - this will be the Eulerian cycle.
 If the graph is such that the Eulerian path is not a cycle, then add the missing edge, find the Eulerian cycle, then remove the extra edge.
 

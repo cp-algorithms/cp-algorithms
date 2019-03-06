@@ -126,7 +126,33 @@ void upd_cnt (pitem t) {
 
 ## Building a Treap in $O (N)$ in offline mode
 
-TODO
+Given a sorted list of keys, it is possible to construct a treap faster than by inserting the keys one at a time which takes $O(N \log N)$. Since the keys are sorted, a balanced binary search tree can be easily constructed in linear time. The heap values $Y$ are initialized randomly and then can be heapified independent of the keys $X$ to [build the heap](https://en.wikipedia.org/wiki/Binary_heap#Building_a_heap) in $O(N)$.
+
+```cpp
+void heapify (pitem t) {
+	if (!t) return;
+	pitem max = t;
+	if (t->l != NULL && t->l->prior > max->prior)
+		max = t->l;
+	if (t->r != NULL && t->r->prior > max->prior)
+		max = t->r;
+	if (max != t) {
+		swap (t->prior, max->prior);
+		heapify (max);
+	}
+}
+
+pitem build (int * a, int n) {
+	// Construct a treap on values {a[0], a[1], ..., a[n - 1]}
+	if (n == 0) return NULL;
+	int mid = n / 2;
+	pitem t = new item (a[mid], rand ());
+	t->l = build (a, mid);
+	t->r = build (a + mid + 1, n - mid - 1);
+	heapify (t);
+	return t;
+}
+```
 
 ## Implicit Treaps
 
@@ -272,3 +298,4 @@ void output (pitem t) {
 * [SPOJ - Mean of Array](http://www.spoj.com/problems/MEANARR/)
 * [SPOJ - TWIST](http://www.spoj.com/problems/TWIST/)
 * [SPOJ - KOILINE](http://www.spoj.com/problems/KOILINE/)
+* [CodeChef - The Prestige](https://www.codechef.com/problems/PRESTIGE)

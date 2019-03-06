@@ -154,7 +154,7 @@ while (a.size() > 1 && a.back() == 0)
 
 The idea is to store the integer as its factorization, i.e. the powers of primes which divide it.
 
-This approach is very easy to implement, and allows to do multiplication and division easily (assymptotically faster than the classical method), but not addition or subtraction. It is also very memory-efficient compared to the classical approach.
+This approach is very easy to implement, and allows to do multiplication and division easily (asymptotically faster than the classical method), but not addition or subtraction. It is also very memory-efficient compared to the classical approach.
 
 This method is often used for calculations modulo non-prime number M; in this case a number is stored as powers of divisors of M which divide the number, plus the remainder modulo M.
 

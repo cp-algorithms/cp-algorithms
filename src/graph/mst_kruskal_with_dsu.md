@@ -22,7 +22,7 @@ Here is an implementation of Kruskal's algorithm with Union by Rank.
 vector<int> parent, rank;
 
 void make_set(int v) {
-    parent(v) = v;
+    parent[v] = v;
     rank[v] = 0;
 }
 
@@ -71,6 +71,8 @@ for (Edge e : edges) {
     }
 }
 ```
+
+Notice: since the MST will contain exactly $N-1$ edges, we can stop the for loop once we found that many.
 
 ## Practice Problems
 

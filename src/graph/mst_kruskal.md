@@ -75,7 +75,7 @@ for (Edge e : edges) {
 Why does Kruskal's algorithm give us the correct result?
 
 If the original graph was connected, then also the resulting graph will be connected.
-Because otherwise there would be two components that could be connected with at least one edge. Though this is impossible, because Kruskal would have have chosen one of these edges, since the ids of the components are different.
+Because otherwise there would be two components that could be connected with at least one edge. Though this is impossible, because Kruskal would have chosen one of these edges, since the ids of the components are different.
 Also the resulting graph doesn't contain any cycles, since we forbid this explicitly in the algorithm.
 Therefore the algorithm generates a spanning tree.
 
@@ -85,7 +85,7 @@ We can show the proposal "if $F$ is a set of edges chosen by the algorithm at an
 
 The proposal is obviously true at the beginning, the empty set is a subset of any MST.
 
-Now lets assume $F$ is some edge set at any stage of the algorithm, $T$ is a MST containing $F$ and $e$ is the new edge we want to add using Kruskal.
+Now let's assume $F$ is some edge set at any stage of the algorithm, $T$ is a MST containing $F$ and $e$ is the new edge we want to add using Kruskal.
 
 If $e$ generates a cycle, then we don't add it, and so the proposal is still true after this step.
 
