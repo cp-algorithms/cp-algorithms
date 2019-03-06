@@ -67,7 +67,7 @@ The master theorem says, that we will end up with an $O(n \log n)$ algorithm, if
 
 ### Search for crossing repetitions
 
-So we want to find all such repetitions that start in the first half of the string, lets call it $u$, and end in the second half, lets call it $v$:
+So we want to find all such repetitions that start in the first half of the string, let's call it $u$, and end in the second half, let's call it $v$:
 $$s = u + v$$
 Their lengths are approximately equal to the length of $s$ divided by two.
 

@@ -71,7 +71,7 @@ The time complexity of the construction is $O(n)$.
 For now we are going to answer sum queries. As an input we receive two integers $l$ and $r$, and we have to compute the sum of the segment $a[l \dots r]$ in $O(\log n)$ time. 
 
 To do this, we will traverse the Segment Tree and use the precomputed sums of the segments.
-Lets assume that we are currently at the vertex that covers the segment $a[tl \dots tr]$.
+Let's assume that we are currently at the vertex that covers the segment $a[tl \dots tr]$.
 There are three possible cases. 
 
 The easiest case is when the segment $a[l \dots r]$ is equal to the corresponding segment of the current vertex (i.e. $a[l \dots r] = a[tl \dots tr]$), then we are finished and can return the precomputed sum that is stored in the vertex.
@@ -107,10 +107,10 @@ And since the height of the tree is $O(\log n)$, we receive the desired running 
 
 We can show that this proposition (at most four vertices each level) is true by induction.
 At the first level, we only visit one vertex, the root vertex, so here we visit less than four vertices. 
-Now lets look at an arbitrary level.
+Now let's look at an arbitrary level.
 By induction hypothesis, we visit at most four vertices. 
 If we only visit at most two vertices, the next level has at most four vertices. That trivial, because each vertex can only cause at most two recursive calls. 
-So lets assume that we visit three or four vertices in the current level. 
+So let's assume that we visit three or four vertices in the current level. 
 From those vertices, we will analyze the vertices in the middle more carefully. 
 Since the sum query asks for the sum of a continuous subarray, we know that segments corresponding to the visited vertices in the middle we be completely covered by the segment of the sum query. 
 Therefore these vertices will not make any recursive calls. 
@@ -125,7 +125,7 @@ And if we stop partitioning whenever the query segment coincides with the vertex
 
 ### Update queries
 
-Now we want to modify a specific element in the array, lets say we want to do the assignment $a[i] = x$. 
+Now we want to modify a specific element in the array, let's say we want to do the assignment $a[i] = x$. 
 And we have to rebuild the Segment Tree, such that it correspond to the new, modified array. 
 
 This query is easier than the sum query. 
@@ -494,7 +494,7 @@ And thanks to this implementation its construction also take $O(n \log n)$ time,
 Now consider the answer to the query. 
 We will go down the tree, like in the regular Segment Tree, and breaking our segment $a[l \dots r]$ into several subsegments (into at most $O(\log n)$ pieces). 
 It is clear that the answer of the whole answer is the minimum of each of the subqueries.
-So now we only need to understand, how to how to response to a query on one such subsegment that corresponds with some vertex of the tree.
+So now we only need to understand, how to response to a query on one such subsegment that corresponds with some vertex of the tree.
 
 We are at some vertex of the Segment Tree and we want to compute the answer to the query, i.e. find the minimum number greater that or equal to a given number $x$. 
 Since the vertex contains the list of elements in sorted order, we can simply perform a binary search on this list and return the first number, greater than or equal to $x$.
@@ -760,7 +760,7 @@ void update(int v, int tl, int tr, int l, int r, int addend) {
 int query(int v, int tl, int tr, int l, int r) {
     if (l > r)
         return -INF;
-    if (tl == tr)
+    if (l <= tl && tr <= r)
         return t[v];
     push(v);
     int tm = (tl + tr) / 2;
@@ -789,7 +789,7 @@ Here is the implementation of the construction of a 2D Segment Tree.
 It actually represents two separate blocks: 
 the construction of a Segment Tree along the $x$ coordinate ($\text{build}_x$), and the $y$ coordinate ($\text{build}_y$).
 For the leaf nodes in $\text{build}_y$ we have to separate two cases: 
-when the current segment of the first coordinate $[tlx \dots trx]$ has length 1, and when it has a length greater than one. In the first case, we just take the corresponding value from the matrix, and int the second case we we can combine the values of two Segment Trees from the left and the right son in the coordinate $x$.
+when the current segment of the first coordinate $[tlx \dots trx]$ has length 1, and when it has a length greater than one. In the first case, we just take the corresponding value from the matrix, and int the second case we can combine the values of two Segment Trees from the left and the right son in the coordinate $x$.
 
 ```cpp
 void build_y(int vx, int lx, int rx, int vy, int ly, int ry) {
@@ -978,7 +978,7 @@ So the leaf vertices will store how often the values $0$, $1$, $\dots$, $n-1$ wi
 In other words we create a regular Segment Tree with sum queries over the histogram of the array.
 But instead of creating all $n$ Segment Trees for every possible prefix, we will create one persistent one, that will contain the same information.
 We will start with an empty Segment Tree (all counts will be $0$), and add the elements $a[0]$, $a[1]$, $\dots$, $a[n-1]$ one after each other.
-For each modification we will receive a new root vertex, lets call $root_i$ the root of the Segment Tree after inserting the first $i$ elements of the array $a$.
+For each modification we will receive a new root vertex, let's call $root_i$ the root of the Segment Tree after inserting the first $i$ elements of the array $a$.
 The Segment Tree rooted at $root_i$ will contain the histogram of the prefix $a[0 \dots i-1]$.
 Using this Segment Tree we can find in $O(\log n)$ time the position of the $k$-th element using the same technique discussed in [Counting the number of zeros, searching for the $k$-th zero](data_structures/segment_tree.html#counting-zero-search-kth).
 

@@ -183,7 +183,7 @@ vector<int> mo_s_algorithm(vector<Query> queries) {
 }
 ```
 
-Based on the problem we can can use a different data structure and modify the `add`/`remove`/`get_answer` functions accordingly.
+Based on the problem we can use a different data structure and modify the `add`/`remove`/`get_answer` functions accordingly.
 For example if we are asked to find range sum queries then we use a simple integer as data structure, which is $0$ at the beginning.
 The `add` function will simply add the value of the position and subsequently update the answer variable.
 On the other hand `remove` function will subtract the value at position and subsequently update the answer variable.
@@ -217,7 +217,8 @@ Thus the complexity is $O((N+Q)F\sqrt{N})$ where $O(F)$  is the complexity of `a
 
 ### Tips for improving runtime
 
-* Block size of precisely $\sqrt{N}$ doesn't always offer the best runtime. For example, if $\sqrt{N}=750$ then it may happen that block size of $700$ or $800$ may run better.
+* Block size of precisely $\sqrt{N}$ doesn't always offer the best runtime.  For example, if $\sqrt{N}=750$ then it may happen that block size of $700$ or $800$ may run better.
+More importantly, don't compute the block size at runtime - make it `const`. Division by constants is well optimized by compilers.
 * In odd blocks sort the right index in ascending order and in even blocks sort it in descending order. This will minimize the movement of right pointer, as the normal sorting will move the right pointer from the end back to the beginning at the start of every block. With the improved version this resetting is no more necessary.
 
 ```cpp

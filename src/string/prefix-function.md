@@ -137,7 +137,7 @@ This length cannot be bigger than $n$ due to the separator.
 But if equality $\pi[i] = n$ is achieved, then it means that the string $s$ appears completely in at this position, i.e. it ends at position $i$.
 Just do not forget that the positions are indexed in the string $s + \\# + t$.
 
-Thus if at some position $i$ we have $\pi[i] = n$, then at the position $i - (n - 1) - n + 1 = i - 2n$ in the string $t$ the string $s$ appears.
+Thus if at some position $i$ we have $\pi[i] = n$, then at the position $i - (n + 1) - n + 1 = i - 2n$ in the string $t$ the string $s$ appears.
 
 As already mentioned in the description of the prefix function computation, if we know that the prefix values never exceed a certain value, then we do not need to store the entire string and the entire function, but only its beginning.
 In our case this means that we only need to store the string $s + \\#$ and the values of the prefix function for it.

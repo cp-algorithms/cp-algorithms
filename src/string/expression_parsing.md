@@ -118,7 +118,7 @@ By slightly modifying the above implementation it is also possible to obtain the
 ## Unary operators
 
 Now suppose that the expression also contains **unary** operators (operators that take one argument).
-The unary plus and unary minus are common common examples for such operators.
+The unary plus and unary minus are common examples of such operators.
 
 One of the differences in this case, is that we need to determine whether the current operator is a unary or a binary one.
 

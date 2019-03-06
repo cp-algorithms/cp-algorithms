@@ -10,19 +10,21 @@ The algorithm described here is based on [depth first search](./graph/depth-firs
 
 Pick an arbitrary vertex of the graph $root$ and run [depth first search](./graph/depth-first-search.html) from it. Note the following fact (which is easy to prove):
 
-- Let's say we are in the DFS, looking through the edges starting from vertex $v\ne root$. If the current edge $(v, to)$ is such that none of the vertices $to$ or its descendants in the DFS traversal tree has a back-edge to any of ancestors of $v$, then $v$ is articulation point. Otherwise, $v$ is not an articulation point.
+- Let's say we are in the DFS, looking through the edges starting from vertex $v\ne root$.
+If the current edge $(v, to)$ is such that none of the vertices $to$ or its descendants in the DFS traversal tree has a back-edge to any of ancestors of $v$, then $v$ is an articulation point. Otherwise, $v$ is not an articulation point.
 
-- Let's consider the remaining case of $v=root$. This vertex will be the point of articulation if and only if this vertex has more than one children in DFS tree.
+- Let's consider the remaining case of $v=root$.
+This vertex will be the point of articulation if and only if this vertex has more than one child in the DFS tree.
 
 Now we have to learn to check this fact for each vertex efficiently. We'll use "time of entry into node" computed by the depth first search.
 
-So, let $tin[v]$ denote entry time for node $v$. We introduce an array $fup[v]$ which will let us check the fact for each vertex $v$. $fup[v]$ is the minimum of $tin[v]$, the entry times $tin[p]$ for each node $p$ that is connected to node $v$ via a back-edge $(v, p)$ and the values of $fup[to]$ for each vertex $to$ which is a direct descendant of $v$ in the DFS tree:
+So, let $tin[v]$ denote entry time for node $v$. We introduce an array $low[v]$ which will let us check the fact for each vertex $v$. $low[v]$ is the minimum of $tin[v]$, the entry times $tin[p]$ for each node $p$ that is connected to node $v$ via a back-edge $(v, p)$ and the values of $low[to]$ for each vertex $to$ which is a direct descendant of $v$ in the DFS tree:
 
-$$fup[v] = \min \begin{cases} tin[v] \\\\ tin[p] &\text{ for all }p\text{ for which }(v, p)\text{ is a back edge} \\\ fup[to]& \text{ for all }to\text{ for which }(v, to)\text{ is a tree edge} \end{cases}$$
+$$low[v] = \min \begin{cases} tin[v] \\\\ tin[p] &\text{ for all }p\text{ for which }(v, p)\text{ is a back edge} \\\ low[to]& \text{ for all }to\text{ for which }(v, to)\text{ is a tree edge} \end{cases}$$
 
-Now, there is a back edge from vertex $v$ or one of its descendants to one of its ancestors if and only if vertex $v$ has a child $to$ for which $fup[to] < tin[v]$. If $fup[to] = tin[v]$, the back edge comes directly to $v$, otherwise it comes to one of the ancestors of $v$.
+Now, there is a back edge from vertex $v$ or one of its descendants to one of its ancestors if and only if vertex $v$ has a child $to$ for which $low[to] < tin[v]$. If $low[to] = tin[v]$, the back edge comes directly to $v$, otherwise it comes to one of the ancestors of $v$.
 
-Thus, the vertex $v$ in the DFS tree is an articulation point if and only if $fup[to] \geq tin[v]$.
+Thus, the vertex $v$ in the DFS tree is an articulation point if and only if $low[to] \geq tin[v]$.
 
 ## Implementation
 
@@ -41,21 +43,21 @@ int n; // number of nodes
 vector<vector<int>> adj; // adjacency list of graph
 
 vector<bool> visited;
-vector<int> tin, fup;
+vector<int> tin, low;
 int timer;
  
 void dfs(int v, int p = -1) {
     visited[v] = true;
-    tin[v] = fup[v] = timer++;
+    tin[v] = low[v] = timer++;
     int children=0;
     for (int to : adj[v]) {
         if (to == p) continue;
         if (visited[to]) {
-            fup[v] = min(fup[v], tin[to]);
+            low[v] = min(low[v], tin[to]);
         } else {
             dfs(to, v);
-            fup[v] = min(fup[v], fup[to]);
-            if (fup[to] >= tin[v] && p!=-1)
+            low[v] = min(low[v], low[to]);
+            if (low[to] >= tin[v] && p!=-1)
                 IS_CUTPOINT(v);
             ++children;
         }
@@ -68,7 +70,7 @@ void find_cutpoints() {
     timer = 0;
     visited.assign(n, false);
     tin.assign(n, -1);
-    fup.assign(n, -1);
+    low.assign(n, -1);
     for (int i = 0; i < n; ++i) {
         if (!visited[i])
             dfs (i);

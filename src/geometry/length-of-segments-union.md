@@ -31,7 +31,7 @@ int length_union(const vector<pair<int, int>> &a) {
     int result = 0;
     int c = 0;
     for (int i = 0; i < n * 2; i++) {
-        if (i > 0 && x[i].first > x[i].second && c > 0)
+        if (i > 0 && x[i].first > x[i-1].first && c > 0)
             result += x[i].first - x[i-1].first;
         if (x[i].second)
             c++;

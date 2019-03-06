@@ -27,7 +27,7 @@ However the implementation in this article takes $O(n \log n + m \log n)$ time, 
 
 ## Algorithm
 
-First lets define a $k$-edge-connected component:
+First let's define a $k$-edge-connected component:
 it is a connected component that remains connected whenever you remove fewer than $k$ edges.
 
 It is very easy to see, that the bridges partition the graph into 2-edge-connected components.

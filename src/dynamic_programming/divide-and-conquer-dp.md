@@ -55,7 +55,7 @@ void compute(int l, int r, int optl, int optr)
     pair<long long, int> best = {INF, -1};
 
     for (int k = optl; k <= min(mid, optr); k++) {
-        best = min(best, {dp_before[k - 1] + C(k, mid), k});
+        best = min(best, {dp_before[k] + C(k, mid), k});
     }
 
     dp_cur[mid] = best.first;
