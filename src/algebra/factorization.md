@@ -10,7 +10,7 @@ This is the most basic algorithm to find a prime factorization.
 
 We divide by each possible divisor $d$.
 We can notice, that it is impossible that all prime factors of a composite number $n$ are bigger than $\sqrt{n}$.
-Therefore, we only need to test the divisors $2 \le d \sqrt{n}$, which gives us the prime factorization in $O(\sqrt{n})$.
+Therefore, we only need to test the divisors $2 \le d \le \sqrt{n}$, which gives us the prime factorization in $O(\sqrt{n})$.
 
 The smallest divisor has to be a prime number.
 We remove the factor from the number, and repeat the process.
@@ -33,6 +33,7 @@ vector<long long> trial_division1(long long n) {
 
 ### Wheel factorization
 
+This is an optimization of the trial division.
 The idea is the following.
 Once we know that the number is not divisible by 2, we don't need to check every other even number.
 This leaves us with only $50\%$ of the numbers to check.
@@ -100,7 +101,7 @@ However, also the skip lists will get a lot bigger.
 ### Precomputed primes
 
 Extending the wheel factorization with more and more primes will leave exactly the primes to check.
-So a good way of checking is just to precompute all prime numbers and test them individually.
+So a good way of checking is just to precompute all prime numbers until $\sqrt{n}$ and test them individually.
 
 ```cpp factorization_trial_division4
 vector<long long> primes;
@@ -139,12 +140,12 @@ This also means that
 
 $$a^{(p - 1)^k} \equiv a^{k \cdot (p - 1)} \equiv 1 \pmod{p}.$$
 
-So for any $M$ with $M ~|~ p - 1$ we know that $a^M \equiv 1$.
+So for any $M$ with $p - 1 ~|~ M$ we know that $a^M \equiv 1$.
 This means that $a^M - 1 = p \cdot r$, and because of that also $p ~|~ \gcd(a^M - 1, n)$.
 
-Therefore, if $p - 1$ for a factor $p$ of $n$ divides $M$, we can extract the factor $p$ by [Euclid's algorithm](./algebra/euclid-algorithm.html).
+Therefore, if $p - 1$ for a factor $p$ of $n$ divides $M$, we can extract a factor using [Euclid's algorithm](./algebra/euclid-algorithm.html).
 
-It is clear, that the smallest $M$ that can is a multiple of every $B$-powersmooth number is $\text{lcm}(1,~2~,3~,4~,~\dots,~B)$.
+It is clear, that the smallest $M$ that is a multiple of every $B$-powersmooth number is $\text{lcm}(1,~2~,3~,4~,~\dots,~B)$.
 Or alternatively:
 $$M = \prod_{\text{prime } q \le B} q^{\lfloor \log_q B \rfloor}$$
 
@@ -158,6 +159,8 @@ long long pollards_p_minus_1(long long n) {
     // perform 5 iterations with random a
     for (int iter = 1; iter <= 5; iter++) {
         long long a = rand() %  n;
+        if (a < 2)
+            continue;
 
         // test if a gives already a factor
         long long g = gcd(a, n);
@@ -208,7 +211,7 @@ We don't know $p$ yet, so how can we argue about the sequence $\{x_i \bmod p\}$?
 
 It's quite easy.
 Even if we don't know $p$ and the cycle-start, cycle-length, ... we can find it using any common cycle detection algorithm.
-There is a cycle in the sequence $\{x_i \bmod p\}_{i \le j}$ if and only if there are two indices $s, t \le j$ and $t$ with $x_s \bmod p = x_t \bmod p$.
+There is a cycle in the sequence $\\{x_i \bmod p\\}_{i \le j}$ if and only if there are two indices $s, t \le j$ and $t$ with $x_s \equiv x_t \bmod p$.
 This equation can be rewritten as $x_s - x_t \equiv 0 \bmod p$ which is the same as $p ~|~ \gcd(x_s - x_t, n)$.
 
 Therefore, if we find two indices $s$ and $t$ with $g = \gcd(x_s - x_t, n) > 1$, we have found a factor $g$ of $n$.
