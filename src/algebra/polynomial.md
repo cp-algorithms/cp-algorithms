@@ -135,3 +135,13 @@ base resultant(polyn &a, polyn &b) {
 	}
 }
 ```
+
+## Problems
+
+[CodeChef - RNG](https://www.codechef.com/problems/RNG)
+
+[CodeForces - Basis Change](https://codeforces.com/gym/102129/problem/D)
+
+[CodeForces - Permutant](https://codeforces.com/gym/102129/problem/G)
+
+[CodeForces - Medium Hadron Collider](https://codeforces.com/gym/102129/problem/C)
