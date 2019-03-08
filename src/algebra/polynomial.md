@@ -31,18 +31,20 @@ Other useful functions:
 
 - `deriv()`: computes derivative $P'(x)$ of $P(x)$.
 - `integr()`: computes indefinite integral $Q(x) = \int P(x)$ of $P(x)$ such that $Q(0)=0$.
-- `inv(size_t n)`: calculate first $n$ coefficients of $P^{-1}(x)$.
-- `log(size_t n)`: calculate first $n$ coefficients of $\ln P(x)$.
-- `exp(size_t n)`: calculate first $n$ coefficients of $\exp P(x)$.
-- `pow(size_t k, size_t n)`: calculate first $n$ coefficients for $P^{k}(x)$.
+- `inv(size_t n)`: calculate first $n$ coefficients of $P^{-1}(x)$ in $O(n \log n)$.
+- `log(size_t n)`: calculate first $n$ coefficients of $\ln P(x)$ in $O(n \log n)$.
+- `exp(size_t n)`: calculate first $n$ coefficients of $\exp P(x)$ in $O(n \log n)$.
+- `pow(size_t k, size_t n)`: calculate first $n$ coefficients for $P^{k}(x)$ in $O(n \log nk)$.
 - `deg()`: returns degree of $P(x)$.
 - `lead()`: returns coefficient near $x^{\deg P(x)}$.
-- `resultant(poly<T> a, poly<T> b)`: computes resultant of $a$ and $b$.
+- `resultant(poly<T> a, poly<T> b)`: computes resultant of $a$ and $b$ in $O(|a| \cdot |b|)$.
 - `bpow(T x, size_t n)`: computes $x^n$.
 - `bpow(T x, size_t n, T m)`: computes $x^n \pmod{m}$.
+- `chirpz(T z, size_t n)`: computes $P(1), P(z), P(z^2), \dots, P(z^{n-1})$ in $O(n \log n)$.
+- `vector<T> eval(vector<T> x)`: evaluates $P(x_1), \dots, P(x_n)$ in $O(n \log^2 n)$.
+- `poly<T> inter(vector<T> x, vector<T> y)`: interpolates polynomial by set of pairs $P(x_i) = y_i$ in $O(n \log^2 n)$.
 - And some more, feel free to explore the code!
 
-Multipoint evaluation and interpolation are not implemented here, but it's an easy task to do, given this code and formulas.
 ## Arythmetics
 
 ### Multiplication
@@ -140,11 +142,58 @@ Note that you also may calculate some $k$-th root of polynomial if you may calcu
 
 ## Evaluation and Interpolation
 
+### Chirp-z Transform
+
+For particular case when you need to evaluate polynomial in points $x_r = z^{2r}$ you may do the following:
+
+$$A(z^{2r}) = \sum\limits_{k=0}^n a_k z^{2kr}$$
+
+Let's substitute $2kr = r^2+k^2-(r-k)^2$. Then this sum rewrites as:
+
+$$A(z^{2r}) = z^{r^2}\sum\limits_{k=0}^n (a_k z^{k^2}) z^{-(r-k)^2}$$
+
+Which is up to $z^{r^2}$ multiplier equal to the convolution of sequences $u_k = a_k z^{k^2}$ and $v_k = z^{-k^2}$.
+
+Note that $u_k$ has indexes from $0$ to $n$ here and $v_k$ has indexes from $-n$ to $m$ where $m$ is maximum power of $z$ which you need.
+
+Now if you need to evaluate polynomial in points $x_r = z^{2r+1}$ you may reduce it to the previous task by transform $a_k \to a_k z^k$.
+
+It gives us $O(n \log n)$ algorithm when you need to compute values in powers of $z$, thus you may compute DFT for non-powers of two.
+
+
+### Multi-point Evaluation 
+Assume you need to calculate $A(x_1), \dots, A(x_n)$. As mentioned earlier, $A(x) \equiv A(x_i) \pmod{x-x_i}$. Thus you may do the following:
+
+1. Compute segment tree such that in segment $[l;r)$ stands the product $P_{l, r}(x) = (x-x_l)(x-x_{l+1})\dots(x-x_{r-1})$.
+2. Starting with $l=1$ and $r=n$ let $m=\lfloor(l+r)/2\rfloor$ let's move down to $[l;m)$ with polynomial $A(x) \pmod{P_{l,m}(x)}$.
+3. This will recursively compute $A(x_l), \dots, A(x_{m-1})$, now do the same for $[m;r)$ with $A(x) \pmod{P_{m,r}(x)}$.
+4. Concatenate results from first and second call and return them.
+
+The whole procedure will run in $O(n \log^2 n)$.
+
+### Interpolation
+
+There's a direct formula by Lagrange to interpolate a polynomial, given set of pairs $(x_i, y_i)$:
+
+$$\boxed{A(x) = \sum\limits_{i=1}^n y_i \prod\limits_{j \neq i}\dfrac{x-x_j}{x_i - x_j}}$$
+
+Computing it directly is a hard thing but turns out, we may compute it in $O(n \log^2 n)$ with divide and conquer approach:
+
+Consider $P(x) = (x-x_1)\dots(x-x_n)$. To know the coefficients of denominators in $A(x)$ we should compute products like: $$P_i = \prod\limits_{j \neq i} (x_i-x_j)$$
+
+But if you consider derivative $P'(x)$ you'll find out that $P'(x_i) = P_i$. Thus you may compute $P_i$'s via evaluation in $O(n \log^2 n)$.
+
+Now consider recursive algorithm done on same segment tree as in evaluation. It starts in leaves with value $\dfrac{y_i}{P_i}$ in each leaf.
+
+When we return from recursion we should merge results from left and right vertices's as $A_{l,r} = A_{l,m}P_{m,r} + P_{l,m} A_{m,r}$.
+
+In this way when you return back to the root you'll have exactly $A(x)$ in it. Total procedure also works in $O(n \log^2 n)$.
+
 ## GCD and Resultants
 
 Assume you're given polynomials $A(x) = a_0 + a_1 x + \dots + a_n x^n$ and $B(x) = b_0 + b_1 x + \dots + b_m x^m$.
 
-Let $\lambda_0, \dots, \lambda_n$ are the roots of $A(x)$ and $\mu_0, \dots, \mu_m$ are the roots of $B(x)$ counted with their multiplicities.
+Let $\lambda_0, \dots, \lambda_n$ be the roots of $A(x)$ and let $\mu_0, \dots, \mu_m$ be the roots of $B(x)$ counted with their multiplicities.
 
 You want to know if $A(x)$ and $B(x)$ have any roots in common. There are two interconnected ways to do that.
 
@@ -161,9 +210,6 @@ T gcd(const T &a, const T &b) {
 
 It may be proven that for polynomials $A(x)$ and $B(x)$ it will work in $O(nm)$.
 
-### Half-GCD approach
-
-There's also a way to compute GCD in $O(n \log^2 n)$.
 
 ### Resultant
 
@@ -202,7 +248,9 @@ T resultant(poly<T> a, poly<T> b) {
 }
 ```
 
-It is also possible to recalculate resultant in $O(n \log^2 n)$ via Half-GCD algorithm, which is left to reader as an exercise. 
+### Half-GCD algorithm
+
+There is a way to calculate GCD and resultants in $O(n \log^2 n)$. To do this you should note that if you consider $a(x) = a_0 + x^k a_1$ and $b(x) = b_0 + x^k b_1$ where $k=\min(\deg a, \deg b)/2$ then basically first few operations of euclidean algorithm on $a(x)$ and $b(x)$ are defined by euclidean algorithm on $a_1(x)$ and $b_1(x)$ for which you may also calculate GCD recursively and then somehow memorize linear transforms you made with them and apply it to $a(x)$ and $b(x)$ to lower the degrees of polynomials. Implementation of this algorithm seems pretty tedious and technical thus it's not considered in this article yet.
 
 ## Problems
 
