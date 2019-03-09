@@ -1,0 +1,116 @@
+<!--?title Montgomery Multiplication -->
+# Montgomery Multiplication
+
+Many algorithms in number theory, like prime testing or factorization, and in cryptography, like RSA, require lots of operations modulo a large number.
+A multiplications like $x y \bmod{n}$ is quite slow to compute with the typical algorithms, since it requires a division to know how many times $n$ has to be subtracted from the product.
+And division is a really expensive operation, especially with big numbers.
+
+The **Montgomery (modular) multiplication** is a method that allows to compute such multiplications faster.
+Instead of dividing the product and subtracting the $n$ multiple times, it adds multiples of $n$ to cancel out the lower bits and then just discards the lower bits.
+
+## Montgomery representation
+
+However the Montgomery multiplication doesn't come for free.
+The algorithm works only in the **Montgomery space**.
+And we need to transform our numbers into that space, before we can start multiplying.
+
+For the space we need a positive integer $r \ge n$ coprime to $n$, d.h. $\gcd(n, r) = 1$.
+In practice we usually choose $r$ to be $2^m$ for a positive integer $m$, since multiplications, divisions and modulo $r$ operations can then be efficiently implemented using shifts and bit operations.
+
+The representative $\bar{x}$ of a number $x$ in the Montgomery space is defined as: $$\bar{x} := x \cdot r \bmod n$$
+
+Notice, for the transformation is actually such a multiplication that we want to optimize.
+So this is still an expensive operation.
+However there are tricks to speed this transformation up, and you only need to transform a number once into the space.
+As soon as you are in the Montgomery space, you can perform as many operations as you want efficiently.
+And at the end you transform the final result back.
+
+Inside the Montgomery space you can still perform most operations as usual.
+You can add two elements $x \cdot r + y \cdot r \equiv (x + y) \cdot r \bmod n$, subtract, check for equality, and even compute the greatest common multiple of a number with $n$ (since $\gcd(n, r) = 1$).
+
+However multiplication works differently.
+We expect the result:
+$$\bar{x} * \bar{y} = (x \cdot y) \cdot r \bmod n.$$
+However the normal multiplication will give us:
+$$\bar{x} \cdot \bar{y} = (x \cdot y) \cdot r \cdot r \bmod n.$$
+Therefore the multiplication is defined as:
+$$\bar{x} * \bar{y} := \bar{x} \cdot \bar{y} \cdot r^{-1} \bmod n.$$
+
+## Montgomery reduction
+
+The multiplication of two numbers in the Montgomery space requires an efficient computation of $x \cdot r^{-1} \bmod n$.
+This operation is call the **Montgomery reduction**, and is also known as the algorithm **REDC**.
+
+Because $\gcd(n, r) = 1$, we know that there are two numbers $r^{-1}$ and $n^{\prime}$ with $0 < r^{-1}, n^{\prime} < n$ with
+$$r \cdot r^{-1} - n \cdot n^{\prime} = 1.$$
+Both $r^{-1}$ and $n^{\prime}$ can be computed using the [Extended Euclidean algorithm](./algebra/extended-euclid-algorithm.html).
+
+Using this identity we can write $x \cdot r^{-1}$ as:
+$$\begin{array}{rl}
+x \cdot r^{-1} &= x \cdot r \cdot r^{-1} / r = x \cdot (n \cdot n^{\prime} + 1) / r \\\\
+&= (x \cdot n \cdot n^{\prime} + x) / r \equiv (x \cdot n \cdot n^{\prime} + l \cdot r \cdot n + x) / r \bmod n\\\\
+&\equiv ((x \cdot n^{\prime} + l \cdot r) \cdot n + x) / r \bmod n\\\\
+\end{array}$$
+
+The equivalences hold for any arbitrary integer $l$.
+This means, that we can add an arbitrary multiple of $r$ to $x \cdot n^{\prime}$, or in other words, we can compute $q := x \cdot n^{\prime}$ modulo $r$.
+
+This gives us the following algorithm to compute $x \cdot r^{-1} \bmod n$:
+
+```
+function REDC(x):
+    q = (x mod r) * n' mod r
+    a = (x + q * n) / r
+    if a > n:
+        a -= n
+    return a
+endfunction
+```
+
+Since $x < n \cdot n < r \cdot n$ (even if $x$ is the product of a multiplication) and $q \cdot n < r \cdot n$ we know that $a := (x + q \cdot n) / r < 2 \cdot n$.
+Therefore the final modulo operation is implemented using a single check and subtraction.
+
+As we see, we can perform the Montgomery reduction without any heavy modulo operations.
+If we choose $r$ as a power of $2$, the modulo operations and divisions in the algorithm can be computed using bitmasking and shifting.
+
+A second application of the Montgomery reduction is to transfer a number back from the Montgomery space into the normal space.
+
+## Fast inverse trick
+
+For computing the inverse $n^{\prime} := n^{-1} \bmod r$ efficiently, we can use the following trick (which follows from Newton's method).
+$$a \cdot x \equiv 1 \bmod 2^k \Longrightarrow a \cdot x \cdot (2 - a \cdot x) \equiv 1 \bmod 2^{2k}$$
+This can easily be proven.
+If we have $a \cdot x = 1 + m \cdot 2^k$, then we have:
+$$\begin{array}{rl}
+a \cdot x \cdot (2 - a \cdot x) &= 2 \cdot a \cdot x - (a \cdot x)^2 \\\\
+&= 2 \cdot (1 + m \cdot 2^k) - (1 + m \cdot 2^k)^2 \\\\
+&= 2 + 2 \cdot m \cdot 2^k - 1 - 2 \cdot m \cdot 2^k - m^2 \cdot 2^{2k} \\\\
+&= 1 - m^2 \cdot 2^{2k} \\\\
+&\equiv 1 \bmod 2^{2k}.
+\end{array}$$
+
+This means we can start with $x = 1$ as the inverse of $a$ modulo $2^1$, apply the trick a few times and in each iteration we double the number of correct bits of $x$.
+
+## Implementation
+
+Using the GCC compiler we can compute $x \cdot y \bmod n$ still efficiently, when all three numbers are 64 bit integer.
+The compiler supports 128 bit integer with the types `__int128` and `__uint128`.
+
+```cpp
+long long result = (__int128)x * y % n;
+```
+
+However there is no type for 256 bit integer.
+Therefore we will here show an implementation for a 128 bit multiplication.
+
+```cpp
+struct Montgomery {
+
+
+    
+};
+```
+
+## References
+
+- [sci.crypt](https://groups.google.com/forum/#!msg/sci.crypt/UI-UMbUnYGk/hX2-wQVyE3oJ)
