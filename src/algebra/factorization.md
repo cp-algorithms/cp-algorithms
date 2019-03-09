@@ -273,3 +273,11 @@ i & x_i \bmod n & x_{2i} \bmod n & x_i \bmod 317 & x_{2i} \bmod 317 & \gcd(x_i -
 7   & 2193080 & 2088470 & 74      & 74      & 317 \\\\
 \hline
 \end{array}$$
+
+
+## Practice Problems
+
+- [SPOJ - FACT0](https://www.spoj.com/problems/FACT0/)
+- [SPOJ - FACT1](https://www.spoj.com/problems/FACT1/)
+- [SPOJ - FACT2](https://www.spoj.com/problems/FACT2/)
+- [GCPC 15 - Divisions](https://codeforces.com/gym/100753)
