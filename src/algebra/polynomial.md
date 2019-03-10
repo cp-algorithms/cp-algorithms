@@ -158,7 +158,7 @@ $$A(z^{2r}) = \sum\limits_{k=0}^n a_k z^{2kr}$$
 
 Let's substitute $2kr = r^2+k^2-(r-k)^2$. Then this sum rewrites as:
 
-$$A(z^{2r}) = z^{r^2}\sum\limits_{k=0}^n (a_k z^{k^2}) z^{-(r-k)^2}$$
+$$\boxed{A(z^{2r}) = z^{r^2}\sum\limits_{k=0}^n (a_k z^{k^2}) z^{-(r-k)^2}}$$
 
 Which is up to the factor $z^{r^2}$ equal to the convolution of the sequences $u_k = a_k z^{k^2}$ and $v_k = z^{-k^2}$.
 
