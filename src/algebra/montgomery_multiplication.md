@@ -21,9 +21,10 @@ The representative $\bar{x}$ of a number $x$ in the Montgomery space is defined 
 
 Notice, for the transformation is actually such a multiplication that we want to optimize.
 So this is still an expensive operation.
-However there are tricks to speed this transformation up, and you only need to transform a number once into the space.
+However you only need to transform a number once into the space.
 As soon as you are in the Montgomery space, you can perform as many operations as you want efficiently.
 And at the end you transform the final result back.
+So as long as you are doing lots of operations, this will be no problem.
 
 Inside the Montgomery space you can still perform most operations as usual.
 You can add two elements $x \cdot r + y \cdot r \equiv (x + y) \cdot r \bmod n$, subtract, check for equality, and even compute the greatest common multiple of a number with $n$ (since $\gcd(n, r) = 1$).
@@ -42,14 +43,14 @@ The multiplication of two numbers in the Montgomery space requires an efficient 
 This operation is call the **Montgomery reduction**, and is also known as the algorithm **REDC**.
 
 Because $\gcd(n, r) = 1$, we know that there are two numbers $r^{-1}$ and $n^{\prime}$ with $0 < r^{-1}, n^{\prime} < n$ with
-$$r \cdot r^{-1} - n \cdot n^{\prime} = 1.$$
+$$r \cdot r^{-1} + n \cdot n^{\prime} = 1.$$
 Both $r^{-1}$ and $n^{\prime}$ can be computed using the [Extended Euclidean algorithm](./algebra/extended-euclid-algorithm.html).
 
 Using this identity we can write $x \cdot r^{-1}$ as:
 $$\begin{array}{rl}
-x \cdot r^{-1} &= x \cdot r \cdot r^{-1} / r = x \cdot (n \cdot n^{\prime} + 1) / r \\\\
-&= (x \cdot n \cdot n^{\prime} + x) / r \equiv (x \cdot n \cdot n^{\prime} + l \cdot r \cdot n + x) / r \bmod n\\\\
-&\equiv ((x \cdot n^{\prime} + l \cdot r) \cdot n + x) / r \bmod n\\\\
+x \cdot r^{-1} &= x \cdot r \cdot r^{-1} / r = x \cdot (-n \cdot n^{\prime} + 1) / r \\\\
+&= (-x \cdot n \cdot n^{\prime} + x) / r \equiv (-x \cdot n \cdot n^{\prime} + l \cdot r \cdot n + x) / r \bmod n\\\\
+&\equiv ((-x \cdot n^{\prime} + l \cdot r) \cdot n + x) / r \bmod n\\\\
 \end{array}$$
 
 The equivalences hold for any arbitrary integer $l$.
@@ -58,17 +59,17 @@ This means, that we can add an arbitrary multiple of $r$ to $x \cdot n^{\prime}$
 This gives us the following algorithm to compute $x \cdot r^{-1} \bmod n$:
 
 ```
-function REDC(x):
+function reduce(x):
     q = (x mod r) * n' mod r
-    a = (x + q * n) / r
-    if a > n:
-        a -= n
+    a = (x - q * n) / r
+    if a < 0:
+        a += n
     return a
 endfunction
 ```
 
-Since $x < n \cdot n < r \cdot n$ (even if $x$ is the product of a multiplication) and $q \cdot n < r \cdot n$ we know that $a := (x + q \cdot n) / r < 2 \cdot n$.
-Therefore the final modulo operation is implemented using a single check and subtraction.
+Since $x < n \cdot n < r \cdot n$ (even if $x$ is the product of a multiplication) and $q \cdot n < r \cdot n$ we know that $-n < (x - q \cdot n) / r < n$.
+Therefore the final modulo operation is implemented using a single check and one addition.
 
 As we see, we can perform the Montgomery reduction without any heavy modulo operations.
 If we choose $r$ as a power of $2$, the modulo operations and divisions in the algorithm can be computed using bitmasking and shifting.
@@ -77,7 +78,7 @@ A second application of the Montgomery reduction is to transfer a number back fr
 
 ## Fast inverse trick
 
-For computing the inverse $n^{\prime} := n^{-1} \bmod r$ efficiently, we can use the following trick (which follows from Newton's method).
+For computing the inverse $n^{\prime} := n^{-1} \bmod r$ efficiently, we can use the following trick (which follows from the Newton's method):
 $$a \cdot x \equiv 1 \bmod 2^k \Longrightarrow a \cdot x \cdot (2 - a \cdot x) \equiv 1 \bmod 2^{2k}$$
 This can easily be proven.
 If we have $a \cdot x = 1 + m \cdot 2^k$, then we have:
@@ -93,8 +94,7 @@ This means we can start with $x = 1$ as the inverse of $a$ modulo $2^1$, apply t
 
 ## Implementation
 
-Using the GCC compiler we can compute $x \cdot y \bmod n$ still efficiently, when all three numbers are 64 bit integer.
-The compiler supports 128 bit integer with the types `__int128` and `__uint128`.
+Using the GCC compiler we can compute $x \cdot y \bmod n$ still efficiently, when all three numbers are 64 bit integer, since the compiler supports 128 bit integer with the types `__int128` and `__uint128`.
 
 ```cpp
 long long result = (__int128)x * y % n;
@@ -104,10 +104,57 @@ However there is no type for 256 bit integer.
 Therefore we will here show an implementation for a 128 bit multiplication.
 
 ```cpp
+using u64 = uint64_t;
+using u128 = __uint128_t;
+
+struct u256 {
+    u128 high, low;
+
+    static u256 mult(u128 x, u128 y) {
+        u64 a = x >> 64, b = x;
+        u64 c = y >> 64, d = y;
+        // (a*2^64 + b) * (c*2^64 + d) =
+        // (a + c) * 2^128 + (a*d + b*c)*2^64 + (b*d)
+        u128 ac = (u128)a * c;
+        u128 ad = (u128)a * d;
+        u128 bc = (u128)b * c;
+        u128 bd = (u128)b * d;
+        u128 carry = (u128)(u64)ad + (u128)(u64)bc + (bd >> 64u);
+        u128 high = ac + (ad >> 64u) + (bc >> 64u) + (carry >> 64u);
+        u128 low = (ad << 64u) + (bc << 64u) + bd;
+        return {high, low};
+    }
+};
+
 struct Montgomery {
+    Montgomery(u128 n) : mod(n), inv(1) {
+        for (int i = 0; i < 7; i++)
+            inv *= 2 - n * inv;
+    }
 
+    u128 init(u128 x) {
+        x %= mod;
+        for (int i = 0; i < 128; i++) {
+            x <<= 1;
+            if (x >= mod)
+                x -= mod;
+        }
+        return x;
+    }
 
-    
+    u128 reduce(u256 x) {
+        u128 q = x.low * inv;
+        i128 a = x.high - u256::mult(q, mod).high;
+        if (a < 0)
+            a += mod;
+        return a;
+    }
+
+    u128 mult(u128 a, u128 b) {
+        return reduce(u256::mult(a, b));
+    }
+
+    u128 mod, inv;
 };
 ```
 
