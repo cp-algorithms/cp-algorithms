@@ -5,7 +5,7 @@ Many algorithms in number theory, like prime testing or factorization, and in cr
 A multiplications like $x y \bmod{n}$ is quite slow to compute with the typical algorithms, since it requires a division to know how many times $n$ has to be subtracted from the product.
 And division is a really expensive operation, especially with big numbers.
 
-The **Montgomery (modular) multiplication** is a method that allows to compute such multiplications faster.
+The **Montgomery (modular) multiplication** is a method that allows computing such multiplications faster.
 Instead of dividing the product and subtracting the $n$ multiple times, it adds multiples of $n$ to cancel out the lower bits and then just discards the lower bits.
 
 ## Montgomery representation
@@ -14,33 +14,36 @@ However the Montgomery multiplication doesn't come for free.
 The algorithm works only in the **Montgomery space**.
 And we need to transform our numbers into that space, before we can start multiplying.
 
-For the space we need a positive integer $r \ge n$ coprime to $n$, d.h. $\gcd(n, r) = 1$.
-In practice we usually choose $r$ to be $2^m$ for a positive integer $m$, since multiplications, divisions and modulo $r$ operations can then be efficiently implemented using shifts and bit operations.
+For the space we need a positive integer $r \ge n$ coprime to $n$, i.e. $\gcd(n, r) = 1$.
+In practice we always choose $r$ to be $2^m$ for a positive integer $m$, since multiplications, divisions and modulo $r$ operations can then be efficiently implemented using shifts and bit operations.
+$n$ will be an odd number in pretty much all applications, since it is not hard to factorize an even number.
+So every power of $2$ will be coprime to $n$.
 
 The representative $\bar{x}$ of a number $x$ in the Montgomery space is defined as: $$\bar{x} := x \cdot r \bmod n$$
 
-Notice, for the transformation is actually such a multiplication that we want to optimize.
+Notice, the transformation is actually such a multiplication that we want to optimize.
 So this is still an expensive operation.
 However you only need to transform a number once into the space.
 As soon as you are in the Montgomery space, you can perform as many operations as you want efficiently.
 And at the end you transform the final result back.
-So as long as you are doing lots of operations, this will be no problem.
+So as long as you are doing lots of operations modulo $n$, this will be no problem.
 
 Inside the Montgomery space you can still perform most operations as usual.
-You can add two elements $x \cdot r + y \cdot r \equiv (x + y) \cdot r \bmod n$, subtract, check for equality, and even compute the greatest common multiple of a number with $n$ (since $\gcd(n, r) = 1$).
+You can add two elements ($x \cdot r + y \cdot r \equiv (x + y) \cdot r \bmod n$), subtract, check for equality, and even compute the greatest common multiple of a number with $n$ (since $\gcd(n, r) = 1$).
+All with the usual algorithms.
 
-However multiplication works differently.
+However this is not the case for multiplication.
 We expect the result:
-$$\bar{x} * \bar{y} = (x \cdot y) \cdot r \bmod n.$$
-However the normal multiplication will give us:
+$$\bar{x} * \bar{y} = \overline{x \cdot y} = (x \cdot y) \cdot r \bmod n.$$
+But the normal multiplication will give us:
 $$\bar{x} \cdot \bar{y} = (x \cdot y) \cdot r \cdot r \bmod n.$$
-Therefore the multiplication is defined as:
+Therefore the multiplication in the Montgomery space is defined as:
 $$\bar{x} * \bar{y} := \bar{x} \cdot \bar{y} \cdot r^{-1} \bmod n.$$
 
 ## Montgomery reduction
 
 The multiplication of two numbers in the Montgomery space requires an efficient computation of $x \cdot r^{-1} \bmod n$.
-This operation is call the **Montgomery reduction**, and is also known as the algorithm **REDC**.
+This operation is called the **Montgomery reduction**, and is also known as the algorithm **REDC**.
 
 Because $\gcd(n, r) = 1$, we know that there are two numbers $r^{-1}$ and $n^{\prime}$ with $0 < r^{-1}, n^{\prime} < n$ with
 $$r \cdot r^{-1} + n \cdot n^{\prime} = 1.$$
@@ -78,7 +81,7 @@ A second application of the Montgomery reduction is to transfer a number back fr
 
 ## Fast inverse trick
 
-For computing the inverse $n^{\prime} := n^{-1} \bmod r$ efficiently, we can use the following trick (which follows from the Newton's method):
+For computing the inverse $n^{\prime} := n^{-1} \bmod r$ efficiently, we can use the following trick (which is inspired from the Newton's method):
 $$a \cdot x \equiv 1 \bmod 2^k \Longrightarrow a \cdot x \cdot (2 - a \cdot x) \equiv 1 \bmod 2^{2k}$$
 This can easily be proven.
 If we have $a \cdot x = 1 + m \cdot 2^k$, then we have:
@@ -106,6 +109,7 @@ Therefore we will here show an implementation for a 128 bit multiplication.
 ```cpp
 using u64 = uint64_t;
 using u128 = __uint128_t;
+using i128 = __int128_t;
 
 struct u256 {
     u128 high, low;
@@ -158,6 +162,32 @@ struct Montgomery {
 };
 ```
 
-## References
+## Fast transformation
 
-- [sci.crypt](https://groups.google.com/forum/#!msg/sci.crypt/UI-UMbUnYGk/hX2-wQVyE3oJ)
+The current method of transforming a number into Montgomery space is pretty slow.
+There are faster ways.
+
+You can notice the following relation:
+$$\bar{x} := x \cdot r \bmod n = x \cdot r^2 / r = x * r^2$$
+Transforming a number into spaces is just a multiplication inside the space of the number with $r^2$.
+Therefore we can precompute $r^2 \bmod n$ and just perform a multiplication instead of shifting the number 128 times.
+
+```
+struct Montgomery {
+    Montgomery(u128 n) : mod(n), inv(1), r2(1) {
+        for (int i = 0; i < 7; i++)
+            inv *= 2 - n * inv;
+        for (int i = 0; i < 256; i++) {
+            r2 <<= 1;
+            if (r2 >= mod)
+                r2 -= mod;
+        }
+    }
+
+    u128 init(u128 x) {
+        return mult(x, r2);
+    }
+
+    u128 mod, inv, r2;
+};
+```
