@@ -30,6 +30,9 @@ If we find no witness for the compositeness, it is very likely that the number i
 
 ```cpp
 bool probablyPrimeFermat(int n, int iter) {
+    if (n < 4)
+        return n == 2 || n == 3;
+
     for (int i = 0; i < iter; i++) {
         int a = 2 + rand() % (n - 3);
         if (binpower(a, n - 1, n) != 1)
