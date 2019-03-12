@@ -3,6 +3,28 @@
 
 This article describes multiple algorithms to determine if a number is prime or not.
 
+## Trial division
+
+By definition a prime number doesn't have any divisors other than $1$ and itself.
+A composite number has at least one additional divisor $\le \sqrt{n}$.
+We can use this information to check for primality.
+
+We try to find a second divisor, by checking if any of the numbers between $2$ and $\sqrt{n}$ is a divisor of $n$.
+If it is a divisor, than $n$ is definitely not prime, otherwise it is.
+
+```cpp
+bool isPrime(int x) {
+    for (int d = 2; d * d <= x; d++) {
+        if (x % d == 2)
+            return false;
+    }
+    return true;
+}
+```
+
+This is the simplest form of a prime check.
+You can optimize this function quite a bit, for instance by only checking all odd numbers in the loop, since the only even prime number is 2.
+
 ## Fermat primality test
 
 This is a probabilistic test.
