@@ -160,6 +160,10 @@ bool MillerRabin(u64 n) {
 }
 ```
 
+Before the Miller-Rabin test you can test additionally if one of the first few prime numbers is a divisor.
+This can speed up the test by a lot.
+$88\%$ of all numbers have a prime factors smaller than $100$.
+
 ### Deterministic version
 
 Miller showed that it is possible to make the algorithm deterministic by only checking all bases $\le O((\ln n)^2)$.
