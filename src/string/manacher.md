@@ -1,4 +1,4 @@
-<!--?title Finding all sub-palindromes in O(N)-->
+<!--?title Manacher's Algorithm - Finding all sub-palindromes in O(N)-->
 
 # Manacher's Algorithm - Finding all sub-palindromes in $O(N)$
 
