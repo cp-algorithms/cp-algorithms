@@ -1,8 +1,10 @@
 <!--?title Integer factorization -->
 # Integer factorization
 
-In this article we list several algorithms for factorizing integers, each of them can be both fast and also very slowly depending on their input.
-But in sum they combine to a very fast method.
+In this article we list several algorithms for factorizing integers, each of them can be both fast and also slow (some slower than others) depending on their input.
+
+Notice, if the number that you want to factorize is actually a prime number, most of the algorithms, especially Fermat's factorization algorithm, Pollard's p-1, Pollard's rho algorithm will run very slow.
+So it makes sense to perform a probabilistic (or a fast deterministic) [primality test](./algebra/primality_tests.html) before trying to factorize the number.
 
 ## Trial division
 
@@ -101,7 +103,7 @@ However, also the skip lists will get a lot bigger.
 ### Precomputed primes
 
 Extending the wheel factorization with more and more primes will leave exactly the primes to check.
-So a good way of checking is just to precompute all prime numbers until $\sqrt{n}$ and test them individually.
+So a good way of checking is just to precompute all prime numbers with the [Sieve of Eratosthenes](./algebra/sieve-of-eratosthenes.html) until $\sqrt{n}$ and test them individually.
 
 ```cpp factorization_trial_division4
 vector<long long> primes;
@@ -178,18 +180,25 @@ It is clear, that the smallest $M$ that is a multiple of every $B$-powersmooth n
 Or alternatively:
 $$M = \prod_{\text{prime } q \le B} q^{\lfloor \log_q B \rfloor}$$
 
+Notice, if $p-1$ divides $M$ for all prime factors $p$ of $n$, then $\gcd(a^M - 1, n)$ will just be $n$.
+In this case we don't receive a factor.
+Therefore we will try to perform the $\gcd$ multiple time, while we compute $M$.
+
+Some composite numbers don't have $B$-powersmooth factors for small $B$.
+E.g. the factors of the composite number $100.000.000.000.000.493 = 763.013 \cdot 131.059.365.961$ are $190.753$-powersmooth and $1092161383$-powersmooth.
+We would have to choose $B >= 190.753$ to factorize the number.
+
+In the following implementation we start with $B = 10$ and increase $B$ after each each iteration.
+
 ```cpp factorization_p_minus_1
 vector<int> primes;
 
 long long pollards_p_minus_1(long long n) {
-    int B = 1000;
-    while (B <= 1'000'000) {
-        long long a = rand() %  n;
-        if (a < 2)
-            continue;
-
-        // test if a gives already a factor
-        long long g = gcd(a, n);
+    int B = 10;
+    long long g = 1;
+    while (B <= 1'000'000 && g < n) {
+        long long a = 2 + rand() %  (n - 3);
+        g = gcd(a, n);
         if (g > 1)
             return g;
 
@@ -206,7 +215,7 @@ long long pollards_p_minus_1(long long n) {
             if (g > 1 && g < n)
                 return g;
         }
-        B *= 3;
+        B *= 2;
     }
     return 1;
 }
@@ -214,7 +223,7 @@ long long pollards_p_minus_1(long long n) {
 ```
 
 Notice, this is a probabilistic algorithm.
-It doesn't find a factor for every number.
+It can happen that the algorithm doesn't find a factor.
 
 The complexity is $O(B \log B \log^2 n)$ per iteration.
 
@@ -233,36 +242,54 @@ If $p$ is smaller than $\sqrt{n}$, the repetition will start very likely in $O(\
 Here is a visualization of such a sequence $\{x_i \bmod p\}$ with $n = 2206637$, $p = 317$, $x_0 = 2$ and $f(x) = x^2 + 1$.
 From the form of the sequence you can see very clearly why the algorithm is called Pollard's $\rho$ algorithm.
 
-<center>![Pollard's rho visualization](https://image.ibb.co/etmP3L/pollard-rho.png)</center>
-<!-- %imgroot%/pollard_rho.png)</center> -->
+<center>![Pollard's rho visualization](&imgroot&/pollard_rho.png)</center>
 
 There is still one big open question.
 We don't know $p$ yet, so how can we argue about the sequence $\{x_i \bmod p\}$?
 
-It's quite easy.
-Even if we don't know $p$ and the cycle-start, cycle-length, ... we can find it using any common cycle detection algorithm.
+It's actually quite easy.
 There is a cycle in the sequence $\\{x_i \bmod p\\}_{i \le j}$ if and only if there are two indices $s, t \le j$ and $t$ with $x_s \equiv x_t \bmod p$.
 This equation can be rewritten as $x_s - x_t \equiv 0 \bmod p$ which is the same as $p ~|~ \gcd(x_s - x_t, n)$.
 
-Therefore, if we find two indices $s$ and $t$ with $g = \gcd(x_s - x_t, n) > 1$, we have found a factor $g$ of $n$.
+Therefore, if we find two indices $s$ and $t$ with $g = \gcd(x_s - x_t, n) > 1$, we have found a cycle and also a factor $g$ of $n$.
 Notice that it is possible that $g = n$.
 In this case we haven't found a proper factor, and we have to repeat the algorithm with different parameter (different starting value $x_0$, different constant $c$ in the polynomial function $f$).
 
-To find the cycle efficiently, we can use **Floyd's cycle-finding algorithm**, which finds the cycle in linear time.
-Therefore, the algorithm runs (usually) in $O(\sqrt[4]{n} \log(n))$ time.
+To find the cycle, we can use any common cycle detection algorithm.
 
-The following code includes a function `mult`, that multiplies two integers $\le 10^{18}$ without overflow using a similar idea as [binary exponentiation](./algebra/binary-exp.html).
+### Floyd's cycle-finding algorithm
+
+This algorithm finds a cycle by using two pointer.
+These pointers move over the sequence at different speeds.
+In each iteration the first pointer advances to the next element, but the second pointer advances two elements.
+It's not hard to see, that if there exists a cycle, the second pointer will make at least one full cycle and then meet the first pointer during the next few cycle loops.
+If the cycle length is $\lambda$ and the $\mu$ is the first index at which the cycle starts, then the algorithm will run in $O(\lambda + \mu)$ time.
+
+This algorithm is also known as **tortoise and the hare algorithm**, based on the tale in which a tortoise (here a slow pointer) and a hare (here a faster pointer) make a race.
+
+It is actually possible to determine the parameter $\lambda$ and $\mu$ using this algorithm (also in $O(\lambda + \mu)$ time and $O(1)$ space), but here is just the simplified version for finding the cycle at all.
+The algorithm and returns true as soon as it detects a cycle.
+If the sequence doesn't have a cycle, then the function will never stop.
+However this cannot happen during Pollard's rho algorithm.
+
+```text
+function floyd(f, x0):
+    tortoise = x0
+    hare = f(x0)
+    while tortoise != hare:
+        tortoise = f(tortoise)
+        hare = f(f(hare))
+    return true
+```
+
+### Implementation
+
+First here is a implementation using the **Floyd's cycle-finding algorithm**.
+The algorithm runs (usually) in $O(\sqrt[4]{n} \log(n))$ time.
 
 ```cpp pollard_rho
 long long mult(long long a, long long b, long long mod) {
-    long long result = 0;
-    while (b) {
-        if (b & 1)
-            result = (result + a) % mod;
-        a = (a + a) % mod;
-        b >>= 1;
-    }
-    return result;
+    return (__int128)a * b % mod;
 }
 
 long long f(long long x, long long c, long long mod) {
@@ -283,9 +310,7 @@ long long rho(long long n, long long x0=2, long long c=1) {
 }
 ```
 
-As already noticed above: if $n$ is composite and the algorithm doesn't return $n$ as factor, you have to repeat the procedure with different parameter $x_0$ and $c$.
-
-And the following table shows the values of $x$ and $y$ during the algorithm for $n = 2206637$, $x_0 = 2$ and $c = 1$.
+The following table shows the values of $x$ and $y$ during the algorithm for $n = 2206637$, $x_0 = 2$ and $c = 1$.
 
 $$
 \newcommand\T{\Rule{0pt}{1em}{.3em}}
@@ -303,6 +328,94 @@ i & x_i \bmod n & x_{2i} \bmod n & x_i \bmod 317 & x_{2i} \bmod 317 & \gcd(x_i -
 7   & 2193080 & 2088470 & 74      & 74      & 317 \\\\
 \hline
 \end{array}$$
+
+The implementation uses a function `mult`, that multiplies two integers $\le 10^{18}$ without overflow by using a GCC's type `__int128` for 128-bit integer.
+If GCC is not available, you can using a similar idea as [binary exponentiation](./algebra/binary-exp.html).
+
+```cpp pollard_rho_mult2
+long long mult(long long a, long long b, long long mod) {
+    long long result = 0;
+    while (b) {
+        if (b & 1)
+            result = (result + a) % mod;
+        a = (a + a) % mod;
+        b >>= 1;
+    }
+    return result;
+}
+```
+
+Alternatively you can also implement the [Montgomery multiplication](./algebra/montgomery_multiplication.html).
+
+As already noticed above: if $n$ is composite and the algorithm returns $n$ as factor, you have to repeat the procedure with different parameter $x_0$ and $c$.
+E.g. the choice $x_0 = c = 1$ will not factor $25 = 5 \cdot 5$.
+The algorithm will just return $25$.
+However the choice $x_0 = 1$, $c = 2$ will factor it.
+
+### Brent's algorithm
+
+Brent uses a similar algorithm as Floyd.
+It also uses two pointer.
+But instead of advancing the pointers by one and two respectably, we advance them in powers of two.
+As soon as $2^i$ is greater than $\lambda$ and $\mu$, we will find the cycle.
+
+```text
+function floyd(f, x0):
+    tortoise = x0
+    hare = f(x0)
+    l = 1
+    while tortoise != hare:
+        tortoise = hare
+        repeat l times:
+            hare = f(hare)
+            if tortoise == hare:
+                return true
+        l *= 2
+    return true
+```
+
+Brent's algorithm also runs in linear time, but is usually faster than Floyd's algorithm, since it uses less evaluations of the function $f$.
+
+### Implementation
+
+The straightforward implementation using Brent's algorithms can be speeded up by noticing, that we can omit the terms $x_l - x_k$ if $k < \frac{3 \cdot l}{2}$.
+Also, instead of performing the $\gcd$ computation at every step, we multiply the terms and do it every few steps and backtrack if we overshoot.
+
+```cpp
+long long brent2(long long n, long long x0=2, long long c=1) {
+    long long x = x0;
+    long long g = 1;
+    long long q = 1;
+    long long xs, y;
+
+    int m = 128;
+    int l = 1;
+    while (g == 1) {
+        y = x;
+        for (int i = 1; i < l; i++)
+            x = f(x);
+        int k = 0;
+        while (k < l && g == 1) {
+            xs = x;
+            for (int i = 0; i < m && i < l - k; i++) {
+                x = f(x);
+                q = mult(q, abs(y - x), n);
+            }
+            g = gcd(q, n);
+            k += m;
+        }
+        l *= 2;
+    }
+    if (g == n) {
+        do {
+            xs = f(xs);
+            g = gcd(abs_diff(xs, y), n);
+        } while (g == 1);
+    }
+    return g;
+}
+```
+
 
 
 ## Practice Problems
