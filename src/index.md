@@ -31,6 +31,7 @@ and adding new articles to the collection.*
     - [Discrete Root](./algebra/discrete-root.html)
     - [Primitive Root](./algebra/primitive-root.html)
     - [Discrete Log](./algebra/discrete-log.html)
+    - [Montgomery Multiplication](./algebra/montgomery_multiplication.html)
 - **Number systems**
     - [Balanced Ternary](./algebra/balanced-ternary.html)
     - [Gray code](./algebra/gray-code.html)
