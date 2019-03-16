@@ -26,6 +26,8 @@ long long gcd(long long a, long long b) {
 #include "../test/factorization_trial_division3.h"
 #include "../test/factorization_trial_division4.h"
 #include "../test/factorization_p_minus_1.h"
+#include "../test/pollard_rho.h"
+#include "../test/pollard_rho_brent.h"
 
 int main() {
     map<long long, vector<long long>> test_data = {
@@ -46,17 +48,10 @@ int main() {
 
         long long g = pollards_p_minus_1(n);
         assert(g > 1 && g < n && n % g == 0);
-    }
 
-    int cnt = 0;
-    int N = 10000000;
-    for (int i = 2; i < N; i++) {
-        if (trial_division3(i).size() > 1) {
-            if (pollards_p_minus_1(i) == 1) {
-                cout << i << '\n';
-                cnt++;
-            }
-        }
+        g = rho(n);
+        assert(g > 1 && g < n && n % g == 0);
+        g = brent(n);
+        assert(g > 1 && g < n && n % g == 0);
     }
-    cout << cnt / (double) N * 100 << endl;
 }

@@ -191,12 +191,10 @@ We would have to choose $B >= 190.753$ to factorize the number.
 In the following implementation we start with $B = 10$ and increase $B$ after each each iteration.
 
 ```cpp factorization_p_minus_1
-vector<int> primes;
-
 long long pollards_p_minus_1(long long n) {
     int B = 10;
     long long g = 1;
-    while (B <= 1'000'000 && g < n) {
+    while (B <= 1000000 && g < n) {
         long long a = 2 + rand() %  (n - 3);
         g = gcd(a, n);
         if (g > 1)
@@ -381,7 +379,7 @@ Brent's algorithm also runs in linear time, but is usually faster than Floyd's a
 The straightforward implementation using Brent's algorithms can be speeded up by noticing, that we can omit the terms $x_l - x_k$ if $k < \frac{3 \cdot l}{2}$.
 Also, instead of performing the $\gcd$ computation at every step, we multiply the terms and do it every few steps and backtrack if we overshoot.
 
-```cpp
+```cpp pollard_rho_brent
 long long brent(long long n, long long x0=2, long long c=1) {
     long long x = x0;
     long long g = 1;
