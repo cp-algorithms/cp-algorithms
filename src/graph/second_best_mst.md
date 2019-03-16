@@ -36,7 +36,7 @@ We try to add every edge that is not already in the MST.
 2. For each edge $e$ not already in the MST, temporarily add it to the MST, creating a cycle.
 3. Find the edge $k$ with maximal weight in the cycle that is not equal to $e$.
 4. Remove $k$ temporarily, creating a new spanning tree.
-5. Compute the weight difference $\delta = weight(e) - weight(k)$, and remember it together with the changed edge.
+5. Compute the weight difference $\delta = weight(e) − weight(k)$, and remember it together with the changed edge.
 6. Repeat step 2 for all other edges, and return the spanning tree with the smallest weight difference to the MST.
 
 The time complexity of the algorithm depends on how we compute the $k$s, which are the maximum weight edges in step 2 of this algorithm.
