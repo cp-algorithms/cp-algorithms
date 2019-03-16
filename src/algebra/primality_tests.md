@@ -26,6 +26,7 @@ bool isPrime(int x) {
 
 This is the simplest form of a prime check.
 You can optimize this function quite a bit, for instance by only checking all odd numbers in the loop, since the only even prime number is 2.
+Multiple such optimizations are described in the article about [integer factorization](./algebra/factorization.html).
 
 ## Fermat primality test
 
