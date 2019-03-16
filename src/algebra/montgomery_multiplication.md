@@ -1,7 +1,8 @@
 <!--?title Montgomery Multiplication -->
 # Montgomery Multiplication
 
-Many algorithms in number theory, like prime testing or factorization, and in cryptography, like RSA, require lots of operations modulo a large number.
+Many algorithms in number theory, like [prime testing](./algebra/primality_tests.html) or factorization, and in cryptography, like RSA, require lots of operations modulo a large number.
+
 A multiplications like $x y \bmod{n}$ is quite slow to compute with the typical algorithms, since it requires a division to know how many times $n$ has to be subtracted from the product.
 And division is a really expensive operation, especially with big numbers.
 
@@ -33,6 +34,7 @@ You can add two elements ($x \cdot r + y \cdot r \equiv (x + y) \cdot r \bmod n$
 All with the usual algorithms.
 
 However this is not the case for multiplication.
+
 We expect the result to be:
 $$\bar{x} * \bar{y} = \overline{x \cdot y} = (x \cdot y) \cdot r \bmod n.$$
 But the normal multiplication will give us:
@@ -168,6 +170,7 @@ There are faster ways.
 
 You can notice the following relation:
 $$\bar{x} := x \cdot r \bmod n = x \cdot r^2 / r = x * r^2$$
+
 Transforming a number into the space is just a multiplication inside the space of the number with $r^2$.
 Therefore we can precompute $r^2 \bmod n$ and just perform a multiplication instead of shifting the number 128 times.
 
