@@ -122,6 +122,35 @@ vector<long long> trial_division4(long long n) {
 }
 ```
 
+## Fermat's factorization method
+
+We can write an odd composite number $n = p \cdot q$ as the difference of two squares $n = a^2 - b^2$:
+$$n = \left(\frac{p + q}{2}\right)^2 - \left(\frac{p - q}{2}\right)^2$$
+Fermat's factorization method tries to exploit the fact, by guessing the first square $a^2$, and check if the remaining part $b^2 = a^2 - n$ is also a square number.
+If it is, then we have found the factors $a - b$ and $a + b$ of $n$.
+
+```cpp
+int fermat(int n) {
+    int a = ceil(sqrt(n));
+    int b2 = a*a - n;
+    int b = round(sqrt(b2));
+    while (b * b != b2) {
+        a = a + 1;
+        b2 = a*a - n;
+        b = round(sqrt(b2));
+    }
+    return a - b;
+}
+```
+
+Notice, this factorization method can be very fast, if the difference between the two factors $p$ and $q$ is small.
+The algorithm runs in $O(|p - q|)$ time.
+However since it is very slow, once the factors are far apart, it is rarely used in practice.
+
+However there are still a huge number of optimizations for this approach.
+E.g. by looking at the squares $a^2$ modulo a fixed small number, you can notice that you don't have to look at certain values $a$ since they cannot produce a square number $a^2 - n$.
+
+
 ## Pollard's $p - 1$ method
 
 It is very likely that at least one factor of a number is $B$**-powersmooth** for small $B$.
