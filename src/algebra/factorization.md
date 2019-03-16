@@ -382,7 +382,7 @@ The straightforward implementation using Brent's algorithms can be speeded up by
 Also, instead of performing the $\gcd$ computation at every step, we multiply the terms and do it every few steps and backtrack if we overshoot.
 
 ```cpp
-long long brent2(long long n, long long x0=2, long long c=1) {
+long long brent(long long n, long long x0=2, long long c=1) {
     long long x = x0;
     long long g = 1;
     long long q = 1;
@@ -393,12 +393,12 @@ long long brent2(long long n, long long x0=2, long long c=1) {
     while (g == 1) {
         y = x;
         for (int i = 1; i < l; i++)
-            x = f(x);
+            x = f(x, c, n);
         int k = 0;
         while (k < l && g == 1) {
             xs = x;
             for (int i = 0; i < m && i < l - k; i++) {
-                x = f(x);
+                x = f(x, c, n);
                 q = mult(q, abs(y - x), n);
             }
             g = gcd(q, n);
@@ -408,15 +408,15 @@ long long brent2(long long n, long long x0=2, long long c=1) {
     }
     if (g == n) {
         do {
-            xs = f(xs);
-            g = gcd(abs_diff(xs, y), n);
+            xs = f(xs, c, n);
+            g = gcd(abs(xs - y), n);
         } while (g == 1);
     }
     return g;
 }
 ```
 
-
+The combination of a trial division for small prime numbers together with Brent's version of Pollard's rho algorithm will make a very powerful factorization algorithm.
 
 ## Practice Problems
 
