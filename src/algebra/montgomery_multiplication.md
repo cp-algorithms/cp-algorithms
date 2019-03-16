@@ -1,12 +1,13 @@
 <!--?title Montgomery Multiplication -->
 # Montgomery Multiplication
 
-Many algorithms in number theory, like [prime testing](./algebra/primality_tests.html) or [integer factorization](./algebra/factorization.html), and in cryptography, like RSA, require lots of operations modulo a large number.
+Many algorithms in number theory, like [prime testing](./algebra/primality_tests.html) or factorization, and in cryptography, like RSA, require lots of operations modulo a large number.
+
 A multiplications like $x y \bmod{n}$ is quite slow to compute with the typical algorithms, since it requires a division to know how many times $n$ has to be subtracted from the product.
 And division is a really expensive operation, especially with big numbers.
 
 The **Montgomery (modular) multiplication** is a method that allows computing such multiplications faster.
-Instead of dividing the product and subtracting the $n$ multiple times, it adds multiples of $n$ to cancel out the lower bits and then just discards the lower bits.
+Instead of dividing the product and subtracting $n$ multiple times, it adds multiples of $n$ to cancel out the lower bits and then just discards the lower bits.
 
 ## Montgomery representation
 
@@ -15,7 +16,7 @@ The algorithm works only in the **Montgomery space**.
 And we need to transform our numbers into that space, before we can start multiplying.
 
 For the space we need a positive integer $r \ge n$ coprime to $n$, i.e. $\gcd(n, r) = 1$.
-In practice we always choose $r$ to be $2^m$ for a positive integer $m$, since multiplications, divisions and modulo $r$ operations can then be efficiently implemented using shifts and bit operations.
+In practice we always choose $r$ to be $2^m$ for a positive integer $m$, since multiplications, divisions and modulo $r$ operations can then be efficiently implemented using shifts and other bit operations.
 $n$ will be an odd number in pretty much all applications, since it is not hard to factorize an even number.
 So every power of $2$ will be coprime to $n$.
 
@@ -33,7 +34,8 @@ You can add two elements ($x \cdot r + y \cdot r \equiv (x + y) \cdot r \bmod n$
 All with the usual algorithms.
 
 However this is not the case for multiplication.
-We expect the result:
+
+We expect the result to be:
 $$\bar{x} * \bar{y} = \overline{x \cdot y} = (x \cdot y) \cdot r \bmod n.$$
 But the normal multiplication will give us:
 $$\bar{x} \cdot \bar{y} = (x \cdot y) \cdot r \cdot r \bmod n.$$
@@ -50,25 +52,24 @@ $$r \cdot r^{-1} + n \cdot n^{\prime} = 1.$$
 Both $r^{-1}$ and $n^{\prime}$ can be computed using the [Extended Euclidean algorithm](./algebra/extended-euclid-algorithm.html).
 
 Using this identity we can write $x \cdot r^{-1}$ as:
-$$\begin{array}{rl}
+$$\begin{aligned}
 x \cdot r^{-1} &= x \cdot r \cdot r^{-1} / r = x \cdot (-n \cdot n^{\prime} + 1) / r \\\\
 &= (-x \cdot n \cdot n^{\prime} + x) / r \equiv (-x \cdot n \cdot n^{\prime} + l \cdot r \cdot n + x) / r \bmod n\\\\
 &\equiv ((-x \cdot n^{\prime} + l \cdot r) \cdot n + x) / r \bmod n\\\\
-\end{array}$$
+\end{aligned}$$
 
 The equivalences hold for any arbitrary integer $l$.
-This means, that we can add an arbitrary multiple of $r$ to $x \cdot n^{\prime}$, or in other words, we can compute $q := x \cdot n^{\prime}$ modulo $r$.
+This means, that we can add or subtract an arbitrary multiple of $r$ to $x \cdot n^{\prime}$, or in other words, we can compute $q := x \cdot n^{\prime}$ modulo $r$.
 
 This gives us the following algorithm to compute $x \cdot r^{-1} \bmod n$:
 
-```
+```text
 function reduce(x):
     q = (x mod r) * n' mod r
     a = (x - q * n) / r
     if a < 0:
         a += n
     return a
-endfunction
 ```
 
 Since $x < n \cdot n < r \cdot n$ (even if $x$ is the product of a multiplication) and $q \cdot n < r \cdot n$ we know that $-n < (x - q \cdot n) / r < n$.
@@ -85,13 +86,13 @@ For computing the inverse $n^{\prime} := n^{-1} \bmod r$ efficiently, we can use
 $$a \cdot x \equiv 1 \bmod 2^k \Longrightarrow a \cdot x \cdot (2 - a \cdot x) \equiv 1 \bmod 2^{2k}$$
 This can easily be proven.
 If we have $a \cdot x = 1 + m \cdot 2^k$, then we have:
-$$\begin{array}{rl}
+$$\begin{aligned}
 a \cdot x \cdot (2 - a \cdot x) &= 2 \cdot a \cdot x - (a \cdot x)^2 \\\\
 &= 2 \cdot (1 + m \cdot 2^k) - (1 + m \cdot 2^k)^2 \\\\
 &= 2 + 2 \cdot m \cdot 2^k - 1 - 2 \cdot m \cdot 2^k - m^2 \cdot 2^{2k} \\\\
 &= 1 - m^2 \cdot 2^{2k} \\\\
 &\equiv 1 \bmod 2^{2k}.
-\end{array}$$
+\end{aligned}$$
 
 This means we can start with $x = 1$ as the inverse of $a$ modulo $2^1$, apply the trick a few times and in each iteration we double the number of correct bits of $x$.
 
@@ -169,19 +170,27 @@ There are faster ways.
 
 You can notice the following relation:
 $$\bar{x} := x \cdot r \bmod n = x \cdot r^2 / r = x * r^2$$
-Transforming a number into spaces is just a multiplication inside the space of the number with $r^2$.
+
+Transforming a number into the space is just a multiplication inside the space of the number with $r^2$.
 Therefore we can precompute $r^2 \bmod n$ and just perform a multiplication instead of shifting the number 128 times.
+
+In the following code we initialize `r2` with `-n % n`, which is equivalent to $r - n \equiv r \bmod n$, shift it 4 times to get $r \cdot 2^4 \bmod n$.
+This number can be interpreted as $2^4$ in Montgomery space.
+If we square it $5$ times, we get $(2^4)^{2^5} = (2^4)^{32} = 2^{128} = r$ in Montgomery space, which is exactly $r^2 \bmod n$.
 
 ```
 struct Montgomery {
-    Montgomery(u128 n) : mod(n), inv(1), r2(1) {
+    Montgomery(u128 n) : mod(n), inv(1), r2(-n % n) {
         for (int i = 0; i < 7; i++)
             inv *= 2 - n * inv;
-        for (int i = 0; i < 256; i++) {
+
+        for (int i = 0; i < 4; i++) {
             r2 <<= 1;
             if (r2 >= mod)
                 r2 -= mod;
         }
+        for (int i = 0; i < 5; i++)
+            r2 = mul(r2, r2);
     }
 
     u128 init(u128 x) {

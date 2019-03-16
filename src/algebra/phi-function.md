@@ -57,7 +57,7 @@ int phi(int n) {
 }
 ```
 
-## Application in Euler's theorem ## {#application}
+## Application in Euler's theorem
 
 The most famous and important property of Euler's totient function is expressed in **Euler's theorem**: 
 $$a^{\phi(m)} \equiv 1 \pmod m$$ if $a$ and $m$ are relatively prime.

@@ -21,7 +21,6 @@ and adding new articles to the collection.*
     - [Sieve of Eratosthenes](./algebra/sieve-of-eratosthenes.html)
     - [Sieve of Eratosthenes With Linear Time Complexity](./algebra/prime-sieve-linear.html)
     - [Primality tests](./algebra/primality_tests.html)
-    - [Integer factorization](./algebra/factorization.html)
 - **Number-theoretic functions**
     - [Euler's totient function](./algebra/phi-function.html)
     - [Number of divisors / sum of divisors](./algebra/divisors.html)
@@ -41,6 +40,7 @@ and adding new articles to the collection.*
     - [Enumerating submasks of a bitmask](./algebra/all-submasks.html)
     - [Arbitrary-Precision Arithmetic](./algebra/big-integer.html)
     - [Fast Fourier transform](./algebra/fft.html)
+    - [Operations on polynomials and series](./algebra/polynomial.html)
 
 ### Data Structures
 
