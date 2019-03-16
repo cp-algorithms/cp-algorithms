@@ -150,14 +150,11 @@ Or alternatively:
 $$M = \prod_{\text{prime } q \le B} q^{\lfloor \log_q B \rfloor}$$
 
 ```cpp factorization_p_minus_1
-vector<int> primes_100 = {2, 3, 5, 7, 11, 13, 17, 19, 23, 
-                          29, 31, 37, 41, 43, 47, 53, 59,
-                          61, 67, 71, 73, 79, 83, 89, 97};
-int B = 100;
+vector<int> primes;
 
 long long pollards_p_minus_1(long long n) {
-    // perform 5 iterations with random a
-    for (int iter = 1; iter <= 5; iter++) {
+    int B = 1000;
+    while (B <= 1'000'000) {
         long long a = rand() %  n;
         if (a < 2)
             continue;
@@ -166,10 +163,12 @@ long long pollards_p_minus_1(long long n) {
         long long g = gcd(a, n);
         if (g > 1)
             return g;
-        
+
         // compute a^M
-        for (int p : primes_100) {
-            int p_power = 1;
+        for (int p : primes) {
+            if (p >= B)
+                continue;
+            long long p_power = 1;
             while (p_power * p <= B)
                 p_power *= p;
             a = power(a, p_power, n);
@@ -178,9 +177,11 @@ long long pollards_p_minus_1(long long n) {
             if (g > 1 && g < n)
                 return g;
         }
+        B *= 3;
     }
     return 1;
 }
+
 ```
 
 Notice, this is a probabilistic algorithm.
