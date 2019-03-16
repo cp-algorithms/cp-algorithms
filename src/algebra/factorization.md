@@ -1,5 +1,5 @@
-<!--?title Efficient integer factorization -->
-# Efficient integer factorization
+<!--?title Integer factorization -->
+# Integer factorization
 
 In this article we list several algorithms for factorizing integers, each of them can be both fast and also very slowly depending on their input.
 But in sum they combine to a very fast method.
