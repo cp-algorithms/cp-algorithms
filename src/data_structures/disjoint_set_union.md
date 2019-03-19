@@ -273,7 +273,7 @@ Therefore the complexity will be $O(\log n)$ per union (which is also quite fast
 Implementation:
 
 ```cpp
-for (int i = 0; i < L; i++) {
+for (int i = 0; i <= L; i++) {
     make_set(i);
 }
 
