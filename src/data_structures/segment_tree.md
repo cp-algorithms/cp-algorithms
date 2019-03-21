@@ -43,7 +43,7 @@ Here is a visual representation of such a Segment Tree over the array $a = [1, 3
 !["Sum Segment Tree"](&imgroot&/sum-segment-tree.png)
 
 From this short description of the data structure, we can already conclude that a Segment Tree only requires a linear number of vertices. 
-The first level of the tree contains a single note (the root), the second level will contain two vertices, in the third it will contain four vertices, until the number of vertices reaches $n$. 
+The first level of the tree contains a single node (the root), the second level will contain two vertices, in the third it will contain four vertices, until the number of vertices reaches $n$. 
 Thus the number of vertices in the worst case can be estimated by the sum $1 + 2 + 4 + \dots + 2^{\lceil\log_2 n\rceil} = 2^{\lceil\log_2 n\rceil + 1} \lt 4n$.
 
 It is worth noting that whenever $n$ is not a power of two, not all levels of the Segment Tree will be completely filled. 
