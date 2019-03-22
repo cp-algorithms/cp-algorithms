@@ -131,19 +131,19 @@ u64 binpower(u64 base, u64 e, u64 mod) {
     return result;
 }
 
-bool trial_composite(u64 n, u64 a, u64 d, int s) {
+bool check_composite(u64 n, u64 a, u64 d, int s) {
     u64 x = binpower(a, d, n);
     if (x == 1 || x == n - 1)
-        return true;
+        return false;
     for (int r = 1; r < s; r++) {
         x = (u128)x * x % n;
         if (x == n - 1)
-            return true;
+            return false;
     }
-    return false;
+    return true;
 };
 
-bool MillerRabin(u64 n) {
+bool MillerRabin(u64 n) { // returns true if n is probably prime, else returns false.
     if (n < 4)
         return n == 2 || n == 3;
 
@@ -156,7 +156,7 @@ bool MillerRabin(u64 n) {
 
     for (int i = 0; i < iter; i++) {
         int a = 2 + rand() % (n - 3);
-        if (trial_composite(n, a, d, s))
+        if (check_composite(n, a, d, s))
             return false;
     }
     return true;
@@ -175,13 +175,13 @@ Bach later gave a concrete bound, it is only necessary to test all bases $a \le 
 This is still a pretty large number of bases.
 So people have invested quite a lot of computation power into finding lower bounds.
 It turns out, for testing a 32 bit integer it is only necessary to check the first 4 prime bases: 2, 3, 5 and 7.
-The smallest composite number that fails this test is $3.215.031.751 = 151 \cdot 751 \cdot 28351$.
+The smallest composite number that fails this test is $3,215,031,751 = 151 \cdot 751 \cdot 28351$.
 And for testing 64 bit integer it is enough to check the first 12 prime bases: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, and 37.
 
 This results in the following deterministic implementation:
 
 ```cpp
-bool MillerRabin(u64 n, int iter) {
+bool MillerRabin(u64 n, int iter) { // returns true if n is prime, else returns false.
     if (n < 2)
         return false;
 
@@ -195,7 +195,7 @@ bool MillerRabin(u64 n, int iter) {
     for (int a : {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37}) {
         if (n == a)
             return true;
-        if (trial_composite(n, a, d, r))
+        if (check_composite(n, a, d, r))
             return false;
     }
     return true;
