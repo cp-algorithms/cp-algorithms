@@ -82,7 +82,7 @@ and adding new articles to the collection.*
     - [Lyndon factorization](./string/lyndon_factorization.html)
 - **Tasks**
     - [Expression parsing](./string/expression_parsing.html)
-    - [Finding all sub-palindromes in O(N)](./string/manacher.html)
+    - [Manacher's Algorithm - Finding all sub-palindromes in O(N)](./string/manacher.html)
     - [Finding repetitions](./string/main_lorentz.html)
 
 ### Linear Algebra

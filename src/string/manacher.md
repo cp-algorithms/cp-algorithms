@@ -1,6 +1,6 @@
-<!--?title Finding all sub-palindromes in O(N)-->
+<!--?title Manacher's Algorithm - Finding all sub-palindromes in O(N)-->
 
-# Finding all sub-palindromes in $O(N)$
+# Manacher's Algorithm - Finding all sub-palindromes in $O(N)$
 
 ## Statement
 
@@ -87,7 +87,7 @@ So, we want to calculate $d_1[i]$ for the next $i$, and all the previous values 
     
     But there is a **tricky case** to be handled correctly: when the "inner" palindrome reaches the borders of the "outer" one, i. e. $j - d_1[j] + 1 \le l$ (or, which is the same, $i + d_1[j] - 1 \ge r$). Because the symmetry outside the "outer" palindrome is not guaranteed, just assigning $d_1[i] = d_1[j]$ will be incorrect: we have not enough data to state that the palindrome in the position $i$ has the same length.
     
-    Actually, we should "cut" the length of our palindrome, i. e. assign $d_1[i] = r - i$, to handle such situations correctly. After this we'll run the trivial algorithm which will try to increase $d_1[i]$ while it's possible.
+    Actually, we should "cut" the length of our palindrome, i. e. assign $d_1[i] = r - i + 1$, to handle such situations correctly. After this we'll run the trivial algorithm which will try to increase $d_1[i]$ while it's possible.
     
     Illustration of this case (the palindrome with center $j$ is already "cut" to fit the "outer" palindrome):
     
@@ -130,7 +130,7 @@ For calculating $d_1[]$, we get the following code:
 ```cpp
 vector<int> d1(n);
 for (int i = 0, l = 0, r = -1; i < n; i++) {
-    int k = (i > r) ? 1 : min(d1[l + r - i], r - i);
+    int k = (i > r) ? 1 : min(d1[l + r - i], r - i + 1);
     while (0 <= i - k && i + k < n && s[i - k] == s[i + k]) {
         k++;
     }
