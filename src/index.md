@@ -20,6 +20,8 @@ and adding new articles to the collection.*
 - **Prime numbers**
     - [Sieve of Eratosthenes](./algebra/sieve-of-eratosthenes.html)
     - [Sieve of Eratosthenes With Linear Time Complexity](./algebra/prime-sieve-linear.html)
+    - [Primality tests](./algebra/primality_tests.html)
+    - [Integer factorization](./algebra/factorization.html)
 - **Number-theoretic functions**
     - [Euler's totient function](./algebra/phi-function.html)
     - [Number of divisors / sum of divisors](./algebra/divisors.html)
@@ -31,6 +33,7 @@ and adding new articles to the collection.*
     - [Discrete Root](./algebra/discrete-root.html)
     - [Primitive Root](./algebra/primitive-root.html)
     - [Discrete Log](./algebra/discrete-log.html)
+    - [Montgomery Multiplication](./algebra/montgomery_multiplication.html)
 - **Number systems**
     - [Balanced Ternary](./algebra/balanced-ternary.html)
     - [Gray code](./algebra/gray-code.html)
