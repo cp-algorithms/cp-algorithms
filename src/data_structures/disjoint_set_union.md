@@ -560,3 +560,4 @@ However it should also be noted, that there are several articles **disputing** t
 * [Codeforces - Roads not only in Berland](http://codeforces.com/contest/25/problem/D)
 * [TIMUS - Parity](http://acm.timus.ru/problem.aspx?space=1&num=1003)
 * [SPOJ - Strange Food Chain](http://www.spoj.com/problems/CHAIN/)
+* [SPOJ - COLORFUL ARRAY](https://www.spoj.com/problems/CLFLARR/)
