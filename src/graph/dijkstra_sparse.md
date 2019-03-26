@@ -87,7 +87,7 @@ We simply don't delete the old pair from the queue.
 As a result a vertex can appear multiple times with different distance in the queue at the same time.
 Among these pairs we are only interested in the pairs where the first element is equal to the corresponding value in $d[]$, all the other pairs are old.
 Therefore we need to make a small modification:
-at the beginning of each iteration, after extracting the next pair, we check if it an important pair or if it is already an old and handled pair.
+at the beginning of each iteration, after extracting the next pair, we check if it is an important pair or if it is already an old and handled pair.
 This check is important, otherwise the complexity can increase up to $O(n m)$.
 
 By default a `priority_queue` sorts elements in descending order.
@@ -138,7 +138,7 @@ it must compare two vertices using the distances stored in $d[]$.
 
 As a result of the relaxation, the distance of some vertices will change.
 However the data structure will not resort itself automatically.
-If fact changing distances of vertices in the queue, might destroy the data structure.
+In fact changing distances of vertices in the queue, might destroy the data structure.
 As before, we need to remove the vertex before we relax it, and then insert it again afterwards.
 
 Since we only can remove from `set`, this optimization is only applicable for the `set` method, and doesn't work with `priority_queue` implementation.
