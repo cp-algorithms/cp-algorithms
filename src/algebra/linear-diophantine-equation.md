@@ -70,7 +70,7 @@ bool find_any_solution(int a, int b, int c, int &x0, int &y0, int &g) {
 
 From one solution $(x_0, y_0)$, we can obtain all the solutions of the given equation.
 
-Let $g = gcd(a, b)$ and let $x_0, y_0$ be integers which satisfy the following:
+Let $g = \gcd(a, b)$ and let $x_0, y_0$ be integers which satisfy the following:
 
 $$a \cdot x_0 + b \cdot y_0 = c$$
 
@@ -95,66 +95,71 @@ Let there be two intervals: $[min_x; max_x]$ and $[min_y; max_y]$ and let's say 
 
 Note that if $a$ or $b$ is $0$, then the problem only has one solution. We don't consider this case here.
 
-First, we can find a solution which have minimum value of $x$, such that $x \ge min_x$. To do this, we first find any solution of the Diophantine equation. Then, we shift this solution to get $x \ge min_x$ (using what we know about the set of all solutions in previous section). This can be done in $O(1)$. Denote this minimum value of $x$ by $lx_1$.
+First, we can find a solution which have minimum value of $x$, such that $x \ge min_x$. To do this, we first find any solution of the Diophantine equation. Then, we shift this solution to get $x \ge min_x$ (using what we know about the set of all solutions in previous section). This can be done in $O(1)$.
+Denote this minimum value of $x$ by $l_{x1}$.
 
-Similarly, we can find the maximum value of $x$ which satisfy $x \le max_x$. Denote this maximum value of $x$ by $rx_1$.
+Similarly, we can find the maximum value of $x$ which satisfy $x \le max_x$. Denote this maximum value of $x$ by $r_{x1}$.
 
-Similarly, we can find the minimum value of $y$ $(y \ge min_y)$ and maximum values of $y$ $(y \le max_y)$. Denote the corresponding values of $x$ by $lx_2$ and $rx_2$.
+Similarly, we can find the minimum value of $y$ $(y \ge min_y)$ and maximum values of $y$ $(y \le max_y)$. Denote the corresponding values of $x$ by $l_{x2}$ and $r_{x2}$.
 
-The final solution is all solutions with x in intersection of $[lx_1, rx_1]$ and $[lx_2, rx_2]$. Let denote this intersection by $[lx, rx]$.
+The final solution is all solutions with x in intersection of $[l_{x1}, r_{x1}]$ and $[l_{x2}, r_{x2}]$. Let denote this intersection by $[l_x, r_x]$.
 
-Following is the code implementing this idea:
+Following is the code implementing this idea.
+Notice that we divide $a$ and $b$ at the beginning by $g$.
+Since the equation $a x + b y = c$ is equivalent to the equation $\frac{a}{g} x + \frac{b}{g} y = \frac{c}{g}$, we can use this one instead and have $\gcd(\frac{a}{g}, \frac{b}{g}) = 1$, which simplifies the formulas.
 
 ```cpp linear_diophantine_all
-void shift_solution (int & x, int & y, int a, int b, int cnt) {
-	x += cnt * b;
-	y -= cnt * a;
+void shift_solution(int & x, int & y, int a, int b, int cnt) {
+    x += cnt * b;
+    y -= cnt * a;
 }
 
-int find_all_solutions (int a, int b, int c, int minx, int maxx, int miny, int maxy) {
-	int x, y, g;
-	if (! find_any_solution (a, b, c, x, y, g))
-		return 0;
-	a /= g;  b /= g;
+int find_all_solutions(int a, int b, int c, int minx, int maxx, int miny, int maxy) {
+    int x, y, g;
+    if (!find_any_solution(a, b, c, x, y, g))
+        return 0;
+    a /= g;
+    b /= g;
 
-	int sign_a = a>0 ? +1 : -1;
-	int sign_b = b>0 ? +1 : -1;
+    int sign_a = a > 0 ? +1 : -1;
+    int sign_b = b > 0 ? +1 : -1;
 
-	shift_solution (x, y, a, b, (minx - x) / b);
-	if (x < minx)
-		shift_solution (x, y, a, b, sign_b);
-	if (x > maxx)
-		return 0;
-	int lx1 = x;
+    shift_solution(x, y, a, b, (minx - x) / b);
+    if (x < minx)
+        shift_solution(x, y, a, b, sign_b);
+    if (x > maxx)
+        return 0;
+    int lx1 = x;
 
-	shift_solution (x, y, a, b, (maxx - x) / b);
-	if (x > maxx)
-		shift_solution (x, y, a, b, -sign_b);
-	int rx1 = x;
+    shift_solution(x, y, a, b, (maxx - x) / b);
+    if (x > maxx)
+        shift_solution(x, y, a, b, -sign_b);
+    int rx1 = x;
 
-	shift_solution (x, y, a, b, - (miny - y) / a);
-	if (y < miny)
-		shift_solution (x, y, a, b, -sign_a);
-	if (y > maxy)
-		return 0;
-	int lx2 = x;
+    shift_solution(x, y, a, b, -(miny - y) / a);
+    if (y < miny)
+        shift_solution(x, y, a, b, -sign_a);
+    if (y > maxy)
+        return 0;
+    int lx2 = x;
 
-	shift_solution (x, y, a, b, - (maxy - y) / a);
-	if (y > maxy)
-		shift_solution (x, y, a, b, sign_a);
-	int rx2 = x;
+    shift_solution(x, y, a, b, -(maxy - y) / a);
+    if (y > maxy)
+        shift_solution(x, y, a, b, sign_a);
+    int rx2 = x;
 
-	if (lx2 > rx2)
-		swap (lx2, rx2);
-	int lx = max (lx1, lx2);
-	int rx = min (rx1, rx2);
+    if (lx2 > rx2)
+        swap(lx2, rx2);
+    int lx = max(lx1, lx2);
+    int rx = min(rx1, rx2);
 
-	if (lx > rx) return 0;
-	return (rx - lx) / abs(b) + 1;
+    if (lx > rx)
+        return 0;
+    return (rx - lx) / abs(b) + 1;
 }
 ```
 
-When we have $lx$ and $rx$, it is simple to enumerate through all the solutions. Just need to iterate through $x = lx + k \cdot b$ and find the corresponding $y$ using the equation $a x + b y = c$.
+Once we have $l_x$ and $r_x$, it is also simple to enumerate through all the solutions. Just need to iterate through $x = l_x + k \cdot \frac{b}{g}$ for all $k \ge 0$ until $x = r_x$, and find the corresponding $y$ values using the equation $a x + b y = c$.
 
 ## Find the solution with minimum value of $x + y$
 
