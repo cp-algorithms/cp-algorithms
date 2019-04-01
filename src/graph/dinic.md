@@ -81,8 +81,8 @@ struct Dinic {
     }
 
     void add_edge(int v, int u, long long cap) {
-        edges.push_back(FlowEdge(v, u, cap));
-        edges.push_back(FlowEdge(u, v, 0));
+        edges.emplace_back(v, u, cap);
+        edges.emplace_back(u, v, 0);
         adj[v].push_back(m);
         adj[u].push_back(m + 1);
         m += 2;
