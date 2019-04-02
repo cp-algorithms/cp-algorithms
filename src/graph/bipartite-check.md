@@ -46,3 +46,4 @@ cout << (is_bipartite ? "YES" : "NO") << endl;
 ### Practice problems:
 
 - [SPOJ - BUGLIFE](http://www.spoj.com/problems/BUGLIFE/)
+- [Codeforces - Graph Without Long Directed Paths](https://codeforces.com/contest/1144/problem/F)
