@@ -70,9 +70,6 @@ Choosing the edge with weight 14 will increase the weight of the tree by 7, choo
 
 ## Implementation
 ```cpp
-#include <bits/stdc++.h>
-using namespace std;
-
 struct edge {
     int s, e, w, id;
     bool operator<(const struct edge& other) { return w < other.w; }
@@ -81,11 +78,11 @@ typedef struct edge Edge;
 
 const int N = 2e5 + 5;
 long long res = 0, ans = 1e18;
-int n, m, a, b, w, id, edgeId = -1, l = 21;
+int n, m, a, b, w, id, l = 21;
 vector<Edge> edges;
 vector<int> h(N, 0), parent(N, -1), size(N, 0), present(N, 0);
-vector<vector<pair<int, int> > > adj(N), dp(N, vector<pair<int, int> >(l));
-vector<vector<int> > up(N, vector<int>(l, -1));
+vector<vector<pair<int, int>>> adj(N), dp(N, vector<pair<int, int>>(l));
+vector<vector<int>> up(N, vector<int>(l, -1));
 
 pair<int, int> combine(pair<int, int> a, pair<int, int> b) {
     vector<int> v = {a.first, a.second, b.first, b.second};
@@ -99,27 +96,6 @@ pair<int, int> combine(pair<int, int> a, pair<int, int> b) {
         }
     }
     return {topOne, topTwo};
-}
-
-int find_set(int v) {
-    if (parent[v] == v) {
-        return v;
-    }
-    return parent[v] = find_set(parent[v]);
-}
-
-bool unite_set(int a, int b) {
-    a = find_set(a);
-    b = find_set(b);
-    if (a != b) {
-        if (size[a] < size[b]) {
-            swap(a, b);
-        }
-        parent[b] = a;
-        size[a] += size[b];
-        return true;
-    }
-    return false;
 }
 
 void dfs(int u, int par, int d) {
@@ -174,7 +150,7 @@ int main(void) {
         b = edges[i].e;
         w = edges[i].w;
         id = edges[i].id;
-        if (unite_set(a, b)) {
+        if (unite_set(a, b)) { 
             adj[a].emplace_back(b, w);
             adj[b].emplace_back(a, w);
             present[id] = 1;
@@ -199,43 +175,22 @@ int main(void) {
             if (rem.first != w) {
                 if (ans > res + w - rem.first) {
                     ans = res + w - rem.first;
-                    edgeId = id;
                 }
             } else if (rem.second != -1) {
                 if (ans > res + w - rem.second) {
                     ans = res + w - rem.second;
-                    edgeId = id;
                 }
             }
         }
     }
-    cout << ans << " " << edgeId << "\n";
+    cout << ans << "\n";
     return 0;
 }
-/*
-Example 1:
-6 10
-1 2 13
-1 6 28
-1 5 7
-2 6 27
-2 3 39
-3 6 34
-3 4 36
-4 6 14
-4 5 7
-5 6 2
-
-65 6
-// 65 is the sum of the weights of edges in the second best MST;
-// 6 is the 0-based id of the new edge to be included to obtain the second best MST.
-// Code can be appropriately modified to remember the id of the edge to be removed from the first best MST.
-*/
 ```
 
 ## References -
 1. Competitive Programming-3, by Steven Halim
-2. http://web.mit.edu/6.263/www/quiz1-f05-sol.pdf
+2. [web.mit.edu](http://web.mit.edu/6.263/www/quiz1-f05-sol.pdf)
 
 ## Problems
 * [Codeforces - Minimum spanning tree for each edge](https://codeforces.com/problemset/problem/609/E)
