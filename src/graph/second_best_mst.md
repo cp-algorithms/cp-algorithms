@@ -188,7 +188,8 @@ int main(void) {
 }
 ```
 
-## References -
+## References
+
 1. Competitive Programming-3, by Steven Halim
 2. [web.mit.edu](http://web.mit.edu/6.263/www/quiz1-f05-sol.pdf)
 
