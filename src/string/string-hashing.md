@@ -16,7 +16,7 @@ The following condition has to hold: if two strings $s$ and $t$ are equal ($s = 
 Otherwise we will not be able to compare strings.
 
 Notice, the opposite direction doesn't have to hold.
-It the hashes are equal ($\text{hash}(s) = \text{hash}(t)$), then the strings do not necessarily have to be equal.
+If the hashes are equal ($\text{hash}(s) = \text{hash}(t)$), then the strings do not necessarily have to be equal.
 E.g. a valid hash function would be simply $\text{hash}(s) = 0$ for each $s$.
 Now, this is just a stupid example, because this function will be completely useless, but it is a valid hash function.
 The reason why the opposite direction doesn't have to hold, if because there are exponential many strings.
@@ -185,7 +185,7 @@ But notice, that we only did one comparison.
 What if we compared a string $s$ with $10^6$ different strings.
 The probability that the at least one collision happens is now $\approx 10^{-3}$.
 And if we want to compare $10^6$ different strings with each other (e.g. by counting how many unique strings exists), then the probability of at least one collision happening is already $\approx 1$.
-It is pretty much guaranteed that this task will end will a collision and returns the wrong result.
+It is pretty much guaranteed that this task will end with a collision and returns the wrong result.
 
 There is a really easy trick to get better probabilities.
 We can just compute two different hashes for each string (by using two different $p$, and/or different $m$, and compare these pairs instead.
