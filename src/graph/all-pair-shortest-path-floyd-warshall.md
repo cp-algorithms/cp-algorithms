@@ -35,7 +35,7 @@ There are two fundamentally different cases:
 
     In this case, $d[i][j]$ will not change during the transition.
 
-*   The shortest path with internal vertices from $\\{1, 2, \dots, k\\} is shorter.
+*   The shortest path with internal vertices from $\\{1, 2, \dots, k\\}$ is shorter.
 
     This means that the new, shorter path passes through the vertex $k$.
     This means that we can split the shortest path between $i$ and $j$ into two paths:
