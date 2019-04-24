@@ -181,7 +181,7 @@ And for testing 64 bit integer it is enough to check the first 12 prime bases: 2
 This results in the following deterministic implementation:
 
 ```cpp
-bool MillerRabin(u64 n, int iter) { // returns true if n is prime, else returns false.
+bool MillerRabin(u64 n) { // returns true if n is prime, else returns false.
     if (n < 2)
         return false;
 
