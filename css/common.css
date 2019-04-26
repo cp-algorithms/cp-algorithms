@@ -5,12 +5,12 @@ body {
     color: #333;
     font-size: 38px;
 }
-@media only screen and (min-device-width: 400px) {
+@media only screen and (min-width: 400px) {
     body {
         font-size: 26px;
     }
 }
-@media only screen and (min-device-width: 600px) {
+@media only screen and (min-width: 600px) {
     body {
         font-size: 16px;
     }
