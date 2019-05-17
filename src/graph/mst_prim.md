@@ -107,7 +107,7 @@ struct Edge {
 
 void prim() {
     int total_weight = 0;
-    vector<bool> selected(n);
+    vector<bool> selected(n, false);
     vector<Edge> min_e(n);
     min_e[0].w = 0;
 
@@ -172,6 +172,7 @@ void prim() {
     min_e[0].w = 0;
     set<Edge> q;
     q.insert({0, 0});
+    vector<bool> selected(n, false);
     for (int i = 0; i < n; ++i) {
         if (q.empty()) {
             cout << "No MST!" << endl;
@@ -179,6 +180,7 @@ void prim() {
         }
 
         int v = q.begin()->to;
+        selected[v] = true;
         total_weight += q.begin()->w;
         q.erase(q.begin());
 
@@ -186,7 +188,7 @@ void prim() {
             cout << v << " " << min_e[v].to << endl;
 
         for (Edge e : adj[v]) {
-            if (e.w < min_e[e.to].w) {
+            if (!selected[e.to] && e.w < min_e[e.to].w) {
                 q.erase({min_e[e.to].w, e.to});
                 min_e[e.to] = {e.w, v};
                 q.insert({e.w, e.to});
