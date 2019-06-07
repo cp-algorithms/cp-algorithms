@@ -28,7 +28,7 @@ We will describe this process in more detail.
 Let `L = ceil(log(N))`.
 Suppose first that `i = L`.
 If `up[u][i]` is not an ancestor of `v`, then we can assign `u = up[u][i]` and decrement `i`.
-If `up[u][i]` is not an ancestor, then we just decrement `i`.
+If `up[u][i]` is an ancestor, then we just decrement `i`.
 Clearly after doing this for all non-negative `i` the node `u` will be the desired node - i.e. `u` is still not an ancestor of `v`, but `up[u][0]` is.
 
 Now, obviously, the answer to LCA will be `up[u][0]` - i.e., the smallest node among the ancestors of the node `u`, which is also an ancestor of `v`.
