@@ -34,9 +34,9 @@ int length_union(const vector<pair<int, int>> &a) {
         if (i > 0 && x[i].first > x[i-1].first && c > 0)
             result += x[i].first - x[i-1].first;
         if (x[i].second)
-            c++;
+            c--;
         else
-            --c;
+            c++;
     }
     return result;
 }
