@@ -89,7 +89,7 @@ g(15) = g(1111_2) = 0000_2 &= 0 \\\\
 
 There exists a simple implementation using bitwise operations for the non-trivial operation described above:
 $$g(i) = i ~\&~ (i+1),$$
-where $\&$ is the logical AND operator. It is not hard to convince yourself that this solution does the same thing as the operation described above.
+where $\&$ is the bitwise AND operator. It is not hard to convince yourself that this solution does the same thing as the operation described above.
 
 Now, we just need to find a way to iterate over all $j$'s, such that $g(j) \le i \le j$.
 
@@ -108,7 +108,7 @@ h(31) = 63 &= 0111111_2 \\\\
 
 Unsurprisingly, there also exists a simple way to perform $h$ using bitwise operations:
 $$h(j) = j ~\|~ (j+1),$$
-where $\|$ is the logical OR operator.
+where $\|$ is the bitwise OR operator.
 
 The following image shows a possible interpretation of the Fenwick tree as tree.
 The nodes of the tree show the ranges they cover.
