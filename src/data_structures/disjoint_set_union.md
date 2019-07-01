@@ -113,7 +113,6 @@ This simple modification of the operation already achieves the time complexity $
 There is a second modification, that will make it even faster.
 
 ### Union by size / rank
-
 In this optimization we will change the `union_set` operation.
 To be precise, we will change which tree gets attached to the other one.
 In the native implementation the second tree always got attached to the first one.
@@ -168,29 +167,6 @@ void union_sets(int a, int b) {
 ```
 Both optimizations are equivalent in terms of time and space complexity. So in practice you can use any of them.
 
-### Randomized linking
-
-This optimization may be a substitute for the union by size / rank.
-Basically you will randomly attach a tree to the other instead of choosing based on the size/rank of each tree.
-
-The complexity of this optimization is more difficult to be analyzed, but it can be proved that the complexity is the same of the union by rank.
-You can read more about [here](http://www.cis.upenn.edu/~sanjeev/papers/soda14_disjoint_set_union.pdf).
-
-Since you will not need to store any additional information over the sets, this implementation will be cleaner and easier than the implementation of union by rank.
-
-
-```cpp
-void union_sets(int a, int b) {
-    a = find_set(a);
-    b = find_set(b);
-    if (a != b) {
-        if (rand() % 2)
-            swap(a, b);
-        parent[b] = a;
-    }
-}
-```
-
 ### Time complexity
 
 As mentioned before, if we combine both optimizations - path compression with union by size / rank - we will reach nearly constant time queries.
@@ -204,6 +180,52 @@ E.g. in our case a single call might take $O(\log n)$ in the worst case, but if 
 We will also not present a proof for this time complexity, since it is quite long and complicated.
 
 Also, it's worth mentioning that DSU with union by size / rank, but without path compression works in $O(\log n)$ time per query.
+
+### Linking by index / coin-flip linking
+
+Both union by rank and union by size require that you store additional data for each set, and maintain these values during each union operation.
+There exist also a randomized algorithm, that simplifies the union operation a little bit: linking by index.
+
+We assign each set a random value called the index, and we attach the set with the smaller index to the one with the larger one.
+It is likely that a bigger set will have a bigger index than the smaller set, therefore this operation is closely related to union by size.
+In fact it can be proven, that this operation has the same time complexity as union by size.
+However in practice it is slightly slower than union by size.
+
+You can find a proof of the complexity and even more union techniques [here](http://www.cis.upenn.edu/~sanjeev/papers/soda14_disjoint_set_union.pdf).
+
+```cpp
+void make_set(int v) {
+    parent[v] = v;
+    index[v] = rand();
+}
+
+void union_sets(int a, int b) {
+    a = find_set(a);
+    b = find_set(b);
+    if (a != b) {
+        if (index[a] < index[b])
+            swap(a, b);
+        parent[b] = a;
+    }
+}
+```
+
+It's a common misconception that just flipping a coin, to decide which set we attach to the other, has the same complexity.
+However that's not true.
+The paper linked above conjectures that coin-flip linking combined with path compression has complexity $\Omega\left(n \frac{\log n}{\log \log n}\right)$.
+And in benchmarks it performs a lot worse than union by size/rank or linking by index.
+
+```cpp
+void union_sets(int a, int b) {
+    a = find_set(a);
+    b = find_set(b);
+    if (a != b) {
+        if (rand() % 2)
+            swap(a, b);
+        parent[b] = a;
+    }
+}
+```
 
 ## Applications and various improvements
 
