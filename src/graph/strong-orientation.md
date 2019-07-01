@@ -1,6 +1,6 @@
 <!--?title Strong Orientation-->
 
-# Graph Strong Orientation
+# Strong Orientation
 
 A **strong orientation** of an undirected graph is an assignment of a direction to each edge that makes it a [strongly connected graph](./graph/strongly-connected-components.html).
 That is, after the *orientation* we should be able to visit any vertex from any vertex by following the directed edges.
@@ -14,9 +14,9 @@ We have to assign a direction to it and by doing so we make this bridge "crossab
 Now consider a [DFS](./graph/depth-first-search.html) through a bridgeless connected graph.
 Clearly, we will visit each vertex.
 And since there are no bridges, we can remove any DFS tree edge and still be able to go
-from below the edge to above the edge by using a back edge.
-From this follows that from any vertex we can go to the DFS tree root by using back edges.
-Then, from the DFS tree root we can visit any vertex we choose.
+from below the edge to above the edge by using a path that contains at least one back edge.
+From this follows that from any vertex we can go to the root of the DFS tree.
+Also, from the root of the DFS tree we can visit any vertex we choose.
 We found a strong orientation!
 
 In other words, to strongly orient a bridgeless connected graph,
@@ -129,8 +129,6 @@ int main() {
 	puts("");
 }
 ```
-
-
 
 ## Practice Problems
 
