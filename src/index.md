@@ -156,6 +156,7 @@ and adding new articles to the collection.*
     - [Finding Bridges Online](./graph/bridge-searching-online.html)
     - [Finding Articulation Points in O(N+M)](./graph/cutpoints.html)
     - [Strongly Connected Components and Condensation Graph](./graph/strongly-connected-components.html)
+    - [Strong Orientation](./graph/strong-orientation.html)
 - **Single-source shortest paths**
     - [Dijkstra - finding shortest paths from given vertex](./graph/dijkstra.html)
     - [Dijkstra on sparse graphs](./graph/dijkstra_sparse.html)
