@@ -184,7 +184,7 @@ into two strips of length $i-2$ and $n-i-1$ i.e. we go to the sum of games $i-2$
 For the edge case of the cross being marked on position $1$ or $n$, we go to the game $n-2$.
 
 Thus, the Grundy value $g(n)$ has the form:
-$$ g(n) = \text{mex} \\{ g(n-2), \bigcup_{i=2}^{n-1} (g(i-2) \oplus g(n-i-1) \\} . $$
+$$ g(n) = \text{mex} \Bigl( \\{ g(n-2) \\} \cup \\{g(i-2) \oplus g(n-i-1) \mid 2 \leq i \leq n-1\\} \Bigr) . $$
 
 So we've got a $O(n^2)$ solution.
 
