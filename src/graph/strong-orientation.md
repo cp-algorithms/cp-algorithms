@@ -57,7 +57,7 @@ vector<pair<int, int>> edges;
 
 vector<int> tin, low;
 int bridge_cnt;
-vector<char> orient;
+string orient;
 vector<bool> edge_used;
 void find_bridges(int v) {
 	static int time = 0;
@@ -104,7 +104,7 @@ int main() {
 			find_bridges(v);
 		}
 	}
-	printf("%d\n%s\n", comp_cnt + bridge_cnt, orient.data());
+	printf("%d\n%s\n", comp_cnt + bridge_cnt, orient.c_str());
 }
 ```
 
