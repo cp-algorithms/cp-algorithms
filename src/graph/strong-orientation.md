@@ -52,43 +52,30 @@ This is a bridge search algorithm modified to also orient the edges,
 you can as well orient the edges as a first step and count the SCCs on the oriented graph as a second.
 
 ```cpp
-#include <cstdio>
-#include <vector>
+vector<vector<pair<int, int>>> adj; // adjacency list - vertex and edge pairs
+vector<pair<int, int>> edges;
 
-using namespace std;
-
-typedef pair<int, int> pii;
-
-vector<vector<pii>> adj; // adjacency list - pairs (vertex index, edge index)
-vector<pii> edges;
-
-vector<int> index, low;
-int tmpbridges;
-vector<int> orient;
+vector<int> tin, low;
+int bridge_cnt;
+string orient;
 vector<bool> edge_used;
-void find_bridges(int v, int pedge = -1) {
+void find_bridges(int v) {
 	static int time = 0;
-	low[v] = index[v] = time++;
+	low[v] = tin[v] = time++;
 	for (auto p : adj[v]) {
 		if (edge_used[p.second]) continue;
+		edge_used[p.second] = true;
+		orient[p.second] = v == edges[p.second].first ? '>' : '<';
 		int nv = p.first;
-		if (index[nv] == -1) { // if nv is not visited yet
-			edge_used[p.second] = true;
-			find_bridges(nv, p.second);
-			orient[p.second] = v != edges[p.second].first;
-			if (low[nv] < low[v]) {
-				low[v] = low[nv];
-			}
-			if (low[nv] > index[v]) {
+		if (tin[nv] == -1) { // if nv is not visited yet
+			find_bridges(nv);
+			low[v] = min(low[v], low[nv]);
+			if (low[nv] > tin[v]) {
 				// a bridge between v and nv
-				tmpbridges++;
+				bridge_cnt++;
 			}
-		} else if (p.second != pedge) {
-			edge_used[p.second] = true;
-			orient[p.second] = v != edges[p.second].first;
-			if (low[nv] < low[v]) {
-				low[v] = low[nv];
-			}
+		} else {
+			low[v] = min(low[v], low[nv]);
 		}
 	}
 }
@@ -97,7 +84,7 @@ int main() {
 	int n, m;
 	scanf("%d %d", &n, &m);
 	adj.resize(n);
-	index.resize(n, -1);
+	tin.resize(n, -1);
 	low.resize(n, -1);
 	orient.resize(m);
 	edges.resize(m);
@@ -110,23 +97,14 @@ int main() {
 		adj[b].push_back({a, i});
 		edges[i] = {a, b};
 	}
-	int result = 0;
+	int comp_cnt = 0;
 	for (int v = 0; v < n; v++) {
-		if (index[v] == -1) {
-			tmpbridges = 0;
+		if (tin[v] == -1) {
+			comp_cnt++;
 			find_bridges(v);
-			result += tmpbridges+1;
 		}
 	}
-	printf("%d\n", result);
-	for (int i = 0; i < m; i++) {
-		if (orient[i] == 0) {
-			printf(">");
-		} else {
-			printf("<");
-		}
-	}
-	puts("");
+	printf("%d\n%s\n", comp_cnt + bridge_cnt, orient.c_str());
 }
 ```
 
