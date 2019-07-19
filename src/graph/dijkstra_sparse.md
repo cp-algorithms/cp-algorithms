@@ -30,7 +30,7 @@ Then the complexity of Dijkstra's algorithm is $O(n \log m + m \log n) = O(m \lo
 
 C++ provides two such data structures: `set` and `priority_queue`.
 The first is based on red-black trees, and the second one on heaps.
-Therefore `priority_queue` has a smaller constant hidden constant, but also has a drawback:
+Therefore `priority_queue` has a smaller hidden constant, but also has a drawback:
 it doesn't support the operation of removing an element.
 Because of this we need to do a "workaround", that actually leads to a slightly worse factor $\log m$ instead of $\log n$ (although in terms of complexity they are identical).
 
