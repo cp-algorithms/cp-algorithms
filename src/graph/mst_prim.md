@@ -72,10 +72,10 @@ If we search the edge by iterating over all possible edges, then it takes $O(m)$
 The total complexity will be $O(n m)$.
 In the worst case this is $O(n^3)$, really slow.
 
-This algorithm can be improves if we only look at one edge from each already selected vertex.
+This algorithm can be improved if we only look at one edge from each already selected vertex.
 For example we can sort the edges from each vertex in ascending order of their weights, and store a pointer to the first valid edge (i.e. an edge that goes to an non-selected vertex).
 Then after finding and selecting the minimal edge, we update the pointers.
-This give a complexity of $O(n^2 + m)$, and for sorting the edges an additional $O(m \log n)$, which gives the complexity $O(n^2 \log n) in the worst case$.
+This give a complexity of $O(n^2 + m)$, and for sorting the edges an additional $O(m \log n)$, which gives the complexity $O(n^2 \log n)$ in the worst case.
 
 Below we consider two slightly different algorithms, one for dense and one for sparse graphs, both with a better complexity.
 
