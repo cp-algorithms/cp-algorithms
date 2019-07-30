@@ -28,7 +28,7 @@ The rate of convergence is quadratic, which, conditionally speaking, means that 
 
 Let's use the calculation of square root as an example of Newton's method.
 
-If we substitute $f(x) = \sqrt{x}$, then after simplifying the expression, we get:
+If we substitute $f(x) = x^2 - n$, then after simplifying the expression, we get:
 
 $$ x_{i+1} = \frac{x_i + \frac{n}{x_i}}{2} $$
 
