@@ -45,7 +45,7 @@ i.e. among the numbers of the form $\frac {\phi (n)} {p_i}$, there would be at l
 Now we have a complete algorithm for finding the primitive root:
 
 * First, find $\phi (n)$ and factorize it.
-* Then iterate through all numbers $g = 1 \cdots n$, and for each number, to check if it is primitive root, we do the following:
+* Then iterate through all numbers $g \in [1, n]$, and for each number, to check if it is primitive root, we do the following:
 
     * Calculate all $g ^ { \frac {\phi (n)} {p_i}} \pmod n$.
     * If all the calculated values are different from $1$, then $g$ is a primitive root.
