@@ -34,7 +34,7 @@ A naive algorithm is to consider all numbers in range $[1, n-1]$. And then check
 
 From previous section, we know that if the smallest number $k$ for which $g^k \equiv 1 \pmod n$ is $\phi (n)$, then $g$ is a primitive root. Since for any number $a$ relative prime to $n$, we know from Euler's theorem that $a ^ { \phi (n) } \equiv 1 \pmod n$, then to check if $g$ is primitive root, it is enough to check that for all $d$ less than $\phi (n)$, $g^d \not \equiv 1 \pmod n$. However, this algorithm is still too slow.
 
-From Lagrange's theorem, we know that the index of any number modulo $n$ must be a divisor of $\phi (n)$. Thus, it is sufficient to verify for all proper divisor $d \mid \phi (n)$ that $g^d \not \equiv 1 \pmod n$. This is already a much faster algorithm, but we can still do better.
+From Lagrange's theorem, we know that the index of 1 of any number modulo $n$ must be a divisor of $\phi (n)$. Thus, it is sufficient to verify for all proper divisor $d \mid \phi (n)$ that $g^d \not \equiv 1 \pmod n$. This is already a much faster algorithm, but we can still do better.
 
 Factorize $\phi (n) = p_1 ^ {a_1} \cdots p_s ^ {a_s}$. We prove that in the previous algorithm, it is sufficient to consider only the values of $d$ which have the form $\frac { \phi (n) } {p_j}$. Indeed, let $d$ be any proper divisor of $\phi (n)$. Then, obviously, there exists such $j$ that $d \mid \frac { \phi (n) } {p_j}$, i.e. $d \cdot k = \frac { \phi (n) } {p_j}$. However, if $g^d \equiv 1 \pmod n$, we would get:
 
