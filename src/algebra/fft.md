@@ -23,7 +23,7 @@ e.g. the principal $n$-th root $w_n = w_{n, 1} = e^{\frac{2 \pi i}{n}}$ can be u
 The **discrete Fourier transform (DFT)** of the polynomial $A(x)$ (or equivalently the vector of coefficients $(a_0, a_1, \dots, a_{n-1})$ is defined as the values of the polynomial at the points $x = w_{n, k}$, i.e. it is the vector:
 $$\begin{align}
 \text{DFT}(a_0, a_1, \dots, a_{n-1}) &= (y_0, y_1, \dots, y_{n-1}) \\\\
-&= (A(w_{n_0}), A(w_{n, 1}), \dots, A(w_{n, n-1})) \\\\
+&= (A(w_{n, 0}), A(w_{n, 1}), \dots, A(w_{n, n-1})) \\\\
 &= (A(w_n^0), A(w_n^1), \dots, A(w_n^{n-1}))
 \end{align}$$
 
