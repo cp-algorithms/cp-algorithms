@@ -107,7 +107,6 @@ $$ \begin{array}{rll}
 \end{array}$$
 Thus using above two equations Fibonacci numbers can be calculated easily by the following code:
 
-The above code returns $F_n$ and $F_{n+1}$ as a pair.
 ```cpp
 pair<int, int> fib (int n) {
     if (n == 0)
@@ -122,6 +121,7 @@ pair<int, int> fib (int n) {
         return {c, d};
 }
 ```
+The above code returns $F_n$ and $F_{n+1}$ as a pair.
 
 ## Periodicity modulo p
 
