@@ -30,9 +30,9 @@ and adding new articles to the collection.*
     - [Linear Congruence Equation](./algebra/linear_congruence_equation.html)
     - [Chinese Remainder Theorem](./algebra/chinese-remainder-theorem.html)
     - [Factorial modulo $p$](./algebra/factorial-modulo.html)
-    - [Discrete Root](./algebra/discrete-root.html)
-    - [Primitive Root](./algebra/primitive-root.html)
     - [Discrete Log](./algebra/discrete-log.html)
+    - [Primitive Root](./algebra/primitive-root.html)
+    - [Discrete Root](./algebra/discrete-root.html)
     - [Montgomery Multiplication](./algebra/montgomery_multiplication.html)
 - **Number systems**
     - [Balanced Ternary](./algebra/balanced-ternary.html)
