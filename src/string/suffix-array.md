@@ -340,8 +340,9 @@ vector<int> lcp_construction(string const& s, vector<int> const& p) {
             k = 0;
             continue;
         }
-        int j = p[rank[i] + 1];
-        while (i + k < n && j + k < n && s[i+k] == s[j+k])
+        int ip = p[rank[i]];
+        int jp = p[rank[i] + 1];
+        while (jp + k < n && s[ip + k] == s[jp + k])
             k++;
         lcp[rank[i]] = k;
         if (k)
