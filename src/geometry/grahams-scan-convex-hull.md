@@ -27,9 +27,8 @@ To get the upper set, we sort all points by the x-coordinate. For each point we 
 (which we defined as B), or if the orientation between the line between A and the current point and the line between the current point and B is clockwise. In those cases the 
 current point belongs to the upper set S1. Checking for clockwise or anticlockwise nature can be done by checking the [orientation](./geometry/oriented-triangle-area.html).
 
-If the given point belongs to the upper set, we check the angle made by the line connecting the current point 
-and the last point in the upper convex hull, with the line connecting the last point and the second last point of the convex 
-hull that we have been simultaneously creating. If the angle is not clockwise, we remove the most recent point added
+If the given point belongs to the upper set, we check the angle made by the line connecting the second last point and the last point in the upper convex hull,
+with the line connecting the last point in the upper convex hull and the current point. If the angle is not clockwise, we remove the most recent point added
 to the upper convex hull as the current point will be able to contain the previous point once it is added to the convex
 hull.
 
@@ -37,9 +36,8 @@ The same logic applies for the lower set S2. If either - the current point is B,
 current point and the current point and B, is counterclockwise - then it belongs to S2.
 
 If the given point belongs to the lower set, we act similarly as for a point on the upper set except we check for a counterclockwise
-orientation instead of a clockwise orientation. Thus, if the angle made by the line connecting the current point 
-and the last point in the lower convex hull, with the line connecting the last point and the second last point of the convex 
-hull is not counterclockwise, we remove the most recent point added to the lower convex hull as the current point will be able to contain
+orientation instead of a clockwise orientation. Thus, if the angle made by the line connecting the second last point and the last point in the lower convex hull,
+with the line connecting the last point in the lower convex hull and the current point is not counterclockwise, we remove the most recent point added to the lower convex hull as the current point will be able to contain
 the previous point once added to the hull.
 
 The final convex hull is obtained from the union of the upper and lower convex hull, and the implementation is as follows.
