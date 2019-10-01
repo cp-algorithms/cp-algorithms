@@ -125,7 +125,7 @@ Then in the resulting sequence each substring will be one shorter than the previ
 In other words, in a same equivalence class, the shorter substrings are actually suffixes of the longer substrings, and they take all possible lengths in a certain interval $[x; y]$.
 
 Proof:
-Fix come $endpos$-equivalence class.
+Fix some $endpos$-equivalence class.
 If it only contains one string, then the lemma is obviously true.
 Now let's say that the number of strings in the class is greater than one.
 
