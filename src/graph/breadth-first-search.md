@@ -84,7 +84,11 @@ Thus, we perform normal BFS from each of the vertices, but do not reset the arra
 * Finding the shortest path in a graph with weights 0 or 1:
 This requires just a little modification to normal breadth-first search: if the current edge of zero weight, and distance to the vertex is shorter than the current found distance, then add this vertex not to the back, but to the front of the queue.
 
-* Finding the shortest cycle in a directed unweighted graph: start a breadth-first search from each vertex; as soon as we try to go from the current vertex to an already visited vertex, then it means that we have found the shortest cycle containing the source vertex, and should stop the BFS; from all such cycles (one from each BFS) choose the shortest.
+* Finding the shortest cycle in a directed unweighted graph:
+Start a breadth-first search from each vertex.
+As soon as we try to go from the current vertex back to the source vertex, we have found the shortest cycle containing the source vertex.
+At this point we can stop the BFS, and start a new BFS from the next vertex.
+From all such cycles (at most one from each BFS) choose the shortest.
 
 * Find all the edges that lie on any shortest path between a given pair of vertices $(a, b)$.
 To do this, run two breadth first searches:

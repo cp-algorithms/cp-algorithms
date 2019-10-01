@@ -61,7 +61,7 @@ vector<int> degree;
 void dfs(int v) {
     visited[v] = true;
     for (int u : adj_rev[v]) {
-        if (!visited[v]) {
+        if (!visited[u]) {
             if (losing[v])
                 winning[u] = true;
             else if (--degree[u] == 0)

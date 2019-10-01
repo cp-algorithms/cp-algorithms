@@ -154,6 +154,8 @@ pitem build (int * a, int n) {
 }
 ```
 
+It's also possible to compute the sizes of the subtrees with this approach. It is enough to call `upd_cnt(t)` before returning from the `build` function.
+
 ## Implicit Treaps
 
 Implicit treap is a simple modification of the regular treap which is a very powerful data structure. In fact, implicit treap can be considered as an array with the following procedures implemented (all in $O (\log N)$ in the online mode):

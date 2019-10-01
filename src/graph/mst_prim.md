@@ -27,7 +27,7 @@ Additionally Edsger Dijkstra published this algorithm in 1959.
 
 Here we describe the algorithm in its simplest form.
 The minimum spanning tree is built gradually by adding edges one at a time.
-At fist the spanning tree consists only of a single vertex (chosen arbitrarily).
+At first the spanning tree consists only of a single vertex (chosen arbitrarily).
 Then the minimum weight edge outgoing from this vertex is selected and added to the spanning tree.
 After that the spanning tree already consists of two vertices.
 Now select and add the edge with the minimum weight that has one end in an already selected vertex (i.e. a vertex that is already part of the spanning tree), and the other end in an unselected vertex.
@@ -72,10 +72,10 @@ If we search the edge by iterating over all possible edges, then it takes $O(m)$
 The total complexity will be $O(n m)$.
 In the worst case this is $O(n^3)$, really slow.
 
-This algorithm can be improves if we only look at one edge from each already selected vertex.
+This algorithm can be improved if we only look at one edge from each already selected vertex.
 For example we can sort the edges from each vertex in ascending order of their weights, and store a pointer to the first valid edge (i.e. an edge that goes to an non-selected vertex).
 Then after finding and selecting the minimal edge, we update the pointers.
-This give a complexity of $O(n^2 + m)$, and for sorting the edges an additional $O(m \log n)$, which gives the complexity $O(n^2 \log n) in the worst case$.
+This give a complexity of $O(n^2 + m)$, and for sorting the edges an additional $O(m \log n)$, which gives the complexity $O(n^2 \log n)$ in the worst case.
 
 Below we consider two slightly different algorithms, one for dense and one for sparse graphs, both with a better complexity.
 
@@ -107,7 +107,7 @@ struct Edge {
 
 void prim() {
     int total_weight = 0;
-    vector<bool> selected(n);
+    vector<bool> selected(n, false);
     vector<Edge> min_e(n);
     min_e[0].w = 0;
 
@@ -172,6 +172,7 @@ void prim() {
     min_e[0].w = 0;
     set<Edge> q;
     q.insert({0, 0});
+    vector<bool> selected(n, false);
     for (int i = 0; i < n; ++i) {
         if (q.empty()) {
             cout << "No MST!" << endl;
@@ -179,6 +180,7 @@ void prim() {
         }
 
         int v = q.begin()->to;
+        selected[v] = true;
         total_weight += q.begin()->w;
         q.erase(q.begin());
 
@@ -186,7 +188,7 @@ void prim() {
             cout << v << " " << min_e[v].to << endl;
 
         for (Edge e : adj[v]) {
-            if (e.w < min_e[e.to].w) {
+            if (!selected[e.to] && e.w < min_e[e.to].w) {
                 q.erase({min_e[e.to].w, e.to});
                 min_e[e.to] = {e.w, v};
                 q.insert({e.w, e.to});

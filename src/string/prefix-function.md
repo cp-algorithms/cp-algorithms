@@ -128,7 +128,7 @@ Given a text $t$ and a string $s$, we want to find and display the positions of 
 
 For convenience we denote with $n$ the length of the string s and with $m$ the length of the text $t$.
 
-We generate the string $s + \\# + t$, where $\\#$ is a separator that appear in $s$ and neither in $t$.
+We generate the string $s + \\# + t$, where $\\#$ is a separator that appears neither in $s$ nor in $t$.
 Let us calculate the prefix function for this string.
 Now think about the meaning of the values of the prefix function, except for the first $n + 1$ entries (which belong to the string $s$ and the separator).
 By definition the value $\pi[i]$ shows the longest length of a substring ending in position $i$ that coincides with the prefix.

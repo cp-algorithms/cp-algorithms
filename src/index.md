@@ -30,9 +30,9 @@ and adding new articles to the collection.*
     - [Linear Congruence Equation](./algebra/linear_congruence_equation.html)
     - [Chinese Remainder Theorem](./algebra/chinese-remainder-theorem.html)
     - [Factorial modulo $p$](./algebra/factorial-modulo.html)
-    - [Discrete Root](./algebra/discrete-root.html)
-    - [Primitive Root](./algebra/primitive-root.html)
     - [Discrete Log](./algebra/discrete-log.html)
+    - [Primitive Root](./algebra/primitive-root.html)
+    - [Discrete Root](./algebra/discrete-root.html)
     - [Montgomery Multiplication](./algebra/montgomery_multiplication.html)
 - **Number systems**
     - [Balanced Ternary](./algebra/balanced-ternary.html)
@@ -156,6 +156,7 @@ and adding new articles to the collection.*
     - [Finding Bridges Online](./graph/bridge-searching-online.html)
     - [Finding Articulation Points in O(N+M)](./graph/cutpoints.html)
     - [Strongly Connected Components and Condensation Graph](./graph/strongly-connected-components.html)
+    - [Strong Orientation](./graph/strong-orientation.html)
 - **Single-source shortest paths**
     - [Dijkstra - finding shortest paths from given vertex](./graph/dijkstra.html)
     - [Dijkstra on sparse graphs](./graph/dijkstra_sparse.html)
