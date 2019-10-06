@@ -365,12 +365,12 @@ int get_first(int v, int lv, int rv, int l, int r, int x) {
         if(t[v] <= x) return -1;
         while(lv != rv) {
             int mid = lv + (rv-lv)/2;
-            if(t[2*v] <= x) {
-                v = 2*v+1;
-                lv = mid+1;
-            }else {
+            if(t[2*v] > x) {
                 v = 2*v;
                 rv = mid;
+            }else {
+                v = 2*v+1;
+                lv = mid+1;
             }
         }
         return lv;
