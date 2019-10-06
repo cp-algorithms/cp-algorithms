@@ -109,7 +109,7 @@ void solve()
                     p[e[j].b] = e[j].a;
                     any = true;
                 }
-                if (!any)  break;
+        if (!any)  break;
     }
 
     if (d[t] == INF)
