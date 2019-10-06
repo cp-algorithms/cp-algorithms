@@ -362,10 +362,10 @@ Thus finding the answer in $O(\log n)$ time.
 int get_first(int v, int lv, int rv, int l, int r, int x) {
     if(lv > r || rv < l) return -1;
     if(l <= lv && rv <= r) {
-        if(t[v] > x) return -1;
+        if(t[v] <= x) return -1;
         while(lv != rv) {
             int mid = lv + (rv-lv)/2;
-            if(t[2*v] > x) {
+            if(t[2*v] <= x) {
                 v = 2*v+1;
                 lv = mid+1;
             }else {
@@ -377,9 +377,9 @@ int get_first(int v, int lv, int rv, int l, int r, int x) {
     }
 
     int mid = lv + (rv-lv)/2;
-    int rs = get(2*v, lv, mid, l, r, x);
+    int rs = get_first(2*v, lv, mid, l, r, x);
     if(rs != -1) return rs;
-    return get(2*v+1, mid+1, rv, l ,r, x);
+    return get_first(2*v+1, mid+1, rv, l ,r, x);
 }
 ```
 
