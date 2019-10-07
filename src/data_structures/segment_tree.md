@@ -1040,24 +1040,13 @@ In the implementation of the $\text{get_kth}$ function this can be handled by pa
 * [SPOJ - GSS3](http://www.spoj.com/problems/GSS3/)
 * [Codeforces - Distinct Characters Queries](https://codeforces.com/problemset/problem/1234/D)
 * [Codeforces - Knight Tournament](https://codeforces.com/contest/356/problem/A)
-* [Codeforces - Ant colony
-](https://codeforces.com/contest/474/problem/F)
-* [Codeforces - Drazil and Park
-](https://codeforces.com/contest/515/problem/E)
-* [Codeforces - Circular RMQ
-](https://codeforces.com/problemset/problem/52/C)
-* [Codeforces - Lucky Array
-](https://codeforces.com/contest/121/problem/E)
-* [Codeforces - The Child and Sequence
-](https://codeforces.com/contest/438/problem/D)
-* [Codeforces - DZY Loves Fibonacci Numbers
-](https://codeforces.com/contest/446/problem/C)
-* [Codeforces - Alphabet Permutations
-](https://codeforces.com/problemset/problem/610/E)
-* [Codeforces - Eyes Closed
-](https://codeforces.com/problemset/problem/895/E)
-* [Codeforces - Kefa and Watch
-](https://codeforces.com/problemset/problem/580/E)
-* [Codeforces - A Simple Task
-](https://codeforces.com/problemset/problem/558/E)
-
+* [Codeforces - Ant colony](https://codeforces.com/contest/474/problem/F)
+* [Codeforces - Drazil and Park](https://codeforces.com/contest/515/problem/E)
+* [Codeforces - Circular RMQ](https://codeforces.com/problemset/problem/52/C)
+* [Codeforces - Lucky Array](https://codeforces.com/contest/121/problem/E)
+* [Codeforces - The Child and Sequence](https://codeforces.com/contest/438/problem/D)
+* [Codeforces - DZY Loves Fibonacci Numbers](https://codeforces.com/contest/446/problem/C)
+* [Codeforces - Alphabet Permutations](https://codeforces.com/problemset/problem/610/E)
+* [Codeforces - Eyes Closed](https://codeforces.com/problemset/problem/895/E)
+* [Codeforces - Kefa and Watch](https://codeforces.com/problemset/problem/580/E)
+* [Codeforces - A Simple Task](https://codeforces.com/problemset/problem/558/E)
