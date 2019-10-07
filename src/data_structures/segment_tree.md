@@ -346,6 +346,43 @@ Instead we can use the same idea as in the previous section, and find the positi
 by moving each time to the left or the right, depending on the sum of the left child.
 Thus finding the answer in $O(\log n)$ time.
 
+#### Searching for the first element greater than a given amount
+
+The task is as follows: 
+for a given value $x$ and a range $a[l \dots r]$ find the smallest $i$  in the range $a[l \dots r]$, such that $a[i]$ is greater than $x$.
+
+This task can be solved using binary search over max prefix queries with the Segment Tree.
+However, this will lead to a $O(\log^2 n)$ solution.
+
+Instead, we can use the same idea as in the previous sections, and find the position by descending the tree:
+by moving each time to the left or the right, depending on the maximum value of the left child.
+Thus finding the answer in $O(\log n)$ time.
+
+```cpp segment_tree_first_greater
+int get_first(int v, int lv, int rv, int l, int r, int x) {
+    if(lv > r || rv < l) return -1;
+    if(l <= lv && rv <= r) {
+        if(t[v] <= x) return -1;
+        while(lv != rv) {
+            int mid = lv + (rv-lv)/2;
+            if(t[2*v] > x) {
+                v = 2*v;
+                rv = mid;
+            }else {
+                v = 2*v+1;
+                lv = mid+1;
+            }
+        }
+        return lv;
+    }
+
+    int mid = lv + (rv-lv)/2;
+    int rs = get_first(2*v, lv, mid, l, r, x);
+    if(rs != -1) return rs;
+    return get_first(2*v+1, mid+1, rv, l ,r, x);
+}
+```
+
 #### Finding subsegments with the maximal sum
 
 Here again we receive a range $a[l \dots r]$ for each query, this time we have to find a subsegment $a[l^\prime \dots r^\prime]$ such that $l \le l^\prime$ and $r^\prime \le r$ and the sum of the elements of this segment is maximal. 
