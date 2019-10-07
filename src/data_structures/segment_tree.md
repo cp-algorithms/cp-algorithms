@@ -1031,3 +1031,22 @@ instead of only performing these queries over a prefix of $a$, we want to use an
 Here we need a Segment Tree that represents the histogram of the elements in the range $a[l \dots r]$. 
 It is easy to see that such a Segment Tree is just the difference between the Segment Tree rooted at $root_{r+1}$ and the Segment Tree rooted at $root_l$, i.e. every vertex in the $[l \dots r]$ Segment Tree can be computed with the vertex of the $root_{r+1}$ tree minus the vertex of the $root_l$ tree.
 In the implementation of the $\text{get_kth}$ function this can be handled by passing two vertex pointer and computing the count/sum of the current segment as difference of the two counts/sums of the vertices.
+
+## Practice Problems
+
+* [SPOJ - KQUERY](http://www.spoj.com/problems/KQUERY/)
+* [Codeforces - Xenia and Bit Operations](https://codeforces.com/problemset/problem/339/D)
+* [UVA 11402 - Ahoy, Pirates!](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2397)
+* [SPOJ - GSS3](http://www.spoj.com/problems/GSS3/)
+* [Codeforces - Distinct Characters Queries](https://codeforces.com/problemset/problem/1234/D)
+* [Codeforces - Knight Tournament](https://codeforces.com/contest/356/problem/A)
+* [Codeforces - Ant colony](https://codeforces.com/contest/474/problem/F)
+* [Codeforces - Drazil and Park](https://codeforces.com/contest/515/problem/E)
+* [Codeforces - Circular RMQ](https://codeforces.com/problemset/problem/52/C)
+* [Codeforces - Lucky Array](https://codeforces.com/contest/121/problem/E)
+* [Codeforces - The Child and Sequence](https://codeforces.com/contest/438/problem/D)
+* [Codeforces - DZY Loves Fibonacci Numbers](https://codeforces.com/contest/446/problem/C)
+* [Codeforces - Alphabet Permutations](https://codeforces.com/problemset/problem/610/E)
+* [Codeforces - Eyes Closed](https://codeforces.com/problemset/problem/895/E)
+* [Codeforces - Kefa and Watch](https://codeforces.com/problemset/problem/580/E)
+* [Codeforces - A Simple Task](https://codeforces.com/problemset/problem/558/E)
