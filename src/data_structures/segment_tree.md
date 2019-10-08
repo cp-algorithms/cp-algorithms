@@ -1034,19 +1034,22 @@ In the implementation of the $\text{get_kth}$ function this can be handled by pa
 
 ## Practice Problems
 
-* [SPOJ - KQUERY](http://www.spoj.com/problems/KQUERY/)
+* [SPOJ - KQUERY](http://www.spoj.com/problems/KQUERY/) [Persistent segment tree / Merge sort tree]
 * [Codeforces - Xenia and Bit Operations](https://codeforces.com/problemset/problem/339/D)
 * [UVA 11402 - Ahoy, Pirates!](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2397)
 * [SPOJ - GSS3](http://www.spoj.com/problems/GSS3/)
 * [Codeforces - Distinct Characters Queries](https://codeforces.com/problemset/problem/1234/D)
-* [Codeforces - Knight Tournament](https://codeforces.com/contest/356/problem/A)
+* [Codeforces - Knight Tournament](https://codeforces.com/contest/356/problem/A) [For beginners]
 * [Codeforces - Ant colony](https://codeforces.com/contest/474/problem/F)
 * [Codeforces - Drazil and Park](https://codeforces.com/contest/515/problem/E)
 * [Codeforces - Circular RMQ](https://codeforces.com/problemset/problem/52/C)
 * [Codeforces - Lucky Array](https://codeforces.com/contest/121/problem/E)
 * [Codeforces - The Child and Sequence](https://codeforces.com/contest/438/problem/D)
-* [Codeforces - DZY Loves Fibonacci Numbers](https://codeforces.com/contest/446/problem/C)
+* [Codeforces - DZY Loves Fibonacci Numbers](https://codeforces.com/contest/446/problem/C) [Lazy propagation]
 * [Codeforces - Alphabet Permutations](https://codeforces.com/problemset/problem/610/E)
 * [Codeforces - Eyes Closed](https://codeforces.com/problemset/problem/895/E)
 * [Codeforces - Kefa and Watch](https://codeforces.com/problemset/problem/580/E)
 * [Codeforces - A Simple Task](https://codeforces.com/problemset/problem/558/E)
+* [Codeforces - SUM and REPLACE](https://codeforces.com/problemset/problem/920/F)
+* [COCI - Deda](https://oj.uz/problem/view/COCI17_deda) [Last element smaller or equal to x / Binary search]
+* [Codeforces - The Untended Antiquity](https://codeforces.com/problemset/problem/869/E) [2D]
