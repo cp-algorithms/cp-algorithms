@@ -23,11 +23,11 @@ This algorithm runs in $\mathcal{O}(n^3)$.
 ```cpp
 const double EPS = 1E-9;
 
-int compute_rank(vector<vector<int>> A) {
+int compute_rank(vector<vector<double>> A) {
     int n = A.size();
     int m = A[0].size();
 
-    int rank = max(n, m);
+    int rank = m;
     vector<bool> row_selected(n, false);
     for (int i = 0; i < m; ++i) {
         int j;
