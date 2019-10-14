@@ -27,7 +27,7 @@ int compute_rank(vector<vector<double>> A) {
     int n = A.size();
     int m = A[0].size();
 
-    int rank = m;
+    int rank = 0;
     vector<bool> row_selected(n, false);
     for (int i = 0; i < m; ++i) {
         int j;
@@ -36,9 +36,8 @@ int compute_rank(vector<vector<double>> A) {
                 break;
         }
 
-        if (j == n) {
-            --rank;
-        } else {
+        if (j != n) {
+            ++rank;
             row_selected[j] = true;
             for (int p = i + 1; p < m; ++p)
                 A[j][p] /= A[j][i];
@@ -53,3 +52,5 @@ int compute_rank(vector<vector<double>> A) {
     return rank;
 }
 ```
+## Problems
+ * [TIMUS1041 Nikifor](http://acm.timus.ru/problem.aspx?space=1&num=1041)
