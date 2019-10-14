@@ -20,7 +20,7 @@ This algorithm runs in $\mathcal{O}(n^3)$.
 
 ## Implementation
 
-```cpp
+```cpp matrix-rank
 const double EPS = 1E-9;
 
 int compute_rank(vector<vector<double>> A) {

@@ -70,7 +70,10 @@ The input to the function `gauss` is the system matrix $a$. The last column of t
 
 The function returns the number of solutions of the system $(0, 1,\textrm{or } \infty)$. If at least one solution exists, then it is returned in the vector $ans$.
 
-```cpp
+```cpp gauss
+const double EPS = 1e-9;
+const int INF = 2; // it doesn't actually have to be infinity or a big number
+
 int gauss (vector < vector<double> > a, vector<double> & ans) {
 	int n = (int) a.size();
 	int m = (int) a[0].size() - 1;
@@ -194,3 +197,6 @@ Thus, the solution turns into two-step: First, Gauss-Jordan algorithm is applied
 * [Codechef - Knight Moving](https://www.codechef.com/SEP12/problems/KNGHTMOV)
 * [Lightoj - Graph Coloring](http://lightoj.com/volume_showproblem.php?problem=1279)
 * [UVA 12910 - Snakes and Ladders](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=4775)
+* [TIMUS1042 Central Heating](http://acm.timus.ru/problem.aspx?space=1&num=1042)
+* [TIMUS1766 Humpty Dumpty](http://acm.timus.ru/problem.aspx?space=1&num=1766)
+* [TIMUS1266 Kirchhoff's Law](http://acm.timus.ru/problem.aspx?space=1&num=1266)
