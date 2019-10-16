@@ -346,6 +346,43 @@ Instead we can use the same idea as in the previous section, and find the positi
 by moving each time to the left or the right, depending on the sum of the left child.
 Thus finding the answer in $O(\log n)$ time.
 
+#### Searching for the first element greater than a given amount
+
+The task is as follows: 
+for a given value $x$ and a range $a[l \dots r]$ find the smallest $i$  in the range $a[l \dots r]$, such that $a[i]$ is greater than $x$.
+
+This task can be solved using binary search over max prefix queries with the Segment Tree.
+However, this will lead to a $O(\log^2 n)$ solution.
+
+Instead, we can use the same idea as in the previous sections, and find the position by descending the tree:
+by moving each time to the left or the right, depending on the maximum value of the left child.
+Thus finding the answer in $O(\log n)$ time.
+
+```cpp segment_tree_first_greater
+int get_first(int v, int lv, int rv, int l, int r, int x) {
+    if(lv > r || rv < l) return -1;
+    if(l <= lv && rv <= r) {
+        if(t[v] <= x) return -1;
+        while(lv != rv) {
+            int mid = lv + (rv-lv)/2;
+            if(t[2*v] > x) {
+                v = 2*v;
+                rv = mid;
+            }else {
+                v = 2*v+1;
+                lv = mid+1;
+            }
+        }
+        return lv;
+    }
+
+    int mid = lv + (rv-lv)/2;
+    int rs = get_first(2*v, lv, mid, l, r, x);
+    if(rs != -1) return rs;
+    return get_first(2*v+1, mid+1, rv, l ,r, x);
+}
+```
+
 #### Finding subsegments with the maximal sum
 
 Here again we receive a range $a[l \dots r]$ for each query, this time we have to find a subsegment $a[l^\prime \dots r^\prime]$ such that $l \le l^\prime$ and $r^\prime \le r$ and the sum of the elements of this segment is maximal. 
@@ -994,3 +1031,25 @@ instead of only performing these queries over a prefix of $a$, we want to use an
 Here we need a Segment Tree that represents the histogram of the elements in the range $a[l \dots r]$. 
 It is easy to see that such a Segment Tree is just the difference between the Segment Tree rooted at $root_{r+1}$ and the Segment Tree rooted at $root_l$, i.e. every vertex in the $[l \dots r]$ Segment Tree can be computed with the vertex of the $root_{r+1}$ tree minus the vertex of the $root_l$ tree.
 In the implementation of the $\text{get_kth}$ function this can be handled by passing two vertex pointer and computing the count/sum of the current segment as difference of the two counts/sums of the vertices.
+
+## Practice Problems
+
+* [SPOJ - KQUERY](http://www.spoj.com/problems/KQUERY/) [Persistent segment tree / Merge sort tree]
+* [Codeforces - Xenia and Bit Operations](https://codeforces.com/problemset/problem/339/D)
+* [UVA 11402 - Ahoy, Pirates!](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2397)
+* [SPOJ - GSS3](http://www.spoj.com/problems/GSS3/)
+* [Codeforces - Distinct Characters Queries](https://codeforces.com/problemset/problem/1234/D)
+* [Codeforces - Knight Tournament](https://codeforces.com/contest/356/problem/A) [For beginners]
+* [Codeforces - Ant colony](https://codeforces.com/contest/474/problem/F)
+* [Codeforces - Drazil and Park](https://codeforces.com/contest/515/problem/E)
+* [Codeforces - Circular RMQ](https://codeforces.com/problemset/problem/52/C)
+* [Codeforces - Lucky Array](https://codeforces.com/contest/121/problem/E)
+* [Codeforces - The Child and Sequence](https://codeforces.com/contest/438/problem/D)
+* [Codeforces - DZY Loves Fibonacci Numbers](https://codeforces.com/contest/446/problem/C) [Lazy propagation]
+* [Codeforces - Alphabet Permutations](https://codeforces.com/problemset/problem/610/E)
+* [Codeforces - Eyes Closed](https://codeforces.com/problemset/problem/895/E)
+* [Codeforces - Kefa and Watch](https://codeforces.com/problemset/problem/580/E)
+* [Codeforces - A Simple Task](https://codeforces.com/problemset/problem/558/E)
+* [Codeforces - SUM and REPLACE](https://codeforces.com/problemset/problem/920/F)
+* [COCI - Deda](https://oj.uz/problem/view/COCI17_deda) [Last element smaller or equal to x / Binary search]
+* [Codeforces - The Untended Antiquity](https://codeforces.com/problemset/problem/869/E) [2D]

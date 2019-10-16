@@ -35,7 +35,7 @@ The simplest and most important property of a suffix automaton is, that it conta
 Any path starting at the initial state $t_0$, if we write down the labels of the transitions, forms a **substring** of $s$.
 And conversely every substring of $s$ corresponds to a certain path starting at $t_0$.
 
-In order to simplify the explanations, we will say that the substrings **corresponds** to that path (starting at $t_0$ and the labels spell the substring).
+In order to simplify the explanations, we will say that the substring **corresponds** to that path (starting at $t_0$ and the labels spell the substring).
 And conversely we say that any path **corresponds** to the string spelled by its labels.
 
 One or multiple paths can lead to a state.
@@ -125,7 +125,7 @@ Then in the resulting sequence each substring will be one shorter than the previ
 In other words, in a same equivalence class, the shorter substrings are actually suffixes of the longer substrings, and they take all possible lengths in a certain interval $[x; y]$.
 
 Proof:
-Fix come $endpos$-equivalent class.
+Fix some $endpos$-equivalence class.
 If it only contains one string, then the lemma is obviously true.
 Now let's say that the number of strings in the class is greater than one.
 
@@ -145,10 +145,10 @@ Consider some state $v \ne t_0$ in the automaton.
 As we know, the state $v$ corresponds to the class of strings with the same $endpos$ values.
 And if we denote by $w$ the longest of these strings, then all the other strings are suffixes of $w$.
 
-We also know the first few suffixes of a string $w$ (if we consider suffixes in descending order of their length) are all contained in this equivalent class, and all other suffixes (at least one other - the empty suffix) are in some other classes.
+We also know the first few suffixes of a string $w$ (if we consider suffixes in descending order of their length) are all contained in this equivalence class, and all other suffixes (at least one other - the empty suffix) are in some other classes.
 We denote by $t$ the biggest such suffix, and make a suffix link to it.
 
-In other words, a **suffix link** $link(v)$ leads to the state that corresponds to the **longest suffix** of $w$ that is another $endpos$-equivalent class.
+In other words, a **suffix link** $link(v)$ leads to the state that corresponds to the **longest suffix** of $w$ that is in another $endpos$-equivalence class.
 
 Here we assume that the initial state $t_0$ corresponds to its own equivalence class (containing only the empty string), and for convenience we set $endpos(t) = \\{-1, 0, \dots, length(s)-1\\}$.
 
@@ -211,7 +211,7 @@ Let us describe this process:
   - Let $last$ be the state corresponding to the entire string before adding the character $c$.
     (Initially we set $last = 0$, and we will change $last$ in the last step of the algorithm accordingly.)
   - Create a new state $cur$, and assign it with $len(cur) = len(last) + 1$.
-    The value $link(cur)$ is not know at the time.
+    The value $link(cur)$ is not known at the time.
   - Now we to the following procedure:
     We start at the state $last$.
     While there isn't a transition through the letter $c$, we will add a transition to the state $cur$, and follow the suffix link.

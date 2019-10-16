@@ -11,8 +11,8 @@ Note that if the matrix is square and its determinant is non-zero, then the rank
 
 ## Algorithm
 
-You can search for the rank using [Gaussian elimination](./linear_algebra/linear-system-gauss.html). We will perform the same operations as when solving the system or finding its determinant. But if at any step in the $i$-th column there are no rows with an non-empty entry among those that we didn't selected already, then we skip this step and decrease the rank by one (initially the rank is set equal to $\max (N, M)$).
-Otherwise, if we have found a row with a non-zero element in the $i$-th column during the $i$-th step, then we mark this row as a selected one and perform the usual operations of taking this row away from the rest.
+You can search for the rank using [Gaussian elimination](./linear_algebra/linear-system-gauss.html). We will perform the same operations as when solving the system or finding its determinant. But if at any step in the $i$-th column there are no rows with an non-empty entry among those that we didn't selected already, then we skip this step.
+Otherwise, if we have found a row with a non-zero element in the $i$-th column during the $i$-th step, then we mark this row as a selected one, increase the rank by one (initially the rank is set equal to $0$), and perform the usual operations of taking this row away from the rest.
 
 ## Complexity
 
@@ -20,14 +20,14 @@ This algorithm runs in $\mathcal{O}(n^3)$.
 
 ## Implementation
 
-```cpp
+```cpp matrix-rank
 const double EPS = 1E-9;
 
-int compute_rank(vector<vector<int>> A) {
+int compute_rank(vector<vector<double>> A) {
     int n = A.size();
     int m = A[0].size();
 
-    int rank = max(n, m);
+    int rank = 0;
     vector<bool> row_selected(n, false);
     for (int i = 0; i < m; ++i) {
         int j;
@@ -36,9 +36,8 @@ int compute_rank(vector<vector<int>> A) {
                 break;
         }
 
-        if (j == n) {
-            --rank;
-        } else {
+        if (j != n) {
+            ++rank;
             row_selected[j] = true;
             for (int p = i + 1; p < m; ++p)
                 A[j][p] /= A[j][i];
@@ -53,3 +52,5 @@ int compute_rank(vector<vector<int>> A) {
     return rank;
 }
 ```
+## Problems
+ * [TIMUS1041 Nikifor](http://acm.timus.ru/problem.aspx?space=1&num=1041)
