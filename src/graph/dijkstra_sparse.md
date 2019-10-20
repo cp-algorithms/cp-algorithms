@@ -26,7 +26,7 @@ Fibonacci heaps provide the optimal complexity for this task.
 However they are quite complex to implement, and also have a quite large hidden constant.
 
 As a compromise you can use data structures, that perform both types of operations (extracting a minimum and updating an item) in $O(\log n)$.
-Then the complexity of Dijkstra's algorithm is $O(n \log m + m \log n) = O(m \log n)$.
+Then the complexity of Dijkstra's algorithm is $O(n \log n + m \log n) = O(m \log n)$.
 
 C++ provides two such data structures: `set` and `priority_queue`.
 The first is based on red-black trees, and the second one on heaps.

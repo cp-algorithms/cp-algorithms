@@ -58,11 +58,11 @@ The function `sum` works as follows:
 2. then, it "jumps" to the range $[g(g(r)-1); g(r)-1]$, and adds this range's sum to the `result`
 3. and so on, until it "jumps" from $[0; g(g( \dots g(r)-1 \dots -1)-1)]$ to $[g(-1); -1]$; that is where the `sum` function stops jumping.
 
-The function `inc` works with the same analogy, but "jumps" in the direction of increasing indices:
+The function `increase` works with the same analogy, but "jumps" in the direction of increasing indices:
 
 1. sums of the ranges $[g(j); j]$ that satisfy the condition $g(j) \le i \le j$ are increased by `delta` , that is `t[j] += delta`. Therefore we updated all elements in $T$ that corresponds to ranges in with $A_i$ lies.
 
-It is obvious that the complexity of both `sum` and `inc` depend on the function $g$.
+It is obvious that the complexity of both `sum` and `increase` depend on the function $g$.
 There are lots of ways to choose the function $g$, as long as $0 \le g(i) \le i$ for all $i$.
 For instance the function $g(i) = i$ works, which results just in $T = A$, and therefore summation queries are slow.
 We can also take the function $g(i) = 0$.
