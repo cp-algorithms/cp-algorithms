@@ -94,7 +94,6 @@ Since we know that the module operator doesn't interfere with multiplications ($
 
 ```cpp
 long long binpow(long long a, long long b, long long m) {
-    a %= m;
     long long res = 1;
     while (b > 0) {
         if (b & 1)
