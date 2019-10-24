@@ -73,9 +73,9 @@ int powmod(int a, int b, int m) {
 	int res = 1;
 	while (b > 0) {
 		if (b & 1) {
-			res = (res * a) % m;
+			res = (res * 1ll * a) % m;
 		}
-		a = (a * a) % m;
+		a = (a * 1ll * a) % m;
 		b >>= 1;
 	}
 	return res;
@@ -87,7 +87,7 @@ int solve(int a, int b, int m) {
 	for (int p = n; p >= 1; --p)
 		vals[powmod(a, p * n, m)] = p;
 	for (int q = 0; q <= n; ++q) {
-		int cur = (powmod(a, q, m) * b) % m;
+		int cur = (powmod(a, q, m) * 1ll * b) % m;
 		if (vals.count(cur)) {
 			int ans = vals[cur] * n - q;
 			return ans;
@@ -119,13 +119,13 @@ int solve(int a, int b, int m) {
 
 	int an = 1;
 	for (int i = 0; i < n; ++i)
-		an = (an * a) % m;
+		an = (an * 1ll * a) % m;
 
 	map<int, int> vals;
 	for (int p = 1, cur = an; p <= n; ++p) {
 		if (!vals.count(cur))
 			vals[cur] = p;
-		cur = (cur * an) % m;
+		cur = (cur * 1ll * an) % m;
 	}
 
 	for (int q = 0, cur = b; q <= n; ++q) {
@@ -133,7 +133,7 @@ int solve(int a, int b, int m) {
 			int ans = vals[cur] * n - q;
 			return ans;
 		}
-		cur = (cur * a) % m;
+		cur = (cur * 1ll * a) % m;
 	}
 	return -1;
 }
