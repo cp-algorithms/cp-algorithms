@@ -254,6 +254,7 @@ bool spfa(int s, vector<int>& d) {
             }
         }
     }
+    return true;
 }
 ```
 
