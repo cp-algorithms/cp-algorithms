@@ -74,11 +74,9 @@ So Dijkstra is not applicable, at least not unmodified.
 
 Instead we can use the [Bellman-Ford algorithm](./graph/bellman_ford.html). With it the complexity becomes $O(n^2 m^2)$.
 
-Instead, we can also use the [D´Esopo-Pape algorithm](./graph/desopo_pape.html), which has a much worse complexity, but will run very quickly in practice (in about the same time as Dijkstra's algorithm).
-
 ## Implementation
 
-Here is an implementation using the [D´Esopo-Pape algorithm](./graph/desopo_pape.html) for the simplest case.
+Here is an implementation using the [SPFA algorithm](./graph/bellman_ford.html) for the simplest case.
 
 ```cpp min_cost_flow_successive_shortest_path
 struct Edge
@@ -93,25 +91,22 @@ const int INF = 1e9;
 void shortest_paths(int n, int v0, vector<int>& d, vector<int>& p) {
     d.assign(n, INF);
     d[v0] = 0;
-    vector<int> m(n, 2);
-    deque<int> q;
-    q.push_back(v0);
+    vector<bool> inq(n, false);
+    queue<int> q;
+    q.push(v0);
     p.assign(n, -1);
 
     while (!q.empty()) {
         int u = q.front();
-        q.pop_front();
-        m[u] = 0;
+        q.pop();
+        inq[u] = false;
         for (int v : adj[u]) {
             if (capacity[u][v] > 0 && d[v] > d[u] + cost[u][v]) {
                 d[v] = d[u] + cost[u][v];
                 p[v] = u;
-                if (m[v] == 2) {
-                    m[v] = 1;
-                    q.push_back(v);
-                } else if (m[v] == 0) {
-                    m[v] = 1;
-                    q.push_front(v);
+                if (!inq[v]) {
+                    inq[v] = true;
+                    q.push(v);
                 }
             }
         }
