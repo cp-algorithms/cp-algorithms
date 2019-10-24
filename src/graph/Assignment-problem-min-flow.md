@@ -20,7 +20,7 @@ The complexity of this solution of the assignment problem depends on the algorit
 ## Implementation
 
 The implementation given here is long, it can probably be significantly reduced.
-It uses the [Bellman-Ford](./graph/bellman_ford.html) for finding shortest paths.
+It uses the [SPFA algorithm](./graph/bellman_ford.html) for finding shortest paths.
 
 ```cpp
 const int INF = 1000 * 1000 * 1000;
