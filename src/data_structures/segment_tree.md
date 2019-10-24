@@ -112,7 +112,7 @@ By induction hypothesis, we visit at most four vertices.
 If we only visit at most two vertices, the next level has at most four vertices. That trivial, because each vertex can only cause at most two recursive calls. 
 So let's assume that we visit three or four vertices in the current level. 
 From those vertices, we will analyze the vertices in the middle more carefully. 
-Since the sum query asks for the sum of a continuous subarray, we know that segments corresponding to the visited vertices in the middle we be completely covered by the segment of the sum query. 
+Since the sum query asks for the sum of a continuous subarray, we know that segments corresponding to the visited vertices in the middle will be completely covered by the segment of the sum query. 
 Therefore these vertices will not make any recursive calls. 
 So only the most left, and the most right vertex will have the potential to make recursive calls. 
 And those will only create at most four recursive calls, so also the next level will satisfy the assertion.
