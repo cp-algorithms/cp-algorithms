@@ -8,7 +8,7 @@ We can solve this problem by using [Depth First Search](./graph/depth-first-sear
 
 ## Algorithm
 
-We will run a series of DFS in the graph. Initially all vertices are colored white(0). From each unvisited(white) vertex, start the DFS, mark it gray(1) while entering and mark it black(2) on exit. If DFS moves to a gray vertex, then we have found a cycle (if the graph is undirected, the edge to parent is not considered).
+We will run a series of DFS in the graph. Initially all vertices are colored white (0). From each unvisited (white) vertex, start the DFS, mark it gray (1) while entering and mark it black (2) on exit. If DFS moves to a gray vertex, then we have found a cycle (if the graph is undirected, the edge to parent is not considered).
 The cycle itself can be reconstructed using parent array.
 
 ## Implementation
