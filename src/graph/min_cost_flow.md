@@ -76,7 +76,7 @@ Instead we can use the [Bellman-Ford algorithm](./graph/bellman_ford.html). With
 
 ## Implementation
 
-Here is an implementation using the [Bellman-Ford algorithm](./graph/bellman_ford.html) for the simplest case.
+Here is an implementation using the [SPFA algorithm](./graph/bellman_ford.html) for the simplest case.
 
 ```cpp min_cost_flow_successive_shortest_path
 struct Edge
