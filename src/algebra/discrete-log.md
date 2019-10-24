@@ -119,13 +119,13 @@ int solve(int a, int b, int m) {
 
 	int an = 1;
 	for (int i = 0; i < n; ++i)
-		an = (an * a) % m;
+		an = (an * 1ll * a) % m;
 
 	map<int, int> vals;
 	for (int p = 1, cur = an; p <= n; ++p) {
 		if (!vals.count(cur))
 			vals[cur] = p;
-		cur = (cur * an) % m;
+		cur = (cur * 1ll * an) % m;
 	}
 
 	for (int q = 0, cur = b; q <= n; ++q) {
@@ -133,7 +133,7 @@ int solve(int a, int b, int m) {
 			int ans = vals[cur] * n - q;
 			return ans;
 		}
-		cur = (cur * a) % m;
+		cur = (cur * 1ll * a) % m;
 	}
 	return -1;
 }
