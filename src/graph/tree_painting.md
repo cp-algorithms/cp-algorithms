@@ -37,7 +37,7 @@ Hence, the difference $T1[p..q-1] - T2[p..q-1]$ will give us the correct answer 
 The sum query in the segment tree is executed in $O(\log N)$.
 
 Answering the **first type of query** (painting an edge) is even easier - we just need to update $T1$ and $T2$, namely to perform a single update of the element that corresponds to our edge (finding the edge in the list, again, is possible in $O(1)$, if you perform this search during preprocessing).
-A single modification in the segment tree is performed in $O(log N)$.
+A single modification in the segment tree is performed in $O(\log N)$.
 
 ## Implementation
 
