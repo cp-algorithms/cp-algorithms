@@ -583,3 +583,7 @@ However it should also be noted, that there are several articles **disputing** t
 * [TIMUS - Parity](http://acm.timus.ru/problem.aspx?space=1&num=1003)
 * [SPOJ - Strange Food Chain](http://www.spoj.com/problems/CHAIN/)
 * [SPOJ - COLORFUL ARRAY](https://www.spoj.com/problems/CLFLARR/)
+* [SPOJ - Consecutive Letters](https://www.spoj.com/problems/CONSEC/)
+* [Toph - Unbelievable Array](https://toph.co/p/unbelievable-array)
+* [HackerEarth - Lexicographically minimal string](https://www.hackerearth.com/practice/data-structures/disjoint-data-strutures/basics-of-disjoint-data-structures/practice-problems/algorithm/lexicographically-minimal-string-6edc1406/description/)
+* [HackerEarth - Marriage Problem](https://www.hackerearth.com/practice/data-structures/disjoint-data-strutures/basics-of-disjoint-data-structures/practice-problems/algorithm/marriage-problem/description/)
