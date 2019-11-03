@@ -225,7 +225,7 @@ As a result, it turns out that all blocks are equal, therefore we can compress t
 
 Of course we still need to show that this is actually the optimum.
 Indeed, if there was a smaller compression than $k$, than the prefix function at the end would be greater than $n - k$.
-Therefore $k$ has is really the answer.
+Therefore $k$ is really the answer.
 
 Now let us assume that $n$ is not divisible by $k$.
 We show that this implies that the length of the answer is $n$.
