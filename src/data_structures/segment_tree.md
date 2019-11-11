@@ -76,7 +76,7 @@ There are three possible cases.
 
 The easiest case is when the segment $a[l \dots r]$ is equal to the corresponding segment of the current vertex (i.e. $a[l \dots r] = a[tl \dots tr]$), then we are finished and can return the precomputed sum that is stored in the vertex.
 
-Alternatively the segment of the query can falls completely into the domain of either the left or the right child.
+Alternatively the segment of the query can fall completely into the domain of either the left or the right child.
 Recall that the left child covers the segment $a[tl \dots tm]$ and the right vertex covers the segment $a[tm + 1 \dots tr]$ with $tm = (tl + tr) / 2$. 
 In this case we can simply go to the child vertex, which corresponding segment covers the query segment, and execute the algorithm described here with that vertex. 
 
