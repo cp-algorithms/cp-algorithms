@@ -76,7 +76,7 @@ There are three possible cases.
 
 The easiest case is when the segment $a[l \dots r]$ is equal to the corresponding segment of the current vertex (i.e. $a[l \dots r] = a[tl \dots tr]$), then we are finished and can return the precomputed sum that is stored in the vertex.
 
-Alternatively the segment of the query can falls completely into the domain of either the left or the right child.
+Alternatively the segment of the query can fall completely into the domain of either the left or the right child.
 Recall that the left child covers the segment $a[tl \dots tm]$ and the right vertex covers the segment $a[tm + 1 \dots tr]$ with $tm = (tl + tr) / 2$. 
 In this case we can simply go to the child vertex, which corresponding segment covers the query segment, and execute the algorithm described here with that vertex. 
 
@@ -246,9 +246,9 @@ This task is very similar to the previous one.
 In addition of finding the maximum, we also have to find the number of occurrences of the maximum. 
 
 To solve this problem, we store a pair of numbers at each vertex in the tree: 
-in addition to the maximum we also store the number of occurrences of it in the corresponding segment. 
+In addition to the maximum we also store the number of occurrences of it in the corresponding segment. 
 Determining the correct pair to store at $t[v]$ can still be done in constant time using the information of the pairs stored at the child vertices. 
-Combining two such pairs should be done in a separate function, since this will be a operation that we will do while building the tree, while answering maximum queries and while performing modifications.
+Combining two such pairs should be done in a separate function, since this will be an operation that we will do while building the tree, while answering maximum queries and while performing modifications.
 
 ```cpp segment_tree_maximum_and_count
 pair<int, int> t[4*MAXN];
@@ -309,10 +309,10 @@ In this problem we want to find the number of zeros in a given range, and additi
 
 Again we have to change the store values of the tree a bit:
 This time we will store the number of zeros in each segment in $t[]$. 
-It is pretty clear, how to implement the $\text{build}$, $\text{update}$ and $\text{count_zero}$ functions, we can simple use the ideas from the sum query problem.
+It is pretty clear, how to implement the $\text{build}$, $\text{update}$ and $\text{count_zero}$ functions, we can simply use the ideas from the sum query problem.
 Thus we solved the first part of the problem.
 
-Now we learn how to solve the of problem of finding the $k$-th zero in the array $a[]$. 
+Now we learn how to solve the problem of finding the $k$-th zero in the array $a[]$. 
 To do this task, we will descend the Segment Tree, starting at the root vertex, and moving each time to either the left or the right child, depending on which segment contains the $k$-th zero.
 In order to decide to which child we need to go, it is enough to look at the number of zeros appearing in the segment corresponding to the left vertex.
 If this precomputed count is greater or equal to $k$, it is necessary to descend to the left child, and otherwise descent to the right child.
@@ -482,7 +482,7 @@ Thus the root of the Segment Tree will store all elements of the array, the left
 
 In its simplest application of this technique we store the elements in sorted order.
 In more complex versions the elements are not stored in lists, but more advanced data structures (sets, maps, ...). 
-But all this methods have the common factor, that each vertex requires linear memory (i.e. proportional to the length of the corresponding segment).
+But all these methods have the common factor, that each vertex requires linear memory (i.e. proportional to the length of the corresponding segment).
 
 The first natural question, when considering these Segment Trees, is about memory consumption.
 Intuitively this might look like $O(n^2)$ memory, but it turns out that the complete tree will only need $O(n \log n)$ memory.
@@ -567,13 +567,13 @@ Now we want to do exactly this: a modification query will do the assignment $a[i
 The solution is similar to the solution of the previous problem, but instead of lists at each vertex of the Segment Tree, we will store a balanced list that allows you to quickly search for numbers, delete numbers, and insert new numbers. 
 Since the array can contain a number repeated, the optimal choice is the data structure $\text{multiset}$. 
 
-The construction of such a Segment Tree in done in pretty much done in the same way as in the previous problem, only now we need to combine $\text{multiset}$s and not sorted lists.
+The construction of such a Segment Tree is done in pretty much the same way as in the previous problem, only now we need to combine $\text{multiset}$s and not sorted lists.
 This leads to a construction time of $O(n \log^2 n)$ (in general merging two red-black trees can be done in linear time, but the C++ STL doesn't guarantee this time complexity).
 
 The $\text{query}$ function is also almost equivalent, only now the $\text{lower_bound}$ function of the $\text{multiset}$ function should be called instead ($\text{std::lower_bound}$ only works in $O(\log n)$ time if used with random-access iterators).
 
 Finally the modification request. 
-To process it, we must do down the tree, and modify all $\text{multiset}$ from the corresponding segments that contain the effected element.
+To process it, we must go down the tree, and modify all $\text{multiset}$ from the corresponding segments that contain the effected element.
 We simply delete the old value of this element (but only one occurrence), and insert the new value.
 
 ```cpp
