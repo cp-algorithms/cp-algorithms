@@ -2,7 +2,7 @@
 
 # 15 Puzzle Game: Existence Of The Solution
 
-This game is played on a $4 \times 4$ board. On this board there are 15 playing tiles numbered from 1 to 15. One cell is left empty (denoted by 0). You need to get the board to the position presented below by repeatedly moving one of the tiles to the free space:
+This game is played on a $4 \times 4$ board. On this board there are $15$ playing tiles numbered from 1 to 15. One cell is left empty (denoted by 0). You need to get the board to the position presented below by repeatedly moving one of the tiles to the free space:
 
 $$\begin{matrix} 1 & 2 & 3 & 4 \\\\ 5 & 6 & 7 & 8 \\\\ 9 & 10 & 11 & 12 \\\\ 13 & 14 & 15 & 0 \end{matrix}$$
 
@@ -10,7 +10,7 @@ The game "15 Puzzle” was created by Noyes Chapman in 1880.
 
 ## Existence Of The Solution
 
-Let's consider this problem: given position on the board, determine whether a sequence of moves which leads to a solution exists.
+Let's consider this problem: given a position on the board, determine whether a sequence of moves which leads to a solution exists.
 
 Suppose we have some position on the board:
 
@@ -22,11 +22,11 @@ Let’s consider the permutation:
 
 $$a_1 a_2 ... a_{z-1} a_{z+1} ... a_{15} a_{16}$$
 
-(i.e. the permutation of numbers corresponding to the position on the board without a zero element)
+i.e. the permutation of numbers corresponding to the position on the board without a zero element
 
 Let $N$ be the number of inversions in this permutation (i.e. the number of such elements $a_i$  and $a_j$  that $i < j$, but $a_i  > a_j$).
 
-Suppose $K$ is an index of a row where the empty element is located (i.e. in our indications $K = (z - 1) \ div \ 4 + 1$).
+Suppose $K$ is an index of a row where the empty element is located (i.e. using our convention, $K = (z - 1) \div \ 4 + 1$).
 
 Then, **the solution exists iff $N + K$ is even**.
 
