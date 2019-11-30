@@ -2,14 +2,19 @@
 
 # Josephus Problem
 
-Problem situation - Given the natural numbers $n$ and $k$.
-All natural numbers from $1$ to $n$ are written in a circle. First count the $k$-th number starting from the first one and delete it. Then $k$ numbers are counted starting from the next one and the $k$-th one is removed again, and so on.
-The process stops when one number remains. It is required to find the last number.
+## Statement
+
+We are given the natural numbers $n$ and $k$.
+All natural numbers from $1$ to $n$ are written in a circle. 
+First, count the $k$-th number starting from the first one and delete it.
+Then $k$ numbers are counted starting from the next one and the $k$-th one is removed again, and so on.
+The process stops when one number remains.
+It is required to find the last number.
 
 This task was set by **Flavius Josephus** in the 1st century (though in a somewhat narrower formulation: for $k = 2$).
 
 This problem can be solved by modeling the procedure.
-Brute force modeling will work $O(n^{2})$. Using a [segment tree](/data_structures/segment_tree.html) we can improve it to $O(n \log n)$.
+Brute force modeling will work $O(n^{2})$. Using a [segment tree](/data_structures/segment_tree.html), we can improve it to $O(n \log n)$.
 We want something better though.
 
 ## Modeling a $O(n)$ solution
@@ -37,11 +42,13 @@ And here we can clearly see the following **pattern**:
 $$J_ {n, k} = (J _ {(n-1), k} + k - 1) \ \bmod n + 1 $$
 $$J_ {1, k} = 1 $$
 
-Here, 1-indexing somewhat spoils the elegance of the formula; if you number the positions from 0, you get a very clear formula:
+Here, 1-indexing makes for a somewhat messy formula; if you instead number the positions from 0, you get a very elegant formula:
 
 $$J_ {n, k} = (J _ {(n-1), k} + k) \ \bmod n$$
 
-So, we found a solution to the problem of Joseph, working in $O(n)$ operations.
+So, we found a solution to the problem of Josephus, working in $O(n)$ operations.
+
+## Implementation
 
 Simple **recursive implementation** (in 1-indexing)
 
@@ -63,22 +70,21 @@ int josephus(int n, int k) {
 ```
 
 This formula can also be found analytically.
-Again here we assume 0-indexed.
-After we killed the first person, we have $n-1$ people left.
-And when we repeat the procedure then we will start with the person that had originally the index $k \bmod m$.
+Again here we assume 0-indexing.
+After we delete the first number, we have $n-1$ numbers left.
+When we repeat the procedure, we will start with the number that had originally the index $k \bmod m$.
 $J_{(n-1), k}$ would be the answer for the remaining circle, if we start counting at $0$, but because we actually start with $k$ we have $J_ {n, k} = (J _ {(n-1), k} + k) \ \bmod n$.
-
 
 ## Modeling a $O(k \log n)$ solution
 
 For relatively small $k$ we can come up with a better solution than the above recursive solution in $O(n)$.
-If $k$ is a lot smaller than $n$, then we can kill multiple people ($\lfloor \frac{n}{k} \rfloor$) in one run without looping over.
-Afterwards we have $n - \lfloor \frac{n}{k} \rfloor$ people left, and we start with the $(\lfloor \frac{n}{k} \rfloor \cdot n)$-th person.
+If $k$ is a lot smaller than $n$, then we can delete multiple numbers ($\lfloor \frac{n}{k} \rfloor$) in one run without looping over.
+Afterwards we have $n - \lfloor \frac{n}{k} \rfloor$ numbers left, and we start with the $(\lfloor \frac{n}{k} \rfloor \cdot n)$-th number.
 So we have to shift by that many.
 We can notice that $\lfloor \frac{n}{k} \rfloor \cdot n$ is simply $n \bmod k$.
-And since we removed every $k$-th person, we have to add the number of people that we removed before the result index.
+And since we removed every $k$-th number, we have to add the number of numbers that we removed before the result index.
 
-Also, we need to handle the case when $n$ becomes less than $k$ - in this case, the above optimization would degenerate into an infinite loop.
+Also, we need to handle the case when $n$ becomes less than $k$. In this case, the above optimization would cause an infinite loop.
 
 **Implementation** (for convenience in 0-indexing):
 
@@ -101,11 +107,11 @@ int josephus(int n, int k) {
 }
 ```
 
-Let us estimate the **complexity** of this algorithm. Immediately note that the case $n < k$ is analyzed by the old solution, which will work in this case for $O(k)$. Now consider the algorithm itself. In fact, on each iteration of it, instead of $n$ numbers, we get about $n \left( 1 - \frac{1}{k} \right)$ numbers, so the total number of $x$ iterations of the algorithm can be found roughly from the following equation:
+Let us estimate the **complexity** of this algorithm. Immediately note that the case $n < k$ is analyzed by the old solution, which will work in this case for $O(k)$. Now consider the algorithm itself. In fact, after every iteration, instead of $n$ numbers, we are left with $n \left( 1 - \frac{1}{k} \right)$ numbers, so the total number of iterations $x$ of the algorithm can be found roughly from the following equation:
 
 $$ n \left(1 - \frac{1}{k} \right) ^ x = 1, $$
 
-on taking logarithm, we obtain:
+on taking logarithm on both sides, we obtain:
 
 $$\ln n + x \ln \left(1 - \frac{1}{k} \right) = 0,$$ 
 $$x = - \frac{\ln n}{\ln \left(1 - \frac{1}{k} \right)},$$
@@ -134,4 +140,4 @@ $$J_{n, 2} = 1 + 2 \left(n-2^{\lfloor \log_2 n \rfloor} \right)$$
 
 ## Analytical solution for $k > 2$
 
-Despite the simple form of the problem and a large number of articles on this and related problems, a simple analytical representation of the solution of Joseph's problem has not yet been found. For small $k$, some formulas are derived, but apparently they are all difficult to apply in practice (for example, see Halbeisen, Hungerbuhler "the Josephus Problem" and Odlyzko, Wilf "Functional iteration and the Josephus problem").
+Despite the simple form of the problem and a large number of articles on this and related problems, a simple analytical representation of the solution of Josephus' problem has not yet been found. For small $k$, some formulas are derived, but apparently they are all difficult to apply in practice (for example, see Halbeisen, Hungerbuhler "The Josephus Problem" and Odlyzko, Wilf "Functional iteration and the Josephus problem").
