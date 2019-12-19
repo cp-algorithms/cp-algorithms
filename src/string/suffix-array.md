@@ -148,7 +148,7 @@ To achieve a better hidden constant in the complexity, we will use another trick
 
 We use here the technique on which **radix sort** is based: to sort the pairs we first sort them by the second element, and then by the first element (with a stable sort, i.e. sorting without breaking the relative order of equal elements).
 However the second elements were already sorted in the previous iteration.
-Thus, in order to sort the pairs by the second elements, we just need to subtract $2^{k-1}$ from the indices in $p[]$ (e.g. if the smallest substring of length $2^{k-1}$ starts at position $i$, then the substring of length $2^k$ with the smallest second half starts at $i - 2^{k-1}$).
+Thus, in order to sort the pairs by the first elements, we just need to subtract $2^{k-1}$ from the indices in $p[]$ (e.g. if the smallest substring of length $2^{k-1}$ starts at position $i$, then the substring of length $2^k$ with the smallest second half starts at $i - 2^{k-1}$).
 
 So only by simple subtractions we can sort the second elements of the pairs in $p[]$.
 Now we need to perform a stable sort by the first elements.
