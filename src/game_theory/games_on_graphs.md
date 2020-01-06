@@ -3,7 +3,7 @@
 
 Let a game be played by two players on an arbitrary graph $G$.
 I.e. the current state of the game is a certain vertex.
-The player perform moves by turns, and move from the current vertex to an adjacent vertex using a connecting edge.
+The players perform moves by turns, and move from the current vertex to an adjacent vertex using a connecting edge.
 Depending on the game, the person that is unable to move will either lose or win the game.
 
 We consider the most general case, the case of an arbitrary directed graph with cycles.
@@ -14,24 +14,24 @@ We will find the solution for all possible starting vertices of the graph in lin
 
 ## Description of the algorithm
 
-We will call a vertex a winning vertex, if the player starting at this state will win the game, if he plays optimal (regardless what turns the other player makes).
-And similarly we will call a vertex a losing vertex, if the player starting at this vertex will lose the game, if the opponent plays optimal.
+We will call a vertex a winning vertex, if the player starting at this state will win the game, if they play optimally (regardless of what turns the other player makes).
+Similarly, we will call a vertex a losing vertex, if the player starting at this vertex will lose the game, if the opponent plays optimally.
 
-For some of the vertices of the graph we already know in advance that they are winning or losing vertices: namely all vertices that have no outgoing edges.
+For some of the vertices of the graph, we already know in advance that they are winning or losing vertices: namely all vertices that have no outgoing edges.
 
 Also we have the following **rules**:
 
 - if a vertex has an outgoing edge that leads to a losing vertex, then the vertex itself is a winning vertex.
 - if all outgoing edges of a certain vertex lead to winning vertices, then the vertex itself is a losing vertex.
-- if at some point there are still undefined vertices, and neither will fit the first or the second rule, then each of these vertices, when used as a starting vertex, will lead to a draw if both player play optimal.
+- if at some point there are still undefined vertices, and neither will fit the first or the second rule, then each of these vertices, when used as a starting vertex, will lead to a draw if both player play optimally.
 
-Thus we can define an algorithm which runs in $O(n m)$ time immediately.
+Thus, we can define an algorithm which runs in $O(n m)$ time immediately.
 We go through all vertices and try to apply the first or second rule, and repeat.
 
-However we can accelerate this procedure, and get the complexity down to $O(m)$.
+However, we can accelerate this procedure, and get the complexity down to $O(m)$.
 
 We will go over all the vertices, for which we initially know if they are winning or losing states.
-For each of them we start a [depth first search](./graph/depth-first-search.html).
+For each of them, we start a [depth first search](./graph/depth-first-search.html).
 This DFS will move back over the reversed edges.
 First of all, it will not enter vertices which already are defined as winning or losing vertices.
 And further, if the search goes from a losing vertex to an undefined vertex, then we mark this one as a winning vertex, and continue the DFS using this new vertex.

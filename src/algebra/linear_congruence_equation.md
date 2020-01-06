@@ -38,7 +38,7 @@ $$x_i = (x^\prime + i\cdot n^\prime) \pmod n \quad \text{for } i = 0 \ldots g-1$
 
 Summarizing, we can say that the **number of solutions** of the linear congruence equation is equal to either $g = \gcd(a, n)$ or to zero.
 
-## Solution with the Advanced Euclidean Algorithm
+## Solution with the Extended Euclidean Algorithm
 
 We can rewrite the linear congruence to the following Diophantine equation:
 
