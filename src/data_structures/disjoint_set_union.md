@@ -34,10 +34,10 @@ In the following image you can see the representation of such trees.
 
 ![Example-image of the set representation with trees](&imgroot&/DSU_example.png)
 
-At the beginning every element starts as a single set, therefore each vertex is its own tree.
+In the beginning, every element starts as a single set, therefore each vertex is its own tree.
 Then we combine the set containing the element 1 and the set containing the element 2.
 Then we combine the set containing the element 3 and the set containing the element 4.
-And in the last step we can the sets containing the elements 1 and 3 are merged.
+And in the last step, we combine the set containing the element 1 and the set containing the element 3.
 
 For the implementation this means that we will have to maintain an array `parent` that stores a reference to its immediate ancestor in the tree.
 
