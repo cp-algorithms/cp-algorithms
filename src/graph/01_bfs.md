@@ -80,3 +80,12 @@ This extension is called **Dial's algorithm**.
 ## Practice problems
 
 - [CodeChef - Chef and Reversing](https://www.codechef.com/problems/REVERSE)
+- [Labyrinth](https://codeforces.com/contest/1063/problem/B)
+- [KATHTHI](http://www.spoj.com/problems/KATHTHI/)
+- [DoNotTurn](https://community.topcoder.com/stat?c=problem_statement&pm=10337)
+- [Ocean Currents](https://onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=2620)
+- [Olya and Energy Drinks](https://codeforces.com/problemset/problem/877/D)
+- [Three States](https://codeforces.com/problemset/problem/590/C)
+- [Colliding Traffic](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2621)
+- [CHamber of Secrets](https://codeforces.com/problemset/problem/173/B)
+- [Spiral Maximum](https://codeforces.com/problemset/problem/173/C)
