@@ -13,13 +13,13 @@ Common problems solved using DP on broken profile include:
 
 **Problem description.** Given a grid of size $N \times M$. Find number of ways to fill the grid with figures of size $2 \times 1$ (no cell should be left unfilled, and figures should not overlap each other).
 
-Let the DP state be: $dp(i, mask)$, where $i = 1, \ldots N$ and $mask = 0, \ldots 2^{M-1}$.
+Let the DP state be: $dp[i, mask]$, where $i = 1, \ldots N$ and $mask = 0, \ldots 2^M - 1$.
 
 $i$ respresents number of rows in the current grid, and $mask$ is the state of last row of current grid. If $j$-th bit of $mask$ is $0$ then the corresponding cell is filled, otherwise it is unfilled.
 
-Clearly, the answer to the problem will be $dp(N, 0)$.
+Clearly, the answer to the problem will be $dp[N, 0]$.
 
-We will be building the DP state by iterating over each $i = 1, \cdots N$ and each $mask = 0, \ldots 2^{M-1}$, and for each $mask$ we will be only transitioning forward, that is, we will be _adding_ figures to the current grid.
+We will be building the DP state by iterating over each $i = 1, \cdots N$ and each $mask = 0, \ldots 2^M - 1$, and for each $mask$ we will be only transitioning forward, that is, we will be _adding_ figures to the current grid.
 
 ### Implementation
 
