@@ -826,7 +826,7 @@ Here is the implementation of the construction of a 2D Segment Tree.
 It actually represents two separate blocks: 
 the construction of a Segment Tree along the $x$ coordinate ($\text{build}_x$), and the $y$ coordinate ($\text{build}_y$).
 For the leaf nodes in $\text{build}_y$ we have to separate two cases: 
-when the current segment of the first coordinate $[tlx \dots trx]$ has length 1, and when it has a length greater than one. In the first case, we just take the corresponding value from the matrix, and int the second case we can combine the values of two Segment Trees from the left and the right son in the coordinate $x$.
+when the current segment of the first coordinate $[tlx \dots trx]$ has length 1, and when it has a length greater than one. In the first case, we just take the corresponding value from the matrix, and in the second case we can combine the values of two Segment Trees from the left and the right son in the coordinate $x$.
 
 ```cpp
 void build_y(int vx, int lx, int rx, int vy, int ly, int ry) {
@@ -943,7 +943,7 @@ It follows, that if you gave to abandon a two-dimensional Segment Tree due to th
 A persistent data structure is a data structure that remembers it previous state for each modification.
 This allows to access any version of this data structure that interest us and execute a query on it.
 
-Segment Tree is a data structure the can be turned into a persistent data structure efficiently (both in time and memory consumption).
+Segment Tree is a data structure that can be turned into a persistent data structure efficiently (both in time and memory consumption).
 We want to avoid copying the complete tree before each modification, and we don't want to loose the $O(\log n)$ time behavior for answering range queries.
 
 In fact, any change request in the Segment Tree leads to a change in the data of only $O(\log n)$ vertices along the path starting from the root. 
