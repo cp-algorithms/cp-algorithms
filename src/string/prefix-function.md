@@ -245,7 +245,7 @@ $$s_4 = s_3, ~ s_5 = s_4, ~ s_6 = s_5, ~ s_7 = s_6 ~ \Rightarrow ~ s_0 = s_1 = s
 
 Let's return to the concatenation to the two strings through a separator, i.e. for the strings $s$ and $t$ we compute the prefix function for the string $s + \\# + t$.
 Obviously, since $\\#$ is a separator, the value of the prefix function will never exceed $|s|$.
-If follows, that it is sufficient to only store the string $s + \\#$ and the values of the prefix function for it, and we can compute the prefix function for all subsequent character on the fly:
+It follows, that it is sufficient to only store the string $s + \\#$ and the values of the prefix function for it, and we can compute the prefix function for all subsequent character on the fly:
 $$\underbrace{s_0 ~ s_1 ~ \dots ~ s_{n-1} ~ \\#}\_{\text{need to store}} ~ \underbrace{t_0 ~ t_1 ~ \dots ~ t_{m-1}}\_{\text{do not need to store}}$$
 
 Indeed, in such a situation, knowing the next character $c \in t$ and the value of the prefix function of the previous position is enough information to compute the next value of the prefix function, without using any previous characters of the string $t$ and the value of the prefix function in them.
