@@ -477,7 +477,7 @@ data query(int v, int tl, int tr, int l, int r) {
 
 ### <a name="saving-the-entire-subarrays-in-each-vertex"></a>Saving the entire subarrays in each vertex
 
-This is a separate subsection that stands apart from the others, because at each vertex of the Segment Tree we don't store information about the corresponding segment in compressed form (sum, minimum, maximum, ...), but store all element of the segment.
+This is a separate subsection that stands apart from the others, because at each vertex of the Segment Tree we don't store information about the corresponding segment in compressed form (sum, minimum, maximum, ...), but store all elements of the segment.
 Thus the root of the Segment Tree will store all elements of the array, the left child vertex will store the first half of the array, the right vertex the second half, and so on.
 
 In its simplest application of this technique we store the elements in sorted order.
@@ -489,7 +489,7 @@ Intuitively this might look like $O(n^2)$ memory, but it turns out that the comp
 Why is this so?
 Quite simply, because each element of the array falls into $O(\log n)$ segments (remember the height of the tree is $O(\log n)$). 
 
-So in spite of the apparent extravagance of such a Segment Tree, of consumes only slightly more memory than the usual Segment Tree. 
+So in spite of the apparent extravagance of such a Segment Tree, it consumes only slightly more memory than the usual Segment Tree. 
 
 Several typical applications of this data structure are described below.
 It is worth noting the similarity of these Segment Trees with 2D data structures (in fact this is a 2D data structure, but with rather limited capabilities).
@@ -504,7 +504,7 @@ In each vertex we store a sorted list of all numbers occurring in the correspond
 How to build such a Segment Tree as effectively as possible?
 As always we approach this problem recursively: let the lists of the left and right children already be constructed, and we want to build the list for the current vertex.
 From this view the operation is known trivial and can be accomplished in linear time:
-We only need to combine the two sorted lists into one, which can be done by iteration over them using two pointers. 
+We only need to combine the two sorted lists into one, which can be done by iterating over them using two pointers. 
 The C++ STL already has an implementation of this algorithm.
 
 Because this structure of the Segment Tree and the similarities to the merge sort algorithm, the data structure is also often called "Merge Sort Tree".
@@ -526,12 +526,12 @@ void build(int a[], int v, int tl, int tr) {
 ```
 
 We already know that the Segment Tree constructed in this way will require $O(n \log n)$ memory.
-And thanks to this implementation its construction also take $O(n \log n)$ time, after all each list is constructed in linear time in respect to its size. 
+And thanks to this implementation its construction also takes $O(n \log n)$ time, after all each list is constructed in linear time in respect to its size. 
 
 Now consider the answer to the query. 
-We will go down the tree, like in the regular Segment Tree, and breaking our segment $a[l \dots r]$ into several subsegments (into at most $O(\log n)$ pieces). 
+We will go down the tree, like in the regular Segment Tree, breaking our segment $a[l \dots r]$ into several subsegments (into at most $O(\log n)$ pieces). 
 It is clear that the answer of the whole answer is the minimum of each of the subqueries.
-So now we only need to understand, how to response to a query on one such subsegment that corresponds with some vertex of the tree.
+So now we only need to understand, how to respond to a query on one such subsegment that corresponds with some vertex of the tree.
 
 We are at some vertex of the Segment Tree and we want to compute the answer to the query, i.e. find the minimum number greater that or equal to a given number $x$. 
 Since the vertex contains the list of elements in sorted order, we can simply perform a binary search on this list and return the first number, greater than or equal to $x$.
