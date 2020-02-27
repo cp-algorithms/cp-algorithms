@@ -438,3 +438,4 @@ A list of tasks that can be solved using the principle of inclusions-exclusions:
 * [SPOJ - Almost Prime Numbers Again](http://www.spoj.com/problems/KPRIMESB/)
 * [SPOJ - Find number of Pair of Friends](http://www.spoj.com/problems/IITKWPCH/)
 * [SPOJ - Balanced Cow Subsets](http://www.spoj.com/problems/SUBSET/)
+* [SPOJ - EASY MATH [difficulty: medium]](http://www.spoj.com/problems/EASYMATH/)
