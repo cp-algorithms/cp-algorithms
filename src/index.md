@@ -7,6 +7,8 @@ and data structures especially popular in field of competitive programming.
 Moreover we want to improve the collected knowledge by extending the articles
 and adding new articles to the collection.*
 
+*For a similar project, that translates the collection of articles into Portuguese, visit [https://cp-algorithms-brasil.com](https://cp-algorithms-brasil.com).*
+
 ## Articles
 
 ### Algebra
