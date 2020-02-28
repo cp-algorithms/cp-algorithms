@@ -127,7 +127,7 @@ This is handled in the `sum(int l, int r)` method.
 Also this implementation supports two constructors.
 You can create a Fenwick tree initialized with zeros, or you can convert an existing array into the Fenwick form.
 
-```cpp
+```cpp fenwick_sum
 struct FenwickTree {
     vector<int> bit;  // binary indexed tree
     int n;
@@ -166,7 +166,7 @@ It is obvious that there is no easy way of finding minimum of range $[l; r]$ usi
 Additionally, each time a value is `update`'d, the new value has to be smaller than the current value (because the $min$ function is not reversible).
 These, of course, are significant limitations.
 
-```cpp
+```cpp fenwick_min
 struct FenwickTreeMin {
     vector<int> bit;
     int n;
@@ -266,7 +266,7 @@ As you can see, the main benefit of this approach is that the binary operations 
 
 The following implementation can be used like the other implementations, however it uses one-based indexing internally.
 
-```cpp
+```cpp fenwick_sum_onebased
 struct FenwickTreeOneBasedIndexing {
     vector<int> bit;  // binary indexed tree
     int n;
@@ -278,7 +278,6 @@ struct FenwickTreeOneBasedIndexing {
 
     FenwickTreeOneBasedIndexing(vector<int> a)
         : FenwickTreeOneBasedIndexing(a.size()) {
-        init(a.size());
         for (size_t i = 0; i < a.size(); i++)
             add(i, a[i]);
     }
