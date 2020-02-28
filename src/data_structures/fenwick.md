@@ -415,7 +415,7 @@ def prefix_sum(idx):
     return sum(B1, idx)*idx -  sum(B2, idx)
 
 def range_sum(l, r):
-    return sum(r) - sum(l-1)
+    return prefix_sum(r) - prefix_sum(l-1)
 ```
 
 ## Practice Problems
