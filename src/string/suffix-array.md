@@ -324,7 +324,7 @@ And possibly it can be bigger.
 
 Now we already can implement the algorithm.
 We will iterate over the suffixes in order of their length. This way we can reuse the last value $k$, since going from suffix $i$ to the suffix $i+1$ is exactly the same as removing the first letter.
-Will will need an additional array $\text{rank}$, which will give us the position of a suffix in the sorted list of suffixes.
+We will need an additional array $\text{rank}$, which will give us the position of a suffix in the sorted list of suffixes.
 
 ```cpp suffix_array_lcp_construction
 vector<int> lcp_construction(string const& s, vector<int> const& p) {
