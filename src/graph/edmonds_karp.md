@@ -197,3 +197,7 @@ A minimum cut can be found after performing a maximum flow computation using the
 One possible minimum cut is the following:
 the set of all vertices that can be reached from $s$ in the residual graph (using edges with positive residual capacity), and the set of all the other vertices.
 This partition can be easily found using [DFS](./graph/depth-first-search.html) starting at $s$.
+
+## Practice Problems
+- [Codeforces - Array and Operations](https://codeforces.com/contest/498/problem/c)
+- [Codeforces - Red-Blue Graph](https://codeforces.com/contest/1288/problem/f)
