@@ -89,3 +89,4 @@ This extension is called **Dial's algorithm**.
 - [Colliding Traffic](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2621)
 - [CHamber of Secrets](https://codeforces.com/problemset/problem/173/B)
 - [Spiral Maximum](https://codeforces.com/problemset/problem/173/C)
+- [Minimum Cost to Make at Least One Valid Path in a Grid](https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid)
