@@ -50,16 +50,6 @@ It is worth noting that whenever $n$ is not a power of two, not all levels of th
 We can see that behavior in the image.
 For now we can forget about this fact, but it will become important later during the implementation.
 
-In most implementations used the numbering of the tree nodes in the order of traversal with bfs.
-In this case, the children of vertex $v$ are $2v$ and $2v + 1$(in 1-indexing), respectively, memory consumption is limited to the top $4n$. However, it can be reduced.
-Renumber the vertices of the tree in the order of Euler traversal. 
-It is obvious that the left son will have the number $v + 1$.
-In this case, an array of $n$ elements requires only $2n - 1$ vertex in the segment tree.
-Let vertex $v$ be responsible for the segment $[l; r]$, and let $mid = \dfrac{l + r}{2}$.
-Then the left son is responsible for the segment $[l; mid]$, i.e. in total, there will be $2 * (mid - l + 1) - 1$ vertices in the left son subtree.
-Then the number of the right son will be $v + 2 * (mid - l + 1)$.
-By this numbering, we achieve a reduction of memory to $2n$.
-
 The height of the Segment Tree is $O(\log n)$, because when going down from the root to the leaves the size of the segments decreases approximately by half. 
 
 ### Construction
@@ -226,6 +216,22 @@ void update(int v, int tl, int tr, int pos, int new_val) {
     }
 }
 ```
+
+### Memory efficient implementation
+
+Most people use the implementation from the previous section. If you look at the array `t` you can see that it follows the numbering of the tree nodes in the order of a BFS traversal (level-order traversal). 
+Using this traversal the children of vertex $v$ are $2v$ and $2v + 1$ respectively.
+However if $n$ is not a power of two, this method will skip some indices and leave some parts of the array `t` unused.
+The memory consumption is limited by $4n$, even though a Segment Tree of an array of $n$ elements requires only $2n - 1$ vertices.
+
+However it can be reduced. 
+We renumber the vertices of the tree in the order of an Euler tour traversal (pre-order traversal), and we write all these vertices next to each other.
+
+Lets look at a vertex at index $v$, and let him be responsible for the segment $[l; r]$, and let $mid = \dfrac{l + r}{2}$.
+It is obvious that the left child will have the index $v + 1$.
+The left child is responsible for the segment $[l; mid]$, i.e. in total there will be $2 * (mid - l + 1) - 1$ vertices in the left child's subtree.
+Thus we can compute the index of the right child of $v$. The index will be $v + 2 * (mid - l + 1)$.
+By this numbering we achieve a reduction of the necessary memory to $2n$.
 
 ## <a name="advanced-versions-of-segment-trees"></a>Advanced versions of Segment Trees
 
