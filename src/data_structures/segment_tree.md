@@ -50,6 +50,16 @@ It is worth noting that whenever $n$ is not a power of two, not all levels of th
 We can see that behavior in the image.
 For now we can forget about this fact, but it will become important later during the implementation.
 
+In most implementations used the numbering of the tree nodes in the order of traversal with bfs.
+In this case, the children of vertex $v$ are $2v$ and $2v + 1$(in 1-indexing), respectively, memory consumption is limited to the top $4n$. However, it can be reduced.
+Renumber the vertices of the tree in the order of Euler traversal. 
+It is obvious that the left son will have the number $v + 1$.
+In this case, an array of $n$ elements requires only $2n - 1$ vertex in the segment tree.
+Let vertex $v$ be responsible for the segment $[l; r]$, and let $mid = \dfrac{l + r}{2}$.
+Then the left son is responsible for the segment $[l; mid]$, i.e. in total, there will be $2 * (mid - l + 1) - 1$ vertices in the left son subtree.
+Then the number of the right son will be $v + 2 * (mid - l + 1)$.
+By this numbering, we achieve a reduction of memory to $2n$.
+
 The height of the Segment Tree is $O(\log n)$, because when going down from the root to the leaves the size of the segments decreases approximately by half. 
 
 ### Construction
