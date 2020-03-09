@@ -33,7 +33,7 @@ void calc (int x = 0, int y = 0, int mask = 0, int next_mask = 0)
 	if (x == n)
 		return;
 	if (y >= m)
-		dp[x+1][next_mask] += d[x][mask];
+		dp[x+1][next_mask] += dp[x][mask];
 	else
 	{
 		int my_mask = 1 << y;
