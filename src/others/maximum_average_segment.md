@@ -85,7 +85,7 @@ Consider the first index when the sum of $s$ becomes negative. This means that s
 
 However, this is not enough to prove the algorithm. In the algorithm, we are actually limited in finding the answer only to such segments that begin immediately after the places when $s<0$ happened.
 
-But, in fact, consider an arbitrary segment $[l,r]$, and $l$ is not in such a "critical" position (i.e. $l > p+1$, where $p$ is the last such position, in which $s<0$). Since the last critical position is strictly earlier than in $l-1$, it turns out that the sum of $a[p+1 \ldots l-1]$ is non-negative. This means that by moving $l$ to position $p+1$, we will increase the answer or, in extreme cases, we will not change it.
+But, in fact, consider an arbitrary segment $[l, r]$, and $l$ is not in such a "critical" position (i.e. $l > p+1$, where $p$ is the last such position, in which $s<0$). Since the last critical position is strictly earlier than in $l-1$, it turns out that the sum of $a[p+1 \ldots l-1]$ is non-negative. This means that by moving $l$ to position $p+1$, we will increase the answer or, in extreme cases, we will not change it.
 
 One way or another, it turns out that when searching for an answer, you can limit yourself to only segments that begin immediately after the positions in which $s<0$ appeared. This proves that the algorithm is correct.
 
@@ -127,11 +127,11 @@ for (int r = 0; r < n; ++r) {
 
 ### Finding the maximum/minimum subarray with constraints
 
-If the problem condition imposes additional restrictions on the required segment $[l,r]$ (for example, that the length $r-l+1$ of the segment must be within the specified limits), then the described algorithm is likely to be easily generalized to these cases — anyway, the problem will still be to find the minimum in the array $s[]$ with the specified additional restrictions.
+If the problem condition imposes additional restrictions on the required segment $[l, r]$ (for example, that the length $r-l+1$ of the segment must be within the specified limits), then the described algorithm is likely to be easily generalized to these cases — anyway, the problem will still be to find the minimum in the array $s[]$ with the specified additional restrictions.
 
 ### Two-dimensional case of the problem: search for maximum/minimum submatrix
 
-The problem described in this article is naturally generalized to large dimensions. For example, in a two-dimensional case, it turns into a search for such a submatrix $[l_1 \ldots r_1; l_2 \ldots r_2]$ of a given matrix, which has the maximum sum of numbers in it.
+The problem described in this article is naturally generalized to large dimensions. For example, in a two-dimensional case, it turns into a search for such a submatrix $[l_1 \ldots r_1, l_2 \ldots r_2]$ of a given matrix, which has the maximum sum of numbers in it.
 
 Using the solution for the one-dimensional case, it is easy to obtain a solution in $O(n^3)$ for the two-dimensions case:
 we iterate over all possible values of $l_1$ and $r_1$, and calculate the sums from $l_1$ to $r_1$ in each row of the matrix. Now we have the one-dimensional problem of finding the indices $l_2$ and $r_2$ in this array, which can already be solved in linear time.
@@ -142,11 +142,11 @@ This algorithm by Chan, as well as many other results in this area, actually des
 
 ### Search for a subarray with a maximum/minimum average
 
-This problem lies in finding such a segment $a[l,r]$, such that the average value is maximal:
+This problem lies in finding such a segment $a[l, r]$, such that the average value is maximal:
 
 $$ \max_{l \le r} \frac{ 1 }{ r-l+1 } \sum_{i=l}^{r} a[i].$$
 
-Of course, if no other conditions are imposed on the required segment $[l,r]$, then the solution will always be a segment of length $1$ at the maximum element of the array. 
+Of course, if no other conditions are imposed on the required segment $[l, r]$, then the solution will always be a segment of length $1$ at the maximum element of the array. 
 he problem only makes sense, if there are additional restrictions (for example, the length of the desired segment is bounded below).
 
 In this case, we apply the **standard technique** when working with the problems of the average value: we will select the desired maximum average value by **binary search**.
@@ -159,6 +159,6 @@ Thus, we obtained the solution for the asymptotic $O(T(n) \log W)$, where $W$ is
 
 ### Solving the online problem
 
-The condition of the problem is as follows: given an array of $n$ numbers, and a number $L$. There are queries of the form $(l,r)$, and in response to each query, it is required to find a subarray of the segment $[l,r]$ of length not less than $L$ with the maximum possible arithmetic mean.
+The condition of the problem is as follows: given an array of $n$ numbers, and a number $L$. There are queries of the form $(l,r)$, and in response to each query, it is required to find a subarray of the segment $[l, r]$ of length not less than $L$ with the maximum possible arithmetic mean.
 
 The algorithm for solving this problem is quite complex. KADR (Yaroslav Tverdokhleb) described his algorithm on the [Russian forum](http://e-maxx.ru/forum/viewtopic.php?id=410).

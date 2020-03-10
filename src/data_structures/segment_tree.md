@@ -227,9 +227,9 @@ The memory consumption is limited by $4n$, even though a Segment Tree of an arra
 However it can be reduced. 
 We renumber the vertices of the tree in the order of an Euler tour traversal (pre-order traversal), and we write all these vertices next to each other.
 
-Lets look at a vertex at index $v$, and let him be responsible for the segment $[l; r]$, and let $mid = \dfrac{l + r}{2}$.
+Lets look at a vertex at index $v$, and let him be responsible for the segment $[l, r]$, and let $mid = \dfrac{l + r}{2}$.
 It is obvious that the left child will have the index $v + 1$.
-The left child is responsible for the segment $[l; mid]$, i.e. in total there will be $2 * (mid - l + 1) - 1$ vertices in the left child's subtree.
+The left child is responsible for the segment $[l, mid]$, i.e. in total there will be $2 * (mid - l + 1) - 1$ vertices in the left child's subtree.
 Thus we can compute the index of the right child of $v$. The index will be $v + 2 * (mid - l + 1)$.
 By this numbering we achieve a reduction of the necessary memory to $2n$.
 

@@ -41,7 +41,7 @@ Obviously $0 \leq j \leq \lceil \log N \rceil$, and therefore the size of the Sp
 You can build the table easily in $O(N \log N)$ by noting that $T[i][j] = \min(T[i][j-1], T[i+2^{j-1}][j-1])$.
 
 How can we answer a query RMQ in $O(1)$ using this data structure?
-Let the received query be $[l,r]$, then the answer is $\min(T[l][\text{sz}], T[r-2^{\text{sz}}+1][\text{sz}])$, where $\text{sz}$ is the biggest exponent such that $2^{\text{sz}}$ is not bigger than the range length $r-l+1$. 
+Let the received query be $[l, r]$, then the answer is $\min(T[l][\text{sz}], T[r-2^{\text{sz}}+1][\text{sz}])$, where $\text{sz}$ is the biggest exponent such that $2^{\text{sz}}$ is not bigger than the range length $r-l+1$. 
 Indeed we can take the range $[l, r]$ and cover it two segments of length $2^{\text{sz}}$ - one starting in $l$ and the other ending in $r$.
 These segments overlap, but this doesn't interfere with our computation.
 To really achieve the time complexity of $O(1)$ per query, we need to know the values of $\text{sz}$ for all possible lengths from $1$ to $N$.
@@ -58,7 +58,7 @@ $$\frac{N}{K}\log\left(\frac{N}{K}\right) = \frac{2N}{\log(N)} \log\left(\frac{2
 $$= \frac{2N}{\log(N)} \left(1 + \log\left(\frac{N}{\log(N)}\right)\right) \leq \frac{2N}{\log(N)} + 2N = O(N)$$
 
 Now we only have to learn how to quickly answer range minimum queries within each block.
-In fact if the received range minimum query is $[l,r]$ and $l$ and $r$ are in different blocks then the answer is the minimum of the following three values:
+In fact if the received range minimum query is $[l, r]$ and $l$ and $r$ are in different blocks then the answer is the minimum of the following three values:
 the minimum of the suffix of block of $l$ starting at $l$, the minimum of the prefix of block of $r$ ending at $r$, and the minimum of the blocks between those.
 The minimum of the blocks in between can be answered in $O(1)$ using the Sparse Table.
 So this leaves us only the range minimum queries inside blocks.

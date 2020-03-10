@@ -172,9 +172,9 @@ It gives us an $O(n \log n)$ algorithm when you need to compute values in powers
 ### Multi-point Evaluation
 Assume you need to calculate $A(x_1), \dots, A(x_n)$. As mentioned earlier, $A(x) \equiv A(x_i) \pmod{x-x_i}$. Thus you may do the following:
 
-1. Compute a segment tree such that in the segment $[l;r)$ stands the product $P_{l, r}(x) = (x-x_l)(x-x_{l+1})\dots(x-x_{r-1})$.
-2. Starting with $l=1$ and $r=n$ at the root node. Let $m=\lfloor(l+r)/2\rfloor$. Let's move down to $[l;m)$ with the polynomial $A(x) \pmod{P_{l,m}(x)}$.
-3. This will recursively compute $A(x_l), \dots, A(x_{m-1})$, now do the same for $[m;r)$ with $A(x) \pmod{P_{m,r}(x)}$.
+1. Compute a segment tree such that in the segment $[l,r)$ stands the product $P_{l, r}(x) = (x-x_l)(x-x_{l+1})\dots(x-x_{r-1})$.
+2. Starting with $l=1$ and $r=n$ at the root node. Let $m=\lfloor(l+r)/2\rfloor$. Let's move down to $[l,m)$ with the polynomial $A(x) \pmod{P_{l,m}(x)}$.
+3. This will recursively compute $A(x_l), \dots, A(x_{m-1})$, now do the same for $[m,r)$ with $A(x) \pmod{P_{m,r}(x)}$.
 4. Concatenate the results from the first and second recursive call and return them.
 
 The whole procedure will run in $O(n \log^2 n)$.
