@@ -10,7 +10,7 @@ first we will modify a stack in a way that allows up to find the smallest elemen
 We want to modify the stack data structure in such a way, that it possible to find the smallest element in the stack in $O(1)$ time, while maintaining the same asymptotic behavior for adding and removing elements from the stack.
 Quick reminder, on a stack we only add and remove elements on one end.
 
-To do this, we will no only store the elements in the stack, but we will store them in pairs: the element itself and the minimum in the stack starting from this element and below.
+To do this, we will not only store the elements in the stack, but we will store them in pairs: the element itself and the minimum in the stack starting from this element and below.
 
 ```cpp
 stack<pair<int, int>> st;
