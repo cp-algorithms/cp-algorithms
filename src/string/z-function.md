@@ -64,7 +64,7 @@ Then, if the current index (for which we have to compute the next value of the Z
 
     $$ s = "aaaabaa" $$
 
-    When we get to the last position ($i = 6$), the current match segment will be $[5; 6]$. Position $6$ will then match position $6 - 5 = 1$, for which the value of the Z-function is $z[1] = 3$. Obviously, we cannot initialize $z[6]$ to $3$, it would be completely incorrect. The maximum value we could initialize it to is $1$ -- because it's the largest value that doesn't bring us beyond the index $r$ of the match segment $[l, r]$.
+    When we get to the last position ($i = 6$), the current match segment will be $[5, 6]$. Position $6$ will then match position $6 - 5 = 1$, for which the value of the Z-function is $z[1] = 3$. Obviously, we cannot initialize $z[6]$ to $3$, it would be completely incorrect. The maximum value we could initialize it to is $1$ -- because it's the largest value that doesn't bring us beyond the index $r$ of the match segment $[l, r]$.
 
     Thus, as an **initial approximation** for $z[i]$ we can safely take:
 

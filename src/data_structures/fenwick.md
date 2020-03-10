@@ -24,7 +24,7 @@ Fenwick tree was first described in a paper titled "A new data structure for cum
 For the sake of simplicity, we will assume that function $f$ is just a *sum function*.
 
 Given an array of integers $A[0 \dots N-1]$.
-A Fenwick tree is just an array $T[0 \dots N-1]$, where each of its elements is equal to the sum of elements of $A$ in some range $[g(i); i]$:
+A Fenwick tree is just an array $T[0 \dots N-1]$, where each of its elements is equal to the sum of elements of $A$ in some range $[g(i), i]$:
 $$T_i = \sum_{j = g(i)}^{i}{A_j},$$
 where $g$ is some function that satisfies $0 \le g(i) \le i$.
 We will define the function in the next few paragraphs.
@@ -37,7 +37,7 @@ Many people will actually use a version of the Fenwick tree that uses one-based 
 Therefore you will also find an alternative implementation using one-based indexing in the implementation section.
 Both versions are equivalent in terms of time and memory complexity.
 
-Now we can write some pseudo-code for the two operations mentioned above - get the sum of elements of $A$ in the range $[0; r]$ and update (increase) some element $A_i$:
+Now we can write some pseudo-code for the two operations mentioned above - get the sum of elements of $A$ in the range $[0, r]$ and update (increase) some element $A_i$:
 
 ```python
 def sum(int r):
@@ -54,19 +54,19 @@ def increase(int i, int delta):
 
 The function `sum` works as follows:
 
-1. first, it adds the sum of the range $[g(r); r]$ (i.e. $T[r]$) to the `result`
-2. then, it "jumps" to the range $[g(g(r)-1); g(r)-1]$, and adds this range's sum to the `result`
-3. and so on, until it "jumps" from $[0; g(g( \dots g(r)-1 \dots -1)-1)]$ to $[g(-1); -1]$; that is where the `sum` function stops jumping.
+1. first, it adds the sum of the range $[g(r), r]$ (i.e. $T[r]$) to the `result`
+2. then, it "jumps" to the range $[g(g(r)-1), g(r)-1]$, and adds this range's sum to the `result`
+3. and so on, until it "jumps" from $[0, g(g( \dots g(r)-1 \dots -1)-1)]$ to $[g(-1), -1]$; that is where the `sum` function stops jumping.
 
 The function `increase` works with the same analogy, but "jumps" in the direction of increasing indices:
 
-1. sums of the ranges $[g(j); j]$ that satisfy the condition $g(j) \le i \le j$ are increased by `delta` , that is `t[j] += delta`. Therefore we updated all elements in $T$ that corresponds to ranges in with $A_i$ lies.
+1. sums of the ranges $[g(j), j]$ that satisfy the condition $g(j) \le i \le j$ are increased by `delta` , that is `t[j] += delta`. Therefore we updated all elements in $T$ that corresponds to ranges in with $A_i$ lies.
 
 It is obvious that the complexity of both `sum` and `increase` depend on the function $g$.
 There are lots of ways to choose the function $g$, as long as $0 \le g(i) \le i$ for all $i$.
 For instance the function $g(i) = i$ works, which results just in $T = A$, and therefore summation queries are slow.
 We can also take the function $g(i) = 0$.
-This will correspond to prefix sum arrays, which means that finding the sum of the range $[0; i]$ will only take constant time, but updates are slow.
+This will correspond to prefix sum arrays, which means that finding the sum of the range $[0, i]$ will only take constant time, but updates are slow.
 The clever part of the Fenwick algorithm is, that there it uses a special definition of the function $g$ that can handle both operations in $O(\log N)$ time.
 
 ### Definition of $g(i)$
@@ -121,7 +121,7 @@ The nodes of the tree show the ranges they cover.
 
 Here we present an implementation of the Fenwick tree for sum queries and single updates.
 
-The normal Fenwick tree can only answer sum queries of the type $[0; r]$ using `sum(int r)`, however we can also answer other queries of the type $[l, r]$ by computing two sums $[0; r]$ and $[0; l-1]$ and subtract them.
+The normal Fenwick tree can only answer sum queries of the type $[0, r]$ using `sum(int r)`, however we can also answer other queries of the type $[l, r]$ by computing two sums $[0, r]$ and $[0, l-1]$ and subtract them.
 This is handled in the `sum(int l, int r)` method.
 
 Also this implementation supports two constructors.
@@ -160,9 +160,9 @@ struct FenwickTree {
 };
 ```
 
-### Finding minimum of $[0; r]$ in one-dimensional array
+### Finding minimum of $[0, r]$ in one-dimensional array
 
-It is obvious that there is no easy way of finding minimum of range $[l, r]$ using Fenwick tree, as Fenwick tree can only answer queries of type $[0; r]$.
+It is obvious that there is no easy way of finding minimum of range $[l, r]$ using Fenwick tree, as Fenwick tree can only answer queries of type $[0, r]$.
 Additionally, each time a value is `update`'d, the new value has to be smaller than the current value (because the $min$ function is not reversible).
 These, of course, are significant limitations.
 
@@ -366,7 +366,7 @@ def range_add(l, r, x):
 ```
 After the range update $(l, r, x)$ the range sum query should return the following values:
 $$
-sum[0; i]=
+sum[0, i]=
 \begin{cases}
 0 & i < l \\\\
 x \cdot (i-(l-1)) & l \le i \le r \\\\
@@ -375,9 +375,9 @@ x \cdot (r-l+1) & i > r \\\\
 $$
 
 We can write the range sum as difference of two terms, where we use $B_1$ for first term and $B_2$ for second term.
-The difference of the queries will give us prefix sum over $[0; i]$.
+The difference of the queries will give us prefix sum over $[0, i]$.
 $$\begin{align}
-sum[0; i] &= sum(B_1, i) \cdot i - sum(B_2, i) \\\\
+sum[0, i] &= sum(B_1, i) \cdot i - sum(B_2, i) \\\\
 &= \begin{cases}
 0 \cdot i - 0 & i < l\\\\
 x \cdot i - x \cdot (l-1) & l \le i \le r \\\\
