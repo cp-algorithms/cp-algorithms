@@ -6,7 +6,7 @@ Let, $f$ be some _reversible_ function and $A$ be an array of integers of length
 
 Fenwick tree is a data structure which:
 
-* calculates the value of function $f$ in the given range $[l; r]$ (i.e. $f(A_l, A_{l+1}, \dots, A_r)$) in $O(\log n)$ time;
+* calculates the value of function $f$ in the given range $[l, r]$ (i.e. $f(A_l, A_{l+1}, \dots, A_r)$) in $O(\log n)$ time;
 * updates the value of an element of $A$ in $O(\log n)$ time;
 * requires $O(N)$ memory, or in other words, exactly the same memory required for $A$;
 * is easy to use and code, especially, in the case of multidimensional arrays.
@@ -121,7 +121,7 @@ The nodes of the tree show the ranges they cover.
 
 Here we present an implementation of the Fenwick tree for sum queries and single updates.
 
-The normal Fenwick tree can only answer sum queries of the type $[0; r]$ using `sum(int r)`, however we can also answer other queries of the type $[l; r]$ by computing two sums $[0; r]$ and $[0; l-1]$ and subtract them.
+The normal Fenwick tree can only answer sum queries of the type $[0; r]$ using `sum(int r)`, however we can also answer other queries of the type $[l, r]$ by computing two sums $[0; r]$ and $[0; l-1]$ and subtract them.
 This is handled in the `sum(int l, int r)` method.
 
 Also this implementation supports two constructors.
@@ -162,7 +162,7 @@ struct FenwickTree {
 
 ### Finding minimum of $[0; r]$ in one-dimensional array
 
-It is obvious that there is no easy way of finding minimum of range $[l; r]$ using Fenwick tree, as Fenwick tree can only answer queries of type $[0; r]$.
+It is obvious that there is no easy way of finding minimum of range $[l, r]$ using Fenwick tree, as Fenwick tree can only answer queries of type $[0; r]$.
 Additionally, each time a value is `update`'d, the new value has to be smaller than the current value (because the $min$ function is not reversible).
 These, of course, are significant limitations.
 
@@ -317,13 +317,13 @@ This is just the ordinary Fenwick tree as explained above.
 Using simple tricks we can also do the reverse operations: increasing ranges and querying for single values.
 
 Let the Fenwick tree be initialized with zeros.
-Suppose that we want to increment the interval $[l; r]$ by $x$.
+Suppose that we want to increment the interval $[l, r]$ by $x$.
 We make two point update operations on Fenwick tree which are `add(l, x)` and `add(r+1, -x)`.
 
 If we want to get the value of $A[i]$, we just need to take the prefix sum using the ordinary range sum method.
 To see why this is true, we can just focus on the previous increment operation again.
 If $i < l$, then the two update operations have no effect on the query and we get the sum $0$.
-If $i \in [l; r]$, then we get the answer $x$ because of the first update operation.
+If $i \in [l, r]$, then we get the answer $x$ because of the first update operation.
 And if $i > r$, then the second update operation will cancel the effect of first one.
 
 The following implementation uses one-based indexing.
@@ -353,7 +353,7 @@ Note: of course it is also possible to increase a single point $A[i]$ with `rang
 
 To support both range updates and range queries we will use two BITs namely $B_1[]$ and $B_2[]$, initialized with zeros.
 
-Suppose that we want to increment the interval $[l; r]$ by the value $x$.
+Suppose that we want to increment the interval $[l, r]$ by the value $x$.
 Similarly as in the previous method, we perform two point updates on $B_1$: `add(B1, l, x)` and `add(B1, r+1, -x)`.
 And we also update $B_2$. The details will be explained later.
 
