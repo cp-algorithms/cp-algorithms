@@ -56,6 +56,60 @@ int phi(int n) {
     return result;
 }
 ```
+## Euler totient function from 1 to n in $O(nloglog{n})$ ## {#etf_1_to_n}
+
+It is based on the last property shown above and is implemented as shown:
+
+```cpp
+void phi_1_to_n (int n) {
+    int phi[n + 1];
+    phi[0] = 0;
+    phi[1] = 1;
+    for (int i = 2; i <= n; i++)
+        phi[i] = i;
+    
+    for (int i = 2; i <= n; i++) {
+        if( phi[i] == i)
+            for (int j = i; j <= n; j += i) {
+                phi[j] /= i;
+                phi[j] *= i-1;
+            }
+    }
+}
+```
+## Divisor sum property ## {#divsum}
+
+This property was established by Gauss :
+
+<center>$ \sum_{d|n} \phi{(d)} = n$</center>
+
+Here sum is over all positive divisors d of n.
+<br>
+Example :- 
+
+For n = 10, the divisors are 1, 2, 5, 10.
+<br>
+Hence, $\phi{(1)} + \phi{(2)} + \phi{(5)} + \phi{(10)} = 1 + 1 + 4 + 4 = 10 $
+
+
+## Finding phi from 1 to n using divisor sum property
+
+This implementation is based on the divisor sum property :
+
+```cpp
+void phi_1_to_n (int n) {
+    int phi[n + 1];
+    phi[0] = 0;
+    phi[1] = 1;
+    for (int i = 2; i <= n; i++)
+        phi[i] = i-1;
+    
+    for (int i = 2; i <= n; i++)
+        for (int j = 2 * i; j <= n; j += i)
+              phi[j] -= phi[i];
+
+}
+```
 
 ## Application in Euler's theorem ## {#application}
 
