@@ -159,7 +159,7 @@ const int INF = 1000000000;
 struct Edge {
     int w = INF, to = -1;
     bool operator<(Edge const& other) const {
-        return w < other.w;
+        return make_pair(w, to) < make_pair(other.w, other.to);
     }
 };
 
