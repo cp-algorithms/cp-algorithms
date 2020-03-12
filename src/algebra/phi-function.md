@@ -85,35 +85,31 @@ void phi_1_to_n(int n) {
 
 ## Divisor sum property ## {#divsum}
 
-This property was established by Gauss :
+This interesting property was established by Gauss:
 
-<center>$ \sum_{d|n} \phi{(d)} = n$</center>
+$$ \sum_{d|n} \phi{(d)} = n$$
 
-Here sum is over all positive divisors d of n.
-<br>
-Example :- 
+Here the sum is over all positive divisors $d$ of $n$.
 
-For n = 10, the divisors are 1, 2, 5, 10.
-<br>
-Hence, $\phi{(1)} + \phi{(2)} + \phi{(5)} + \phi{(10)} = 1 + 1 + 4 + 4 = 10 $
+For instance the divisors of 10 are 1, 2, 5 and 10.
+Hence $\phi{(1)} + \phi{(2)} + \phi{(5)} + \phi{(10)} = 1 + 1 + 4 + 4 = 10$.
 
+### Finding the totient from 1 to $n$ using the divisor sum property
 
-## Finding phi from 1 to n using divisor sum property
-
-This implementation is based on the divisor sum property :
+The divisor sum property also allows us to compute the totient of all numbers between 1 and $n$.
+This implementation is a little simpler than the previous implementation based on the Sieve of Eratosthenes, however also has a slightly worse complexity: $O(n \log n)$
 
 ```cpp
-void phi_1_to_n (int n) {
-    int phi[n + 1];
+void phi_1_to_n(int n) {
+    vector<int> phi(n + 1);
     phi[0] = 0;
     phi[1] = 1;
     for (int i = 2; i <= n; i++)
-        phi[i] = i-1;
+        phi[i] = i - 1;
     
     for (int i = 2; i <= n; i++)
         for (int j = 2 * i; j <= n; j += i)
               phi[j] -= phi[i];
-
 }
 ```
 
