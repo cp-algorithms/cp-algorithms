@@ -57,27 +57,32 @@ int phi(int n) {
 }
 ```
 
-## Euler totient function from 1 to n in $O(nloglog{n})$ ## {#etf_1_to_n}
+## Euler totient function from $1$ to $n$ in $O(n \log\log{n})$ ## {#etf_1_to_n}
 
-It is based on the last property shown above and is implemented as shown:
+If we need all all the totient of all numbers between $1$ and $n$, then factorizing all $n$ numbers is not efficient.
+We can use the same idea as the [Sieve of Eratosthenes](sieve-of-eratosthenes.html).
+It is still based on the property shown above, but instead of updating the temporary result for each prime factor for each number, we find all prime numbers and for each one update the temporary results of all numbers that are divisible by that prime number.
+
+Since this approach is basically identical to the Sieve of Eratosthenes, the complexity will also be the same: $O(n \log \log n)$
 
 ```cpp
-void phi_1_to_n (int n) {
-    int phi[n + 1];
+void phi_1_to_n(int n) {
+    vector<int> phi(n + 1);
     phi[0] = 0;
     phi[1] = 1;
     for (int i = 2; i <= n; i++)
         phi[i] = i;
     
     for (int i = 2; i <= n; i++) {
-        if( phi[i] == i)
-            for (int j = i; j <= n; j += i) {
-                phi[j] /= i;
-                phi[j] *= i-1;
-            }
+        if (phi[i] == i) {
+            for (int j = i; j <= n; j += i)
+                phi[j] -= phi[j] / i;
+        }
     }
 }
 ```
+
+
 ## Divisor sum property ## {#divsum}
 
 This property was established by Gauss :
