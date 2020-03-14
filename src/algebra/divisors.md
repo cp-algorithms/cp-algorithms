@@ -53,7 +53,7 @@ We can use the same argument of the previous section.
 
 ## Multiplicative functions
 
-A multiplicative functions is a function $f(x)$ which satisfies
+A multiplicative function is a function $f(x)$ which satisfies
 $$f(a \cdot b) = f(a) \cdot f(b)$$
 if $a$ and $b$ are coprime.
 
