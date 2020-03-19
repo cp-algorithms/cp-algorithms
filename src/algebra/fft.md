@@ -531,7 +531,7 @@ We have to compute the products of $a$ with every cyclic shift of $b$.
 We generate two new arrays of size $2n$:
 We reverse $a$ and append $n$ zeros to it.
 And we just append $b$ to itself.
-When we multiply these two arrays as polynomials, and look at the coefficient $c[n-1],~ c[n],~ c[2n-2]$ of the product $c$, we get:
+When we multiply these two arrays as polynomials, and look at the coefficients $c[n-1],~ c[n],~ \dots,~ c[2n-2]$ of the product $c$, we get:
 $$c[k] = \sum_{i+j=k} a[i] b[j]$$
 And since all the elements $a[i] = 0$ for $i \ge n$:
 $$c[k] = \sum_{i=0}^{n-1} a[i] b[k-i]$$
