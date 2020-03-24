@@ -176,6 +176,54 @@ On the other hand, there will be a division for each pair of a block and prime n
 Hence, it is necessary to keep balance when selecting the constant $S$.
 We achieved the best results for block sizes between $10^4$ and $10^5$.
 
+## Segmented Sieve
+
+Sometimes we need to find all prime numbers in a segment $[L,R]$ where $R$ can be very large (e.g. $1e12$).
+
+To use this method, we must be able to create an array of $R - L + 1$ elements.
+
+The idea is very similar to the original sieve. We pre-generate all prime numbers upto $\sqrt R$, and use those primes to mark all composite numbers in segment $[L, R]$.
+
+Implementation:
+```cpp
+vector<bool> segmentedSieve(long long L, long long R) {
+  // generate all primes up to sqrt(R)
+  long long lim = sqrt(R);
+  vector<bool> mark(lim + 1, false);
+  vector<long long> primes;
+  for (long long i = 2; i <= lim; ++i) {
+    if (!mark[i]) {
+      primes.emplace_back(i);
+      for (long long j = i * i; j <= lim; j += i) mark[j] = true;
+    }
+  }
+
+  vector<bool> isPrime(R - L + 1, true); // x is prime if isPrime[x - L] == true
+  for (long long i: primes)
+    for (long long j = max(i * i, (L + i - 1) / i * i); j <= R; j += i)
+      isPrime[j - L] = false;
+  if (L == 1) isPrime[0] = false; // special case when L = 1
+  return isPrime;
+}
+```
+Time complexity of this approach is $O((R - L + 1) \log \log (R - L + 1) + \sqrt R \log \log \sqrt R)$.
+
+It's possible that we don't pre-generate all prime numbers:
+
+```cpp
+vector<bool> segmentedSieveNoPreGen(long long L, long long R) {
+  vector<bool> isPrime(R - L + 1, true); // x is prime if isPrime[x - L] == true
+  long long lim = sqrt(R);
+  for (long long i = 2; i <= lim; ++i)
+    for (long long j = max(i * i, (L + i - 1) / i * i); j <= R; j += i)
+      isPrime[j - L] = false;
+  if (L == 1) isPrime[0] = false; // special case when L = 1
+  return isPrime;
+}
+```
+
+Obviously, the complexity is worse, which is $O((R - L + 1) \log (R - L + 1) + \sqrt R)$. However, it still runs very fast in practice (less than $0.1$ seconds).
+
 ## Linear time modification
 
 We can modify the algorithm in a such a way, that it only has linear time complexity.
