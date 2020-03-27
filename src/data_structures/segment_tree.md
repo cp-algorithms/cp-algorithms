@@ -1048,6 +1048,52 @@ Here we need a Segment Tree that represents the histogram of the elements in the
 It is easy to see that such a Segment Tree is just the difference between the Segment Tree rooted at $root_{r+1}$ and the Segment Tree rooted at $root_l$, i.e. every vertex in the $[l \dots r]$ Segment Tree can be computed with the vertex of the $root_{r+1}$ tree minus the vertex of the $root_l$ tree.
 In the implementation of the $\text{get_kth}$ function this can be handled by passing two vertex pointer and computing the count/sum of the current segment as difference of the two counts/sums of the vertices.
 
+### Implicit segment tree
+
+Previously, we considered cases when we have the ability to build the original segment tree. But what to do if the original size is filled with some default element, but its size does not allow you to completely build up to it in advance: for example, 10^9(we are still satisfied with all the asymptotics: \log_2 10^9 \approx 30)?
+ 
+We can solve this problem by not explicitly creating a segment tree. Initially, we will create only the root, and we will create the other vertexes only when we need them. 
+In this case, we will use the implementation on pointers(before going to the vertex children, check whether they are created, and if not, create them).
+
+```cpp
+struct Vertex {
+    int left, right;
+    int sum = 0;
+    Vertex *leftSon = 0, *rightSon = 0;
+    
+    Vertex (int lb, int rb) {
+      left = lb;
+      right = rb;
+    }
+    
+    void extend() {
+        if (!leftSon && left + 1 < right) {
+            int t = (left + right) / 2;
+            leftSon = new Vertex(left, t);
+            rightSon = new Vertex(t, right);
+        }
+    }
+    
+    void add(int k, int x) {
+        extend();
+        sum += x;
+        if (leftSon) {
+            if (k < leftSon->right) leftSon->add(k, x);
+            else rightSon->add(k, x);
+        }
+    }
+
+    int get_sum(int lq, int rq) {
+        if (lq <= left && right <= rq)
+            return sum;
+        if (max(left, lq) >= min(right, rq))
+            return 0;
+        extend();
+        return leftSon->get_sum(lq, rq) + rightSon->get_sum(lq, rq);
+    }
+};
+```
+
 ## Practice Problems
 
 * [SPOJ - KQUERY](http://www.spoj.com/problems/KQUERY/) [Persistent segment tree / Merge sort tree]
