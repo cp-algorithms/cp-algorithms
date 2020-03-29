@@ -206,7 +206,7 @@ vector<bool> segmentedSieve(long long L, long long R) {
     return isPrime;
 }
 ```
-Time complexity of this approach is $O((R - L + 1) \log \log (R - L + 1) + \sqrt R \log \log \sqrt R)$.
+Time complexity of this approach is $O((R - L + 1) \log \log (R) + \sqrt R \log \log \sqrt R)$.
 
 It's also possible that we don't pre-generate all prime numbers:
 
@@ -223,7 +223,7 @@ vector<bool> segmentedSieveNoPreGen(long long L, long long R) {
 }
 ```
 
-Obviously, the complexity is worse, which is $O((R - L + 1) \log (R - L + 1) + \sqrt R)$. However, it still runs very fast in practice (less than $0.1$ seconds).
+Obviously, the complexity is worse, which is $O((R - L + 1) \log (R) + \sqrt R)$. However, it still runs very fast in practice.
 
 ## Linear time modification
 
