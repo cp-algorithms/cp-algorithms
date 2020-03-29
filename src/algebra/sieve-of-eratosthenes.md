@@ -121,7 +121,7 @@ In this case we will trade saving memory ($8$ times less) with significant slowi
 
 After all, it's worth mentioning there exist data structures that automatically do a bit-level compression, such as `vector<bool>` and `bitset<>` in C++.
 
-### Block sieving
+### Segmented Sieve
 
 It follows from the optimization "sieving till root" that there is no need to keep the whole array `is_prime[1...n]` at all time.
 For performing of sieving it's enough to keep just prime numbers until root of $n$, i.e. `prime[1... sqrt(n)]`, split the complete range into blocks, and sieve each block separately.
@@ -176,15 +176,13 @@ On the other hand, there will be a division for each pair of a block and prime n
 Hence, it is necessary to keep balance when selecting the constant $S$.
 We achieved the best results for block sizes between $10^4$ and $10^5$.
 
-## Segmented Sieve
+## Find primes in range
 
-Sometimes we need to find all prime numbers in a segment $[L,R]$ where $R$ can be very large (e.g. $1e12$).
+Sometimes we need to find all prime numbers in a range $[L,R]$ of small size (e.g. $R - L + 1 \approx 1e7$), where $R$ can be very large (e.g. $1e12$).
 
-To use this method, we must be able to create an array of $R - L + 1$ elements.
+To solve such a problem, we can use the idea of the Segmented sieve.
+We pre-generate all prime numbers up to $\sqrt R$, and use those primes to mark all composite numbers in the segment $[L, R]$.
 
-The idea is very similar to the original sieve. We pre-generate all prime numbers upto $\sqrt R$, and use those primes to mark all composite numbers in segment $[L, R]$.
-
-Implementation:
 ```cpp
 vector<bool> segmentedSieve(long long L, long long R) {
   // generate all primes up to sqrt(R)
@@ -208,7 +206,7 @@ vector<bool> segmentedSieve(long long L, long long R) {
 ```
 Time complexity of this approach is $O((R - L + 1) \log \log (R - L + 1) + \sqrt R \log \log \sqrt R)$.
 
-It's possible that we don't pre-generate all prime numbers:
+It's also possible that we don't pre-generate all prime numbers:
 
 ```cpp
 vector<bool> segmentedSieveNoPreGen(long long L, long long R) {
