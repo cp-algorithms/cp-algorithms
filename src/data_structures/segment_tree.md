@@ -1057,7 +1057,7 @@ In this case, we will use the implementation on pointers(before going to the ver
 Each query has still only the complexity $O(\log n)$, which is small enough for most use-cases (e.g. $\log_2 10^9 \approx 30$).
 
 In this implementation we have two queries, adding a value to a position (initially all values  are $0$), and computing the sum of all values in a range.
-`Vertex(0, ln)` will be the root vertex of the implicit tree.
+`Vertex(0, n)` will be the root vertex of the implicit tree.
 
 ```cpp
 struct Vertex {
