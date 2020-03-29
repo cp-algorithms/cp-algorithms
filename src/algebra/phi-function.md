@@ -60,7 +60,7 @@ int phi(int n) {
 ## Euler totient function from $1$ to $n$ in $O(n \log\log{n})$ ## {#etf_1_to_n}
 
 If we need all all the totient of all numbers between $1$ and $n$, then factorizing all $n$ numbers is not efficient.
-We can use the same idea as the [Sieve of Eratosthenes](sieve-of-eratosthenes.html).
+We can use the same idea as the [Sieve of Eratosthenes](algebra/sieve-of-eratosthenes.html).
 It is still based on the property shown above, but instead of updating the temporary result for each prime factor for each number, we find all prime numbers and for each one update the temporary results of all numbers that are divisible by that prime number.
 
 Since this approach is basically identical to the Sieve of Eratosthenes, the complexity will also be the same: $O(n \log \log n)$
