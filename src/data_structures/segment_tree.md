@@ -1050,36 +1050,42 @@ In the implementation of the $\text{get_kth}$ function this can be handled by pa
 
 ### Implicit segment tree
 
-Previously, we considered cases when we have the ability to build the original segment tree. But what to do if the original size is filled with some default element, but its size does not allow you to completely build up to it in advance: for example, 10^9(we are still satisfied with all the asymptotics: \log_2 10^9 \approx 30)?
+Previously, we considered cases when we have the ability to build the original segment tree. But what to do if the original size is filled with some default element, but its size does not allow you to completely build up to it in advance?
  
 We can solve this problem by not explicitly creating a segment tree. Initially, we will create only the root, and we will create the other vertexes only when we need them. 
 In this case, we will use the implementation on pointers(before going to the vertex children, check whether they are created, and if not, create them).
+Each query has still only the complexity $O(\log n)$, which is small enough for most use-cases (e.g. $\log_2 10^9 \approx 30$).
+
+In this implementation we have two queries, adding a value to a position (initially all values  are $0$), and computing the sum of all values in a range.
+`Vertex(0, ln)` will be the root vertex of the implicit tree.
 
 ```cpp
 struct Vertex {
     int left, right;
     int sum = 0;
-    Vertex *leftSon = 0, *rightSon = 0;
-    
-    Vertex (int lb, int rb) {
-      left = lb;
-      right = rb;
+    Vertex *left_child = nullptr, *right_child = nullptr;
+
+    Vertex(int lb, int rb) {
+        left = lb;
+        right = rb;
     }
-    
+
     void extend() {
-        if (!leftSon && left + 1 < right) {
+        if (!left_child && left + 1 < right) {
             int t = (left + right) / 2;
-            leftSon = new Vertex(left, t);
-            rightSon = new Vertex(t, right);
+            left_child = new Vertex(left, t);
+            right_child = new Vertex(t, right);
         }
     }
-    
+
     void add(int k, int x) {
         extend();
         sum += x;
-        if (leftSon) {
-            if (k < leftSon->right) leftSon->add(k, x);
-            else rightSon->add(k, x);
+        if (left_child) {
+            if (k < left_child->right)
+                left_child->add(k, x);
+            else
+                right_child->add(k, x);
         }
     }
 
@@ -1089,10 +1095,12 @@ struct Vertex {
         if (max(left, lq) >= min(right, rq))
             return 0;
         extend();
-        return leftSon->get_sum(lq, rq) + rightSon->get_sum(lq, rq);
+        return left_child->get_sum(lq, rq) + right_child->get_sum(lq, rq);
     }
 };
 ```
+
+Obviously this idea can be extended in lots of different ways. E.g. by adding support for range updates via lazy propagation.
 
 ## Practice Problems
 
