@@ -164,7 +164,7 @@ int go(int v, char ch) {
 } 
 ```
 
-It is easy to see, that due to the memorization of the found suffix links and transitions the total time for finding all suffix links and transitions will be linear.
+It is easy to see, that due to the memoization of the found suffix links and transitions the total time for finding all suffix links and transitions will be linear.
 
 ## Applications
 
