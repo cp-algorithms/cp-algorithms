@@ -23,9 +23,9 @@ $$
 $$
 is equivalent to the system of equations
 $$\begin{align}
-    x &\equiv a \pmod{p_1} \\\\
+    x &\equiv a_1 \pmod{p_1} \\\\
       &\ldots \\\\
-    x &\equiv a \pmod{p_k}
+    x &\equiv a_k \pmod{p_k}
 \end{align}$$
 (As above, assume that $p = p_1 p_2 \cdots p_k$ and $p_i$ are pairwise relatively prime).
 
