@@ -127,7 +127,7 @@ As already said we will use a single data structure.
 This data structure will store information about the range.
 At the beginning this range will be empty.
 When we want to answer the next query (in the special order), we simply extend or reduce the range, by adding/removing elements on both sides of the current range, until we transformed it into the query range.
-This way, we only need to add or remove a single element once at a time, which should be pretty easy operations in out data structure.
+This way, we only need to add or remove a single element once at a time, which should be pretty easy operations in our data structure.
 
 Since we change the order of answering the queries, this is only possible when we are allowed to answer the queries in offline mode.
 
