@@ -88,7 +88,7 @@ int max_flow(int s, int t)
 
     int max_flow = 0;
     for (int i = 0; i < n; i++)
-        max_flow += flow[0][i];
+        max_flow += flow[i][t];
     return max_flow;
 }
 ```
