@@ -32,7 +32,8 @@ Strictly speaking, the method described below should be called "Gauss-Jordan", o
 
 The algorithm is a `sequential elimination` of the variables in each equation, until each equation will have only one remaining variable. If $n = m$, you can think of it as transforming the matrix $A$ to identity matrix, and solve the equation in this obvious case, where solution is unique and is equal to coefficient $b_i$.
 
-Gaussian elimination is based on two simple transformation:
+Gaussian elimination is based on two simple transformation:   
+
 * It is possible to exchange two equations
 * Any equation can be replaced by a linear combination of that row (with non-zero coefficient), and some other rows (with arbitrary coefficients).
 
@@ -56,7 +57,7 @@ In many implementations, when $a_{ii} \neq 0$, you can see people still swap the
 
 In the case where $m = n$ and the system is non-degenerate (i.e. it has non-zero determinant, and has unique solution), the algorithm described above will transform $A$ into identity matrix.
 
-Now we consider the `general case`, where $n$ and $m$ are not necessarily equal, and the system can be non-degenerate. In these cases, the pivoting element in $i$th step may not be found. This means that on the $i$th column, starting from the current line, all contains zeros. In this case, either there is no possible value of variable $x_i$ (meaning the SLAE has no solution), or $x_i$ is an independent variable and can take arbitrary value. When implementing Gauss-Jordan, you should continue the work for subsequent variables and just skip the $i$th column (this is equivalent to removing the $i$th column of the matrix).
+Now we consider the `general case`, where $n$ and $m$ are not necessarily equal, and the system can be degenerate. In these cases, the pivoting element in $i$th step may not be found. This means that on the $i$th column, starting from the current line, all contains zeros. In this case, either there is no possible value of variable $x_i$ (meaning the SLAE has no solution), or $x_i$ is an independent variable and can take arbitrary value. When implementing Gauss-Jordan, you should continue the work for subsequent variables and just skip the $i$th column (this is equivalent to removing the $i$th column of the matrix).
 
 So, some of the variables in the process can be found to be independent. When the number of variables, $m$ is greater than the number of equations, $n$, then at least $m - n$ independent variables will be found.
 
