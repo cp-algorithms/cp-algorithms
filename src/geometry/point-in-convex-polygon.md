@@ -14,7 +14,7 @@ Consider the triangle $p_0, p_i, p_{i + 1}$ such that $p$ belongs to this triang
 
 There is one special case. $p$ lies on the segment $(p_0, p_n)$. This case we will check separately.
 Otherwise all points $p_j$ with $j \le i$ are counter-clockwise from $p$ with respect to $p_0$, and all other points are not counter-clockwise from $p$.
-This means that me can apply binary to search for the point $p_i$, such that $p_i$ is not counter-clockwise from $p$ with respect to $p_0$, and $i$ is maximum among all such points.
+This means that we can apply binary search for the point $p_i$, such that $p_i$ is not counter-clockwise from $p$ with respect to $p_0$, and $i$ is maximum among all such points.
 And afterwards we check if the points is actually in the determined triangle.
 
 The sign of $(a - c) \times (b - c)$ will tell us, if the point $a$ is clockwise or counter-clockwise from the point $b$ with respect to the point $c$.
