@@ -119,7 +119,8 @@ Task: count how many sequences of length $n$ exist consisting only of numbers $0
 
 Again let us turn to the inverse problem, i.e. we calculate the number of sequences which do **not** contain **at least one** of the numbers.
 
-Let's denote by $A_i (i = 0,1,2)$ the set of sequences in which **at least** $i$ of the numbers do **not** occur. The formula of inclusion-exclusion on the number of "bad" sequences will be:
+Let's denote by $A_i (i = 0,1,2)$ the set of sequences in which the digit $i$ does **not** occur.
+The formula of inclusion-exclusion on the number of "bad" sequences will be:
 
 $$ |A_0 \cup A_1 \cup A_2| = |A_0| + |A_1| + |A_2| - |A_0 \cap A_1| - |A_0 \cap A_2| - |A_1 \cap A_2| + |A_0 \cap A_1 \cap A_2| $$
 
