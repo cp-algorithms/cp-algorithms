@@ -69,6 +69,37 @@ The recursive function above returns the GCD and the values of coefficients to `
 
 This implementation of extended Euclidean algorithm produces correct results for negative integers as well.
 
+## Iterative version
+
+It's also possible to write the Extended Euclidean algorithm in an iterative way.
+Because we it avoids recursion, the code will run a little bit faster than the recursive one.
+
+```cpp extended_gcd_iter
+int gcd(int a, int b, int &x, int &y) {
+    x = 1, y = 0;
+    int x1 = 0, y1 = 1, a1 = a, b1 = b;
+    while (b1) {
+        int q = a1 / b1;
+        tie(x, x1) = make_tuple(x1, x - q * x1);
+        tie(y, y1) = make_tuple(y1, y - q * y1);
+        tie(a1, b1) = make_tuple(b1, a1 - q * b1);
+    }
+    return a1;
+}
+```
+
+If you look at the variable `a1` and `b1`, they taking exactly the same values as in the iterative version of the normal [Euclidean algorithm](algebra/euclid-algorithm.html).
+
+To see why the algorithm work, you can check that the following invariants will at all time (before the while loop, and at the end of each iteration): $x \cdot a + y \cdot b = a_1$ and $x_1 \cdot a + y_1 \cdot b = b_1$.
+It's trivial to see, that these two equations are satisfied at the beginning.
+And you can check that the update in the loop iteration will still keep those equalities valid.
+
+At the end we know that $a_1$ contains the GCD, so $x \cdot a + y \cdot b = g$.
+Which means that we have found the required coefficients.
+
+You can even optimize the code more, and remove the variable $a_1$ and $b_1$ from the code, and just reuse $a$ and $b$.
+However if you do so, you loose the ability to argue about the invariants.
+
 ## Practice Problems
 
 * [10104 - Euclid Problem](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1045)
