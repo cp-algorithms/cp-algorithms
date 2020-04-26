@@ -20,7 +20,7 @@ A degenerate case that need to be taken care of is when $a = b = 0$. It is easy 
 
 ## Finding a solution
 
-To find one solution of the Diophantine equation with 2 unknowns, you can use the extended Euclidean algorithm. First, assume that $a$ and $b$ are non-negative. When we apply extended Euclidean algorithm for $a$ and $b$, we can find their greatest common divisor $g$ and 2 numbers $x_g$ and $y_g$ such that:
+To find one solution of the Diophantine equation with 2 unknowns, you can use the [Extended Euclidean algorithm](algebra/extended-euclid-algorithm.html). First, assume that $a$ and $b$ are non-negative. When we apply Extended Euclidean algorithm for $a$ and $b$, we can find their greatest common divisor $g$ and 2 numbers $x_g$ and $y_g$ such that:
 
 $$a x_g + b y_g = g$$
 
@@ -40,15 +40,16 @@ The above idea still works when $a$ or $b$ or both of them are negative. We only
 Finally, we can implement this idea as follows (note that this code does not consider the case $a = b = 0$):
 
 ```cpp linear_diophantine_any
-int gcd(int a, int b, int &x, int &y) {
-    if (a == 0) {
-        x = 0; y = 1;
-        return b;
+int gcd(int a, int b, int& x, int& y) {
+    if (b == 0) {
+        x = 1;
+        y = 0;
+        return a;
     }
     int x1, y1;
-    int d = gcd(b%a, a, x1, y1);
-    x = y1 - (b / a) * x1;
-    y = x1;
+    int d = gcd(b, a % b, x1, y1);
+    x = y1;
+    y = x1 - y1 * (a / b);
     return d;
 }
 

@@ -7,9 +7,12 @@ $$a \cdot x + b \cdot y = \gcd(a, b)$$
 
 It's important to note, that we can always find such a representation, for instance $\gcd(55, 80) = 5$ therefore we can represent $5$ as a linear combination with the terms $55$ and $80$: $55 \cdot 3 + 80 \cdot (-2) = 5$ 
 
-In the following article we will shorten $\gcd(a, b)$ with $g$.
+A more general form of that problem is discussed in the article about [Linear Diophantine Equations](algebra/linear-diophantine-equation.html).
+It will build upon this algorithm.
 
 ## Algorithm
+
+We will denote the GCD of $a$ and $b$ with $g$ in this section.
 
 The changes to the original algorithm are very simple.
 If we recall the algorithm, we can see that the algorithm ends with $b = 0$ and $a = g$.
