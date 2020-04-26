@@ -112,18 +112,18 @@ It's based on a few properties:
 Using only these properties, and some fast bitwise functions from GCC, we can implement a fast version:
 
 ```cpp
-int gcd(int u, int v) {
-    if (!u || !v)
-        return u | v;
-    unsigned shift = __builtin_ctz(u | v);
-    u >>= __builtin_ctz(u);
+int gcd(int a, int b) {
+    if (!a || !b)
+        return a | b;
+    unsigned shift = __builtin_ctz(a | b);
+    a >>= __builtin_ctz(a);
     do {
-        v >>= __builtin_ctz(v);
-        if (u > v)
-            swap(u, v);
-        v -= u;
-    } while (v);
-    return u << shift;
+        b >>= __builtin_ctz(b);
+        if (a > b)
+            swap(a, b);
+        b -= a;
+    } while (b);
+    return a << shift;
 }
 ```
 
