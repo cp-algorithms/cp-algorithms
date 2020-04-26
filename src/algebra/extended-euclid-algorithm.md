@@ -5,57 +5,64 @@ While the [Euclidean algorithm](../algebra/euclid-algorithm.html) calculates onl
 
 $$a \cdot x + b \cdot y = \gcd(a, b)$$
 
+It's important to note, that we can always find such a representation, for instance $\gcd(55, 80) = 5$ therefore we can represent $5$ as a linear combination with the terms $55$ and $80$: $55 \cdot 3 + 80 \cdot (-2) = 5$ 
+
+In the following article we will shorten $\gcd(a, b)$ with $g$.
+
 ## Algorithm
 
-The changes to the original algorithm are very simple. All we need to do is to figure out how the coefficients $x$ and $y$ change during the transition from $(a, b)$ to $(b \bmod a, a)$.
+The changes to the original algorithm are very simple.
+If we recall the algorithm, we can see that the algorithm ends with $b = 0$ and $a = g$.
+For these parameters we can easily find coefficients, namely $g \cdot 1 + 0 \cdot 0 = g$.
 
-Let us assume we found the coefficients $(x_1, y_1)$ for $(b \bmod a, a)$:
+Starting from these coefficients $(x, y) = (1, 0)$, we can go backwards up the recursive calls.
+All we need to do is to figure out how the coefficients $x$ and $y$ change during the transition from $(a, b)$ to $(b, a \bmod b)$.
 
-$$ (b \bmod a) \cdot x_1 + a \cdot y_1 = g$$
+Let us assume we found the coefficients $(x_1, y_1)$ for $(b, a \bmod b)$:
+
+$$b \cdot x_1 + (a \bmod b) \cdot y_1 = g$$
 
 and we want to find the pair $(x, y)$ for $(a, b)$:
 
-$$ a \cdot x + b \cdot y = g$$
+$$ a \cdot x + b \cdot x = g$$
 
-We can represent $b \bmod a$ is:
+We can represent $a \bmod b$ as:
 
-$$ b \bmod a = b - \left\lfloor \frac{b}{a} \right\rfloor \cdot a$$
+$$ a \bmod b = a - \left\lfloor \frac{a}{b} \right\rfloor \cdot b$$
 
 Substituting this expression in the coefficient equation of $(x_1, y_1)$ gives:
 
-$$ g = (b \bmod a) \cdot x_1 + a \cdot y_1 = \left( b - \left\lfloor \frac{b}{a} \right\rfloor \cdot a \right) \cdot x_1 + a \cdot y_1$$
+$$ g = b \cdot x_1 + (a \bmod b) \cdot y_1 = b \cdot x_1 + \left(a - \left\lfloor \frac{a}{b} \right\rfloor \cdot b \right) \cdot y_1$$
 
 and after rearranging the terms:
 
-$$g = b \cdot x_1 + a \cdot \left( y_1 - \left\lfloor \frac{b}{a} \right\rfloor \cdot x_1 \right)$$
+$$g = a \cdot y_1 + b \cdot \left( x_1 - y_1 \cdot \left\lfloor \frac{a}{b} \right\rfloor \right)$$
 
 We found the values of $x$ and $y$:
 
 $$\begin{cases}
-x = y_1 - \left\lfloor \frac{b}{a} \right\rfloor \cdot x_1 \cr
-y = x_1
+x = y_1 \\\\
+y = x_1 - y_1 \cdot \left\lfloor \frac{a}{b} \right\rfloor
 \end{cases} $$
 
 ## Implementation
 
-```cpp
-int gcd(int a, int b, int & x, int & y) {
-    if (a == 0) {
-        x = 0;
-        y = 1;
-        return b;
+```cpp extended_gcd
+int gcd(int a, int b, int& x, int& y) {
+    if (b == 0) {
+        x = 1;
+        y = 0;
+        return a;
     }
     int x1, y1;
-    int d = gcd(b % a, a, x1, y1);
-    x = y1 - (b / a) * x1;
-    y = x1;
+    int d = gcd(b, a % b, x1, y1);
+    x = y1;
+    y = x1 - y1 * (a / b);
     return d;
 }
 ```
 
 The recursive function above returns the GCD and the values of coefficients to `x` and `y` (which are passed by reference to the function).
-
-Base case for the recursion is $a = 0$, when the GCD equals $b$, so the coefficients $x$ and $y$ are $0$ and $1$, respectively. In all other cases the above formulas are used to re-calculate the coefficients on each iteration.
 
 This implementation of extended Euclidean algorithm produces correct results for negative integers as well.
 
