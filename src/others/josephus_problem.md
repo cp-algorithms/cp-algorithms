@@ -54,7 +54,7 @@ Simple **recursive implementation** (in 1-indexing)
 
 ```cpp
 int josephus(int n, int k) {
-    return n > 1 ? (joseph(n-1, k) + k - 1) % n + 1 : 1;
+    return n > 1 ? (josephus(n-1, k) + k - 1) % n + 1 : 1;
 }
 ```
 
