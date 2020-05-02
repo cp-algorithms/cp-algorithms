@@ -27,7 +27,7 @@ $$b \cdot x_1 + (a \bmod b) \cdot y_1 = g$$
 
 and we want to find the pair $(x, y)$ for $(a, b)$:
 
-$$ a \cdot x + b \cdot x = g$$
+$$ a \cdot x + b \cdot y = g$$
 
 We can represent $a \bmod b$ as:
 
