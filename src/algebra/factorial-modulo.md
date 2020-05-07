@@ -18,7 +18,7 @@ n!_{\%p} &=& 1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot \under
 & &\quad \cdot \ldots \cdot (p-1) \cdot \underbrace{1}\_{p^2} \cdot 1 \cdot 2 \cdot \ldots \cdot (n \bmod p) \pmod{p}
 \end{eqnarray}$$
 
-It can be clearly seen that factorial is divided into several blocks of same length expect for the last one.
+It can be clearly seen that factorial is divided into several blocks of same length except for the last one.
 
 $$\begin{eqnarray}
 n!_{\%p}&=& \underbrace{1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot 1}\_{1\text{st}} \cdot \underbrace{1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot 2}\_{2\text{nd}} \cdot \ldots \\\\
