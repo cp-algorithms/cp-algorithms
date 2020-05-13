@@ -228,3 +228,4 @@ Thus we can find such a path  using depth first search (and if the search looks 
 - [UVA #11171 - SMS](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2112)
 - [UVA #10679 - I Love Strings!!](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1620)
 - [Codeforces - Frequency of String](http://codeforces.com/problemset/problem/963/D)
+- [CodeChef - TWOSTRS](https://www.codechef.com/MAY20A/problems/TWOSTRS)
