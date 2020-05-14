@@ -632,18 +632,34 @@ Using this structure it is only necessary to store two indices, the index of the
 So this approach only uses $O(n)$ memory, and still can answer the queries using a single binary search. 
 
 But for our application we do not need the full power of fractional cascading.
-In our Segment Tree a vertex contains the list of all elements, that occur in either the left or the right child vertex. 
-Therefore to avoid binary search in the lists of the children it is enough to store the position of each element in the left and the right child list.
+In our Segment Tree a vertex will contain the sorted list of all elements that occur in either the left or the right subtrees (like in the Merge Sort Tree). 
+Additionally to this sorted list, we store two positions for each element.
+For an element $y$ we store the smallest index $i$, such that the $i$th element in the sorted list of the left child is greater or equal to $y$.
+And we store the smallest index $j$, such that the $j$th element in the sorted list of the right child is greater or equal to $y$.
+These values can be computed in parallel to the merging step when we build the tree.
 
-Thus instead of storing the usual list of all numbers, we store three values for each element: 
-the value of the element itself, the position of it in the list of the left child, and the position of it in the list of the right child.
-This allows us to determine the position in the list of the left and the right child in $O(1)$, instead of finding it with binary search.
+How does this speed up the queries?
 
-It is simple to apply this technique to a problem, that doesn't require modification queries.
-In this problem the two positions are just numbers and can easily be computed by counting when merging two sorted sequences.
+Remember, in the normal solution we did a binary search in ever node.
+But with this modification, we can avoid all except one.
 
-This type of Segment Tree is nowadays known as "Wavelet Tree".
-And a few more advanced usages have been explored (e.g. support for modification queries of the form "swap neighboring elements").
+To answer a query, we simply to a binary search in the root node.
+This gives as the smallest element $y \ge x$ in the complete array, but it also gives us two positions.
+The index of the smallest element greater or equal $x$ in the left subtree, and the index of the smallest element $y$ in the right subtree. Notice that $\ge y$ is the same as $\ge x$, since our array doesn't contain any elements between $x$ and $y$.
+In the normal Merge Sort Tree solution we would compute these indices via binary search, but with the help of the precomputed values we can just look them up in $O(1)$.
+And we can repeat that until we visited all nodes that cover our query interval.
+
+To summarize, as usual we touch $O(\log n)$ nodes during a query. In the root node we do a binary search, and in all other nodes we only do constant work.
+This means the complexity for answering a query is $O(\log n)$.
+
+But notice, that this uses three times more memory than a normal Merge Sort Tree, which already uses a lot of memory ($O(n \log n)$).
+
+It is straightforward to apply this technique to a problem, that doesn't require any modification queries.
+The two positions are just integers and can easily be computed by counting when merging the two sorted sequences.
+
+It it still possible to also allow modification queries, but that complicates the entire code.
+Instead of integers, you need to store the sorted array as `multiset`, and instead of indices you need to store iterators.
+And you need to work very carefully, so that you increment or decrement the correct iterators during a modification query.
 
 #### Other possible variations
 
