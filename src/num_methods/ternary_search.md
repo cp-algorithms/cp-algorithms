@@ -89,3 +89,4 @@ Instead of the criterion `r - l > eps`, we can select a constant number of itera
 * [SPOJ - Building Construction](http://www.spoj.com/problems/KOPC12A/)
 * [Codeforces - Devu and his Brother](https://codeforces.com/problemset/problem/439/D)
 * [Codechef - Is This JEE ](https://www.codechef.com/problems/ICM2003)
+* [Codeforces - Restorer Distance](https://codeforces.com/contest/1355/problem/E)
