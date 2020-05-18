@@ -30,7 +30,7 @@ for (int st = 0; st < n; ++st) {
             q.pop();
             for (int u : adj[v]) {
                 if (side[u] == -1) {
-                    side[u] = side[v] ^ 1
+                    side[u] = side[v] ^ 1;
                     q.push(u);
                 } else {
                     is_bipartite &= side[u] != side[v];
