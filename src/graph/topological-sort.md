@@ -57,9 +57,9 @@ The main function of the solution is `topological_sort`, which initializes DFS v
 
 ## Practice Problems
 
-- [SPOJ TOPOSORT "Topological Sorting" [difficulty: easy]](http://www.spoj.com/problems/TOPOSORT/)
-- [UVA #10305 "Ordering Tasks" [difficulty: easy]](https://z5h64q92x9.net/proxy_u/ru-en.en/uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1246)
-- [UVA #124 "Following Orders" [difficulty: easy]](https://z5h64q92x9.net/proxy_u/ru-en.en/uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=60)
-- [UVA #200 "Rare Order" [difficulty: easy]](https://z5h64q92x9.net/proxy_u/ru-en.en/uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=136)
-- [Codeforces 510C "Fox and Names" [difficulty: easy]](http://codeforces.com/problemset/problem/510/C)
-
+- [SPOJ TOPOSORT - Topological Sorting [difficulty: easy]](http://www.spoj.com/problems/TOPOSORT/)
+- [UVA 10305 - Ordering Tasks [difficulty: easy]](https://onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1246)
+- [UVA 124 - Following Orders [difficulty: easy]](https://onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=60)
+- [UVA 200 - Rare Order [difficulty: easy]](https://onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=136)
+- [Codeforces 510C - Fox and Names [difficulty: easy]](http://codeforces.com/problemset/problem/510/C)
+- [SPOJ RPLA - Answer the boss!](https://www.spoj.com/problems/RPLA/)
