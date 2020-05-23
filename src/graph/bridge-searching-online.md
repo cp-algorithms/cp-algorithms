@@ -188,16 +188,20 @@ void merge_path (int a, int b) {
         if (a != -1) {
             a = find_2ecc(a);
             path_a.push_back(a);
-            if (last_visit[a] == lca_iteration)
+            if (last_visit[a] == lca_iteration){
                 lca = a;
+                break;
+                }
             last_visit[a] = lca_iteration;
             a = par[a];
         }
         if (b != -1) {
-            path_b.push_back(b);
             b = find_2ecc(b);
-            if (last_visit[b] == lca_iteration)
+            path_b.push_back(b);
+            if (last_visit[b] == lca_iteration){
                 lca = b;
+                break;
+                }
             last_visit[b] = lca_iteration;
             b = par[b];
         }
