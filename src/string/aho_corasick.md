@@ -85,7 +85,7 @@ However for an automaton we cannot restrict the possible transitions for each st
 If we try to perform a transition using a letter, and there is no corresponding edge in the trie, then we nevertheless must go into some state.
 
 More strictly, let us be in a state $p$ corresponding to the string $t$, and we want to transition to a different state with the character $c$.
-If the is an edge labeled with this letter $c$, then we can simply go over this edge, and get the vertex corresponding to $t + c$.
+If there is an edge labeled with this letter $c$, then we can simply go over this edge, and get the vertex corresponding to $t + c$.
 If there is no such edge, then we must find the state corresponding to the longest proper suffix of the string $t$ (the longest available in the trie), and try to perform a transition via $c$ from there.
 
 For example let the trie be constructed by the strings $ab$ and $bc$, and we are currently at the vertex corresponding to $ab$, which is a $\text{leaf}$.
