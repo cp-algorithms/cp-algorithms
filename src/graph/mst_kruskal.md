@@ -91,7 +91,7 @@ If $e$ generates a cycle, then we don't add it, and so the proposal is still tru
 
 In case that $T$ already contains $e$, the proposal is also true after this step.
 
-In case $T$ doesn't contain the edge $e$, then $T + e$ will contains a cycle $C$.
+In case $T$ doesn't contain the edge $e$, then $T + e$ will contain a cycle $C$.
 This cycle will contain at least one edge $f$, that is not in $F$.
 The set of edges $T - f + e$ will also be a spanning tree. 
 Notice that the weight of $f$ cannot be smaller than the weight of $e$, because otherwise Kruskal would have chosen $f$ earlier.
