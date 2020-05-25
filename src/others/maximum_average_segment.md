@@ -147,7 +147,7 @@ This problem lies in finding such a segment $a[l, r]$, such that the average val
 $$ \max_{l \le r} \frac{ 1 }{ r-l+1 } \sum_{i=l}^{r} a[i].$$
 
 Of course, if no other conditions are imposed on the required segment $[l, r]$, then the solution will always be a segment of length $1$ at the maximum element of the array. 
-he problem only makes sense, if there are additional restrictions (for example, the length of the desired segment is bounded below).
+The problem only makes sense, if there are additional restrictions (for example, the length of the desired segment is bounded below).
 
 In this case, we apply the **standard technique** when working with the problems of the average value: we will select the desired maximum average value by **binary search**.
 
