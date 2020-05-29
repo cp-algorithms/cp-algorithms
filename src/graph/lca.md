@@ -73,6 +73,7 @@ struct LCA {
         first[node] = euler.size();
         euler.push_back(node);
         for (auto to : adj[node]) {
+            euler.push_back(node);
             if (!visited[to]) {
                 dfs(adj, to, h + 1);
                 euler.push_back(node);
