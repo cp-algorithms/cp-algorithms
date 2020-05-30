@@ -141,3 +141,6 @@ We now choose two pairs of identical remainders with the smallest indices in the
 * [SPOJ - Fibonacci Sum](http://www.spoj.com/problems/FIBOSUM/)
 * [HackerRank - Is Fibo](https://www.hackerrank.com/contests/codesprint5/challenges/is-fibo/problem)
 * [Project Euler - Even Fibonacci numbers](https://www.hackerrank.com/contests/projecteuler/challenges/euler002/problem)
+* [DMOJ - Fibonacci Sequence](https://dmoj.ca/problem/fibonacci)
+* [DMOJ - Fibonacci Sequence (Harder)](https://dmoj.ca/problem/fibonacci2)
+
