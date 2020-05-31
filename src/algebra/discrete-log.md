@@ -198,3 +198,7 @@ The time complexity remains same as before since the initial reduction to coprim
 * [Spoj - Power Modulo Inverted](http://www.spoj.com/problems/MOD/)
 * [Topcoder - SplittingFoxes3](https://community.topcoder.com/stat?c=problem_statement&pm=14386&rd=16801)
 * [CodeChef - Inverse of a Function](https://www.codechef.com/problems/INVXOR/)
+
+## References
+* [Wikipedia - Baby-step giant-step](https://en.wikipedia.org/wiki/Baby-step_giant-step)
+* [Answer by Zander on Mathematics StackExchange](https://math.stackexchange.com/a/133054)
