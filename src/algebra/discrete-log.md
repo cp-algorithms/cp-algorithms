@@ -78,7 +78,7 @@ int powmod(int a, int b, int m) {
 }
 
 int solve(int a, int b, int m) {
-	int n = (int) sqrt (m + .0) + 1;
+	int n = sqrt(m) + 1;
 	map<int, int> vals;
 	for (int p = 1; p <= n; ++p)
 		vals[powmod(a, p * n, m)] = p;
@@ -116,7 +116,7 @@ It is possible to get all answers and take the minimum, or reduce the first foun
 // Returns minimum x for which a ^ x % m = b % m, a and m are coprime.
 int solve(int a, int b, int m) {
 	a %= m, b %= m;
-	int n = (int) sqrt (m + .0) + 1;
+	int n = sqrt(m) + 1;
 
 	int an = 1;
 	for (int i = 0; i < n; ++i)
@@ -170,7 +170,7 @@ int solve(int a, int b, int m) {
 		k = (k * 1ll * a / g) % m;
 	}
 
-	int n = (int) sqrt (m + .0) + 1;
+	int n = sqrt(m) + 1;
 	int an = 1;
 	for (int i = 0; i < n; ++i)
 		an = (an * 1ll * a) % m;
