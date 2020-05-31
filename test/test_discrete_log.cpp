@@ -1,6 +1,6 @@
 #include <cassert>
 #include <cmath>
-#include <map>
+#include <unordered_map>
 #include <vector>
 using namespace std;
 
@@ -57,6 +57,34 @@ const vector<TestData> test_data_ex = {
     {171096626, 2, M2, -1},
 };
 
+int naive(int a, int b, int m) {
+    a %= m, b %= m;
+    int cur = 1 % m;
+    for (int x = 0; x < m; x++) {
+        if (cur == b) {
+            return x;
+        }
+        cur = cur * 1ll * a % m;
+    }
+    return -1;
+}
+
+vector<TestData> generateSmallCases(bool coprime_only) {
+    vector<TestData> test_data;
+    for (int a = 0; a < 50; a++) {
+        for (int b = 0; b < 50; b++) {
+            for (int m = 1; m < 50; m++) {
+                if (coprime_only && gcd(a, m) > 1) {
+                    continue;
+                }
+                int expected_x = naive(a, b, m);
+                test_data.push_back({a, b, m, expected_x});
+            }
+        }
+    }
+    return test_data;
+}
+
 void test_data_ok() {
     for (const TestData &td : test_data) {
         assert(gcd(td.a, td.m) == 1);
@@ -99,6 +127,10 @@ void test_discrete_log() {
         int actual_x = DiscreteLog::solve(td.a, td.b, td.m);
         verify(td, actual_x);
     }
+    for (const TestData &td : generateSmallCases(true)) {
+        int actual_x = DiscreteLog::solve(td.a, td.b, td.m);
+        verify(td, actual_x);
+    }
 }
 
 void test_discrete_log_extended() {
@@ -110,10 +142,15 @@ void test_discrete_log_extended() {
         int actual_x = DiscreteLogExtended::solve(td.a, td.b, td.m);
         verify(td, actual_x);
     }
+    for (const TestData &td : generateSmallCases(false)) {
+        int actual_x = DiscreteLogExtended::solve(td.a, td.b, td.m);
+        verify(td, actual_x);
+    }
+
 }
 
 int main() {
-    // Check test data integrity when adding tests. Takes a while.
+    // Check hardcoded test data integrity. Takes a while.
     // test_data_ok();
 
     test_discrete_log();

@@ -122,7 +122,7 @@ int solve(int a, int b, int m) {
 	for (int i = 0; i < n; ++i)
 		an = (an * 1ll * a) % m;
 
-	map<int, int> vals;
+	unordered_map<int, int> vals;
 	for (int q = 0, cur = b; q <= n; ++q) {
 		vals[cur] = q;
 		cur = (cur * 1ll * a) % m;
@@ -139,7 +139,7 @@ int solve(int a, int b, int m) {
 }
 ```
 
-The complexity is $O(\sqrt{m} \log m)$ or $O(\sqrt{m})$ depending on whether `map` or `unordered_map` is used.
+The complexity is $O(\sqrt{m})$ using `unordered_map`.
 
 ## When $a$ and $m$ are not coprime
 Let $g = \gcd(a, m)$, and $g > 1$. Clearly $a^x \bmod m$ for every $x \ge 1$ will be divisible by $g$.
@@ -166,8 +166,8 @@ int solve(int a, int b, int m) {
 			return add;
 		if (b % g)
 			return -1;
-		k = (k * 1ll * a / g) % m;
 		b /= g, m /= g, ++add;
+		k = (k * 1ll * a / g) % m;
 	}
 
 	int n = (int) sqrt (m + .0) + 1;
@@ -175,7 +175,7 @@ int solve(int a, int b, int m) {
 	for (int i = 0; i < n; ++i)
 		an = (an * 1ll * a) % m;
 
-	map<int, int> vals;
+	unordered_map<int, int> vals;
 	for (int q = 0, cur = b; q <= n; ++q) {
 		vals[cur] = q;
 		cur = (cur * 1ll * a) % m;
