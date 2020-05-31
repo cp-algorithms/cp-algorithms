@@ -77,10 +77,6 @@ void test_data_ok() {
             no_answer_limit = td.expected_x;
         }
 
-        if (no_answer_limit > 1e9) {
-            // Infeasible to verify.
-            continue;
-        }
         int b = td.b % td.m, cur = 1;
         for (int i = 0; i < no_answer_limit; ++i) {
             assert(cur != b);
@@ -117,7 +113,7 @@ void test_discrete_log_extended() {
 }
 
 int main() {
-    // Check test data integrity when adding tests.
+    // Check test data integrity when adding tests. Takes a while.
     // test_data_ok();
 
     test_discrete_log();
