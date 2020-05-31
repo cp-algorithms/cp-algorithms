@@ -69,7 +69,7 @@ int naive(int a, int b, int m) {
     return -1;
 }
 
-vector<TestData> generateSmallCases(bool coprime_only) {
+vector<TestData> generate_small_cases(bool coprime_only) {
     vector<TestData> test_data;
     for (int a = 0; a < 50; a++) {
         for (int b = 0; b < 50; b++) {
@@ -127,7 +127,7 @@ void test_discrete_log() {
         int actual_x = DiscreteLog::solve(td.a, td.b, td.m);
         verify(td, actual_x);
     }
-    for (const TestData &td : generateSmallCases(true)) {
+    for (const TestData &td : generate_small_cases(true)) {
         int actual_x = DiscreteLog::solve(td.a, td.b, td.m);
         verify(td, actual_x);
     }
@@ -142,7 +142,7 @@ void test_discrete_log_extended() {
         int actual_x = DiscreteLogExtended::solve(td.a, td.b, td.m);
         verify(td, actual_x);
     }
-    for (const TestData &td : generateSmallCases(false)) {
+    for (const TestData &td : generate_small_cases(false)) {
         int actual_x = DiscreteLogExtended::solve(td.a, td.b, td.m);
         verify(td, actual_x);
     }
