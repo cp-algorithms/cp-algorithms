@@ -192,7 +192,7 @@ int solve(int a, int b, int m) {
 }
 ```
 
-The time complexity remains same as before since the initial reduction to coprime $a$ and $m$ is done in $O(\log m)$.
+The time complexity remains $O(\sqrt{m})$ as before since the initial reduction to coprime $a$ and $m$ is done in $O(\log^2 m)$.
 
 ## Practice Problems
 * [Spoj - Power Modulo Inverted](http://www.spoj.com/problems/MOD/)
