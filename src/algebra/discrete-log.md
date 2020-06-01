@@ -2,11 +2,15 @@
 
 # Discrete Logarithm
 
-The discrete logarithm is an integer $x$ solving the equation
+The discrete logarithm is an integer $x$ satisfying the equation
 
-$$a^x \equiv b \pmod m,$$
+$$a^x \equiv b \pmod m$$
 
-In this article, we describe the **Baby step - giant step** algorithm, proposed by Shanks in 1971, which has the time complexity $O(\sqrt{m})$. This is a **meet-in-the-middle** algorithm because it uses the technique of separating tasks in half.
+for given integers $a$, $b$ and $m$.
+
+The discrete logarithm does not always exist, for instance there is no solution to $2^x \equiv 3 \pmod 7$. There is no simple condition to determine if the discrete logarithm exists.
+
+In this article, we describe the **Baby-step giant-step** algorithm, an algorithm to compute the discrete logarithm proposed by Shanks in 1971, which has the time complexity $O(\sqrt{m})$. This is a **meet-in-the-middle** algorithm because it uses the technique of separating tasks in half.
 
 ## Algorithm
 
@@ -78,6 +82,7 @@ int powmod(int a, int b, int m) {
 }
 
 int solve(int a, int b, int m) {
+	a %= m, b %= m;
 	int n = sqrt(m) + 1;
 	map<int, int> vals;
 	for (int p = 1; p <= n; ++p)
@@ -155,7 +160,8 @@ a^x & \equiv b \mod m \\\
 \end{aligned}
 $$
 
-The baby step giant step algorithm can be easily extended to solve $ka^{x} \equiv b \mod m$ for $x$.
+The baby-step giant-step algorithm can be easily extended to solve $ka^{x} \equiv b \pmod m$ for $x$.
+
 ```cpp discrete_log_extended
 // Returns minimum x for which a ^ x % m = b % m.
 int solve(int a, int b, int m) {
