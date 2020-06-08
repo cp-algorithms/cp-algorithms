@@ -182,4 +182,5 @@ Since all operations with the queue are performed in constant time on average, t
 
 ## Practice Problems
 * [Queries with Fixed Length](https://www.hackerrank.com/challenges/queries-with-fixed-length/problem)
+* [Binary Land](https://www.codechef.com/MAY20A/problems/BINLAND)
 
