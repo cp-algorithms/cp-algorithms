@@ -180,3 +180,6 @@ The solutions should be clear:
 we add the first $M$ element of the array, find and output its minimum, then add the next element to the queue and remove the first element of the array, find and output its minimum, etc. 
 Since all operations with the queue are performed in constant time on average, the complexity of the whole algorithm will be $O(n)$.
 
+## Practice Problems
+* [Queries with Fixed Length](https://www.hackerrank.com/challenges/queries-with-fixed-length/problem)
+
