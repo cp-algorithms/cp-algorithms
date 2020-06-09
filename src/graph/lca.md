@@ -132,7 +132,7 @@ struct LCA {
  * [Codeforces - Drivers Dissatisfaction](http://codeforces.com/contest/733/problem/F)
  * [UVA 11354 - Bond](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2339)
  * [SPOJ - Querry on a tree II](http://www.spoj.com/problems/QTREE2/)
- * [Codeforces - Best Edge Wiegth](http://codeforces.com/contest/828/problem/F)
+ * [Codeforces - Best Edge Weight](http://codeforces.com/contest/828/problem/F)
  * [Codeforces - Misha, Grisha and Underground](http://codeforces.com/contest/832/problem/D)
  * [SPOJ - Nlogonian Tickets](http://www.spoj.com/problems/NTICKETS/)
  * [Codeforces - Rowena Rawenclaws Diadem](http://codeforces.com/contest/855/problem/D)
