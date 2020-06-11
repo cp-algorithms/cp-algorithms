@@ -45,7 +45,7 @@ Using [Sqrt-Decomposition](./data_structures/sqrt_decomposition.html), it is pos
 
 Using a [Segment Tree](./data_structures/segment_tree.html) you can answer each query in $O(\log N)$ with preprocessing in $O(N)$ time.
 
-Since there will almost never be any update to the stored values, an [RMQ](./data_structures/sparse-table.html) might be a better choice, allowing $O(1)$ query answering with $O(N\log N)$ build time.
+Since there will almost never be any update to the stored values, a [Sparse Table](./data_structures/sparse-table.html) might be a better choice, allowing $O(1)$ query answering with $O(N\log N)$ build time.
 
 ### Implementation
 
