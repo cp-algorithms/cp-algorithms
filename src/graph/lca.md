@@ -43,7 +43,9 @@ Thus, **the LCA problem is reduced to the RMQ problem** (finding the minimum in 
 
 Using [Sqrt-Decomposition](./data_structures/sqrt_decomposition.html), it is possible to obtain a solution answering each query in $O(\sqrt{N})$ with preprocessing in $O(N)$ time.
 
-Using a [Segment Tree](./data_structures/segment_tree.html) you can answer each query in $O(\log N)$ with preprocessing in $O(N\log N)$ time.
+Using a [Segment Tree](./data_structures/segment_tree.html) you can answer each query in $O(\log N)$ with preprocessing in $O(N)$ time.
+
+Since there will almost never be any update to the stored values, an [RMQ](./data_structures/sparse-table.html) might be a better choice, allowing $O(1)$ query answering with $O(N\log N)$ build time.
 
 ### Implementation
 
