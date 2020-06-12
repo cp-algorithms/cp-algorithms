@@ -59,7 +59,7 @@ Therefore the natural definition of the function $f$ is $f(x, y) = x + y$.
 We can construct the data structure with:
 
 ```cpp sparsetable_sum_generation
-long long st[MAXN][K];
+long long st[MAXN][K + 1];
 
 for (int i = 0; i < N; i++)
     st[i][0] = array[i];
@@ -108,7 +108,7 @@ for (int i = 2; i <= MAXN; i++)
 Afterwards we need to precompute the Sparse Table structure. This time we define $f$ with $f(x, y) = \min(x, y)$.
 
 ```cpp sparse_table_minimum_generation
-int st[MAXN][K];
+int st[MAXN][K + 1];
 
 for (int i = 0; i < N; i++)
     st[i][0] = array[i];
