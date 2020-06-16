@@ -4,7 +4,7 @@
 
 Hashing algorithms are helpful in solving a lot of problems.
 
-The problem we want to solve is the problem, we want to compare strings efficiently.
+We want to solve the problem of comparing strings efficiently.
 The brute force way of doing so is just to compare the letters of both strings, which has a time complexity of $O(\min(n_1, n_2))$ if $n_1$ and $n_2$ are the sizes of the two strings.
 We want to do better.
 The idea behind strings is the following: we convert each string into an integer and compare those instead of the strings.
