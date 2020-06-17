@@ -8,7 +8,7 @@ Informally, the problem is formulated as follows: given a map of cities connecte
 
 The algorithm described here is based on [depth first search](./graph/depth-first-search.html) and has $O(N+M)$ complexity, where $N$ is the number of vertices and $M$ is the number of edges in the graph.
 
-Note that there also is also the article [Finding Bridges Online](./graph/bridge-searching-online.html) - unlike the offline algorithm described here, the online algorithm is able to maintain the list of all bridges in a changing graph (assuming that the only type of change is addition of new edges).
+Note that there is also the article [Finding Bridges Online](./graph/bridge-searching-online.html) - unlike the offline algorithm described here, the online algorithm is able to maintain the list of all bridges in a changing graph (assuming that the only type of change is addition of new edges).
 
 ## Algorithm
 
