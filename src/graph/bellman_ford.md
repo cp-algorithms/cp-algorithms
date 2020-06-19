@@ -140,7 +140,7 @@ In other words, for any vertex $a$ let us denote the $k$ number of edges in the 
 
 <b>Proof</b>: Consider an arbitrary vertex $a$ to which there is a path from the starting vertex $v$, and consider a shortest path to it $(p_0=v, p_1, \ldots, p_k=a)$. Before the first phase, the shortest path to the vertex $p_0 = v$ was found correctly. During the first phase, the edge $(p_0,p_1)$ has been checked by the algorithm, and therefore, the distance to the vertex $p_1$ was correctly calculated after the first phase. Repeating this statement $k$ times, we see that after $k_{th}$ phase the distance to the vertex $p_k = a$ gets calculated correctly, which we wanted to prove.
 
-The last thing to notice is that any shortest path cannot have more than $n - 1$ edges. Therefore, the algorithm sufficiently goes up to the $(n-1)_{th}$ phase. After that no relaxation are guaranteed to improve the distance to some vertex.
+The last thing to notice is that any shortest path cannot have more than $n - 1$ edges. Therefore, the algorithm sufficiently goes up to the $(n-1)_{th}$ phase. After that, it is guaranteed that no relaxation will improve the distance to some vertex.
 
 ## The case of a negative cycle
 
