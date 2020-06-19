@@ -56,8 +56,10 @@ The height of the Segment Tree is $O(\log n)$, because when going down from the 
 
 Before constructing the segment tree, we need to decide:
 
-1. the *value* that gets stored at each node of the segment tree. For example, in a sum segment tree, a node would store the sum of the elements in its range `[l, r]`.
-2. the *merge* operation that merges two siblings in a segment tree. For example, in a sum segment tree, two nodes `a[l1..r1]` and `b[l2..r2]` would be merged as `c[l1..r2]` = value of a + value of b.
+1. the *value* that gets stored at each node of the segment tree.
+   For example, in a sum segment tree, a node would store the sum of the elements in its range $[l, r]$.
+2. the *merge* operation that merges two siblings in a segment tree.
+   For example, in a sum segment tree, the two nodes corresponding to the ranges $a[l_1 \dots r_1]$ and $a[l_2 \dots r_2]$ would be merged into a node corresponding to the range $a[l_1 \dots r_2]$ by adding the values of the two nodes.
 
 Note that a vertex is a "leaf vertex", if its corresponding segment covers only one value in the original array. It is present at the lowermost level of a segment tree. Its value would be equal to the (corresponding) element $a[i]$. 
 
