@@ -107,7 +107,7 @@ int find_set(int v) {
 ```
 
 The simple implementation does what was intended:
-first find the representative of the set (root vertex), and the in the process of stack unwinding the visited nodes are attached directly to the representative.
+first find the representative of the set (root vertex), and then in the process of stack unwinding the visited nodes are attached directly to the representative.
 
 This simple modification of the operation already achieves the time complexity $O(\log n)$ per call on average (here without proof).
 There is a second modification, that will make it even faster.
