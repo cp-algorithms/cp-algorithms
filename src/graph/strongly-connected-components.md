@@ -36,7 +36,10 @@ Proved theorem is **the base of algorithm** for finding strongly connected compo
 
 If we sort all vertices $v \in V$ by decreasing of their exit moment $tout[v]$ then the first vertex $u$ is going to be a vertex from "root" strongly connected component, i.e. a vertex that no edges in a condensation graph come into. Now we want to run such search from this vertex $u$ so that it will visit all vertices in this strongly connected component, but not others; doing so, we can gradually select all strongly connected components: let's remove all vertices corresponding to the first selected component, and then let's find a vertex with the largest value of $tout$, and run this search from it, and so on.
 
-Let's consider transposed graph $G^T$, i.e. graph received from $G$ by changing direction of each edge on the opposite. Obviously this graph will have the same strongly connected components, as an initial graph. More over, condensation graph $G^{SCC}$. It means that there will be no edges from our "root" component to other components.
+Let's consider transposed graph $G^T$, i.e. graph received from $G$ by reversing the direction of each edge.
+Obviously, this graph will have the same strongly connected components as the initial graph.
+Moreover, the condensation graph $G^{SCC}$ will also get transposed.
+It means that there will be no edges from our "root" component to other components.
 
 Thus, for visiting the whole "root" strongly connected component, containing vertex $v$, is enough to run search from vertex $v$ in graph $G^T$. This search will visit all vertices of this strongly connected component and only them. As was mentioned before, we can remove these vertices from the graph then, and find the next vertex with a maximal value of $tout[v]$ and run search in transposed graph from it, and so on.
 
