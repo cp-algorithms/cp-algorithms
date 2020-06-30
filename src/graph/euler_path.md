@@ -82,7 +82,7 @@ int main() {
     }
 
     int first = 0;
-    while (!deg[first])
+    while (first < n && !deg[first])
         ++first;
 
     int v1 = -1, v2 = -1;
