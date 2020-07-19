@@ -142,10 +142,10 @@ void splice(QuadEdge* a, QuadEdge* b) {
 void delete_edge(QuadEdge* e) {
     splice(e, e->oprev());
     splice(e->rev(), e->rev()->oprev());
-    delete e->rot;
     delete e->rev()->rot;
-    delete e;
     delete e->rev();
+    delete e->rot;
+    delete e;
 }
 
 QuadEdge* connect(QuadEdge* a, QuadEdge* b) {

@@ -119,7 +119,8 @@ Task: count how many sequences of length $n$ exist consisting only of numbers $0
 
 Again let us turn to the inverse problem, i.e. we calculate the number of sequences which do **not** contain **at least one** of the numbers.
 
-Let's denote by $A_i (i = 0,1,2)$ the set of sequences in which **at least** $i$ of the numbers do **not** occur. The formula of inclusion-exclusion on the number of "bad" sequences will be:
+Let's denote by $A_i (i = 0,1,2)$ the set of sequences in which the digit $i$ does **not** occur.
+The formula of inclusion-exclusion on the number of "bad" sequences will be:
 
 $$ |A_0 \cup A_1 \cup A_2| = |A_0| + |A_1| + |A_2| - |A_0 \cap A_1| - |A_0 \cap A_2| - |A_1 \cap A_2| + |A_0 \cap A_1 \cap A_2| $$
 
@@ -438,3 +439,5 @@ A list of tasks that can be solved using the principle of inclusions-exclusions:
 * [SPOJ - Almost Prime Numbers Again](http://www.spoj.com/problems/KPRIMESB/)
 * [SPOJ - Find number of Pair of Friends](http://www.spoj.com/problems/IITKWPCH/)
 * [SPOJ - Balanced Cow Subsets](http://www.spoj.com/problems/SUBSET/)
+* [SPOJ - EASY MATH [difficulty: medium]](http://www.spoj.com/problems/EASYMATH/)
+* [SPOJ - MOMOS - FEASTOFPIGS [difficulty: easy]](https://www.spoj.com/problems/MOMOS/)

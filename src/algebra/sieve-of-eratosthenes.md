@@ -121,7 +121,7 @@ In this case we will trade saving memory ($8$ times less) with significant slowi
 
 After all, it's worth mentioning there exist data structures that automatically do a bit-level compression, such as `vector<bool>` and `bitset<>` in C++.
 
-### Block sieving
+### Segmented Sieve
 
 It follows from the optimization "sieving till root" that there is no need to keep the whole array `is_prime[1...n]` at all time.
 For performing of sieving it's enough to keep just prime numbers until root of $n$, i.e. `prime[1... sqrt(n)]`, split the complete range into blocks, and sieve each block separately.
@@ -176,6 +176,55 @@ On the other hand, there will be a division for each pair of a block and prime n
 Hence, it is necessary to keep balance when selecting the constant $S$.
 We achieved the best results for block sizes between $10^4$ and $10^5$.
 
+## Find primes in range
+
+Sometimes we need to find all prime numbers in a range $[L,R]$ of small size (e.g. $R - L + 1 \approx 1e7$), where $R$ can be very large (e.g. $1e12$).
+
+To solve such a problem, we can use the idea of the Segmented sieve.
+We pre-generate all prime numbers up to $\sqrt R$, and use those primes to mark all composite numbers in the segment $[L, R]$.
+
+```cpp
+vector<bool> segmentedSieve(long long L, long long R) {
+    // generate all primes up to sqrt(R)
+    long long lim = sqrt(R);
+    vector<bool> mark(lim + 1, false);
+    vector<long long> primes;
+    for (long long i = 2; i <= lim; ++i) {
+        if (!mark[i]) {
+            primes.emplace_back(i);
+            for (long long j = i * i; j <= lim; j += i)
+                mark[j] = true;
+        }
+    }
+
+    vector<bool> isPrime(R - L + 1, true);
+    for (long long i : primes)
+        for (long long j = max(i * i, (L + i - 1) / i * i); j <= R; j += i)
+            isPrime[j - L] = false;
+    if (L == 1)
+        isPrime[0] = false;
+    return isPrime;
+}
+```
+Time complexity of this approach is $O((R - L + 1) \log \log (R) + \sqrt R \log \log \sqrt R)$.
+
+It's also possible that we don't pre-generate all prime numbers:
+
+```cpp
+vector<bool> segmentedSieveNoPreGen(long long L, long long R) {
+    vector<bool> isPrime(R - L + 1, true);
+    long long lim = sqrt(R);
+    for (long long i = 2; i <= lim; ++i)
+        for (long long j = max(i * i, (L + i - 1) / i * i); j <= R; j += i)
+            isPrime[j - L] = false;
+    if (L == 1)
+        isPrime[0] = false;
+    return isPrime;
+}
+```
+
+Obviously, the complexity is worse, which is $O((R - L + 1) \log (R) + \sqrt R)$. However, it still runs very fast in practice.
+
 ## Linear time modification
 
 We can modify the algorithm in a such a way, that it only has linear time complexity.
@@ -196,6 +245,7 @@ However, this algorithm also has its own weaknesses.
 * [SPOJ - N-Factorful](http://www.spoj.com/problems/NFACTOR/)
 * [SPOJ - Binary Sequence of Prime Numbers](http://www.spoj.com/problems/BSPRIME/)
 * [UVA 11353 - A Different Kind of Sorting](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2338)
+* [SPOJ - Prime Generator](http://www.spoj.com/problems/PRIME1/)
 * [SPOJ - Printing some primes (hard)](http://www.spoj.com/problems/PRIMES2/)
 * [Codeforces - Nodbach Problem](https://codeforces.com/problemset/problem/17/A)
 * [Codefoces - Colliders](https://codeforces.com/problemset/problem/154/B)

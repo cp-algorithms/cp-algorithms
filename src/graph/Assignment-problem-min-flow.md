@@ -20,7 +20,7 @@ The complexity of this solution of the assignment problem depends on the algorit
 ## Implementation
 
 The implementation given here is long, it can probably be significantly reduced.
-It uses the [D´Esopo-Pape algorithm](./graph/desopo_pape.html) for finding shortest paths.
+It uses the [SPFA algorithm](./graph/bellman_ford.html) for finding shortest paths.
 
 ```cpp
 const int INF = 1000 * 1000 * 1000;
@@ -34,23 +34,22 @@ vector<int> assignment(vector<vector<int>> a) {
     while (true) {
         vector<int> dist(m, INF);
         vector<int> p(m);
-        vector<int> type(m, 2);
-        deque<int> q;
+        vector<bool> inq(m, false);
+        queue<int> q;
         dist[s] = 0;
         p[s] = -1;
-        type[s] = 1;
         q.push_back(s);
         while (!q.empty()) {
             int v = q.front();
-            q.pop_front();
-            type[v] = 0;
+            q.pop();
+            inq[v] = false;
             if (v == s) {
                 for (int i = 0; i < n; ++i) {
                     if (f[s][i] == 0) {
                         dist[i] = 0;
                         p[i] = s;
-                        type[i] = 1;
-                        q.push_back(i);
+                        inq[i] = true;
+                        q.push(i);
                     }
                 }
             } else {
@@ -59,11 +58,10 @@ vector<int> assignment(vector<vector<int>> a) {
                         if (f[v][j] < 1 && dist[j] > dist[v] + a[v][j - n]) {
                             dist[j] = dist[v] + a[v][j - n];
                             p[j] = v;
-                            if (type[j] == 0)
-                                q.push_front(j);
-                            else if (type[j] == 2)
-                                q.push_back(j);
-                            type[j] = 1;
+                            if (!inq[j]) {
+                                q.push(j);
+                                inq[j] = true;
+                            }
                         }
                     }
                 } else {
@@ -71,11 +69,10 @@ vector<int> assignment(vector<vector<int>> a) {
                         if (f[v][j] < 0 && dist[j] > dist[v] - a[j][v - n]) {
                             dist[j] = dist[v] - a[j][v - n];
                             p[j] = v;
-                            if (type[j] == 0)
-                                q.push_front(j);
-                            else if (type[j] == 2)
-                                q.push_back(j);
-                            type[j] = 1;
+                            if (!inq[j]) {
+                                q.push(j);
+                                inq[j] = true;
+                            }
                         }
                     }
                 }

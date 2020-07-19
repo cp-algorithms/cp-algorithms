@@ -715,3 +715,4 @@ After that, the answer to the problem will be the string $longest(v)$ for the st
 
   - [SPOJ - SUBLEX](https://www.spoj.com/problems/SUBLEX/)
   - [Codeforces - Cyclical Quest](https://codeforces.com/problemset/problem/235/C)
+  - [Codeforces - String](https://codeforces.com/contest/128/problem/B)

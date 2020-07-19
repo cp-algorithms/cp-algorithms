@@ -1,5 +1,5 @@
 #include <vector>
-#include <deque>
+#include <queue>
 #include <algorithm>
 #include <cassert>
 #include <iostream>

@@ -4,7 +4,7 @@
 
 ## Enumerating all submasks of a given mask
 
-Given a bitmask $m$, you want to efficiently iterate through all its submasks, that is, masks $s$ in which only bits that were included in mask $m$ are set.
+Given a bitmask $m$, you want to efficiently iterate through all of its submasks, that is, masks $s$ in which only bits that were included in mask $m$ are set.
 
 Consider the implementation of this algorithm, based on tricks with bit operations:
 
@@ -16,7 +16,7 @@ while (s > 0) {
 }
 ```
 
-or, using a more compact for statement:
+or, using a more compact `for` statement:
 
 ```cpp
 for (int s=m; s; s=(s-1)&m)
@@ -34,7 +34,7 @@ for (int s=m; ; s=(s-1)&m) {
 
 Let us examine why the above code visits all submasks of $m$, without repetition, and in descending order.
 
-Suppose we have a current bitmask $s$, and we want to move on to the next bitmask. By subtracting from the mask $s$ one unit, we will remove the rightmost set bit and all bits to the right of it will become 1. Then we remove all the "extra" one bits that are not included in the mask $m$ and therefore can't be a part of a submask. We do this removal by using the bitwise operation `(s-1) & m`. As a result, we "cut" mask s-1 to determine the highest value that it can take, that is, the next submask after $s$ in descending order.
+Suppose we have a current bitmask $s$, and we want to move on to the next bitmask. By subtracting from the mask $s$ one unit, we will remove the rightmost set bit and all bits to the right of it will become 1. Then we remove all the "extra" one bits that are not included in the mask $m$ and therefore can't be a part of a submask. We do this removal by using the bitwise operation `(s-1) & m`. As a result, we "cut" mask $s-1$ to determine the highest value that it can take, that is, the next submask after $s$ in descending order.
 
 Thus, this algorithm generates all submasks of this mask in descending order, performing only two operations per iteration.
 
@@ -52,9 +52,15 @@ for (int m=0; m<(1<<n); ++m)
 
 Let's prove that the inner loop will execute a total of $O(3^n)$ iterations.
 
-**First proof**: Consider the i-th bit. There are exactly three options for it: it is not included in the mask $m$ (and therefore not included in submask $s$); it is included in $m$, but not included in $s$, or it's included in both $m$ and $s$. As there are a total of $n$ bits, there will be $3^n$ different combinations.
+**First proof**: Consider the $i$-th bit. There are exactly three options for it:
 
-**Second proof**: Note that if mask $m$ has $k$ enabled bits, then it will have $2^k$ submasks. As we have a total of $\binom{n}{k}$ masks with $k$ enabled bits (see "binomial coefficients"), then the total number of combinations for all masks will be:
+1. it is not included in the mask $m$ (and therefore not included in submask $s$),
+2. it is included in $m$, but not included in $s$, or
+3. it is included in both $m$ and $s$.
+
+As there are a total of $n$ bits, there will be $3^n$ different combinations.
+
+**Second proof**: Note that if mask $m$ has $k$ enabled bits, then it will have $2^k$ submasks. As we have a total of $\binom{n}{k}$ masks with $k$ enabled bits (see [binomial coefficients](./combinatorics/binomial-coefficients.html)), then the total number of combinations for all masks will be:
 
 $$\sum_{k=0}^n \binom{n}{k} \cdot 2^k$$
 

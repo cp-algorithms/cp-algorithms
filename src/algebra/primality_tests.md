@@ -143,7 +143,7 @@ bool check_composite(u64 n, u64 a, u64 d, int s) {
     return true;
 };
 
-bool MillerRabin(u64 n) { // returns true if n is probably prime, else returns false.
+bool MillerRabin(u64 n, int iter=5) { // returns true if n is probably prime, else returns false.
     if (n < 4)
         return n == 2 || n == 3;
 

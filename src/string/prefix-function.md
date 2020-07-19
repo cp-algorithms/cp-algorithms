@@ -225,7 +225,7 @@ As a result, it turns out that all blocks are equal, therefore we can compress t
 
 Of course we still need to show that this is actually the optimum.
 Indeed, if there was a smaller compression than $k$, than the prefix function at the end would be greater than $n - k$.
-Therefore $k$ has is really the answer.
+Therefore $k$ is really the answer.
 
 Now let us assume that $n$ is not divisible by $k$.
 We show that this implies that the length of the answer is $n$.
@@ -245,7 +245,7 @@ $$s_4 = s_3, ~ s_5 = s_4, ~ s_6 = s_5, ~ s_7 = s_6 ~ \Rightarrow ~ s_0 = s_1 = s
 
 Let's return to the concatenation to the two strings through a separator, i.e. for the strings $s$ and $t$ we compute the prefix function for the string $s + \\# + t$.
 Obviously, since $\\#$ is a separator, the value of the prefix function will never exceed $|s|$.
-If follows, that it is sufficient to only store the string $s + \\#$ and the values of the prefix function for it, and we can compute the prefix function for all subsequent character on the fly:
+It follows, that it is sufficient to only store the string $s + \\#$ and the values of the prefix function for it, and we can compute the prefix function for all subsequent character on the fly:
 $$\underbrace{s_0 ~ s_1 ~ \dots ~ s_{n-1} ~ \\#}\_{\text{need to store}} ~ \underbrace{t_0 ~ t_1 ~ \dots ~ t_{m-1}}\_{\text{do not need to store}}$$
 
 Indeed, in such a situation, knowing the next character $c \in t$ and the value of the prefix function of the previous position is enough information to compute the next value of the prefix function, without using any previous characters of the string $t$ and the value of the prefix function in them.
@@ -366,3 +366,4 @@ The problem can be solved in the same way by constructing the automaton of the p
 * [SPOJ - Pattern Find](http://www.spoj.com/problems/NAJPF/)
 * [Codeforces - Anthem of Berland](http://codeforces.com/contest/808/problem/G)
 * [Codeforces - MUH and Cube Walls](http://codeforces.com/problemset/problem/471/D)
+* [Codeforces - Prefixes and Suffixes](https://codeforces.com/contest/432/problem/D)

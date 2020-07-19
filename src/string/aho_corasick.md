@@ -85,7 +85,7 @@ However for an automaton we cannot restrict the possible transitions for each st
 If we try to perform a transition using a letter, and there is no corresponding edge in the trie, then we nevertheless must go into some state.
 
 More strictly, let us be in a state $p$ corresponding to the string $t$, and we want to transition to a different state with the character $c$.
-If the is an edge labeled with this letter $c$, then we can simply go over this edge, and get the vertex corresponding to $t + c$.
+If there is an edge labeled with this letter $c$, then we can simply go over this edge, and get the vertex corresponding to $t + c$.
 If there is no such edge, then we must find the state corresponding to the longest proper suffix of the string $t$ (the longest available in the trie), and try to perform a transition via $c$ from there.
 
 For example let the trie be constructed by the strings $ab$ and $bc$, and we are currently at the vertex corresponding to $ab$, which is a $\text{leaf}$.
@@ -164,7 +164,7 @@ int go(int v, char ch) {
 } 
 ```
 
-It is easy to see, that due to the memorization of the found suffix links and transitions the total time for finding all suffix links and transitions will be linear.
+It is easy to see, that due to the memoization of the found suffix links and transitions the total time for finding all suffix links and transitions will be linear.
 
 ## Applications
 
@@ -228,3 +228,4 @@ Thus we can find such a path  using depth first search (and if the search looks 
 - [UVA #11171 - SMS](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2112)
 - [UVA #10679 - I Love Strings!!](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1620)
 - [Codeforces - Frequency of String](http://codeforces.com/problemset/problem/963/D)
+- [CodeChef - TWOSTRS](https://www.codechef.com/MAY20A/problems/TWOSTRS)

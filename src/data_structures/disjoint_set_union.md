@@ -34,10 +34,10 @@ In the following image you can see the representation of such trees.
 
 ![Example-image of the set representation with trees](&imgroot&/DSU_example.png)
 
-At the beginning every element starts as a single set, therefore each vertex is its own tree.
+In the beginning, every element starts as a single set, therefore each vertex is its own tree.
 Then we combine the set containing the element 1 and the set containing the element 2.
 Then we combine the set containing the element 3 and the set containing the element 4.
-And in the last step we can the sets containing the elements 1 and 3 are merged.
+And in the last step, we combine the set containing the element 1 and the set containing the element 3.
 
 For the implementation this means that we will have to maintain an array `parent` that stores a reference to its immediate ancestor in the tree.
 
@@ -107,7 +107,7 @@ int find_set(int v) {
 ```
 
 The simple implementation does what was intended:
-first find the representative of the set (root vertex), and the in the process of stack unwinding the visited nodes are attached directly to the representative.
+first find the representative of the set (root vertex), and then in the process of stack unwinding the visited nodes are attached directly to the representative.
 
 This simple modification of the operation already achieves the time complexity $O(\log n)$ per call on average (here without proof).
 There is a second modification, that will make it even faster.
@@ -275,7 +275,7 @@ With DSU you can find the end point, to which we get after following all edges f
 
 A good example of this application is the **problem of painting subarrays**.
 We have a segment of length $L$, each element initially has the color 0.
-We have to repaint the subarray $[l; r]$ with the color $c$ for each query $(l, r, c)$.
+We have to repaint the subarray $[l, r]$ with the color $c$ for each query $(l, r, c)$.
 At the end we want to find the final color of each cell.
 We assume that we know all the queries in advance, i.e. the task is offline.
 
@@ -284,7 +284,7 @@ Thus initially each cell points to itself.
 After painting one requested repaint of a segment, all cells from that segment will point to the cell after the segment.
 
 Now to solve this problem, we consider the queries **in the reverse order**: from last to first.
-This way when we execute a query, we only have to paint exactly the unpainted cells in the subarray $[l; r]$.
+This way when we execute a query, we only have to paint exactly the unpainted cells in the subarray $[l, r]$.
 All other cells already contain their final color.
 To quickly iterate over all unpainted cells, we use the DSU.
 We find the left-most unpainted cell inside of a segment, repaint it, and with the pointer we move to the next empty cell to the right.
@@ -583,3 +583,7 @@ However it should also be noted, that there are several articles **disputing** t
 * [TIMUS - Parity](http://acm.timus.ru/problem.aspx?space=1&num=1003)
 * [SPOJ - Strange Food Chain](http://www.spoj.com/problems/CHAIN/)
 * [SPOJ - COLORFUL ARRAY](https://www.spoj.com/problems/CLFLARR/)
+* [SPOJ - Consecutive Letters](https://www.spoj.com/problems/CONSEC/)
+* [Toph - Unbelievable Array](https://toph.co/p/unbelievable-array)
+* [HackerEarth - Lexicographically minimal string](https://www.hackerearth.com/practice/data-structures/disjoint-data-strutures/basics-of-disjoint-data-structures/practice-problems/algorithm/lexicographically-minimal-string-6edc1406/description/)
+* [HackerEarth - Marriage Problem](https://www.hackerearth.com/practice/data-structures/disjoint-data-strutures/basics-of-disjoint-data-structures/practice-problems/algorithm/marriage-problem/description/)

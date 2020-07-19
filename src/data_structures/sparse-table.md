@@ -29,7 +29,7 @@ Afterwards a different range query can be answered by splitting the range into r
 We will use a 2-dimensional array for storing the answers to the precomputed queries.
 $\text{st}[i][j]$ will store the answer for the range $[i, i + 2^j - 1]$ of length $2^j$.
 The size of the 2-dimensional array will be $\text{MAXN} \times (K + 1)$, where $\text{MAXN}$ is the biggest possible array length.
-$\text{K}$ has to satisfy $\text{K} \ge \lfloor \log_2 \text{MAXN} \rfloor + 1$, because $2^{\lfloor \log_2 \text{MAXN} \rfloor}$ is the biggest power of two range, that we have to support.
+$\text{K}$ has to satisfy $\text{K} \ge \lfloor \log_2 \text{MAXN} \rfloor$, because $2^{\lfloor \log_2 \text{MAXN} \rfloor}$ is the biggest power of two range, that we have to support.
 For arrays with reasonable length ($\le 10^7$ elements), $K = 25$ is a good value.
 
 ```cpp sparsetable_definition
@@ -59,7 +59,7 @@ Therefore the natural definition of the function $f$ is $f(x, y) = x + y$.
 We can construct the data structure with:
 
 ```cpp sparsetable_sum_generation
-long long st[MAXN][K];
+long long st[MAXN][K + 1];
 
 for (int i = 0; i < N; i++)
     st[i][0] = array[i];
@@ -108,7 +108,7 @@ for (int i = 2; i <= MAXN; i++)
 Afterwards we need to precompute the Sparse Table structure. This time we define $f$ with $f(x, y) = \min(x, y)$.
 
 ```cpp sparse_table_minimum_generation
-int st[MAXN][K];
+int st[MAXN][K + 1];
 
 for (int i = 0; i < N; i++)
     st[i][0] = array[i];
