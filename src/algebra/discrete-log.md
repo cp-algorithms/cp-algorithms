@@ -22,7 +22,7 @@ where $a$ and $m$ are relatively prime.
 
 Let $x = np - q$, where $n$ is some pre-selected constant (we will describe how to select $n$ later). $p$ is known as **giant step**, since increasing it by one increases $x$ by $n$. Similarly, $q$ is known as **baby step**.
 
-Obviously, any number $x$ in the interval $[0; m)$ can be represented in this form, where $p \in [1; \lceil \frac{m}{n} \rceil ]$ and $q \in [0; n)$.
+Obviously, any number $x$ in the interval $[0; m)$ can be represented in this form, where $p \in [1; \lceil \frac{m}{n} \rceil ]$ and $q \in [0; n]$.
 
 Then, the equation becomes:
 
@@ -87,7 +87,7 @@ int solve(int a, int b, int m) {
 	map<int, int> vals;
 	for (int p = 1; p <= n; ++p)
 		vals[powmod(a, p * n, m)] = p;
-	for (int q = 0; q < n; ++q) {
+	for (int q = 0; q <= n; ++q) {
 		int cur = (powmod(a, q, m) * 1ll * b) % m;
 		if (vals.count(cur)) {
 			int ans = vals[cur] * n - q;
@@ -128,7 +128,7 @@ int solve(int a, int b, int m) {
 		an = (an * 1ll * a) % m;
 
 	unordered_map<int, int> vals;
-	for (int q = 0, cur = b; q < n; ++q) {
+	for (int q = 0, cur = b; q <= n; ++q) {
 		vals[cur] = q;
 		cur = (cur * 1ll * a) % m;
 	}
@@ -182,7 +182,7 @@ int solve(int a, int b, int m) {
 		an = (an * 1ll * a) % m;
 
 	unordered_map<int, int> vals;
-	for (int q = 0, cur = b; q < n; ++q) {
+	for (int q = 0, cur = b; q <= n; ++q) {
 		vals[cur] = q;
 		cur = (cur * 1ll * a) % m;
 	}
