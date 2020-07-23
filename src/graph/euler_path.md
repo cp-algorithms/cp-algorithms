@@ -84,6 +84,10 @@ int main() {
     int first = 0;
     while (first < n && !deg[first])
         ++first;
+    if (first == n) {
+        cout << -1;
+        return 0;
+    }
 
     int v1 = -1, v2 = -1;
     bool bad = false;
