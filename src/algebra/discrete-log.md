@@ -70,37 +70,47 @@ It returns $-1$ if there is no solution and returns one of the possible solution
 
 ```cpp
 int powmod(int a, int b, int m) {
-	int res = 1;
-	while (b > 0) {
-		if (b & 1) {
-			res = (res * 1ll * a) % m;
-		}
-		a = (a * 1ll * a) % m;
-		b >>= 1;
-	}
-	return res;
+    int res = 1;
+    while (b > 0) {
+        if (b & 1) {
+            res = (res * 1ll * a) % m;
+        }
+        a = (a * 1ll * a) % m;
+        b >>= 1;
+    }
+    return res;
 }
 
 int solve(int a, int b, int m) {
-	a %= m, b %= m;
-	int n = sqrt(m) + 1;
-	map<int, int> vals;
-	for (int p = 1; p <= n; ++p)
-		vals[powmod(a, p * n, m)] = p;
-	for (int q = 0; q <= n; ++q) {
-		int cur = (powmod(a, q, m) * 1ll * b) % m;
-		if (vals.count(cur)) {
-			int ans = vals[cur] * n - q;
-			return ans;
-		}
-	}
-	return -1;
+    a %= m, b %= m;
+    int n = sqrt(m) + 1;
+    map<int, int> vals;
+    for (int p = 1; p <= n; ++p)
+        vals[powmod(a, p * n, m)] = p;
+    for (int q = 0; q <= n; ++q) {
+        int cur = (powmod(a, q, m) * 1ll * b) % m;
+        if (vals.count(cur)) {
+            int ans = vals[cur] * n - q;
+            return ans;
+        }
+    }
+    return -1;
 }
 ```
 
 In this code, we used `map` from the C++ standard library to store the values of $f_1$.
 Internally, `map` uses a red-black tree to store values.
 Thus this code is a little bit slower than if we had used an array and binary searched, but is much easier to write.
+
+Notice that our code assumes $0^0 = 1$, i.e. the code will compute $0$ as solution for the equation $0^x \equiv 1 \pmod m$ and also as solution for $0^x \equiv 0 \pmod 1$.
+This is an often used convention in algebra, but it's also not univerally accepted in all areas.
+Sometimes $0^0$ is simply undefined.
+If you don't like our convention, then you need to handle the case $a=0$ separately:
+
+```cpp
+    if (a == 0)
+        return b == 0 ? 1 : -1;
+``
 
 Another thing to note is that, if there are multiple arguments $p$ that map to the same value of $f_1$, we only store one such argument.
 This works in this case because we only want to return one possible solution.
@@ -120,27 +130,27 @@ It is possible to get all answers and take the minimum, or reduce the first foun
 ```cpp discrete_log
 // Returns minimum x for which a ^ x % m = b % m, a and m are coprime.
 int solve(int a, int b, int m) {
-	a %= m, b %= m;
-	int n = sqrt(m) + 1;
+    a %= m, b %= m;
+    int n = sqrt(m) + 1;
 
-	int an = 1;
-	for (int i = 0; i < n; ++i)
-		an = (an * 1ll * a) % m;
+    int an = 1;
+    for (int i = 0; i < n; ++i)
+        an = (an * 1ll * a) % m;
 
-	unordered_map<int, int> vals;
-	for (int q = 0, cur = b; q <= n; ++q) {
-		vals[cur] = q;
-		cur = (cur * 1ll * a) % m;
-	}
+    unordered_map<int, int> vals;
+    for (int q = 0, cur = b; q <= n; ++q) {
+        vals[cur] = q;
+        cur = (cur * 1ll * a) % m;
+    }
 
-	for (int p = 1, cur = 1; p <= n; ++p) {
-		cur = (cur * 1ll * an) % m;
-		if (vals.count(cur)) {
-			int ans = n * p - vals[cur];
-			return ans;
-		}
-	}
-	return -1;
+    for (int p = 1, cur = 1; p <= n; ++p) {
+        cur = (cur * 1ll * an) % m;
+        if (vals.count(cur)) {
+            int ans = n * p - vals[cur];
+            return ans;
+        }
+    }
+    return -1;
 }
 ```
 
@@ -165,36 +175,36 @@ The baby-step giant-step algorithm can be easily extended to solve $ka^{x} \equi
 ```cpp discrete_log_extended
 // Returns minimum x for which a ^ x % m = b % m.
 int solve(int a, int b, int m) {
-	a %= m, b %= m;
-	int k = 1, add = 0, g;
-	while ((g = gcd(a, m)) > 1) {
-		if (b == k)
-			return add;
-		if (b % g)
-			return -1;
-		b /= g, m /= g, ++add;
-		k = (k * 1ll * a / g) % m;
-	}
+    a %= m, b %= m;
+    int k = 1, add = 0, g;
+    while ((g = gcd(a, m)) > 1) {
+        if (b == k)
+            return add;
+        if (b % g)
+            return -1;
+        b /= g, m /= g, ++add;
+        k = (k * 1ll * a / g) % m;
+    }
 
-	int n = sqrt(m) + 1;
-	int an = 1;
-	for (int i = 0; i < n; ++i)
-		an = (an * 1ll * a) % m;
+    int n = sqrt(m) + 1;
+    int an = 1;
+    for (int i = 0; i < n; ++i)
+        an = (an * 1ll * a) % m;
 
-	unordered_map<int, int> vals;
-	for (int q = 0, cur = b; q <= n; ++q) {
-		vals[cur] = q;
-		cur = (cur * 1ll * a) % m;
-	}
+    unordered_map<int, int> vals;
+    for (int q = 0, cur = b; q <= n; ++q) {
+        vals[cur] = q;
+        cur = (cur * 1ll * a) % m;
+    }
 
-	for (int p = 1, cur = k; p <= n; ++p) {
-		cur = (cur * 1ll * an) % m;
-		if (vals.count(cur)) {
-			int ans = n * p - vals[cur] + add;
-			return ans;
-		}
-	}
-	return -1;
+    for (int p = 1, cur = k; p <= n; ++p) {
+        cur = (cur * 1ll * an) % m;
+        if (vals.count(cur)) {
+            int ans = n * p - vals[cur] + add;
+            return ans;
+        }
+    }
+    return -1;
 }
 ```
 
@@ -204,6 +214,8 @@ The time complexity remains $O(\sqrt{m})$ as before since the initial reduction 
 * [Spoj - Power Modulo Inverted](http://www.spoj.com/problems/MOD/)
 * [Topcoder - SplittingFoxes3](https://community.topcoder.com/stat?c=problem_statement&pm=14386&rd=16801)
 * [CodeChef - Inverse of a Function](https://www.codechef.com/problems/INVXOR/)
+* [Hard Equation](https://codeforces.com/gym/101853/problem/G) (assume that $0^0$ is undefined)
+* [CodeChef - Chef and Modular Sequence](https://www.codechef.com/problems/CHEFMOD)
 
 ## References
 * [Wikipedia - Baby-step giant-step](https://en.wikipedia.org/wiki/Baby-step_giant-step)
