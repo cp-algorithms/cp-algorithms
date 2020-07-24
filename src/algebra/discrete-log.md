@@ -110,7 +110,7 @@ If you don't like our convention, then you need to handle the case $a=0$ separat
 ```cpp
     if (a == 0)
         return b == 0 ? 1 : -1;
-``
+```
 
 Another thing to note is that, if there are multiple arguments $p$ that map to the same value of $f_1$, we only store one such argument.
 This works in this case because we only want to return one possible solution.
