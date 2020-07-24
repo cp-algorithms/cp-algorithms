@@ -102,6 +102,16 @@ In this code, we used `map` from the C++ standard library to store the values of
 Internally, `map` uses a red-black tree to store values.
 Thus this code is a little bit slower than if we had used an array and binary searched, but is much easier to write.
 
+Notice that our code assumes $0^0 = 1$, i.e. the code will compute $0$ as solution for the equation $0^x \equiv 1 \pmod m$ and also as solution for $0^x \equiv 0 \pmod 1$.
+This is an often used convention in algebra, but it's also not univerally accepted in all areas.
+Sometimes $0^0$ is simply undefined.
+If you don't like our convention, then you need to handle the case $a=0$ separately:
+
+```cpp
+    if (a == 0)
+        return b == 0 ? 1 : -1;
+``
+
 Another thing to note is that, if there are multiple arguments $p$ that map to the same value of $f_1$, we only store one such argument.
 This works in this case because we only want to return one possible solution.
 If we need to return all possible solutions, we need to change `map<int, int>` to, say, `map<int, vector<int>>`.
