@@ -214,6 +214,8 @@ The time complexity remains $O(\sqrt{m})$ as before since the initial reduction 
 * [Spoj - Power Modulo Inverted](http://www.spoj.com/problems/MOD/)
 * [Topcoder - SplittingFoxes3](https://community.topcoder.com/stat?c=problem_statement&pm=14386&rd=16801)
 * [CodeChef - Inverse of a Function](https://www.codechef.com/problems/INVXOR/)
+* [Hard Equation](https://codeforces.com/gym/101853/problem/G) (assume that $0^0$ is undefined)
+* [CodeChef - Chef and Modular Sequence](https://www.codechef.com/problems/CHEFMOD)
 
 ## References
 * [Wikipedia - Baby-step giant-step](https://en.wikipedia.org/wiki/Baby-step_giant-step)
