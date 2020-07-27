@@ -586,4 +586,5 @@ However it should also be noted, that there are several articles **disputing** t
 * [SPOJ - Consecutive Letters](https://www.spoj.com/problems/CONSEC/)
 * [Toph - Unbelievable Array](https://toph.co/p/unbelievable-array)
 * [HackerEarth - Lexicographically minimal string](https://www.hackerearth.com/practice/data-structures/disjoint-data-strutures/basics-of-disjoint-data-structures/practice-problems/algorithm/lexicographically-minimal-string-6edc1406/description/)
-* [HackerEarth - Marriage Problem](https://www.hackerearth.com/practice/data-structures/disjoint-data-strutures/basics-of-disjoint-data-structures/practice-problems/algorithm/marriage-problem/description/)
+* [HackerEarth - Fight in Ninja World](https://www.hackerearth.com/practice/algorithms/graphs/breadth-first-search/practice-problems/algorithm/containers-of-choclates-1/)
+
