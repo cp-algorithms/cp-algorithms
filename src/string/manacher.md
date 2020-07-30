@@ -161,4 +161,5 @@ for (int i = 0, l = 0, r = -1; i < n; i++) {
 
 ## Problems
 
-[UVA #11475 "Extend to Palindrome"](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2470)
+- [UVA 11475 - Extend to Palindrome](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=26&page=show_problem&problem=2470)
+- [GYM - (Q) QueryreuQ](https://codeforces.com/gym/101806/problem/Q)
