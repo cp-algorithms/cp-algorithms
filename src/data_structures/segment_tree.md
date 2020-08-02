@@ -528,7 +528,7 @@ We construct a Segment Tree.
 In each vertex we store a sorted list of all numbers occurring in the corresponding segment, like described above. 
 How to build such a Segment Tree as effectively as possible?
 As always we approach this problem recursively: let the lists of the left and right children already be constructed, and we want to build the list for the current vertex.
-From this view the operation is known trivial and can be accomplished in linear time:
+From this view the operation is now trivial and can be accomplished in linear time:
 We only need to combine the two sorted lists into one, which can be done by iterating over them using two pointers. 
 The C++ STL already has an implementation of this algorithm.
 
