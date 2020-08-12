@@ -182,4 +182,7 @@ vector<int> restore_path(int s, int t, vector<int> const& p) {
 * [Codeforces - Dirty Arkady's Kitchen](http://codeforces.com/contest/827/problem/F)
 * [SPOJ - Delivery Route](http://www.spoj.com/problems/DELIVER/)
 * [SPOJ - Costly Chess](http://www.spoj.com/problems/CCHESS/)
+* [CSES - Shortest Routes 1](https://cses.fi/problemset/task/1671)
+* [CSES - Flight Discount](https://cses.fi/problemset/task/1195)
+* [CSES - Flight Routes](https://cses.fi/problemset/task/1196)
 

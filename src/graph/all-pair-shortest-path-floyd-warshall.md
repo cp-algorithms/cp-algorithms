@@ -157,3 +157,4 @@ To learn more about finding negative cycles in a graph, see the separate article
  * [UVA - 12179 - Randomly-priced Tickets](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3331)
  * [LOJ - 1086 - Jogging Trails](http://lightoj.com/volume_showproblem.php?problem=1086)
  * [SPOJ - Ingredients](http://www.spoj.com/problems/INGRED/)
+ * [CSES - Shortest Routes II](https://cses.fi/problemset/task/1672)

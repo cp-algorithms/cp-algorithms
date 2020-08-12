@@ -55,3 +55,4 @@ void find_comps() {
  - [SPOJ: CCOMPS](http://www.spoj.com/problems/CCOMPS/)
  - [SPOJ: CT23E](http://www.spoj.com/problems/CT23E/)
  - [CODECHEF: GERALD07](https://www.codechef.com/MARCH14/problems/GERALD07)
+ - [CSES : Building Roads](https://cses.fi/problemset/task/1666)

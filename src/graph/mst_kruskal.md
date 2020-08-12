@@ -136,3 +136,5 @@ We can use the [**Disjoint Set Union** (DSU)](./data_structures/disjoint_set_uni
 * [SPOJ - Help the Old King](http://www.spoj.com/problems/IITKWPCG/)
 * [Codeforces - Hierarchy](http://codeforces.com/contest/17/problem/B)
 * [SPOJ - Modems](https://www.spoj.com/problems/EC_MODE/)
+* [CSES - Road Reparation](https://cses.fi/problemset/task/1675)
+* [CSES - Road Construction](https://cses.fi/problemset/task/1676)

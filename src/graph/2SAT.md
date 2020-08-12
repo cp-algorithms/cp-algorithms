@@ -148,4 +148,5 @@ bool solve_2SAT() {
  * [UVA: Rectangles](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3081)
  * [Codeforces: The Door Problem](http://codeforces.com/contest/776/problem/D)
  * [Codeforces : Radio Stations](https://codeforces.com/problemset/problem/1215/F)
+ * [CSES : Giant Pizza](https://cses.fi/problemset/task/1684)
  
