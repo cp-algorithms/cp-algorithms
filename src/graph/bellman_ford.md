@@ -272,3 +272,5 @@ A list of tasks that can be solved using the Bellman-Ford algorithm:
 * [UVA 12519 - The Farnsworth Parabox](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3964)
 
 See also the problem list in the article [Finding the negative cycle in a graph](./graph/finding-negative-cycle-in-graph.html).
+* [CSES - High Score](https://cses.fi/problemset/task/1673)
+* [CSES - Cycle Finding](https://cses.fi/problemset/task/1197)
