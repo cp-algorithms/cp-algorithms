@@ -36,7 +36,7 @@ To avoid ambiguities in the further description we denote what "trivial algorith
 
 It's the algorithm that does the following. For each center position $i$ it tries to increase the answer by one until it's possible, comparing a pair of corresponding characters each time.
 
-Such algorithm is slow, it can calculate the answer only in $O(n^2)$.
+Such an algorithm is slow, it can calculate the answer only in $O(n^2)$.
 
 The implementation of the trivial algorithm is:
 
@@ -57,17 +57,17 @@ for (int i = 0; i < n; i++) {
 
 ## Manacher's algorithm
 
-We describe the algorithm to find all the sub-palindromes with odd length, i. e. to calculate $d_1[]$; the solution for all the sub-palindromes with even length (i. e. calculating the array $d_2[]$) will be a minor modification for this one.
+We describe the algorithm to find all the sub-palindromes with odd length, i. e. to calculate $d_1[]$. The solution for all the sub-palindromes with even length (i.e. calculating the array $d_2[]$) will be a minor modification for this one.
 
-For fast calculation we'll keep the **borders $(l, r)$** of the rightmost found sub-palindrome (i. e. the palindrome with maximal $r$). Initially we assume $l = 0, r = -1$.
+For fast calculation we'll maintain the **borders $(l, r)$** of the rightmost found sub-palindrome (i. e. the palindrome with maximal $r$). Initially we set $l = 0, r = -1$.
 
 So, we want to calculate $d_1[i]$ for the next $i$, and all the previous values in $d_1[]$ have been already calculated. We do the following:
 
 * If $i$ is outside the current sub-palindrome, i. e. $i > r$, we'll just launch the trivial algorithm.
     
-    So we'll increase $d_1[i]$ consecutively and check each time if the current substring $[i - d_1[i]\dots i + d_1[i]]$ is a palindrome. When we find  first divergence or meet the boundaries of $s$, we'll stop. In this case we've finally calculated $d_1[i]$. After this, we must not forget to update $(l, r)$.
+    So we'll increase $d_1[i]$ consecutively and check each time if the current rightmost substring $[i - d_1[i]\dots i + d_1[i]]$ is a palindrome. When we find the first mismatch or meet the boundaries of $s$, we'll stop. In this case we've finally calculated $d_1[i]$. After this, we must not forget to update $(l, r)$. $r$ should be updated in such a way that it represents the last index of the current rightmost sub-palindrome.
 
-* Now consider the case when $i \le r$. We'll try to extract some information from the already calculated values in $d_1[]$. So, let's flip the position $i$ inside the sub-palindrome $(l, r)$, i. e. we'll get the position $j = l + (r - i)$, and we'll look on the value $d_1[j]$. Because $j$ is the position symmetrical to $i$, we'll **almost always** can assign $d_1[i] = d_1[j]$. Illustration of this (palindrome around $j$ is actually "copied" into the palindrome around $i$):
+* Now consider the case when $i \le r$. We'll try to extract some information from the already calculated values in $d_1[]$. So, let's find the "mirror" position of $i$ in the sub-palindrome $(l, r)$, i.e. we'll get the position $j = l + (r - i)$, and we check the value of $d_1[j]$. Because $j$ is the position symmetrical to $i$, we'll **almost always** can assign $d_1[i] = d_1[j]$. Illustration of this (palindrome around $j$ is actually "copied" into the palindrome around $i$):
     
     $$
     \ldots\ 
@@ -85,11 +85,11 @@ So, we want to calculate $d_1[i]$ for the next $i$, and all the previous values 
     \ldots
     $$
     
-    But there is a **tricky case** to be handled correctly: when the "inner" palindrome reaches the borders of the "outer" one, i. e. $j - d_1[j] + 1 \le l$ (or, which is the same, $i + d_1[j] - 1 \ge r$). Because the symmetry outside the "outer" palindrome is not guaranteed, just assigning $d_1[i] = d_1[j]$ will be incorrect: we have not enough data to state that the palindrome in the position $i$ has the same length.
+    But there is a **tricky case** to be handled correctly: when the "inner" palindrome reaches the borders of the "outer" one, i. e. $j - d_1[j] + 1 \le l$ (or, which is the same, $i + d_1[j] - 1 \ge r$). Because the symmetry outside the "outer" palindrome is not guaranteed, just assigning $d_1[i] = d_1[j]$ will be incorrect: we do not have enough data to state that the palindrome in the position $i$ has the same length.
     
-    Actually, we should "cut" the length of our palindrome, i. e. assign $d_1[i] = r - i + 1$, to handle such situations correctly. After this we'll run the trivial algorithm which will try to increase $d_1[i]$ while it's possible.
+    Actually, we should restrict the length of our palindrome for now, i. e. assign $d_1[i] = r - i + 1$, to handle such situations correctly. After this we'll run the trivial algorithm which will try to increase $d_1[i]$ while it's possible.
     
-    Illustration of this case (the palindrome with center $j$ is already "cut" to fit the "outer" palindrome):
+    Illustration of this case (the palindrome with center $j$ is restricted to fit the "outer" palindrome):
     
     $$
     \ldots\ 
@@ -107,21 +107,21 @@ So, we want to calculate $d_1[i]$ for the next $i$, and all the previous values 
     }\_\text{try moving here}
     $$
     
-    It is shown on the illustration that, though the palindrome with center $j$ could be larger and go outside the "outer" palindrome, in the position $i$ we can use only the part that entirely fits into the "outer" palindrome. But the answer for the position $i$ can be much longer that this part, so next we'll run our trivial algorithm that will try to grow it outside our "outer" palindrome, i. e. to the region "try moving here".
+    It is shown in the illustration that though the palindrome with center $j$ could be larger and go outside the "outer" palindrome, but with $i$ as the center we can use only the part that entirely fits into the "outer" palindrome. But the answer for the position $i$ ($d_1[i]$) can be much bigger that this part, so next we'll run our trivial algorithm that will try to grow it outside our "outer" palindrome, i. e. to the region "try moving here".
 
-At the end, it's necessary to remind that we should not forget to update the values $(l, r)$ after calculating each $d_1[i]$.
+Again, we should not forget to update the values $(l, r)$ after calculating each $d_1[i]$.
 
-Also we'll repeat that the algorithm was described to calculate the array for odd palindromes $d_1[]$, the algorithm is similar for the array of even palindromes $d_2[]$.
+Also we'll repeat that the algorithm was described to calculate the array for odd palindromes $d_1[]$, the algorithm is similar for the array of even palindromes $d_2[]$. The required modifications can be seen in the code below. 
 
 ## Complexity of Manacher's algorithm
 
 At the first glance it's not obvious that this algorithm has linear time complexity, because we often run the naive algorithm while searching the answer for a particular position.
 
-But more careful analysis shows that the algorithm is linear however. We need to mention [Z-function building algorithm](/string/z-function.html) which looks similar to this algorithm and also works in linear time.
+However, a more careful analysis shows that the algorithm is linear. In fact, [Z-function building algorithm](/string/z-function.html), which looks similar to this algorithm, also works in linear time.
 
-Actually, we can notice that every iteration of trivial algorithm makes $r$ increase by one. Also $r$ cannot be decreased during the algorithm. So, trivial algorithm will make $O(n)$ iterations in total.
+We can notice that every iteration of trivial algorithm increases $r$ by one. Also $r$ cannot be decreased during the algorithm. So, trivial algorithm will make $O(n)$ iterations in total.
 
-Also, other parts of Manacher's algorithm work obviously in linear time, we get $O(n)$ time complexity.
+Also, other parts of Manacher's algorithm work obviously in linear time. Thus, we get $O(n)$ time complexity.
 
 ## Implementation of Manacher's algorithm
 
