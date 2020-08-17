@@ -125,7 +125,12 @@ Also, other parts of Manacher's algorithm work obviously in linear time. Thus, w
 
 ## Implementation of Manacher's algorithm
 
-For calculating $d_1[]$, we get the following code:
+For calculating $d_1[]$, we get the following code. Things to note:
+ - $i$ is the index of the center letter of the current palindrome.
+ - $d_1[]$ stores the odd palindromes. So, if $i$ exceeds $r$, $k$ is initialized to 1, as a single letter is a palindrome in itself. For $d_2[]$, $k$ will be initialized to 0.
+ - If $i$ does not exceed $r$, $k$ is either initialized to the $d_1[j]$, where $j$ is the mirror position of $i$ in $(l,r)$, or $k$ is restricted to the size of the "outer" palindrome.
+ - The while loop denotes the trivial algorithm. We launch it irrespective of the value of $k$.
+ - If the size of palindrome centered at $i$ is $x$, then $d_2[i]$ stores $(x+1)/2$.
 
 ```cpp
 vector<int> d1(n);
@@ -142,7 +147,10 @@ for (int i = 0, l = 0, r = -1; i < n; i++) {
 }
 ```
 
-For calculating $d_2[]$, the code looks similar, but with minor changes in arithmetical expressions:
+For calculating $d_2[]$, the code looks similar, but with minor changes in arithmetical expressions. Things to note:
+ - Since an even palidrome will have two centers, $i$ is the latter of the two center indices.
+ - if $i$ exceeds $r$, $k$ is initialized to 0, as a single letter is **not an even palindrome**.
+ - If the size of palindrome centered at $i$ is $x$, then $d_2[i]$ stores $x/2$
 
 ```cpp
 vector<int> d2(n);
