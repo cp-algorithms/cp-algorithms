@@ -63,8 +63,8 @@ If you need to call the function multiple times, then you can do the precomputat
 
 ```cpp
 int factmod(int n, int p) {
-    vector<int> f;
-    f.push_back(1);
+    vector<int> f(p);
+    f[0] = 1;
     for (int i = 1; i < p; i++)
         f[i] = f[i-1] * i % p;
 
