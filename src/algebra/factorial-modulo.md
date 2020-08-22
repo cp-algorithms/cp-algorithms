@@ -32,10 +32,11 @@ n!_{\%p}&=& \underbrace{1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \
 \end{eqnarray}$$
 
 The main part of the blocks it is easy to count — it's just $(p-1)!\ \mathrm{mod}\ p$.
-We can compute that programmatically or just apply Wilson theorem which states that $(p-1)! \bmod p = p-1$ for any prime $p$.
+We can compute that programmatically or just apply Wilson theorem which states that $(p-1)! \bmod p = -1$ for any prime $p$.
 
-We have exactly $\lfloor \frac{n}{p} \rfloor$ such blocks, therefore we need to raise $p-1$ to the power of $\lfloor \frac{n}{p} \rfloor$.
-This can be done in logarithmic time using [Binary Exponentiation](./algebra/binary-exp.html); however you can also notice that the result will switch between $p-1$ and $1$ so we only need to look at the parity of the exponent.
+We have exactly $\lfloor \frac{n}{p} \rfloor$ such blocks, therefore we need to raise $-1$ to the power of $\lfloor \frac{n}{p} \rfloor$.
+This can be done in logarithmic time using [Binary Exponentiation](./algebra/binary-exp.html); however you can also notice that the result will switch between $-1$ and $1$, so we only need to look at the parity of the exponent and multiply by $-1$ if the parity is odd.
+And instead of a multiplication, we can also just subtract the current result from $p$.
 
 The value of the last partial block can be calculated separately in $O(p)$.
 
@@ -71,7 +72,7 @@ int factmod(int n, int p) {
     int res = 1;
     while (n > 1) {
         if ((n/p) % 2)
-            res = res * (p - 1) % p;
+            res = p - res;
         res = res * f[n%p] % p;
         n /= p;
     }
