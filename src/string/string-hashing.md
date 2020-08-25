@@ -167,7 +167,7 @@ int count_unique_substrings(string const& s) {
         set<long long> hs;
         for (int i = 0; i <= n - l; i++) {
             long long cur_h = (h[i + l] + m - h[i]) % m;
-            cur_h = (cur_h * p_pow[n-i-1]) % m;
+            cur_h = (cur_h * p_pow[n-i-l]) % m;
             hs.insert(cur_h);
         }
         cnt += hs.size();
