@@ -58,6 +58,7 @@ and adding new articles to the collection.*
     - [Treap](./data_structures/treap.html)
     - [Sqrt Tree](./data_structures/sqrt-tree.html)
     - [Randomized Heap](./data_structures/randomized_heap.html)
+    - [Binary_Tree(basics)](./data_structures/Binary_Tree(basics).html)
 - **Advanced**
     - [Deleting from a data structure in O(T(n)log n)](./data_structures/deleting_in_log_n.html)
 
