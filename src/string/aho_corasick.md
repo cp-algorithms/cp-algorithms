@@ -214,7 +214,7 @@ For each vertex we store a mask that denotes the strings which match at this sta
 Then the problem can be reformulated as follows:
 initially being in the state $(v = \text{root},~ \text{mask} = 0)$, we want to reach the state $(v,~ \text{mask} = 2^n - 1)$, where $n$ is the number of strings in the set.
 When we transition from one state to another using a letter, we update the mask accordingly.
-By running a [breath first search](./graph/breadth-first-search.html) we can find a path to the state $(v,~ \text{mask} = 2^n - 1)$ with the smallest length.
+By running a [breadth first search](./graph/breadth-first-search.html) we can find a path to the state $(v,~ \text{mask} = 2^n - 1)$ with the smallest length.
 
 ### Finding the lexicographical smallest string of length $L$ containing $k$ strings
 
