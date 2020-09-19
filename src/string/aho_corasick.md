@@ -9,7 +9,7 @@ The algorithm was proposed by Alfred Aho and Margaret Corasick in 1975.
 ## Construction of the trie
 
 Formally a trie is a rooted tree, where each edge of the tree is labeled by some letter.
-All outgoing edge from one vertex mush have different labels.
+All outgoing edge from one vertex must have different labels.
 
 Consider any path in the trie from the root to any vertex.
 If we write out the labels of all edges on the path, we get a string that corresponds to this path.
