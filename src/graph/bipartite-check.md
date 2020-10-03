@@ -48,3 +48,4 @@ cout << (is_bipartite ? "YES" : "NO") << endl;
 - [SPOJ - BUGLIFE](http://www.spoj.com/problems/BUGLIFE/)
 - [Codeforces - Graph Without Long Directed Paths](https://codeforces.com/contest/1144/problem/F)
 - [Codeforces - String Coloring (easy version)](https://codeforces.com/contest/1296/problem/E1)
+- [CSES : Building Teams](https://cses.fi/problemset/task/1668)

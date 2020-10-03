@@ -128,4 +128,7 @@ Here, $g$ is graph, $gr$ is transposed graph. Function $dfs1$ implements depth f
 * [SPOJ - Capital City](http://www.spoj.com/problems/CAPCITY/)
 * [Codeforces - Scheme](http://codeforces.com/contest/22/problem/E)
 * [SPOJ - Ada and Panels](http://www.spoj.com/problems/ADAPANEL/)
+* [CSES - Flight Routes Check](https://cses.fi/problemset/task/1682)
+* [CSES - Planets and Kingdoms](https://cses.fi/problemset/task/1683)
+* [CSES -Coin Collector](https://cses.fi/problemset/task/1686)
 

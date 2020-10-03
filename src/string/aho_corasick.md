@@ -9,7 +9,7 @@ The algorithm was proposed by Alfred Aho and Margaret Corasick in 1975.
 ## Construction of the trie
 
 Formally a trie is a rooted tree, where each edge of the tree is labeled by some letter.
-All outgoing edge from one vertex mush have different labels.
+All outgoing edge from one vertex must have different labels.
 
 Consider any path in the trie from the root to any vertex.
 If we write out the labels of all edges on the path, we get a string that corresponds to this path.
@@ -214,7 +214,7 @@ For each vertex we store a mask that denotes the strings which match at this sta
 Then the problem can be reformulated as follows:
 initially being in the state $(v = \text{root},~ \text{mask} = 0)$, we want to reach the state $(v,~ \text{mask} = 2^n - 1)$, where $n$ is the number of strings in the set.
 When we transition from one state to another using a letter, we update the mask accordingly.
-By running a [breath first search](./graph/breadth-first-search.html) we can find a path to the state $(v,~ \text{mask} = 2^n - 1)$ with the smallest length.
+By running a [breadth first search](./graph/breadth-first-search.html) we can find a path to the state $(v,~ \text{mask} = 2^n - 1)$ with the smallest length.
 
 ### Finding the lexicographical smallest string of length $L$ containing $k$ strings
 
@@ -227,5 +227,6 @@ Thus we can find such a path  using depth first search (and if the search looks 
 - [UVA #11590 - Prefix Lookup](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2637)
 - [UVA #11171 - SMS](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2112)
 - [UVA #10679 - I Love Strings!!](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1620)
+- [Codeforces - x-prime Substrings](https://codeforces.com/problemset/problem/1400/F)
 - [Codeforces - Frequency of String](http://codeforces.com/problemset/problem/963/D)
 - [CodeChef - TWOSTRS](https://www.codechef.com/MAY20A/problems/TWOSTRS)

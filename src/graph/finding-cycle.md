@@ -121,3 +121,7 @@ void find_cycle() {
     }
 }
 ```
+### Practice problems:
+
+- [CSES : Round Trip](https://cses.fi/problemset/task/1669)
+- [CSES : Round Trip II](https://cses.fi/problemset/task/1678/)

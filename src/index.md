@@ -74,7 +74,7 @@ and adding new articles to the collection.*
 - **Fundamentals**
     - [String Hashing](./string/string-hashing.html)
     - [Rabin-Karp for String Matching](./string/rabin-karp.html)
-    - [Prefix function](./string/prefix-function.html)
+    - [Prefix function - Knuth-Morris-Pratt](./string/prefix-function.html)
     - [Z-function](./string/z-function.html)
     - [Suffix Array](./string/suffix-array.html)
     - [Aho-Corasick algorithm](./string/aho_corasick.html)

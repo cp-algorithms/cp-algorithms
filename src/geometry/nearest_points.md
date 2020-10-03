@@ -23,7 +23,7 @@ $$T(n) = 2T(n/2) + O(n).$$
 
 The solution to this equation, as is known, is $T(n) = O(n \log n).$
 
-So, we proceed on to the construction of the algorithm. In order to come to an effective implementation of the merge stage in the future, we will divide the set of points into two subsets, according to their $x$-coordinates: In fact, we draw some vertical line dividing the set of points into two subsets of approximately the same size. Is is convenient to make such a partition as follows: We sort the points in the standard way as pairs of numbers, ie.:
+So, we proceed on to the construction of the algorithm. In order to come to an effective implementation of the merge stage in the future, we will divide the set of points into two subsets, according to their $x$-coordinates: In fact, we draw some vertical line dividing the set of points into two subsets of approximately the same size. It is convenient to make such a partition as follows: We sort the points in the standard way as pairs of numbers, ie.:
 
 $$p_i < p_j \Longleftrightarrow (x_i < x_j) \lor \Big(\left(x_i = x_j\right) \wedge \left(y_i < y_j \right) \Big) $$
 
@@ -170,3 +170,4 @@ In fact, to solve this problem, the algorithm remains the same: we divide the fi
 * [CODEFORCES Team Olympiad Saratov - 2011 "Minimum amount" [difficulty: medium]](http://codeforces.com/contest/120/problem/J)
 * [Google CodeJam 2009 Final " Min Perimeter "[difficulty: medium]](https://code.google.com/codejam/contest/311101/dashboard#s=a&a=1)
 * [SPOJ #7029 CLOSEST "Closest Triple" [difficulty: medium]](https://www.spoj.com/problems/CLOSEST/)
+* [TIMUS 1514 National Park [difficulty: medium]](https://acm.timus.ru/problem.aspx?space=1&num=1514)

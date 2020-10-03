@@ -129,11 +129,17 @@ And afterwards we can compute the binomial coefficient in $O(\log m)$ time.
 
 ```cpp
 long long binomial_coefficient(int n, int k) {
-    return factorial[n] * inverse(factorial[k]) % m * inverse(factorial[n - k]) % m;
+    return factorial[n] * inverse(factorial[k] * factorial[n - k] % m) % m;
 }
 ```
 
 We even can compute the binomial coefficient in $O(1)$ time if we precompute the inverses of all factorials in $O(\text{MAXN} \log m)$ using the regular method for computing the inverse, or even in $O(\text{MAXN})$ time using the congruence $(x!)^{-1} \equiv ((x-1)!)^{-1} \cdot x^{-1}$ and the method for [computing all inverses](./algebra/module-inverse.html#mod-inv-all-num) in $O(n)$.
+
+```cpp
+long long binomial_coefficient(int n, int k) {
+    return factorial[n] * inverse_factorial[k] % m * inverse_factorial[n - k] % m;
+}
+```
 
 ### Binomial coefficient modulo prime power  {#mod-prime-pow}
 
