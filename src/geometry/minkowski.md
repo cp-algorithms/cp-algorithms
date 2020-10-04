@@ -4,6 +4,8 @@
 ## Definition
 Consider two sets $A$ and $B$ of points on a plane. Minkowski sum $A + B$ is defined as $\\{a + b| a \in A, b \in B\\}$.
 Here we will consider the case when $A$ and $B$ consist of convex polygons $P$ and $Q$ with their interiors.
+Throughout this article we will identify polygons with ordered sequences of their vertices, so that notation like $|P|$ or
+$P_i$ makes sense.
 It turns out that the sum of convex polygons $P$ and $Q$ is a convex polygon with at most $|P| + |Q|$ vertices.
 
 ## Algorithm
@@ -31,12 +33,22 @@ We repeat the following steps while $i < |P|$ or $j < |Q|$.
 
 3. Increment the pointer which corresponds to the smallest angle (if the angles are equal, increment both).
 
+## Visualization
+
+Here is a nice visualization, which may help you understand what is going on.
+
+<center>![Visual](&imgroot&/minkowski.gif)</center>
 
 ## Distance between two polygons
 One of the most common applications of Minkowski sum is computing the distance between two convex polygons (or simply checking whether they intersect).
-The distance between two convex polygons $P$ and $Q$ is defined as $\min\limits_{a \in P, b \in Q} ||a - b||$.
-If we reflect $Q$ through the point $(0, 0)$ obtaining polygon $-Q$, the problem boils down to finding a point in
-$P + (-Q)$ with the smallest distance to $(0, 0)$, which can be done in linear time. Since Minkowski sum can be computed
+The distance between two convex polygons $P$ and $Q$ is defined as $\min\limits_{a \in P, b \in Q} ||a - b||$. One can note that
+the distance is always attained between two vertices or a vertex and an edge, so we can easily find the distance in $O(|P||Q|)$. However,
+with clever usage of Minkowski sum we can reduce the complexity to $O(|P| + |Q|)$.
+
+If we reflect $Q$ through the point $(0, 0)$ obtaining polygon $-Q$, the problem boils down to finding the smallest distance between a point in
+$P + (-Q)$ and $(0, 0)$. We can find that distance in linear time using the following idea.
+If $(0, 0)$ is inside or on the boundary of polygon, the distance is $0$, otherwise the distance is attained between $(0, 0)$ and some vertex or edge of the polygon.
+Since Minkowski sum can be computed
 in linear time, we obtain a linear-time algorithm for finding the distance between two convex polygons.
 
 ## Implementation
