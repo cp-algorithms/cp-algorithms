@@ -302,3 +302,4 @@ void output (pitem t) {
 * [SPOJ - TWIST](http://www.spoj.com/problems/TWIST/)
 * [SPOJ - KOILINE](http://www.spoj.com/problems/KOILINE/)
 * [CodeChef - The Prestige](https://www.codechef.com/problems/PRESTIGE)
+* [Codeforces - T-Shirts](https://codeforces.com/contest/702/problem/F)
