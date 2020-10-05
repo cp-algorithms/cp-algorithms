@@ -148,3 +148,6 @@ int get(int x, int v = 1, int l = 0, int r = maxn) {
 * [CS Academy - Squared Ends](https://csacademy.com/contest/archive/task/squared-ends)
 * [Codeforces - Escape Through Leaf](http://codeforces.com/contest/932/problem/F)
 * [CodeChef - Polynomials](https://www.codechef.com/NOV17/problems/POLY)
+* [Codeforces - Kalila and Dimna in the Logging Industry](https://codeforces.com/problemset/problem/319/C)
+* [Codeforces - Product Sum](https://codeforces.com/problemset/problem/631/E)
+* [Codeforces - Bear and Bowling 4](https://codeforces.com/problemset/problem/660/F)
