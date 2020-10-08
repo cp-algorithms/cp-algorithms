@@ -201,3 +201,6 @@ This partition can be easily found using [DFS](./graph/depth-first-search.html) 
 ## Practice Problems
 - [Codeforces - Array and Operations](https://codeforces.com/contest/498/problem/c)
 - [Codeforces - Red-Blue Graph](https://codeforces.com/contest/1288/problem/f)
+- [CSES - Download Speed](https://cses.fi/problemset/task/1694)
+- [CSES - Police Chase](https://cses.fi/problemset/task/1695)
+- [CSES - School Dance](https://cses.fi/problemset/task/1696)
