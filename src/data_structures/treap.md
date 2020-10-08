@@ -90,8 +90,11 @@ void merge (pitem & t, pitem l, pitem r) {
 }
 
 void erase (pitem & t, int key) {
-	if (t->key == key)
+	if (t->key == key) {
+		pitem th = t;
 		merge (t, t->l, t->r);
+		delete th;
+	}
 	else
 		erase (key < t->key ? t->l : t->r, key);
 }
