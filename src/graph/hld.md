@@ -174,3 +174,7 @@ int query(int a, int b) {
     return res;
 }
 ```
+
+## Practice problems
+
+- [SPOJ - QTREE - Query on a tree](https://www.spoj.com/problems/QTREE/)

@@ -167,3 +167,6 @@ The queue of segments is the global variable `s`, a `set<event>`. Iterators that
 Two auxiliary functions `prev()` and `next()` are also introduced, which return iterators to the previous and next elements (or `end()`, if one does not exist).
 
 The constant `EPS` denotes the error of comparing two real numbers (it is mainly used when checking two segments for intersection).
+
+## Problems
+ * [TIMUS 1469 No Smoking!](https://acm.timus.ru/problem.aspx?space=1&num=1469)

@@ -150,11 +150,12 @@ pitem build (int * a, int n) {
 	t->l = build (a, mid);
 	t->r = build (a + mid + 1, n - mid - 1);
 	heapify (t);
+	upd_cnt(t)
 	return t;
 }
 ```
 
-It's also possible to compute the sizes of the subtrees with this approach. It is enough to call `upd_cnt(t)` before returning from the `build` function.
+Note: calling `upd_cnt(t)` is only necessary if you need the subtree sizes.
 
 ## Implicit Treaps
 
@@ -301,3 +302,4 @@ void output (pitem t) {
 * [SPOJ - TWIST](http://www.spoj.com/problems/TWIST/)
 * [SPOJ - KOILINE](http://www.spoj.com/problems/KOILINE/)
 * [CodeChef - The Prestige](https://www.codechef.com/problems/PRESTIGE)
+* [Codeforces - T-Shirts](https://codeforces.com/contest/702/problem/F)

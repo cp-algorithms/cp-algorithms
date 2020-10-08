@@ -298,3 +298,8 @@ vector<tuple<pt, pt, pt>> delaunay(vector<pt> p) {
     return ans;
 }
 ```
+
+## Problems
+ * [TIMUS 1504 Good Manners](http://acm.timus.ru/problem.aspx?space=1&num=1504)
+ * [TIMUS 1520 Empire Strikes Back](http://acm.timus.ru/problem.aspx?space=1&num=1520)
+ * [SGU 383 Caravans](https://codeforces.com/problemsets/acmsguru/problem/99999/383)

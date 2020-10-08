@@ -74,7 +74,7 @@ and adding new articles to the collection.*
 - **Fundamentals**
     - [String Hashing](./string/string-hashing.html)
     - [Rabin-Karp for String Matching](./string/rabin-karp.html)
-    - [Prefix function](./string/prefix-function.html)
+    - [Prefix function - Knuth-Morris-Pratt](./string/prefix-function.html)
     - [Z-function](./string/z-function.html)
     - [Suffix Array](./string/suffix-array.html)
     - [Aho-Corasick algorithm](./string/aho_corasick.html)
@@ -135,6 +135,7 @@ and adding new articles to the collection.*
     - [Oriented area of a triangle](./geometry/oriented-triangle-area.html)
     - [Area of simple polygon](./geometry/area-of-simple-polygon.html)
     - [Check if points belong to the convex polygon in O(log N)](./geometry/point-in-convex-polygon.html)
+    - [Minkowski sum of convex polygons](./geometry/minkowski.html)
     - [Pick's Theorem - area of lattice polygons](./geometry/picks-theorem.html)
     - [Lattice points of non-lattice polygon](./geometry/lattice-points.html)
 - **Convex hull**

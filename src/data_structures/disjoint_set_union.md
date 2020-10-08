@@ -115,7 +115,7 @@ There is a second modification, that will make it even faster.
 ### Union by size / rank
 In this optimization we will change the `union_set` operation.
 To be precise, we will change which tree gets attached to the other one.
-In the native implementation the second tree always got attached to the first one.
+In the naive implementation the second tree always got attached to the first one.
 In practice that can lead to trees containing chains of length $O(n)$.
 With this optimization we will avoid this by choosing very carefully which tree gets attached.
 
