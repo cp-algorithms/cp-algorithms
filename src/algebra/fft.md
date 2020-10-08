@@ -597,3 +597,5 @@ If $x$ is the number of wildcards in $P$, then we will have a match of $P$ in $T
 - [Codeforces - Lightsabers (hard)](http://codeforces.com/problemset/problem/958/F3)
 - [Kattis - K-Inversions](https://open.kattis.com/problems/kinversions)
 - [Codeforces - Dasha and cyclic table](http://codeforces.com/contest/754/problem/E)
+- [CodeChef - Expected Number of Customers](https://www.codechef.com/COOK112A/problems/MMNN01)
+- [CodeChef - Power Sum](https://www.codechef.com/SEPT19A/problems/PSUM)
