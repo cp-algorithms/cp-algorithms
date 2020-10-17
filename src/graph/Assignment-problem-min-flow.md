@@ -38,7 +38,7 @@ vector<int> assignment(vector<vector<int>> a) {
         queue<int> q;
         dist[s] = 0;
         p[s] = -1;
-        q.push_back(s);
+        q.push(s);
         while (!q.empty()) {
             int v = q.front();
             q.pop();
