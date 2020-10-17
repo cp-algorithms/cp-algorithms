@@ -15,7 +15,7 @@ Common problems solved using DP on broken profile include:
 
 Let the DP state be: $dp[i, mask]$, where $i = 1, \ldots N$ and $mask = 0, \ldots 2^M - 1$.
 
-$i$ respresents number of rows in the current grid, and $mask$ is the state of last row of current grid. If $j$-th bit of $mask$ is $0$ then the corresponding cell is filled, otherwise it is unfilled.
+$i$ represents number of rows in the current grid, and $mask$ is the state of last row of current grid. If $j$-th bit of $mask$ is $0$ then the corresponding cell is filled, otherwise it is unfilled.
 
 Clearly, the answer to the problem will be $dp[N, 0]$.
 
@@ -82,6 +82,6 @@ int main()
 
 ## References
 
-- [Blog by EvilBunny](https://blog.evilbuggy.com/2018/05/broken-profile-dynamic-programming.html)
+- [Blog by EvilBunny](https://web.archive.org/web/20180712171735/https://blog.evilbuggy.com/2018/05/broken-profile-dynamic-programming.html)
 - [TopCoder Recipe by "syg96"](https://apps.topcoder.com/forums/?module=Thread&start=0&threadID=697369)
 - [Blogpost by sk765](http://sk765.blogspot.com/2012/02/dynamic-programming-with-profile.html)
