@@ -1,7 +1,7 @@
 <!--?title Oriented area of a triangle-->
 # Oriented area of a triangle
 
-Given three points $p_1$, $p_2$ and $p_3$, calculate an oriented (signed) area of a triangle formed by them. The sign of the area is determined in the following way: imagine you are standing in the plane at point $p_1$ and are facing $p_2$. You go to $p_2$ and if $p_3$ is to your right (then we say the three vectors turn "clockwise"), the sign of the area is positive, otherwise it is negative. If the three points are collinear, the area is zero.
+Given three points $p_1$, $p_2$ and $p_3$, calculate an oriented (signed) area of a triangle formed by them. The sign of the area is determined in the following way: imagine you are standing in the plane at point $p_1$ and are facing $p_2$. You go to $p_2$ and if $p_3$ is to your right (then we say the three vectors turn "clockwise"), the sign of the area is negative, otherwise it is positive. If the three points are collinear, the area is zero.
 
 Using this signed area, we can both get the regular unsigned area (as the absolute value of the signed area) and determine if the points lie clockwise or counterclockwise in their specified order (which is useful, for example, in convex hull algorithms).
 
