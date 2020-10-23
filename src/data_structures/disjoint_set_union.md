@@ -17,7 +17,7 @@ Thus the basic interface of this data structure consists of only three operation
 - `find_set(v)` - returns the representative (also called leader) of the set that contains the element `v`.
 This representative is an element of its corresponding set.
 It is selected in each set by the data structure itself (and can change over time, namely after `union_sets` calls).
-This representative can be used to check if two elements are part of the same set of not.
+This representative can be used to check if two elements are part of the same set or not.
 `a` and `b` are exactly in the same set, if `find_set(a) == find_set(b)`.
 Otherwise they are in different sets.
 
