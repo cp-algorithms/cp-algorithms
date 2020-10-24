@@ -74,6 +74,7 @@ with the Convex Hull trick or vice-versa. It is useful to know and understand
 both!
 
 ## Practice Problems
+- [Dunjudge - GUARDS](https://dunjudge.me/analysis/problems/894/) (This is the exact problem in this article.)
 - [Codeforces - Ciel and Gondolas](https://codeforces.com/contest/321/problem/E) (Be careful with I/O!)
 - [SPOJ - LARMY](https://www.spoj.com/problems/LARMY/)
 - [Codechef - CHEFAOR](https://www.codechef.com/problems/CHEFAOR)
