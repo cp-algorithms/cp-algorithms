@@ -99,9 +99,9 @@ while from the current vertex of the trie there is no transition using the curre
 Thus we reduced the problem of constructing an automaton to the problem of finding suffix links for all vertices of the trie.
 However we will build these suffix links, oddly enough, using the transitions constructed in the automaton.
 
-Note that if we want to find a suffix link for some vertex $v$, then we have firstly have the base cases that the root vertex has suffix link itself, and all nodes that are children of the root vertex (i.e the vertices associated with prefixes of length one) also have suffix link the root vertex. Moreover, the suffix link of all deeper vertices can be evaluated as follows: we can go to the ancestor $p$ of this current vertex (let $c$ be the letter of the edge from $p$ to $v$), then follow its suffix link, and perform from there the transition with the letter $c$.
+Note that if we want to find a suffix link for some vertex $v$, then we firstly have the base case that the root vertex has its suffix link as itself, and all nodes that are immediate children of the root vertex (i.e the vertices associated with prefixes of length one) also have their suffix links as the root vertex. Moreover, the suffix links of all deeper vertices can be evaluated as follows: we can go to the ancestor $p$ of this current vertex (let $c$ be the letter of the edge from $p$ to $v$), then follow its suffix link, and perform the transition with the letter $c$ from there.
 
-Thus the problem of finding the transitions has been reduced to the problem of finding suffix links, and the problem of finding suffix links has been reduced to the problem of finding a suffix link and a transition, but for vertices closer to the root.
+Thus the problem of finding the transitions has been reduced to the problem of finding suffix links, and the problem of finding suffix links has been reduced to the problem of finding a suffix link and a transition, except for vertices closer to the root.
 So we have a recursive dependence that we can resolve in linear time.
 
 Let's move to the implementation.
