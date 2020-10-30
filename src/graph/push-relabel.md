@@ -130,27 +130,29 @@ void discharge(int u)
     }
 }
 
-int max_flow()
+int max_flow(int s, int t)
 {
     height.assign(n, 0);
-    height[0] = n;
+    height[s] = n;
     flow.assign(n, vector<int>(n, 0));
     excess.assign(n, 0);
-    excess[0] = inf;
-    for (int i = 1; i < n; i++)
-        push(0, i);
+    excess[s] = inf;
+    for (int i = 0; i < n; i++) {
+    	if (i != s)
+	        push(s, i);
+    }
     seen.assign(n, 0);
 
     while (!excess_vertices.empty()) {
         int u = excess_vertices.front();
         excess_vertices.pop();
-        if (u != 0 && u != n - 1)
+        if (u != s && u != t)
             discharge(u);
     }
 
     int max_flow = 0;
     for (int i = 0; i < n; i++)
-        max_flow += flow[0][i];
+        max_flow += flow[i][t];
     return max_flow;
 }
 ```
