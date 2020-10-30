@@ -147,6 +147,7 @@ and adding new articles to the collection.*
 - **Miscellaneous**
     - [Finding the nearest pair of points](./geometry/nearest_points.html)
     - [Delaunay triangulation and Voronoi diagram](./geometry/delaunay.html)
+    - [Vertical decomposition](./geometry/vertical_decomposition.html)
 
 ### Graphs
 
