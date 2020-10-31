@@ -1112,7 +1112,7 @@ for (int i = 0; i < a.size(); i++) {
 }
 
 // find the 5th smallest number from the subarray [a[2], a[3], ..., a[19]]
-int result = find_kth(roots[1], roots[19], tl, tr, 5);
+int result = find_kth(roots[2], roots[20], tl, tr, 5);
 ```
 
 Now to the restrictions on the array elements:
