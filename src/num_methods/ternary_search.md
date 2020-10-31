@@ -90,3 +90,5 @@ Instead of the criterion `r - l > eps`, we can select a constant number of itera
 * [Codeforces - Devu and his Brother](https://codeforces.com/problemset/problem/439/D)
 * [Codechef - Is This JEE ](https://www.codechef.com/problems/ICM2003)
 * [Codeforces - Restorer Distance](https://codeforces.com/contest/1355/problem/E)
+* [TIMUS 1719 Kill the Shaitan-Boss](https://acm.timus.ru/problem.aspx?space=1&num=1719)
+* [TIMUS 1913 Titan Ruins: Alignment of Forces](https://acm.timus.ru/problem.aspx?space=1&num=1913)
