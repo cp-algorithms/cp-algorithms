@@ -1050,28 +1050,77 @@ First we will discuss a solution for a simpler problem:
 We will only consider arrays in which the elements are bound by $0 \le a[i] \lt n$.
 And we only want to find the $k$-th smallest element in some prefix of the array $a$.
 It will be very easy to extent the developed ideas later for not restricted arrays and not restricted range queries.
+Note that we will be using 1 based indexing for $a$.
 
 We will use a Segment Tree that counts all appearing numbers, i.e. in the Segment Tree we will store the histogram of the array.
 So the leaf vertices will store how often the values $0$, $1$, $\dots$, $n-1$ will appear in the array, and the other vertices store how many numbers in some range are in the array. 
 In other words we create a regular Segment Tree with sum queries over the histogram of the array.
 But instead of creating all $n$ Segment Trees for every possible prefix, we will create one persistent one, that will contain the same information.
-We will start with an empty Segment Tree (all counts will be $0$), and add the elements $a[0]$, $a[1]$, $\dots$, $a[n-1]$ one after each other.
+We will start with an empty Segment Tree (all counts will be $0$) pointed to by $root_0$, and add the elements $a[1]$, $a[2]$, $\dots$, $a[n]$ one after another.
 For each modification we will receive a new root vertex, let's call $root_i$ the root of the Segment Tree after inserting the first $i$ elements of the array $a$.
-The Segment Tree rooted at $root_i$ will contain the histogram of the prefix $a[0 \dots i-1]$.
+The Segment Tree rooted at $root_i$ will contain the histogram of the prefix $a[1 \dots i]$.
 Using this Segment Tree we can find in $O(\log n)$ time the position of the $k$-th element using the same technique discussed in [Counting the number of zeros, searching for the $k$-th zero](data_structures/segment_tree.html#counting-zero-search-kth).
 
 Now to the not-restricted version of the problem.
 
-First for the restriction on the array:
+First for the restriction on the queries: 
+Instead of only performing these queries over a prefix of $a$, we want to use any arbitrary segments $a[l \dots r]$.
+Here we need a Segment Tree that represents the histogram of the elements in the range $a[l \dots r]$. 
+It is easy to see that such a Segment Tree is just the difference between the Segment Tree rooted at $root_{r}$ and the Segment Tree rooted at $root_{l-1}$, i.e. every vertex in the $[l \dots r]$ Segment Tree can be computed with the vertex of the $root_{r}$ tree minus the vertex of the $root_{l-1}$ tree.
+
+In the implementation of the $\text{find_kth}$ function this can be handled by passing two vertex pointer and computing the count/sum of the current segment as difference of the two counts/sums of the vertices.
+
+Here are the modified $\text{build}$, $\text{update}$  and $\text{find_kth}$ functions
+
+```cpp kth_smallest_persistent_segment_tree
+Vertex* build(int tl, int tr) {
+    if (tl == tr)
+        return new Vertex(0);
+    int tm = (tl + tr) / 2;
+    return new Vertex(build(tl, tm), build(tm+1, tr));
+}
+
+Vertex* update(Vertex* v, int tl, int tr, int pos) {
+    if (tl == tr)
+        return new Vertex(v->sum+1);
+    int tm = (tl + tr) / 2;
+    if (pos <= tm)
+        return new Vertex(update(v->l, tl, tm, pos), v->r);
+    else
+        return new Vertex(v->l, update(v->r, tm+1, tr, pos));
+}
+
+int find_kth(Vertex* vl, Vertex *vr, int tl, int tr, int k) {
+    if (tl == tr)
+    	return tl;
+    int tm = (tl + tr) / 2, left_count = vr->l->sum - vl->l->sum;
+    if (left_count >= k)
+    	return find_kth(vl->l, vr->l, tl, tm, k);
+    return find_kth(vl->r, vr->r, tm+1, tr, k-left_count);
+}
+```
+
+As already written above, we need to store the root of the initial Segment Tree, and also all the roots after each update.
+Here is the code for building a persistent Segment Tree over an vector `a` with elements in the range `[0, MAX_VALUE]`.
+
+```cpp kth_smallest_persistent_segment_tree_build
+int tl = 0, tr = MAX_VALUE + 1;
+std::vector<Vertex*> roots;
+roots.push_back(build(tl, tr));
+for (int i = 0; i < a.size(); i++) {
+    roots.push_back(update(roots.back(), tl, tr, a[i]));
+}
+
+// find the 5th smallest number from the subarray [a[2], a[3], ..., a[19]]
+int result = find_kth(roots[2], roots[20], tl, tr, 5);
+```
+
+Now to the restrictions on the array elements:
 We can actually transform any array to such an array by index compression.
 The smallest element in the array will gets assigned the value 0, the second smallest the value 1, and so forth.
 It is easy to generate lookup tables (e.g. using $\text{map}$), that convert a value to its index and vice versa in $O(\log n)$ time.
 
-Now to the queries restriction: 
-instead of only performing these queries over a prefix of $a$, we want to use any arbitrary segments $a[l \dots r]$.
-Here we need a Segment Tree that represents the histogram of the elements in the range $a[l \dots r]$. 
-It is easy to see that such a Segment Tree is just the difference between the Segment Tree rooted at $root_{r+1}$ and the Segment Tree rooted at $root_l$, i.e. every vertex in the $[l \dots r]$ Segment Tree can be computed with the vertex of the $root_{r+1}$ tree minus the vertex of the $root_l$ tree.
-In the implementation of the $\text{get_kth}$ function this can be handled by passing two vertex pointer and computing the count/sum of the current segment as difference of the two counts/sums of the vertices.
+
 
 ### Implicit segment tree
 
