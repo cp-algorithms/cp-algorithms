@@ -110,3 +110,7 @@ vector<line> tangents (circle a, circle b) {
     return ans;
 }
 ```
+
+## Problems
+
+[TIMUS 1163 Chapaev](https://acm.timus.ru/problem.aspx?space=1&num=1163)

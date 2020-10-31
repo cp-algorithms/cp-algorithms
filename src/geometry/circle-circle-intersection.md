@@ -40,3 +40,7 @@ The only degenerate case we need to consider separately is when the centers of t
 - [SPOJ: CIRCINT](http://www.spoj.com/problems/CIRCINT/)
 
 - [UVA - 10301 - Rings and Glue](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1242)
+
+- [Codeforces 933C A Colorful Prospect](https://codeforces.com/problemset/problem/933/C)
+
+- [TIMUS 1429 Biscuits](https://acm.timus.ru/problem.aspx?space=1&num=1429)
