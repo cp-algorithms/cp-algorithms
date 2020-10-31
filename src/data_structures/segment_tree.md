@@ -1072,7 +1072,7 @@ In the implementation of the $\text{find_kth}$ function this can be handled by p
 
 Here are the modified $\text{build}$, $\text{update}$  and $\text{find_kth}$ functions
 
-```cpp
+```cpp kth_smallest_persistent_segment_tree
 Vertex* build(int tl, int tr) {
     if (tl == tr)
         return new Vertex(0);
@@ -1094,11 +1094,27 @@ int find_kth(Vertex* vl, Vertex *vr, int tl, int tr, int k) {
     if (tl == tr)
     	return tl;
     int tm = (tl + tr) / 2, left_count = vr->l->sum - vl->l->sum;
-    if (left_count >= k)
+    if (left_count > k)
     	return find_kth(vl->l, vr->l, tl, tm, k);
     return find_kth(vl->r, vr->r, tm+1, tr, k-left_count);
 }
 ```
+
+As already written above, we need to store the root of the initial Segment Tree, and also all the roots after each update.
+Here is the code for building a persistent Segment Tree over an vector `a` with elements in the range `[0, MAX_VALUE]`.
+
+```cpp kth_smallest_persistent_segment_tree_build
+int tl = 0, tr = MAX_VALUE + 1;
+std::vector<Vertex*> roots;
+roots.push_back(build(tl, tr));
+for (int i = 0; i < a.size(); i++) {
+    roots.push_back(update(roots.back(), tl, tr, a[i]));
+}
+
+// find the 5th smallest number from the subarray [a[2], a[3], ..., a[19]]
+int result = find_kth(roots[1], roots[19], tl, tr, 5);
+```
+
 Now to the restrictions on the array elements:
 We can actually transform any array to such an array by index compression.
 The smallest element in the array will gets assigned the value 0, the second smallest the value 1, and so forth.
