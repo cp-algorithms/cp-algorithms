@@ -169,4 +169,5 @@ int main() {
     test_section_kth_zero();
     test_section_maximal_subsegment();
     test_section_smallest_number_greater_or_equal();
+    test_kth_smallest_persistent();
 }

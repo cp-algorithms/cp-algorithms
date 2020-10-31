@@ -1094,7 +1094,7 @@ int find_kth(Vertex* vl, Vertex *vr, int tl, int tr, int k) {
     if (tl == tr)
     	return tl;
     int tm = (tl + tr) / 2, left_count = vr->l->sum - vl->l->sum;
-    if (left_count > k)
+    if (left_count >= k)
     	return find_kth(vl->l, vr->l, tl, tm, k);
     return find_kth(vl->r, vr->r, tm+1, tr, k-left_count);
 }
