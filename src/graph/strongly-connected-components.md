@@ -131,4 +131,4 @@ Here, $g$ is graph, $gr$ is transposed graph. Function $dfs1$ implements depth f
 * [CSES - Flight Routes Check](https://cses.fi/problemset/task/1682)
 * [CSES - Planets and Kingdoms](https://cses.fi/problemset/task/1683)
 * [CSES -Coin Collector](https://cses.fi/problemset/task/1686)
-
+* [Codeforces - Checkposts](https://codeforces.com/problemset/problem/427/C)
