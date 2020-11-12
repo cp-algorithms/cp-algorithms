@@ -107,7 +107,7 @@ So, we want to calculate $d_1[i]$ for the next $i$, and all the previous values 
     }\_\text{try moving here}
     $$
     
-    It is shown in the illustration that though the palindrome with center $j$ could be larger and go outside the "outer" palindrome, but with $i$ as the center we can use only the part that entirely fits into the "outer" palindrome. But the answer for the position $i$ ($d_1[i]$) can be much bigger that this part, so next we'll run our trivial algorithm that will try to grow it outside our "outer" palindrome, i. e. to the region "try moving here".
+    It is shown in the illustration that though the palindrome with center $j$ could be larger and go outside the "outer" palindrome, but with $i$ as the center we can use only the part that entirely fits into the "outer" palindrome. But the answer for the position $i$ ($d_1[i]$) can be much bigger than this part, so next we'll run our trivial algorithm that will try to grow it outside our "outer" palindrome, i. e. to the region "try moving here".
 
 Again, we should not forget to update the values $(l, r)$ after calculating each $d_1[i]$.
 
