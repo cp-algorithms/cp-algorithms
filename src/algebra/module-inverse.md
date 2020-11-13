@@ -96,11 +96,11 @@ for(int i = 2; i < m; ++i)
 We have:
 $$m \bmod i = m -  \left\lfloor \frac{m}{i} \right\rfloor \cdot i$$
 Taking both sides modulo $m$ yields:
-$$m \bmod i \equiv - \left\lfloor \frac{m}{i} \right\rfloor \cdot i \mod m$$
+$$m \bmod i \equiv m - \left\lfloor \frac{m}{i} \right\rfloor \cdot i \mod m$$
 Multiply both sides by $i^{-1} \cdot (m \bmod i)^{-1}$ yields
-$$(m \bmod i) \cdot i^{-1} \cdot (m \bmod i)^{-1} \equiv -\left\lfloor \frac{m}{i} \right\rfloor \cdot i \cdot i^{-1} \cdot (m \bmod i)^{-1} \mod m,$$
+$$(m \bmod i) \cdot i^{-1} \cdot (m \bmod i)^{-1} \equiv m -\left\lfloor \frac{m}{i} \right\rfloor \cdot i \cdot i^{-1} \cdot (m \bmod i)^{-1} \mod m,$$
 which simplifies to:
-$$i^{-1} \equiv -\left\lfloor \frac{m}{i} \right\rfloor \cdot (m \bmod i)^{-1} \mod m,$$
+$$i^{-1} \equiv m -\left\lfloor \frac{m}{i} \right\rfloor \cdot (m \bmod i)^{-1} \mod m,$$
 
 
 
