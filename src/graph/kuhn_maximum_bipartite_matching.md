@@ -129,14 +129,13 @@ maximum matching itself is contained in the array $\rm mt$.
 int n, k;
 vector<vector<int>> g;
 vector<int> mt;
-vector<char> used;
+vector<bool> used;
 
 bool try_kuhn(int v) {
     if (used[v])
         return false;
     used[v] = true;
-    for (size_t i = 0; i < g[v].size(); ++i) {
-        int to = g[v][i];
+    for (int to : g[v]) {
         if (mt[to] == -1 || try_kuhn(mt[to])) {
             mt[to] = v;
             return true;
@@ -185,19 +184,21 @@ int main() {
     // ... reading the graph ...
 
     mt.assign(k, -1);
-    vector<char> used1(n);
-    for (int i = 0; i < n; ++i)
-        for (size_t j = 0; j < g[i].size(); ++j)
-            if (mt[g[i][j]] == -1) {
-                mt[g[i][j]] = i;
-                used1[i] = true;
+    vector<bool> used1(n, false);
+    for (int v = 0; v < n; ++v) {
+        for (int to : g[i]) {
+            if (mt[to] == -1) {
+                mt[to] = v;
+                used1[v] = true;
                 break;
             }
-    for (int i = 0; i < n; ++i) {
-        if (used1[i])
+        }
+    }
+    for (int v = 0; v < n; ++v) {
+        if (used1[v])
             continue;
         used.assign(n, false);
-        try_kuhn(i);
+        try_kuhn(v);
     }
 
     for (int i = 0; i < k; ++i)
