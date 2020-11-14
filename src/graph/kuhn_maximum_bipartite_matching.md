@@ -11,8 +11,8 @@ that no selected edge shares a vertex with any other selected edge.
 ### Required Definitions
 
 * A **matching** $M$ is a set of pairwise non-adjacent edges of a graph (in other words, no more than one edge from the set should be incident to any vertex of the graph $M$). 
-The power of matching is the number of edges in it. The maximum (or largest) matching is a matching whose cardinality is maximum among all possible matchings 
-in a given graph. All those vertices that have an adjacent edge from the matching (i.e., which have degree exactly one in the subgraph formed $M$) are called **saturated** 
+The **cardinality** of a matching is the number of edges in it. The maximum (or largest) matching is a matching whose cardinality is maximum among all possible matchings 
+in a given graph. All those vertices that have an adjacent edge from the matching (i.e., which have degree exactly one in the subgraph formed by $M$) are called **saturated** 
 by this matching.
 
 * A **path** of length $k$ here means a *simple* path (i.e. not containing repeated vertices or edges) containing $k$ edges, unless specified otherwise.
