@@ -125,37 +125,40 @@ and a depth-first traversal is started from it, having previously zeroed the arr
 It is worth noting that the size of the matching is easy to get as the number of calls $\textrm{try\_kuhn}$ in the main program that returned the result $\rm true$. The desired 
 maximum matching itself is contained in the array $\rm mt$.
 
-    int n, k;
-    vector < vector<int> > g;
-    vector<int> mt;
-    vector<char> used;
+```cpp
+int n, k;
+vector<vector<int>> g;
+vector<int> mt;
+vector<char> used;
 
-    bool try_kuhn (int v) {
-        if (used[v])  return false;
-        used[v] = true;
-        for (size_t i=0; i<g[v].size(); ++i) {
-            int to = g[v][i];
-            if (mt[to] == -1 || try_kuhn (mt[to])) {
-                mt[to] = v;
-                return true;
-            }
-        }
+bool try_kuhn(int v) {
+    if (used[v])
         return false;
-    }
-
-    int main() {
-        //... reading the graph ...
-
-        mt.assign (k, -1);
-        for (int v=0; v<n; ++v) {
-            used.assign (n, false);
-            try_kuhn (v);
+    used[v] = true;
+    for (size_t i = 0; i < g[v].size(); ++i) {
+        int to = g[v][i];
+        if (mt[to] == -1 || try_kuhn(mt[to])) {
+            mt[to] = v;
+            return true;
         }
-
-        for (int i=0; i<k; ++i)
-            if (mt[i] != -1)
-                printf ("%d %d\n", mt[i]+1, i+1);
     }
+    return false;
+}
+
+int main() {
+    //... reading the graph ...
+
+    mt.assign(k, -1);
+    for (int v = 0; v < n; ++v) {
+        used.assign(n, false);
+        try_kuhn(v);
+    }
+
+    for (int i = 0; i < k; ++i)
+        if (mt[i] != -1)
+            printf("%d %d\n", mt[i] + 1, i + 1);
+}
+```
     
 We repeat once again that Kuhn's algorithm is easy to implement in such a way that it works on graphs that are known to be bipartite, but their explicit splitting into two parts 
 has not been given. In this case, it will be necessary to abandon the convenient division into two parts, and store all the information for all vertices of the graph. For this, 
@@ -177,34 +180,37 @@ not yet included in the matching, you need to add an appropriate check.
 
 In the implementation, only the code in the $\textrm{main}()$ function will change:
 
-    int main() {
-        // ... reading the graph ...
+```cpp
+int main() {
+    // ... reading the graph ...
 
-        mt.assign (k, -1);
-        vector<char> used1 (n);
-        for (int i=0; i<n; ++i)
-            for (size_t j=0; j<g[i].size(); ++j)
-                if (mt[g[i][j]] == -1) {
-                    mt[g[i][j]] = i;
-                    used1[i] = true;
-                    break;
-                }
-        for (int i=0; i<n; ++i) {
-            if (used1[i])  continue;
-            used.assign (n, false);
-            try_kuhn (i);
-        }
-
-        for (int i=0; i<k; ++i)
-            if (mt[i] != -1)
-                printf ("%d %d\n", mt[i]+1, i+1);
+    mt.assign(k, -1);
+    vector<char> used1(n);
+    for (int i = 0; i < n; ++i)
+        for (size_t j = 0; j < g[i].size(); ++j)
+            if (mt[g[i][j]] == -1) {
+                mt[g[i][j]] = i;
+                used1[i] = true;
+                break;
+            }
+    for (int i = 0; i < n; ++i) {
+        if (used1[i])
+            continue;
+        used.assign(n, false);
+        try_kuhn(i);
     }
-    
+
+    for (int i = 0; i < k; ++i)
+        if (mt[i] != -1)
+            printf("%d %d\n", mt[i] + 1, i + 1);
+}
+```
+
 **Another good heuristic** is as follows. At each step, it will search for the vertex of the smallest degree (but not isolated), select any edge from it and add it to the matching,
 then remove both these vertices with all incident edges from the graph. Such greed works very well on random graphs; in many cases it even builds the maximum matching (although 
 there is a test case against it, on which it will find a matching that is much smaller than the maximum).
 
-##Notes
+## Notes
 
 * Kuhn's algorithm is a subroutine in the **Hungarian algorithm**, also known as the **Kuhn-Munkres algorithm**.
 * Kuhn's algorithm runs in $O(nm)$ time. It is generally simple to implement, however, more efficient algorithms exist for the maximum bipartite matching problem - such as the 
