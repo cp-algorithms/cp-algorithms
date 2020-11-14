@@ -198,6 +198,7 @@ and adding new articles to the collection.*
     - [Assignment problem. Solution using min-cost-flow in O (N^5)](./graph/Assignment-problem-min-flow.html)
 - **Matchings and related problems**
     - [Bipartite Graph Check](./graph/bipartite-check.html)
+    - [Kuhn' Algorithm - Maximum Bipartite Matching](./graph/kuhn_maximum_bipartite_matching.html)
 - **Miscellaneous**
     - [Topological Sorting](./graph/topological-sort.html)
     - [Edge connectivity / Vertex connectivity](./graph/edge_vertex_connectivity.html)
