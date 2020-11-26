@@ -198,7 +198,7 @@ void solve()
 }
 ```
 
-Due to the presence of a negative cycle, for $n$ iterations of the algorithm, the distances may go far in the negative (apparently, to negative numbers of order $-2^n$). Hence in the code, we adopted additional measures against the integer overflow as follows:
+Due to the presence of a negative cycle, for $n$ iterations of the algorithm, the distances may go far in the negative range (to negative numbers of the order of $-n m W$, where $W$ is the maximum absolute value of any weight in the graph). Hence in the code, we adopted additional measures against the integer overflow as follows:
 
 ```cpp
 d[e[j].b] = max (-INF, d[e[j].a] + e[j].cost);
