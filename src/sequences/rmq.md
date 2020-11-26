@@ -35,3 +35,4 @@ Note: Preprocessing is the preliminary processing of the given array by building
 ## Practice Problems
 - [SPOJ: Range Minimum Query](http://www.spoj.com/problems/RMQSQ/)
 - [CODECHEF: Chef And Array](https://www.codechef.com/problems/FRMQ)
+- [Codeforces:  Array Partition](https://codeforces.com/contest/1454/problem/F)
