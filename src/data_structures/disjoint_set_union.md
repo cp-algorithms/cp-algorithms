@@ -130,17 +130,17 @@ Here is the implementation of union by size:
 ```cpp
 void make_set(int v) {
     parent[v] = v;
-    size[v] = 1;
+    set_size[v] = 1;
 }
 
 void union_sets(int a, int b) {
     a = find_set(a);
     b = find_set(b);
     if (a != b) {
-        if (size[a] < size[b])
+        if (set_size[a] < set_size[b])
             swap(a, b);
         parent[b] = a;
-        size[a] += size[b];
+        set_size[a] += set_size[b];
     }
 }
 ```
@@ -150,18 +150,18 @@ And here is the implementation of union by rank based on the depth of the trees:
 ```cpp
 void make_set(int v) {
     parent[v] = v;
-    rank[v] = 0;
+    set_rank[v] = 0;
 }
 
 void union_sets(int a, int b) {
     a = find_set(a);
     b = find_set(b);
     if (a != b) {
-        if (rank[a] < rank[b])
+        if (set_rank[a] < set_rank[b])
             swap(a, b);
         parent[b] = a;
-        if (rank[a] == rank[b])
-            rank[a]++;
+        if (set_rank[a] == set_rank[b])
+            set_rank[a]++;
     }
 }
 ```
