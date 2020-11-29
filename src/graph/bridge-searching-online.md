@@ -10,7 +10,7 @@ we have to find all the "important" roads on the given road map, i.e. such roads
 
 There is already the article [Finding Bridges in $O(N+M)$](./graph/bridge-searching.html) which solves this task with a [Depth First Search](./graph/depth-first-search.html) traversal.
 This algorithm will be much more complicated, but it has one big advantage:
-the algorithm described in this article works online, which means that the input graph doesn't have to be not known in advance.
+the algorithm described in this article works online, which means that the input graph doesn't have to be known in advance.
 The edges are added once at a time, and after each addition the algorithm recounts all the bridges in the current graph.
 In other words the algorithm is designed to work efficiently on a dynamic, changing graph.
 
