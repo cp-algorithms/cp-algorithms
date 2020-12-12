@@ -156,5 +156,5 @@ int main() {
 ```
 ### Practice problems:
 
-- [CSES : Round Trip](https://cses.fi/problemset/task/1691)
-- [CSES :Teleporters Path](https://cses.fi/problemset/task/1693)
+- [CSES : Mail Delivery](https://cses.fi/problemset/task/1691)
+- [CSES : Teleporters Path](https://cses.fi/problemset/task/1693)
