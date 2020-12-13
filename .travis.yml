@@ -1,5 +1,6 @@
-langauge: cpp
+language: cpp
 compiler: gcc
+os: linux
 dist: trusty
 
 before_script:
