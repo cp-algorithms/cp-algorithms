@@ -257,7 +257,7 @@ g(4) = g(100_2) = 000_2 &= 0 \\\\
 \end{align}$$
 
 The last set bit can be extracted using $i ~\&~ (-i)$, so the operation can be expressed as:
-$$g(i) = i - (i ~\&~ (-i).$$
+$$g(i) = i - (i ~\&~ (-i)).$$
 
 And it's not hard to see, that you need to change all values $T[j]$ in the sequence $i,~ h(i),~ h(h(i)),~ \dots$ when you want to update $A[j]$, where $h(i)$ is defined as:
 $$h(i) = i + (i ~\&~ (-i)).$$
