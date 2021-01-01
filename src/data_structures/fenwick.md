@@ -29,7 +29,7 @@ $$T_i = \sum_{j = g(i)}^{i}{A_j},$$
 where $g$ is some function that satisfies $0 \le g(i) \le i$.
 We will define the function in the next few paragraphs.
 
-The data structure is called tree, because there is a nice representation of the data structure as tree, although we don't need to model an actual tree with vertices and nodes.
+The data structure is called tree, because there is a nice representation of the data structure as tree, although we don't need to model an actual tree with nodes and edges.
 We will only need to maintain the array $T$ to handle all queries.
 
 **Note:** The Fenwick tree presented here uses zero-based indexing.
