@@ -1,7 +1,7 @@
 <!--?title Suffix Automaton -->
 # Suffix Automaton
 
-A **suffix automaton** is a powerful data structure that allows solving many string-related problems.
+A **suffix automaton** or **suffix automata machine (SAM)** is a powerful data structure that allows solving many string-related problems.
 
 For example, you can search for all occurrences of one string in another, or count the amount of different substrings of a given string.
 Both tasks can be solved in linear time with the help of a suffix automaton.
