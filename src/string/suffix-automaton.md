@@ -1,15 +1,15 @@
 <!--?title Suffix Automaton -->
 # Suffix Automaton
 
-A **suffix automaton** is a powerful data structure that allows solving many string-related problems.
+A **suffix automaton** is a powerful data structure that allows solving many string-related problems. 
 
 For example, you can search for all occurrences of one string in another, or count the amount of different substrings of a given string.
 Both tasks can be solved in linear time with the help of a suffix automaton.
 
-Intuitively a suffix automaton can be understood as compressed form of **all substrings** of a given string.
+Intuitively a suffix automaton can be understood as a compressed form of **all substrings** of a given string.
 An impressive fact is, that the suffix automaton contains all this information in a highly compressed form.
 For a string of length $n$ it only requires $O(n)$ memory.
-Moreover, it can also be build in $O(n)$ time (if we consider the size $k$ of the alphabet as a constant), otherwise both the memory and the time complexity will be $O(n \log k)$.
+Moreover, it can also be built in $O(n)$ time (if we consider the size $k$ of the alphabet as a constant), otherwise both the memory and the time complexity will be $O(n \log k)$.
 
 The linearity of the size of the suffix automaton was first discovered in 1983 by Blumer et al., and in 1985 the first linear algorithms for the construction was presented by Crochemore and Blumer.
 
@@ -120,7 +120,7 @@ But then at every occurrence of $w$ also appears the substring $u$, which means 
 
 **Lemma 3**:
 Consider an $endpos$-equivalence class.
-Sort all the substrings in this class by non-increasing length.
+Sort all the substrings in this class by decreasing length.
 Then in the resulting sequence each substring will be one shorter than the previous one, and at the same time will be a suffix of the previous one.
 In other words, in a same equivalence class, the shorter substrings are actually suffixes of the longer substrings, and they take all possible lengths in a certain interval $[x; y]$.
 
@@ -164,7 +164,7 @@ Therefore, by moving along the suffix links, we will sooner or later come to the
 If we construct a tree using the sets $endpos$ (by the rule that the set of a parent node contains the sets of all children as subsets), then the structure will coincide with the tree of suffix links.
 
 Proof:
-The fact that we can construct a tree using the sets $endpos$ follows directly from Lemma 2 (that any two sets either do not intersect of one is contained in the other).
+The fact that we can construct a tree using the sets $endpos$ follows directly from Lemma 2 (that any two sets either do not intersect or one is contained in the other).
 
 Let us now consider an arbitrary state $v \ne t_0$, and its suffix link $link(v)$.
 From the definition of the suffix link and from Lemma 2 it follows that
@@ -713,6 +713,7 @@ After that, the answer to the problem will be the string $longest(v)$ for the st
 
 ## Practice Problems
 
+  - [AtCoder - K-th Substring](https://atcoder.jp/contests/abc097/tasks/arc097_a)
   - [SPOJ - SUBLEX](https://www.spoj.com/problems/SUBLEX/)
   - [Codeforces - Cyclical Quest](https://codeforces.com/problemset/problem/235/C)
   - [Codeforces - String](https://codeforces.com/contest/128/problem/B)
