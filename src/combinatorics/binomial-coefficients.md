@@ -59,6 +59,7 @@ int C(int n, int k) {
         res *= i;
     for (int i = 2; i <= k; ++i)
         res /= i;
+    return res;
 }
 ```
 
