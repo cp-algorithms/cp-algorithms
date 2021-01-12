@@ -109,16 +109,18 @@ Thus using above two equations Fibonacci numbers can be calculated easily by the
 
 ```cpp
 pair<int, int> fib (int n) {
-    if (n == 0)
-        return {0, 1};
-
-    auto p = fib(n >> 1);
-    int c = p.first * (2 * p.second - p.first);
-    int d = p.first * p.first + p.second * p.second;
-    if (n & 1)
-        return {d, c + d};
-    else
-        return {c, d};
+    int c = 0, d = 1;
+    
+    while (n) {
+      tie(c, d) = make_tuple(c*(2*d - c), c*c + d*d);
+      
+      if (n & 1)
+        tie(c, d) = make_tuple(d, c+d);
+      
+      n >>= 1;
+    }
+    
+    return {c, d};
 }
 ```
 The above code returns $F_n$ and $F_{n+1}$ as a pair.
