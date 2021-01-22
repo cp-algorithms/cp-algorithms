@@ -131,7 +131,7 @@ For calculating $d_1[]$, we get the following code. Things to note:
  - $d_1[]$ stores the odd palindromes. So, if $i$ exceeds $r$, $k$ is initialized to 1, as a single letter is a palindrome in itself. For $d_2[]$, $k$ will be initialized to 0.
  - If $i$ does not exceed $r$, $k$ is either initialized to the $d_1[j]$, where $j$ is the mirror position of $i$ in $(l,r)$, or $k$ is restricted to the size of the "outer" palindrome.
  - The while loop denotes the trivial algorithm. We launch it irrespective of the value of $k$.
- - If the size of palindrome centered at $i$ is $x$, then $d_2[i]$ stores $(x+1)/2$.
+ - If the size of palindrome centered at $i$ is $x$, then $d_1[i]$ stores $(x+1)/2$.
 
 ```cpp
 vector<int> d1(n);
