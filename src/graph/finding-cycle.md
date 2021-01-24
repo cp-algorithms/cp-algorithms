@@ -67,7 +67,12 @@ void find_cycle() {
 }
 ```
 
-Here is an implementation for undirected graph. Note that in the undirected version, if a vertex is ever colored black, then it will never be visited again by the DFS. This is because the connected component containing v (after removing the edge between v and its parent) must be a tree if the DFS has completed processing v. So we don't even need to distinguish between gray and black states. Thus we can turn the char vector `color` into a boolean vector `visited`.
+Here is an implementation for undirected graph.
+Note that in the undirected version, if a vertex `v` gets colored black, it will never be visited again by the DFS.
+This is because we already explored all connected edges of `v` when we first visited it.
+The connected component containing `v` (after removing the edge between `v` and its parent) must be a tree, if the DFS has completed processing `v` without finding a cycle.
+So we don't even need to distinguish between gray and black states.
+Thus we can turn the char vector `color` into a boolean vector `visited`.
 
 ```cpp
 int n;
