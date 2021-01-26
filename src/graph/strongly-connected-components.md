@@ -5,7 +5,7 @@
 ## Definitions
 You are given a directed graph $G$ with vertices $V$ and edges $E$. It is possible that there are loops and multiple edges. Let's denote $n$ as number of vertices and $m$ as number of edges in $G$.
 
-**Strongly connected component** is subset of vertices $C$ such that any two vertices of this subset are reachable from each other, i.e. for any $u, v \in C$:
+**Strongly connected component** is a maximal subset of vertices $C$ such that any two vertices of this subset are reachable from each other, i.e. for any $u, v \in C$:
 $$
 u \mapsto v, v \mapsto u
 $$

@@ -86,4 +86,5 @@ Function `IS_CUTPOINT(a)` is some function that will process the fact that verte
 
 - [UVA #10199 "Tourist Guide"](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=13&page=show_problem&problem=1140) [difficulty: low]
 - [UVA #315 "Network"](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=5&page=show_problem&problem=251) [difficulty: low]
-* [SPOJ - Submerging Islands](http://www.spoj.com/problems/SUBMERGE/)
+- [SPOJ - Submerging Islands](http://www.spoj.com/problems/SUBMERGE/)
+- [Codeforces - Cutting Figure](https://codeforces.com/problemset/problem/193/A)
