@@ -1,0 +1,30 @@
+name: e-maxx-eng
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: Set up C++
+        run: |
+          sudo apt update
+          sudo apt install -y --no-install-recommends g++ 
+      - name: Check title syntax
+        run: |
+          ./check_title.sh
+        working-directory: test
+      - name: Check Markdown links
+        run: |
+          ./check_title.sh
+        working-directory: test
+      - name: Run algorithm code tests
+        run: |
+          ./test.sh
+        working-directory: test
