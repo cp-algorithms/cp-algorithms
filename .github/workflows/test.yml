@@ -1,4 +1,4 @@
-name: e-maxx-eng
+name: test
 on: [push]
 
 jobs:
