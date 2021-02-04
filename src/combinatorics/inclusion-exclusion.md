@@ -288,13 +288,13 @@ However, this will again be non-polynomial in complexity $O(2^k \cdot k)$.
 
 Here goes a polynomial solution:
 
-We will use dynamic programming: let's compute the numbers $d[i][j]$ — the number of ways to get from the $i-th$ point to $j-th$, without stepping on any other obstacle (except for $i$ and $j$, of course). We will compute this number for all the obstacle cells, and also the starting and ending ones (all possible pairs of cells from these).
+We will use dynamic programming. For convenience, push (1,1) to the beginning and (n,m) at the end of the obstacles array. Let's compute the numbers $d[i]$ — the number of ways to get from the starting point ($0-th$) to $i-th$, without stepping on any other obstacle (except for $i$, of course). We will compute this number for all the obstacle cells, and also for the ending one.
 
-Let's forget for a second the obstacles and just count the number of paths from cell $i$ to $j$. We need to consider some "bad" paths, the ones that pass through the obstacles, and subtract them from the total number of ways of going from $i$ to $j$.
+Let's forget for a second the obstacles and just count the number of paths from cell $0$ to $i$. We need to consider some "bad" paths, the ones that pass through the obstacles, and subtract them from the total number of ways of going from $0$ to $i$.
 
-When considering an obstacle $t$ between $i$ and $j$ ($i < t < j$), on which we can step, we see that the number of paths from $i$ to $j$ that pass through $t$ which have $t$ as the **first obstacle between $i$ and $j$**. We can compute that as: $d[i][t]$ multiplied by the number of arbitrary paths from $t$ to $j$. We can count the number of "bad" ways summing this for all $t$ between $i$ and $j$.
+When considering an obstacle $t$ between $0$ and $i$ ($0 < t < i$), on which we can step, we see that the number of paths from $0$ to $i$ that pass through $t$ which have $t$ as the **first obstacle between start and $i$**. We can compute that as: $d[t]$ multiplied by the number of arbitrary paths from $t$ to $i$. We can count the number of "bad" ways summing this for all $t$ between $0$ and $i$.
 
-We can compute $d[i][j]$ in $O(k)$ for $O(k^2)$ pairs, so this solution has complexity $O(k^3)$.
+We can compute $d[i]$ in $O(k)$ for $O(k)$ obstacles, so this solution has complexity $O(k^2)$.
 
 ### The number of coprime quadruples
 
@@ -441,3 +441,4 @@ A list of tasks that can be solved using the principle of inclusions-exclusions:
 * [SPOJ - Balanced Cow Subsets](http://www.spoj.com/problems/SUBSET/)
 * [SPOJ - EASY MATH [difficulty: medium]](http://www.spoj.com/problems/EASYMATH/)
 * [SPOJ - MOMOS - FEASTOFPIGS [difficulty: easy]](https://www.spoj.com/problems/MOMOS/)
+* [Atcoder - Grid 2 [difficulty: easy]](https://atcoder.jp/contests/dp/tasks/dp_y/)
