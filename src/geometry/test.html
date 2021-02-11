@@ -1,0 +1,244 @@
+<!--?Half-plane intersection - S&I algorithm in O(N logN)-->
+<h1 id="half-plane-intersection">Half-plane intersection</h1>
+<p>In this article we will discuss the problem of computing the intersection of a set of half-planes. Such an intersection can be conveniently represented as a convex region/polygon, where every point inside of it is also inside all of the half-planes, and it is this polygon that we're trying to find or construct. We give some initial intuition for the problem, describe a <span class="math inline"><em>O</em>(<em>N</em>log <em>N</em>)</span> approach known as the Sort-and-Incremental algorithm and give some sample applications of this technique.</p>
+<p>It is strongly recommended for the reader to be familiar with basic geometrical primitives and operations (points, vectors, intersection of lines). Additionally, knowledge about <a href="./geometry/grahams-scan-convex-hull.html">Convex Hulls</a> or the <a href="./geometry/convex_hull_trick.html">Convex Hull Trick</a> may help to better understand the concepts in this article, but they are not a prerequisite by any means.</p>
+<h2 id="initial-clarifications-and-definitions">Initial clarifications and definitions</h2>
+<p>For the entire article, we will make some assumptions (unless specified otherwise):</p>
+<ol style="list-style-type: decimal">
+<li>We define <span class="math inline"><em>N</em></span> to be the quantity of half-planes in the given set.</li>
+<li>We will represent lines and half-planes by one point and one vector (any point that lies on the given line, and the direction vector of the line). In the case of half-planes, we assume that every half-plane allows the region to the left side of its direction vector. Additionally, we define the angle of a half-plane to be the polar angle of its direction vector. See image below for example.</li>
+<li>We will assume that the resulting intersection is always either bounded or empty. If we need to handle the unbounded case, we can simply add 4 half-planes that define a large-enough bounding box.</li>
+<li>We will assume, for simplicity, that there are no parallel half-planes in the given set. Towards the end of the article we will discuss how to deal with such cases.</li>
+</ol>
+<div class="figure">
+<img src="&amp;imgroot&amp;/halfplanes_rep.png" />
+
+</div>
+<p>The half-plane <span class="math inline"><em>y</em> ≥ 2<em>x</em> − 2</span> can be represented as the point <span class="math inline"><em>P</em> = (1, 0)</span> with direction vector <span class="math inline"><em>P</em><em>Q</em> = <em>Q</em> − <em>P</em> = (1, 2)</span></p>
+<h2 id="brute-force-approach---on3">Brute force approach - <span class="math inline"><em>O</em>(<em>N</em><sup>3</sup>)</span></h2>
+<p>One of the most straightforward and obvious solutions would be to compute the intersection point of the lines of all pairs of half-planes and, for each point, check if it is inside all of the other half-planes. Since there are <span class="math inline"><em>O</em>(<em>N</em><sup>2</sup>)</span> intersection points, and for each of them we have to check <span class="math inline"><em>O</em>(<em>N</em>)</span> half-planes, the total time complexity is <span class="math inline"><em>O</em>(<em>N</em><sup>3</sup>)</span>. The actual region of the intersection can then be reconstructed using, for example, a Convex Hull algorithm on the set of intersection points that were included in all the half-planes.</p>
+<p>It is fairly easy to see why this works: the vertices of the resulting convex polygon are all intersection points of the half-plane lines, and each of those vertices is obviously part of all the half-planes. The main advantage of this method is that its easy to understand, remember and code on-the-fly if you just need to check if the intersection is empty or not. However, it is awfully slow and unfit for most problems, so we need something faster.</p>
+<h2 id="incremental-approach---on2">Incremental approach - <span class="math inline"><em>O</em>(<em>N</em><sup>2</sup>)</span></h2>
+<p>Another fairly straightforward approach is to incrementally construct the intersection of the half-planes, one at a time. This method is basically equivalent to cutting a convex polygon by a line <span class="math inline"><em>N</em></span> times, and removing the redundant half-planes at every step. To do this, we can represent the convex polygon as a list of line segments, and to cut it with a half-plane we simply find the intersection points of the segments with the half-plane line (there will only be two intersection points if the line properly intersects the polygon), and replace all the line segments in-between with the new segment corresponding to the half-plane. Since such procedure can be implemented in linear time, we can simply start with a big bounding box and cut it down with each one of the half-planes, obtaining a total time complexity of <span class="math inline"><em>O</em>(<em>N</em><sup>2</sup>)</span>.</p>
+<p>This method is a big step in the right direction, but it does feel wasteful to have to iterate over <span class="math inline"><em>O</em>(<em>N</em>)</span> half-planes at every step. We will see next that, by making some clever observations, the ideas behind this incremental approach can be recycled to create a <span class="math inline"><em>O</em>(<em>N</em>log <em>N</em>)</span> algorithm.</p>
+<h2 id="sort-and-incremental-algorithm---on-log-n">Sort-and-Incremental algorithm - <span class="math inline"><em>O</em>(<em>N</em>log <em>N</em>)</span></h2>
+<p>The first properly-documented source of this algorithm we could find was Zeyuan Zhu's thesis for Chinese Team Selecting Contest titled <a href="http://people.csail.mit.edu/zeyuan/publications.htm">New Algorithm for Half-plane Intersection and its Practical Value</a>, from the year 2006. The approach we'll describe next is based on this same algorithm, but instead of computing two separate intersections for the lower and upper halves of the intersections, we'll construct it all at once in one pass with a deque (double-ended queue).</p>
+<p>The algorithm itself, as the name may spoil, takes advantage of the fact that the resulting region from the intersection of half-planes is convex, and thus it will consist of some segments of half-planes in order sorted by their angles. This leads to a crucial observation: if we incrementally intersect the half-planes in their order sorted by angle (as they would appear in the final, resulting shape of the intersection) and store them in a double-ended queue, then we will only ever need to remove half-planes from the front and the back of the deque.</p>
+<p>To better visualize this fact, suppose we're performing the incremental approach described previously on a set of half-planes that is sorted by angle (in this case, we'll assume they're sorted from <span class="math inline">−<em>π</em></span> to <span class="math inline"><em>π</em></span>), and suppose that we're about to start some arbitrary <span class="math inline"><em>k</em></span>'th step. This means we have already constructed the intersection of the first <span class="math inline"><em>k</em> − 1</span> half-planes. Now, because the half-planes are sorted by angle, whatever the <span class="math inline"><em>k</em></span>'th half-plane is, we can be sure that it will form a convex turn with the <span class="math inline">(<em>K</em> − 1)</span>'th half-plane. For that reason, a few things may happen:</p>
+<ol style="list-style-type: decimal">
+<li>Some (possibly none) of the half-planes in the back of the intersection may become <em>redundant</em>. In this case, we need to pop these now-useless half-planes from the back of the deque.</li>
+<li>Some (possibly none) of the half-planes at the front may become <em>redundant</em>. Analogous to case 1, we just pop them from the front of the deque.</li>
+<li>The intersection may become empty (after handling cases 1 and/or 2). In this case, we just report the intersection is empty and terminate the algorithm.</li>
+</ol>
+<p><em>We say a half-plane is &quot;redundant&quot; if it does not contribute anything to the intersection. Such a half-plane could be removed and the resulting intersection would not change at all.</em></p>
+<p>Here's a small example with an illustration:</p>
+<p>Let <span class="math inline"><em>H</em> = {<em>A</em>, <em>B</em>, <em>C</em>, <em>D</em>, <em>E</em>}</span> be the set of half-planes currently present in the intersection. Additionally, let <span class="math inline"><em>P</em> = {<em>p</em>, <em>q</em>, <em>r</em>, <em>s</em>}</span> be the set of intersection points of adjacent half-planes in H. Now, suppose we wish to intersect it with the half-plane <span class="math inline"><em>F</em></span>, as seen in the illustration below:</p>
+<div class="figure">
+<img src="&amp;imgroot&amp;/halfplanes_hp1.png" />
+
+</div>
+<p>Notice the half-plane <span class="math inline"><em>F</em></span> makes <span class="math inline"><em>A</em></span> and <span class="math inline"><em>E</em></span> redundant in the intersection. So we remove both <span class="math inline"><em>A</em></span> and <span class="math inline"><em>E</em></span> from the front and back of the intersection, respectively, and add <span class="math inline"><em>F</em></span> at the end. And we finally obtain the new intersection <span class="math inline"><em>H</em> = {<em>B</em>, <em>C</em>, <em>D</em>, <em>F</em>}</span> with <span class="math inline"><em>P</em> = {<em>q</em>, <em>r</em>, <em>t</em>, <em>u</em>}</span>.</p>
+<div class="figure">
+<img src="&amp;imgroot&amp;/halfplanes_hp2.png" />
+
+</div>
+<p>With all of this in mind, we have almost everything we need to actually implement the algorithm, but we still need to talk about some special cases. At the beginning of the article we said we would add a bounding box to take care of the cases where the intersection could be unbounded, so the only tricky case we actually need to handle is parallel half-planes. We can have two sub-cases: two half-planes can be parallel with the same direction or with opposite direction. The reason this case needs to be handled separately is because we will need to compute intersection points of half-plane lines to be able to check if a half-plane is redundant or not, and two parallel lines have no intersection point, so we need a special way to deal with them.</p>
+<p>Notice that, because we're adding the bounding box to deal with the unbounded case, this also deals with the case where we have two adjacent parallel half-planes with opposite directions, since there will have to be at least one of the bounding-box half-planes in between these two (remember they are sorted by angle). Thus the only case we actually need to handle is having multiple half-planes with the same angle, and it turns out this is also very easy to handle: just keep the leftmost one and erase the rest, since the others will be completely redundant anyways.</p>
+<p>To sum up, the full algorithm will roughly look as follows:</p>
+<ol style="list-style-type: decimal">
+<li>We begin by sorting the set of half-planes by angle, which takes <span class="math inline"><em>O</em>(<em>N</em>log <em>N</em>)</span> time.</li>
+<li>We will iterate over the set of half-planes, and for each one, we will perform the incremental procedure, popping from the front and the back of the double-ended queue as necessary. This will take linear time in total, as every half-plane can only be added or removed once.</li>
+<li>At the end, the convex polygon resulting from the intersection can be simply obtained by computing the intersection points of adjacent half-planes in the deque at the end of the procedure. This will take linear time as well. It is also possible to store such points during step 2 and skip this step entirely, but we believe it is slightly easier (in terms of implementation) to compute them on-the-fly.</li>
+</ol>
+<p>In total, we have achieved a time complexity of <span class="math inline"><em>O</em>(<em>N</em>log <em>N</em>)</span>. Since sorting is clearly the bottleneck, the algorithm can be made to run in linear time in the special case where we are given half-planes sorted in advance by their angles (an example of such a case would be obtaining the half-planes that define a convex polygon).</p>
+<h3 id="direct-implementation">Direct implementation</h3>
+<p>Here is a sample, direct implementation of the algorithm, with comments explaining most parts:</p>
+<p>Simple point/vector and half-plane structs:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// Redefine epsilon and infinity as necessary. Be mindful of precision errors.</span>
+<span class="at">const</span> <span class="dt">long</span> <span class="dt">double</span> eps = <span class="fl">1e-9</span>, inf = <span class="fl">1e9</span>; 
+
+<span class="co">// Basic point/vector struct.</span>
+<span class="kw">struct</span> Point { 
+
+    <span class="dt">long</span> <span class="dt">double</span> x, y;
+    <span class="kw">explicit</span> Point(<span class="dt">long</span> <span class="dt">double</span> x = <span class="dv">0</span>, <span class="dt">long</span> <span class="dt">double</span> y = <span class="dv">0</span>) : x(x), y(y) {}
+
+    <span class="co">// Addition, substraction, multiply by constant, cross product.</span>
+
+    <span class="kw">friend</span> Point <span class="kw">operator</span> + (<span class="at">const</span> Point&amp; p, <span class="at">const</span> Point&amp; q) {
+        <span class="cf">return</span> Point(p.x + q.x, p.y + q.y); 
+    }
+
+    <span class="kw">friend</span> Point <span class="kw">operator</span> - (<span class="at">const</span> Point&amp; p, <span class="at">const</span> Point&amp; q) { 
+        <span class="cf">return</span> Point(p.x - q.x, p.y - q.y); 
+    }
+
+    <span class="kw">friend</span> Point <span class="kw">operator</span> * (<span class="at">const</span> Point&amp; p, <span class="at">const</span> <span class="dt">long</span> <span class="dt">double</span>&amp; k) { 
+        <span class="cf">return</span> Point(p.x * k, p.y * k); 
+    } 
+
+    <span class="kw">friend</span> <span class="dt">long</span> <span class="dt">double</span> cross(<span class="at">const</span> Point&amp; p, <span class="at">const</span> Point&amp; q) { 
+        <span class="cf">return</span> p.x * q.y - p.y * q.x; 
+    }
+};
+
+<span class="co">// Basic half-plane struct.</span>
+<span class="kw">struct</span> Halfplane { 
+
+    <span class="co">// &#39;p&#39; is a passing point of the line and &#39;pq&#39; is the direction vector of the line.</span>
+    Point p, pq; 
+    <span class="dt">long</span> <span class="dt">double</span> angle;
+
+    Halfplane() {}
+    Halfplane(<span class="at">const</span> Point&amp; a, <span class="at">const</span> Point&amp; b) : p(a), pq(b - a) {
+        angle = atan2l(pq.y, pq.x);    
+    }
+
+    <span class="co">// Check if point &#39;r&#39; is outside this half-plane. </span>
+    <span class="co">// Every half-plane allows the region to the LEFT of its line.</span>
+    <span class="dt">bool</span> out(<span class="at">const</span> Point&amp; r) { 
+        <span class="cf">return</span> cross(pq, r - p) &lt; -eps; 
+    }
+
+    <span class="co">// Comparator for sorting. </span>
+    <span class="co">// If the angle of both half-planes is equal, the leftmost one should go first.</span>
+    <span class="dt">bool</span> <span class="kw">operator</span> &lt; (<span class="at">const</span> Halfplane&amp; e) <span class="at">const</span> { 
+        <span class="cf">if</span> (fabsl(angle - e.angle) &lt; eps) <span class="cf">return</span> cross(pq, e.p - p) &lt; <span class="dv">0</span>;
+        <span class="cf">return</span> angle &lt; e.angle;
+    } 
+
+    <span class="co">// We use equal comparator for std::unique to easily remove parallel half-planes.</span>
+    <span class="dt">bool</span> <span class="kw">operator</span> == (<span class="at">const</span> Halfplane&amp; e) <span class="at">const</span> { 
+        <span class="cf">return</span> fabsl(angle - e.angle) &lt; eps; 
+    }
+
+    <span class="co">// Intersection point of the lines of two half-planes. It is assumed they&#39;re never parallel.</span>
+    <span class="kw">friend</span> Point inter(<span class="at">const</span> Halfplane&amp; s, <span class="at">const</span> Halfplane&amp; t) {
+        <span class="dt">long</span> <span class="dt">double</span> alpha = cross((t.p - s.p), t.pq) / cross(s.pq, t.pq);
+        <span class="cf">return</span> s.p + (s.pq * alpha);
+    }
+};</code></pre></div>
+<p>Algorithm:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// Actual algorithm</span>
+vector&lt;Point&gt; hp_intersect(vector&lt;Halfplane&gt;&amp; H) { 
+
+    Point box[<span class="dv">4</span>] = {  <span class="co">// Bounding box in CCW order</span>
+        Point(inf, inf), 
+        Point(-inf, inf), 
+        Point(-inf, -inf), 
+        Point(inf, -inf) 
+    };
+
+    <span class="cf">for</span>(<span class="dt">int</span> i = <span class="dv">0</span>; i&lt;<span class="dv">4</span>; i++) { <span class="co">// Add bounding box half-planes.</span>
+        Halfplane aux(box[i], box[(i<span class="dv">+1</span>) % <span class="dv">4</span>]);
+        H.push_back(aux);
+    }
+
+    <span class="co">// Sort and remove duplicates</span>
+    sort(H.begin(), H.end());
+    H.erase(unique(H.begin(), H.end()), H.end());
+
+    deque&lt;Halfplane&gt; dq;
+    <span class="dt">int</span> len = <span class="dv">0</span>;
+    <span class="cf">for</span>(<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; <span class="dt">int</span>(H.size()); i++) {
+
+        <span class="co">// Remove from the back of the queue while last half-plane is redundant</span>
+        <span class="cf">while</span> (len &gt; <span class="dv">1</span> &amp;&amp; H[i].out(inter(dq[len<span class="dv">-1</span>], dq[len<span class="dv">-2</span>]))) {
+            dq.pop_back();
+            --len;
+        }
+
+        <span class="co">// Remove from the back of the queue while last half-plane is redundant</span>
+        <span class="cf">while</span> (len &gt; <span class="dv">1</span> &amp;&amp; H[i].out(inter(dq[<span class="dv">0</span>], dq[<span class="dv">1</span>]))) {
+            dq.pop_front();
+            --len;
+        }
+
+        <span class="co">// Add new half-plane</span>
+        dq.push_back(H[i]);
+        ++len;
+    }
+
+    <span class="co">// Final cleanup: Check half-planes at the front against the back and vice-versa</span>
+    <span class="cf">while</span> (len &gt; <span class="dv">2</span> &amp;&amp; dq[<span class="dv">0</span>].out(inter(dq[len<span class="dv">-1</span>], dq[len<span class="dv">-2</span>]))) {
+        dq.pop_back();
+        --len;
+    }
+
+    <span class="cf">while</span> (len &gt; <span class="dv">2</span> &amp;&amp; dq[len<span class="dv">-1</span>].out(inter(dq[<span class="dv">0</span>], dq[<span class="dv">1</span>]))) {
+        dq.pop_front();
+        --len;
+    }
+
+    <span class="co">// Report empty intersection if necessary</span>
+    <span class="cf">if</span> (len &lt; <span class="dv">3</span>) <span class="cf">return</span> vector&lt;Point&gt;();
+
+    <span class="co">// Reconstruct the convex polygon from the remaining half-planes.</span>
+    vector&lt;Point&gt; ret(len);
+    <span class="cf">for</span>(<span class="dt">int</span> i = <span class="dv">0</span>; i<span class="dv">+1</span> &lt; len; i++) {
+        ret[i] = inter(dq[i], dq[i<span class="dv">+1</span>]);
+    }
+    ret.back() = inter(dq[len<span class="dv">-1</span>], dq[<span class="dv">0</span>]);
+    <span class="cf">return</span> ret;
+}</code></pre></div>
+<h3 id="implementation-discussion">Implementation discussion</h3>
+<p>A special thing to note is that, in case there multiple half-planes that intersect at the same point, then this algorithm could return repeated adjacent points in the final polygon. However, this should not have any impact on judging correctly whether the intersection is empty or not, and it does not affect the polygon area at all either. You may want to remove these duplicates depending on what tasks you need to do after. You can do this very easily with std::unique. We want to keep the repeat points during the execution of the algorithm so that the intersections with area equal to zero can be computed correctly (for example, intersections that consist of a single point, line or line-segment). I encourage the reader to test some small hand-made cases where the intersection results in a single point or line.</p>
+<p>One more thing that should be talked about is what to do if we are given half-planes in the form of a linear constraint (for example, <span class="math inline"><em>a</em><em>x</em> + <em>b</em><em>y</em> + <em>c</em> ≤ 0</span>). In such case, there are two options. You can either implement the algorithm with the corresponding modifications to work with such representation (essentially create your own half-plane struct, should be fairly straightforward if you're familiar with the convex hull trick), or you can transform the lines into the representation we used in this article by taking any 2 points of each line. In general, it is recommended to work with the representation that you're given in the problem to avoid additional precision issues.</p>
+<h2 id="problems-tasks-and-applications">Problems, tasks and applications</h2>
+<p>Many problems that can be solved with half-plane intersection can also be solved without it, but with (usually) more complicated or uncommon approaches. Generally, half-plane intersection can appear when dealing with problems related to polygons (mostly convex), visibility in the plane and two-dimensional linear programming. Here are some sample tasks that can be solved with this technique:</p>
+<h3 id="convex-polygon-intersection">Convex polygon intersection</h3>
+<p>One of the classical applications of half-plane intersection: Given <span class="math inline"><em>N</em></span> polygons, compute the region that is included inside all of the polygons.</p>
+<p>Since the intersection of a set of half-planes is a convex polygon, we can also represent a convex polygon as a set of half-planes (every edge of the polygon is a segment of a half-plane). Generate these half-planes for every polygon and compute the intersection of the whole set. The total time complexity is <span class="math inline"><em>O</em>(<em>S</em>log <em>S</em>)</span>, where S is the total number of sides of all the polygons. The problem can also theoretically be solved in <span class="math inline"><em>O</em>(<em>S</em>log <em>N</em>)</span> by merging the <span class="math inline"><em>N</em></span> sets of half-planes using a heap and then running the algorithm without the sorting step, but such solution has much worse constant factor than straightforward sorting and only provides minor speed gains for very small <span class="math inline"><em>N</em></span>.</p>
+<h3 id="visibility-in-the-plane">Visibility in the plane</h3>
+<p>Problems that require something among the lines of &quot;determine if some line segments are visible from some point(s) in the plane&quot; can usually be formulated as half-plane intersection problems. Take, for example, the following task: Given some simple polygon (not necessarily convex), determine if there's any point inside the polygon such that the whole boundary of the polygon can be observed from that point. This is also known as finding the <a href="https://en.wikipedia.org/wiki/Star-shaped_polygon">kernel of a polygon</a> and can be solved by simple half-plane intersection, taking each edge of the polygon as a half-plane and then computing its intersection.</p>
+<p>Here's a related, more interesting problem that was presented by Artem Vasilyev in one of his <a href="https://youtu.be/WKyZSitpm6M?t=6463">Brazilian ICPC Summer School lectures</a>: Given a set <span class="math inline"><em>p</em></span> of points <span class="math inline"><em>p</em><sub>1</sub>, <em>p</em><sub>2</sub> … <em>p</em><sub><em>n</em></sub></span> in the plane, determine if there's any point <span class="math inline"><em>q</em></span> you can stand at such that you can see all the points of <span class="math inline"><em>p</em></span> from left to right in increasing order of their index.</p>
+<p>Such problem can be solved by noticing that being able to see some point <span class="math inline"><em>p</em><sub><em>i</em></sub></span> to the left of <span class="math inline"><em>p</em><sub><em>j</em></sub></span> is the same as being able to see the right side of the line segment from <span class="math inline"><em>p</em><sub><em>i</em></sub></span> to <span class="math inline"><em>p</em><sub><em>j</em></sub></span> (or equivalently, being able to see the left side of the segment from <span class="math inline"><em>p</em><sub><em>j</em></sub></span> to <span class="math inline"><em>p</em><sub><em>i</em></sub></span>). With that in mind, we can simply create a half-plane for every line segment <span class="math inline"><em>p</em><sub><em>i</em></sub><em>p</em><sub><em>i</em> + 1</sub></span> (or <span class="math inline"><em>p</em><sub><em>i</em> + 1</sub><em>p</em><sub><em>i</em></sub></span> depending on the orientation you choose) and check if the intersection of the whole set is empty or not.</p>
+<h3 id="half-plane-intersection-with-binary-search">Half-plane intersection with binary search</h3>
+<p>Another common application is utilizing half-plane intersection as a tool to validate the predicate of a binary search procedure. Here's an example of such a problem, also presented by Artem Vasilyev in the same lecture that was previously mentioned: Given a <strong>convex</strong> polygon <span class="math inline"><em>P</em></span>, find the biggest circumference that can be inscribed inside of it.</p>
+<p>Instead of looking for some sort of closed-form solution, annoying formulas or obscure algorithmic solutions, lets instead try to binary search on the answer. Notice that, for some fixed <span class="math inline"><em>r</em></span>, a circle with radius <span class="math inline"><em>r</em></span> can be inscribed inside <span class="math inline"><em>P</em></span> only if there exists some point inside <span class="math inline"><em>P</em></span> that has distance greater or equal than <span class="math inline"><em>r</em></span> to all the points of the boundary of <span class="math inline"><em>P</em></span>. This condition can be validated by &quot;shrinking&quot; the polygon inwards by a distance of <span class="math inline"><em>r</em></span> and checking that the polygon remains non-degenerate (or is a point/segment itself). Such procedure can be simulated by taking the half-planes of the polygon sides in counter-clockwise order, translating each of them by a distance of <span class="math inline"><em>r</em></span> in the direction of the region they allow (that is, orthogonal to the direction vector of the half-plane), and checking if the intersection is not empty.</p>
+<p>Clearly, if we can inscribe a circle of radius <span class="math inline"><em>r</em></span>, we can also inscribe any other circle of radius smaller than <span class="math inline"><em>r</em></span>. So we can perform a binary search on the radius <span class="math inline"><em>r</em></span> and validate every step using half-plane intersection. Also, note that the half-planes of a convex polygon are already sorted by angle, so the sorting step can be skipped in the algorithm. Thus we obtain a total time complexity of <span class="math inline"><em>O</em>(<em>N</em><em>K</em>)</span>, where <span class="math inline"><em>N</em></span> is the number of polygon vertices and <span class="math inline"><em>K</em></span> is the number of iterations of the binary search (the actual value will depend on the range of possible answers and the desired precision).</p>
+<h3 id="two-dimensional-linear-programming">Two-dimensional linear programming</h3>
+<p>One more application of half-plane intersection is linear programming in two variables. All linear constraints for two variables can be expressed in the form of <span class="math inline"><em>A</em><em>x</em> + <em>B</em><em>y</em> + <em>C</em> ≤ 0</span> (inequality comparator may vary). Clearly, these are just half-planes, so checking if a feasible solution exists for a set of linear constraints can be done with half-plane intersection. Additionally, for a given set of linear constraints, it is possible to compute the region of feasible solutions (i.e. the intersection of the half-planes) and then answer multiple queries of maximizing/minimizing some linear function <span class="math inline"><em>f</em>(<em>x</em>, <em>y</em>)</span> subject to the constraints in <span class="math inline"><em>O</em>(log <em>N</em>)</span> per query using binary search (very similar to the convex hull trick).</p>
+<p>It is worth mentioning that there also exists a fairly simple randomized algorithm that can check whether a set of linear constraints has a feasible solution or not, and maximize/minimize some linear function subject to the given constraints. This randomized algorithm was also explained nicely by Artem Vasilyev in the lecture mentioned earlier. Here are some additional resources on it, should the reader be interested: <a href="https://youtu.be/5dfc355t2y4">CG - Lecture 4, parts 4 and 5</a> and <a href="https://petr-mitrichev.blogspot.com/2016/07/a-half-plane-week.html">Petr Mitrichev's blog (which includes the solution to the hardest problem in the practice problems list below)</a>.</p>
+<h2 id="practice-problems">Practice problems</h2>
+<h3 id="classic-problems-direct-application">Classic problems, direct application</h3>
+<ul>
+<li><a href="https://www.codechef.com/problems/CHN02">Codechef - Animesh decides to settle down</a></li>
+<li><a href="http://poj.org/problem?id=3130">POJ - How I mathematician Wonder What You Are!</a></li>
+<li><a href="http://poj.org/problem?id=3335">POJ - Rotating Scoreboard</a></li>
+<li><a href="http://poj.org/problem?id=1474">POJ - Video Surveillance</a></li>
+<li><a href="http://poj.org/problem?id=1279">POJ - Art Gallery</a></li>
+<li><a href="http://poj.org/problem?id=2451">POJ - Uyuw's Concert</a></li>
+</ul>
+<h3 id="harder-problems">Harder problems</h3>
+<ul>
+<li><a href="http://poj.org/problem?id=3525">POJ - Most Distant Point from the Sea - Medium</a></li>
+<li><a href="http://poj.org/problem?id=3384">POJ - Feng Shui - Medium</a></li>
+<li><a href="http://poj.org/problem?id=1755">POJ - Triathlon - Medium/hard</a></li>
+<li><a href="https://dmoj.ca/problem/ccoprep3p3">DMOJ - Arrow - Medium/hard</a></li>
+<li><a href="http://poj.org/problem?id=3968">POJ - Jungle Outpost - Hard</a></li>
+<li><a href="https://codeforces.com/gym/101309/attachments?mobile=false">Codeforces - Jungle Outpost (alternative link, problem J) - Hard</a></li>
+<li><a href="https://contest.yandex.com/contest/2540/enter/">Yandex - Asymmetry Value (need virtual contest to see, problem F) - Very Hard</a></li>
+</ul>
+<h3 id="additional-problems">Additional problems</h3>
+<ul>
+<li>40th Petrozavodsk Programming Camp, Winter 2021 - Day 1: Jagiellonian U Contest, Grand Prix of Krakow - Problem B: (Almost) Fair Cake-Cutting. At the time of writing the article, this problem was private and only accessible by participants of the Programming Camp.</li>
+</ul>
+<h2 id="references-bibliography-and-other-sources">References, bibliography and other sources</h2>
+<h3 id="main-sources">Main sources</h3>
+<ul>
+<li><a href="http://people.csail.mit.edu/zeyuan/publications.htm">New Algorithm for Half-plane Intersection and its Practical Value.</a> Original paper of the algorithm.</li>
+<li><a href="https://youtu.be/WKyZSitpm6M?t=6463">Artem Vasilyev's Brazilian ICPC Summer School 2020 lecture.</a> Amazing lecture on half-plane intersection. Also covers other geometry topics.</li>
+</ul>
+<h3 id="good-blogs-chinese">Good blogs (chinese)</h3>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/83499723">Fundamentals of Computational Geometry - Intersection of Half-planes.</a></li>
+<li><a href="https://blog.csdn.net/qq_40861916/article/details/83541403">Detailed introduction to the half-plane intersection algorithm.</a></li>
+<li><a href="https://blog.csdn.net/qq_40482358/article/details/87921815">Summary of Half-plane intersection problems.</a></li>
+<li><a href="https://blog.csdn.net/u012061345/article/details/23872929">Sorting incremental method of half-plane intersection.</a></li>
+</ul>
+<h3 id="randomized-algorithm">Randomized algorithm</h3>
+<ul>
+<li><a href="https://youtu.be/5dfc355t2y4">Linear Programming and Half-Plane intersection - Parts 4 and 5.</a></li>
+<li><a href="https://petr-mitrichev.blogspot.com/2016/07/a-half-plane-week.html">Petr Mitrichev's Blog: A half-plane week.</a></li>
+</ul>
