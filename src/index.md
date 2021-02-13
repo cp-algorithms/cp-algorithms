@@ -148,6 +148,7 @@ and adding new articles to the collection.*
     - [Finding the nearest pair of points](./geometry/nearest_points.html)
     - [Delaunay triangulation and Voronoi diagram](./geometry/delaunay.html)
     - [Vertical decomposition](./geometry/vertical_decomposition.html)
+    - [Half-plane intersection - S&I Algorithm in O(Nlog N)](./geometry/halfplane-intersection.html)
 
 ### Graphs
 
