@@ -166,13 +166,13 @@ vector<Point> hp_intersect(vector<Halfplane>& H) {
     int len = 0;
     for(int i = 0; i < int(H.size()); i++) {
 
-        // Remove from the back of the queue while last half-plane is redundant
+        // Remove from the back of the deque while last half-plane is redundant
         while (len > 1 && H[i].out(inter(dq[len-1], dq[len-2]))) {
             dq.pop_back();
             --len;
         }
 
-        // Remove from the back of the queue while last half-plane is redundant
+        // Remove from the front of the deque while first half-plane is redundant
         while (len > 1 && H[i].out(inter(dq[0], dq[1]))) {
             dq.pop_front();
             --len;
