@@ -19,7 +19,7 @@ Notice, the opposite direction doesn't have to hold.
 If the hashes are equal ($\text{hash}(s) = \text{hash}(t)$), then the strings do not necessarily have to be equal.
 E.g. a valid hash function would be simply $\text{hash}(s) = 0$ for each $s$.
 Now, this is just a stupid example, because this function will be completely useless, but it is a valid hash function.
-The reason why the opposite direction doesn't have to hold, if because there are exponential many strings.
+The reason why the opposite direction doesn't have to hold, is because there are exponentially many strings.
 If we only want this hash function to distinguish between all strings consisting of lowercase characters of length smaller than 15, then already the hash wouldn't fit into a 64-bit integer (e.g. unsigned long long) any more, because there are so many of them.
 And of course, we don't want to compare arbitrary long integers, because this will also have the complexity $O(n)$.
 
