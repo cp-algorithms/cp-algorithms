@@ -126,7 +126,7 @@ int dfs(int v, vector<vector<int>> const& adj) {
     return size;
 }
 
-int decompose(int v, int h, vector<vector<int>> const& adj) {
+void decompose(int v, int h, vector<vector<int>> const& adj) {
     head[v] = h, pos[v] = cur_pos++;
     if (heavy[v] != -1)
         decompose(heavy[v], h, adj);
