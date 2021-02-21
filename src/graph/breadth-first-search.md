@@ -30,7 +30,7 @@ You can also calculate the lengths of the shortest paths (which just requires ma
 We write code for the described algorithm in C++.
 
 ```cpp
-vector<vector<int>> adj;  // adjacency list representation
+vector<list<int>> adj;  // adjacency list representation
 int n; // number of nodes
 int s; // source vertex
 
