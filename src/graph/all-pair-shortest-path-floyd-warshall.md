@@ -2,9 +2,14 @@
 
 # Floyd-Warshall Algorithm
 
-Given an undirected weighted graph $G$ with $n$ vertices. The task is to find the length of the shortest path $d_{ij}$ between each pair of vertices $i$ and $j$.
+Given a directed or an undirected weighted graph $G$ with $n$ vertices.
+The task is to find the length of the shortest path $d_{ij}$ between each pair of vertices $i$ and $j$.
 
-The graph may have negative weight edges, but no negative weight cycles (for then the shortest path is undefined).
+The graph may have negative weight edges, but no negative weight cycles.
+
+If there is such a negative cycle, you can just traverse this cycle over and over, in each iteration making the cost of the path smaller.
+So you can make can make certain paths arbitrarily small, or in other words that shortest path is undefined.
+That automatically means that an undirected graph cannot have any negative weight edges, as such an edge forms already a negative cycle as you can move back and forth along that edge as long as you like.
 
 This algorithm can also be used to detect the presence of negative cycles.
 The graph has a negative cycle if at the end of the algorithm, the distance from a vertex $v$ to itself is negative.
