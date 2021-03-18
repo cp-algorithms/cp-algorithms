@@ -44,7 +44,7 @@ However this is impossible, since Dijkstra's algorithm iterates over the vertice
 This means, that the order of the queue looks like this:
 $$Q = \underbrace{v}\_{d[v]}, \dots, \underbrace{u}\_{d[v]}, \underbrace{m}\_{d[v]+1} \dots \underbrace{n}\_{d[v]+1}$$
 
-This structure is so simple, that we don't need an actual priority queue, i.e. a balanced binary tree which is overkill.
+This structure is so simple, that we don't need an actual priority queue, i.e. using a balanced binary tree would be an overkill.
 We can simply use a normal queue, and append new vertices at the beginning if the corresponding edge has weight $0$, i.e. if $d[u] = d[v]$, or at the end if the edge has weight $1$, i.e. if $d[u] = d[v] + 1$.
 This way the queue still remains sorted at all time.
 
