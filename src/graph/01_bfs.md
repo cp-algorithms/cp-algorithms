@@ -6,7 +6,7 @@ We can interpret such a graph also as a weighted graph, where every edge has the
 If not all edges in graph have the same weight, that we need a more general algorithm, like [Dijkstra](./graph/dijkstra.html) which runs in $O(|V|^2 + |E|)$ or $O(|E| \log |V|)$ time.
 
 However if the weights are more constrained, we can often do better.
-In this article we demonstrate how we can use BFS to solve the SSSP (single-source shortest path) problem in $O(|E|)$, if the weights of each edge is either $0$ or $1$.
+In this article we demonstrate how we can use BFS to solve the SSSP (single-source shortest path) problem in $O(|E|)$, if the weight of each edge is either $0$ or $1$.
 
 ## Algorithm
 
@@ -37,14 +37,14 @@ while (!q.empty()) {
 
 We can notice that the difference between the distances between the source `s` and two other vertices in the queue differs by at most one.
 Especially, we know that $d[v] \le d[u] \le d[v] + 1$ for each $u \in Q$.
-The reason for this is, that we only add vertices with equal distance or with distance plus one to the queue each iteration.
+The reason for this is, that we only add vertices with equal distance or with distance plus one to the queue during each iteration.
 Assuming there exists a $u$ in the queue with $d[u] - d[v] > 1$, then $u$ must have been insert in the queue via a different vertex $t$ with $d[t] \ge d[u] - 1 > d[v]$.
 However this is impossible, since Dijkstra's algorithm iterates over the vertices in increasing order.
 
 This means, that the order of the queue looks like this:
 $$Q = \underbrace{v}\_{d[v]}, \dots, \underbrace{u}\_{d[v]}, \underbrace{m}\_{d[v]+1} \dots \underbrace{n}\_{d[v]+1}$$
 
-This structure is so simple, that we don't need an actually priority queue, i.e. a balanced binary tree, is an overkill.
+This structure is so simple, that we don't need an actual priority queue, i.e. using a balanced binary tree would be an overkill.
 We can simply use a normal queue, and append new vertices at the beginning if the corresponding edge has weight $0$, i.e. if $d[u] = d[v]$, or at the end if the edge has weight $1$, i.e. if $d[u] = d[v] + 1$.
 This way the queue still remains sorted at all time.
 
@@ -73,7 +73,7 @@ while (!q.empty()) {
 ## Dial's algorithm
 
 We can extend this even further if we allow the weights of the edges to be even bigger.
-If every edge in the graph has a weight $\le k$, than the distances of vertices in the queue will differ by at most $k$ from the distance of $v$ to the source.
+If every edge in the graph has a weight $\le k$, then the distances of vertices in the queue will differ by at most $k$ from the distance of $v$ to the source.
 So we can keep $k + 1$ buckets for the vertices in the queue, and whenever the bucket corresponding to the smallest distance gets empty, we make a cyclic shift to get the bucket with the next higher distance.
 This extension is called **Dial's algorithm**.
 
