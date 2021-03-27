@@ -23,7 +23,7 @@ The reason why the opposite direction doesn't have to hold, is because there are
 If we only want this hash function to distinguish between all strings consisting of lowercase characters of length smaller than 15, then already the hash wouldn't fit into a 64-bit integer (e.g. unsigned long long) any more, because there are so many of them.
 And of course, we don't want to compare arbitrary long integers, because this will also have the complexity $O(n)$.
 
-So usually we want the hash function to map strings onto numbers of a fixed range $[0, m)$, then comparing strings is just a comparison of two integers with a fixed length.
+So usually we want the hash function to map strings onto numbers of a fixed range $[0, m]$, then comparing strings is just a comparison of two integers with a fixed length.
 And of course, we want $\text{hash}(s) \neq \text{hash}(t)$ to be very likely if $s \neq t$.
 
 That's the important part that you have to keep in mind.
