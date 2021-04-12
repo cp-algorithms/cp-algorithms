@@ -24,7 +24,7 @@ It is easy to see that the following equation holds:
 $$\sum_{(s, u) \in E} f((s, u)) = \sum_{(u, t) \in E} f((u, t))$$
 
 A good analogy for a flow network is the following visualization:
-We represent edges as water pipes, the capacity of an edge is the maximal amount of water that can flow through the pipe per second, and the flow of an edge is the amount of water that currently flows though the pipe per second.
+We represent edges as water pipes, the capacity of an edge is the maximal amount of water that can flow through the pipe per second, and the flow of an edge is the amount of water that currently flows through the pipe per second.
 This motivates the first flow condition. There cannot flow more water through a pipe than its capacity.
 The vertices act as junctions, where water comes out of some pipes, and distributes it in some way to other pipes.
 This also motivates the second flow condition.
@@ -32,7 +32,7 @@ In each junction all the incoming water has to be distributed to the other pipes
 It cannot magically disappear or appear.
 The source $s$ is origin of all the water, and the water can only drain in the sink $t$.
 
-The following image show a flow network.
+The following image shows a flow network.
 The first value of each edge represents the flow, which is initially 0, and the second value represents the capacity.
 <center>![Flow network](&imgroot&/Flow1.png)</center>
 
@@ -43,7 +43,7 @@ Finding this maximal flow of a flow network is the problem that we want to solve
 In the visualization with water pipes, the problem can be formulated in the following way:
 how much water can we push through the pipes from the source to the sink.
 
-The following image show the maximal flow in the flow network.
+The following image shows the maximal flow in the flow network.
 <center>![Maximal flow](&imgroot&/Flow9.png)</center>
 
 ## Ford-Fulkerson method
