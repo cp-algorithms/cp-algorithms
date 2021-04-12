@@ -246,7 +246,7 @@ ftype cross(point2d a, point2d b) {
 
 ### Properties
 
-As for the cross product, it equals to the zero vector iff the vectors $\mathbf a$ and $\mathbf b$ are collinear (they form a common line, i.e. they are parallel).
+As for the cross product, it equals to the zero vector if the vectors $\mathbf a$ and $\mathbf b$ are collinear (they form a common line, i.e. they are parallel).
 The same thing holds for the triple product, it is equal to zero iff the vectors $\mathbf a$, $\mathbf b$ and $\mathbf c$ are coplanar (they form a common plane).
 
 From this we can obtain universal equations defining lines and planes.
