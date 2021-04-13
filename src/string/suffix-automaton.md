@@ -150,7 +150,7 @@ We denote by $t$ the biggest such suffix, and make a suffix link to it.
 
 In other words, a **suffix link** $link(v)$ leads to the state that corresponds to the **longest suffix** of $w$ that is in another $endpos$-equivalence class.
 
-Here we assume that the initial state $t_0$ corresponds to its own equivalence class (containing only the empty string), and for convenience we set $endpos($t_0$) = \\{-1, 0, \dots, length(s)-1\\}$.
+Here we assume that the initial state $t_0$ corresponds to its own equivalence class (containing only the empty string), and for convenience we set $endpos(t_0) = \\{-1, 0, \dots, length(s)-1\\}$.
 
 **Lemma 4**:
 Suffix links form a **tree** with the root $t_0$.
