@@ -53,7 +53,7 @@ It is obvious that in this case the optimal permutation is to arrange the jobs b
 
 ## The Livshits-Kladov theorem
 
-The Livshits-Kladov theorem establishes, that the permutation method is only applicable for the above mentioned three cases, i.e.:
+The Livshits-Kladov theorem establishes that the permutation method is only applicable for the above mentioned three cases, i.e.:
 
 - Linear case: $f_i(t) = c_i(t) + d_i$, where $c_i$ are non-negative constants,
 - Exponential case: $f_i(t) = c_i \cdot e_{\alpha \cdot t} + d_i$, where $c_i$ and $\alpha$ are positive constants,
