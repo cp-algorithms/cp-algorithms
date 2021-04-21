@@ -50,7 +50,7 @@ The following image shows the maximal flow in the flow network.
 
 Let's define one more thing.
 A **residual capacity** of an directed edge is the capacity minus the flow.
-It should be noted that if there is a flow along some directed edge $(u, v)$, than the reversed edge has capacity 0 and we can define the flow of it as $f((v, u)) = -f((u, v))$.
+It should be noted that if there is a flow along some directed edge $(u, v)$, then the reversed edge has capacity 0 and we can define the flow of it as $f((v, u)) = -f((u, v))$.
 This also defines the residual capacity for all reversed edges.
 From all these edges we can create a **residual network**, which is just a network with the same vertices and same edges, but we use the residual capacities as capacities.
 
