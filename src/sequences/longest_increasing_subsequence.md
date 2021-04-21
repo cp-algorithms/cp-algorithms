@@ -200,7 +200,7 @@ And again we have to create an array of "ancestors" $p[i]$.
 $p[i]$ will be the index of the previous element for the optimal subsequence ending in element $i$.
 
 It's easy to maintain these two arrays in the course of iteration over the array $a[]$ alongside the computations of $d[]$.
-And at the end it in not difficult to restore the desired subsequence using these arrays.
+And at the end it is not difficult to restore the desired subsequence using these arrays.
 
 ## Solution in $O(n \log n)$ with data structures
 
