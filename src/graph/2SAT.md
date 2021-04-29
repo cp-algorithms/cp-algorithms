@@ -122,6 +122,7 @@ void dfs2(int v, int cl) {
 }
 
 bool solve_2SAT() {
+    order.clear();
     used.assign(n, false);
     for (int i = 0; i < n; ++i) {
         if (!used[i])
