@@ -52,27 +52,27 @@ Finally, it is appropriate to mention [topological sort](./graph/topological-sor
 
 ## Implementation
 ```cpp
-vector<vector<int>> g, gr;
+vector<vector<int>> adj, adj_rev;
 vector<bool> used;
 vector<int> order, component;
  
-void dfs1(int node) {
-    used[node] = true;
+void dfs1(int v) {
+    used[v] = true;
 
-    for (auto neigh : g[node])
-        if (!used[neigh])
-            dfs1(neigh);
+    for (auto u : adj[v])
+        if (!used[u])
+            dfs1(u);
 
-    order.push_back(node);
+    order.push_back(v);
 }
  
-void dfs2(int node) {
-    used[node] = true;
-    component.push_back(node);
+void dfs2(int v) {
+    used[v] = true;
+    component.push_back(v);
 
-    for (auto neigh : gr[node])
-        if (!used[neigh])
-            dfs2(neigh);
+    for (auto u : adj_rev[v])
+        if (!used[u])
+            dfs2(u);
 }
  
 int main() {
@@ -82,8 +82,8 @@ int main() {
     for (;;) {
         int a, b;
         // ... read next directed edge (a,b) ...
-        g[a].push_back(b);
-        gr[b].push_back(a);
+        adj[a].push_back(b);
+        adj_rev[b].push_back(a);
     }
  
     used.assign(n, false);
@@ -95,9 +95,9 @@ int main() {
     used.assign(n, false);
     reverse(order.begin(), order.end());
 
-    for (auto node : order)
-        if (!used[node]) {
-            dfs2 (node);
+    for (auto v : order)
+        if (!used[v]) {
+            dfs2 (v);
 
             // ... printing next component ...
 
