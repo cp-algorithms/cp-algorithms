@@ -39,6 +39,8 @@ If it is inside, then it will be equal.
 
 The function `prepair` will make sure that the lexicographical smallest point (smallest x value, and in ties smallest y value) will be $p_0$, and computes the vectors $p_i - p_0$.
 Afterwards the function `pointInConvexPolygon` computes the result of a query.
+We additionally remember the point $p_0$ and translate all queried points with it in order compute the correct distance, as vectors don't have an initial point.
+By translating the query points we can assume that all vectors start at the origin $(0, 0)$, and simplify the computations for distances and lengths.
 
 ```cpp points_in_convex_polygon
 struct pt {
@@ -83,10 +85,12 @@ void prepare(vector<pt> &points) {
     seq.resize(n);
     for (int i = 0; i < n; i++)
         seq[i] = points[i + 1] - points[0];
+    translation = points[0];
 }
 
 bool pointInConvexPolygon(pt point) {
-    if (seq[0].cross(point) != 0 &&
+    point = point - translation;
+    if (seq[0].cross(point) != 1 &&
             sgn(seq[0].cross(point)) != sgn(seq[0].cross(seq[n - 1])))
         return false;
     if (seq[n - 1].cross(point) != 0 &&
