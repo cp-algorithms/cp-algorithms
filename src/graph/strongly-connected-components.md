@@ -55,50 +55,58 @@ Finally, it is appropriate to mention [topological sort](./graph/topological-sor
 
 ## Implementation
 ```cpp
-    vector < vector<int> > g, gr;
-    vector<bool> used;
-    vector<int> order, component;
-     
-    void dfs1 (int v) {
-        used[v] = true;
-        for (size_t i=0; i<g[v].size(); ++i)
-            if (!used[ g[v][i] ])
-                dfs1 (g[v][i]);
-        order.push_back (v);
+vector<vector<int>> adj, adj_rev;
+vector<bool> used;
+vector<int> order, component;
+ 
+void dfs1(int v) {
+    used[v] = true;
+
+    for (auto u : adj[v])
+        if (!used[u])
+            dfs1(u);
+
+    order.push_back(v);
+}
+ 
+void dfs2(int v) {
+    used[v] = true;
+    component.push_back(v);
+
+    for (auto u : adj_rev[v])
+        if (!used[u])
+            dfs2(u);
+}
+ 
+int main() {
+    int n;
+    // ... read n ...
+
+    for (;;) {
+        int a, b;
+        // ... read next directed edge (a,b) ...
+        adj[a].push_back(b);
+        adj_rev[b].push_back(a);
     }
-     
-    void dfs2 (int v) {
-        used[v] = true;
-        component.push_back (v);
-        for (size_t i=0; i<gr[v].size(); ++i)
-            if (!used[ gr[v][i] ])
-                dfs2 (gr[v][i]);
-    }
-     
-    int main() {
-        int n;
-        ... reading n ...
-        for (;;) {
-            int a, b;
-            ... reading next edge (a,b) ...
-            g[a].push_back (b);
-            gr[b].push_back (a);
+ 
+    used.assign(n, false);
+
+    for (int i = 0; i < n; i++)
+        if (!used[i])
+            dfs1(i);
+
+    used.assign(n, false);
+    reverse(order.begin(), order.end());
+
+    for (auto v : order)
+        if (!used[v]) {
+            dfs2 (v);
+
+            // ... printing next component ...
+
+            component.clear();
         }
-     
-        used.assign (n, false);
-        for (int i=0; i<n; ++i)
-            if (!used[i])
-                dfs1 (i);
-        used.assign (n, false);
-        for (int i=0; i<n; ++i) {
-            int v = order[n-1-i];
-            if (!used[v]) {
-                dfs2 (v);
-                ... printing next component ...
-                component.clear();
-            }
-        }
-    }
+}
 ```
 
 Here, $g$ is graph, $gr$ is transposed graph. Function $dfs1$ implements depth first search on graph $G$, function $dfs2$ - on transposed graph $G^T$. Function $dfs1$ fills the list $order$ with vertices in increasing order of their exit times (actually, it is making a topological sort). Function $dfs2$ stores all reached vertices in list $component$, that is going to store next strongly connected component after each run.
