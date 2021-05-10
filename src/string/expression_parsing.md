@@ -127,7 +127,7 @@ On the contrary before a binary operator there will always be an operand (number
 Thus it is easy to flag whether the next operator can be unary or not. 
 
 Additionally we need to execute a unary and a binary operator differently.
-And we need to chose the priority of a binary operator higher than all of the binary operations.
+And we need to chose the priority of a unary operator higher than all of the binary operators.
 
 In addition it should be noted, that some unary operators (e.g. unary plus and unary minus) are actually **right-associative**.
 
