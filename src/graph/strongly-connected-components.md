@@ -116,9 +116,9 @@ Here, $g$ is graph, $gr$ is transposed graph. Function $dfs1$ implements depth f
 ```cpp
 // continuing from previous code
 
-vector<int> roots(n + 1, 0);
+vector<int> roots(n, 0);
 vector<int> root_nodes;
-vector<vector<int>> adj_scc(n + 1);
+vector<vector<int>> adj_scc(n);
 
 for (auto v : order)
     if (!used[v]) {
@@ -132,10 +132,10 @@ for (auto v : order)
     }
 
 
-for (int v = 1; v <= n; v++)
+for (int v = 0; v < n; v++)
     for (auto u : adj[v]) {
-        int root_u = roots[u];
-        int root_v = roots[v];
+        int root_v = roots[v],
+            root_u = roots[u];
 
         if (root_u != root_v)
             adj_scc[root_v].insert(root_u);
