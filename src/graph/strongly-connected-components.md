@@ -102,7 +102,7 @@ int main() {
         if (!used[v]) {
             dfs2 (v);
 
-            // ... printing next component ...
+            // ... processing next component ...
 
             component.clear();
         }
@@ -110,6 +110,41 @@ int main() {
 ```
 
 Here, $g$ is graph, $gr$ is transposed graph. Function $dfs1$ implements depth first search on graph $G$, function $dfs2$ - on transposed graph $G^T$. Function $dfs1$ fills the list $order$ with vertices in increasing order of their exit times (actually, it is making a topological sort). Function $dfs2$ stores all reached vertices in list $component$, that is going to store next strongly connected component after each run.
+
+### Condensation Graph Implementation
+
+```cpp
+// continuing from previous code
+
+vector<int> roots(n, 0);
+vector<int> root_nodes;
+vector<vector<int>> adj_scc(n);
+
+for (auto v : order)
+    if (!used[v]) {
+        dfs2(v);
+
+        int root = component.front();
+        for (auto u : component) roots[u] = root;
+        root_nodes.push_back(root);
+
+        component.clear();
+    }
+
+
+for (int v = 0; v < n; v++)
+    for (auto u : adj[v]) {
+        int root_v = roots[v],
+            root_u = roots[u];
+
+        if (root_u != root_v)
+            adj_scc[root_v].insert(root_u);
+    }
+```
+
+Here, we have selected the root of each component as the first node in its list. This node will represent its entire SCC in the condensation graph. `roots[v]` indicates the root node for the SCC to which node `v` belongs. `root_nodes` is the list of all root nodes (one per component) in the condensation graph. 
+
+`adj_scc` is the adjacency list of the `root_nodes`. We can now traverse on `adj_scc` as our condensation graph, using only those nodes which belong to `root_nodes`.
 
 ## Literature
 
