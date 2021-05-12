@@ -294,7 +294,7 @@ struct FenwickTreeOneBasedIndexing {
     }
 
     void add(int idx, int delta) {
-        for (++idx; idx < n; idx += idx & -idx)
+        for (++idx; idx <= n; idx += idx & -idx)
             bit[idx] += delta;
     }
 };
