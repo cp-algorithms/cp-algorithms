@@ -9,9 +9,9 @@ Some dynamic programming problems have a recurrence of this form: $$dp(i, j) =
 \min_{k \leq j} \\{ dp(i - 1, k) + C(k, j) \\}$$ where $C(k, j)$ is some cost
 function. 
 
-Say $1 \leq i \leq n$ and $1 \leq j \leq m$, and evaluating $C$ takes $O(1)$
-time. Straightforward evaluation of the above recurrence is $O(n m^2)$. There
-are $n \times m$ states, and $m$ transitions for each state.
+Say $1 \leq i \leq m$ and $1 \leq j \leq n$, and evaluating $C$ takes $O(1)$
+time. Straightforward evaluation of the above recurrence is $O(m n^2)$. There
+are $m \times n$ states, and $n$ transitions for each state.
 
 Let $opt(i, j)$ be the value of $k$ that minimizes the above expression. If
 $opt(i, j) \leq opt(i, j + 1)$ for all $i, j$, then we can apply
