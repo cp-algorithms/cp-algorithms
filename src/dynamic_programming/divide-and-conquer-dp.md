@@ -43,16 +43,17 @@ It has to be called with `compute(0, n-1, 0, n-1)`.
 
 ```cpp divide_and_conquer_dp
 int n;
-long long C(int i, int j);
 vector<long long> dp_before(n), dp_cur(n);
 
+long long C(int i, int j);
+
 // compute dp_cur[l], ... dp_cur[r] (inclusive)
-void compute(int l, int r, int optl, int optr)
-{
+void compute(int l, int r, int optl, int optr){
     if (l > r)
         return;
+
     int mid = (l + r) >> 1;
-    pair<long long, int> best = {INF, -1};
+    pair<long long, int> best = {LLONG_MAX, -1};
 
     for (int k = optl; k <= min(mid, optr); k++) {
         best = min(best, {dp_before[k] + C(k, mid), k});
