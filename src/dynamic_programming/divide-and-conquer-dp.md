@@ -41,7 +41,7 @@ template.
 The function `compute` computes one row $i$ of states `dp_cur`, given the previous row $i-1$ of states `dp_before`.
 It has to be called with `compute(0, n-1, 0, n-1)`.
 
-```cpp
+```cpp divide_and_conquer_dp
 int n;
 long long C(int i, int j);
 vector<long long> dp_before(n), dp_cur(n);
