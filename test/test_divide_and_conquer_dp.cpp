@@ -8,8 +8,7 @@ using namespace std;
 
 vector<int> ar;
 
-int solve(int k)
-{
+int solve(int k) {
     n = ar.size();
     dp_before.resize(n, 0), dp_cur.resize(n, 0);
 
@@ -24,9 +23,8 @@ int solve(int k)
     return dp_before[n - 1];
 }
 
-/// O(n^2 * k) DP
-int brute_force(int k)
-{
+/// O(n^2 * k) DP, ignoring complexity of C(i, j)
+int brute_force(int k) {
     const int INF = 1 << 25;
 
     n = ar.size();
@@ -52,8 +50,7 @@ int brute_force(int k)
 }
 
 // sum of last occurrence of x - first occurence of x for all unique x in the range
-long long C(int i, int j)
-{
+long long C(int i, int j) {
     map<int, int> last;
 
     int cost = 0;
@@ -67,20 +64,21 @@ long long C(int i, int j)
     return cost;
 }
 
-int main()
-{
-    ar = vector<int>({ 32, 8, 32, 32, 32, 34, 38, 38, 39, 32, 22, 29, 39,
-        5, 5, 32, 5, 32, 32, 22, 10, 22, 8, 35, 38, 23,
-        29, 9, 8, 29, 34, 32, 11, 29, 22, 32, 38, 38, 32 });
+int main() {
+    ar = vector<int>({
+      32, 8, 32, 32, 32, 34, 38, 38, 39, 32, 22, 29, 39,
+      5, 5, 32, 5, 32, 32, 22, 10, 22, 8, 35, 38, 23, 29,
+      9, 8, 29, 34, 32, 11, 29, 22, 32, 38, 38, 32,
+    });
 
     assert(solve(3) == 30);
 
     mt19937 rng(0);
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < 100; i++) {
         int n = rng() % 10 + 1;
         ar.clear();
         for (int i = 0; i < n; i++)
-            ar.push_back(rng() % 10 + 1);
+            ar.push_back(rng() % 5 + 1);
 
         for (int k = 1; k <= n; k++) {
             assert(solve(k) == brute_force(k));
