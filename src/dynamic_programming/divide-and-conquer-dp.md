@@ -75,24 +75,25 @@ with the Convex Hull trick or vice-versa. It is useful to know and understand
 both!
 
 ## Practice Problems
-- [Dunjudge - GUARDS](https://dunjudge.me/analysis/problems/894/) (This is the exact problem in this article.)
-- [Codeforces - Ciel and Gondolas](https://codeforces.com/contest/321/problem/E) (Be careful with I/O!)
-- [SPOJ - LARMY](https://www.spoj.com/problems/LARMY/)
-- [SPOJ - NKLEAVES](https://www.spoj.com/problems/NKLEAVES/)
-- [SPOJ - ADAMOLD](https://www.spoj.com/problems/ADAMOLD/)
-- [Codechef - CHEFAOR](https://www.codechef.com/problems/CHEFAOR)
-- [Hackerrank - Guardians of the Lunatics](https://www.hackerrank.com/contests/ioi-2014-practice-contest-2/challenges/guardians-lunatics-ioi14)
-- [Hackerrank - Mining](https://www.hackerrank.com/contests/world-codesprint-5/challenges/mining)
-- [ACM ICPC World Finals 2017 - Money](https://open.kattis.com/problems/money)
-- [CodeForces - Partition Game](https://codeforces.com/contest/1527/problem/E)
+- [AtCoder - Yakiniku Restaurants](https://atcoder.jp/contests/arc067/tasks/arc067_d)
+- [CodeForces - Ciel and Gondolas](https://codeforces.com/contest/321/problem/E) (Be careful with I/O!)
 - [CodeForces - Levels And Regions](https://codeforces.com/problemset/problem/673/E)
+- [CodeForces - Partition Game](https://codeforces.com/contest/1527/problem/E)
 - [CodeForces - The Bakery](https://codeforces.com/problemset/problem/834/D)
 - [CodeForces - Yet Another Minimization Problem](https://codeforces.com/contest/868/problem/F)
+- [Codechef - CHEFAOR](https://www.codechef.com/problems/CHEFAOR)
+- [Dunjudge - GUARDS](https://dunjudge.me/analysis/problems/894/) (This is the exact problem in this article.)
+- [Hackerrank - Guardians of the Lunatics](https://www.hackerrank.com/contests/ioi-2014-practice-contest-2/challenges/guardians-lunatics-ioi14)
+- [Hackerrank - Mining](https://www.hackerrank.com/contests/world-codesprint-5/challenges/mining)
+- [Kattis - Money (ACM ICPC World Finals 2017)](https://open.kattis.com/problems/money)
+- [SPOJ - ADAMOLD](https://www.spoj.com/problems/ADAMOLD/)
+- [SPOJ - LARMY](https://www.spoj.com/problems/LARMY/)
+- [SPOJ - NKLEAVES](https://www.spoj.com/problems/NKLEAVES/)
 - [Timus - Bicolored Horses](https://acm.timus.ru/problem.aspx?space=1&num=1167)
+- [USACO - Circular Barn](http://www.usaco.org/index.php?page=viewproblem2&cpid=616)
 - [UVA - Arranging Heaps](https://onlinejudge.org/external/125/12524.pdf)
 - [UVA - Naming Babies](https://onlinejudge.org/external/125/12594.pdf)
-- [AtCoder - Yakiniku Restaurants](https://atcoder.jp/contests/arc067/tasks/arc067_d)
-- [USACO - Circular Barn](http://www.usaco.org/index.php?page=viewproblem2&cpid=616)
+
 
 
 ## References
