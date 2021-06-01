@@ -6,16 +6,16 @@ Divide and Conquer is a dynamic programming optimization.
 
 ### Preconditions
 Some dynamic programming problems have a recurrence of this form: $$dp(i, j) =
-\min_{k \leq j} \\{ dp(i - 1, k) + C(k, j) \\}$$ where $C(k, j)$ is some cost
-function. 
+\min_{0 \leq k \leq j} \\{ dp(i - 1, k - 1) + C(k, j) \\}$$ Where $C(k, j)$ is a cost
+function and $dp(i, j) = 0$ when $j \lt 0$.
 
-Say $1 \leq i \leq m$ and $1 \leq j \leq n$, and evaluating $C$ takes $O(1)$
-time. Straightforward evaluation of the above recurrence is $O(m n^2)$. There
+Say $0 \leq i \lt m$ and $0 \leq j \lt n$, and evaluating $C$ takes $O(1)$
+time. Then the straightforward evaluation of the above recurrence is $O(m n^2)$. There
 are $m \times n$ states, and $n$ transitions for each state.
 
 Let $opt(i, j)$ be the value of $k$ that minimizes the above expression. If
 $opt(i, j) \leq opt(i, j + 1)$ for all $i, j$, then we can apply
-divide-and-conquer DP. This known as the _monotonicity condition_. The optimal
+divide-and-conquer DP. This is known as the _monotonicity condition_. The optimal
 "splitting point" for a fixed $i$ increases as $j$ increases.
 
 This lets us solve for all states more efficiently. Say we compute $opt(i, j)$
@@ -39,23 +39,24 @@ levels.
 Even though implementation varies based on problem, here's a fairly generic
 template.
 The function `compute` computes one row $i$ of states `dp_cur`, given the previous row $i-1$ of states `dp_before`.
-It has to be called with `compute(0, n-1, 0, n-1)`.
+It has to be called with `compute(0, n-1, 0, n-1)`. The function `solve` computes `m` rows and returns the result.
 
-```cpp
-int n;
-long long C(int i, int j);
+```cpp divide_and_conquer_dp
+int m, n;
 vector<long long> dp_before(n), dp_cur(n);
 
+long long C(int i, int j);
+
 // compute dp_cur[l], ... dp_cur[r] (inclusive)
-void compute(int l, int r, int optl, int optr)
-{
+void compute(int l, int r, int optl, int optr) {
     if (l > r)
         return;
+
     int mid = (l + r) >> 1;
-    pair<long long, int> best = {INF, -1};
+    pair<long long, int> best = {LLONG_MAX, -1};
 
     for (int k = optl; k <= min(mid, optr); k++) {
-        best = min(best, {dp_before[k] + C(k, mid), k});
+        best = min(best, {(k ? dp_before[k - 1] : 0) + C(k, mid), k});
     }
 
     dp_cur[mid] = best.first;
@@ -63,6 +64,18 @@ void compute(int l, int r, int optl, int optr)
 
     compute(l, mid - 1, optl, opt);
     compute(mid + 1, r, opt, optr);
+}
+
+int solve() {
+    for (int i = 0; i < n; i++)
+        dp_before[i] = C(0, i);
+
+    for (int i = 1; i < m; i++) {
+        compute(0, n - 1, 0, n - 1);
+        dp_before = dp_cur;
+    }
+
+    return dp_before[n - 1];
 }
 ```
 
@@ -74,12 +87,26 @@ with the Convex Hull trick or vice-versa. It is useful to know and understand
 both!
 
 ## Practice Problems
-- [Dunjudge - GUARDS](https://dunjudge.me/analysis/problems/894/) (This is the exact problem in this article.)
-- [Codeforces - Ciel and Gondolas](https://codeforces.com/contest/321/problem/E) (Be careful with I/O!)
-- [SPOJ - LARMY](https://www.spoj.com/problems/LARMY/)
+- [AtCoder - Yakiniku Restaurants](https://atcoder.jp/contests/arc067/tasks/arc067_d)
+- [CodeForces - Ciel and Gondolas](https://codeforces.com/contest/321/problem/E) (Be careful with I/O!)
+- [CodeForces - Levels And Regions](https://codeforces.com/problemset/problem/673/E)
+- [CodeForces - Partition Game](https://codeforces.com/contest/1527/problem/E)
+- [CodeForces - The Bakery](https://codeforces.com/problemset/problem/834/D)
+- [CodeForces - Yet Another Minimization Problem](https://codeforces.com/contest/868/problem/F)
 - [Codechef - CHEFAOR](https://www.codechef.com/problems/CHEFAOR)
+- [Dunjudge - GUARDS](https://dunjudge.me/analysis/problems/894/) (This is the exact problem in this article.)
 - [Hackerrank - Guardians of the Lunatics](https://www.hackerrank.com/contests/ioi-2014-practice-contest-2/challenges/guardians-lunatics-ioi14)
-- [ACM ICPC World Finals 2017 - Money](https://open.kattis.com/problems/money)
+- [Hackerrank - Mining](https://www.hackerrank.com/contests/world-codesprint-5/challenges/mining)
+- [Kattis - Money (ACM ICPC World Finals 2017)](https://open.kattis.com/problems/money)
+- [SPOJ - ADAMOLD](https://www.spoj.com/problems/ADAMOLD/)
+- [SPOJ - LARMY](https://www.spoj.com/problems/LARMY/)
+- [SPOJ - NKLEAVES](https://www.spoj.com/problems/NKLEAVES/)
+- [Timus - Bicolored Horses](https://acm.timus.ru/problem.aspx?space=1&num=1167)
+- [USACO - Circular Barn](http://www.usaco.org/index.php?page=viewproblem2&cpid=616)
+- [UVA - Arranging Heaps](https://onlinejudge.org/external/125/12524.pdf)
+- [UVA - Naming Babies](https://onlinejudge.org/external/125/12594.pdf)
+
+
 
 ## References
 - [Quora Answer by Michael Levin](https://www.quora.com/What-is-divide-and-conquer-optimization-in-dynamic-programming)
