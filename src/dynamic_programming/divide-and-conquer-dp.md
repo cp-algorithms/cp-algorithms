@@ -39,16 +39,16 @@ levels.
 Even though implementation varies based on problem, here's a fairly generic
 template.
 The function `compute` computes one row $i$ of states `dp_cur`, given the previous row $i-1$ of states `dp_before`.
-It has to be called with `compute(0, n-1, 0, n-1)`.
+It has to be called with `compute(0, n-1, 0, n-1)`. The function `solve` computes `m` rows and returns the result.
 
 ```cpp divide_and_conquer_dp
-int n;
+int m, n;
 vector<long long> dp_before(n), dp_cur(n);
 
 long long C(int i, int j);
 
 // compute dp_cur[l], ... dp_cur[r] (inclusive)
-void compute(int l, int r, int optl, int optr){
+void compute(int l, int r, int optl, int optr) {
     if (l > r)
         return;
 
@@ -64,6 +64,18 @@ void compute(int l, int r, int optl, int optr){
 
     compute(l, mid - 1, optl, opt);
     compute(mid + 1, r, opt, optr);
+}
+
+int solve() {
+    for (int i = 0; i < n; i++)
+        dp_before[i] = C(0, i);
+
+    for (int i = 1; i < m; i++) {
+        compute(0, n - 1, 0, n - 1);
+        dp_before = dp_cur;
+    }
+
+    return dp_before[n - 1];
 }
 ```
 
