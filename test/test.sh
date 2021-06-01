@@ -23,7 +23,7 @@ do
     total=$((total + 1))
     start=`date +%s%N`
 
-    $CXX -std=c++11 $cppfile -o $cppfile.out 
+    $CXX -std=c++17 -fsanitize=undefined -fno-sanitize-recover $cppfile -o $cppfile.out 
     COMPILATION=$?
     if [ $COMPILATION -eq 0 ];
     then
