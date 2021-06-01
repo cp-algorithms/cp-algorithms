@@ -206,12 +206,15 @@ string kth_balanced2(int n, int k) {
     }
 
     string ans;
-    int depth = 0;
+    int shift, depth = 0;
+
     stack<char> st;
     for (int i = 0; i < 2*n; i++) {
+
         // '('
-        if (depth + 1 <= n) {
-            int cnt = d[2*n-i-1][depth+1] << ((2*n-i-1-depth-1) / 2);
+        shift = ((2*n-i-1-depth-1) / 2);
+        if (shift >= 0 && depth + 1 <= n) {
+            int cnt = d[2*n-i-1][depth+1] << shift;
             if (cnt >= k) {
                 ans += '(';
                 st.push('(');
@@ -222,8 +225,9 @@ string kth_balanced2(int n, int k) {
         }
 
         // ')'
-        if (depth && st.top() == '(') {
-            int cnt = d[2*n-i-1][depth-1] << ((2*n-i-1-depth+1) / 2);
+        shift = ((2*n-i-1-depth+1) / 2);
+        if (shift >= 0 && depth && st.top() == '(') {
+            int cnt = d[2*n-i-1][depth-1] << shift;
             if (cnt >= k) {
                 ans += ')';
                 st.pop();
@@ -234,8 +238,9 @@ string kth_balanced2(int n, int k) {
         }
             
         // '['
-        if (depth + 1 <= n) {
-            int cnt = d[2*n-i-1][depth+1] << ((2*n-i-1-depth-1) / 2);
+        shift = ((2*n-i-1-depth-1) / 2);
+        if (shift >= 0 && depth + 1 <= n) {
+            int cnt = d[2*n-i-1][depth+1] << shift;
             if (cnt >= k) {
                 ans += '[';
                 st.push('[');
