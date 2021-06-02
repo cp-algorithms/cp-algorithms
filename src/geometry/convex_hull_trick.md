@@ -92,7 +92,7 @@ Here is the illustration of what is going on in the vertex when we add new funct
 Let's go to implementation now. Once again we will use complex numbers to keep linear functions.
 
 ```cpp lichaotree_line_definition
-typedef int ftype;
+typedef long long ftype;
 typedef complex<ftype> point;
 #define x real
 #define y imag
@@ -131,7 +131,7 @@ void add_line(point nw, int v = 1, int l = 0, int r = maxn) {
 ```
 Now to get the minimum in some point $x$ we simply choose the minimum value along the path to the point.
 ```cpp lichaotree_getminimum
-int get(int x, int v = 1, int l = 0, int r = maxn) {
+ftype get(int x, int v = 1, int l = 0, int r = maxn) {
     int m = (l + r) / 2;
     if(r - l == 1) {
         return f(line[v], x);
