@@ -14,8 +14,8 @@ jobs:
           python-version: '3.8'
       - name: Set up C++
         run: |
-          sudo apt update
-          sudo apt install -y --no-install-recommends g++ 
+          sudo apt install -y --no-install-recommends build-essential
+          g++ --version
       - name: Check title syntax
         run: |
           ./check_title.sh
