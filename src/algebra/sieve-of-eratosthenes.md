@@ -25,7 +25,7 @@ Hence if we reach a cell and it is not marked, then it isn't divisible by any sm
 
 ```cpp
 int n;
-vector<char> is_prime(n+1, true);
+vector<bool> is_prime(n+1, true);
 is_prime[0] = is_prime[1] = false;
 for (int i = 2; i <= n; i++) {
     if (is_prime[i] && (long long)i * i <= n) {
@@ -92,7 +92,7 @@ Obviously, to find all the prime numbers until $n$, it will be enough just to pe
 
 ```cpp
 int n;
-vector<char> is_prime(n+1, true);
+vector<bool> is_prime(n+1, true);
 is_prime[0] = is_prime[1] = false;
 for (int i = 2; i * i <= n; i++) {
     if (is_prime[i]) {
@@ -140,7 +140,7 @@ int count_primes(int n) {
 
     vector<int> primes;
     int nsqrt = sqrt(n);
-    vector<char> is_prime(nsqrt + 1, true);
+    vector<bool> is_prime(nsqrt + 1, true);
     for (int i = 2; i <= nsqrt; i++) {
         if (is_prime[i]) {
             primes.push_back(i);
@@ -150,7 +150,7 @@ int count_primes(int n) {
     }
 
     int result = 0;
-    vector<char> block(S);
+    vector<bool> block(S);
     for (int k = 0; k * S <= n; k++) {
         fill(block.begin(), block.end(), true);
         int start = k * S;
