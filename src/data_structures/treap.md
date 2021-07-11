@@ -19,7 +19,7 @@ At the same time, **priorities** allow to **uniquely** specify the tree that wil
 
 A treap provides the following operations:
 
-- **Insert(X,Y)** in $O(\log N)$.  
+- **Insert (X,Y)** in $O(\log N)$.  
   Adds a new node to the tree. One possible variant is to pass only X and generate Y randomly inside the operation (while ensuring that it's different from all other priorities in the tree).
 - **Search (X)** in $O(\log N)$.  
   Looks for a node with the specified key value X. The implementation is the same as for an ordinary binary search tree.
@@ -35,11 +35,17 @@ A treap provides the following operations:
 In addition, due to the fact that a treap is a binary search tree, it can implement other operations, such as finding the K-th largest element or finding the index of an element.
 
 ## Implementation Description
+
 In terms of implementation, each node contains X, Y and pointers to the left (L) and right (R) children.
 
 We will implement all the required operations using just two auxiliary operations: Split and Merge.
 
-**Split (T, X)** separates tree T in 2 subtrees L and R trees (which are the return values of split) so that L contains all elements with key $X_L < X$, and R contains all elements with key $X_R > X$. This operation has $O (\log N)$ complexity and is implemented using an obvious recursion.
+**Split (T, X)** separates tree T in 2 subtrees L and R trees (which are the return values of split) so that L contains all elements with key $X_L \le X$, and R contains all elements with key $X_R > X$. This operation has $O (\log N)$ complexity and is implemented using a clean recursion:
+
+1. If the value of the root node (R) is $\le X$, then `L` would at least consist of `R->L` and `R`. We then call split on `R->R`, and note its split result as `L'` and `R'`. Finally, `L` would also contain `L'`, whereas `R = R'`.
+2. If the value of the root node (R) is $> X$, then `R` would at least consist of `R` and `R->R`. We then call split on `R->L`, and note its split result as `L'` and `R'`. Finally, `L=L'`, whereas `R` would also contain `R'`.
+
+Note the method is to 1. decide which subtree the root node would belong to (left or right) 2. recursively call split on one of its children 3. create the final result by reusing the recursive split call.
 
 **Merge ($T_1$, $T_2$)** combines two subtrees $T_1$ and $T_2$ and returns the new tree. This operation also has $O (\log N)$ complexity. It works under the assumption that $T_1$ and $T_2$ are ordered (all keys X in $T_1$ are smaller than keys in $T_2$). Thus, we need to combine these trees without violating the order of priorities Y. To do this, we choose as the root the tree which has higher priority Y in the root node, and recursively call Merge for the other tree and the corresponding subtree of the selected root node.
 
@@ -56,28 +62,50 @@ We implement **Build** operation with $O (N \log N)$ complexity using $N$ **Inse
 ```cpp
 struct item {
 	int key, prior;
-	item * l, * r;
-	item() { }
-	item (int key, int prior) : key(key), prior(prior), l(NULL), r(NULL) { }
+	item *l, *r;
+	item () { }
+	item (int key) : key(key), prior(rand()), l(NULL), r(NULL) { }
 };
-typedef item * pitem;
+typedef item* pitem;
+```
 
+This is our item defintion. Note there are two child pointers, and an integer key (for the BST) and an integer priority (for the heap). The priority is assigned using a random number generator.
+
+```cpp
 void split (pitem t, int key, pitem & l, pitem & r) {
 	if (!t)
 		l = r = NULL;
-	else if (key < t->key)
-		split (t->l, key, l, t->l),  r = t;
+	else if (t->key <= key)
+        split (t->r, key, t->r, r),  l = t;
 	else
-		split (t->r, key, t->r, r),  l = t;
+        split (t->l, key, l, t->l),  r = t;
 }
+```
 
+`t` is the treap to split, and `key` is the BST value by which to split. Note that we do not `return` the result values anywhere, instead, we just use them like so:
+
+```cpp
+pitem l = nullptr, r = nullptr;
+split(t, 5, l, r);
+if (l) cout << "Left subtree size: " << (l->size) << endl;
+if (r) cout << "Right subtree size: " << (r->size) << endl;
+```
+
+This `split` function can be tricky to understand, as it has both pointers (`pitem`) as well as reference to those pointers (`pitem &l`). Let us understand in words what the function call `split(t, k, l, r)` intends: "split treap `t` by value `k` into two treaps, and store the left treaps in `l` and right treap in `r`". Great! Now, let us apply this definition to the two recursive calls, using the case work we analyzed in the previous section: (The first if condition is a trivial base case for an empty treap)
+
+1. When the root node value is $\le$ key, we call `split (t->r, key, t->r, r)`, which means: "split treap `t->r` (right subtree of `t`) by value `key` and store the left subtree in `t->r` and right subtree in `r`". After that, we set `l = t`. Note now that the `l` result value contains `t->l`, `t` as well as `t->r` (which is the result of the recursive call we made) all already merged in the correct order! You should pause to ensure that this result of `l` and `r` corresponds exactly with what we discussed earlier in Implementation Description.
+2. When the root node value is greater than key, we call `split (t->l, key, l, t->l)`, which means: "split treap `t->l` (left subtree of `t`) by value `key` and store the left subtree in `l` and right subtree in `t->l`". After that, we set `r = t`. Note now that the `r` result value contains `t->l` (which is the result of the recursive call we made), `t` as well as `t->r`, all already merged in the correct order! You should pause to ensure that this result of `l` and `r` corresponds exactly with what we discussed earlier in Implementation Description.
+
+If you're still having trouble understanding the implementation, you should look at it _inductively_, that is: do *not* try to break down the recursive calls over and over again. Assume the split implementation works correct on empty treap, then try to run it for a single node treap, then a two node treap, and so on, each time reusing your knowledge that split on smaller treaps works.
+
+```cpp
 void insert (pitem & t, pitem it) {
 	if (!t)
 		t = it;
 	else if (it->prior > t->prior)
 		split (t, it->key, it->l, it->r),  t = it;
 	else
-		insert (it->key < t->key ? t->l : t->r, it);
+		insert (t->key <= it->key ? t->r : t->l, it);
 }
 
 void merge (pitem & t, pitem l, pitem r) {
