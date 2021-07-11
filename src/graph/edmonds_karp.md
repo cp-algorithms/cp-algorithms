@@ -58,7 +58,7 @@ The Ford-Fulkerson method works as follows.
 First we set the flow of each edge to zero.
 Then we look for an **augmenting path** from $s$ to $t$.
 An augmenting path is simple path in the residual graph, i.e. along the edges whose residual capacity is positive.
-Is such a path is found, then we can add increase the flow along these edges.
+If such a path is found, then we can increase the flow along these edges.
 We keep on searching for augmenting paths and increasing the flow.
 Once there doesn't exists an augmenting path any more, the flow is maximal.
 
