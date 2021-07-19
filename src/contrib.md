@@ -68,7 +68,7 @@ This is not something you usually need to do, when just writing content. It is r
 
 ## Creating anchors and link to them
 
-It is possible to generate HTLM anchors for sections of an article.
+It is possible to generate HTML anchors for sections of an article.
 E.g. the following generates a header and a named anchor.
 
     ## Implementation ## {#implementation}
