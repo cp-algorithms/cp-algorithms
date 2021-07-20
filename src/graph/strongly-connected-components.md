@@ -138,7 +138,7 @@ for (int v = 0; v < n; v++)
             root_u = roots[u];
 
         if (root_u != root_v)
-            adj_scc[root_v].insert(root_u);
+            adj_scc[root_v].push_back(root_u);
     }
 ```
 
