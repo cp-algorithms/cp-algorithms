@@ -88,3 +88,6 @@ void preprocess(int root) {
     dfs(root, root);
 }
 ```
+## Practice Problems
+
+* [Codechef - Longest Good Segment](https://www.codechef.com/problems/LGSEG)
