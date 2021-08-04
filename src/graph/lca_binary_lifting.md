@@ -91,3 +91,4 @@ void preprocess(int root) {
 ## Practice Problems
 
 * [Codechef - Longest Good Segment](https://www.codechef.com/problems/LGSEG)
+* [Spoj - Query on a tree II](https://www.spoj.com/problems/QTREE2/)
