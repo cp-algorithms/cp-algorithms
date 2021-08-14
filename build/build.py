@@ -1,9 +1,22 @@
-from argparse import ArgumentParser
-from pathlib import Path
-# from typing import Optional
+"""Converter of the e-maxx-eng project into HTML
 
-import markdown
-from tqdm import tqdm
+Todos:
+- fix absolute links
+- fix markdown problems
+- fix header links (e.g. in the Segmented Tree page)
+- add CSS
+- add code highlighting
+- add search page
+- add remaining template values
+- title not found
+"""
+from argparse import ArgumentParser
+from datetime import datetime
+from pathlib import Path
+import re
+
+import markdown  # type: ignore
+from tqdm import tqdm  # type: ignore
 
 
 def parse_arguments(args=None):
@@ -23,6 +36,12 @@ def parse_arguments(args=None):
         help="path to the output files"
     )
     arg_parser.add_argument(
+        "--template-path",
+        type=lambda p: Path(p).resolve(),
+        required=True,
+        help="path to the template file"
+    )
+    arg_parser.add_argument(
         "--show-progress",
         const=True,
         action="store_const",
@@ -33,12 +52,49 @@ def parse_arguments(args=None):
     return arguments
 
 
+class MarkdownConverter(markdown.Markdown):
+    def __init__(self, **kwargs):
+        template_path = kwargs.pop("template_path")
+        self.template = template_path.read_text()
+
+        super().__init__(**kwargs)
+
+    def convert(self, md_content: str) -> str:
+        lines = md_content.split("\n")
+        title_regex = re.compile(r"\<!--\?title\s+(.*)\s*--\>")
+
+        title = "Fix later"
+        if m := title_regex.match(lines[0].strip()):
+            title = m.group(1)
+            lines.pop(0)
+        else:
+            # raise Exception("Title missing")
+            pass
+
+        html_content = super().convert("\n".join(lines))
+
+        content = (
+            self.template
+            .replace("&title&", title)
+            .replace("&year&", str(datetime.now().year))
+            .replace("&text&", html_content)
+        )
+
+        return content
+
+
 def main():
     args = parse_arguments()
 
     # prepare markdown converter
-    extensions = []
-    md = markdown.Markdown(extensions=extensions)
+    extensions = [
+        "fenced_code",  # code blocks formatting
+        "markdown_math_escape",  # support for math formula
+    ]
+    md = MarkdownConverter(
+        extensions=extensions,
+        template_path=args.template_path
+    )
 
     input_paths = list(args.input_dir.glob("**/*.md"))
     for input_path in tqdm(input_paths, disable=not args.show_progress):
