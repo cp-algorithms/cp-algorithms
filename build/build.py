@@ -2,7 +2,6 @@
 
 Todos:
 - fix absolute links
-- fix markdown problems
 - fix header links (e.g. in the Segmented Tree page)
 - add CSS
 - add code highlighting
@@ -14,6 +13,9 @@ from argparse import ArgumentParser
 from datetime import datetime
 from pathlib import Path
 import re
+from contextlib import redirect_stderr
+import io
+
 
 import markdown  # type: ignore
 from tqdm import tqdm  # type: ignore
@@ -71,7 +73,23 @@ class MarkdownConverter(markdown.Markdown):
             # raise Exception("Title missing")
             pass
 
-        html_content = super().convert("\n".join(lines))
+        # fix for markdown bugs
+        cleaned_lines = []
+        for line in lines:
+            line = line.replace(r"\\\\", r"\\")
+            if line.strip().startswith("```cpp"):
+                line = "```cpp"
+            line = line.replace(r"\\_", "_")
+            if line.strip().startswith("$$"):
+                cleaned_lines.append("$$")
+                line = line.replace("$$", "", 1)
+            if line.strip().endswith("$$"):
+                cleaned_lines.append(line.replace("$$", ""))
+                cleaned_lines.append("$$")
+            else:
+                cleaned_lines.append(line)
+
+        html_content = super().convert("\n".join(cleaned_lines))
 
         content = (
             self.template
@@ -102,7 +120,12 @@ def main():
         md_content = input_path.read_text()
 
         # convert
-        html_content = md.convert(md_content)
+        f = io.StringIO()
+        with redirect_stderr(f):
+            html_content = md.convert(md_content)
+        if f.getvalue():
+            print(input_path.relative_to(args.input_dir))
+            print(f.getvalue())
 
         # write
         relative_path = input_path.relative_to(args.input_dir)
