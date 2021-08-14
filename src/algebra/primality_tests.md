@@ -32,7 +32,7 @@ Multiple such optimizations are described in the article about [integer factoriz
 
 This is a probabilistic test.
 
-Fermat's little theorem (see also [Euler's totient function](https://cp-algorithms.com/algebra/phi-function.html)) states, that for a prime number $p$ and a coprime integer $a$ the following equation holds:
+Fermat's little theorem (see also [Euler's totient function](./algebra/phi-function.html)) states, that for a prime number $p$ and a coprime integer $a$ the following equation holds:
 
 $$a^{p-1} \equiv 1 \bmod p$$
 
