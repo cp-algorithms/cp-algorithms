@@ -1,11 +1,8 @@
 """Converter of the e-maxx-eng project into HTML
 
 Todos:
-- fix header links (e.g. in the Segmented Tree page)
-- add CSS
-- add code highlighting
-- add search page
-- title not found
+- fix search page
+- fix test page
 """
 from argparse import ArgumentParser
 from datetime import datetime
@@ -103,6 +100,19 @@ class MarkdownConverter(markdown.Markdown):
                 cleaned_lines.append(line)
 
         html_content = super().convert("\n".join(cleaned_lines))
+
+        # fix ankors in HTML
+        lines = []
+        ankor_regex = re.compile(r"<h(\d)>(.*) #+ \{#(.*)\}\s*</h\d>")
+        for line in html_content.split("\n"):
+            if m := ankor_regex.match(line):
+                size = m.group(1)
+                title = m.group(2)
+                ankor = m.group(3)
+                lines.append(f"<h{size} id=\"{ankor}\">{title}</h{size}>")
+            else:
+                lines.append(line)
+        html_content = "\n".join(lines)
 
         history_url = urljoin(self.history_baseurl, str(relative_url))
         content = (
