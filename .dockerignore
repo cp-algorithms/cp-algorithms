@@ -1,0 +1,7 @@
+/.git
+/build/output
+tags
+/build/.venv
+/build/.mypy_cache
+/public
+/output

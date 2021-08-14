@@ -4,3 +4,5 @@ target
 *.sublime-workspace
 converted.html
 converted.pdf
+/output
+/public
