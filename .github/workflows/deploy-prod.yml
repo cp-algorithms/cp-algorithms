@@ -1,0 +1,25 @@
+name: Deploy to Live Channel
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy_live_website:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Build docker image
+        run: |
+          docker build -f build/Dockerfile . -t e-maxx-eng-builder
+      - name: Build static HTML
+        run: |
+          docker run -v $PWD/public:/output -e BASEURL="https://cp-algorithms.web.app" e-maxx-eng-builder:latest
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          projectId: cp-algorithms
+          channelId: live

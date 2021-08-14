@@ -6,3 +6,5 @@ converted.html
 converted.pdf
 /output
 /public
+.firebase/
+firebase-debug.log
