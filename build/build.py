@@ -80,6 +80,7 @@ class MarkdownConverter(markdown.Markdown):
         # fix for markdown bugs
         cleaned_lines = []
         for line in lines:
+            line = line.replace("&imgroot&", "./img")
             line = line.replace(r"\\\\", r"\\")
             if line.strip().startswith("```cpp"):
                 line = "```cpp"
