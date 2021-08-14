@@ -108,6 +108,7 @@ def main():
     extensions = [
         "fenced_code",  # code blocks formatting
         "markdown_math_escape",  # support for math formula
+        "mdx_linkify",  # convert text that looks like links into links
     ]
     md = MarkdownConverter(
         extensions=extensions,

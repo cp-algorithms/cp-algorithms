@@ -1,3 +1,4 @@
 markdown
 markdown_math_escape
+mdx-linkify
 tqdm
