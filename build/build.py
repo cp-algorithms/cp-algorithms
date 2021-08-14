@@ -36,10 +36,10 @@ def parse_arguments(args=None):
         help="path to the output files"
     )
     arg_parser.add_argument(
-        "--template-path",
+        "--template-dir",
         type=lambda p: Path(p).resolve(),
         required=True,
-        help="path to the template file"
+        help="path to the template directory"
     )
     arg_parser.add_argument(
         "--baseurl",
@@ -59,8 +59,8 @@ def parse_arguments(args=None):
 
 class MarkdownConverter(markdown.Markdown):
     def __init__(self, **kwargs):
-        template_path = kwargs.pop("template_path")
-        self.template = template_path.read_text()
+        self.template_dir = kwargs.pop("template_dir")
+        self.default_template = "default.html"
         self.baseurl = kwargs.pop("baseurl")
         self.history_baseurl = (
             "https://github.com/e-maxx-eng/e-maxx-eng/commits/master/src/"
@@ -71,14 +71,19 @@ class MarkdownConverter(markdown.Markdown):
     def convert(self, md_content: str, relative_url: Path) -> str:
         lines = md_content.split("\n")
         title_regex = re.compile(r"\<!--\?title\s+(.*)\s*--\>")
+        template_regex = re.compile(r"\<!--\?template\s+(.*)\s*--\>")
 
-        title = "Fix later"
-        if m := title_regex.match(lines[0].strip()):
-            title = m.group(1)
-            lines.pop(0)
-        else:
-            # raise Exception("Title missing")
-            pass
+        title = "Title"
+        template_name = self.default_template
+        filtered_lines = []
+        for line in lines:
+            if m := title_regex.match(line.strip()):
+                title = m.group(1).strip()
+            elif m := template_regex.match(line.strip()):
+                template_name = m.group(1).strip()
+            else:
+                filtered_lines.append(line)
+        lines = filtered_lines
 
         # fix for markdown bugs
         cleaned_lines = []
@@ -101,7 +106,7 @@ class MarkdownConverter(markdown.Markdown):
 
         history_url = urljoin(self.history_baseurl, str(relative_url))
         content = (
-            self.template
+            (self.template_dir / template_name).read_text()
             .replace("&title&", title)
             .replace("&year&", str(datetime.now().year))
             .replace("&baseurl&", self.baseurl)
@@ -124,7 +129,7 @@ def main():
     baseurl = args.baseurl or f"{args.output_dir}/"
     md = MarkdownConverter(
         extensions=extensions,
-        template_path=args.template_path,
+        template_dir=args.template_dir,
         baseurl=baseurl
     )
 
