@@ -11,6 +11,7 @@ import re
 from contextlib import redirect_stderr
 import io
 from urllib.parse import urljoin
+import shutil
 
 import markdown  # type: ignore
 from tqdm import tqdm  # type: ignore
@@ -50,6 +51,25 @@ def parse_arguments(args=None):
         default=False,
         help="show progress bar"
     )
+    arg_parser.add_argument(
+        "--img-dir",
+        type=lambda p: Path(p).resolve(),
+        required=True,
+        help="path to the image directory"
+    )
+    arg_parser.add_argument(
+        "--js-dir",
+        type=lambda p: Path(p).resolve(),
+        required=True,
+        help="path to the js directory"
+    )
+    arg_parser.add_argument(
+        "--css-dir",
+        type=lambda p: Path(p).resolve(),
+        required=True,
+        help="path to the css directory"
+    )
+
     arguments = arg_parser.parse_args(args)
     return arguments
 
@@ -143,6 +163,7 @@ def main():
         baseurl=baseurl
     )
 
+    # convert all markdown files
     input_paths = list(args.input_dir.glob("**/*.md"))
     for input_path in tqdm(input_paths, disable=not args.show_progress):
         relative_path = input_path.relative_to(args.input_dir)
@@ -154,13 +175,18 @@ def main():
         with redirect_stderr(f):
             html_content = md.convert(md_content, relative_path)
         if f.getvalue():
-            print(relative_path)
+            print(f"Error in {relative_path}:")
             print(f.getvalue())
 
         # write
         output_path = args.output_dir / relative_path.with_suffix(".html")
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_text(html_content)
+
+    # move all static files
+    shutil.copytree(args.img_dir, args.output_dir / "img", dirs_exist_ok=True)
+    shutil.copytree(args.css_dir, args.output_dir / "css", dirs_exist_ok=True)
+    shutil.copytree(args.js_dir, args.output_dir / "js", dirs_exist_ok=True)
 
 
 if __name__ == '__main__':
