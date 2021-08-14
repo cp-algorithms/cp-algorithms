@@ -1,7 +1,7 @@
 <!--?title Extended Euclidean Algorithm  -->
 # Extended Euclidean Algorithm
 
-While the [Euclidean algorithm](../algebra/euclid-algorithm.html) calculates only the greatest common divisor (GCD) of two integers $a$ and $b$, the extended version also finds a way to represent GCD in terms of $a$ and $b$, i.e. coefficients $x$ and $y$ for which:
+While the [Euclidean algorithm](./algebra/euclid-algorithm.html) calculates only the greatest common divisor (GCD) of two integers $a$ and $b$, the extended version also finds a way to represent GCD in terms of $a$ and $b$, i.e. coefficients $x$ and $y$ for which:
 
 $$a \cdot x + b \cdot y = \gcd(a, b)$$
 

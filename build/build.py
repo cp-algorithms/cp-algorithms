@@ -1,7 +1,6 @@
 """Converter of the e-maxx-eng project into HTML
 
 Todos:
-- fix absolute links
 - fix header links (e.g. in the Segmented Tree page)
 - add CSS
 - add code highlighting
@@ -15,7 +14,6 @@ from pathlib import Path
 import re
 from contextlib import redirect_stderr
 import io
-
 
 import markdown  # type: ignore
 from tqdm import tqdm  # type: ignore
@@ -44,6 +42,11 @@ def parse_arguments(args=None):
         help="path to the template file"
     )
     arg_parser.add_argument(
+        "--baseurl",
+        default=None,
+        help="Base-URL of the website"
+    )
+    arg_parser.add_argument(
         "--show-progress",
         const=True,
         action="store_const",
@@ -58,6 +61,7 @@ class MarkdownConverter(markdown.Markdown):
     def __init__(self, **kwargs):
         template_path = kwargs.pop("template_path")
         self.template = template_path.read_text()
+        self.baseurl = kwargs.pop("baseurl")
 
         super().__init__(**kwargs)
 
@@ -95,6 +99,7 @@ class MarkdownConverter(markdown.Markdown):
             self.template
             .replace("&title&", title)
             .replace("&year&", str(datetime.now().year))
+            .replace("&baseurl&", self.baseurl)
             .replace("&text&", html_content)
         )
 
@@ -110,13 +115,16 @@ def main():
         "markdown_math_escape",  # support for math formula
         "mdx_linkify",  # convert text that looks like links into links
     ]
+    baseurl = args.baseurl or f"{args.output_dir}/"
     md = MarkdownConverter(
         extensions=extensions,
-        template_path=args.template_path
+        template_path=args.template_path,
+        baseurl=baseurl
     )
 
     input_paths = list(args.input_dir.glob("**/*.md"))
     for input_path in tqdm(input_paths, disable=not args.show_progress):
+        relative_path = input_path.relative_to(args.input_dir)
         # read
         md_content = input_path.read_text()
 
@@ -125,11 +133,10 @@ def main():
         with redirect_stderr(f):
             html_content = md.convert(md_content)
         if f.getvalue():
-            print(input_path.relative_to(args.input_dir))
+            print(relative_path)
             print(f.getvalue())
 
         # write
-        relative_path = input_path.relative_to(args.input_dir)
         output_path = args.output_dir / relative_path.with_suffix(".html")
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_text(html_content)
