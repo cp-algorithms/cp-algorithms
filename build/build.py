@@ -5,7 +5,6 @@ Todos:
 - add CSS
 - add code highlighting
 - add search page
-- add remaining template values
 - title not found
 """
 from argparse import ArgumentParser
@@ -14,6 +13,7 @@ from pathlib import Path
 import re
 from contextlib import redirect_stderr
 import io
+from urllib.parse import urljoin
 
 import markdown  # type: ignore
 from tqdm import tqdm  # type: ignore
@@ -62,10 +62,13 @@ class MarkdownConverter(markdown.Markdown):
         template_path = kwargs.pop("template_path")
         self.template = template_path.read_text()
         self.baseurl = kwargs.pop("baseurl")
+        self.history_baseurl = (
+            "https://github.com/e-maxx-eng/e-maxx-eng/commits/master/src/"
+        )
 
         super().__init__(**kwargs)
 
-    def convert(self, md_content: str) -> str:
+    def convert(self, md_content: str, relative_url: Path) -> str:
         lines = md_content.split("\n")
         title_regex = re.compile(r"\<!--\?title\s+(.*)\s*--\>")
 
@@ -96,11 +99,13 @@ class MarkdownConverter(markdown.Markdown):
 
         html_content = super().convert("\n".join(cleaned_lines))
 
+        history_url = urljoin(self.history_baseurl, str(relative_url))
         content = (
             self.template
             .replace("&title&", title)
             .replace("&year&", str(datetime.now().year))
             .replace("&baseurl&", self.baseurl)
+            .replace("&history&", history_url)
             .replace("&text&", html_content)
         )
 
@@ -132,7 +137,7 @@ def main():
         # convert
         f = io.StringIO()
         with redirect_stderr(f):
-            html_content = md.convert(md_content)
+            html_content = md.convert(md_content, relative_path)
         if f.getvalue():
             print(relative_path)
             print(f.getvalue())
