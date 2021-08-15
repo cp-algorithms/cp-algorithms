@@ -51,22 +51,10 @@ def parse_arguments(args=None):
         help="show progress bar"
     )
     arg_parser.add_argument(
-        "--img-dir",
+        "--static-dir",
         type=lambda p: Path(p).resolve(),
         required=True,
-        help="path to the image directory"
-    )
-    arg_parser.add_argument(
-        "--js-dir",
-        type=lambda p: Path(p).resolve(),
-        required=True,
-        help="path to the js directory"
-    )
-    arg_parser.add_argument(
-        "--css-dir",
-        type=lambda p: Path(p).resolve(),
-        required=True,
-        help="path to the css directory"
+        help="path to the directory with static content (js, css, img)"
     )
 
     arguments = arg_parser.parse_args(args)
@@ -183,9 +171,7 @@ def main():
         output_path.write_text(html_content)
 
     # move all static files
-    shutil.copytree(args.img_dir, args.output_dir / "img", dirs_exist_ok=True)
-    shutil.copytree(args.css_dir, args.output_dir / "css", dirs_exist_ok=True)
-    shutil.copytree(args.js_dir, args.output_dir / "js", dirs_exist_ok=True)
+    shutil.copytree(args.static_dir, args.output_dir, dirs_exist_ok=True)
 
 
 if __name__ == '__main__':
