@@ -1,7 +1,6 @@
 """Converter of the e-maxx-eng project into HTML
 
 Todos:
-- fix search page
 - fix test page
 """
 from argparse import ArgumentParser
