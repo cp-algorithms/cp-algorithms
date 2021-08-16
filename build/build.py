@@ -61,6 +61,15 @@ def parse_arguments(args=None):
     return arguments
 
 
+def split_without_delimiter(s: str, sep: str) -> list[str]:
+    l: list[str] = []
+    for part in s.split(sep):
+        l.append(part)
+        l.append(sep)
+    l.pop()
+    return l
+
+
 class MarkdownConverter(markdown.Markdown):
     def __init__(self, **kwargs):
         self.template_dir = kwargs.pop("template_dir")
@@ -97,14 +106,7 @@ class MarkdownConverter(markdown.Markdown):
             if line.strip().startswith("```cpp"):
                 line = "```cpp"
             line = line.replace(r"\\_", "_")
-            if line.strip().startswith("$$"):
-                cleaned_lines.append("$$")
-                line = line.replace("$$", "", 1)
-            if line.strip().endswith("$$"):
-                cleaned_lines.append(line.replace("$$", ""))
-                cleaned_lines.append("$$")
-            else:
-                cleaned_lines.append(line)
+            cleaned_lines.extend(split_without_delimiter(line, "$$"))
 
         html_content = super().convert("\n".join(cleaned_lines))
 
