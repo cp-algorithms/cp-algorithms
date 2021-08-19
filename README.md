@@ -1,8 +1,6 @@
 e-maxx-eng
 ==========
 
-:warning: Currently the website is published at https://cp-algorithms.web.app :warning:
-
 [![Contributors](https://img.shields.io/github/contributors/e-maxx-eng/e-maxx-eng.svg)](https://github.com/e-maxx-eng/e-maxx-eng/graphs/contributors)
 [![Pull Requests](https://img.shields.io/github/issues-pr/e-maxx-eng/e-maxx-eng.svg)](https://github.com/e-maxx-eng/e-maxx-eng/pulls)
 [![Closed Pull Requests](https://img.shields.io/github/issues-pr-closed/e-maxx-eng/e-maxx-eng.svg)](https://github.com/e-maxx-eng/e-maxx-eng/pulls?q=is%3Apr+is%3Aclosed)
@@ -11,6 +9,6 @@ e-maxx-eng
 
 Translation of http://e-maxx.ru into English
 
-Compiled pages are published at https://cp-algorithms.web.app
+Compiled pages are published at https://cp-algorithms.com/
 
 Manual for contributors: https://cp-algorithms.com/contrib.html

@@ -16,7 +16,7 @@ jobs:
           docker build -f build/Dockerfile . -t e-maxx-eng-builder
       - name: Build static HTML
         run: |
-          docker run -v $PWD/public:/output -e BASEURL="https://cp-algorithms.web.app" e-maxx-eng-builder:latest
+          docker run -v $PWD/public:/output -e BASEURL="https://cp-algorithms.com" e-maxx-eng-builder:latest
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
