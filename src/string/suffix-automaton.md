@@ -657,8 +657,7 @@ Initially $v = t_0$ and $l = 0$, i.e. the match is empty.
 Now let us describe how we can add a character $T[i]$ and recalculate the answer for it.
 
   - If there is a transition from $v$ with the character $T[i]$, then we simply follow the transition and increase $l$ by one.
-  - If there is no such transition, we have to shorten the current matching part, which means that we need to follow the suffix link:
-    $$v = link(v)$$
+  - If there is no such transition, we have to shorten the current matching part, which means that we need to follow the suffix link: $v = link(v)$.
     At the same time, the current length has to be shortened.
     Obviously we need to assign $l = len(v)$, since after passing through the suffix link we end up in state whose corresponding longest string is a substring.
   - If there is still no transition using the required character, we repeat and again go through the suffix link and decrease $l$, until we find a transition or we reach the fictional state $-1$ (which means that the symbol $T[i]$ doesn't appear at all in $S$, so we assign $v = l = 0$).
