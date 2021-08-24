@@ -47,11 +47,11 @@ It is common to use the symbol \$.
 Then the order of the sorted cyclic shifts is equivalent to the order of the sorted suffixes, as demonstrated here with the string $dabbb$.
 
 $$\begin{array}{lll}
-1. & abbb\\$d & abbb \\\\
-4. & b\\$dabb & b \\\\
-3. & bb\\$dab & bb \\\\
-2. & bbb\\$da & bbb \\\\
-0. & dabbb\\$ & dabbb
+1. & abbb\$d & abbb \\\\
+4. & b\$dabb & b \\\\
+3. & bb\$dab & bb \\\\
+2. & bbb\$da & bbb \\\\
+0. & dabbb\$ & dabbb
 \end{array}$$
 
 Since we are going to sort cyclic shifts, we will consider **cyclic substrings**.
