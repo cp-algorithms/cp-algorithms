@@ -196,7 +196,7 @@ If we know that the string only contains a subset of characters, e.g. only lower
 However not by much, since the alphabet size only appears with a factor of $O(\log n)$ in the complexity.
 
 Also note, that this algorithm only sorts the cycle shifts.
-As mentioned at the beginning of this section we can generate the sorted order of the suffixes by appending a character that is smaller than all other characters of the string, and sorting this resulting string by cycle shifts, e.g. by sorting the cycle shifts of $s + \\$$.
+As mentioned at the beginning of this section we can generate the sorted order of the suffixes by appending a character that is smaller than all other characters of the string, and sorting this resulting string by cycle shifts, e.g. by sorting the cycle shifts of $s + $\$.
 This will obviously give the suffix array of $s$, however prepended with $|s|$.
 
 ```cpp suffix_array_construction
