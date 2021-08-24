@@ -3,7 +3,7 @@
 
 Suppose we are given a string $s$ of length $n$. The **Z-function** for this string is an array of length $n$ where the $i$-th element is equal to the greatest number of characters starting from the position $i$ that coincide with the first characters of $s$.
 
-In other words, $z[i]$ is the length of the longest common prefix between $s$ and the suffix of $s$ starting at $i$.
+In other words, $z[i]$ is the length of the longest string that is, at the same time, a prefix of $s$ and a prefix of the suffix of $s$ starting at $i$.
 
 **Note.** In this article, to avoid ambiguity, we assume $0$-based indexes; that is: the first character of $s$ has index $0$ and the last one has index $n-1$.
 
