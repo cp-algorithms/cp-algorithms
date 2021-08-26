@@ -264,7 +264,7 @@ bool spfa(int s, vector<int>& d) {
 
 A list of tasks that can be solved using the Bellman-Ford algorithm:
 
-* [E-OLIMP #1453 "Ford-Bellman" [difficulty: low]](http://www.e-olimp.com.ua/problems/1453)
+* [E-OLYMP #1453 "Ford-Bellman" [difficulty: low]](https://www.e-olymp.com/en/problems/1453)
 * [UVA #423 "MPI Maelstrom" [difficulty: low]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=364)
 * [UVA #534 "Frogger" [difficulty: medium]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=7&page=show_problem&problem=475)
 * [UVA #10099 "The Tourist Guide" [difficulty: medium]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=12&page=show_problem&problem=1040)
