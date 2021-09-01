@@ -112,17 +112,17 @@ this information is contained only for the vertices of the second part: $\textrm
 the second part (or $-1$, if no matching edge comes out of it). The second array is $\rm used$: the usual array of "visits" to the vertices in the depth-first traversal 
 (it is needed just so that the depth-first traversal does not enter the same vertex twice).
 
-A function $\textrm{try\_kuhn}$ is a depth-first traversal. It returns $\rm true$ if it was able to find an augmenting path from the vertex $v$, and it is considered that this 
+A function $\textrm{try_kuhn}$ is a depth-first traversal. It returns $\rm true$ if it was able to find an augmenting path from the vertex $v$, and it is considered that this 
 function has already performed the alternation of matching along the found chain.
 
 Inside the function, all the edges outgoing from the vertex $v$ of the first part are scanned, and then the following is checked: if this edge leads to an unsaturated vertex 
 $to$, or if this vertex $to$ is saturated, but it is possible to find an increasing chain by recursively starting from $\textrm{mt[}to \rm ]$, then we say that we have found an 
 augmenting path, and before returning from the function with the result $\rm true$, we alternate the current edge: we redirect the edge adjacent to $to$ to the vertex $v$.
 
-The main program first indicates that the current matching is empty (the list $\rm mt$ is filled with numbers $-1$). Then the vertex $v$ of the first part is searched by $\textrm{try\_kuhn}$, 
+The main program first indicates that the current matching is empty (the list $\rm mt$ is filled with numbers $-1$). Then the vertex $v$ of the first part is searched by $\textrm{try_kuhn}$, 
 and a depth-first traversal is started from it, having previously zeroed the array $\rm used$.
 
-It is worth noting that the size of the matching is easy to get as the number of calls $\textrm{try\_kuhn}$ in the main program that returned the result $\rm true$. The desired 
+It is worth noting that the size of the matching is easy to get as the number of calls $\textrm{try_kuhn}$ in the main program that returned the result $\rm true$. The desired 
 maximum matching itself is contained in the array $\rm mt$.
 
 ```cpp
@@ -167,14 +167,14 @@ in a common numbering - from $1$ to $n$). Arrays $\rm mt$ and are $\rm used$ are
 ### Improved implementation
 
 Let us modify the algorithm as follows. Before the main loop of the algorithm, we will find an **arbitrary matching** by some simple algorithm (a simple **heuristic algorithm**), 
-and only then we will execute a loop with calls to the $\textrm{try\_kuhn}()$ function, which will improve this matching. As a result, the algorithm will work noticeably faster on 
+and only then we will execute a loop with calls to the $\textrm{try_kuhn}()$ function, which will improve this matching. As a result, the algorithm will work noticeably faster on 
 random graphs - because in most graphs, you can easily find a matching of a sufficiently large size using heuristics, and then improve the found matching to the maximum using 
 the usual Kuhn's algorithm. Thus, we will save on launching a depth-first traversal from those vertices that we have already included using the heuristic into the current matching.
 
 For example, you can simply iterate over all the vertices of the first part, and for each of them, find an arbitrary edge that can be added to the matching, and add it. 
 Even such a simple heuristic can speed up Kuhn's algorithm several times.
 
-Please note that the main loop will have to be slightly modified. Since when calling the function $\textrm{try\_kuhn}$ in the main loop, it is assumed that the current vertex is 
+Please note that the main loop will have to be slightly modified. Since when calling the function $\textrm{try_kuhn}$ in the main loop, it is assumed that the current vertex is 
 not yet included in the matching, you need to add an appropriate check.
 
 In the implementation, only the code in the $\textrm{main}()$ function will change:

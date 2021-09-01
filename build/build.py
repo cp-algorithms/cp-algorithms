@@ -99,7 +99,7 @@ class MarkdownConverter(markdown.Markdown):
         lines = filtered_lines
 
         # fix for markdown bugs
-        cleaned_lines = []
+        cleaned_lines: list[str] = []
         for line in lines:
             line = line.replace("&imgroot&", "./img")
             line = line.replace(r"\\\\", r"\\")
