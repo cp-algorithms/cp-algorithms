@@ -36,7 +36,7 @@ For each such segment we store the sum of the numbers on it.
 
 We can say, that these segments form a binary tree: 
 the root of this tree is the segment $a[0 \dots n-1]$, and each vertex (except leaf vertices) has exactly two child vertices. 
-This is why the data structure is called "Segment Tree", even though in most implementations the tree is not constructed explicitly (see [Implementation](#implementation)).
+This is why the data structure is called "Segment Tree", even though in most implementations the tree is not constructed explicitly (see [Implementation](data_structures/segment_tree.html#implementation)).
 
 Here is a visual representation of such a Segment Tree over the array $a = [1, 3, -2, 8, -7]$:
 
