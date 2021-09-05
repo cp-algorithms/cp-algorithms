@@ -88,7 +88,7 @@ If we can compute the $\text{DFT}(A)$ in linear time using $\text{DFT}(A_0)$ and
 
 Let's learn how we can accomplish that.
 
-Suppose we have computed the vectors $\left(y_k^0\right)\_{k=0}^{n/2-1} = \text{DFT}(A_0)$ and $\left(y_k^1\right)\_{k=0}^{n/2-1} = \text{DFT}(A_1)$.
+Suppose we have computed the vectors $\left(y_k^0\right)_{k=0}^{n/2-1} = \text{DFT}(A_0)$ and $\left(y_k^1\right)_{k=0}^{n/2-1} = \text{DFT}(A_1)$.
 Let us find a expression for $\left(y_k\right)_{k=0}^{n-1} = \text{DFT}(A)$.
 
 For the first $\frac{n}{2}$ values we can just use the previously noted equation $A(x) = A_0(x^2) + x A_1(x^2)$:
