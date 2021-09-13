@@ -13,7 +13,7 @@ Notice, that the FFT algorithm presented here runs in $O(n \log n)$ time, but it
 It can easily handle polynomials of size $10^5$ with small coefficients, or multiplying two numbers of size $10^6$, but at some point the range and the precision of the used floating point numbers will not no longer be enough to give accurate results.
 That is usually enough for solving competitive programming problems, but there are also more complex variations that can perform arbitrary large polynomial/integer multiplications.
 E.g. in 1971 Schönhage and Strasser developed a variation for multiplying arbitrary large numbers that applies the FFT recursively in rings structures running in $O(n \log n \log \log n)$.
-And recently (in 2019) Harvey and van der Hoeven published an algorithm that runs in true $O(\log n)$.
+And recently (in 2019) Harvey and van der Hoeven published an algorithm that runs in true $O(n \log n)$.
 
 ## Discrete Fourier transform
 
