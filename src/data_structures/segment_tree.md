@@ -688,7 +688,7 @@ The second query, that we are supposed to answer, asked simply for the value of 
 
 To make the addition query efficient, we store at each vertex in the Segment Tree how many we should add to all numbers in the corresponding segment. 
 For example, if the query "add 3 to the whole array $a[0 \dots n-1]$" comes, then we place the number 3 in the root of the tree.
-In general we have to place this number multiple to multiple segments, which form a partition of the query segment. 
+In general we have to place this number to multiple segments, which form a partition of the query segment. 
 Thus we don't have to change all $O(n)$ values, but only $O(\log n)$ many.
 
 If now there comes a query that asks the current value of a particular array entry, it is enough to go down the tree and add up all values found along the way.
