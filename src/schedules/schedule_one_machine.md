@@ -27,7 +27,7 @@ $$\begin{align}
 \end{align}$$
 
 It is easy to see, that if the schedule $\pi$ is optimal, than any change in it leads to an increased penalty (or to the identical penalty), therefore for the optimal schedule we can write down the following condition:
-$$c \cdot t_{\pi_{i+1}} - c_{\pi_{i+1}} \cdot t_{\pi_i} \ge 0 \quad \forall i = 1 \dots n-1$$
+$$c_{\pi_{i}} \cdot t_{\pi_{i+1}} - c_{\pi_{i+1}} \cdot t_{\pi_i} \ge 0 \quad \forall i = 1 \dots n-1$$
 And after rearranging we get:
 $$\frac{c_{\pi_i}}{t_{\pi_i}} \ge \frac{c_{\pi_{i+1}}}{t_{\pi_{i+1}}} \quad \forall i = 1 \dots n-1$$
 
@@ -49,7 +49,7 @@ $$v_i = \frac{1 - e^{\alpha \cdot t_i}}{c_i}$$
 
 In this case we consider the case that all $f_i(t)$ are equal, and this function is monotone increasing.
 
-It is obvious that in this case the optimal permutation is to arrange the jobs by non-ascending processing time $t_i$.
+It is obvious that in this case the optimal permutation is to arrange the jobs by non-descending processing time $t_i$.
 
 ## The Livshits-Kladov theorem
 
