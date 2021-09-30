@@ -157,7 +157,7 @@ E.g. by looking at the squares $a^2$ modulo a fixed small number, you can notice
 
 It is very likely that at least one factor of a number is $B$**-powersmooth** for small $B$.
 $B$-powersmooth means, that every power $d^k$ of a prime $d$ that divides $p-1$ is at most $B$.
-E.g. the prime factorization of $4817191$ are is $1303 \cdot 3697$.
+E.g. the prime factorization of $4817191$ is $1303 \cdot 3697$.
 And the factors are $31$-powersmooth and $16$-powersmooth respectably, because $1303 - 1 = 2 \cdot 3 \cdot 7 \cdot 31$ and $3697 - 1 = 2^4 \cdot 3 \cdot 7 \cdot 11$.
 In 1974 John Pollard invented a method to extracts $B$-powersmooth factors from a composite number.
 
