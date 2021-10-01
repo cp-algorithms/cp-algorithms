@@ -29,7 +29,7 @@ And at the end you transform the final result back.
 So as long as you are doing lots of operations modulo $n$, this will be no problem.
 
 Inside the Montgomery space you can still perform most operations as usual.
-You can add two elements ($x \cdot r + y \cdot r \equiv (x + y) \cdot r \bmod n$), subtract, check for equality, and even compute the greatest common multiple of a number with $n$ (since $\gcd(n, r) = 1$).
+You can add two elements ($x \cdot r + y \cdot r \equiv (x + y) \cdot r \bmod n$), subtract, check for equality, and even compute the greatest common divisor of a number with $n$ (since $\gcd(n, r) = 1$).
 All with the usual algorithms.
 
 However this is not the case for multiplication.
