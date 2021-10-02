@@ -21,11 +21,17 @@ The following properties of Euler totient function are sufficient to calculate i
     Which gives us:
     $$\phi(p^k) = p^k - p^{k-1}.$$
 
-  - If $a$ and $b$ are relatively prime, then:
+<ul><li>If $a$ and $b$ are relatively prime, then:
     $$\phi(a b) = \phi(a) \cdot \phi(b).$$
     This relation is not trivial to see. It follows from the [Chinese remainder theorem](./algebra/chinese-remainder-theorem.html). The Chinese remainder theorem guarantees, that for each $0 \le x < a$ and each $0 \le y < b$, there exists a unique $0 \le z < a b$ with $z \equiv x \pmod{a}$ and $z \equiv y \pmod{b}$. It's not hard to show that $z$ is coprime to $a b$ if and only if $x$ is coprime to $a$ and $y$ is coprime to $b$. Therefore the amount of integers coprime to $a b$ is equal to product of the amounts of $a$ and $b$.
+</li>
 
-  - In general, for not coprime $a$ and $b$, the equation $$\phi(ab) = \phi(a) \cdot \phi(b) \cdot \dfrac{d}{\phi(d)}$$ with $d = \gcd(a, b)$ holds.
+<li>
+In general, for not coprime $a$ and $b$, the equation
+$$\phi(ab) = \phi(a) \cdot \phi(b) \cdot \dfrac{d}{\phi(d)}$$
+with $d = \gcd(a, b)$ holds.
+</li>
+</ul>
 
 Thus, using the first three properties, we can compute $\phi(n)$ through the factorization of $n$ (decomposition of $n$ into a product of its prime factors).
 If $n = {p_1}^{a_1} \cdot {p_2}^{a_2} \cdots {p_k}^{a_k}$, where $p_i$ are prime factors of $n$,
