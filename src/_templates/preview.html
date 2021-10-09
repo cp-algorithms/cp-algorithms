@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<header>
+  <meta charset="utf-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+  $(document).ready(function(){
+    $("#previewBtn").click(function(){
+      var markdown = $("#markdownInput").val();
+      var URL = "https://us-central1-cp-algorithms.cloudfunctions.net/convert-markdown";
+      $.post(URL, {"markdown": markdown}, function(data) {
+        $("#previewArea").html(data);
+      });
+    });
+  });
+  </script>
+</header>
+<body>
+
+<h1>Preview:</h1>
+
+<form>
+  <textarea id="markdownInput" rows="8" cols="80"></textarea>
+  <br/>
+  <button type='button' id="previewBtn">Preview</button>
+</form>
+<br/>
+<hr/>
+
+<div id="previewArea">
+&text&
+</div>
+
+</body>
+</html>

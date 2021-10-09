@@ -11,6 +11,7 @@ from contextlib import redirect_stderr
 import io
 from urllib.parse import urljoin
 import shutil
+from tempfile import TemporaryDirectory
 
 import markdown  # type: ignore
 from tqdm import tqdm  # type: ignore
@@ -134,6 +135,32 @@ class MarkdownConverter(markdown.Markdown):
         )
 
         return content
+
+
+def convert(request) -> str:
+    request_json = request.get_json()
+
+    # prepare markdown converter
+    extensions = [
+        "fenced_code",  # code blocks formatting
+        "markdown_math_escape",  # support for math formula
+        "mdx_linkify",  # convert text that looks like links into links
+    ]
+
+    with TemporaryDirectory() as tmpdirname:
+        with open(tmpdirname + "/default.html", "w") as f:
+            f.write("&text&")
+
+        md = MarkdownConverter(
+            extensions=extensions,
+            template_dir=Path(tmpdirname),
+            baseurl="https://cp-algorithms.com"
+        )
+
+        md_content = request_json['markdown']
+        html_content = md.convert(md_content, Path("."))
+
+    return html_content
 
 
 def main():
