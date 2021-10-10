@@ -228,4 +228,4 @@ and adding new articles to the collection.*
 
 ---
 
-[Information for contributors](./contrib.html) and [Test-Your-Page form](./test.php)
+[Information for contributors](./contrib.html) and [Test-Your-Page form](./preview.html)
