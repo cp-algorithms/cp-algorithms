@@ -12,6 +12,7 @@ import io
 from urllib.parse import urljoin
 import shutil
 from tempfile import TemporaryDirectory
+from typing import Dict, Tuple
 
 import markdown  # type: ignore
 from tqdm import tqdm  # type: ignore
@@ -137,7 +138,17 @@ class MarkdownConverter(markdown.Markdown):
         return content
 
 
-def convert(request) -> str:
+def convert(request) -> Tuple[str, int, Dict]:
+    # Set CORS headers for the preflight request
+    if request.method == 'OPTIONS':
+        headers = {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST',
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Max-Age': '3600'
+        }
+        return ('', 204, headers)
+
     request_json = request.get_json()
 
     # prepare markdown converter
@@ -160,7 +171,10 @@ def convert(request) -> str:
         md_content = request_json['markdown']
         html_content = md.convert(md_content, Path("."))
 
-    return html_content
+    headers = {
+        'Access-Control-Allow-Origin': '*'
+    }
+    return (html_content, 200, headers)
 
 
 def main():
