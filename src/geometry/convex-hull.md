@@ -1,18 +1,81 @@
-<!--?title Convex Hull construction using Graham's Scan -->
-# Convex Hull construction using Graham's Scan
+<!--?title Convex Hull construction -->
+# Convex Hull construction
 
 In this article we will discuss the problem of constructing a convex hull from a set of points.
 
 Consider $N$ points given on a plane, and the objective is to generate a convex hull, i.e. the smallest
 convex polygon that contains all the given points.
 
-The algorithm used here is **Graham's scan** (proposed in 1972 by Graham) with improvements by Andrew (1979).
-The algorithm allows for the construction of a convex hull in $O(N \log N)$ using only comparison, 
-addition and multiplication operations. The algorithm is asymptotically optimal (as it is proven that there
-is no algorithm asymptotically better), with the exception of a few problems where parallel or online processing
-is involved.
+We will see the **Graham's scan** algorithm published in 1972 by Graham, and
+also the **Monotone chain** algorithm published in 1979 by Andrew. Both
+are $\mathcal{O}(N \log N)$, and are asymptotically optimal (as it is proven that there
+is no algorithm asymptotically better), with the exception of a few problems where
+parallel or online processing is involved.
 
-## Description
+## Graham Scan Algorithm
+The algorithm first finds the bottom-most point $P_0$. If there are multiple points
+with the same Y coordinate, the one with the smaller X coordinate is considered. This
+step takes $\mathcal{O}(N)$ time.
+
+Next, all the other points are sorted by polar angle in counterclockwise order.
+If the polar angle between two points is the same, the nearest point is chosen instead.
+
+Then we iterate through each point one by one, and make sure that the current
+point and the two before it make a counterclockwise turn, otherwise the previous
+point is discarded, since it would make a non-convex shape. If the three points are collinear,
+you have a choice of whether to consider it part of the convex hull or not.
+In this implementation we are choosing not to. Checking for clockwise or anticlockwise
+nature can be done by checking the [orientation](./geometry/oriented-triangle-area.html).
+
+We use a stack to store the points, and once we reach the original point $P_0$,
+the algorithm is done and we return the stack containing all the points of the
+convex hull in clockwise order.
+
+### Implementation
+
+```cpp graham_scan
+struct pt {
+    double x, y;
+};
+
+int orientation(pt a, pt b, pt c) {
+    double v = a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y);
+    if (v < 0) return -1; // clockwise
+    if (v > 0) return +1; // counter-clockwise
+    return 0;
+}
+
+bool cw(pt a, pt b, pt c) { return orientation(a, b, c) < 0; }
+
+pt p0;
+bool cmp(pt a, pt b) {
+    int o = orientation(p0, a, b);
+    if (o == 0)
+        return (p0.x-a.x)*(p0.x-a.x) + (p0.y-a.y)*(p0.y-a.y)
+            < (p0.x-b.x)*(p0.x-b.x) + (p0.y-b.y)*(p0.y-b.y);
+    return o < 0;
+}
+
+bool cmp_p0(pt a, pt b) {
+    return a.y < b.y || (a.y == b.y && a.x < b.x);
+}
+
+void convex_hull(vector<pt>& a) {
+    p0 = *min_element(a.begin(), a.end(), cmp_p0);
+    sort(a.begin(), a.end(), &cmp);
+
+    vector<pt> st;
+    for (int i = 0; i < (int)a.size(); i++) {
+        while (st.size() > 1 && !cw(st[st.size()-2], st.back(), a[i]))
+            st.pop_back();
+        st.push_back(a[i]);
+    }
+
+    a = st;
+}
+```
+
+## Monotone chain Algorithm
 The algorithm first finds the leftmost and rightmost points A and B. In the event multiple such points exist,
 the lowest among the left (lowest Y-coordinate) is taken as A, and the highest among the right (highest Y-coordinate)
 is taken as B. Clearly, A and B must both belong to the convex hull as they are the farthest away and they cannot be contained
@@ -40,11 +103,11 @@ orientation instead of a clockwise orientation. Thus, if the angle made by the l
 with the line connecting the last point in the lower convex hull and the current point is not counterclockwise, we remove the most recent point added to the lower convex hull as the current point will be able to contain
 the previous point once added to the hull.
 
-The final convex hull is obtained from the union of the upper and lower convex hull, and the implementation is as follows.
+The final convex hull is obtained from the union of the upper and lower convex hull, forming a clockwise hull, and the implementation is as follows.
 
-## Implementation
+### Implementation
 
-```cpp grahams_scan
+```cpp monotone_chain
 struct pt {
     double x, y;
 };
