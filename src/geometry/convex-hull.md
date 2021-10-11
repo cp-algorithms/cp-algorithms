@@ -53,22 +53,17 @@ int orientation(pt a, pt b, pt c) {
 
 bool cw(pt a, pt b, pt c) { return orientation(a, b, c) < 0; }
 
-pt p0;
-bool cmp(pt a, pt b) {
-    int o = orientation(p0, a, b);
-    if (o == 0)
-        return (p0.x-a.x)*(p0.x-a.x) + (p0.y-a.y)*(p0.y-a.y)
-            < (p0.x-b.x)*(p0.x-b.x) + (p0.y-b.y)*(p0.y-b.y);
-    return o < 0;
-}
-
-bool cmp_p0(pt a, pt b) {
-    return a.y < b.y || (a.y == b.y && a.x < b.x);
-}
-
 void convex_hull(vector<pt>& a) {
-    p0 = *min_element(a.begin(), a.end(), &cmp_p0);
-    sort(a.begin(), a.end(), &cmp);
+    pt p0 = *min_element(a.begin(), a.end(), [&](pt a, pt b) {
+        return make_pair(a.y, a.x) < make_pair(b.y, b.x);
+    });
+    sort(a.begin(), a.end(), [&](pt a, pt b) {
+        int o = orientation(p0, a, b);
+        if (o == 0)
+            return (p0.x-a.x)*(p0.x-a.x) + (p0.y-a.y)*(p0.y-a.y)
+                < (p0.x-b.x)*(p0.x-b.x) + (p0.y-b.y)*(p0.y-b.y);
+        return o < 0;
+    });
 
     vector<pt> st;
     for (int i = 0; i < (int)a.size(); i++) {
@@ -83,7 +78,7 @@ void convex_hull(vector<pt>& a) {
 
 ### Implementation (including collinear points)
 
-```cpp graham_scan
+```cpp graham_scan_with_collinear
 struct pt {
     double x, y;
 };
@@ -95,32 +90,27 @@ int orientation(pt a, pt b, pt c) {
     return 0;
 }
 
-bool cw_or_collinear(pt a, pt b, pt c) { return orientation(a, b, c) <= 0; }
+bool ccw(pt a, pt b, pt c) { return orientation(a, b, c) > 0; }
 bool collinear(pt a, pt b, pt c) { return orientation(a, b, c) == 0; }
 
-pt p0;
-bool cmp(pt a, pt b) {
-    int o = orientation(p0, a, b);
-    if (o == 0)
-        return (p0.x-a.x)*(p0.x-a.x) + (p0.y-a.y)*(p0.y-a.y)
-            < (p0.x-b.x)*(p0.x-b.x) + (p0.y-b.y)*(p0.y-b.y);
-    return o < 0;
-}
-
-bool cmp_p0(pt a, pt b) {
-    return a.y < b.y || (a.y == b.y && a.x < b.x);
-}
-
 void convex_hull(vector<pt>& a) {
-    p0 = *min_element(a.begin(), a.end(), &cmp_p0);
-    sort(a.begin(), a.end(), &cmp);
+    pt p0 = *min_element(a.begin(), a.end(), [&](pt a, pt b) {
+        return make_pair(a.y, a.x) < make_pair(b.y, b.x);
+    });
+    sort(a.begin(), a.end(), [&](pt a, pt b) {
+        int o = orientation(p0, a, b);
+        if (o == 0)
+            return (p0.x-a.x)*(p0.x-a.x) + (p0.y-a.y)*(p0.y-a.y)
+                < (p0.x-b.x)*(p0.x-b.x) + (p0.y-b.y)*(p0.y-b.y);
+        return o < 0;
+    });
     int i = (int)a.size()-1;
     while (i >= 0 && collinear(p0, a[i], a.back())) i--;
     reverse(a.begin()+i+1, a.end());
 
     vector<pt> st;
     for (int i = 0; i < (int)a.size(); i++) {
-        while (st.size() > 1 && !cw_or_collinear(st[st.size()-2], st.back(), a[i]))
+        while (st.size() > 1 && ccw(st[st.size()-2], st.back(), a[i]))
             st.pop_back();
         st.push_back(a[i]);
     }
@@ -167,23 +157,23 @@ struct pt {
     double x, y;
 };
 
-bool cmp(pt a, pt b) {
-    return a.x < b.x || (a.x == b.x && a.y < b.y);
+int orientation(pt a, pt b, pt c) {
+    double v = a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y);
+    if (v < 0) return -1; // clockwise
+    if (v > 0) return +1; // counter-clockwise
+    return 0;
 }
 
-bool cw(pt a, pt b, pt c) {
-    return a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y) < 0;
-}
-
-bool ccw(pt a, pt b, pt c) {
-    return a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y) > 0;
-}
+bool cw(pt a, pt b, pt c) { return orientation(a, b, c) < 0; }
+bool ccw(pt a, pt b, pt c) { return orientation(a, b, c) > 0; }
 
 void convex_hull(vector<pt>& a) {
     if (a.size() == 1)
         return;
 
-    sort(a.begin(), a.end(), &cmp);
+    sort(a.begin(), a.end(), [&](pt a, pt b) {
+        return make_pair(a.x, a.y) < make_pair(b.x, b.y);
+    });
     pt p1 = a[0], p2 = a.back();
     vector<pt> up, down;
     up.push_back(p1);
@@ -195,7 +185,7 @@ void convex_hull(vector<pt>& a) {
             up.push_back(a[i]);
         }
         if (i == a.size() - 1 || ccw(p1, a[i], p2)) {
-            while(down.size() >= 2 && !ccw(down[down.size()-2], down[down.size()-1], a[i]))
+            while (down.size() >= 2 && !ccw(down[down.size()-2], down[down.size()-1], a[i]))
                 down.pop_back();
             down.push_back(a[i]);
         }
