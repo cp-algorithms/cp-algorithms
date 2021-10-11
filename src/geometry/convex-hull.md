@@ -54,10 +54,10 @@ int orientation(pt a, pt b, pt c) {
 bool cw(pt a, pt b, pt c) { return orientation(a, b, c) < 0; }
 
 void convex_hull(vector<pt>& a) {
-    pt p0 = *min_element(a.begin(), a.end(), [&](pt a, pt b) {
+    pt p0 = *min_element(a.begin(), a.end(), [](pt a, pt b) {
         return make_pair(a.y, a.x) < make_pair(b.y, b.x);
     });
-    sort(a.begin(), a.end(), [&](pt a, pt b) {
+    sort(a.begin(), a.end(), [&p0](const pt& a, const pt& b) {
         int o = orientation(p0, a, b);
         if (o == 0)
             return (p0.x-a.x)*(p0.x-a.x) + (p0.y-a.y)*(p0.y-a.y)
@@ -94,10 +94,10 @@ bool ccw(pt a, pt b, pt c) { return orientation(a, b, c) > 0; }
 bool collinear(pt a, pt b, pt c) { return orientation(a, b, c) == 0; }
 
 void convex_hull(vector<pt>& a) {
-    pt p0 = *min_element(a.begin(), a.end(), [&](pt a, pt b) {
+    pt p0 = *min_element(a.begin(), a.end(), [](pt a, pt b) {
         return make_pair(a.y, a.x) < make_pair(b.y, b.x);
     });
-    sort(a.begin(), a.end(), [&](pt a, pt b) {
+    sort(a.begin(), a.end(), [&p0](const pt& a, const pt& b) {
         int o = orientation(p0, a, b);
         if (o == 0)
             return (p0.x-a.x)*(p0.x-a.x) + (p0.y-a.y)*(p0.y-a.y)
@@ -171,7 +171,7 @@ void convex_hull(vector<pt>& a) {
     if (a.size() == 1)
         return;
 
-    sort(a.begin(), a.end(), [&](pt a, pt b) {
+    sort(a.begin(), a.end(), [](pt a, pt b) {
         return make_pair(a.x, a.y) < make_pair(b.x, b.y);
     });
     pt p1 = a[0], p2 = a.back();
