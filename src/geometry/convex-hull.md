@@ -12,7 +12,7 @@ are $\mathcal{O}(N \log N)$, and are asymptotically optimal (as it is proven tha
 is no algorithm asymptotically better), with the exception of a few problems where
 parallel or online processing is involved.
 
-## Graham Scan Algorithm
+## Graham's scan Algorithm
 The algorithm first finds the bottom-most point $P_0$. If there are multiple points
 with the same Y coordinate, the one with the smaller X coordinate is considered. This
 step takes $\mathcal{O}(N)$ time.
