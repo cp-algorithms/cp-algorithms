@@ -22,16 +22,22 @@ If the polar angle between two points is the same, the nearest point is chosen i
 
 Then we iterate through each point one by one, and make sure that the current
 point and the two before it make a counterclockwise turn, otherwise the previous
-point is discarded, since it would make a non-convex shape. If the three points are collinear,
-you have a choice of whether to consider it part of the convex hull or not.
-In this implementation we are choosing not to. Checking for clockwise or anticlockwise
+point is discarded, since it would make a non-convex shape. Checking for clockwise or anticlockwise
 nature can be done by checking the [orientation](./geometry/oriented-triangle-area.html).
 
 We use a stack to store the points, and once we reach the original point $P_0$,
 the algorithm is done and we return the stack containing all the points of the
 convex hull in clockwise order.
 
-### Implementation
+If you need to include the collinear points while doing a Graham scan, you need
+another step after sorting. You need to get the points that have the biggest
+polar distance from $P_0$ (these should be at the end of the sorted vector) and are collinear.
+The points in this line should be reversed so that we can output all the
+collinear points, otherwise the algorithm would get the nearest point in this
+line and bail. This step shouldn't be included in the non-collinear version
+of the algorithm, otherwise you wouldn't get the smallest convex hull.
+
+### Implementation (excluding collinear points)
 
 ```cpp graham_scan
 struct pt {
@@ -61,12 +67,60 @@ bool cmp_p0(pt a, pt b) {
 }
 
 void convex_hull(vector<pt>& a) {
-    p0 = *min_element(a.begin(), a.end(), cmp_p0);
+    p0 = *min_element(a.begin(), a.end(), &cmp_p0);
     sort(a.begin(), a.end(), &cmp);
 
     vector<pt> st;
     for (int i = 0; i < (int)a.size(); i++) {
         while (st.size() > 1 && !cw(st[st.size()-2], st.back(), a[i]))
+            st.pop_back();
+        st.push_back(a[i]);
+    }
+
+    a = st;
+}
+```
+
+### Implementation (including collinear points)
+
+```cpp graham_scan
+struct pt {
+    double x, y;
+};
+
+int orientation(pt a, pt b, pt c) {
+    double v = a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y);
+    if (v < 0) return -1; // clockwise
+    if (v > 0) return +1; // counter-clockwise
+    return 0;
+}
+
+bool cw_or_collinear(pt a, pt b, pt c) { return orientation(a, b, c) <= 0; }
+bool collinear(pt a, pt b, pt c) { return orientation(a, b, c) == 0; }
+
+pt p0;
+bool cmp(pt a, pt b) {
+    int o = orientation(p0, a, b);
+    if (o == 0)
+        return (p0.x-a.x)*(p0.x-a.x) + (p0.y-a.y)*(p0.y-a.y)
+            < (p0.x-b.x)*(p0.x-b.x) + (p0.y-b.y)*(p0.y-b.y);
+    return o < 0;
+}
+
+bool cmp_p0(pt a, pt b) {
+    return a.y < b.y || (a.y == b.y && a.x < b.x);
+}
+
+void convex_hull(vector<pt>& a) {
+    p0 = *min_element(a.begin(), a.end(), &cmp_p0);
+    sort(a.begin(), a.end(), &cmp);
+    int i = (int)a.size()-1;
+    while (i >= 0 && collinear(p0, a[i], a.back())) i--;
+    reverse(a.begin()+i+1, a.end());
+
+    vector<pt> st;
+    for (int i = 0; i < (int)a.size(); i++) {
+        while (st.size() > 1 && !cw_or_collinear(st[st.size()-2], st.back(), a[i]))
             st.pop_back();
         st.push_back(a[i]);
     }
@@ -158,5 +212,6 @@ void convex_hull(vector<pt>& a) {
 
 * [Kattis - Convex Hull](https://open.kattis.com/problems/convexhull)
 * [Kattis - Keep the Parade Safe](https://open.kattis.com/problems/parade)
+* [URI 1464 - Onion Layers](https://www.urionlinejudge.com.br/judge/en/problems/view/1464)
 * [Timus 1185: Wall](http://acm.timus.ru/problem.aspx?space=1&num=1185)
 * [Usaco 2014 January Contest, Gold - Cow Curling](http://usaco.org/index.php?page=viewproblem2&cpid=382)
