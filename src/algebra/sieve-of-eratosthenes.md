@@ -125,6 +125,11 @@ However, for the simple implementations of the Sieve of Eratosthenes using a `ve
 You are limited by how fast you can load the data into the cache, and therefore using less memory gives a big advantage.
 A benchmark ([link](https://gist.github.com/jakobkogler/e6359ea9ced24fe304f1a8af3c9bee0e)) shows, that using a `vector<bool>` is between 1.4x and 1.7x faster than using a `vector<char>`.
 
+The same considerations also apply to `bitset`.
+It's also an efficient way of storing bits, similar to `vector<bool>`, so it takes only $\frac{N}{8}$ bytes of memory, but is a bit slower in accessing the elements.
+In the benchmark above `bitset` performs a bit worse than `vector<bool>`.
+Another drawback from `bitset` is that you need to know the size at compile time.
+
 ### Segmented Sieve
 
 It follows from the optimization "sieving till root" that there is no need to keep the whole array `is_prime[1...n]` at all time.
