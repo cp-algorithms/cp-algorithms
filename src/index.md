@@ -139,7 +139,7 @@ and adding new articles to the collection.*
     - [Pick's Theorem - area of lattice polygons](./geometry/picks-theorem.html)
     - [Lattice points of non-lattice polygon](./geometry/lattice-points.html)
 - **Convex hull**
-    - [Convex hull construction using Graham's Scan](./geometry/grahams-scan-convex-hull.html)
+    - [Convex hull construction](./geometry/convex-hull.html)
     - [Convex hull trick and Li Chao tree](./geometry/convex_hull_trick.html)
 - **Sweep-line**
     - [Search for a pair of intersecting segments](./geometry/intersecting_segments.html)

@@ -4,7 +4,7 @@
 
 In this article we will discuss the problem of computing the intersection of a set of half-planes. Such an intersection can be conveniently represented as a convex region/polygon, where every point inside of it is also inside all of the half-planes, and it is this polygon that we're trying to find or construct. We give some initial intuition for the problem, describe a $O(N \log N)$ approach known as the Sort-and-Incremental algorithm and give some sample applications of this technique.
 
-It is strongly recommended for the reader to be familiar with basic geometrical primitives and operations (points, vectors, intersection of lines). Additionally, knowledge about [Convex Hulls](./geometry/grahams-scan-convex-hull.html) or the [Convex Hull Trick](./geometry/convex_hull_trick.html) may help to better understand the concepts in this article, but they are not a prerequisite by any means.
+It is strongly recommended for the reader to be familiar with basic geometrical primitives and operations (points, vectors, intersection of lines). Additionally, knowledge about [Convex Hulls](./geometry/convex-hull.html) or the [Convex Hull Trick](./geometry/convex_hull_trick.html) may help to better understand the concepts in this article, but they are not a prerequisite by any means.
 
 ## Initial clarifications and definitions
 
