@@ -42,7 +42,8 @@ Assuming there exists a $u$ in the queue with $d[u] - d[v] > 1$, then $u$ must h
 However this is impossible, since Dijkstra's algorithm iterates over the vertices in increasing order.
 
 This means, that the order of the queue looks like this:
-$$Q = \underbrace{v}\_{d[v]}, \dots, \underbrace{u}\_{d[v]}, \underbrace{m}\_{d[v]+1} \dots \underbrace{n}\_{d[v]+1}$$
+
+$$Q = \underbrace{v}_{d[v]}, \dots, \underbrace{u}_{d[v]}, \underbrace{m}_{d[v]+1} \dots \underbrace{n}_{d[v]+1}$$
 
 This structure is so simple, that we don't need an actual priority queue, i.e. using a balanced binary tree would be an overkill.
 We can simply use a normal queue, and append new vertices at the beginning if the corresponding edge has weight $0$, i.e. if $d[u] = d[v]$, or at the end if the edge has weight $1$, i.e. if $d[u] = d[v] + 1$.
