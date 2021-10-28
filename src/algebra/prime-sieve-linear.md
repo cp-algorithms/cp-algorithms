@@ -1,6 +1,6 @@
-<!--?title Sieve of Eratosthenes With Linear Time Complexity -->
+<!--?title Linear Sieve -->
 
-# Sieve of Eratosthenes Having Linear Time Complexity
+# Linear Sieve
 
 Given a number $n$, find all prime numbers in a segment $[2;n]$.
 
@@ -14,7 +14,8 @@ The weakness of the given algorithm is in using more memory than the classic sie
 
 Thus, it makes sense to use the described algorithm only until for numbers of order $10^7$ and not greater.
 
-The algorithm's authorship appears to belong to Gries & Misra (Gries, Misra, 1978: see references in the end of the article). And, strictly speaking, this algorithm shouldn't be called "sieve of Eratosthenes" since it's too different from the classic one.
+The algorithm's authorship appears to belong to Gries & Misra (Gries, Misra, 1978: see references in the end of the article).
+However it can also be attributed to Euler, and is also known as Euler's Sieve, who already used a similar version of it during his work.
 
 ## Algorithm
 
@@ -43,20 +44,19 @@ The proof of correctness of this algorithm and its runtime can be found after th
 
 ```cpp
 const int N = 10000000;
-int lp[N+1];
+vector<int> lp(N+1);
 vector<int> pr;
  
-for (int i=2; i<=N; ++i) {
+for (int i=2; i <= N; ++i) {
 	if (lp[i] == 0) {
 		lp[i] = i;
-		pr.push_back (i);
+		pr.push_back(i);
 	}
-	for (int j=0; j<(int)pr.size() && pr[j]<=lp[i] && i*pr[j]<=N; ++j)
+	for (int j=0; j < (int)pr.size() && pr[j] <= lp[i] && i*pr[j] <= N; ++j) {
 		lp[i * pr[j]] = pr[j];
+    }
 }
 ```
-
-We can speed it up a bit by replacing vector $pr$ with a simple array and a counter, and by getting rid of the second multiplication in the nested `for` loop (for that we just need to remember the product in a variable).
 
 ## Correctness Proof
 
@@ -76,7 +76,10 @@ Hence, the algorithm will go through every composite number exactly once, settin
 
 ## Runtime and Memory
 
-Although the running time of $O(n)$ is better than $O(n \log \log n)$ of the classic sieve of Eratosthenes, the difference between them is not so big. In practice that means just double difference in speed, and the optimized versions of the sieve run as fast as the algorithm given here.
+Although the running time of $O(n)$ is better than $O(n \log \log n)$ of the classic sieve of Eratosthenes, the difference between them is not so big.
+In practice the linear sieve runs about as fast as a typical implementation of the sieve of Eratosthenes.
+
+In comparison to optimized versions of the sieve of Erathosthenes, e.g. the segmented sieve, it is much slower.
 
 Considering the memory requirements of this algorithm - an array $lp []$ of length $n$, and an array of $pr []$ of length  $\frac n {\ln n}$, this algorithm seems to worse than the classic sieve in every way.
 

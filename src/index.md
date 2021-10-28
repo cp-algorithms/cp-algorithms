@@ -21,7 +21,7 @@ and adding new articles to the collection.*
     - [Fibonacci Numbers](./algebra/fibonacci-numbers.html)
 - **Prime numbers**
     - [Sieve of Eratosthenes](./algebra/sieve-of-eratosthenes.html)
-    - [Sieve of Eratosthenes With Linear Time Complexity](./algebra/prime-sieve-linear.html)
+    - [Linear Sieve](./algebra/prime-sieve-linear.html)
     - [Primality tests](./algebra/primality_tests.html)
     - [Integer factorization](./algebra/factorization.html)
 - **Number-theoretic functions**
