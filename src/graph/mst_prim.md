@@ -8,7 +8,7 @@ The spanning tree with the least weight is called a minimum spanning tree.
 
 In the left image you can see a weighted undirected graph, and in the right image you can see the corresponding minimum spanning tree.
 
-<center>![Random graph](&imgroot&/MST_before.png) ![MST of this graph](&imgroot&/MST_after.png)</center>
+<center>![Random graph](MST_before.png) ![MST of this graph](MST_after.png)</center>
 
 It is easy to see that any spanning tree will necessarily contain $n-1$ edges.
 
@@ -94,7 +94,7 @@ Thus we received a version of Prim's algorithm with the complexity $O(n^2)$.
 
 In particular this implementation is very convenient for the Euclidean Minimum Spanning Tree problem:
 we have $n$ points on a plane and the distance between each pair of points is the Euclidean distance between them, and we want to find a minimum spanning tree for this complete graph.
-This task can be solved by the described algorithm in $O(n^2)$ time and $O(n)$ memory, which is not possible with [Kruskal's algorithm](./graph/mst_kruskal.html).
+This task can be solved by the described algorithm in $O(n^2)$ time and $O(n)$ memory, which is not possible with [Kruskal's algorithm](mst_kruskal.md).
 
 ```cpp
 int n;

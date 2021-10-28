@@ -28,7 +28,7 @@ Additionally we define the new capacity function $c'$ as:
 
 If the new network has a saturating flow (a flow where each edge outgoing from $s'$ is completely filled, which is equivalent to every edge incoming to $t'$ is completely filled), then the network with demands has a valid flow, and the actual flow can be easily reconstructed from the new network.
 Otherwise there doesn't exist a flow that satisfies all conditions.
-Since a saturating flow has to be a maximum flow, it can be found by any maximum flow algorithm, like the [Edmonds-Karp algorithm](./graph/edmonds_karp.html) or the [Push-relabel algorithm](./graph/push-relabel.html).
+Since a saturating flow has to be a maximum flow, it can be found by any maximum flow algorithm, like the [Edmonds-Karp algorithm](edmonds_karp.md) or the [Push-relabel algorithm](push-relabel.md).
 
 The correctness of these transformations is more difficult to understand.
 We can think of it in the following way:

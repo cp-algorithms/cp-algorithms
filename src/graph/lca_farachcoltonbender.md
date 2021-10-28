@@ -12,19 +12,19 @@ It is asymptotically optimal.
 ## Algorithm
 
 We use the classical reduction of the LCA problem to the RMQ problem.
-We traverse all nodes of the tree with [DFS](./graph/depth-first-search.html) and keep an array with all visited nodes and the heights of these nodes. 
+We traverse all nodes of the tree with [DFS](depth-first-search.md) and keep an array with all visited nodes and the heights of these nodes. 
 The LCA of two nodes $u$ and $v$ is the node between the occurrences of $u$ and $v$ in the tour, that has the smallest height.
 
 In the following picture you can see a possible Euler-Tour of a graph and in the list below you can see the visited nodes and their heights.
 
-<center>![LCA_Euler_Tour](&imgroot&/LCA_Euler.png)</center>
+<center>![LCA_Euler_Tour](LCA_Euler.png)</center>
 $$\begin{array}{|l|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
 \text{Nodes:}   & 1 & 2 & 5 & 2 & 6 & 2 & 1 & 3 & 1 & 4 & 7 & 4 & 1 \\\\ \hline
 \text{Heights:} & 1 & 2 & 3 & 2 & 3 & 2 & 1 & 2 & 1 & 2 & 3 & 2 & 1 \\\\ \hline
 \end{array}$$
 
-You can read more about this reduction in the article [Lowest Common Ancestor](./graph/lca.html).
+You can read more about this reduction in the article [Lowest Common Ancestor](lca.md).
 In that article the minimum of a range was either found by sqrt-decomposition in $O(\sqrt{N})$ or in $O(\log N)$ using a Segment tree.
 In this article we look at how we can solve the given range minimum queries in $O(1)$ time, while still only taking $O(N)$ time for preprocessing.
 
@@ -35,7 +35,7 @@ The Farach-Colton and Bender algorithm describes a solution for exactly this spe
 Let's denote with $A$ the array on which we want to perform the range minimum queries.
 And $N$ will be the size of $A$.
 
-There is an easy data structure that we can use for solving the RMQ problem with $O(N \log N)$ preprocessing and $O(1)$ for each query: the [Sparse Table](./data_structures/sparse-table.html).
+There is an easy data structure that we can use for solving the RMQ problem with $O(N \log N)$ preprocessing and $O(1)$ for each query: the [Sparse Table](../data_structures/sparse-table.md).
 We create a table $T$ where each element $T[i][j]$ is equal to the minimum of $A$ in the interval $[i, i + 2^j - 1]$.
 Obviously $0 \leq j \leq \lceil \log N \rceil$, and therefore the size of the Sparse Table will be $O(N \log N)$.
 You can build the table easily in $O(N \log N)$ by noting that $T[i][j] = \min(T[i][j-1], T[i+2^{j-1}][j-1])$.

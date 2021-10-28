@@ -32,7 +32,7 @@ $$C_{k+1} = C_k \cdot G$$
 Thus the solution of the problem can be represented as follows:
 $$C_k = \underbrace{G \cdot G \cdots G}_{k \text{ times}} = G^k$$
 
-It remains to note that the matrix products can be raised to a high power efficiently using [Binary exponentiation](./algebra/binary-exp.html).
+It remains to note that the matrix products can be raised to a high power efficiently using [Binary exponentiation](../algebra/binary-exp.md).
 This gives a solution with $O(n^3 \log k)$ complexity.
 
 ## Shortest paths of a fixed length
@@ -62,7 +62,7 @@ $$A \odot B = C~~\Longleftrightarrow~~C_{i j} = \min_{p = 1 \ldots n}\left(A_{i 
 Thus the solution of the task can be represented using the modified multiplication:
 $$L_k = \underbrace{G \odot \ldots \odot G}_{k~\text{times}} = G^{\odot k}$$
 
-It remains to note that we also can compute this exponentiation efficiently with [Binary exponentiation](./algebra/binary-exp.html), because the modified multiplication is obviously associative.
+It remains to note that we also can compute this exponentiation efficiently with [Binary exponentiation](../algebra/binary-exp.md), because the modified multiplication is obviously associative.
 So also this solution has $O(n^3 \log k)$ complexity.
 
 ## Generalization of the problems for paths with length up to $k$

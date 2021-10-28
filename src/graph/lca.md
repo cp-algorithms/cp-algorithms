@@ -8,7 +8,7 @@ Given a tree $G$. Given queries of the form $(v_1, v_2)$, for each query you nee
 ### The Idea of the Algorithm
 
 Before answering the queries, we need to **preprocess** the tree.
-We make a [DFS](./graph/depth-first-search.html) traversal starting at the root and we build a list $\text{euler}$ which stores the order of the vertices that we visit (a vertex is added to the list when we first visit it, and after the return of the DFS traversals to its children).
+We make a [DFS](depth-first-search.md) traversal starting at the root and we build a list $\text{euler}$ which stores the order of the vertices that we visit (a vertex is added to the list when we first visit it, and after the return of the DFS traversals to its children).
 This is also called an Euler tour of the tree.
 It is clear that the size of this list will be $O(N)$.
 We also need to build an array $\text{first}[0..N-1]$ which stores for each vertex $i$ its first occurrence in $\text{euler}$.
@@ -27,7 +27,7 @@ So the $\text{LCA}(v_1, v_2)$ can be uniquely determined by finding the vertex w
 
 Let's illustrate this idea.
 Consider the following graph and the Euler tour with the corresponding heights:
-<center>![LCA_Euler_Tour](&imgroot&/LCA_Euler.png)</center>
+<center>![LCA_Euler_Tour](LCA_Euler.png)</center>
 $$\begin{array}{|l|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
 \text{Vertices:}   & 1 & 2 & 5 & 2 & 6 & 2 & 1 & 3 & 1 & 4 & 7 & 4 & 1 \\\\ \hline
@@ -41,11 +41,11 @@ To recap:
 to answer a query we just need **to find the vertex with smallest height** in the array $\text{euler}$ in the range from $\text{first}[v_1]$ to $\text{first}[v_2]$.
 Thus, **the LCA problem is reduced to the RMQ problem** (finding the minimum in an range problem).
 
-Using [Sqrt-Decomposition](./data_structures/sqrt_decomposition.html), it is possible to obtain a solution answering each query in $O(\sqrt{N})$ with preprocessing in $O(N)$ time.
+Using [Sqrt-Decomposition](../data_structures/sqrt_decomposition.md), it is possible to obtain a solution answering each query in $O(\sqrt{N})$ with preprocessing in $O(N)$ time.
 
-Using a [Segment Tree](./data_structures/segment_tree.html) you can answer each query in $O(\log N)$ with preprocessing in $O(N)$ time.
+Using a [Segment Tree](../data_structures/segment_tree.md) you can answer each query in $O(\log N)$ with preprocessing in $O(N)$ time.
 
-Since there will almost never be any update to the stored values, a [Sparse Table](./data_structures/sparse-table.html) might be a better choice, allowing $O(1)$ query answering with $O(N\log N)$ build time.
+Since there will almost never be any update to the stored values, a [Sparse Table](../data_structures/sparse-table.md) might be a better choice, allowing $O(1)$ query answering with $O(N\log N)$ build time.
 
 ### Implementation
 

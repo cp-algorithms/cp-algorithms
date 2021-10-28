@@ -6,7 +6,7 @@ Problem: Given a matrix $A$ of size $N x N$. Compute its determinant.
 
 ## Algorithm
 
-We use the ideas of [Gauss method for solving systems of linear equations](./linear_algebra/linear-system-gauss.html)
+We use the ideas of [Gauss method for solving systems of linear equations](linear-system-gauss.md)
 
 We will perform the same steps as in the solution of systems of linear equations, excluding only the division of the current line to $a_{ij}$. These operations will not change the absolute value of the determinant of the matrix. When we exchange two lines of the matrix, however, the sign of the determinant can change.
 

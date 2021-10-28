@@ -8,7 +8,7 @@ Our task is to find all the bridges in the given graph.
 Informally this task can be put as follows:
 we have to find all the "important" roads on the given road map, i.e. such roads that the removal of any of them will lead to some cities being unreachable from others.
 
-There is already the article [Finding Bridges in $O(N+M)$](./graph/bridge-searching.html) which solves this task with a [Depth First Search](./graph/depth-first-search.html) traversal.
+There is already the article [Finding Bridges in $O(N+M)$](bridge-searching.md) which solves this task with a [Depth First Search](depth-first-search.md) traversal.
 This algorithm will be much more complicated, but it has one big advantage:
 the algorithm described in this article works online, which means that the input graph doesn't have to be known in advance.
 The edges are added once at a time, and after each addition the algorithm recounts all the bridges in the current graph.
@@ -22,7 +22,7 @@ After each received edge, i.e. after adding each edge, output the current number
 It is also possible to maintain a list of all bridges as well as explicitly support the 2-edge-connected components.
 
 The algorithm described below works in $O(n \log n + m)$ time, where $m$ is the number of edges.
-The algorithm is based on the data structure [Disjoint Set Union](./data_structures/disjoint_set_union.html).
+The algorithm is based on the data structure [Disjoint Set Union](../data_structures/disjoint_set_union.md).
 However the implementation in this article takes $O(n \log n + m \log n)$ time, because it uses the simplified version of the DSU without Union by Rank.
 
 ## Algorithm
@@ -58,7 +58,7 @@ Consequently the whole task is reduced to the effective implementation of all th
 
 ## Data Structures for storing the forest
 
-The only data structure that we need is [Disjoint Set Union](./data_structures/disjoint_set_union.html).
+The only data structure that we need is [Disjoint Set Union](../data_structures/disjoint_set_union.md).
 In fact we will make two copies of this structure:
 one will be to maintain the connected components, the other to maintain the 2-edge-connected components.
 And in addition we store the structure of the trees in the forest of 2-edge-connected components via pointers:
@@ -95,7 +95,7 @@ We will now consistently disassemble every operation that we need to learn to im
   We will have to maintain the size of each connected component, but the data structure DSU makes this possible without difficulty.
 
 * Searching for the cycle formed by adding a new edge $(a, b)$.
-  Since $a$ and $b$ are already connected in the tree we need to find the [Lowest Common Ancestor](./graph/lca.html) of the vertices $a$ and $b$.
+  Since $a$ and $b$ are already connected in the tree we need to find the [Lowest Common Ancestor](lca.md) of the vertices $a$ and $b$.
   The cycle will consist of the paths from $b$ to the LCA, from the LCA to $b$ and the edge $a$ to $b$.
 
   After finding the cycle we compress all vertices of the detected cycle into one vertex.

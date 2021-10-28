@@ -133,7 +133,7 @@ Then a shortest path between vertices $i$ and $j$ does not exist, if and only if
 In addition, when using the Floyd-Warshall algorithm for graphs with negative cycles, we should keep in mind that situations may arise in which distances can get exponentially fast into the negative.
 Therefore integer overflow must be handled by limiting the minimal distance by some value (e.g. $-\text{INF}$).
 
-To learn more about finding negative cycles in a graph, see the separate article [Finding a negative cycle in the graph](./graph/finding-negative-cycle-in-graph.html).
+To learn more about finding negative cycles in a graph, see the separate article [Finding a negative cycle in the graph](finding-negative-cycle-in-graph.md).
 
 ## Practice Problems
  - [UVA: Page Hopping](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=762)

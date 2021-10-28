@@ -1,9 +1,9 @@
 <!--?title 0-1 BFS -->
 # 0-1 BFS
 
-It is well-known, that you can find the shortest paths between a single source and all other vertices in $O(|E|)$ using [Breadth First Search](./graph/breadth-first-search.html) in an **unweighted graph**, i.e. the distance is the minimal number of edges that you need to traverse from the source to another vertex.
+It is well-known, that you can find the shortest paths between a single source and all other vertices in $O(|E|)$ using [Breadth First Search](breadth-first-search.md) in an **unweighted graph**, i.e. the distance is the minimal number of edges that you need to traverse from the source to another vertex.
 We can interpret such a graph also as a weighted graph, where every edge has the weight $1$.
-If not all edges in graph have the same weight, that we need a more general algorithm, like [Dijkstra](./graph/dijkstra.html) which runs in $O(|V|^2 + |E|)$ or $O(|E| \log |V|)$ time.
+If not all edges in graph have the same weight, that we need a more general algorithm, like [Dijkstra](dijkstra.md) which runs in $O(|V|^2 + |E|)$ or $O(|E| \log |V|)$ time.
 
 However if the weights are more constrained, we can often do better.
 In this article we demonstrate how we can use BFS to solve the SSSP (single-source shortest path) problem in $O(|E|)$, if the weight of each edge is either $0$ or $1$.

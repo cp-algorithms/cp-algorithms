@@ -13,7 +13,7 @@ A common problem in which topological sorting occurs is the following. There are
 
 ## The Algorithm
 
-To solve this problem we will use [depth-first search](./graph/depth-first-search.html).
+To solve this problem we will use [depth-first search](depth-first-search.md).
 
 Let's assume that the graph is acyclic, i.e. there is a solution. What does the depth-first search do? When started from some  vertex $v$, it tries to run along all edges outgoing from $v$. It fails to run along the edges for which the opposite ends have been visited previously, and runs along the rest of the edges and starts from their ends.
 
@@ -23,7 +23,7 @@ These explanations can also be presented in terms of time of exit from DFS routi
 
 ## Implementation
 
-Here is an implementation which assumes that the graph is acyclic, i.e. the desired topological ordering exists. If necessary, you can easily check that the graph is acyclic, as described in the article on [depth-first search](./graph/depth-first-search.html).
+Here is an implementation which assumes that the graph is acyclic, i.e. the desired topological ordering exists. If necessary, you can easily check that the graph is acyclic, as described in the article on [depth-first search](depth-first-search.md).
 
 C++ implementation <span class="toggle-code">Show/Hide</span>
 

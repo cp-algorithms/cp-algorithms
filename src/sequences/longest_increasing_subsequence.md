@@ -215,7 +215,7 @@ then the problem of computing the value $d[i]$ is equivalent to finding the **ma
 $$d[i] = \max\left(t[0 \dots a[i] - 1] + 1\right)$$
 
 The problem of finding the maximum of a prefix of an array (which changes) is a standard problem that can be solved by many different data structures. 
-For instance we can use a [Segment tree](./data_structures/segment_tree.html) or a [Fenwick tree](./data_structures/fenwick.html).
+For instance we can use a [Segment tree](../data_structures/segment_tree.md) or a [Fenwick tree](../data_structures/fenwick.md).
 
 This method has obviously some **shortcomings**:
 in terms of length and complexity of the implementation this approach will be worse than the method using binary search.

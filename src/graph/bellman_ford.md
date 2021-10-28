@@ -206,7 +206,7 @@ d[e[j].b] = max (-INF, d[e[j].a] + e[j].cost);
 
 The above implementation looks for a negative cycle reachable from some starting vertex $v$; however, the algorithm can be modified to just looking for any negative cycle in the graph. For this we need to put all the distance $d[i]$ to zero and not infinity — as if we are looking for the shortest path from all vertices simultaneously; the validity of the detection of a negative cycle is not affected.
 
-For more on this topic — see separate article, [Finding a negative cycle in the graph](./graph/finding-negative-cycle-in-graph.html).
+For more on this topic — see separate article, [Finding a negative cycle in the graph](finding-negative-cycle-in-graph.md).
 
 ## Shortest Path Faster Algorithm (SPFA)
 
@@ -271,6 +271,6 @@ A list of tasks that can be solved using the Bellman-Ford algorithm:
 * [UVA #515 "King" [difficulty: medium]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=456)
 * [UVA 12519 - The Farnsworth Parabox](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3964)
 
-See also the problem list in the article [Finding the negative cycle in a graph](./graph/finding-negative-cycle-in-graph.html).
+See also the problem list in the article [Finding the negative cycle in a graph](finding-negative-cycle-in-graph.md).
 * [CSES - High Score](https://cses.fi/problemset/task/1673)
 * [CSES - Cycle Finding](https://cses.fi/problemset/task/1197)
