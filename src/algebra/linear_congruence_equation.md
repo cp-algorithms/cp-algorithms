@@ -12,14 +12,14 @@ It is required to find the value $x$ from the interval $[0, n-1]$ (clearly, on t
 ## Solution by finding the inverse element
 
 Let us first consider a simpler case where $a$ and $n$ are **coprime** ($\gcd(a, n) = 1$).
-Then one can find the [inverse](./algebra/module-inverse.html) of $a$, and multiplying both sides of the equation with the inverse, and we can get a **unique** solution.
+Then one can find the [inverse](module-inverse.md) of $a$, and multiplying both sides of the equation with the inverse, and we can get a **unique** solution.
 
 $$x = b \cdot a ^ {- 1} \pmod n$$
 
 Now consider the case where $a$ and $n$ are **not coprime** ($\gcd(a, n) \ne 1$).
 Then the solution will not always exist (for example $2 \cdot x = 1 \pmod 4$ has no solution).
 
-Let $g = \gcd(a, n)$, i.e. the [greatest common divisor](./algebra/euclid-algorithm.html) of $a$ and $n$ (which in this case is greater than one).
+Let $g = \gcd(a, n)$, i.e. the [greatest common divisor](euclid-algorithm.md) of $a$ and $n$ (which in this case is greater than one).
 
 Then, if $b$ is not divisible by $g$, there is no solution. In fact, for any $x$ the left side of the equation $a \cdot x \pmod n$ , is always divisible by $g$, while the right-hand side is not divisible by it, hence it follows that there are no solutions.
 
@@ -46,6 +46,6 @@ $$a \cdot x + n \cdot k = b,$$
 
 where $x$ and $k$ are unknown integers.
 
-The method of solving this equation is described in the corresponding article [Linear Diophantine equations](./algebra/linear-diophantine-equation.html) and it consists of applying the [Extended Euclidean Algorithm](./algebra/extended-euclid-algorithm.html).
+The method of solving this equation is described in the corresponding article [Linear Diophantine equations](linear-diophantine-equation.md) and it consists of applying the [Extended Euclidean Algorithm](extended-euclid-algorithm.md).
 
 It also describes the method of obtaining all solutions of this equation from one found solution, and incidentally this method, when carefully considered, is absolutely equivalent to the method described in the previous section.

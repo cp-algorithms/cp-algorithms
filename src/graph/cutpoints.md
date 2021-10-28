@@ -4,11 +4,11 @@
 
 We are given an undirected graph. An articulation point (or cut vertex) is defined as a vertex which, when removed along with associated edges, makes the graph disconnected (or more precisely, increases the number of connected components in the graph). The task is to find all articulation points in the given graph.
 
-The algorithm described here is based on [depth first search](../graph/depth-first-search.md) and has $O(N+M)$ complexity, where $N$ is the number of vertices and $M$ is the number of edges in the graph.
+The algorithm described here is based on [depth first search](depth-first-search.md) and has $O(N+M)$ complexity, where $N$ is the number of vertices and $M$ is the number of edges in the graph.
 
 ## Algorithm
 
-Pick an arbitrary vertex of the graph $root$ and run [depth first search](../graph/depth-first-search.md) from it. Note the following fact (which is easy to prove):
+Pick an arbitrary vertex of the graph $root$ and run [depth first search](depth-first-search.md) from it. Note the following fact (which is easy to prove):
 
 - Let's say we are in the DFS, looking through the edges starting from vertex $v\ne root$.
 If the current edge $(v, to)$ is such that none of the vertices $to$ or its descendants in the DFS traversal tree has a back-edge to any of ancestors of $v$, then $v$ is an articulation point. Otherwise, $v$ is not an articulation point.

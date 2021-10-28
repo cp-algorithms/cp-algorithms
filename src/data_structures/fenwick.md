@@ -113,7 +113,7 @@ where $\|$ is the bitwise OR operator.
 The following image shows a possible interpretation of the Fenwick tree as tree.
 The nodes of the tree show the ranges they cover.
 
-<center>![Binary Indexed Tree](&imgroot&/binary_indexed_tree.png)</center>
+<center>![Binary Indexed Tree](binary_indexed_tree.png)</center>
 
 ## Implementation
 

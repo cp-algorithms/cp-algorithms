@@ -28,14 +28,14 @@ $$C = - A P_x - B P_y.$$
 An important advantage of this method of constructing a straight line is that if the coordinates of the ends were integer, then the coefficients obtained will also be **integer** . In some cases, this allows one to perform geometric operations without resorting to real numbers at all.
 
 However, there is a small drawback: for the same straight line different triples of coefficients can be obtained.
-To avoid this, but do not go away from the integer coefficients, you can apply the following technique, often called **rationing**. Find the [greatest common divisor](./algebra/euclid-algorithm.html) of numbers $| A | , | B | , | C |$ , we divide all three coefficients by it, and then we make the normalization of the sign: if $A <0$ or $A = 0, B <0$ then multiply all three coefficients by $-1$ .
+To avoid this, but do not go away from the integer coefficients, you can apply the following technique, often called **rationing**. Find the [greatest common divisor](../algebra/euclid-algorithm.md) of numbers $| A | , | B | , | C |$ , we divide all three coefficients by it, and then we make the normalization of the sign: if $A <0$ or $A = 0, B <0$ then multiply all three coefficients by $-1$ .
 As a result, we will come to the conclusion that for identical straight lines, identical triples of coefficients will be obtained, which makes it easy to check straight lines for equality.
 
 ### Real case
 
 When working with real numbers, you should always be aware of errors.
 
-The coefficients $A$ and $B$ will have the order of the original coordinates, the coefficient $C$ is of the order of the square of them. This may already be quite large numbers, and, for example, when we [intersect straight lines](./geometry/lines-intersection.html), they will become even larger, which can lead to large rounding errors already when the coordinates of the end points are of order $10^3$.
+The coefficients $A$ and $B$ will have the order of the original coordinates, the coefficient $C$ is of the order of the square of them. This may already be quite large numbers, and, for example, when we [intersect straight lines](lines-intersection.md), they will become even larger, which can lead to large rounding errors already when the coordinates of the end points are of order $10^3$.
 
 Therefore, when working with real numbers, it is desirable to produce the so-called **normalization**, this is straightforward: namely, to make the coefficients such that $A ^ 2 + B ^ 2 = 1$ . To do this, calculate the number $Z$ :
 

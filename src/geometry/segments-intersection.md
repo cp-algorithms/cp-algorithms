@@ -6,7 +6,7 @@ You have to find the intersection of these segments, which can be empty (if the 
 
 ## Solution
 
-We can find the intersection point of segments in the same way as [the intersection of lines](geometry/lines-intersection.html): 
+We can find the intersection point of segments in the same way as [the intersection of lines](lines-intersection.md): 
 reconstruct line equations from the segments' endpoints and check whether they are parallel. 
 
 If the lines are not parallel, we need to find their point of intersection and check whether it belongs to both segments

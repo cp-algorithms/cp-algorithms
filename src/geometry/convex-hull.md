@@ -23,7 +23,7 @@ If the polar angle between two points is the same, the nearest point is chosen i
 Then we iterate through each point one by one, and make sure that the current
 point and the two before it make a counterclockwise turn, otherwise the previous
 point is discarded, since it would make a non-convex shape. Checking for clockwise or anticlockwise
-nature can be done by checking the [orientation](./geometry/oriented-triangle-area.html).
+nature can be done by checking the [orientation](oriented-triangle-area.md).
 
 We use a stack to store the points, and once we reach the original point $P_0$,
 the algorithm is done and we return the stack containing all the points of the
@@ -98,7 +98,7 @@ constructs the upper set S1 and the lower set S2 and then combines them to obtai
 
 To get the upper set, we sort all points by the x-coordinate. For each point we check if either - the current point is the last point,
 (which we defined as B), or if the orientation between the line between A and the current point and the line between the current point and B is clockwise. In those cases the 
-current point belongs to the upper set S1. Checking for clockwise or anticlockwise nature can be done by checking the [orientation](./geometry/oriented-triangle-area.html).
+current point belongs to the upper set S1. Checking for clockwise or anticlockwise nature can be done by checking the [orientation](oriented-triangle-area.md).
 
 If the given point belongs to the upper set, we check the angle made by the line connecting the second last point and the last point in the upper convex hull,
 with the line connecting the last point in the upper convex hull and the current point. If the angle is not clockwise, we remove the most recent point added

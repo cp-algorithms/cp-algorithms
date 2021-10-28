@@ -4,7 +4,7 @@
 
 In this article we will discuss the problem of computing the intersection of a set of half-planes. Such an intersection can be conveniently represented as a convex region/polygon, where every point inside of it is also inside all of the half-planes, and it is this polygon that we're trying to find or construct. We give some initial intuition for the problem, describe a $O(N \log N)$ approach known as the Sort-and-Incremental algorithm and give some sample applications of this technique.
 
-It is strongly recommended for the reader to be familiar with basic geometrical primitives and operations (points, vectors, intersection of lines). Additionally, knowledge about [Convex Hulls](./geometry/convex-hull.html) or the [Convex Hull Trick](./geometry/convex_hull_trick.html) may help to better understand the concepts in this article, but they are not a prerequisite by any means.
+It is strongly recommended for the reader to be familiar with basic geometrical primitives and operations (points, vectors, intersection of lines). Additionally, knowledge about [Convex Hulls](../geometry/convex-hull.md) or the [Convex Hull Trick](../geometry/convex_hull_trick.md) may help to better understand the concepts in this article, but they are not a prerequisite by any means.
 
 ## Initial clarifications and definitions
 
@@ -15,7 +15,7 @@ For the entire article, we will make some assumptions (unless specified otherwis
 3. We will assume that the resulting intersection is always either bounded or empty. If we need to handle the unbounded case, we can simply add 4 half-planes that define a large-enough bounding box. 
 4. We will assume, for simplicity, that there are no parallel half-planes in the given set. Towards the end of the article we will discuss how to deal with such cases.
 
-![](&imgroot&/halfplanes_rep.png) 
+![](halfplanes_rep.png) 
 
 The half-plane $y \geq 2x - 2$ can be represented as the point $P = (1, 0)$ with direction vector $PQ = Q - P = (1, 2)$
 
@@ -49,11 +49,11 @@ Here's a small example with an illustration:
 
 Let $H = \\{ A, B, C, D, E \\}$ be the set of half-planes currently present in the intersection. Additionally, let $P = \\{ p, q, r, s \\}$ be the set of intersection points of adjacent half-planes in H. Now, suppose we wish to intersect it with the half-plane $F$, as seen in the illustration below:
 
-![](&imgroot&/halfplanes_hp1.png)
+![](halfplanes_hp1.png)
 
 Notice the half-plane $F$ makes $A$ and $E$ redundant in the intersection. So we remove both $A$ and $E$ from the front and back of the intersection, respectively, and add $F$ at the end. And we finally obtain the new intersection $H = \\{ B, C, D, F\\}$ with $P = \\{ q, r, t, u \\}$.
 
-![](&imgroot&/halfplanes_hp2.png)
+![](halfplanes_hp2.png)
 
 With all of this in mind, we have almost everything we need to actually implement the algorithm, but we still need to talk about some special cases. At the beginning of the article we said we would add a bounding box to take care of the cases where the intersection could be unbounded, so the only tricky case we actually need to handle is parallel half-planes. We can have two sub-cases: two half-planes can be parallel with the same direction or with opposite direction. The reason this case needs to be handled separately is because we will need to compute intersection points of half-plane lines to be able to check if a half-plane is redundant or not, and two parallel lines have no intersection point, so we need a special way to deal with them.
 

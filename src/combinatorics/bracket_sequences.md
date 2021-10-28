@@ -39,7 +39,7 @@ Otherwise it is.
 
 ### Formula
 
-The number of balanced bracket sequences with only one bracket type can be calculated using the [Catalan numbers](./combinatorics/catalan-numbers.html).
+The number of balanced bracket sequences with only one bracket type can be calculated using the [Catalan numbers](catalan-numbers.md).
 The number of balanced bracket sequences of length $2n$ ($n$ pairs of brackets) is:
 $$\frac{1}{n+1} \binom{2n}{n}$$
 

@@ -25,7 +25,7 @@ $$\left|\bigcup_{i=1}^n A_i \right| = \sum_{\emptyset \neq J\subseteq \\{1,2,\ld
 
 Let the diagram show three sets $A$, $B$ and $C$:
 
-![Venn diagram](&imgroot&/venn-inclusion-exclusion.png "Venn diagram")
+![Venn diagram](venn-inclusion-exclusion.png "Venn diagram")
 
 Then the area of their union $A \cup B \cup C$ is equal to the sum of the areas $A$, $B$ and $C$ less double-covered areas $A \cap B$, $A \cap C$, $B \cap C$, but with the addition of the area covered by three sets $A \cap B \cap C$:
 
@@ -63,7 +63,7 @@ Consider an element $x$ occurring in $k \geq 1$ sets $A_i$. We will show it is c
 * in terms which $|J| = k$, the item $x$ will be counted **$(-1)^{k-1}\cdot \binom{k}{k}$** times;
 * in terms which $|J| \gt k$, the item $x$ will be counted **zero** times;
 
-This leads us to the following sum of [binomial coefficients](./combinatorics/binomial-coefficients.html):
+This leads us to the following sum of [binomial coefficients](binomial-coefficients.md):
 
 $$ T = \binom{k}{1} - \binom{k}{2} + \binom{k}{3} - \cdots + (-1)^{i-1}\cdot \binom{k}{i} + \cdots + (-1)^{k-1}\cdot \binom{k}{k}$$
 
@@ -140,7 +140,7 @@ where $0 \le x_i \le 8 (i = 1,2,\ldots 6)$.
 
 Task: count the number of solutions to the equation.
 
-Forget the restriction on $x_i$ for a moment and just count the number of nonnegative solutions to this equation. This is easily done using [binomial coefficients](./combinatorics/binomial-coefficients.html): we want to break a sequence of $20$ units into $6$ groups, which is the same as distributing $5$ "walls" over $25$ slots:
+Forget the restriction on $x_i$ for a moment and just count the number of nonnegative solutions to this equation. This is easily done using [binomial coefficients](binomial-coefficients.md): we want to break a sequence of $20$ units into $6$ groups, which is the same as distributing $5$ "walls" over $25$ slots:
 
 $$N_0 = \binom{25}{5}$$
 
@@ -217,7 +217,7 @@ Asymptotics of the solution is $O (\sqrt{n})$.
 
 Given $n$ numbers $a_i$ and number $r$. You want to count the number of integers in the interval $[1; r]$ that are multiple of at least one of the $a_i$.
 
-The solution algorithm is almost identical to the one for previous task — construct the formula of inclusion-exclusion on the numbers $a_i$, i.e. each term in this formula is the number of numbers divisible by a given subset of numbers $a_i$ (in other words, divisible by their [least common multiple](./algebra/euclid-algorithm.html)).
+The solution algorithm is almost identical to the one for previous task — construct the formula of inclusion-exclusion on the numbers $a_i$, i.e. each term in this formula is the number of numbers divisible by a given subset of numbers $a_i$ (in other words, divisible by their [least common multiple](../algebra/euclid-algorithm.md)).
 
 So we will now iterate over all $2^n$ subsets of integers $a_i$ with $O(n \log r)$ operations to find their least common multiple, adding or subtracting the number of multiples of it in the interval. Asymptotics is $O (2^n\cdot n\cdot \log r)$.
 
@@ -256,7 +256,7 @@ Of course, we can just use the solution to the first version of the problem and 
 
 $$ (-1)^{|Y|-k} \cdot \binom{|Y|}{k} + (-1)^{|Y|-k-1} \cdot \binom{|Y|}{k+1} + (-1)^{|Y|-k-2} \cdot \binom{|Y|}{k+2} + \cdots + (-1)^{|Y|-|Y|} \cdot \binom{|Y|}{|Y|} $$
 
-Looking at Graham's (Graham, Knuth, Patashnik. "Concrete mathematics" [1998] ), we see a well-known formula for [binomial coefficients](./combinatorics/binomial-coefficients.html):
+Looking at Graham's (Graham, Knuth, Patashnik. "Concrete mathematics" [1998] ), we see a well-known formula for [binomial coefficients](binomial-coefficients.md):
 
 $$ \sum_{k=0}^m (-1)^k \cdot \binom{n}{k} = (-1)^m \cdot \binom{n-1}{m} $$
 
@@ -276,7 +276,7 @@ Assume that the sizes $n$ and $m$ are very large (say, $10^9$), and the number $
 
 For now, sort the obstacles by their coordinate $x$, and in case of equality — coordinate $y$.
 
-Also just learn how to solve a problem without obstacles: i.e. learn how to count the number of ways to get from one cell to another. In one axis, we need to go through $x$ cells, and on the other, $y$ cells. From simple combinatorics, we get a formula using [binomial coefficients](./combinatorics/binomial-coefficients.html):
+Also just learn how to solve a problem without obstacles: i.e. learn how to count the number of ways to get from one cell to another. In one axis, we need to go through $x$ cells, and on the other, $y$ cells. From simple combinatorics, we get a formula using [binomial coefficients](binomial-coefficients.md):
 
 $$\binom{x+y}{x}$$
 
@@ -308,7 +308,7 @@ $$ans = \sum_{d \ge 2} (-1)^{deg(d)-1} \cdot f(d)$$
 
 where $deg(d)$ is the number of primes in the factorization of the number $d$ and $f(d)$ the number of quadruples divisible by $d$.
 
-To calculate the function $f(d)$, you just have to count the number of multiples of $d$ (as mentioned on a previous task) and use [binomial coefficients](./combinatorics/binomial-coefficients.html) to count the number of ways to choose four of them.
+To calculate the function $f(d)$, you just have to count the number of multiples of $d$ (as mentioned on a previous task) and use [binomial coefficients](binomial-coefficients.md) to count the number of ways to choose four of them.
 
 Thus, using the formula of inclusions-exclusions we sum the number of groups of four divisible by a prime number, then subtract the number of quadruples which are divisible by the product of two primes, add quadruples divisible by three primes, etc.
 

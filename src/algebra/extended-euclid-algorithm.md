@@ -1,13 +1,13 @@
 <!--?title Extended Euclidean Algorithm  -->
 # Extended Euclidean Algorithm
 
-While the [Euclidean algorithm](./algebra/euclid-algorithm.html) calculates only the greatest common divisor (GCD) of two integers $a$ and $b$, the extended version also finds a way to represent GCD in terms of $a$ and $b$, i.e. coefficients $x$ and $y$ for which:
+While the [Euclidean algorithm](euclid-algorithm.md) calculates only the greatest common divisor (GCD) of two integers $a$ and $b$, the extended version also finds a way to represent GCD in terms of $a$ and $b$, i.e. coefficients $x$ and $y$ for which:
 
 $$a \cdot x + b \cdot y = \gcd(a, b)$$
 
 It's important to note, that we can always find such a representation, for instance $\gcd(55, 80) = 5$ therefore we can represent $5$ as a linear combination with the terms $55$ and $80$: $55 \cdot 3 + 80 \cdot (-2) = 5$ 
 
-A more general form of that problem is discussed in the article about [Linear Diophantine Equations](algebra/linear-diophantine-equation.html).
+A more general form of that problem is discussed in the article about [Linear Diophantine Equations](linear-diophantine-equation.md).
 It will build upon this algorithm.
 
 ## Algorithm
@@ -88,7 +88,7 @@ int gcd(int a, int b, int& x, int& y) {
 }
 ```
 
-If you look closely at the variable `a1` and `b1`, you can notice that they taking exactly the same values as in the iterative version of the normal [Euclidean algorithm](algebra/euclid-algorithm.html). So the algorithm will at least compute the correct GCD.
+If you look closely at the variable `a1` and `b1`, you can notice that they taking exactly the same values as in the iterative version of the normal [Euclidean algorithm](euclid-algorithm.md). So the algorithm will at least compute the correct GCD.
 
 To see why the algorithm also computes the correct coefficients, you can check that the following invariants will hold at any time (before the while loop, and at the end of each iteration): $x \cdot a + y \cdot b = a_1$ and $x_1 \cdot a + y_1 \cdot b = b_1$.
 It's trivial to see, that these two equations are satisfied at the beginning.

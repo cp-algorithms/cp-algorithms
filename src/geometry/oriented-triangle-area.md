@@ -8,7 +8,7 @@ Using this signed area, we can both get the regular unsigned area (as the absolu
 
 ## Calculation
 We can use the fact that a determinant of a $2\times 2$ matrix is equal to the signed area of a parallelogram spanned by column (or row) vectors of the matrix.
-This is analog to the definition of the cross product in 2D (see [Basic Geometry](geometry/basic-geometry.html)).
+This is analog to the definition of the cross product in 2D (see [Basic Geometry](basic-geometry.md)).
 By dividing this area by two we get the area of a triangle that we are interested in.
 We will use $\vec{p_1p_2}$ and $\vec{p_2p_3}$ as the column vectors and calculate a $2\times 2$ determinant:
 $$2S=\left|\begin{matrix}x_2-x_1 & x_3-x_2\\\\y_2-y_1 & y_3-y_2\end{matrix}\right|=(x_2-x_1)(y_3-y_2)-(x_3-x_2)(y_2-y_1)$$

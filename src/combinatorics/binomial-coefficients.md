@@ -43,14 +43,14 @@ $$ \sum_{k = 0}^m  \binom {n + k} k = \binom {n + m + 1} m $$
 $$ {\binom n 0}^2 + {\binom n 1}^2 + \cdots + {\binom n n}^2 = \binom {2n} n $$
 *   Weighted sum:
 $$ 1 \binom n 1 + 2 \binom n 2 + \cdots + n \binom n n = n 2^{n-1} $$
-*   Connection with the [Fibonacci numbers](./algebra/fibonacci-numbers.html):
+*   Connection with the [Fibonacci numbers](../algebra/fibonacci-numbers.md):
 $$ \binom n 0 + \binom {n-1} 1 + \cdots + \binom {n-k} k + \cdots + \binom 0 n = F_{n+1} $$
 
 ## Calculation
 
 ### Straightforward calculation using analytical formula
 
-The first, straightforward formula is very easy to code, but this method is likely to overflow even for relatively small values of $n$ and $k$ (even if the answer completely fit into some datatype, the calculation of the intermediate factorials can lead to overflow). Therefore, this method often can only be used with [long arithmetic](./algebra/big-integer.html):
+The first, straightforward formula is very easy to code, but this method is likely to overflow even for relatively small values of $n$ and $k$ (even if the answer completely fit into some datatype, the calculation of the intermediate factorials can lead to overflow). Therefore, this method often can only be used with [long arithmetic](../algebra/big-integer.md):
 
 ```cpp
 int C(int n, int k) {
@@ -98,7 +98,7 @@ If the entire table of values is not necessary, storing only two last rows of it
 
 ### Calculation in $O(1)$
 
-Finally, in some situations it is beneficial to precompute all the factorials in order to produce any necessary binomial coefficient with only two divisions later. This can be advantageous when using [long arithmetic](./algebra/big-integer.html), when the memory does not allow precomputation of the whole Pascal's triangle.
+Finally, in some situations it is beneficial to precompute all the factorials in order to produce any necessary binomial coefficient with only two divisions later. This can be advantageous when using [long arithmetic](../algebra/big-integer.md), when the memory does not allow precomputation of the whole Pascal's triangle.
 
 
 ## Computing binomial coefficients modulo $m$.
@@ -134,7 +134,7 @@ long long binomial_coefficient(int n, int k) {
 }
 ```
 
-We even can compute the binomial coefficient in $O(1)$ time if we precompute the inverses of all factorials in $O(\text{MAXN} \log m)$ using the regular method for computing the inverse, or even in $O(\text{MAXN})$ time using the congruence $(x!)^{-1} \equiv ((x-1)!)^{-1} \cdot x^{-1}$ and the method for [computing all inverses](./algebra/module-inverse.html#mod-inv-all-num) in $O(n)$.
+We even can compute the binomial coefficient in $O(1)$ time if we precompute the inverses of all factorials in $O(\text{MAXN} \log m)$ using the regular method for computing the inverse, or even in $O(\text{MAXN})$ time using the congruence $(x!)^{-1} \equiv ((x-1)!)^{-1} \cdot x^{-1}$ and the method for [computing all inverses](../algebra/module-inverse.md#mod-inv-all-num) in $O(n)$.
 
 ```cpp
 long long binomial_coefficient(int n, int k) {
@@ -171,7 +171,7 @@ Now we compute the binomial coefficient modulo some arbitrary modulus $m$.
 Let the prime factorization of $m$ be $m = p_1^{e_1} p_2^{e_2} \cdots p_h^{e_h}$.
 We can compute the binomial coefficient modulo $p_i^{e_i}$ for every $i$.
 This gives us $h$ different congruences.
-Since all moduli $p_i^{e_i}$ are coprime, we can apply the [Chinese Remainder Theorem](./algebra/chinese-remainder-theorem.html) to compute the binomial coefficient modulo the product of the moduli, which is the desired binomial coefficient modulo $m$.
+Since all moduli $p_i^{e_i}$ are coprime, we can apply the [Chinese Remainder Theorem](../algebra/chinese-remainder-theorem.md) to compute the binomial coefficient modulo the product of the moduli, which is the desired binomial coefficient modulo $m$.
 
 ### Binomial coefficient for large $n$ and small modulo
 
@@ -180,7 +180,7 @@ When $n$ is too large, the $\mathcal{O}(n)$ algorithms discussed above become im
 When the modulo $m$ is prime, there are 2 options:
 
 * [Lucas's theorem](https://en.wikipedia.org/wiki/Lucas's_theorem) can be applied which breaks the problem of computing $\binom{n}{k} \bmod m$ into $\log_m n$ problems of the form $\binom{x_i}{y_i} \bmod m$ where $x_i, y_i < m$.  If each reduced coefficient is calculated using precomputed factorials and inverse factorials, the complexity is $\mathcal{O}(m + \log_m n)$.
-* The method of computing [factorial modulo P](./algebra/factorial-modulo.html) can be used to get the required $g$ and $c$ values and use them as described in the section of [modulo prime power](#mod-prime-pow). This takes $\mathcal{O}(m \log_m n)$.
+* The method of computing [factorial modulo P](../algebra/factorial-modulo.md) can be used to get the required $g$ and $c$ values and use them as described in the section of [modulo prime power](#mod-prime-pow). This takes $\mathcal{O}(m \log_m n)$.
 
 When $m$ is not prime but square-free, the prime factors of $m$ can be obtained and the coefficient modulo each prime factor can be calculated using either of the above methods, and the overall answer can be obtained by the Chinese Remainder Theorem.
 

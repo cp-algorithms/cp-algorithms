@@ -14,7 +14,7 @@ The idea of this approach is to maintain a lower convex hull of linear functions
 Actually it would be a bit more convenient to consider them not as linear functions, but as points $(k;b)$ on the plane such that we will have to find the point which has the least dot product with a given point $(x;1)$, that is, for this point $kx+b$ is minimized which is the same as initial problem.
 Such minimum will necessarily be on lower convex envelope of these points as can be seen below:
 
-<center> ![lower convex hull](&imgroot&/convex_hull_trick.png) </center>
+<center> ![lower convex hull](convex_hull_trick.png) </center>
 
 One has to keep points on the convex hull and normal vectors of the hull's edges.
 When you have a $(x;1)$ query you'll have to find the normal vector closest to it in terms of angles between them, then the optimum linear function will correspond to one of its endpoints.
@@ -87,7 +87,7 @@ Assume we're in some vertex corresponding to half-segment $[l,r)$ and the functi
 
 Here is the illustration of what is going on in the vertex when we add new function:
 
-<center>![Li Chao Tree vertex](&imgroot&/li_chao_vertex.png)</center>
+<center>![Li Chao Tree vertex](li_chao_vertex.png)</center>
 
 Let's go to implementation now. Once again we will use complex numbers to keep linear functions.
 

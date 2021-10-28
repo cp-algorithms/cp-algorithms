@@ -134,7 +134,7 @@ I.e. it works great for range minimum queries, but it is not possible to answer 
 
 There are similar data structures that can handle any type of associative functions and answer range queries in $O(1)$.
 One of them is called is called [Disjoint Sparse Table](https://discuss.codechef.com/questions/117696/tutorial-disjoint-sparse-table).
-Another one would be the [Sqrt Tree](./data_structures/sqrt-tree.html).
+Another one would be the [Sqrt Tree](sqrt-tree.md).
 
 ## Practice Problems
 

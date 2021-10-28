@@ -14,7 +14,7 @@ And we continue this procedure until we processed all numbers in the row.
 
 In the following image you can see a visualization of the algorithm for computing all prime numbers in the range $[1; 16]$. It can be seen, that quite often we mark numbers as composite multiple times.
 
-![Sieve of Eratosthenes](&imgroot&/sieve_eratosthenes.png)
+![Sieve of Eratosthenes](sieve_eratosthenes.png)
 
 The idea behind is this:
 A number is prime, if none of the smaller prime numbers divides it.
@@ -242,7 +242,7 @@ Obviously, the complexity is worse, which is $O((R - L + 1) \log (R) + \sqrt R)$
 ## Linear time modification
 
 We can modify the algorithm in a such a way, that it only has linear time complexity.
-This approach is described in the article [Linear Sieve](./algebra/prime-sieve-linear.html).
+This approach is described in the article [Linear Sieve](prime-sieve-linear.md).
 However, this algorithm also has its own weaknesses.
 
 ## Practice Problems

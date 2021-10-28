@@ -4,7 +4,7 @@
 In this article we list several algorithms for factorizing integers, each of them can be both fast and also slow (some slower than others) depending on their input.
 
 Notice, if the number that you want to factorize is actually a prime number, most of the algorithms, especially Fermat's factorization algorithm, Pollard's p-1, Pollard's rho algorithm will run very slow.
-So it makes sense to perform a probabilistic (or a fast deterministic) [primality test](./algebra/primality_tests.html) before trying to factorize the number.
+So it makes sense to perform a probabilistic (or a fast deterministic) [primality test](primality_tests.md) before trying to factorize the number.
 
 ## Trial division
 
@@ -103,7 +103,7 @@ However, also the skip lists will get a lot bigger.
 ### Precomputed primes
 
 Extending the wheel factorization with more and more primes will leave exactly the primes to check.
-So a good way of checking is just to precompute all prime numbers with the [Sieve of Eratosthenes](./algebra/sieve-of-eratosthenes.html) until $\sqrt{n}$ and test them individually.
+So a good way of checking is just to precompute all prime numbers with the [Sieve of Eratosthenes](sieve-of-eratosthenes.md) until $\sqrt{n}$ and test them individually.
 
 ```cpp factorization_trial_division4
 vector<long long> primes;
@@ -161,7 +161,7 @@ E.g. the prime factorization of $4817191$ is $1303 \cdot 3697$.
 And the factors are $31$-powersmooth and $16$-powersmooth respectably, because $1303 - 1 = 2 \cdot 3 \cdot 7 \cdot 31$ and $3697 - 1 = 2^4 \cdot 3 \cdot 7 \cdot 11$.
 In 1974 John Pollard invented a method to extracts $B$-powersmooth factors from a composite number.
 
-The idea comes from [Fermat's little theorem](./algebra/phi-function.html#application).
+The idea comes from [Fermat's little theorem](phi-function.md#application).
 Let a factorization of $n$ be $n = p \cdot q$.
 It says that if $a$ is coprime to $p$, the following statement holds:
 
@@ -174,7 +174,7 @@ $$a^{(p - 1)^k} \equiv a^{k \cdot (p - 1)} \equiv 1 \pmod{p}.$$
 So for any $M$ with $p - 1 ~|~ M$ we know that $a^M \equiv 1$.
 This means that $a^M - 1 = p \cdot r$, and because of that also $p ~|~ \gcd(a^M - 1, n)$.
 
-Therefore, if $p - 1$ for a factor $p$ of $n$ divides $M$, we can extract a factor using [Euclid's algorithm](./algebra/euclid-algorithm.html).
+Therefore, if $p - 1$ for a factor $p$ of $n$ divides $M$, we can extract a factor using [Euclid's algorithm](euclid-algorithm.md).
 
 It is clear, that the smallest $M$ that is a multiple of every $B$-powersmooth number is $\text{lcm}(1,~2~,3~,4~,~\dots,~B)$.
 Or alternatively:
@@ -240,7 +240,7 @@ If $p$ is smaller than $\sqrt{n}$, the repetition will start very likely in $O(\
 Here is a visualization of such a sequence $\{x_i \bmod p\}$ with $n = 2206637$, $p = 317$, $x_0 = 2$ and $f(x) = x^2 + 1$.
 From the form of the sequence you can see very clearly why the algorithm is called Pollard's $\rho$ algorithm.
 
-<center>![Pollard's rho visualization](&imgroot&/pollard_rho.png)</center>
+<center>![Pollard's rho visualization](pollard_rho.png)</center>
 
 There is still one big open question.
 We don't know $p$ yet, so how can we argue about the sequence $\{x_i \bmod p\}$?
@@ -328,7 +328,7 @@ i & x_i \bmod n & x_{2i} \bmod n & x_i \bmod 317 & x_{2i} \bmod 317 & \gcd(x_i -
 \end{array}$$
 
 The implementation uses a function `mult`, that multiplies two integers $\le 10^{18}$ without overflow by using a GCC's type `__int128` for 128-bit integer.
-If GCC is not available, you can using a similar idea as [binary exponentiation](./algebra/binary-exp.html).
+If GCC is not available, you can using a similar idea as [binary exponentiation](binary-exp.md).
 
 ```cpp pollard_rho_mult2
 long long mult(long long a, long long b, long long mod) {
@@ -343,7 +343,7 @@ long long mult(long long a, long long b, long long mod) {
 }
 ```
 
-Alternatively you can also implement the [Montgomery multiplication](./algebra/montgomery_multiplication.html).
+Alternatively you can also implement the [Montgomery multiplication](montgomery_multiplication.md).
 
 As already noticed above: if $n$ is composite and the algorithm returns $n$ as factor, you have to repeat the procedure with different parameter $x_0$ and $c$.
 E.g. the choice $x_0 = c = 1$ will not factor $25 = 5 \cdot 5$.

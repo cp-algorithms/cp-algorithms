@@ -12,7 +12,7 @@ Imaging you write down the prime factorization of $n!$, remove all factors $p$, 
 We will denote this *modified* factorial with $n!\_{\%p}$.
 For instance $7!_{\%p} \equiv 1 \cdot 2 \cdot \underbrace{1}\_{3} \cdot 4 \cdot 5 \underbrace{2}\_{6} \cdot 7 \equiv 2 \bmod 3$.
 
-Learning how to effectively calculate this modified factorial allows us to quickly calculate the value of the various combinatorial formulas (for example, [Binomial coefficients](./combinatorics/binomial-coefficients.html)).
+Learning how to effectively calculate this modified factorial allows us to quickly calculate the value of the various combinatorial formulas (for example, [Binomial coefficients](../combinatorics/binomial-coefficients.md)).
 
 ## Algorithm
 Let's write this modified factorial explicitly.
@@ -35,7 +35,7 @@ The main part of the blocks it is easy to count — it's just $(p-1)!\ \mathrm{m
 We can compute that programmatically or just apply Wilson theorem which states that $(p-1)! \bmod p = -1$ for any prime $p$.
 
 We have exactly $\lfloor \frac{n}{p} \rfloor$ such blocks, therefore we need to raise $-1$ to the power of $\lfloor \frac{n}{p} \rfloor$.
-This can be done in logarithmic time using [Binary Exponentiation](./algebra/binary-exp.html); however you can also notice that the result will switch between $-1$ and $1$, so we only need to look at the parity of the exponent and multiply by $-1$ if the parity is odd.
+This can be done in logarithmic time using [Binary Exponentiation](binary-exp.md); however you can also notice that the result will switch between $-1$ and $1$, so we only need to look at the parity of the exponent and multiply by $-1$ if the parity is odd.
 And instead of a multiplication, we can also just subtract the current result from $p$.
 
 The value of the last partial block can be calculated separately in $O(p)$.
