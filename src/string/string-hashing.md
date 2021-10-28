@@ -119,7 +119,7 @@ $$\begin{align}
 
 So by knowing the hash value of each prefix of the string $s$, we can compute the hash of any substring directly using this formula.
 The only problem that we face in calculating it is that we must be able to divide $\text{hash}(s[0 \dots j]) - \text{hash}(s[0 \dots i-1])$ by $p^i$.
-Therefore we need to find the [modular multiplicative inverse](./algebra/module-inverse.html) of $p^i$ and then perform multiplication with this inverse.
+Therefore we need to find the [modular multiplicative inverse](../algebra/module-inverse.md) of $p^i$ and then perform multiplication with this inverse.
 We can precompute the inverse of every $p^i$, which allows computing the hash of any substring of $s$ in $O(1)$ time.
 
 However, there does exist an easier way.
@@ -132,7 +132,7 @@ By doing this, we get both the hashes multiplied by the same power of $p$ (which
 
 Here are some typical applications of Hashing:
 
-* [Rabin-Karp algorithm](./string/rabin-karp.html) for pattern matching in a string in $O(n)$ time
+* [Rabin-Karp algorithm](rabin-karp.md) for pattern matching in a string in $O(n)$ time
 * Calculating the number of different substrings of a string in $O(n^2 \log n)$ (see below)
 * Calculating the number of palindromic substrings in a string.
 

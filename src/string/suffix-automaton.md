@@ -49,31 +49,31 @@ We will denote the initial state with blue and the terminal states with green.
 
 For the string $s =~ ""$:
 
-![Suffix automaton for ""](&imgroot&/SA.png)
+![Suffix automaton for ""](SA.png)
 
 For the string $s =~ "a"$:
 
-![Suffix automaton for "a"](&imgroot&/SAa.png)
+![Suffix automaton for "a"](SAa.png)
 
 For the string $s =~ "aa"$:
 
-![Suffix automaton for "aa"](&imgroot&/SAaa.png)
+![Suffix automaton for "aa"](SAaa.png)
 
 For the string $s =~ "ab"$:
 
-![Suffix automaton for "ab"](&imgroot&/SAab.png)
+![Suffix automaton for "ab"](SAab.png)
 
 For the string $s =~ "aba"$:
 
-![Suffix automaton for "aba"](&imgroot&/SAaba.png)
+![Suffix automaton for "aba"](SAaba.png)
 
 For the string $s =~ "abb"$:
 
-![Suffix automaton for "abb"](&imgroot&/SAabb.png)
+![Suffix automaton for "abb"](SAabb.png)
 
 For the string $s =~ "abbb"$:
 
-![Suffix automaton for "abbb"](&imgroot&/SAabbb.png)
+![Suffix automaton for "abbb"](SAabbb.png)
 
 ## Construction in linear time
 
@@ -175,7 +175,7 @@ the tree of suffix links is essentially a tree of sets $endpos$.
 Here is an **example** of a tree of suffix links in the suffix automaton build for the string $"abcbc"$.
 The nodes are labeled with the longest substring from the corresponding equivalence class.
 
-![Suffix automaton for "abcbc" with suffix links](&imgroot&/SA_suffix_links.png)
+![Suffix automaton for "abcbc" with suffix links](SA_suffix_links.png)
 
 ### Recap
 

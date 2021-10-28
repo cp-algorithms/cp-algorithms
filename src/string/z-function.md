@@ -154,7 +154,7 @@ As the rest of the algorithm obviously works in $O(n)$, we have proved that the 
 
 We will now consider some uses of Z-functions for specific tasks.
 
-These applications will be largely similar to applications of [prefix function](./string/prefix-function.html).
+These applications will be largely similar to applications of [prefix function](prefix-function.md).
 
 ### Search the substring
 
@@ -188,7 +188,7 @@ Given a string $s$ of length $n$. Find its shortest "compressed" representation,
 
 A solution is: compute the Z-function of $s$, loop through all $i$ such that $i$ divides $n$. Stop at the first $i$ such that $i + z[i] = n$. Then, the string $s$ can be compressed to the length $i$.
 
-The proof for this fact is the same as the solution which uses the [prefix function](./string/prefix-function.html).
+The proof for this fact is the same as the solution which uses the [prefix function](prefix-function.md).
 
 ## Practice Problems
 
