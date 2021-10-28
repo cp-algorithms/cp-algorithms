@@ -21,6 +21,7 @@ $a^{b+c} = a^b \cdot a^c$ and $a^{2b} = a^b \cdot a^b = (a^b)^2$.
 The idea of binary exponentiation is, that we split the work using the binary representation of the exponent.
 
 Let's write $n$ in base 2, for example:
+
 $$3^{13} = 3^{1101_2} = 3^8 \cdot 3^4 \cdot 3^1$$
 
 Since the number $n$ has exactly $\lfloor \log_2 n \rfloor + 1$ digits in base 2, we only need to perform $O(\log n)$ multiplications, if we know the powers $a^1, a^2, a^4, a^8, \dots, a^{\lfloor \log n \rfloor}$.
@@ -164,6 +165,7 @@ a_{41} & a_ {42} & a_ {43} & a_ {44} \\\
 Here are some examples of how transformations are represented in matrix form:
 
 * Shift operation: shift $x$ coordinate by $5$, $y$ coordinate by $7$ and $z$ coordinate by $9$.
+
 $$\begin{pmatrix}
 1 & 0 & 0 & 0 \\\
 0 & 1 & 0 & 0 \\\
@@ -172,6 +174,7 @@ $$\begin{pmatrix}
 \end{pmatrix}$$
 
 * Scaling operation: scale the $x$ coordinate by $10$ and the other two by $5$.
+
 $$\begin{pmatrix}
 10 & 0 & 0 & 0 \\\
 0 & 5 & 0 & 0 \\\
@@ -180,6 +183,7 @@ $$\begin{pmatrix}
 \end{pmatrix}$$
 
 * Rotation operation: rotate $\theta$ degrees around the $x$ axis following the right-hand rule (counter-clockwise direction).
+
 $$\begin{pmatrix}
 1 & 0 & 0 & 0 \\\
 0 & \cos \theta & -\sin \theta & 0 \\\

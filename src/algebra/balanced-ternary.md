@@ -70,6 +70,7 @@ Let us process it from the least significant (rightmost) digit:
 The final result is `100Z10`.
 
 Let us convert it back to the decimal system by adding the weighted positional values:
+
 $$ 100Z10 = 243 \cdot 1 + 81 \cdot 0 + 27 \cdot 0 + 9 \cdot (-1) + 3 \cdot 1 + 1 \cdot 0 = 237_{10} $$
 
 ## Practice Problems
