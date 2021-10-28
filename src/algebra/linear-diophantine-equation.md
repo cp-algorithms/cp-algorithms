@@ -1,4 +1,8 @@
-<!--?title Linear Diophantine Equation-->
+---
+title: Linear Diophantine Equation
+hide:
+  - navigation
+---
 # Linear Diophantine Equation
 
 A Linear Diophantine Equation (in two variables) is an equation of the general form:
@@ -33,13 +37,14 @@ $$a \cdot x_g \cdot \frac{c}{g} + b \cdot y_g \cdot \frac{c}{g} = c$$
 Therefore one of the solutions of the Diophantine equation is:
 
 $$x_0 = x_g \cdot \frac{c}{g},$$
+
 $$y_0 = y_g \cdot \frac{c}{g}.$$
 
 The above idea still works when $a$ or $b$ or both of them are negative. We only need to change the sign of $x_0$ and $y_0$ when necessary.
 
 Finally, we can implement this idea as follows (note that this code does not consider the case $a = b = 0$):
 
-```cpp linear_diophantine_any
+```{.cpp file=linear_diophantine_any}
 int gcd(int a, int b, int& x, int& y) {
     if (b == 0) {
         x = 1;
@@ -82,6 +87,7 @@ $$a \cdot \left(x_0 + \frac{b}{g}\right) + b \cdot \left(y_0 - \frac{a}{g}\right
 Obviously, this process can be repeated again, so all the numbers of the form:
 
 $$x = x_0 + k \cdot \frac{b}{g}$$
+
 $$y = y_0 - k \cdot \frac{a}{g}$$
 
 are solutions of the given Diophantine equation.
@@ -109,7 +115,7 @@ Following is the code implementing this idea.
 Notice that we divide $a$ and $b$ at the beginning by $g$.
 Since the equation $a x + b y = c$ is equivalent to the equation $\frac{a}{g} x + \frac{b}{g} y = \frac{c}{g}$, we can use this one instead and have $\gcd(\frac{a}{g}, \frac{b}{g}) = 1$, which simplifies the formulas.
 
-```cpp linear_diophantine_all
+```{.cpp file=linear_diophantine_all}
 void shift_solution(int & x, int & y, int a, int b, int cnt) {
     x += cnt * b;
     y -= cnt * a;
@@ -162,7 +168,7 @@ int find_all_solutions(int a, int b, int c, int minx, int maxx, int miny, int ma
 
 Once we have $l_x$ and $r_x$, it is also simple to enumerate through all the solutions. Just need to iterate through $x = l_x + k \cdot \frac{b}{g}$ for all $k \ge 0$ until $x = r_x$, and find the corresponding $y$ values using the equation $a x + b y = c$.
 
-## Find the solution with minimum value of $x + y$
+## Find the solution with minimum value of $x + y$ { data-toc-label='Find the solution with minimum value of <script type="math/tex">x + y</script>' }
 
 Here, $x$ and $y$ also need to be given some restriction, otherwise, the answer may become negative infinity.
 
@@ -171,6 +177,7 @@ The idea is similar to previous section: We find any solution of the Diophantine
 Finally, use the knowledge of the set of all solutions to find the minimum:
 
 $$x' = x + k \cdot \frac{b}{g},$$
+
 $$y' = y - k \cdot \frac{a}{g}.$$
 
 Note that $x + y$ change as follows:

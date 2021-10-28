@@ -1,9 +1,15 @@
-<!--?title Euclidean algorithm for computing the greatest common divisor -->
+---
+title: Euclidean algorithm for computing the greatest common divisor
+hide:
+  - navigation
+---
 # Euclidean algorithm for computing the greatest common divisor
 
 Given two non-negative integers $a$ and $b$, we have to find their **GCD** (greatest common divisor), i.e. the largest number which is a divisor of both $a$ and $b$.
 It's commonly denoted by $\gcd(a, b)$. Mathematically it is defined as:
+
 $$\gcd(a, b) = \max_ {k = 1 \dots \infty ~ : ~ k \mid a ~ \wedge k ~ \mid b} k.$$
+
 (here the symbol "$\mid$" denotes divisibility, i.e. "$k \mid a$" means "$k$ divides $a$")
 
 When one of the numbers is zero, while the other is non-zero, their greatest common divisor, by definition, is the second number. When both numbers are zero, their greatest common divisor is undefined (it can be any arbitrarily large number), but we can define it to be zero. Which gives us a simple rule: if one of the numbers is zero, the greatest common divisor is the other number.
@@ -16,7 +22,7 @@ The algorithm was first described in Euclid's "Elements" (circa 300 BC), but it 
 
 The algorithm is extremely simple:
 
-$$\gcd(a, b) = \begin{cases}a,&\text{if }b = 0 \\\\ \gcd(b, a \bmod b),&\text{otherwise.}\end{cases}$$
+$$\gcd(a, b) = \begin{cases}a,&\text{if }b = 0 \\ \gcd(b, a \bmod b),&\text{otherwise.}\end{cases}$$
 
 ## Implementation
 
@@ -60,12 +66,15 @@ We will show that the value on the left side of the equation divides the value o
 Let $d = \gcd(a, b)$. Then by definition $d\mid a$ and $d\mid b$.
 
 Now let's represent the remainder of the division of $a$ by $b$ as follows:
+
 $$a \bmod b = a - b \cdot \Bigl\lfloor\dfrac{a}{b}\Bigr\rfloor$$
 
 From this it follows that $d \mid (a \bmod b)$, which means we have the system of divisibilities:
-$$\begin{cases}d \mid b,\\\\ d \mid (a \mod b)\end{cases}$$
+
+$$\begin{cases}d \mid b,\\ d \mid (a \mod b)\end{cases}$$
 
 Now we use the fact that for any three numbers $p$, $q$, $r$, if $p\mid q$ and $p\mid r$ then $p\mid \gcd(q, r)$. In our case, we get:
+
 $$d = \gcd(a, b) \mid \gcd(b, a \mod b)$$
 
 Thus we have shown that the left side of the original equation divides the right. The second half of the proof is similar.
@@ -83,6 +92,7 @@ Given that Fibonacci numbers grow exponentially, we get that the Euclidean algor
 ## Least common multiple
 
 Calculating the least common multiple (commonly denoted **LCM**) can be reduced to calculating the GCD with the following simple formula:
+
 $$\text{lcm}(a, b) = \frac{a \cdot b}{\gcd(a, b)}$$
 
 Thus, LCM can be calculated using the Euclidean algorithm with the same time complexity:
@@ -128,7 +138,7 @@ int gcd(int a, int b) {
 ```
 
 Notice, that such an optimization is usually not necessary, and most programming languages already have a GCD function in their standard libraries.
-E.g. C++17 has such a function in the `numeric` header.
+E.g. C++17 has such a function `std::gcd` in the `numeric` header.
 
 ## Practice Problems
 

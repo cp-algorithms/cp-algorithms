@@ -1,4 +1,6 @@
-<!--?title Fast Fourier transform -->
+---
+title: Fast Fourier transform
+---
 # Fast Fourier transform
 
 In this article we will discuss an algorithm that allows us to multiply two polynomials of length $n$ in $O(n \log n)$ time, which is better than the trivial multiplication which takes $O(n^2)$ time.
