@@ -1,4 +1,8 @@
-<!--?title Newton's method for finding roots -->
+---
+title: Newton's method for finding roots 
+hide:
+  - navigation
+---
 
 # Newton's method for finding roots 
 

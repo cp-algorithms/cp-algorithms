@@ -1,4 +1,8 @@
-<!--?title Maximum flow - Dinic's algorithm -->
+---
+title: Maximum flow - Dinic's algorithm 
+hide:
+  - navigation
+---
 # Maximum flow - Dinic's algorithm
 
 Dinic's algorithm solves the maximum flow problem in $O(V^2E)$. The maximum flow problem is defined in this article [Maximum flow - Ford-Fulkerson and Edmonds-Karp](edmonds_karp.md). This algorithm was discovered by Yefim Dinitz in 1970.

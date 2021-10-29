@@ -1,4 +1,8 @@
-<!--?title Rabin-Karp Algorithm-->
+---
+title: Rabin-Karp Algorithm for string matching
+hide:
+  - navigation
+---
 
 # Rabin-Karp Algorithm for string matching
 

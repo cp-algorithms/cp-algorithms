@@ -1,4 +1,8 @@
-<!--?title Dijkstra Algorithm -->
+---
+title: Dijkstra Algorithm 
+hide:
+  - navigation
+---
 
 # Dijkstra Algorithm
 

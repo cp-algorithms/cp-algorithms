@@ -1,4 +1,8 @@
-<!--?title Bellman-Ford Algorithm - shortest paths with negative weights -->
+---
+title: Bellman-Ford Algorithm
+hide:
+  - navigation
+---
 
 # Bellman-Ford Algorithm
 

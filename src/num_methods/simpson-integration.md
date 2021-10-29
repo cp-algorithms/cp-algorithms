@@ -1,4 +1,8 @@
-<!--?title Simpson integration -->
+---
+title: Simpson integration 
+hide:
+  - navigation
+---
 
 # Integration by Simpson's formula
 

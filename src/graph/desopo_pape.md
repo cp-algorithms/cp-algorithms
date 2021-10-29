@@ -1,4 +1,8 @@
-<!--?title D´Esopo-Pape -->
+---
+title: D´Esopo-Pape algorithm
+hide:
+  - navigation
+---
 # D´Esopo-Pape algorithm
 
 Given a graph with $n$ vertices and $m$ edges with weights $w_i$ and a starting vertex $v_0$.

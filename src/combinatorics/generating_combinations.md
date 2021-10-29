@@ -1,4 +1,8 @@
-<!--?title Generating all K-combinations -->
+---
+title: Generating all K
+hide:
+  - navigation
+---
 # Generating all $K$-combinations
 
 In this article we will discuss the problem of generating all $K$-combinations.

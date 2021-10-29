@@ -1,4 +1,8 @@
-<!--?title Sqrt Decomposition -->
+---
+title: Sqrt Decomposition 
+hide:
+  - navigation
+---
 
 # Sqrt Decomposition
 

@@ -1,4 +1,8 @@
-<!--?title Finding bridges in a graph in O(N+M) -->
+---
+title: Finding bridges in a graph in O(N+M) 
+hide:
+  - navigation
+---
 
 # Finding bridges in a graph in $O(N+M)$
 

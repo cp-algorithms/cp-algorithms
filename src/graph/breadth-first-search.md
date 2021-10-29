@@ -1,4 +1,8 @@
-<!--?title Breadth First Search -->
+---
+title: Breadth First Search 
+hide:
+  - navigation
+---
 
 # Breadth-first search
 Breadth first search is one of the basic and essential searching algorithms on graphs.

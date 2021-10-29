@@ -1,4 +1,8 @@
-<!--?title Minimum spanning tree - Kruskal's algorithm -->
+---
+title: Minimum spanning tree - Kruskal's algorithm
+hide:
+  - navigation
+---
 
 # Minimum spanning tree - Kruskal's algorithm
 

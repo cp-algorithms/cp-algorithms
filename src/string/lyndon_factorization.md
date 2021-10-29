@@ -1,4 +1,8 @@
-<!--?title Lyndon factorization -->
+---
+title: Lyndon factorization 
+hide:
+  - navigation
+---
 # Lyndon factorization
 
 ## Lyndon factorization

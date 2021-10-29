@@ -1,6 +1,10 @@
-<!--?title 2-SAT -->
+---
+title: 2-SAT
+hide:
+  - navigation
+---
 
-# 2 - SAT 
+# 2-SAT 
 
 SAT (Boolean satisfiability problem) is the problem of assigning Boolean values to variables to satisfy a given Boolean formula.
 The Boolean formula will usually be given in CNF (conjunctive normal form), which is a conjunction of multiple clauses, where each clause is a disjunction of literals (variables or negation of variables).

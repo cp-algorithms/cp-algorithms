@@ -1,4 +1,8 @@
-<!--?title Calculating the determinant using Kraut method-->
+---
+title: Calculating the determinant using Kraut method
+hide:
+  - navigation
+---
 
 # Calculating the determinant using Kraut method in $O(N^3)$
 

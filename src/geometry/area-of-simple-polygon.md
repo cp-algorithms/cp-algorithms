@@ -1,4 +1,8 @@
-<!--?title Finding area of simple polygon in O(N) -->
+---
+title: Finding area of simple polygon in O(N) 
+hide:
+  - navigation
+---
 
 # Finding area of simple polygon in $O(N)$
 

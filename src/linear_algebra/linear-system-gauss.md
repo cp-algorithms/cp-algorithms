@@ -1,4 +1,8 @@
-<!--?title Gauss method for solving system of linear equations -->
+---
+title: Gauss method for solving system of linear equations 
+hide:
+  - navigation
+---
 
 # Gauss method for solving system of linear equations
 

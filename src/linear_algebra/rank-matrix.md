@@ -1,4 +1,8 @@
-<!--?title Rank of a matrix-->
+---
+title: Rank of a matrix
+hide:
+  - navigation
+---
 
 # Finding the rank of a matrix
 

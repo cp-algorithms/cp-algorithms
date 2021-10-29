@@ -1,4 +1,8 @@
-<!--?title Heavy-light decomposition -->
+---
+title: Heavy-light decomposition
+hide:
+  - navigation
+---
 # Heavy-light decomposition
 
 **Heavy-light decomposition** is a fairly general technique that allows us to effectively solve many problems that come down to **queries on a tree** .

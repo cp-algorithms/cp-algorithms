@@ -1,4 +1,8 @@
-<!--?title Vertical decomposition -->
+---
+title: Vertical decomposition 
+hide:
+  - navigation
+---
 
 # Vertical decomposition
 ## Overview

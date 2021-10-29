@@ -1,4 +1,8 @@
-<!--?title Convex Hull construction -->
+---
+title: Convex Hull construction 
+hide:
+  - navigation
+---
 # Convex Hull construction
 
 In this article we will discuss the problem of constructing a convex hull from a set of points.

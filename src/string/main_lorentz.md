@@ -1,4 +1,8 @@
-<!--?title Finding repetitions -->
+---
+title: Finding repetitions 
+hide:
+  - navigation
+---
 # Finding repetitions
 
 Given a string $s$ of length $n$.

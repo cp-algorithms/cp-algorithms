@@ -1,4 +1,8 @@
-<!--?title Strong Orientation-->
+---
+title: Strong Orientation
+hide:
+  - navigation
+---
 
 # Strong Orientation
 

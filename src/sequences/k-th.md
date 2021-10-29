@@ -1,4 +1,8 @@
-<!--?title K-th order statistic in O(N)-->
+---
+title: K-th order statistic in O(N)
+hide:
+  - navigation
+---
 
 # K-th order statistic in O(N)
 

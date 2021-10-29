@@ -1,4 +1,8 @@
-<!--?title Kuhn's Algorithm for Maximum Bipartite Matching-->
+---
+title: Kuhn's Algorithm for Maximum Bipartite Matching
+hide:
+  - navigation
+---
 
 # Kuhn's Algorithm for Maximum Bipartite Matching
 

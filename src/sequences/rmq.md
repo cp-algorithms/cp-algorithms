@@ -1,4 +1,8 @@
-<!--?title Range Minimum Query -->
+---
+title: Range Minimum Query 
+hide:
+  - navigation
+---
 
 # Range Minimum Query
 

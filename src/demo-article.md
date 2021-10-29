@@ -1,4 +1,8 @@
-<!--?title Demo Article-->
+---
+title: Demo Article
+hide:
+  - navigation
+---
 
 # Demo Article
 

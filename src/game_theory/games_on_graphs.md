@@ -1,4 +1,8 @@
-<!--?title Games on arbitrary graphs -->
+---
+title: Games on arbitrary graphs 
+hide:
+  - navigation
+---
 # Games on arbitrary graphs
 
 Let a game be played by two players on an arbitrary graph $G$.

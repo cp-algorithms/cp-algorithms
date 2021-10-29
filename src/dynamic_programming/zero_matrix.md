@@ -1,4 +1,8 @@
-<!--?title Finding the largest zero submatrix -->
+---
+title: Finding the largest zero submatrix 
+hide:
+  - navigation
+---
 
 # Finding the largest zero submatrix
 

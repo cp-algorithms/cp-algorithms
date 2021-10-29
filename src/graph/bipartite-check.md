@@ -1,4 +1,8 @@
-<!--?title Check whether a graph is bipartite -->
+---
+title: Check whether a graph is bipartite 
+hide:
+  - navigation
+---
 
 # Check whether a graph is bipartite
 

@@ -1,4 +1,8 @@
-<!--?title Suffix Automaton -->
+---
+title: Suffix Automaton 
+hide:
+  - navigation
+---
 # Suffix Automaton
 
 A **suffix automaton** is a powerful data structure that allows solving many string-related problems. 

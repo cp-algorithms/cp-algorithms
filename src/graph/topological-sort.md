@@ -1,4 +1,8 @@
-<!--?title Topological Sorting -->
+---
+title: Topological Sorting 
+hide:
+  - navigation
+---
 #  Topological Sorting
 
 You are given a directed graph with $n$ vertices and $m$ edges. You have to **number the vertices** so that every edge leads from the vertex with a smaller number assigned to the vertex with a larger one.

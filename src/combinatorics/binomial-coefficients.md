@@ -1,4 +1,8 @@
-<!--?title Binomial Coefficients-->
+---
+title: Binomial Coefficients
+hide:
+  - navigation
+---
 # Binomial Coefficients
 
 Binomial coefficients $\binom n k$ are the number of ways to select a set of $k$ elements from $n$ different elements without taking into account the order of arrangement of these elements (i.e., the number of unordered sets).

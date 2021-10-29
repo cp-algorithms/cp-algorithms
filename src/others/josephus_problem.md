@@ -1,4 +1,8 @@
-<!--?title Josephus Problem -->
+---
+title: Josephus Problem 
+hide:
+  - navigation
+---
 
 # Josephus Problem
 

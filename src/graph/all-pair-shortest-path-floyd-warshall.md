@@ -1,4 +1,8 @@
-<!--?title Floyd-Warshall algorithm -->
+---
+title: Floyd-Warshall Algorithm
+hide:
+  - navigation
+---
 
 # Floyd-Warshall Algorithm
 

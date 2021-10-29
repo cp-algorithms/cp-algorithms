@@ -1,4 +1,8 @@
-<!--?title Disjoint Set Union-->
+---
+title: Disjoint Set Union
+hide:
+  - navigation
+---
 
 # Disjoint Set Union
 

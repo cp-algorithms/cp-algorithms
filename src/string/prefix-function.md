@@ -1,4 +1,8 @@
-<!--?title Prefix function. Knuth–Morris–Pratt algorithm -->
+---
+title: Prefix function. Knuth–Morris–Pratt algorithm 
+hide:
+  - navigation
+---
 
 # Prefix function. Knuth–Morris–Pratt algorithm
 

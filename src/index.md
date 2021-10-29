@@ -1,4 +1,8 @@
-<!--?title Main Page-->
+---
+title: Main Page
+hide:
+  - navigation
+---
 <h1 data-toc="off">E-Maxx Algorithms in English</h1>
 
 *The goal of this project is to translate the wonderful resource

@@ -1,4 +1,8 @@
-<!--?title Basic Geometry -->
+---
+title: Basic Geometry 
+hide:
+  - navigation
+---
 
 # Basic Geometry
 

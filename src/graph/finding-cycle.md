@@ -1,4 +1,8 @@
-<!--?title Checking a graph for acyclicity and finding a cycle in O(M) -->
+---
+title: Checking a graph for acyclicity and finding a cycle in O(M) 
+hide:
+  - navigation
+---
 
 # Checking a graph for acyclicity and finding a cycle in $O(M)$
 

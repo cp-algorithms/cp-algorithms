@@ -1,4 +1,8 @@
-<!--?title Divide and Conquer DP-->
+---
+title: Divide and Conquer DP
+hide:
+  - navigation
+---
 
 # Divide and Conquer DP
 

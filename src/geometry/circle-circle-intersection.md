@@ -1,4 +1,8 @@
-<!--?title Circle-Circle Intersection -->
+---
+title: Circle-Circle Intersection
+hide:
+  - navigation
+---
 
 # Circle-Circle Intersection
 

@@ -1,4 +1,8 @@
-<!--?title Kirchhoff's Theorem -->
+---
+title: Kirchhoff's Theorem 
+hide:
+  - navigation
+---
 
 # Kirchhoff's theorem. Finding the number of spanning trees
 

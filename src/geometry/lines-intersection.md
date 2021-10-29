@@ -1,4 +1,8 @@
-<!--?title Intersection Point of Lines-->
+---
+title: Intersection Point of Lines
+hide:
+  - navigation
+---
 # Intersection Point of Lines
 
 You are given two lines, described via the equations $a_1 x + b_1 y + c_1 = 0$ and  $a_2 x + b_2 y + c_2 = 0$.

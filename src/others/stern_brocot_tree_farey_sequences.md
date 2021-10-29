@@ -1,4 +1,8 @@
-<!--?title The Stern-Brocot Tree and Farey Sequences -->
+---
+title: The Stern-Brocot tree and Farey sequences
+hide:
+  - navigation
+---
 
 # The Stern-Brocot tree and Farey sequences
 

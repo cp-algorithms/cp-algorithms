@@ -1,4 +1,8 @@
-<!--?title Minimum stack / Minimum queue -->
+---
+title: Minimum stack / Minimum queue 
+hide:
+  - navigation
+---
 
 # Minimum stack / Minimum queue
 

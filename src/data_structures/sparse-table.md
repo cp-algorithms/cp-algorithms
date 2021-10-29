@@ -1,4 +1,8 @@
-<!--?title Sparse Table-->
+---
+title: Sparse Table
+hide:
+  - navigation
+---
 
 # Sparse Table
 

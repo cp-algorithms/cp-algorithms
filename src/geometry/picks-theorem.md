@@ -1,4 +1,8 @@
-<!--?title Pick's Theorem -->
+---
+title: Pick's Theorem 
+hide:
+  - navigation
+---
 
 # Pick's Theorem
 

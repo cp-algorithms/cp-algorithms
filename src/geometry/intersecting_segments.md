@@ -1,4 +1,8 @@
-<!--?title Search for a pair of intersecting segments -->
+---
+title: Search for a pair of intersecting segments 
+hide:
+  - navigation
+---
 
 # Search for a pair of intersecting segments
 

@@ -1,4 +1,8 @@
-<!--?title Segment Tree-->
+---
+title: Segment Tree
+hide:
+  - navigation
+---
 
 # Segment Tree
 

@@ -1,4 +1,8 @@
-<!--?title Finding the equation of a line for a segment -->
+---
+title: Finding the equation of a line for a segment 
+hide:
+  - navigation
+---
 # Finding the equation of a line for a segment
 
 The task is: given the coordinates of the ends of a segment, construct a line passing through it.

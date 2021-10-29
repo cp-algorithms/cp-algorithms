@@ -1,4 +1,8 @@
-<!--?title String Hashing-->
+---
+title: String Hashing
+hide:
+  - navigation
+---
 
 # String Hashing
 

@@ -1,4 +1,8 @@
-<!--?title Stars and bars -->
+---
+title: Stars and bars 
+hide:
+  - navigation
+---
 # Stars and bars
 
 Stars and bars is a mathematical technique for solving certain combinatorial problems.

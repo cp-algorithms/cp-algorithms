@@ -1,4 +1,8 @@
-<!--?title Half-plane intersection - S&I algorithm in O(N logN)-->
+---
+title: Half-plane intersection
+hide:
+  - navigation
+---
 
 # Half-plane intersection
 

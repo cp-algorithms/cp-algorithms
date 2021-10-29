@@ -1,4 +1,8 @@
-<!--?title Point location in O(log n) -->
+---
+title: Point location in O(log n) 
+hide:
+  - navigation
+---
 # Point location in O(log n)
 Consider the following problem: you are given a [planar subdivision](https://en.wikipedia.org/wiki/Planar_straight-line_graph) without no vertices of degree one and zero, and a lot of queries.
 Each query is a point, for which we should determine the face of the subdivision it belongs to.

@@ -1,4 +1,8 @@
-<!--?title Finding articulation points in a graph in O(N+M) -->
+---
+title: Finding articulation points in a graph in O(N+M) 
+hide:
+  - navigation
+---
 
 # Finding articulation points in a graph in $O(N+M)$
 

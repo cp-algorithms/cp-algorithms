@@ -1,5 +1,8 @@
-
-<!--?title Assignment problem solution using min-cost-flo< -->
+---
+title: Solving assignment problem using min-cost-flow
+hide:
+  - navigation
+---
 # Solving assignment problem using min-cost-flow
 
 The **assignment problem** has two equivalent statements:

@@ -1,4 +1,8 @@
-<!--?title Search for connected components in a graph -->
+---
+title: Search for connected components in a graph 
+hide:
+  - navigation
+---
 
 # Search for connected components in a graph
 

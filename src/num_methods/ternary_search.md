@@ -1,4 +1,8 @@
-<!--?title Ternary Search and its Applications -->
+---
+title: Ternary Search and its Applications 
+hide:
+  - navigation
+---
 
 # Ternary Search
 

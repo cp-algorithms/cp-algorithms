@@ -1,4 +1,8 @@
-<!--?title Convex hull trick and Li Chao tree -->
+---
+title: Convex hull trick and Li Chao tree 
+hide:
+  - navigation
+---
 
 # Convex hull trick and Li Chao tree
 

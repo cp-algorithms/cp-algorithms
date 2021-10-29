@@ -1,4 +1,8 @@
-<!--?title Sqrt Tree-->
+---
+title: Sqrt Tree
+hide:
+  - navigation
+---
 
 # Sqrt Tree
 

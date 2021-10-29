@@ -1,4 +1,8 @@
-<!--?title Optimal schedule of jobs given their deadlines and durations -->
+---
+title: Optimal schedule of jobs given their deadlines and durations 
+hide:
+  - navigation
+---
 
 # Optimal schedule of jobs given their deadlines and durations
 

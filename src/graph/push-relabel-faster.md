@@ -1,4 +1,8 @@
-<!--?title Maximum flow - Push-relabel method improved -->
+---
+title: Maximum flow - Push-relabel method improved
+hide:
+  - navigation
+---
 # Maximum flow - Push-relabel method improved
 
 We will modify the [push-relabel method](push-relabel.[md](md[to](to[to](to[to](to[to](to[to](to[to](to) to achieve a better runtime.

@@ -1,4 +1,8 @@
-<!--?title Strongly Connected Components and Condensation graph -->
+---
+title: Strongly Connected Components and Condensation graph 
+hide:
+  - navigation
+---
 
 # Finding strongly connected components<br/>Building condensation graph
 

@@ -1,5 +1,8 @@
-<!--?title Catalan Numbers and its Applications -->
-
+---
+title: Catalan Numbers and its Applications 
+hide:
+  - navigation
+---
 # Catalan Numbers
 Catalan numbers is a number sequence, which is found useful in a number of combinatorial problems, often involving recursively-defined objects.
 

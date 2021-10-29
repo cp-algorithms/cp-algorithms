@@ -1,4 +1,8 @@
-<!--?title 15 Puzzle Game: Existence Of The Solution -->
+---
+title: 15 Puzzle Game: Existence Of The Solution 
+hide:
+  - navigation
+---
 
 # 15 Puzzle Game: Existence Of The Solution
 

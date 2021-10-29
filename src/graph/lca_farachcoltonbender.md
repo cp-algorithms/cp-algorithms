@@ -1,4 +1,8 @@
-<!--?title Lowest Common Ancestor - Farach-Colton and Bender algorithm -->
+---
+title: Lowest Common Ancestor - Farach-Colton and Bender Algorithm 
+hide:
+  - navigation
+---
 # Lowest Common Ancestor - Farach-Colton and Bender Algorithm
 
 Let $G$ be a tree.

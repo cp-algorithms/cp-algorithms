@@ -1,4 +1,8 @@
-<!--?title For Contributors-->
+---
+title: How to Contribute
+hide:
+  - navigation
+---
 # How to Contribute
 
 ## General information

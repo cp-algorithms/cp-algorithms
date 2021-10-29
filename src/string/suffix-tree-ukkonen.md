@@ -1,4 +1,8 @@
-<!--?title Suffix tree. Ukkonen's algorithm-->
+---
+title: Suffix tree. Ukkonen's algorithm
+hide:
+  - navigation
+---
 
 # Suffix Tree. Ukkonen's Algorithm
 

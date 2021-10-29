@@ -1,4 +1,8 @@
-<!--?title Depth First Search-->
+---
+title: Depth First Search
+hide:
+  - navigation
+---
 
 # Depth First Search
 

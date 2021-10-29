@@ -1,4 +1,8 @@
-<!--?title Dynamic Programming on Broken Profile. Problem "Parquet" -->
+---
+title: Dynamic Programming on Broken Profile. Problem "Parquet" 
+hide:
+  - navigation
+---
 
 # Dynamic Programming on Broken Profile. Problem "Parquet"
 

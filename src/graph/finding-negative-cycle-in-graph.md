@@ -1,4 +1,8 @@
-<!--?title Negative Cycle Search -->
+---
+title: Negative Cycle Search 
+hide:
+  - navigation
+---
 
 # Finding a negative cycle in the graph
 

@@ -1,4 +1,8 @@
-<!--?title Balanced bracket sequences -->
+---
+title: Balanced bracket sequences 
+hide:
+  - navigation
+---
 # Balanced bracket sequences
 
 A **balanced bracket sequence** is a string consisting of only brackets, such that this sequence, when inserted certain numbers and mathematical operations, gives a valid mathematical expression.

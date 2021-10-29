@@ -1,4 +1,8 @@
-<!--?title Calculating Determinant of Matrix by Gauss -->
+---
+title: Calculating Determinant of Matrix by Gauss 
+hide:
+  - navigation
+---
 
 # Calculating the determinant of a matrix by Gauss
 

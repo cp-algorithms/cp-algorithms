@@ -1,6 +1,10 @@
-<!--?title Lattice points inside non-lattice polygon -->
+---
+title: lattice points inside non-lattice polygon
+hide:
+  - navigation
+---
 
-# Lattice points inside non-lattice polygon
+# lattice points inside non-lattice polygon
 
 For lattice polygons there is Pick's formula to enumerate the lattice points inside the polygon.
 What about polygons with arbitrary vertices?

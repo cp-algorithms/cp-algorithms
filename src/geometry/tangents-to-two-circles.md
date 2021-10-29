@@ -1,4 +1,8 @@
-<!--?title Finding common tangents to two circles-->
+---
+title: Finding common tangents to two circles
+hide:
+  - navigation
+---
 
 # Finding common tangents to two circles
 

@@ -1,4 +1,8 @@
-<!--?title Fenwick Tree -->
+---
+title: Fenwick Tree 
+hide:
+  - navigation
+---
 
 # Fenwick Tree
 
