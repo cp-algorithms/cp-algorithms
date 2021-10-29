@@ -43,7 +43,7 @@ of the algorithm, otherwise you wouldn't get the smallest convex hull.
 
 ### Implementation
 
-```cpp graham_scan
+```{.cpp file=graham_scan}
 struct pt {
     double x, y;
 };
@@ -122,7 +122,7 @@ If you need collinear points, you just need to include them in the clockwise/cou
 
 ### Implementation
 
-```cpp monotone_chain
+```{.cpp file=monotone_chain}
 struct pt {
     double x, y;
 };

@@ -18,7 +18,9 @@ The algorithm described here was published in 1982 by Main and Lorentz.
 ## Example
 
 Consider the repetitions in the following example string:
+
 $$acababaee$$
+
 The string contains the following three repetitions:
 
 - $s[2 \dots 5] = abab$
@@ -26,7 +28,9 @@ The string contains the following three repetitions:
 - $s[7 \dots 7] = ee$
 
 Another example:
+
 $$abaaba$$
+
 Here there are only two repetitions
 
 - $s[0 \dots 5] = abaaba$
@@ -45,17 +49,19 @@ It has been proven that we the number of such groups is at most linear with resp
 
 Also, here are some more interesting results related to the number of repetitions:
 
-- The number of primitive repetitions (those whose halves are not repetitions) is at most $O(n \log n)$.
-- If we encode repetitions with tuples of numbers (called Crochemore triples) $(i,~ p,~ r)$ (where $i$ is the position of the beginning, $p$ the length of the repeating substring, and $r$ the number of repetitions), then all repetitions can be described with $O(n \log n)$ such triples.
-- Fibonacci strings, defined as 
-  $$\begin{align}
-  t_0 &= a, \\\\
-  t_1 &= b, \\\\
-  t_i &= t_{i-1} + t_{i-2},
-  \end{align}$$
-  are "strongly" periodic.
-  The number of repetitions in the Fibonacci string $f_i$, even in the compressed with Crochemore triples, is $O(f_n \log f_n)$.
-  The number of primitive repetitions is also $O(f_n \log f_n)$.
+  - The number of primitive repetitions (those whose halves are not repetitions) is at most $O(n \log n)$.
+  - If we encode repetitions with tuples of numbers (called Crochemore triples) $(i,~ p,~ r)$ (where $i$ is the position of the beginning, $p$ the length of the repeating substring, and $r$ the number of repetitions), then all repetitions can be described with $O(n \log n)$ such triples.
+  - Fibonacci strings, defined as 
+    
+    \[\begin{align}
+    t_0 &= a, \\\\
+    t_1 &= b, \\\\
+    t_i &= t_{i-1} + t_{i-2},
+    \end{align}\]
+    
+    are "strongly" periodic.
+    The number of repetitions in the Fibonacci string $f_i$, even in the compressed with Crochemore triples, is $O(f_n \log f_n)$.
+    The number of primitive repetitions is also $O(f_n \log f_n)$.
 
 ## Main-Lorentz algorithm
 
@@ -72,7 +78,9 @@ The master theorem says, that we will end up with an $O(n \log n)$ algorithm, if
 ### Search for crossing repetitions
 
 So we want to find all such repetitions that start in the first half of the string, let's call it $u$, and end in the second half, let's call it $v$:
+
 $$s = u + v$$
+
 Their lengths are approximately equal to the length of $s$ divided by two.
 
 Consider an arbitrary repetition and look at the middle character (more precisely the first character of the second half of the repetition).
@@ -91,7 +99,9 @@ It coincides with the character $l$ positions before it, let's denote this posit
 We will fixate this position $cntr$, and **look for all repetitions at this position** $cntr$.
 
 For example:
+
 $$c ~ \underset{cntr}{a} ~ c ~ | ~ a ~ d ~ a$$
+
 The vertical lines divides the two halves.
 Here we fixated the position $cntr = 1$, and at this position we find the repetition $caca$.
 
@@ -104,7 +114,9 @@ Now, how can we find all such repetitions for a fixated $cntr$?
 Keep in mind that there still can be multiple such repetitions.
 
 Let's again look at a visualization, this time for the repetition $abcabc$:
+
 $$\overbrace{a}^{l_1} ~ \overbrace{\underset{cntr}{b} ~ c}^{l_2} ~ \overbrace{a}^{l_1} ~ | ~ \overbrace{b ~ c}^{l_2}$$
+
 Here we denoted the lengths of the two pieces of the repetition with $l_1$ and $l_2$:
 $l_1$ is the length of the repetition up to the position $cntr-1$, and $l_2$ is the length of the repetition from $cntr$ to the end of the half of the repetition.
 We have $2l = l_1 + l_2 + l_1 + l_2$ as the total length of the repetition.
@@ -112,14 +124,19 @@ We have $2l = l_1 + l_2 + l_1 + l_2$ as the total length of the repetition.
 Let us generate **necessary and sufficient** conditions for such a repetition at position $cntr$ of length $2l = 2(l_1 + l_2) = 2(|u| - cntr)$:
 
 - Let $k_1$ be the largest number such that the first $k_1$ characters before the position $cntr$ coincide with the last $k_1$ characters in the string $u$:
-  $$u[cntr - k_1 \dots cntr - 1] = u[|u| - k_1 \dots |u| - 1]$$
+  
+  \[u[cntr - k_1 \dots cntr - 1] = u[|u| - k_1 \dots |u| - 1]\]
+  
 - Let $k_2$ be the largest number such that the $k_2$ characters starting at position $cntr$ coincide with the first $k_2$ characters in the string $v$:
-  $$u[cntr \dots cntr + k_2 - 1] = v[0 \dots k_2 - 1]$$
+  
+  \[u[cntr \dots cntr + k_2 - 1] = v[0 \dots k_2 - 1]\]
+  
 - Then we have a repetition exactly for any pair $(l_1,~ l_2)$ with
-  $$\begin{align}
+  
+  \[\begin{align}
   l_1 &\le k_1, \\\\
   l_2 &\le k_2. \\\\
-  \end{align}$$
+  \end{align}\]
 
 To summarize:
 
@@ -128,18 +145,19 @@ To summarize:
   There might be multiple such repetitions, they depend on the lengths $l_1$ and $l_2 = l - l_1$.
 - We find $k_1$ and $k_2$ as described above.
 - Then all suitable repetitions are the ones for which the lengths of the pieces $l_1$ and $l_2$ satisfy the conditions:
-  $$\begin{align}
+  
+  \[\begin{align}
   l_1 + l_2 &= l = |u| - cntr \\\\
   l_1 &\le k_1, \\\\
   l_2 &\le k_2. \\\\
-  \end{align}$$
+  \end{align}\]
 
 Therefore the only remaining part is how we can compute the values $k_1$ and $k_2$ quickly for every position $cntr$.
 Luckily we can compute them in $O(1)$ using the [Z-function](../string/z-function.md):
 
 - To can find the value $k_1$ for each position by calculating the Z-function for the string $\overline{u}$ (i.e. the reversed string $u$).
   Then the value $k_1$ for a particular $cntr$ will be equal to the corresponding value of the array of the Z-function.
-- To precompute all values $k_2$, we calculate the Z-function for the string $v + \\# + u$ (i.e. the string $u$ concatenated with the separator character $\\#$ and the string $v$).
+- To precompute all values $k_2$, we calculate the Z-function for the string $v + \# + u$ (i.e. the string $u$ concatenated with the separator character $\#$ and the string $v$).
   Again we just need to look up the corresponding value in the Z-function to get the $k_2$ value.
 
 So this is enough to find all left crossing repetitions.
@@ -152,7 +170,7 @@ we define the center $cntr$ as the character corresponding to the last character
 Then the length $k_1$ will be defined as the largest number of characters before the position $cntr$ (inclusive) that coincide with the last characters of the string $u$.
 And the length $k_2$ will be defined as the largest number of characters starting at $cntr + 1$ that coincide with the characters of the string $v$.
 
-Thus we can find the values $k_1$ and $k_2$ by computing the Z-function for the strings $\overline{u} + \\# + \overline{v}$ and $v$.
+Thus we can find the values $k_1$ and $k_2$ by computing the Z-function for the strings $\overline{u} + \# + \overline{v}$ and $v$.
 
 After that we can find the repetitions by looking at all positions $cntr$, and use the same criterion as we had for left crossing repetitions.
 
@@ -164,7 +182,7 @@ If you only want to find the number of repetitions in a string, or only want to 
 Notice that if you want to expand these tuples to get the starting and end position of each repetition, then the runtime will be the runtime will be $O(n^2)$ (remember that there can be $O(n^2)$ repetitions).
 In this implementation we will do so, and store all found repetition in a vector of pairs of start and end indices.
 
-```cpp main_lorentz
+```{.cpp file=main_lorentz}
 vector<int> z_function(string const& s) {
     int n = s.size();
     vector<int> z(n);

@@ -38,13 +38,13 @@ As a data structure it is widely used in areas such as data compression, bioinfo
 
 ## Construction
 
-### $O(n^2 \log n)$ approach
+### $O(n^2 \log n)$ approach {data-toc-label="O(n^2 log n) approach"}
 
 This is the most naive approach.
 Get all the suffixes and sort them using quicksort or mergesort and simultaneously retain their original indices.
 Sorting uses $O(n \log n)$ comparisons, and since comparing two strings will additionally take $O(n)$ time, we get the final complexity of $O(n^2 \log n)$.
 
-### $O(n \log n)$ approach
+### $O(n \log n)$ approach {data-toc-label="O(n log n) approach"}
 
 Strictly speaking the following algorithm will not sort the suffixes, but rather the cyclic shifts of a string.
 However we can very easily derive an algorithm for sorting suffixes from it:

@@ -59,7 +59,7 @@ in linear time, we obtain a linear-time algorithm for finding the distance betwe
 Below is the implementation of Minkowski sum for polygons with integer points. Note that in this case all computations can be done in integers since
 instead of computing polar angles and directly comparing them we can look at the sign of cross product of two vectors.
 
-```cpp minkowski
+```{.cpp file=minkowski}
 struct pt{
     long long x, y;
     pt operator + (const pt & p) const {

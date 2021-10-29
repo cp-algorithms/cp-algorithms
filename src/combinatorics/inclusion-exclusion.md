@@ -42,7 +42,7 @@ It can also be generalized for an association of $n$ sets.
 If $A_i$ $(i = 1,2...n)$ are events and ${\cal P}(A_i)$ the probability of an event from $A_i$ to occur, then the probability of their union (i.e. the probability that at least one of the events occur) is equal to:
 
 $$\begin{eqnarray}
-{\cal P} \left( \bigcup_{i=1}^n A_i \right) &=& \sum_{i=1}^n{\cal P}(A_i)\ - \sum_{1\leq i<j\leq n} {\cal P}(A_i \cap A_j)\  + \\\\\\
+{\cal P} \left( \bigcup_{i=1}^n A_i \right) &=& \sum_{i=1}^n{\cal P}(A_i)\ - \sum_{1\leq i<j\leq n} {\cal P}(A_i \cap A_j)\  + \\
 &+& \sum _{1\leq i<j<k\leq n}{\cal P}(A_i \cap A_j \cap A_k) - \cdots + (-1)^{n-1} {\cal P}( A_1 \cap \cdots \cap A_n )
 \end{eqnarray}$$
 
@@ -77,7 +77,7 @@ $$ (1 - x)^k = \binom{k}{0} - \binom{k}{1} \cdot x + \binom{k}{2} \cdot x^2 - \b
 
 When $x = 1$, $(1 - x)^k$ looks a lot like $T$. However, the expression has an additional $\binom{k}{0} = 1$, and it is multiplied by $-1$. That leads us to $(1 - 1)^k = 1 - T$. Therefore $T = 1 - (1 - 1)^k = 1$, what was required to prove. The element is counted only once.
 
-## Generalization for calculating number of elements in exactly $r$ sets
+## Generalization for calculating number of elements in exactly $r$ sets {data-toc-label="Generalization for calculating number of elements in exactly r sets"}
 
 Inclusion-exclusion principle can be rewritten to calculate number of elements which are present in zero sets:
 
@@ -139,7 +139,9 @@ $$3^n - (3 \cdot 2^n - 3 \cdot 1 + 0)$$
 ### The number of integer solutions to the equation
 
 Consider the following equation:
+
 $$x_1 + x_2 + x_3 + x_4 + x_5 + x_6 = 20$$
+
 where $0 \le x_i \le 8 (i = 1,2,\ldots 6)$.
 
 Task: count the number of solutions to the equation.
@@ -399,9 +401,9 @@ Denote by $A_k$ the set of permutations of length $n$ with a fixed point at posi
 We now use the formula of inclusion-exclusion to count the number of permutations with at least one fixed point. For this we need to learn to count sizes of an intersection of sets $A_i$, as follows:
 
 $$\begin{eqnarray}
-\left| A_p \right| &=& (n-1)!\ , \\\\\\
-\left| A_p \cap A_q \right| &=& (n-2)!\ , \\\\\\
-\left| A_p \cap A_q \cap A_r \right| &=& (n-3)!\ , \\\\\\
+\left| A_p \right| &=& (n-1)!\ , \\
+\left| A_p \cap A_q \right| &=& (n-2)!\ , \\
+\left| A_p \cap A_q \cap A_r \right| &=& (n-3)!\ , \\
 \cdots ,
 \end{eqnarray}$$
 

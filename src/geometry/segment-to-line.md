@@ -23,9 +23,11 @@ Therefore, our task is to find one of these triples.
 
 It is easy to verify (by substitution of these expressions and the coordinates of the points $P$ and $Q$ into the equation of a straight line) that the following set of coefficients fits:
 
-$$A = P_y - Q_y,$$
-$$B = Q_x - P_x,$$
-$$C = - A P_x - B P_y.$$
+$$\begin{align}
+A &= P_y - Q_y, \\
+B &= Q_x - P_x, \\
+C &= - A P_x - B P_y.
+\end{align}$$
 
 ### Integer case
 

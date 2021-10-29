@@ -1,5 +1,5 @@
 ---
-title: Generating all K
+title: Generating all K-combinations
 hide:
   - navigation
 ---
@@ -9,7 +9,7 @@ In this article we will discuss the problem of generating all $K$-combinations.
 Given the natural numbers $N$ and $K$, and considering a set of numbers from $1$ to $N$.
 The task is to derive all **subsets of size $K$**.
 
-## Generate next lexicographical $K$-combination
+## Generate next lexicographical $K$-combination {data-toc-label="Generate next lexicographical K-combination"}
 
 First we will generate them in lexicographical order.
 The algorithm for this is simple. The first combination will be ${1, 2, ..., K}$. Now let's see how
@@ -18,7 +18,7 @@ current combination, and find the rightmost element that has not yet reached its
 finding this element, we increment it by $1$, and assign the lowest valid value to all subsequent
 elements.
 
-```cpp next_combination
+```{.cpp file=next_combination}
 bool next_combination(vector<int>& a, int n) {
     int k = (int)a.size();
     for (int i = k - 1; i >= 0; i--) {
@@ -33,7 +33,7 @@ bool next_combination(vector<int>& a, int n) {
 }
 ```
 
-## Generate all $K$-combinations such that adjacent combinations differ by one element
+## Generate all $K$-combinations such that adjacent combinations differ by one element {data-toc-label="Generate all K-combinations such that adjacent combinations differ by one element"}
 
 This time we want to generate all $K$-combinations in such
 an order, that adjacent combinations differ exactly by one element.
@@ -72,7 +72,7 @@ This can be done, as we know the last mask of the first half and the first mask 
 The following is a naive implementation working by generating all $2^{n}$ possible subsets, and finding subsets of size
 $K$.
 
-```cpp generate_all_combinations_naive
+```{.cpp file=generate_all_combinations_naive}
 int gray_code (int n) {
     return n ^ (n >> 1);
 }
@@ -111,7 +111,7 @@ subsequence from appropriate elements.
 
 Its implementation is as follows:
 
-```cpp generate_all_combinations_fast
+```{.cpp file=generate_all_combinations_fast}
 vector<int> ans;
 
 void gen(int n, int k, int idx, bool rev) {

@@ -13,13 +13,14 @@ We have to find the intersection point of the lines, or determine that the lines
 If two lines are not parallel, they intersect.
 To find their intersection point, we need to solve the following system of linear equations:
 
-$$\begin{cases} a_1 x + b_1 y + c_1 = 0 \\\\
+$$\begin{cases} a_1 x + b_1 y + c_1 = 0 \\
 a_2 x + b_2 y + c_2 = 0
 \end{cases}$$
 
 Using Cramer's rule, we can immediately write down the solution for the system, which will give us the required intersection point of the lines:
 
 $$x = - \frac{\begin{vmatrix}c_1 & b_1 \cr c_2 & b_2\end{vmatrix}}{\begin{vmatrix}a_1 & b_1 \cr a_2 & b_2\end{vmatrix} } = - \frac{c_1 b_2 - c_2 b_1}{a_1 b_2 - a_2 b_1},$$
+
 $$y = - \frac{\begin{vmatrix}a_1 & c_1 \cr a_2 & c_2\end{vmatrix}}{\begin{vmatrix}a_1 & b_1 \cr a_2 & b_2\end{vmatrix}} = - \frac{a_1 c_2 - a_2 c_1}{a_1 b_2 - a_2 b_1}.$$
 
 If the denominator equals $0$, i.e.
@@ -36,7 +37,7 @@ Notice, a different approach for computing the intersection point is explained i
 
 ## Implementation
 
-```cpp line_intersection
+```{.cpp file=line_intersection}
 struct pt {
     double x, y;
 };

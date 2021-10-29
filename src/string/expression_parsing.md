@@ -14,8 +14,11 @@ The algorithm discussed here translates an expression into the so-called **rever
 
 The reverse Polish notation is a form of writing mathematical expressions, in which the operators are located after their operands.
 For example the following expression
+
 $$a + b * c * d + (e - f) * (g * h + i)$$
+
 can be written in reverse Polish notation in the following way:
+
 $$a b c * d * + e f - g h * i + * +$$
 
 The reverse Polish notation was developed by the Australian philosopher and computer science specialist Charles Hamblin in the mid 1950s on the basis of the Polish notation, which was proposed in 1920 by the Polish mathematician Jan Łukasiewicz.
@@ -49,7 +52,7 @@ After we processed the entire string, some operators might still be in the stack
 
 Here is the implementation of this method for the four operators $+$ $-$ $*$ $/$:
 
-```cpp expression_parsing_simple
+```{.cpp file=expression_parsing_simple}
 bool delim(char c) {
     return c == ' ';
 }
@@ -161,7 +164,7 @@ where `left_assoc` is a function that decides if an operator is left_associative
 
 Here is an implementation for the binary operators $+$ $-$ $*$ $/$ and the unary  operators $+$ and $-$.
 
-```cpp expression_parsing_unary
+```{.cpp file=expression_parsing_unary}
 bool delim(char c) {
     return c == ' ';
 }

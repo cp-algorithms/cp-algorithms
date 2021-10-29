@@ -46,7 +46,7 @@ Afterwards the function `pointInConvexPolygon` computes the result of a query.
 We additionally remember the point $p_0$ and translate all queried points with it in order compute the correct distance, as vectors don't have an initial point.
 By translating the query points we can assume that all vectors start at the origin $(0, 0)$, and simplify the computations for distances and lengths.
 
-```cpp points_in_convex_polygon
+```{.cpp file=points_in_convex_polygon}
 struct pt {
     long long x, y;
     pt() {}

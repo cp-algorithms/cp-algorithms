@@ -14,7 +14,7 @@ Later we will not distinguish between $\mathbf r$ and $\vec{\mathbf r}$ and use 
 
 Both 2D and 3D points maintain linear space, which means that for them sum of points and multiplication of point by some number are defined. Here are those basic implementations for 2D:
 
-```cpp point2d
+```{.cpp file=point2d}
 struct point2d {
     ftype x, y;
     point2d() {}
@@ -57,7 +57,7 @@ point2d operator*(ftype a, point2d b) {
 }
 ```
 And 3D points:
-```cpp point3d
+```{.cpp file=point3d}
 struct point3d {
     ftype x, y, z;
     point3d() {}
@@ -123,18 +123,23 @@ The dot product holds some notable properties:
 
 I.e. it is a commutative function which is linear with respect to both arguments.
 Let's denote the unit vectors as
-$$\mathbf e_x = \begin{pmatrix} 1 \\\ 0 \\\ 0 \end{pmatrix}, \mathbf e_y = \begin{pmatrix} 0 \\\ 1 \\\ 0 \end{pmatrix}, \mathbf e_z = \begin{pmatrix} 0 \\\ 0 \\\ 1 \end{pmatrix}.$$
+
+$$\mathbf e_x = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}, \mathbf e_y = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}, \mathbf e_z = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}.$$
+
 With this notation we can write the vector $\mathbf r = (x;y;z)$ as $r = x \cdot \mathbf e_x + y \cdot \mathbf e_y + z \cdot \mathbf e_z$.
 And since for unit vectors 
-$$\mathbf e_x\cdot \mathbf e_x = \mathbf e_y\cdot \mathbf e_y = \mathbf e_z\cdot \mathbf e_z = 1,\\\
+
+$$\mathbf e_x\cdot \mathbf e_x = \mathbf e_y\cdot \mathbf e_y = \mathbf e_z\cdot \mathbf e_z = 1,\\
 \mathbf e_x\cdot \mathbf e_y = \mathbf e_y\cdot \mathbf e_z = \mathbf e_z\cdot \mathbf e_x = 0$$
+
 we can see that in terms of coordinates for $\mathbf a = (x_1;y_1;z_1)$ and $\mathbf b = (x_2;y_2;z_2)$ holds
+
 $$\mathbf a\cdot \mathbf b = (x_1 \cdot \mathbf e_x + y_1 \cdot\mathbf e_y + z_1 \cdot\mathbf e_z)\cdot( x_2 \cdot\mathbf e_x + y_2 \cdot\mathbf e_y + z_2 \cdot\mathbf e_z) = x_1 x_2 + y_1 y_2 + z_1 z_2$$
 
 That is also the algebraic definition of the dot product.
 From this we can write functions which calculate it.
 
-```cpp dotproduct
+```{.cpp file=dotproduct}
 ftype dot(point2d a, point2d b) {
     return a.x * b.x + a.y * b.y;
 }
@@ -158,7 +163,7 @@ For example
 
 Note that all these functions do not depend on the number of dimensions, hence they will be the same for the 2D and 3D case:
 
-```cpp dotproperties
+```{.cpp file=dotproperties}
 ftype norm(point2d a) {
     return dot(a, a);
 }
@@ -201,26 +206,34 @@ This defines the cross (or vector) product $\mathbf b\times \mathbf c$ of the ve
 
 Some notable properties of cross and triple products:
 
-1. $\mathbf a\times \mathbf b = -\mathbf b\times \mathbf a$
-2. $(\alpha \cdot \mathbf a)\times \mathbf b = \alpha \cdot (\mathbf a\times \mathbf b)$
-3. For any $\mathbf b$ and $\mathbf c$ there is exactly one vector $\mathbf r$ such that $\mathbf a\cdot (\mathbf b\times \mathbf c) = \mathbf a\cdot\mathbf r$ for any vector $\mathbf a$. <br>Indeed if there are two such vectors $\mathbf r_1$ and $\mathbf r_2$ then $\mathbf a\cdot (\mathbf r_1 - \mathbf r_2)=0$ for all vectors $\mathbf a$ which is possible only when $\mathbf r_1 = \mathbf r_2$.
-4. $\mathbf a\cdot (\mathbf b\times \mathbf c) = \mathbf b\cdot (\mathbf c\times \mathbf a) = -\mathbf a\cdot( \mathbf c\times \mathbf b)$
-5. $(\mathbf a + \mathbf b)\times \mathbf c = \mathbf a\times \mathbf c + \mathbf b\times \mathbf c$.
-Indeed for all vectors $\mathbf r$ the chain of equations holds:
-$$\mathbf r\cdot( (\mathbf a + \mathbf b)\times \mathbf c) = (\mathbf a + \mathbf b) \cdot (\mathbf c\times \mathbf r) =  \mathbf a \cdot(\mathbf c\times \mathbf r) + \mathbf b\cdot(\mathbf c\times \mathbf r) = \mathbf r\cdot (\mathbf a\times \mathbf c) + \mathbf r\cdot(\mathbf b\times \mathbf c) = \mathbf r\cdot(\mathbf a\times \mathbf c + \mathbf b\times \mathbf c)$$
-Which proves $(\mathbf a + \mathbf b)\times \mathbf c = \mathbf a\times \mathbf c + \mathbf b\times \mathbf c$ due to point 3.
-6. $|\mathbf a\times \mathbf b|=|\mathbf a| \cdot |\mathbf b| \sin \theta$ where $\theta$ is angle between $\mathbf a$ and $\mathbf b$, since $|\mathbf a\times \mathbf b|$ equals to the area of the parallelogram formed by $\mathbf a$ and $\mathbf b$. 
+1.  $\mathbf a\times \mathbf b = -\mathbf b\times \mathbf a$
+2.  $(\alpha \cdot \mathbf a)\times \mathbf b = \alpha \cdot (\mathbf a\times \mathbf b)$
+3.  For any $\mathbf b$ and $\mathbf c$ there is exactly one vector $\mathbf r$ such that $\mathbf a\cdot (\mathbf b\times \mathbf c) = \mathbf a\cdot\mathbf r$ for any vector $\mathbf a$. <br>Indeed if there are two such vectors $\mathbf r_1$ and $\mathbf r_2$ then $\mathbf a\cdot (\mathbf r_1 - \mathbf r_2)=0$ for all vectors $\mathbf a$ which is possible only when $\mathbf r_1 = \mathbf r_2$.
+4.  $\mathbf a\cdot (\mathbf b\times \mathbf c) = \mathbf b\cdot (\mathbf c\times \mathbf a) = -\mathbf a\cdot( \mathbf c\times \mathbf b)$
+5.  $(\mathbf a + \mathbf b)\times \mathbf c = \mathbf a\times \mathbf c + \mathbf b\times \mathbf c$.
+    Indeed for all vectors $\mathbf r$ the chain of equations holds:
+
+    \[\mathbf r\cdot( (\mathbf a + \mathbf b)\times \mathbf c) = (\mathbf a + \mathbf b) \cdot (\mathbf c\times \mathbf r) =  \mathbf a \cdot(\mathbf c\times \mathbf r) + \mathbf b\cdot(\mathbf c\times \mathbf r) = \mathbf r\cdot (\mathbf a\times \mathbf c) + \mathbf r\cdot(\mathbf b\times \mathbf c) = \mathbf r\cdot(\mathbf a\times \mathbf c + \mathbf b\times \mathbf c)\]
+
+    Which proves $(\mathbf a + \mathbf b)\times \mathbf c = \mathbf a\times \mathbf c + \mathbf b\times \mathbf c$ due to point 3.
+
+6.  $|\mathbf a\times \mathbf b|=|\mathbf a| \cdot |\mathbf b| \sin \theta$ where $\theta$ is angle between $\mathbf a$ and $\mathbf b$, since $|\mathbf a\times \mathbf b|$ equals to the area of the parallelogram formed by $\mathbf a$ and $\mathbf b$. 
 
 Given all this and that the following equation holds for the unit vectors
-$$\mathbf e_x\times \mathbf e_x = \mathbf e_y\times \mathbf e_y = \mathbf e_z\times \mathbf e_z = \mathbf 0,\\\
+
+$$\mathbf e_x\times \mathbf e_x = \mathbf e_y\times \mathbf e_y = \mathbf e_z\times \mathbf e_z = \mathbf 0,\\
 \mathbf e_x\times \mathbf e_y = \mathbf e_z,~\mathbf e_y\times \mathbf e_z = \mathbf e_x,~\mathbf e_z\times \mathbf e_x = \mathbf e_y$$
+
 we can calculate the cross product of $\mathbf a = (x_1;y_1;z_1)$ and $\mathbf b = (x_2;y_2;z_2)$ in coordinate form:
 
 $$\mathbf a\times \mathbf b = (x_1 \cdot \mathbf e_x + y_1 \cdot \mathbf e_y + z_1 \cdot \mathbf e_z)\times (x_2 \cdot \mathbf e_x + y_2 \cdot \mathbf e_y + z_2 \cdot \mathbf e_z) =$$
+
 $$(y_1 z_2 - z_1 y_2)\mathbf e_x  + (z_1 x_2 - x_1 z_2)\mathbf e_y + (x_1 y_2 - y_1 x_2)$$
 
 Which also can be written in the more elegant form:
-$$\mathbf a\times \mathbf b = \begin{vmatrix}\mathbf e_x & \mathbf e_y & \mathbf e_z \\\ x_1 & y_1 & z_1 \\\ x_2 & y_2 & z_2 \end{vmatrix},~a\cdot(b\times c) = \begin{vmatrix} x_1 & y_1 & z_1 \\\ x_2 & y_2 & z_2 \\\ x_3 & y_3 & z_3 \end{vmatrix}$$
+
+$$\mathbf a\times \mathbf b = \begin{vmatrix}\mathbf e_x & \mathbf e_y & \mathbf e_z \\ x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \end{vmatrix},~a\cdot(b\times c) = \begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix}$$
+
 Here $| \cdot |$ stands for the determinant of a matrix. 
 
 Some kind of cross product (namely the pseudo-scalar product) can also be implemented in the 2D case.
@@ -234,7 +247,7 @@ Note that it also equals $|\mathbf a| \cdot |\mathbf b| \sin \theta$ where $\the
 
 Let's implement all this stuff!
 
-```cpp crossproduct
+```{.cpp file=crossproduct}
 point3d cross(point3d a, point3d b) {
     return point3d(a.y * b.z - a.z * b.y,
                    a.z * b.x - a.x * b.z,
@@ -275,7 +288,7 @@ $$(\mathbf a_1 + t \cdot \mathbf d_1 - \mathbf a_2)\times \mathbf d_2=0 \quad\Ri
 
 Let's implement function to intersect two lines.
 
-```cpp basic_line_intersection
+```{.cpp file=basic_line_intersection}
 point2d intersect(point2d a1, point2d d1, point2d a2, point2d d2) {
     return a1 + cross(a2 - a1, d2) / cross(d1, d2) * d1;
 }
@@ -287,12 +300,12 @@ However sometimes it might be hard to use some geometric insights.
 For example, you're given three planes defined by initial points $\mathbf a_i$ and directions $\mathbf d_i$ and you want to find their intersection point.
 You may note that you just have to solve the system of equations:
 
-$$\begin{cases}\mathbf r\cdot \mathbf n_1 = \mathbf a_1\cdot \mathbf n_1, \\\ \mathbf r\cdot \mathbf n_2 = \mathbf a_2\cdot \mathbf n_2, \\\ \mathbf r\cdot \mathbf n_3 = \mathbf a_3\cdot \mathbf n_3\end{cases}$$
+$$\begin{cases}\mathbf r\cdot \mathbf n_1 = \mathbf a_1\cdot \mathbf n_1, \\ \mathbf r\cdot \mathbf n_2 = \mathbf a_2\cdot \mathbf n_2, \\ \mathbf r\cdot \mathbf n_3 = \mathbf a_3\cdot \mathbf n_3\end{cases}$$
 
 Instead of thinking on geometric approach, you can work out an algebraic one which can be obtained immediately.
 For example, given that you already implemented a point class, it will be easy for you to solve this system using Cramer's rule because the triple product is simply the determinant of the matrix obtained from the vectors being its columns:
 
-```cpp plane_intersection
+```{.cpp file=plane_intersection}
 point3d intersect(point3d a1, point3d n1, point3d a2, point3d n2, point3d a3, point3d n3) {
     point3d x(n1.x, n2.x, n3.x);
     point3d y(n1.y, n2.y, n3.y);

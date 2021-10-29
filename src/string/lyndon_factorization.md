@@ -51,7 +51,7 @@ There can be three different cases:
 
 Here we present the implementation of the Duval algorithm, which will return the desired Lyndon factorization of a given string $s$.
 
-```cpp duval_algorithm
+```{.cpp file=duval_algorithm}
 vector<string> duval(string const& s) {
     int n = s.size();
     int i = 0;
@@ -99,7 +99,7 @@ The beginning of the simple block can be found easily - just remember the pointe
 
 So we get the following implementation:
 
-```cpp smallest_cyclic_string
+```{.cpp file=smallest_cyclic_string}
 string min_cyclic_string(string s) {
     s += s;
     int n = s.size();

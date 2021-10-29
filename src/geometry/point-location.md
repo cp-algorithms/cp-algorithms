@@ -11,7 +11,7 @@ This problem may arise when you need to locate some points in a Voronoi diagram 
 
 ## Algorithm
 
-Firstly, for each query point $p\ (x\_0, y\_0)$ we want to find such an edge that if the point belongs to any edge, the point lies on the edge we found, otherwise this edge must intersect the line $x = x\_0$ at some unique point $(x\_0, y)$ where $y < y\_0$ and this $y$ is maximum among all such edges.
+Firstly, for each query point $p\ (x_0, y_0)$ we want to find such an edge that if the point belongs to any edge, the point lies on the edge we found, otherwise this edge must intersect the line $x = x_0$ at some unique point $(x_0, y)$ where $y < y_0$ and this $y$ is maximum among all such edges.
 The following image shows both cases.
 
 <center>![Image of Goal](point_location_goal.png)</center>
@@ -71,7 +71,7 @@ The following code is implemented for integers, but it can be easily modified to
 This implementation assumes that the subdivision is correctly stored inside a [DCEL](https://en.wikipedia.org/wiki/Doubly_connected_edge_list) and the outer face is numbered $-1$.<br>
 For each query a pair $(1, i)$ is returned if the point lies strictly inside the face number $i$, and a pair $(0, i)$ is returned if the point lies on the edge number $i$.
 
-```cpp point-location
+```{.cpp file=point-location}
 typedef long long ll;
 
 bool ge(const ll& a, const ll& b) { return a >= b; }

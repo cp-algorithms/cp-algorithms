@@ -16,6 +16,7 @@ For each edge $(i, j)$ we can assume that $i < j$ (because the graph is undirect
 Therefore the set of all edges has the cardinality $\binom{n}{2}$, i.e. $\frac{n(n-1)}{2}$.
 
 Since any labeled graph is uniquely determined by its edges, the number of labeled graphs with $n$ vertices is equal to:
+
 $$G_n = 2^{\frac{n(n-1)}{2}}$$
 
 ## Connected labeled graphs
@@ -32,11 +33,14 @@ Obviously we have $n$ possibilities to root a graph with $n$ labeled vertices, t
 The root vertex will appear in a connected component of size $1, \dots n-1$.
 There are $k \binom{n}{k} C_k G_{n-k}$ graphs such that the root vertex is in a connected component with $k$ vertices (there are $\binom{n}{k}$ ways to choose $k$ vertices for the component, these are connected in one of $C_k$ ways, the root vertex can be any of the $k$ vertices, and the remainder $n-k$ vertices can be connected/disconnected in any way, which gives a factor of $G_{n-k}$).
 Therefore the number of disconnected graphs with $n$ vertices is:
+
 $$\frac{1}{n} \sum_{k=1}^{n-1} k \binom{n}{k} C_k G_{n-k}$$
+
 And finally the number of connected graphs is:
+
 $$C_n = G_n - \frac{1}{n} \sum_{k=1}^{n-1} k \binom{n}{k} C_k G_{n-k}$$
 
-## Labeled graphs with $k$ connected components
+## Labeled graphs with $k$ connected components {data-toc-label="Labeled graphs with k connected components"}
 
 Based on the formula from the previous section, we will learn how to count the number of labeled graphs with $n$ vertices and $k$ connected components.
 
@@ -48,4 +52,5 @@ We use a common approach, we take the last vertex (index $n$).
 This vertex belongs to some component.
 If the size of this component be $s$, then there are $\binom{n-1}{s-1}$ ways to choose such a set of vertices, and $C_s$ ways to connect them.After removing this component from the graph we have $n-s$ remaining vertices with $k-1$ connected components.
 Therefore we obtain the following recurrence relation:
+
 $$D[n][k] = \sum_{s=1}^{n} \binom{n-1}{s-1} C_s D[n-s][k-1]$$

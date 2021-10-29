@@ -6,7 +6,7 @@ hide:
 
 # Calculating the determinant of a matrix by Gauss
 
-Problem: Given a matrix $A$ of size $N x N$. Compute its determinant.
+Problem: Given a matrix $A$ of size $N \times N$. Compute its determinant.
 
 ## Algorithm
 

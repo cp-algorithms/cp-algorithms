@@ -61,7 +61,7 @@ Then we choose the one that would be encountered first. Initially base points to
 
 Note that the implementation of the in_circle function is GCC-specific.
 
-```cpp delaunay
+```{.cpp file=delaunay}
 typedef long long ll;
 
 bool ge(const ll& a, const ll& b) { return a >= b; }

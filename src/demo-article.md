@@ -55,10 +55,10 @@ $$E = mc^{2}$$
 
 Small images could be pushed along with texts to the [/img](https://github.com/e-maxx-eng/e-maxx-eng/tree/master/img) subfolder. Let them be in `PNG` format and less than `200kb`. Then you can refer to them inside the article like this (see the source here):
 
-![some image description](&imgroot&/search-bridge-formula.png)
+![some image description](search-bridge-formula.png)
 
 Note that file name is prefixed with `imgroot` variable (in ampersands) which will expand to proper url prefix when shown at the site (so you need not know the precise prefix of github raw data). It would be good if you use it instead of full path urls.
 
 Larger images should be posted to some image-hosting, like [PostImage](http://postimage.org) or [ImgUr](http://imgur.com/) - they will then give you the url to insert into the page.
 
-You can also embed videos from youtube, as it is done in the [contrib.md](./contrib.html) file.
+You can also embed videos from youtube, as it is done in the [contrib.md](contrib.md) file.

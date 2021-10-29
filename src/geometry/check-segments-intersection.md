@@ -21,7 +21,7 @@ It can be checked with a couple of cross products.
 
 The given algorithm is implemented for integer points. Of course, it can be easily modified to work with doubles.
 
-```cpp check-segments-inter
+```{.cpp file=check-segments-inter}
 struct pt {
     long long x, y;
     pt() {}

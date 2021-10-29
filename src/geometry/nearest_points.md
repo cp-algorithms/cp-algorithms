@@ -34,6 +34,7 @@ $$p_i < p_j \Longleftrightarrow (x_i < x_j) \lor \Big(\left(x_i = x_j\right) \we
 Then take the middle point after sorting $p_m (m = \lfloor n/2 \rfloor)$, and all the points before it and the $p_m$ itself are assigned to the first half, and all the points after it - to the second half:
 
 $$A_1 = \{p_i \ | \ i = 0 \ldots m \}$$
+
 $$A_2 = \{p_i \ | \ i = m + 1 \ldots n-1 \}.$$ 
 
 Now, calling recursively on each of the sets $A_1$ and $A_2$, we will find the answers $h_1$ and $h_2$ for each of the halves. And take the best of them: $h = \min(h_1, h_2)$.
@@ -75,7 +76,7 @@ So, we have proved that in a rectangle $2h \times h$ can not be more than $4 \cd
 
 We introduce a data structure to store a point (its coordinates and a number) and comparison operators required for two types of sorting:
 
-```cpp nearest_pair_def
+```{.cpp file=nearest_pair_def}
 struct pt {
     int x, y, id;
 };
@@ -98,7 +99,7 @@ vector<pt> a;
 
 For a convenient implementation of recursion, we introduce an auxiliary function upd_ans(), which will calculate the distance between two points and check whether it is better than the current answer:
 
-```cpp nearest_pair_update
+```{.cpp file=nearest_pair_update}
 double mindist;
 pair<int, int> best_pair;
  
@@ -117,7 +118,7 @@ To merge two sets of points received from recursive calls into one (ordered by $
 
 Finally, the set $B$ is stored in the same array $t$.
 
-```cpp nearest_pair_rec
+```{.cpp file=nearest_pair_rec}
 vector<pt> t;
 
 void rec(int l, int r) {
@@ -154,7 +155,7 @@ By the way, if all the coordinates are integer, then at the time of the recursio
 
 In the main program, recursion should be called as follows:
 
-```cpp nearest_pair_main
+```{.cpp file=nearest_pair_main}
 t.resize(n);
 sort(a.begin(), a.end(), cmp_x());
 mindist = 1E20;

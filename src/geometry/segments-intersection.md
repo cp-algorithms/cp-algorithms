@@ -37,7 +37,7 @@ The main function `intersect` returns true if the segments have a non-empty inte
 and stores endpoints of the intersection segment in arguments `left` and `right`. 
 If the answer is a single point, the values written to `left` and `right` will be the same.
 
-```cpp segment_intersection
+```{.cpp file=segment_intersection}
 const double EPS = 1E-9;
 
 struct pt {
