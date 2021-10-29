@@ -47,7 +47,7 @@ And of course, with each update in the array $d$ we also have to update the corr
 
 We will use an array $m$ to store in which set each vertex is currently.
 
-```cpp desopo_pape
+```{.cpp file=desopo_pape}
 struct Edge {
     int to, w;
 };

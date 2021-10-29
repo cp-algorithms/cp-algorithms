@@ -26,34 +26,34 @@ For more details check out the implementation.
 
 ## Applications of Depth First Search
 
-* Find any path in the graph from source vertex $u$ to all vertices.
-
-* Find lexicographical first path in the graph from source $u$ to all vertices.
-
-* Check if a vertex in a tree is an ancestor of some other vertex:
-
-  At the beginning and end of each search call we remember the entry and exit "time" of each vertex.
-  Now you can find the answer for any pair of vertices $(i, j)$ in $O(1)$:
-  vertex $i$ is an ancestor of vertex $j$ if and only if $\text{entry}[i] < \text{entry}[j]$ and $\text{exit}[i] > \text{exit}[j]$.
-
-* Find the lowest common ancestor (LCA) of two vertices.
-
-* Topological sorting:
-
-  Run a series of depth first searches so as to visit each vertex exactly once in $O(n + m)$ time.
-  The required topological ordering will be the vertices sorted in descending order of exit time.
-
-
-* Check whether a given graph is acyclic and find cycles in a graph. (As mentioned above by counting back edges in every connected components).
-
-* Find strongly connected components in a directed graph:
-
-  First do a topological sorting of the graph.
-  Then transpose the graph and run another series of depth first searches in the order defined by the topological sort. For each DFS call the component created by it is a strongly connected component.
-
-* Find bridges in an undirected graph:
-
-  First convert the given graph into a directed graph by running a series of depth first searches and making each edge directed as we go through it, in the direction we went. Second, find the strongly connected components in this directed graph. Bridges are the edges whose ends belong to different strongly connected components.
+  * Find any path in the graph from source vertex $u$ to all vertices.
+  
+  * Find lexicographical first path in the graph from source $u$ to all vertices.
+  
+  * Check if a vertex in a tree is an ancestor of some other vertex:
+  
+    At the beginning and end of each search call we remember the entry and exit "time" of each vertex.
+    Now you can find the answer for any pair of vertices $(i, j)$ in $O(1)$:
+    vertex $i$ is an ancestor of vertex $j$ if and only if $\text{entry}[i] < \text{entry}[j]$ and $\text{exit}[i] > \text{exit}[j]$.
+  
+  * Find the lowest common ancestor (LCA) of two vertices.
+  
+  * Topological sorting:
+  
+    Run a series of depth first searches so as to visit each vertex exactly once in $O(n + m)$ time.
+    The required topological ordering will be the vertices sorted in descending order of exit time.
+  
+  
+  * Check whether a given graph is acyclic and find cycles in a graph. (As mentioned above by counting back edges in every connected components).
+  
+  * Find strongly connected components in a directed graph:
+  
+    First do a topological sorting of the graph.
+    Then transpose the graph and run another series of depth first searches in the order defined by the topological sort. For each DFS call the component created by it is a strongly connected component.
+  
+  * Find bridges in an undirected graph:
+  
+    First convert the given graph into a directed graph by running a series of depth first searches and making each edge directed as we go through it, in the direction we went. Second, find the strongly connected components in this directed graph. Bridges are the edges whose ends belong to different strongly connected components.
 
 ## Classification of edges of a graph
 

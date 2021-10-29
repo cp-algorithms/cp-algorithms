@@ -15,7 +15,7 @@ a[i_1] < a[i_2] < \dots < a[i_k]$$
 In this article we discuss multiple algorithms for solving this task.
 Also we will discuss some other problems, that can be reduced to this problem.
 
-## Solution in $O(n^2)$ with dynamic programming
+## Solution in $O(n^2)$ with dynamic programming {data-toc-label="Solution in O(n^2) with dynamic programming"}
 
 Dynamic programming is a very general technique that allows to solve a huge class of problems.
 Here we apply the technique for our specific task.
@@ -49,7 +49,7 @@ $$d[i] = \max\left(1, \max_{\substack{j = 0 \dots i-1 \\\\ a[j] < a[i]}} \left(d
 
 Here is an implementation of the algorithm described above, which computes the length of the longest increasing subsequence.
 
-```cpp lis_n2
+```{.cpp file=lis_n2}
 int lis(vector<int> const& a) {
     int n = a.size();
     vector<int> d(n, 1);
@@ -87,7 +87,7 @@ We will compute the array $p[]$ alongside $d[]$, and afterwards compute the subs
 For convenience we originally assign the ancestors with $p[i] = -1$.
 For elements with $d[i] = 1$, the ancestors value will remain $-1$, which will be slightly more convenient for restoring the subsequence.
 
-```cpp lis_n2_restore
+```{.cpp file=lis_n2_restore}
 vector<int> lis(vector<int> const& a) {
     int n = a.size();
     vector<int> d(n, 1), p(n, -1);
@@ -125,7 +125,7 @@ We can simply recalculate the current value of $d[i]$ and also see how the maxim
 
 This method leads to a slightly longer code, but in return we save some memory.
 
-## Solution in $O(n \log n)$ with dynamic programming and binary search
+## Solution in $O(n \log n)$ with dynamic programming and binary search {data-toc-label="Solution in O(n log n) with dynamic programming and binary search"}
 
 In order to obtain a faster solution for the problem, we construct a different dynamic programming solution that runs in $O(n^2)$, and then later improve it to $O(n \log n)$.
 
@@ -139,7 +139,7 @@ We will again gradually process the numbers, first $a[0]$, then $a[1]$, etc, and
 
 After processing all the elements of $a[]$ the length of the desired subsequence is the largest $l$ with $d[l] < \infty$.
 
-```cpp lis_method2_n2
+```{.cpp file=lis_method2_n2}
 int lis(vector<int> const& a) {
     int n = a.size();
     const int INF = 1e9;
@@ -173,7 +173,7 @@ In fact we are simply looking in the array $d[]$ for the first number that is st
 
 ### Implementation
 
-```cpp lis_method2_nlogn
+```{.cpp file=lis_method2_nlogn}
 int lis(vector<int> const& a) {
     int n = a.size();
     const int INF = 1e9;
@@ -206,7 +206,7 @@ $p[i]$ will be the index of the previous element for the optimal subsequence end
 It's easy to maintain these two arrays in the course of iteration over the array $a[]$ alongside the computations of $d[]$.
 And at the end it is not difficult to restore the desired subsequence using these arrays.
 
-## Solution in $O(n \log n)$ with data structures
+## Solution in $O(n \log n)$ with data structures {data-toc-label="Solution in O(n log n) with data structures"}
 
 Instead of the above method for computing the longest increasing subsequence in $O(n \log n)$ we can also solve the problem in a different way: using some simple data structures.
 

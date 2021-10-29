@@ -41,32 +41,32 @@ A matching $M$ is maximum $\Leftrightarrow$ there is no augmenting path relative
 
 Both sides of the bi-implication will be proven by contradiction.
 
-1. A matching $M$ is maximum $\Rightarrow$ there is no augmenting path relative to the matching $M$.
+1.  A matching $M$ is maximum $\Rightarrow$ there is no augmenting path relative to the matching $M$.
   
-  Let there be an augmenting path $P$ relative to the given maximum matching $M$. This augmenting path $P$ will necessarily be of odd length, having one more edge not in $M$ than the number of edges it has that are also in $M$. 
-  We create a new matching $M'$ by including all edges in the original matching $M$ except those also in the $P$, and the edges in $P$ that are not in $M$. 
-  This is a valid matching because the initial and final vertices of $P$ are unsaturated by $M$, and the rest of the vertices are saturated only by the matching $P \cap M$.
-  This new matching $M'$ will have one more edge than $M$, and so $M$ could not have been maximum. 
+    Let there be an augmenting path $P$ relative to the given maximum matching $M$. This augmenting path $P$ will necessarily be of odd length, having one more edge not in $M$ than the number of edges it has that are also in $M$. 
+    We create a new matching $M'$ by including all edges in the original matching $M$ except those also in the $P$, and the edges in $P$ that are not in $M$. 
+    This is a valid matching because the initial and final vertices of $P$ are unsaturated by $M$, and the rest of the vertices are saturated only by the matching $P \cap M$.
+    This new matching $M'$ will have one more edge than $M$, and so $M$ could not have been maximum. 
+    
+    Formally, given an augmenting path $P$ w.r.t. some maximum matching $M$, the matching $M' = P \oplus M$ is such that $|M'| = |M| + 1$, a contradiction.
   
-  Formally, given an augmenting path $P$ w.r.t. some maximum matching $M$, the matching $M' = P \oplus M$ is such that $|M'| = |M| + 1$, a contradiction.
-  
-2. A matching $M$ is maximum $\Leftarrow$ there is no augmenting path relative to the matching $M$.
+2.  A matching $M$ is maximum $\Leftarrow$ there is no augmenting path relative to the matching $M$.
 
-  Let there be a matching $M'$ of greater cardinality than $M$. We consider the symmetric difference $Q = M \oplus M'$. The subgraph $Q$ is no longer necessarily a matching. 
-  Any vertex in $Q$ has a maximum degree of $2$, which means that all connected components in it are one of the three - 
-    * an isolated vertex
-    * a (simple) path whose edges are alternately from $M$ and $M'$
-    * a cycle of even length whose edges are alternately from $M$ and $M'$
+    Let there be a matching $M'$ of greater cardinality than $M$. We consider the symmetric difference $Q = M \oplus M'$. The subgraph $Q$ is no longer necessarily a matching. 
+    Any vertex in $Q$ has a maximum degree of $2$, which means that all connected components in it are one of the three - 
+      * an isolated vertex
+      * a (simple) path whose edges are alternately from $M$ and $M'$
+      * a cycle of even length whose edges are alternately from $M$ and $M'$
  
-  Since $M'$ has a cardinality greater than $M$, $Q$ has more edges from $M'$ than $M$. By the Pigeonhole principle, at least one connected component will be a path having 
-  more edges from $M'$ than $M$. Because any such path is alternating, it will have initial and final vertices unsaturated by $M$, making it an augmenting path for $M$, 
-  which contradicts the premise. $\blacksquare$
+    Since $M'$ has a cardinality greater than $M$, $Q$ has more edges from $M'$ than $M$. By the Pigeonhole principle, at least one connected component will be a path having 
+    more edges from $M'$ than $M$. Because any such path is alternating, it will have initial and final vertices unsaturated by $M$, making it an augmenting path for $M$, 
+    which contradicts the premise. $\blacksquare$
   
 ### Kuhn's algorithm
   
 Kuhn's algorithm is a direct application of Berge's lemma. It is essentially described as follows: 
-> First, we take an empty matching. Then, while the algorithm is able to find an augmenting path, we update the matching by alternating it along this path and 
-> repeat the process of finding the augmenting path.  As soon as it is not possible to find such a path, we stop the process - the current matching is the maximum. 
+
+First, we take an empty matching. Then, while the algorithm is able to find an augmenting path, we update the matching by alternating it along this path and repeat the process of finding the augmenting path.  As soon as it is not possible to find such a path, we stop the process - the current matching is the maximum. 
 
 It remains to detail the way to find augmenting paths. Kuhn's algorithm simply searches for any of these paths using [depth-first](depth-first-search.md) or [breadth-first](breadth-first-search.md) traversal. The algorithm 
 looks through all the vertices of the graph in turn, starting each traversal from it, trying to find an augmenting path starting at this vertex.

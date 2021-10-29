@@ -62,7 +62,7 @@ Secondly, suppose there have already been $\sqrt{V}$ phases. Then all the augmen
 
 ## Implementation
 
-```cpp dinic
+```{.cpp file=dinic}
 struct FlowEdge {
     int v, u;
     long long cap, flow = 0;

@@ -70,59 +70,61 @@ Each 2-edge-connected component will store the index `par[]` of its ancestor in 
 
 We will now consistently disassemble every operation that we need to learn to implement:
 
-* Check whether the two vertices lie in the same connected / 2-edge-connected component.
-  It is done with the usual DSU algorithm, we just find and compare the representatives of the DSUs.
-
-* Joining two trees for some edge $(a, b)$.
-  Since it could turn out that neither the vertex $a$ nor the vertex $b$ are the roots of their trees, the only way to connect these two trees is to re-root one of them.
-  For example you can re-root the tree of vertex $a$, and then attach it to another tree by setting the ancestor of $a$ to $b$.
-
-  However the question about the effectiveness of the re-rooting operation arises:
-  in order to re-root the tree with the root $r$ to the vertex $v$, it is necessary to necessary to visit all vertices on the path between $v$ and $r$ and redirect the pointers `par[]` in the opposite direction, and also change the references to the ancestors in the DSU that is responsible for the connected components.
-
-  Thus, the cost of re-rooting is $O(h)$, where $h$ is the height of the tree.
-  You can make an even worse estimate by saying that the cost is $O(\text{size})$ where $\text{size}$ is the number of vertices in the tree.
-  The final complexity will not differ.
-
-  We now apply a standard technique: we re-root the tree that contains fewer vertices.
-  Then it is intuitively clear that the worst case is when two trees of approximately equal sizes are combined, but then the result is a tree of twice the size.
-  This does not allow this situation to happen many times.
-
-  In general the total cost can be written in the form of a recurrence:
-  $$T(n) = \max_{k = 1 \ldots n-1} \left\\{ T(k) + T(n - k) + O(\min(k, n - k))\right\\}$$
-  $T(n)$ is the number of operations necessary to obtain a tree with $n$ vertices by means of re-rooting and unifying trees.
-  A tree of size $n$ can be created by combining two smaller trees of size $k$ and $n - k$.
-  This recurrence is has the solution $T(n) = O (n \log n)$.
-
-  Thus, the total time spent on all re-rooting operations will be $O(n \log n)$ if we always re-root the smaller of the two trees.
-
-  We will have to maintain the size of each connected component, but the data structure DSU makes this possible without difficulty.
-
-* Searching for the cycle formed by adding a new edge $(a, b)$.
-  Since $a$ and $b$ are already connected in the tree we need to find the [Lowest Common Ancestor](lca.md) of the vertices $a$ and $b$.
-  The cycle will consist of the paths from $b$ to the LCA, from the LCA to $b$ and the edge $a$ to $b$.
-
-  After finding the cycle we compress all vertices of the detected cycle into one vertex.
-  This means that we already have a complexity proportional to the cycle length, which means that we also can use any LCA algorithm proportional to the length, and don't have to use any fast one.
-
-  Since all information about the structure of the tree is available is the ancestor array `par[]`, the only reasonable LCA algorithm is the following:
-  mark the vertices $a$ and $b$ as visited, then we go to their ancestors `par[a]` and `par[b]` and mark them, then advance to their ancestors and so on, until we reach an already marked vertex.
-  This vertex is the LCA that we are looking for, and we can find the vertices on the cycle by traversing the path from $a$ and $b$ to the LCA again.
-
-  It is obvious that the complexity of this algorithm is proportional to the length of the desired cycle.
-
-* Compression of the cycle by adding a new edge $(a, b)$ in a tree.
-
-  We need to create a new 2-edge-connected component, which will consist of all vertices of the detected cycle (also the detected cycle itself could consist of some 2-edge-connected components, but this does not change anything).
-  In addition it is necessary to compress them in such a way that the structure of the tree is not disturbed, and all pointers `par[]` and two DSUs are still correct.
-
-  The easiest way to achieve this is to compress all the vertices of the cycle to their LCA.
-  In fact the LCA is the highest of the vertices, i.e. its ancestor pointer `par[]` remains unchanged.
-  For all the other vertices of the loop the ancestors do not need to be updated, since these vertices simply cease to exists.
-  But in the DSU of the 2-edge-connected components all these vertices will simply point to the LCA.
-
-  We will implement the DSU of the 2-edge-connected components without the Union by rank optimization, therefore we will get the complexity $O(\log n)$ on average per query.
-  To achieve the complexity $O(1)$ on average per query, we need to combine the vertices of the cycle according to Union by rank, and then assign `par[]` accordingly.
+  * Check whether the two vertices lie in the same connected / 2-edge-connected component.
+    It is done with the usual DSU algorithm, we just find and compare the representatives of the DSUs.
+  
+  * Joining two trees for some edge $(a, b)$.
+    Since it could turn out that neither the vertex $a$ nor the vertex $b$ are the roots of their trees, the only way to connect these two trees is to re-root one of them.
+    For example you can re-root the tree of vertex $a$, and then attach it to another tree by setting the ancestor of $a$ to $b$.
+  
+    However the question about the effectiveness of the re-rooting operation arises:
+    in order to re-root the tree with the root $r$ to the vertex $v$, it is necessary to necessary to visit all vertices on the path between $v$ and $r$ and redirect the pointers `par[]` in the opposite direction, and also change the references to the ancestors in the DSU that is responsible for the connected components.
+  
+    Thus, the cost of re-rooting is $O(h)$, where $h$ is the height of the tree.
+    You can make an even worse estimate by saying that the cost is $O(\text{size})$ where $\text{size}$ is the number of vertices in the tree.
+    The final complexity will not differ.
+  
+    We now apply a standard technique: we re-root the tree that contains fewer vertices.
+    Then it is intuitively clear that the worst case is when two trees of approximately equal sizes are combined, but then the result is a tree of twice the size.
+    This does not allow this situation to happen many times.
+  
+    In general the total cost can be written in the form of a recurrence:
+    
+    \[ T(n) = \max_{k = 1 \ldots n-1} \left\{ T(k) + T(n - k) + O(\min(k, n - k))\right\} \]
+    
+    $T(n)$ is the number of operations necessary to obtain a tree with $n$ vertices by means of re-rooting and unifying trees.
+    A tree of size $n$ can be created by combining two smaller trees of size $k$ and $n - k$.
+    This recurrence is has the solution $T(n) = O (n \log n)$.
+  
+    Thus, the total time spent on all re-rooting operations will be $O(n \log n)$ if we always re-root the smaller of the two trees.
+  
+    We will have to maintain the size of each connected component, but the data structure DSU makes this possible without difficulty.
+  
+  * Searching for the cycle formed by adding a new edge $(a, b)$.
+    Since $a$ and $b$ are already connected in the tree we need to find the [Lowest Common Ancestor](lca.md) of the vertices $a$ and $b$.
+    The cycle will consist of the paths from $b$ to the LCA, from the LCA to $b$ and the edge $a$ to $b$.
+  
+    After finding the cycle we compress all vertices of the detected cycle into one vertex.
+    This means that we already have a complexity proportional to the cycle length, which means that we also can use any LCA algorithm proportional to the length, and don't have to use any fast one.
+  
+    Since all information about the structure of the tree is available is the ancestor array `par[]`, the only reasonable LCA algorithm is the following:
+    mark the vertices $a$ and $b$ as visited, then we go to their ancestors `par[a]` and `par[b]` and mark them, then advance to their ancestors and so on, until we reach an already marked vertex.
+    This vertex is the LCA that we are looking for, and we can find the vertices on the cycle by traversing the path from $a$ and $b$ to the LCA again.
+  
+    It is obvious that the complexity of this algorithm is proportional to the length of the desired cycle.
+  
+  * Compression of the cycle by adding a new edge $(a, b)$ in a tree.
+  
+    We need to create a new 2-edge-connected component, which will consist of all vertices of the detected cycle (also the detected cycle itself could consist of some 2-edge-connected components, but this does not change anything).
+    In addition it is necessary to compress them in such a way that the structure of the tree is not disturbed, and all pointers `par[]` and two DSUs are still correct.
+  
+    The easiest way to achieve this is to compress all the vertices of the cycle to their LCA.
+    In fact the LCA is the highest of the vertices, i.e. its ancestor pointer `par[]` remains unchanged.
+    For all the other vertices of the loop the ancestors do not need to be updated, since these vertices simply cease to exists.
+    But in the DSU of the 2-edge-connected components all these vertices will simply point to the LCA.
+  
+    We will implement the DSU of the 2-edge-connected components without the Union by rank optimization, therefore we will get the complexity $O(\log n)$ on average per query.
+    To achieve the complexity $O(1)$ on average per query, we need to combine the vertices of the cycle according to Union by rank, and then assign `par[]` accordingly.
 
 ## Implementation
 

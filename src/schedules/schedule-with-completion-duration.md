@@ -21,7 +21,7 @@ On the algorithm’s completion we’ll choose the optimal solution (or, at leas
 The following function takes a vector of jobs (consisting of a deadline, a duration, and the job's index) and computes a vector containing all indices of the used jobs in the optimal schedule.
 Notice that you still need to sort these jobs by their deadline, if you want to write down the plan explicitly.
 
-```cpp schedule_deadline_duration
+```{.cpp file=schedule_deadline_duration}
 struct Job {
     int deadline, duration, idx;
 

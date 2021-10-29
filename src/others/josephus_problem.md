@@ -28,17 +28,17 @@ We will try to find a pattern expressing the answer for the problem $J_{n, k}$ t
 Using brute force modeling we can construct a table of values, for example, the following:
 
 $$\begin{array}{ccccccccccc}
-n\setminus k & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\\\
-1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\\\
-2 & 2 & 1 & 2 & 1 & 2 & 1 & 2 & 1 & 2 & 1 \\\\
-3 & 3 & 3 & 2 & 2 & 1 & 1 & 3 & 3 & 2 & 2 \\\\
-4 & 4 & 1 & 1 & 2 & 2 & 3 & 2 & 3 & 3 & 4 \\\\
-5 & 5 & 3 & 4 & 1 & 2 & 4 & 4 & 1 & 2 & 4 \\\\
-6 & 6 & 5 & 1 & 5 & 1 & 4 & 5 & 3 & 5 & 2 \\\\
-7 & 7 & 7 & 4 & 2 & 6 & 3 & 5 & 4 & 7 & 5 \\\\
-8 & 8 & 1 & 7 & 6 & 3 & 1 & 4 & 4 & 8 & 7 \\\\
-9 & 9 & 3 & 1 & 1 & 8 & 7 & 2 & 3 & 8 & 8 \\\\
-10 & 10 & 5 & 4 & 5 & 3 & 3 & 9 & 1 & 7 & 8 \\\\
+n\setminus k & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+2 & 2 & 1 & 2 & 1 & 2 & 1 & 2 & 1 & 2 & 1 \\
+3 & 3 & 3 & 2 & 2 & 1 & 1 & 3 & 3 & 2 & 2 \\
+4 & 4 & 1 & 1 & 2 & 2 & 3 & 2 & 3 & 3 & 4 \\
+5 & 5 & 3 & 4 & 1 & 2 & 4 & 4 & 1 & 2 & 4 \\
+6 & 6 & 5 & 1 & 5 & 1 & 4 & 5 & 3 & 5 & 2 \\
+7 & 7 & 7 & 4 & 2 & 6 & 3 & 5 & 4 & 7 & 5 \\
+8 & 8 & 1 & 7 & 6 & 3 & 1 & 4 & 4 & 8 & 7 \\
+9 & 9 & 3 & 1 & 1 & 8 & 7 & 2 & 3 & 8 & 8 \\
+10 & 10 & 5 & 4 & 5 & 3 & 3 & 9 & 1 & 7 & 8 \\
 \end{array}$$
 
 And here we can clearly see the following **pattern**:
@@ -56,7 +56,7 @@ So, we found a solution to the problem of Josephus, working in $O(n)$ operations
 
 Simple **recursive implementation** (in 1-indexing)
 
-```cpp josephus_rec
+```{.cpp file=josephus_rec}
 int josephus(int n, int k) {
     return n > 1 ? (josephus(n-1, k) + k - 1) % n + 1 : 1;
 }
@@ -64,7 +64,7 @@ int josephus(int n, int k) {
 
 **Non-recursive form** :
 
-```cpp josephus_iter
+```{.cpp file=josephus_iter}
 int josephus(int n, int k) {
     int res = 0;
     for (int i = 1; i <= n; ++i)
@@ -93,7 +93,7 @@ Also, we need to handle the case when $n$ becomes less than $k$. In this case, t
 
 **Implementation** (for convenience in 0-indexing):
 
-```cpp josephus_fast0
+```{.cpp file=josephus_fast0}
 int josephus(int n, int k) {
     if (n == 1)
         return 0;

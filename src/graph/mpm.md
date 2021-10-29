@@ -38,7 +38,7 @@ Since there are less than $V$ phases (see the proof [here](dinic.md)), MPM works
 
 ## Implementation
 
-```cpp mpm
+```{.cpp file=mpm}
 struct MPM{
     struct FlowEdge{
         int v, u;

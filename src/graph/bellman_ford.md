@@ -224,7 +224,7 @@ There are some care to be taken in the implementation, such as the fact that the
 To avoid this, it is possible to create a counter that stores how many times a vertex has been relaxed and stop the algorithm as soon as some vertex got relaxed for the $n$-th time.
 Note, also there is no reason to put a vertex in the queue if it is already in.
 
-```cpp spfa
+```{.cpp file=spfa}
 const int INF = 1000000000;
 vector<vector<pair<int, int>>> adj;
 

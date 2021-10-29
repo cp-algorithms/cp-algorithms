@@ -7,7 +7,9 @@ hide:
 
 In a normal flow network the flow of an edge is only limited by the capacity $c(e)$ from above and by 0 from below.
 In this article we will discuss flow networks, where we additionally require the flow of each edge to have a certain amount, i.e. we bound the flow from below by a **demand** function $d(e)$:
+
 $$ d(e) \le f(e) \le c(e)$$
+
 So next each edge has a minimal flow value, that we have to pass along the edge.
 
 This is a generalization of the normal flow problem, since setting $d(e) = 0$ for all edges $e$ gives a normal flow network.

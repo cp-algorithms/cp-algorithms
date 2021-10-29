@@ -1,4 +1,3 @@
-
 ---
 title: Lowest Common Ancestor - O(sqrt(N)) and O(log N) with O(N) preprocessing
 hide:
@@ -32,10 +31,11 @@ So the $\text{LCA}(v_1, v_2)$ can be uniquely determined by finding the vertex w
 Let's illustrate this idea.
 Consider the following graph and the Euler tour with the corresponding heights:
 <center>![LCA_Euler_Tour](LCA_Euler.png)</center>
+
 $$\begin{array}{|l|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-\text{Vertices:}   & 1 & 2 & 5 & 2 & 6 & 2 & 1 & 3 & 1 & 4 & 7 & 4 & 1 \\\\ \hline
-\text{Heights:} & 1 & 2 & 3 & 2 & 3 & 2 & 1 & 2 & 1 & 2 & 3 & 2 & 1 \\\\ \hline
+\text{Vertices:}   & 1 & 2 & 5 & 2 & 6 & 2 & 1 & 3 & 1 & 4 & 7 & 4 & 1 \\ \hline
+\text{Heights:} & 1 & 2 & 3 & 2 & 3 & 2 & 1 & 2 & 1 & 2 & 3 & 2 & 1 \\ \hline
 \end{array}$$
 
 The tour starting at vertex $6$ and ending at $4$ we visit the vertices $[6, 2, 1, 3, 1, 4]$.
@@ -55,7 +55,7 @@ Since there will almost never be any update to the stored values, a [Sparse Tabl
 
 In the following implementation of the LCA algorithm a Segment Tree is used.
 
-```cpp lca
+```{.cpp file=lca}
 struct LCA {
     vector<int> height, euler, first, segtree;
     vector<bool> visited;

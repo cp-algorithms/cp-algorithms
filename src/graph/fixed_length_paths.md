@@ -28,12 +28,15 @@ Let's assume we know the answer for some $k$.
 Here we describe a method how we can construct the answer for $k + 1$.
 Denote by $C_k$ the matrix for the case $k$, and by $C_{k+1}$ the matrix we want to construct.
 With the following formula we can compute every entry of $C_{k+1}$:
+
 $$C_{k+1}[i][j] = \sum_{p = 1}^{n} C_k[i][p] \cdot G[p][j]$$
 
 It is easy to see that the formula computes nothing other than the product of the matrices $C_k$ and $G$:
+
 $$C_{k+1} = C_k \cdot G$$
 
 Thus the solution of the problem can be represented as follows:
+
 $$C_k = \underbrace{G \cdot G \cdots G}_{k \text{ times}} = G^k$$
 
 It remains to note that the matrix products can be raised to a high power efficiently using [Binary exponentiation](../algebra/binary-exp.md).
@@ -55,21 +58,26 @@ Let's assume we know the answer for some $k$.
 We show how we can compute the answer for $k+1$.
 Let us denote $L_k$ the matrix for $k$ and $L_{k+1}$ the matrix we want to build.
 Then the following formula computes each entry of $L_{k+1}$:
+
 $$L_{k+1}[i][j] = \min_{p = 1 \ldots n} \left(L_k[i][p] + G[p][j]\right)$$
 
 When looking closer at this formula, we can draw an analogy with the matrix multiplication:
 in fact the matrix $L_k$ is multiplied by the matrix $G$, the only difference is that instead in the multiplication operation we take the minimum instead of the sum.
+
 $$L_{k+1} = L_k \odot G,$$
+
 where the operation $\odot$ is defined as follows:
+
 $$A \odot B = C~~\Longleftrightarrow~~C_{i j} = \min_{p = 1 \ldots n}\left(A_{i p} + B_{p j}\right)$$
 
 Thus the solution of the task can be represented using the modified multiplication:
+
 $$L_k = \underbrace{G \odot \ldots \odot G}_{k~\text{times}} = G^{\odot k}$$
 
 It remains to note that we also can compute this exponentiation efficiently with [Binary exponentiation](../algebra/binary-exp.md), because the modified multiplication is obviously associative.
 So also this solution has $O(n^3 \log k)$ complexity.
 
-## Generalization of the problems for paths with length up to $k$
+## Generalization of the problems for paths with length up to $k$ {data-toc-label="Generalization of the problems for paths with length up to k"}
 
 The above solutions solve the problems for a fixed $k$.
 However the solutions can be adapted for solving problems for which the paths are allowed to contain no more than $k$ edges.

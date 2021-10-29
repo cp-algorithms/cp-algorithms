@@ -18,13 +18,17 @@ A **flow** in a flow network is function $f$, that again assigns each edge $e$ a
 The function has to fulfill the following two conditions:
 
 The flow of an edge cannot exceed the capacity.
+
 $$f(e) \le c(e)$$
 
 And the sum of the incoming flow of a vertex $u$ has to be equal to the sum of the outgoing flow of $u$ except in the source and sink vertices.
+
 $$\sum_{(v, u) \in E} f((v, u)) = \sum_{(u, v) \in E} f((u, v))$$
+
 The source vertex $s$ only has an outgoing flow, and the sink vertex $t$ has only incoming flow.
 
 It is easy to see that the following equation holds:
+
 $$\sum_{(s, u) \in E} f((s, u)) = \sum_{(u, t) \in E} f((u, t))$$
 
 A good analogy for a flow network is the following visualization:
@@ -127,7 +131,7 @@ The function `maxflow` will return the value of the maximal flow.
 During the algorithm the matrix `capacity` will actually store the residual capacity of the network.
 The value of the flow in each edge will actually not be stored, but it is easy to extend the implementation - by using an additional matrix - to also store the flow and return it.
 
-```cpp edmondskarp
+```{.cpp file=edmondskarp}
 int n;
 vector<vector<int>> capacity;
 vector<vector<int>> adj;
