@@ -1,4 +1,8 @@
-<!--?title Linear Congruence Equation -->
+---
+title: Linear Congruence Equation
+hide:
+  - navigation
+---
 # Linear Congruence Equation
 
 This equation is of the form:

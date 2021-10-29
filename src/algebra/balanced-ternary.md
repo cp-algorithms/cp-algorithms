@@ -1,4 +1,8 @@
-<!--?title Balanced Ternary-->
+---
+title: Balanced Ternary
+hide:
+  - navigation
+---
 # Balanced Ternary
 
 !["Setun computer using Balanced Ternary system"](http://ternary.3neko.ru/photo/setun1_small.jpg)
@@ -54,6 +58,7 @@ Let us process it from the least significant (rightmost) digit:
 The final result is `1Z101`.
 
 Let us convert it back to the decimal system by adding the weighted positional values:
+
 $$ 1Z101 = 81 \cdot 1 + 27 \cdot (-1) + 9 \cdot 1 + 3 \cdot 0 + 1 \cdot 1 = 64_{10} $$
 
 **Example 2:** Let us convert `237` to balanced ternary. At first we use normal ternary to rewrite the number:

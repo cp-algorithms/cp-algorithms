@@ -1,5 +1,7 @@
 ---
 title: Fast Fourier transform
+hide:
+  - navigation
 ---
 # Fast Fourier transform
 

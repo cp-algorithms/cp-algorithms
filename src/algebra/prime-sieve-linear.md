@@ -1,5 +1,8 @@
-<!--?title Linear Sieve -->
-
+---
+title: Linear Sieve
+hide:
+  - navigation
+---
 # Linear Sieve
 
 Given a number $n$, find all prime numbers in a segment $[2;n]$.
@@ -64,11 +67,11 @@ We need to prove that the algorithm sets all values $lp []$ correctly, and that 
 
 Notice that every number $i$ has exactly one representation in form:
 
-$i = lp [i] \cdot x$ ,
+$$i = lp [i] \cdot x,$$
 
 where $lp [i]$ is the minimal prime factor of $i$, and the number $x$ doesn't have any prime factors less than $lp [i]$, i.e.
 
-$lp [i] \le lp [x]$.
+$$lp [i] \le lp [x].$$
 
 Now, let's compare this with the actions of our algorithm: in fact, for every $x$ it goes through all prime numbers it could be multiplied by, i.e. all prime numbers up to $lp [x]$ inclusive, in order to get the numbers in the form given above.
 

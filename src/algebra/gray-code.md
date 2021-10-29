@@ -1,4 +1,8 @@
-<!--?title Gray Code-->
+---
+title: Gray Code
+hide:
+  - navigation
+---
 
 # Gray code
 
@@ -25,10 +29,10 @@ Given Gray code $g$, restore the original number $n$.
 We will move from the most significant bits to the least significant ones (the least significant bit has index 1 and the most significant bit has index $k$). The relation between the bits $n_i$ of number $n$ and the bits $g_i$ of number $g$:
 
 $$\begin{align}
-  n_k &= g_k, \\\\
-  n_{k-1} &= g_{k-1} \oplus n_k = g_k \oplus g_{k-1}, \\\\
-  n_{k-2} &= g_{k-2} \oplus n_{k-1} = g_k \oplus g_{k-1} \oplus g_{k-2}, \\\\
-  n_{k-3} &= g_{k-3} \oplus n_{k-2} = g_k \oplus g_{k-1} \oplus g_{k-2} \oplus g_{k-3}, \\\\
+  n_k &= g_k, \\
+  n_{k-1} &= g_{k-1} \oplus n_k = g_k \oplus g_{k-1}, \\
+  n_{k-2} &= g_{k-2} \oplus n_{k-1} = g_k \oplus g_{k-1} \oplus g_{k-2}, \\
+  n_{k-3} &= g_{k-3} \oplus n_{k-2} = g_k \oplus g_{k-1} \oplus g_{k-2} \oplus g_{k-3},
   \vdots
 \end{align}$$
 

@@ -1,4 +1,8 @@
-<!--?title Arbitrary-Precision Arithmetic -->
+---
+title: Arbitrary
+hide:
+  - navigation
+---
 
 # Arbitrary-Precision Arithmetic
 

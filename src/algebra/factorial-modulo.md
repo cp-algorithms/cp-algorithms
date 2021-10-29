@@ -1,4 +1,8 @@
-<!--?title Factorial modulo P -->
+---
+title: Factorial modulo P 
+hide:
+  - navigation
+---
 # Factorial modulo $p$
 
 In some cases it is necessary to consider complex formulas modulo some prime $p$, containing factorials in both numerator and denominator, like such that you encounter in the formula for Binomial coefficients.
@@ -9,8 +13,8 @@ But in fractions the factors of $p$ can cancel, and the resulting expression wil
 
 Thus, formally the task is: You want to calculate $n! \bmod p$, without taking all the multiple factors of $p$ into account that appear in the factorial.
 Imaging you write down the prime factorization of $n!$, remove all factors $p$, and compute the product modulo $p$.
-We will denote this *modified* factorial with $n!\_{\%p}$.
-For instance $7!_{\%p} \equiv 1 \cdot 2 \cdot \underbrace{1}\_{3} \cdot 4 \cdot 5 \underbrace{2}\_{6} \cdot 7 \equiv 2 \bmod 3$.
+We will denote this *modified* factorial with $n!_{\%p}$.
+For instance $7!_{\%p} \equiv 1 \cdot 2 \cdot \underbrace{1}_{3} \cdot 4 \cdot 5 \underbrace{2}_{6} \cdot 7 \equiv 2 \bmod 3$.
 
 Learning how to effectively calculate this modified factorial allows us to quickly calculate the value of the various combinatorial formulas (for example, [Binomial coefficients](../combinatorics/binomial-coefficients.md)).
 
@@ -18,17 +22,17 @@ Learning how to effectively calculate this modified factorial allows us to quick
 Let's write this modified factorial explicitly.
 
 $$\begin{eqnarray}
-n!_{\%p} &=& 1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot \underbrace{1}\_{p} \cdot (p+1) \cdot (p+2) \cdot \ldots \cdot (2p-1) \cdot \underbrace{2}\_{2p} \\\
- & &\quad \cdot (2p+1) \cdot \ldots \cdot (p^2-1) \cdot \underbrace{1}\_{p^2} \cdot (p^2 +1) \cdot \ldots \cdot n \pmod{p} \\\\
-&=& 1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot \underbrace{1}\_{p} \cdot 1 \cdot 2 \cdot \ldots \cdot (p-1) \cdot \underbrace{2}\_{2p} \cdot 1 \cdot 2 \\\
-& &\quad \cdot \ldots \cdot (p-1) \cdot \underbrace{1}\_{p^2} \cdot 1 \cdot 2 \cdot \ldots \cdot (n \bmod p) \pmod{p}
+n!_{\%p} &=& 1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot \underbrace{1}_{p} \cdot (p+1) \cdot (p+2) \cdot \ldots \cdot (2p-1) \cdot \underbrace{2}_{2p} \\\
+ & &\quad \cdot (2p+1) \cdot \ldots \cdot (p^2-1) \cdot \underbrace{1}_{p^2} \cdot (p^2 +1) \cdot \ldots \cdot n \pmod{p} \\\\
+&=& 1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot \underbrace{1}_{p} \cdot 1 \cdot 2 \cdot \ldots \cdot (p-1) \cdot \underbrace{2}_{2p} \cdot 1 \cdot 2 \\\
+& &\quad \cdot \ldots \cdot (p-1) \cdot \underbrace{1}_{p^2} \cdot 1 \cdot 2 \cdot \ldots \cdot (n \bmod p) \pmod{p}
 \end{eqnarray}$$
 
 It can be clearly seen that factorial is divided into several blocks of same length except for the last one.
 
 $$\begin{eqnarray}
-n!_{\%p}&=& \underbrace{1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot 1}\_{1\text{st}} \cdot \underbrace{1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot 2}\_{2\text{nd}} \cdot \ldots \\\\
-& & \cdot \underbrace{1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot 1}\_{p\text{th}} \cdot \ldots \cdot \quad \underbrace{1 \cdot 2 \cdot \cdot \ldots \cdot (n \bmod p)}\_{\text{tail}} \pmod{p}.
+n!_{\%p}&=& \underbrace{1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot 1}_{1\text{st}} \cdot \underbrace{1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot 2}_{2\text{nd}} \cdot \ldots \\\\
+& & \cdot \underbrace{1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot 1}_{p\text{th}} \cdot \ldots \cdot \quad \underbrace{1 \cdot 2 \cdot \cdot \ldots \cdot (n \bmod p)}_{\text{tail}} \pmod{p}.
 \end{eqnarray}$$
 
 The main part of the blocks it is easy to count — it's just $(p-1)!\ \mathrm{mod}\ p$.

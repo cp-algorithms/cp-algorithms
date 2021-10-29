@@ -1,4 +1,8 @@
-<!--?title Discrete Root -->
+---
+title: Discrete Root 
+hide:
+  - navigation
+---
 
 # Discrete Root
 

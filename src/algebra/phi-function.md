@@ -1,4 +1,8 @@
-<!--?title Euler's totient function-->
+---
+title: Euler's totient function
+hide:
+  - navigation
+---
 # Euler's totient function
 
 Euler's totient function, also known as **phi-function** $\phi (n)$, counts the number of integers between 1 and $n$ inclusive, which are coprime to $n$. Two numbers are coprime if their greatest common divisor equals $1$ ($1$ is considered to be coprime to any number).
@@ -15,23 +19,26 @@ n & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 
 The following properties of Euler totient function are sufficient to calculate it for any number:
 
   - If $p$ is a prime number, then $\gcd(p, q) = 1$ for all $1 \le q < p$. Therefore we have:
-    $$\phi (p) = p - 1.$$
+  
+$$\phi (p) = p - 1.$$
 
   - If $p$ is a prime number and $k \ge 1$, then there are exactly $p^k / p$ numbers between $1$ and $p^k$ that are divisible by $p$.
     Which gives us:
-    $$\phi(p^k) = p^k - p^{k-1}.$$
+    
+$$\phi(p^k) = p^k - p^{k-1}.$$
 
-<ul><li>If $a$ and $b$ are relatively prime, then:
-    $$\phi(a b) = \phi(a) \cdot \phi(b).$$
+  - If $a$ and $b$ are relatively prime, then:
+    
+    \[\phi(a b) = \phi(a) \cdot \phi(b).\]
+    
     This relation is not trivial to see. It follows from the [Chinese remainder theorem](chinese-remainder-theorem.md). The Chinese remainder theorem guarantees, that for each $0 \le x < a$ and each $0 \le y < b$, there exists a unique $0 \le z < a b$ with $z \equiv x \pmod{a}$ and $z \equiv y \pmod{b}$. It's not hard to show that $z$ is coprime to $a b$ if and only if $x$ is coprime to $a$ and $y$ is coprime to $b$. Therefore the amount of integers coprime to $a b$ is equal to product of the amounts of $a$ and $b$.
-</li>
 
-<li>
-In general, for not coprime $a$ and $b$, the equation
-$$\phi(ab) = \phi(a) \cdot \phi(b) \cdot \dfrac{d}{\phi(d)}$$
-with $d = \gcd(a, b)$ holds.
-</li>
-</ul>
+
+  - In general, for not coprime $a$ and $b$, the equation
+
+    \[\phi(ab) = \phi(a) \cdot \phi(b) \cdot \dfrac{d}{\phi(d)}\]
+
+    with $d = \gcd(a, b)$ holds.
 
 Thus, using the first three properties, we can compute $\phi(n)$ through the factorization of $n$ (decomposition of $n$ into a product of its prime factors).
 If $n = {p_1}^{a_1} \cdot {p_2}^{a_2} \cdots {p_k}^{a_k}$, where $p_i$ are prime factors of $n$,
@@ -63,7 +70,7 @@ int phi(int n) {
 }
 ```
 
-## Euler totient function from $1$ to $n$ in $O(n \log\log{n})$ ## {#etf_1_to_n}
+## Euler totient function from $1$ to $n$ in $O(n \log\log{n})$ { #etf_1_to_n data-toc-label="Euler totient function from 1 to n in <script type=\"math/tex\">O(n log log n)</script>" }
 
 If we need all all the totient of all numbers between $1$ and $n$, then factorizing all $n$ numbers is not efficient.
 We can use the same idea as the [Sieve of Eratosthenes](sieve-of-eratosthenes.md).
@@ -89,7 +96,7 @@ void phi_1_to_n(int n) {
 ```
 
 
-## Divisor sum property ## {#divsum}
+## Divisor sum property {#divsum}
 
 This interesting property was established by Gauss:
 
@@ -100,7 +107,7 @@ Here the sum is over all positive divisors $d$ of $n$.
 For instance the divisors of 10 are 1, 2, 5 and 10.
 Hence $\phi{(1)} + \phi{(2)} + \phi{(5)} + \phi{(10)} = 1 + 1 + 4 + 4 = 10$.
 
-### Finding the totient from 1 to $n$ using the divisor sum property
+### Finding the totient from 1 to $n$ using the divisor sum property { data-toc-label="Finding the totient from 1 to n using the divisor sum property" }
 
 The divisor sum property also allows us to compute the totient of all numbers between 1 and $n$.
 This implementation is a little simpler than the previous implementation based on the Sieve of Eratosthenes, however also has a slightly worse complexity: $O(n \log n)$
@@ -119,24 +126,29 @@ void phi_1_to_n(int n) {
 }
 ```
 
-## Application in Euler's theorem ## {#application}
+## Application in Euler's theorem { #application }
 
 The most famous and important property of Euler's totient function is expressed in **Euler's theorem**: 
-$$a^{\phi(m)} \equiv 1 \pmod m$$ if $a$ and $m$ are relatively prime.
+
+$$a^{\phi(m)} \equiv 1 \pmod m \quad \text{if } a \text{ and } m \text{ are relatively prime.}$$
 
 In the particular case when $m$ is prime, Euler's theorem turns into **Fermat's little theorem**:
+
 $$a^{m - 1} \equiv 1 \pmod m$$
 
 Euler's theorem and Euler's totient function occur quite often in practical applications, for example both are used to compute the [modular multiplicative inverse](module-inverse.md).
 
 As immediate consequence we also get the equivalence:
+
 $$a^n \equiv a^{n \bmod \phi(m)} \pmod m$$
+
 This allows computing $x^n \bmod m$ for very big $n$, especially if $n$ is the result of another computation, as it allows to compute $n$ under a modulo.
 
 ## Generalization
 
 There is a less known version of the last equivalence, that allows computing $x^n \bmod m$ efficiently for not coprime $x$ and $m$.
 For arbitrary $x, m$ and $n \geq \log_2 m$:
+
 $$x^{n}\equiv x^{\phi(m)+[n \bmod \phi(m)]} \mod m$$
 
 Proof:
@@ -146,10 +158,10 @@ With those we define $a = p_1^{k_1} \dots p_t^{k_t}$, which makes $\frac{m}{a}$ 
 And let $k$ be the smallest number such that $a$ divides $x^k$.
 Assuming $n \ge k$, we can write:
 
-$$\begin{align}x^n \bmod m &= \frac{x^k}{a}ax^{n-k}\bmod m \\\\
-&= \frac{x^k}{a}\left(ax^{n-k}\bmod m\right) \bmod m \\\\
-&= \frac{x^k}{a}\left(ax^{n-k}\bmod a \frac{m}{a}\right) \bmod m \\\\
-&=\frac{x^k}{a} a \left(x^{n-k} \bmod \frac{m}{a}\right)\bmod m \\\\
+$$\begin{align}x^n \bmod m &= \frac{x^k}{a}ax^{n-k}\bmod m \\
+&= \frac{x^k}{a}\left(ax^{n-k}\bmod m\right) \bmod m \\
+&= \frac{x^k}{a}\left(ax^{n-k}\bmod a \frac{m}{a}\right) \bmod m \\
+&=\frac{x^k}{a} a \left(x^{n-k} \bmod \frac{m}{a}\right)\bmod m \\
 &= x^k\left(x^{n-k} \bmod \frac{m}{a}\right)\bmod m
 \end{align}$$
 
@@ -157,11 +169,13 @@ The equivalence between the third and forth line follows from the fact that $ab 
 Indeed if $b = cd + r$ with $r < c$, then $ab = acd + ar$ with $ar < ac$.
 
 Since $x$ and $\frac{m}{a}$ are coprime, we can apply Euler's theorem and get the efficient (since $k$ is very small; in fact $k \le \log_2 m$) formula:
+
 $$x^n \bmod m = x^k\left(x^{n-k \bmod \phi(\frac{m}{a})} \bmod \frac{m}{a}\right)\bmod m.$$
 
 This formula is difficult to apply, but we can use it to analyze the behavior of $x^n \bmod m$. We can see that the sequence of powers $(x^1 \bmod m, x^2 \bmod m, x^3 \bmod m, \dots)$ enters a cycle of length $\phi\left(\frac{m}{a}\right)$ after the first $k$ (or less) elements. 
 $\phi\left(\frac{m}{a}\right)$ divides $\phi(m)$ (because $a$ and $\frac{m}{a}$ are coprime we have $\phi(a) \cdot \phi\left(\frac{m}{a}\right) = \phi(m)$), therefore we can also say that the period has length $\phi(m)$.
 And since $\phi(m) \ge \log_2 m \ge k$, we can conclude the desired, much simpler, formula:
+
 $$ x^n \equiv x^{\phi(m)} x^{(n - \phi(m)) \bmod \phi(m)} \bmod m \equiv x^{\phi(m)+[n \bmod \phi(m)]} \mod m.$$
 
 ## Practice Problems  

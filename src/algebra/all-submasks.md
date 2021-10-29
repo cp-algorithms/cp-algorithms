@@ -1,4 +1,8 @@
-<!--?title Submask Enumeration -->
+---
+title: Submask Enumeration 
+hide:
+  - navigation
+---
 
 # Submask Enumeration
 

@@ -1,11 +1,17 @@
-<!--?title Modular Inverse -->
+---
+title: Modular Inverse
+hide:
+  - navigation
+---
 # Modular Multiplicative Inverse
 
 ## Definition
 
 A [modular multiplicative inverse](http://en.wikipedia.org/wiki/Modular_multiplicative_inverse) of an integer $a$ is an integer $x$ such that $a \cdot x$ is congruent to $1$ modular some modulus $m$.
 To write it in a formal way: we want to find an integer $x$ so that 
+
 $$a \cdot x \equiv 1 \mod m.$$
+
 We will also denote $x$ simply with $a^{-1}$.
 
 We should note that the modular inverse does not always exist. For example, let $m = 4$, $a = 2$. 
@@ -69,7 +75,7 @@ From these results, we can easily find the modular inverse using the [binary exp
 
 Even though this method is easier to understand than the method described in previous paragraph, in the case when $m$ is not a prime number, we need to calculate Euler phi function, which involves factorization of $m$, which might be very hard. If the prime factorization of $m$ is known, then the complexity of this method is $O(\log m)$.
 
-## Finding the modular inverse for every number modulo $m$ {#mod-inv-all-num}
+## Finding the modular inverse for every number modulo $m$ {#mod-inv-all-num data-toc-label="Finding the modular inverse for every number modulo m"}
 
 The problem is the following: 
 we want to compute the modular inverse for every number in the range $[1, m-1]$.
@@ -94,12 +100,19 @@ for(int i = 2; i < m; ++i)
 ### Proof
 
 We have:
+
 $$m \bmod i = m -  \left\lfloor \frac{m}{i} \right\rfloor \cdot i$$
+
 Taking both sides modulo $m$ yields:
+
 $$m \bmod i \equiv - \left\lfloor \frac{m}{i} \right\rfloor \cdot i \mod m$$
+
 Multiply both sides by $i^{-1} \cdot (m \bmod i)^{-1}$ yields
+
 $$(m \bmod i) \cdot i^{-1} \cdot (m \bmod i)^{-1} \equiv -\left\lfloor \frac{m}{i} \right\rfloor \cdot i \cdot i^{-1} \cdot (m \bmod i)^{-1} \mod m,$$
+
 which simplifies to:
+
 $$i^{-1} \equiv -\left\lfloor \frac{m}{i} \right\rfloor \cdot (m \bmod i)^{-1} \mod m,$$
 
 

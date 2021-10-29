@@ -3,7 +3,6 @@ title: Rabin-Karp Algorithm for string matching
 hide:
   - navigation
 ---
-
 # Rabin-Karp Algorithm for string matching
 
 This algorithm is based on the concept of hashing, so if you are not familiar with string hashing, refer to the [string hashing](string-hashing.md) article.
@@ -19,7 +18,7 @@ So, compare each substring of length $|s|$ with the pattern. This will take a to
 Hence the final complexity of the algorithm is $O(|t| + |s|)$: $O(|s|)$ is required for calculating the hash of the pattern and $O(|t|)$ for comparing each substring of length $|s|$ with the pattern.
 
 ## Implementation
-```cpp rabin_karp
+```{.cpp file=rabin_karp}
 vector<int> rabin_karp(string const& s, string const& t) {
     const int p = 31; 
     const int m = 1e9 + 9;

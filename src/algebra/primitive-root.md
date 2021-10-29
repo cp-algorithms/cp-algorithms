@@ -1,5 +1,8 @@
-<!--?title Primitive Root -->
-
+---
+title: Primitive Root
+hide:
+  - navigation
+---
 # Primitive Root
 
 ## Definition

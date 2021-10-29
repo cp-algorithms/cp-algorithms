@@ -38,10 +38,12 @@ And we will discuss some techniques in this article how to keep the probability 
 ## Calculation of the hash of a string
 
 The good and widely used way to define the hash of a string $s$ of length $n$ is
+
 $$\begin{align}
-\text{hash}(s) &= s[0] + s[1] \cdot p + s[2] \cdot p^2 + ... + s[n-1] \cdot p^{n-1} \mod m \\\\
+\text{hash}(s) &= s[0] + s[1] \cdot p + s[2] \cdot p^2 + ... + s[n-1] \cdot p^{n-1} \mod m \\
 &= \sum_{i=0}^{n-1} s[i] \cdot p^i \mod m,
 \end{align}$$
+
 where $p$ and $m$ are some chosen, positive numbers.
 It is called a **polynomial rolling hash function**.
 
@@ -63,7 +65,7 @@ We convert each character of $s$ to an integer.
 Here we use the conversion $a \rightarrow 1$, $b \rightarrow 2$, $\dots$, $z \rightarrow 26$.
 Converting $a \rightarrow 0$ is not a good idea, because then the hashes of the strings $a$, $aa$, $aaa$, $\dots$ all evaluate to $0$.
 
-```cpp hashing_function
+```{.cpp file=hashing_function}
 long long compute_hash(string const& s) {
     const int p = 31;
     const int m = 1e9 + 9;
@@ -90,7 +92,7 @@ However, by using hashes, we reduce the comparison time to $O(1)$, giving us an 
 
 We calculate the hash for each string, sort the hashes together with the indices, and then group the indices by identical hashes.
 
-```cpp hashing_group_identical_strings
+```{.cpp file=hashing_group_identical_strings}
 vector<vector<int>> group_identical_strings(vector<string> const& s) {
     int n = s.size();
     vector<pair<long long, int>> hashes(n);
@@ -114,10 +116,13 @@ vector<vector<int>> group_identical_strings(vector<string> const& s) {
 Problem: Given a string $s$ and indices $i$ and $j$, find the hash of the substring $s [i \dots j]$.
 
 By definition, we have:
+
 $$\text{hash}(s[i \dots j]) = \sum_{k = i}^j s[k] \cdot p^{k-i} \mod m$$
+
 Multiplying by $p^i$ gives:
+
 $$\begin{align}
-\text{hash}(s[i \dots j]) \cdot p^i &= \sum_{k = i}^j s[k] \cdot p^k \mod m \\\\
+\text{hash}(s[i \dots j]) \cdot p^i &= \sum_{k = i}^j s[k] \cdot p^k \mod m \\
 &= \text{hash}(s[0 \dots j]) - \text{hash}(s[0 \dots i-1]) \mod m
 \end{align}$$
 
@@ -151,7 +156,7 @@ This number is added to the final answer.
 
 For convenience, we will use $h[i]$ as the hash of the prefix with $i$ characters, and define $h[0] = 0$.
 
-```cpp hashing_count_unique_substrings
+```{.cpp file=hashing_count_unique_substrings}
 int count_unique_substrings(string const& s) {
     int n = s.size();
     
