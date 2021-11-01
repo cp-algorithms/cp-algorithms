@@ -2,6 +2,8 @@ site_name: cp-algorithms
 docs_dir: src
 theme:
   name: material
+repo_url: https://github.com/e-maxx-eng/e-maxx-eng
+edit_uri: edit/master/src/
 markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
