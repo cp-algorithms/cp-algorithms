@@ -12,7 +12,7 @@ def extract_tests(filepath):
     filepath_short = os.path.basename(filepath) 
     article_name = filepath_short.split('.')[0]
 
-    snippet_start = re.compile(r"^```cpp\s+(\S+)$")
+    snippet_start = re.compile(r"^```\{.cpp\s+file=(\S+)\}$")
     snippet_end = re.compile(r"^```$")
 
     with open(filepath) as f:
