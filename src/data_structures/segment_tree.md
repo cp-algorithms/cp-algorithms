@@ -332,7 +332,7 @@ This interesting variation of the Segment Tree can be solved in exactly the same
 it is enough to store the GCD / LCM of the corresponding vertex in each vertex of the tree. 
 Combining two vertices can be done by computing the GCM / LCM of both vertices.
 
-#### <a name="counting-zero-search-kth"></a>Counting the number of zeros, searching for the $k$-th zero
+#### Counting the number of zeros, searching for the $k$-th zero {#counting-zero-search-kth data-toc-label="Counting the number of zeros, searching for the k-th zero"}
 
 In this problem we want to find the number of zeros in a given range, and additionally find the index of the $k$-th zero using a second function.
 
