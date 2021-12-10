@@ -14,7 +14,7 @@ In order to make contribution consider the following steps:
 1. Fork [source repository](https://github.com/e-maxx-eng/e-maxx-eng).
 2. Add or modify files in `src` subfolder in Markdown format (you can do this in web-interface of github now).
 3. Make sure you added `<!--?title ... -->` to your page and the corresponding link to main (index) page.
-3. Use [Test-Your-Page form](./test.php) to check if you are satisfied with the result.
+3. Use [Test-Your-Page form](./preview.html) to check if you are satisfied with the result.
 4. Use `pull-request` feature to send the request for your changes to be merged.
 5. It may take few hours or few days before someone who have admin rights will merge your request. Contact any of admins personally to speed up this process!
 6. After merging it will take about 5 minutes before updated html page will appear at the site.
