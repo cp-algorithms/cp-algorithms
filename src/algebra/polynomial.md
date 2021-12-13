@@ -88,30 +88,37 @@ Thus starting with $B_0 \equiv a_0^{-1} \pmod x$ we will compute the sequence $B
 
 The algorithm here might seem a bit more complicated than the first one, but it has a very solid and practical reasoning behind it, as well as a great generalization potential if looked from a different perspective, which would be explained further below.
 
-### Division with remainder
+### Euclidean division
 
-Consider two polynomials $A(x)$ and $B(x)$ of degrees $n$ and $m$. As it was said earlier you can rewrite $A(x)$ as:
+Consider two polynomials $A(x)$ and $B(x)$ of degrees $n$ and $m$. As it was said earlier you can rewrite $A(x)$ as
 
-$$A(x) = B(x) D(x) + R(x), \deg R < \deg B$$
+$$A(x) = B(x) D(x) + R(x), \deg R < \deg B.$$
 
-Let $n \geq m$, then you can immediately find out that $\deg D = n - m$ and that leading $n-m+1$ coefficients of $A$ don't influence $R$.
+Let $n \geq m$, it would imply that $\deg D = n - m$ and the leading $n-m+1$ coefficients of $A$ don't influence $R$. It means that you can recover $D(x)$ from the largest $n-m+1$ coefficients of $A(x)$ and $B(x)$ if you consider it as a system of equations.
 
-That means that you can recover $D(x)$ from the largest $n-m+1$ coefficients of $A(x)$ and $B(x)$ if you consider it as a system of equations.
+The system of linear equations we're talking about can be written in the following form:
+$$\begin{bmatrix} a_n \\ \vdots \\ a_{m+1} \\ a_{m} \end{bmatrix} = \begin{bmatrix}
+b_m & \dots & 0 & 0 \\
+\vdots & \ddots & \vdots & \vdots \\
+\dots & \dots & b_m & 0 \\
+\dots & \dots & b_{m-1} & b_m
+\end{bmatrix} \begin{bmatrix}d_{n-m} \\ \vdots \\ d_1 \\ d_0\end{bmatrix}$$
 
-The formal way to do it is to consider the reversed polynomials:
+From the looks of it, we can conclude that with the introduction of reversed polynomials
 $$A^R(x) = x^nA(x^{-1})= a_n + a_{n-1} x + \dots + a_0 x^n$$
 $$B^R(x) = x^m B(x^{-1}) = b_m + b_{m-1} x + \dots + b_0 x^m$$
 $$D^R(x) = x^{n-m}D(x^{-1}) = d_{n-m} + d_{n-m-1} x + \dots + d_0 x^{n-m}$$
 
-Using these terms you can rewrite that statement about the largest $n-m+1$ coefficients as:
 
-$$A^R(x) \equiv B^R(x) D^R(x) \pmod{x^{n-m+1}}$$
+The system may be rewritten as
 
-From which you can unambiguously recover all coefficients of $D(x)$:
+$$A^R(x) \equiv B^R(x) D^R(x) \pmod{x^{n-m+1}}.$$
+
+From this you can unambiguously recover all coefficients of $D(x)$:
 
 $$\boxed{D^R(x) \equiv A^R(x) (B^R(x))^{-1} \pmod{x^{n-m+1}}}$$
 
-And from this in turn you can easily recover $R(x)$ as $R(x) = A(x) - B(x)D(x)$.
+And from this, in turn, you can recover $R(x)$ as $R(x) = A(x) - B(x)D(x)$.
 
 ## Calculating functions of polynomial
 
