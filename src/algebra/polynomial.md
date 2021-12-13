@@ -6,24 +6,30 @@ In this article we will cover common operations that you will probably have to d
 
 ## Basic Notion and Facts
 
-Consider a polynomial $A(x) = a_0 + a_1 x + \dots + a_n x^n$ such that $a_n \neq 0$.
+Let $A(x) = a_0 + a_1 x + \dots + a_n x^n$ be a polynomial over some field $\mathbb F$. It For simplicity we will write $A$ instead of $A(x)$ wherever possible, which will be understandable from the context. It is assumed that either $a_n \neq 0$ or $A(x)=0$.
 
-- For simplicity we will write $A$ instead of $A(x)$ wherever possible, which will be understandable from the context.
-- We will define the degree of polynomial $A$ as $\deg A = n$. It is convenient to say that $\deg A = -\infty$ for $A(x) = 0$.
-- For arbitrary polynomials $A$ and $B$ it holds that $\deg AB = \deg A + \deg B$.
-- Polynomials form an euclidean ring which means that for any polynomials $A$ and $B \neq 0$ we can uniquely represent $A$ as: $$A = D \cdot B + R,~ \deg R < \deg B.$$ Here $R$ is called remainder of $A$ modulo $B$ and $D$ is called quotient.
-- If $A$ and $B$ have the same remainder modulo $C$, they're said to be equivalent modulo $C$, which is denoted as: $$A \equiv B \pmod{C}$$
-- For any linear polynomial $x-r$ it holds that: $$A(x) \equiv A(r) \pmod{x-r}$$
-- In particular: $$A(r) = 0 \iff A(x) \equiv 0 \pmod {x-r}$$ Which means that $A$ is divisible by $x-r$ $\iff$ $A(r)=0$.
-- If $A \equiv B \pmod{C \cdot D}$ then $A \equiv B \pmod{C}$
-- $A \equiv a_0 + a_1 x + \dots + a_{k-1} x^{k-1} \pmod{x^k}$
+The degree of polynomial $A$ with $a_n \neq 0$ is defined as $\deg A = n$. For consistency, degree of $A(x) = 0$ is defined as $\deg A = -\infty$. In this notion, $\deg AB = \deg A + \deg B$ for arbitrary polynomials $A$ and $B$.
+
+Polynomials form an euclidean ring which means that for any polynomials $A$ and $B \neq 0$ we can uniquely represent $A$ as $$A = D \cdot B + R,~ \deg R < \deg B.$$ Here $R$ is the remainder of $A$ modulo $B$ and $D$ is called the quotient. If $A$ and $B$ have the same remainder modulo $C$, they're said to be equivalent modulo $C$, which is denoted as $A \equiv B \pmod{C}$. Several important properties of polynomial euclidean division:
+
+- $A$ is a multiple of $B$ if and only if $A \equiv 0 \pmod B$.
+
+- It implies that $A \equiv B \pmod C$ if and only if $A-B$ is a multiple of $C$.
+
+- In particular, $A \equiv B \pmod{C \cdot D}$ implies $A \equiv B \pmod{C}$.
+
+- For any linear polynomial $x-r$ it holds that $A(x) \equiv A(r) \pmod{x-r}$.
+
+- It implies that $A$ is a multiple of $x-r$ if and only if $A(r)=0$.
+
+- For modulo being $x^k$, it holds that $A \equiv a_0 + a_1 x + \dots + a_{k-1} x^{k-1} \pmod{x^k}$.
 
 ## Basic implementation
 [Here](https://github.com/e-maxx-eng/e-maxx-eng-aux/blob/master/src/polynomial.cpp) you can find the basic implementation of polynomial algebra.
 
-It supports all trivial operations and some other useful methods. The main class is `poly<T>` for polynomials with coefficients of class `T`.
+It supports all trivial operations and some other useful methods. The main class is `poly<T>` for polynomials with coefficients of type `T`.
 
-All arithmetic operation `+`, `-`, `*`, `%` and `/` are supported, `%` and `/` standing for remainder and quotient in integer division.
+All arithmetic operation `+`, `-`, `*`, `%` and `/` are supported, `%` and `/` standing for remainder and quotient in euclidean division.
 
 There is also the class `modular<m>` for performing arithmetic operations on remainders modulo a prime number `m`.
 
