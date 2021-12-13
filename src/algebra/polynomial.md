@@ -55,10 +55,10 @@ Other useful functions:
 
 ### Multiplication
 
-The very core operation is the multiplication of two polynomials, that is, given polynomial $A$ and $B$:
+The very core operation is the multiplication of two polynomials. That is, given the polynomials $A$ and $B$:
 $$A = a_0 + a_1 x + \dots + a_n x^n$$
 $$B = b_0 + b_1 x + \dots + b_m x^m$$
-You have to compute polynomial $C = A \cdot B$: $$\boxed{C = \sum\limits_{i=0}^n \sum\limits_{j=0}^m a_i b_j x^{i+j}}  = c_0 + c_1 x + \dots + c_{n+m} x^{n+m}$$
+You have to compute polynomial $C = A \cdot B$, which is defined as $$\boxed{C = \sum\limits_{i=0}^n \sum\limits_{j=0}^m a_i b_j x^{i+j}}  = c_0 + c_1 x + \dots + c_{n+m} x^{n+m}.$$
 It can be computed in $O(n \log n)$ via the [Fast Fourier transform](./algebra/fft.html) and almost all methods here will use it as subroutine.
 
 ### Inverse series
