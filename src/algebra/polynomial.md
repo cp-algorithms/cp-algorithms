@@ -125,23 +125,29 @@ Note that the matrix above is a so-called triangular [Toeplitz matrix](https://e
 ## Calculating functions of polynomial
 
 ### Newton's method
-Let's generalize the inverse series approach.
-You want to find a polynomial $P(x)$ satisfying $F(P) = 0$ where $F(x)$ is some function represented as:
-$$F(x) = \sum\limits_{i=0}^\infty \alpha_i (x-\beta)^k$$
+Let's generalize the Sieveking–Kung algorithm. Consider equation $F(P) = 0$ where $P(x)$ should be a polynomial and $F(x)$ is some polynomial-valued function defined as
+$$F(x) = \sum\limits_{i=0}^\infty \alpha_i (x-\beta)^k,$$
 
-Where $\beta$ is some constant. It can be proven that if we introduce a new formal variable $y$, we can express $F(x)$ as:
-$$F(x) = F(y) + (x-y)F'(y) + (x-y)^2 G(x,y)$$
+where $\beta$ is some constant. It can be proven that if we introduce a new formal variable $y$, we can express $F(x)$ as $$F(x) = F(y) + (x-y)F'(y) + (x-y)^2 G(x,y),$$
 
-Where $F'(x)$ is the derivative formal power series defined as $F'(x) = \sum\limits_{i=0}^\infty (k+1)\alpha_{i+1}(x-\beta)^k$ and $G(x, y)$ is some formal power series of $x$ and $y$.
+where $F'(x)$ is the derivative formal power series defined as $$F'(x) = \sum\limits_{i=0}^\infty (k+1)\alpha_{i+1}(x-\beta)^k,$$ and $G(x, y)$ is some formal power series of $x$ and $y$. With this result we can find the solution iteratively.
 
-Given this we can find the coefficients of the solution iteratively:
+Let $F(Q_k) \equiv 0 \pmod{x^{a}}$. We need to find $Q_{k+1} \equiv Q_k + x^a C \pmod{x^{2a}}$ such that $F(Q_{k+1}) \equiv 0 \pmod{x^{2a}}$.
 
-1. Assume that $F(Q_k) \equiv 0 \pmod{x^{a}}$, we want to find $Q_{k+1} \equiv Q_k + x^a C \pmod{x^{2a}}$ such that $F(Q_{k+1}) \equiv 0 \pmod{x^{2a}}$.
-2. Pasting $x = Q_{k+1}$ and $y=Q_k$ in the formula above we get: $$F(Q_{k+1}) \equiv F(Q_k) + (Q_{k+1} - Q_k) F'(Q_k) + (Q_{k+1} - Q_k)^2 G(x, y) \pmod x^{2a}$$
-3. Since $Q_{k+1} - Q_k \equiv 0 \pmod{x^a}$ we can say that $(Q_{k+1} - Q_k)^2 \equiv 0 \pmod{x^{2a}}$, thus: $$0 \equiv F(Q_{k+1}) \equiv F(Q_k) + (Q_{k+1} - Q_k) F'(Q_k) \pmod{x^{2a}}$$
-4. From the last formula we derive the value of $Q_{k+1}$: $$\boxed{Q_{k+1} = Q_k - \dfrac{F(Q_k)}{F'(Q_k)} \pmod{x^{2a}}}$$
+Substituting $x = Q_{k+1}$ and $y=Q_k$ in the formula above, we get $$F(Q_{k+1}) \equiv F(Q_k) + (Q_{k+1} - Q_k) F'(Q_k) + (Q_{k+1} - Q_k)^2 G(x, y) \pmod x^{2a}.$$
 
-Thus knowing how to invert arbitrary polynomial and how to compute $F(Q_k)$ quickly, we can find $n$ coefficients of $P$ with the complexity: $$T(n) = T(n/2) + f(n)$$ Where $f(n)$ is the maximum of $O(n \log n)$ needed to invert series and time needed to compute $F(Q_k)$ which is usually also $O(n \log n)$.
+Since $Q_{k+1} - Q_k \equiv 0 \pmod{x^a}$, it also holds that $(Q_{k+1} - Q_k)^2 \equiv 0 \pmod{x^{2a}}$, thus $$0 \equiv F(Q_{k+1}) \equiv F(Q_k) + (Q_{k+1} - Q_k) F'(Q_k) \pmod{x^{2a}}.$$
+The last formula gives us the value of $Q_{k+1}$: $$\boxed{Q_{k+1} = Q_k - \dfrac{F(Q_k)}{F'(Q_k)} \pmod{x^{2a}}}$$
+
+Thus, knowing how to invert polynomials and how to compute $F(Q_k)$, we can find $n$ coefficients of $P$ with the complexity $$T(n) = T(n/2) + f(n),$$ where $f(n)$ is the time needed to compute $F(Q_k)$ and $F'(Q_k)^{-1}$ which is usually $O(n \log n)$.
+
+The iterative rule above is known in numerical analysis as [Newthon's method](https://en.wikipedia.org/wiki/Newton%27s_method).
+
+#### Hensel's lemma
+
+As was mentioned earlier, formally and generically this result is known as [Hensel's lemma](https://en.wikipedia.org/wiki/Hensel%27s_lemma) and it may in fact used in even broader sense when we work with a series of nested rings. In this particular case we worked with a sequence of polynomial remainders modulo $x$, $x^2$, $x^3$ and so on.
+
+Another example where Hensel's lifting might be helpful are so-called [p-adic numbers](https://en.wikipedia.org/wiki/P-adic_number) where we, in fact, work with the sequence of integer remainders modulo $p$, $p^2$, $p^3$ and so on. For example, Newton's method can be used to find all possible [automorphic numbers](https://en.wikipedia.org/wiki/Automorphic_number) (numbers that end on itself when squared) with a given number base. The problem is left as an exercise to the reader. You might consider [this](https://acm.timus.ru/problem.aspx?space=1&num=1698) problem to check if your solution works for $10$-based numbers.
 
 
 ### Logarithm
