@@ -139,3 +139,7 @@ always has the same sign as $(-1)^k$ due to how fast $q_i q_{i-1}$ decreases. It
 <center>
 ![Convergence towards underlying number](https://codeforces.com/predownloaded/ca/8d/ca8d8835864ccccea90e458e3d8fa840a6143c13.gif)
 </center>
+
+From this picture we can see that, in fact, distance between $r$ and $r_k$ is never larger than the distance between $r_k$ and $r_{k+1}$, therefore
+
+$$\left|r-\frac{p_k}{q_k}\right| \leq \frac{1}{q_k q_{k+1}} \leq \frac{1}{q_k^2}$$
