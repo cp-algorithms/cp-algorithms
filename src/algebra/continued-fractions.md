@@ -73,3 +73,34 @@ $$P_0(a_0)=a_0,\\ P_1(a_0, a_1) = a_0 a_1 + 1$$
 
 For consistency with this rule it is also convenient to define $P_{-1} = 1$ and $P_{-2}=0$, which also implies implicit starting point $r_{-1} = \frac{1}{0}$.
 
+#### Continuant
+
+It is a well-known fact in numerical analysis that the determinant of an arbitrary tridiagonal matrix
+
+$$T_k = \det \begin{bmatrix}
+a_0 & b_0 & 0 & \dots & 0 \\
+c_0 & a_1 & b_1 & \dots & 0 \\
+0 & c_1 & a_2 & . & \vdots \\
+\vdots & \vdots & . & \ddots & c_{k-1} \\
+0 & 0 & \dots & b_{k-1} & a_k
+\end{bmatrix}$$
+
+can be computed recursively as $T_k = a_k T_{k-1} - b_{k-1} c_{k-1} T_{k-2}$. Applying this result to $P_k$ yields a direct expression
+
+$$P_k = \det \begin{bmatrix}
+x_k & 1 & 0 & \dots & 0 \\
+-1 & x_{k-1} & 1 & \dots & 0 \\
+0 & -1 & x_2 & . & \vdots \\
+\vdots & \vdots & . & \ddots & 1 \\
+0 & 0 & \dots & -1 & x_0
+\end{bmatrix}$$
+
+This polynomial is also known as [the continuant](https://en.wikipedia.org/wiki/Continuant_(mathematics)) due to its close relation with continued fraction. The determinant representation also immediately gives us the alternative formula for computing continuants as
+
+$$P_k(a_0, \dots, a_k) = a_k P_{k-1}(a_0, \dots, a_{k-1}) + P_{k-2}(a_0, \dots, a_{k-2})$$
+
+This formula is of extreme convenience to us, because it shows that the $r_k = \frac{p_k}{q_k}$, in fact, can be computed as
+
+$$\frac{p_k}{q_k} = \frac{a_k p_{k-1} + p_{k-2}}{a_k q_{k-1} + q_{k-2}}$$
+
+Meaning that $r_k$ is a weighted [mediant](https://en.wikipedia.org/wiki/Mediant_(mathematics)) of $r_{k-1}$ and $r_{k-2}$.
