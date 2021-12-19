@@ -104,3 +104,38 @@ This formula is of extreme convenience to us, because it shows that the $r_k = \
 $$\frac{p_k}{q_k} = \frac{a_k p_{k-1} + p_{k-2}}{a_k q_{k-1} + q_{k-2}}$$
 
 Meaning that $r_k$ is a weighted [mediant](https://en.wikipedia.org/wiki/Mediant_(mathematics)) of $r_{k-1}$ and $r_{k-2}$.
+
+## Convergence
+
+Now that we have some explicit formulas for convergent numbers, let's estimate their distance to the final number $r$. First of all, we can estimate the difference between adjacent convergents:
+
+$$\frac{p_k}{q_k} - \frac{p_{k-1}}{q_{k-1}} = \frac{p_k q_{k-1} - p_{k-1} q_k}{q_k q_{k-1}}$$
+
+For the numerator of this fraction, it is possible to get rid of numbers with index $k$:
+
+$$\begin{align} p_k q_{k-1} - p_{k-1} q_k &= (a_k p_{k-1} + p_{k-2}) q_{k-1} - p_{k-1} (a_k q_{k-1} + q_{k-2})
+\\&= p_{k-2} q_{k-1} - p_{k-1} q_{k-2}\end{align}$$
+
+Thus, the numerator of $r_k - r_{k-1}$ is always the opposite to the numerator of $r_{k-1} - r_{k-2}$. It is equal to $1$ for $a_1 - a_0$, therefore
+
+$$r_k - r_{k-1} = \frac{(-1)^{k-1}}{q_k q_{k-1}}$$
+
+
+This allows for alternative representation of $r_k$ as a partial sum of infinite series:
+
+$$r_k = (r_k - r_{k-1}) + \dots + (r_1 - r_0) + r_0
+= a_0 + \sum\limits_{i=1}^k \frac{(-1)^{i-1}}{q_i q_{i-1}}$$
+
+By definition, $q_k$ monotonically increases at least as fast as Fibonacci numbers, thus
+
+$$r = \lim\limits_{k \to \infty} r_k = a_0 + \sum\limits_{i=1}^\infty \frac{(-1)^{i-1}}{q_i q_{i-1}}$$
+
+is always well-defined. Noteworthy, the residual series
+
+$$r-r_k = \sum\limits_{i=k+1}^\infty \frac{(-1)^{i-1}}{q_i q_{i-1}}$$
+
+always has the same sign as $(-1)^k$ due to how fast $q_i q_{i-1}$ decreases. It means that even-indexed $r_k$ monotonously approach $r$ from below while odd-indexed $r_k$ monotonously approach it from above:
+
+<center>
+![Convergence towards underlying number](https://codeforces.com/predownloaded/ca/8d/ca8d8835864ccccea90e458e3d8fa840a6143c13.gif)
+</center>
