@@ -55,3 +55,21 @@ Now that we defined both finite and infinite continued fraction representations,
 
 $$r_0=[a_0],\\r_1=[a_0, a_1],\\ \dots,\\ r_k=[a_0, a_1, \dots, a_k].$$
 
+It is very important to understand how these rational numbers are constructed and how do they relate with the underlying number $r$. For now, it is clear that the numerator and denominator of $r_k$ are polynomials of $a_0, a_1, \dots, a_k$. Moreover, this polynomials only depend on the number of variables $k$, that is
+
+$$r_k = \frac{P_k(a_0, a_1, \dots, a_k)}{Q_k(a_0,a_1, \dots, a_k)}$$
+
+On the other hand, it is clear that
+
+$$r_k = a_0 + \frac{1}{[a_1,\dots, a_k]}=\frac{a_0 P_{k-1}(a_1, \dots, a_k) + Q_{k-1}(a_1, \dots, a_k)}{P_{k-1}(a_1, \dots, a_k)}$$
+
+This gives us the relationship $Q_k(a_0, \dots, a_k) = P_{k-1}(a_1, \dots, a_k)$. Therefore, we can focus on the numerator polynomials, as the denominator polynomials can be derived from them. This leads us to the relationship
+
+$$P_k(a_0, \dots, a_k) = a_0 P_{k-1}(a_1, \dots, a_k) + P_{k-2}(a_2, \dots, a_k)$$
+
+We already know that $r_0 = \frac{a_0}{1}$ and $r_1 = \frac{a_0 a_1 + 1}{a_1}$, which means that
+
+$$P_0(a_0)=a_0,\\ P_1(a_0, a_1) = a_0 a_1 + 1$$
+
+For consistency with this rule it is also convenient to define $P_{-1} = 1$ and $P_{-2}=0$, which also implies implicit starting point $r_{-1} = \frac{1}{0}$.
+
