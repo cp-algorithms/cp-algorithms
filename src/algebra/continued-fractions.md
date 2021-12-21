@@ -214,6 +214,7 @@ $$s_k = \left|\frac{rq_{k-2} - p_{k-2}}{rq_{k-1} - p_{k-1}}\right| = \frac{q_{k-
 
 On the other hand, $a_k$ may be defined as $a_k = \lfloor s_k \rfloor$, thus we have more explicit expression for $a_k$ as well. But what is its geometric meaning in terms of $\vec r_{k-1}$ and $\vec r_{k-2}$?
 
+
 ### Nose stretching
 
 From convergence section we know that the number $r$ always lies between numbers $r_{k-1}$ and $r_{k-2}$. For $\vec r_{k-1}$ and $\vec r_{k-2}$ it means that they are always on the opposite sides of the vector $\vec r = (1;r)$. This is due to $r_{k-1}=\frac{p_{k-1}}{q_{k-1}}$ and $r_{k-2}=\frac{p_{k-2}}{q_{k-2}}$ being slope coefficients of $\vec r_{k-1}$ and $\vec r_{k-2}$ correspondingly, while slope coefficient of $\vec r$ is exactly $r$.
@@ -223,3 +224,5 @@ Geometrically, $r q_{k-1} - p_{k-1}$ is equal to $\vec r_{k-1} \times \vec r$, t
 $$\vec r = \vec r_{k-2} + \left \lfloor \left|\frac{\vec r_{k-2} \times \vec r}{\vec r_{k-1} \times \vec r} \right|\right \rfloor \cdot \vec r_{k-1}.$$
 
 Geometrically, $a_k$ here is equal to the maximum integer number of $\vec r_{k-1}$ vectors that can be added to $\vec r_{k-2}$ in such a way that the resulting vector will still be on the same side from $\vec r$ as $\vec r_{k-2}$ is.
+
+Noteworthy, $|\vec r_k \times \vec r_{k-1}| = |q_k p_{k-1} - q_{k-1} p_k| = 1$, as was established above. Combined with [Pick's theorem](https://cp-algorithms.com/geometry/picks-theorem.html) it means that there are no points with integer coordinates strictly within the parallelogram formed by $\vec r_{k}$ and $\vec r_{k-1}$. Combined for all possible $k$ it means that there are no integer points in the space between polygons formed by even-indexed and odd-indexed convergent vectors.
