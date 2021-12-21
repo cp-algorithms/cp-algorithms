@@ -105,41 +105,6 @@ $$r_k = \frac{a_k p_{k-1} + p_{k-2}}{a_k q_{k-1} + q_{k-2}}.$$
 
 Thus, $r_k$ is a weighted [mediant](https://en.wikipedia.org/wiki/Mediant_(mathematics)) of $r_{k-1}$ and $r_{k-2}$.
 
-## Geometric interpretation
-
-If convergents $r_0, r_1, \dots$ are treated as 2-dimensional vectors $\vec r_k=(p_k;q_k)$, the mediant formula above turns into
-
-$$\vec r_k = a_k \vec r_{k-1} + \vec r_{k-2}.$$
-
-To better understand geometric meaning of $\vec r_k$ we need to look closer into computation of $a_k$. Previously we investigated _convergents_ $r_k = [a_0, a_1, \dots, a_k]$. Let's now look on _residuals_ $s_k = [a_{k}, a_{k+1}, \dots]$. From their definition it holds that
-
-$$\left.s_k = a_{k} + \frac{1}{s_{k+1}}\right._{\textstyle .}$$
-
-Starting with $s_0=r$, it is possible to derive similar recurrent formulas for $s_k=\frac{b_k}{c_k}$:
-
-$$\left.\frac{b_k}{c_k}=a_k + \frac{c_{k+1}}{b_{k+1}}\right._{\textstyle .}$$
-
-Thus, $b_{k+1}=c_k$ and $c_{k+1} = b_k - c_k a_k = c_{k-1} - c_k a_k$. This expression looks very close to the continuant and from the starting points $s_0=\frac{r}{1}$ and $s_1 = \frac{1}{r-a_0}$ one may derive the explicit formula for $c_k$:
-
-$$c_k = P_{k-1}(r-a_0, -a_1, \dots, -a_{k-1}).$$
-
-Taking into consideration the continuant properties (which follow from its determinant representation)
-
-$$\begin{align}
-P_k(a_0, \dots, a_k) &= (-1)^{k+1} P_k(-a_0, \dots, -a_k),\\
-P_k(a_0, \dots, a_k) &= a_0 P_{k-1}(a_1, \dots, a_k) + P_{k-2}(a_2, \dots, a_k),
-\end{align}$$
-
-we may rearrange the expression for $c_k$ in a much simpler manner:
-
-$$c_k = (-1)^{k-1} (r q_{k-1} - p_{k-1}).$$
-
-This gives us the final formula to calculate residual $s_k$ from convergents:
-
-$$s_k = \left|\frac{rq_{k-2} - p_{k-2}}{rq_{k-1} - p_{k-1}}\right|_{\textstyle .}$$
-
-On the other hand, $a_k$ may be defined as $a_k = \lfloor s_k \rfloor$, thus we have more explicit expression for $a_k$ as well.
-
 ## Convergence
 
 Let's estimate the distance between $r_k$ and the limit number $r$. The difference between adjacent convergents is given as
