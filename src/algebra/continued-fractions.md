@@ -5,29 +5,29 @@
 
 ## Definitions
 
-### Continued fractions representation
+### Continued fraction representation
 
-Any real number $r$ may be uniquely represented as $r = a_0 + \frac{1}{q_0}$ where $a_0 = \lfloor r \rfloor$ and $q_0$ is either infinite (meaning $r$ is an integer) or is a real number greater than $1$. Expanding it indefinitely, one obtains an infinite representation
+Any real number $r$ may be uniquely represented as $r = a_0 + \frac{1}{q_0}$ where $a_0 = \lfloor r \rfloor$ and $q_0$ is either infinite (meaning $r$ is an integer) or is a real number greater than $1$. Expanding it indefinitely, one obtains the so-called continued fraction representation
 
-$$r=a_0 + \frac{1}{a_1 + \frac{1}{a_2+\dots}}$$
+$$r=a_0 + \frac{1}{a_1 + \frac{1}{a_2+\dots}},$$
 
-Which is shortly denoted as $r=[a_0, a_1, \dots]$. For consistency, infinity representation is defined in this article as $\infty = [\infty, \infty, \dots]$. Therefore, rational numbers can be distinguished from irrational by the fact that their continued fraction representation always ends with a sequence of infinities. For example,
+which is shortly denoted as $r=[a_0, a_1, \dots]$.For consistency, the representation of the infinity is defined here as $\infty = [\infty, \infty, \dots]$. Therefore, rational numbers can be distinguished from irrational by the fact that their continued fraction representation always ends with a sequence of infinities. For example,
 
-$$\frac{5}{3} = 1 + \frac{1}{1+\frac{1}{2+\frac{1}{\infty}}} = [1,1,2,\infty,\infty,\dots]$$
+$$\frac{5}{3} = 1 + \frac{1}{1+\frac{1}{2+\frac{1}{\infty}}} = [1,1,2,\infty,\infty,\dots].$$
 
 We will drop the infinite part of the expansion of rational numbers for shortness, thus $\frac{5}{3}=[1,1,2]$.
 
-Note that $[1,1,1,1]$ would also represent $\frac 5 3$. Generally, it can be proven that there is unique way to represent any irrational number and there are exactly two ways to represent any rational number, which are $[a_0, \dots, a_k]$ and $[a_0, \dots, a_k-1, 1]$. We will almost always stick to the first one, as it is consistent with the way continued fractions were defined for irrational numbers.
+Note that $[1,1,1,1]$, if treated as continued fraction, would also represent $\frac 5 3$. Generally, there is a unique way to represent any irrational number and there are exactly two ways to represent any rational number, which are $[a_0, \dots, a_k]$ and $[a_0, \dots, a_k-1, 1]$. We will stick to the first one, as it is consistent with the way continued fractions were defined for irrational numbers through flooring.
 
 #### Implementation
 
 In the code snippets we will mostly assume that we work with the finite continued fractions. Although continued fractions defined recursively it is more efficient to construct them iteratively. If we start with $r=\frac{p}{q}$, the transition looks like
 
-$$r =\left\lfloor \frac p q \right\rfloor + \frac{1}{\left(\frac{p}{q}-\left\lfloor \frac{p}{q}\right\rfloor\right)^{-1}}$$
+$$r =\left\lfloor \frac p q \right\rfloor + \frac{1}{\left(\frac{p}{q}-\left\lfloor \frac{p}{q}\right\rfloor\right)^{-1}}.$$
 
 The denominator part of this expression may be rewritten as
 
-$$\frac{p}{q}-\left\lfloor \frac{p}{q}\right\rfloor = \frac{p-q\cdot \lfloor \frac{p}{q} \rfloor}{q} = \frac{p \bmod q}{q}$$
+$$\left(\frac{p}{q}-\left\lfloor \frac{p}{q}\right\rfloor\right)^{-1} = \frac{q}{p-q\cdot \lfloor \frac{p}{q} \rfloor} = \frac{q}{p \bmod q}.$$
 
 Thus, computation of a continued fraction representation for $r=\frac{p}{q}$ follows the same steps as the Euclidean algorithm for $p$ and $q$.
 
