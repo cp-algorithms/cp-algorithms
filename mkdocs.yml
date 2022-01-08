@@ -1,5 +1,7 @@
 site_name: Algorithms for Competitive Programming
 docs_dir: src
+site_dir: public
+use_directory_urls: false
 theme:
   name: material
   palette:
