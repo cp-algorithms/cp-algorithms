@@ -1,1 +1,6 @@
-<!--?template preview.html -->
+---
+title: Preview
+hide:
+  - navigation
+---
+# Preview

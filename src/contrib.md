@@ -16,7 +16,7 @@ In order to make contribution consider the following steps:
 1. Go to an article that you want to change, and click the pencil icon :material-pencil: next to the article title.
 2. Fork the repository if requested.
 3. Modify the article.
-4. Use the [preview page](./preview.html) to check if you are satisfied with the result.
+4. Use the [preview page](preview.md) to check if you are satisfied with the result.
 5. Make a commit by clicking the _Propose changes_ button.
 6. Create a pull-request by clicking the _Compare & pull request_ button.
 7. Somebody from the core team will look over the changes. This might take a few hours/days.
