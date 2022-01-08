@@ -119,7 +119,7 @@ $$|\text{Classes}| \cdot |G| = \sum_{f} J(f)$$
 ## Pólya enumeration theorem
 
 The Pólya enumeration theorem is a generalization of Burnside's lemma, and it also provides a more convenient tool for finding the number of equivalence classes.
-It should noted that this theorem was already discovered before Pólya by Redfield in 1927, but his publication went unnoticed by mathematicians.
+It should be noted that this theorem was already discovered before Pólya by Redfield in 1927, but his publication went unnoticed by mathematicians.
 Pólya independently came to the same results in 1937, and his publication was more successful.
 
 Here we discuss only a special case of the Pólya enumeration theorem, which will turn out very useful in practice.

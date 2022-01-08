@@ -176,5 +176,7 @@ for (int i = 0, l = 0, r = -1; i < n; i++) {
 
 ## Problems
 
+- [Longest Palindrome](https://cses.fi/problemset/task/1111)
 - [UVA 11475 - Extend to Palindrome](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=26&page=show_problem&problem=2470)
 - [GYM - (Q) QueryreuQ](https://codeforces.com/gym/101806/problem/Q)
+- [CF - Prefix-Suffix Palindrome](https://codeforces.com/contest/1326/problem/D2)

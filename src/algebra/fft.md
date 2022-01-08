@@ -299,26 +299,26 @@ Therefore if we reverse the bits of the position of each coefficient, and sort t
 
 For example the desired order for $n = 8$ has the form:
 
-$$a = \left\{ \left[ (a_0, a_4), (a_2, a_6) \right], \left[ (a_1, a_5), (a_3, a_7) \right] \right\}$$
+$$a = \bigg\{ \Big[ (a_0, a_4), (a_2, a_6) \Big], \Big[ (a_1, a_5), (a_3, a_7) \Big] \bigg\}$$
 
 Indeed in the first recursion level (surrounded by curly braces), the vector gets divided into two parts $[a_0, a_2, a_4, a_6]$ and $[a_1, a_3, a_5, a_7]$.
 As we see, in the bit-reversal permutation this corresponds to simply dividing the vector into two halves: the first $\frac{n}{2}$ elements and the last $\frac{n}{2}$ elements.
 Then there is a recursive call for each halve.
 Let the resulting DFT for each of them be returned in place of the elements themselves (i.e. the first half and the second half of the vector $a$ respectively.
 
-$$a = \left\{[y_0^0, y_1^0, y_2^0, y_3^0], [y_0^1, y_1^1, y_2^1, y_3^1]\right\}$$
+$$a = \bigg\{ \Big[y_0^0, y_1^0, y_2^0, y_3^0\Big], \Big[y_0^1, y_1^1, y_2^1, y_3^1 \Big] \bigg\}$$
 
 Now we want to combine the two DFTs into one for the complete vector.
 The order of the elements is ideal, and we can also perform the union directly in this vector.
 We can take the elements $y_0^0$ and $y_0^1$ and perform the butterfly transform.
 The place of the resulting two values is the same as the place of the two initial values, so we get:
 
-$$a = \left\{[y_0^0 + w_n^0 y_0^1, y_1^0, y_2^0, y_3^0], [y_0^0 - w_n^0 y_0^1, y_1^1, y_2^1, y_3^1]\right\}$$
+$$a = \bigg\{ \Big[y_0^0 + w_n^0 y_0^1, y_1^0, y_2^0, y_3^0\Big], \Big[y_0^0 - w_n^0 y_0^1, y_1^1, y_2^1, y_3^1\Big] \bigg\}$$
 
 Similarly we can compute the butterfly transform of $y_1^0$ and $y_1^1$ and put the results in their place, and so on.
 As a result we get:
 
-$$a = \left\{[y_0^0 + w_n^0 y_0^1, y_1^0 + w_n^1 y_1^1, y_2^0 + w_n^2 y_2^1, y_3^0 + w_n^3 y_3^1], [y_0^0 - w_n^0 y_0^1, y_1^0 - w_n^1 y_1^1, y_2^0 - w_n^2 y_2^1, y_3^0 - w_n^3 y_3^1]\right\}$$
+$$a = \bigg\{ \Big[y_0^0 + w_n^0 y_0^1, y_1^0 + w_n^1 y_1^1, y_2^0 + w_n^2 y_2^1, y_3^0 + w_n^3 y_3^1\Big], \Big[y_0^0 - w_n^0 y_0^1, y_1^0 - w_n^1 y_1^1, y_2^0 - w_n^2 y_2^1, y_3^0 - w_n^3 y_3^1\Big] \bigg\}$$
 
 Thus we computed the required DFT from the vector $a$.
 
