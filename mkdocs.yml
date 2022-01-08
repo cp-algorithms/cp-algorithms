@@ -2,7 +2,6 @@ site_name: Algorithms for Competitive Programming
 docs_dir: src
 theme:
   name: material
-  custom_dir: src/overrides
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: cpalgo
