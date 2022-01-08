@@ -3,15 +3,13 @@ title: Main Page
 hide:
   - navigation
 ---
-<h1 data-toc="off">E-Maxx Algorithms in English</h1>
+<h1 data-toc="off">Algorithms for Competitive Programming</h1>
 
 *The goal of this project is to translate the wonderful resource
 [http://e-maxx.ru/algo](http://e-maxx.ru/algo) which provides descriptions of many algorithms
 and data structures especially popular in field of competitive programming.
 Moreover we want to improve the collected knowledge by extending the articles
 and adding new articles to the collection.*
-
-*For a similar project, that translates the collection of articles into Portuguese, visit [https://cp-algorithms-brasil.com](https://cp-algorithms-brasil.com).*
 
 ## Articles
 
