@@ -12,15 +12,3 @@ Translation of http://e-maxx.ru into English
 Compiled pages are published at https://cp-algorithms.com/
 
 Manual for contributors: https://cp-algorithms.com/contrib.html
-
-## Prerequisits
-
-```sh
-pip install mkdocs-material
-```
-
-## Compile pages
-
-```sh
-mkdocs serve
-```
