@@ -10,7 +10,7 @@ Let $A(x) = a_0 + a_1 x + \dots + a_n x^n$ be a polynomial over some field $\mat
 
 The degree of polynomial $A$ with $a_n \neq 0$ is defined as $\deg A = n$. For consistency, degree of $A(x) = 0$ is defined as $\deg A = -\infty$. In this notion, $\deg AB = \deg A + \deg B$ for arbitrary polynomials $A$ and $B$.
 
-Polynomials form an euclidean ring which means that for any polynomials $A$ and $B \neq 0$ we can uniquely represent $A$ as $$A = D \cdot B + R,~ \deg R < \deg B.$$ Here $R$ is the remainder of $A$ modulo $B$ and $D$ is called the quotient. If $A$ and $B$ have the same remainder modulo $C$, they're said to be equivalent modulo $C$, which is denoted as $A \equiv B \pmod{C}$. Several important properties of polynomial euclidean division:
+Polynomials form an Euclidean ring which means that for any polynomials $A$ and $B \neq 0$ we can uniquely represent $A$ as $$A = D \cdot B + R,~ \deg R < \deg B.$$ Here $R$ is the remainder of $A$ modulo $B$ and $D$ is called the quotient. If $A$ and $B$ have the same remainder modulo $C$, they're said to be equivalent modulo $C$, which is denoted as $A \equiv B \pmod{C}$. Several important properties of polynomial Euclidean division:
 
 - $A$ is a multiple of $B$ if and only if $A \equiv 0 \pmod B$.
 
@@ -29,7 +29,7 @@ Polynomials form an euclidean ring which means that for any polynomials $A$ and 
 
 It supports all trivial operations and some other useful methods. The main class is `poly<T>` for polynomials with coefficients of type `T`.
 
-All arithmetic operation `+`, `-`, `*`, `%` and `/` are supported, `%` and `/` standing for remainder and quotient in euclidean division.
+All arithmetic operation `+`, `-`, `*`, `%` and `/` are supported, `%` and `/` standing for remainder and quotient in Euclidean division.
 
 There is also the class `modular<m>` for performing arithmetic operations on remainders modulo a prime number `m`.
 
@@ -109,8 +109,7 @@ $$A^R(x) = x^nA(x^{-1})= a_n + a_{n-1} x + \dots + a_0 x^n$$
 $$B^R(x) = x^m B(x^{-1}) = b_m + b_{m-1} x + \dots + b_0 x^m$$
 $$D^R(x) = x^{n-m}D(x^{-1}) = d_{n-m} + d_{n-m-1} x + \dots + d_0 x^{n-m}$$
 
-
-The system may be rewritten as
+the system may be rewritten as
 
 $$A^R(x) \equiv B^R(x) D^R(x) \pmod{x^{n-m+1}}.$$
 
@@ -141,7 +140,7 @@ The last formula gives us the value of $Q_{k+1}$: $$\boxed{Q_{k+1} = Q_k - \dfra
 
 Thus, knowing how to invert polynomials and how to compute $F(Q_k)$, we can find $n$ coefficients of $P$ with the complexity $$T(n) = T(n/2) + f(n),$$ where $f(n)$ is the time needed to compute $F(Q_k)$ and $F'(Q_k)^{-1}$ which is usually $O(n \log n)$.
 
-The iterative rule above is known in numerical analysis as [Newthon's method](https://en.wikipedia.org/wiki/Newton%27s_method).
+The iterative rule above is known in numerical analysis as [Newton's method](https://en.wikipedia.org/wiki/Newton%27s_method).
 
 #### Hensel's lemma
 
@@ -242,7 +241,7 @@ You want to know if $A(x)$ and $B(x)$ have any roots in common. There are two in
 
 ### Euclidean algorithm
 
-Well, we already have an [article](./algebra/euclid-algorithm.html) about it. For an arbitrary euclidean domain you can write the Euclidean algorithm as easy as:
+Well, we already have an [article](./algebra/euclid-algorithm.html) about it. For an arbitrary  domain you can write the Euclidean algorithm as easy as:
 
 ```cpp
 template<typename T>
