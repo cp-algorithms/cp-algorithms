@@ -37,3 +37,7 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 extra_css:
   - stylesheets/extra.css
+extra:
+  analytics:
+    provider: google
+    property: UA-85220282-1
