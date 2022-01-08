@@ -118,6 +118,7 @@ with the line connecting the last point in the lower convex hull and the current
 the previous point once added to the hull.
 
 The final convex hull is obtained from the union of the upper and lower convex hull, forming a clockwise hull, and the implementation is as follows.
+
 If you need collinear points, you just need to check for them in the clockwise/counterclockwise routines.
 However, this allows for a degenerate case where all the input points are collinear in a single line, and the algorithm would output repeated points.
 To solve this, we check whether the upper hull contains all the points, and if it does, we just return the points in reverse, as that
