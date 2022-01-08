@@ -5,9 +5,8 @@ theme:
   custom_dir: src/overrides
   palette:
     - media: "(prefers-color-scheme: light)"
-      scheme: default
+      scheme: cpalgo
       primary: deep purple
-      # accent: red
       toggle:
         icon: material/toggle-switch-off-outline
         name: Switch to dark mode
@@ -20,12 +19,7 @@ theme:
   favicon: favicon.ico
 repo_url: https://github.com/e-maxx-eng/e-maxx-eng
 edit_uri: edit/master/src/
-extra:
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/e-maxx-eng/e-maxx-eng
-      name: e-maxx-eng
-copyright: Copyright &copy; 2014 - 2021 by https://github.com/e-maxx-eng
+copyright: Copyright &copy; 2014 - 2022 by https://github.com/e-maxx-eng
 
 markdown_extensions:
   - pymdownx.arithmatex:
@@ -37,3 +31,5 @@ extra_javascript:
   - javascript/config.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+extra_css:
+  - stylesheets/extra.css
