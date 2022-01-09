@@ -4,6 +4,7 @@ site_dir: public
 use_directory_urls: false
 theme:
   name: material
+  custom_dir: src/overrides
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: cpalgo
@@ -21,6 +22,12 @@ theme:
 repo_url: https://github.com/e-maxx-eng/e-maxx-eng
 edit_uri: edit/master/src/
 copyright: Copyright &copy; 2014 - 2022 by https://github.com/e-maxx-eng
+extra_javascript:
+  - javascript/config.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+extra_css:
+  - stylesheets/extra.css
 
 markdown_extensions:
   - pymdownx.arithmatex:
@@ -31,12 +38,6 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji 
       emoji_generator: !!python/name:materialx.emoji.to_svg
-extra_javascript:
-  - javascript/config.js
-  - https://polyfill.io/v3/polyfill.min.js?features=es6
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-extra_css:
-  - stylesheets/extra.css
 extra:
   analytics:
     provider: google
