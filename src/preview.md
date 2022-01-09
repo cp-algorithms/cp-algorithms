@@ -8,13 +8,13 @@ hide:
   $(document).ready(function(){
     $("#previewBtn").click(function(){
       var markdown = $("#markdownInput").val();
-      var url = "https://us-central1-cp-algorithms.cloudfunctions.net/convert-markdown-mkdocs";
+      var URL = "https://us-central1-cp-algorithms.cloudfunctions.net/convert-markdown-mkdocs";
       var data = {"markdown": markdown};
       var refresh_script = `<scr` + `ipt>mathjax.hub.queue(["typeset", mathjax.hub]);</scr` + `ipt>`;
       $.ajax({
-        url: url,
-        contenttype: "application/json",
-        method: 'post',
+        url: URL,
+        contentType: "application/json",
+        method: 'POST',
         data: JSON.stringify(data),
         success: function(data) { $("#previewArea").html(data + "\n" + refresh_script); }
       });
@@ -30,8 +30,8 @@ hide:
   <button type='button' class="md-button md-button--primary" id="previewBtn">Preview</button>
 </form>
 </center>
-<br/>
 <hr/>
 
 <div id="previewArea">
 </div>
+<br/>
