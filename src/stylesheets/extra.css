@@ -7,3 +7,8 @@
 [data-md-color-scheme="slate"] {
   --md-hue: 210; 
 }
+
+/* Fix for Latex rendering in Chrome, see https://github.com/squidfunk/mkdocs-material/issues/3354 */
+.md-typeset div.arithmatex {
+    overflow: hidden;
+}
