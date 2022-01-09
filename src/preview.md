@@ -10,7 +10,7 @@ hide:
       var markdown = $("#markdownInput").val();
       var URL = "https://us-central1-cp-algorithms.cloudfunctions.net/convert-markdown-mkdocs";
       var data = {"markdown": markdown};
-      var refresh_script = `<scr` + `ipt>mathjax.hub.queue(["typeset", mathjax.hub]);</scr` + `ipt>`;
+      var refresh_script = `<scr` + `ipt>MathJax.typeset();</scr` + `ipt>`;
       $.ajax({
         url: URL,
         contentType: "application/json",
