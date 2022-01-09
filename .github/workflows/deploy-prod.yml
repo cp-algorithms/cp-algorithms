@@ -27,4 +27,4 @@ jobs:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           projectId: cp-algorithms
-          channelId: mkdocs
+          channelId: ${{ github.ref == 'refs/heads/master' && 'live' || 'mkdocs' }}
