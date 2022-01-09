@@ -6,6 +6,7 @@
 
 [data-md-color-scheme="slate"] {
   --md-hue: 210; 
+  --md-typeset-a-color: #c973d9;
 }
 
 /* Fix for Latex rendering in Chrome, see https://github.com/squidfunk/mkdocs-material/issues/3354 */
