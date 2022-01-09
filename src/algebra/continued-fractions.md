@@ -1,21 +1,21 @@
 <!--?title Continued fractions -->
 # Continued fractions in competitive programming
 
-**Continued fraction** is a way of representing arbitrary real number as a convergent sequence of rational numbers. What makes them important and useful in competitive programming is the fact that each consequent fraction is, in a way, the best possible approximation of the specified real number. Besides that, continued fractions are closely related to Euclidean algorithm which makes them useful in a bunch of number-theoretical problems.
+**Continued fraction** is a way of representing arbitrary real number as a convergent sequence of rational numbers. They are useful in competitive programming because they can are easy to compute and each consequent fraction is, in a way, the best possible approximation of the underlying real number. Besides that, continued fractions are closely related to Euclidean algorithm which makes them useful in a bunch of number-theoretical problems.
 
 ## Definitions
 
 ### Continued fraction representation
 
-Any real number $r$ may be uniquely represented as $r = a_0 + \frac{1}{q_0}$ where $a_0 = \lfloor r \rfloor$ and $q_0$ is either infinite (meaning $r$ is an integer) or is a real number greater than $1$. Expanding it indefinitely, one obtains the so-called continued fraction representation
+Any real number $r$ may be uniquely represented as $r = a_0 + \frac{1}{q_0}$ where $a_0 = \lfloor r \rfloor$ and $q_0$ is either infinite (meaning that $r$ is an integer) or is a real number greater than $1$. Expanding it indefinitely, one obtains the so-called continued fraction representation
 
 $$r=a_0 + \frac{1}{a_1 + \frac{1}{a_2+\dots}},$$
 
-which is shortly denoted as $r=[a_0, a_1, \dots]$.For consistency, the representation of the infinity is defined here as $\infty = [\infty, \infty, \dots]$. Therefore, rational numbers can be distinguished from irrational by the fact that their continued fraction representation always ends with a sequence of infinities. For example,
+which is shortly denoted as $r=[a_0, a_1, \dots]$. For consistency, we define the representation of the infinity as $\infty = [\infty, \infty, \dots]$. Therefore, rational numbers can be distinguished from irrational by the fact that their continued fraction representation always ends with a sequence of infinities. For example,
 
 $$\frac{5}{3} = 1 + \frac{1}{1+\frac{1}{2+\frac{1}{\infty}}} = [1,1,2,\infty,\infty,\dots].$$
 
-We will drop the infinite part of the expansion of rational numbers for shortness, thus $\frac{5}{3}=[1,1,2]$.
+We will drop the infinite part of the expansion of rational numbers for shortness, thus writing $\frac{5}{3}=[1,1,2]$.
 
 Note that $[1,1,1,1]$, if treated as continued fraction, would also represent $\frac 5 3$. Generally, there is a unique way to represent any irrational number and there are exactly two ways to represent any rational number, which are $[a_0, \dots, a_k]$ and $[a_0, \dots, a_k-1, 1]$. We will stick to the first one, as it is consistent with the way continued fractions were defined for irrational numbers through flooring.
 
@@ -53,9 +53,13 @@ struct fraction {
 
 Now that both finite and infinite continued fraction representations are defined, let's define convergent sequence which corresponds the underlying real number. For the number $r=[a_0, a_1, a_2, \dots]$, its convergent sequence is defined as
 
-$$r_0=[a_0],\\r_1=[a_0, a_1],\\ \dots,\\ r_k=[a_0, a_1, \dots, a_k].$$
+\begin{gather}
+r_0=[a_0],\\r_1=[a_0, a_1],\\ \dots,\\ r_k=[a_0, a_1, \dots, a_k].
+\end{gather}
 
-Each individual rational number $r_k$ is called the convergent of $r$. It is important to understand how these rational numbers are constructed and how they relate with the underlying number $r$. The numerator and denominator of $r_k$ are polynomials of $a_0, a_1, \dots, a_k$. These polynomials only depend on the number of variables $k$, that is
+Each individual rational number $r_k$ is called the convergent of $r$. It is important to understand how these rational numbers are constructed and how they relate with the underlying number $r$. Doing this will shed some light on why they're called the best rational approximations of $r$ and also give us an efficient algorithm to compute them.
+
+The numerator and denominator of $r_k$ are multivariate polynomials of $a_0, a_1, \dots, a_k$. These polynomials only depend on the number of variables $k$, thus it holds that
 
 $$r_k = \frac{P_k(a_0, a_1, \dots, a_k)}{Q_k(a_0,a_1, \dots, a_k)}.$$
 
@@ -104,6 +108,24 @@ This representation is way more convenient, as it shows that $r_k = \frac{p_k}{q
 $$r_k = \frac{a_k p_{k-1} + p_{k-2}}{a_k q_{k-1} + q_{k-2}}.$$
 
 Thus, $r_k$ is a weighted [mediant](https://en.wikipedia.org/wiki/Mediant_(mathematics)) of $r_{k-1}$ and $r_{k-2}$.
+
+#### Implementation
+
+For the reasons that will be evident as we move further to the geometric interpretation of continued fractions, we will use a [point-like data structure](geometry/basic-geometry.html) to represent $r_k = \frac{p_k}{q_k}$ as a point $(q_k, p_k)$ on the Euclidean plane.
+
+```cpp
+struct fraction {
+    ...
+    
+    vector<point> convergents() {
+        vector<point> r = {{1, 0}, {0, 1}};
+        for(size_t i = 0; i < a.size(); i++) {
+            r.push_back(r[i + 1] * a[i] + r[i]);
+        }
+        return r;
+    }
+};
+```
 
 ## Convergence
 
