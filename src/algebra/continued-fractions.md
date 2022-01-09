@@ -127,39 +127,44 @@ struct fraction {
 };
 ```
 
+
 ## Convergence
 
-Let's estimate the distance between $r_k$ and the limit number $r$. The difference between adjacent convergents is given as
+Let's estimate the distance between $r_k$ and the underlying number $r$. To do this, we start by estimating the difference between adjacent convergents. By definition, it is given by the following formula
 
 $$\frac{p_k}{q_k} - \frac{p_{k-1}}{q_{k-1}} = \frac{p_k q_{k-1} - p_{k-1} q_k}{q_k q_{k-1}}.$$
 
-If $p_k$ and $q_k$ in the numerator are replaced with their corresponding recurrences, we get
+Replacing $p_k$ and $q_k$ in the numerator with their recurrences, we get
 
 $$\begin{align} p_k q_{k-1} - p_{k-1} q_k &= (a_k p_{k-1} + p_{k-2}) q_{k-1} - p_{k-1} (a_k q_{k-1} + q_{k-2})
 \\&= p_{k-2} q_{k-1} - p_{k-1} q_{k-2},\end{align}$$
 
-Which means that the numerator of $r_k - r_{k-1}$ is always the negated numerator of $r_{k-1} - r_{k-2}$. It's equal to $1$ for $a_1 - a_0$, thus
+thus the numerator of $r_k - r_{k-1}$ is always the negated numerator of $r_{k-1} - r_{k-2}$. It, in turn, equals to $1$ for
+
+$$r_1 - r_0=\left(a_0+\frac{1}{a_1}\right)-a_0=\frac{1}{a_1},$$
+
+thus
 
 $$r_k - r_{k-1} = \frac{(-1)^{k-1}}{q_k q_{k-1}}.$$
 
 
-This yields the alternative representation of $r_k$ as a partial sum of infinite series:
+This yields an alternative representation of $r_k$ as a partial sum of infinite series:
 
 $$r_k = (r_k - r_{k-1}) + \dots + (r_1 - r_0) + r_0
 = a_0 + \sum\limits_{i=1}^k \frac{(-1)^{i-1}}{q_i q_{i-1}}.$$
 
-By definition, $q_k$ monotonically increases at least as fast as Fibonacci numbers, thus
+From the recurrence relation it follows that $q_k$ monotonously increases at least as fast as Fibonacci numbers, thus
 
 $$r = \lim\limits_{k \to \infty} r_k = a_0 + \sum\limits_{i=1}^\infty \frac{(-1)^{i-1}}{q_i q_{i-1}}$$
 
-is always well-defined. Noteworthy, the residual series
+is always well-defined, as the underlying series always converge. Noteworthy, the residual series
 
 $$r-r_k = \sum\limits_{i=k+1}^\infty \frac{(-1)^{i-1}}{q_i q_{i-1}}$$
 
 has the same sign as $(-1)^k$ due to how fast $q_i q_{i-1}$ decreases. It means that even-indexed $r_k$ monotonously approach $r$ from below while odd-indexed $r_k$ monotonously approach it from above:
 
 <center>
-![Convergence towards underlying number](https://codeforces.com/predownloaded/ca/8d/ca8d8835864ccccea90e458e3d8fa840a6143c13.gif)
+![Convergence towards underlying number](https://upload.wikimedia.org/wikipedia/commons/b/b4/Golden_ration_convergents.svg)
 </center>
 
 From this picture we can see that, in fact, distance between $r$ and $r_k$ is never larger than the distance between $r_k$ and $r_{k+1}$, therefore
