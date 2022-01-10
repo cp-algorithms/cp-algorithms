@@ -176,50 +176,53 @@ thus the distance between $r$ and $r_k$ is never larger than the distance betwee
 
 $$\left|r-\frac{p_k}{q_k}\right| \leq \frac{1}{q_k q_{k+1}} \leq \frac{1}{q_k^2}.$$
 
+
 ## Geometric interpretation
 
-If convergents $r_0, r_1, \dots$ are treated as 2-dimensional vectors $\vec r_k=(q_k;p_k)$, the mediant formula above turns into
+If convergents $r_0, r_1, \dots$ are treated as 2-dimensional vectors $\vec r_k=(q_k,p_k)$, the mediant formula above turns into
 
 $$\vec r_k = a_k \vec r_{k-1} + \vec r_{k-2}.$$
 
-To better understand geometric meaning of $\vec r_k$ we need to look closer into computation of $a_k$. Previously we investigated _convergents_ $r_k = [a_0, a_1, \dots, a_k]$. Let's now look on _residuals_ $s_k = [a_{k}, a_{k+1}, \dots]$. From their definition it holds that
+To better understand the geometric meaning of $\vec r_k$ we need to look closer into the computation of $a_k$.
 
-$$s_k = a_{k} + \frac{1}{s_{k+1}}.$$
+### Residuals
 
-Starting with $s_0=r$, it is possible to derive similar recurrent formulas for $s_k=\frac{b_k}{c_k}$:
+Previously we investigated the _convergents_ $r_k = [a_0, a_1, \dots, a_k]$. Let's now look on the _residuals_ $s_k = [a_{k}, a_{k+1}, \dots]$. From their definition it holds that
 
-$$\frac{b_k}{c_k}=a_k + \frac{c_{k+1}}{b_{k+1}}.$$
+$$s_k = a_{k} + \frac{1}{s_{k+1}},$$
 
-Thus, $b_{k+1}=c_k$ and $c_{k+1} = b_k - c_k a_k = c_{k-1} - c_k a_k$. This expression looks very similar to the recurrence for $p_k$ and from the starting points $s_0=\frac{r}{1}$ and $s_1 = \frac{1}{r-a_0}$ we may derive the explicit continuant formula for $c_k$:
+which implies $a_k = \lfloor s_k \rfloor$, so we will get an explicit way to determine $a_k$ if we know how to compute $s_k$. On the other hand, if we formally substitute $a_k$ with $s_k$, that is look on the expression $[a_0, a_1, \dots, a_{k-1}, s_k]$, it will be equal to $r$, thus
 
-$$c_k = P_{k-1}(r-a_0, -a_1, \dots, -a_{k-1}).$$
+$$\vec r = s_k \vec r_{k-1} + \vec r_{k-2},$$
 
-Taking into consideration the continuant properties (which follow from its determinant definition)
+where $\vec r = (1, r)$. Taking cross product of both parts with $\vec r$, we obtain the explicit formula for $s_k$:
 
-$$\begin{align}
-P_k(a_0, \dots, a_k) &= (-1)^{k+1} P_k(-a_0, \dots, -a_k),\\
-P_k(a_0, \dots, a_k) &= a_0 P_{k-1}(a_1, \dots, a_k) + P_{k-2}(a_2, \dots, a_k),
-\end{align}$$
+$$s_k = -\frac{\vec r \times \vec r_{k-2}}{\vec r \times \vec r_{k-1}}=\left|\frac{\vec r \times \vec r_{k-2}}{\vec r \times \vec r_{k-1}}\right|=\left|\frac{r q_{k-2} - p_{k-2}}{rq_{k-1}-p_{k-1}}\right|=\frac{q_{k-2}}{q_{k-1}}\left|\frac{r -r_{k-2}}{r-r_{k-1}}\right|.$$
 
-we may rearrange the expression for $c_k$ in a much simpler manner:
+Thus, the expression for $\vec r_k$ is given explicitly as
 
-$$c_k = (-1)^{k-1} (r q_{k-1} - p_{k-1}).$$
+$$\vec r_k = \vec r_{k-2} + \left\lfloor \left| \frac{\vec r \times \vec r_{k-2}}{\vec r \times \vec r_{k-1}}\right|\right\rfloor \cdot \vec r_{k-1}.$$
 
-This gives us the final formula to calculate residual $s_k$ from convergents:
-
-$$s_k = \left|\frac{rq_{k-2} - p_{k-2}}{rq_{k-1} - p_{k-1}}\right| = \frac{q_{k-2}}{q_{k-1}}\left|\frac{r - r_{k-2}}{r - r_{k-1}}\right|.$$
-
-On the other hand, $a_k$ may be defined as $a_k = \lfloor s_k \rfloor$, thus we have more explicit expression for $a_k$ as well. But what is its geometric meaning in terms of $\vec r_{k-1}$ and $\vec r_{k-2}$?
-
+Note that $\vec r \times \vec r_{k-2}$ and $\vec r \times \vec r_{k-1}$ never have the same sign, as $\vec r_{k-1}$ and $\vec r_{k-2}$ always lie on different size of $\vec r$ due to the fact that their slope coefficients are $r_{k-1}$ and $r_{k-2}$, while the slope coefficient of $\vec r$ is $r$.
 
 ### Nose stretching
 
-From convergence section we know that the number $r$ always lies between numbers $r_{k-1}$ and $r_{k-2}$. For $\vec r_{k-1}$ and $\vec r_{k-2}$ it means that they are always on the opposite sides of the vector $\vec r = (1;r)$. This is due to $r_{k-1}=\frac{p_{k-1}}{q_{k-1}}$ and $r_{k-2}=\frac{p_{k-2}}{q_{k-2}}$ being slope coefficients of $\vec r_{k-1}$ and $\vec r_{k-2}$ correspondingly, while slope coefficient of $\vec r$ is exactly $r$.
+Geometrically, $a_k$ in the expression above is equal to the maximum integer number of $\vec r_{k-1}$ vectors that can be added to $\vec r_{k-2}$ in such a way that the resulting vector will still be on the same side from $\vec r$ as $\vec r_{k-2}$ is.
 
-Geometrically, $r q_{k-1} - p_{k-1}$ is equal to $\vec r_{k-1} \times \vec r$, that is, the cross product of $\vec r_{k-1}$ and $\vec r$. Thus, the explicit $\vec r$ formula is
+![](https://upload.wikimedia.org/wikipedia/commons/9/92/Continued_convergents_geometry.svg)
 
-$$\vec r = \vec r_{k-2} + \left \lfloor \left|\frac{\vec r_{k-2} \times \vec r}{\vec r_{k-1} \times \vec r} \right|\right \rfloor \cdot \vec r_{k-1}.$$
+On the picture above you can see how $\vec r_2 = (4,3)$ is obtained by repeatedly adding $\vec r_1 = (1,1)$ to $\vec r_0 = (1, 0)$. When it is not possible to further add $\vec r_1$ to $\vec r_0$ without crossing the $y=rx$ line, we go to the other side and repeatedly add $\vec r_2$ to $\vec r_1$ to obtain $\vec r_3 = (9, 7)$ in a similar manner.
 
-Geometrically, $a_k$ here is equal to the maximum integer number of $\vec r_{k-1}$ vectors that can be added to $\vec r_{k-2}$ in such a way that the resulting vector will still be on the same side from $\vec r$ as $\vec r_{k-2}$ is.
+This procedure generates exponentially longer vectors, that approach closer and closer to $y=rx$ line, until one vector is finally collinear with it (when $r$ is rational). For this property, the procedure of generating consequent convergent vectors was dubbed nose stretching algorithm by Boris Delaunay.
 
-Noteworthy, $|\vec r_k \times \vec r_{k-1}| = |q_k p_{k-1} - q_{k-1} p_k| = 1$, as was established above. Combined with [Pick's theorem](https://cp-algorithms.com/geometry/picks-theorem.html) it means that there are no points with integer coordinates strictly within the parallelogram formed by $\vec r_{k}$ and $\vec r_{k-1}$. Combined for all possible $k$ it means that there are no integer points in the space between polygons formed by even-indexed and odd-indexed convergent vectors.
+### Klein polygons
+
+If we look on the triangle drawn on points $\vec r_{k-2}$, $\vec r_{k}$ and $\vec 0$ we will notice that its doubled area is
+
+$$|\vec r_{k-2} \times \vec r_k| = a_k.$$
+
+Combined with the [Pick's theorem](https://cp-algorithms.com/geometry/picks-theorem.html), it means that there are no lattice points strictly inside the triangle and the only lattice points on its border are $\vec 0$ and $\vec r_{k-2} + t \cdot \vec r_{k-1}$ for all integer $t$ such that $0 \leq t \leq a_k$. When joined for all possible $k$ it means that there are no integer points in the space between polygons formed by even-indexed and odd-indexed convergent vectors.
+
+This, in turn, means that $\vec r_k$ with odd coefficients form a convex hull of lattice points with $x \geq 0$ above the line $y=rx$, while $\vec r_k$ with even coefficients form a convex hull of lattice points with $x > 0$ below the line $y=rx$.
+
+These polygons are also known as Klein polygons, named after Felix Klein who first suggested this geometric interpretation to the continued fractions.
