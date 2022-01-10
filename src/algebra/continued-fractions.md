@@ -128,9 +128,10 @@ struct fraction {
 ```
 
 
+
 ## Convergence
 
-Let's estimate the distance between $r_k$ and the underlying number $r$. To do this, we start by estimating the difference between adjacent convergents. By definition, it is given by the following formula
+Let's estimate the distance between $r_k$ and the underlying number $r$. To do this, we start by estimating the difference between adjacent convergents. By definition, it is given with the following formula
 
 $$\frac{p_k}{q_k} - \frac{p_{k-1}}{q_{k-1}} = \frac{p_k q_{k-1} - p_{k-1} q_k}{q_k q_{k-1}}.$$
 
@@ -167,7 +168,11 @@ has the same sign as $(-1)^k$ due to how fast $q_i q_{i-1}$ decreases. It means 
 ![Convergence towards underlying number](https://upload.wikimedia.org/wikipedia/commons/b/b4/Golden_ration_convergents.svg)
 </center>
 
-From this picture we can see that, in fact, distance between $r$ and $r_k$ is never larger than the distance between $r_k$ and $r_{k+1}$, therefore
+From this picture we can see that
+
+$$|r-r_k| = |r_k - r_{k+1}| - |r-r_{k+1}| \leq |r_k - r_{k+1}|,$$
+
+thus the distance between $r$ and $r_k$ is never larger than the distance between $r_k$ and $r_{k+1}$:
 
 $$\left|r-\frac{p_k}{q_k}\right| \leq \frac{1}{q_k q_{k+1}} \leq \frac{1}{q_k^2}.$$
 
