@@ -164,9 +164,7 @@ $$r-r_k = \sum\limits_{i=k+1}^\infty \frac{(-1)^{i-1}}{q_i q_{i-1}}$$
 
 has the same sign as $(-1)^k$ due to how fast $q_i q_{i-1}$ decreases. It means that even-indexed $r_k$ monotonously approach $r$ from below while odd-indexed $r_k$ monotonously approach it from above:
 
-<center>
-![Convergence towards underlying number](https://upload.wikimedia.org/wikipedia/commons/b/b4/Golden_ration_convergents.svg)
-</center>
+![](https://upload.wikimedia.org/wikipedia/commons/b/b4/Golden_ration_convergents.svg)
 
 From this picture we can see that
 
