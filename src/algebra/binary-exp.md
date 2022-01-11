@@ -225,3 +225,4 @@ $$a \cdot b = \begin{cases}
 * [SPOJ - Locker](http://www.spoj.com/problems/LOCKER/)
 * [LA - 3722 Jewel-eating Monsters](https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1723)
 * [SPOJ - Just add it](http://www.spoj.com/problems/ZSUM/)
+* [Codechef - Chef and Riffles](https://www.codechef.com/JAN221B/problems/RIFFLES)
