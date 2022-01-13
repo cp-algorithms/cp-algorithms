@@ -20,7 +20,9 @@ The algorithm was first described in Euclid's "Elements" (circa 300 BC), but it 
 
 ## Algorithm
 
-The algorithm is extremely simple:
+Originally, the Euclidean algorithm was formulated as follows: subtract the smaller number from the larger one until one of the numbers is zero. Indeed, if $g$ divides $a$ and $b$, it also divides $a-b$. On the other hand, if $g$ divides $a-b$ and $b$, then it also divides $a = b + (a-b)$, which means that the sets of the common divisors of $\{a, b\}$ and $\{b,a-b\}$ coincide.
+
+Note that $a$ remains the larger number until $b$ is subtracted from it at least $\left\lfloor\frac{a}{b}\right\rfloor$ times. Therefore, to speed things up, $a-b$ is substituted with $a-\left\lfloor\frac{a}{b}\right\rfloor b = a \bmod b$. Then the algorithm is formulated in an extremely simple way:
 
 $$\gcd(a, b) = \begin{cases}a,&\text{if }b = 0 \\ \gcd(b, a \bmod b),&\text{otherwise.}\end{cases}$$
 
@@ -55,29 +57,7 @@ int gcd (int a, int b) {
 }
 ```
 
-## Correctness Proof
-
-First, notice that in each iteration of the Euclidean algorithm the second argument strictly decreases, therefore (since the arguments are always non-negative) the algorithm will always terminate.
-
-For the proof of correctness, we need to show that $\gcd(a, b) = \gcd(b, a \bmod b)$ for all $a \geq 0$, $b > 0$.
-
-We will show that the value on the left side of the equation divides the value on the right side and vice versa. Obviously, this would mean that the left and right sides are equal, which will prove Euclid's algorithm.
-
-Let $d = \gcd(a, b)$. Then by definition $d\mid a$ and $d\mid b$.
-
-Now let's represent the remainder of the division of $a$ by $b$ as follows:
-
-$$a \bmod b = a - b \cdot \Bigl\lfloor\dfrac{a}{b}\Bigr\rfloor$$
-
-From this it follows that $d \mid (a \bmod b)$, which means we have the system of divisibilities:
-
-$$\begin{cases}d \mid b,\\ d \mid (a \mod b)\end{cases}$$
-
-Now we use the fact that for any three numbers $p$, $q$, $r$, if $p\mid q$ and $p\mid r$ then $p\mid \gcd(q, r)$. In our case, we get:
-
-$$d = \gcd(a, b) \mid \gcd(b, a \mod b)$$
-
-Thus we have shown that the left side of the original equation divides the right. The second half of the proof is similar.
+Note that since C++17, `gcd` is implemented as a [standard function](https://en.cppreference.com/w/cpp/numeric/gcd) in C++.
 
 ## Time Complexity
 
@@ -88,6 +68,8 @@ If $a > b \geq 1$ and $b < F_n$ for some $n$, the Euclidean algorithm performs a
 Moreover, it is possible to show that the upper bound of this theorem is optimal. When $a = F_n$ and $b = F_{n-1}$, $gcd(a, b)$ will perform exactly $n-2$ recursive calls. In other words, consecutive Fibonacci numbers are the worst case input for Euclid's algorithm.
 
 Given that Fibonacci numbers grow exponentially, we get that the Euclidean algorithm works in $O(\log \min(a, b))$.
+
+Another way to estimate the complexity is to notice that $a \bmod b$ for the case $a \geq b$ is at least $2$ times smaller than $a$, so the larger number is reduced at least in half on each iteration of the algorithm.
 
 ## Least common multiple
 
@@ -117,7 +99,7 @@ It's based on a few properties:
 
   - If both numbers are even, then we can factor out a two of both and compute the GCD of the remaining numbers: $\gcd(2a, 2b) = 2 \gcd(a, b)$.
   - If one of the numbers is even and the other one is odd, then we can remove the factor 2 from the even one: $\gcd(2a, b) = \gcd(a, b)$ if $b$ is odd.
-  - If both numbers are odd, then subtracting one number of the other one will not change the GCD: $\gcd(a, b) = \gcd(b, a-b)$ (this can be proven in the same way as the correctness proof of the normal algorithm)
+  - If both numbers are odd, then subtracting one number of the other one will not change the GCD: $\gcd(a, b) = \gcd(b, a-b)$
 
 Using only these properties, and some fast bitwise functions from GCC, we can implement a fast version:
 
