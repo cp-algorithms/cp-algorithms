@@ -18,7 +18,33 @@ In this article, we consider several classical problems on these equations:
 
 A degenerate case that need to be taken care of is when $a = b = 0$. It is easy to see that we either have no solutions or infinitely many solutions, depending on whether $c = 0$ or not. In the rest of this article, we will ignore this case.
 
-## Finding a solution
+## Analytic solution
+
+When $a \neq 0$ and $b \neq 0$, the equation $ax+by=c$ can be equivalently treated as either of the following:
+
+\begin{gather}
+ax \equiv c \pmod b,\newline
+by \equiv c \pmod a.
+\end{gather}
+
+Without loss of generality, assume that $b \neq 0$ and consider the first equation. When $a$ and $b$ are co-prime, the solution to it is given as
+
+$$x \equiv ca^{-1} \pmod b,$$
+
+where $a^{-1}$ is the [modular inverse](algebra/module-inverse.html) of $a$ modulo $b$.
+
+When $a$ and $b$ are not co-prime, values of $ax$ modulo $b$ for all integer $x$ are divisible by $g=\gcd(a, b)$, so the solution only exists when $c$ is divisible by $g$. In this case, one of solutions can be found by reducing the equation by $g$:
+
+$$(a/g) x \equiv (c/g) \pmod{b/g}.$$
+
+By the definition of $g$, the numbers $a/g$ and $b/g$ are co-prime, so the solution is given explicitly as
+
+$$\begin{cases}
+x \equiv (c/g)(a/g)^{-1}\pmod{b/g},\\
+y = \frac{c-ax}{b}.
+\end{cases}$$
+
+## Algorithmic solution
 
 To find one solution of the Diophantine equation with 2 unknowns, you can use the [Extended Euclidean algorithm](algebra/extended-euclid-algorithm.html). First, assume that $a$ and $b$ are non-negative. When we apply Extended Euclidean algorithm for $a$ and $b$, we can find their greatest common divisor $g$ and 2 numbers $x_g$ and $y_g$ such that:
 
