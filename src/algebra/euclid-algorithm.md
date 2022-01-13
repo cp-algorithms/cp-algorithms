@@ -14,7 +14,7 @@ The algorithm was first described in Euclid's "Elements" (circa 300 BC), but it 
 
 ## Algorithm
 
-Originally, Euclidean algorithm was formulated as follows: subtract smaller number from the larger one until one of the numbers is zero. Indeed, if $g$ divides $a$ and $b$, it also divides $a-b$. On the other hand, if $g$ divides $a-b$ and $b$, then it also divides $a = b + (a-b)$, which means that the sets of divisors of $\{a, b\}$ and $\{b,a-b\}$ coincide.
+Originally, Euclidean algorithm was formulated as follows: subtract smaller number from the larger one until one of the numbers is zero. Indeed, if $g$ divides $a$ and $b$, it also divides $a-b$. On the other hand, if $g$ divides $a-b$ and $b$, then it also divides $a = b + (a-b)$, which means that the sets of common divisors of $\{a, b\}$ and $\{b,a-b\}$ coincide.
 
 Note that $a$ remains the larger number until $b$ is subtracted from it at least $\left\lfloor\frac{a}{b}\right\rfloor$ times. Therefore, to speed things up, $a-b$ is substituted with $a-\left\lfloor\frac{a}{b}\right\rfloor b = a \bmod b$. Then the algorithm can be formulated in an extremely simple way:
 
