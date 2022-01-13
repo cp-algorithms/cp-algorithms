@@ -34,36 +34,6 @@ But the method described here is **sufficiently** simpler and has less hidden co
 
 Another modern way to solve this problem and to deal with palindromes in general is through the so-called palindromic tree, or eertree.
 
-## Working with parities
-
-Although it is possible to implement Manacher's algorithm for odd and even lengths separately, the implementation of the version for even lengths is often deemed more difficult, as it is less natural and easily leads to off-by-one errors.
-
-To mitigate this, it is possible to reduce the whole problem to the case when we only deal with the palindromes of odd length. To do this, we can put an additional `#` character between each letter in the string and also in the beginning and the end of the string:
-
-$$abcbcba \to \#a\#b\#c\#b\#c\#b\#a\#,$$
-$$d = [1,2,1,2,1,4,1,8,1,4,1,2,1,2,1].$$
-
-As you can see, $d[2i]=2 d_2[i]+1$ and $d[2i+1]=2 d_1[i]$ where $d$ denotes the Manacher array for odd-length palindromes in `#`-joined string, while $d_1$ and $d_2$ correspond to the arrays defined above in the initial string.
-
-Indeed, `#` characters do not affect the odd-length palindromes, which are still centered in the initial string's characters, but now even-length palindromes of the initial string are odd-length palindromes of the new string centered in `#` characters.
-
-Note that $d[2i]$ and $d[2i+1]$ are essentially the increased by $1$ lengths of the largest odd- and even-length palindromes centered in $i$ correspondingly.
-
-The reduction is implemented in the following way:
-
-```cpp
-vector<int> manacher(string s) {
-    string t;
-    for(auto c: s) {
-        t += string("#") + c;
-    }
-    auto res = manacher_odd(t + "#");
-    return vector<int>(begin(res) + 1, end(res) - 1);
-}
-```
-
-For simplicity, splitting the array into $d_1$ and $d_2$ as well as their explicit calculation is omitted.
-
 ## Trivial algorithm
 
 To avoid ambiguities in the further description we denote what "trivial algorithm" is.
@@ -184,6 +154,36 @@ vector<int> manacher_odd(string s) {
     return vector<int>(begin(p) + 1, end(p) - 1);
 }
 ```
+
+## Working with parities
+
+Although it is possible to implement Manacher's algorithm for odd and even lengths separately, the implementation of the version for even lengths is often deemed more difficult, as it is less natural and easily leads to off-by-one errors.
+
+To mitigate this, it is possible to reduce the whole problem to the case when we only deal with the palindromes of odd length. To do this, we can put an additional `#` character between each letter in the string and also in the beginning and the end of the string:
+
+$$abcbcba \to \#a\#b\#c\#b\#c\#b\#a\#,$$
+$$d = [1,2,1,2,1,4,1,8,1,4,1,2,1,2,1].$$
+
+As you can see, $d[2i]=2 d_2[i]+1$ and $d[2i+1]=2 d_1[i]$ where $d$ denotes the Manacher array for odd-length palindromes in `#`-joined string, while $d_1$ and $d_2$ correspond to the arrays defined above in the initial string.
+
+Indeed, `#` characters do not affect the odd-length palindromes, which are still centered in the initial string's characters, but now even-length palindromes of the initial string are odd-length palindromes of the new string centered in `#` characters.
+
+Note that $d[2i]$ and $d[2i+1]$ are essentially the increased by $1$ lengths of the largest odd- and even-length palindromes centered in $i$ correspondingly.
+
+The reduction is implemented in the following way:
+
+```cpp
+vector<int> manacher(string s) {
+    string t;
+    for(auto c: s) {
+        t += string("#") + c;
+    }
+    auto res = manacher_odd(t + "#");
+    return vector<int>(begin(res) + 1, end(res) - 1);
+}
+```
+
+For simplicity, splitting the array into $d_1$ and $d_2$ as well as their explicit calculation is omitted.
 
 ## Problems
 
