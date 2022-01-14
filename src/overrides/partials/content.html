@@ -1,8 +1,27 @@
+<script type="text/javascript">
+window.onload = function() {
+	const newIssueURL = "https://github.com/e-maxx-eng/e-maxx-eng/issues/new";
+  const issueTitle = `Problem on article "{{page.title}}"`;
+	const issueBody = `
+**Article:** [{{page.title}}](https://cp-algorithms.com/{{ page.url }})
+
+**Problem:**
+<!--
+Describe the issue of this article in detail.
+-->
+`;
+  var issue_a = document.getElementById("report_issue_a");
+  issue_a.href = `${newIssueURL}?` + `title=${encodeURIComponent(issueTitle)}&` + `body=${encodeURIComponent(issueBody)}`;
+}
+</script>
 {% if page.edit_url %}
 <a href="{{ page.edit_url }}" title="{{ lang.t('edit.link.title') }}" class="md-content__button md-icon">
   {% include ".icons/material/pencil.svg" %}
 </a>
-<a href="{{ page.edit_url | replace("/edit/", "/commits/") }}" title="Page Authors" class="md-content__button md-icon">
+<a id="report_issue_a" href="" title="Report a problem" class="md-content__button md-icon">
+  {% include ".icons/material/alert.svg" %}
+</a>
+<a href="{{ page.edit_url | replace("/edit/", "/commits/") }}" title="Page authors" class="md-content__button md-icon">
   {% include ".icons/material/attribution.svg" %}
 </a>
 {% endif %}
