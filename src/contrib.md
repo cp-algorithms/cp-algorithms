@@ -87,4 +87,4 @@ Running test_vertical_decomposition.cpp - Passed in 2397 ms
 51 PASSED in 49.00 seconds
 ```
 
-Also, every pull-request will automatically tested via [Github Actions](https://travis-ci.org/e-maxx-eng/e-maxx-eng/).
+Also, every pull-request will automatically tested via [Github Actions](https://github.com/e-maxx-eng/e-maxx-eng/actions).
