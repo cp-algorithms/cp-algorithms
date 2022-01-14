@@ -165,6 +165,7 @@ Although it is possible to implement Manacher's algorithm for odd and even lengt
 To mitigate this, it is possible to reduce the whole problem to the case when we only deal with the palindromes of odd length. To do this, we can put an additional `#` character between each letter in the string and also in the beginning and the end of the string:
 
 $$abcbcba \to \#a\#b\#c\#b\#c\#b\#a\#,$$
+
 $$d = [1,2,1,2,1,4,1,8,1,4,1,2,1,2,1].$$
 
 As you can see, $d[2i]=2 d_2[i]+1$ and $d[2i+1]=2 d_1[i]$ where $d$ denotes the Manacher array for odd-length palindromes in `#`-joined string, while $d_1$ and $d_2$ correspond to the arrays defined above in the initial string.
