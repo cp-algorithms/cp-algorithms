@@ -11,12 +11,14 @@ hide:
       var URL = "https://us-central1-cp-algorithms.cloudfunctions.net/convert-markdown-mkdocs";
       var data = {"markdown": markdown};
       var refresh_script = `<scr` + `ipt>MathJax.typeset();</scr` + `ipt>`;
+      $("#previewArea").html("Loading...");
       $.ajax({
         url: URL,
         contentType: "application/json",
         method: 'POST',
         data: JSON.stringify(data),
-        success: function(data) { $("#previewArea").html(data + "\n" + refresh_script); }
+        success: function(data) { $("#previewArea").html(data + "\n" + refresh_script); },
+        error: function() {$("#previewArea").html("Internal error!")}
       });
     });
   });
