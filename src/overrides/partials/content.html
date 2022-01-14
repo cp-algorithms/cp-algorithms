@@ -3,7 +3,7 @@ window.onload = function() {
 	const newIssueURL = "https://github.com/e-maxx-eng/e-maxx-eng/issues/new";
   const issueTitle = `Problem on article "{{page.title}}"`;
 	const issueBody = `
-**Article:** [{{page.title}}](https://cp-algorithms.com/{{ page.url }})
+ **Article:** [{{page.title}}](${window.location.href})
 
 **Problem:**
 <!--
