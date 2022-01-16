@@ -1,7 +1,7 @@
 ---
 title: Main Page
 ---
-<h1>Algorithms for Competitive Programming</h1>
+# Algorithms for Competitive Programming
 
 *The goal of this project is to translate the wonderful resource
 [http://e-maxx.ru/algo](http://e-maxx.ru/algo) which provides descriptions of many algorithms
@@ -9,7 +9,11 @@ and data structures especially popular in field of competitive programming.
 Moreover we want to improve the collected knowledge by extending the articles
 and adding new articles to the collection.*
 
-<h2>Articles</h2>
+## Changelog
+
+- January 16, 2022: Switched to the [MkDocs](https://www.mkdocs.org/) site generator with the [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) theme, which give the website a more modern look, brings a couple of new features (dark mode, better search, ...), makes the website more stable (in terms of rendering math formulas), and makes it easier to contribute.
+
+## Articles
 
 ### Algebra
 
@@ -228,4 +232,7 @@ and adding new articles to the collection.*
 
 ---
 
-[Information for contributors](contrib.md) and [Test-Your-Page form](preview.md)
+## Contributing
+
+- [Information for contributors](contrib.md)
+- [Test-Your-Page form](preview.md)
