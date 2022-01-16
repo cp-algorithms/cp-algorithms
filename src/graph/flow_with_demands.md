@@ -1,8 +1,3 @@
----
-title: Flows with demands 
-hide:
-  - navigation
----
 # Flows with demands
 
 In a normal flow network the flow of an edge is only limited by the capacity $c(e)$ from above and by 0 from below.

@@ -13,3 +13,8 @@
 .md-typeset div.arithmatex {
     overflow: hidden;
 }
+
+/* hide the primary sidebar */
+.md-sidebar.md-sidebar--primary {
+  display: none;
+}

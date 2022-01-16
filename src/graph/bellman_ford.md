@@ -1,9 +1,3 @@
----
-title: Bellman-Ford Algorithm
-hide:
-  - navigation
----
-
 # Bellman-Ford Algorithm
 
 **Single source shortest path with negative weight edges**

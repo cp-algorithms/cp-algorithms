@@ -1,8 +1,3 @@
----
-title: Counting labeled graphs 
-hide:
-  - navigation
----
 # Counting labeled graphs
 
 ## Labeled graphs

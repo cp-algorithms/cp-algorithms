@@ -1,9 +1,3 @@
----
-title: Dynamic Programming on Broken Profile. Problem "Parquet" 
-hide:
-  - navigation
----
-
 # Dynamic Programming on Broken Profile. Problem "Parquet"
 
 Common problems solved using DP on broken profile include:

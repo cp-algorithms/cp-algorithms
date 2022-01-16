@@ -1,8 +1,3 @@
----
-title: Check if point belongs to the convex polygon in O(log N) 
-hide:
-  - navigation
----
 # Check if point belongs to the convex polygon in $O(\log N)$
 
 Consider the following problem: you are given a convex polygon with integer vertices and a lot of queries.

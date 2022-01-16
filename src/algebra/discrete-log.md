@@ -1,9 +1,3 @@
----
-title: Discrete Logarithm 
-hide:
-  - navigation
----
-
 # Discrete Logarithm
 
 The discrete logarithm is an integer $x$ satisfying the equation

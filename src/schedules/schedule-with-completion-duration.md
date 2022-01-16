@@ -1,9 +1,3 @@
----
-title: Optimal schedule of jobs given their deadlines and durations 
-hide:
-  - navigation
----
-
 # Optimal schedule of jobs given their deadlines and durations
 
 Suppose, we have a set of jobs, and we are aware of every job’s deadline and its duration. The execution of a job cannot be interrupted prior to its ending. It is required to create such a schedule to accomplish the biggest number of jobs.

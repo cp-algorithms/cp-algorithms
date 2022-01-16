@@ -1,8 +1,3 @@
----
-title: Check if two segments intersect 
-hide:
-  - navigation
----
 # Check if two segments intersect
 
 You are given two segments $(a, b)$ and $(c, d)$.

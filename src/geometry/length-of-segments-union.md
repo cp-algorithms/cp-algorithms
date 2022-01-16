@@ -1,8 +1,3 @@
----
-title: Length of the union of segments 
-hide:
-  - navigation
----
 # Length of the union of segments
 
 Given $n$ segments on a line, each described by a pair of coordinates $(a_{i1}, a_{i2})$.

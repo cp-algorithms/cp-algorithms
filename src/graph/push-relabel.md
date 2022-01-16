@@ -1,8 +1,3 @@
----
-title: Maximum flow - Push-relabel algorithm 
-hide:
-  - navigation
----
 # Maximum flow - Push-relabel algorithm
 
 The push-relabel algorithm (or also known as preflow-push algorithm) is an algorithm for computing the maximum flow of a flow network.

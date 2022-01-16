@@ -1,8 +1,3 @@
----
-title: Randomized Heap 
-hide:
-  - navigation
----
 # Randomized Heap
 
 A randomized heap is a heap that, through using randomization, allows to perform all operations in expected logarithmic time.

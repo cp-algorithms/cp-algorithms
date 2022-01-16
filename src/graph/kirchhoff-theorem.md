@@ -1,9 +1,3 @@
----
-title: Kirchhoff's Theorem 
-hide:
-  - navigation
----
-
 # Kirchhoff's theorem. Finding the number of spanning trees
 
 Problem: You are given a connected undirected graph (with possible multiple edges) represented using an adjacency matrix. Find the number of different spanning trees of this graph.

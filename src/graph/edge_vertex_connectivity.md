@@ -1,8 +1,3 @@
----
-title: Edge connectivity / Vertex connectivity 
-hide:
-  - navigation
----
 # Edge connectivity / Vertex connectivity
 
 ## Definition

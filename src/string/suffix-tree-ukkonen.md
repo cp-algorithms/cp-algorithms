@@ -1,9 +1,3 @@
----
-title: Suffix tree. Ukkonen's algorithm
-hide:
-  - navigation
----
-
 # Suffix Tree. Ukkonen's Algorithm
 
 *This article is a stub and doesn't contain any descriptions. For a description of the algorithm, refer to other sources, such as [Algorithms on Strings, Trees, and Sequences](http://web.stanford.edu/~mjkay/gusfield.pdf) by Dan Gusfield.*

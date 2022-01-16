@@ -1,8 +1,3 @@
----
-title: Minimum-cost flow - Successive shortest path algorithm
-hide:
-  - navigation
----
 # Minimum-cost flow - Successive shortest path algorithm
 
 Given a network $G$ consisting of $n$ vertices and $m$ edges.

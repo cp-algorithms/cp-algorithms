@@ -1,8 +1,3 @@
----
-title: Fibonacci Numbers
-hide:
-  - navigation
----
 # Fibonacci Numbers
 
 The Fibonacci sequence is defined as follows:

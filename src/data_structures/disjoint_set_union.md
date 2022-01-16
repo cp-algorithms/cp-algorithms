@@ -1,9 +1,3 @@
----
-title: Disjoint Set Union
-hide:
-  - navigation
----
-
 # Disjoint Set Union
 
 This article discusses the data structure **Disjoint Set Union** or **DSU**.

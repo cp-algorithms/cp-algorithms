@@ -1,9 +1,3 @@
----
-title: Finding the nearest pair of points 
-hide:
-  - navigation
----
-
 # Finding the nearest pair of points
 
 ## Problem statement

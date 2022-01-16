@@ -1,8 +1,3 @@
----
-title: Dijkstra on sparse graphs 
-hide:
-  - navigation
----
 # Dijkstra on sparse graphs
 
 For the statement of the problem, the algorithm with implementation and proof can be found on the article [Dijkstra's algorithm](dijkstra.md).

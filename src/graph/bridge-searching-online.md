@@ -1,8 +1,3 @@
----
-title: Finding Bridges Online 
-hide:
-  - navigation
----
 # Finding Bridges Online
 
 We are given an undirected graph.

@@ -1,9 +1,6 @@
 ---
 title: Finding bridges in a graph in O(N+M) 
-hide:
-  - navigation
 ---
-
 # Finding bridges in a graph in $O(N+M)$
 
 We are given an undirected graph. A bridge is defined as an edge which, when removed, makes the graph disconnected (or more precisely, increases the number of connected components in the graph). The task is to find all bridges in the given graph.

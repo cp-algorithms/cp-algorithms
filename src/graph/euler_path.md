@@ -1,7 +1,5 @@
 ---
 title: Finding the Eulerian path in O(M)     
-hide:
-  - navigation
 ---
 # Finding the Eulerian path in $O(M)$
 

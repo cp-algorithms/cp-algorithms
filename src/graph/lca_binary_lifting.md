@@ -1,8 +1,3 @@
----
-title: Lowest Common Ancestor - Binary Lifting 
-hide:
-  - navigation
----
 # Lowest Common Ancestor - Binary Lifting
 
 Let $G$ be a tree.

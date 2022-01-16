@@ -1,9 +1,3 @@
----
-title: Range Minimum Query 
-hide:
-  - navigation
----
-
 # Range Minimum Query
 
 You are given an array $A[1..N]$.

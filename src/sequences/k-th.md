@@ -1,10 +1,7 @@
 ---
 title: K-th order statistic in O(N)
-hide:
-  - navigation
 ---
-
-# K-th order statistic in O(N)
+# $K$th order statistic in $O(N)$
 
 Given an array __A__ of size __N__ and a number __K__. The challenge is to find __K__-th largest number in the array, i.e., __K__-th order statistic.
 

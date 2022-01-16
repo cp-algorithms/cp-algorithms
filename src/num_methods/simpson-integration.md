@@ -1,9 +1,3 @@
----
-title: Simpson integration 
-hide:
-  - navigation
----
-
 # Integration by Simpson's formula
 
 We are going to calculate the value of a definite integral

@@ -1,8 +1,3 @@
----
-title: Expression parsing 
-hide:
-  - navigation
----
 # Expression parsing
 
 A string containing a mathematical expression containing numbers and various operators is given.

@@ -1,8 +1,3 @@
----
-title: Article Preview
-hide:
-  - navigation
----
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
@@ -38,11 +33,6 @@ hide:
 <center>
 <form>
   <textarea style="width:100%;height:300px;" id="markdownInput">
----
-title: Example article
-hide:
-  - navigation
----
 # Example article
 
 $$a^2 + b^2 = c^2$$

@@ -1,9 +1,7 @@
 ---
 title: Main Page
-hide:
-  - navigation
 ---
-<h1 data-toc="off">Algorithms for Competitive Programming</h1>
+<h1>Algorithms for Competitive Programming</h1>
 
 *The goal of this project is to translate the wonderful resource
 [http://e-maxx.ru/algo](http://e-maxx.ru/algo) which provides descriptions of many algorithms
@@ -11,7 +9,7 @@ and data structures especially popular in field of competitive programming.
 Moreover we want to improve the collected knowledge by extending the articles
 and adding new articles to the collection.*
 
-## Articles
+<h2>Articles</h2>
 
 ### Algebra
 

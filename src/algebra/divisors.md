@@ -1,8 +1,3 @@
----
-title: Number of divisors / sum of divisors
-hide:
-  - navigation
----
 # Number of divisors / sum of divisors
 
 In this article we discuss how to compute the number of divisors $d(n)$ and the sum of divisors $\sigma(n)$ of a given number $n$.

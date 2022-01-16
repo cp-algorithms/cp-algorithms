@@ -1,9 +1,3 @@
----
-title: Submask Enumeration 
-hide:
-  - navigation
----
-
 # Submask Enumeration
 
 ## Enumerating all submasks of a given mask

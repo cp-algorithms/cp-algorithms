@@ -1,9 +1,3 @@
----
-title: 15 Puzzle Game - Existence Of The Solution 
-hide:
-  - navigation
----
-
 # 15 Puzzle Game: Existence Of The Solution
 
 This game is played on a $4 \times 4$ board. On this board there are $15$ playing tiles numbered from 1 to 15. One cell is left empty (denoted by 0). You need to get the board to the position presented below by repeatedly moving one of the tiles to the free space:

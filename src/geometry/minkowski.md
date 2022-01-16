@@ -1,8 +1,3 @@
----
-title: Minkowski sum of convex polygons 
-hide:
-  - navigation
----
 # Minkowski sum of convex polygons
 
 ## Definition

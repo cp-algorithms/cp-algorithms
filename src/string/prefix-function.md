@@ -1,9 +1,3 @@
----
-title: Prefix function. Knuth–Morris–Pratt algorithm 
-hide:
-  - navigation
----
-
 # Prefix function. Knuth–Morris–Pratt algorithm
 
 ## Prefix function definition

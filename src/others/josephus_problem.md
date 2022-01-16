@@ -1,9 +1,3 @@
----
-title: Josephus Problem 
-hide:
-  - navigation
----
-
 # Josephus Problem
 
 ## Statement

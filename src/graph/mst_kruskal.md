@@ -1,9 +1,3 @@
----
-title: Minimum spanning tree - Kruskal's algorithm
-hide:
-  - navigation
----
-
 # Minimum spanning tree - Kruskal's algorithm
 
 Given a weighted undirected graph.

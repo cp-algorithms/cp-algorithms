@@ -1,9 +1,6 @@
 ---
 title: Finding articulation points in a graph in O(N+M) 
-hide:
-  - navigation
 ---
-
 # Finding articulation points in a graph in $O(N+M)$
 
 We are given an undirected graph. An articulation point (or cut vertex) is defined as a vertex which, when removed along with associated edges, makes the graph disconnected (or more precisely, increases the number of connected components in the graph). The task is to find all articulation points in the given graph.

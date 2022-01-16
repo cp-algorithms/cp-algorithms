@@ -1,8 +1,3 @@
----
-title: Delaunay triangulation and Voronoi diagram 
-hide:
-  - navigation
----
 # Delaunay triangulation and Voronoi diagram
 
 Consider a set $\\{p_i\\}$ of points on the plane.

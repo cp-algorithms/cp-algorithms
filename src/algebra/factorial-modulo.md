@@ -1,7 +1,5 @@
 ---
-title: Factorial modulo P 
-hide:
-  - navigation
+title: Factorial modulo p 
 ---
 # Factorial modulo $p$
 

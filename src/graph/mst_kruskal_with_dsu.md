@@ -1,9 +1,3 @@
----
-title: Minimum spanning tree - Kruskal with Disjoint Set Union
-hide:
-  - navigation
----
-
 # Minimum spanning tree - Kruskal with Disjoint Set Union
 
 For an explanation of the MST problem and the Kruskal algorithm, first see the [main article on Kruskal's algorithm](mst_kruskal.md).

@@ -1,8 +1,3 @@
----
-title: Balanced Ternary
-hide:
-  - navigation
----
 # Balanced Ternary
 
 !["Setun computer using Balanced Ternary system"](http://ternary.3neko.ru/photo/setun1_small.jpg)

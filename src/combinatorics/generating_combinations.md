@@ -1,7 +1,5 @@
 ---
 title: Generating all K-combinations
-hide:
-  - navigation
 ---
 # Generating all $K$-combinations
 

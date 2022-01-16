@@ -1,8 +1,3 @@
----
-title: Primitive Root
-hide:
-  - navigation
----
 # Primitive Root
 
 ## Definition

@@ -1,9 +1,3 @@
----
-title: String Hashing
-hide:
-  - navigation
----
-
 # String Hashing
 
 Hashing algorithms are helpful in solving a lot of problems.

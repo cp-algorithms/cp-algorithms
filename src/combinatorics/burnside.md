@@ -1,8 +1,3 @@
----
-title: Burnside's lemma / Pólya enumeration theorem 
-hide:
-  - navigation
----
 # Burnside's lemma / Pólya enumeration theorem
 
 ## Burnside's lemma

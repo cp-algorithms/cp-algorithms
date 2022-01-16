@@ -1,9 +1,6 @@
 ---
 title: Calculating the determinant using Kraut method
-hide:
-  - navigation
 ---
-
 # Calculating the determinant using Kraut method in $O(N^3)$
 
 In this article, we'll describe how to find the determinant of the matrix using Kraut method, which works in $O(N^3)$.

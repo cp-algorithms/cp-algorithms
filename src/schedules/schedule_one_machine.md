@@ -1,8 +1,3 @@
----
-title: Scheduling jobs on one machine 
-hide:
-  - navigation
----
 # Scheduling jobs on one machine
 
 This task is about finding an optimal schedule for $n$ jobs on a single machine, if the job $i$ can be processed in $t_i$ time, but for the $t$ seconds waiting before processing the job a penalty of $f_i(t)$ has to be paid.

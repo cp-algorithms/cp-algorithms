@@ -1,9 +1,3 @@
----
-title: Check whether a graph is bipartite 
-hide:
-  - navigation
----
-
 # Check whether a graph is bipartite
 
 A bipartite graph is a graph whose vertices can be divided into two disjoint sets so that every edge connects two vertices from different sets (i.e. there are no edges which connect vertices from the same set). These sets are usually called sides.

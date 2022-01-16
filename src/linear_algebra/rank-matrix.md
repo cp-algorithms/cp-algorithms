@@ -1,9 +1,3 @@
----
-title: Rank of a matrix
-hide:
-  - navigation
----
-
 # Finding the rank of a matrix
 
 **The rank of a matrix** is the largest number of linearly independent rows/columns of the matrix. The rank is not only defined  for square matrices.

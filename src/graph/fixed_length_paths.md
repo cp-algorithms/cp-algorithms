@@ -1,8 +1,3 @@
----
-title: Number of paths with fixed length. Shortest Path of fixed length. 
-hide:
-  - navigation
----
 # Number of paths of fixed length / Shortest paths of fixed length
 
 The following article describes solutions to these two problems built on the same idea:

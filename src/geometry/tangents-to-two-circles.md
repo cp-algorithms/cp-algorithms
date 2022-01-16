@@ -1,9 +1,3 @@
----
-title: Finding common tangents to two circles
-hide:
-  - navigation
----
-
 # Finding common tangents to two circles
 
 Given two circles. It is required to find all their common tangents, i.e. all such lines that touch both circles simultaneously.

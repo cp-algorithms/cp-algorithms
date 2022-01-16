@@ -1,8 +1,3 @@
----
-title: Solve RMQ by finding LCA 
-hide:
-  - navigation
----
 # Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)
 
 Given an array `A[0..N-1]`.

@@ -1,9 +1,3 @@
----
-title: Basic Geometry 
-hide:
-  - navigation
----
-
 # Basic Geometry
 
 In this article we will consider basic operations on points in Euclidean space which maintains the foundation of the whole analytical geometry.

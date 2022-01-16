@@ -1,9 +1,3 @@
----
-title: Depth First Search
-hide:
-  - navigation
----
-
 # Depth First Search
 
 Depth First Search is one of the main graph algorithms.

@@ -1,8 +1,3 @@
----
-title: Longest increasing subsequence 
-hide:
-  - navigation
----
 # Longest increasing subsequence
 
 We are given an array with $n$ numbers: $a[0 \dots n-1]$.

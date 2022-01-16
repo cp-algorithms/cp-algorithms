@@ -1,9 +1,4 @@
----
-title: Finding Intersection of Two Segments
-hide:
-  - navigation
----
-# Finding Intersection of Two Segments
+# Finding intersection of two segments
 
 You are given two segments AB and CD, described as pairs of their endpoints. Each segment can be a single point if its endpoints are the same. 
 You have to find the intersection of these segments, which can be empty (if the segments don't intersect), a single point or a segment (if the given segments overlap).

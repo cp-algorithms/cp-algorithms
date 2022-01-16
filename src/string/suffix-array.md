@@ -1,8 +1,3 @@
----
-title: Suffix Array
-hide:
-  - navigation
----
 # Suffix Array
 
 ## Definition

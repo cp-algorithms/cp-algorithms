@@ -1,8 +1,3 @@
----
-title: How to Contribute
-hide:
-  - navigation
----
 # How to Contribute
 
 ## General information
@@ -24,7 +19,7 @@ In order to make contribution consider the following steps:
 In case you want to make some bigger changes, like adding a new article, or edit multiple files, you should fork the project in the traditional way, create a branch, modify the files in the Github UI or locally on your computer, and create a pull-request.
 If you are unfamiliar with the workflow, read [Step-by-step guide to contributing on GitHub](https://www.dataschool.io/how-to-contribute-on-github/).
 
-In case you are adding a new article, start by copying some other article in order to have the required header lines, and make sure to link to the article from the main (index.md) page.
+In case you are adding a new article, make sure to link to the article from the main (index.md) page.
 
 ## Syntax
 
@@ -37,6 +32,17 @@ For advanced Markdown features of Material for MkDocs see their [reference pages
 - [Data tables](https://squidfunk.github.io/mkdocs-material/reference/data-tables/#usage)
 
 However not everything of the features should be used, and some of the features are not enabled or require a paid subscription.
+
+By default the first header (`# header`) will be also the HTML title of the article. In case the header contains a math formula, you can define a different HTML title with:
+
+```markdown
+---
+title: Alternative HTML title
+---
+# Proof of $a^2 + b^2 = c^2$
+
+remaining article
+```
 
 ## Some conventions
 

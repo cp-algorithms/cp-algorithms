@@ -1,9 +1,3 @@
----
-title: Segment Tree
-hide:
-  - navigation
----
-
 # Segment Tree
 
 A Segment Tree is a data structure that allows answering range queries over an array effectively, while still being flexible enough to allow modifying the array. 

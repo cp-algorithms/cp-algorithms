@@ -1,8 +1,3 @@
----
-title: Lowest Common Ancestor - Tarjan's off-line algorithm 
-hide:
-  - navigation
----
 # Lowest Common Ancestor - Tarjan's off-line algorithm
 
 We have a tree $G$ with $n$ nodes and we have $m$ queries of the form $(u, v)$.

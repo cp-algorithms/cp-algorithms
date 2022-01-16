@@ -1,9 +1,3 @@
----
-title: Fenwick Tree 
-hide:
-  - navigation
----
-
 # Fenwick Tree
 
 Let, $f$ be some _reversible_ function and $A$ be an array of integers of length $N$.

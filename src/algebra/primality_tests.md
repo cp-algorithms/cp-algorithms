@@ -1,8 +1,3 @@
----
-title: Primality tests
-hide:
-  - navigation
----
 # Primality tests
 
 This article describes multiple algorithms to determine if a number is prime or not.

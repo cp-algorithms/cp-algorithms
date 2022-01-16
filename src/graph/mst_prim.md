@@ -1,8 +1,3 @@
----
-title: Minimum spanning tree - Prim's algorithm
-hide:
-  - navigation
----
 # Minimum spanning tree - Prim's algorithm
 
 Given a weighted, undirected graph $G$ with $n$ vertices and $m$ edges.

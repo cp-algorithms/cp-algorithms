@@ -1,8 +1,3 @@
----
-title: Scheduling jobs on two machines 
-hide:
-  - navigation
----
 # Scheduling jobs on two machines
 
 This task is about finding an optimal schedule for $n$ jobs on two machines.

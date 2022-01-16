@@ -1,9 +1,3 @@
----
-title: Minimum stack / Minimum queue 
-hide:
-  - navigation
----
-
 # Minimum stack / Minimum queue
 
 In this article we will consider three problems: 

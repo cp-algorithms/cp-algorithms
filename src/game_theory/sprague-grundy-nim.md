@@ -1,8 +1,3 @@
----
-title: Sprague-Grundy theorem. Nim
-hide:
-  - navigation
----
 # Sprague-Grundy theorem. Nim
 
 ## Introduction
