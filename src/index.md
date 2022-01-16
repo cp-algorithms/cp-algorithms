@@ -13,6 +13,8 @@ and adding new articles to the collection.*
 
 - January 16, 2022: Switched to the [MkDocs](https://www.mkdocs.org/) site generator with the [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) theme, which give the website a more modern look, brings a couple of new features (dark mode, better search, ...), makes the website more stable (in terms of rendering math formulas), and makes it easier to contribute.
 
+Full list of updates: [Commit History](https://github.com/e-maxx-eng/e-maxx-eng/commits/master)
+
 ## Articles
 
 ### Algebra
