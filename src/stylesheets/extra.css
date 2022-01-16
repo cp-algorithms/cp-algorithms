@@ -9,11 +9,6 @@
   --md-typeset-a-color: #c973d9;
 }
 
-/* Fix for Latex rendering in Chrome, see https://github.com/squidfunk/mkdocs-material/issues/3354 */
-.md-typeset div.arithmatex {
-    overflow: hidden;
-}
-
 /* hide the primary sidebar */
 .md-sidebar.md-sidebar--primary {
   display: none;
