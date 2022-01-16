@@ -1,4 +1,3 @@
-<!--?title Edge connectivity / Vertex connectivity -->
 # Edge connectivity / Vertex connectivity
 
 ## Definition
@@ -33,6 +32,7 @@ It is clear, that the vertex connectivity of a graph is equal to the minimal siz
 ### The Whitney inequalities
 
 The **Whitney inequalities** (1932) gives a relation between the edge connectivity $\lambda$, the vertex connectivity $\kappa$ and the smallest degree of the vertices $\delta$:
+
 $$\kappa \le \lambda \le \delta$$
 
 Intuitively if we have a set of edges of size $\lambda$, which make the graph disconnected, we can choose one of each end point, and create a set of vertices, that also disconnect the graph.
@@ -63,7 +63,7 @@ This value can be found using a maximum flow algorithm:
 we use $s$ as the source, $t$ as the sink, and assign each edge a capacity of $1$.
 Then the maximum flow is the number of disjoint paths.
 
-The complexity for the algorithm using [Edmonds-Karp](./graph/edmonds_karp.html) is $O(V^2 V E^2) = O(V^3 E^2)$. 
+The complexity for the algorithm using [Edmonds-Karp](../graph/edmonds_karp.md) is $O(V^2 V E^2) = O(V^3 E^2)$. 
 But we should note, that this includes a hidden factor, since it is practically impossible to create a graph such that the maximum flow algorithm will be slow for all sources and sinks.
 Especially the algorithm will run pretty fast for random graphs.
 

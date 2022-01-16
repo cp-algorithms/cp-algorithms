@@ -1,5 +1,3 @@
-<!--?title Sparse Table-->
-
 # Sparse Table
 
 Sparse Table is a data structure, that allows answering range queries.
@@ -32,13 +30,13 @@ The size of the 2-dimensional array will be $\text{MAXN} \times (K + 1)$, where 
 $\text{K}$ has to satisfy $\text{K} \ge \lfloor \log_2 \text{MAXN} \rfloor$, because $2^{\lfloor \log_2 \text{MAXN} \rfloor}$ is the biggest power of two range, that we have to support.
 For arrays with reasonable length ($\le 10^7$ elements), $K = 25$ is a good value.
 
-```cpp sparsetable_definition
+```{.cpp file=sparsetable_definition}
 int st[MAXN][K + 1];
 ```
 
 Because the range $[i, i + 2^j - 1]$ of length $2^j$ splits nicely into the ranges $[i, i + 2^{j - 1} - 1]$ and $[i + 2^{j - 1}, i + 2^j - 1]$, both of length $2^{j - 1}$, we can generate the table efficiently using dynamic programming:
 
-```cpp sparsetable_generation
+```{.cpp file=sparsetable_generation}
 for (int i = 0; i < N; i++)
     st[i][0] = f(array[i]);
 
@@ -58,7 +56,7 @@ For this type of queries, we want to find the sum of all values in a range.
 Therefore the natural definition of the function $f$ is $f(x, y) = x + y$.
 We can construct the data structure with:
 
-```cpp sparsetable_sum_generation
+```{.cpp file=sparsetable_sum_generation}
 long long st[MAXN][K + 1];
 
 for (int i = 0; i < N; i++)
@@ -72,7 +70,7 @@ for (int j = 1; j <= K; j++)
 To answer the sum query for the range $[L, R]$, we iterate over all powers of two, starting from the biggest one.
 As soon as a power of two $2^j$ is smaller or equal to the length of the range ($= R - L + 1$), we process the first the first part of range $[L, L + 2^j - 1]$, and continue with the remaining range $[L + 2^j, R]$.
 
-```cpp sparsetable_sum_query
+```{.cpp file=sparsetable_sum_query}
 long long sum = 0;
 for (int j = K; j >= 0; j--) {
     if ((1 << j) <= R - L + 1) {
@@ -98,7 +96,7 @@ $$\min(\text{st}[L][j], \text{st}[R - 2^j + 1][j]) \quad \text{ where } j = \log
 This requires that we are able to compute $\log_2(R - L + 1)$ fast.
 You can accomplish that by precomputing all logarithms:
 
-```cpp sparse_table_log_table
+```{.cpp file=sparse_table_log_table}
 int log[MAXN+1];
 log[1] = 0;
 for (int i = 2; i <= MAXN; i++)
@@ -107,7 +105,7 @@ for (int i = 2; i <= MAXN; i++)
 
 Afterwards we need to precompute the Sparse Table structure. This time we define $f$ with $f(x, y) = \min(x, y)$.
 
-```cpp sparse_table_minimum_generation
+```{.cpp file=sparse_table_minimum_generation}
 int st[MAXN][K + 1];
 
 for (int i = 0; i < N; i++)
@@ -120,7 +118,7 @@ for (int j = 1; j <= K; j++)
 
 And the minimum of a range $[L, R]$ can be computed with:
 
-```cpp sparse_table_minimum_query
+```{.cpp file=sparse_table_minimum_query}
 int j = log[R - L + 1];
 int minimum = min(st[L][j], st[R - (1 << j) + 1][j]);
 ```
@@ -134,7 +132,7 @@ I.e. it works great for range minimum queries, but it is not possible to answer 
 
 There are similar data structures that can handle any type of associative functions and answer range queries in $O(1)$.
 One of them is called is called [Disjoint Sparse Table](https://discuss.codechef.com/questions/117696/tutorial-disjoint-sparse-table).
-Another one would be the [Sqrt Tree](./data_structures/sqrt-tree.html).
+Another one would be the [Sqrt Tree](sqrt-tree.md).
 
 ## Practice Problems
 

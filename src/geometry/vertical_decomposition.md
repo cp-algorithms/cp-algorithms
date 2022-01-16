@@ -1,6 +1,5 @@
-<!--?title Vertical decomposition -->
-
 # Vertical decomposition
+
 ## Overview
 Vertical decomposition is a powerful technique used in various geometry problems. The general idea is to cut the plane into several vertical stripes
 with some "good" properties and solve the problem for these stripes independently. We will illustrate the idea on some examples.
@@ -16,25 +15,25 @@ is above or below the segment. We can visualize each upper segment as an opening
 Firstly we will reduce the runtime to $O(n^2\log n)$. Instead of generating trapezoids for each stripe let's fix some triangle side (segment $s = (s_0, s_1)$) and find the set of stripes where this segment is a side of some trapezoid. Note that in this case we only have to find the stripes where the balance of brackets below (or above, in case of a lower segment) $s$ is zero. It means that instead of running vertical scanline for each stripe we can run a horizontal scanline for all parts of other segments which affect the balance of brackets with respect to $s$.
 For simplicity we will show how to do this for an upper segment, the algorithm for lower segments is similar. Consider some other non-vertical segment $t = (t_0, t_1)$ and find the intersection $[x_1, x_2]$ of projections of $s$ and $t$ on $Ox$. If this intersection is empty or consists of one point, $t$ can be discarded since $s$ and $t$ do not intersect the interior of the same stripe. Otherwise consider the intersection $I$ of $s$ and $t$. There are three cases.
 
-1. $I = \varnothing$
+1.  $I = \varnothing$
 
-In this case $t$ is either above or below $s$ on $[x_1, x_2]$. If $t$ is above, it doesn't affect whether $s$ is a side of some trapezoid or not.
-If $t$ is below $s$, we should add $1$ or $-1$ to the balance of bracket sequences for all stripes in $[x_1, x_2]$, depending on whether $t$ is upper or lower.
+    In this case $t$ is either above or below $s$ on $[x_1, x_2]$. If $t$ is above, it doesn't affect whether $s$ is a side of some trapezoid or not.
+    If $t$ is below $s$, we should add $1$ or $-1$ to the balance of bracket sequences for all stripes in $[x_1, x_2]$, depending on whether $t$ is upper or lower.
 
-2. $I$ consists of a single point $p$
+2.  $I$ consists of a single point $p$
 
-This case can be reduced to the previous one by splitting $[x_1, x_2]$ into $[x_1, p_x]$ and $[p_x, x_2]$.
+    This case can be reduced to the previous one by splitting $[x_1, x_2]$ into $[x_1, p_x]$ and $[p_x, x_2]$.
 
-3. $I$ is some segment $l$
+3.  $I$ is some segment $l$
 
-This case means that the parts of $s$ and $t$ for $x\in[x_1, x_2]$ coincide. If $t$ is lower, $s$ is clearly not a side of a trapezoid.
-Otherwise, it could happen that both $s$ and $t$ can be considered as a side of some trapezoid. In order to resolve this ambiguity, we can
-decide that only the segment with the lowest index should be considered as a side (here we suppose that triangle sides are enumerated in some way). So, if $index(s) < index(t)$, we should ignore this case,
-otherwise we should mark that $s$ can never be a side on $[x_1, x_2]$ (for example, by adding a corresponding event with balance $-2$).
+    This case means that the parts of $s$ and $t$ for $x\in[x_1, x_2]$ coincide. If $t$ is lower, $s$ is clearly not a side of a trapezoid.
+    Otherwise, it could happen that both $s$ and $t$ can be considered as a side of some trapezoid. In order to resolve this ambiguity, we can
+    decide that only the segment with the lowest index should be considered as a side (here we suppose that triangle sides are enumerated in some way). So, if $index(s) < index(t)$, we should ignore this case,
+    otherwise we should mark that $s$ can never be a side on $[x_1, x_2]$ (for example, by adding a corresponding event with balance $-2$).
 
 Here is a graphic representation of the three cases.
 
-<center><img src="&imgroot&/triangle_union.png" alt="Visual" width="90%"></center>
+<center>![Visual](triangle_union.png)</center>
 
 Finally we should remark on processing all the additions of $1$ or $-1$ on all stripes in $[x_1, x_2]$. For each addition of $w$ on $[x_1, x_2]$ we can create events $(x_1, w),\ (x_2, -w)$
 and process all these events with a sweep line.
@@ -50,7 +49,7 @@ vertex of each polygon. Then if we consider one of the input polygons and some s
 
 Below is the code that calculates area of the union of a set of triangles in $O(n^2\log n)$ time and $O(n)$ memory.
 
-```cpp triangle_union
+```{.cpp file=triangle_union}
 typedef double dbl;
 
 const dbl eps = 1e-9;

@@ -1,5 +1,3 @@
-<!--?title Minimum stack / Minimum queue -->
-
 # Minimum stack / Minimum queue
 
 In this article we will consider three problems: 

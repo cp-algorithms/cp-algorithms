@@ -1,0 +1,44 @@
+site_name: Algorithms for Competitive Programming
+docs_dir: src
+site_dir: public
+use_directory_urls: false
+theme:
+  name: material
+  custom_dir: src/overrides
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: cpalgo
+      primary: deep purple
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate 
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+  logo: favicon.ico
+  favicon: favicon.ico
+repo_url: https://github.com/e-maxx-eng/e-maxx-eng
+edit_uri: edit/master/src/
+copyright: Text is available under the <a href="https://github.com/e-maxx-eng/e-maxx-eng/blob/master/LICENSE">Creative Commons Attribution Share Alike 4.0 International</a> License<br/>Copyright &copy; 2014 - 2022 by https://github.com/e-maxx-eng
+extra_javascript:
+  - javascript/config.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji 
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+extra:
+  analytics:
+    provider: google
+    property: UA-85220282-1

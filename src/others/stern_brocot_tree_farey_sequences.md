@@ -1,5 +1,3 @@
-<!--?title The Stern-Brocot Tree and Farey Sequences -->
-
 # The Stern-Brocot tree and Farey sequences
 
 ## Stern-Brocot tree
@@ -20,8 +18,8 @@ The first few iterations look like this:
 
 $$
     \begin{array}{c}
-    \dfrac{0}{1}, \dfrac{1}{1}, \dfrac{1}{0} \\\\\\\\
-    \dfrac{0}{1}, \dfrac{1}{2}, \dfrac{1}{1}, \dfrac{2}{1}, \dfrac{1}{0} \\\\\\\\
+    \dfrac{0}{1}, \dfrac{1}{1}, \dfrac{1}{0} \\
+    \dfrac{0}{1}, \dfrac{1}{2}, \dfrac{1}{1}, \dfrac{2}{1}, \dfrac{1}{0} \\
     \dfrac{0}{1}, \dfrac{1}{3}, \dfrac{1}{2}, \dfrac{2}{3}, \dfrac{1}{1}, \dfrac{3}{2}, \dfrac{2}{1}, \dfrac{3}{1}, \dfrac{1}{0}
     \end{array}
 $$
@@ -69,7 +67,7 @@ $$
 the new expressions become
 
 $$\begin{align}
-    b(a+c) - a(b+d) &= 1 \\\\
+    b(a+c) - a(b+d) &= 1 \\
     c(b+d) - d(a+c) &= 1
 \end{align}$$
 
@@ -91,7 +89,7 @@ which (using the fact than an integer $z \gt 0 \iff z \ge 1$) can be rewritten a
 
 $$
 \begin{align}
-    bx - ay &\ge 1 \\\\
+    bx - ay &\ge 1 \\
     cy - dx &\ge 1.
 \end{align}
 $$

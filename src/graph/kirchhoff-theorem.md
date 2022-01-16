@@ -1,5 +1,3 @@
-<!--?title Kirchhoff's Theorem -->
-
 # Kirchhoff's theorem. Finding the number of spanning trees
 
 Problem: You are given a connected undirected graph (with possible multiple edges) represented using an adjacency matrix. Find the number of different spanning trees of this graph.
@@ -16,7 +14,7 @@ According to Kirchhoff's theorem, all cofactors of this matrix are equal to each
 The $(i,j)$ cofactor of a matrix is the product of $(-1)^{i + j}$ with the determinant of the matrix that you get after removing the $i$-th row and $j$-th column.
 So you can, for example, delete the last row and last column of the matrix $L$, and the absolute value of the determinant of the resulting matrix will give you the number of spanning trees.
 
-The determinant of the matrix can be found in $O(N^3)$ by using the [Gaussian method](./linear_algebra/determinant-gauss.html).
+The determinant of the matrix can be found in $O(N^3)$ by using the [Gaussian method](../linear_algebra/determinant-gauss.md).
 
 The proof of this theorem is quite difficult and is not presented here; for an outline of the proof and variations of the theorem for graphs without multiple edges and for directed graphs refer to [Wikipedia](https://en.wikipedia.org/wiki/Kirchhoff%27s_theorem).
 

@@ -1,5 +1,3 @@
-<!--?title Divide and Conquer DP-->
-
 # Divide and Conquer DP
 
 Divide and Conquer is a dynamic programming optimization.
@@ -41,7 +39,7 @@ template.
 The function `compute` computes one row $i$ of states `dp_cur`, given the previous row $i-1$ of states `dp_before`.
 It has to be called with `compute(0, n-1, 0, n-1)`. The function `solve` computes `m` rows and returns the result.
 
-```cpp divide_and_conquer_dp
+```{.cpp file=divide_and_conquer_dp}
 int m, n;
 vector<long long> dp_before(n), dp_cur(n);
 

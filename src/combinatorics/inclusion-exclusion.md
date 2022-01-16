@@ -1,4 +1,3 @@
-<!--?title The Inclusion-Exclusion Principle-->
 # The Inclusion-Exclusion Principle
 
 The inclusion-exclusion principle is an important combinatorial way to compute the size of a set or the probability of complex events. It relates the sizes of individual sets with their union.
@@ -25,7 +24,7 @@ $$\left|\bigcup_{i=1}^n A_i \right| = \sum_{\emptyset \neq J\subseteq \\{1,2,\ld
 
 Let the diagram show three sets $A$, $B$ and $C$:
 
-![Venn diagram](&imgroot&/venn-inclusion-exclusion.png "Venn diagram")
+![Venn diagram](venn-inclusion-exclusion.png "Venn diagram")
 
 Then the area of their union $A \cup B \cup C$ is equal to the sum of the areas $A$, $B$ and $C$ less double-covered areas $A \cap B$, $A \cap C$, $B \cap C$, but with the addition of the area covered by three sets $A \cap B \cap C$:
 
@@ -38,7 +37,7 @@ It can also be generalized for an association of $n$ sets.
 If $A_i$ $(i = 1,2...n)$ are events and ${\cal P}(A_i)$ the probability of an event from $A_i$ to occur, then the probability of their union (i.e. the probability that at least one of the events occur) is equal to:
 
 $$\begin{eqnarray}
-{\cal P} \left( \bigcup_{i=1}^n A_i \right) &=& \sum_{i=1}^n{\cal P}(A_i)\ - \sum_{1\leq i<j\leq n} {\cal P}(A_i \cap A_j)\  + \\\\\\
+{\cal P} \left( \bigcup_{i=1}^n A_i \right) &=& \sum_{i=1}^n{\cal P}(A_i)\ - \sum_{1\leq i<j\leq n} {\cal P}(A_i \cap A_j)\  + \\
 &+& \sum _{1\leq i<j<k\leq n}{\cal P}(A_i \cap A_j \cap A_k) - \cdots + (-1)^{n-1} {\cal P}( A_1 \cap \cdots \cap A_n )
 \end{eqnarray}$$
 
@@ -63,7 +62,7 @@ Consider an element $x$ occurring in $k \geq 1$ sets $A_i$. We will show it is c
 * in terms which $|J| = k$, the item $x$ will be counted **$(-1)^{k-1}\cdot \binom{k}{k}$** times;
 * in terms which $|J| \gt k$, the item $x$ will be counted **zero** times;
 
-This leads us to the following sum of [binomial coefficients](./combinatorics/binomial-coefficients.html):
+This leads us to the following sum of [binomial coefficients](binomial-coefficients.md):
 
 $$ T = \binom{k}{1} - \binom{k}{2} + \binom{k}{3} - \cdots + (-1)^{i-1}\cdot \binom{k}{i} + \cdots + (-1)^{k-1}\cdot \binom{k}{k}$$
 
@@ -73,7 +72,7 @@ $$ (1 - x)^k = \binom{k}{0} - \binom{k}{1} \cdot x + \binom{k}{2} \cdot x^2 - \b
 
 When $x = 1$, $(1 - x)^k$ looks a lot like $T$. However, the expression has an additional $\binom{k}{0} = 1$, and it is multiplied by $-1$. That leads us to $(1 - 1)^k = 1 - T$. Therefore $T = 1 - (1 - 1)^k = 1$, what was required to prove. The element is counted only once.
 
-## Generalization for calculating number of elements in exactly $r$ sets
+## Generalization for calculating number of elements in exactly $r$ sets {data-toc-label="Generalization for calculating number of elements in exactly r sets"}
 
 Inclusion-exclusion principle can be rewritten to calculate number of elements which are present in zero sets:
 
@@ -135,12 +134,14 @@ $$3^n - (3 \cdot 2^n - 3 \cdot 1 + 0)$$
 ### The number of integer solutions to the equation
 
 Consider the following equation:
+
 $$x_1 + x_2 + x_3 + x_4 + x_5 + x_6 = 20$$
+
 where $0 \le x_i \le 8 (i = 1,2,\ldots 6)$.
 
 Task: count the number of solutions to the equation.
 
-Forget the restriction on $x_i$ for a moment and just count the number of nonnegative solutions to this equation. This is easily done using [binomial coefficients](./combinatorics/binomial-coefficients.html): we want to break a sequence of $20$ units into $6$ groups, which is the same as distributing $5$ "walls" over $25$ slots:
+Forget the restriction on $x_i$ for a moment and just count the number of nonnegative solutions to this equation. This is easily done using [binomial coefficients](binomial-coefficients.md): we want to break a sequence of $20$ units into $6$ groups, which is the same as distributing $5$ "walls" over $25$ slots:
 
 $$N_0 = \binom{25}{5}$$
 
@@ -217,7 +218,7 @@ Asymptotics of the solution is $O (\sqrt{n})$.
 
 Given $n$ numbers $a_i$ and number $r$. You want to count the number of integers in the interval $[1; r]$ that are multiple of at least one of the $a_i$.
 
-The solution algorithm is almost identical to the one for previous task — construct the formula of inclusion-exclusion on the numbers $a_i$, i.e. each term in this formula is the number of numbers divisible by a given subset of numbers $a_i$ (in other words, divisible by their [least common multiple](./algebra/euclid-algorithm.html)).
+The solution algorithm is almost identical to the one for previous task — construct the formula of inclusion-exclusion on the numbers $a_i$, i.e. each term in this formula is the number of numbers divisible by a given subset of numbers $a_i$ (in other words, divisible by their [least common multiple](../algebra/euclid-algorithm.md)).
 
 So we will now iterate over all $2^n$ subsets of integers $a_i$ with $O(n \log r)$ operations to find their least common multiple, adding or subtracting the number of multiples of it in the interval. Asymptotics is $O (2^n\cdot n\cdot \log r)$.
 
@@ -256,7 +257,7 @@ Of course, we can just use the solution to the first version of the problem and 
 
 $$ (-1)^{|Y|-k} \cdot \binom{|Y|}{k} + (-1)^{|Y|-k-1} \cdot \binom{|Y|}{k+1} + (-1)^{|Y|-k-2} \cdot \binom{|Y|}{k+2} + \cdots + (-1)^{|Y|-|Y|} \cdot \binom{|Y|}{|Y|} $$
 
-Looking at Graham's (Graham, Knuth, Patashnik. "Concrete mathematics" [1998] ), we see a well-known formula for [binomial coefficients](./combinatorics/binomial-coefficients.html):
+Looking at Graham's (Graham, Knuth, Patashnik. "Concrete mathematics" [1998] ), we see a well-known formula for [binomial coefficients](binomial-coefficients.md):
 
 $$ \sum_{k=0}^m (-1)^k \cdot \binom{n}{k} = (-1)^m \cdot \binom{n-1}{m} $$
 
@@ -276,7 +277,7 @@ Assume that the sizes $n$ and $m$ are very large (say, $10^9$), and the number $
 
 For now, sort the obstacles by their coordinate $x$, and in case of equality — coordinate $y$.
 
-Also just learn how to solve a problem without obstacles: i.e. learn how to count the number of ways to get from one cell to another. In one axis, we need to go through $x$ cells, and on the other, $y$ cells. From simple combinatorics, we get a formula using [binomial coefficients](./combinatorics/binomial-coefficients.html):
+Also just learn how to solve a problem without obstacles: i.e. learn how to count the number of ways to get from one cell to another. In one axis, we need to go through $x$ cells, and on the other, $y$ cells. From simple combinatorics, we get a formula using [binomial coefficients](binomial-coefficients.md):
 
 $$\binom{x+y}{x}$$
 
@@ -308,7 +309,7 @@ $$ans = \sum_{d \ge 2} (-1)^{deg(d)-1} \cdot f(d)$$
 
 where $deg(d)$ is the number of primes in the factorization of the number $d$ and $f(d)$ the number of quadruples divisible by $d$.
 
-To calculate the function $f(d)$, you just have to count the number of multiples of $d$ (as mentioned on a previous task) and use [binomial coefficients](./combinatorics/binomial-coefficients.html) to count the number of ways to choose four of them.
+To calculate the function $f(d)$, you just have to count the number of multiples of $d$ (as mentioned on a previous task) and use [binomial coefficients](binomial-coefficients.md) to count the number of ways to choose four of them.
 
 Thus, using the formula of inclusions-exclusions we sum the number of groups of four divisible by a prime number, then subtract the number of quadruples which are divisible by the product of two primes, add quadruples divisible by three primes, etc.
 
@@ -395,9 +396,9 @@ Denote by $A_k$ the set of permutations of length $n$ with a fixed point at posi
 We now use the formula of inclusion-exclusion to count the number of permutations with at least one fixed point. For this we need to learn to count sizes of an intersection of sets $A_i$, as follows:
 
 $$\begin{eqnarray}
-\left| A_p \right| &=& (n-1)!\ , \\\\\\
-\left| A_p \cap A_q \right| &=& (n-2)!\ , \\\\\\
-\left| A_p \cap A_q \cap A_r \right| &=& (n-3)!\ , \\\\\\
+\left| A_p \right| &=& (n-1)!\ , \\
+\left| A_p \cap A_q \right| &=& (n-2)!\ , \\
+\left| A_p \cap A_q \cap A_r \right| &=& (n-3)!\ , \\
 \cdots ,
 \end{eqnarray}$$
 

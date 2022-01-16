@@ -1,10 +1,9 @@
-<!--?title Integer factorization -->
 # Integer factorization
 
 In this article we list several algorithms for factorizing integers, each of them can be both fast and also slow (some slower than others) depending on their input.
 
 Notice, if the number that you want to factorize is actually a prime number, most of the algorithms, especially Fermat's factorization algorithm, Pollard's p-1, Pollard's rho algorithm will run very slow.
-So it makes sense to perform a probabilistic (or a fast deterministic) [primality test](./algebra/primality_tests.html) before trying to factorize the number.
+So it makes sense to perform a probabilistic (or a fast deterministic) [primality test](primality_tests.md) before trying to factorize the number.
 
 ## Trial division
 
@@ -18,7 +17,7 @@ The smallest divisor has to be a prime number.
 We remove the factor from the number, and repeat the process.
 If we cannot find any divisor in the range $[2; \sqrt{n}]$, then the number itself has to be prime.
 
-```cpp factorization_trial_division1
+```{.cpp file=factorization_trial_division1}
 vector<long long> trial_division1(long long n) {
     vector<long long> factorization;
     for (long long d = 2; d * d <= n; d++) {
@@ -41,7 +40,7 @@ Once we know that the number is not divisible by 2, we don't need to check every
 This leaves us with only $50\%$ of the numbers to check.
 After checking 2, we can simply start with 3 and skip every other number.
 
-```cpp factorization_trial_division2
+```{.cpp file=factorization_trial_division2}
 vector<long long> trial_division2(long long n) {
     vector<long long> factorization;
     while (n % 2 == 0) {
@@ -72,7 +71,7 @@ We can extend this even further.
 Here is an implementation for the prime number 2, 3 and 5.
 It's convenient to use an array to store how much we have to skip.
 
-```cpp factorization_trial_division3
+```{.cpp file=factorization_trial_division3}
 vector<long long> trial_division3(long long n) {
     vector<long long> factorization;
     for (int d : {2, 3, 5}) {
@@ -103,9 +102,9 @@ However, also the skip lists will get a lot bigger.
 ### Precomputed primes
 
 Extending the wheel factorization with more and more primes will leave exactly the primes to check.
-So a good way of checking is just to precompute all prime numbers with the [Sieve of Eratosthenes](./algebra/sieve-of-eratosthenes.html) until $\sqrt{n}$ and test them individually.
+So a good way of checking is just to precompute all prime numbers with the [Sieve of Eratosthenes](sieve-of-eratosthenes.md) until $\sqrt{n}$ and test them individually.
 
-```cpp factorization_trial_division4
+```{.cpp file=factorization_trial_division4}
 vector<long long> primes;
 
 vector<long long> trial_division4(long long n) {
@@ -127,7 +126,9 @@ vector<long long> trial_division4(long long n) {
 ## Fermat's factorization method
 
 We can write an odd composite number $n = p \cdot q$ as the difference of two squares $n = a^2 - b^2$:
+
 $$n = \left(\frac{p + q}{2}\right)^2 - \left(\frac{p - q}{2}\right)^2$$
+
 Fermat's factorization method tries to exploit the fact, by guessing the first square $a^2$, and check if the remaining part $b^2 = a^2 - n$ is also a square number.
 If it is, then we have found the factors $a - b$ and $a + b$ of $n$.
 
@@ -153,7 +154,7 @@ However there are still a huge number of optimizations for this approach.
 E.g. by looking at the squares $a^2$ modulo a fixed small number, you can notice that you don't have to look at certain values $a$ since they cannot produce a square number $a^2 - n$.
 
 
-## Pollard's $p - 1$ method
+## Pollard's $p - 1$ method { data-toc-label="Pollard's <script type='math/tex'>p - 1</script> method" }
 
 It is very likely that at least one factor of a number is $B$**-powersmooth** for small $B$.
 $B$-powersmooth means, that every power $d^k$ of a prime $d$ that divides $p-1$ is at most $B$.
@@ -161,7 +162,7 @@ E.g. the prime factorization of $4817191$ is $1303 \cdot 3697$.
 And the factors are $31$-powersmooth and $16$-powersmooth respectably, because $1303 - 1 = 2 \cdot 3 \cdot 7 \cdot 31$ and $3697 - 1 = 2^4 \cdot 3 \cdot 7 \cdot 11$.
 In 1974 John Pollard invented a method to extracts $B$-powersmooth factors from a composite number.
 
-The idea comes from [Fermat's little theorem](./algebra/phi-function.html#application).
+The idea comes from [Fermat's little theorem](phi-function.md#application).
 Let a factorization of $n$ be $n = p \cdot q$.
 It says that if $a$ is coprime to $p$, the following statement holds:
 
@@ -174,10 +175,11 @@ $$a^{(p - 1)^k} \equiv a^{k \cdot (p - 1)} \equiv 1 \pmod{p}.$$
 So for any $M$ with $p - 1 ~|~ M$ we know that $a^M \equiv 1$.
 This means that $a^M - 1 = p \cdot r$, and because of that also $p ~|~ \gcd(a^M - 1, n)$.
 
-Therefore, if $p - 1$ for a factor $p$ of $n$ divides $M$, we can extract a factor using [Euclid's algorithm](./algebra/euclid-algorithm.html).
+Therefore, if $p - 1$ for a factor $p$ of $n$ divides $M$, we can extract a factor using [Euclid's algorithm](euclid-algorithm.md).
 
 It is clear, that the smallest $M$ that is a multiple of every $B$-powersmooth number is $\text{lcm}(1,~2~,3~,4~,~\dots,~B)$.
 Or alternatively:
+
 $$M = \prod_{\text{prime } q \le B} q^{\lfloor \log_q B \rfloor}$$
 
 Notice, if $p-1$ divides $M$ for all prime factors $p$ of $n$, then $\gcd(a^M - 1, n)$ will just be $n$.
@@ -185,12 +187,12 @@ In this case we don't receive a factor.
 Therefore we will try to perform the $\gcd$ multiple time, while we compute $M$.
 
 Some composite numbers don't have $B$-powersmooth factors for small $B$.
-E.g. the factors of the composite number $100.000.000.000.000.493 = 763.013 \cdot 131.059.365.961$ are $190.753$-powersmooth and $1092161383$-powersmooth.
-We would have to choose $B >= 190.753$ to factorize the number.
+E.g. the factors of the composite number $100~000~000~000~000~493 = 763~013 \cdot 131~059~365~961$ are $190~753$-powersmooth and $1~092~161~383$-powersmooth.
+We would have to choose $B >= 190~753$ to factorize the number.
 
 In the following implementation we start with $B = 10$ and increase $B$ after each each iteration.
 
-```cpp factorization_p_minus_1
+```{.cpp file=factorization_p_minus_1}
 long long pollards_p_minus_1(long long n) {
     int B = 10;
     long long g = 1;
@@ -240,7 +242,7 @@ If $p$ is smaller than $\sqrt{n}$, the repetition will start very likely in $O(\
 Here is a visualization of such a sequence $\{x_i \bmod p\}$ with $n = 2206637$, $p = 317$, $x_0 = 2$ and $f(x) = x^2 + 1$.
 From the form of the sequence you can see very clearly why the algorithm is called Pollard's $\rho$ algorithm.
 
-<center>![Pollard's rho visualization](&imgroot&/pollard_rho.png)</center>
+<center>![Pollard's rho visualization](pollard_rho.png)</center>
 
 There is still one big open question.
 We don't know $p$ yet, so how can we argue about the sequence $\{x_i \bmod p\}$?
@@ -285,7 +287,7 @@ function floyd(f, x0):
 First here is a implementation using the **Floyd's cycle-finding algorithm**.
 The algorithm runs (usually) in $O(\sqrt[4]{n} \log(n))$ time.
 
-```cpp pollard_rho
+```{.cpp file=pollard_rho}
 long long mult(long long a, long long b, long long mod) {
     return (__int128)a * b % mod;
 }
@@ -314,23 +316,23 @@ $$
 \newcommand\T{\Rule{0pt}{1em}{.3em}}
 \begin{array}{|l|l|l|l|l|l|}
 \hline
-i & x_i \bmod n & x_{2i} \bmod n & x_i \bmod 317 & x_{2i} \bmod 317 & \gcd(x_i - x_{2i}, n) \\\\
+i & x_i \bmod n & x_{2i} \bmod n & x_i \bmod 317 & x_{2i} \bmod 317 & \gcd(x_i - x_{2i}, n) \\
 \hline
-0   & 2       & 2       & 2       & 2       & -   \\\\
-1   & 5       & 26      & 5       & 26      & 1   \\\\
-2   & 26      & 458330  & 26      & 265     & 1   \\\\
-3   & 677     & 1671573 & 43      & 32      & 1   \\\\
-4   & 458330  & 641379  & 265     & 88      & 1   \\\\
-5   & 1166412 & 351937  & 169     & 67      & 1   \\\\
-6   & 1671573 & 1264682 & 32      & 169     & 1   \\\\
-7   & 2193080 & 2088470 & 74      & 74      & 317 \\\\
+0   & 2       & 2       & 2       & 2       & -   \\
+1   & 5       & 26      & 5       & 26      & 1   \\
+2   & 26      & 458330  & 26      & 265     & 1   \\
+3   & 677     & 1671573 & 43      & 32      & 1   \\
+4   & 458330  & 641379  & 265     & 88      & 1   \\
+5   & 1166412 & 351937  & 169     & 67      & 1   \\
+6   & 1671573 & 1264682 & 32      & 169     & 1   \\
+7   & 2193080 & 2088470 & 74      & 74      & 317 \\
 \hline
 \end{array}$$
 
 The implementation uses a function `mult`, that multiplies two integers $\le 10^{18}$ without overflow by using a GCC's type `__int128` for 128-bit integer.
-If GCC is not available, you can using a similar idea as [binary exponentiation](./algebra/binary-exp.html).
+If GCC is not available, you can using a similar idea as [binary exponentiation](binary-exp.md).
 
-```cpp pollard_rho_mult2
+```{.cpp file=pollard_rho_mult2}
 long long mult(long long a, long long b, long long mod) {
     long long result = 0;
     while (b) {
@@ -343,7 +345,7 @@ long long mult(long long a, long long b, long long mod) {
 }
 ```
 
-Alternatively you can also implement the [Montgomery multiplication](./algebra/montgomery_multiplication.html).
+Alternatively you can also implement the [Montgomery multiplication](montgomery_multiplication.md).
 
 As already noticed above: if $n$ is composite and the algorithm returns $n$ as factor, you have to repeat the procedure with different parameter $x_0$ and $c$.
 E.g. the choice $x_0 = c = 1$ will not factor $25 = 5 \cdot 5$.
@@ -379,7 +381,7 @@ Brent's algorithm also runs in linear time, but is usually faster than Floyd's a
 The straightforward implementation using Brent's algorithms can be speeded up by noticing, that we can omit the terms $x_l - x_k$ if $k < \frac{3 \cdot l}{2}$.
 Also, instead of performing the $\gcd$ computation at every step, we multiply the terms and do it every few steps and backtrack if we overshoot.
 
-```cpp pollard_rho_brent
+```{.cpp file=pollard_rho_brent}
 long long brent(long long n, long long x0=2, long long c=1) {
     long long x = x0;
     long long g = 1;

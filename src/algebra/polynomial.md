@@ -1,5 +1,3 @@
-<!--?title Operations on polynomials and series -->
-
 # Operations on polynomials and series
 
 In this article we will cover common operations that you will probably have to do if you deal with polynomials.
@@ -56,10 +54,16 @@ Other useful functions:
 ### Multiplication
 
 The very core operation is the multiplication of two polynomials. That is, given the polynomials $A$ and $B$:
+
 $$A = a_0 + a_1 x + \dots + a_n x^n$$
+
 $$B = b_0 + b_1 x + \dots + b_m x^m$$
-You have to compute polynomial $C = A \cdot B$, which is defined as $$\boxed{C = \sum\limits_{i=0}^n \sum\limits_{j=0}^m a_i b_j x^{i+j}}  = c_0 + c_1 x + \dots + c_{n+m} x^{n+m}.$$
-It can be computed in $O(n \log n)$ via the [Fast Fourier transform](./algebra/fft.html) and almost all methods here will use it as subroutine.
+
+You have to compute polynomial $C = A \cdot B$, which is defined as
+
+$$\boxed{C = \sum\limits_{i=0}^n \sum\limits_{j=0}^m a_i b_j x^{i+j}}  = c_0 + c_1 x + \dots + c_{n+m} x^{n+m}.$$
+
+It can be computed in $O(n \log n)$ via the [Fast Fourier transform](fft.md) and almost all methods here will use it as subroutine.
 
 ### Inverse series
 
@@ -67,24 +71,35 @@ If $A(0) \neq 0$ there always exists an infinite formal power series $A^{-1}(x) 
 
 #### Divide and conquer
 
-This algorithm was mentioned in [Schönhage's article](http://algo.inria.fr/seminars/sem00-01/schoenhage.pdf) and is inspired by [Graeffe's method](https://en.wikipedia.org/wiki/Graeffe's_method). It is known that for $B(x)=A(x)A(-x)$ it holds that $B(x)=B(-x)$, that is, $B(x)$ is an even polynomial. It means that it only has non-zero coefficients with even numbers and can be represented as $B(x)=T(x^2)$. Thus, we can do the following transition: $$A^{-1}(x) \equiv \frac{1}{A(x)} \equiv \frac{A(-x)}{A(x)A(-x)} \equiv \frac{A(-x)}{T(x^2)} \pmod{x^k}$$
+This algorithm was mentioned in [Schönhage's article](http://algo.inria.fr/seminars/sem00-01/schoenhage.pdf) and is inspired by [Graeffe's method](https://en.wikipedia.org/wiki/Graeffe's_method). It is known that for $B(x)=A(x)A(-x)$ it holds that $B(x)=B(-x)$, that is, $B(x)$ is an even polynomial. It means that it only has non-zero coefficients with even numbers and can be represented as $B(x)=T(x^2)$. Thus, we can do the following transition:
+
+$$A^{-1}(x) \equiv \frac{1}{A(x)} \equiv \frac{A(-x)}{A(x)A(-x)} \equiv \frac{A(-x)}{T(x^2)} \pmod{x^k}$$
 
 Note that $T(x)$ can be computed with a single multiplication, after which we're only interested in the first half of coefficients of its inverse series. This effectively reduces the initial problem of computing $A^{-1} \pmod{x^k}$ to computing $T^{-1} \pmod{x^{\lfloor k / 2 \rfloor}}$.
 
-The complexity of this method can be estimated as $$T(n) = T(n/2) + O(n \log n) = O(n \log n).$$
+The complexity of this method can be estimated as
+
+$$T(n) = T(n/2) + O(n \log n) = O(n \log n).$$
 
 #### Sieveking–Kung algorithm
 
 The generic process described here is known as Hensel lifting, as it follows from Hensel's lemma. We'll cover it in more detail further below, but for now let's focus on ad hoc solution. "Lifting" part here means that we start with the approximation $B_0=q_0=a_0^{-1}$, which is $A^{-1} \pmod x$ and then iteratively lift from $\bmod x^a$ to $\bmod x^{2a}$.
 
-Let $B_k \equiv A^{-1} \pmod{x^a}$. The next approximation needs to follow the equation $A B_{k+1} \equiv 1 \pmod{x^{2a}}$ and may be represented as $B_{k+1} = B_k + x^a C$. From this follows the equation $$A(B_k + x^{a}C) \equiv 1 \pmod{x^{2a}}.$$
+Let $B_k \equiv A^{-1} \pmod{x^a}$. The next approximation needs to follow the equation $A B_{k+1} \equiv 1 \pmod{x^{2a}}$ and may be represented as $B_{k+1} = B_k + x^a C$. From this follows the equation
 
-Let $A B_k \equiv 1 + x^a D \pmod{x^{2a}}$, then the equation above implies $$x^a(D+AC) \equiv 0 \pmod{x^{2a}} \implies D \equiv -AC \pmod{x^a} \implies C \equiv -B_k D \pmod{x^a}.$$
+$$A(B_k + x^{a}C) \equiv 1 \pmod{x^{2a}}.$$
+
+Let $A B_k \equiv 1 + x^a D \pmod{x^{2a}}$, then the equation above implies
+
+$$x^a(D+AC) \equiv 0 \pmod{x^{2a}} \implies D \equiv -AC \pmod{x^a} \implies C \equiv -B_k D \pmod{x^a}.$$
 
 From this, one can obtain the final formula, which is
+
 $$x^a C \equiv -B_k x^a D  \equiv B_k(1-AB_k) \pmod{x^{2a}} \implies \boxed{B_{k+1} \equiv B_k(2-AB_k) \pmod{x^{2a}}}$$
 
-Thus starting with $B_0 \equiv a_0^{-1} \pmod x$ we will compute the sequence $B_k$ such that $AB_k \equiv 1 \pmod{x^{2^k}}$ with the complexity $$T(n) = T(n/2) + O(n \log n) = O(n \log n).$$
+Thus starting with $B_0 \equiv a_0^{-1} \pmod x$ we will compute the sequence $B_k$ such that $AB_k \equiv 1 \pmod{x^{2^k}}$ with the complexity
+
+$$T(n) = T(n/2) + O(n \log n) = O(n \log n).$$
 
 The algorithm here might seem a bit more complicated than the first one, but it has a very solid and practical reasoning behind it, as well as a great generalization potential if looked from a different perspective, which would be explained further below.
 
@@ -97,6 +112,7 @@ $$A(x) = B(x) D(x) + R(x), \deg R < \deg B.$$
 Let $n \geq m$, it would imply that $\deg D = n - m$ and the leading $n-m+1$ coefficients of $A$ don't influence $R$. It means that you can recover $D(x)$ from the largest $n-m+1$ coefficients of $A(x)$ and $B(x)$ if you consider it as a system of equations.
 
 The system of linear equations we're talking about can be written in the following form:
+
 $$\begin{bmatrix} a_n \\ \vdots \\ a_{m+1} \\ a_{m} \end{bmatrix} = \begin{bmatrix}
 b_m & \dots & 0 & 0 \\
 \vdots & \ddots & \vdots & \vdots \\
@@ -105,8 +121,11 @@ b_m & \dots & 0 & 0 \\
 \end{bmatrix} \begin{bmatrix}d_{n-m} \\ \vdots \\ d_1 \\ d_0\end{bmatrix}$$
 
 From the looks of it, we can conclude that with the introduction of reversed polynomials
+
 $$A^R(x) = x^nA(x^{-1})= a_n + a_{n-1} x + \dots + a_0 x^n$$
+
 $$B^R(x) = x^m B(x^{-1}) = b_m + b_{m-1} x + \dots + b_0 x^m$$
+
 $$D^R(x) = x^{n-m}D(x^{-1}) = d_{n-m} + d_{n-m-1} x + \dots + d_0 x^{n-m}$$
 
 the system may be rewritten as
@@ -124,19 +143,34 @@ Note that the matrix above is a so-called triangular [Toeplitz matrix](https://e
 ## Calculating functions of polynomial
 
 ### Newton's method
+
 Let's generalize the Sieveking–Kung algorithm. Consider equation $F(P) = 0$ where $P(x)$ should be a polynomial and $F(x)$ is some polynomial-valued function defined as
+
 $$F(x) = \sum\limits_{i=0}^\infty \alpha_i (x-\beta)^k,$$
 
-where $\beta$ is some constant. It can be proven that if we introduce a new formal variable $y$, we can express $F(x)$ as $$F(x) = F(y) + (x-y)F'(y) + (x-y)^2 G(x,y),$$
+where $\beta$ is some constant. It can be proven that if we introduce a new formal variable $y$, we can express $F(x)$ as
 
-where $F'(x)$ is the derivative formal power series defined as $$F'(x) = \sum\limits_{i=0}^\infty (k+1)\alpha_{i+1}(x-\beta)^k,$$ and $G(x, y)$ is some formal power series of $x$ and $y$. With this result we can find the solution iteratively.
+$$F(x) = F(y) + (x-y)F'(y) + (x-y)^2 G(x,y),$$
+
+where $F'(x)$ is the derivative formal power series defined as
+
+$$F'(x) = \sum\limits_{i=0}^\infty (k+1)\alpha_{i+1}(x-\beta)^k,$$
+
+and $G(x, y)$ is some formal power series of $x$ and $y$. With this result we can find the solution iteratively.
 
 Let $F(Q_k) \equiv 0 \pmod{x^{a}}$. We need to find $Q_{k+1} \equiv Q_k + x^a C \pmod{x^{2a}}$ such that $F(Q_{k+1}) \equiv 0 \pmod{x^{2a}}$.
 
-Substituting $x = Q_{k+1}$ and $y=Q_k$ in the formula above, we get $$F(Q_{k+1}) \equiv F(Q_k) + (Q_{k+1} - Q_k) F'(Q_k) + (Q_{k+1} - Q_k)^2 G(x, y) \pmod x^{2a}.$$
+Substituting $x = Q_{k+1}$ and $y=Q_k$ in the formula above, we get
 
-Since $Q_{k+1} - Q_k \equiv 0 \pmod{x^a}$, it also holds that $(Q_{k+1} - Q_k)^2 \equiv 0 \pmod{x^{2a}}$, thus $$0 \equiv F(Q_{k+1}) \equiv F(Q_k) + (Q_{k+1} - Q_k) F'(Q_k) \pmod{x^{2a}}.$$
-The last formula gives us the value of $Q_{k+1}$: $$\boxed{Q_{k+1} = Q_k - \dfrac{F(Q_k)}{F'(Q_k)} \pmod{x^{2a}}}$$
+$$F(Q_{k+1}) \equiv F(Q_k) + (Q_{k+1} - Q_k) F'(Q_k) + (Q_{k+1} - Q_k)^2 G(x, y) \pmod x^{2a}.$$
+
+Since $Q_{k+1} - Q_k \equiv 0 \pmod{x^a}$, it also holds that $(Q_{k+1} - Q_k)^2 \equiv 0 \pmod{x^{2a}}$, thus
+
+$$0 \equiv F(Q_{k+1}) \equiv F(Q_k) + (Q_{k+1} - Q_k) F'(Q_k) \pmod{x^{2a}}.$$
+
+The last formula gives us the value of $Q_{k+1}$:
+
+$$\boxed{Q_{k+1} = Q_k - \dfrac{F(Q_k)}{F'(Q_k)} \pmod{x^{2a}}}$$
 
 Thus, knowing how to invert polynomials and how to compute $F(Q_k)$, we can find $n$ coefficients of $P$ with the complexity $$T(n) = T(n/2) + f(n),$$ where $f(n)$ is the time needed to compute $F(Q_k)$ and $F'(Q_k)^{-1}$ which is usually $O(n \log n)$.
 
@@ -151,7 +185,7 @@ Another example where Hensel's lifting might be helpful are so-called [p-adic nu
 
 ### Logarithm
 
-For the function $\ln P(x)$ it's known that: $$\boxed{(\ln P(x))' = \dfrac{P'(x)}{P(x)}}$$
+For the function $\ln P(x)$ it's known that: \[\boxed{(\ln P(x))' = \dfrac{P'(x)}{P(x)}}\]
 Thus we can calculate $n$ coefficients of $\ln P(x)$ in $O(n \log n)$.
 
 
@@ -159,18 +193,29 @@ Thus we can calculate $n$ coefficients of $\ln P(x)$ in $O(n \log n)$.
 
 Turns out, we can get the formula for $A^{-1}$ using Newton's method.
 For this we take the equation $A=Q^{-1}$, thus:
+
 $$F(Q) = Q^{-1} - A$$
+
 $$F'(Q) = -Q^{-2}$$
+
 $$\boxed{Q_{k+1} \equiv Q_k(2-AQ_k) \pmod{x^{2^{k+1}}}}$$
 
 ### Exponent
 
-Let's learn to calculate $e^{P(x)}=Q(x)$. It should hold that $\ln Q = P$, thus: $$F(Q) = \ln Q - P$$ $$F'(Q) = Q^{-1}$$ $$\boxed{Q_{k+1} \equiv Q_k(1 + P - \ln Q_k) \pmod{x^{2^{k+1}}}}$$
+Let's learn to calculate $e^{P(x)}=Q(x)$. It should hold that $\ln Q = P$, thus:
 
-### $k$-th power
+$$F(Q) = \ln Q - P$$
+
+$$F'(Q) = Q^{-1}$$
+
+$$\boxed{Q_{k+1} \equiv Q_k(1 + P - \ln Q_k) \pmod{x^{2^{k+1}}}}$$
+
+### $k$-th power { data-toc-label="k-th power" }
 
 Now we need to calculate $P^k(x)=Q$. This may be done via the following formula:
+
 $$Q = \exp\left[k \ln P(x)\right]$$
+
 Note though, that you can calculate the logarithms and the exponents correctly only if you can find some initial $Q_0$.
 
 To find it, you should calculate the logarithm or the exponent of the constant coefficient of the polynomial.
@@ -178,7 +223,9 @@ To find it, you should calculate the logarithm or the exponent of the constant c
 But the only reasonable way to do it is if $P(0)=1$ for $Q = \ln P$ so $Q(0)=0$ and if $P(0)=0$ for $Q = e^P$ so $Q(0)=1$.
 
 Thus you can use formula above only if $P(0) = 1$. Otherwise if $P(x) = \alpha x^t T(x)$ where $T(0)=1$ you can write that:
+
 $$\boxed{P^k(x) = \alpha^kx^{kt} \exp[k \ln T(x)]}$$
+
 Note that you also can calculate some $k$-th root of a polynomial if you can calculate $\sqrt[k]{\alpha}$, for example for $\alpha=1$.
 
 ## Evaluation and Interpolation
@@ -225,7 +272,7 @@ $$\boxed{A(x) = \sum\limits_{i=1}^n y_i \prod\limits_{j \neq i}\dfrac{x-x_j}{x_i
 
 Computing it directly is a hard thing but turns out, we may compute it in $O(n \log^2 n)$ with a divide and conquer approach:
 
-Consider $P(x) = (x-x_1)\dots(x-x_n)$. To know the coefficients of the denominators in $A(x)$ we should compute products like: $$P_i = \prod\limits_{j \neq i} (x_i-x_j)$$
+Consider $P(x) = (x-x_1)\dots(x-x_n)$. To know the coefficients of the denominators in $A(x)$ we should compute products like: \[P_i = \prod\limits_{j \neq i} (x_i-x_j)\]
 
 But if you consider the derivative $P'(x)$ you'll find out that $P'(x_i) = P_i$. Thus you can compute $P_i$'s via evaluation in $O(n \log^2 n)$.
 
@@ -246,7 +293,7 @@ You want to know if $A(x)$ and $B(x)$ have any roots in common. There are two in
 
 ### Euclidean algorithm
 
-Well, we already have an [article](./algebra/euclid-algorithm.html) about it. For an arbitrary  domain you can write the Euclidean algorithm as easy as:
+Well, we already have an [article](euclid-algorithm.md) about it. For an arbitrary  domain you can write the Euclidean algorithm as easy as:
 
 ```cpp
 template<typename T>
@@ -263,6 +310,7 @@ It can be proven that for polynomials $A(x)$ and $B(x)$ it will work in $O(nm)$.
 Let's calculate the product $A(\mu_0)\cdots A(\mu_m)$. It will be equal to zero if and only if some $\mu_i$ is the root of $A(x)$.
 
 For symmetry we can also multiply it with $b_m^n$ and rewrite the whole product in the following form:
+
 $$\boxed{\mathcal{R}(A, B) = b_m^n\prod\limits_{j=0}^m A(\mu_j) = b_m^n a_m^n \prod\limits_{i=0}^n \prod\limits_{j=0}^m (\mu_j - \lambda_i)= (-1)^{mn}a_n^m \prod\limits_{i=0}^n B(\lambda_i)}$$
 
 The value defined above is called the resultant of the polynomials $A(x)$ and $B(x)$. From the definition you may find the following properties:

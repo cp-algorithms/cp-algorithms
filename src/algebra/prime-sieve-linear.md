@@ -1,10 +1,8 @@
-<!--?title Linear Sieve -->
-
 # Linear Sieve
 
 Given a number $n$, find all prime numbers in a segment $[2;n]$.
 
-The standard way of solving a task is to use [the sieve of Eratosthenes](./algebra/sieve-of-eratosthenes.html). This algorithm is very simple, but it has runtime $O(n \log \log n)$.
+The standard way of solving a task is to use [the sieve of Eratosthenes](sieve-of-eratosthenes.md). This algorithm is very simple, but it has runtime $O(n \log \log n)$.
 
 Although there are a lot of known algorithms with sublinear runtime (i.e. $o(n)$), the algorithm described below is interesting by its simplicity: it isn't any more complex than the classic sieve of Eratosthenes.
 
@@ -64,11 +62,11 @@ We need to prove that the algorithm sets all values $lp []$ correctly, and that 
 
 Notice that every number $i$ has exactly one representation in form:
 
-$i = lp [i] \cdot x$ ,
+$$i = lp [i] \cdot x,$$
 
 where $lp [i]$ is the minimal prime factor of $i$, and the number $x$ doesn't have any prime factors less than $lp [i]$, i.e.
 
-$lp [i] \le lp [x]$.
+$$lp [i] \le lp [x].$$
 
 Now, let's compare this with the actions of our algorithm: in fact, for every $x$ it goes through all prime numbers it could be multiplied by, i.e. all prime numbers up to $lp [x]$ inclusive, in order to get the numbers in the form given above.
 

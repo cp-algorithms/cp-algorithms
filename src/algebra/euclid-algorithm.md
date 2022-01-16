@@ -1,9 +1,10 @@
-<!--?title Euclidean algorithm for computing the greatest common divisor -->
 # Euclidean algorithm for computing the greatest common divisor
 
 Given two non-negative integers $a$ and $b$, we have to find their **GCD** (greatest common divisor), i.e. the largest number which is a divisor of both $a$ and $b$.
 It's commonly denoted by $\gcd(a, b)$. Mathematically it is defined as:
+
 $$\gcd(a, b) = \max_ {k = 1 \dots \infty ~ : ~ k \mid a ~ \wedge k ~ \mid b} k.$$
+
 (here the symbol "$\mid$" denotes divisibility, i.e. "$k \mid a$" means "$k$ divides $a$")
 
 When one of the numbers is zero, while the other is non-zero, their greatest common divisor, by definition, is the second number. When both numbers are zero, their greatest common divisor is undefined (it can be any arbitrarily large number), but we can define it to be zero. Which gives us a simple rule: if one of the numbers is zero, the greatest common divisor is the other number.
@@ -18,7 +19,7 @@ Originally, the Euclidean algorithm was formulated as follows: subtract the smal
 
 Note that $a$ remains the larger number until $b$ is subtracted from it at least $\left\lfloor\frac{a}{b}\right\rfloor$ times. Therefore, to speed things up, $a-b$ is substituted with $a-\left\lfloor\frac{a}{b}\right\rfloor b = a \bmod b$. Then the algorithm is formulated in an extremely simple way:
 
-$$\gcd(a, b) = \begin{cases}a,&\text{if }b = 0 \\\\ \gcd(b, a \bmod b),&\text{otherwise.}\end{cases}$$
+$$\gcd(a, b) = \begin{cases}a,&\text{if }b = 0 \\ \gcd(b, a \bmod b),&\text{otherwise.}\end{cases}$$
 
 ## Implementation
 
@@ -68,6 +69,7 @@ Another way to estimate the complexity is to notice that $a \bmod b$ for the cas
 ## Least common multiple
 
 Calculating the least common multiple (commonly denoted **LCM**) can be reduced to calculating the GCD with the following simple formula:
+
 $$\text{lcm}(a, b) = \frac{a \cdot b}{\gcd(a, b)}$$
 
 Thus, LCM can be calculated using the Euclidean algorithm with the same time complexity:
@@ -113,7 +115,7 @@ int gcd(int a, int b) {
 ```
 
 Notice, that such an optimization is usually not necessary, and most programming languages already have a GCD function in their standard libraries.
-E.g. C++17 has such a function in the `numeric` header.
+E.g. C++17 has such a function `std::gcd` in the `numeric` header.
 
 ## Practice Problems
 

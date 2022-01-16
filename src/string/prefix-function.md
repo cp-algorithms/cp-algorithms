@@ -1,5 +1,3 @@
-<!--?title Prefix function. Knuth–Morris–Pratt algorithm -->
-
 # Prefix function. Knuth–Morris–Pratt algorithm
 
 ## Prefix function definition
@@ -19,7 +17,7 @@ For example, prefix function of string "abcabcd" is $[0, 0, 0, 1, 2, 3, 0]$, and
 
 An algorithm which follows the definition of prefix function exactly is the following:
 
-```cpp prefix_slow
+```{.cpp file=prefix_slow}
 vector<int> prefix_function(string s) {
     int n = (int)s.length();
     vector<int> pi(n);
@@ -48,7 +46,8 @@ We end up with a suffix ending in position $i$ with the length $\pi[i + 1] - 1$,
 The following illustration shows this contradiction.
 The longest proper suffix at position $i$ that also is a prefix is of length $2$, and at position $i+1$ it is of length $4$.
 Therefore the string $s_0 ~ s_1 ~ s_2 ~ s_3$ is equal to the string $s_{i-2} ~ s_{i-1} ~ s_i ~ s_{i+1}$, which means that also the strings $s_0 ~ s_1 ~ s_2$ and $s_{i-2} ~ s_{i-1} ~ s_i$ are equal, therefore $\pi[i]$ has to be $3$.
-$$\underbrace{\overbrace{s_0 ~ s_1}^{\pi[i] = 2} ~ s_2 ~ s_3}\_{\pi[i+1] = 4} ~ \dots ~ \underbrace{s_{i-2} ~ \overbrace{s_{i-1} ~ s_{i}}^{\pi[i] = 2} ~ s_{i+1}}\_{\pi[i+1] = 4}$$
+
+$$\underbrace{\overbrace{s_0 ~ s_1}^{\pi[i] = 2} ~ s_2 ~ s_3}_{\pi[i+1] = 4} ~ \dots ~ \underbrace{s_{i-2} ~ \overbrace{s_{i-1} ~ s_{i}}^{\pi[i] = 2} ~ s_{i+1}}_{\pi[i+1] = 4}$$
 
 Thus when moving to the next position, the value of the prefix function can either increase by one, stay the same, or decrease by some amount.
 This fact already allows us to reduce the complexity of the algorithm to $O(n^2)$, because in one step the prefix function can grow at most by one.
@@ -63,11 +62,13 @@ To accomplish this, we have to use all the information computed in the previous 
 So let us compute the value of the prefix function $\pi$ for $i + 1$.
 If $s[i+1] = s[\pi[i]]$, then we can say with certainty that $\pi[i+1] = \pi[i] + 1$, since we already know that the suffix at position $i$ of length $\pi[i]$ is equal to the prefix of length $\pi[i]$.
 This is illustrated again with an example.
-$$\underbrace{\overbrace{s_0 ~ s_1 ~ s_2}^{\pi[i]} ~ \overbrace{s_3}^{s_3 = s_{i+1}}}\_{\pi[i+1] = \pi[i] + 1} ~ \dots ~ \underbrace{\overbrace{s_{i-2} ~ s_{i-1} ~ s_{i}}^{\pi[i]} ~ \overbrace{s_{i+1}}^{s_3 = s_{i + 1}}}\_{\pi[i+1] = \pi[i] + 1}$$
+
+$$\underbrace{\overbrace{s_0 ~ s_1 ~ s_2}^{\pi[i]} ~ \overbrace{s_3}^{s_3 = s_{i+1}}}_{\pi[i+1] = \pi[i] + 1} ~ \dots ~ \underbrace{\overbrace{s_{i-2} ~ s_{i-1} ~ s_{i}}^{\pi[i]} ~ \overbrace{s_{i+1}}^{s_3 = s_{i + 1}}}_{\pi[i+1] = \pi[i] + 1}$$
 
 If this is not the case, $s[i+1] \neq s[\pi[i]]$, then we need to try a shorter string.
 In order to speed things up, we would like to immediately move to the longest length $j \lt \pi[i]$, such that the prefix property in the position $i$ holds, i.e. $s[0 \dots j-1] = s[i-j+1 \dots i]$:
-$$\overbrace{\underbrace{s_0 ~ s_1}\_j ~ s_2 ~ s_3}^{\pi[i]} ~ \dots ~ \overbrace{s_{i-3} ~ s_{i-2} ~ \underbrace{s_{i-1} ~ s_{i}}\_j}^{\pi[i]} ~ s_{i+1}$$
+
+$$\overbrace{\underbrace{s_0 ~ s_1}_j ~ s_2 ~ s_3}^{\pi[i]} ~ \dots ~ \overbrace{s_{i-3} ~ s_{i-2} ~ \underbrace{s_{i-1} ~ s_{i}}_j}^{\pi[i]} ~ s_{i+1}$$
 
 Indeed, if we find such a length $j$, then we again only need to compare the characters $s[i+1]$ and $s[j]$.
 If they are equal, then we can assign $\pi[i+1] = j + 1$.
@@ -79,7 +80,8 @@ So we already have a general scheme of the algorithm.
 The only question left is how do we effectively find the lengths for $j$.
 Let's recap:
 for the current length $j$ at the position $i$ for which the prefix property holds, i.e. $s[0 \dots j-1] = s[i-j+1 \dots i]$, we want to find the greatest $k \lt j$, for which the prefix property holds.
-$$\overbrace{\underbrace{s_0 ~ s_1}\_k ~ s_2 ~ s_3}^j ~ \dots ~ \overbrace{s_{i-3} ~ s_{i-2} ~ \underbrace{s_{i-1} ~ s_{i}}\_k}^j ~s_{i+1}$$
+
+$$\overbrace{\underbrace{s_0 ~ s_1}_k ~ s_2 ~ s_3}^j ~ \dots ~ \overbrace{s_{i-3} ~ s_{i-2} ~ \underbrace{s_{i-1} ~ s_{i}}_k}^j ~s_{i+1}$$
 
 The illustration shows, that this has to be the value of $\pi[j-1]$, which we already calculated earlier.
 
@@ -99,7 +101,7 @@ If they are equal then we assign $\pi[i] = j + 1$, otherwise we reduce $j$ to $\
 
 The implementation ends up being surprisingly short and expressive.
 
-```cpp prefix_fast
+```{.cpp file=prefix_fast}
 vector<int> prefix_function(string s) {
     int n = (int)s.length();
     vector<int> pi(n);
@@ -128,19 +130,19 @@ Given a text $t$ and a string $s$, we want to find and display the positions of 
 
 For convenience we denote with $n$ the length of the string s and with $m$ the length of the text $t$.
 
-We generate the string $s + \\# + t$, where $\\#$ is a separator that appears neither in $s$ nor in $t$.
+We generate the string $s + \# + t$, where $\#$ is a separator that appears neither in $s$ nor in $t$.
 Let us calculate the prefix function for this string.
 Now think about the meaning of the values of the prefix function, except for the first $n + 1$ entries (which belong to the string $s$ and the separator).
 By definition the value $\pi[i]$ shows the longest length of a substring ending in position $i$ that coincides with the prefix.
 But in our case this is nothing more than the largest block that coincides with $s$ and ends at position $i$.
 This length cannot be bigger than $n$ due to the separator.
 But if equality $\pi[i] = n$ is achieved, then it means that the string $s$ appears completely in at this position, i.e. it ends at position $i$.
-Just do not forget that the positions are indexed in the string $s + \\# + t$.
+Just do not forget that the positions are indexed in the string $s + \# + t$.
 
 Thus if at some position $i$ we have $\pi[i] = n$, then at the position $i - (n + 1) - n + 1 = i - 2n$ in the string $t$ the string $s$ appears.
 
 As already mentioned in the description of the prefix function computation, if we know that the prefix values never exceed a certain value, then we do not need to store the entire string and the entire function, but only its beginning.
-In our case this means that we only need to store the string $s + \\#$ and the values of the prefix function for it.
+In our case this means that we only need to store the string $s + \#$ and the values of the prefix function for it.
 We can read one character at a time of the string $t$ and calculate the current value of the prefix function.
 
 Thus the Knuth-Morris-Pratt algorithm solves the problem in $O(n + m)$ time and $O(n)$ memory.
@@ -161,7 +163,7 @@ Given a prefix of length $j$ that is a suffix ending at position $i$, what is th
 Thus at the position $i$ ends the prefix of length $\pi[i]$, the prefix of length $\pi[\pi[i] - 1]$, the prefix $\pi[\pi[\pi[i] - 1] - 1]$, and so on, until the index becomes zero.
 Thus we can compute the answer in the following way.
 
-```cpp prefix_count_each_prefix
+```{.cpp file=prefix_count_each_prefix}
 vector<int> ans(n + 1);
 for (int i = 0; i < n; i++)
     ans[pi[i]]++;
@@ -177,7 +179,7 @@ At the end we need to add $1$ to each result, since we also need to count the or
 
 Now let us consider the second problem.
 We apply the trick from Knuth-Morris-Pratt:
-we create the string $s + \\# + t$ and compute its prefix function.
+we create the string $s + \# + t$ and compute its prefix function.
 The only differences to the first task is, that we are only interested in the prefix values that relate to the string $t$, i.e. $\pi[i]$ for $i \ge n + 1$.
 With those values we can perform the exact same computations as in the first task.
 
@@ -238,23 +240,26 @@ But then the string consists of only one character repeated over and over, hence
 Contradiction.
 
 $$\overbrace{s_0 ~ s_1 ~ s_2 ~ s_3}^p ~ \overbrace{s_4 ~ s_5 ~ s_6 ~ s_7}^p$$
+
 $$s_0 ~ s_1 ~ s_2 ~ \underbrace{\overbrace{s_3 ~ s_4 ~ s_5 ~ s_6}^p ~ s_7}_{\pi[7] = 5}$$
+
 $$s_4 = s_3, ~ s_5 = s_4, ~ s_6 = s_5, ~ s_7 = s_6 ~ \Rightarrow ~ s_0 = s_1 = s_2 = s_3$$
 
 ### Building an automaton according to the prefix function
 
-Let's return to the concatenation to the two strings through a separator, i.e. for the strings $s$ and $t$ we compute the prefix function for the string $s + \\# + t$.
-Obviously, since $\\#$ is a separator, the value of the prefix function will never exceed $|s|$.
-It follows, that it is sufficient to only store the string $s + \\#$ and the values of the prefix function for it, and we can compute the prefix function for all subsequent character on the fly:
-$$\underbrace{s_0 ~ s_1 ~ \dots ~ s_{n-1} ~ \\#}\_{\text{need to store}} ~ \underbrace{t_0 ~ t_1 ~ \dots ~ t_{m-1}}\_{\text{do not need to store}}$$
+Let's return to the concatenation to the two strings through a separator, i.e. for the strings $s$ and $t$ we compute the prefix function for the string $s + \# + t$.
+Obviously, since $\#$ is a separator, the value of the prefix function will never exceed $|s|$.
+It follows, that it is sufficient to only store the string $s + \#$ and the values of the prefix function for it, and we can compute the prefix function for all subsequent character on the fly:
+
+$$\underbrace{s_0 ~ s_1 ~ \dots ~ s_{n-1} ~ \#}_{\text{need to store}} ~ \underbrace{t_0 ~ t_1 ~ \dots ~ t_{m-1}}_{\text{do not need to store}}$$
 
 Indeed, in such a situation, knowing the next character $c \in t$ and the value of the prefix function of the previous position is enough information to compute the next value of the prefix function, without using any previous characters of the string $t$ and the value of the prefix function in them.
 
 In other words, we can construct an **automaton** (a finite state machine): the state in it is the current value of the prefix function, and the transition from one state to another will be performed via the next character.
 
-Thus, even without having the string $t$, we can construct such a transition table $(\text{old}\\_\pi, c) \rightarrow \text{new}\\_\pi$ using the same algorithm as for calculating the transition table:
+Thus, even without having the string $t$, we can construct such a transition table $(\text{old}_\pi, c) \rightarrow \text{new}_\pi$ using the same algorithm as for calculating the transition table:
 
-```cpp prefix_automaton_slow
+```{.cpp file=prefix_automaton_slow}
 void compute_automaton(string s, vector<vector<int>>& aut) {
     s += '#';
     int n = s.size();
@@ -277,7 +282,7 @@ However in this form the algorithm runs in $O(n^2 26)$ time for the lowercase le
 Note that we can apply dynamic programming and use the already calculated parts of the table.
 Whenever we go from the value $j$ to the value $\pi[j-1]$, we actually mean that the transition $(j, c)$ leads to the same state as the transition as $(\pi[j-1], c)$, and this answer is already accurately computed.
 
-```cpp prefix_automaton_fast
+```{.cpp file=prefix_automaton_fast}
 void compute_automaton(string s, vector<vector<int>>& aut) {
     s += '#';
     int n = s.size();
@@ -294,13 +299,13 @@ void compute_automaton(string s, vector<vector<int>>& aut) {
 }
 ```
 
-As a result we construct the automaton in $O(n 26)$ time.
+As a result we construct the automaton in $O(26 n)$ time.
 
 When is such a automaton useful?
-To begin with, remember that we use the prefix function for the string $s + \\# + t$ and its values mostly for a single purpose: find all occurrences of the string $s$ in the string $t$.
+To begin with, remember that we use the prefix function for the string $s + \# + t$ and its values mostly for a single purpose: find all occurrences of the string $s$ in the string $t$.
 
-Therefore the most obvious benefit of this automaton is the **acceleration of calculating the prefix function** for the string $s + \\# + t$.
-By building the automaton for $s + \\#$, we no longer need to store the string $s$ or the values of the prefix function in it.
+Therefore the most obvious benefit of this automaton is the **acceleration of calculating the prefix function** for the string $s + \# + t$.
+By building the automaton for $s + \#$, we no longer need to store the string $s$ or the values of the prefix function in it.
 All transitions are already computed in the table.
 
 But there is a second, less obvious, application.
@@ -311,11 +316,12 @@ For completeness we will solve such a problem:
 given a number $k \le 10^5$ and a string $s$ of length $\le 10^5$.
 We have to compute the number of occurrences of $s$ in the $k$-th Gray string.
 Recall that Gray's strings are define in the following way:
+
 $$\begin{align}
-g_1 &= "a"\\\\
-g_2 &= "aba"\\\\
-g_3 &= "abacaba"\\\\
-g_4 &= "abacabadabacaba"
+g_1 &= \text{"a"}\\
+g_2 &= \text{"aba"}\\
+g_3 &= \text{"abacaba"}\\
+g_4 &= \text{"abacabadabacaba"}
 \end{align}$$
 
 In such cases even constructing the string $t$ will be impossible, because of its astronomical length.
@@ -332,9 +338,13 @@ First the basic values are $G[0][j] = j$ and $K[0][j] = 0$.
 And all subsequent values can be calculated from the previous values and using the automaton.
 To calculate the value for some $i$ we remember that the string $g_i$ consists of $g_{i-1}$, the $i$ character of the alphabet, and $g_{i-1}$.
 Thus the automaton will go into the state:
+
 $$\text{mid} = \text{aut}[G[i-1][j]][i]$$
+
 $$G[i][j] = G[i-1][\text{mid}]$$
+
 The values for $K[i][j]$ can also be easily counted.
+
 $$K[i][j] = K[i-1][j] + (\text{mid} == |s|) + K[i-1][\text{mid}]$$
 
 So we can solve the problem for Gray strings, and similarly also a huge number of other similar problems.
@@ -342,10 +352,11 @@ For example the exact same method also solves the following problem:
 we are given a string $s$ and some patterns $t_i$, each of which is specified as follows:
 it is a string of ordinary characters, and there might be some recursive insertions of the previous strings of the form $t_k^{\text{cnt}}$, which means that at this place we have to insert the string $t_k$ $\text{cnt}$ times.
 An example of such patterns:
+
 $$\begin{align}
-t_1 &= "abdeca"\\\\
-t_2 &= "abc" + t_1^{30} + "abd"\\\\
-t_3 &= t_2^{50} + t_1^{100}\\\\
+t_1 &= \text{"abdeca"}\\
+t_2 &= \text{"abc"} + t_1^{30} + \text{"abd"}\\
+t_3 &= t_2^{50} + t_1^{100}\\
 t_4 &= t_2^{10} + t_3^{100}
 \end{align}$$
 

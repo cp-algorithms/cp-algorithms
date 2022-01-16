@@ -1,4 +1,3 @@
-<!--?title Primality tests -->
 # Primality tests
 
 This article describes multiple algorithms to determine if a number is prime or not.
@@ -26,13 +25,13 @@ bool isPrime(int x) {
 
 This is the simplest form of a prime check.
 You can optimize this function quite a bit, for instance by only checking all odd numbers in the loop, since the only even prime number is 2.
-Multiple such optimizations are described in the article about [integer factorization](./algebra/factorization.html).
+Multiple such optimizations are described in the article about [integer factorization](factorization.md).
 
 ## Fermat primality test
 
 This is a probabilistic test.
 
-Fermat's little theorem (see also [Euler's totient function](./algebra/phi-function.html)) states, that for a prime number $p$ and a coprime integer $a$ the following equation holds:
+Fermat's little theorem (see also [Euler's totient function](phi-function.md)) states, that for a prime number $p$ and a coprime integer $a$ the following equation holds:
 
 $$a^{p-1} \equiv 1 \bmod p$$
 
@@ -67,7 +66,7 @@ bool probablyPrimeFermat(int n, int iter=5) {
 }
 ```
 
-We use [Binary Exponentiation](./algebra/binary-exp.html) to efficiently compute the power $a^{p-1}$.
+We use [Binary Exponentiation](binary-exp.md) to efficiently compute the power $a^{p-1}$.
 
 There is one bad news though:
 there exist some composite numbers where $a^{n-1} \equiv 1 \bmod n$ holds for all $a$ coprime to $n$, for instance for the number $561 = 3 \cdot 11 \cdot 17$.
@@ -83,9 +82,11 @@ The Miller-Rabin test extends the ideas from the Fermat test.
 
 For an odd number $n$, $n-1$ is even and we can factor out all powers of 2.
 We can write:
+
 $$n - 1 = 2^s \cdot d,~\text{with}~d~\text{odd}.$$
 
 This allows us to factorize the equation of Fermat's little theorem:
+
 $$\begin{array}{rl}
 a^{n-1} \equiv 1 \bmod n &\Longleftrightarrow a^{2^s d} - 1 \equiv 0 \bmod n \\\\
 &\Longleftrightarrow (a^{2^{s-1} d} + 1) (a^{2^{s-1} d} - 1) \equiv 0 \bmod n \\\\
@@ -97,9 +98,13 @@ a^{n-1} \equiv 1 \bmod n &\Longleftrightarrow a^{2^s d} - 1 \equiv 0 \bmod n \\\
 If $n$ is prime, then $n$ has to divide one of these factors.
 And in the Miller-Rabin primality test we check exactly that statement, which is a more stricter version of the statement of the Fermat test.
 For a base $2 \le a \le n-2$ we check if either
+
 $$a^d \equiv 1 \bmod n$$
+
 holds or
+
 $$a^{2^r d} \equiv -1 \bmod n$$
+
 holds for some $0 \le r \le s - 1$.
 
 If we found a base $a$ which doesn't satisfy any of the above equalities, than we found a *witness* for the compositeness of $n$.

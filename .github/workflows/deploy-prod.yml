@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - mkdocs
 
 jobs:
   deploy_live_website:
@@ -11,15 +12,19 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Build docker image
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: Install mkdocs-material
         run: |
-          docker build -f build/Dockerfile . -t e-maxx-eng-builder
-      - name: Build static HTML
+          pip install mkdocs-material
+      - name: Build pages
         run: |
-          docker run -v $PWD:/input -v $PWD/public:/output -e BASEURL="https://cp-algorithms.com" e-maxx-eng-builder:latest
+          mkdocs build --strict
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           projectId: cp-algorithms
-          channelId: live
+          channelId: ${{ github.ref == 'refs/heads/master' && 'live' || 'mkdocs' }}

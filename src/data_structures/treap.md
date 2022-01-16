@@ -1,5 +1,3 @@
-
-<!--?title Treap -->
 # Treap (Cartesian tree)
 
 A treap is a data structure which combines binary tree and binary heap (hence the name: tree + heap $\Rightarrow$ Treap).
@@ -198,7 +196,7 @@ void upd_cnt (pitem t) {
 }
 ```
 
-## Building a Treap in $O (N)$ in offline mode
+## Building a Treap in $O (N)$ in offline mode {data-toc-label="Building a Treap in O(N) in offline mode"}
 
 Given a sorted list of keys, it is possible to construct a treap faster than by inserting the keys one at a time which takes $O(N \log N)$. Since the keys are sorted, a balanced binary search tree can be easily constructed in linear time. The heap values $Y$ are initialized randomly and then can be heapified independent of the keys $X$ to [build the heap](https://en.wikipedia.org/wiki/Binary_heap#Building_a_heap) in $O(N)$.
 

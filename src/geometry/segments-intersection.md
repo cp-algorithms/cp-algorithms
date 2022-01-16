@@ -1,12 +1,11 @@
-<!--?title Finding Intersection of Two Segments-->
-# Finding Intersection of Two Segments
+# Finding intersection of two segments
 
 You are given two segments AB and CD, described as pairs of their endpoints. Each segment can be a single point if its endpoints are the same. 
 You have to find the intersection of these segments, which can be empty (if the segments don't intersect), a single point or a segment (if the given segments overlap).
 
 ## Solution
 
-We can find the intersection point of segments in the same way as [the intersection of lines](geometry/lines-intersection.html): 
+We can find the intersection point of segments in the same way as [the intersection of lines](lines-intersection.md): 
 reconstruct line equations from the segments' endpoints and check whether they are parallel. 
 
 If the lines are not parallel, we need to find their point of intersection and check whether it belongs to both segments
@@ -33,7 +32,7 @@ The main function `intersect` returns true if the segments have a non-empty inte
 and stores endpoints of the intersection segment in arguments `left` and `right`. 
 If the answer is a single point, the values written to `left` and `right` will be the same.
 
-```cpp segment_intersection
+```{.cpp file=segment_intersection}
 const double EPS = 1E-9;
 
 struct pt {

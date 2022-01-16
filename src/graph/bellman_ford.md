@@ -1,5 +1,3 @@
-<!--?title Bellman-Ford Algorithm - shortest paths with negative weights -->
-
 # Bellman-Ford Algorithm
 
 **Single source shortest path with negative weight edges**
@@ -206,7 +204,7 @@ d[e[j].b] = max (-INF, d[e[j].a] + e[j].cost);
 
 The above implementation looks for a negative cycle reachable from some starting vertex $v$; however, the algorithm can be modified to just looking for any negative cycle in the graph. For this we need to put all the distance $d[i]$ to zero and not infinity — as if we are looking for the shortest path from all vertices simultaneously; the validity of the detection of a negative cycle is not affected.
 
-For more on this topic — see separate article, [Finding a negative cycle in the graph](./graph/finding-negative-cycle-in-graph.html).
+For more on this topic — see separate article, [Finding a negative cycle in the graph](finding-negative-cycle-in-graph.md).
 
 ## Shortest Path Faster Algorithm (SPFA)
 
@@ -220,7 +218,7 @@ There are some care to be taken in the implementation, such as the fact that the
 To avoid this, it is possible to create a counter that stores how many times a vertex has been relaxed and stop the algorithm as soon as some vertex got relaxed for the $n$-th time.
 Note, also there is no reason to put a vertex in the queue if it is already in.
 
-```cpp spfa
+```{.cpp file=spfa}
 const int INF = 1000000000;
 vector<vector<pair<int, int>>> adj;
 
@@ -271,6 +269,6 @@ A list of tasks that can be solved using the Bellman-Ford algorithm:
 * [UVA #515 "King" [difficulty: medium]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=456)
 * [UVA 12519 - The Farnsworth Parabox](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3964)
 
-See also the problem list in the article [Finding the negative cycle in a graph](./graph/finding-negative-cycle-in-graph.html).
+See also the problem list in the article [Finding the negative cycle in a graph](finding-negative-cycle-in-graph.md).
 * [CSES - High Score](https://cses.fi/problemset/task/1673)
 * [CSES - Cycle Finding](https://cses.fi/problemset/task/1197)
