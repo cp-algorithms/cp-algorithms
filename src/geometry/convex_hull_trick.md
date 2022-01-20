@@ -143,11 +143,11 @@ ftype get(int x, int v = 1, int l = 0, int r = maxn) {
 
 ## Problems
 
-* [Codebreaker - TROUBLES](https://codebreaker.xyz/problem/troubles) (simple application of Convex Hull Trick after a couple of observations)
+* [Codebreaker - TROUBLES](https://codeforces.com/gym/103536/problem/B) (simple application of Convex Hull Trick after a couple of observations)
 * [CS Academy - Squared Ends](https://csacademy.com/contest/archive/task/squared-ends)
 * [Codeforces - Escape Through Leaf](http://codeforces.com/contest/932/problem/F)
 * [CodeChef - Polynomials](https://www.codechef.com/NOV17/problems/POLY)
 * [Codeforces - Kalila and Dimna in the Logging Industry](https://codeforces.com/problemset/problem/319/C)
 * [Codeforces - Product Sum](https://codeforces.com/problemset/problem/631/E)
 * [Codeforces - Bear and Bowling 4](https://codeforces.com/problemset/problem/660/F)
-* [APIO 2010 - Commando](https://codebreaker.xyz/problem/commando)
+* [APIO 2010 - Commando](https://dmoj.ca/problem/apio10p1)
