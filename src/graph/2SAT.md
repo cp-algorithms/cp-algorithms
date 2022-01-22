@@ -27,8 +27,8 @@ $$(a \lor \lnot b) \land (\lnot a \lor b) \land (\lnot a \lor \lnot b) \land (a 
 The oriented graph will contain the following vertices and edges:
 
 $$\begin{array}{cccc}
-\lnot a \Rightarrow \lnot b & a \Rightarrow b & a \Rightarrow \lnot b & \lnot a \Rightarrow \lnot c\\\\
-b \Rightarrow a & \lnot b \Rightarrow \lnot a & b \Rightarrow \lnot a & c \Rightarrow a\\\\
+\lnot a \Rightarrow \lnot b & a \Rightarrow b & a \Rightarrow \lnot b & \lnot a \Rightarrow \lnot c\\
+b \Rightarrow a & \lnot b \Rightarrow \lnot a & b \Rightarrow \lnot a & c \Rightarrow a
 \end{array}$$
 
 You can see the implication graph in the following image:
@@ -92,19 +92,19 @@ In the second traversal of the graph Kosaraju's algorithm visits the strongly co
 Afterwards we can choose the assignment of $x$ by comparing $\text{comp}[x]$ and $\text{comp}[\lnot x]$. 
 If $\text{comp}[x] = \text{comp}[\lnot x]$ we return $\text{false}$ to indicate that there doesn't exist a valid assignment that satisfies the 2-SAT problem.
 
-Below is the implementation of the solution of the 2-SAT problem for the already constructed graph of implication $g$ and the transpose graph $g^{\intercal}$ (in which the direction of each edge is reversed).
+Below is the implementation of the solution of the 2-SAT problem for the already constructed graph of implication $adj$ and the transpose graph $adj^{\intercal}$ (in which the direction of each edge is reversed).
 In the graph the vertices with indices $2k$ and $2k+1$ are the two vertices corresponding to variable $k$ with $2k+1$ corresponding to the negated variable.
 
-```cpp
+```{.cpp file=2sat}
 int n;
-vector<vector<int>> g, gt;
+vector<vector<int>> adj, adj_t;
 vector<bool> used;
 vector<int> order, comp;
 vector<bool> assignment;
 
 void dfs1(int v) {
     used[v] = true;
-    for (int u : g[v]) {
+    for (int u : adj[v]) {
         if (!used[u])
             dfs1(u);
     }
@@ -113,7 +113,7 @@ void dfs1(int v) {
 
 void dfs2(int v, int cl) {
     comp[v] = cl;
-    for (int u : gt[v]) {
+    for (int u : adj_t[v]) {
         if (comp[u] == -1)
             dfs2(u, cl);
     }
@@ -142,10 +142,22 @@ bool solve_2SAT() {
     }
     return true;
 }
+
+void add_disjunction(int a, bool na, int b, bool nb) {
+    // na and nb signify whether a and b are to be negated 
+    a = 2*a ^ na;
+    b = 2*b ^ nb;
+    int neg_a = a ^ 1;
+    int neg_b = b ^ 1;
+    adj[neg_a].push_back(b);
+    adj[neg_b].push_back(a);
+    adj_t[b].push_back(neg_a);
+    adj_t[a].push_back(neg_b);
+}
 ```
+
 ## Practice Problems
  * [UVA: Rectangles](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3081)
  * [Codeforces: The Door Problem](http://codeforces.com/contest/776/problem/D)
  * [Codeforces : Radio Stations](https://codeforces.com/problemset/problem/1215/F)
  * [CSES : Giant Pizza](https://cses.fi/problemset/task/1684)
- 
