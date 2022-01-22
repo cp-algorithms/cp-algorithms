@@ -1,6 +1,5 @@
-<!--?title Breadth First Search -->
-
 # Breadth-first search
+
 Breadth first search is one of the basic and essential searching algorithms on graphs.
 
 As a result of how the algorithm works, the path found by breadth first search to any node is the shortest path to that node, i.e the path that contains the smallest number of edges in unweighted graphs.
@@ -82,7 +81,7 @@ Thus, we perform normal BFS from each of the vertices, but do not reset the arra
 * Finding a solution to a problem or a game with the least number of moves, if each state of the game can be represented by a vertex of the graph, and the transitions from one state to the other are the edges of the graph.
 
 * Finding the shortest path in a graph with weights 0 or 1:
-This requires just a little modification to normal breadth-first search: Instead of maintaining array $used[]$, we will now check if the distance to vertex is shorter than current found distance, then if the current edge is of zero weight, we add it to the front of the queue else we add it to the back of the queue.This modification is explained in more detail in the article [0-1 BFS](graph/01_bfs.html).
+This requires just a little modification to normal breadth-first search: Instead of maintaining array $used[]$, we will now check if the distance to vertex is shorter than current found distance, then if the current edge is of zero weight, we add it to the front of the queue else we add it to the back of the queue.This modification is explained in more detail in the article [0-1 BFS](01_bfs.md).
 
 * Finding the shortest cycle in a directed unweighted graph:
 Start a breadth-first search from each vertex.

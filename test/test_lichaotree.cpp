@@ -23,7 +23,7 @@ int main() {
         add_line(input_lines[i]);
 
         for (int x = 0; x <= 1000; x++) {
-            int mi = 1e9;
+            ftype mi = 1e9;
             for (int j = 0; j <= i; j++) {
                 mi = min(mi, f(input_lines[j], x));
             }

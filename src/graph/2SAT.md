@@ -1,6 +1,4 @@
-<!--?title 2-SAT -->
-
-# 2 - SAT 
+# 2-SAT 
 
 SAT (Boolean satisfiability problem) is the problem of assigning Boolean values to variables to satisfy a given Boolean formula.
 The Boolean formula will usually be given in CNF (conjunctive normal form), which is a conjunction of multiple clauses, where each clause is a disjunction of literals (variables or negation of variables).
@@ -35,7 +33,7 @@ b \Rightarrow a & \lnot b \Rightarrow \lnot a & b \Rightarrow \lnot a & c \Right
 
 You can see the implication graph in the following image:
 
-<center>!["Implication Graph of 2-SAT example"](&imgroot&/2SAT.png)</center>
+<center>!["Implication Graph of 2-SAT example"](2SAT.png)</center>
 
 It is worth paying attention to the property of the implication graph:
 if there is an edge $a \Rightarrow b$, then there also is an edge $\lnot b \Rightarrow \lnot a$. 
@@ -44,7 +42,7 @@ Also note, that if $x$ is reachable from $\lnot x$, and $\lnot x$ is reachable f
 Whatever value we choose for the variable $x$, it will always end in a contradiction - if $x$ will be assigned $\text{true}$ then the implication tell us that $\lnot x$ should also be $\text{true}$ and visa versa.
 It turns out, that this condition is not only necessary, but also sufficient.
 We will prove this in a few paragraphs below.
-First recall, if a vertex if reachable from a second one, and the second one is reachable from the first one, then these two vertices are in the same strongly connected component.
+First recall, if a vertex is reachable from a second one, and the second one is reachable from the first one, then these two vertices are in the same strongly connected component.
 Therefore we can formulate the criterion for the existence of a solution as follows:
 
 In order for this 2-SAT problem to have a solution, it is necessary and sufficient that for any variable $x$ the vertices $x$ and $\lnot x$ are in different strongly connected components of the strong connection of the implication graph.
@@ -55,7 +53,7 @@ The following image shows all strongly connected components for the example.
 As we can check easily, neither of the four components contain a vertex $x$ and its negation $\lnot x$, therefore the example has a solution.
 We will learn in the next paragraphs how to compute a valid assignment, but just for demonstration purposes the solution $a = \text{false}$, $b = \text{false}$, $c = \text{false}$ is given.
 
-<center>!["Strongly Connected Components of the 2-SAT example"](&imgroot&/2SAT_SCC.png)</center>
+<center>!["Strongly Connected Components of the 2-SAT example"](2SAT_SCC.png)</center>
 
 Now we construct the algorithm for finding the solution of the 2-SAT problem on the assumption that the solution exists.
 

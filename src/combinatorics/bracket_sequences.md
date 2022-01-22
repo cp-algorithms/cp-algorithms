@@ -1,4 +1,3 @@
-<!--?title Balanced bracket sequences -->
 # Balanced bracket sequences
 
 A **balanced bracket sequence** is a string consisting of only brackets, such that this sequence, when inserted certain numbers and mathematical operations, gives a valid mathematical expression.
@@ -39,11 +38,13 @@ Otherwise it is.
 
 ### Formula
 
-The number of balanced bracket sequences with only one bracket type can be calculated using the [Catalan numbers](./combinatorics/catalan-numbers.html).
+The number of balanced bracket sequences with only one bracket type can be calculated using the [Catalan numbers](catalan-numbers.md).
 The number of balanced bracket sequences of length $2n$ ($n$ pairs of brackets) is:
+
 $$\frac{1}{n+1} \binom{2n}{n}$$
 
 If we allow $k$ types of brackets, then each pair be of any of the $k$ types (independently of the others), thus the number of balanced bracket sequences is:
+
 $$\frac{1}{n+1} \binom{2n}{n} k^n$$
 
 ### Dynamic programming
@@ -55,7 +56,9 @@ And somewhere later is the corresponding closing bracket of the pair.
 It is clear that inside this pair there is a balanced bracket sequence, and similarly after this pair there is a balanced bracket sequence.
 So to compute $d[n]$, we will look at how many balanced sequences of $i$ pairs of brackets are inside this first bracket pair, and how many balanced sequences with $n-1-i$ pairs are after this pair.
 Consequently the formula has the form:
+
 $$d[n] = \sum_{i=0}^{n-1} d[i] \cdot d[n-1-i]$$
+
 The initial value for this recurrence is $d[0] = 1$.
 
 ## Finding the lexicographical next balanced sequence
@@ -75,7 +78,7 @@ We change the symbol, compute the number of opening and closing brackets that we
 
 If we find do suitable position, then this sequence is already the maximal possible one, and there is no answer.
 
-```cpp next_balanced_brackets_sequence
+```{.cpp file=next_balanced_brackets_sequence}
 bool next_balanced_sequence(string & s) {
     int n = s.size();
     int depth = 0;
@@ -124,7 +127,9 @@ For the start value $i = 0$ the answer is obvious: $d[0][0] = 1$, and $d[0][j] =
 Now let $i > 0$, and we look at the last character in the sequence.
 If the last character was an opening bracket $($, then the state before was $(i-1, j-1)$, if it was a closing bracket $)$, then the previous state was $(i-1, j+1)$.
 Thus we obtain the recursion formula:
+
 $$d[i][j] = d[i-1][j-1] + d[i-1][j+1]$$
+
 $d[i][j] = 0$ holds obviously for negative $j$.
 Thus we can compute this array in $O(n^2)$.
 
@@ -138,14 +143,16 @@ If the current character $s[i]$ is equal to $)$, then we must add $d[2n-i-1][\te
 New let there be $k$ different bracket types.
 
 Thus, when we look at the current character $s[i]$ before recomputing $\text{depth}$, we have to go through all bracket types that are smaller than the current character, and try to put this bracket into the current position (obtaining a new balance $\text{ndepth} = \text{depth} \pm 1$), and add the number of ways to finish the sequence (length $2n-i-1$, balance $ndepth$) to the answer:
+
 $$d[2n - i - 1][\text{ndepth}] \cdot k^{\frac{2n - i - 1 - ndepth}{2}}$$
+
 This formula can be derived as follows:
 First we "forget" that there are multiple bracket types, and just take the answer $d[2n - i - 1][\text{ndepth}]$.
 Now we consider how the answer will change is we have $k$ types of brackets.
 We have $2n - i - 1$ undefined positions, of which $\text{ndepth}$ are already predetermined because of the opening brackets.
 But all the other brackets ($(2n - i - i - \text{ndepth})/2$ pairs) can be of any type, therefore we multiply the number by such a power of $k$.
 
-## Finding the $k$-th sequence
+## Finding the $k$-th sequence {data-toc-label="Finding the k-th sequence"}
 
 Let $n$ be the number of bracket pairs in the sequence.
 We have to find the $k$-th balanced sequence in lexicographically sorted list of all balanced sequences for a given $k$.
@@ -161,7 +168,7 @@ To have to put an opening bracket character, it $d[2n - i - 1][\text{depth}+1] \
 We increment the counter $\text{depth}$, and move on to the next character.
 Otherwise we decrement $k$ by $d[2n - i - 1][\text{depth}+1]$, put a closing bracket and move on.
 
-```cpp kth_balances_bracket
+```{.cpp file=kth_balances_bracket}
 string kth_balanced(int n, int k) {
     vector<vector<int>> d(2*n+1, vector<int>(n+1, 0));
     d[0][0] = 1;
@@ -194,7 +201,7 @@ The solution will only differ slightly in that we have to multiply the value $d[
 
 Here is an implementation using two types of brackets: round and square:
 
-```cpp kth_balances_bracket_multiple
+```{.cpp file=kth_balances_bracket_multiple}
 string kth_balanced2(int n, int k) {
     vector<vector<int>> d(2*n+1, vector<int>(n+1, 0));
     d[0][0] = 1;
@@ -206,12 +213,15 @@ string kth_balanced2(int n, int k) {
     }
 
     string ans;
-    int depth = 0;
+    int shift, depth = 0;
+
     stack<char> st;
     for (int i = 0; i < 2*n; i++) {
+
         // '('
-        if (depth + 1 <= n) {
-            int cnt = d[2*n-i-1][depth+1] << ((2*n-i-1-depth-1) / 2);
+        shift = ((2*n-i-1-depth-1) / 2);
+        if (shift >= 0 && depth + 1 <= n) {
+            int cnt = d[2*n-i-1][depth+1] << shift;
             if (cnt >= k) {
                 ans += '(';
                 st.push('(');
@@ -222,8 +232,9 @@ string kth_balanced2(int n, int k) {
         }
 
         // ')'
-        if (depth && st.top() == '(') {
-            int cnt = d[2*n-i-1][depth-1] << ((2*n-i-1-depth+1) / 2);
+        shift = ((2*n-i-1-depth+1) / 2);
+        if (shift >= 0 && depth && st.top() == '(') {
+            int cnt = d[2*n-i-1][depth-1] << shift;
             if (cnt >= k) {
                 ans += ')';
                 st.pop();
@@ -234,8 +245,9 @@ string kth_balanced2(int n, int k) {
         }
             
         // '['
-        if (depth + 1 <= n) {
-            int cnt = d[2*n-i-1][depth+1] << ((2*n-i-1-depth-1) / 2);
+        shift = ((2*n-i-1-depth-1) / 2);
+        if (shift >= 0 && depth + 1 <= n) {
+            int cnt = d[2*n-i-1][depth+1] << shift;
             if (cnt >= k) {
                 ans += '[';
                 st.push('[');

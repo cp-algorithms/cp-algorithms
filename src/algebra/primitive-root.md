@@ -1,5 +1,3 @@
-<!--?title Primitive Root -->
-
 # Primitive Root
 
 ## Definition

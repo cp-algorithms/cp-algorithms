@@ -1,28 +1,32 @@
-<!--?title Gauss method for solving system of linear equations -->
-
 # Gauss method for solving system of linear equations
 
 Given a system of $n$ linear algebraic equations (SLAE) with $m$ unknowns. You are asked to solve the system: to determine if it has no solution, exactly one solution or infinite number of solutions. And in case it has at least one solution, find any of them.
 
 Formally, the problem is formulated as follows: solve the system:
 
-$$a_{11} x_1 + a_{12} x_2 + \dots + a_{1m} x_m = b_1$$
-$$a_{21} x_1 + a_{22} x_2 + \dots + a_{2m} x_m = b_2$$
-$$\dots$$
-$$a_{n1} x_1 + a_{n2} x_2 + \dots + a_{nm} x_m = b_n$$
+$$\begin{align}
+a_{11} x_1 + a_{12} x_2 + &\dots + a_{1m} x_m = b_1 \\
+a_{21} x_1 + a_{22} x_2 + &\dots + a_{2m} x_m = b_2\\
+&\vdots \\
+a_{n1} x_1 + a_{n2} x_2 + &\dots + a_{nm} x_m = b_n
+\end{align}$$
 
 where the coefficients $a_{ij}$ (for $i$ from 1 to $n$, $j$ from 1 to $m$) and $b_i$ ($i$ from 1 to $n$ are known and variables $x_i$ ($i$ from 1 to $m$) are unknowns.
 
 This problem also has a simple matrix representation:
-$$Ax = b$$,
+
+$$Ax = b,$$
+
 where $A$ is a matrix of size $n \times m$ of coefficients $a_{ij}$ and $b$ is the column vector of size $n$.
 
 It is worth noting that the method presented in this article can also be used to solve the equation modulo any number p, i.e.:
 
-$$a_{11} x_1 + a_{12} x_2 + \dots + a_{1m} x_m \equiv b_1 \pmod p$$
-$$a_{21} x_1 + a_{22} x_2 + \dots + a_{2m} x_m \equiv b_2 \pmod p$$
-$$\dots$$
-$$a_{n1} x_1 + a_{n2} x_2 + \dots + a_{nm} x_m \equiv b_n \pmod p$$
+$$\begin{align}
+a_{11} x_1 + a_{12} x_2 + &\dots + a_{1m} x_m \equiv b_1 \pmod p \\
+a_{21} x_1 + a_{22} x_2 + &\dots + a_{2m} x_m \equiv b_2 \pmod p \\
+&\vdots \\
+a_{n1} x_1 + a_{n2} x_2 + &\dots + a_{nm} x_m \equiv b_n \pmod p
+\end{align}$$
 
 ## Gauss
 
@@ -71,7 +75,7 @@ The input to the function `gauss` is the system matrix $a$. The last column of t
 
 The function returns the number of solutions of the system $(0, 1,\textrm{or } \infty)$. If at least one solution exists, then it is returned in the vector $ans$.
 
-```cpp gauss
+```{.cpp file=gauss}
 const double EPS = 1e-9;
 const int INF = 2; // it doesn't actually have to be infinity or a big number
 

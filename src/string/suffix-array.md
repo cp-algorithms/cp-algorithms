@@ -1,4 +1,3 @@
-<!--?title Suffix Array-->
 # Suffix Array
 
 ## Definition
@@ -9,20 +8,22 @@ A **suffix array** will contain integers that represent the **starting indexes**
 
 As an example look at the string $s = abaab$.
 All suffixes are as follows
+
 $$\begin{array}{ll}
-0. & abaab \\\\
-1. & baab \\\\
-2. & aab \\\\
-3. & ab \\\\
+0. & abaab \\
+1. & baab \\
+2. & aab \\
+3. & ab \\
 4. & b
 \end{array}$$
 
 After sorting these strings:
+
 $$\begin{array}{ll}
-2. & aab \\\\
-3. & ab \\\\
-0. & abaab \\\\
-4. & b \\\\
+2. & aab \\
+3. & ab \\
+0. & abaab \\
+4. & b \\
 1. & baab
 \end{array}$$
 
@@ -32,26 +33,26 @@ As a data structure it is widely used in areas such as data compression, bioinfo
 
 ## Construction
 
-### $O(n^2 \log n)$ approach
+### $O(n^2 \log n)$ approach {data-toc-label="O(n^2 log n) approach"}
 
 This is the most naive approach.
 Get all the suffixes and sort them using quicksort or mergesort and simultaneously retain their original indices.
 Sorting uses $O(n \log n)$ comparisons, and since comparing two strings will additionally take $O(n)$ time, we get the final complexity of $O(n^2 \log n)$.
 
-### $O(n \log n)$ approach
+### $O(n \log n)$ approach {data-toc-label="O(n log n) approach"}
 
 Strictly speaking the following algorithm will not sort the suffixes, but rather the cyclic shifts of a string.
 However we can very easily derive an algorithm for sorting suffixes from it:
 it is enough to append an arbitrary character to the end of the string which is smaller than any character from the string.
-It is common to use the symbol $\\$$.
+It is common to use the symbol \$.
 Then the order of the sorted cyclic shifts is equivalent to the order of the sorted suffixes, as demonstrated here with the string $dabbb$.
 
 $$\begin{array}{lll}
-1. & abbb\\$d & abbb \\\\
-4. & b\\$dabb & b \\\\
-3. & bb\\$dab & bb \\\\
-2. & bbb\\$da & bbb \\\\
-0. & dabbb\\$ & dabbb
+1. & abbb\$d & abbb \\
+4. & b\$dabb & b \\
+3. & bb\$dab & bb \\
+2. & bbb\$da & bbb \\
+0. & dabbb\$ & dabbb
 \end{array}$$
 
 Since we are going to sort cyclic shifts, we will consider **cyclic substrings**.
@@ -73,11 +74,13 @@ The number of equivalence classes will be stored in a variable $\text{classes}$.
 Let's look at an example.
 Consider the string $s = aaba$.
 The cyclic substrings and the corresponding arrays $p[]$ and $c[]$ are given for each iteration:
+
 $$\begin{array}{cccc}
-0: & (a,~ a,~ b,~ a) & p = (0,~ 1,~ 3,~ 2) & c = (0,~ 0,~ 1,~ 0)\\\\
-1: & (aa,~ ab,~ ba,~ aa) & p = (0,~ 3,~ 1,~ 2) & c = (0,~ 1,~ 2,~ 0)\\\\
-2: & (aaba,~ abaa,~ baaa,~ aaab) & p = (3,~ 0,~ 1,~ 2) & c = (1,~ 2,~ 3,~ 0)\\\\
+0: & (a,~ a,~ b,~ a) & p = (0,~ 1,~ 3,~ 2) & c = (0,~ 0,~ 1,~ 0)\\
+1: & (aa,~ ab,~ ba,~ aa) & p = (0,~ 3,~ 1,~ 2) & c = (0,~ 1,~ 2,~ 0)\\
+2: & (aaba,~ abaa,~ baaa,~ aaab) & p = (3,~ 0,~ 1,~ 2) & c = (1,~ 2,~ 3,~ 0)\\
 \end{array}$$
+
 It is worth noting that the values of $p[]$ can be different.
 For example in the $0$-th iteration the array could also be $p = (3,~ 1,~ 0,~ 2)$ or $p = (3,~ 0,~ 1,~ 2)$.
 All these options permutation the substrings into a sorted order.
@@ -86,7 +89,8 @@ At the same time the array $c[]$ is fixed, there can be no ambiguities.
 
 Let us now focus on the implementation of the algorithm.
 We will write a function that takes a string $s$ and returns the permutations of the sorted cyclic shifts.
-```cpp suffix_array_sort_cyclic1
+
+```{.cpp file=suffix_array_sort_cyclic1}
 vector<int> sort_cyclic_shifts(string const& s) {
     int n = s.size();
     const int alphabet = 256;
@@ -96,7 +100,8 @@ At the beginning (in the **$0$-th iteration**) we must sort the cyclic substring
 This can be done trivially, for example, by using **counting sort**.
 For each character we count how many times it appears in the string, and then use this information to create the array $p[]$.
 After that we go through the array $p[]$ and construct $c[]$ by comparing adjacent characters.
-```cpp suffix_array_sort_cyclic2
+
+```{.cpp file=suffix_array_sort_cyclic2}
     vector<int> p(n), c(n), cnt(max(alphabet, n), 0);
     for (int i = 0; i < n; i++)
         cnt[s[i]]++;
@@ -120,17 +125,18 @@ Since we perform this step $O(\log n)$ times, the complete algorithm will have a
 
 To do this, note that the cyclic substrings of length $2^k$ consists of two substrings of length $2^{k-1}$ which we can compare with each other in $O(1)$ using the information from the previous phase - the values of the equivalence classes $c[]$.
 Thus, for two substrings of length $2^k$ starting at position $i$ and $j$, all necessary information to compare them is contained in the pairs $(c[i],~ c[i + 2^{k-1}])$ and $(c[j],~ c[j + 2^{k-1}])$.
+
 $$\dots
 \overbrace{
-\underbrace{s_i \dots s_{i+2^{k-1}-1}}\_{\text{length} = 2^{k-1},~ \text{class} = c[i]}
+\underbrace{s_i \dots s_{i+2^{k-1}-1}}_{\text{length} = 2^{k-1},~ \text{class} = c[i]}
 \quad
-\underbrace{s_{i+2^{k-1}} \dots s_{i+2^k-1}}\_{\text{length} = 2^{k-1},~ \text{class} = c[i + 2^{k-1}]}
+\underbrace{s_{i+2^{k-1}} \dots s_{i+2^k-1}}_{\text{length} = 2^{k-1},~ \text{class} = c[i + 2^{k-1}]}
 }^{\text{length} = 2^k}
 \dots
 \overbrace{
-\underbrace{s_j \dots s_{j+2^{k-1}-1}}\_{\text{length} = 2^{k-1},~ \text{class} = c[j]}
+\underbrace{s_j \dots s_{j+2^{k-1}-1}}_{\text{length} = 2^{k-1},~ \text{class} = c[j]}
 \quad
-\underbrace{s_{j+2^{k-1}} \dots s_{j+2^k-1}}\_{\text{length} = 2^{k-1},~ \text{class} = c[j + 2^{k-1}]}
+\underbrace{s_{j+2^{k-1}} \dots s_{j+2^k-1}}_{\text{length} = 2^{k-1},~ \text{class} = c[j + 2^{k-1}]}
 }^{\text{length} = 2^k}
 \dots
 $$
@@ -159,7 +165,7 @@ The only thing left is to compute the equivalence classes $c[]$, but as before t
 Here is the remaining implementation.
 We use temporary arrays $pn[]$ and $cn[]$ to store the permutation by the second elements and the new equivalent class indices.
 
-```cpp suffix_array_sort_cyclic3
+```{.cpp file=suffix_array_sort_cyclic3}
     vector<int> pn(n), cn(n);
     for (int h = 0; (1 << h) < n; ++h) {
         for (int i = 0; i < n; i++) {
@@ -196,10 +202,10 @@ If we know that the string only contains a subset of characters, e.g. only lower
 However not by much, since the alphabet size only appears with a factor of $O(\log n)$ in the complexity.
 
 Also note, that this algorithm only sorts the cycle shifts.
-As mentioned at the beginning of this section we can generate the sorted order of the suffixes by appending a character that is smaller than all other characters of the string, and sorting this resulting string by cycle shifts, e.g. by sorting the cycle shifts of $s + \\$$.
+As mentioned at the beginning of this section we can generate the sorted order of the suffixes by appending a character that is smaller than all other characters of the string, and sorting this resulting string by cycle shifts, e.g. by sorting the cycle shifts of $s + $\$.
 This will obviously give the suffix array of $s$, however prepended with $|s|$.
 
-```cpp suffix_array_construction
+```{.cpp file=suffix_array_construction}
 vector<int> suffix_array_construction(string s) {
     s += "$";
     vector<int> sorted_shifts = sort_cyclic_shifts(s);
@@ -239,21 +245,23 @@ Let's compare two substrings of length $l$ with the starting indices $i$ and $j$
 We find the largest length of a block that is placed inside a substring of this length: the greatest $k$ such that $2^k \le l$.
 Then comparing the two substrings can be replaced by comparing two overlapping blocks of length $2^k$:
 first you need to compare the two blocks starting at $i$ and $j$, and if these are equal then compare the two blocks ending in positions $i + l - 1$ and $j + l - 1$:
+
 $$\dots
-\overbrace{\underbrace{s_i \dots s_{i+l-2^k} \dots s_{i+2^k-1}}\_{2^k} \dots s_{i+l-1}}^{\text{first}}
+\overbrace{\underbrace{s_i \dots s_{i+l-2^k} \dots s_{i+2^k-1}}_{2^k} \dots s_{i+l-1}}^{\text{first}}
 \dots
-\overbrace{\underbrace{s_j \dots s_{j+l-2^k} \dots s_{j+2^k-1}}\_{2^k} \dots s_{j+l-1}}^{\text{second}}
+\overbrace{\underbrace{s_j \dots s_{j+l-2^k} \dots s_{j+2^k-1}}_{2^k} \dots s_{j+l-1}}^{\text{second}}
 \dots$$
+
 $$\dots
-\overbrace{s_i \dots \underbrace{s_{i+l-2^k} \dots s_{i+2^k-1} \dots s_{i+l-1}}\_{2^k}}^{\text{first}}
+\overbrace{s_i \dots \underbrace{s_{i+l-2^k} \dots s_{i+2^k-1} \dots s_{i+l-1}}_{2^k}}^{\text{first}}
 \dots
-\overbrace{s_j \dots \underbrace{s_{j+l-2^k} \dots s_{j+2^k-1} \dots s_{j+l-1}}\_{2^k}}^{\text{second}}
+\overbrace{s_j \dots \underbrace{s_{j+l-2^k} \dots s_{j+2^k-1} \dots s_{j+l-1}}_{2^k}}^{\text{second}}
 \dots$$
 
 Here is the implementation of the comparison.
 Note that it is assumed that the function gets called with the already calculated $k$.
 $k$ can be computed with $\lfloor \log l \rfloor$, but it is more efficient to precompute all $k$ values for every $l$.
-See for instance the article about the [Sparse Table](./data_structures/sparse-table.html), which uses a similar idea and computes all $\log$ values.
+See for instance the article about the [Sparse Table](../data_structures/sparse-table.md), which uses a similar idea and computes all $\log$ values.
 
 ```cpp
 int compare(int i, int j, int l, int k) {
@@ -309,7 +317,7 @@ Then the answer for arbitrary two suffixes, not necessarily neighboring ones, ca
 In fact, let the request be to compute the LCP of the suffixes $p[i]$ and $p[j]$.
 Then the answer to this query will be $\min(lcp[i],~ lcp[i+1],~ \dots,~ lcp[j-1])$.
 
-Thus if we have such an array $\text{lcp}$, then the problem is reduced to the [RMQ](./sequences/rmq.html), which has many wide number of different solutions with different complexities.
+Thus if we have such an array $\text{lcp}$, then the problem is reduced to the [RMQ](../sequences/rmq.md), which has many wide number of different solutions with different complexities.
 
 So the main task is to **build** this array $\text{lcp}$.
 We will use **Kasai's algorithm**, which can compute this array in $O(n)$ time.
@@ -326,7 +334,7 @@ Now we already can implement the algorithm.
 We will iterate over the suffixes in order of their length. This way we can reuse the last value $k$, since going from suffix $i$ to the suffix $i+1$ is exactly the same as removing the first letter.
 We will need an additional array $\text{rank}$, which will give us the position of a suffix in the sorted list of suffixes.
 
-```cpp suffix_array_lcp_construction
+```{.cpp file=suffix_array_lcp_construction}
 vector<int> lcp_construction(string const& s, vector<int> const& p) {
     int n = s.size();
     vector<int> rank(n, 0);
@@ -367,6 +375,7 @@ Because the suffixes are sorted, it is clear that the current suffix $p[i]$ will
 Thus, all its prefixes except the first $\text{lcp}[i-1]$ one.
 Since the length of the current suffix is $n - p[i]$, $n - p[i] - \text{lcp}[i-1]$ new suffixes start at $p[i]$.
 Summing over all the suffixes, we get the final answer:
+
 $$\sum_{i=0}^{n-1} (n - p[i]) - \sum_{i=0}^{n-2} \text{lcp}[i] = \frac{n^2 + n}{2} - \sum_{i=0}^{n-2} \text{lcp}[i]$$
 
 ## Practice Problems

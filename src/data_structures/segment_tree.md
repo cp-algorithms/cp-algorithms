@@ -1,5 +1,3 @@
-<!--?title Segment Tree-->
-
 # Segment Tree
 
 A Segment Tree is a data structure that allows answering range queries over an array effectively, while still being flexible enough to allow modifying the array. 
@@ -7,7 +5,7 @@ This includes finding the sum of consecutive array elements $a[l \dots r]$, or f
 Between answering such queries the Segment Tree allows modifying the array by replacing one element, or even change the elements of a whole subsegment (e.g. assigning all elements $a[l \dots r]$ to any value, or adding a value to all element in the subsegment). 
 
 In general a Segment Tree is a very flexible data structure, and a huge number of problems can be solved with it. 
-Additionally it is also possible to apply more complex operations and answer more complex queries (see [Advanced versions of Segment Trees](data_structures/segment_tree.html#advanced-versions-of-segment-trees)).
+Additionally it is also possible to apply more complex operations and answer more complex queries (see [Advanced versions of Segment Trees](segment_tree.md#advanced-versions-of-segment-trees)).
 In particular the Segment Tree can be easily generalized to larger dimensions. 
 For instance with a two-dimensional Segment Tree you can answer sum or minimum queries over some subrectangle of a given matrix.
 However only in $O(\log^2 n)$ time. 
@@ -36,15 +34,15 @@ For each such segment we store the sum of the numbers on it.
 
 We can say, that these segments form a binary tree: 
 the root of this tree is the segment $a[0 \dots n-1]$, and each vertex (except leaf vertices) has exactly two child vertices. 
-This is why the data structure is called "Segment Tree", even though in most implementations the tree is not constructed explicitly (see [Implementation](#implementation)).
+This is why the data structure is called "Segment Tree", even though in most implementations the tree is not constructed explicitly (see [Implementation](segment_tree.md#implementation)).
 
 Here is a visual representation of such a Segment Tree over the array $a = [1, 3, -2, 8, -7]$:
 
-!["Sum Segment Tree"](&imgroot&/sum-segment-tree.png)
+!["Sum Segment Tree"](sum-segment-tree.png)
 
 From this short description of the data structure, we can already conclude that a Segment Tree only requires a linear number of vertices. 
 The first level of the tree contains a single node (the root), the second level will contain two vertices, in the third it will contain four vertices, until the number of vertices reaches $n$. 
-Thus the number of vertices in the worst case can be estimated by the sum $1 + 2 + 4 + \dots + 2^{\lceil\log_2 n\rceil} = 2^{\lceil\log_2 n\rceil + 1} \lt 4n$.
+Thus the number of vertices in the worst case can be estimated by the sum $1 + 2 + 4 + \dots + 2^{\lceil\log_2 n\rceil} \lt 2^{\lceil\log_2 n\rceil + 1} \lt 4n$.
 
 It is worth noting that whenever $n$ is not a power of two, not all levels of the Segment Tree will be completely filled. 
 We can see that behavior in the image.
@@ -107,7 +105,7 @@ Again the array $a = [1, 3, -2, 8, -7]$ is used, and here we want to compute the
 The colored vertices will be visited, and we will use the precomputed values of the green vertices.
 This gives us the result $-2 + 1 = -1$.
 
-!["Sum Segment Tree Query"](&imgroot&/sum-segment-tree-query.png)
+!["Sum Segment Tree Query"](sum-segment-tree-query.png)
 
 Why is the complexity of this algorithm $O(\log n)$?
 To show this complexity we look at each level of the tree. 
@@ -149,7 +147,7 @@ Again here is a visualization using the same array.
 Here we perform the update $a[2] = 3$.
 The green vertices are the vertices that we visit and update.
 
-!["Sum Segment Tree Update"](&imgroot&/sum-segment-tree-update.png)
+!["Sum Segment Tree Update"](sum-segment-tree-update.png)
 
 ### Implementation ### {#implementation}
 
@@ -172,7 +170,7 @@ There will be some elements in the sum array, that will not correspond to any ve
 
 So, we store the Segment Tree simply as an array $t[]$ with a size of four times the input size $n$:
 
-```cpp segment_tree_implementation_definition
+```{.cpp file=segment_tree_implementation_definition}
 int n, t[4*MAXN];
 ```
 
@@ -180,7 +178,7 @@ The procedure for constructing the Segment Tree from a given array $a[]$ looks l
 it is a recursive function with the parameters $a[]$ (the input array), $v$ (the index of the current vertex), and the boundaries $tl$ and $tr$ of the current segment. 
 In the main program this function will be called with the parameters of the root vertex: $v = 1$, $tl = 0$, and $tr = n - 1$. 
 
-```cpp segment_tree_implementation_build
+```{.cpp file=segment_tree_implementation_build}
 void build(int a[], int v, int tl, int tr) {
     if (tl == tr) {
         t[v] = a[tl];
@@ -196,7 +194,7 @@ void build(int a[], int v, int tl, int tr) {
 Further the function for answering sum queries is also a recursive function, which receives as parameters information about the current vertex/segment (i.e. the index $v$ and the boundaries $tl$ and $tr$) and also the information about the boundaries of the query, $l$ and $r$. 
 In order to simplify the code, this function always does two recursive calls, even if only one is necessary - in that case the superfluous recursive call will have $l > r$, and this can easily be caught using an additional check at the beginning of the function.
 
-```cpp segment_tree_implementation_sum
+```{.cpp file=segment_tree_implementation_sum}
 int sum(int v, int tl, int tr, int l, int r) {
     if (l > r) 
         return 0;
@@ -211,7 +209,7 @@ int sum(int v, int tl, int tr, int l, int r) {
 
 Finally the update query. The function will also receive information about the current vertex/segment, and additionally also the parameter of the update query (i.e. the position of the element and its new value).
 
-```cpp segment_tree_implementation_update
+```{.cpp file=segment_tree_implementation_update}
 void update(int v, int tl, int tr, int pos, int new_val) {
     if (tl == tr) {
         t[v] = new_val;
@@ -275,7 +273,7 @@ In addition to the maximum we also store the number of occurrences of it in the 
 Determining the correct pair to store at $t[v]$ can still be done in constant time using the information of the pairs stored at the child vertices. 
 Combining two such pairs should be done in a separate function, since this will be an operation that we will do while building the tree, while answering maximum queries and while performing modifications.
 
-```cpp segment_tree_maximum_and_count
+```{.cpp file=segment_tree_maximum_and_count}
 pair<int, int> t[4*MAXN];
 
 pair<int, int> combine(pair<int, int> a, pair<int, int> b) {
@@ -328,7 +326,7 @@ This interesting variation of the Segment Tree can be solved in exactly the same
 it is enough to store the GCD / LCM of the corresponding vertex in each vertex of the tree. 
 Combining two vertices can be done by computing the GCM / LCM of both vertices.
 
-#### <a name="counting-zero-search-kth"></a>Counting the number of zeros, searching for the $k$-th zero
+#### Counting the number of zeros, searching for the $k$-th zero {#counting-zero-search-kth data-toc-label="Counting the number of zeros, searching for the k-th zero"}
 
 In this problem we want to find the number of zeros in a given range, and additionally find the index of the $k$-th zero using a second function.
 
@@ -345,7 +343,7 @@ Notice, if we chose the right child, we have to subtract the number of zeros of 
 
 In the implementation we can handle the special case, $a[]$ containing less than $k$ zeros, by returning -1.
 
-```cpp segment_tree_kth_zero
+```{.cpp file=segment_tree_kth_zero}
 int find_kth(int v, int tl, int tr, int k) {
     if (k > t[v])
         return -1;
@@ -383,7 +381,7 @@ Instead, we can use the same idea as in the previous sections, and find the posi
 by moving each time to the left or the right, depending on the maximum value of the left child.
 Thus finding the answer in $O(\log n)$ time.
 
-```cpp segment_tree_first_greater
+```{.cpp file=segment_tree_first_greater}
 int get_first(int v, int lv, int rv, int l, int r, int x) {
     if(lv > r || rv < l) return -1;
     if(l <= lv && rv <= r) {
@@ -432,7 +430,7 @@ Hence the answer to the current vertex is the maximum of these three values.
 Computing the maximum prefix / suffix sum is even easier. 
 Here is the implementation of the $\text{combine}$ function, which receives only data from the left and right child, and returns the data of the current vertex. 
 
-```cpp segment_tree_maximal_sum_subsegments1
+```{.cpp file=segment_tree_maximal_sum_subsegments1}
 struct data {
     int sum, pref, suff, ans;
 };
@@ -451,7 +449,7 @@ Using the $\text{combine}$ function it is easy to build the Segment Tree.
 We can implement it in exactly the same way as in the previous implementations.
 To initialize the leaf vertices, we additionally create the auxiliary function $\text{make_data}$, which will return a $\text{data}$ object holding the information of a single value.
 
-```cpp segment_tree_maximal_sum_subsegments2
+```{.cpp file=segment_tree_maximal_sum_subsegments2}
 data make_data(int val) {
     data res;
     res.sum = val;
@@ -488,7 +486,7 @@ It only remains, how to compute the answer to a query.
 To answer it, we go down the tree as before, breaking the query into several subsegments that coincide with the segments of the Segment Tree, and combine the answers in them into a single answer for the query.
 Then it should be clear, that the work is exactly the same as in the simple Segment Tree, but instead of summing / minimizing / maximizing the values, we use the $\text{combine}$ function.
 
-```cpp segment_tree_maximal_sum_subsegments3
+```{.cpp file=segment_tree_maximal_sum_subsegments3}
 data query(int v, int tl, int tr, int l, int r) {
     if (l > r) 
         return make_data(0);
@@ -534,7 +532,7 @@ The C++ STL already has an implementation of this algorithm.
 
 Because this structure of the Segment Tree and the similarities to the merge sort algorithm, the data structure is also often called "Merge Sort Tree".
 
-```cpp segment_tree_smallest_number_greater1
+```{.cpp file=segment_tree_smallest_number_greater1}
 vector<int> t[4*MAXN];
 
 void build(int a[], int v, int tl, int tr) {
@@ -563,7 +561,7 @@ Since the vertex contains the list of elements in sorted order, we can simply pe
 
 Thus the answer to the query in one segment of the tree takes $O(\log n)$ time, and the entire query is processed in $O(\log^2 n)$.
 
-```cpp segment_tree_smallest_number_greater2
+```{.cpp file=segment_tree_smallest_number_greater2}
 int query(int v, int tl, int tr, int l, int r, int x) {
     if (l > r)
         return INF;
@@ -674,7 +672,7 @@ And you need to work very carefully, so that you increment or decrement the corr
 
 This technique implies a whole new class of possible applications. 
 Instead of storing a $\text{vector}$ or a $\text{multiset}$ in each vertex, other data structures can be used:
-other Segment Trees (somewhat discussed in [Generalization to higher dimensions](data_structures/segment_tree.html#generalization-to-higher-dimensions)), Fenwick Trees, Cartesian trees, etc.
+other Segment Trees (somewhat discussed in [Generalization to higher dimensions](segment_tree.md#generalization-to-higher-dimensions)), Fenwick Trees, Cartesian trees, etc.
 
 ### Range updates (Lazy Propagation)
 
@@ -688,7 +686,7 @@ The second query, that we are supposed to answer, asked simply for the value of 
 
 To make the addition query efficient, we store at each vertex in the Segment Tree how many we should add to all numbers in the corresponding segment. 
 For example, if the query "add 3 to the whole array $a[0 \dots n-1]$" comes, then we place the number 3 in the root of the tree.
-In general we have to place this number multiple to multiple segments, which form a partition of the query segment. 
+In general we have to place this number to multiple segments, which form a partition of the query segment. 
 Thus we don't have to change all $O(n)$ values, but only $O(\log n)$ many.
 
 If now there comes a query that asks the current value of a particular array entry, it is enough to go down the tree and add up all values found along the way.
@@ -975,7 +973,7 @@ We still can answer the queries in $O(\log^2 n)$ time, we just have to make a bi
 But modification queries will be impossible with this structure:
 in fact if a new point appears, we have to add a new element in the middle of some Segment Tree along the second coordinate, which cannot be effectively done.
 
-In conclusion we note that the two-dimensional Segment Tree contracted in the described way becomes practically equivalent to the modification of the one-dimensional Segment Tree (see [Saving the entire subarrays in each vertex](data_structures/segment_tree.html#saving-the-entire-subarrays-in-each-vertex)).
+In conclusion we note that the two-dimensional Segment Tree contracted in the described way becomes practically equivalent to the modification of the one-dimensional Segment Tree (see [Saving the entire subarrays in each vertex](segment_tree.md#saving-the-entire-subarrays-in-each-vertex)).
 In particular the two-dimensional Segment Tree is just a special case of storing a subarray in each vertex of the tree.
 It follows, that if you gave to abandon a two-dimensional Segment Tree due to the impossibility of executing a query, it makes sense to try to replace the nested Segment Tree with some more powerful data structure, for example a Cartesian tree.
 
@@ -1040,7 +1038,7 @@ To use a specific version of the Segment Tree we simply call the query using the
 
 With the approach described above almost any Segment Tree can be turned into a persistent data structure.
 
-#### Finding the $k$-th smallest number in a range
+#### Finding the $k$-th smallest number in a range {data-toc-label="Finding the k-th smallest number in a range"}
 
 This time we have to answer queries of the form "What is the $k$-th smallest element in the range $a[l \dots r]$. 
 This query can be answered using a binary search and a Merge Sort Tree, but the time complexity for a single query would be $O(\log^3 n)$.
@@ -1059,7 +1057,7 @@ But instead of creating all $n$ Segment Trees for every possible prefix, we will
 We will start with an empty Segment Tree (all counts will be $0$) pointed to by $root_0$, and add the elements $a[1]$, $a[2]$, $\dots$, $a[n]$ one after another.
 For each modification we will receive a new root vertex, let's call $root_i$ the root of the Segment Tree after inserting the first $i$ elements of the array $a$.
 The Segment Tree rooted at $root_i$ will contain the histogram of the prefix $a[1 \dots i]$.
-Using this Segment Tree we can find in $O(\log n)$ time the position of the $k$-th element using the same technique discussed in [Counting the number of zeros, searching for the $k$-th zero](data_structures/segment_tree.html#counting-zero-search-kth).
+Using this Segment Tree we can find in $O(\log n)$ time the position of the $k$-th element using the same technique discussed in [Counting the number of zeros, searching for the $k$-th zero](segment_tree.md#counting-zero-search-kth).
 
 Now to the not-restricted version of the problem.
 
@@ -1072,7 +1070,7 @@ In the implementation of the $\text{find_kth}$ function this can be handled by p
 
 Here are the modified $\text{build}$, $\text{update}$  and $\text{find_kth}$ functions
 
-```cpp kth_smallest_persistent_segment_tree
+```{.cpp file=kth_smallest_persistent_segment_tree}
 Vertex* build(int tl, int tr) {
     if (tl == tr)
         return new Vertex(0);
@@ -1103,7 +1101,7 @@ int find_kth(Vertex* vl, Vertex *vr, int tl, int tr, int k) {
 As already written above, we need to store the root of the initial Segment Tree, and also all the roots after each update.
 Here is the code for building a persistent Segment Tree over an vector `a` with elements in the range `[0, MAX_VALUE]`.
 
-```cpp kth_smallest_persistent_segment_tree_build
+```{.cpp file=kth_smallest_persistent_segment_tree_build}
 int tl = 0, tr = MAX_VALUE + 1;
 std::vector<Vertex*> roots;
 roots.push_back(build(tl, tr));

@@ -1,7 +1,6 @@
-<!--?title Dijkstra on sparse graphs -->
 # Dijkstra on sparse graphs
 
-For the statement of the problem, the algorithm with implementation and proof can be found on the article [Dijkstra's algorithm](./graph/dijkstra.html).
+For the statement of the problem, the algorithm with implementation and proof can be found on the article [Dijkstra's algorithm](dijkstra.md).
 
 ## Algorithm
 
@@ -42,7 +41,7 @@ Let us start with the container `set`.
 Since we need to store vertices ordered by their values $d[]$, it is convenient to store actual pairs: the distance and the index of the vertex.
 As a result in a `set` pairs are automatically sorted by their distances.
 
-```cpp dijkstra_sparse_set
+```{.cpp file=dijkstra_sparse_set}
 const int INF = 1000000000;
 vector<vector<pair<int, int>>> adj;
 
@@ -94,7 +93,7 @@ By default a `priority_queue` sorts elements in descending order.
 To make it sort the elements in ascending order, we can either store the negated distances in it, or pass it a different sorting function.
 We will do the second option.
 
-```cpp dijkstra_sparse_pq
+```{.cpp file=dijkstra_sparse_pq}
 const int INF = 1000000000;
 vector<vector<pair<int, int>>> adj;
 

@@ -1,4 +1,3 @@
-<!--?title Binary Exponentiation-->
 # Binary Exponentiation
 
 Binary exponentiation (also known as exponentiation by squaring) is a trick which allows to calculate $a^n$ using only $O(\log n)$ multiplications (instead of $O(n)$ multiplications required by the naive approach).
@@ -21,6 +20,7 @@ $a^{b+c} = a^b \cdot a^c$ and $a^{2b} = a^b \cdot a^b = (a^b)^2$.
 The idea of binary exponentiation is, that we split the work using the binary representation of the exponent.
 
 Let's write $n$ in base 2, for example:
+
 $$3^{13} = 3^{1101_2} = 3^8 \cdot 3^4 \cdot 3^1$$
 
 Since the number $n$ has exactly $\lfloor \log_2 n \rfloor + 1$ digits in base 2, we only need to perform $O(\log n)$ multiplications, if we know the powers $a^1, a^2, a^4, a^8, \dots, a^{\lfloor \log n \rfloor}$.
@@ -29,9 +29,9 @@ So we only need to know a fast way to compute those.
 Luckily this is very easy, since an element in the sequence is just the square of the previous element.
 
 $$\begin{align}
-3^1 &= 3 \\\\
-3^2 &= \left(3^1\right)^2 = 3^2 = 9 \\\\
-3^4 &= \left(3^2\right)^2 = 9^2 = 81 \\\\
+3^1 &= 3 \\
+3^2 &= \left(3^1\right)^2 = 3^2 = 9 \\
+3^4 &= \left(3^2\right)^2 = 9^2 = 81 \\
 3^8 &= \left(3^4\right)^2 = 81^2 = 6561
 \end{align}$$
 
@@ -43,9 +43,9 @@ The final complexity of this algorithm is $O(\log n)$: we have to compute $\log 
 The following recursive approach expresses the same idea:
 
 $$a^n = \begin{cases}
-1 &\text{if } n == 0 \\\\
-\left(a^{\frac{n}{2}}\right)^2 &\text{if } n > 0 \text{ and } n \text{ even}\\\\
-\left(a^{\frac{n - 1}{2}}\right)^2 \cdot a &\text{if } n > 0 \text{ and } n \text{ odd}\\\\
+1 &\text{if } n == 0 \\
+\left(a^{\frac{n}{2}}\right)^2 &\text{if } n > 0 \text{ and } n \text{ even}\\
+\left(a^{\frac{n - 1}{2}}\right)^2 \cdot a &\text{if } n > 0 \text{ and } n \text{ odd}\\
 \end{cases}$$
 
 ## Implementation
@@ -66,7 +66,7 @@ long long binpow(long long a, long long b) {
 
 The second approach accomplishes the same task without recursion.
 It computes all the powers in a loop, and multiplies the ones with the corresponding set bit in $n$.
-Although the complexity of both approaches is identical, this approach will be faster in practice since we have the overhead of the recursive calls.
+Although the complexity of both approaches is identical, this approach will be faster in practice since we don't have the overhead of the recursive calls.
 
 ```cpp
 long long binpow(long long a, long long b) {
@@ -87,7 +87,7 @@ long long binpow(long long a, long long b) {
 
 **Problem:**
 Compute $x^n \bmod m$.
-This is a very common operation. For instance it is used in computing the [modular multiplicative inverse](./algebra/module-inverse.html).
+This is a very common operation. For instance it is used in computing the [modular multiplicative inverse](module-inverse.md).
 
 **Solution:**
 Since we know that the module operator doesn't interfere with multiplications ($a \cdot b \equiv (a \bmod m) \cdot (b \bmod m) \pmod m$), we can directly use the same code, and just replace every multiplication with a modular multiplication:
@@ -106,14 +106,14 @@ long long binpow(long long a, long long b, long long m) {
 }
 ```
 
-**Note:** If $m$ is a prime number we can speed up a bit this algorithm by calculating $x ^ {n \mod (m-1)}$ instead of $x ^ n$.
-This follows directly from [Fermat's little theorem](./algebra/module-inverse.html#toc-tgt-2).
+**Note:** If $m$ is a prime number we can speed up a bit this algorithm by calculating $x^{n \bmod (m-1)}$ instead of $x ^ n$.
+This follows directly from [Fermat's little theorem](module-inverse.md#toc-tgt-2).
 
 ### Effective computation of Fibonacci numbers
 
 **Problem:** Compute $n$-th Fibonacci number $F_n$.
 
-**Solution:** For more details, see the [Fibonacci Number article](./algebra/fibonacci-numbers.html).
+**Solution:** For more details, see the [Fibonacci Number article](fibonacci-numbers.md).
 We will only go through an overview of the algorithm.
 To compute the next Fibonacci number, only the two previous ones are needed, as $F_n = F_{n-1} + F_{n-2}$.
 We can build a $2 \times 2$ matrix that describes this transformation:
@@ -121,7 +121,7 @@ the transition from $F_i$ and $F_{i+1}$ to $F_{i+1}$ and $F_{i+2}$.
 For example, applying this transformation to the pair $F_0$ and $F_1$ would change it into $F_1$ and $F_2$.
 Therefore, we can raise this transformation matrix to the $n$-th power to find $F_n$ in time complexity $O(\log n)$.
 
-### Applying a permutation $k$ times
+### Applying a permutation $k$ times { data-toc-label='Applying a permutation <script type="math/tex">k</script> times' }
 
 **Problem:** You are given a sequence of length $n$. Apply to it a given permutation $k$ times.
 
@@ -142,20 +142,20 @@ Therefore, we can raise this transformation matrix to the $n$-th power to find $
 As you can see, each of the transformations can be represented as a linear operation on the coordinates. Thus, a transformation can be written as a $4 \times 4$ matrix of the form:
 
 $$\begin{pmatrix}
-a_{11} & a_ {12} & a_ {13} & a_ {14} \\\
-a_{21} & a_ {22} & a_ {23} & a_ {24} \\\
-a_{31} & a_ {32} & a_ {33} & a_ {34} \\\
-a_{41} & a_ {42} & a_ {43} & a_ {44} \\\
+a_{11} & a_ {12} & a_ {13} & a_ {14} \\
+a_{21} & a_ {22} & a_ {23} & a_ {24} \\
+a_{31} & a_ {32} & a_ {33} & a_ {34} \\
+a_{41} & a_ {42} & a_ {43} & a_ {44}
 \end{pmatrix}$$
 
 that, when multiplied by a vector with the old coordinates and an unit gives a new vector with the new coordinates and an unit:
 
 $$\begin{pmatrix} x & y & z & 1 \end{pmatrix} \cdot
 \begin{pmatrix}
-a_{11} & a_ {12} & a_ {13} & a_ {14} \\\
-a_{21} & a_ {22} & a_ {23} & a_ {24} \\\
-a_{31} & a_ {32} & a_ {33} & a_ {34} \\\
-a_{41} & a_ {42} & a_ {43} & a_ {44} \\\
+a_{11} & a_ {12} & a_ {13} & a_ {14} \\
+a_{21} & a_ {22} & a_ {23} & a_ {24} \\
+a_{31} & a_ {32} & a_ {33} & a_ {34} \\
+a_{41} & a_ {42} & a_ {43} & a_ {44}
 \end{pmatrix}
  = \begin{pmatrix} x' & y' & z' & 1 \end{pmatrix}$$
 
@@ -164,52 +164,55 @@ a_{41} & a_ {42} & a_ {43} & a_ {44} \\\
 Here are some examples of how transformations are represented in matrix form:
 
 * Shift operation: shift $x$ coordinate by $5$, $y$ coordinate by $7$ and $z$ coordinate by $9$.
+
 $$\begin{pmatrix}
-1 & 0 & 0 & 0 \\\
-0 & 1 & 0 & 0 \\\
-0 & 0 & 1 & 0 \\\
-5 & 7 & 9 & 1 \\\
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+5 & 7 & 9 & 1
 \end{pmatrix}$$
 
 * Scaling operation: scale the $x$ coordinate by $10$ and the other two by $5$.
+
 $$\begin{pmatrix}
-10 & 0 & 0 & 0 \\\
-0 & 5 & 0 & 0 \\\
-0 & 0 & 5 & 0 \\\
-0 & 0 & 0 & 1 \\\
+10 & 0 & 0 & 0 \\
+0 & 5 & 0 & 0 \\
+0 & 0 & 5 & 0 \\
+0 & 0 & 0 & 1
 \end{pmatrix}$$
 
 * Rotation operation: rotate $\theta$ degrees around the $x$ axis following the right-hand rule (counter-clockwise direction).
+
 $$\begin{pmatrix}
-1 & 0 & 0 & 0 \\\
-0 & \cos \theta & -\sin \theta & 0 \\\
-0 & \sin \theta & \cos \theta & 0 \\\
-0 & 0 & 0 & 1 \\\
+1 & 0 & 0 & 0 \\
+0 & \cos \theta & -\sin \theta & 0 \\
+0 & \sin \theta & \cos \theta & 0 \\
+0 & 0 & 0 & 1
 \end{pmatrix}$$
 
 Now, once every transformation is described as a matrix, the sequence of transformations can be described as a product of these matrices, and a "loop" of $k$ repetitions can be described as the matrix raised to the power of $k$ (which can be calculated using binary exponentiation in $O(\log{k})$). This way, the matrix which represents all transformations can be calculated first in $O(m \log{k})$, and then it can be applied to each of the $n$ points in $O(n)$ for a total complexity of $O(n + m \log{k})$.
 
 
-### Number of paths of length $k$ in a graph
+### Number of paths of length $k$ in a graph { data-toc-label='Number of paths of length <script type="math/tex">k</script> in a graph' }
 
 **Problem:** Given a directed unweighted graph of $n$ vertices, find the number of paths of length $k$ from any vertex $u$ to any other vertex $v$.
 
-**Solution:** This problem is considered in more detail in [a separate article](./graph/fixed_length_paths.html). The algorithm consists of raising the adjacency matrix $M$ of the graph (a matrix where $m_{ij} = 1$ if there is an edge from $i$ to $j$, or $0$ otherwise) to the $k$-th power. Now $m_{ij}$ will be the number of paths of length $k$ from $i$ to $j$. The time complexity of this solution is $O(n^3 \log k)$.
+**Solution:** This problem is considered in more detail in [a separate article](../graph/fixed_length_paths.md). The algorithm consists of raising the adjacency matrix $M$ of the graph (a matrix where $m_{ij} = 1$ if there is an edge from $i$ to $j$, or $0$ otherwise) to the $k$-th power. Now $m_{ij}$ will be the number of paths of length $k$ from $i$ to $j$. The time complexity of this solution is $O(n^3 \log k)$.
 
 **Note:** In that same article, another variation of this problem is considered: when the edges are weighted and it is required to find the minimum weight path containing exactly $k$ edges. As shown in that article, this problem is also solved by exponentiation of the adjacency matrix. The matrix would have the weight of the edge from $i$ to $j$, or $\infty$ if there is no such edge.
 Instead of the usual operation of multiplying two matrices, a modified one should be used:
 instead of multiplication, both values are added, and instead of a summation, a minimum is taken.
 That is: $result_{ij} = \min\limits_{1\ \leq\ k\ \leq\ n}(a_{ik} + b_{kj})$.
 
-### Variation of binary exponentiation: multiplying two numbers modulo $m$
+### Variation of binary exponentiation: multiplying two numbers modulo $m$ { data-toc-label='Variation of binary exponentiation: multiplying two numbers modulo <script type="math/tex">m</script>' }
 
 **Problem:** Multiply two numbers $a$ and $b$ modulo $m$. $a$ and $b$ fit in the built-in data types, but their product is too big to fit in a 64-bit integer. The idea is to compute $a \cdot b \pmod m$ without using bignum arithmetics.
 
 **Solution:** We simply apply the binary construction algorithm described above, only performing additions instead of multiplications. In other words, we have "expanded" the multiplication of two numbers to $O (\log m)$ operations of addition and multiplication by two (which, in essence, is an addition).
 
 $$a \cdot b = \begin{cases}
-0 &\text{if }a = 0 \\\\
-2 \cdot \frac{a}{2} \cdot b &\text{if }a > 0 \text{ and }a \text{ even} \\\\
+0 &\text{if }a = 0 \\
+2 \cdot \frac{a}{2} \cdot b &\text{if }a > 0 \text{ and }a \text{ even} \\
 2 \cdot \frac{a-1}{2} \cdot b + b &\text{if }a > 0 \text{ and }a \text{ odd}
 \end{cases}$$
 
@@ -225,3 +228,4 @@ $$a \cdot b = \begin{cases}
 * [SPOJ - Locker](http://www.spoj.com/problems/LOCKER/)
 * [LA - 3722 Jewel-eating Monsters](https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1723)
 * [SPOJ - Just add it](http://www.spoj.com/problems/ZSUM/)
+* [Codechef - Chef and Riffles](https://www.codechef.com/JAN221B/problems/RIFFLES)

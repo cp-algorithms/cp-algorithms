@@ -1,4 +1,3 @@
-<!--?title Suffix Automaton -->
 # Suffix Automaton
 
 A **suffix automaton** is a powerful data structure that allows solving many string-related problems. 
@@ -47,42 +46,42 @@ Here we will show some examples of suffix automata for several simple strings.
 
 We will denote the initial state with blue and the terminal states with green.
 
-For the string $s =~ ""$:
+For the string $s =~ \text{""}$:
 
-![Suffix automaton for ""](&imgroot&/SA.png)
+![Suffix automaton for ""](SA.png)
 
-For the string $s =~ "a"$:
+For the string $s =~ \text{"a"}$:
 
-![Suffix automaton for "a"](&imgroot&/SAa.png)
+![Suffix automaton for "a"](SAa.png)
 
-For the string $s =~ "aa"$:
+For the string $s =~ \text{"aa"}$:
 
-![Suffix automaton for "aa"](&imgroot&/SAaa.png)
+![Suffix automaton for "aa"](SAaa.png)
 
-For the string $s =~ "ab"$:
+For the string $s =~ \text{"ab"}$:
 
-![Suffix automaton for "ab"](&imgroot&/SAab.png)
+![Suffix automaton for "ab"](SAab.png)
 
-For the string $s =~ "aba"$:
+For the string $s =~ \text{"aba"}$:
 
-![Suffix automaton for "aba"](&imgroot&/SAaba.png)
+![Suffix automaton for "aba"](SAaba.png)
 
-For the string $s =~ "abb"$:
+For the string $s =~ \text{"abb"}$:
 
-![Suffix automaton for "abb"](&imgroot&/SAabb.png)
+![Suffix automaton for "abb"](SAabb.png)
 
-For the string $s =~ "abbb"$:
+For the string $s =~ \text{"abbb"}$:
 
-![Suffix automaton for "abbb"](&imgroot&/SAabbb.png)
+![Suffix automaton for "abbb"](SAabbb.png)
 
 ## Construction in linear time
 
 Before we describe the algorithm to construct a suffix automaton in linear time, we need to introduce several new concepts and simple proofs, which will be very important in understanding the construction.
 
-### End positions $endpos$
+### End positions $endpos$ {data-toc-label="End positions"}
 
 Consider any non-empty substring $t$ of the string $s$.
-We will denote with $endpos(t)$ the set of all positions in the string $s$, in which the occurrences of $t$ end. For instance, we have $endpos("bc") = \{2, 4\}$ for the string $"abcbc"$.
+We will denote with $endpos(t)$ the set of all positions in the string $s$, in which the occurrences of $t$ end. For instance, we have $endpos(\text{"bc"}) = \{2, 4\}$ for the string $\text{"abcbc"}$.
 
 We will call two substrings $t_1$ and $t_2$ $endpos$-equivalent, if their ending sets coincide: $endpos(t_1) = endpos(t_2)$.
 Thus all non-empty substrings of the string $s$ can be decomposed into several **equivalence classes** according to their sets $endpos$.
@@ -139,7 +138,7 @@ It is easy to see, that this suffix is also contained in the same equivalence cl
 Because this suffix can only appear in the form of a suffix of $w$ in the string $s$ (since also the shorter suffix $u$ occurs in $s$ only in the form of a suffix of $w$).
 Consequently, according to Lemma 1, this suffix is $endpos$-equivalent to the string $w$.
 
-### Suffix links $link$
+### Suffix links $link$ {data-toc-label="Suffix links"}
 
 Consider some state $v \ne t_0$ in the automaton.
 As we know, the state $v$ corresponds to the class of strings with the same $endpos$ values.
@@ -168,14 +167,16 @@ The fact that we can construct a tree using the sets $endpos$ follows directly f
 
 Let us now consider an arbitrary state $v \ne t_0$, and its suffix link $link(v)$.
 From the definition of the suffix link and from Lemma 2 it follows that
+
 $$endpos(v) \subseteq endpos(link(v)),$$
+
 which together with the previous lemma proves the assertion:
 the tree of suffix links is essentially a tree of sets $endpos$.
 
-Here is an **example** of a tree of suffix links in the suffix automaton build for the string $"abcbc"$.
+Here is an **example** of a tree of suffix links in the suffix automaton build for the string $\text{"abcbc"}$.
 The nodes are labeled with the longest substring from the corresponding equivalence class.
 
-![Suffix automaton for "abcbc" with suffix links](&imgroot&/SA_suffix_links.png)
+![Suffix automaton for "abcbc" with suffix links](SA_suffix_links.png)
 
 ### Recap
 
@@ -190,7 +191,9 @@ Before proceeding to the algorithm itself, we recap the accumulated knowledge, a
 - For each state $v \ne t_0$ a suffix link is defined as a link, that leads to a state that corresponds to the suffix of the string $longest(v)$ of length $minlen(v) - 1$.
   The suffix links form a tree with the root in $t_0$, and at the same time this tree forms an inclusion relationship between the sets $endpos$.
 - We can express $minlen(v)$ for $v \ne t_0$ using the suffix link $link(v)$ as:
-  $$minlen(v) = len(link(v)) + 1$$
+  
+$$minlen(v) = len(link(v)) + 1$$
+
 - If we start from an arbitrary state $v_0$ and follow the suffix links, then sooner or later we will reach the initial state $t_0$.
   In this case we obtain a sequence of disjoint intervals $[minlen(v_i); len(v_i)]$, which in union forms the continuous interval $[0; len(v_0)]$.
 
@@ -333,7 +336,7 @@ First we describe a data structure that will store all information about a speci
 If necessary you can add a terminal flag here, as well as other information.
 We will store the list of transitions in the form of a $map$, which allows us to achieve total $O(n)$ memory and $O(n \log k)$ time for processing the entire string.
 
-```cpp suffix_automaton_struct
+```{.cpp file=suffix_automaton_struct}
 struct state {
     int len, link;
     map<char, int> next;
@@ -343,7 +346,7 @@ struct state {
 The suffix automaton itself will be stored in an array of these structures $state$.
 We store the current size $sz$ and also the variable $last$, the state corresponding to the entire string at the moment.
 
-```cpp suffix_automaton_def
+```{.cpp file=suffix_automaton_def}
 const int MAXLEN = 100000;
 state st[MAXLEN * 2];
 int sz, last;
@@ -351,7 +354,7 @@ int sz, last;
 
 We give a function that initializes a suffix automaton (creating a suffix automaton with a single state).
 
-```cpp suffix_automaton_init
+```{.cpp file=suffix_automaton_init}
 void sa_init() {
     st[0].len = 0;
     st[0].link = -1;
@@ -362,7 +365,7 @@ void sa_init() {
 
 And finally we give the implementation of the main function - which adds the next character to the end of the current line, rebuilding the machine accordingly.
 
-```cpp suffix_automaton_extend
+```{.cpp file=suffix_automaton_extend}
 void sa_extend(char c) {
     int cur = sz++;
     st[cur].len = st[last].len + 1;
@@ -414,7 +417,9 @@ Therefore there are no more than $2n - 1$ vertices in such a tree.
 
 This bound of the number of states can actually be achieved for each $n$.
 A possible string is:
-$$"abbb\dots bbb"$$
+
+$$\text{"abbb}\dots \text{bbb"}$$
+
 In each iteration, starting at the third one, the algorithm will split a state, resulting in exactly $2n - 1$ states.
 
 ### Number of transitions
@@ -435,10 +440,11 @@ On the other hand each such string $u + c + w$, by the definition of the termina
 Since there are only $n$ non-empty suffixes of $s$, and non of the strings $u + c + w$ can contain $s$ (because the entire string only contains complete transitions), the total number of incomplete transitions does not exceed $n - 1$.
 
 Combining these two estimates gives us the bound $3n - 3$.
-However, since the maximum number of states can only be achieved with the test case $"abbb\dots bbb"$ and this case has clearly less than $3n - 3$ transitions, we get the tighter bound of $3n - 4$ for the number of transitions in a suffix automaton.
+However, since the maximum number of states can only be achieved with the test case $\text{"abbb\dots bbb"}$ and this case has clearly less than $3n - 3$ transitions, we get the tighter bound of $3n - 4$ for the number of transitions in a suffix automaton.
 
 This bound can also be achieved with the string:
-$$"abbb\dots bbbc"$$
+
+$$\text{"abbb}\dots \text{bbbc"}$$
 
 ## Applications
 
@@ -472,7 +478,9 @@ Given that the suffix automaton is a directed acyclic graph, the number of diffe
 
 Namely, let $d[v]$ be the number of ways, starting at the state $v$ (including the path of length zero).
 Then we have the recursion:
+
 $$d[v] = 1 + \sum_{w : (v, w, c) \in DAWG} d[w]$$
+
 I.e. $d[v]$ can be expressed as the sum of answers for all ends of the transitions of $v$.
 
 The number of different substrings is the value $d[t_0] - 1$ (since we don't count the empty substring).
@@ -489,12 +497,14 @@ the number of different substrings $d[v]$ and their total length $ans[v]$.
 
 We already described how to compute $d[v]$ in the previous task.
 The value $ans[v]$ can be computed using the recursion:
+
 $$ans[v] = \sum_{w : (v, w, c) \in DAWG} d[w] + ans[w]$$
+
 We take the answer of each adjacent vertex $w$, and add to it $d[w]$ (since every substrings is one character longer when starting from the state $v$).
 
 Again this task can be computed in $O(length(S))$ time.
 
-### Lexicographically $k$-th substring
+### Lexicographically $k$-th substring {data-toc-label="Lexicographically k-th substring"}
 
 Given a string $S$.
 We have to answer multiple queries.
@@ -535,7 +545,9 @@ However we cannot construct the sets $endpos$ explicitly, therefore we only cons
 To compute them we proceed as follows.
 For each state, if it was not created by cloning (and if it is not the initial state $t_0$), we initialize it with $cnt = 1$.
 Then we will go through all states in decreasing order of their length $len$, and add the current value $cnt[v]$ to the suffix links:
+
 $$cnt[link(v)] \text{ += } cnt[v]$$
+
 This gives the correct value for each state.
 
 Why is this correct?
@@ -566,9 +578,13 @@ In other words, we want to find in advance the minimal element of each set $endp
 
 To maintain these positions $firstpos$ we extend the function `sa_extend()`.
 When we create a new state $cur$, we set:
+
 $$firstpos(cur) = len(cur) - 1$$
+
 And when we clone a vertex $q$ as $clone$, we set:
+
 $$firstpos(clone) = firstpos(q)$$
+
 (since the only other option for a value would be $firstpos(cur)$ which is definitely too big)
 
 Thus the answer for a query is simply $firstpos(t) - length(P) + 1$, where $t$ is the state corresponding to the string $P$.
@@ -635,6 +651,7 @@ Let $d[v]$ be the answer for the node $v$, i.e. we already processed part of the
 Computing $d[v]$ is very simple.
 If there is not transition using at least one character of the alphabet, then $d[v] = 1$.
 Otherwise one character is not enough, and so we need to take the minimum of all answers of all transitions:
+
 $$d[v] = 1 + \min_{w:(v,w,c) \in SA} d[w].$$
 
 The answer to the problem will be $d[t_0]$, and the actual string can be restored using the computed array $d[]$.
@@ -657,8 +674,7 @@ Initially $v = t_0$ and $l = 0$, i.e. the match is empty.
 Now let us describe how we can add a character $T[i]$ and recalculate the answer for it.
 
   - If there is a transition from $v$ with the character $T[i]$, then we simply follow the transition and increase $l$ by one.
-  - If there is no such transition, we have to shorten the current matching part, which means that we need to follow the suffix link:
-    $$v = link(v)$$
+  - If there is no such transition, we have to shorten the current matching part, which means that we need to follow the suffix link: $v = link(v)$.
     At the same time, the current length has to be shortened.
     Obviously we need to assign $l = len(v)$, since after passing through the suffix link we end up in state whose corresponding longest string is a substring.
   - If there is still no transition using the required character, we repeat and again go through the suffix link and decrease $l$, until we find a transition or we reach the fictional state $-1$ (which means that the symbol $T[i]$ doesn't appear at all in $S$, so we assign $v = l = 0$).
@@ -700,6 +716,7 @@ There are $k$ strings $S_i$ given.
 We have to find the longest common substring, i.e. such a string $X$ that appears as substring in each string $S_i$.
 
 We join all strings into one large string $T$, separating the strings by a special characters $D_i$ (one for each string):
+
 $$T = S_1 + D_1 + S_2 + D_2 + \dots + S_k + D_k.$$
 
 Then we construct the suffix automaton for the string $T$.

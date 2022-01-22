@@ -1,5 +1,3 @@
-<!--?title Fibonacci Numbers -->
-
 # Fibonacci Numbers
 
 The Fibonacci sequence is defined as follows:
@@ -15,22 +13,26 @@ $$0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...$$
 Fibonacci numbers possess a lot of interesting properties. Here are a few of them:
 
 * Cassini's identity:
-  $$F_{n-1} F_{n+1} - F_n^2 = (-1)^n$$
+  
+$$F_{n-1} F_{n+1} - F_n^2 = (-1)^n$$
 
 * The "addition" rule:
-  $$F_{n+k} = F_k F_{n+1} + F_{k-1} F_n$$
+  
+$$F_{n+k} = F_k F_{n+1} + F_{k-1} F_n$$
 
 * Applying the previous identity to the case $k = n$, we get:
-  $$F_{2n} = F_n (F_{n+1} + F_{n-1})$$
+  
+$$F_{2n} = F_n (F_{n+1} + F_{n-1})$$
 
 * From this we can prove by induction that for any positive integer $k$,  $F_{nk}$ is multiple of $F_n$.
 
 * The inverse is also true: if $F_m$ is multiple of $F_n$, then $m$ is multiple of $n$.
 
 * GCD identity:
-  $$GCD(F_m, F_n) = F_{GCD(m, n)}$$
+  
+$$GCD(F_m, F_n) = F_{GCD(m, n)}$$
 
-* Fibonacci numbers are the worst possible inputs for Euclidean algorithm (see Lame's theorem in [Euclidean algorithm](./algebra/euclid-algorithm.html))
+* Fibonacci numbers are the worst possible inputs for Euclidean algorithm (see Lame's theorem in [Euclidean algorithm](euclid-algorithm.md))
 
 ## Fibonacci Coding
 
@@ -46,11 +48,11 @@ The code will be appended by a $1$ do indicate the end of the code word.
 Notice that this is the only occurrence where two consecutive 1-bits appear.
 
 $$\begin{eqnarray}
-1 &=& 1 &=& F_2 &=& (11)_F \\\
-2 &=& 2 &=& F_3 &=& (011)_F \\\
-6 &=& 5 + 1 &=& F_5 + F_2 &=& (10011)_F \\\
-8 &=& 8 &=& F_6 &=& (000011)_F \\\
-9 &=& 8 + 1 &=& F_6 + F_2 &=& (100011)_F \\\
+1 &=& 1 &=& F_2 &=& (11)_F \\
+2 &=& 2 &=& F_3 &=& (011)_F \\
+6 &=& 5 + 1 &=& F_5 + F_2 &=& (10011)_F \\
+8 &=& 8 &=& F_6 &=& (000011)_F \\
+9 &=& 8 + 1 &=& F_6 + F_2 &=& (100011)_F \\
 19 &=& 13 + 5 + 1 &=& F_7 + F_5 + F_2 &=& (1001011)_F
 \end{eqnarray}$$
 
@@ -66,7 +68,7 @@ The encoding of an integer $n$ can be done with a simple greedy algorithm:
 
 To decode a code word, first remove the final $1$. Then, if the $i$-th bit is set (indexing from 0 from the leftmost to the rightmost bit), sum $F_{i+2}$ to the number.
 
-## Formulas for the n-th Fibonacci number
+## Formulas for the $n^{\text{th}}$ Fibonacci number { data-toc-label="Formulas for the <script type='math/tex'>n</script>-th Fibonacci number" }
 
 The $n$-th Fibonacci number can be easily found in $O(n)$ by computing the numbers one by one up to $n$. However, there are also faster ways, as we will see.
 
@@ -96,15 +98,17 @@ Denoting $P \equiv \begin{pmatrix}0 & 1 \cr 1 & 1 \cr\end{pmatrix}$, we have:
 
 $$\begin{pmatrix}F_n & F_{n+1} \cr\end{pmatrix} = \begin{pmatrix}F_0 & F_1 \cr\end{pmatrix} \cdot P^n$$
 
-Thus, in order to find $F_n$, we must raise the matrix $P$ to $n$. This can be done in $O(\log n)$ (see [Binary exponentiation](./algebra/binary-exp.html)).
+Thus, in order to find $F_n$, we must raise the matrix $P$ to $n$. This can be done in $O(\log n)$ (see [Binary exponentiation](binary-exp.md)).
 
 ### Fast Doubling Method
 
 Using above method we can find these equations:
+
 $$ \begin{array}{rll}
-                        F_{2k} &= F_k \left( 2F_{k+1} - F_{k} \right). \\\
+                        F_{2k} &= F_k \left( 2F_{k+1} - F_{k} \right). \\
                         F_{2k+1} &= F_{k+1}^2 + F_{k}^2.
 \end{array}$$
+
 Thus using above two equations Fibonacci numbers can be calculated easily by the following code:
 
 ```cpp

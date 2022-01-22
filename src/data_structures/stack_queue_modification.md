@@ -1,5 +1,3 @@
-<!--?title Minimum stack / Minimum queue -->
-
 # Minimum stack / Minimum queue
 
 In this article we will consider three problems: 
@@ -171,6 +169,7 @@ s2.pop();
 
 Suppose we are given an array $A$ of length $N$ and a given $M \le N$.
 We have to find the minimum of each subarray of length $M$ in this array, i.e. we have to find:
+
 $$\min_{0 \le i \le M-1} A[i], \min_{1 \le i \le M} A[i], \min_{2 \le i \le M+1} A[i],~\dots~, \min_{N-M \le i \le N-1} A[i]$$
 
 We have to solve this problem in linear time, i.e. $O(n)$.

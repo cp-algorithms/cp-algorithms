@@ -1,5 +1,3 @@
-<!--?title Catalan Numbers and its Applications -->
-
 # Catalan Numbers
 Catalan numbers is a number sequence, which is found useful in a number of combinatorial problems, often involving recursively-defined objects.
 
@@ -30,8 +28,10 @@ The Catalan number $C_n$ is the solution for
 There are two formulas for the Catalan numbers: **Recursive and Analytical**. Since, we believe that all the mentioned above problems are equivalent (have the same solution), for the proof of the formulas below we will choose the task which it is easiest to do.
 
 ### Recursive formula
- $$C_0 = C_1 = 1$$
- $$C_n = \sum_{k = 0}^{n-1} C_k C_{n-1-k} , {n} \geq 2$$
+ 
+$$C_0 = C_1 = 1$$
+
+$$C_n = \sum_{k = 0}^{n-1} C_k C_{n-1-k} , {n} \geq 2$$
 
 The recurrence formula can be easily deduced from the problem of the correct bracket sequence.
 
@@ -62,6 +62,7 @@ void init() {
 ```
 
 ### Analytical formula
+
 $$C_n = \frac{1}{n + 1} {\binom{2n}{n}}$$
 
 (here $\binom{n}{k}$ denotes the usual binomial coefficient, i.e. number of ways to select $k$ objects from set of $n$ objects).

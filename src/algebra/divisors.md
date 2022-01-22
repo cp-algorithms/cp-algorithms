@@ -1,4 +1,3 @@
-<!--?title Number of divisors / sum of divisors -->
 # Number of divisors / sum of divisors
 
 In this article we discuss how to compute the number of divisors $d(n)$ and the sum of divisors $\sigma(n)$ of a given number $n$.
@@ -15,6 +14,7 @@ If a prime factor $p$ appears $e$ times in the prime factorization of $n$, then 
 Which means we have $e+1$ choices.
 
 Therefore if the prime factorization of $n$ is $p_1^{e_1} \cdot p_2^{e_2} \cdots p_k^{e_k}$, where $p_i$ are distinct prime numbers, then the number of divisors is:
+
 $$d(n) = (e_1 + 1) \cdot (e_2 + 1) \cdots (e_k + 1)$$
 
 A way of thinking about it is the following:
@@ -40,21 +40,27 @@ p_1^{e_1} & p_1^{e_1} & p_1^{e_1} \cdot p_2 & p_1^{e_1} \cdot p_2^2 & \dots & p_
 We can use the same argument of the previous section.
 
 * If there is only one distinct prime divisor $n = p_1^{e_1}$, then the sum is:
-  $$1 + p_1 + p_1^2 + \dots + p_1^{e_1} = \frac{p_1^{e_1 + 1} - 1}{p_1 - 1}$$
+  
+$$1 + p_1 + p_1^2 + \dots + p_1^{e_1} = \frac{p_1^{e_1 + 1} - 1}{p_1 - 1}$$
 
 * If there are two distinct prime divisors $n = p_1^{e_1} \cdot p_2^{e_2}$, then we can make the same table as before.
   The only difference is that now we now want to compute the sum instead of counting the elements.
   It is easy to see, that the sum of each combination can be expressed as:
-  $$\left(1 + p_1 + p_1^2 + \dots + p_1^{e_1}\right) \cdot \left(1 + p_2 + p_2^2 + \dots + p_2^{e_2}\right)$$
-  $$ = \frac{p_1^{e_1 + 1} - 1}{p_1 - 1} \cdot \frac{p_2^{e_2 + 1} - 1}{p_2 - 1}$$
+  
+$$\left(1 + p_1 + p_1^2 + \dots + p_1^{e_1}\right) \cdot \left(1 + p_2 + p_2^2 + \dots + p_2^{e_2}\right)$$
+
+$$ = \frac{p_1^{e_1 + 1} - 1}{p_1 - 1} \cdot \frac{p_2^{e_2 + 1} - 1}{p_2 - 1}$$
 
 * In general, for $n = p_1^{e_1} \cdot p_2^{e_2} \cdots p_k^{e_k}$ we receive the formula:
-  $$\sigma(n) = \frac{p_1^{e_1 + 1} - 1}{p_1 - 1} \cdot \frac{p_2^{e_2 + 1} - 1}{p_2 - 1} \cdots \frac{p_k^{e_k + 1} - 1}{p_k - 1}$$
+
+$$\sigma(n) = \frac{p_1^{e_1 + 1} - 1}{p_1 - 1} \cdot \frac{p_2^{e_2 + 1} - 1}{p_2 - 1} \cdots \frac{p_k^{e_k + 1} - 1}{p_k - 1}$$
 
 ## Multiplicative functions
 
 A multiplicative function is a function $f(x)$ which satisfies
+
 $$f(a \cdot b) = f(a) \cdot f(b)$$
+
 if $a$ and $b$ are coprime.
 
 Both $d(n)$ and $\sigma(n)$ are multiplicative functions.

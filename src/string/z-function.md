@@ -1,9 +1,8 @@
-<!--?title Z-function and its calculation-->
 # Z-function and its calculation
 
 Suppose we are given a string $s$ of length $n$. The **Z-function** for this string is an array of length $n$ where the $i$-th element is equal to the greatest number of characters starting from the position $i$ that coincide with the first characters of $s$.
 
-In other words, $z[i]$ is the length of the longest common prefix between $s$ and the suffix of $s$ starting at $i$.
+In other words, $z[i]$ is the length of the longest string that is, at the same time, a prefix of $s$ and a prefix of the suffix of $s$ starting at $i$.
 
 **Note.** In this article, to avoid ambiguity, we assume $0$-based indexes; that is: the first character of $s$ has index $0$ and the last one has index $n-1$.
 
@@ -154,7 +153,7 @@ As the rest of the algorithm obviously works in $O(n)$, we have proved that the 
 
 We will now consider some uses of Z-functions for specific tasks.
 
-These applications will be largely similar to applications of [prefix function](./string/prefix-function.html).
+These applications will be largely similar to applications of [prefix function](prefix-function.md).
 
 ### Search the substring
 
@@ -188,7 +187,7 @@ Given a string $s$ of length $n$. Find its shortest "compressed" representation,
 
 A solution is: compute the Z-function of $s$, loop through all $i$ such that $i$ divides $n$. Stop at the first $i$ such that $i + z[i] = n$. Then, the string $s$ can be compressed to the length $i$.
 
-The proof for this fact is the same as the solution which uses the [prefix function](./string/prefix-function.html).
+The proof for this fact is the same as the solution which uses the [prefix function](prefix-function.md).
 
 ## Practice Problems
 

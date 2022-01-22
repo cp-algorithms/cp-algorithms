@@ -1,5 +1,3 @@
-<!--?title Placing Bishops on a Chessboard -->
-
 # Placing Bishops on a Chessboard
 
 Find the number of ways to place $K$ bishops on an $N \times N$ chessboard so that no two bishops attack each other.

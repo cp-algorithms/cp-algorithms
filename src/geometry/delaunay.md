@@ -1,4 +1,3 @@
-<!--?title Delaunay triangulation and Voronoi diagram -->
 # Delaunay triangulation and Voronoi diagram
 
 Consider a set $\\{p_i\\}$ of points on the plane.
@@ -25,7 +24,7 @@ Because of the duality, we only need a fast algorithm to compute only one of $V$
 ## Quad-edge data structure
 
 During the algorithm $D$ will be stored inside the quad-edge data structure. This structure is described in the picture:
-<center>![Quad-Edge](&imgroot&/quad-edge.png)</center>
+<center>![Quad-Edge](quad-edge.png)</center>
 
 In the algorithm we will use the following functions on edges:
 
@@ -57,7 +56,7 @@ Then we choose the one that would be encountered first. Initially base points to
 
 Note that the implementation of the in_circle function is GCC-specific.
 
-```cpp delaunay
+```{.cpp file=delaunay}
 typedef long long ll;
 
 bool ge(const ll& a, const ll& b) { return a >= b; }

@@ -1,4 +1,3 @@
-<!--?title Heavy-light decomposition -->
 # Heavy-light decomposition
 
 **Heavy-light decomposition** is a fairly general technique that allows us to effectively solve many problems that come down to **queries on a tree** .
@@ -48,7 +47,7 @@ Since we can move from one heavy path to another only through a light edge (each
 
 The following image illustrates the decomposition of a sample tree. The heavy edges are thicker than the light edges. The heavy paths are marked by dotted boundaries.
 
-<center>![Image of HLD](&imgroot&/hld.png)</center>
+<center>![Image of HLD](hld.png)</center>
 
 
 ## Sample problems
@@ -64,7 +63,7 @@ Separately, it is worth paying attention to the problem of the **sum of numbers 
 
 Given a tree, each vertex is assigned a value. There are queries of the form $(a, b)$, where $a$ and $b$ are two vertices in the tree, and it is required to find the maximum value on the path between the vertices $a$ and $b$.
 
-We construct in advance a heavy-light decomposition of the tree. Over each heavy path we will construct a [segment tree](./data_structures/segment_tree.html), which will allow us to search for a vertex with the maximum assigned value in the specified segment of the specified heavy path in $\mathcal{O}(\log n)$.  Although the number of heavy paths in heavy-light decomposition can reach $n - 1$, the total size of all paths is bounded by $\mathcal{O}(n)$, therefore the total size of the segment trees will also be linear.
+We construct in advance a heavy-light decomposition of the tree. Over each heavy path we will construct a [segment tree](../data_structures/segment_tree.md), which will allow us to search for a vertex with the maximum assigned value in the specified segment of the specified heavy path in $\mathcal{O}(\log n)$.  Although the number of heavy paths in heavy-light decomposition can reach $n - 1$, the total size of all paths is bounded by $\mathcal{O}(n)$, therefore the total size of the segment trees will also be linear.
 
 In order to answer a query $(a, b)$, we find the [lowest common ancestor](https://en.wikipedia.org/wiki/Lowest_common_ancestor) of $a$ and $b$ as $l$, by any preferred method. Now the task has been reduced to two queries $(a, l)$ and $(b, l)$, for each of which we can do the following: find the heavy path that the lower vertex lies in, make a query on this path, move to the top of this path, again determine which heavy path we are on and make a query on it, and so on, until we get to the path containing $l$.
 
@@ -82,9 +81,9 @@ Given a tree, each vertex is assigned a value. There are queries of the form $(a
 
 This task can be solved similar to the previous problem of maximums with the help of heavy-light decomposition by building segment trees on heavy paths. Prefix sums can be used instead if there are no updates. However, this problem can be solved by simpler techniques too.
 
-If there are no updates, then it is possible to find out the sum on the path between two vertices in parallel with the LCA search of two vertices by [binary lifting](./graph/lca_binary_lifting.html) — for this, along with the $2^k$-th ancestors of each vertex it is also necessary to store the sum on the paths up to those ancestors during the preprocessing.
+If there are no updates, then it is possible to find out the sum on the path between two vertices in parallel with the LCA search of two vertices by [binary lifting](lca_binary_lifting.md) — for this, along with the $2^k$-th ancestors of each vertex it is also necessary to store the sum on the paths up to those ancestors during the preprocessing.
 
-There is a fundamentally different approach to this problem - to consider the [Euler tour](https://en.wikipedia.org/wiki/Euler_tour_technique) of the tree, and build a segment tree on it. This algorithm is considered in an [article about a similar problem](./graph/tree_painting.html). Again, if there are no updates, storing prefix sums is enough and a segment tree is not required.
+There is a fundamentally different approach to this problem - to consider the [Euler tour](https://en.wikipedia.org/wiki/Euler_tour_technique) of the tree, and build a segment tree on it. This algorithm is considered in an [article about a similar problem](tree_painting.md). Again, if there are no updates, storing prefix sums is enough and a segment tree is not required.
 
 Both of these methods provide relatively simple solutions taking $\mathcal{O}(\log n)$ for one query.
 
@@ -92,7 +91,7 @@ Both of these methods provide relatively simple solutions taking $\mathcal{O}(\l
 
 Given a tree, each edge is initially painted white. There are updates of the form $(a, b, c)$, where $a$ and $b$ are two vertices and $c$ is a color, which instructs that all the edges on the path from $a$ to $b$ must be repainted with color $c$. After all repaintings, it is required to report how many edges of each color were obtained.
 
-Similar to the above problems, the solution is to simply apply heavy-light decomposition and make a [segment tree](./data_structures/segment_tree.html) over each heavy path.
+Similar to the above problems, the solution is to simply apply heavy-light decomposition and make a [segment tree](../data_structures/segment_tree.md) over each heavy path.
 
 Each repainting on the path $(a, b)$ will turn into two updates $(a, l)$ and $(b, l)$, where $l$ is the lowest common ancestor of the vertices $a$ and $b$.   
 $\mathcal{O}(\log n)$ per path for $\mathcal{O}(\log n)$ paths leads to a complexity of $\mathcal{O}(\log^2 n)$ per update.

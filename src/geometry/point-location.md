@@ -1,5 +1,8 @@
-<!--?title Point location in O(log n) -->
-# Point location in O(log n)
+---
+title: Point location in O(log n) 
+---
+# Point location in $O(log n)$
+
 Consider the following problem: you are given a [planar subdivision](https://en.wikipedia.org/wiki/Planar_straight-line_graph) without no vertices of degree one and zero, and a lot of queries.
 Each query is a point, for which we should determine the face of the subdivision it belongs to.
 We will answer each query in $O(\log n)$ offline.<br>
@@ -7,10 +10,10 @@ This problem may arise when you need to locate some points in a Voronoi diagram 
 
 ## Algorithm
 
-Firstly, for each query point $p\ (x\_0, y\_0)$ we want to find such an edge that if the point belongs to any edge, the point lies on the edge we found, otherwise this edge must intersect the line $x = x\_0$ at some unique point $(x\_0, y)$ where $y < y\_0$ and this $y$ is maximum among all such edges.
+Firstly, for each query point $p\ (x_0, y_0)$ we want to find such an edge that if the point belongs to any edge, the point lies on the edge we found, otherwise this edge must intersect the line $x = x_0$ at some unique point $(x_0, y)$ where $y < y_0$ and this $y$ is maximum among all such edges.
 The following image shows both cases.
 
-<center>![Image of Goal](&imgroot&/point_location_goal.png)</center>
+<center>![Image of Goal](point_location_goal.png)</center>
 
 We will solve this problem offline using the sweep line algorithm. Let's iterate over x-coordinates of query points and edges' endpoints in increasing order and keep a set of edges $s$. For each x-coordinate we will add some events beforehand.
 
@@ -22,7 +25,7 @@ Finally, for each query point we will add one _get_ event for its x-coordinate.
 For each x-coordinate we will sort the events by their types in order (_vertical_, _get_, _remove_, _add_).
 The following image shows all events in sorted order for each x-coordinate.
 
-<center>![Image of Events](&imgroot&/point_location_events.png)</center>
+<center>![Image of Events](point_location_events.png)</center>
 
 We will keep two sets during the sweep-line process.
 A set $t$ for all non-vertical edges, and one set $vert$ especially for the vertical ones.
@@ -67,7 +70,7 @@ The following code is implemented for integers, but it can be easily modified to
 This implementation assumes that the subdivision is correctly stored inside a [DCEL](https://en.wikipedia.org/wiki/Doubly_connected_edge_list) and the outer face is numbered $-1$.<br>
 For each query a pair $(1, i)$ is returned if the point lies strictly inside the face number $i$, and a pair $(0, i)$ is returned if the point lies on the edge number $i$.
 
-```cpp point-location
+```{.cpp file=point-location}
 typedef long long ll;
 
 bool ge(const ll& a, const ll& b) { return a >= b; }

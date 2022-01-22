@@ -12,5 +12,3 @@ Translation of http://e-maxx.ru into English
 Compiled pages are published at https://cp-algorithms.com/
 
 Manual for contributors: https://cp-algorithms.com/contrib.html
-
-Test-your-page form: https://cp-algorithms.com/test.php

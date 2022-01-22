@@ -1,5 +1,3 @@
-<!--?title Josephus Problem -->
-
 # Josephus Problem
 
 ## Statement
@@ -14,7 +12,7 @@ It is required to find the last number.
 This task was set by **Flavius Josephus** in the 1st century (though in a somewhat narrower formulation: for $k = 2$).
 
 This problem can be solved by modeling the procedure.
-Brute force modeling will work $O(n^{2})$. Using a [segment tree](/data_structures/segment_tree.html), we can improve it to $O(n \log n)$.
+Brute force modeling will work $O(n^{2})$. Using a [Segment Tree](/data_structures/segment_tree.html), we can improve it to $O(n \log n)$.
 We want something better though.
 
 ## Modeling a $O(n)$ solution
@@ -24,27 +22,27 @@ We will try to find a pattern expressing the answer for the problem $J_{n, k}$ t
 Using brute force modeling we can construct a table of values, for example, the following:
 
 $$\begin{array}{ccccccccccc}
-n\setminus k & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\\\
-1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\\\
-2 & 2 & 1 & 2 & 1 & 2 & 1 & 2 & 1 & 2 & 1 \\\\
-3 & 3 & 3 & 2 & 2 & 1 & 1 & 3 & 3 & 2 & 2 \\\\
-4 & 4 & 1 & 1 & 2 & 2 & 3 & 2 & 3 & 3 & 4 \\\\
-5 & 5 & 3 & 4 & 1 & 2 & 4 & 4 & 1 & 2 & 4 \\\\
-6 & 6 & 5 & 1 & 5 & 1 & 4 & 5 & 3 & 5 & 2 \\\\
-7 & 7 & 7 & 4 & 2 & 6 & 3 & 5 & 4 & 7 & 5 \\\\
-8 & 8 & 1 & 7 & 6 & 3 & 1 & 4 & 4 & 8 & 7 \\\\
-9 & 9 & 3 & 1 & 1 & 8 & 7 & 2 & 3 & 8 & 8 \\\\
-10 & 10 & 5 & 4 & 5 & 3 & 3 & 9 & 1 & 7 & 8 \\\\
+n\setminus k & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+2 & 2 & 1 & 2 & 1 & 2 & 1 & 2 & 1 & 2 & 1 \\
+3 & 3 & 3 & 2 & 2 & 1 & 1 & 3 & 3 & 2 & 2 \\
+4 & 4 & 1 & 1 & 2 & 2 & 3 & 2 & 3 & 3 & 4 \\
+5 & 5 & 3 & 4 & 1 & 2 & 4 & 4 & 1 & 2 & 4 \\
+6 & 6 & 5 & 1 & 5 & 1 & 4 & 5 & 3 & 5 & 2 \\
+7 & 7 & 7 & 4 & 2 & 6 & 3 & 5 & 4 & 7 & 5 \\
+8 & 8 & 1 & 7 & 6 & 3 & 1 & 4 & 4 & 8 & 7 \\
+9 & 9 & 3 & 1 & 1 & 8 & 7 & 2 & 3 & 8 & 8 \\
+10 & 10 & 5 & 4 & 5 & 3 & 3 & 9 & 1 & 7 & 8 \\
 \end{array}$$
 
 And here we can clearly see the following **pattern**:
 
-$$J_ {n, k} = (J _ {(n-1), k} + k - 1) \ \bmod n + 1 $$
-$$J_ {1, k} = 1 $$
+$$J_{n,k} = \left( (J_{n-1,k} + k - 1) \bmod n \right) + 1$$
+$$J_{1,k} = 1$$
 
 Here, 1-indexing makes for a somewhat messy formula; if you instead number the positions from 0, you get a very elegant formula:
 
-$$J_ {n, k} = (J _ {(n-1), k} + k) \ \bmod n$$
+$$J_{n,k} = (J_{n-1,k} + k) \bmod n$$
 
 So, we found a solution to the problem of Josephus, working in $O(n)$ operations.
 
@@ -52,7 +50,7 @@ So, we found a solution to the problem of Josephus, working in $O(n)$ operations
 
 Simple **recursive implementation** (in 1-indexing)
 
-```cpp
+```{.cpp file=josephus_rec}
 int josephus(int n, int k) {
     return n > 1 ? (josephus(n-1, k) + k - 1) % n + 1 : 1;
 }
@@ -60,7 +58,7 @@ int josephus(int n, int k) {
 
 **Non-recursive form** :
 
-```cpp
+```{.cpp file=josephus_iter}
 int josephus(int n, int k) {
     int res = 0;
     for (int i = 1; i <= n; ++i)
@@ -73,22 +71,23 @@ This formula can also be found analytically.
 Again here we assume 0-indexing.
 After we delete the first number, we have $n-1$ numbers left.
 When we repeat the procedure, we will start with the number that had originally the index $k \bmod m$.
-$J_{(n-1), k}$ would be the answer for the remaining circle, if we start counting at $0$, but because we actually start with $k$ we have $J_ {n, k} = (J _ {(n-1), k} + k) \ \bmod n$.
+$J_{n-1, k}$ would be the answer for the remaining circle, if we start counting at $0$, but because we actually start with $k$ we have $J_{n, k} = (J_{n-1,k} + k) \ \bmod n$.
 
 ## Modeling a $O(k \log n)$ solution
 
 For relatively small $k$ we can come up with a better solution than the above recursive solution in $O(n)$.
 If $k$ is a lot smaller than $n$, then we can delete multiple numbers ($\lfloor \frac{n}{k} \rfloor$) in one run without looping over.
-Afterwards we have $n - \lfloor \frac{n}{k} \rfloor$ numbers left, and we start with the $(\lfloor \frac{n}{k} \rfloor \cdot n)$-th number.
+Afterwards we have $n - \lfloor \frac{n}{k} \rfloor$ numbers left, and we start with the $(\lfloor \frac{n}{k} \rfloor \cdot k)$-th number.
 So we have to shift by that many.
-We can notice that $\lfloor \frac{n}{k} \rfloor \cdot n$ is simply $n \bmod k$.
-And since we removed every $k$-th number, we have to add the number of numbers that we removed before the result index.
+We can notice that $\lfloor \frac{n}{k} \rfloor \cdot k$ is simply $-n \bmod k$.
+And because we removed every $k$-th number, we have to add the number of numbers that we removed before the result index.
+Which we can compute by dividing the result index by $k - 1$.
 
 Also, we need to handle the case when $n$ becomes less than $k$. In this case, the above optimization would cause an infinite loop.
 
 **Implementation** (for convenience in 0-indexing):
 
-```cpp
+```{.cpp file=josephus_fast0}
 int josephus(int n, int k) {
     if (n == 1)
         return 0;
