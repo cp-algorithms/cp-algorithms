@@ -1,7 +1,6 @@
-<!--?title Maximum flow - Push-relabel method improved -->
 # Maximum flow - Push-relabel method improved
 
-We will modify the [push-relabel method](./graph/push-relabel.html) to achieve a better runtime.
+We will modify the [push-relabel method](push-relabel.md) to achieve a better runtime.
 
 ## Description
 
@@ -17,7 +16,7 @@ This modification was proposed by Cheriyan and Maheshwari in 1989.
 
 ## Implementation
 
-```cpp push_relabel_faster
+```{.cpp file=push_relabel_faster}
 const int inf = 1000000000;
 
 int n;

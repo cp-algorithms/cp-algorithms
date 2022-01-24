@@ -1,7 +1,6 @@
-<!--?title Maximum flow - Dinic's algorithm -->
 # Maximum flow - Dinic's algorithm
 
-Dinic's algorithm solves the maximum flow problem in $O(V^2E)$. The maximum flow problem is defined in this article [Maximum flow - Ford-Fulkerson and Edmonds-Karp](./graph/edmonds_karp.html). This algorithm was discovered by Yefim Dinitz in 1970.
+Dinic's algorithm solves the maximum flow problem in $O(V^2E)$. The maximum flow problem is defined in this article [Maximum flow - Ford-Fulkerson and Edmonds-Karp](edmonds_karp.md). This algorithm was discovered by Yefim Dinitz in 1970.
 
 ## Definitions
 
@@ -58,7 +57,7 @@ Secondly, suppose there have already been $\sqrt{V}$ phases. Then all the augmen
 
 ## Implementation
 
-```cpp dinic
+```{.cpp file=dinic}
 struct FlowEdge {
     int v, u;
     long long cap, flow = 0;

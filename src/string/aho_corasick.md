@@ -1,4 +1,3 @@
-<!--?title Aho-Corasick algorithm -->
 # Aho-Corasick algorithm
 
 Let there be a set of strings with the total length $m$ (sum of all lengths).
@@ -23,7 +22,7 @@ We now describe how to construct a trie for a given set of strings in linear tim
 
 We introduce a structure for the vertices of the tree.
 
-```cpp aho_corasick_trie_definition
+```{.cpp file=aho_corasick_trie_definition}
 const int K = 26;
 
 struct Vertex {
@@ -48,7 +47,7 @@ we start at the root node, and as long as there are edges corresponding to the c
 If there is no edge for one character, we simply generate a new vertex and connect it via an edge.
 At the end of the process we mark the last vertex with flag $\text{leaf}$.
 
-```cpp aho_corasick_trie_add
+```{.cpp file=aho_corasick_trie_add}
 void add_string(string const& s) {
     int v = 0;
     for (char ch : s) {
@@ -108,7 +107,7 @@ Let's move to the implementation.
 Note that we now will store the ancestor $p$ and the character $pch$ of the edge from $p$ to $v$ for each vertex $v$.
 Also at each vertex we will store the suffix link $\text{link}$ (or $-1$ if it hasn't been calculated yet), and in the array $\text{go}[k]$ the transitions in the machine for each symbol (again $-1$ if it hasn't been calculated yet).
 
-```cpp aho_corasick_automaton
+```{.cpp file=aho_corasick_automaton}
 const int K = 26;
 
 struct Vertex {
@@ -205,7 +204,7 @@ Let's remember, that the vertices from which we can reach a $\text{leaf}$ vertex
 Since in this task we have to avoid matches, we are not allowed to enter such states.
 On the other hand we can enter all other vertices.
 Thus we delete all "bad" vertices from the machine, and in the remaining graph of the automaton we find the lexicographical smallest path of length $L$.
-This task can be solved in $O(L)$ for example by [depth first search](./graph/depth-first-search.html).
+This task can be solved in $O(L)$ for example by [depth first search](../graph/depth-first-search.md).
 
 ### Finding the shortest string containing all given strings
 
@@ -214,9 +213,9 @@ For each vertex we store a mask that denotes the strings which match at this sta
 Then the problem can be reformulated as follows:
 initially being in the state $(v = \text{root},~ \text{mask} = 0)$, we want to reach the state $(v,~ \text{mask} = 2^n - 1)$, where $n$ is the number of strings in the set.
 When we transition from one state to another using a letter, we update the mask accordingly.
-By running a [breadth first search](./graph/breadth-first-search.html) we can find a path to the state $(v,~ \text{mask} = 2^n - 1)$ with the smallest length.
+By running a [breadth first search](../graph/breadth-first-search.md) we can find a path to the state $(v,~ \text{mask} = 2^n - 1)$ with the smallest length.
 
-### Finding the lexicographical smallest string of length $L$ containing $k$ strings
+### Finding the lexicographical smallest string of length $L$ containing $k$ strings {data-toc-label="Finding the lexicographical smallest string of length L containing k strings"}
 
 As in the previous problem, we calculate for each vertex the number of matches that correspond to it (that is the number of marked vertices reachable using suffix links).
 We reformulate the problem: the current state is determined by a triple of numbers $(v,~ \text{len},~ \text{cnt})$, and we want to reach from the state $(\text{root},~ 0,~ 0)$ the state $(v,~ L,~ k)$, where $v$ can be any vertex.

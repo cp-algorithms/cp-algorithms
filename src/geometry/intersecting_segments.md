@@ -1,5 +1,3 @@
-<!--?title Search for a pair of intersecting segments -->
-
 # Search for a pair of intersecting segments
 
 Given $n$ line segments on the plane. It is required to check whether at least two of them intersect with each other.
@@ -12,18 +10,18 @@ The naive solution algorithm is to iterate over all pairs of segments in $O(n^2)
 Let's draw a vertical line $x = -\infty$ mentally and start moving this line to the right.
 In the course of its movement, this line will meet with segments, and at each time a segment intersect with our line it intersects in exactly one point (we will assume that there are no vertical segments).
 
-<center>![sweep line and line segment intersection](&imgroot&/sweep_line_1.png)</center>
+<center>![sweep line and line segment intersection](sweep_line_1.png)</center>
 
 Thus, for each segment, at some point in time, its point will appear on the sweep line, then with the movement of the line, this point will move, and finally, at some point, the segment will disappear from the line.
 
 We are interested in the **relative order of the segments** along the vertical.
 Namely, we will store a list of segments crossing the sweep line at a given time, where the segments will be sorted by their $y$-coordinate on the sweep line.
 
-<center>![relative order of the segments across sweep line](&imgroot&/sweep_line_2.png)</center>
+<center>![relative order of the segments across sweep line](sweep_line_2.png)</center>
 
 This order is interesting because intersecting segments will have the same $y$-coordinate at least at one time:
 
-<center>![intersection point having same y-coordinate](&imgroot&/sweep_line_3.png)</center>
+<center>![intersection point having same y-coordinate](sweep_line_3.png)</center>
 
 We formulate key statements:
 

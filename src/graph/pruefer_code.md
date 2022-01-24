@@ -1,4 +1,3 @@
-<!--?title Prüfer code -->
 # Prüfer code
 
 In this article we will look at the so-called **Prüfer code** (or Prüfer sequence), which is a way of encoding a labeled tree into a sequence of numbers in a unique way.
@@ -28,7 +27,7 @@ Thus the Prüfer code for a given tree is a sequence of $n - 2$ numbers, where e
 
 The algorithm for computing the Prüfer code can be implemented easily with $O(n \log n)$ time complexity, simply by using a data structure to extract the minimum (for instance `set` or `priority_queue` in C++), which contains a list of all the current leafs.
 
-```cpp pruefer_code_slow
+```{.cpp file=pruefer_code_slow}
 vector<vector<int>> adj;
 
 vector<int> pruefer_code() {
@@ -90,7 +89,7 @@ But then we also know that it has to be bigger than $\text{ptr}$, and can start 
 
 Even though we might have to perform multiple linear searches for the next leaf vertex, the pointer $\text{ptr}$ only increases and therefore the time complexity in total is $O(n)$.
 
-```cpp pruefer_code_fast
+```{.cpp file=pruefer_code_fast}
 vector<vector<int>> adj;
 vector<int> parent;
 
@@ -175,7 +174,7 @@ This algorithm can be **implemented** easily in $O(n \log n)$: we use a data str
 
 The following implementation returns the list of edges corresponding to the tree.
 
-```cpp pruefer_decode_slow
+```{.cpp file=pruefer_decode_slow}
 vector<pair<int, int>> pruefer_decode(vector<int> const& code) {
     int n = code.size() + 2;
     vector<int> degree(n, 1);
@@ -210,7 +209,7 @@ We don't need a data structure to extract the minimum.
 Instead we can notice that, after processing the current edge, only one vertex becomes a leaf.
 Therefore we can either continue with this vertex, or we find a smaller one with a linear search by moving a pointer.
 
-```cpp pruefer_decode_fast
+```{.cpp file=pruefer_decode_fast}
 vector<pair<int, int>> pruefer_decode(vector<int> const& code) {
     int n = code.size() + 2;
     vector<int> degree(n, 1);
@@ -251,7 +250,9 @@ Therefore all trees and all Prüfer codes form a bijection (a **one-to-one corre
 ## Cayley's formula
 
 Cayley's formula states that the **number of spanning trees in a complete labeled graph** with $n$ vertices is equal to:
+
 $$n^{n-2}$$
+
 There are multiple proofs for this formula.
 Using the Prüfer code concept this statement comes without any surprise.
 
@@ -280,23 +281,36 @@ To obtain a formula for the problem it is necessary to sum the answer over all p
 
 Let $d_1, \dots, d_k$ be the degrees of the vertices in the tree after connecting the vertices.
 The sum of the degrees is twice the number of edges:
+
 $$\sum_{i=1}^k d_i = 2k - 2$$
+
 If the vertex $i$ has degree $d_i$, then it appears $d_i - 1$ times in the Prüfer code.
 The Prüfer code for a tree with $k$ vertices has length $k-2$.
 So the number of ways to choose a code with $k-2$ numbers where the number $i$ appears exactly $d_i - 1$ times is equal to the **multinomial coefficient**
+
 $$\binom{k-2}{d_1-1, d_2-1, \dots, d_k-1} = \frac{(k-2)!}{(d_1-1)! (d_2-1)! \cdots (d_k-1)!}.$$
+
 The fact that each edge adjacent to the vertex $i$ multiplies the answer by $s_i$ we receive the answer, assuming that the degrees of the vertices are $d_1, \dots, d_k$:
+
 $$s_1^{d_1} \cdot s_2^{d_2} \cdots s_k^{d_k} \cdot \binom{k-2}{d_1-1, d_2-1, \dots, d_k-1}$$
+
 To get the final answer we need to sum this for all possible ways to choose the degrees:
+
 $$\sum_{\substack{d_i \ge 1 \\\\ \sum_{i=1}^k d_i = 2k -2}} s_1^{d_1} \cdot s_2^{d_2} \cdots s_k^{d_k} \cdot \binom{k-2}{d_1-1, d_2-1, \dots, d_k-1}$$
 
 Currently this looks like a really horrible answer, however we can use the **multinomial theorem**, which says:
+
 $$(x_1 + \dots + x_m)^p = \sum_{\substack{c_i \ge 0 \\\\ \sum_{i=1}^m c_i = p}} x_1^{c_1} \cdot x_2^{c_2} \cdots x_m^{c_m} \cdot \binom{p}{c_1, c_2, \dots c_m}$$
+
 This look already pretty similar.
 To use it we only need to substitute with $e_i = d_i - 1$:
+
 $$\sum_{\substack{e_i \ge 0 \\\\ \sum_{i=1}^k e_i = k - 2}} s_1^{e_1+1} \cdot s_2^{e_2+1} \cdots s_k^{e_k+1} \cdot \binom{k-2}{e_1, e_2, \dots, e_k}$$
+
 After applying the multinomial theorem we get the **answer to the problem**:
+
 $$s_1 \cdot s_2 \cdots s_k \cdot (s_1 + s_2 + \dots + s_k)^{k-2} = s_1 \cdot s_2 \cdots s_k \cdot n^{k-2}$$
+
 By accident this formula also holds for $k = 1$.
 
 ## Practice problems

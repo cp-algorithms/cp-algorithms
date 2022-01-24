@@ -12,18 +12,16 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.8'
+      - name: Install mkdocs-material
+        run: |
+          pip install mkdocs-material
       - name: Set up C++
         run: |
           sudo apt install -y --no-install-recommends build-essential
           g++ --version
-      - name: Check title syntax
+      - name: Build pages
         run: |
-          ./check_title.sh
-        working-directory: test
-      - name: Check Markdown links
-        run: |
-          ./check_title.sh
-        working-directory: test
+          mkdocs build --strict
       - name: Run algorithm code tests
         run: |
           ./test.sh

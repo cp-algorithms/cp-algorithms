@@ -1,4 +1,3 @@
-<!--?title Minkowski sum of convex polygons -->
 # Minkowski sum of convex polygons
 
 ## Definition
@@ -37,7 +36,7 @@ We repeat the following steps while $i < |P|$ or $j < |Q|$.
 
 Here is a nice visualization, which may help you understand what is going on.
 
-<center>![Visual](&imgroot&/minkowski.gif)</center>
+<center>![Visual](minkowski.gif)</center>
 
 ## Distance between two polygons
 One of the most common applications of Minkowski sum is computing the distance between two convex polygons (or simply checking whether they intersect).
@@ -55,7 +54,7 @@ in linear time, we obtain a linear-time algorithm for finding the distance betwe
 Below is the implementation of Minkowski sum for polygons with integer points. Note that in this case all computations can be done in integers since
 instead of computing polar angles and directly comparing them we can look at the sign of cross product of two vectors.
 
-```cpp minkowski
+```{.cpp file=minkowski}
 struct pt{
     long long x, y;
     pt operator + (const pt & p) const {

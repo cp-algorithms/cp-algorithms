@@ -1,4 +1,3 @@
-<!--?title Maximum flow - Ford-Fulkerson and Edmonds-Karp -->
 # Maximum flow - Ford-Fulkerson and Edmonds-Karp
 
 The Edmonds-Karp algorithm is an implementation of the Ford-Fulkerson method for computing a maximal flow in a flow network.
@@ -14,13 +13,17 @@ A **flow** in a flow network is function $f$, that again assigns each edge $e$ a
 The function has to fulfill the following two conditions:
 
 The flow of an edge cannot exceed the capacity.
+
 $$f(e) \le c(e)$$
 
 And the sum of the incoming flow of a vertex $u$ has to be equal to the sum of the outgoing flow of $u$ except in the source and sink vertices.
+
 $$\sum_{(v, u) \in E} f((v, u)) = \sum_{(u, v) \in E} f((u, v))$$
+
 The source vertex $s$ only has an outgoing flow, and the sink vertex $t$ has only incoming flow.
 
 It is easy to see that the following equation holds:
+
 $$\sum_{(s, u) \in E} f((s, u)) = \sum_{(u, t) \in E} f((u, t))$$
 
 A good analogy for a flow network is the following visualization:
@@ -34,7 +37,7 @@ The source $s$ is origin of all the water, and the water can only drain in the s
 
 The following image shows a flow network.
 The first value of each edge represents the flow, which is initially 0, and the second value represents the capacity.
-<center>![Flow network](&imgroot&/Flow1.png)</center>
+<center>![Flow network](Flow1.png)</center>
 
 The value of a flow of a network is the sum of all flows that gets produced in source $s$, or equivalently of the flows that are consumed in the sink $t$.
 A **maximal flow** is a flow with the maximal possible value.
@@ -44,7 +47,7 @@ In the visualization with water pipes, the problem can be formulated in the foll
 how much water can we push through the pipes from the source to the sink.
 
 The following image shows the maximal flow in the flow network.
-<center>![Maximal flow](&imgroot&/Flow9.png)</center>
+<center>![Maximal flow](Flow9.png)</center>
 
 ## Ford-Fulkerson method
 
@@ -70,19 +73,19 @@ we update $f((u, v)) ~\text{+=}~ C$ and $f((v, u)) ~\text{-=}~ C$ for every edge
 Here is an example to demonstrate the method.
 We use the same flow network as above.
 Initially we start with a flow of 0.
-<center>![Flow network](&imgroot&/Flow1.png)</center>
+<center>![Flow network](Flow1.png)</center>
 
 We can find the path $s - A - B - t$ with the residual capacities 7, 5 and 8.
 Their minimum is 5, therefore we can increase the flow along this path by 5.
 This gives a flow of 5 for the network.
-<center>![First path](&imgroot&/Flow2.png) ![Network after first path](&imgroot&/Flow3.png)</center>
+<center>![First path](Flow2.png) ![Network after first path](Flow3.png)</center>
 
 Again we look for an augmenting path, this time we find $s - D - A - C - t$ with the residual capacities 4, 3, 3 and 5.
 Therefore we can increase the flow by 3 and we get a flow of 8 for the network.
-<center>![Second path](&imgroot&/Flow4.png) ![Network after second path](&imgroot&/Flow5.png)</center>
+<center>![Second path](Flow4.png) ![Network after second path](Flow5.png)</center>
 
 This time we find the path $s - D - C - B - t$ with the residual capacities 1, 2, 3 and 3, and we increase by 1.
-<center>![Third path](&imgroot&/Flow6.png) ![Network after third path](&imgroot&/Flow7.png)</center>
+<center>![Third path](Flow6.png) ![Network after third path](Flow7.png)</center>
 
 This time we find the augmenting path $s - A - D - C - t$ with the residual capacities 2, 3, 1 and 2.
 We can increase by 1.
@@ -92,13 +95,13 @@ In the original flow network we are not allowed to send any flow from $A$ to $D$
 But because we already have a flow of 3 from $D$ to $A$ this is possible.
 The intuition of it is the following:
 Instead of sending a flow of 3 from $D$ to $A$, we only send 2 and compensate this by sending an additional flow of 1 from $s$ to $A$, which allows us to send an additional flow of 1 along the path $D - C - t$.
-<center>![Fourth path](&imgroot&/Flow8.png) ![Network after fourth path](&imgroot&/Flow9.png)</center>
+<center>![Fourth path](Flow8.png) ![Network after fourth path](Flow9.png)</center>
 
 Now it is impossible to find an augmenting path between $s$ and $t$, therefore this flow of $10$ is the maximal possible.
 We have found the maximal flow.
 
 It should be noted, that the Ford-Fulkerson method doesn't specify a method of finding the augmenting path.
-Possible approaches are using [DFS](./graph/depth-first-search.html) or [BFS](./graph/breadth-first-search.html) which both work in $O(E)$.
+Possible approaches are using [DFS](depth-first-search.md) or [BFS](breadth-first-search.md) which both work in $O(E)$.
 If all capacities of the network are integers, then for each augmenting path the flow of the network increases by at least 1 (for more details see [Integral flow theorem](#integral-theorem)).
 Therefore the complexity of Ford-Fulkerson is $O(E F)$, where $F$ is the maximal flow of the network.
 In case of rational capacities, the algorithm will also terminate, but the complexity is not bounded.
@@ -106,7 +109,7 @@ In case of irrational capacities, the algorithm might never terminate, and might
 
 ## Edmonds-Karp algorithm
 
-Edmonds-Karp algorithm is just an implementation of the Ford-Fulkerson method that uses [BFS](./graph/breadth-first-search.html) for finding augmenting paths.
+Edmonds-Karp algorithm is just an implementation of the Ford-Fulkerson method that uses [BFS](breadth-first-search.md) for finding augmenting paths.
 The algorithm was first published by Yefim Dinitz in 1970, and later independently published by Jack Edmonds and Richard Karp in 1972.
 
 The complexity can be given independently of the maximal flow.
@@ -123,7 +126,7 @@ The function `maxflow` will return the value of the maximal flow.
 During the algorithm the matrix `capacity` will actually store the residual capacity of the network.
 The value of the flow in each edge will actually not be stored, but it is easy to extend the implementation - by using an additional matrix - to also store the flow and return it.
 
-```cpp edmondskarp
+```{.cpp file=edmondskarp}
 int n;
 vector<vector<int>> capacity;
 vector<vector<int>> adj;
@@ -191,12 +194,12 @@ It says that the capacity of the maximum flow has to be equal to the capacity of
 In the following image you can see the minimum cut of the flow network we used earlier.
 It shows that the capacity of the cut $\\{s, A, D\\}$ and $\\{B, C, t\\}$ is $5 + 3 + 2 = 10$, which is equal to the maximum flow that we found.
 Other cuts will have a bigger capacity, like the capacity between $\\{s, A\\}$ and $\\{B, C, D, t\\}$ is $4 + 3 + 5 = 12$.
-<center>![Minimum cut](&imgroot&/Cut.png)</center>
+<center>![Minimum cut](Cut.png)</center>
 
 A minimum cut can be found after performing a maximum flow computation using the Ford-Fulkerson method.
 One possible minimum cut is the following:
 the set of all vertices that can be reached from $s$ in the residual graph (using edges with positive residual capacity), and the set of all the other vertices.
-This partition can be easily found using [DFS](./graph/depth-first-search.html) starting at $s$.
+This partition can be easily found using [DFS](depth-first-search.md) starting at $s$.
 
 ## Practice Problems
 - [Codeforces - Array and Operations](https://codeforces.com/contest/498/problem/c)

@@ -1,5 +1,3 @@
-<!--?title Disjoint Set Union-->
-
 # Disjoint Set Union
 
 This article discusses the data structure **Disjoint Set Union** or **DSU**.
@@ -32,7 +30,7 @@ And the root of the tree will be the representative/leader of the set.
 
 In the following image you can see the representation of such trees.
 
-![Example-image of the set representation with trees](&imgroot&/DSU_example.png)
+![Example-image of the set representation with trees](DSU_example.png)
 
 In the beginning, every element starts as a single set, therefore each vertex is its own tree.
 Then we combine the set containing the element 1 and the set containing the element 2.
@@ -94,7 +92,7 @@ The trick is to make the paths for all those nodes shorter, by setting the paren
 You can see the operation in the following image.
 On the left there is a tree, and on the right side there is the compressed tree after calling `find_set(7)`, which shortens the paths for the visited nodes 7, 5, 3 and 2.
 
-![Path compression of call `find_set(7)`](&imgroot&/DSU_path_compression.png)
+![Path compression of call `find_set(7)`](DSU_path_compression.png)
 
 The new implementation of `find_set` is as follows:
 
@@ -241,8 +239,8 @@ We have to add vertices and undirected edges, and answer queries of the form $(a
 
 Here we can directly apply the data structure, and get a solution that handles an addition of a vertex or an edge and a query in nearly constant time on average.
 
-This application is quite important, because nearly the same problem appears in [Kruskal's algorithm for finding a minimum spanning tree](./graph/mst_kruskal.html).
-Using DSU we can [improve](./graph/mst_kruskal_with_dsu.html) the $O(m \log n + n^2)$ complexity to $O(m \log n)$.
+This application is quite important, because nearly the same problem appears in [Kruskal's algorithm for finding a minimum spanning tree](../graph/mst_kruskal.md).
+Using DSU we can [improve](../graph/mst_kruskal_with_dsu.md) the $O(m \log n + n^2)$ complexity to $O(m \log n)$.
 
 ### Search for connected components in an image
 
@@ -255,7 +253,7 @@ For the solution we simply iterate over all white pixels in the image, for each 
 Thus we will have a DSU with $n m$ nodes corresponding to image pixels.
 The resulting trees in the DSU are the desired connected components.
 
-The problem can also be solved by [DFS](./graph/depth-first-search.html) or [BFS](./graph/breadth-first-search.html), but the method described here has an advantage:
+The problem can also be solved by [DFS](../graph/depth-first-search.md) or [BFS](../graph/breadth-first-search.md), but the method described here has an advantage:
 it can process the matrix row by row (i.e. to process a row we only need the previous and the current row, and only need a DSU built for the elements of one row) in $O(\min(n, m))$ memory.
 
 ### Store additional information for each set
@@ -424,7 +422,7 @@ bool is_bipartite(int v) {
 }
 ```
 
-### Offline RMQ (range minimum query) in $O(\alpha(n))$ on average / Arpa's trick ### {#arpa}
+### Offline RMQ (range minimum query) in $O(\alpha(n))$ on average / Arpa's trick {#arpa data-toc-label="Offline RMQ / Arpa's trick"}
 
 We are given an array `a[]` and we have to compute some minima in given segments of the array.
 
@@ -467,10 +465,10 @@ Nowadays this algorithm is known as Arpa's trick.
 It is named after AmirReza Poorakhavan, who independently discovered and popularized this technique.
 Although this algorithm existed already before his discovery.
 
-### Offline LCA (lowest common ancestor in a tree) in $O(\alpha(n))$ on average
+### Offline LCA (lowest common ancestor in a tree) in $O(\alpha(n))$ on average {data-toc-label="Offline LCA"}
 
-The algorithm for finding the LCA is discussed in the article [Lowest Common Ancestor - Tarjan's off-line algorithm](./graph/lca_tarjan.html).
-This algorithm compares favorable with other algorithms for finding the LCA due to its simplicity (especially compared to an optimal algorithm like the one from [Farach-Colton and Bender](./graph/lca_farachcoltonbender.html)).
+The algorithm for finding the LCA is discussed in the article [Lowest Common Ancestor - Tarjan's off-line algorithm](../graph/lca_tarjan.md).
+This algorithm compares favorable with other algorithms for finding the LCA due to its simplicity (especially compared to an optimal algorithm like the one from [Farach-Colton and Bender](../graph/lca_farachcoltonbender.md)).
 
 ### Storing the DSU explicitly in a set list / Applications of this idea when merging various data structures
 
@@ -533,14 +531,14 @@ we are given a tree, each leaf has a number assigned (same number can appear mul
 We want to compute the number of different numbers in the subtree for every node of the tree.
 
 Applying to this task the same idea it is possible to obtain this solution:
-we can implement a [DFS](./graph/depth-first-search.html), which will return a pointer to a set of integers - the list of numbers in that subtree.
+we can implement a [DFS](../graph/depth-first-search.md), which will return a pointer to a set of integers - the list of numbers in that subtree.
 Then to get the answer for the current node (unless of course it is a leaf), we call DFS for all children of that node, and merge all the received sets together.
 The size of the resulting set will be the answer for the current node.
 To efficiently combine multiple sets we just apply the above-described recipe:
 we merge the sets by simply adding smaller ones to larger.
 In the end we get a $O(n \log^2 n)$ solution, because one number will only added to a set at most $O(\log n)$ times.
 
-### Storing the DSU by maintaining a clear tree structure / Online bridge finding in $O(\alpha(n))$ on average
+### Storing the DSU by maintaining a clear tree structure / Online bridge finding in $O(\alpha(n))$ on average  {data-toc-label="Storing the SDU by maintaining a clear tree structure / Online bridge finding"}
 
 One of the most powerful applications of DSU is that it allows you to store both as **compressed and uncompressed trees**.
 The compressed form can be used for merging of trees and for the verification if two vertices are in the same tree, and the uncompressed form can be used - for example - to search for paths between two given vertices, or other traversals of the tree structure.
@@ -557,7 +555,7 @@ Indeed, for rooting a tree at vertex $v$ we must go from the vertex to the old r
 
 However in reality it isn't so bad, we can just re-root the smaller of the two trees similar to the ideas in the previous sections, and get $O(\log n)$ on average.
 
-More details (including proof of the time complexity) can be found in the article [Finding Bridges Online](./graph/bridge-searching-online.html).
+More details (including proof of the time complexity) can be found in the article [Finding Bridges Online](../graph/bridge-searching-online.md).
 
 ## Historical retrospective
 

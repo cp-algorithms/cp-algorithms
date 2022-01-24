@@ -1,4 +1,3 @@
-<!--?title Binomial Coefficients-->
 # Binomial Coefficients
 
 Binomial coefficients $\binom n k$ are the number of ways to select a set of $k$ elements from $n$ different elements without taking into account the order of arrangement of these elements (i.e., the number of unordered sets).
@@ -30,27 +29,42 @@ Note that for $n \lt k$ the value of $\binom n k$ is assumed to be zero.
 Binomial coefficients have many different properties. Here are the simplest of them:
 
 *   Symmetry rule:
-$$ \binom n k = \binom n {n-k} $$
+
+    \[ \binom n k = \binom n {n-k} \]
+
 *   Factoring in:
-$$ \binom n k = \frac n k \binom {n-1} {k-1} $$
+
+    \[ \binom n k = \frac n k \binom {n-1} {k-1} \]
+
 *   Sum over $k$:
-$$ \sum_{k = 0}^n \binom n k = 2 ^ n $$
+
+    \[ \sum_{k = 0}^n \binom n k = 2 ^ n \]
+
 *   Sum over $n$:
-$$ \sum_{m = 0}^n \binom m k = \binom {n + 1} {k + 1} $$
+
+    \[ \sum_{m = 0}^n \binom m k = \binom {n + 1} {k + 1} \]
+
 *   Sum over $n$ and $k$:
-$$ \sum_{k = 0}^m  \binom {n + k} k = \binom {n + m + 1} m $$
+
+    \[ \sum_{k = 0}^m  \binom {n + k} k = \binom {n + m + 1} m \]
+
 *   Sum of the squares:
-$$ {\binom n 0}^2 + {\binom n 1}^2 + \cdots + {\binom n n}^2 = \binom {2n} n $$
+
+    \[ {\binom n 0}^2 + {\binom n 1}^2 + \cdots + {\binom n n}^2 = \binom {2n} n \]
+
 *   Weighted sum:
-$$ 1 \binom n 1 + 2 \binom n 2 + \cdots + n \binom n n = n 2^{n-1} $$
-*   Connection with the [Fibonacci numbers](./algebra/fibonacci-numbers.html):
-$$ \binom n 0 + \binom {n-1} 1 + \cdots + \binom {n-k} k + \cdots + \binom 0 n = F_{n+1} $$
+
+    \[ 1 \binom n 1 + 2 \binom n 2 + \cdots + n \binom n n = n 2^{n-1} \]
+
+*   Connection with the [Fibonacci numbers](../algebra/fibonacci-numbers.md):
+
+    \[ \binom n 0 + \binom {n-1} 1 + \cdots + \binom {n-k} k + \cdots + \binom 0 n = F_{n+1} \]
 
 ## Calculation
 
 ### Straightforward calculation using analytical formula
 
-The first, straightforward formula is very easy to code, but this method is likely to overflow even for relatively small values of $n$ and $k$ (even if the answer completely fit into some datatype, the calculation of the intermediate factorials can lead to overflow). Therefore, this method often can only be used with [long arithmetic](./algebra/big-integer.html):
+The first, straightforward formula is very easy to code, but this method is likely to overflow even for relatively small values of $n$ and $k$ (even if the answer completely fit into some datatype, the calculation of the intermediate factorials can lead to overflow). Therefore, this method often can only be used with [long arithmetic](../algebra/big-integer.md):
 
 ```cpp
 int C(int n, int k) {
@@ -96,16 +110,16 @@ for (int n = 1; n <= maxn; ++n) {
 
 If the entire table of values is not necessary, storing only two last rows of it is sufficient (current $n$-th row and the previous $n-1$-th).
 
-### Calculation in $O(1)$
+### Calculation in $O(1)$ {data-toc-label="Calculation in O(1)"}
 
-Finally, in some situations it is beneficial to precompute all the factorials in order to produce any necessary binomial coefficient with only two divisions later. This can be advantageous when using [long arithmetic](./algebra/big-integer.html), when the memory does not allow precomputation of the whole Pascal's triangle.
+Finally, in some situations it is beneficial to precompute all the factorials in order to produce any necessary binomial coefficient with only two divisions later. This can be advantageous when using [long arithmetic](../algebra/big-integer.md), when the memory does not allow precomputation of the whole Pascal's triangle.
 
 
-## Computing binomial coefficients modulo $m$.
+## Computing binomial coefficients modulo $m$ {data-toc-label="Computing binomial coefficients modulo m"}
 
 Quite often you come across the problem of computing binomial coefficients modulo some $m$.
 
-### Binomial coefficient for small $n$
+### Binomial coefficient for small $n$ {data-toc-label="Binomial coefficient for small n"}
 
 The previously discussed approach of Pascal's triangle can be used to calculate all values of $\binom{n}{k} \bmod m$ for reasonably small $n$, since it requires time complexity $\mathcal{O}(n^2)$. This approach can handle any modulo, since only addition operations are used.
 
@@ -113,8 +127,11 @@ The previously discussed approach of Pascal's triangle can be used to calculate 
 ### Binomial coefficient modulo large prime
 
 The formula for the binomial coefficients is
+
 $$\binom n k = \frac {n!} {k!(n-k)!},$$
+
 so if we want to compute it modulo some prime $m > n$ we get
+
 $$\binom n k \equiv n! \cdot (k!)^{-1} \cdot ((n-k)!)^{-1} \mod m.$$
 
 First we precompute all factorials modulo $m$ up to $\text{MAXN}!$ in $O(\text{MAXN})$ time.
@@ -134,7 +151,7 @@ long long binomial_coefficient(int n, int k) {
 }
 ```
 
-We even can compute the binomial coefficient in $O(1)$ time if we precompute the inverses of all factorials in $O(\text{MAXN} \log m)$ using the regular method for computing the inverse, or even in $O(\text{MAXN})$ time using the congruence $(x!)^{-1} \equiv ((x-1)!)^{-1} \cdot x^{-1}$ and the method for [computing all inverses](./algebra/module-inverse.html#mod-inv-all-num) in $O(n)$.
+We even can compute the binomial coefficient in $O(1)$ time if we precompute the inverses of all factorials in $O(\text{MAXN} \log m)$ using the regular method for computing the inverse, or even in $O(\text{MAXN})$ time using the congruence $(x!)^{-1} \equiv ((x-1)!)^{-1} \cdot x^{-1}$ and the method for [computing all inverses](../algebra/module-inverse.md#mod-inv-all-num) in $O(n)$.
 
 ```cpp
 long long binomial_coefficient(int n, int k) {
@@ -154,6 +171,7 @@ We compute for each $x!$ the biggest exponent $c$ such that $p^c$ divides $x!$, 
 Let $c(x)$ be that number.
 And let $g(x) := \frac{x!}{p^{c(x)}}$.
 Then we can write the binomial coefficient as:
+
 $$\binom n k = \frac {g(n) p^{c(n)}} {g(k) p^{c(k)} g(n-k) p^{c(n-k)}} = \frac {g(n)} {g(k) g(n-k)}p^{c(n) - c(k) - c(n-k)}$$
 
 The interesting thing is, that $g(x)$ is now free from the prime divisor $p$.
@@ -171,16 +189,16 @@ Now we compute the binomial coefficient modulo some arbitrary modulus $m$.
 Let the prime factorization of $m$ be $m = p_1^{e_1} p_2^{e_2} \cdots p_h^{e_h}$.
 We can compute the binomial coefficient modulo $p_i^{e_i}$ for every $i$.
 This gives us $h$ different congruences.
-Since all moduli $p_i^{e_i}$ are coprime, we can apply the [Chinese Remainder Theorem](./algebra/chinese-remainder-theorem.html) to compute the binomial coefficient modulo the product of the moduli, which is the desired binomial coefficient modulo $m$.
+Since all moduli $p_i^{e_i}$ are coprime, we can apply the [Chinese Remainder Theorem](../algebra/chinese-remainder-theorem.md) to compute the binomial coefficient modulo the product of the moduli, which is the desired binomial coefficient modulo $m$.
 
-### Binomial coefficient for large $n$ and small modulo
+### Binomial coefficient for large $n$ and small modulo {data-toc-label="Binomial coefficient for large n and small modulo"}
 
 When $n$ is too large, the $\mathcal{O}(n)$ algorithms discussed above become impractical. However, if the modulo $m$ is small there are still ways to calculate $\binom{n}{k} \bmod m$.
 
 When the modulo $m$ is prime, there are 2 options:
 
 * [Lucas's theorem](https://en.wikipedia.org/wiki/Lucas's_theorem) can be applied which breaks the problem of computing $\binom{n}{k} \bmod m$ into $\log_m n$ problems of the form $\binom{x_i}{y_i} \bmod m$ where $x_i, y_i < m$.  If each reduced coefficient is calculated using precomputed factorials and inverse factorials, the complexity is $\mathcal{O}(m + \log_m n)$.
-* The method of computing [factorial modulo P](./algebra/factorial-modulo.html) can be used to get the required $g$ and $c$ values and use them as described in the section of [modulo prime power](#mod-prime-pow). This takes $\mathcal{O}(m \log_m n)$.
+* The method of computing [factorial modulo P](../algebra/factorial-modulo.md) can be used to get the required $g$ and $c$ values and use them as described in the section of [modulo prime power](#mod-prime-pow). This takes $\mathcal{O}(m \log_m n)$.
 
 When $m$ is not prime but square-free, the prime factors of $m$ can be obtained and the coefficient modulo each prime factor can be calculated using either of the above methods, and the overall answer can be obtained by the Chinese Remainder Theorem.
 

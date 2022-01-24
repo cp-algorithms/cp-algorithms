@@ -1,4 +1,6 @@
-<!--?title Finding the Eulerian path in O(M)     -->
+---
+title: Finding the Eulerian path in O(M)     
+---
 # Finding the Eulerian path in $O(M)$
 
 A Eulerian path is a path in a graph that passes through all of its edges exactly once.

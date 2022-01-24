@@ -1,4 +1,3 @@
-<!--?title Search the subarray with the maximum/minimum sum -->
 # Search the subarray with the maximum/minimum sum
 
 Here, we consider the problem of finding a subarray with maximum sum, as well as some of its variations (including the algorithm for solving this problem online).

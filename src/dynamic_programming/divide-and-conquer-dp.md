@@ -1,5 +1,3 @@
-<!--?title Divide and Conquer DP-->
-
 # Divide and Conquer DP
 
 Divide and Conquer is a dynamic programming optimization.
@@ -41,7 +39,7 @@ template.
 The function `compute` computes one row $i$ of states `dp_cur`, given the previous row $i-1$ of states `dp_before`.
 It has to be called with `compute(0, n-1, 0, n-1)`. The function `solve` computes `m` rows and returns the result.
 
-```cpp divide_and_conquer_dp
+```{.cpp file=divide_and_conquer_dp}
 int m, n;
 vector<long long> dp_before(n), dp_cur(n);
 
@@ -94,7 +92,7 @@ both!
 - [CodeForces - The Bakery](https://codeforces.com/problemset/problem/834/D)
 - [CodeForces - Yet Another Minimization Problem](https://codeforces.com/contest/868/problem/F)
 - [Codechef - CHEFAOR](https://www.codechef.com/problems/CHEFAOR)
-- [Codebreaker - GUARDS](https://codebreaker.xyz/problem/guards) (This is the exact problem in this article.)
+- [Codebreaker - GUARDS](https://codeforces.com/gym/103536/problem/A) (This is the exact problem in this article.)
 - [Hackerrank - Guardians of the Lunatics](https://www.hackerrank.com/contests/ioi-2014-practice-contest-2/challenges/guardians-lunatics-ioi14)
 - [Hackerrank - Mining](https://www.hackerrank.com/contests/world-codesprint-5/challenges/mining)
 - [Kattis - Money (ACM ICPC World Finals 2017)](https://open.kattis.com/problems/money)

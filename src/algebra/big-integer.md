@@ -1,5 +1,3 @@
-<!--?title Arbitrary-Precision Arithmetic -->
-
 # Arbitrary-Precision Arithmetic
 
 Arbitrary-Precision arithmetic, also known as "bignum" or simply "long arithmetic" is a set of data structures and algorithms which allows to process much greater numbers than can be fit in standard data types. Here are several types of arbitrary-precision arithmetic.
@@ -162,9 +160,9 @@ This method is often used for calculations modulo non-prime number M; in this ca
 
 The idea is to choose a set of prime numbers (typically they are small enough to fit into standard integer data type) and to store an integer as a vector of remainders from division of the integer by each of those primes.
 
-Chinese remainder theorem states that this representation is sufficient to uniquely restore any number from 0 to product of these primes minus one. [Garner algorithm](./algebra/chinese-remainder-theorem.html) allows to restore the number from such representation to normal integer.
+Chinese remainder theorem states that this representation is sufficient to uniquely restore any number from 0 to product of these primes minus one. [Garner algorithm](chinese-remainder-theorem.md) allows to restore the number from such representation to normal integer.
 
-This method allows to save memory compared to the classical approach (though the savings are not as dramatic as in factorization representation). Besides, it allows to perform fast addition, subtraction and multiplication in time proportional to the number of prime numbers used as modulos (see [Chinese remainder theorem](./algebra/chinese-remainder-theorem.html) article for implementation).
+This method allows to save memory compared to the classical approach (though the savings are not as dramatic as in factorization representation). Besides, it allows to perform fast addition, subtraction and multiplication in time proportional to the number of prime numbers used as modulos (see [Chinese remainder theorem](chinese-remainder-theorem.md) article for implementation).
 
 The tradeoff is that converting the integer back to normal form is rather laborious and requires implementing classical arbitrary-precision arithmetic with multiplication. Besides, this method doesn't support division.
 
