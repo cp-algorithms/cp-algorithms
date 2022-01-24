@@ -1,23 +1,82 @@
 <!--?title Continued fractions -->
 # Continued fractions in competitive programming
 
-**Continued fraction** is a way of representing arbitrary real number as a convergent sequence of rational numbers. They are useful in competitive programming because they can are easy to compute and each consequent fraction is, in a way, the best possible approximation of the underlying real number. Besides that, continued fractions are closely related to Euclidean algorithm which makes them useful in a bunch of number-theoretical problems.
+**Continued fraction** is a representation of a real number as a specific convergent sequence of rational numbers. They are useful in competitive programming because they are easy to compute and can be efficiently used to find the best possible approximation of the underlying real number with a rational number (among all numbers whose denominator doesn't exceed a given value).
+
+Besides that, continued fractions are closely related to Euclidean algorithm which makes them useful in a bunch of number-theoretical problems.
 
 ## Definitions
 
 ### Continued fraction representation
 
-Any real number $r$ may be uniquely represented as $r = a_0 + \frac{1}{q_0}$ where $a_0 = \lfloor r \rfloor$ and $q_0$ is either infinite (meaning that $r$ is an integer) or is a real number greater than $1$. Expanding it indefinitely, one obtains the so-called continued fraction representation
+!!! abstract "Definition"
 
-$$r=a_0 + \frac{1}{a_1 + \frac{1}{a_2+\dots}},$$
+    Let $a_0, a_1, \dots, a_k \in \mathbb Z$ and $a_1, a_2, \dots, a_k \geq 1$. Then the expression
 
-which is shortly denoted as $r=[a_0, a_1, \dots]$. For consistency, we define the representation of the infinity as $\infty = [\infty, \infty, \dots]$. Therefore, rational numbers can be distinguished from irrational by the fact that their continued fraction representation always ends with a sequence of infinities. For example,
+    $$r=a_0 + \frac{1}{a_1 + \frac{1}{\dots + \frac{1}{a_k}}},$$
 
-$$\frac{5}{3} = 1 + \frac{1}{1+\frac{1}{2+\frac{1}{\infty}}} = [1,1,2,\infty,\infty,\dots].$$
+    is called the **continued fraction representation** of the rational number $r$ and is denoted shortly as $r=[a_0;a_1,a_2,\dots,a_k]$.
 
-We will drop the infinite part of the expansion of rational numbers for shortness, thus writing $\frac{5}{3}=[1,1,2]$.
+??? example
 
-Note that $[1,1,1,1]$, if treated as continued fraction, would also represent $\frac 5 3$. Generally, there is a unique way to represent any irrational number and there are exactly two ways to represent any rational number, which are $[a_0, \dots, a_k]$ and $[a_0, \dots, a_k-1, 1]$. We will stick to the first one, as it is consistent with the way continued fractions were defined for irrational numbers through flooring.
+    Let $r = \frac{5}{3}$. There are two ways to represent it as a continued fraction:
+
+    $$
+    \begin{align}
+    r = [1;1,1,1] &= 1+\frac{1}{1+\frac{1}{1+\frac{1}{1}}},\\
+    r = [1;1,2] &= 1+\frac{1}{1+\frac{1}{2}}.
+    \end{align}
+    $$
+
+It can be proven that any rational number can be represented as a continued fraction in exactly $2$ ways:
+
+$$r = [a_0;a_1,\dots,a_k,1] = [a_0;a_1,\dots,a_k+1].$$
+
+Moreover, the length $k$ of continued fraction is bounded as $k = O(\log \min(p, q))$.
+
+The reasoning behind this will be clear once we delve into details of the continued fraction construction.
+
+!!! abstract "Definition"
+
+    Let $a_0,a_1,a_2, \dots$ be an integer sequence such that $a_1, a_2, \dots \geq 1$. Let $r_k = [a_0; a_1, \dots, a_k]$. Then the expression
+
+    $$r = a_0 + \frac{1}{a_1 + \frac{1}{a_2+\dots}} = \lim\limits_{k \to \infty} r_k.$$
+
+    is called the **continued fraction representation** of the irrational number $r$ and is denoted shortly as $r = [a_0;a_1,a_2,\dots]$.
+
+!!! abstract "Definition"
+
+    In the definition above, rational numbers $r_0, r_1, r_2, \dots$ are called the **convergents** of $r$.
+
+    Correspondingly, individual $r_k = [a_0; a_1, \dots, a_k]$ is called the $k$-th **convergent** of $r$.
+
+??? example
+
+    Consider $r = [1; 1, 1, 1, \dots]$. It can be proven by induction that $r_k = \frac{F_{k+2}}{F_{k+1}}$, where $F_k$ is the Fibonacci sequence defined as $F_0 = 0$, $F_1 = 1$ and $F_{k} = F_{k-1} + F_{k-2}$. From the Binet's formula, it is known that
+
+    $$r_k = \frac{\phi^{k+2} - \psi^{k+2}}{\phi^{k+1} - \psi^{k+1}},$$
+
+    where $\phi = \frac{1+\sqrt{5}}{2} \approx 1.618$ is the golden ratio and $\psi = \frac{1-\sqrt{5}}{2} = -\frac{1}{\phi} \approx -0.618$. Thus,
+
+    $$r = 1+\frac{1}{1+\frac{1}{1+\dots}}=\lim\limits_{k \to \infty} r_k = \phi = \frac{1+\sqrt{5}}{2}.$$
+
+    Note that in this specific case, an alternative way to find $r$ would be to solve the equation
+
+    $$r = 1+\frac{1}{r} \implies r^2 = r + 1. $$
+
+!!! abstract "Definition"
+
+    Complementary to convergents, we define the **residues** as $s_k = [a_k; a_{k+1}, a_{k+2}, \dots]$. Correspondingly, we will call an individual $s_k$ the $k$-th residual of $r$.
+
+From the definitions above, one may conclude that $s_k \geq 1$ for $k \geq 1$. If we allow the last term in $[a_0; a_1, \dots, a_k]$ to be an arbitrary real number $s$ and treat it formally as an algebraic expression, the following equation will hold for any $k$:
+
+$$r = [a_0; a_1, \dots, a_{k-1}, s_k],$$
+
+in particular $r = [s_0] = s_0$. This, in turn, allows us to deduct that
+
+$$s_k = [a_k; s_{k+1}] = a_k + \frac{1}{s_{k+1}} \implies a_k = \lfloor s_k \rfloor,$$
+
+thus the sequence $a_0, a_1, \dots$ is uniquely defined for any irrational number $r$.
 
 #### Implementation
 
