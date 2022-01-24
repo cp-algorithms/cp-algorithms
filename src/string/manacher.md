@@ -13,7 +13,7 @@ In the worst case string might have up to $O(n^2)$ palindromic substrings, and a
 
 But the information about the palindromes can be kept **in a compact way**: for each position $i$ we will find the number of non-empty palindromes centered at this position.
 
-Palindromes with a common center form a contiguous chain, that is if we have a palindrome of length $l$ centered in $i$, we also have palindromes of lengths $i-2$, $i-4$ and so on also centered in $i$. Therefore, we will collect the information about all palindromic substrings in this way.
+Palindromes with a common center form a contiguous chain, that is if we have a palindrome of length $l$ centered in $i$, we also have palindromes of lengths $l-2$, $l-4$ and so on also centered in $i$. Therefore, we will collect the information about all palindromic substrings in this way.
 
 Palindromes of odd and even lengths are accounted for separately as $d_1[i]$ and $d_2[i]$. For the palindromes of even length we assume that they're centered in the position $i$ if their two central characters are $s[i]$ and $s[i-1]$.
 
