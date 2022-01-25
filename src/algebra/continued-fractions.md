@@ -170,7 +170,7 @@ Thus, $r_k$ is a weighted [mediant](https://en.wikipedia.org/wiki/Mediant_(mathe
 
 #### Implementation
 
-For the reasons that will be evident as we move further to the geometric interpretation of continued fractions, we will use a [point-like data structure](geometry/basic-geometry.html) to represent $r_k = \frac{p_k}{q_k}$ as a point $(q_k, p_k)$ on the Euclidean plane.
+For the reasons that will be evident as we move further to the geometric interpretation of continued fractions, we will use a [point-like data structure](../geometry/basic-geometry.html) to represent $r_k = \frac{p_k}{q_k}$ as a point $(q_k, p_k)$ on the Euclidean plane.
 
 ```cpp
 struct fraction {
