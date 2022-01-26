@@ -120,18 +120,24 @@ Let us generate **necessary and sufficient** conditions for such a repetition at
 
 - Let $k_1$ be the largest number such that the first $k_1$ characters before the position $cntr$ coincide with the last $k_1$ characters in the string $u$:
   
-  \[u[cntr - k_1 \dots cntr - 1] = u[|u| - k_1 \dots |u| - 1]\]
+$$
+u[cntr - k_1 \dots cntr - 1] = u[|u| - k_1 \dots |u| - 1]
+$$
   
 - Let $k_2$ be the largest number such that the $k_2$ characters starting at position $cntr$ coincide with the first $k_2$ characters in the string $v$:
-  
-  \[u[cntr \dots cntr + k_2 - 1] = v[0 \dots k_2 - 1]\]
+
+$$  
+  u[cntr \dots cntr + k_2 - 1] = v[0 \dots k_2 - 1]
+$$
   
 - Then we have a repetition exactly for any pair $(l_1,~ l_2)$ with
-  
-  \[\begin{align}
+
+$$
+  \begin{align}
   l_1 &\le k_1, \\\\
   l_2 &\le k_2. \\\\
-  \end{align}\]
+  \end{align}
+$$
 
 To summarize:
 
@@ -140,12 +146,14 @@ To summarize:
   There might be multiple such repetitions, they depend on the lengths $l_1$ and $l_2 = l - l_1$.
 - We find $k_1$ and $k_2$ as described above.
 - Then all suitable repetitions are the ones for which the lengths of the pieces $l_1$ and $l_2$ satisfy the conditions:
-  
-  \[\begin{align}
+
+$$
+  \begin{align}
   l_1 + l_2 &= l = |u| - cntr \\\\
   l_1 &\le k_1, \\\\
   l_2 &\le k_2. \\\\
-  \end{align}\]
+  \end{align}
+$$
 
 Therefore the only remaining part is how we can compute the values $k_1$ and $k_2$ quickly for every position $cntr$.
 Luckily we can compute them in $O(1)$ using the [Z-function](../string/z-function.md):
