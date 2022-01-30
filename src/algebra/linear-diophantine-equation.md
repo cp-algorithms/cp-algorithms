@@ -144,7 +144,7 @@ void shift_solution(int & x, int & y, int a, int b, int cnt) {
 
 int find_all_solutions(int a, int b, int c, int minx, int maxx, int miny, int maxy) {
     int x, y, g;
-    if (!find_any_solution(a, b, c, x, y, g))
+    if (!find_any_solutions(a, b, c, x, y, g))
         return 0;
     a /= g;
     b /= g;
