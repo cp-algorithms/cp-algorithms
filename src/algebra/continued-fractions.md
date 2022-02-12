@@ -113,21 +113,23 @@ Thus, computation of a continued fraction representation for $r=\frac{p}{q}$ fol
 
 ### Convergents
 
-Now that both finite and infinite continued fraction representations are defined, let's define convergent sequence which corresponds the underlying real number. For the number $r=[a_0, a_1, a_2, \dots]$, its convergent sequence is defined as
+Let's take a closer look at the convergents that were defined earlier. For $r=[a_0, a_1, a_2, \dots]$, its convergents are
 
 \begin{gather}
 r_0=[a_0],\\r_1=[a_0, a_1],\\ \dots,\\ r_k=[a_0, a_1, \dots, a_k].
 \end{gather}
 
-Each individual rational number $r_k$ is called the convergent of $r$. It is important to understand how these rational numbers are constructed and how they relate with the underlying number $r$. Doing this will shed some light on why they're called the best rational approximations of $r$ and also give us an efficient algorithm to compute them.
+It is important to understand how these rational numbers are constructed and how they relate with the underlying number $r$, as they're the main building blocks of everything else related to the continued fraction.
 
-The numerator and denominator of $r_k$ are multivariate polynomials of $a_0, a_1, \dots, a_k$. These polynomials only depend on the number of variables $k$, thus it holds that
+#### Recurrent relations
+
+The numerator and the denominator of $r_k$ are multivariate polynomials of $a_0, a_1, \dots, a_k$. These polynomials only depend on the number of variables $k$, thus it holds that
 
 $$r_k = \frac{P_k(a_0, a_1, \dots, a_k)}{Q_k(a_0,a_1, \dots, a_k)}.$$
 
 On the other hand,
 
-$$r_k = a_0 + \frac{1}{[a_1,\dots, a_k]}=\frac{a_0 P_{k-1}(a_1, \dots, a_k) + Q_{k-1}(a_1, \dots, a_k)}{P_{k-1}(a_1, \dots, a_k)}.$$
+$$r_k = a_0 + \frac{1}{[a_1,\dots, a_k]}= a_0 + \frac{Q_{k-1}(a_1, \dots, a_k)}{P_{k-1}(a_1, \dots, a_k)} = \frac{a_0 P_{k-1}(a_1, \dots, a_k) + Q_{k-1}(a_1, \dots, a_k)}{P_{k-1}(a_1, \dots, a_k)}.$$
 
 This gives us the relation $Q_k(a_0, \dots, a_k) = P_{k-1}(a_1, \dots, a_k)$. Therefore, we can focus on the numerator polynomials, as the denominator polynomials can be derived from them. This leads us to the relation
 
@@ -137,9 +139,9 @@ We already know that $r_0 = \frac{a_0}{1}$ and $r_1 = \frac{a_0 a_1 + 1}{a_1}$, 
 
 $$\begin{align}P_0(a_0)&=a_0,\\ P_1(a_0, a_1) &= a_0 a_1 + 1.\end{align}$$
 
-For consistency, it is also convenient to define $P_{-1} = 1$ and $P_{-2}=0$, which implies starting points $r_{-1} = \frac{1}{0}$ and $r_{-2}=\frac{0}{1}$.
+For consistency, it is convenient to define $P_{-1} = 1$ and $P_{-2}=0$, which implies starting points $r_{-1} = \frac{1}{0}$ and $r_{-2}=\frac{0}{1}$.
 
-#### Continuant
+#### The continuant
 
 It is a well-known fact in numerical analysis that the determinant of an arbitrary tridiagonal matrix
 
@@ -161,7 +163,7 @@ x_k & 1 & 0 & \dots & 0 \\
 0 & 0 & \dots & -1 & x_0
 \end{bmatrix}_{\textstyle .}$$
 
-This polynomial is also known as [the continuant](https://en.wikipedia.org/wiki/Continuant_(mathematics)) due to its close relation with continued fraction. Noteworthy, the determinant of such matrix won't change if the sequence on the main diagonal is reversed. This gives us the alternative formula to compute continuants:
+This polynomial is also known as [the continuant](https://en.wikipedia.org/wiki/Continuant_(mathematics)) due to its close relation with continued fraction. Noteworthy, the determinant of such matrix won't change if the sequence on the main diagonal is reversed. This gives us an alternative formula to compute the continuant:
 
 $$P_k(a_0, \dots, a_k) = a_k P_{k-1}(a_0, \dots, a_{k-1}) + P_{k-2}(a_0, \dots, a_{k-2}).$$
 
@@ -173,27 +175,36 @@ Thus, $r_k$ is a weighted [mediant](https://en.wikipedia.org/wiki/Mediant_(mathe
 
 #### Implementation
 
-For the reasons that will be evident as we move further to the geometric interpretation of continued fractions, we will use a [point-like data structure](../geometry/basic-geometry.md) to represent $r_k = \frac{p_k}{q_k}$ as a point $(q_k, p_k)$ on the Euclidean plane.
+We will compute the convergents as a pair of sequences $p_{-2}, p_{-1}, p_0, p_1, \dots, p_k$ and $q_{-2}, q_{-1}, q_0, q_1, \dots, q_k$:
 
-```cpp
-struct fraction {
-    ...
-    
-    vector<point> convergents() {
-        vector<point> r = {{1, 0}, {0, 1}};
-        for(size_t i = 0; i < a.size(); i++) {
-            r.push_back(r[i + 1] * a[i] + r[i]);
+=== "C++"
+    ```cpp
+    auto convergents(vector<int> a) {
+        vector<int> p = {0, 1};
+        vector<int> q = {1, 0};
+        for(auto it: a) {
+            p.push_back(p[p.size() - 1] * it + p[p.size() - 2]);
+            q.push_back(q[q.size() - 1] * it + q[q.size() - 2]);
         }
-        return r;
+        return make_pair(p, q);
     }
-};
-```
-
-
+    ```
+=== "Python"
+    ```py
+    def convergents(a):
+        p = [0, 1]
+        q = [1, 0]
+        for it in a:
+            p.append(p[-1]*it + p[-2])
+            q.append(q[-1]*it + q[-2])
+        return p, q
+    ```
 
 ## Convergence
 
-Let's estimate the distance between $r_k$ and the underlying number $r$. To do this, we start by estimating the difference between adjacent convergents. By definition, it is given with the following formula
+_You can mostly skip this section if you're more interested in practical results._
+
+Let's estimate the distance between $r_k$ and the underlying number $r$. To do this, we start by estimating the difference between adjacent convergents. By definition, it is given with the following formula:
 
 $$\frac{p_k}{q_k} - \frac{p_{k-1}}{q_{k-1}} = \frac{p_k q_{k-1} - p_{k-1} q_k}{q_k q_{k-1}}.$$
 
@@ -210,13 +221,12 @@ thus
 
 $$r_k - r_{k-1} = \frac{(-1)^{k-1}}{q_k q_{k-1}}.$$
 
-
 This yields an alternative representation of $r_k$ as a partial sum of infinite series:
 
 $$r_k = (r_k - r_{k-1}) + \dots + (r_1 - r_0) + r_0
 = a_0 + \sum\limits_{i=1}^k \frac{(-1)^{i-1}}{q_i q_{i-1}}.$$
 
-From the recurrence relation it follows that $q_k$ monotonously increases at least as fast as Fibonacci numbers, thus
+From the recurrent relation it follows that $q_k$ monotonously increases at least as fast as Fibonacci numbers, thus
 
 $$r = \lim\limits_{k \to \infty} r_k = a_0 + \sum\limits_{i=1}^\infty \frac{(-1)^{i-1}}{q_i q_{i-1}}$$
 
@@ -235,7 +245,6 @@ $$|r-r_k| = |r_k - r_{k+1}| - |r-r_{k+1}| \leq |r_k - r_{k+1}|,$$
 thus the distance between $r$ and $r_k$ is never larger than the distance between $r_k$ and $r_{k+1}$:
 
 $$\left|r-\frac{p_k}{q_k}\right| \leq \frac{1}{q_k q_{k+1}} \leq \frac{1}{q_k^2}.$$
-
 
 ## Geometric interpretation
 
