@@ -34,7 +34,7 @@ $$r = [a_0;a_1,\dots,a_k,1] = [a_0;a_1,\dots,a_k+1].$$
 
 Moreover, the length $k$ of continued fraction is bounded as $k = O(\log \min(p, q))$.
 
-The reasoning behind this will be clear once we delve into details of the continued fraction construction.
+The reasoning behind this will be clear once we delve into the details of the continued fraction construction.
 
 !!! abstract "Definition"
 
@@ -80,33 +80,36 @@ thus the sequence $a_0, a_1, \dots$ is uniquely defined for any irrational numbe
 
 #### Implementation
 
-In the code snippets we will mostly assume that we work with the finite continued fractions. Although continued fractions defined recursively it is more efficient to construct them iteratively. If we start with $r=\frac{p}{q}$, the transition looks like
+In the code snippets we will mostly assume that we work with the finite continued fractions. Although continued fractions defined recursively it is more efficient to construct them iteratively. If we start with $s_k=\frac{p}{q}$, the transition looks like
 
-$$r =\left\lfloor \frac p q \right\rfloor + \frac{1}{\left(\frac{p}{q}-\left\lfloor \frac{p}{q}\right\rfloor\right)^{-1}}.$$
+$$s_k =\left\lfloor \frac p q \right\rfloor + \frac{1}{s_{k+1}}.$$
 
-The denominator part of this expression may be rewritten as
+From this expression, the next residue $s_{k+1}$ is obtained as
 
-$$\left(\frac{p}{q}-\left\lfloor \frac{p}{q}\right\rfloor\right)^{-1} = \frac{q}{p-q\cdot \lfloor \frac{p}{q} \rfloor} = \frac{q}{p \bmod q}.$$
+$$s_{k+1} = \left(\frac{p}{q}-\left\lfloor \frac{p}{q}\right\rfloor\right)^{-1} = \frac{q}{p-q\cdot \lfloor \frac{p}{q} \rfloor} = \frac{q}{p \bmod q}.$$
 
 Thus, computation of a continued fraction representation for $r=\frac{p}{q}$ follows the same steps as the Euclidean algorithm for $p$ and $q$.
 
-
-```cpp
-struct fraction {
-    vector<int> a;
-    
-    fraction():a{0}{}
-    
-    // Assuming 0 <= p and 0 < q
-    fraction(int p, int q) {
+=== "C++"
+    ```cpp
+    auto fraction(int p, int q) {
+        vector<int> a;
         while(q) {
             a.push_back(p / q);
-            p %= q;
-            swap(p, q);
+            tie(p, q) = make_pair(q, p % q);
         }
+        return a;
     }
-};
-```
+    ```
+=== "Python"
+    ```py
+    def fraction(p, q):
+        a = []
+        while q:
+            a.append(p // q)
+            p, q = q, p % q
+        return a
+    ```
 
 ### Convergents
 
