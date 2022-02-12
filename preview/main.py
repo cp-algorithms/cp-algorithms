@@ -30,7 +30,6 @@ def render(markdown: str, directory: str) -> str:
     tmp_path = Path(str(directory))
     (tmp_path / "docs").mkdir(parents=True, exist_ok=True)
     (tmp_path / "mkdocs.yml").write_text("""
-
 site_name: CP Algorithms
 theme:
   name: material
