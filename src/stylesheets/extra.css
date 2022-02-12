@@ -13,3 +13,7 @@
 .md-sidebar.md-sidebar--primary {
   display: none;
 }
+
+[data-md-color-scheme="slate"] img {
+  background-color: lightgray;
+}

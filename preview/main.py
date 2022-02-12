@@ -37,6 +37,8 @@ markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.highlight
+  - admonition
+  - pymdownx.details
   - pymdownx.superfences
   - attr_list
   - pymdownx.emoji:

@@ -76,9 +76,7 @@ Since this approach is basically identical to the Sieve of Eratosthenes, the com
 ```cpp
 void phi_1_to_n(int n) {
     vector<int> phi(n + 1);
-    phi[0] = 0;
-    phi[1] = 1;
-    for (int i = 2; i <= n; i++)
+    for (int i = 0; i <= n; i++)
         phi[i] = i;
     
     for (int i = 2; i <= n; i++) {
