@@ -173,7 +173,7 @@ Thus, $r_k$ is a weighted [mediant](https://en.wikipedia.org/wiki/Mediant_(mathe
 
 #### Implementation
 
-For the reasons that will be evident as we move further to the geometric interpretation of continued fractions, we will use a [point-like data structure](../geometry/basic-geometry.html) to represent $r_k = \frac{p_k}{q_k}$ as a point $(q_k, p_k)$ on the Euclidean plane.
+For the reasons that will be evident as we move further to the geometric interpretation of continued fractions, we will use a [point-like data structure](../geometry/basic-geometry.md) to represent $r_k = \frac{p_k}{q_k}$ as a point $(q_k, p_k)$ on the Euclidean plane.
 
 ```cpp
 struct fraction {
@@ -281,7 +281,7 @@ If we look on the triangle drawn on points $\vec r_{k-2}$, $\vec r_{k}$ and $\ve
 
 $$|\vec r_{k-2} \times \vec r_k| = a_k.$$
 
-Combined with the [Pick's theorem](https://cp-algorithms.com/geometry/picks-theorem.html), it means that there are no lattice points strictly inside the triangle and the only lattice points on its border are $\vec 0$ and $\vec r_{k-2} + t \cdot \vec r_{k-1}$ for all integer $t$ such that $0 \leq t \leq a_k$. When joined for all possible $k$ it means that there are no integer points in the space between polygons formed by even-indexed and odd-indexed convergent vectors.
+Combined with the [Pick's theorem](../geometry/picks-theorem.md), it means that there are no lattice points strictly inside the triangle and the only lattice points on its border are $\vec 0$ and $\vec r_{k-2} + t \cdot \vec r_{k-1}$ for all integer $t$ such that $0 \leq t \leq a_k$. When joined for all possible $k$ it means that there are no integer points in the space between polygons formed by even-indexed and odd-indexed convergent vectors.
 
 This, in turn, means that $\vec r_k$ with odd coefficients form a convex hull of lattice points with $x \geq 0$ above the line $y=rx$, while $\vec r_k$ with even coefficients form a convex hull of lattice points with $x > 0$ below the line $y=rx$.
 
