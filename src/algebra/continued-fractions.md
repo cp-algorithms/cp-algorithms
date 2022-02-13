@@ -254,35 +254,35 @@ $$\vec r_k = a_k \vec r_{k-1} + \vec r_{k-2}.$$
 
 To better understand the geometric meaning of $\vec r_k$ we need to look closer into the computation of $a_k$.
 
-### Residuals
+### Residues
 
-Previously we investigated the _convergents_ $r_k = [a_0, a_1, \dots, a_k]$. Let's now look on the _residuals_ $s_k = [a_{k}, a_{k+1}, \dots]$. From their definition it holds that
+As we have already noted, $a_k = \lfloor s_k \rfloor$, where $s_k = [a_k; a_{k+1}, a_{k+2}, \dots]$. We will get an explicit way to determine $a_k$ if we know how to compute $s_k$. On the other hand, if we formally substitute $s_k$ instead of $a_k$ into the expression for $k$-th convergent, we'll get
 
-$$s_k = a_{k} + \frac{1}{s_{k+1}},$$
+$$r = [a_0, a_1, \dots, a_{k-1}, s_k] = \frac{s_k p_{k-1} + p_{k-2}}{s_k q_{k-1} + q_{k-2}}.$$
 
-which implies $a_k = \lfloor s_k \rfloor$, so we will get an explicit way to determine $a_k$ if we know how to compute $s_k$. On the other hand, if we formally substitute $a_k$ with $s_k$, that is look on the expression $[a_0, a_1, \dots, a_{k-1}, s_k]$, it will be equal to $r$, thus
+From this, we obtain the explicit formula for $s_k$:
 
-$$\vec r = s_k \vec r_{k-1} + \vec r_{k-2},$$
+$$s_k = -\frac{q_{k-2} r - p_{k-2}}{q_{k-1} r - p_{k-1}} = -\frac{q_{k-2}}{q_{k-1}}\frac{r-r_{k-2}}{r-r_{k-1}},$$
 
-where $\vec r = (1, r)$. Taking cross product of both parts with $\vec r$, we obtain the explicit formula for $s_k$:
+or, introducing the vector $\vec r = (1, r)$ and using the notion of the pseudo-scalar product:
 
-$$s_k = -\frac{\vec r \times \vec r_{k-2}}{\vec r \times \vec r_{k-1}}=\left|\frac{\vec r \times \vec r_{k-2}}{\vec r \times \vec r_{k-1}}\right|=\left|\frac{r q_{k-2} - p_{k-2}}{rq_{k-1}-p_{k-1}}\right|=\frac{q_{k-2}}{q_{k-1}}\left|\frac{r -r_{k-2}}{r-r_{k-1}}\right|.$$
+$$s_k = \left|\frac{\vec r_{k-2} \times \vec r}{\vec r_{k-1} \times \vec r}\right|.$$
 
-Thus, the expression for $\vec r_k$ is given explicitly as
+Thus, the expression for $\vec r_k$ is given as
 
 $$\vec r_k = \vec r_{k-2} + \left\lfloor \left| \frac{\vec r \times \vec r_{k-2}}{\vec r \times \vec r_{k-1}}\right|\right\rfloor \cdot \vec r_{k-1}.$$
 
-Note that $\vec r \times \vec r_{k-2}$ and $\vec r \times \vec r_{k-1}$ never have the same sign, as $\vec r_{k-1}$ and $\vec r_{k-2}$ always lie on different size of $\vec r$ due to the fact that their slope coefficients are $r_{k-1}$ and $r_{k-2}$, while the slope coefficient of $\vec r$ is $r$.
+Note that $\vec r_{k-1}$ and $\vec r_{k-2}$ generally lie on different sides of $\vec r$, thus $\vec r \times \vec r_{k-2}$ and $\vec r \times \vec r_{k-1}$ have different signs.
 
 ### Nose stretching
 
-Geometrically, $a_k$ in the expression above is equal to the maximum integer number of $\vec r_{k-1}$ vectors that can be added to $\vec r_{k-2}$ in such a way that the resulting vector will still be on the same side from $\vec r$ as $\vec r_{k-2}$ is.
+Geometrically, $a_k=\lfloor s_k \rfloor$ in the expression above is equal to the maximum integer number of $\vec r_{k-1}$ vectors that can be added to $\vec r_{k-2}$ in such a way that the resulting vector will still be on the same side from $\vec r$ as $\vec r_{k-2}$ is.
 
 ![](https://upload.wikimedia.org/wikipedia/commons/9/92/Continued_convergents_geometry.svg)
 
 On the picture above you can see how $\vec r_2 = (4,3)$ is obtained by repeatedly adding $\vec r_1 = (1,1)$ to $\vec r_0 = (1, 0)$. When it is not possible to further add $\vec r_1$ to $\vec r_0$ without crossing the $y=rx$ line, we go to the other side and repeatedly add $\vec r_2$ to $\vec r_1$ to obtain $\vec r_3 = (9, 7)$ in a similar manner.
 
-This procedure generates exponentially longer vectors, that approach closer and closer to $y=rx$ line, until one vector is finally collinear with it (when $r$ is rational). For this property, the procedure of generating consequent convergent vectors was dubbed nose stretching algorithm by Boris Delaunay.
+This procedure generates exponentially longer vectors, that approach closer and closer to $y=rx$ line, until one vector is finally collinear with it (when $r$ is rational). For this property, the procedure of generating consequent convergent vectors was dubbed the nose stretching algorithm by Boris Delaunay.
 
 ### Klein polygons
 
