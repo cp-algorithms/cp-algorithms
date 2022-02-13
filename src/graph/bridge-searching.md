@@ -93,3 +93,4 @@ Note that this implementation malfunctions if the graph has multiple edges, sinc
 * [SPOJ - Critical Edges](http://www.spoj.com/problems/EC_P/)
 * [Codeforces - Break Up](http://codeforces.com/contest/700/problem/C)
 * [Codeforces - Tourist Reform](http://codeforces.com/contest/732/problem/F)
+* [Leetcode -Critical Connections in a Network](https://leetcode.com/problems/critical-connections-in-a-network/)
