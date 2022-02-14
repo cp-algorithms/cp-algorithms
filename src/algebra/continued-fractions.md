@@ -1,7 +1,7 @@
 <!--?title Continued fractions -->
 # Continued fractions in competitive programming
 
-**Continued fraction** is a representation of a real number as a specific convergent sequence of rational numbers. They are useful in competitive programming because they are easy to compute and can be efficiently used to find the best possible approximation of the underlying real number with a rational number (among all numbers whose denominator doesn't exceed a given value).
+**Continued fraction** is a representation of a real number as a specific convergent sequence of rational numbers. They are useful in competitive programming because they are easy to compute and can be efficiently used to find the best possible rational approximation of the underlying real number (among all numbers whose denominator doesn't exceed a given value).
 
 Besides that, continued fractions are closely related to Euclidean algorithm which makes them useful in a bunch of number-theoretical problems.
 
@@ -294,4 +294,66 @@ Combined with the [Pick's theorem](../geometry/picks-theorem.md), it means that 
 
 This, in turn, means that $\vec r_k$ with odd coefficients form a convex hull of lattice points with $x \geq 0$ above the line $y=rx$, while $\vec r_k$ with even coefficients form a convex hull of lattice points with $x > 0$ below the line $y=rx$.
 
-These polygons are also known as Klein polygons, named after Felix Klein who first suggested this geometric interpretation to the continued fractions.
+
+!!! abstract "Definition"
+
+    These polygons are also known as **Klein polygons**, named after Felix Klein who first suggested this geometric interpretation to the continued fractions.
+
+
+!!! abstract "Definition"
+
+    The vectors $\vec r_{k-2} + t \cdot \vec r_{k-1}$ for $0 \leq t \leq a_k$ and corresponding fractions are called the **semi-convergents**.
+
+Semi-convergent vectors are essentially _all_ lattice vectors on the border of their corresponding convex hulls.
+
+## Problem examples
+
+Now that the most important facts and concepts were introduced, it is time to delve into specific problem examples.
+
+!!! example "[Timus - Crime and Punishment](https://acm.timus.ru/problem.aspx?space=1&num=1430)"
+
+    You're given integer numbers $A$, $B$ and $N$. Find $x \geq 0$ and $y \geq 0$ such that $Ax + By \leq N$ and $Ax + By$ is the maximum possible.
+
+    _Equivalent formulation:_ Given $A$, $B$, $C$ and $N$, find $x$ such that $0 \leq x \leq N$ and $\lfloor \frac{Ax+B}{C} \rfloor$ is the maximum possible.
+
+??? hint "Solution"
+
+    In the actual problem it holds that $1 \leq A, B, N \leq 2 \cdot 10^9$, so the problem can be solved in $O(\sqrt N)$.
+
+    However, there is $O(\log N)$ solution with continued fractions.
+
+    It is evident that one needs to find the maximum value of $\lfloor \frac{N-Ax}{B} \rfloor$ for $0 \leq x \leq \lfloor \frac{N}{A}\rfloor$.
+
+    For our convenience, we will invert the direction of $x$, so that now we need to find the maximum value of $\lfloor \frac{Ax + \left(N \bmod A \right)}{B} \rfloor$ for $0 \leq x \leq \lfloor \frac{N}{A} \rfloor$.
+
+    To treat it more generically, we will write a function that finds the maximum value of $\lfloor \frac{Ax+B}{C} \rfloor$ on $0 \leq x \leq N$:
+
+    === "C++"
+        ```cpp
+        auto solve(int A, int B, int N) {
+            return max_floor(A, N % A, B, N / A);
+        }
+        ```
+    === "Python"
+        ```py
+        def solve(A, B, N):
+            x, y = max_rem(A, N % A, B, N // A)
+            return N // A - x, y
+        ```
+
+!!! example "[CodeChef - Euler Sum](https://www.codechef.com/problems/ES)"
+
+    Compute $\sum\limits_{x=1}^N \lfloor ex \rfloor$, where $e = [2; 1, 2, 1, 1, 4, 1, 1, 6, 1, \dots, 1, 2n, 1, \dots]$ is the Euler's number and $N \leq 10^{4000}$.
+
+
+!!! example "[Kattis - It's a Mod, Mod, Mod, Mod World](https://open.kattis.com/problems/itsamodmodmodmodworld)"
+
+    Given $p$, $q$ and $n$, compute $\sum\limits_{i=1}^n [p \cdot i \bmod q]$.
+
+The connection between $\bmod$ and $\lfloor \cdot \rfloor$ is given as $a \bmod b = a - \lfloor \frac{a}{b} \rfloor b$.
+
+!!! example "[Library Checker - Sum of Floor of Linear](https://judge.yosupo.jp/problem/sum_of_floor_of_linear)"
+
+    Given $N$, $M$, $A$ and $B$, compute $\sum\limits_{i=0}^{N-1} \lfloor \frac{A \cdot i + B}{M} \rfloor$.
+
+This one is a bit more tricky. We'll discuss possible approaches to tackle it further below.
