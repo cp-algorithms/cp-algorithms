@@ -110,7 +110,30 @@ which simplifies to:
 
 $$i^{-1} \equiv -\left\lfloor \frac{m}{i} \right\rfloor \cdot (m \bmod i)^{-1} \mod m,$$
 
+## Finding the modular inverse for array of numbers modulo $m$
 
+Suppose we are given an array and we want to find modular inverse for numbers in it (all of them are invertible). A simple idea is that we could make a prefix product array (exclude itself, start from the identity element) and compute the modular inverse for the product of all numbers and than multiply it by the prefix product and suffix product (exclude itself). The suffix product could be computed during the iteration.
+
+```cpp
+std::vector<int> invs(const std::vector<int> &a, int m) {
+    int n = a.size();
+    if (n == 0) return {};
+    std::vector<int> b(n);
+    int v = 1;
+    for (int i = 0; i != n; ++i) {
+        b[i] = v;
+        v = static_cast<long long>(v) * a[i] % m;
+    }
+    int x, y;
+    extended_euclidean(v, m, x, y);
+    x = (x % m + m) % m;
+    for (int i = n - 1; i >= 0; --i) {
+        b[i] = static_cast<long long>(x) * b[i] % m;
+        x = static_cast<long long>(x) * a[i] % m;
+    }
+    return b;
+}
+```
 
 ## Practice Problems
 
