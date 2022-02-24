@@ -29,7 +29,7 @@ vector<int> prefix_function(string s) {
 }
 ```
 
-It is easy to see that its complexity is $O(n^3)$, which has room for improvement.
+It is easy to see that its complexity is $O(n^2)$, which has room for improvement.
 
 ## Efficient Algorithm
 
