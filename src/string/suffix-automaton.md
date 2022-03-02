@@ -706,7 +706,7 @@ string lcs (string S, string T) {
             bestpos = i;
         }
     }
-    return t.substr(bestpos - best + 1, best);
+    return T.substr(bestpos - best + 1, best);
 } 
 ```
 
