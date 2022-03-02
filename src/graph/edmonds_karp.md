@@ -192,8 +192,8 @@ The max-flow min-cut theorem goes even further.
 It says that the capacity of the maximum flow has to be equal to the capacity of the minimum cut.
 
 In the following image you can see the minimum cut of the flow network we used earlier.
-It shows that the capacity of the cut $\\{s, A, D\\}$ and $\\{B, C, t\\}$ is $5 + 3 + 2 = 10$, which is equal to the maximum flow that we found.
-Other cuts will have a bigger capacity, like the capacity between $\\{s, A\\}$ and $\\{B, C, D, t\\}$ is $4 + 3 + 5 = 12$.
+It shows that the capacity of the cut $\{s, A, D\}$ and $\{B, C, t\}$ is $5 + 3 + 2 = 10$, which is equal to the maximum flow that we found.
+Other cuts will have a bigger capacity, like the capacity between $\{s, A\}$ and $\{B, C, D, t\}$ is $4 + 3 + 5 = 12$.
 <center>![Minimum cut](Cut.png)</center>
 
 A minimum cut can be found after performing a maximum flow computation using the Ford-Fulkerson method.

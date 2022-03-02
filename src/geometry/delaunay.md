@@ -1,9 +1,9 @@
 # Delaunay triangulation and Voronoi diagram
 
-Consider a set $\\{p_i\\}$ of points on the plane.
-A **Voronoi diagram** $V(\\{p_i\\})$ of $\\{p_i\\}$ is a partition of the plane into $n$ regions $V_i$, where $V_i = \\{p\in\mathbb{R}^2;\ \rho(p, p_i) = \min\ \rho(p, p_k)\\}$.
+Consider a set $\{p_i\}$ of points on the plane.
+A **Voronoi diagram** $V(\{p_i\})$ of $\{p_i\}$ is a partition of the plane into $n$ regions $V_i$, where $V_i = \{p\in\mathbb{R}^2;\ \rho(p, p_i) = \min\ \rho(p, p_k)\}$.
 The cells of the Voronoi diagram are polygons (possibly infinite).
-A **Delaunay triangulation** $D(\\{p_i\\})$ of $\\{p_i\\}$ is a triangulation where every point $p_i$ is outside or on the boundary of the circumcircle of each triangle $T \in D(\\{p_i\\})$.
+A **Delaunay triangulation** $D(\{p_i\})$ of $\{p_i\}$ is a triangulation where every point $p_i$ is outside or on the boundary of the circumcircle of each triangle $T \in D(\{p_i\})$.
 
 There is a nasty degenerated case when the Voronoi diagram isn't connected and Delaunay triangulation doesn't exist. This case is when all points are collinear.
 
@@ -15,11 +15,11 @@ The Minimum Euclidean spanning tree of a point set is a subset of edges of its' 
 
 ## Duality
 
-Suppose that $\\{p_i\\}$ is not collinear and among $\\{p_i\\}$ no four points lie on one circle. Then $V(\\{p_i\\})$ and $D(\\{p_i\\})$ are dual, so if we obtain one of them, we may obtain the other in $O(n)$. What to do if it's not the case? The collinear case may be processed easily. Otherwise, $V$ and $D'$ are dual, where $D'$ is obtained from $D$ by removing all the edges such that two triangles on this edge share the circumcircle.
+Suppose that $\{p_i\}$ is not collinear and among $\{p_i\}$ no four points lie on one circle. Then $V(\{p_i\})$ and $D(\{p_i\})$ are dual, so if we obtain one of them, we may obtain the other in $O(n)$. What to do if it's not the case? The collinear case may be processed easily. Otherwise, $V$ and $D'$ are dual, where $D'$ is obtained from $D$ by removing all the edges such that two triangles on this edge share the circumcircle.
 
 ## Building Delaunay and Voronoi
 
-Because of the duality, we only need a fast algorithm to compute only one of $V$ and $D$. We will describe how to build $D(\\{p_i\\})$ in $O(n\log n)$. The triangulation will be built via divide-and-conquer algorithm due to Guibas and Stolfi.
+Because of the duality, we only need a fast algorithm to compute only one of $V$ and $D$. We will describe how to build $D(\{p_i\})$ in $O(n\log n)$. The triangulation will be built via divide-and-conquer algorithm due to Guibas and Stolfi.
 
 ## Quad-edge data structure
 

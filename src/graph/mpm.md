@@ -16,7 +16,7 @@ p_{out}(v) &= \sum\limits_{(v, u)\in L}(c(v, u) - f(v, u))
 
 Also we set $p_{in}(s) = p_{out}(t) = \infty$.
 Given $p_{in}$ and $p_{out}$ we define the _potential_ as $p(v) = min(p_{in}(v), p_{out}(v))$.
-We call a node $r$ a _reference node_ if $p(r) = min\\{p(v)\\}$.
+We call a node $r$ a _reference node_ if $p(r) = min\{p(v)\}$.
 Consider a reference node $r$.
 We claim that the flow can be increased by $p(r)$ in such a way that $p(r)$ becomes $0$.
 It is true because $L$ is acyclic, so we can push the flow out of $r$ by outgoing edges and it will reach $t$ because each node has enough outer potential to push the flow out when it reaches it.
