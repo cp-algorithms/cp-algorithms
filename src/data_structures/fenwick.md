@@ -301,7 +301,7 @@ struct FenwickTreeOneBasedIndexing {
     }
 
     void add(int idx, int delta) {
-        for (++idx; idx < n; idx += idx & -idx)
+        for (++idx; idx <= n; idx += idx & -idx)
             bit[idx] += delta;
     }
 };
@@ -337,7 +337,7 @@ The following implementation uses one-based indexing.
 
 ```cpp
 void add(int idx, int val) {
-    for (++idx; idx < n; idx += idx & -idx)
+    for (++idx; idx <= n; idx += idx & -idx)
         bit[idx] += val;
 }
 
