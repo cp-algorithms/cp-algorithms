@@ -112,7 +112,18 @@ $$i^{-1} \equiv -\left\lfloor \frac{m}{i} \right\rfloor \cdot (m \bmod i)^{-1} \
 
 ## Finding the modular inverse for array of numbers modulo $m$
 
-Suppose we are given an array and we want to find modular inverse for numbers in it (all of them are invertible). A simple idea is that we could make a prefix product array (exclude itself, start from the identity element) and compute the modular inverse for the product of all numbers and than multiply it by the prefix product and suffix product (exclude itself). The suffix product could be computed during the iteration.
+Suppose we are given an array and we want to find modular inverse for all numbers in it (all of them are invertible).
+Instead of computing the inverse for every number, we can expand the fraction by the prefix product (excluding itself) and suffix product (excluding itself), and end up only computing a single inverse instead.
+
+$$
+\begin{align}
+x_i^{-1} &= \frac{1}{x^i} = \frac{\overbrace{x_1 \cdot x_2 \cdots x_{i-1}}^{\text{prefix}_{i-1}} \cdot ~1~ \cdot \overbrace{x_{i+1} \cdot x_{i+2} \cdots x_n}^{\text{suffix}_{i+1}}}{x_1 \cdot x_2 \cdots x_{i-1} \cdot x_i \cdot x_{i+1} \cdot x_{i+2} \cdots x_n} \\
+&= \text{prefix}_{i-1} \cdot \text{suffix}_{i+1} \cdot \left(x_1 \cdot x_2 \cdots x_n\right)^{-1}
+\end{align}
+$$
+
+In the code we can just make a prefix product array (exclude itself, start from the identity element), compute the modular inverse for the product of all numbers and than multiply it by the prefix product and suffix product (exclude itself).
+The suffix product is computed by iterating from the back to the front.
 
 ```cpp
 std::vector<int> invs(const std::vector<int> &a, int m) {
