@@ -440,7 +440,7 @@ def range_sum(l, r):
 * [SRM 310 - FloatingMedian](https://community.topcoder.com/stat?c=problem_statement&pm=6551&rd=9990)
 * [SPOJ - Ada and Behives](http://www.spoj.com/problems/ADABEHIVE/)
 * [Hackerearth - Counting in Byteland](https://www.hackerearth.com/practice/data-structures/advanced-data-structures/fenwick-binary-indexed-trees/practice-problems/algorithm/counting-in-byteland/)
-* [DevSkills - Shan and String](https://devskill.com/CodingProblems/ViewProblem/300)
+* [DevSkill - Shan and String (archived)](http://web.archive.org/web/20210322010617/https://devskill.com/CodingProblems/ViewProblem/300)
 * [Codeforces - Little Artem and Time Machine](http://codeforces.com/contest/669/problem/E)
 * [Codeforces - Hanoi Factory](http://codeforces.com/contest/777/problem/E)
 * [SPOJ - Tulip and Numbers](http://www.spoj.com/problems/TULIPNUM/)

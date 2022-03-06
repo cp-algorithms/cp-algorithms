@@ -121,7 +121,6 @@ We can use the [**Disjoint Set Union** (DSU)](../data_structures/disjoint_set_un
 * [Codeforces - Flea](http://codeforces.com/problemset/problem/32/C)
 * [Codeforces - Igon in Museum](http://codeforces.com/problemset/problem/598/D)
 * [Codeforces - Hongcow Builds a Nation](http://codeforces.com/problemset/problem/744/A)
-* [DevSkills - Repairing Road](https://devskill.com/CodingProblems/ViewProblem/344)
 * [UVA - 908 - Re-connecting Computer Sites](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=849)
 * [UVA 1208 - Oreon](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3649)
 * [UVA 1235 - Anti Brute Force Lock](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3676)
