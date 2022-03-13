@@ -651,6 +651,7 @@ If $x$ is the number of wildcards in $P$, then we will have a match of $P$ in $T
 - [Codeforces - Yet Another String Matching Problem](http://codeforces.com/problemset/problem/954/I)
 - [Codeforces - Lightsabers (hard)](http://codeforces.com/problemset/problem/958/F3)
 - [Codeforces - Running Competition](https://codeforces.com/contest/1398/problem/G)
+- [Kattis - A+B Problem](https://open.kattis.com/problems/aplusb)
 - [Kattis - K-Inversions](https://open.kattis.com/problems/kinversions)
 - [Codeforces - Dasha and cyclic table](http://codeforces.com/contest/754/problem/E)
 - [CodeChef - Expected Number of Customers](https://www.codechef.com/COOK112A/problems/MMNN01)
