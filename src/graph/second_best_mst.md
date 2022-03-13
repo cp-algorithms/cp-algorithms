@@ -8,7 +8,7 @@ A second best MST $T'$ is a spanning tree, that has the second minimum weight su
 Let $T$ be the Minimum Spanning Tree of a graph $G$.
 It can be observed, that the second best Minimum Spanning Tree differs from $T$ by only one edge replacement. (For a proof of this statement refer to problem 23-1 [here](http://www-bcf.usc.edu/~shanghua/teaching/Spring2010/public_html/files/HW2_Solutions_A.pdf)).
 
-So we need to find an edge $e_{new}$ which is in not in $T$, and replace it with an edge in $T$ (let it be $e_{old}$) such that the new graph $T' = (T \cup \\{e_{new}\\}) \setminus \\{e_{old}\\}$ is a spanning tree and the weight difference ($e_{new} - e_{old}$) is minimum.
+So we need to find an edge $e_{new}$ which is in not in $T$, and replace it with an edge in $T$ (let it be $e_{old}$) such that the new graph $T' = (T \cup \{e_{new}\}) \setminus \{e_{old}\}$ is a spanning tree and the weight difference ($e_{new} - e_{old}$) is minimum.
 
 
 ## Using Kruskal's Algorithm
