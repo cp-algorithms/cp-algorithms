@@ -323,7 +323,7 @@ In this problem we want to compute the GCD / LCM of all numbers of given ranges 
 
 This interesting variation of the Segment Tree can be solved in exactly the same way as the Segment Trees we derived for sum / minimum / maximum queries:
 it is enough to store the GCD / LCM of the corresponding vertex in each vertex of the tree. 
-Combining two vertices can be done by computing the GCM / LCM of both vertices.
+Combining two vertices can be done by computing the GCD / LCM of both vertices.
 
 #### Counting the number of zeros, searching for the $k$-th zero {#counting-zero-search-kth data-toc-label="Counting the number of zeros, searching for the k-th zero"}
 
