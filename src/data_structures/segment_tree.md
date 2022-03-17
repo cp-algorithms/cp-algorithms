@@ -532,7 +532,7 @@ The C++ STL already has an implementation of this algorithm.
 Because this structure of the Segment Tree and the similarities to the merge sort algorithm, the data structure is also often called "Merge Sort Tree".
 
 ```{.cpp file=segment_tree_smallest_number_greater1}
-vector<int> t[4*MAXN];
+vector<vector<int>> t[4*MAXN];
 
 void build(int a[], int v, int tl, int tr) {
     if (tl == tr) {
