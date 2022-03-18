@@ -3,11 +3,11 @@ title: K-th order statistic in O(N)
 ---
 # $K$th order statistic in $O(N)$
 
-Given an array __A__ of size __N__ and a number __K__. The challenge is to find __K__-th largest number in the array, i.e., __K__-th order statistic.
+Given an array $A$ of size $N$ and a number $K$. The problem is to find $K$-th largest number in the array, i.e., $K$-th order statistic.
 
-The basic idea - to use the idea of quick sort algorithm. Actually, the algorithm is simple, it is more difficult to prove that it runs in an average of O(N), in contrast to the quick sort.
+The basic idea - to use the idea of quick sort algorithm. Actually, the algorithm is simple, it is more difficult to prove that it runs in an average of $O(N)$, in contrast to the quick sort.
 
-## Implementation (not recursive):
+## Implementation (not recursive)
 
 ```cpp
 template <class T>
@@ -63,7 +63,10 @@ T order_statistics (std::vector<T> a, unsigned n, unsigned k)
 }
 ```
 
-To note, in the standard C ++ library, this algorithm has already been implemented - it is called nth_element.
+## Notes
+* The randomized algorithm above is named [quickselect](https://en.wikipedia.org/wiki/Quickselect). You should do random shuffle on $A$ before calling it or use a random element as a barrier for it to run properly. There are also deterministic algorithms that solve the specified problem in linear time, such as [median of medians](https://en.wikipedia.org/wiki/Median_of_medians).
+* A deterministic linear solution is implemented in C++ standard library as [std::nth_element](https://en.cppreference.com/w/cpp/algorithm/nth_element).
+* Finding $K$ smallest elements can be reduced to finding $K$-th element with a linear overhead, as they're exactly the elements that are smaller than $K$-th.
 
 ## Practice Problems
 
