@@ -4,8 +4,8 @@ Let, $f$ be some _reversible_ function and $A$ be an array of integers of length
 
 Fenwick tree is a data structure which:
 
-* calculates the value of function $f$ in the given range $[l, r]$ (i.e. $f(A_l, A_{l+1}, \dots, A_r)$) in $O(\log n)$ time;
-* updates the value of an element of $A$ in $O(\log n)$ time;
+* calculates the value of function $f$ in the given range $[l, r]$ (i.e. $f(A_l, A_{l+1}, \dots, A_r)$) in $O(\log N)$ time;
+* updates the value of an element of $A$ in $O(\log N)$ time;
 * requires $O(N)$ memory, or in other words, exactly the same memory required for $A$;
 * is easy to use and code, especially, in the case of multidimensional arrays.
 
