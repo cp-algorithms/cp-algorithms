@@ -39,7 +39,7 @@ Another modern way to solve this problem and to deal with palindromes in general
 
 To avoid ambiguities in the further description we denote what "trivial algorithm" is.
 
-It's the algorithm that does the following. For each center position $i$ it tries to increase the answer by one until it's possible, comparing a pair of corresponding characters each time.
+It's the algorithm that does the following. For each center position $i$ it tries to increase the answer by one as long as it's possible, comparing a pair of corresponding characters each time.
 
 Such an algorithm is slow, it can calculate the answer only in $O(n^2)$.
 
@@ -65,7 +65,7 @@ Terminal characters `$` and `^` were used to avoid dealing with ends of the stri
 
 We describe the algorithm to find all the sub-palindromes with odd length, i. e. to calculate $d_1[]$.
 
-For fast calculation we'll maintain the **borders $(l, r)$** of the rightmost found sub-palindrome (i. e. the palindrome $s[l+1] s[l+2] \dots s[r-1]$ with maximal $r$). Initially we set $l = 0, r = 1$, which corresponds to the empty string.
+For fast calculation we'll maintain the **borders $(l, r)$** of the rightmost found (sub-)palindrome (i. e. the current rightmost (sub-)palindrome is $s[l+1] s[l+2] \dots s[r-1]$). Initially we set $l = 0, r = 1$, which corresponds to the empty string.
 
 So, we want to calculate $d_1[i]$ for the next $i$, and all the previous values in $d_1[]$ have been already calculated. We do the following:
 
@@ -73,7 +73,7 @@ So, we want to calculate $d_1[i]$ for the next $i$, and all the previous values 
     
     So we'll increase $d_1[i]$ consecutively and check each time if the current rightmost substring $[i - d_1[i]\dots i + d_1[i]]$ is a palindrome. When we find the first mismatch or meet the boundaries of $s$, we'll stop. In this case we've finally calculated $d_1[i]$. After this, we must not forget to update $(l, r)$. $r$ should be updated in such a way that it represents the last index of the current rightmost sub-palindrome.
 
-* Now consider the case when $i \le r$. We'll try to extract some information from the already calculated values in $d_1[]$. So, let's find the "mirror" position of $i$ in the sub-palindrome $(l, r)$, i.e. we'll get the position $j = l + (r - i)$, and we check the value of $d_1[j]$. Because $j$ is the position symmetrical to $i$, we'll **almost always** can assign $d_1[i] = d_1[j]$. Illustration of this (palindrome around $j$ is actually "copied" into the palindrome around $i$):
+* Now consider the case when $i \le r$. We'll try to extract some information from the already calculated values in $d_1[]$. So, let's find the "mirror" position of $i$ in the sub-palindrome $(l, r)$, i.e. we'll get the position $j = l + (r - i)$, and we check the value of $d_1[j]$. Because $j$ is the position symmetrical to $i$ with respect to $(l+r)/2$, we can **almost always** assign $d_1[i] = d_1[j]$. Illustration of this (palindrome around $j$ is actually "copied" into the palindrome around $i$):
     
     $$
     \ldots\ 
