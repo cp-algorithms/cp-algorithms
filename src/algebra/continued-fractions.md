@@ -5,9 +5,7 @@
 
 Besides that, continued fractions are closely related to Euclidean algorithm which makes them useful in a bunch of number-theoretical problems.
 
-## Definitions
-
-### Continued fraction representation
+## Continued fraction representation
 
 !!! abstract "Definition"
 
@@ -78,7 +76,7 @@ $$s_k = [a_k; s_{k+1}] = a_k + \frac{1}{s_{k+1}} \implies a_k = \lfloor s_k \rfl
 
 thus the sequence $a_0, a_1, \dots$ is uniquely defined for any irrational number $r$.
 
-#### Implementation
+### Implementation
 
 In the code snippets we will mostly assume that we work with the finite continued fractions. Although continued fractions defined recursively, it is more efficient to construct them iteratively. From $s_k$, the transition looks like
 
@@ -117,18 +115,9 @@ Thus, computation of a continued fraction representation for $r=\frac{p}{q}$ fol
         return a
     ```
 
+## Key results
 
-### Convergents
-
-Let's take a closer look at the convergents that were defined earlier. For $r=[a_0, a_1, a_2, \dots]$, its convergents are
-
-\begin{gather}
-r_0=[a_0],\\r_1=[a_0, a_1],\\ \dots,\\ r_k=[a_0, a_1, \dots, a_k].
-\end{gather}
-
-It is important to understand how these rational numbers are constructed and how they relate with the underlying number $r$, as they're the main building blocks of everything else related to the continued fraction.
-
-#### Key results
+To provide some motivation for further study of continued fraction, we'll provide some key facts now.
 
 !!! note "Recurrence"
     For the convergents $r_k = \frac{p_k}{q_k}$, the following recurrence stands, allowing their computation:
@@ -176,29 +165,39 @@ The last fact allows to find the best rational approximations of $r$ by checking
 
 Below you will find the further explanation and a bit of intuition and interpretation for these facts.
 
-#### Recurrent relations
+## Convergents
 
-The numerator and the denominator of $r_k$ are multivariate polynomials of $a_0, a_1, \dots, a_k$. These polynomials only depend on the number of variables $k$, thus it holds that
+Let's take a closer look at the convergents that were defined earlier. For $r=[a_0, a_1, a_2, \dots]$, its convergents are
+
+\begin{gather}
+r_0=[a_0],\\r_1=[a_0, a_1],\\ \dots,\\ r_k=[a_0, a_1, \dots, a_k].
+\end{gather}
+
+It is important to understand how these rational numbers are constructed and how they relate with the underlying number $r$, as they're the main building blocks of everything else related to the continued fraction.
+
+### Recurrent relations
+
+The numerator and the denominator of $r_k$ can be seen as multivariate polynomials of $a_0, a_1, \dots, a_k$:
 
 $$r_k = \frac{P_k(a_0, a_1, \dots, a_k)}{Q_k(a_0,a_1, \dots, a_k)}.$$
 
-On the other hand,
+From the definition of convergents,
 
-$$r_k = a_0 + \frac{1}{[a_1,\dots, a_k]}= a_0 + \frac{Q_{k-1}(a_1, \dots, a_k)}{P_{k-1}(a_1, \dots, a_k)} = \frac{a_0 P_{k-1}(a_1, \dots, a_k) + Q_{k-1}(a_1, \dots, a_k)}{P_{k-1}(a_1, \dots, a_k)}.$$
+$$r_k = a_0 + \frac{1}{[a_1;a_2,\dots, a_k]}= a_0 + \frac{Q_{k-1}(a_1, \dots, a_k)}{P_{k-1}(a_1, \dots, a_k)} = \frac{a_0 P_{k-1}(a_1, \dots, a_k) + Q_{k-1}(a_1, \dots, a_k)}{P_{k-1}(a_1, \dots, a_k)}.$$
 
-This gives us the relation $Q_k(a_0, \dots, a_k) = P_{k-1}(a_1, \dots, a_k)$. Therefore, we can focus on the numerator polynomials, as the denominator polynomials can be derived from them. This leads us to the relation
+From this follows $Q_k(a_0, \dots, a_k) = P_{k-1}(a_1, \dots, a_k)$. This yields the relation
 
 $$P_k(a_0, \dots, a_k) = a_0 P_{k-1}(a_1, \dots, a_k) + P_{k-2}(a_2, \dots, a_k).$$
 
-We already know that $r_0 = \frac{a_0}{1}$ and $r_1 = \frac{a_0 a_1 + 1}{a_1}$, which means that
+Initially, $r_0 = \frac{a_0}{1}$ and $r_1 = \frac{a_0 a_1 + 1}{a_1}$, thus
 
 $$\begin{align}P_0(a_0)&=a_0,\\ P_1(a_0, a_1) &= a_0 a_1 + 1.\end{align}$$
 
-For consistency, it is convenient to define $P_{-1} = 1$ and $P_{-2}=0$, which implies starting points $r_{-1} = \frac{1}{0}$ and $r_{-2}=\frac{0}{1}$.
+For consistency, it is convenient to define $P_{-1} = 1$ and $P_{-2}=0$ and formally say that $r_{-1} = \frac{1}{0}$ and $r_{-2}=\frac{0}{1}$.
 
-#### The continuant
+### The continuant
 
-It is a well-known fact in numerical analysis that the determinant of an arbitrary tridiagonal matrix
+From numerical analysis, it is known that the determinant of an arbitrary tridiagonal matrix
 
 $$T_k = \det \begin{bmatrix}
 a_0 & b_0 & 0 & \dots & 0 \\
@@ -208,7 +207,7 @@ c_0 & a_1 & b_1 & \dots & 0 \\
 0 & 0 & \dots & b_{k-1} & a_k
 \end{bmatrix}$$
 
-can be computed recursively as $T_k = a_k T_{k-1} - b_{k-1} c_{k-1} T_{k-2}$. Applying this result to $P_k$ yields a direct expression
+can be computed recursively as $T_k = a_k T_{k-1} - b_{k-1} c_{k-1} T_{k-2}$. Comparing it to $P_k$, we get a direct expression
 
 $$P_k = \det \begin{bmatrix}
 x_k & 1 & 0 & \dots & 0 \\
@@ -218,17 +217,18 @@ x_k & 1 & 0 & \dots & 0 \\
 0 & 0 & \dots & -1 & x_0
 \end{bmatrix}_{\textstyle .}$$
 
-This polynomial is also known as [the continuant](https://en.wikipedia.org/wiki/Continuant_(mathematics)) due to its close relation with continued fraction. Noteworthy, the determinant of such matrix won't change if the sequence on the main diagonal is reversed. This gives us an alternative formula to compute the continuant:
+This polynomial is also known as [the continuant](https://en.wikipedia.org/wiki/Continuant_(mathematics)) due to its close relation with continued fraction. The continuant won't change if the sequence on the main diagonal is reversed. This yields an alternative formula to compute it:
 
 $$P_k(a_0, \dots, a_k) = a_k P_{k-1}(a_0, \dots, a_{k-1}) + P_{k-2}(a_0, \dots, a_{k-2}).$$
 
-This representation is way more convenient, as it shows that $r_k = \frac{p_k}{q_k}$ can be computed as
+!!! note "Conclusion"
+    This representation shows that $r_k = \frac{p_k}{q_k}$ can be computed as
 
-$$r_k = \frac{a_k p_{k-1} + p_{k-2}}{a_k q_{k-1} + q_{k-2}}.$$
+    $$r_k = \frac{P_k(a_0,a_1,\dots,a_k)}{P_{k-1}(a_1,\dots,a_k)} = \frac{a_k p_{k-1} + p_{k-2}}{a_k q_{k-1} + q_{k-2}}.$$
 
-Thus, $r_k$ is a weighted [mediant](https://en.wikipedia.org/wiki/Mediant_(mathematics)) of $r_{k-1}$ and $r_{k-2}$.
+    Thus, $r_k$ is a weighted [mediant](https://en.wikipedia.org/wiki/Mediant_(mathematics)) of $r_{k-1}$ and $r_{k-2}$.
 
-#### Implementation
+### Implementation
 
 We will compute the convergents as a pair of sequences $p_{-2}, p_{-1}, p_0, p_1, \dots, p_k$ and $q_{-2}, q_{-1}, q_0, q_1, \dots, q_k$:
 
