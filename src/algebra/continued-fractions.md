@@ -174,6 +174,8 @@ On the picture below, you may see the convergents and semi-convergents (intermed
 
 The last fact allows to find the best rational approximations of $r$ by checking its semi-convergents.
 
+Below you will find the further explanation and a bit of intuition and interpretation for these facts.
+
 #### Recurrent relations
 
 The numerator and the denominator of $r_k$ are multivariate polynomials of $a_0, a_1, \dots, a_k$. These polynomials only depend on the number of variables $k$, thus it holds that
