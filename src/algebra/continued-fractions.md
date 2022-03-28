@@ -24,13 +24,15 @@ Besides that, continued fractions are closely related to Euclidean algorithm whi
     \end{align}
     $$
 
-It can be proven that any rational number can be represented as a continued fraction in exactly $2$ ways:
+!!! note "Different representations and representation length for rational numbers"
 
-$$r = [a_0;a_1,\dots,a_k,1] = [a_0;a_1,\dots,a_k+1].$$
+    It can be proven that any rational number can be represented as a continued fraction in exactly $2$ ways:
 
-Moreover, the length $k$ of such continued fraction is estimated as $k = O(\log \min(p, q))$ for $r=\frac{p}{q}$.
+    $$r = [a_0;a_1,\dots,a_k,1] = [a_0;a_1,\dots,a_k+1].$$
 
-The reasoning behind this will be clear once we delve into the details of the continued fraction construction.
+    Moreover, the length $k$ of such continued fraction is estimated as $k = O(\log \min(p, q))$ for $r=\frac{p}{q}$.
+
+    The reasoning behind this will be clear once we delve into the details of the continued fraction construction.
 
 !!! abstract "Definition"
     Let $a_0,a_1,a_2, \dots$ be an integer sequence such that $a_1, a_2, \dots \geq 1$. Let $r_k = [a_0; a_1, \dots, a_k]$. Then the expression
@@ -64,33 +66,44 @@ The reasoning behind this will be clear once we delve into the details of the co
 !!! abstract "Definition"
     Complementary to convergents, we define the **residues** as $s_k = [a_k; a_{k+1}, a_{k+2}, \dots]$. Correspondingly, we will call an individual $s_k$ the $k$-th residue of $r$.
 
-From the definitions above, one may conclude that $s_k \geq 1$ for $k \geq 1$. If we allow the last term in $[a_0; a_1, \dots, a_k]$ to be an arbitrary real number $s$ and treat it formally as an algebraic expression, the following equation will hold for any $k$:
+!!! note "Connection between residues and continued fraction representation"
 
-$$r = [a_0; a_1, \dots, a_{k-1}, s_k],$$
+    From the definitions above, $s_k \geq 1$ for $k \geq 1$.
 
-in particular $r = [s_0] = s_0$. This, in turn, allows us to deduct that
+    Let's treat $[a_0; a_1, \dots, a_k]$ as a formal algebraic expression and allow arbitrary real numbers instead of $a_i$, then, by definition,
 
-$$s_k = [a_k; s_{k+1}] = a_k + \frac{1}{s_{k+1}} \implies a_k = \lfloor s_k \rfloor,$$
+    $$r = [a_0; a_1, \dots, a_{k-1}, s_k].$$
 
-thus the sequence $a_0, a_1, \dots$ is uniquely defined for any irrational number $r$.
+    In particular, $r = [s_0] = s_0$. On the other hand, we can express $s_k$ as
+
+    $$s_k = [a_k; s_{k+1}] = a_k + \frac{1}{s_{k+1}},$$
+
+    meaning that we can compute $a_k = \lfloor s_k \rfloor$ and $s_{k+1} = (s_k - a_k)^{-1}$ from $s_k$.
+
+    The sequence $a_0, a_1, \dots$ is well-defined unless $s_k=a_k$ which only happens when $r$ is a rational number.
+
+    Thus the continued fraction representation is uniquely defined for any irrational number $r$.
 
 ### Implementation
 
-In the code snippets we will mostly assume that we work with the finite continued fractions. Although continued fractions are defined recursively, it is more efficient to construct them iteratively. From $s_k$, the transition looks like
+In the code snippets we will mostly assume finite continued fractions.
 
-$$s_k =\left\lfloor s_k \right\rfloor + \frac{1}{s_{k+1}}.$$
+!!! note "Transition formulas"
+    From $s_k$, the transition to $s_{k+1}$ looks like
 
-From this expression, the next residue $s_{k+1}$ is obtained as
+    $$s_k =\left\lfloor s_k \right\rfloor + \frac{1}{s_{k+1}}.$$
 
-$$s_{k+1} = \left(s_k-\left\lfloor s_k\right\rfloor\right)^{-1}.$$
+    From this expression, the next residue $s_{k+1}$ is obtained as
 
-For $s_k=\frac{p}{q}$ it means that
+    $$s_{k+1} = \left(s_k-\left\lfloor s_k\right\rfloor\right)^{-1}.$$
 
-$$
-s_{k+1} = \left(\frac{p}{q}-\left\lfloor \frac{p}{q} \right\rfloor\right)^{-1} = \frac{q}{p-q\cdot \lfloor \frac{p}{q} \rfloor} = \frac{q}{p \bmod q}.
-$$
+    For $s_k=\frac{p}{q}$ it means that
 
-Thus, computation of a continued fraction representation for $r=\frac{p}{q}$ follows the same steps as the Euclidean algorithm for $p$ and $q$.
+    $$
+    s_{k+1} = \left(\frac{p}{q}-\left\lfloor \frac{p}{q} \right\rfloor\right)^{-1} = \frac{q}{p-q\cdot \lfloor \frac{p}{q} \rfloor} = \frac{q}{p \bmod q}.
+    $$
+
+    Thus, computation of a continued fraction representation for $r=\frac{p}{q}$ follows the same steps as the Euclidean algorithm for $p$ and $q$.
 
 === "C++"
     ```cpp
@@ -178,7 +191,17 @@ Convergents are the core concept of continued fractions, so it is important to s
 !!! note "Recurrence"
     For the number $r$, its $k$-th convergent $r_k = \frac{p_k}{q_k}$ can be computed as
 
-    $$r_k = \frac{P_k(a_0,a_1,\dots,a_k)}{P_{k-1}(a_1,\dots,a_k)} = \frac{a_k p_{k-1} + p_{k-2}}{a_k q_{k-1} + q_{k-2}}.$$
+    $$r_k = \frac{P_k(a_0,a_1,\dots,a_k)}{P_{k-1}(a_1,\dots,a_k)} = \frac{a_k p_{k-1} + p_{k-2}}{a_k q_{k-1} + q_{k-2}},$$
+
+    where $P_k(a_0,\dots,a_k)$ is [the continuant](https://en.wikipedia.org/wiki/Continuant_(mathematics)), a multivariate polynomial defined as
+
+    $$P_k(x_0,x_1,\dots,x_k) = \det \begin{bmatrix}
+    x_k & 1 & 0 & \dots & 0 \\
+    -1 & x_{k-1} & 1 & \dots & 0 \\
+    0 & -1 & x_2 & . & \vdots \\
+    \vdots & \vdots & . & \ddots & 1 \\
+    0 & 0 & \dots & -1 & x_0
+    \end{bmatrix}_{\textstyle .}$$
 
     Thus, $r_k$ is a weighted [mediant](https://en.wikipedia.org/wiki/Mediant_(mathematics)) of $r_{k-1}$ and $r_{k-2}$.
 
@@ -320,11 +343,12 @@ _You can mostly skip this section if you're more interested in practical results
 
 ## Geometric interpretation
 
-If convergents $r_0, r_1, \dots$ are treated as 2-dimensional vectors $\vec r_k=(q_k,p_k)$, the mediant formula above turns into
+!!! note "Numbers as vectors"
+    Let $\vec r_k = (q_k;p_k)$ for the convergent $r_k = \frac{p_k}{q_k}$. Then, the following recurrence holds:
 
-$$\vec r_k = a_k \vec r_{k-1} + \vec r_{k-2}.$$
+    $$\vec r_k = a_k \vec r_{k-1} + \vec r_{k-2}.$$
 
-To better understand the geometric meaning of $\vec r_k$ we need to look closer into the computation of $a_k$.
+    We additionally define $\vec r = (1;r)$. In these terms, each vector $(x;y)$ corresponds to the number that is equal to its slope coefficient $\frac{y}{x}$.
 
 ### Residues
 
