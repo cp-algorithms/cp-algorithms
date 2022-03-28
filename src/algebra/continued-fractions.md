@@ -8,7 +8,6 @@ Besides that, continued fractions are closely related to Euclidean algorithm whi
 ## Continued fraction representation
 
 !!! abstract "Definition"
-
     Let $a_0, a_1, \dots, a_k \in \mathbb Z$ and $a_1, a_2, \dots, a_k \geq 1$. Then the expression
 
     $$r=a_0 + \frac{1}{a_1 + \frac{1}{\dots + \frac{1}{a_k}}},$$
@@ -16,7 +15,6 @@ Besides that, continued fractions are closely related to Euclidean algorithm whi
     is called the **continued fraction representation** of the rational number $r$ and is denoted shortly as $r=[a_0;a_1,a_2,\dots,a_k]$.
 
 ??? example
-
     Let $r = \frac{5}{3}$. There are two ways to represent it as a continued fraction:
 
     $$
@@ -35,7 +33,6 @@ Moreover, the length $k$ of such continued fraction is estimated as $k = O(\log 
 The reasoning behind this will be clear once we delve into the details of the continued fraction construction.
 
 !!! abstract "Definition"
-
     Let $a_0,a_1,a_2, \dots$ be an integer sequence such that $a_1, a_2, \dots \geq 1$. Let $r_k = [a_0; a_1, \dots, a_k]$. Then the expression
 
     $$r = a_0 + \frac{1}{a_1 + \frac{1}{a_2+\dots}} = \lim\limits_{k \to \infty} r_k.$$
@@ -43,13 +40,11 @@ The reasoning behind this will be clear once we delve into the details of the co
     is called the **continued fraction representation** of the irrational number $r$ and is denoted shortly as $r = [a_0;a_1,a_2,\dots]$.
 
 !!! abstract "Definition"
-
     In the definition above, rational numbers $r_0, r_1, r_2, \dots$ are called the **convergents** of $r$.
 
     Correspondingly, individual $r_k = [a_0; a_1, \dots, a_k]$ is called the $k$-th **convergent** of $r$.
 
 ??? example
-
     Consider $r = [1; 1, 1, 1, \dots]$. It can be proven by induction that $r_k = \frac{F_{k+2}}{F_{k+1}}$, where $F_k$ is the Fibonacci sequence defined as $F_0 = 0$, $F_1 = 1$ and $F_{k} = F_{k-1} + F_{k-2}$. From the Binet's formula, it is known that
 
     $$r_k = \frac{\phi^{k+2} - \psi^{k+2}}{\phi^{k+1} - \psi^{k+1}},$$
@@ -62,8 +57,11 @@ The reasoning behind this will be clear once we delve into the details of the co
 
     $$r = 1+\frac{1}{r} \implies r^2 = r + 1. $$
 
-!!! abstract "Definition"
 
+!!! abstract "Definition"
+    Let $r_k = [a_0; a_1, \dots, a_k]$. The numbers $[a_0; a_1, \dots, t]$ for $1 \leq t \leq a_k$ are called **semiconvergents**.
+
+!!! abstract "Definition"
     Complementary to convergents, we define the **residues** as $s_k = [a_k; a_{k+1}, a_{k+2}, \dots]$. Correspondingly, we will call an individual $s_k$ the $k$-th residue of $r$.
 
 From the definitions above, one may conclude that $s_k \geq 1$ for $k \geq 1$. If we allow the last term in $[a_0; a_1, \dots, a_k]$ to be an arbitrary real number $s$ and treat it formally as an algebraic expression, the following equation will hold for any $k$:
@@ -78,7 +76,7 @@ thus the sequence $a_0, a_1, \dots$ is uniquely defined for any irrational numbe
 
 ### Implementation
 
-In the code snippets we will mostly assume that we work with the finite continued fractions. Although continued fractions defined recursively, it is more efficient to construct them iteratively. From $s_k$, the transition looks like
+In the code snippets we will mostly assume that we work with the finite continued fractions. Although continued fractions are defined recursively, it is more efficient to construct them iteratively. From $s_k$, the transition looks like
 
 $$s_k =\left\lfloor s_k \right\rfloor + \frac{1}{s_{k+1}}.$$
 
@@ -89,7 +87,7 @@ $$s_{k+1} = \left(s_k-\left\lfloor s_k\right\rfloor\right)^{-1}.$$
 For $s_k=\frac{p}{q}$ it means that
 
 $$
-s_{k+1} = \frac{q}{p-q\cdot \lfloor \frac{p}{q} \rfloor} = \frac{q}{p \bmod q}.
+s_{k+1} = \left(\frac{p}{q}-\left\lfloor \frac{p}{q} \right\rfloor\right)^{-1} = \frac{q}{p-q\cdot \lfloor \frac{p}{q} \rfloor} = \frac{q}{p \bmod q}.
 $$
 
 Thus, computation of a continued fraction representation for $r=\frac{p}{q}$ follows the same steps as the Euclidean algorithm for $p$ and $q$.
@@ -117,16 +115,16 @@ Thus, computation of a continued fraction representation for $r=\frac{p}{q}$ fol
 
 ## Key results
 
-To provide some motivation for further study of continued fraction, we'll provide some key facts now.
+To provide some motivation for further study of continued fraction, we give some key facts now.
 
-!!! note "Recurrence"
-    For the convergents $r_k = \frac{p_k}{q_k}$, the following recurrence stands, allowing their computation:
+??? note "Recurrence"
+    For the convergents $r_k = \frac{p_k}{q_k}$, the following recurrence stands, allowing their fast computation:
     
     $$\frac{p_k}{q_k}=\frac{a_k p_{k-1} + p_{k-2}}{a_k q_{k-1} + q_{k-2}},$$
     
     where $\frac{p_{-1}}{q_{-1}}=\frac{1}{0}$ and $\frac{p_{-2}}{q_{-2}}=\frac{0}{1}$.
 
-!!! note "Deviations"
+??? note "Deviations"
     The deviation of $r_k = \frac{p_k}{q_k}$ from $r$ can be generally estimated as
     
     $$\left|\frac{p_k}{q_k}-r\right| \leq \frac{1}{q_k q_{k+1}} \leq \frac{1}{q_k^2}.$$
@@ -135,13 +133,15 @@ To provide some motivation for further study of continued fraction, we'll provid
     
     $$|p_k - q_k r| \leq \frac{1}{q_{k+1}}.$$
 
-On the picture below you may see the visualization of how convergents $r_k$ approach $r=\frac{1+\sqrt 5}{2}$:
+    From the recurrence above it follows that $q_k$ grows at least as fast as Fibonacci numbers.
 
-![](https://upload.wikimedia.org/wikipedia/commons/b/b4/Golden_ration_convergents.svg)
+    On the picture below you may see the visualization of how convergents $r_k$ approach $r=\frac{1+\sqrt 5}{2}$:
 
-$r=\frac{1+\sqrt 5}{2}$ is depicted by blue dotted line. Odd convergents approach it from above and even convergents approach it from below.
+    ![](https://upload.wikimedia.org/wikipedia/commons/b/b4/Golden_ration_convergents.svg)
 
-!!! note "Lattice hulls"
+    $r=\frac{1+\sqrt 5}{2}$ is depicted by blue dotted line. Odd convergents approach it from above and even convergents approach it from below.
+
+??? note "Lattice hulls"
     Consider convex hulls of points above and below the line $y=rx$.
     
     Odd convergents $(q_k;p_k)$ are the vertices of the upper hull, while the even convergents $(q_k;p_k)$ are the vertices of the bottom hull.
@@ -150,18 +150,18 @@ $r=\frac{1+\sqrt 5}{2}$ is depicted by blue dotted line. Odd convergents approac
     
     $$\frac{p}{q} = \frac{tp_{k-1} + p_{k-2}}{tq_{k-1} + q_{k-2}}$$
     
-    for integer $0 \leq t \leq a_k$ and are called the **semi-convergents**.
+    for integer $0 \leq t \leq a_k$. In other words, the set of lattice points on the hulls corresponds to the set of semiconvergents.
 
-On the picture below, you may see the convergents and semi-convergents (intermediate gray points) of $r=\frac{9}{7}$.
+    On the picture below, you may see the convergents and semiconvergents (intermediate gray points) of $r=\frac{9}{7}$.
 
-![](https://upload.wikimedia.org/wikipedia/commons/9/92/Continued_convergents_geometry.svg)
+    ![](https://upload.wikimedia.org/wikipedia/commons/9/92/Continued_convergents_geometry.svg)
 
-!!! note "Best approximations"
+??? note "Best approximations"
     Let $\frac{p}{q}$ be the fraction to minimize $\left|r-\frac{p}{q}\right|$ subject to $q \leq x$ for some $x$.
     
-    Then $\frac{p}{q}$ is a semi-convergent of $r$.
+    Then $\frac{p}{q}$ is a semiconvergent of $r$.
 
-The last fact allows to find the best rational approximations of $r$ by checking its semi-convergents.
+The last fact allows to find the best rational approximations of $r$ by checking its semiconvergents.
 
 Below you will find the further explanation and a bit of intuition and interpretation for these facts.
 
@@ -173,7 +173,7 @@ Let's take a closer look at the convergents that were defined earlier. For $r=[a
 r_0=[a_0],\\r_1=[a_0, a_1],\\ \dots,\\ r_k=[a_0, a_1, \dots, a_k].
 \end{gather}
 
-It is important to understand how these rational numbers are constructed and how they relate with the underlying number $r$, as they're the main building blocks of everything else related to the continued fraction.
+Convergents are the core concept of continued fractions, so it is important to study their properties.
 
 ### Recurrent relations
 
@@ -259,47 +259,66 @@ We will compute the convergents as a pair of sequences $p_{-2}, p_{-1}, p_0, p_1
 
 _You can mostly skip this section if you're more interested in practical results._
 
-Let's estimate the distance between $r_k$ and the underlying number $r$. To do this, we start by estimating the difference between adjacent convergents. By definition, it is given with the following formula:
+!!! note "Convergence rate"
+    For the number $r$ and its $k$-th convergent $r_k=\frac{p_k}{q_k}$ the following formula stand:
 
-$$\frac{p_k}{q_k} - \frac{p_{k-1}}{q_{k-1}} = \frac{p_k q_{k-1} - p_{k-1} q_k}{q_k q_{k-1}}.$$
+    $$r_k = a_0 + \sum\limits_{i=1}^k \frac{(-1)^{i-1}}{q_i q_{i-1}}.$$
 
-Replacing $p_k$ and $q_k$ in the numerator with their recurrences, we get
+    In particular,
 
-$$\begin{align} p_k q_{k-1} - p_{k-1} q_k &= (a_k p_{k-1} + p_{k-2}) q_{k-1} - p_{k-1} (a_k q_{k-1} + q_{k-2})
-\\&= p_{k-2} q_{k-1} - p_{k-1} q_{k-2},\end{align}$$
+    $$r_k - r_{k-1} = \frac{(-1)^{k-1}}{q_k q_{k-1}}$$
 
-thus the numerator of $r_k - r_{k-1}$ is always the negated numerator of $r_{k-1} - r_{k-2}$. It, in turn, equals to $1$ for
+    and
 
-$$r_1 - r_0=\left(a_0+\frac{1}{a_1}\right)-a_0=\frac{1}{a_1},$$
+    $$\left| r-\frac{p_k}{q_k} \right| \leq \frac{1}{q_{k+1}q_k} \leq \frac{1}{q_k^2}.$$
 
-thus
+    The latter inequality is due to the fact that $r_k$ and $r_{k+1}$ are generally located on different sides of $r$, thus
 
-$$r_k - r_{k-1} = \frac{(-1)^{k-1}}{q_k q_{k-1}}.$$
+    $$|r-r_k| = |r_k-r_{k+1}|-|r-r_{k+1}| \leq |r_k - r_{k+1}|.$$
 
-This yields an alternative representation of $r_k$ as a partial sum of infinite series:
+??? tip "Detailed explanation"
 
-$$r_k = (r_k - r_{k-1}) + \dots + (r_1 - r_0) + r_0
-= a_0 + \sum\limits_{i=1}^k \frac{(-1)^{i-1}}{q_i q_{i-1}}.$$
+    To estimate $|r-r_k|$, we start by estimating the difference between adjacent convergents. By definition,
 
-From the recurrent relation it follows that $q_k$ monotonously increases at least as fast as Fibonacci numbers, thus
+    $$\frac{p_k}{q_k} - \frac{p_{k-1}}{q_{k-1}} = \frac{p_k q_{k-1} - p_{k-1} q_k}{q_k q_{k-1}}.$$
 
-$$r = \lim\limits_{k \to \infty} r_k = a_0 + \sum\limits_{i=1}^\infty \frac{(-1)^{i-1}}{q_i q_{i-1}}$$
+    Replacing $p_k$ and $q_k$ in the numerator with their recurrences, we get
 
-is always well-defined, as the underlying series always converge. Noteworthy, the residual series
+    $$\begin{align} p_k q_{k-1} - p_{k-1} q_k &= (a_k p_{k-1} + p_{k-2}) q_{k-1} - p_{k-1} (a_k q_{k-1} + q_{k-2})
+    \\&= p_{k-2} q_{k-1} - p_{k-1} q_{k-2},\end{align}$$
 
-$$r-r_k = \sum\limits_{i=k+1}^\infty \frac{(-1)^{i-1}}{q_i q_{i-1}}$$
+    thus the numerator of $r_k - r_{k-1}$ is always the negated numerator of $r_{k-1} - r_{k-2}$. It, in turn, equals to $1$ for
 
-has the same sign as $(-1)^k$ due to how fast $q_i q_{i-1}$ decreases. It means that even-indexed $r_k$ monotonously approach $r$ from below while odd-indexed $r_k$ monotonously approach it from above:
+    $$r_1 - r_0=\left(a_0+\frac{1}{a_1}\right)-a_0=\frac{1}{a_1},$$
 
-![](https://upload.wikimedia.org/wikipedia/commons/b/b4/Golden_ration_convergents.svg)
+    thus
 
-From this picture we can see that
+    $$r_k - r_{k-1} = \frac{(-1)^{k-1}}{q_k q_{k-1}}.$$
 
-$$|r-r_k| = |r_k - r_{k+1}| - |r-r_{k+1}| \leq |r_k - r_{k+1}|,$$
+    This yields an alternative representation of $r_k$ as a partial sum of infinite series:
 
-thus the distance between $r$ and $r_k$ is never larger than the distance between $r_k$ and $r_{k+1}$:
+    $$r_k = (r_k - r_{k-1}) + \dots + (r_1 - r_0) + r_0
+    = a_0 + \sum\limits_{i=1}^k \frac{(-1)^{i-1}}{q_i q_{i-1}}.$$
 
-$$\left|r-\frac{p_k}{q_k}\right| \leq \frac{1}{q_k q_{k+1}} \leq \frac{1}{q_k^2}.$$
+    From the recurrent relation it follows that $q_k$ monotonously increases at least as fast as Fibonacci numbers, thus
+
+    $$r = \lim\limits_{k \to \infty} r_k = a_0 + \sum\limits_{i=1}^\infty \frac{(-1)^{i-1}}{q_i q_{i-1}}$$
+
+    is always well-defined, as the underlying series always converge. Noteworthy, the residual series
+
+    $$r-r_k = \sum\limits_{i=k+1}^\infty \frac{(-1)^{i-1}}{q_i q_{i-1}}$$
+
+    has the same sign as $(-1)^k$ due to how fast $q_i q_{i-1}$ decreases. It means that even-indexed $r_k$ monotonously approach $r$ from below while odd-indexed $r_k$ monotonously approach it from above:
+
+    ![](https://upload.wikimedia.org/wikipedia/commons/b/b4/Golden_ration_convergents.svg)
+
+    From this picture we can see that
+
+    $$|r-r_k| = |r_k - r_{k+1}| - |r-r_{k+1}| \leq |r_k - r_{k+1}|,$$
+
+    thus the distance between $r$ and $r_k$ is never larger than the distance between $r_k$ and $r_{k+1}$:
+
+    $$\left|r-\frac{p_k}{q_k}\right| \leq \frac{1}{q_k q_{k+1}} \leq \frac{1}{q_k^2}.$$
 
 ## Geometric interpretation
 
@@ -357,9 +376,9 @@ This, in turn, means that $\vec r_k$ with odd coefficients form a convex hull of
 
 !!! abstract "Definition"
 
-    The vectors $\vec r_{k-2} + t \cdot \vec r_{k-1}$ for $0 \leq t \leq a_k$ and corresponding fractions are called the **semi-convergents**.
+    The vectors $\vec r_{k-2} + t \cdot \vec r_{k-1}$ for $0 \leq t \leq a_k$ and corresponding fractions are called the **semiconvergents**.
 
-Semi-convergent vectors are essentially _all_ lattice vectors on the border of their corresponding convex hulls.
+Semiconvergent vectors are essentially _all_ lattice vectors on the border of their corresponding convex hulls.
 
 ## Problem examples
 
