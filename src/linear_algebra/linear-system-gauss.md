@@ -198,7 +198,6 @@ Therefore, the resulting Gauss-Jordan solution must sometimes be improved by app
 Thus, the solution turns into two-step: First, Gauss-Jordan algorithm is applied, and then a numerical method taking initial solution as solution in the first step.
 
 ## Practice Problems
-* [Codeforces - No game no life](https://codeforces.com/problemset/problem/1411/G)
 * [Spoj - Xor Maximization](http://www.spoj.com/problems/XMAX/)
 * [Codechef - Knight Moving](https://www.codechef.com/SEP12/problems/KNGHTMOV)
 * [Lightoj - Graph Coloring](http://lightoj.com/volume_showproblem.php?problem=1279)
@@ -206,3 +205,4 @@ Thus, the solution turns into two-step: First, Gauss-Jordan algorithm is applied
 * [TIMUS1042 Central Heating](http://acm.timus.ru/problem.aspx?space=1&num=1042)
 * [TIMUS1766 Humpty Dumpty](http://acm.timus.ru/problem.aspx?space=1&num=1766)
 * [TIMUS1266 Kirchhoff's Law](http://acm.timus.ru/problem.aspx?space=1&num=1266)
+* [Codeforces - No game no life](https://codeforces.com/problemset/problem/1411/G)
