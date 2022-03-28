@@ -205,3 +205,4 @@ Thus, the solution turns into two-step: First, Gauss-Jordan algorithm is applied
 * [TIMUS1042 Central Heating](http://acm.timus.ru/problem.aspx?space=1&num=1042)
 * [TIMUS1766 Humpty Dumpty](http://acm.timus.ru/problem.aspx?space=1&num=1766)
 * [TIMUS1266 Kirchhoff's Law](http://acm.timus.ru/problem.aspx?space=1&num=1266)
+* [Codeforces - No game no life](https://codeforces.com/problemset/problem/1411/G)
