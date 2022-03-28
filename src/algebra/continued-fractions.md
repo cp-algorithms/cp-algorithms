@@ -175,58 +175,56 @@ r_0=[a_0],\\r_1=[a_0, a_1],\\ \dots,\\ r_k=[a_0, a_1, \dots, a_k].
 
 Convergents are the core concept of continued fractions, so it is important to study their properties.
 
-### Recurrent relations
-
-The numerator and the denominator of $r_k$ can be seen as multivariate polynomials of $a_0, a_1, \dots, a_k$:
-
-$$r_k = \frac{P_k(a_0, a_1, \dots, a_k)}{Q_k(a_0,a_1, \dots, a_k)}.$$
-
-From the definition of convergents,
-
-$$r_k = a_0 + \frac{1}{[a_1;a_2,\dots, a_k]}= a_0 + \frac{Q_{k-1}(a_1, \dots, a_k)}{P_{k-1}(a_1, \dots, a_k)} = \frac{a_0 P_{k-1}(a_1, \dots, a_k) + Q_{k-1}(a_1, \dots, a_k)}{P_{k-1}(a_1, \dots, a_k)}.$$
-
-From this follows $Q_k(a_0, \dots, a_k) = P_{k-1}(a_1, \dots, a_k)$. This yields the relation
-
-$$P_k(a_0, \dots, a_k) = a_0 P_{k-1}(a_1, \dots, a_k) + P_{k-2}(a_2, \dots, a_k).$$
-
-Initially, $r_0 = \frac{a_0}{1}$ and $r_1 = \frac{a_0 a_1 + 1}{a_1}$, thus
-
-$$\begin{align}P_0(a_0)&=a_0,\\ P_1(a_0, a_1) &= a_0 a_1 + 1.\end{align}$$
-
-For consistency, it is convenient to define $P_{-1} = 1$ and $P_{-2}=0$ and formally say that $r_{-1} = \frac{1}{0}$ and $r_{-2}=\frac{0}{1}$.
-
-### The continuant
-
-From numerical analysis, it is known that the determinant of an arbitrary tridiagonal matrix
-
-$$T_k = \det \begin{bmatrix}
-a_0 & b_0 & 0 & \dots & 0 \\
-c_0 & a_1 & b_1 & \dots & 0 \\
-0 & c_1 & a_2 & . & \vdots \\
-\vdots & \vdots & . & \ddots & c_{k-1} \\
-0 & 0 & \dots & b_{k-1} & a_k
-\end{bmatrix}$$
-
-can be computed recursively as $T_k = a_k T_{k-1} - b_{k-1} c_{k-1} T_{k-2}$. Comparing it to $P_k$, we get a direct expression
-
-$$P_k = \det \begin{bmatrix}
-x_k & 1 & 0 & \dots & 0 \\
--1 & x_{k-1} & 1 & \dots & 0 \\
-0 & -1 & x_2 & . & \vdots \\
-\vdots & \vdots & . & \ddots & 1 \\
-0 & 0 & \dots & -1 & x_0
-\end{bmatrix}_{\textstyle .}$$
-
-This polynomial is also known as [the continuant](https://en.wikipedia.org/wiki/Continuant_(mathematics)) due to its close relation with continued fraction. The continuant won't change if the sequence on the main diagonal is reversed. This yields an alternative formula to compute it:
-
-$$P_k(a_0, \dots, a_k) = a_k P_{k-1}(a_0, \dots, a_{k-1}) + P_{k-2}(a_0, \dots, a_{k-2}).$$
-
-!!! note "Conclusion"
-    This representation shows that $r_k = \frac{p_k}{q_k}$ can be computed as
+!!! note "Recurrence"
+    For the number $r$, its $k$-th convergent $r_k = \frac{p_k}{q_k}$ can be computed as
 
     $$r_k = \frac{P_k(a_0,a_1,\dots,a_k)}{P_{k-1}(a_1,\dots,a_k)} = \frac{a_k p_{k-1} + p_{k-2}}{a_k q_{k-1} + q_{k-2}}.$$
 
     Thus, $r_k$ is a weighted [mediant](https://en.wikipedia.org/wiki/Mediant_(mathematics)) of $r_{k-1}$ and $r_{k-2}$.
+
+??? hint "Detailed explanation"
+
+    The numerator and the denominator of $r_k$ can be seen as multivariate polynomials of $a_0, a_1, \dots, a_k$:
+
+    $$r_k = \frac{P_k(a_0, a_1, \dots, a_k)}{Q_k(a_0,a_1, \dots, a_k)}.$$
+
+    From the definition of convergents,
+
+    $$r_k = a_0 + \frac{1}{[a_1;a_2,\dots, a_k]}= a_0 + \frac{Q_{k-1}(a_1, \dots, a_k)}{P_{k-1}(a_1, \dots, a_k)} = \frac{a_0 P_{k-1}(a_1, \dots, a_k) + Q_{k-1}(a_1, \dots, a_k)}{P_{k-1}(a_1, \dots, a_k)}.$$
+
+    From this follows $Q_k(a_0, \dots, a_k) = P_{k-1}(a_1, \dots, a_k)$. This yields the relation
+
+    $$P_k(a_0, \dots, a_k) = a_0 P_{k-1}(a_1, \dots, a_k) + P_{k-2}(a_2, \dots, a_k).$$
+
+    Initially, $r_0 = \frac{a_0}{1}$ and $r_1 = \frac{a_0 a_1 + 1}{a_1}$, thus
+
+    $$\begin{align}P_0(a_0)&=a_0,\\ P_1(a_0, a_1) &= a_0 a_1 + 1.\end{align}$$
+
+    For consistency, it is convenient to define $P_{-1} = 1$ and $P_{-2}=0$ and formally say that $r_{-1} = \frac{1}{0}$ and $r_{-2}=\frac{0}{1}$.
+
+    From numerical analysis, it is known that the determinant of an arbitrary tridiagonal matrix
+
+    $$T_k = \det \begin{bmatrix}
+    a_0 & b_0 & 0 & \dots & 0 \\
+    c_0 & a_1 & b_1 & \dots & 0 \\
+    0 & c_1 & a_2 & . & \vdots \\
+    \vdots & \vdots & . & \ddots & c_{k-1} \\
+    0 & 0 & \dots & b_{k-1} & a_k
+    \end{bmatrix}$$
+
+    can be computed recursively as $T_k = a_k T_{k-1} - b_{k-1} c_{k-1} T_{k-2}$. Comparing it to $P_k$, we get a direct expression
+
+    $$P_k = \det \begin{bmatrix}
+    x_k & 1 & 0 & \dots & 0 \\
+    -1 & x_{k-1} & 1 & \dots & 0 \\
+    0 & -1 & x_2 & . & \vdots \\
+    \vdots & \vdots & . & \ddots & 1 \\
+    0 & 0 & \dots & -1 & x_0
+    \end{bmatrix}_{\textstyle .}$$
+
+    This polynomial is also known as [the continuant](https://en.wikipedia.org/wiki/Continuant_(mathematics)) due to its close relation with continued fraction. The continuant won't change if the sequence on the main diagonal is reversed. This yields an alternative formula to compute it:
+
+    $$P_k(a_0, \dots, a_k) = a_k P_{k-1}(a_0, \dots, a_{k-1}) + P_{k-2}(a_0, \dots, a_{k-2}).$$
 
 ### Implementation
 
@@ -260,7 +258,7 @@ We will compute the convergents as a pair of sequences $p_{-2}, p_{-1}, p_0, p_1
 _You can mostly skip this section if you're more interested in practical results._
 
 !!! note "Convergence rate"
-    For the number $r$ and its $k$-th convergent $r_k=\frac{p_k}{q_k}$ the following formula stand:
+    For the number $r$ and its $k$-th convergent $r_k=\frac{p_k}{q_k}$ the following formula stands:
 
     $$r_k = a_0 + \sum\limits_{i=1}^k \frac{(-1)^{i-1}}{q_i q_{i-1}}.$$
 
