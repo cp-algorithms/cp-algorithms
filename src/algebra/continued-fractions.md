@@ -117,6 +117,7 @@ Thus, computation of a continued fraction representation for $r=\frac{p}{q}$ fol
         return a
     ```
 
+
 ### Convergents
 
 Let's take a closer look at the convergents that were defined earlier. For $r=[a_0, a_1, a_2, \dots]$, its convergents are
@@ -126,6 +127,52 @@ r_0=[a_0],\\r_1=[a_0, a_1],\\ \dots,\\ r_k=[a_0, a_1, \dots, a_k].
 \end{gather}
 
 It is important to understand how these rational numbers are constructed and how they relate with the underlying number $r$, as they're the main building blocks of everything else related to the continued fraction.
+
+#### Key results
+
+!!! note "Recurrence"
+    For the convergents $r_k = \frac{p_k}{q_k}$, the following recurrence stands, allowing their computation:
+    
+    $$\frac{p_k}{q_k}=\frac{a_k p_{k-1} + p_{k-2}}{a_k q_{k-1} + q_{k-2}},$$
+    
+    where $\frac{p_{-1}}{q_{-1}}=\frac{1}{0}$ and $\frac{p_{-2}}{q_{-2}}=\frac{0}{1}$.
+
+!!! note "Deviations"
+    The deviation of $r_k = \frac{p_k}{q_k}$ from $r$ can be generally estimated as
+    
+    $$\left|\frac{p_k}{q_k}-r\right| \leq \frac{1}{q_k q_{k+1}} \leq \frac{1}{q_k^2}.$$
+    
+    Multiplying both sides with $q_k$, we obtain alternate estimation:
+    
+    $$|p_k - q_k r| \leq \frac{1}{q_{k+1}}.$$
+
+On the picture below you may see the visualization of how convergents $r_k$ approach $r=\frac{1+\sqrt 5}{2}$:
+
+![](https://upload.wikimedia.org/wikipedia/commons/b/b4/Golden_ration_convergents.svg)
+
+$r=\frac{1+\sqrt 5}{2}$ is depicted by blue dotted line. Odd convergents approach it from above and even convergents approach it from below.
+
+!!! note "Lattice hulls"
+    Consider convex hulls of points above and below the line $y=rx$.
+    
+    Odd convergents $(q_k;p_k)$ are the vertices of the upper hull, while the even convergents $(q_k;p_k)$ are the vertices of the bottom hull.
+    
+    All integers vertices on the hulls are obtained as $(q;p)$ such that
+    
+    $$\frac{p}{q} = \frac{tp_{k-1} + p_{k-2}}{tq_{k-1} + q_{k-2}}$$
+    
+    for integer $0 \leq t \leq a_k$ and are called the **semi-convergents**.
+
+On the picture below, you may see the convergents and semi-convergents (intermediate gray points) of $r=\frac{9}{7}$.
+
+![](https://upload.wikimedia.org/wikipedia/commons/9/92/Continued_convergents_geometry.svg)
+
+!!! note "Best approximations"
+    Let $\frac{p}{q}$ be the fraction to minimize $\left|r-\frac{p}{q}\right|$ subject to $q \leq x$ for some $x$.
+    
+    Then $\frac{p}{q}$ is a semi-convergent of $r$.
+
+The last fact allows to find the best rational approximations of $r$ by checking its semi-convergents.
 
 #### Recurrent relations
 
