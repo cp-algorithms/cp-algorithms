@@ -560,7 +560,7 @@ For example for $a = [1,~ 2,~ 3]$ and $b = [2,~ 4]$ we get:
 then sum $3$ can be obtained in $1$ way, the sum $4$ also in $1$ way, $5$ in $2$, $6$ in $1$, $7$ in $1$.
 
 We construct for the arrays $a$ and $b$ two polynomials $A$ and $B$.
-The numbers of the array will act as the exponents in the polynomial ($a[i] \Rightarrow x^{a[i]}$); and the coefficients of this term will by how often the number appears in the array.
+The numbers of the array will act as the exponents in the polynomial ($a[i] \Rightarrow x^{a[i]}$); and the coefficients of this term will be how often the number appears in the array.
 
 Then, by multiplying these two polynomials in $O(n \log n)$ time, we get a polynomial $C$, where the exponents will tell us which sums can be obtained, and the coefficients tell us how often.
 To demonstrate this on the example:
@@ -651,6 +651,7 @@ If $x$ is the number of wildcards in $P$, then we will have a match of $P$ in $T
 - [Codeforces - Yet Another String Matching Problem](http://codeforces.com/problemset/problem/954/I)
 - [Codeforces - Lightsabers (hard)](http://codeforces.com/problemset/problem/958/F3)
 - [Codeforces - Running Competition](https://codeforces.com/contest/1398/problem/G)
+- [Kattis - A+B Problem](https://open.kattis.com/problems/aplusb)
 - [Kattis - K-Inversions](https://open.kattis.com/problems/kinversions)
 - [Codeforces - Dasha and cyclic table](http://codeforces.com/contest/754/problem/E)
 - [CodeChef - Expected Number of Customers](https://www.codechef.com/COOK112A/problems/MMNN01)

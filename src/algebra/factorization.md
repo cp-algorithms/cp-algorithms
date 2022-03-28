@@ -248,7 +248,7 @@ There is still one big open question.
 We don't know $p$ yet, so how can we argue about the sequence $\{x_i \bmod p\}$?
 
 It's actually quite easy.
-There is a cycle in the sequence $\\{x_i \bmod p\\}_{i \le j}$ if and only if there are two indices $s, t \le j$ and $t$ with $x_s \equiv x_t \bmod p$.
+There is a cycle in the sequence $\{x_i \bmod p\}_{i \le j}$ if and only if there are two indices $s, t \le j$ and $t$ with $x_s \equiv x_t \bmod p$.
 This equation can be rewritten as $x_s - x_t \equiv 0 \bmod p$ which is the same as $p ~|~ \gcd(x_s - x_t, n)$.
 
 Therefore, if we find two indices $s$ and $t$ with $g = \gcd(x_s - x_t, n) > 1$, we have found a cycle and also a factor $g$ of $n$.

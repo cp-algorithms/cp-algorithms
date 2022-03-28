@@ -110,7 +110,41 @@ which simplifies to:
 
 $$i^{-1} \equiv -\left\lfloor \frac{m}{i} \right\rfloor \cdot (m \bmod i)^{-1} \mod m,$$
 
+## Finding the modular inverse for array of numbers modulo $m$
 
+Suppose we are given an array and we want to find modular inverse for all numbers in it (all of them are invertible).
+Instead of computing the inverse for every number, we can expand the fraction by the prefix product (excluding itself) and suffix product (excluding itself), and end up only computing a single inverse instead.
+
+$$
+\begin{align}
+x_i^{-1} &= \frac{1}{x^i} = \frac{\overbrace{x_1 \cdot x_2 \cdots x_{i-1}}^{\text{prefix}_{i-1}} \cdot ~1~ \cdot \overbrace{x_{i+1} \cdot x_{i+2} \cdots x_n}^{\text{suffix}_{i+1}}}{x_1 \cdot x_2 \cdots x_{i-1} \cdot x_i \cdot x_{i+1} \cdot x_{i+2} \cdots x_n} \\
+&= \text{prefix}_{i-1} \cdot \text{suffix}_{i+1} \cdot \left(x_1 \cdot x_2 \cdots x_n\right)^{-1}
+\end{align}
+$$
+
+In the code we can just make a prefix product array (exclude itself, start from the identity element), compute the modular inverse for the product of all numbers and than multiply it by the prefix product and suffix product (exclude itself).
+The suffix product is computed by iterating from the back to the front.
+
+```cpp
+std::vector<int> invs(const std::vector<int> &a, int m) {
+    int n = a.size();
+    if (n == 0) return {};
+    std::vector<int> b(n);
+    int v = 1;
+    for (int i = 0; i != n; ++i) {
+        b[i] = v;
+        v = static_cast<long long>(v) * a[i] % m;
+    }
+    int x, y;
+    extended_euclidean(v, m, x, y);
+    x = (x % m + m) % m;
+    for (int i = n - 1; i >= 0; --i) {
+        b[i] = static_cast<long long>(x) * b[i] % m;
+        x = static_cast<long long>(x) * a[i] % m;
+    }
+    return b;
+}
+```
 
 ## Practice Problems
 

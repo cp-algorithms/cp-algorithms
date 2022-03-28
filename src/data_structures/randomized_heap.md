@@ -106,7 +106,7 @@ It is still possible that the paths from the root to the vertices is on average 
 
 Let us prove that exceeding the expected value is indeed very small:
 
-$$P\\{h(T > (c+1) \log n\\} < \frac{1}{n^c}$$
+$$P\{h(T) > (c+1) \log n\} < \frac{1}{n^c}$$
 
 for any positive constant $c$.
 
@@ -114,7 +114,7 @@ Here we denote by $P$ the set of paths from the root of the heap to the leaves w
 Note that for any path $p$ of length $|p|$ the probability that it will be chosen as random path is $2^{-|p|}$.
 Therefore we get:
 
-$$P\\{h(T > (c+1) \log n\\} = \sum_{p \in P} 2^{-|p|} < \sum_{p \in P} 2^{-(c+1) \log n} = |P| n^{-(c+1)} \le n^{-c}$$
+$$P\{h(T) > (c+1) \log n\} = \sum_{p \in P} 2^{-|p|} < \sum_{p \in P} 2^{-(c+1) \log n} = |P| n^{-(c+1)} \le n^{-c}$$
 
 ### Complexity of the algorithm
 

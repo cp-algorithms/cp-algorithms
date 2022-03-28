@@ -45,11 +45,11 @@ To better visualize this fact, suppose we're performing the incremental approach
 
 Here's a small example with an illustration:
 
-Let $H = \\{ A, B, C, D, E \\}$ be the set of half-planes currently present in the intersection. Additionally, let $P = \\{ p, q, r, s \\}$ be the set of intersection points of adjacent half-planes in H. Now, suppose we wish to intersect it with the half-plane $F$, as seen in the illustration below:
+Let $H = \{ A, B, C, D, E \}$ be the set of half-planes currently present in the intersection. Additionally, let $P = \{ p, q, r, s \}$ be the set of intersection points of adjacent half-planes in H. Now, suppose we wish to intersect it with the half-plane $F$, as seen in the illustration below:
 
 ![](halfplanes_hp1.png)
 
-Notice the half-plane $F$ makes $A$ and $E$ redundant in the intersection. So we remove both $A$ and $E$ from the front and back of the intersection, respectively, and add $F$ at the end. And we finally obtain the new intersection $H = \\{ B, C, D, F\\}$ with $P = \\{ q, r, t, u \\}$.
+Notice the half-plane $F$ makes $A$ and $E$ redundant in the intersection. So we remove both $A$ and $E$ from the front and back of the intersection, respectively, and add $F$ at the end. And we finally obtain the new intersection $H = \{ B, C, D, F\}$ with $P = \{ q, r, t, u \}$.
 
 ![](halfplanes_hp2.png)
 

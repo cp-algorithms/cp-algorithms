@@ -4,8 +4,8 @@ Let, $f$ be some _reversible_ function and $A$ be an array of integers of length
 
 Fenwick tree is a data structure which:
 
-* calculates the value of function $f$ in the given range $[l, r]$ (i.e. $f(A_l, A_{l+1}, \dots, A_r)$) in $O(\log n)$ time;
-* updates the value of an element of $A$ in $O(\log n)$ time;
+* calculates the value of function $f$ in the given range $[l, r]$ (i.e. $f(A_l, A_{l+1}, \dots, A_r)$) in $O(\log N)$ time;
+* updates the value of an element of $A$ in $O(\log N)$ time;
 * requires $O(N)$ memory, or in other words, exactly the same memory required for $A$;
 * is easy to use and code, especially, in the case of multidimensional arrays.
 
@@ -60,7 +60,7 @@ The function `sum` works as follows:
 
 The function `increase` works with the same analogy, but "jumps" in the direction of increasing indices:
 
-1. sums of the ranges $[g(j), j]$ that satisfy the condition $g(j) \le i \le j$ are increased by `delta` , that is `t[j] += delta`. Therefore we updated all elements in $T$ that corresponds to ranges in with $A_i$ lies.
+1. sums of the ranges $[g(j), j]$ that satisfy the condition $g(j) \le i \le j$ are increased by `delta` , that is `t[j] += delta`. Therefore we updated all elements in $T$ that correspond to ranges in which $A_i$ lies.
 
 It is obvious that the complexity of both `sum` and `increase` depend on the function $g$.
 There are lots of ways to choose the function $g$, as long as $0 \le g(i) \le i$ for all $i$.
@@ -440,7 +440,7 @@ def range_sum(l, r):
 * [SRM 310 - FloatingMedian](https://community.topcoder.com/stat?c=problem_statement&pm=6551&rd=9990)
 * [SPOJ - Ada and Behives](http://www.spoj.com/problems/ADABEHIVE/)
 * [Hackerearth - Counting in Byteland](https://www.hackerearth.com/practice/data-structures/advanced-data-structures/fenwick-binary-indexed-trees/practice-problems/algorithm/counting-in-byteland/)
-* [DevSkills - Shan and String](https://devskill.com/CodingProblems/ViewProblem/300)
+* [DevSkill - Shan and String (archived)](http://web.archive.org/web/20210322010617/https://devskill.com/CodingProblems/ViewProblem/300)
 * [Codeforces - Little Artem and Time Machine](http://codeforces.com/contest/669/problem/E)
 * [Codeforces - Hanoi Factory](http://codeforces.com/contest/777/problem/E)
 * [SPOJ - Tulip and Numbers](http://www.spoj.com/problems/TULIPNUM/)

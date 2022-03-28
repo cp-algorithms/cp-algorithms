@@ -9,7 +9,7 @@ In this article we demonstrate how we can use BFS to solve the SSSP (single-sour
 
 ## Algorithm
 
-We can develop the algorithm by closely study Dijkstra's algorithm and think about the consequences that our special graph implies.
+We can develop the algorithm by closely studying Dijkstra's algorithm and thinking about the consequences that our special graph implies.
 The general form of Dijkstra's algorithm is (here a `set` is used for the priority queue):
 
 ```cpp

@@ -22,7 +22,7 @@ The key idea of the algorithm is to partition the process of finding the shortes
 Let us number the vertices starting from 1 to $n$.
 The matrix of distances is $d[ ][ ]$.
 
-Before $k$-th phase ($k = 1 \dots n$), $d[i][j]$ for any vertices $i$ and $j$ stores the length of the shortest path between the vertex $i$ and vertex $j$, which contains only the vertices $\\{1, 2, ..., k-1\\}$ as internal vertices in the path.
+Before $k$-th phase ($k = 1 \dots n$), $d[i][j]$ for any vertices $i$ and $j$ stores the length of the shortest path between the vertex $i$ and vertex $j$, which contains only the vertices $\{1, 2, ..., k-1\}$ as internal vertices in the path.
 
 In other words, before $k$-th phase the value of $d[i][j]$ is equal to the length of the shortest path from vertex $i$ to the vertex $j$, if this path is allowed to enter only the vertex with numbers smaller than $k$ (the beginning and end of the path are not restricted by this property).
 
@@ -34,16 +34,16 @@ Suppose now that we are in the $k$-th phase, and we want to compute the matrix $
 We have to fix the distances for some vertices pairs $(i, j)$.
 There are two fundamentally different cases:
 
-*   The shortest way from the vertex $i$ to the vertex $j$ with internal vertices from the set $\\{1, 2, \dots, k\\}$ coincides with the shortest path with internal vertices from the set $\\{1, 2, \dots, k-1\\}$.
+*   The shortest way from the vertex $i$ to the vertex $j$ with internal vertices from the set $\{1, 2, \dots, k\}$ coincides with the shortest path with internal vertices from the set $\{1, 2, \dots, k-1\}$.
 
     In this case, $d[i][j]$ will not change during the transition.
 
-*   The shortest path with internal vertices from $\\{1, 2, \dots, k\\}$ is shorter.
+*   The shortest path with internal vertices from $\{1, 2, \dots, k\}$ is shorter.
 
     This means that the new, shorter path passes through the vertex $k$.
     This means that we can split the shortest path between $i$ and $j$ into two paths:
     the path between $i$ and $k$, and the path between $k$ and $j$.
-    It is clear that both this paths only use internal vertices of $\\{1, 2, \dots, k-1\\}$ and are the shortest such paths in that respect.
+    It is clear that both this paths only use internal vertices of $\{1, 2, \dots, k-1\}$ and are the shortest such paths in that respect.
     Therefore we already have computed the lengths of those paths before, and we can compute the length of the shortest path between $i$ and $j$ as $d[i][k] + d[k][j]$.
 
 Combining these two cases we find that we can recalculate the length of all pairs $(i, j)$ in the $k$-th phase in the following way:

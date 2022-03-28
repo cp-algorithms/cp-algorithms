@@ -2,15 +2,14 @@
 
 A Segment Tree is a data structure that allows answering range queries over an array effectively, while still being flexible enough to allow modifying the array. 
 This includes finding the sum of consecutive array elements $a[l \dots r]$, or finding the minimum element in a such a range in $O(\log n)$ time. 
-Between answering such queries the Segment Tree allows modifying the array by replacing one element, or even change the elements of a whole subsegment (e.g. assigning all elements $a[l \dots r]$ to any value, or adding a value to all element in the subsegment). 
+Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements $a[l \dots r]$ to any value, or adding a value to all element in the subsegment). 
 
-In general a Segment Tree is a very flexible data structure, and a huge number of problems can be solved with it. 
-Additionally it is also possible to apply more complex operations and answer more complex queries (see [Advanced versions of Segment Trees](segment_tree.md#advanced-versions-of-segment-trees)).
+In general, a Segment Tree is a very flexible data structure, and a huge number of problems can be solved with it. 
+Additionally, it is also possible to apply more complex operations and answer more complex queries (see [Advanced versions of Segment Trees](segment_tree.md#advanced-versions-of-segment-trees)).
 In particular the Segment Tree can be easily generalized to larger dimensions. 
-For instance with a two-dimensional Segment Tree you can answer sum or minimum queries over some subrectangle of a given matrix.
-However only in $O(\log^2 n)$ time. 
+For instance, with a two-dimensional Segment Tree you can answer sum or minimum queries over some subrectangle of a given matrix in only $O(\log^2 n)$ time. 
 
-One important property of Segment Trees is, that they require only a linear amount of memory.
+One important property of Segment Trees is that they require only a linear amount of memory.
 The standard Segment Tree requires $4n$ vertices for working on an array of size $n$. 
 
 ## Simplest form of a Segment Tree
@@ -324,7 +323,7 @@ In this problem we want to compute the GCD / LCM of all numbers of given ranges 
 
 This interesting variation of the Segment Tree can be solved in exactly the same way as the Segment Trees we derived for sum / minimum / maximum queries:
 it is enough to store the GCD / LCM of the corresponding vertex in each vertex of the tree. 
-Combining two vertices can be done by computing the GCM / LCM of both vertices.
+Combining two vertices can be done by computing the GCD / LCM of both vertices.
 
 #### Counting the number of zeros, searching for the $k$-th zero {#counting-zero-search-kth data-toc-label="Counting the number of zeros, searching for the k-th zero"}
 

@@ -113,7 +113,7 @@ Since the game is acyclic, sooner or later the current player won't be able to u
 
 ### Sprague-Grundy theorem
 
-Let's consider a state $v$ of a two-player impartial game and let $v_i$ be the states reachable from it (where $i \in \\{ 1, 2, \dots, k \\} , k \ge 0$).
+Let's consider a state $v$ of a two-player impartial game and let $v_i$ be the states reachable from it (where $i \in \{ 1, 2, \dots, k \} , k \ge 0$).
 To this state, we can assign a fully equivalent game of Nim with one pile of size $x$.
 The number $x$ is called the Grundy value or nim-value of state $v$.
 
@@ -135,7 +135,7 @@ That is correct, since an empty Nim is losing.
 Now consider any other vertex $v$.
 By induction, we assume the values $x_i$ corresponding to its reachable vertices are already calculated.
 
-Let $p = \text{mex}\ \\{ x_1, \ldots, x_k \\}$.
+Let $p = \text{mex}\ \{ x_1, \ldots, x_k \}$.
 Then we know that for any integer $i \in [0, p)$ there exists a reachable vertex with Grundy value $i$.
 This means $v$ is **equivalent to a state of the game of Nim with increases with one pile of size $p$**.
 In such a game we have transitions to piles of every size smaller than $p$ and possibly transitions to piles with sizes greater than $p$.
@@ -188,7 +188,7 @@ For the edge case of the cross being marked on position $1$ or $n$, we go to the
 
 Thus, the Grundy value $g(n)$ has the form:
 
-$$g(n) = \text{mex} \Bigl( \\{ g(n-2) \\} \cup \\{g(i-2) \oplus g(n-i-1) \mid 2 \leq i \leq n-1\\} \Bigr) .$$
+$$g(n) = \text{mex} \Bigl( \{ g(n-2) \} \cup \{g(i-2) \oplus g(n-i-1) \mid 2 \leq i \leq n-1\} \Bigr) .$$
 
 So we've got a $O(n^2)$ solution.
 

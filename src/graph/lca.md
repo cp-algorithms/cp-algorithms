@@ -127,7 +127,7 @@ struct LCA {
  - [CODECHEF: Lowest Common Ancestor](https://www.codechef.com/problems/TALCA)
  * [SPOJ - Lowest Common Ancestor](http://www.spoj.com/problems/LCASQ/)
  * [SPOJ - Ada and Orange Tree](http://www.spoj.com/problems/ADAORANG/)
- * [DevSkills - Motoku](https://devskill.com/CodingProblems/ViewProblem/141)
+ * [DevSkill - Motoku (archived)](http://web.archive.org/web/20200922005503/https://devskill.com/CodingProblems/ViewProblem/141)
  * [UVA 12655 - Trucks](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=4384)
  * [Codechef - Pishty and Tree](https://www.codechef.com/problems/PSHTTR)
  * [UVA - 12533 - Joining Couples](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=441&page=show_problem&problem=3978)

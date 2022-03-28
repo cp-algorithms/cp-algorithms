@@ -144,7 +144,7 @@ Another one would be the [Sqrt Tree](sqrt-tree.md).
 * [Codeforces - R2D2 and Droid Army](http://codeforces.com/problemset/problem/514/D)
 * [Codeforces - Maximum of Maximums of Minimums](http://codeforces.com/problemset/problem/872/B)
 * [SPOJ - Miraculous](http://www.spoj.com/problems/TNVFC1M/)
-* [DevSkills - Multiplication Interval](https://devskill.com/CodingProblems/ViewProblem/19)
+* [DevSkill - Multiplication Interval (archived)](http://web.archive.org/web/20200922003506/https://devskill.com/CodingProblems/ViewProblem/19)
 * [Codeforces - Animals and Puzzles](http://codeforces.com/contest/713/problem/D)
 * [Codeforces - Trains and Statistics](http://codeforces.com/contest/675/problem/E)
 * [SPOJ - Postering](http://www.spoj.com/problems/POSTERIN/)

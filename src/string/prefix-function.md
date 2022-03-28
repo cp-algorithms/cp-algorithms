@@ -9,7 +9,7 @@ By definition, $\pi[0] = 0$.
 
 Mathematically the definition of the prefix function can be written as follows:
 
-$$\pi[i] = \max_ {k = 0 \dots i} \\{k : s[0 \dots k-1] = s[i-(k-1) \dots i] \\}$$
+$$\pi[i] = \max_ {k = 0 \dots i} \{k : s[0 \dots k-1] = s[i-(k-1) \dots i] \}$$
 
 For example, prefix function of string "abcabcd" is $[0, 0, 0, 1, 2, 3, 0]$, and prefix function of string "aabaaab" is $[0, 1, 0, 1, 2, 2, 3]$.
 
