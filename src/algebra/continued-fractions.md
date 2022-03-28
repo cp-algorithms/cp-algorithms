@@ -32,7 +32,7 @@ It can be proven that any rational number can be represented as a continued frac
 
 $$r = [a_0;a_1,\dots,a_k,1] = [a_0;a_1,\dots,a_k+1].$$
 
-Moreover, the length $k$ of continued fraction is bounded as $k = O(\log \min(p, q))$.
+Moreover, the length $k$ of such continued fraction is estimated as $k = O(\log \min(p, q))$ for $r=\frac{p}{q}$.
 
 The reasoning behind this will be clear once we delve into the details of the continued fraction construction.
 
@@ -66,7 +66,7 @@ The reasoning behind this will be clear once we delve into the details of the co
 
 !!! abstract "Definition"
 
-    Complementary to convergents, we define the **residues** as $s_k = [a_k; a_{k+1}, a_{k+2}, \dots]$. Correspondingly, we will call an individual $s_k$ the $k$-th residual of $r$.
+    Complementary to convergents, we define the **residues** as $s_k = [a_k; a_{k+1}, a_{k+2}, \dots]$. Correspondingly, we will call an individual $s_k$ the $k$-th residue of $r$.
 
 From the definitions above, one may conclude that $s_k \geq 1$ for $k \geq 1$. If we allow the last term in $[a_0; a_1, \dots, a_k]$ to be an arbitrary real number $s$ and treat it formally as an algebraic expression, the following equation will hold for any $k$:
 
@@ -80,13 +80,19 @@ thus the sequence $a_0, a_1, \dots$ is uniquely defined for any irrational numbe
 
 #### Implementation
 
-In the code snippets we will mostly assume that we work with the finite continued fractions. Although continued fractions defined recursively it is more efficient to construct them iteratively. If we start with $s_k=\frac{p}{q}$, the transition looks like
+In the code snippets we will mostly assume that we work with the finite continued fractions. Although continued fractions defined recursively, it is more efficient to construct them iteratively. From $s_k$, the transition looks like
 
-$$s_k =\left\lfloor \frac p q \right\rfloor + \frac{1}{s_{k+1}}.$$
+$$s_k =\left\lfloor s_k \right\rfloor + \frac{1}{s_{k+1}}.$$
 
 From this expression, the next residue $s_{k+1}$ is obtained as
 
-$$s_{k+1} = \left(\frac{p}{q}-\left\lfloor \frac{p}{q}\right\rfloor\right)^{-1} = \frac{q}{p-q\cdot \lfloor \frac{p}{q} \rfloor} = \frac{q}{p \bmod q}.$$
+$$s_{k+1} = \left(s_k-\left\lfloor s_k\right\rfloor\right)^{-1}.$$
+
+For $s_k=\frac{p}{q}$ it means that
+
+$$
+s_{k+1} = \frac{q}{p-q\cdot \lfloor \frac{p}{q} \rfloor} = \frac{q}{p \bmod q}.
+$$
 
 Thus, computation of a continued fraction representation for $r=\frac{p}{q}$ follows the same steps as the Euclidean algorithm for $p$ and $q$.
 
