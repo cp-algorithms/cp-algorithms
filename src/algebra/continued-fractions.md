@@ -350,57 +350,69 @@ _You can mostly skip this section if you're more interested in practical results
 
     We additionally define $\vec r = (1;r)$. In these terms, each vector $(x;y)$ corresponds to the number that is equal to its slope coefficient $\frac{y}{x}$.
 
-### Residues
+!!! note "Formulas for $a_k$ and $s_k$ in terms of convergents"
+    With the notion of [pseudoscalar product](../geometry/basic-geometry.md) $(x_1;y_1) \times (x_2;y_2) = x_1 y_2 - x_2 y_1$, it can be shown (see the explanation below) that
 
-As we have already noted, $a_k = \lfloor s_k \rfloor$, where $s_k = [a_k; a_{k+1}, a_{k+2}, \dots]$. We will get an explicit way to determine $a_k$ if we know how to compute $s_k$. On the other hand, if we formally substitute $s_k$ instead of $a_k$ into the expression for $k$-th convergent, we'll get
+    $$s_k = -\frac{\vec r_{k-2} \times \vec r}{\vec r_{k-1} \times \vec r} = \left|\frac{\vec r_{k-2} \times \vec r}{\vec r_{k-1} \times \vec r}\right|.$$
 
-$$r = [a_0, a_1, \dots, a_{k-1}, s_k] = \frac{s_k p_{k-1} + p_{k-2}}{s_k q_{k-1} + q_{k-2}}.$$
+    The last equation is due to the fact that $r_{k-1}$ and $r_{k-2}$ lie on the different sides of $r$, thus pseudoscalar products of $\vec r_{k-1}$ and $\vec r_{k-2}$ with $\vec r$ have distinct signs.
 
-From this, we obtain the explicit formula for $s_k$:
+    With $a_k = \lfloor s_k \rfloor$ in mind, formula for $\vec r_k$ now looks like
 
-$$s_k = -\frac{q_{k-2} r - p_{k-2}}{q_{k-1} r - p_{k-1}} = -\frac{q_{k-2}}{q_{k-1}}\frac{r-r_{k-2}}{r-r_{k-1}},$$
+    $$\vec r_k = \vec r_{k-2} + \left\lfloor \left| \frac{\vec r \times \vec r_{k-2}}{\vec r \times \vec r_{k-1}}\right|\right\rfloor \vec r_{k-1}.$$
 
-or, introducing the vector $\vec r = (1, r)$ and using the notion of the pseudo-scalar product:
+    Note that $\vec r_k \times r = (q;p) \times (1;r) = qr - p$, thus
 
-$$s_k = \left|\frac{\vec r_{k-2} \times \vec r}{\vec r_{k-1} \times \vec r}\right|.$$
+    $$a_k = \left\lfloor \left| \frac{q_{k-1}r-p_{k-1}}{q_{k-2}r-p_{k-2}} \right| \right\rfloor.$$
 
-Thus, the expression for $\vec r_k$ is given as
+??? hint "Explanation"
+    As we have already noted, $a_k = \lfloor s_k \rfloor$, where $s_k = [a_k; a_{k+1}, a_{k+2}, \dots]$. On the other hand, from the convergent recurrence we derive that
 
-$$\vec r_k = \vec r_{k-2} + \left\lfloor \left| \frac{\vec r \times \vec r_{k-2}}{\vec r \times \vec r_{k-1}}\right|\right\rfloor \cdot \vec r_{k-1}.$$
+    $$r = [a_0; a_1, \dots, a_{k-1}, s_k] = \frac{s_k p_{k-1} + p_{k-2}}{s_k q_{k-1} + q_{k-2}}.$$
 
-Note that $\vec r_{k-1}$ and $\vec r_{k-2}$ generally lie on different sides of $\vec r$, thus $\vec r \times \vec r_{k-2}$ and $\vec r \times \vec r_{k-1}$ have different signs.
+    In vector form, it rewrites as
 
-### Nose stretching
+    $$\vec r \parallel s_k \vec r_{k-1} + \vec r_{k-2},$$
 
-Geometrically, $a_k=\lfloor s_k \rfloor$ in the expression above is equal to the maximum integer number of $\vec r_{k-1}$ vectors that can be added to $\vec r_{k-2}$ in such a way that the resulting vector will still be on the same side from $\vec r$ as $\vec r_{k-2}$ is.
+    meaning that $\vec r$ and $s_k \vec r_{k-1} + \vec r_{k-2}$ are collinear (that is, have the same slope coefficient). Taking the [pseudoscalar product](../geometry/basic-geometry.md) of both parts with $\vec r$, we get
 
-![](https://upload.wikimedia.org/wikipedia/commons/9/92/Continued_convergents_geometry.svg)
+    $$0 = s_k (\vec r_{k-1} \times \vec r) + (\vec r_{k-2} \times \vec r),$$
 
-On the picture above you can see how $\vec r_2 = (4,3)$ is obtained by repeatedly adding $\vec r_1 = (1,1)$ to $\vec r_0 = (1, 0)$. When it is not possible to further add $\vec r_1$ to $\vec r_0$ without crossing the $y=rx$ line, we go to the other side and repeatedly add $\vec r_2$ to $\vec r_1$ to obtain $\vec r_3 = (9, 7)$ in a similar manner.
+    which yields the final formula
 
-This procedure generates exponentially longer vectors, that approach closer and closer to $y=rx$ line, until one vector is finally collinear with it (when $r$ is rational). For this property, the procedure of generating consequent convergent vectors was dubbed the nose stretching algorithm by Boris Delaunay.
+    $$s_k = -\frac{\vec r_{k-2} \times \vec r}{\vec r_{k-1} \times \vec r}.$$
 
-### Klein polygons
+!!! example "Nose stretching"
+    Each time you add $\vec r_{k-1}$ to the vector $\vec p$, the value of $\vec p \times \vec r$ is increased by $\vec r_{k-1} \times \vec r$.
 
-If we look on the triangle drawn on points $\vec r_{k-2}$, $\vec r_{k}$ and $\vec 0$ we will notice that its doubled area is
+    Thus, $a_k=\lfloor s_k \rfloor$ is the maximum integer number of $\vec r_{k-1}$ vectors that can be added to $\vec r_{k-2}$ without changing the sign of the cross product with $\vec r$.
 
-$$|\vec r_{k-2} \times \vec r_k| = a_k.$$
+    In other words, $a_k$ is the maximum integer number of times you can add $\vec r_{k-1}$ to $\vec r_{k-2}$ without crossing the line defined by $\vec r$:
 
-Combined with the [Pick's theorem](../geometry/picks-theorem.md), it means that there are no lattice points strictly inside the triangle and the only lattice points on its border are $\vec 0$ and $\vec r_{k-2} + t \cdot \vec r_{k-1}$ for all integer $t$ such that $0 \leq t \leq a_k$. When joined for all possible $k$ it means that there are no integer points in the space between polygons formed by even-indexed and odd-indexed convergent vectors.
+    ![](https://upload.wikimedia.org/wikipedia/commons/9/92/Continued_convergents_geometry.svg)
 
-This, in turn, means that $\vec r_k$ with odd coefficients form a convex hull of lattice points with $x \geq 0$ above the line $y=rx$, while $\vec r_k$ with even coefficients form a convex hull of lattice points with $x > 0$ below the line $y=rx$.
+    On the picture above, $\vec r_2 = (4;3)$ is obtained by repeatedly adding $\vec r_1 = (1;1)$ to $\vec r_0 = (1;0)$.
+
+    When it is not possible to further add $\vec r_1$ to $\vec r_0$ without crossing the $y=rx$ line, we go to the other side and repeatedly add $\vec r_2$ to $\vec r_1$ to obtain $\vec r_3 = (9;7)$.
+
+    This procedure generates exponentially longer vectors, that approach the line.
+
+    For this property, the procedure of generating consequent convergent vectors was dubbed the **nose stretching algorithm** by Boris Delaunay.
+
+!!! note "Klein polygons"
+
+    If we look on the triangle drawn on points $\vec r_{k-2}$, $\vec r_{k}$ and $\vec 0$ we will notice that its doubled area is
+
+    $$|\vec r_{k-2} \times \vec r_k| = |\vec r_{k-2} \times (\vec r_{k-2} + a_k \vec r_{k-1})| = a_k |\vec r_{k-2} \times \vec r_{k-1}| = a_k.$$
+
+    Combined with the [Pick's theorem](../geometry/picks-theorem.md), it means that there are no lattice points strictly inside the triangle and the only lattice points on its border are $\vec 0$ and $\vec r_{k-2} + t \cdot \vec r_{k-1}$ for all integer $t$ such that $0 \leq t \leq a_k$. When joined for all possible $k$ it means that there are no integer points in the space between polygons formed by even-indexed and odd-indexed convergent vectors.
+
+    This, in turn, means that $\vec r_k$ with odd coefficients form a convex hull of lattice points with $x \geq 0$ above the line $y=rx$, while $\vec r_k$ with even coefficients form a convex hull of lattice points with $x > 0$ below the line $y=rx$.
 
 
 !!! abstract "Definition"
 
     These polygons are also known as **Klein polygons**, named after Felix Klein who first suggested this geometric interpretation to the continued fractions.
-
-
-!!! abstract "Definition"
-
-    The vectors $\vec r_{k-2} + t \cdot \vec r_{k-1}$ for $0 \leq t \leq a_k$ and corresponding fractions are called the **semiconvergents**.
-
-Semiconvergent vectors are essentially _all_ lattice vectors on the border of their corresponding convex hulls.
 
 ## Problem examples
 
