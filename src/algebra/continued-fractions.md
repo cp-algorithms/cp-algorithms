@@ -1,5 +1,5 @@
 <!--?title Continued fractions -->
-# Continued fractions in competitive programming
+# Continued fractions
 
 **Continued fraction** is a representation of a real number as a specific convergent sequence of rational numbers. They are useful in competitive programming because they are easy to compute and can be efficiently used to find the best possible rational approximation of the underlying real number (among all numbers whose denominator doesn't exceed a given value).
 
