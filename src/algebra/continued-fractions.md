@@ -205,6 +205,8 @@ Convergents are the core concept of continued fractions, so it is important to s
 
     Thus, $r_k$ is a weighted [mediant](https://en.wikipedia.org/wiki/Mediant_(mathematics)) of $r_{k-1}$ and $r_{k-2}$.
 
+    Note that if $\gcd(a,b)=\gcd(c,d)=1$ then $\gcd(a+c,b+d)=1$ as well, hence for all convergents $r_k = \frac{p_k}{q_k}$, it holds that $\gcd(p_k, q_k)=1$.
+
 ??? hint "Detailed explanation"
 
     The numerator and the denominator of $r_k$ can be seen as multivariate polynomials of $a_0, a_1, \dots, a_k$:
@@ -249,6 +251,39 @@ Convergents are the core concept of continued fractions, so it is important to s
 
     $$P_k(a_0, \dots, a_k) = a_k P_{k-1}(a_0, \dots, a_{k-1}) + P_{k-2}(a_0, \dots, a_{k-2}).$$
 
+!!! note "Connection with the Stern-Brocot tree"
+    [The Stern-Brocot tree](../others/stern_brocot_tree_farey_sequences.md) is a binary search tree that contains all the distinct positive rational numbers.
+
+    The tree generally looks as follows:
+
+    <figure>![](https://upload.wikimedia.org/wikipedia/commons/3/37/SternBrocotTree.svg)
+    <figcaption>_[The image](https://commons.wikimedia.org/wiki/File:SternBrocotTree.svg) by [Aaron Rotenberg](https://commons.wikimedia.org/wiki/User:Aaron_Rotenberg) is licensed under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/deed.en)_</figcaption></figure>
+
+    Fractions $\frac{0}{1}$ and $\frac{1}{0}$ are "virtually" kept on the left and right sides of the tree correspondingly.
+
+    Then the fraction in a node is a mediant $\frac{a+c}{b+d}$ of two fractions $\frac{a}{b}$ and $\frac{c}{d}$ above it.
+
+    From the $\frac{p_k}{q_k}=\frac{a_k p_{k-1} + p_{k-2}}{a_k q_{k-1} + q_{k-2}}$ recurrence we see that the continued fraction representation encodes the path to the fraction $\frac{p_k}{q_k}$ in the Stern-Brocot tree.
+
+    To find $[a_0; a_1, \dots, a_{k}, 1]$ in a tree, one needs to move $a_0$ times to the right, $a_1$ times to the left, $a_2$ times to the right and so on, ignoring the last $1$.
+
+    From this follows that the parent of $[a_0; a_1, \dots, a_k,1]$ is obtained by taking one step back in the last used direction.
+
+    In other words, it is $[a_0; a_1, \dots, a_k-1,1]$ when $a_k > 1$ and $[a_0; a_1, \dots, a_{k-1}, 1]$ when $a_k = 1$.
+
+    On the other hand, this also allows to derive that the children of $[a_0; a_1, \dots, a_k, 1]$ are $[a_0; a_1, \dots, a_k+1, 1]$ and $[a_0; a_1, \dots, a_k, 1, 1]$.
+
+    There is an indexing of Stern-Brocot vertices that is consistent with this structure. Let's assign the root vertex an index $1$. Then for a vertex number $v$, index of its left child is obtained by changing leading bit of $v$ from $1$ to $10$ and for the right child, it's obtained by changing leading bit of $v$ from $1$ to $11$:
+
+    <figure><img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Stern-brocot-index.svg" width="500px"/></figure>
+
+    In this indexing, the continued fraction representation of a rational number specifies the [run-length encoding](https://en.wikipedia.org/wiki/Run-length_encoding) of its binary index.
+
+    For example, for $\frac{5}{2} = [2;2] = [2;1,1]$, its index is $1011_2$ and run-length encoding of it, if bits are considered in ascending order, is exactly $[2;1,1]$.
+
+    Another example is $\frac{2}{5} = [0;2,2]=[0;2,1,1]$, which has index $1100_2$ and its run-length encoding is, indeed, $[0;2,2]$.
+
+    
 ### Implementation
 
 We will compute the convergents as a pair of sequences $p_{-2}, p_{-1}, p_0, p_1, \dots, p_k$ and $q_{-2}, q_{-1}, q_0, q_1, \dots, q_k$:
