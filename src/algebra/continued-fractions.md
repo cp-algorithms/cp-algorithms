@@ -61,7 +61,7 @@ Besides that, continued fractions are closely related to Euclidean algorithm whi
 
 
 !!! abstract "Definition"
-    Let $r_k = [a_0; a_1, \dots, a_k]$. The numbers $[a_0; a_1, \dots, t]$ for $1 \leq t \leq a_k$ are called **semiconvergents**.
+    Let $r_k = [a_0; a_1, \dots, a_{k-1}, a_k]$. The numbers $[a_0; a_1, \dots, a_{k-1}, t]$ for $1 \leq t \leq a_k$ are called **semiconvergents**.
 
 !!! abstract "Definition"
     Complementary to convergents, we define the **residues** as $s_k = [a_k; a_{k+1}, a_{k+2}, \dots]$. Correspondingly, we will call an individual $s_k$ the $k$-th residue of $r$.
@@ -418,14 +418,92 @@ _You can mostly skip this section if you're more interested in practical results
 
 Now that the most important facts and concepts were introduced, it is time to delve into specific problem examples.
 
-!!! example "[Timus - Crime and Punishment](https://acm.timus.ru/problem.aspx?space=1&num=1430)"
+!!! example "Convex hull under the line"
+    Find the convex hull of lattice points $(x;y)$ such that $0 \leq x \leq N$ and $0 \leq y \leq rx$ for $r=[a_0;a_1,\dots,a_k]=\frac{p_k}{q_k}$.
 
+!!! hint "Solution"
+    If we were considering the unbounded set $0 \leq x$, the upper convex hull would be given by the line $y=rx$ itself.
+
+    However, with additional constraint $x \leq N$ we'd need to eventually deviate from the line to maintain proper convex hull.
+
+    Let $t = \lfloor \frac{N}{q_k}\rfloor$, then first $t$ lattice points on the hull after $(0;0)$ are $\alpha \cdot (q_k; p_k)$ for integer $1 \leq \alpha \leq t$.
+
+    However $(t+1)(q_k; p_k)$ can't be next lattice point since $(t+1)q_k$ is greater than $N$.
+
+    To get to the next lattice points in the hull, we should get to the point $(x;y)$ which diverges from $y=rx$ by the smallest margin, while maintaining $x \leq N$.
+
+    Let $(x; y)$ be the last current point in the convex hull. Then the next point $(x'; y')$ is such that $x' \leq N$ and $(x'; y') - (x; y) = (\Delta x; \Delta y)$ is as close to the line $y=rx$ as possible. In other words, $(\Delta x; \Delta y)$ maximizes $r \Delta x - \Delta y$ subject to $\Delta x \leq N - x$ and $\Delta y \leq r \Delta x$.
+
+    Points like that lie on the convex hull of lattice points below $y=rx$. In other words, $(\Delta x; \Delta y)$ must be a lower semiconvergent of $r$.
+
+    That being said, $(\Delta x; \Delta y)$ is of form $(q_{i-1}; p_{i-1}) + t \cdot (q_i; p_i)$ for some odd number $i$ and $0 \leq t < a_i$.
+
+    To find such $i$, we can traverse all possible $i$ starting from the largest one and use $t = \lfloor \frac{N-x-q_{i-1}}{q_i} \rfloor$ for $i$ such that $N-x-q_{i-1} \geq 0$.
+
+    With $(\Delta x; \Delta y) = (q_{i-1}; p_{i-1}) + t \cdot (q_i; p_i)$, the condition $\Delta y \leq r \Delta x$ would be preserved by semiconvergent properties.
+
+    And $t < a_i$ would hold because we already exhausted semiconvergents obtained from $i+2$, hence $x + q_{i-1} + a_i q_i = x+q_{i+1}$ is greater than $N$.
+
+    Now that we know $(\Delta x; \Delta y)$, we may add it to $(x;y)$ for $k = \lfloor \frac{N-x}{\Delta x} \rfloor$ times before we exceed $N$, after which we would try the next semiconvergent.
+
+    === "C++"
+        ```cpp
+        // returns [ah, ph, qh] such that points r[i]=(ph[i], qh[i]) constitute upper convex hull
+        // of lattice points on 0 <= x <= N and 0 <= y <= r * x, where r = [a0; a1, a2, ...]
+        // and there are ah[i]-1 integer points on the segment between r[i] and r[i+1]
+        auto hull(auto a, int N) {
+            auto [p, q] = convergents(a);
+            int t = N / q.back();
+            vector ah = {t};
+            vector ph = {0, t*p.back()};
+            vector qh = {0, t*q.back()};
+
+            for(int i = q.size() - 1; i >= 0; i--) {
+                if(i % 2) {
+                    while(qh.back() + q[i - 1] <= N) {
+                        t = (N - qh.back() - q[i - 1]) / q[i];
+                        int dp = p[i - 1] + t * p[i];
+                        int dq = q[i - 1] + t * q[i];
+                        int k = (N - qh.back()) / dq;
+                        ah.push_back(k);
+                        ph.push_back(ph.back() + k * dp);
+                        qh.push_back(qh.back() + k * dq);
+                    }
+                }
+            }
+            return make_tuple(ah, ph, qh);
+        }
+        ```
+    === "Python"
+        ```py
+        # returns [ah, ph, qh] such that points r[i]=(ph[i], qh[i]) constitute upper convex hull
+        # of lattice points on 0 <= x <= N and 0 <= y <= r * x, where r = [a0; a1, a2, ...]
+        # and there are ah[i]-1 integer points on the segment between r[i] and r[i+1]
+        def hull(a, N):
+            p, q = convergents(a)
+            t = N // q[-1]
+            ah = [t]
+            ph = [0, t*p[-1]]
+            qh = [0, t*q[-1]]
+            for i in reversed(range(len(q))):
+                if i % 2 == 1:
+                    while qh[-1] + q[i-1] <= N:
+                        t = (N - qh[-1] - q[i-1]) // q[i]
+                        dp = p[i-1] + t*p[i]
+                        dq = q[i-1] + t*q[i]
+                        k = (N - qh[-1]) // dq
+                        ah.append(k)
+                        ph.append(ph[-1] + k * dp)
+                        qh.append(qh[-1] + k * dq)
+            return ah, ph, qh
+        ```
+
+!!! example "[Timus - Crime and Punishment](https://acm.timus.ru/problem.aspx?space=1&num=1430)"
     You're given integer numbers $A$, $B$ and $N$. Find $x \geq 0$ and $y \geq 0$ such that $Ax + By \leq N$ and $Ax + By$ is the maximum possible.
 
     _Equivalent formulation:_ Given $A$, $B$, $C$ and $N$, find $x$ such that $0 \leq x \leq N$ and $\lfloor \frac{Ax+B}{C} \rfloor$ is the maximum possible.
 
 ??? hint "Solution"
-
     In the actual problem it holds that $1 \leq A, B, N \leq 2 \cdot 10^9$, so the problem can be solved in $O(\sqrt N)$.
 
     However, there is $O(\log N)$ solution with continued fractions.
@@ -450,18 +528,15 @@ Now that the most important facts and concepts were introduced, it is time to de
         ```
 
 !!! example "[CodeChef - Euler Sum](https://www.codechef.com/problems/ES)"
-
     Compute $\sum\limits_{x=1}^N \lfloor ex \rfloor$, where $e = [2; 1, 2, 1, 1, 4, 1, 1, 6, 1, \dots, 1, 2n, 1, \dots]$ is the Euler's number and $N \leq 10^{4000}$.
 
 
 !!! example "[Kattis - It's a Mod, Mod, Mod, Mod World](https://open.kattis.com/problems/itsamodmodmodmodworld)"
-
     Given $p$, $q$ and $n$, compute $\sum\limits_{i=1}^n [p \cdot i \bmod q]$.
 
 The connection between $\bmod$ and $\lfloor \cdot \rfloor$ is given as $a \bmod b = a - \lfloor \frac{a}{b} \rfloor b$.
 
 !!! example "[Library Checker - Sum of Floor of Linear](https://judge.yosupo.jp/problem/sum_of_floor_of_linear)"
-
     Given $N$, $M$, $A$ and $B$, compute $\sum\limits_{i=0}^{N-1} \lfloor \frac{A \cdot i + B}{M} \rfloor$.
 
 This one is a bit more tricky. We'll discuss possible approaches to tackle it further below.
