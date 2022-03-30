@@ -340,8 +340,8 @@ Another, somewhat simpler way to organize continued fractions in a binary tree i
 
     Correspondingly, children of $\frac{p}{q} = [a_0; a_1, \dots, a_k]$ are
 
-    1. $\frac{p+q}{q}=[a_0+1; a_1, \dots, a_k]$,
-    2. $\frac{p}{p+q} = [0, 1, a_0, a_1, \dots, a_k]$ (when $a_0 > 0$) or $\frac{p}{p+q} = [0, a_1+1, a_2, \dots, a_k]$ (when $a_0=0$).
+    1. $\frac{p+q}{q}=1+\frac{p}{q}$, which is $[a_0+1; a_1, \dots, a_k]$,
+    2. $\frac{p}{p+q} = \frac{1}{1+\frac{q}{p}}$, which is $[0, 1, a_0, a_1, \dots, a_k]$ for $a_0 > 0$ and $[0, a_1+1, a_2, \dots, a_k]$ for $a_0=0$.
 
     Noteworthy, if we enumerate vertices of the Calkin-Wilf tree in the breadth-first search order (that is, the root has a number $1$, and the children of the vertex $v$ have indices $2v$ and $2v+1$ correspondingly), the index of the rational number in the Calkin-Wilf tree would be the same as in the Stern-Brocot tree.
 
