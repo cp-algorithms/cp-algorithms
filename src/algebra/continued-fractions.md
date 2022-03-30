@@ -502,7 +502,7 @@ Now that the most important facts and concepts were introduced, it is time to de
 !!! example "Convex hull under the line"
     Find the convex hull of lattice points $(x;y)$ such that $0 \leq x \leq N$ and $0 \leq y \leq rx$ for $r=[a_0;a_1,\dots,a_k]=\frac{p_k}{q_k}$.
 
-!!! hint "Solution"
+??? hint "Solution"
     If we were considering the unbounded set $0 \leq x$, the upper convex hull would be given by the line $y=rx$ itself.
 
     However, with additional constraint $x \leq N$ we'd need to eventually deviate from the line to maintain proper convex hull.
@@ -594,7 +594,7 @@ Now that the most important facts and concepts were introduced, it is time to de
 
     It is evident that one needs to find the maximum value of $\lfloor \frac{N-Ax}{B} \rfloor$ for $0 \leq x \leq \lfloor \frac{N}{A}\rfloor$.
 
-    For our convenience, we will invert the direction of $x$, so that now we need to find the maximum value of $\lfloor \frac{Ax + \left(N \bmod A \right)}{B} \rfloor$ for $0 \leq x \leq \lfloor \frac{N}{A} \rfloor$.
+    For our convenience, we will invert the direction of $x$, so that now we need to find the maximum value of $\lfloor \frac{Ax + \left(N \mod A \right)}{B} \rfloor$ for $0 \leq x \leq \lfloor \frac{N}{A} \rfloor$.
 
     To treat it more generically, we will write a function that finds the maximum value of $\lfloor \frac{Ax+B}{C} \rfloor$ on $0 \leq x \leq N$:
 
