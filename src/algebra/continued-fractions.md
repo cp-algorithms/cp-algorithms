@@ -251,8 +251,41 @@ Convergents are the core concept of continued fractions, so it is important to s
 
     $$P_k(a_0, \dots, a_k) = a_k P_{k-1}(a_0, \dots, a_{k-1}) + P_{k-2}(a_0, \dots, a_{k-2}).$$
 
-!!! note "Connection with the Stern-Brocot tree"
-    [The Stern-Brocot tree](../others/stern_brocot_tree_farey_sequences.md) is a binary search tree that contains all the distinct positive rational numbers.
+### Implementation
+
+We will compute the convergents as a pair of sequences $p_{-2}, p_{-1}, p_0, p_1, \dots, p_k$ and $q_{-2}, q_{-1}, q_0, q_1, \dots, q_k$:
+
+=== "C++"
+    ```cpp
+    auto convergents(vector<int> a) {
+        vector<int> p = {0, 1};
+        vector<int> q = {1, 0};
+        for(auto it: a) {
+            p.push_back(p[p.size() - 1] * it + p[p.size() - 2]);
+            q.push_back(q[q.size() - 1] * it + q[q.size() - 2]);
+        }
+        return make_pair(p, q);
+    }
+    ```
+=== "Python"
+    ```py
+    def convergents(a):
+        p = [0, 1]
+        q = [1, 0]
+        for it in a:
+            p.append(p[-1]*it + p[-2])
+            q.append(q[-1]*it + q[-2])
+        return p, q
+    ```
+
+## Organizing continued fractions in trees
+
+There are two major ways to unite all possible continued fractions into useful tree structures.
+
+The Stern-Brocot tree is particularly useful because it allows to do a binary search on all rational numbers and the result would converge as fast as convergents of continued fractions do.
+
+!!! note "Connection with the Stern–Brocot tree"
+    [The Stern-Brocot tree](../others/stern_brocot_tree_farey_sequences.md) is a binary search tree that contains all distinct positive rational numbers.
 
     The tree generally looks as follows:
 
@@ -283,34 +316,36 @@ Convergents are the core concept of continued fractions, so it is important to s
 
     Another example is $\frac{2}{5} = [0;2,2]=[0;2,1,1]$, which has index $1100_2$ and its run-length encoding is, indeed, $[0;2,2]$.
 
-    
-### Implementation
+Another, somewhat simpler way to organize continued fractions in a binary tree is the Calkin-Wilf tree. Unfortunately, unlike the Stern-Brocot tree, Calkin-Wif tree is not a binary _search_ tree, so it can't be used to emulate rational binary search.
 
-We will compute the convergents as a pair of sequences $p_{-2}, p_{-1}, p_0, p_1, \dots, p_k$ and $q_{-2}, q_{-1}, q_0, q_1, \dots, q_k$:
+!!! note "Connection with the Calkin–Wilf tree"
+    [The Calkin-Wilf tree](https://en.wikipedia.org/wiki/Calkin–Wilf_tree) is another binary tree which contains all distinct positive rational numbers.
 
-=== "C++"
-    ```cpp
-    auto convergents(vector<int> a) {
-        vector<int> p = {0, 1};
-        vector<int> q = {1, 0};
-        for(auto it: a) {
-            p.push_back(p[p.size() - 1] * it + p[p.size() - 2]);
-            q.push_back(q[q.size() - 1] * it + q[q.size() - 2]);
-        }
-        return make_pair(p, q);
-    }
-    ```
-=== "Python"
-    ```py
-    def convergents(a):
-        p = [0, 1]
-        q = [1, 0]
-        for it in a:
-            p.append(p[-1]*it + p[-2])
-            q.append(q[-1]*it + q[-2])
-        return p, q
-    ```
+    The tree generally looks like this:
 
+    <figure><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Calkin–Wilf_tree.svg" width="500px"/>
+    <figcaption>[The image](https://commons.wikimedia.org/wiki/File:Calkin–Wilf_tree.svg) by [Olli Niemitalo](https://commons.wikimedia.org/wiki/User:Olli_Niemitalo), [Proz](https://commons.wikimedia.org/wiki/User:Proz) is licensed under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/deed.en)</figcaption></figure>
+
+    In the root of the tree, the number $\frac{1}{1}$ is located. Then, for the vertex with a number $\frac{p}{q}$, its children are $\frac{p}{p+q}$ and $\frac{p+q}{q}$.
+
+    In the Calkin-Wilf tree, for the fraction $\frac{p}{q}$, its direct parent is $\frac{p-q}{q}$ when $p>q$ and $\frac{p}{q-p}$ otherwise.
+
+    For the Stern-Brocot tree, we used the recurrence for convergents. To draw the connection between the continued fraction and the Calkin-Wilf tree, we should recall the recurrence for residues. If $s_k = \frac{p}{q}$, then $s_{k+1} = \frac{q}{p \mod q} = \frac{q}{p-\lfloor p/q \rfloor \cdot q}$.
+
+    On the other hand, if we repeatedly go from $s_k = \frac{p}{q}$ to its parent in the Calkin-Wilf tree when $p > q$, we will end up in $\frac{p \mod q}{q} = \frac{1}{s_{k+1}}$. If we continue doing so, we will end up in $s_{k+2}$, then $\frac{1}{s_{k+3}}$ and so on. From this we can deduce that:
+
+    1. When $a_0> 0$, the direct parent of $[a_0; a_1, \dots, a_k]$ in the Calkin-Wilf tree is $\frac{p-q}{q}=[a_0 - 1; a_1, \dots, a_k]$.
+    2. When $a_0 = 0$ and $a_1 > 1$, its direct parent is $\frac{p}{q-p} = [0; a_1 - 1, a_2, \dots, a_k]$.
+    3. And when $a_0 = 0$ and $a_1 = 1$, its direct parent is $\frac{p}{q-p} = [a_2; a_3, \dots, a_k]$.
+
+    Correspondingly, children of $\frac{p}{q} = [a_0; a_1, \dots, a_k]$ are
+
+    1. $\frac{p+q}{q}=[a_0+1; a_1, \dots, a_k]$,
+    2. $\frac{p}{p+q} = [0, 1, a_0, a_1, \dots, a_k]$ (when $a_0 > 0$) or $\frac{p}{p+q} = [0, a_1+1, a_2, \dots, a_k]$ (when $a_0=0$).
+
+    Noteworthy, if we enumerate vertices of the Calkin-Wilf tree in the breadth-first search order (that is, the root has a number $1$, and the children of the vertex $v$ have indices $2v$ and $2v+1$ correspondingly), the index of the rational number in the Calkin-Wilf tree would be the same as in the Stern-Brocot tree.
+
+    Thus, numbers on the same levels of the Stern-Brocot tree and the Calkin-Wilf tree are the same, but their ordering differs through the [bit-reversal permutation](https://en.wikipedia.org/wiki/Bit-reversal_permutation).
 ## Convergence
 
 _You can mostly skip this section if you're more interested in practical results._
