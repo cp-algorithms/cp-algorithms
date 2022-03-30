@@ -49,7 +49,7 @@ Besides that, continued fractions are closely related to Euclidean algorithm whi
 !!! abstract "Definition"
     In the definition above, rational numbers $r_0, r_1, r_2, \dots$ are called the **convergents** of $r$.
 
-    Correspondingly, individual $r_k = [a_0; a_1, \dots, a_k]$ is called the $k$-th **convergent** of $r$.
+    Correspondingly, individual $r_k = [a_0; a_1, \dots, a_k] = \frac{p_k}{q_k}$ is called the $k$-th **convergent** of $r$.
 
 ??? example
     Consider $r = [1; 1, 1, 1, \dots]$. It can be proven by induction that $r_k = \frac{F_{k+2}}{F_{k+1}}$, where $F_k$ is the Fibonacci sequence defined as $F_0 = 0$, $F_1 = 1$ and $F_{k} = F_{k-1} + F_{k-2}$. From the Binet's formula, it is known that
@@ -67,6 +67,8 @@ Besides that, continued fractions are closely related to Euclidean algorithm whi
 
 !!! abstract "Definition"
     Let $r_k = [a_0; a_1, \dots, a_{k-1}, a_k]$. The numbers $[a_0; a_1, \dots, a_{k-1}, t]$ for $1 \leq t \leq a_k$ are called **semiconvergents**.
+
+    We will typically refer to (semi)convergents that are greater than $r$ as **upper** (semi)convergents and to those that are less than $r$ as **lower** (semi)convergents.
 
 !!! abstract "Definition"
     Complementary to convergents, we define the **residues** as $s_k = [a_k; a_{k+1}, a_{k+2}, \dots]$. Correspondingly, we will call an individual $s_k$ the $k$-th residue of $r$.
@@ -210,6 +212,8 @@ Convergents are the core concept of continued fractions, so it is important to s
 
     Thus, $r_k$ is a weighted [mediant](https://en.wikipedia.org/wiki/Mediant_(mathematics)) of $r_{k-1}$ and $r_{k-2}$.
 
+    For consistency, two additional convergents $r_{-1} = \frac{1}{0}$ and $r_{-2} = \frac{0}{1}$ are defined.
+
     Note that if $\gcd(a,b)=\gcd(c,d)=1$ then $\gcd(a+c,b+d)=1$ as well, hence for all convergents $r_k = \frac{p_k}{q_k}$, it holds that $\gcd(p_k, q_k)=1$.
 
 ??? hint "Detailed explanation"
@@ -321,7 +325,7 @@ The Stern-Brocot tree is particularly useful because it allows to do a binary se
 
     Another example is $\frac{2}{5} = [0;2,2]=[0;2,1,1]$, which has index $1100_2$ and its run-length encoding is, indeed, $[0;2,2]$.
 
-Another, somewhat simpler way to organize continued fractions in a binary tree is the Calkin-Wilf tree. Unfortunately, unlike the Stern-Brocot tree, Calkin-Wif tree is not a binary _search_ tree, so it can't be used to emulate rational binary search.
+Another, somewhat simpler way to organize continued fractions in a binary tree is the Calkin-Wilf tree. Unfortunately, unlike the Stern-Brocot tree, Calkin-Wilf tree is not a binary _search_ tree, so it can't be used to emulate rational binary search.
 
 !!! note "Connection with the Calkin–Wilf tree"
     [The Calkin-Wilf tree](https://en.wikipedia.org/wiki/Calkin–Wilf_tree) is another binary tree which contains all distinct positive rational numbers.
@@ -404,9 +408,10 @@ _You can mostly skip this section if you're more interested in practical results
 
     $$r-r_k = \sum\limits_{i=k+1}^\infty \frac{(-1)^{i-1}}{q_i q_{i-1}}$$
 
-    has the same sign as $(-1)^k$ due to how fast $q_i q_{i-1}$ decreases. It means that even-indexed $r_k$ monotonously approach $r$ from below while odd-indexed $r_k$ monotonously approach it from above:
+    has the same sign as $(-1)^k$ due to how fast $q_i q_{i-1}$ decreases. Hence even-indexed $r_k$ approach $r$ from below while odd-indexed $r_k$ approach it from above:
 
-    ![](https://upload.wikimedia.org/wikipedia/commons/b/b4/Golden_ration_convergents.svg)
+    <figure><img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Golden_ration_convergents.svg" width="600px"/>
+    <figcaption>_Convergents of $r=\phi = \frac{1+\sqrt{5}}{2}=[1;1,1,\dots]$ and their distance from $r$._</figcaption></figure>
 
     From this picture we can see that
 
@@ -457,14 +462,15 @@ _You can mostly skip this section if you're more interested in practical results
 
     $$s_k = -\frac{\vec r_{k-2} \times \vec r}{\vec r_{k-1} \times \vec r}.$$
 
-!!! example "Nose stretching"
+!!! example "Nose stretching algorithm"
     Each time you add $\vec r_{k-1}$ to the vector $\vec p$, the value of $\vec p \times \vec r$ is increased by $\vec r_{k-1} \times \vec r$.
 
     Thus, $a_k=\lfloor s_k \rfloor$ is the maximum integer number of $\vec r_{k-1}$ vectors that can be added to $\vec r_{k-2}$ without changing the sign of the cross product with $\vec r$.
 
     In other words, $a_k$ is the maximum integer number of times you can add $\vec r_{k-1}$ to $\vec r_{k-2}$ without crossing the line defined by $\vec r$:
 
-    ![](https://upload.wikimedia.org/wikipedia/commons/9/92/Continued_convergents_geometry.svg)
+    <figure><img src="https://upload.wikimedia.org/wikipedia/commons/9/92/Continued_convergents_geometry.svg" width="700px"/>
+    <figcaption>_Convergents of $r=\frac{7}{9}=[0;1,3,2]$. Semiconvergents correspond to intermediate points between gray arrows._</figcaption></figure>
 
     On the picture above, $\vec r_2 = (4;3)$ is obtained by repeatedly adding $\vec r_1 = (1;1)$ to $\vec r_0 = (1;0)$.
 
@@ -507,6 +513,9 @@ Now that the most important facts and concepts were introduced, it is time to de
 
     To get to the next lattice points in the hull, we should get to the point $(x;y)$ which diverges from $y=rx$ by the smallest margin, while maintaining $x \leq N$.
 
+    <figure><img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Lattice-hull.svg" width="500px"/>
+    <figcaption>Convex hull of lattice points under $y=\frac{4}{7}x$ for $0 \leq x \leq 19$ consists of points $(0;0), (7;4), (14;8), (16;9), (18;10), (19;10)$.</figcaption></figure>
+
     Let $(x; y)$ be the last current point in the convex hull. Then the next point $(x'; y')$ is such that $x' \leq N$ and $(x'; y') - (x; y) = (\Delta x; \Delta y)$ is as close to the line $y=rx$ as possible. In other words, $(\Delta x; \Delta y)$ maximizes $r \Delta x - \Delta y$ subject to $\Delta x \leq N - x$ and $\Delta y \leq r \Delta x$.
 
     Points like that lie on the convex hull of lattice points below $y=rx$. In other words, $(\Delta x; \Delta y)$ must be a lower semiconvergent of $r$.
@@ -519,7 +528,7 @@ Now that the most important facts and concepts were introduced, it is time to de
 
     And $t < a_i$ would hold because we already exhausted semiconvergents obtained from $i+2$, hence $x + q_{i-1} + a_i q_i = x+q_{i+1}$ is greater than $N$.
 
-    Now that we know $(\Delta x; \Delta y)$, we may add it to $(x;y)$ for $k = \lfloor \frac{N-x}{\Delta x} \rfloor$ times before we exceed $N$, after which we would try the next semiconvergent.
+    Now that we may add $(\Delta x; \Delta y)$, to $(x;y)$ for $k = \lfloor \frac{N-x}{\Delta x} \rfloor$ times before we exceed $N$, after which we would try the next semiconvergent.
 
     === "C++"
         ```cpp
