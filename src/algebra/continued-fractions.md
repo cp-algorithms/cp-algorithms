@@ -450,6 +450,11 @@ Another important concept for continued fractions are the so-called [linear frac
 
     Since linear fractional transformations can be composed into another linear fractional transformation, this solves the problem.
 
+!!! info "Definition"
+    A continued fraction $x = [a_0; a_1, \dots]$ is said to be **periodic** if $x = [a_0; a_1, \dots, a_k, x]$ for some $k$.
+
+    A continued fraction $x = [a_0; a_1, \dots]$ is said to be **eventually periodic** if $x = [a_0; a_1, \dots, a_k, y]$, where $y$ is periodic.
+
 !!! note "Periodic fractions"
     For $x = [1; 1, 1, \dots]$ it holds that $x = 1 + \frac{1}{x}$, thus $x^2 = x + 1$. There is a generic connection between periodic continued fractions and quadratic equations.
 
