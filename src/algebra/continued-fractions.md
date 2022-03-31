@@ -7,7 +7,7 @@ Besides that, continued fractions are closely related to Euclidean algorithm whi
 
 ## Continued fraction representation
 
-!!! abstract "Definition"
+!!! info "Definition"
     Let $a_0, a_1, \dots, a_k \in \mathbb Z$ and $a_1, a_2, \dots, a_k \geq 1$. Then the expression
 
     $$r=a_0 + \frac{1}{a_1 + \frac{1}{\dots + \frac{1}{a_k}}},$$
@@ -34,7 +34,7 @@ Besides that, continued fractions are closely related to Euclidean algorithm whi
 
     The reasoning behind this will be clear once we delve into the details of the continued fraction construction.
 
-!!! abstract "Definition"
+!!! info "Definition"
     Let $a_0,a_1,a_2, \dots$ be an integer sequence such that $a_1, a_2, \dots \geq 1$. Let $r_k = [a_0; a_1, \dots, a_k]$. Then the expression
 
     $$r = a_0 + \frac{1}{a_1 + \frac{1}{a_2+\dots}} = \lim\limits_{k \to \infty} r_k.$$
@@ -46,7 +46,7 @@ Besides that, continued fractions are closely related to Euclidean algorithm whi
 
     Another important observation is that $\frac{1}{r}=[0;a_0, a_1, \dots]$ when $a_0 > 0$ and $\frac{1}{r} = [a_1; a_2, \dots]$ when $a_0 = 0$.
 
-!!! abstract "Definition"
+!!! info "Definition"
     In the definition above, rational numbers $r_0, r_1, r_2, \dots$ are called the **convergents** of $r$.
 
     Correspondingly, individual $r_k = [a_0; a_1, \dots, a_k] = \frac{p_k}{q_k}$ is called the $k$-th **convergent** of $r$.
@@ -65,12 +65,12 @@ Besides that, continued fractions are closely related to Euclidean algorithm whi
     $$r = 1+\frac{1}{r} \implies r^2 = r + 1. $$
 
 
-!!! abstract "Definition"
+!!! info "Definition"
     Let $r_k = [a_0; a_1, \dots, a_{k-1}, a_k]$. The numbers $[a_0; a_1, \dots, a_{k-1}, t]$ for $1 \leq t \leq a_k$ are called **semiconvergents**.
 
     We will typically refer to (semi)convergents that are greater than $r$ as **upper** (semi)convergents and to those that are less than $r$ as **lower** (semi)convergents.
 
-!!! abstract "Definition"
+!!! info "Definition"
     Complementary to convergents, we define the **[complete quotients](https://en.wikipedia.org/wiki/Complete_quotient)** as $s_k = [a_k; a_{k+1}, a_{k+2}, \dots]$. Correspondingly, we will call an individual $s_k$ the $k$-th complete quotient of $r$.
 
 !!! note "Connection between complete quotients and continued fraction representation"
@@ -543,7 +543,7 @@ Another important concept for continued fractions are the so-called [linear frac
     This, in turn, means that $\vec r_k$ with odd coefficients form a convex hull of lattice points with $x \geq 0$ above the line $y=rx$, while $\vec r_k$ with even coefficients form a convex hull of lattice points with $x > 0$ below the line $y=rx$.
 
 
-!!! abstract "Definition"
+!!! info "Definition"
 
     These polygons are also known as **Klein polygons**, named after Felix Klein who first suggested this geometric interpretation to the continued fractions.
 
