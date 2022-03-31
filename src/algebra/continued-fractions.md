@@ -71,9 +71,9 @@ Besides that, continued fractions are closely related to Euclidean algorithm whi
     We will typically refer to (semi)convergents that are greater than $r$ as **upper** (semi)convergents and to those that are less than $r$ as **lower** (semi)convergents.
 
 !!! abstract "Definition"
-    Complementary to convergents, we define the **residues** as $s_k = [a_k; a_{k+1}, a_{k+2}, \dots]$. Correspondingly, we will call an individual $s_k$ the $k$-th residue of $r$.
+    Complementary to convergents, we define the **[complete quotients](https://en.wikipedia.org/wiki/Complete_quotient)** as $s_k = [a_k; a_{k+1}, a_{k+2}, \dots]$. Correspondingly, we will call an individual $s_k$ the $k$-th complete quotient of $r$.
 
-!!! note "Connection between residues and continued fraction representation"
+!!! note "Connection between complete quotients and continued fraction representation"
 
     From the definitions above, $s_k \geq 1$ for $k \geq 1$.
 
@@ -100,7 +100,7 @@ In the code snippets we will mostly assume finite continued fractions.
 
     $$s_k =\left\lfloor s_k \right\rfloor + \frac{1}{s_{k+1}}.$$
 
-    From this expression, the next residue $s_{k+1}$ is obtained as
+    From this expression, the next complete quotient $s_{k+1}$ is obtained as
 
     $$s_{k+1} = \left(s_k-\left\lfloor s_k\right\rfloor\right)^{-1}.$$
 
@@ -339,7 +339,7 @@ Another, somewhat simpler way to organize continued fractions in a binary tree i
 
     In the Calkin-Wilf tree, for the fraction $\frac{p}{q}$, its direct parent is $\frac{p-q}{q}$ when $p>q$ and $\frac{p}{q-p}$ otherwise.
 
-    For the Stern-Brocot tree, we used the recurrence for convergents. To draw the connection between the continued fraction and the Calkin-Wilf tree, we should recall the recurrence for residues. If $s_k = \frac{p}{q}$, then $s_{k+1} = \frac{q}{p \mod q} = \frac{q}{p-\lfloor p/q \rfloor \cdot q}$.
+    For the Stern-Brocot tree, we used the recurrence for convergents. To draw the connection between the continued fraction and the Calkin-Wilf tree, we should recall the recurrence for complete quotients. If $s_k = \frac{p}{q}$, then $s_{k+1} = \frac{q}{p \mod q} = \frac{q}{p-\lfloor p/q \rfloor \cdot q}$.
 
     On the other hand, if we repeatedly go from $s_k = \frac{p}{q}$ to its parent in the Calkin-Wilf tree when $p > q$, we will end up in $\frac{p \mod q}{q} = \frac{1}{s_{k+1}}$. If we continue doing so, we will end up in $s_{k+2}$, then $\frac{1}{s_{k+3}}$ and so on. From this we can deduce that:
 
@@ -420,6 +420,58 @@ _You can mostly skip this section if you're more interested in practical results
     thus the distance between $r$ and $r_k$ is never larger than the distance between $r_k$ and $r_{k+1}$:
 
     $$\left|r-\frac{p_k}{q_k}\right| \leq \frac{1}{q_k q_{k+1}} \leq \frac{1}{q_k^2}.$$
+
+## Linear fractional transformations
+
+Another important concept for continued fractions are the so-called [linear fractional transformations](https://en.wikipedia.org/wiki/Linear_fractional_transformation).
+
+!!! info "Definition"
+    A **linear fractional transformation** is a function $f : \mathbb R \to \mathbb R$ such that $f(x) = \frac{ax+b}{cx+d}$ for some $a,b,c,d \in \mathbb R$.
+!!! note "Composition"
+    A composition of linear fractional transforms is itself a linear fractional transform:
+
+    $$\frac{a_0\frac{a_1 x + b_1}{c_1 x + d_1} + b_0}{c_0 \frac{a_1 x + b_1}{c_1 x + d_1} + d_0} = \frac{a_0(a_1 x + b_1) + b_0 (c_1 x + d_1)}{c_0 (a_1 x + b_1) + d_0 (c_1 x + d_1)} = \frac{(a_0 a_1 + b_0 c_1) x + (a_0 b_1 + b_0 d_1)}{(c_0 a_1 + d_0 c_1) x + (c_0 b_1 + d_0 d_1)}.$$
+!!! note "Inversion"
+    Inverse of a linear fractional transform, is also a linear fractional transform:
+
+    $$y = \frac{ax+b}{cx+d} \iff y(cx+d) = ax + b \iff x = -\frac{dy-b}{cy-a}.$$
+!!! example "Continued fractions on segments"
+    You're given an array of positive integers $a_1, \dots, a_n$. You need to answer $m$ queries.
+
+    Each query is to compute $[a_l; a_{l+1}, \dots, a_r]$.
+!!! hint "Solution"
+    We can solve this problem with the segment tree if we're able to concatenate continued fractions.
+
+    It's generally true that $[a_0; a_1, \dots, a_k, b_0, b_1, \dots, b_k] = [a_0; a_1, \dots, a_k, [b_1; b_2, \dots, b_k]]$.
+
+    Consider the transform $x \mapsto [a_0; a_1, \dots, a_k, x]$. From the convergent recurrence we know that it is a linear fractional transform:
+
+    $$x \mapsto \frac{p_k x + p_{k-1}}{q_k x + q_{k-1}}.$$
+
+    Since linear fractional transformations can be composed into another linear fractional transformation, this solves the problem.
+
+!!! note "Periodic fractions"
+    For $x = [1; 1, 1, \dots]$ it holds that $x = 1 + \frac{1}{x}$, thus $x^2 = x + 1$. There is a generic connection between periodic continued fractions and quadratic equations.
+
+    Consider the following equation:
+
+    $$ x = [a_0; a_1, \dots, a_k, x].$$
+
+    From one side, this equation means that the continued fraction representation of $x$ is periodic with the period $k+1$.
+
+    On the other hand, using the formula for convergents, this equation means that
+
+    $$x = \frac{p_k x + p_{k-1}}{q_k x + q_{k-1}}.$$
+
+    That is, $x$ is a linear fractional transformation of itself. With this equation, we can see that $x$ is a root of second degree equation:
+
+    $$q_k x^2 + (q_{k-1}-p_k)x - p_{k-1} = 0.$$
+
+    Similar reasoning stands for continued fractions that are eventually periodic, that is $x = [a_0; a_1, \dots, a_k, y]$ for $y=[b_0; b_1, \dots, b_k, y]$. Indeed, from first equation we derive that $x = L_0(y)$ and from second equation that $y = L_1(y)$, where $L_0$ and $L_1$ are linear fractional transformations. Therefore,
+
+    $$x = (L_0 \circ L_1)(y) = (L_0 \circ L_1 \circ L_0^{-1})(x).$$
+
+    Moreover, for arbitrary quadratic equation $ax^2+bx+c=0$ with integer coefficients, its solution $x$ is an eventually periodic continued fraction.
 
 ## Geometric interpretation
 
