@@ -437,11 +437,12 @@ Another important concept for continued fractions are the so-called [linear frac
     Inverse of a linear fractional transform, is also a linear fractional transform:
 
     $$y = \frac{ax+b}{cx+d} \iff y(cx+d) = ax + b \iff x = -\frac{dy-b}{cy-a}.$$
-!!! example "Continued fractions on segments"
+!!! example "[DMOPC '19 Contest 7 P4 - Bob and Continued Fractions
+](https://dmoj.ca/problem/dmopc19c7p4)"
     You're given an array of positive integers $a_1, \dots, a_n$. You need to answer $m$ queries.
 
     Each query is to compute $[a_l; a_{l+1}, \dots, a_r]$.
-!!! hint "Solution"
+??? hint "Solution"
     We can solve this problem with the segment tree if we're able to concatenate continued fractions.
 
     It's generally true that $[a_0; a_1, \dots, a_k, b_0, b_1, \dots, b_k] = [a_0; a_1, \dots, a_k, [b_1; b_2, \dots, b_k]]$.
