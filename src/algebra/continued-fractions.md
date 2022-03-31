@@ -582,7 +582,7 @@ Now that the most important facts and concepts were introduced, it is time to de
             return ah, ph, qh
         ```
 
-!!! example "[Timus - Crime and Punishment](https://acm.timus.ru/problem.aspx?space=1&num=1430)"
+!!! example "[Timus - Crime and Punishment](https://timus.online/problem.aspx?space=1&num=1430)"
     You're given integer numbers $A$, $B$ and $N$. Find $x \geq 0$ and $y \geq 0$ such that $Ax + By \leq N$ and $Ax + By$ is the maximum possible.
 
     _Equivalent formulation:_ Given $A$, $B$, $C$ and $N$, find $x$ such that $0 \leq x \leq N$ and $\lfloor \frac{Ax+B}{C} \rfloor$ is the maximum possible.
@@ -594,33 +594,225 @@ Now that the most important facts and concepts were introduced, it is time to de
 
     It is evident that one needs to find the maximum value of $\lfloor \frac{N-Ax}{B} \rfloor$ for $0 \leq x \leq \lfloor \frac{N}{A}\rfloor$.
 
-    For our convenience, we will invert the direction of $x$, so that now we need to find the maximum value of $\lfloor \frac{Ax + \left(N \mod A \right)}{B} \rfloor$ for $0 \leq x \leq \lfloor \frac{N}{A} \rfloor$.
+    For our convenience, we will invert the direction of $x$, so that now we need to find the maximum value of $\lfloor \frac{Ax + \left(N \;\bmod\; A \right)}{B} \rfloor$ for $0 \leq x \leq \lfloor \frac{N}{A} \rfloor$.
 
-    To treat it more generically, we will write a function that finds the maximum value of $\lfloor \frac{Ax+B}{C} \rfloor$ on $0 \leq x \leq N$:
+    To treat it more generically, we will write a function that finds the maximum value of $\lfloor \frac{Ax+B}{C} \rfloor$ on $0 \leq x \leq N$.
+
+    Core solution idea in this problem essentially repeats the previous problem, but instead of using lower semiconvergents to diverge from line, you use upper semiconvergents to get closer to the line without crossing it and without violating $x \leq N$. Unfortunately, unlike the previous problem, you need to make sure that you don't cross the $y=\frac{Ax+B}{C}$ line while getting closer to it, so you should keep it in mind when calculating semiconvergent's coefficient $t$.
+
+    === "Python"
+        ```py
+        # (x, y) such that y = (A*x+B)//C,
+        # y mod C is max
+        # and 0 <= x <= N.
+        def max_floor(A, B, C, N):
+            # y <= (A*x + B)/C <=> diff(x, y) <= B
+            def diff(x, y):
+                return C*y-A*x
+            a = fraction(A, C)
+            p, q = convergents(a)
+            ph = [B // C]
+            qh = [0]
+            for i in range(2, len(q) - 1):
+                if i % 2 == 0:
+                    while diff(qh[-1] + q[i+1], ph[-1] + p[i+1]) <= B:
+                        t = 1 + (diff(qh[-1] + q[i-1], ph[-1] + p[i-1]) - B - 1) // abs(diff(q[i], p[i]))
+                        dp = p[i-1] + t*p[i]
+                        dq = q[i-1] + t*q[i]
+                        k = (N - qh[-1]) // dq
+                        if k == 0:
+                            return qh[-1], ph[-1]
+                        if diff(dq, dp) != 0:
+                            k = min(k, (B - diff(qh[-1], ph[-1])) // diff(dq, dp))
+                        qh.append(qh[-1] + k*dq)
+                        ph.append(ph[-1] + k*dp)
+            return qh[-1], ph[-1]
+
+        def solve(A, B, N):
+            x, y = max_floor(A, N % A, B, N // A)
+            return N // A - x, y
+        ```
+
+!!! example "[June Challenge 2017 - Euler Sum](https://www.codechef.com/problems/ES)"
+    Compute $\sum\limits_{x=1}^N \lfloor ex \rfloor$, where $e = [2; 1, 2, 1, 1, 4, 1, 1, 6, 1, \dots, 1, 2n, 1, \dots]$ is the Euler's number and $N \leq 10^{4000}$.
+
+??? hint "Solution"
+    This sum is equal to the number of lattice point $(x;y)$ such that $1 \leq x \leq N$ and $1 \leq y \leq ex$.    
+
+    After constructing the convex hull of the points below $y=ex$, this number can be computed using [Pick's theorem](../geometry/picks-theorem.md):
 
     === "C++"
         ```cpp
-        auto solve(int A, int B, int N) {
-            return max_floor(A, N % A, B, N / A);
+        // sum floor(k * x) for k in [1, N] and x = [a0; a1, a2, ...]
+        int sum_floor(auto a, int N) {
+            N++;
+            auto [ah, ph, qh] = hull(a, N);
+
+            // The number of lattice points within a vertical right trapezoid
+            // on points (0; 0) - (0; y1) - (dx; y2) - (dx; 0) that has
+            // a+1 integer points on the segment (0; y1) - (dx; y2).
+            auto picks = [](int y1, int y2, int dx, int a) {
+                int b = y1 + y2 + a + dx;
+                int A = (y1 + y2) * dx;
+                return (A - b + 2) / 2 + b - (y2 + 1);
+            };
+
+            int ans = 0;
+            for(size_t i = 1; i < qh.size(); i++) {
+                ans += picks(ph[i - 1], ph[i], qh[i] - qh[i - 1], ah[i - 1]);
+            }
+            return ans - N;
         }
         ```
     === "Python"
         ```py
-        def solve(A, B, N):
-            x, y = max_rem(A, N % A, B, N // A)
-            return N // A - x, y
-        ```
+        # sum floor(k * x) for k in [1, N] and x = [a0; a1, a2, ...]
+        def sum_floor(a, N):
+            N += 1
+            ah, ph, qh = hull(a, N)
 
-!!! example "[CodeChef - Euler Sum](https://www.codechef.com/problems/ES)"
-    Compute $\sum\limits_{x=1}^N \lfloor ex \rfloor$, where $e = [2; 1, 2, 1, 1, 4, 1, 1, 6, 1, \dots, 1, 2n, 1, \dots]$ is the Euler's number and $N \leq 10^{4000}$.
+            # The number of lattice points within a vertical right trapezoid
+            # on points (0; 0) - (0; y1) - (dx; y2) - (dx; 0) that has
+            # a+1 integer points on the segment (0; y1) - (dx; y2).
+            def picks(y1, y2, dx, a):
+                b = y1 + y2 + a + dx
+                A = (y1 + y2) * dx
+                return (A - b + 2) // 2 + b - (y2 + 1)
 
+            ans = 0
+            for i in range(1, len(qh)):
+                ans += picks(ph[i-1], ph[i], qh[i]-qh[i-1], ah[i-1])
+            return ans - N
+        ``` 
 
-!!! example "[Kattis - It's a Mod, Mod, Mod, Mod World](https://open.kattis.com/problems/itsamodmodmodmodworld)"
+!!! example "[NAIPC 2019 - It's a Mod, Mod, Mod, Mod World](https://open.kattis.com/problems/itsamodmodmodmodworld)"
     Given $p$, $q$ and $n$, compute $\sum\limits_{i=1}^n [p \cdot i \bmod q]$.
 
-The connection between $\bmod$ and $\lfloor \cdot \rfloor$ is given as $a \bmod b = a - \lfloor \frac{a}{b} \rfloor b$.
+??? hint "Solution"
+    This problem reduces to the previous one if you note that $a \bmod b = a - \lfloor \frac{a}{b} \rfloor b$. With this fact, the sum reduces to
+
+    $$\sum\limits_{i=1}^n \left(p \cdot i - \left\lfloor \frac{p \cdot i}{q} \right\rfloor q\right) = \frac{pn(n+1)}{2}-q\sum\limits_{i=1}^n \left\lfloor \frac{p \cdot i}{q}\right\rfloor.$$
+
+    However, summing up $\lfloor rx \rfloor$ for $x$ from $1$ to $N$ is something that we're capable of from the previous problem.
+
+    === "C++"
+        ```cpp
+        void solve(int p, int q, int N) {
+            cout << p * N * (N + 1) / 2 - q * sum_floor(fraction(p, q), N) << "\n";
+        }
+        ```
+    === "Python"
+        ```py
+        def solve(p, q, N):
+            return p * N * (N + 1) // 2 - q * sum_floor(fraction(p, q), N)
+        ``` 
 
 !!! example "[Library Checker - Sum of Floor of Linear](https://judge.yosupo.jp/problem/sum_of_floor_of_linear)"
     Given $N$, $M$, $A$ and $B$, compute $\sum\limits_{i=0}^{N-1} \lfloor \frac{A \cdot i + B}{M} \rfloor$.
 
-This one is a bit more tricky. We'll discuss possible approaches to tackle it further below.
+??? hint "Solution"
+    This is the most technically troublesome problem so far.
+
+    It is possible to use the same approach and construct the full convex hull of points below the line $y = \frac{Ax+B}{M}$.
+
+    We already know how to solve it for $B = 0$. Moreover, we already know how to construct this convex hull up to the closest lattice point to this line on $[0, N-1]$ segment (this is done in the "Crime and Punishment" problem above.
+
+    Now we should note that once we reached the closest point to the line, we can just assume that the line in fact passes through the closest point, as there are no other lattice points on $[0, N-1]$ in between the actual line and the line moved slightly below to pass through the closest point.
+
+    That being said, to construct the full convex hull below the line $y=\frac{Ax+B}{M}$ on $[0, N-1]$, we can construct it up to the closest point to the line on $[0, N-1]$ and then continue as if the line passes through this point, reusing algorithm for constructing convex hull with $B=0$:
+
+    === "Python"
+        ```py
+        # hull of lattice (x, y) such that C*y <= A*x+B
+        def hull(A, B, C, N):
+            def diff(x, y):
+                return C*y-A*x
+            a = fraction(A, C)
+            p, q = convergents(a)
+            ah = []
+            ph = [B // C]
+            qh = [0]
+
+            def insert(dq, dp):
+                k = (N - qh[-1]) // dq
+                if diff(dq, dp) > 0:
+                    k = min(k, (B - diff(qh[-1], ph[-1])) // diff(dq, dp))
+                ah.append(k)
+                qh.append(qh[-1] + k*dq)
+                ph.append(ph[-1] + k*dp)
+
+            for i in range(1, len(q) - 1):
+                if i % 2 == 0:
+                    while diff(qh[-1] + q[i+1], ph[-1] + p[i+1]) <= B:
+                        t = (B - diff(qh[-1] + q[i+1], ph[-1] + p[i+1])) // abs(diff(q[i], p[i]))
+                        dp = p[i+1] - t*p[i]
+                        dq = q[i+1] - t*q[i]
+                        if dq < 0 or qh[-1] + dq > N:
+                            break
+                        insert(dq, dp)
+
+            insert(q[-1], p[-1])
+
+            for i in reversed(range(len(q))):
+                if i % 2 == 1:
+                    while qh[-1] + q[i-1] <= N:
+                        t = (N - qh[-1] - q[i-1]) // q[i]
+                        dp = p[i-1] + t*p[i]
+                        dq = q[i-1] + t*q[i]
+                        insert(dq, dp)
+            return ah, ph, qh
+        ```
+
+!!! example "[OKC 2 - From Modular to Rational](https://codeforces.com/gym/102354/problem/I)"
+    There is a rational number $\frac{p}{q}$ such that $1 \leq p, q \leq 10^9$. You may ask the value of $p q^{-1}$ modulo $m \sim 10^9$ for several prime numbers $m$. Recover $\frac{p}{q}$.
+
+    _Equivalent formulation:_ Find $x$ that delivers the minimum of $Ax \;\bmod\; M$ for $1 \leq x \leq N$.
+
+??? hint "Solution"
+    Due to Chinese remainder theorem, asking the result modulo several prime numbers is the same as asking it modulo their product. Due to this, without loss of generality we'll assume that we know the remainder modulo sufficiently large number $m$.
+
+    There could be several possible solutions $(p, q)$ to $p \equiv qr \pmod m$ for a given remainder $r$. However, if $(p_1, q_1)$ and $(p_2, q_2)$ are both the solutions then it also holds that $p_1 q_2 \equiv p_2 q_1 \pmod m$. Assuming that $\frac{p_1}{q_1} \neq \frac{p_2}{q_2}$ it means that $|p_1 q_2 - p_2 q_1|$ is at least $m$.
+
+    In the statement we were told that $1 \leq p, q \leq 10^9$, so if both $p_1, q_1$ and $p_2, q_2$ are at most $10^9$, then the difference is at most $10^{18}$. For $m > 10^{18}$ it means that the solution $\frac{p}{q}$ with $1 \leq p, q \leq 10^9$ is unique, as a rational number.
+
+    So, the problem boils down, given $r$ modulo $m$, to finding any $q$ such that $1 \leq q \leq 10^9$ and $qr \;\bmod\; m \leq 10^9$.
+
+    This is effectively the same as finding $q$ that delivers the minimum possible $qr \bmod m$ for $1 \leq q \leq 10^9$.
+
+    For $qr = km + b$ it means that we need to find a pair $(q, m)$ such that $1 \leq q \leq 10^9$ and $qr - km \geq 0$ is the minimum possible.
+
+    Since $m$ is constant, we can divide by it and further restate it as find $q$ such that $1 \leq q \leq 10^9$ and $\frac{r}{m} q - k \geq 0$ is the minimum possible.
+
+    In terms of continued fractions it means that $\frac{k}{q}$ is the best diophantine approximation to $\frac{r}{m}$ and it is sufficient to only check lower semiconvergents of $\frac{r}{m}$.
+
+    === "Python"
+        ```py
+        # find Q that minimizes Q*r mod m for 1 <= k <= n < m 
+        def mod_min(r, n, m):
+            a = fraction(r, m)
+            p, q = convergents(a)
+            for i in range(2, len(q)):
+                if i % 2 == 1 and (i + 1 == len(q) or q[i+1] > n):
+                    t = (n - q[i-1]) // q[i]
+                    return q[i-1] + t*q[i]
+        ```
+
+!!! example "[SnackDown 2019 - Election Bait](https://www.codechef.com/SNCKEL19/problems/EBAIT)"
+    abc
+
+!!! example "[GCJ 2019, Round 2 - New Elements: Part 2](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051679/0000000000146184)"
+    You're given $N$ positive integer pairs $(C_i, J_i)$. You need to find a positive integer pair $(x, y)$ such that $C_i x + J_i y$ is a strictly increasing sequence.
+
+    Among such numbers, find the lexicographically minimum one.
+
+    _Equivalent formulation_: $C_i x + J_i y$ must be positive for all $i$ ($C_i$ and $J_i$ not necessarily positive).
+??? hint "Solution"
+    Rephrasing the statement, $A_i x + B_i y$ must be positive for all $i$, where $A_i = C_i - C_{i-1}$ and $B_i = J_i - J_{i-1}$.
+
+    Among such equations we have three significant groups:
+
+    1. $A_i, B_i > 0$ can be ignored since we're looking for $x, y > 0$.
+    2. $A_i, B_i \leq 0$ would provide "IMPOSSIBLE" as an answer.
+    3. $A_i > 0$, $B_i \leq 0$ and $A_i \leq 0, B_i > 0$ bound possible values of $x$ and $y$ from two sides.
+
+    Among two groups in the third point we should only leave one pair $(A_i, B_i)$ corresponding to the smallest (largest) slope.
