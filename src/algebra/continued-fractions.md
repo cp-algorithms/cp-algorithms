@@ -797,30 +797,15 @@ Now that the most important facts and concepts were introduced, it is time to de
                     return q[i-1] + t*q[i]
         ```
 
-!!! example "[GCJ 2019, Round 2 - New Elements: Part 2](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051679/0000000000146184)"
-    You're given $N$ positive integer pairs $(C_i, J_i)$. You need to find a positive integer pair $(x, y)$ such that $C_i x + J_i y$ is a strictly increasing sequence.
+!!! example "Best inner point"
+    You're given $\frac{0}{1} \leq \frac{p_0}{q_0} < \frac{p_1}{q_1} \leq \frac{1}{0}$. Find the rational number $\frac{p}{q}$ such that $(q; p)$ is lexicographically smallest and $\frac{p_0}{q_0} < \frac{p}{q} < \frac{p_1}{q_1}$.
 
-    Among such pairs, find the lexicographically minimum one.
-
-    _Equivalent formulation:_ You're given $\frac{0}{1} \leq \frac{p_0}{q_0} < \frac{p_1}{q_1} \leq \frac{1}{0}$. Find the rational number $\frac{p}{q}$ such that $(q; p)$ is lexicographically smallest and $\frac{p_0}{q_0} < \frac{p}{q} < \frac{p_1}{q_1}$.
 ??? hint "Solution"
-    Rephrasing the statement, $A_i x + B_i y$ must be positive for all $i$, where $A_i = C_i - C_{i-1}$ and $B_i = J_i - J_{i-1}$.
-
-    Among such equations we have three significant groups:
-
-    1. $A_i, B_i > 0$ can be ignored since we're looking for $x, y > 0$.
-    2. $A_i, B_i \leq 0$ would provide "IMPOSSIBLE" as an answer.
-    3. $A_i > 0$, $B_i \leq 0$ and $A_i \leq 0, B_i > 0$ bound possible values of $x$ and $y$ from two sides.
-
-    Among two groups in the third point we should only leave one pair $(A_i, B_i)$ corresponding to the smallest (largest) slope.
-
-    Now the problem is as follows: given $\frac{p_0}{q_0} < \frac{p_1}{q_1}$, find a fraction $\frac{p}{q}$ such that $(q;p)$ is lexicographically smallest and $\frac{p_0}{q_0} < \frac{p}{q} < \frac{p_1}{q_1}$.
-
     In terms of the Stern-Brocot tree it means that we need to find the LCA of $\frac{p_0}{q_0}$ and $\frac{p_1}{q_1}$. Due to the connection between Stern-Brocot tree and continued fraction, this LCA would roughly correspond to the largest common prefix of continued fraction representations for $\frac{p_0}{q_0}$ and $\frac{p_1}{q_1}$.
 
-    So, if $\frac{p_0}{q_0} = [a_0; a_1, \dots, a_{k-1}, a_k, \dots]$ and $\frac{p_1}{q_1} = [a_0; a_1, \dots, a_{k-1}, b_k, \dots]$, the LCA in most cases is $[a_0; a_1, \dots, \min(a_k, b_k)+1]$.
+    So, if $\frac{p_0}{q_0} = [a_0; a_1, \dots, a_{k-1}, a_k, \dots]$ and $\frac{p_1}{q_1} = [a_0; a_1, \dots, a_{k-1}, b_k, \dots]$ are irrational numbers, the LCA is $[a_0; a_1, \dots, \min(a_k, b_k)+1]$.
 
-    The solution above is true for $r_0$ and $r_1$ being irrational numbers. However, for rational $r_0$ and $r_1$, one of them could be the LCA itself which would require us to casework it. To simplify the solution for rational $r_0$ and $r_1$, however, it is possible to use continued fraction representation of $r_0 + \varepsilon$ and $r_1 - \varepsilon$ for $\varepsilon \sim 0$.
+    For rational $r_0$ and $r_1$, one of them could be the LCA itself which would require us to casework it. To simplify the solution for rational $r_0$ and $r_1$, it is possible to use continued fraction representation of $r_0 + \varepsilon$ and $r_1 - \varepsilon$ for $\varepsilon \sim 0$.
 
     === "Python"
         ```py
@@ -856,8 +841,28 @@ Now that the most important facts and concepts were introduced, it is time to de
             a[-1] += 1
             p, q = convergents(a)
             return p[-1], q[-1]
+        ```
 
-        def solve():
+!!! example "[GCJ 2019, Round 2 - New Elements: Part 2](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051679/0000000000146184)"
+    You're given $N$ positive integer pairs $(C_i, J_i)$. You need to find a positive integer pair $(x, y)$ such that $C_i x + J_i y$ is a strictly increasing sequence.
+
+    Among such pairs, find the lexicographically minimum one.
+??? hint "Solution"
+    Rephrasing the statement, $A_i x + B_i y$ must be positive for all $i$, where $A_i = C_i - C_{i-1}$ and $B_i = J_i - J_{i-1}$.
+
+    Among such equations we have four significant groups for $A_i x + B_i y > 0$:
+
+    1. $A_i, B_i > 0$ can be ignored since we're looking for $x, y > 0$.
+    2. $A_i, B_i \leq 0$ would provide "IMPOSSIBLE" as an answer.
+    3. $A_i > 0$, $B_i \leq 0$. Such constraints are equivalent to $\frac{y}{x} < \frac{A_i}{-B_i}$.
+    4. $A_i \leq 0$, $B_i > 0$. Such constraints are equivalent to $\frac{y}{x} > \frac{-A_i}{B_i}$.
+
+    Let $\frac{p_0}{q_0}$ be the largest $\frac{-A_i}{B_i}$ from the fourth group and $\frac{p_1}{q_1}$ be the smallest $\frac{A_i}{-B_i}$ from the third group.
+
+    The problem is now, given $\frac{p_0}{q_0} < \frac{p_1}{q_1}$, find a fraction $\frac{p}{q}$ such that $(q;p)$ is lexicographically smallest and $\frac{p_0}{q_0} < \frac{p}{q} < \frac{p_1}{q_1}$.
+    === "Python"
+        ```py
+            def solve():
             n = int(input())
             C = [0] * n
             J = [0] * n
