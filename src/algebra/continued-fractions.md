@@ -71,7 +71,9 @@ Besides that, continued fractions are closely related to Euclidean algorithm whi
     We will typically refer to (semi)convergents that are greater than $r$ as **upper** (semi)convergents and to those that are less than $r$ as **lower** (semi)convergents.
 
 !!! info "Definition"
-    Complementary to convergents, we define the **[complete quotients](https://en.wikipedia.org/wiki/Complete_quotient)** as $s_k = [a_k; a_{k+1}, a_{k+2}, \dots]$. Correspondingly, we will call an individual $s_k$ the $k$-th complete quotient of $r$.
+    Complementary to convergents, we define the **[complete quotients](https://en.wikipedia.org/wiki/Complete_quotient)** as $s_k = [a_k; a_{k+1}, a_{k+2}, \dots]$.
+
+    Correspondingly, we will call an individual $s_k$ the $k$-th complete quotient of $r$.
 
 !!! note "Connection between complete quotients and continued fraction representation"
 
