@@ -112,7 +112,7 @@ In the code snippets we will mostly assume finite continued fractions.
 
     Thus, computation of a continued fraction representation for $r=\frac{p}{q}$ follows the same steps as the Euclidean algorithm for $p$ and $q$.
     
-    From this connection with the Euclidean algorithm it also follows that $\gcd(p, q) = 1$ for $[a_0; a_1, \dots, a_k]$. Hence, convergents are always irreducible.
+    From this connection with the Euclidean algorithm it also follows that $\gcd(p_k, q_k) = 1$ for $\frac{p_k}{q_k} = [a_0; a_1, \dots, a_k]$. Hence, convergents are always irreducible.
 
 === "C++"
     ```cpp
