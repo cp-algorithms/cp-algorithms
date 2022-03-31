@@ -885,5 +885,6 @@ Now that the most important facts and concepts were introduced, it is time to de
             return str(q) + ' ' + str(p)
         ```
 
-!!! example "[SnackDown 2019 - Election Bait](https://www.codechef.com/SNCKEL19/problems/EBAIT)"
-    abc
+## Practise problems
+
+* [SnackDown 2019 - Election Bait](https://www.codechef.com/SNCKEL19/problems/EBAIT)
