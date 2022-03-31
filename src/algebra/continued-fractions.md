@@ -887,4 +887,5 @@ Now that the most important facts and concepts were introduced, it is time to de
 
 ## Practise problems
 
+* [POJ - A Modular Arithmetic Challenge](http://poj.org/problem?id=3530)
 * [SnackDown 2019 - Election Bait](https://www.codechef.com/SNCKEL19/problems/EBAIT)
