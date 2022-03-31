@@ -214,8 +214,6 @@ Convergents are the core concept of continued fractions, so it is important to s
 
     For consistency, two additional convergents $r_{-1} = \frac{1}{0}$ and $r_{-2} = \frac{0}{1}$ are defined.
 
-    Note that if $\gcd(a,b)=\gcd(c,d)=1$ then $\gcd(a+c,b+d)=1$ as well, hence for all convergents $r_k = \frac{p_k}{q_k}$, it holds that $\gcd(p_k, q_k)=1$.
-
 ??? hint "Detailed explanation"
 
     The numerator and the denominator of $r_k$ can be seen as multivariate polynomials of $a_0, a_1, \dots, a_k$:
