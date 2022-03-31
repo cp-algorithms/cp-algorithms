@@ -50,6 +50,7 @@ Full list of updates: [Commit History](https://github.com/e-maxx-eng/e-maxx-eng/
     - [Arbitrary-Precision Arithmetic](algebra/big-integer.md)
     - [Fast Fourier transform](algebra/fft.md)
     - [Operations on polynomials and series](algebra/polynomial.md)
+    - [Continued fractions](algebra/continued-fractions.md)
 
 ### Data Structures
 
