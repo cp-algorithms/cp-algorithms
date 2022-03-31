@@ -44,7 +44,7 @@ Besides that, continued fractions are closely related to Euclidean algorithm whi
 !!! note "Basic arithmetics"
     Note that for $r=[a_0;a_1,\dots]$ and integer $k$, it holds that $r+k = [a_0+k; a_1, \dots]$.
 
-    Another important observation that $\frac{1}{r}=[0;a_0, a_1, \dots]$ when $a_0 \neq 0$ and $\frac{1}{r} = [a_1; a_2, \dots]$ when $a_0 = 0$.
+    Another important observation is that $\frac{1}{r}=[0;a_0, a_1, \dots]$ when $a_0 > 0$ and $\frac{1}{r} = [a_1; a_2, \dots]$ when $a_0 = 0$.
 
 !!! abstract "Definition"
     In the definition above, rational numbers $r_0, r_1, r_2, \dots$ are called the **convergents** of $r$.
