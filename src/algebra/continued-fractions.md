@@ -797,15 +797,12 @@ Now that the most important facts and concepts were introduced, it is time to de
                     return q[i-1] + t*q[i]
         ```
 
-!!! example "[SnackDown 2019 - Election Bait](https://www.codechef.com/SNCKEL19/problems/EBAIT)"
-    abc
-
 !!! example "[GCJ 2019, Round 2 - New Elements: Part 2](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051679/0000000000146184)"
     You're given $N$ positive integer pairs $(C_i, J_i)$. You need to find a positive integer pair $(x, y)$ such that $C_i x + J_i y$ is a strictly increasing sequence.
 
-    Among such numbers, find the lexicographically minimum one.
+    Among such pairs, find the lexicographically minimum one.
 
-    _Equivalent formulation_: $C_i x + J_i y$ must be positive for all $i$ ($C_i$ and $J_i$ not necessarily positive).
+    _Equivalent formulation:_ You're given $\frac{0}{1} \leq \frac{p_0}{q_0} < \frac{p_1}{q_1} \leq \frac{1}{0}$. Find the rational number $\frac{p}{q}$ such that $(q; p)$ is lexicographically smallest and $\frac{p_0}{q_0} < \frac{p}{q} < \frac{p_1}{q_1}$.
 ??? hint "Solution"
     Rephrasing the statement, $A_i x + B_i y$ must be positive for all $i$, where $A_i = C_i - C_{i-1}$ and $B_i = J_i - J_{i-1}$.
 
@@ -816,3 +813,77 @@ Now that the most important facts and concepts were introduced, it is time to de
     3. $A_i > 0$, $B_i \leq 0$ and $A_i \leq 0, B_i > 0$ bound possible values of $x$ and $y$ from two sides.
 
     Among two groups in the third point we should only leave one pair $(A_i, B_i)$ corresponding to the smallest (largest) slope.
+
+    Now the problem is as follows: given $\frac{p_0}{q_0} < \frac{p_1}{q_1}$, find a fraction $\frac{p}{q}$ such that $(q;p)$ is lexicographically smallest and $\frac{p_0}{q_0} < \frac{p}{q} < \frac{p_1}{q_1}$.
+
+    In terms of the Stern-Brocot tree it means that we need to find the LCA of $\frac{p_0}{q_0}$ and $\frac{p_1}{q_1}$. Due to the connection between Stern-Brocot tree and continued fraction, this LCA would roughly correspond to the largest common prefix of continued fraction representations for $\frac{p_0}{q_0}$ and $\frac{p_1}{q_1}$.
+
+    So, if $\frac{p_0}{q_0} = [a_0; a_1, \dots, a_{k-1}, a_k, \dots]$ and $\frac{p_1}{q_1} = [a_0; a_1, \dots, a_{k-1}, b_k, \dots]$, the LCA in most cases is $[a_0; a_1, \dots, \min(a_k, b_k)+1]$.
+
+    The solution above is true for $r_0$ and $r_1$ being irrational numbers. However, for rational $r_0$ and $r_1$, one of them could be the LCA itself which would require us to casework it. To simplify the solution for rational $r_0$ and $r_1$, however, it is possible to use continued fraction representation of $r_0 + \varepsilon$ and $r_1 - \varepsilon$ for $\varepsilon \sim 0$.
+
+    === "Python"
+        ```py
+        # [a0; a1, ..., ak] -> [a0, a1, ..., ak-1, 1]
+        def expand(a):
+            a[-1] -= 1
+            a.append(1)
+
+        def add_eps(a):
+            # make sure that adding new item to a would increase p/q
+            if len(a) % 2 == 0:
+                expand(a)
+            a.append(float('inf')) # p0/q0 + eps
+            return a
+
+        def sub_eps(a):
+            # make sure that adding new item to a would decrease p/q
+            if len(a) % 2 == 1:
+                expand(a)
+            a.append(float('inf')) # p1/q1 - eps
+            return a
+
+        # finds lexicographically smallest (q, p)
+        # such that p0/q0 < p/q < p1/q1
+        def middle(p0, q0, p1, q1):
+            a0 = add_eps(fraction(p0, q0))
+            a1 = sub_eps(fraction(p1, q1))
+            a = []
+            for i in range(min(len(a0), len(a1))):
+                a.append(min(a0[i], a1[i]))
+                if a0[i] != a1[i]:
+                    break
+            a[-1] += 1
+            p, q = convergents(a)
+            return p[-1], q[-1]
+
+        def solve():
+            n = int(input())
+            C = [0] * n
+            J = [0] * n
+            # p0/q0 < y/x < p1/q1
+            p0, q0 = 0, 1
+            p1, q1 = 1, 0
+            fail = False
+            for i in range(n):
+                C[i], J[i] = map(int, input().split())
+                if i > 0:
+                    A = C[i] - C[i-1]
+                    B = J[i] - J[i-1]
+                    if A <= 0 and B <= 0:
+                        fail = True
+                    elif B > 0 and A < 0: # y/x > (-A)/B if B > 0
+                        if (-A)*q0 > p0*B:
+                            p0, q0 = -A, B
+                    elif B < 0 and A > 0: # y/x < A/(-B) if B < 0
+                        if A*q1 < p1*(-B):
+                            p1, q1 = A, -B
+            if p0*q1 >= p1*q0 or fail:
+                return 'IMPOSSIBLE'
+
+            p, q = middle(p0, q0, p1, q1)
+            return str(q) + ' ' + str(p)
+        ```
+
+!!! example "[SnackDown 2019 - Election Bait](https://www.codechef.com/SNCKEL19/problems/EBAIT)"
+    abc
