@@ -887,5 +887,7 @@ Now that the most important facts and concepts were introduced, it is time to de
 
 ## Practise problems
 
-* [POJ - A Modular Arithmetic Challenge](http://poj.org/problem?id=3530)
+* [Codeforces Round #184 (Div. 2) - B. Continued Fractions](https://codeforces.com/problemset/problem/305/B)
+* [POJ Founder Monthly Contest 2008.03.16 - A Modular Arithmetic Challenge](http://poj.org/problem?id=3530)
+* [2019 Multi-University Training Contest 5 - fraction](http://acm.hdu.edu.cn/showproblem.php?pid=6624)
 * [SnackDown 2019 - Election Bait](https://www.codechef.com/SNCKEL19/problems/EBAIT)
