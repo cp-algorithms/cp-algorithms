@@ -326,6 +326,101 @@ The Stern-Brocot tree is particularly useful because it allows to do a binary se
     For example, for $\frac{5}{2} = [2;2] = [2;1,1]$, its index is $1011_2$ and run-length encoding of it, if bits are considered in ascending order, is exactly $[2;1,1]$.
 
     Another example is $\frac{2}{5} = [0;2,2]=[0;2,1,1]$, which has index $1100_2$ and its run-length encoding is, indeed, $[0;2,2]$.
+    
+    It is worth noting that the Stern-Brocot tree is, in fact, a [treap](../data_structures/treap.md). That is, it is a binary search tree by $\frac{p}{q}$, but it is a heap by both $p$ and $q$.
+
+!!! example "Best inner point"
+    You're given $\frac{0}{1} \leq \frac{p_0}{q_0} < \frac{p_1}{q_1} \leq \frac{1}{0}$. Find the rational number $\frac{p}{q}$ such that $(q; p)$ is lexicographically smallest and $\frac{p_0}{q_0} < \frac{p}{q} < \frac{p_1}{q_1}$.
+
+??? hint "Solution"
+    In terms of the Stern-Brocot tree it means that we need to find the LCA of $\frac{p_0}{q_0}$ and $\frac{p_1}{q_1}$. Due to the connection between Stern-Brocot tree and continued fraction, this LCA would roughly correspond to the largest common prefix of continued fraction representations for $\frac{p_0}{q_0}$ and $\frac{p_1}{q_1}$.
+
+    So, if $\frac{p_0}{q_0} = [a_0; a_1, \dots, a_{k-1}, a_k, \dots]$ and $\frac{p_1}{q_1} = [a_0; a_1, \dots, a_{k-1}, b_k, \dots]$ are irrational numbers, the LCA is $[a_0; a_1, \dots, \min(a_k, b_k)+1]$.
+
+    For rational $r_0$ and $r_1$, one of them could be the LCA itself which would require us to casework it. To simplify the solution for rational $r_0$ and $r_1$, it is possible to use continued fraction representation of $r_0 + \varepsilon$ and $r_1 - \varepsilon$ for $\varepsilon \sim 0$.
+
+    === "Python"
+        ```py
+        # [a0; a1, ..., ak] -> [a0, a1, ..., ak-1, 1]
+        def expand(a):
+            a[-1] -= 1
+            a.append(1)
+
+        def add_eps(a):
+            # make sure that adding new item to a would increase p/q
+            if len(a) % 2 == 0:
+                expand(a)
+            a.append(float('inf')) # p0/q0 + eps
+            return a
+
+        def sub_eps(a):
+            # make sure that adding new item to a would decrease p/q
+            if len(a) % 2 == 1:
+                expand(a)
+            a.append(float('inf')) # p1/q1 - eps
+            return a
+
+        # finds lexicographically smallest (q, p)
+        # such that p0/q0 < p/q < p1/q1
+        def middle(p0, q0, p1, q1):
+            a0 = add_eps(fraction(p0, q0))
+            a1 = sub_eps(fraction(p1, q1))
+            a = []
+            for i in range(min(len(a0), len(a1))):
+                a.append(min(a0[i], a1[i]))
+                if a0[i] != a1[i]:
+                    break
+            a[-1] += 1
+            p, q = convergents(a)
+            return p[-1], q[-1]
+        ```
+
+!!! example "[GCJ 2019, Round 2 - New Elements: Part 2](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051679/0000000000146184)"
+    You're given $N$ positive integer pairs $(C_i, J_i)$. You need to find a positive integer pair $(x, y)$ such that $C_i x + J_i y$ is a strictly increasing sequence.
+
+    Among such pairs, find the lexicographically minimum one.
+??? hint "Solution"
+    Rephrasing the statement, $A_i x + B_i y$ must be positive for all $i$, where $A_i = C_i - C_{i-1}$ and $B_i = J_i - J_{i-1}$.
+
+    Among such equations we have four significant groups for $A_i x + B_i y > 0$:
+
+    1. $A_i, B_i > 0$ can be ignored since we're looking for $x, y > 0$.
+    2. $A_i, B_i \leq 0$ would provide "IMPOSSIBLE" as an answer.
+    3. $A_i > 0$, $B_i \leq 0$. Such constraints are equivalent to $\frac{y}{x} < \frac{A_i}{-B_i}$.
+    4. $A_i \leq 0$, $B_i > 0$. Such constraints are equivalent to $\frac{y}{x} > \frac{-A_i}{B_i}$.
+
+    Let $\frac{p_0}{q_0}$ be the largest $\frac{-A_i}{B_i}$ from the fourth group and $\frac{p_1}{q_1}$ be the smallest $\frac{A_i}{-B_i}$ from the third group.
+
+    The problem is now, given $\frac{p_0}{q_0} < \frac{p_1}{q_1}$, find a fraction $\frac{p}{q}$ such that $(q;p)$ is lexicographically smallest and $\frac{p_0}{q_0} < \frac{p}{q} < \frac{p_1}{q_1}$.
+    === "Python"
+        ```py
+            def solve():
+            n = int(input())
+            C = [0] * n
+            J = [0] * n
+            # p0/q0 < y/x < p1/q1
+            p0, q0 = 0, 1
+            p1, q1 = 1, 0
+            fail = False
+            for i in range(n):
+                C[i], J[i] = map(int, input().split())
+                if i > 0:
+                    A = C[i] - C[i-1]
+                    B = J[i] - J[i-1]
+                    if A <= 0 and B <= 0:
+                        fail = True
+                    elif B > 0 and A < 0: # y/x > (-A)/B if B > 0
+                        if (-A)*q0 > p0*B:
+                            p0, q0 = -A, B
+                    elif B < 0 and A > 0: # y/x < A/(-B) if B < 0
+                        if A*q1 < p1*(-B):
+                            p1, q1 = A, -B
+            if p0*q1 >= p1*q0 or fail:
+                return 'IMPOSSIBLE'
+
+            p, q = middle(p0, q0, p1, q1)
+            return str(q) + ' ' + str(p)
+        ```
 
 Another, somewhat simpler way to organize continued fractions in a binary tree is the Calkin-Wilf tree. Unfortunately, unlike the Stern-Brocot tree, Calkin-Wilf tree is not a binary _search_ tree, so it can't be used to emulate rational binary search.
 
@@ -947,99 +1042,6 @@ Now that the most important facts and concepts were introduced, it is time to de
                 if i % 2 == 1 and (i + 1 == len(q) or q[i+1] > n):
                     t = (n - q[i-1]) // q[i]
                     return q[i-1] + t*q[i]
-        ```
-
-!!! example "Best inner point"
-    You're given $\frac{0}{1} \leq \frac{p_0}{q_0} < \frac{p_1}{q_1} \leq \frac{1}{0}$. Find the rational number $\frac{p}{q}$ such that $(q; p)$ is lexicographically smallest and $\frac{p_0}{q_0} < \frac{p}{q} < \frac{p_1}{q_1}$.
-
-??? hint "Solution"
-    In terms of the Stern-Brocot tree it means that we need to find the LCA of $\frac{p_0}{q_0}$ and $\frac{p_1}{q_1}$. Due to the connection between Stern-Brocot tree and continued fraction, this LCA would roughly correspond to the largest common prefix of continued fraction representations for $\frac{p_0}{q_0}$ and $\frac{p_1}{q_1}$.
-
-    So, if $\frac{p_0}{q_0} = [a_0; a_1, \dots, a_{k-1}, a_k, \dots]$ and $\frac{p_1}{q_1} = [a_0; a_1, \dots, a_{k-1}, b_k, \dots]$ are irrational numbers, the LCA is $[a_0; a_1, \dots, \min(a_k, b_k)+1]$.
-
-    For rational $r_0$ and $r_1$, one of them could be the LCA itself which would require us to casework it. To simplify the solution for rational $r_0$ and $r_1$, it is possible to use continued fraction representation of $r_0 + \varepsilon$ and $r_1 - \varepsilon$ for $\varepsilon \sim 0$.
-
-    === "Python"
-        ```py
-        # [a0; a1, ..., ak] -> [a0, a1, ..., ak-1, 1]
-        def expand(a):
-            a[-1] -= 1
-            a.append(1)
-
-        def add_eps(a):
-            # make sure that adding new item to a would increase p/q
-            if len(a) % 2 == 0:
-                expand(a)
-            a.append(float('inf')) # p0/q0 + eps
-            return a
-
-        def sub_eps(a):
-            # make sure that adding new item to a would decrease p/q
-            if len(a) % 2 == 1:
-                expand(a)
-            a.append(float('inf')) # p1/q1 - eps
-            return a
-
-        # finds lexicographically smallest (q, p)
-        # such that p0/q0 < p/q < p1/q1
-        def middle(p0, q0, p1, q1):
-            a0 = add_eps(fraction(p0, q0))
-            a1 = sub_eps(fraction(p1, q1))
-            a = []
-            for i in range(min(len(a0), len(a1))):
-                a.append(min(a0[i], a1[i]))
-                if a0[i] != a1[i]:
-                    break
-            a[-1] += 1
-            p, q = convergents(a)
-            return p[-1], q[-1]
-        ```
-
-!!! example "[GCJ 2019, Round 2 - New Elements: Part 2](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051679/0000000000146184)"
-    You're given $N$ positive integer pairs $(C_i, J_i)$. You need to find a positive integer pair $(x, y)$ such that $C_i x + J_i y$ is a strictly increasing sequence.
-
-    Among such pairs, find the lexicographically minimum one.
-??? hint "Solution"
-    Rephrasing the statement, $A_i x + B_i y$ must be positive for all $i$, where $A_i = C_i - C_{i-1}$ and $B_i = J_i - J_{i-1}$.
-
-    Among such equations we have four significant groups for $A_i x + B_i y > 0$:
-
-    1. $A_i, B_i > 0$ can be ignored since we're looking for $x, y > 0$.
-    2. $A_i, B_i \leq 0$ would provide "IMPOSSIBLE" as an answer.
-    3. $A_i > 0$, $B_i \leq 0$. Such constraints are equivalent to $\frac{y}{x} < \frac{A_i}{-B_i}$.
-    4. $A_i \leq 0$, $B_i > 0$. Such constraints are equivalent to $\frac{y}{x} > \frac{-A_i}{B_i}$.
-
-    Let $\frac{p_0}{q_0}$ be the largest $\frac{-A_i}{B_i}$ from the fourth group and $\frac{p_1}{q_1}$ be the smallest $\frac{A_i}{-B_i}$ from the third group.
-
-    The problem is now, given $\frac{p_0}{q_0} < \frac{p_1}{q_1}$, find a fraction $\frac{p}{q}$ such that $(q;p)$ is lexicographically smallest and $\frac{p_0}{q_0} < \frac{p}{q} < \frac{p_1}{q_1}$.
-    === "Python"
-        ```py
-            def solve():
-            n = int(input())
-            C = [0] * n
-            J = [0] * n
-            # p0/q0 < y/x < p1/q1
-            p0, q0 = 0, 1
-            p1, q1 = 1, 0
-            fail = False
-            for i in range(n):
-                C[i], J[i] = map(int, input().split())
-                if i > 0:
-                    A = C[i] - C[i-1]
-                    B = J[i] - J[i-1]
-                    if A <= 0 and B <= 0:
-                        fail = True
-                    elif B > 0 and A < 0: # y/x > (-A)/B if B > 0
-                        if (-A)*q0 > p0*B:
-                            p0, q0 = -A, B
-                    elif B < 0 and A > 0: # y/x < A/(-B) if B < 0
-                        if A*q1 < p1*(-B):
-                            p1, q1 = A, -B
-            if p0*q1 >= p1*q0 or fail:
-                return 'IMPOSSIBLE'
-
-            p, q = middle(p0, q0, p1, q1)
-            return str(q) + ' ' + str(p)
         ```
 
 ## Practice problems
