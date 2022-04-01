@@ -543,6 +543,8 @@ Another important concept for continued fractions are the so-called [linear frac
         x, k = map(int, input().split())
 
         mod = 10**9+7
+        
+        # compose (A[0]*x + A[1]) / (A[2]*x + A[3]) and (B[0]*x + B[1]) / (B[2]*x + B[3])
         def combine(A, B):
             return [t % mod for t in [A[0]*B[0]+A[1]*B[2], A[0]*B[1]+A[1]*B[3], A[2]*B[0]+A[3]*B[2], A[2]*B[1]+A[3]*B[3]]]
 
