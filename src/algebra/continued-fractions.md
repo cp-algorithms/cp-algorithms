@@ -454,18 +454,20 @@ Another, somewhat simpler way to organize continued fractions in a binary tree i
     Thus, numbers on the same levels of the Stern-Brocot tree and the Calkin-Wilf tree are the same, but their ordering differs through the [bit-reversal permutation](https://en.wikipedia.org/wiki/Bit-reversal_permutation).
 ## Convergence
 
-_You can mostly skip this section if you're more interested in practical results._
-
 !!! note "Convergence rate"
     For the number $r$ and its $k$-th convergent $r_k=\frac{p_k}{q_k}$ the following formula stands:
 
     $$r_k = a_0 + \sum\limits_{i=1}^k \frac{(-1)^{i-1}}{q_i q_{i-1}}.$$
 
-    In particular,
+    In particular, it means that 
 
     $$r_k - r_{k-1} = \frac{(-1)^{k-1}}{q_k q_{k-1}}$$
 
-    and
+    and 
+
+    $$p_k q_{k-1} - p_{k-1} q_k = (-1)^{k-1}.$$
+
+    From this we can conclude that
 
     $$\left| r-\frac{p_k}{q_k} \right| \leq \frac{1}{q_{k+1}q_k} \leq \frac{1}{q_k^2}.$$
 
@@ -517,6 +519,17 @@ _You can mostly skip this section if you're more interested in practical results
     thus the distance between $r$ and $r_k$ is never larger than the distance between $r_k$ and $r_{k+1}$:
 
     $$\left|r-\frac{p_k}{q_k}\right| \leq \frac{1}{q_k q_{k+1}} \leq \frac{1}{q_k^2}.$$
+
+!!! example "Extended Euclidean?"
+    You're given $A, B, C \in \mathbb Z$. Find $x, y \in \mathbb Z$ such that $Ax + By = C$.
+??? hint "Solution"
+    Although this problem is typically solved with the [extended Euclidean algorithm](../algebra/extended-euclid-algorithm.md), there is a simple and straightforward solution with continued fractions.
+
+    Let $\frac{A}{B}=[a_0; a_1, \dots, a_k]$. It was proved above that $p_k q_{k-1} - p_{k-1} q_k = (-1)^{k-1}$. Substituting $p_k$ and $q_k$ with $A$ and $B$, we get
+
+    $$Aq_{k-1} - Bp_{k-1} = (-1)^{k-1} g,$$
+
+    where $g = \gcd(A, B)$. If $C$ is divisible by $g$, then the solution is $x = (-1)^{k-1}\frac{C}{g} q_{k-1}$ and $y = (-1)^{k-1}\frac{C}{g} p_{k-1}$.
 
 ## Linear fractional transformations
 
