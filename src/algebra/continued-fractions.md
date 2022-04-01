@@ -529,7 +529,7 @@ Another, somewhat simpler way to organize continued fractions in a binary tree i
 
     $$Aq_{k-1} - Bp_{k-1} = (-1)^{k-1} g,$$
 
-    where $g = \gcd(A, B)$. If $C$ is divisible by $g$, then the solution is $x = (-1)^{k-1}\frac{C}{g} q_{k-1}$ and $y = (-1)^{k-1}\frac{C}{g} p_{k-1}$.
+    where $g = \gcd(A, B)$. If $C$ is divisible by $g$, then the solution is $x = (-1)^{k-1}\frac{C}{g} q_{k-1}$ and $y = (-1)^{k}\frac{C}{g} p_{k-1}$.
 
 ## Linear fractional transformations
 
