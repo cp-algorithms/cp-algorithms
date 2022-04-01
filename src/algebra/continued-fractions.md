@@ -832,27 +832,20 @@ Now that the most important facts and concepts were introduced, it is time to de
 !!! example "[Timus - Crime and Punishment](https://timus.online/problem.aspx?space=1&num=1430)"
     You're given integer numbers $A$, $B$ and $N$. Find $x \geq 0$ and $y \geq 0$ such that $Ax + By \leq N$ and $Ax + By$ is the maximum possible.
 
-    _Equivalent formulation:_ Given $A$, $B$, $C$ and $N$, find $x$ such that $0 \leq x \leq N$ and $\lfloor \frac{Ax+B}{C} \rfloor$ is the maximum possible.
-
 ??? hint "Solution"
-    In the actual problem it holds that $1 \leq A, B, N \leq 2 \cdot 10^9$, so the problem can be solved in $O(\sqrt N)$.
+    In this problem it holds that $1 \leq A, B, N \leq 2 \cdot 10^9$, so it can be solved in $O(\sqrt N)$. However, there is $O(\log N)$ solution with continued fractions.
 
-    However, there is $O(\log N)$ solution with continued fractions.
+    For our convenience, we will invert the direction of $x$ by doing a substitution $x \mapsto \lfloor \frac{N}{A}\rfloor - x$, so that now we need to find the point $(x; y)$ such that $0 \leq x \leq \lfloor \frac{N}{A} \rfloor$, $By - Ax \leq N \;\bmod\; A$ and $By - Ax$ is the maximum possible. Optimal $y$ for each $x$ has a value of $\lfloor \frac{Ax + (N \bmod A)}{B} \rfloor$.
 
-    It is evident that one needs to find the maximum value of $\lfloor \frac{N-Ax}{B} \rfloor$ for $0 \leq x \leq \lfloor \frac{N}{A}\rfloor$.
-
-    For our convenience, we will invert the direction of $x$, so that now we need to find the maximum value of $\lfloor \frac{Ax + \left(N \;\bmod\; A \right)}{B} \rfloor$ for $0 \leq x \leq \lfloor \frac{N}{A} \rfloor$.
-
-    To treat it more generically, we will write a function that finds the maximum value of $\lfloor \frac{Ax+B}{C} \rfloor$ on $0 \leq x \leq N$.
+    To treat it more generically, we will write a function that finds the best point on $0 \leq x \leq N$ and $y = \lfloor \frac{Ax+B}{C} \rfloor$.
 
     Core solution idea in this problem essentially repeats the previous problem, but instead of using lower semiconvergents to diverge from line, you use upper semiconvergents to get closer to the line without crossing it and without violating $x \leq N$. Unfortunately, unlike the previous problem, you need to make sure that you don't cross the $y=\frac{Ax+B}{C}$ line while getting closer to it, so you should keep it in mind when calculating semiconvergent's coefficient $t$.
 
     === "Python"
         ```py
-        # (x, y) such that y = (A*x+B)//C,
-        # y mod C is max
-        # and 0 <= x <= N.
-        def max_floor(A, B, C, N):
+        # (x, y) such that y = (A*x+B) // C,
+        # Cy - Ax is max and 0 <= x <= N.
+        def closest(A, B, C, N):
             # y <= (A*x + B)/C <=> diff(x, y) <= B
             def diff(x, y):
                 return C*y-A*x
@@ -876,7 +869,7 @@ Now that the most important facts and concepts were introduced, it is time to de
             return qh[-1], ph[-1]
 
         def solve(A, B, N):
-            x, y = max_floor(A, N % A, B, N // A)
+            x, y = closest(A, N % A, B, N // A)
             return N // A - x, y
         ```
 
