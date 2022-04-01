@@ -536,10 +536,9 @@ Another, somewhat simpler way to organize continued fractions in a binary tree i
         # return (x, y) such that Ax+By=C
         # assumes that such (x, y) exists
         def dio(A, B, C):
-            a = fraction(A, B)
-            p, q = convergents(a)
+            p, q = convergents(fraction(A, B))
             C //= A // p[-1] # divide by gcd(A, B)
-            t = (-1) if len(a) % 2 else 1
+            t = (-1) if len(p) % 2 else 1
             return t*C*q[-2], -t*C*p[-2]
         ```
 
