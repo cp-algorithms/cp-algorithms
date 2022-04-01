@@ -530,6 +530,18 @@ Another, somewhat simpler way to organize continued fractions in a binary tree i
     $$Aq_{k-1} - Bp_{k-1} = (-1)^{k-1} g,$$
 
     where $g = \gcd(A, B)$. If $C$ is divisible by $g$, then the solution is $x = (-1)^{k-1}\frac{C}{g} q_{k-1}$ and $y = (-1)^{k}\frac{C}{g} p_{k-1}$.
+    
+    === "Python"
+        ```py
+        # return (x, y) such that Ax+By=C
+        # assumes that such (x, y) exists
+        def dio(A, B, C):
+            a = fraction(A, B)
+            p, q = convergents(a)
+            C //= A // p[-1] # divide by gcd(A, B)
+            t = (-1) if len(a) % 2 else 1
+            return t*C*q[-2], -t*C*p[-2]
+        ```
 
 ## Linear fractional transformations
 
