@@ -480,6 +480,97 @@ Another important concept for continued fractions are the so-called [linear frac
 
     Moreover, for arbitrary quadratic equation $ax^2+bx+c=0$ with integer coefficients, its solution $x$ is an eventually periodic continued fraction.
 
+!!! example "Quadratic irrationality"
+    Find the continued fraction of $\alpha = \frac{x+y\sqrt{n}}{z}$ where $x, y, z, n \in \mathbb Z$ and $n > 0$ is not a perfect square.
+??? hint "Solution"
+    For the $k$-th complete quotient $s_k$ of the number it generally holds that
+
+    $$\alpha = [a_0; a_1, \dots, a_{k-1}, s_k] = \frac{s_k p_{k-1} + p_{k-2}}{s_k q_{k-1} + q_{k-2}}.$$
+
+    Therefore, 
+
+    $$s_k = -\frac{\alpha q_{k-1} - p_{k-1}}{\alpha q_k - p_k} = -\frac{q_{k-1} y \sqrt n + (x q_{k-1} - z p_{k-1})}{q_k y \sqrt n + (xq_k-zp_k)}.$$
+
+    Multiplying the numerator and denominator by $(xq_k - zp_k) - q_k y \sqrt n$, we'll get rid of $\sqrt n$ in the denominator, thus the complete quotients are of form
+
+    $$s_k = \frac{x_k + y_k \sqrt n}{z_k}.$$
+
+    Let's find $s_{k+1}$, assuming that $s_k$ is known.
+
+    First of all, $a_k = \lfloor s_k \rfloor = \left\lfloor \frac{x_k + y_k \lfloor \sqrt n \rfloor}{z_k} \right\rfloor$. Then,
+
+    $$s_{k+1} = \frac{1}{s_k-a_k} = \frac{z_k}{(x_k - z_k a_k) + y_k \sqrt n} = \frac{z_k (x_k - y_k a_k) - y_k z_k \sqrt n}{(x_k - y_k a_k)^2 - y_k^2 n}.$$
+
+    Thus, if we denote $t_k = x_k - y_k a_k$, it will hold that
+
+    \begin{align}x_{k+1} &=& z_k t_k, \\ y_{k+1} &=& -y_k z_k, \\ z_{k+1} &=& t_k^2 - y_k^2 n.\end{align}
+
+    Nice thing about such representation is that if we reduce $x_{k+1}, y_{k+1}, z_{k+1}$ by their greatest common divisor, the result would be unique. Therefore, we may use it to check whether the current state has already been repeated and also to check where was the previous index that had this state.
+
+    Below is the code to compute the continued fraction representation for $\alpha = \sqrt n$:
+
+    === "Python"
+        ```py
+        # compute the continued fraction of sqrt(n)
+        def sqrt(n):
+            n0 = math.floor(math.sqrt(n))
+            x, y, z = 0, 1, 1
+            a = []
+            def step(x, y, z):
+                a.append((x * n0 + y) // z)
+                t = y - a[-1]*z
+                x, y, z = z*t, -z*y, t**2 - n*x**2
+                g = math.gcd(x, math.gcd(y, z))
+                return x // g, y // g, z // g
+
+            used = dict()
+            for i in range(n):
+                used[x, y, z] = i
+                x, y, z = step(x, y, z)
+                if (x, y, z) in used:
+                    return a
+        ```
+
+    Using the same `step` function but different initial $x$, $y$ and $z$ it is possible to compute it for arbitrary $\frac{x+y \sqrt{n}}{z}$.
+
+!!! example "[Tavrida NU Akai Contest - Continued Fraction](https://timus.online/problem.aspx?space=1&num=1814)"
+    You're given $x$ and $k$, $x$ is not a perfect square. Let $\sqrt x = [a_0; a_1, \dots]$, find $\frac{p_k}{q_k}=[a_0; a_1, \dots, a_k]$ for $0 \leq k \leq 10^9$.
+??? hint "Solution"
+    After computing the period of $\sqrt x$, it is possible to compute $a_k$ using binary exponentiation on the linear fractional transformation induced by the continued fraction representation. To find the resulting transformation, you compress the period of size $T$ into a single transformation and repeat it $\lfloor \frac{k-1}{T}\rfloor$ times, after which you manually combine it with the remaining transformations.
+
+    === "Python"
+        ```py
+        x, k = map(int, input().split())
+
+        mod = 10**9+7
+        def combine(A, B):
+            return [t % mod for t in [A[0]*B[0]+A[1]*B[2], A[0]*B[1]+A[1]*B[3], A[2]*B[0]+A[3]*B[2], A[2]*B[1]+A[3]*B[3]]]
+
+        A = [1, 0, 0, 1] # (x + 0) / (0*x + 1) = x
+
+        a = sqrt(x)
+
+        T = len(a) - 1 # period of a
+
+        # apply ak + 1/x = (ak*x+1)/(1x+0) to (Ax + B) / (Cx + D)
+        for i in reversed(range(1, len(a))):
+            A = combine([a[i], 1, 1, 0], A)
+
+        def bpow(A, n):
+            return [1, 0, 0, 1] if not n else combine(A, bpow(A, n-1)) if n % 2 else bpow(combine(A, A), n // 2)
+
+
+        C = (0, 1, 0, 0) # = 1 / 0
+        while k % T:
+            i = k % T
+            C = combine([a[i], 1, 1, 0], C)
+            k -= 1
+
+        C = combine(bpow(A, k // T), C)
+        C = combine([a[0], 1, 1, 0], C)
+        print(str(C[1]) + '/' + str(C[3]))
+        ```
+
 ## Geometric interpretation
 
 !!! note "Numbers as vectors"
@@ -957,4 +1048,3 @@ Now that the most important facts and concepts were introduced, it is time to de
 * [POJ Founder Monthly Contest 2008.03.16 - A Modular Arithmetic Challenge](http://poj.org/problem?id=3530)
 * [2019 Multi-University Training Contest 5 - fraction](http://acm.hdu.edu.cn/showproblem.php?pid=6624)
 * [SnackDown 2019 Elimination Round - Election Bait](https://www.codechef.com/SNCKEL19/problems/EBAIT)
-* [Tavrida NU Akai Contest - Continued Fraction](https://timus.online/problem.aspx?space=1&num=1814)
