@@ -594,6 +594,35 @@ Another important concept for continued fractions are the so-called [linear frac
 
     Composition of transforms is associative, so it's possible to compute in each node of a segment tree the composition of transforms in its subtree.
 
+!!! example "Linear fractional transformation of a continued fraction"
+    Let $L(x) = \frac{ax+b}{cx+d}$. Compute the continued fraction representation $[b_0; b_1, \dots, b_m]$ of $L(A)$ for $A=[a_0; a_1, \dots, a_n]$.
+
+    _This allows to compute $A + \frac{p}{q} = \frac{qA + p}{q}$ and $A \cdot \frac{p}{q} = \frac{p A}{q}$ for any $\frac{p}{q}$._
+
+??? hint "Solution"
+    As we noted above, $[a_0; a_1, \dots, a_k] = (L_{a_0} \circ L_{a_1} \circ \dots \circ L_{a_k})(\infty)$, hence $L([a_0; a_1, \dots, a_k]) = (L \circ L_{a_0} \circ L_{a_1} \circ \dots L_{a_k})(\infty)$.
+
+    Hence, by consequentially adding $L_{a_0}$, $L_{a_1}$ and so on we would be able to compute
+
+    $$(L \circ L_{a_0} \circ \dots \circ L_{a_k})(x) = L\left(\frac{p_k x + p_{k-1}}{q_k x + q_{k-1}}\right)=\frac{a_k x + b_k}{c_k x + d_k}.$$
+
+    Since $L(x)$ is invertible, it is also monotonous in $x$. Therefore, for any $x \geq 0$ it holds that $L(\frac{p_k x + p_{k-1}}{q_k x + q_{k-1}})$ is between $L(\frac{p_k}{q_k}) = \frac{a_k}{c_k}$ and $L(\frac{p_{k-1}}{q_{k-1}}) = \frac{b_k}{d_k}$.
+
+    Moreover, for $x=[a_{k+1}; \dots, a_n]$ it is equal to $L(A)$. Hence, $b_0 = \lfloor L(A) \rfloor$ is between $\lfloor L(\frac{p_k}{q_k}) \rfloor$ and $\lfloor L(\frac{p_{k-1}}{q_{k-1}}) \rfloor$. When they're equal, they're also equal to $b_0$.
+
+    Note that $L(A) = (L_{b_0} \circ L_{b_1} \circ \dots \circ L_{b_m})(\infty)$. Knowing $b_0$, we can compute compose $L_{b_0}^{-1}$ with the current transform and continue adding $L_{a_{k+1}}$, $L_{a_{k+2}}$ and so on, looking for new floors to agree, from which we would be able to deduce $b_1$ and so on until we recover all values of $[b_0; b_1, \dots, b_m]$.
+
+!!! example "Continued fraction arithmetics"
+    Let $A=[a_0; a_1, \dots, a_n]$ and $B=[b_0; b_1, \dots, b_m]$. Compose the continued fraction representations of $A+B$ and $A \cdot B$.
+??? hint "Solution"
+    Idea here is similar to the previous problem, but instead of $L(x) = \frac{ax+b}{cx+d}$ you should consider bilinear fractional transform $L(x, y) = \frac{axy+bx+cy+d}{exy+fx+gy+h}$.
+
+    Rather than $L(x) \mapsto L(L_{a_k}(x))$ you would change your current transform as $L(x, y) \mapsto L(L_{a_k}(x), y)$ or $L(x, y) \mapsto L(x, L_{b_k}(y))$.
+
+    Then, you check if $\lfloor \frac{a}{e} \rfloor = \lfloor \frac{b}{f} \rfloor = \lfloor \frac{c}{g} \rfloor = \lfloor \frac{d}{h} \rfloor$ and if they all agree, you use this value as $c_k$ in the resulting fraction and change the transform as
+
+    $$L(x, y) \mapsto \frac{1}{L(x, y) - c_k}.$$
+
 !!! info "Definition"
     A continued fraction $x = [a_0; a_1, \dots]$ is said to be **periodic** if $x = [a_0; a_1, \dots, a_k, x]$ for some $k$.
 
