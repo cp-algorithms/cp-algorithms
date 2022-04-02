@@ -329,6 +329,42 @@ The Stern-Brocot tree is particularly useful because it allows to do a binary se
     
     It is worth noting that the Stern-Brocot tree is, in fact, a [treap](../data_structures/treap.md). That is, it is a binary search tree by $\frac{p}{q}$, but it is a heap by both $p$ and $q$.
 
+!!! example "Comparing continued fractions"
+    You're given $A=[a_0; a_1, \dots, a_n]$ and $B=[b_0; b_1, \dots, b_m]$. Which fraction is smaller?
+??? hint "Solution"
+    Assume for now that $A$ and $B$ are irrational and their continued fraction representations denote an infinite descent in the Stern-Brocot tree.
+
+    As we already mentioned, in this representation $a_0$ denotes the number of right turns in the descent, $a_1$ denotes the number of consequent left turns and so on. Therefore, when we compare $a_k$ and $b_k$, if $a_k = b_k$ we should just move on to comparing $a_{k+1}$ and $b_{k+1}$. Otherwise, if we're at right descents, we should check if $a_k < b_k$ and if we're at left descents, we should check if $a_k > b_k$ to tell whether $A < B$.
+
+    In other words, for irrational $A$ and $B$ it would be $A < B$ if and only if $(a_0, -a_1, a_2, -a_3, \dots) < (b_0, -b_1, b_2, -b_3, \dots)$ with lexicographical comparison.
+
+    Now, formally using $\infty$ as an element of continued fraction representation it is possible to emulate irrational numbers $A-\varepsilon$ and $A+\varepsilon$, that is, elements that are smaller (greater) than $A$, but greater (smaller) than any other real number. Specifically, for $A=[a_0; a_1, \dots, a_n]$, one of these two elements can be emulated as $[a_0; a_1, \dots, a_n, \infty]$ and the other can be emulated as $[a_0; a_1, \dots, a_n - 1, 1, \infty]$.
+
+    Which one corresponds to $A-\varepsilon$ and which one to $A+\varepsilon$ can be determined by the parity of $n$ or by comparing them as irrational numbers.
+
+    === "Python"
+        ```py
+        # check if a < b assuming that a[-1] = b[-1] = infty and a != b
+        def less(a, b):
+            a = [(-1)**i*a[i] for i in range(len(a))]
+            b = [(-1)**i*b[i] for i in range(len(b))]
+            return a < b
+
+        # [a0; a1, ..., ak] -> [a0, a1, ..., ak-1, 1]
+        def expand(a):
+            if a: # empty a = inf
+                a[-1] -= 1
+                a.append(1)
+            return a
+
+        # return a-eps, a+eps
+        def pm_eps(a):
+            b = expand(a.copy())
+            a.append(float('inf'))
+            b.append(float('inf'))
+            return (a, b) if less(a, b) else (b, a)
+        ```
+
 !!! example "Best inner point"
     You're given $\frac{0}{1} \leq \frac{p_0}{q_0} < \frac{p_1}{q_1} \leq \frac{1}{0}$. Find the rational number $\frac{p}{q}$ such that $(q; p)$ is lexicographically smallest and $\frac{p_0}{q_0} < \frac{p}{q} < \frac{p_1}{q_1}$.
 
@@ -337,34 +373,15 @@ The Stern-Brocot tree is particularly useful because it allows to do a binary se
 
     So, if $\frac{p_0}{q_0} = [a_0; a_1, \dots, a_{k-1}, a_k, \dots]$ and $\frac{p_1}{q_1} = [a_0; a_1, \dots, a_{k-1}, b_k, \dots]$ are irrational numbers, the LCA is $[a_0; a_1, \dots, \min(a_k, b_k)+1]$.
 
-    For rational $r_0$ and $r_1$, one of them could be the LCA itself which would require us to casework it. To simplify the solution for rational $r_0$ and $r_1$, it is possible to use continued fraction representation of $r_0 + \varepsilon$ and $r_1 - \varepsilon$ for $\varepsilon \sim 0$.
+    For rational $r_0$ and $r_1$, one of them could be the LCA itself which would require us to casework it. To simplify the solution for rational $r_0$ and $r_1$, it is possible to use continued fraction representation of $r_0 + \varepsilon$ and $r_1 - \varepsilon$ which was derived in the previous problem.
 
     === "Python"
         ```py
-        # [a0; a1, ..., ak] -> [a0, a1, ..., ak-1, 1]
-        def expand(a):
-            a[-1] -= 1
-            a.append(1)
-
-        def add_eps(a):
-            # make sure that adding new item to a would increase p/q
-            if len(a) % 2 == 0:
-                expand(a)
-            a.append(float('inf')) # p0/q0 + eps
-            return a
-
-        def sub_eps(a):
-            # make sure that adding new item to a would decrease p/q
-            if len(a) % 2 == 1:
-                expand(a)
-            a.append(float('inf')) # p1/q1 - eps
-            return a
-
         # finds lexicographically smallest (q, p)
         # such that p0/q0 < p/q < p1/q1
         def middle(p0, q0, p1, q1):
-            a0 = add_eps(fraction(p0, q0))
-            a1 = sub_eps(fraction(p1, q1))
+            a0 = pm_eps(fraction(p0, q0))[1]
+            a1 = pm_eps(fraction(p1, q1))[0]
             a = []
             for i in range(min(len(a0), len(a1))):
                 a.append(min(a0[i], a1[i]))
