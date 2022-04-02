@@ -198,3 +198,4 @@ The proof for this fact is the same as the solution which uses the [prefix funct
 * [LA 6439 - Pasti Pas!](https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&Itemid=8&category=588&page=show_problem&problem=4450)
 * [Codechef - Chef and Strings](https://www.codechef.com/problems/CHSTR)
 * [Codeforces - Prefixes and Suffixes](http://codeforces.com/problemset/problem/432/D)
+* [Leetcode - Sum of Scores of Built Strings](https://leetcode.com/problems/sum-of-scores-of-built-strings)
