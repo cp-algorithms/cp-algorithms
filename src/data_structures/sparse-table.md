@@ -97,10 +97,10 @@ This requires that we are able to compute $\log_2(R - L + 1)$ fast.
 You can accomplish that by precomputing all logarithms:
 
 ```{.cpp file=sparse_table_log_table}
-int log[MAXN+1];
-log[1] = 0;
+int lg[MAXN+1];
+lg[1] = 0;
 for (int i = 2; i <= MAXN; i++)
-    log[i] = log[i/2] + 1;
+    lg[i] = lg[i/2] + 1;
 ```
 
 Afterwards we need to precompute the Sparse Table structure. This time we define $f$ with $f(x, y) = \min(x, y)$.
@@ -119,7 +119,7 @@ for (int j = 1; j <= K; j++)
 And the minimum of a range $[L, R]$ can be computed with:
 
 ```{.cpp file=sparse_table_minimum_query}
-int j = log[R - L + 1];
+int j = lg[R - L + 1];
 int minimum = min(st[L][j], st[R - (1 << j) + 1][j]);
 ```
 
