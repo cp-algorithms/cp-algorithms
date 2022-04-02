@@ -582,11 +582,15 @@ Another important concept for continued fractions are the so-called [linear frac
 
     It's generally true that $[a_0; a_1, \dots, a_k, b_0, b_1, \dots, b_k] = [a_0; a_1, \dots, a_k, [b_1; b_2, \dots, b_k]]$.
 
-    Consider the transform $x \mapsto [a_0; a_1, \dots, a_k, x]$. From the convergent recurrence we know that it is a linear fractional transform:
+    Let's denote $L_{k}(x) = [a_k; x] = a_k + \frac{1}{x} = \frac{a_k\cdot x+1}{1\cdot x + 0}$. Note that $L_k(\infty) = a_k$. In this notion, it holds that
 
-    $$x \mapsto \frac{p_k x + p_{k-1}}{q_k x + q_{k-1}}.$$
+    $$[a_0; a_1, \dots, a_k, x] = [a_0; [a_1; [\dots; [a_k; x]]]] = (L_0 \circ L_1 \circ \dots \circ L_k)(x) = \frac{p_k x + p_{k-1}}{q_k x + q_{k-1}}.$$
 
-    Since linear fractional transformations can be composed into another linear fractional transformation, this solves the problem.
+    Thus, the problem boils down to the computation of
+
+    $$(L_l \circ L_{l+1} \circ \dots \circ L_r)(\infty).$$
+
+    Composition of transforms is associative, so it's possible to compute in each node of a segment tree the composition of transforms in its subtree.
 
 !!! info "Definition"
     A continued fraction $x = [a_0; a_1, \dots]$ is said to be **periodic** if $x = [a_0; a_1, \dots, a_k, x]$ for some $k$.
