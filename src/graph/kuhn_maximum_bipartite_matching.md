@@ -48,13 +48,14 @@ Both sides of the bi-implication will be proven by contradiction.
 
     Let there be a matching $M'$ of greater cardinality than $M$. We consider the symmetric difference $Q = M \oplus M'$. The subgraph $Q$ is no longer necessarily a matching. 
     Any vertex in $Q$ has a maximum degree of $2$, which means that all connected components in it are one of the three - 
+
       * an isolated vertex
       * a (simple) path whose edges are alternately from $M$ and $M'$
       * a cycle of even length whose edges are alternately from $M$ and $M'$
  
     Since $M'$ has a cardinality greater than $M$, $Q$ has more edges from $M'$ than $M$. By the Pigeonhole principle, at least one connected component will be a path having 
     more edges from $M'$ than $M$. Because any such path is alternating, it will have initial and final vertices unsaturated by $M$, making it an augmenting path for $M$, 
-    which contradicts the premise. $\blacksquare$
+    which contradicts the premise. &ensp; $\blacksquare$
   
 ### Kuhn's algorithm
   
