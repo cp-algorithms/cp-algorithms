@@ -23,20 +23,20 @@ vector<char> color;
 vector<int> parent;
 int cycle_start, cycle_end;
 
-bool dfs(int v) {
-    color[v] = 1;
-    for (int u : adj[v]) {
-        if (color[u] == 0) {
-            parent[u] = v;
-            if (dfs(u))
+bool dfs(int u) {
+    color[u] = 1;
+    for (int v : adj[u]) {
+        if (color[v] == 0) {
+            parent[v] = u;
+            if (dfs(v))
                 return true;
-        } else if (color[u] == 1) {
-            cycle_end = v;
-            cycle_start = u;
+        } else if (color[v] == 1) {
+            cycle_end = u;
+            cycle_start = v;
             return true;
         }
     }
-    color[v] = 2;
+    color[u] = 2;
     return false;
 }
 
@@ -82,17 +82,17 @@ vector<bool> visited;
 vector<int> parent;
 int cycle_start, cycle_end;
 
-bool dfs(int v, int par) { // passing vertex and its parent vertex
-    visited[v] = true;
-    for (int u : adj[v]) {
-        if(u == par) continue; // skipping edge to parent vertex
-        if (visited[u]) {
-            cycle_end = v;
-            cycle_start = u;
+bool dfs(int u, int par) { // passing vertex and its parent vertex
+    visited[u] = true;
+    for (int v : adj[u]) {
+        if(v == par) continue; // skipping edge to parent vertex
+        if (visited[v]) {
+            cycle_end = u;
+            cycle_start = v;
             return true;
         }
-        parent[u] = v;
-        if (dfs(u, parent[u]))
+        parent[v] = u;
+        if (dfs(v, parent[v]))
             return true;
     }
     return false;
