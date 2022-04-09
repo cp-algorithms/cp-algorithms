@@ -355,7 +355,13 @@ T resultant(poly<T> a, poly<T> b) {
 
 ### Half-GCD algorithm
 
-There is a way to calculate the GCD and resultants in $O(n \log^2 n)$. To do this you should note that if you consider $a(x) = a_0 + x^k a_1$ and $b(x) = b_0 + x^k b_1$ where $k=\min(\deg a, \deg b)/2$ then basically the first few operations of Euclidean algorithm on $a(x)$ and $b(x)$ are defined by the Euclidean algorithm on $a_1(x)$ and $b_1(x)$ for which you may also calculate GCD recursively and then somehow memorize linear transforms you made with them and apply it to $a(x)$ and $b(x)$ to lower the degrees of polynomials. Implementation of this algorithm seems pretty tedious and technical thus it's not considered in this article yet.
+There is a way to calculate the GCD and resultants in $O(n \log^2 n)$.
+
+The procedure to do so implements a $2 \times 2$ linear transform which maps a pair of polynomials $a(x)$, $b(x)$ into another pair $c(x), d(x)$ such that $\deg d(x) \leq \frac{\deg a(x)}{2}$. If you're careful enough, you can compute the half-GCD of any pair of polynomials with at most $2$ recursive calls to the polynomials which are at least $2$ times smaller.
+
+The specific details of the algorithm are somewhat tedious to explain, however you can find its implementation in the library, as `half_gcd` function.
+
+After half-GCD is implemented, you can repeatedly apply it to polynomials until you're reduced to the pair of $\gcd(a, b)$ and $0$.
 
 ## Problems
 
