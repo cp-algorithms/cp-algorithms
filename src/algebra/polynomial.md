@@ -8,7 +8,13 @@ Let $A(x) = a_0 + a_1 x + \dots + a_n x^n$ be a polynomial over some field $\mat
 
 The degree of polynomial $A$ with $a_n \neq 0$ is defined as $\deg A = n$. For consistency, degree of $A(x) = 0$ is defined as $\deg A = -\infty$. In this notion, $\deg AB = \deg A + \deg B$ for arbitrary polynomials $A$ and $B$.
 
-Polynomials form an Euclidean ring which means that for any polynomials $A$ and $B \neq 0$ we can uniquely represent $A$ as $$A = D \cdot B + R,~ \deg R < \deg B.$$ Here $R$ is the remainder of $A$ modulo $B$ and $D$ is called the quotient. If $A$ and $B$ have the same remainder modulo $C$, they're said to be equivalent modulo $C$, which is denoted as $A \equiv B \pmod{C}$. Several important properties of polynomial Euclidean division:
+Polynomials form an Euclidean ring which means that for any polynomials $A$ and $B \neq 0$ we can uniquely represent $A$ as
+
+$$
+A = D \cdot B + R,~ \deg R < \deg B.
+$$
+
+Here $R$ is the remainder of $A$ modulo $B$ and $D$ is called the quotient. If $A$ and $B$ have the same remainder modulo $C$, they're said to be equivalent modulo $C$, which is denoted as $A \equiv B \pmod{C}$. Several important properties of polynomial Euclidean division:
 
 - $A$ is a multiple of $B$ if and only if $A \equiv 0 \pmod B$.
 
