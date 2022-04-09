@@ -206,7 +206,7 @@ Full list of updates: [Commit History](https://github.com/e-maxx-eng/e-maxx-eng/
     - [Assignment problem. Solution using min-cost-flow in O (N^5)](graph/Assignment-problem-min-flow.md)
 - **Matchings and related problems**
     - [Bipartite Graph Check](graph/bipartite-check.md)
-    - [Kuhn' Algorithm - Maximum Bipartite Matching](graph/kuhn_maximum_bipartite_matching.md)
+    - [Kuhn's Algorithm - Maximum Bipartite Matching](graph/kuhn_maximum_bipartite_matching.md)
 - **Miscellaneous**
     - [Topological Sorting](graph/topological-sort.md)
     - [Edge connectivity / Vertex connectivity](graph/edge_vertex_connectivity.md)
