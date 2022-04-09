@@ -64,6 +64,91 @@ void solve()
 }
 ```
 
+## Optimizing Bellman-Ford algorithm with early stopping
+
+There are two critical ways to improve the performance of Bellman-Ford algorithm, by stopping early.
+
+1. If there are no updates in the previous iteration, we can stop early. However, the time complexity of the algorithm is still $O(EV)$
+2. If there's a cycle in the parent pointers, it is guaranteed to be a negative cycle. This changes the complexity to $O(\ell V)$ where $\ell$ is the length of the cycle. However the worst case complexity still remains $O(EV)$.
+
+### Implementation Early Stopping
+
+```cpp
+struct Edge
+{
+    int a, b, cost;
+};
+
+int n, m;
+vector<Edge> edges;
+const int INF = 1000000000;
+
+int has_cycle(vector<int> const &p)
+{
+    for (size_t node = 0; node < p.size(); ++node)
+    {
+        // Using Floyd's cycle detection algorithm
+        // https://en.wikipedia.org/wiki/Cycle_detection#Floyd's_tortoise_and_hare
+        int slow = node, fast = node;
+        while (fast != -1 && p[fast] != -1)
+        {
+            slow = p[slow];
+            fast = p[p[fast]];
+            if (slow == fast) return slow;
+        }
+    }
+    return -1;
+}
+void solve()
+{
+    vector<int> d(n);
+    vector<int> p(n, -1);
+    int x = -1;
+    for (int i = 0; i < n; ++i)
+    {
+        x = -1;
+        for (Edge e : edges)
+        {
+            if (d[e.a] + e.cost < d[e.b])
+            {
+                d[e.b] = d[e.a] + e.cost;
+                p[e.b] = e.a;
+                x = e.b;
+            }
+        }
+        if (x == -1) break; // No updates in current iteration
+
+        x = has_cycle(p);
+        if (x == -1) break;
+    }
+
+    if (x == -1)
+    {
+        cout << "No negative cycle found.";
+    }
+    else
+    {
+        for (int i = 0; i < n; ++i)
+            x = p[x];
+
+        vector<int> cycle;
+        for (int v = x;; v = p[v])
+        {
+            cycle.push_back(v);
+            if (v == x && cycle.size() > 1)
+                break;
+        }
+        reverse(cycle.begin(), cycle.end());
+
+        cout << "Negative cycle: ";
+        for (int v : cycle)
+            cout << v << ' ';
+        cout << endl;
+    }
+}
+
+```
+
 ## Using Floyd-Warshall algorithm
 
 The Floyd-Warshall algorithm allows to solve the second variation of the problem - finding all pairs of vertices $(i, j)$ which don't have a shortest path between them (i.e. a path of arbitrarily small weight exists).
