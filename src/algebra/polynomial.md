@@ -195,7 +195,12 @@ Another example where Hensel's lifting might be helpful are so-called [p-adic nu
 
 ### Logarithm
 
-For the function $\ln P(x)$ it's known that: \[\boxed{(\ln P(x))' = \dfrac{P'(x)}{P(x)}}\]
+For the function $\ln P(x)$ it's known that: 
+
+$$
+\boxed{(\ln P(x))' = \dfrac{P'(x)}{P(x)}}
+$$
+
 Thus we can calculate $n$ coefficients of $\ln P(x)$ in $O(n \log n)$.
 
 
