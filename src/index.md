@@ -33,6 +33,7 @@ Full list of updates: [Commit History](https://github.com/e-maxx-eng/e-maxx-eng/
 
 - **Fundamentals**
     - [Binary Exponentiation](algebra/binary-exp.md)
+    - [Factoring Exponentiation](algebra/factoring-exp.md)
     - [Euclidean algorithm for computing the greatest common divisor](algebra/euclid-algorithm.md)
     - [Extended Euclidean Algorithm](algebra/extended-euclid-algorithm.md)
     - [Linear Diophantine Equations](algebra/linear-diophantine-equation.md)
