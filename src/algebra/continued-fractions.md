@@ -24,15 +24,13 @@ Besides that, continued fractions are closely related to Euclidean algorithm whi
     \end{align}
     $$
 
-!!! note "Different representations and representation length for rational numbers"
+It can be proven that any rational number can be represented as a continued fraction in exactly $2$ ways:
 
-    It can be proven that any rational number can be represented as a continued fraction in exactly $2$ ways:
+$$r = [a_0;a_1,\dots,a_k,1] = [a_0;a_1,\dots,a_k+1].$$
 
-    $$r = [a_0;a_1,\dots,a_k,1] = [a_0;a_1,\dots,a_k+1].$$
+Moreover, the length $k$ of such continued fraction is estimated as $k = O(\log \min(p, q))$ for $r=\frac{p}{q}$.
 
-    Moreover, the length $k$ of such continued fraction is estimated as $k = O(\log \min(p, q))$ for $r=\frac{p}{q}$.
-
-    The reasoning behind this will be clear once we delve into the details of the continued fraction construction.
+The reasoning behind this will be clear once we delve into the details of the continued fraction construction.
 
 !!! info "Definition"
     Let $a_0,a_1,a_2, \dots$ be an integer sequence such that $a_1, a_2, \dots \geq 1$. Let $r_k = [a_0; a_1, \dots, a_k]$. Then the expression
@@ -41,10 +39,9 @@ Besides that, continued fractions are closely related to Euclidean algorithm whi
 
     is called the **continued fraction representation** of the irrational number $r$ and is denoted shortly as $r = [a_0;a_1,a_2,\dots]$.
 
-!!! note "Basic arithmetics"
-    Note that for $r=[a_0;a_1,\dots]$ and integer $k$, it holds that $r+k = [a_0+k; a_1, \dots]$.
+Note that for $r=[a_0;a_1,\dots]$ and integer $k$, it holds that $r+k = [a_0+k; a_1, \dots]$.
 
-    Another important observation is that $\frac{1}{r}=[0;a_0, a_1, \dots]$ when $a_0 > 0$ and $\frac{1}{r} = [a_1; a_2, \dots]$ when $a_0 = 0$.
+Another important observation is that $\frac{1}{r}=[0;a_0, a_1, \dots]$ when $a_0 > 0$ and $\frac{1}{r} = [a_1; a_2, \dots]$ when $a_0 = 0$.
 
 !!! info "Definition"
     In the definition above, rational numbers $r_0, r_1, r_2, \dots$ are called the **convergents** of $r$.
@@ -75,46 +72,43 @@ Besides that, continued fractions are closely related to Euclidean algorithm whi
 
     Correspondingly, we will call an individual $s_k$ the $k$-th complete quotient of $r$.
 
-!!! note "Connection between complete quotients and continued fraction representation"
+From the definitions above, one can conclude that $s_k \geq 1$ for $k \geq 1$.
 
-    From the definitions above, $s_k \geq 1$ for $k \geq 1$.
+Treating $[a_0; a_1, \dots, a_k]$ as a formal algebraic expression and allowing arbitrary real numbers instead of $a_i$, we obtain
 
-    Let's treat $[a_0; a_1, \dots, a_k]$ as a formal algebraic expression and allow arbitrary real numbers instead of $a_i$, then, by definition,
+$$r = [a_0; a_1, \dots, a_{k-1}, s_k].$$
 
-    $$r = [a_0; a_1, \dots, a_{k-1}, s_k].$$
+In particular, $r = [s_0] = s_0$. On the other hand, we can express $s_k$ as
 
-    In particular, $r = [s_0] = s_0$. On the other hand, we can express $s_k$ as
+$$s_k = [a_k; s_{k+1}] = a_k + \frac{1}{s_{k+1}},$$
 
-    $$s_k = [a_k; s_{k+1}] = a_k + \frac{1}{s_{k+1}},$$
+meaning that we can compute $a_k = \lfloor s_k \rfloor$ and $s_{k+1} = (s_k - a_k)^{-1}$ from $s_k$.
 
-    meaning that we can compute $a_k = \lfloor s_k \rfloor$ and $s_{k+1} = (s_k - a_k)^{-1}$ from $s_k$.
+The sequence $a_0, a_1, \dots$ is well-defined unless $s_k=a_k$ which only happens when $r$ is a rational number.
 
-    The sequence $a_0, a_1, \dots$ is well-defined unless $s_k=a_k$ which only happens when $r$ is a rational number.
-
-    Thus the continued fraction representation is uniquely defined for any irrational number $r$.
+Thus the continued fraction representation is uniquely defined for any irrational number $r$.
 
 ### Implementation
 
 In the code snippets we will mostly assume finite continued fractions.
 
-!!! note "Transition formulas"
-    From $s_k$, the transition to $s_{k+1}$ looks like
+From $s_k$, the transition to $s_{k+1}$ looks like
 
-    $$s_k =\left\lfloor s_k \right\rfloor + \frac{1}{s_{k+1}}.$$
+$$s_k =\left\lfloor s_k \right\rfloor + \frac{1}{s_{k+1}}.$$
 
-    From this expression, the next complete quotient $s_{k+1}$ is obtained as
+From this expression, the next complete quotient $s_{k+1}$ is obtained as
 
-    $$s_{k+1} = \left(s_k-\left\lfloor s_k\right\rfloor\right)^{-1}.$$
+$$s_{k+1} = \left(s_k-\left\lfloor s_k\right\rfloor\right)^{-1}.$$
 
-    For $s_k=\frac{p}{q}$ it means that
+For $s_k=\frac{p}{q}$ it means that
 
-    $$
-    s_{k+1} = \left(\frac{p}{q}-\left\lfloor \frac{p}{q} \right\rfloor\right)^{-1} = \frac{q}{p-q\cdot \lfloor \frac{p}{q} \rfloor} = \frac{q}{p \bmod q}.
-    $$
+$$
+s_{k+1} = \left(\frac{p}{q}-\left\lfloor \frac{p}{q} \right\rfloor\right)^{-1} = \frac{q}{p-q\cdot \lfloor \frac{p}{q} \rfloor} = \frac{q}{p \bmod q}.
+$$
 
-    Thus, computation of a continued fraction representation for $r=\frac{p}{q}$ follows the same steps as the Euclidean algorithm for $p$ and $q$.
-    
-    From this connection with the Euclidean algorithm it also follows that $\gcd(p_k, q_k) = 1$ for $\frac{p_k}{q_k} = [a_0; a_1, \dots, a_k]$. Hence, convergents are always irreducible.
+Thus, the computation of a continued fraction representation for $r=\frac{p}{q}$ follows the steps of the Euclidean algorithm for $p$ and $q$.
+
+From this also follows that $\gcd(p_k, q_k) = 1$ for $\frac{p_k}{q_k} = [a_0; a_1, \dots, a_k]$. Hence, convergents are always irreducible.
 
 === "C++"
     ```cpp
@@ -199,24 +193,23 @@ r_0=[a_0],\\r_1=[a_0, a_1],\\ \dots,\\ r_k=[a_0, a_1, \dots, a_k].
 
 Convergents are the core concept of continued fractions, so it is important to study their properties.
 
-!!! note "Recurrence"
-    For the number $r$, its $k$-th convergent $r_k = \frac{p_k}{q_k}$ can be computed as
+For the number $r$, its $k$-th convergent $r_k = \frac{p_k}{q_k}$ can be computed as
 
-    $$r_k = \frac{P_k(a_0,a_1,\dots,a_k)}{P_{k-1}(a_1,\dots,a_k)} = \frac{a_k p_{k-1} + p_{k-2}}{a_k q_{k-1} + q_{k-2}},$$
+$$r_k = \frac{P_k(a_0,a_1,\dots,a_k)}{P_{k-1}(a_1,\dots,a_k)} = \frac{a_k p_{k-1} + p_{k-2}}{a_k q_{k-1} + q_{k-2}},$$
 
-    where $P_k(a_0,\dots,a_k)$ is [the continuant](https://en.wikipedia.org/wiki/Continuant_(mathematics)), a multivariate polynomial defined as
+where $P_k(a_0,\dots,a_k)$ is [the continuant](https://en.wikipedia.org/wiki/Continuant_(mathematics)), a multivariate polynomial defined as
 
-    $$P_k(x_0,x_1,\dots,x_k) = \det \begin{bmatrix}
-    x_k & 1 & 0 & \dots & 0 \\
-    -1 & x_{k-1} & 1 & \dots & 0 \\
-    0 & -1 & x_2 & . & \vdots \\
-    \vdots & \vdots & . & \ddots & 1 \\
-    0 & 0 & \dots & -1 & x_0
-    \end{bmatrix}_{\textstyle .}$$
+$$P_k(x_0,x_1,\dots,x_k) = \det \begin{bmatrix}
+x_k & 1 & 0 & \dots & 0 \\
+-1 & x_{k-1} & 1 & \dots & 0 \\
+0 & -1 & x_2 & . & \vdots \\
+\vdots & \vdots & . & \ddots & 1 \\
+0 & 0 & \dots & -1 & x_0
+\end{bmatrix}_{\textstyle .}$$
 
-    Thus, $r_k$ is a weighted [mediant](https://en.wikipedia.org/wiki/Mediant_(mathematics)) of $r_{k-1}$ and $r_{k-2}$.
+Thus, $r_k$ is a weighted [mediant](https://en.wikipedia.org/wiki/Mediant_(mathematics)) of $r_{k-1}$ and $r_{k-2}$.
 
-    For consistency, two additional convergents $r_{-1} = \frac{1}{0}$ and $r_{-2} = \frac{0}{1}$ are defined.
+For consistency, two additional convergents $r_{-1} = \frac{1}{0}$ and $r_{-2} = \frac{0}{1}$ are defined.
 
 ??? hint "Detailed explanation"
 
@@ -289,45 +282,46 @@ We will compute the convergents as a pair of sequences $p_{-2}, p_{-1}, p_0, p_1
         return p, q
     ```
 
-## Organizing continued fractions in trees
+## Trees of continued fractions
 
 There are two major ways to unite all possible continued fractions into useful tree structures.
 
-The Stern-Brocot tree is particularly useful because it allows to do a binary search on all rational numbers and the result would converge as fast as convergents of continued fractions do.
+### Stern-Brocot tree
 
-!!! note "Connection with the Stern–Brocot tree"
-    [The Stern-Brocot tree](../others/stern_brocot_tree_farey_sequences.md) is a binary search tree that contains all distinct positive rational numbers.
+[The Stern-Brocot tree](../others/stern_brocot_tree_farey_sequences.md) is a binary search tree that contains all distinct positive rational numbers.
 
-    The tree generally looks as follows:
+The tree generally looks as follows:
 
-    <figure>![](https://upload.wikimedia.org/wikipedia/commons/3/37/SternBrocotTree.svg)
-    <figcaption>_[The image](https://commons.wikimedia.org/wiki/File:SternBrocotTree.svg) by [Aaron Rotenberg](https://commons.wikimedia.org/wiki/User:Aaron_Rotenberg) is licensed under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/deed.en)_</figcaption></figure>
+<figure>
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/37/SternBrocotTree.svg">
+<figcaption>
+<a href="https://commons.wikimedia.org/wiki/File:SternBrocotTree.svg">The image</a> by <a href="https://commons.wikimedia.org/wiki/User:Aaron_Rotenberg">Aaron Rotenberg</a> is licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">CC BY-SA 3.0</a>
+</figcaption>
+</figure>
 
-    Fractions $\frac{0}{1}$ and $\frac{1}{0}$ are "virtually" kept on the left and right sides of the tree correspondingly.
+Fractions $\frac{0}{1}$ and $\frac{1}{0}$ are "virtually" kept on the left and right sides of the tree correspondingly.
 
-    Then the fraction in a node is a mediant $\frac{a+c}{b+d}$ of two fractions $\frac{a}{b}$ and $\frac{c}{d}$ above it.
+Then the fraction in a node is a mediant $\frac{a+c}{b+d}$ of two fractions $\frac{a}{b}$ and $\frac{c}{d}$ above it.
 
-    From the $\frac{p_k}{q_k}=\frac{a_k p_{k-1} + p_{k-2}}{a_k q_{k-1} + q_{k-2}}$ recurrence we see that the continued fraction representation encodes the path to the fraction $\frac{p_k}{q_k}$ in the Stern-Brocot tree.
+The recurrence $\frac{p_k}{q_k}=\frac{a_k p_{k-1} + p_{k-2}}{a_k q_{k-1} + q_{k-2}}$ means that the continued fraction representation encodes the path to $\frac{p_k}{q_k}$ in the tree. To find $[a_0; a_1, \dots, a_{k}, 1]$, one has to make $a_0$ moves to the right, $a_1$ moves to the left, $a_2$ moves to the right and so on up to $a_k$.
 
-    To find $[a_0; a_1, \dots, a_{k}, 1]$ in a tree, one needs to move $a_0$ times to the right, $a_1$ times to the left, $a_2$ times to the right and so on, ignoring the last $1$.
+The parent of $[a_0; a_1, \dots, a_k,1]$ then is the fraction obtained by taking one step back in the last used direction.
 
-    From this follows that the parent of $[a_0; a_1, \dots, a_k,1]$ is obtained by taking one step back in the last used direction.
+In other words, it is $[a_0; a_1, \dots, a_k-1,1]$ when $a_k > 1$ and $[a_0; a_1, \dots, a_{k-1}, 1]$ when $a_k = 1$.
 
-    In other words, it is $[a_0; a_1, \dots, a_k-1,1]$ when $a_k > 1$ and $[a_0; a_1, \dots, a_{k-1}, 1]$ when $a_k = 1$.
+Thus the children of $[a_0; a_1, \dots, a_k, 1]$ are $[a_0; a_1, \dots, a_k+1, 1]$ and $[a_0; a_1, \dots, a_k, 1, 1]$.
 
-    On the other hand, this also allows to derive that the children of $[a_0; a_1, \dots, a_k, 1]$ are $[a_0; a_1, \dots, a_k+1, 1]$ and $[a_0; a_1, \dots, a_k, 1, 1]$.
+Let's index the Stern-Brocot tree. The root vertex is assigned an index $1$. Then for a vertex $v$, the index of its left child is assigned by changing the leading bit of $v$ from $1$ to $10$ and for the right child, it's assigned by changing the leading bit from $1$ to $11$:
 
-    There is an indexing of Stern-Brocot vertices that is consistent with this structure. Let's assign the root vertex an index $1$. Then for a vertex number $v$, index of its left child is obtained by changing leading bit of $v$ from $1$ to $10$ and for the right child, it's obtained by changing leading bit of $v$ from $1$ to $11$:
+<figure><img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Stern-brocot-index.svg" width="500px"/></figure>
 
-    <figure><img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Stern-brocot-index.svg" width="500px"/></figure>
+In this indexing, the continued fraction representation of a rational number specifies the [run-length encoding](https://en.wikipedia.org/wiki/Run-length_encoding) of its binary index.
 
-    In this indexing, the continued fraction representation of a rational number specifies the [run-length encoding](https://en.wikipedia.org/wiki/Run-length_encoding) of its binary index.
+For $\frac{5}{2} = [2;2] = [2;1,1]$, its index is $1011_2$ and its run-length encoding, considering bits in the ascending order, is $[2;1,1]$.
 
-    For example, for $\frac{5}{2} = [2;2] = [2;1,1]$, its index is $1011_2$ and run-length encoding of it, if bits are considered in ascending order, is exactly $[2;1,1]$.
+Another example is $\frac{2}{5} = [0;2,2]=[0;2,1,1]$, which has index $1100_2$ and its run-length encoding is, indeed, $[0;2,2]$.
 
-    Another example is $\frac{2}{5} = [0;2,2]=[0;2,1,1]$, which has index $1100_2$ and its run-length encoding is, indeed, $[0;2,2]$.
-    
-    It is worth noting that the Stern-Brocot tree is, in fact, a [treap](../data_structures/treap.md). That is, it is a binary search tree by $\frac{p}{q}$, but it is a heap by both $p$ and $q$.
+It is worth noting that the Stern-Brocot tree is, in fact, a [treap](../data_structures/treap.md). That is, it is a binary search tree by $\frac{p}{q}$, but it is a heap by both $p$ and $q$.
 
 !!! example "Comparing continued fractions"
     You're given $A=[a_0; a_1, \dots, a_n]$ and $B=[b_0; b_1, \dots, b_m]$. Which fraction is smaller?
@@ -439,58 +433,60 @@ The Stern-Brocot tree is particularly useful because it allows to do a binary se
             return str(q) + ' ' + str(p)
         ```
 
-Another, somewhat simpler way to organize continued fractions in a binary tree is the Calkin-Wilf tree. Unfortunately, unlike the Stern-Brocot tree, Calkin-Wilf tree is not a binary _search_ tree, so it can't be used to emulate rational binary search.
+### Calkin-Wilf tree
 
-!!! note "Connection with the Calkin–Wilf tree"
-    [The Calkin-Wilf tree](https://en.wikipedia.org/wiki/Calkin–Wilf_tree) is another binary tree which contains all distinct positive rational numbers.
+A somewhat simpler way to organize continued fractions in a binary tree is the [Calkin-Wilf tree](https://en.wikipedia.org/wiki/Calkin–Wilf_tree).
 
-    The tree generally looks like this:
+The tree generally looks like this:
 
-    <figure><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Calkin–Wilf_tree.svg" width="500px"/>
-    <figcaption>[The image](https://commons.wikimedia.org/wiki/File:Calkin–Wilf_tree.svg) by [Olli Niemitalo](https://commons.wikimedia.org/wiki/User:Olli_Niemitalo), [Proz](https://commons.wikimedia.org/wiki/User:Proz) is licensed under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/deed.en)</figcaption></figure>
+<figure>
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Calkin–Wilf_tree.svg" width="500px"/>
+<figcaption><a href="https://commons.wikimedia.org/wiki/File:Calkin–Wilf_tree.svg">The image</a> by <a href="https://commons.wikimedia.org/wiki/User:Olli_Niemitalo">Olli Niemitalo</a>, <a href="https://commons.wikimedia.org/wiki/User:Proz">Proz</a> is licensed under <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0 1.0</a></figcaption>
+</figure>
 
-    In the root of the tree, the number $\frac{1}{1}$ is located. Then, for the vertex with a number $\frac{p}{q}$, its children are $\frac{p}{p+q}$ and $\frac{p+q}{q}$.
+In the root of the tree, the number $\frac{1}{1}$ is located. Then, for the vertex with a number $\frac{p}{q}$, its children are $\frac{p}{p+q}$ and $\frac{p+q}{q}$.
 
-    In the Calkin-Wilf tree, for the fraction $\frac{p}{q}$, its direct parent is $\frac{p-q}{q}$ when $p>q$ and $\frac{p}{q-p}$ otherwise.
+Unlike the Stern-Brocot tree, the Calkin-Wilf tree is not a binary _search_ tree, so it can't be used to perform rational binary search.
 
-    For the Stern-Brocot tree, we used the recurrence for convergents. To draw the connection between the continued fraction and the Calkin-Wilf tree, we should recall the recurrence for complete quotients. If $s_k = \frac{p}{q}$, then $s_{k+1} = \frac{q}{p \mod q} = \frac{q}{p-\lfloor p/q \rfloor \cdot q}$.
+In the Calkin-Wilf tree, the direct parent of a fraction $\frac{p}{q}$ is $\frac{p-q}{q}$ when $p>q$ and $\frac{p}{q-p}$ otherwise.
 
-    On the other hand, if we repeatedly go from $s_k = \frac{p}{q}$ to its parent in the Calkin-Wilf tree when $p > q$, we will end up in $\frac{p \mod q}{q} = \frac{1}{s_{k+1}}$. If we continue doing so, we will end up in $s_{k+2}$, then $\frac{1}{s_{k+3}}$ and so on. From this we can deduce that:
+For the Stern-Brocot tree, we used the recurrence for convergents. To draw the connection between the continued fraction and the Calkin-Wilf tree, we should recall the recurrence for complete quotients. If $s_k = \frac{p}{q}$, then $s_{k+1} = \frac{q}{p \mod q} = \frac{q}{p-\lfloor p/q \rfloor \cdot q}$.
 
-    1. When $a_0> 0$, the direct parent of $[a_0; a_1, \dots, a_k]$ in the Calkin-Wilf tree is $\frac{p-q}{q}=[a_0 - 1; a_1, \dots, a_k]$.
-    2. When $a_0 = 0$ and $a_1 > 1$, its direct parent is $\frac{p}{q-p} = [0; a_1 - 1, a_2, \dots, a_k]$.
-    3. And when $a_0 = 0$ and $a_1 = 1$, its direct parent is $\frac{p}{q-p} = [a_2; a_3, \dots, a_k]$.
+On the other hand, if we repeatedly go from $s_k = \frac{p}{q}$ to its parent in the Calkin-Wilf tree when $p > q$, we will end up in $\frac{p \mod q}{q} = \frac{1}{s_{k+1}}$. If we continue doing so, we will end up in $s_{k+2}$, then $\frac{1}{s_{k+3}}$ and so on. From this we can deduce that:
 
-    Correspondingly, children of $\frac{p}{q} = [a_0; a_1, \dots, a_k]$ are
+1. When $a_0> 0$, the direct parent of $[a_0; a_1, \dots, a_k]$ in the Calkin-Wilf tree is $\frac{p-q}{q}=[a_0 - 1; a_1, \dots, a_k]$.
+2. When $a_0 = 0$ and $a_1 > 1$, its direct parent is $\frac{p}{q-p} = [0; a_1 - 1, a_2, \dots, a_k]$.
+3. And when $a_0 = 0$ and $a_1 = 1$, its direct parent is $\frac{p}{q-p} = [a_2; a_3, \dots, a_k]$.
 
-    1. $\frac{p+q}{q}=1+\frac{p}{q}$, which is $[a_0+1; a_1, \dots, a_k]$,
-    2. $\frac{p}{p+q} = \frac{1}{1+\frac{q}{p}}$, which is $[0, 1, a_0, a_1, \dots, a_k]$ for $a_0 > 0$ and $[0, a_1+1, a_2, \dots, a_k]$ for $a_0=0$.
+Correspondingly, children of $\frac{p}{q} = [a_0; a_1, \dots, a_k]$ are
 
-    Noteworthy, if we enumerate vertices of the Calkin-Wilf tree in the breadth-first search order (that is, the root has a number $1$, and the children of the vertex $v$ have indices $2v$ and $2v+1$ correspondingly), the index of the rational number in the Calkin-Wilf tree would be the same as in the Stern-Brocot tree.
+1. $\frac{p+q}{q}=1+\frac{p}{q}$, which is $[a_0+1; a_1, \dots, a_k]$,
+2. $\frac{p}{p+q} = \frac{1}{1+\frac{q}{p}}$, which is $[0, 1, a_0, a_1, \dots, a_k]$ for $a_0 > 0$ and $[0, a_1+1, a_2, \dots, a_k]$ for $a_0=0$.
 
-    Thus, numbers on the same levels of the Stern-Brocot tree and the Calkin-Wilf tree are the same, but their ordering differs through the [bit-reversal permutation](https://en.wikipedia.org/wiki/Bit-reversal_permutation).
+Noteworthy, if we enumerate vertices of the Calkin-Wilf tree in the breadth-first search order (that is, the root has a number $1$, and the children of the vertex $v$ have indices $2v$ and $2v+1$ correspondingly), the index of the rational number in the Calkin-Wilf tree would be the same as in the Stern-Brocot tree.
+
+Thus, numbers on the same levels of the Stern-Brocot tree and the Calkin-Wilf tree are the same, but their ordering differs through the [bit-reversal permutation](https://en.wikipedia.org/wiki/Bit-reversal_permutation).
 ## Convergence
 
-!!! note "Convergence rate"
-    For the number $r$ and its $k$-th convergent $r_k=\frac{p_k}{q_k}$ the following formula stands:
+For the number $r$ and its $k$-th convergent $r_k=\frac{p_k}{q_k}$ the following formula stands:
 
-    $$r_k = a_0 + \sum\limits_{i=1}^k \frac{(-1)^{i-1}}{q_i q_{i-1}}.$$
+$$r_k = a_0 + \sum\limits_{i=1}^k \frac{(-1)^{i-1}}{q_i q_{i-1}}.$$
 
-    In particular, it means that 
+In particular, it means that 
 
-    $$r_k - r_{k-1} = \frac{(-1)^{k-1}}{q_k q_{k-1}}$$
+$$r_k - r_{k-1} = \frac{(-1)^{k-1}}{q_k q_{k-1}}$$
 
-    and 
+and 
 
-    $$p_k q_{k-1} - p_{k-1} q_k = (-1)^{k-1}.$$
+$$p_k q_{k-1} - p_{k-1} q_k = (-1)^{k-1}.$$
 
-    From this we can conclude that
+From this we can conclude that
 
-    $$\left| r-\frac{p_k}{q_k} \right| \leq \frac{1}{q_{k+1}q_k} \leq \frac{1}{q_k^2}.$$
+$$\left| r-\frac{p_k}{q_k} \right| \leq \frac{1}{q_{k+1}q_k} \leq \frac{1}{q_k^2}.$$
 
-    The latter inequality is due to the fact that $r_k$ and $r_{k+1}$ are generally located on different sides of $r$, thus
+The latter inequality is due to the fact that $r_k$ and $r_{k+1}$ are generally located on different sides of $r$, thus
 
-    $$|r-r_k| = |r_k-r_{k+1}|-|r-r_{k+1}| \leq |r_k - r_{k+1}|.$$
+$$|r-r_k| = |r_k-r_{k+1}|-|r-r_{k+1}| \leq |r_k - r_{k+1}|.$$
 
 ??? tip "Detailed explanation"
 
@@ -566,15 +562,13 @@ Another important concept for continued fractions are the so-called [linear frac
 !!! info "Definition"
     A **linear fractional transformation** is a function $f : \mathbb R \to \mathbb R$ such that $f(x) = \frac{ax+b}{cx+d}$ for some $a,b,c,d \in \mathbb R$.
 
-!!! note "Composition"
-    A composition $(L_0 \circ L_1)(x) = L_0(L_1(x))$ of linear fractional transforms $L_0(x)=\frac{a_0 x + b_0}{c_0 x + d_0}$ and $L_1(x)=\frac{a_1 x + b_1}{c_1 x + d_1}$ is itself a linear fractional transform:
+A composition $(L_0 \circ L_1)(x) = L_0(L_1(x))$ of linear fractional transforms $L_0(x)=\frac{a_0 x + b_0}{c_0 x + d_0}$ and $L_1(x)=\frac{a_1 x + b_1}{c_1 x + d_1}$ is itself a linear fractional transform:
 
-    $$\frac{a_0\frac{a_1 x + b_1}{c_1 x + d_1} + b_0}{c_0 \frac{a_1 x + b_1}{c_1 x + d_1} + d_0} = \frac{a_0(a_1 x + b_1) + b_0 (c_1 x + d_1)}{c_0 (a_1 x + b_1) + d_0 (c_1 x + d_1)} = \frac{(a_0 a_1 + b_0 c_1) x + (a_0 b_1 + b_0 d_1)}{(c_0 a_1 + d_0 c_1) x + (c_0 b_1 + d_0 d_1)}.$$
+$$\frac{a_0\frac{a_1 x + b_1}{c_1 x + d_1} + b_0}{c_0 \frac{a_1 x + b_1}{c_1 x + d_1} + d_0} = \frac{a_0(a_1 x + b_1) + b_0 (c_1 x + d_1)}{c_0 (a_1 x + b_1) + d_0 (c_1 x + d_1)} = \frac{(a_0 a_1 + b_0 c_1) x + (a_0 b_1 + b_0 d_1)}{(c_0 a_1 + d_0 c_1) x + (c_0 b_1 + d_0 d_1)}.$$
 
-!!! note "Inversion"
-    Inverse of a linear fractional transform, is also a linear fractional transform:
+Inverse of a linear fractional transform, is also a linear fractional transform:
 
-    $$y = \frac{ax+b}{cx+d} \iff y(cx+d) = ax + b \iff x = -\frac{dy-b}{cy-a}.$$
+$$y = \frac{ax+b}{cx+d} \iff y(cx+d) = ax + b \iff x = -\frac{dy-b}{cy-a}.$$
 !!! example "[DMOPC '19 Contest 7 P4 - Bob and Continued Fractions](https://dmoj.ca/problem/dmopc19c7p4)"
     You're given an array of positive integers $a_1, \dots, a_n$. You need to answer $m$ queries. Each query is to compute $[a_l; a_{l+1}, \dots, a_r]$.
 ??? hint "Solution"
@@ -626,28 +620,25 @@ Another important concept for continued fractions are the so-called [linear frac
 
     A continued fraction $x = [a_0; a_1, \dots]$ is said to be **eventually periodic** if $x = [a_0; a_1, \dots, a_k, y]$, where $y$ is periodic.
 
-!!! note "Periodic fractions"
-    For $x = [1; 1, 1, \dots]$ it holds that $x = 1 + \frac{1}{x}$, thus $x^2 = x + 1$. There is a generic connection between periodic continued fractions and quadratic equations.
+For $x = [1; 1, 1, \dots]$ it holds that $x = 1 + \frac{1}{x}$, thus $x^2 = x + 1$. There is a generic connection between periodic continued fractions and quadratic equations. Consider the following equation:
 
-    Consider the following equation:
+$$ x = [a_0; a_1, \dots, a_k, x].$$
 
-    $$ x = [a_0; a_1, \dots, a_k, x].$$
+On one hand, this equation means that the continued fraction representation of $x$ is periodic with the period $k+1$.
 
-    From one side, this equation means that the continued fraction representation of $x$ is periodic with the period $k+1$.
+On the other hand, using the formula for convergents, this equation means that
 
-    On the other hand, using the formula for convergents, this equation means that
+$$x = \frac{p_k x + p_{k-1}}{q_k x + q_{k-1}}.$$
 
-    $$x = \frac{p_k x + p_{k-1}}{q_k x + q_{k-1}}.$$
+That is, $x$ is a linear fractional transformation of itself. It follows from the equation that $x$ is a root of the second degree equation:
 
-    That is, $x$ is a linear fractional transformation of itself. With this equation, we can see that $x$ is a root of second degree equation:
+$$q_k x^2 + (q_{k-1}-p_k)x - p_{k-1} = 0.$$
 
-    $$q_k x^2 + (q_{k-1}-p_k)x - p_{k-1} = 0.$$
+Similar reasoning stands for continued fractions that are eventually periodic, that is $x = [a_0; a_1, \dots, a_k, y]$ for $y=[b_0; b_1, \dots, b_k, y]$. Indeed, from first equation we derive that $x = L_0(y)$ and from second equation that $y = L_1(y)$, where $L_0$ and $L_1$ are linear fractional transformations. Therefore,
 
-    Similar reasoning stands for continued fractions that are eventually periodic, that is $x = [a_0; a_1, \dots, a_k, y]$ for $y=[b_0; b_1, \dots, b_k, y]$. Indeed, from first equation we derive that $x = L_0(y)$ and from second equation that $y = L_1(y)$, where $L_0$ and $L_1$ are linear fractional transformations. Therefore,
+$$x = (L_0 \circ L_1)(y) = (L_0 \circ L_1 \circ L_0^{-1})(x).$$
 
-    $$x = (L_0 \circ L_1)(y) = (L_0 \circ L_1 \circ L_0^{-1})(x).$$
-
-    Moreover, for arbitrary quadratic equation $ax^2+bx+c=0$ with integer coefficients, its solution $x$ is an eventually periodic continued fraction.
+One can further prove (and it was first done by Lagrange) that for arbitrary quadratic equation $ax^2+bx+c=0$ with integer coefficients, its solution $x$ is an eventually periodic continued fraction.
 
 !!! example "Quadratic irrationality"
     Find the continued fraction of $\alpha = \frac{x+y\sqrt{n}}{z}$ where $x, y, z, n \in \mathbb Z$ and $n > 0$ is not a perfect square.
@@ -744,27 +735,23 @@ Another important concept for continued fractions are the so-called [linear frac
 
 ## Geometric interpretation
 
-!!! note "Numbers as vectors"
-    Let $\vec r_k = (q_k;p_k)$ for the convergent $r_k = \frac{p_k}{q_k}$. Then, the following recurrence holds:
+Let $\vec r_k = (q_k;p_k)$ for the convergent $r_k = \frac{p_k}{q_k}$. Then, the following recurrence holds:
 
-    $$\vec r_k = a_k \vec r_{k-1} + \vec r_{k-2}.$$
+$$\vec r_k = a_k \vec r_{k-1} + \vec r_{k-2}.$$
 
-    We additionally define $\vec r = (1;r)$. In these terms, each vector $(x;y)$ corresponds to the number that is equal to its slope coefficient $\frac{y}{x}$.
+Let $\vec r = (1;r)$. Then, each vector $(x;y)$ corresponds to the number that is equal to its slope coefficient $\frac{y}{x}$.
 
-!!! note "Formulas for $a_k$ and $s_k$ in terms of convergents"
-    With the notion of [pseudoscalar product](../geometry/basic-geometry.md) $(x_1;y_1) \times (x_2;y_2) = x_1 y_2 - x_2 y_1$, it can be shown (see the explanation below) that
+With the notion of [pseudoscalar product](../geometry/basic-geometry.md) $(x_1;y_1) \times (x_2;y_2) = x_1 y_2 - x_2 y_1$, it can be shown (see the explanation below) that
 
-    $$s_k = -\frac{\vec r_{k-2} \times \vec r}{\vec r_{k-1} \times \vec r} = \left|\frac{\vec r_{k-2} \times \vec r}{\vec r_{k-1} \times \vec r}\right|.$$
+$$s_k = -\frac{\vec r_{k-2} \times \vec r}{\vec r_{k-1} \times \vec r} = \left|\frac{\vec r_{k-2} \times \vec r}{\vec r_{k-1} \times \vec r}\right|.$$
 
-    The last equation is due to the fact that $r_{k-1}$ and $r_{k-2}$ lie on the different sides of $r$, thus pseudoscalar products of $\vec r_{k-1}$ and $\vec r_{k-2}$ with $\vec r$ have distinct signs.
+The last equation is due to the fact that $r_{k-1}$ and $r_{k-2}$ lie on the different sides of $r$, thus pseudoscalar products of $\vec r_{k-1}$ and $\vec r_{k-2}$ with $\vec r$ have distinct signs. With $a_k = \lfloor s_k \rfloor$ in mind, formula for $\vec r_k$ now looks like
 
-    With $a_k = \lfloor s_k \rfloor$ in mind, formula for $\vec r_k$ now looks like
+$$\vec r_k = \vec r_{k-2} + \left\lfloor \left| \frac{\vec r \times \vec r_{k-2}}{\vec r \times \vec r_{k-1}}\right|\right\rfloor \vec r_{k-1}.$$
 
-    $$\vec r_k = \vec r_{k-2} + \left\lfloor \left| \frac{\vec r \times \vec r_{k-2}}{\vec r \times \vec r_{k-1}}\right|\right\rfloor \vec r_{k-1}.$$
+Note that $\vec r_k \times r = (q;p) \times (1;r) = qr - p$, thus
 
-    Note that $\vec r_k \times r = (q;p) \times (1;r) = qr - p$, thus
-
-    $$a_k = \left\lfloor \left| \frac{q_{k-1}r-p_{k-1}}{q_{k-2}r-p_{k-2}} \right| \right\rfloor.$$
+$$a_k = \left\lfloor \left| \frac{q_{k-1}r-p_{k-1}}{q_{k-2}r-p_{k-2}} \right| \right\rfloor.$$
 
 ??? hint "Explanation"
     As we have already noted, $a_k = \lfloor s_k \rfloor$, where $s_k = [a_k; a_{k+1}, a_{k+2}, \dots]$. On the other hand, from the convergent recurrence we derive that
@@ -801,15 +788,13 @@ Another important concept for continued fractions are the so-called [linear frac
 
     For this property, the procedure of generating consequent convergent vectors was dubbed the **nose stretching algorithm** by Boris Delaunay.
 
-!!! note "Klein polygons"
+If we look on the triangle drawn on points $\vec r_{k-2}$, $\vec r_{k}$ and $\vec 0$ we will notice that its doubled area is
 
-    If we look on the triangle drawn on points $\vec r_{k-2}$, $\vec r_{k}$ and $\vec 0$ we will notice that its doubled area is
+$$|\vec r_{k-2} \times \vec r_k| = |\vec r_{k-2} \times (\vec r_{k-2} + a_k \vec r_{k-1})| = a_k |\vec r_{k-2} \times \vec r_{k-1}| = a_k.$$
 
-    $$|\vec r_{k-2} \times \vec r_k| = |\vec r_{k-2} \times (\vec r_{k-2} + a_k \vec r_{k-1})| = a_k |\vec r_{k-2} \times \vec r_{k-1}| = a_k.$$
+Combined with the [Pick's theorem](../geometry/picks-theorem.md), it means that there are no lattice points strictly inside the triangle and the only lattice points on its border are $\vec 0$ and $\vec r_{k-2} + t \cdot \vec r_{k-1}$ for all integer $t$ such that $0 \leq t \leq a_k$. When joined for all possible $k$ it means that there are no integer points in the space between polygons formed by even-indexed and odd-indexed convergent vectors.
 
-    Combined with the [Pick's theorem](../geometry/picks-theorem.md), it means that there are no lattice points strictly inside the triangle and the only lattice points on its border are $\vec 0$ and $\vec r_{k-2} + t \cdot \vec r_{k-1}$ for all integer $t$ such that $0 \leq t \leq a_k$. When joined for all possible $k$ it means that there are no integer points in the space between polygons formed by even-indexed and odd-indexed convergent vectors.
-
-    This, in turn, means that $\vec r_k$ with odd coefficients form a convex hull of lattice points with $x \geq 0$ above the line $y=rx$, while $\vec r_k$ with even coefficients form a convex hull of lattice points with $x > 0$ below the line $y=rx$.
+This, in turn, means that $\vec r_k$ with odd coefficients form a convex hull of lattice points with $x \geq 0$ above the line $y=rx$, while $\vec r_k$ with even coefficients form a convex hull of lattice points with $x > 0$ below the line $y=rx$.
 
 
 !!! info "Definition"
