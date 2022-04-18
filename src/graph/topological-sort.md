@@ -62,6 +62,6 @@ The main function of the solution is `topological_sort`, which initializes DFS v
 - [UVA 200 - Rare Order [difficulty: easy]](https://onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=136)
 - [Codeforces 510C - Fox and Names [difficulty: easy]](http://codeforces.com/problemset/problem/510/C)
 - [SPOJ RPLA - Answer the boss!](https://www.spoj.com/problems/RPLA/)
-- [CSES - Couse Schedule](https://cses.fi/problemset/task/1679)
+- [CSES - Course Schedule](https://cses.fi/problemset/task/1679)
 - [CSES - Longest Flight Route](https://cses.fi/problemset/task/1680)
 - [CSES - Game Routes](https://cses.fi/problemset/task/1681)
