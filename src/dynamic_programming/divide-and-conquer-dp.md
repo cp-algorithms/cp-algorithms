@@ -80,9 +80,9 @@ int solve() {
 ### Things to look out for
 
 The greatest difficulty with Divide and Conquer DP problems is proving the
-monotonicity of $opt$. Many Divide and Conquer DP problems can also be solved
-with the Convex Hull trick or vice-versa. It is useful to know and understand
-both!
+monotonicity of $opt$. One special case where this is true is when the cost function satisfies the quadrangle inequality, i.e., $C(a, c) + C(b, d) \leq C(a, d) + C(b, c)$ for all $a \leq b \leq c \leq d$. 
+Many Divide and Conquer DP problems can also be solved with the Convex Hull trick or vice-versa. It is useful to know and understand
+both! 
 
 ## Practice Problems
 - [AtCoder - Yakiniku Restaurants](https://atcoder.jp/contests/arc067/tasks/arc067_d)
