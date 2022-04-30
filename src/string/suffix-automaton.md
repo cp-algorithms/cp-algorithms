@@ -232,6 +232,7 @@ Let us describe this process:
     After cloning we direct the suffix link from $cur$ to $clone$, and also from $q$ to clone.
 
     Finally we need to walk from the state $p$ back using suffix links as long as there is a transition through $c$ to the state $q$, and redirect all those to the state $clone$.
+
   - In any of the three cases, after completing the procedure, we update the value $last$ with the state $cur$.
 
 If we also want to know which states are **terminal** and which are not, the we can find all terminal states after constructing the complete suffix automaton for the entire string $s$.
