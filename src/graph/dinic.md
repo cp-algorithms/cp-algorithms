@@ -39,7 +39,9 @@ From these two lemmas we conclude that there are less than $V$ phases because $l
 
 ## Finding blocking flow
 
-In order to find the blocking flow on each iteration, we may simply try pushing flow with DFS from $s$ to $t$ in the layered network while it can be pushed. In order to do it more quickly, we must remove the edges which can't be used to push anymore. To do this we can keep a pointer in each vertex which points to the next edge which can be used. Each pointer can be moved at most $E$ times, so each phase works in $O(VE)$.
+In order to find the blocking flow on each iteration, we may simply try pushing flow with DFS from $s$ to $t$ in the layered network while it can be pushed. In order to do it more quickly, we must remove the edges which can't be used to push anymore. To do this we can keep a pointer in each vertex which points to the next edge which can be used.
+
+A single DFS run takes $O(k+V)$ time, where $k$ is the number of pointer advances on this run. Sumed up over all runs, number of pointer advances can not exceed $E$. On the other hand, total number of runs won't exceed $E$, as every run saturates at least one edge. In this way, total running time of finding a blocking flow is $O(VE)$.
 
 ## Complexity
 
