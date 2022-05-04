@@ -15,6 +15,13 @@ and adding new articles to the collection.*
 
 Full list of updates: [Commit History](https://github.com/e-maxx-eng/e-maxx-eng/commits/master)
 
+## Contributing
+
+- [Information for contributors](contrib.md)
+- [Test-Your-Page form](preview.md)
+
+---
+
 ## Articles
 
 ### Algebra
@@ -232,10 +239,3 @@ Full list of updates: [Commit History](https://github.com/e-maxx-eng/e-maxx-eng/
     - [Josephus problem](others/josephus_problem.md)
     - [15 Puzzle Game: Existence Of The Solution](others/15-puzzle.md)
     - [The Stern-Brocot Tree and Farey Sequences](others/stern_brocot_tree_farey_sequences.md)
-
----
-
-## Contributing
-
-- [Information for contributors](contrib.md)
-- [Test-Your-Page form](preview.md)
