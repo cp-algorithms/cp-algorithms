@@ -49,7 +49,7 @@ There are less than $V$ phases, so the total complexity is $O(V^2E)$.
 
 ## Unit networks
 
-A **unit network** is a network in which all the edges have unit capacity, and for any vertex except $s$ and $t$ either incoming or outgoing edge is unique. That's exactly the case with the network we build to solve the maximum matching problem with flows.
+A **unit network** is a network in which for any vertex except $s$ and $t$ **either incoming or outgoing edge is unique and has unit capacity**. That's exactly the case with the network we build to solve the maximum matching problem with flows.
 
 On unit networks Dinic's algorithm works in $O(E\sqrt{V})$. Let's prove this.
 
