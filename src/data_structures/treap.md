@@ -106,6 +106,7 @@ struct item {
 	item *l, *r;
 	item () { }
 	item (int key) : key(key), prior(rand()), l(NULL), r(NULL) { }
+	item (int key, int prior) : key(key), prior(prior), l(NULL), r(NULL) { }
 };
 typedef item* pitem;
 ```
@@ -228,6 +229,53 @@ pitem build (int * a, int n) {
 ```
 
 Note: calling `upd_cnt(t)` is only necessary if you need the subtree sizes.
+
+The approach above always provides a perfectly balanced tree, which is generally good for practical purposes, but at the cost of not preserving the priorities that were initially assigned to each node. Thus, this approach is not feasible to solve the following problem:
+
+!!! example "[acmsguru - Cartesian Tree](https://codeforces.com/problemsets/acmsguru/problem/99999/155)"
+    Given a sequence of pairs $(x_i, y_i)$, construct a cartesian tree on them. All $x_i$ and all $y_i$ are unique.
+
+Note that in this problem priorities are not random, hence just inserting vertices one by one could provide a quadratic solution.
+
+One of possible solutions here is to find for each element the closest elements to the left and to the right which have a smaller priority than this element. Among these two elements, the one with the larger priority must be the parent of the current element.
+
+This problem is solvable with a [minimum stack](./stack_queue_modification.md) modification in linear time:
+
+```cpp
+void connect(auto from, auto to) {
+    vector<pitem> st;
+    for(auto it: ranges::subrange(from, to)) {
+        while(!st.empty() && st.back()->prior > it->prior) {
+            st.pop_back();
+        }
+        if(!st.empty()) {
+            if(!it->p || it->p->prior < st.back()->prior) {
+                it->p = st.back();
+            }
+        }
+        st.push_back(it);
+    }
+}
+
+pitem build(int *x, int *y, int n) {
+    vector<pitem> nodes(n);
+    for(int i = 0; i < n; i++) {
+        nodes[i] = new item(x[i], y[i]);
+    }
+    connect(nodes.begin(), nodes.end());
+    connect(nodes.rbegin(), nodes.rend());
+    for(int i = 0; i < n; i++) {
+        if(nodes[i]->p) {
+            if(nodes[i]->p->key < nodes[i]->key) {
+                nodes[i]->p->r = nodes[i];
+            } else {
+                nodes[i]->p->l = nodes[i];
+            }
+        }
+    }
+    return nodes[min_element(y, y + n) - y];
+}
+```
 
 ## Implicit Treaps
 
