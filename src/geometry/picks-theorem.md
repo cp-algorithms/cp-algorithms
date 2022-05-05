@@ -1,5 +1,3 @@
-<!--?title Pick's Theorem -->
-
 # Pick's Theorem
 
 A polygon without self-intersections is called lattice if all its vertices have integer coordinates in some 2D grid. Pick's theorem provides a way to compute the area of this polygon through the number of vertices that are lying on the boundary and the number of vertices that lie strictly inside the polygon.

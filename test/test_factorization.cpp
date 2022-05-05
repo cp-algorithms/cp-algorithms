@@ -2,6 +2,7 @@
 #include <cassert>
 #include <array>
 #include <map>
+#include <cmath>
 using namespace std;
 
 long long power(long long b, long long e, long long mod) {

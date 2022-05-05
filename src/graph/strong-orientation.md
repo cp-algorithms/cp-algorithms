@@ -1,17 +1,15 @@
-<!--?title Strong Orientation-->
-
 # Strong Orientation
 
-A **strong orientation** of an undirected graph is an assignment of a direction to each edge that makes it a [strongly connected graph](./graph/strongly-connected-components.html).
+A **strong orientation** of an undirected graph is an assignment of a direction to each edge that makes it a [strongly connected graph](strongly-connected-components.md).
 That is, after the *orientation* we should be able to visit any vertex from any vertex by following the directed edges.
 
 ## Solution
 
 Of course, this cannot be done to *every* graph.
-Consider a [bridge](./graph/bridge-searching.html) in a graph.
+Consider a [bridge](bridge-searching.md) in a graph.
 We have to assign a direction to it and by doing so we make this bridge "crossable" in only one direction. That means we can't go from one of the bridge's ends to the other, so we can't make the graph strongly connected.
 
-Now consider a [DFS](./graph/depth-first-search.html) through a bridgeless connected graph.
+Now consider a [DFS](depth-first-search.md) through a bridgeless connected graph.
 Clearly, we will visit each vertex.
 And since there are no bridges, we can remove any DFS tree edge and still be able to go
 from below the edge to above the edge by using a path that contains at least one back edge.

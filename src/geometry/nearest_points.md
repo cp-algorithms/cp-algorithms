@@ -1,5 +1,3 @@
-<!--?title Finding the nearest pair of points -->
-
 # Finding the nearest pair of points
 
 ## Problem statement
@@ -23,13 +21,14 @@ $$T(n) = 2T(n/2) + O(n).$$
 
 The solution to this equation, as is known, is $T(n) = O(n \log n).$
 
-So, we proceed on to the construction of the algorithm. In order to come to an effective implementation of the merge stage in the future, we will divide the set of points into two subsets, according to their $x$-coordinates: In fact, we draw some vertical line dividing the set of points into two subsets of approximately the same size. Is is convenient to make such a partition as follows: We sort the points in the standard way as pairs of numbers, ie.:
+So, we proceed on to the construction of the algorithm. In order to come to an effective implementation of the merge stage in the future, we will divide the set of points into two subsets, according to their $x$-coordinates: In fact, we draw some vertical line dividing the set of points into two subsets of approximately the same size. It is convenient to make such a partition as follows: We sort the points in the standard way as pairs of numbers, ie.:
 
 $$p_i < p_j \Longleftrightarrow (x_i < x_j) \lor \Big(\left(x_i = x_j\right) \wedge \left(y_i < y_j \right) \Big) $$
 
 Then take the middle point after sorting $p_m (m = \lfloor n/2 \rfloor)$, and all the points before it and the $p_m$ itself are assigned to the first half, and all the points after it - to the second half:
 
 $$A_1 = \{p_i \ | \ i = 0 \ldots m \}$$
+
 $$A_2 = \{p_i \ | \ i = m + 1 \ldots n-1 \}.$$ 
 
 Now, calling recursively on each of the sets $A_1$ and $A_2$, we will find the answers $h_1$ and $h_2$ for each of the halves. And take the best of them: $h = \min(h_1, h_2)$.
@@ -71,7 +70,7 @@ So, we have proved that in a rectangle $2h \times h$ can not be more than $4 \cd
 
 We introduce a data structure to store a point (its coordinates and a number) and comparison operators required for two types of sorting:
 
-```cpp nearest_pair_def
+```{.cpp file=nearest_pair_def}
 struct pt {
     int x, y, id;
 };
@@ -94,7 +93,7 @@ vector<pt> a;
 
 For a convenient implementation of recursion, we introduce an auxiliary function upd_ans(), which will calculate the distance between two points and check whether it is better than the current answer:
 
-```cpp nearest_pair_update
+```{.cpp file=nearest_pair_update}
 double mindist;
 pair<int, int> best_pair;
  
@@ -113,7 +112,7 @@ To merge two sets of points received from recursive calls into one (ordered by $
 
 Finally, the set $B$ is stored in the same array $t$.
 
-```cpp nearest_pair_rec
+```{.cpp file=nearest_pair_rec}
 vector<pt> t;
 
 void rec(int l, int r) {
@@ -150,7 +149,7 @@ By the way, if all the coordinates are integer, then at the time of the recursio
 
 In the main program, recursion should be called as follows:
 
-```cpp nearest_pair_main
+```{.cpp file=nearest_pair_main}
 t.resize(n);
 sort(a.begin(), a.end(), cmp_x());
 mindist = 1E20;
@@ -170,3 +169,4 @@ In fact, to solve this problem, the algorithm remains the same: we divide the fi
 * [CODEFORCES Team Olympiad Saratov - 2011 "Minimum amount" [difficulty: medium]](http://codeforces.com/contest/120/problem/J)
 * [Google CodeJam 2009 Final " Min Perimeter "[difficulty: medium]](https://code.google.com/codejam/contest/311101/dashboard#s=a&a=1)
 * [SPOJ #7029 CLOSEST "Closest Triple" [difficulty: medium]](https://www.spoj.com/problems/CLOSEST/)
+* [TIMUS 1514 National Park [difficulty: medium]](https://acm.timus.ru/problem.aspx?space=1&num=1514)

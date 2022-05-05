@@ -1,4 +1,3 @@
-<!--?title Lowest Common Ancestor - Binary Lifting -->
 # Lowest Common Ancestor - Binary Lifting
 
 Let $G$ be a tree.
@@ -13,7 +12,7 @@ The algorithm described in this article will need $O(N \log N)$ for preprocessin
 For each node we will precompute its ancestor above him, its ancestor two nodes above, its ancestor four above, etc.
 Let's store them in the array `up`, i.e. `up[i][j]` is the `2^j`-th ancestor above the node `i` with `i=1...N`, `j=0...ceil(log(N))`.
 These information allow us to jump from any node to any ancestor above it in $O(\log N)$ time.
-We can compute this array using a [DFS](./graph/depth-first-search.html) traversal of the tree.
+We can compute this array using a [DFS](depth-first-search.md) traversal of the tree.
 
 For each node we will also remember the time of the first visit of this node (i.e. the time when the DFS discovers the node), and the time when we left it (i.e. after we visited all children and exit the DFS function).
 We can use this information to determine in constant time if a node is an ancestor of another node.
@@ -88,3 +87,6 @@ void preprocess(int root) {
     dfs(root, root);
 }
 ```
+## Practice Problems
+
+* [Codechef - Longest Good Segment](https://www.codechef.com/problems/LGSEG)

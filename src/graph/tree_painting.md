@@ -1,14 +1,13 @@
-<!--?title Paint the edges of the tree -->
 # Paint the edges of the tree
 
 This is a fairly common task. Given a tree $G$ with $N$ vertices. There are two types of queries: the first one is to paint an edge, the second one is to query the number of colored edges between two vertices.
 
-Here we will describe a fairly simple solution (using a [segment tree](./data_structures/segment_tree.html)) that will answer each query in $O(\log N)$ time.
+Here we will describe a fairly simple solution (using a [segment tree](../data_structures/segment_tree.md)) that will answer each query in $O(\log N)$ time.
 The preprocessing step will take $O(N)$ time.
 
 ## Algorithm
 
-First, we need to find the [LCA](./graph/lca.html) to reduce each query of the second kind $(i,j)$ into two queries $(l,i)$ and $(l,j)$, where $l$ is the LCA of $i$ and $j$.
+First, we need to find the [LCA](lca.md) to reduce each query of the second kind $(i,j)$ into two queries $(l,i)$ and $(l,j)$, where $l$ is the LCA of $i$ and $j$.
 The answer of the query $(i,j)$ will be the sum of both subqueries.
 Both these queries have a special structure, the first vertex is an ancestor of the second one.
 For the rest of the article we will only talk about these special kind of queries.
@@ -37,7 +36,7 @@ Hence, the difference $T1[p..q-1] - T2[p..q-1]$ will give us the correct answer 
 The sum query in the segment tree is executed in $O(\log N)$.
 
 Answering the **first type of query** (painting an edge) is even easier - we just need to update $T1$ and $T2$, namely to perform a single update of the element that corresponds to our edge (finding the edge in the list, again, is possible in $O(1)$, if you perform this search during preprocessing).
-A single modification in the segment tree is performed in $O(log N)$.
+A single modification in the segment tree is performed in $O(\log N)$.
 
 ## Implementation
 

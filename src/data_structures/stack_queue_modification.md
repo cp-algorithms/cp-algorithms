@@ -1,16 +1,14 @@
-<!--?title Minimum stack / Minimum queue -->
-
 # Minimum stack / Minimum queue
 
 In this article we will consider three problems: 
-first we will modify a stack in a way that allows up to find the smallest element of the stack in $O(1)$, then we will do the same thing with a queue, and finally we will use these data structures to find the minimum in all subarrays of a fixed length in an array in $O(n)$
+first we will modify a stack in a way that allows us to find the smallest element of the stack in $O(1)$, then we will do the same thing with a queue, and finally we will use these data structures to find the minimum in all subarrays of a fixed length in an array in $O(n)$
 
 ## Stack modification
 
 We want to modify the stack data structure in such a way, that it possible to find the smallest element in the stack in $O(1)$ time, while maintaining the same asymptotic behavior for adding and removing elements from the stack.
 Quick reminder, on a stack we only add and remove elements on one end.
 
-To do this, we will no only store the elements in the stack, but we will store them in pairs: the element itself and the minimum in the stack starting from this element and below.
+To do this, we will not only store the elements in the stack, but we will store them in pairs: the element itself and the minimum in the stack starting from this element and below.
 
 ```cpp
 stack<pair<int, int>> st;
@@ -171,6 +169,7 @@ s2.pop();
 
 Suppose we are given an array $A$ of length $N$ and a given $M \le N$.
 We have to find the minimum of each subarray of length $M$ in this array, i.e. we have to find:
+
 $$\min_{0 \le i \le M-1} A[i], \min_{1 \le i \le M} A[i], \min_{2 \le i \le M+1} A[i],~\dots~, \min_{N-M \le i \le N-1} A[i]$$
 
 We have to solve this problem in linear time, i.e. $O(n)$.
@@ -179,4 +178,8 @@ We can use any of the three modified queues to solve the problem.
 The solutions should be clear:
 we add the first $M$ element of the array, find and output its minimum, then add the next element to the queue and remove the first element of the array, find and output its minimum, etc. 
 Since all operations with the queue are performed in constant time on average, the complexity of the whole algorithm will be $O(n)$.
+
+## Practice Problems
+* [Queries with Fixed Length](https://www.hackerrank.com/challenges/queries-with-fixed-length/problem)
+* [Binary Land](https://www.codechef.com/MAY20A/problems/BINLAND)
 

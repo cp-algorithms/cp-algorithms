@@ -1,28 +1,32 @@
-<!--?title Gauss method for solving system of linear equations -->
-
 # Gauss method for solving system of linear equations
 
 Given a system of $n$ linear algebraic equations (SLAE) with $m$ unknowns. You are asked to solve the system: to determine if it has no solution, exactly one solution or infinite number of solutions. And in case it has at least one solution, find any of them.
 
 Formally, the problem is formulated as follows: solve the system:
 
-$$a_{11} x_1 + a_{12} x_2 + \dots + a_{1m} x_m = b_1$$
-$$a_{21} x_1 + a_{22} x_2 + \dots + a_{2m} x_m = b_2$$
-$$\dots$$
-$$a_{n1} x_1 + a_{n2} x_2 + \dots + a_{nm} x_m = b_n$$
+$$\begin{align}
+a_{11} x_1 + a_{12} x_2 + &\dots + a_{1m} x_m = b_1 \\
+a_{21} x_1 + a_{22} x_2 + &\dots + a_{2m} x_m = b_2\\
+&\vdots \\
+a_{n1} x_1 + a_{n2} x_2 + &\dots + a_{nm} x_m = b_n
+\end{align}$$
 
 where the coefficients $a_{ij}$ (for $i$ from 1 to $n$, $j$ from 1 to $m$) and $b_i$ ($i$ from 1 to $n$ are known and variables $x_i$ ($i$ from 1 to $m$) are unknowns.
 
 This problem also has a simple matrix representation:
-$$Ax = b$$,
+
+$$Ax = b,$$
+
 where $A$ is a matrix of size $n \times m$ of coefficients $a_{ij}$ and $b$ is the column vector of size $n$.
 
 It is worth noting that the method presented in this article can also be used to solve the equation modulo any number p, i.e.:
 
-$$a_{11} x_1 + a_{12} x_2 + \dots + a_{1m} x_m \equiv b_1 \pmod p$$
-$$a_{21} x_1 + a_{22} x_2 + \dots + a_{2m} x_m \equiv b_2 \pmod p$$
-$$\dots$$
-$$a_{n1} x_1 + a_{n2} x_2 + \dots + a_{nm} x_m \equiv b_n \pmod p$$
+$$\begin{align}
+a_{11} x_1 + a_{12} x_2 + &\dots + a_{1m} x_m \equiv b_1 \pmod p \\
+a_{21} x_1 + a_{22} x_2 + &\dots + a_{2m} x_m \equiv b_2 \pmod p \\
+&\vdots \\
+a_{n1} x_1 + a_{n2} x_2 + &\dots + a_{nm} x_m \equiv b_n \pmod p
+\end{align}$$
 
 ## Gauss
 
@@ -32,7 +36,8 @@ Strictly speaking, the method described below should be called "Gauss-Jordan", o
 
 The algorithm is a `sequential elimination` of the variables in each equation, until each equation will have only one remaining variable. If $n = m$, you can think of it as transforming the matrix $A$ to identity matrix, and solve the equation in this obvious case, where solution is unique and is equal to coefficient $b_i$.
 
-Gaussian elimination is based on two simple transformation:
+Gaussian elimination is based on two simple transformation:   
+
 * It is possible to exchange two equations
 * Any equation can be replaced by a linear combination of that row (with non-zero coefficient), and some other rows (with arbitrary coefficients).
 
@@ -56,7 +61,7 @@ In many implementations, when $a_{ii} \neq 0$, you can see people still swap the
 
 In the case where $m = n$ and the system is non-degenerate (i.e. it has non-zero determinant, and has unique solution), the algorithm described above will transform $A$ into identity matrix.
 
-Now we consider the `general case`, where $n$ and $m$ are not necessarily equal, and the system can be non-degenerate. In these cases, the pivoting element in $i$th step may not be found. This means that on the $i$th column, starting from the current line, all contains zeros. In this case, either there is no possible value of variable $x_i$ (meaning the SLAE has no solution), or $x_i$ is an independent variable and can take arbitrary value. When implementing Gauss-Jordan, you should continue the work for subsequent variables and just skip the $i$th column (this is equivalent to removing the $i$th column of the matrix).
+Now we consider the `general case`, where $n$ and $m$ are not necessarily equal, and the system can be degenerate. In these cases, the pivoting element in $i$th step may not be found. This means that on the $i$th column, starting from the current line, all contains zeros. In this case, either there is no possible value of variable $x_i$ (meaning the SLAE has no solution), or $x_i$ is an independent variable and can take arbitrary value. When implementing Gauss-Jordan, you should continue the work for subsequent variables and just skip the $i$th column (this is equivalent to removing the $i$th column of the matrix).
 
 So, some of the variables in the process can be found to be independent. When the number of variables, $m$ is greater than the number of equations, $n$, then at least $m - n$ independent variables will be found.
 
@@ -70,7 +75,7 @@ The input to the function `gauss` is the system matrix $a$. The last column of t
 
 The function returns the number of solutions of the system $(0, 1,\textrm{or } \infty)$. If at least one solution exists, then it is returned in the vector $ans$.
 
-```cpp gauss
+```{.cpp file=gauss}
 const double EPS = 1e-9;
 const int INF = 2; // it doesn't actually have to be infinity or a big number
 
@@ -200,3 +205,4 @@ Thus, the solution turns into two-step: First, Gauss-Jordan algorithm is applied
 * [TIMUS1042 Central Heating](http://acm.timus.ru/problem.aspx?space=1&num=1042)
 * [TIMUS1766 Humpty Dumpty](http://acm.timus.ru/problem.aspx?space=1&num=1766)
 * [TIMUS1266 Kirchhoff's Law](http://acm.timus.ru/problem.aspx?space=1&num=1266)
+* [Codeforces - No game no life](https://codeforces.com/problemset/problem/1411/G)

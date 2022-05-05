@@ -1,4 +1,3 @@
-<!--?title The Inclusion-Exclusion Principle-->
 # The Inclusion-Exclusion Principle
 
 The inclusion-exclusion principle is an important combinatorial way to compute the size of a set or the probability of complex events. It relates the sizes of individual sets with their union.
@@ -19,13 +18,13 @@ $$\left| \bigcup_{i=1}^n A_i \right| = \sum_{i=1}^n|A_i| - \sum_{1\leq i<j\leq n
 
 And in a more compact way:
 
-$$\left|\bigcup_{i=1}^n A_i \right| = \sum_{\emptyset \neq J\subseteq \\{1,2,\ldots ,n\\}} (-1)^{|J|-1}{\Biggl |}\bigcap_{j\in J}A_{j}{\Biggr |}$$
+$$\left|\bigcup_{i=1}^n A_i \right| = \sum_{\emptyset \neq J\subseteq \{1,2,\ldots ,n\}} (-1)^{|J|-1}{\Biggl |}\bigcap_{j\in J}A_{j}{\Biggr |}$$
 
 ### The formulation using Venn diagrams
 
 Let the diagram show three sets $A$, $B$ and $C$:
 
-![Venn diagram](&imgroot&/venn-inclusion-exclusion.png "Venn diagram")
+![Venn diagram](venn-inclusion-exclusion.png "Venn diagram")
 
 Then the area of their union $A \cup B \cup C$ is equal to the sum of the areas $A$, $B$ and $C$ less double-covered areas $A \cap B$, $A \cap C$, $B \cap C$, but with the addition of the area covered by three sets $A \cap B \cap C$:
 
@@ -38,19 +37,19 @@ It can also be generalized for an association of $n$ sets.
 If $A_i$ $(i = 1,2...n)$ are events and ${\cal P}(A_i)$ the probability of an event from $A_i$ to occur, then the probability of their union (i.e. the probability that at least one of the events occur) is equal to:
 
 $$\begin{eqnarray}
-{\cal P} \left( \bigcup_{i=1}^n A_i \right) &=& \sum_{i=1}^n{\cal P}(A_i)\ - \sum_{1\leq i<j\leq n} {\cal P}(A_i \cap A_j)\  + \\\\\\
+{\cal P} \left( \bigcup_{i=1}^n A_i \right) &=& \sum_{i=1}^n{\cal P}(A_i)\ - \sum_{1\leq i<j\leq n} {\cal P}(A_i \cap A_j)\  + \\
 &+& \sum _{1\leq i<j<k\leq n}{\cal P}(A_i \cap A_j \cap A_k) - \cdots + (-1)^{n-1} {\cal P}( A_1 \cap \cdots \cap A_n )
 \end{eqnarray}$$
 
 And in a more compact way:
 
-$${\cal P} \left(\bigcup_{i=1}^n A_i \right) = \sum_{\emptyset \neq J\subseteq \\{1,2,\ldots ,n\\}} (-1)^{|J|-1}\ {\cal P}{\Biggl (}\bigcap_{j\in J}A_{j}{\Biggr )}$$
+$${\cal P} \left(\bigcup_{i=1}^n A_i \right) = \sum_{\emptyset \neq J\subseteq \{1,2,\ldots ,n\}} (-1)^{|J|-1}\ {\cal P}{\Biggl (}\bigcap_{j\in J}A_{j}{\Biggr )}$$
 
 ## Proof
 
 For the proof it is convenient to use the mathematical formulation in terms of set theory:
 
-$$\left|\bigcup_{i=1}^n A_i \right| = \sum_{\emptyset \neq J\subseteq \\{1,2,\ldots ,n\\}} (-1)^{|J|-1}{\Biggl |}\bigcap_{j\in J}A_{j}{\Biggr |}$$
+$$\left|\bigcup_{i=1}^n A_i \right| = \sum_{\emptyset \neq J\subseteq \{1,2,\ldots ,n\}} (-1)^{|J|-1}{\Biggl |}\bigcap_{j\in J}A_{j}{\Biggr |}$$
 
 We want to prove that any element contained in at least one of the sets $A_i$ will occur in the formula only once (note that elements which are not present in any of the sets $A_i$ will never be considered on the right part of the formula).
 
@@ -63,7 +62,7 @@ Consider an element $x$ occurring in $k \geq 1$ sets $A_i$. We will show it is c
 * in terms which $|J| = k$, the item $x$ will be counted **$(-1)^{k-1}\cdot \binom{k}{k}$** times;
 * in terms which $|J| \gt k$, the item $x$ will be counted **zero** times;
 
-This leads us to the following sum of [binomial coefficients](./combinatorics/binomial-coefficients.html):
+This leads us to the following sum of [binomial coefficients](binomial-coefficients.md):
 
 $$ T = \binom{k}{1} - \binom{k}{2} + \binom{k}{3} - \cdots + (-1)^{i-1}\cdot \binom{k}{i} + \cdots + (-1)^{k-1}\cdot \binom{k}{k}$$
 
@@ -73,7 +72,7 @@ $$ (1 - x)^k = \binom{k}{0} - \binom{k}{1} \cdot x + \binom{k}{2} \cdot x^2 - \b
 
 When $x = 1$, $(1 - x)^k$ looks a lot like $T$. However, the expression has an additional $\binom{k}{0} = 1$, and it is multiplied by $-1$. That leads us to $(1 - 1)^k = 1 - T$. Therefore $T = 1 - (1 - 1)^k = 1$, what was required to prove. The element is counted only once.
 
-## Generalization for calculating number of elements in exactly $r$ sets
+## Generalization for calculating number of elements in exactly $r$ sets {data-toc-label="Generalization for calculating number of elements in exactly r sets"}
 
 Inclusion-exclusion principle can be rewritten to calculate number of elements which are present in zero sets:
 
@@ -119,7 +118,8 @@ Task: count how many sequences of length $n$ exist consisting only of numbers $0
 
 Again let us turn to the inverse problem, i.e. we calculate the number of sequences which do **not** contain **at least one** of the numbers.
 
-Let's denote by $A_i (i = 0,1,2)$ the set of sequences in which **at least** $i$ of the numbers do **not** occur. The formula of inclusion-exclusion on the number of "bad" sequences will be:
+Let's denote by $A_i (i = 0,1,2)$ the set of sequences in which the digit $i$ does **not** occur.
+The formula of inclusion-exclusion on the number of "bad" sequences will be:
 
 $$ |A_0 \cup A_1 \cup A_2| = |A_0| + |A_1| + |A_2| - |A_0 \cap A_1| - |A_0 \cap A_2| - |A_1 \cap A_2| + |A_0 \cap A_1 \cap A_2| $$
 
@@ -134,12 +134,14 @@ $$3^n - (3 \cdot 2^n - 3 \cdot 1 + 0)$$
 ### The number of integer solutions to the equation
 
 Consider the following equation:
+
 $$x_1 + x_2 + x_3 + x_4 + x_5 + x_6 = 20$$
+
 where $0 \le x_i \le 8 (i = 1,2,\ldots 6)$.
 
 Task: count the number of solutions to the equation.
 
-Forget the restriction on $x_i$ for a moment and just count the number of nonnegative solutions to this equation. This is easily done using [binomial coefficients](./combinatorics/binomial-coefficients.html): we want to break a sequence of $20$ units into $6$ groups, which is the same as distributing $5$ "walls" over $25$ slots:
+Forget the restriction on $x_i$ for a moment and just count the number of nonnegative solutions to this equation. This is easily done using [binomial coefficients](binomial-coefficients.md): we want to break a sequence of $20$ units into $6$ groups, which is the same as distributing $5$ "walls" over $25$ slots:
 
 $$N_0 = \binom{25}{5}$$
 
@@ -216,7 +218,7 @@ Asymptotics of the solution is $O (\sqrt{n})$.
 
 Given $n$ numbers $a_i$ and number $r$. You want to count the number of integers in the interval $[1; r]$ that are multiple of at least one of the $a_i$.
 
-The solution algorithm is almost identical to the one for previous task — construct the formula of inclusion-exclusion on the numbers $a_i$, i.e. each term in this formula is the number of numbers divisible by a given subset of numbers $a_i$ (in other words, divisible by their [least common multiple](./algebra/euclid-algorithm.html)).
+The solution algorithm is almost identical to the one for previous task — construct the formula of inclusion-exclusion on the numbers $a_i$, i.e. each term in this formula is the number of numbers divisible by a given subset of numbers $a_i$ (in other words, divisible by their [least common multiple](../algebra/euclid-algorithm.md)).
 
 So we will now iterate over all $2^n$ subsets of integers $a_i$ with $O(n \log r)$ operations to find their least common multiple, adding or subtracting the number of multiples of it in the interval. Asymptotics is $O (2^n\cdot n\cdot \log r)$.
 
@@ -228,7 +230,7 @@ Notice first that we can easily count the number of strings that satisfy at once
 
 Learn now to solve the first version of the problem: when the string must satisfy exactly $k$ of the patterns.
 
-To solve it, iterate and fix a specific subset $X$ from the set of patterns consisting of $k$ patterns. Then we have to count the number of strings that satisfy this set of patterns, and only matches it, that is, they don't match any other pattern. We will use the inclusion-exclusion principle in a slightly different manner: we sum on all supersets $Y$ (subsets from the original set of strings that contain $X$), and either add to the current answer of subtract it from the number of strings:
+To solve it, iterate and fix a specific subset $X$ from the set of patterns consisting of $k$ patterns. Then we have to count the number of strings that satisfy this set of patterns, and only matches it, that is, they don't match any other pattern. We will use the inclusion-exclusion principle in a slightly different manner: we sum on all supersets $Y$ (subsets from the original set of strings that contain $X$), and either add to the current answer or subtract it from the number of strings:
 
 $$ ans(X) = \sum_{Y \supseteq X} (-1)^{|Y|-k} \cdot f(Y) $$
 
@@ -255,7 +257,7 @@ Of course, we can just use the solution to the first version of the problem and 
 
 $$ (-1)^{|Y|-k} \cdot \binom{|Y|}{k} + (-1)^{|Y|-k-1} \cdot \binom{|Y|}{k+1} + (-1)^{|Y|-k-2} \cdot \binom{|Y|}{k+2} + \cdots + (-1)^{|Y|-|Y|} \cdot \binom{|Y|}{|Y|} $$
 
-Looking at Graham's (Graham, Knuth, Patashnik. "Concrete mathematics" [1998] ), we see a well-known formula for [binomial coefficients](./combinatorics/binomial-coefficients.html):
+Looking at Graham's (Graham, Knuth, Patashnik. "Concrete mathematics" [1998] ), we see a well-known formula for [binomial coefficients](binomial-coefficients.md):
 
 $$ \sum_{k=0}^m (-1)^k \cdot \binom{n}{k} = (-1)^m \cdot \binom{n-1}{m} $$
 
@@ -275,7 +277,7 @@ Assume that the sizes $n$ and $m$ are very large (say, $10^9$), and the number $
 
 For now, sort the obstacles by their coordinate $x$, and in case of equality — coordinate $y$.
 
-Also just learn how to solve a problem without obstacles: i.e. learn how to count the number of ways to get from one cell to another. In one axis, we need to go through $x$ cells, and on the other, $y$ cells. From simple combinatorics, we get a formula using [binomial coefficients](./combinatorics/binomial-coefficients.html):
+Also just learn how to solve a problem without obstacles: i.e. learn how to count the number of ways to get from one cell to another. In one axis, we need to go through $x$ cells, and on the other, $y$ cells. From simple combinatorics, we get a formula using [binomial coefficients](binomial-coefficients.md):
 
 $$\binom{x+y}{x}$$
 
@@ -287,13 +289,13 @@ However, this will again be non-polynomial in complexity $O(2^k \cdot k)$.
 
 Here goes a polynomial solution:
 
-We will use dynamic programming: let's compute the numbers $d[i][j]$ — the number of ways to get from the $i-th$ point to $j-th$, without stepping on any other obstacle (except for $i$ and $j$, of course). We will compute this number for all the obstacle cells, and also the starting and ending ones (all possible pairs of cells from these).
+We will use dynamic programming. For convenience, push (1,1) to the beginning and (n,m) at the end of the obstacles array. Let's compute the numbers $d[i]$ — the number of ways to get from the starting point ($0-th$) to $i-th$, without stepping on any other obstacle (except for $i$, of course). We will compute this number for all the obstacle cells, and also for the ending one.
 
-Let's forget for a second the obstacles and just count the number of paths from cell $i$ to $j$. We need to consider some "bad" paths, the ones that pass through the obstacles, and subtract them from the total number of ways of going from $i$ to $j$.
+Let's forget for a second the obstacles and just count the number of paths from cell $0$ to $i$. We need to consider some "bad" paths, the ones that pass through the obstacles, and subtract them from the total number of ways of going from $0$ to $i$.
 
-When considering an obstacle $t$ between $i$ and $j$ ($i < t < j$), on which we can step, we see that the number of paths from $i$ to $j$ that pass through $t$ which have $t$ as the **first obstacle between $i$ and $j$**. We can compute that as: $d[i][t]$ multiplied by the number of arbitrary paths from $t$ to $j$. We can count the number of "bad" ways summing this for all $t$ between $i$ and $j$.
+When considering an obstacle $t$ between $0$ and $i$ ($0 < t < i$), on which we can step, we see that the number of paths from $0$ to $i$ that pass through $t$ which have $t$ as the **first obstacle between start and $i$**. We can compute that as: $d[t]$ multiplied by the number of arbitrary paths from $t$ to $i$. We can count the number of "bad" ways summing this for all $t$ between $0$ and $i$.
 
-We can compute $d[i][j]$ in $O(k)$ for $O(k^2)$ pairs, so this solution has complexity $O(k^3)$.
+We can compute $d[i]$ in $O(k)$ for $O(k)$ obstacles, so this solution has complexity $O(k^2)$.
 
 ### The number of coprime quadruples
 
@@ -307,7 +309,7 @@ $$ans = \sum_{d \ge 2} (-1)^{deg(d)-1} \cdot f(d)$$
 
 where $deg(d)$ is the number of primes in the factorization of the number $d$ and $f(d)$ the number of quadruples divisible by $d$.
 
-To calculate the function $f(d)$, you just have to count the number of multiples of $d$ (as mentioned on a previous task) and use [binomial coefficients](./combinatorics/binomial-coefficients.html) to count the number of ways to choose four of them.
+To calculate the function $f(d)$, you just have to count the number of multiples of $d$ (as mentioned on a previous task) and use [binomial coefficients](binomial-coefficients.md) to count the number of ways to choose four of them.
 
 Thus, using the formula of inclusions-exclusions we sum the number of groups of four divisible by a prime number, then subtract the number of quadruples which are divisible by the product of two primes, add quadruples divisible by three primes, etc.
 
@@ -336,7 +338,7 @@ Now all we have left to solve is to learn to count the number of coprimes to $i$
 A faster solution is possible with such modification of the sieve of Eratosthenes:
 
 1. First, we find all numbers in the interval $[2;n]$ such that its simple factorization does not include a prime factor twice. We will also need to know, for these numbers, how many factors it includes.
-    * To do this we will maintain an array $deg[i]$ to store the number of primes in the factorization of $i$, and an array $good[i]$, to mark either if $i$ contains each factor at most twice ($good[i] = 1$) or not ($good[i] = 0$). When iterating from $2$ to $n$, if we reach a number that has $deg$ equal to $0$, then it is a prime and its $deg$ is $1$.
+    * To do this we will maintain an array $deg[i]$ to store the number of primes in the factorization of $i$, and an array $good[i]$, to mark either if $i$ contains each factor at most once ($good[i] = 1$) or not ($good[i] = 0$). When iterating from $2$ to $n$, if we reach a number that has $deg$ equal to $0$, then it is a prime and its $deg$ is $1$.
     * During the sieve of Eratosthenes, we will iterate $i$ from $2$ to $n$. When processing a prime number we go through all of its multiples and increase their $deg[]$. If one of these multiples is multiple of the square of $i$, then we can put $good$ as false.
 
 2. Second, we need to calculate the answer for all $i$ from $2$ to $n$, i.e., the array $cnt[]$ — the number of integers not coprime with $i$.
@@ -394,9 +396,9 @@ Denote by $A_k$ the set of permutations of length $n$ with a fixed point at posi
 We now use the formula of inclusion-exclusion to count the number of permutations with at least one fixed point. For this we need to learn to count sizes of an intersection of sets $A_i$, as follows:
 
 $$\begin{eqnarray}
-\left| A_p \right| &=& (n-1)!\ , \\\\\\
-\left| A_p \cap A_q \right| &=& (n-2)!\ , \\\\\\
-\left| A_p \cap A_q \cap A_r \right| &=& (n-3)!\ , \\\\\\
+\left| A_p \right| &=& (n-1)!\ , \\
+\left| A_p \cap A_q \right| &=& (n-2)!\ , \\
+\left| A_p \cap A_q \cap A_r \right| &=& (n-3)!\ , \\
 \cdots ,
 \end{eqnarray}$$
 
@@ -438,3 +440,6 @@ A list of tasks that can be solved using the principle of inclusions-exclusions:
 * [SPOJ - Almost Prime Numbers Again](http://www.spoj.com/problems/KPRIMESB/)
 * [SPOJ - Find number of Pair of Friends](http://www.spoj.com/problems/IITKWPCH/)
 * [SPOJ - Balanced Cow Subsets](http://www.spoj.com/problems/SUBSET/)
+* [SPOJ - EASY MATH [difficulty: medium]](http://www.spoj.com/problems/EASYMATH/)
+* [SPOJ - MOMOS - FEASTOFPIGS [difficulty: easy]](https://www.spoj.com/problems/MOMOS/)
+* [Atcoder - Grid 2 [difficulty: easy]](https://atcoder.jp/contests/dp/tasks/dp_y/)

@@ -1,7 +1,6 @@
-<!--?title Maximum flow - MPM algorithm -->
 # Maximum flow - MPM algorithm
 
-MPM (Malhotra, Pramodh-Kumar and Maheshwari) algorithm solves the maximum flow problem in $O(V^3)$. This algorithm is similar to [Dinic's algorithm](./graph/dinic.html).
+MPM (Malhotra, Pramodh-Kumar and Maheshwari) algorithm solves the maximum flow problem in $O(V^3)$. This algorithm is similar to [Dinic's algorithm](dinic.md).
 
 ## Algorithm
 
@@ -17,7 +16,7 @@ p_{out}(v) &= \sum\limits_{(v, u)\in L}(c(v, u) - f(v, u))
 
 Also we set $p_{in}(s) = p_{out}(t) = \infty$.
 Given $p_{in}$ and $p_{out}$ we define the _potential_ as $p(v) = min(p_{in}(v), p_{out}(v))$.
-We call a node $r$ a _reference node_ if $p(r) = min\\{p(v)\\}$.
+We call a node $r$ a _reference node_ if $p(r) = min\{p(v)\}$.
 Consider a reference node $r$.
 We claim that the flow can be increased by $p(r)$ in such a way that $p(r)$ becomes $0$.
 It is true because $L$ is acyclic, so we can push the flow out of $r$ by outgoing edges and it will reach $t$ because each node has enough outer potential to push the flow out when it reaches it.
@@ -30,11 +29,11 @@ Likewise, all the nodes different from $s$ and $t$ without outgoing or incoming 
 
 Each phase works in $O(V^2)$ because there are at most $V$ iterations (because at least the chosen reference node is deleted), and on each iteration we delete all the edges we passed through except at most $V$.
 Summing, we get $O(V^2 + E) = O(V^2)$.
-Since there are less than $V$ phases (see the proof [here](./graph/dinic.html)), MPM works in $O(V^3)$ total.
+Since there are less than $V$ phases (see the proof [here](dinic.md)), MPM works in $O(V^3)$ total.
 
 ## Implementation
 
-```cpp mpm
+```{.cpp file=mpm}
 struct MPM{
     struct FlowEdge{
         int v, u;

@@ -1,9 +1,8 @@
-<!--?title Z-function and its calculation-->
 # Z-function and its calculation
 
 Suppose we are given a string $s$ of length $n$. The **Z-function** for this string is an array of length $n$ where the $i$-th element is equal to the greatest number of characters starting from the position $i$ that coincide with the first characters of $s$.
 
-In other words, $z[i]$ is the length of the longest common prefix between $s$ and the suffix of $s$ starting at $i$.
+In other words, $z[i]$ is the length of the longest string that is, at the same time, a prefix of $s$ and a prefix of the suffix of $s$ starting at $i$.
 
 **Note.** In this article, to avoid ambiguity, we assume $0$-based indexes; that is: the first character of $s$ has index $0$ and the last one has index $n-1$.
 
@@ -44,7 +43,7 @@ To obtain an efficient algorithm we will compute the values of $z[i]$ in turn fr
 
 For the sake of brevity, let's call **segment matches** those substrings that coincide with a prefix of $s$. For example, the value of the desired Z-function $z[i]$ is the length of the segment match starting at position $i$ (and that ends at position $i + z[i] - 1$).
 
-To do this, we will keep **the $[l; r]$ indices of the rightmost segment match**. That is, among all detected segments we will keep the one that ends rightmost. In a way, the index $r$ can be seen as the "boundary" to which our string $s$ has been scanned by the algorithm; everything beyond that point is not yet known.
+To do this, we will keep **the $[l, r]$ indices of the rightmost segment match**. That is, among all detected segments we will keep the one that ends rightmost. In a way, the index $r$ can be seen as the "boundary" to which our string $s$ has been scanned by the algorithm; everything beyond that point is not yet known.
 
 Then, if the current index (for which we have to compute the next value of the Z-function) is $i$, we have one of two options:
 
@@ -52,7 +51,7 @@ Then, if the current index (for which we have to compute the next value of the Z
 
     We will then compute $z[i]$ with the **trivial algorithm** (that is, just comparing values one by one). Note that in the end, if $z[i] > 0$, we'll have to update the indices of the rightmost segment, because it's guaranteed that the new $r = i + z[i] - 1$ is better than the previous $r$.
 
-*   $i \le r$ -- the current position is inside the current segment match $[l; r]$.
+*   $i \le r$ -- the current position is inside the current segment match $[l, r]$.
 
     Then we can use the already calculated Z-values to "initialize" the value of $z[i]$ to something (it sure is better than "starting from zero"), maybe even some big number.
 
@@ -64,7 +63,7 @@ Then, if the current index (for which we have to compute the next value of the Z
 
     $$ s = "aaaabaa" $$
 
-    When we get to the last position ($i = 6$), the current match segment will be $[5; 6]$. Position $6$ will then match position $6 - 5 = 1$, for which the value of the Z-function is $z[1] = 3$. Obviously, we cannot initialize $z[6]$ to $3$, it would be completely incorrect. The maximum value we could initialize it to is $1$ -- because it's the largest value that doesn't bring us beyond the index $r$ of the match segment $[l; r]$.
+    When we get to the last position ($i = 6$), the current match segment will be $[5, 6]$. Position $6$ will then match position $6 - 5 = 1$, for which the value of the Z-function is $z[1] = 3$. Obviously, we cannot initialize $z[6]$ to $3$, it would be completely incorrect. The maximum value we could initialize it to is $1$ -- because it's the largest value that doesn't bring us beyond the index $r$ of the match segment $[l, r]$.
 
     Thus, as an **initial approximation** for $z[i]$ we can safely take:
 
@@ -106,7 +105,7 @@ Inside the loop for $i = 1 \dots n - 1$ we first determine the initial value $z[
 
 Thereafter, the trivial algorithm attempts to increase the value of $z[i]$ as much as possible.
 
-In the end, if it's required (that is, if $i + z[i] - 1 > r$), we update the rightmost match segment $[l; r]$.
+In the end, if it's required (that is, if $i + z[i] - 1 > r$), we update the rightmost match segment $[l, r]$.
 
 ## Asymptotic behavior of the algorithm
 
@@ -140,7 +139,7 @@ To do that, we will consider both branches of the algorithm:
 
       *   $z_0 = r - i + 1$
 
-          In this case, the `while` loop can make a few iterations, but each of them will lead to an increase in the value of the $r$ index because we will start comparing from $s[r+1]$, which will climb beyond the $[l; r]$ interval.
+          In this case, the `while` loop can make a few iterations, but each of them will lead to an increase in the value of the $r$ index because we will start comparing from $s[r+1]$, which will climb beyond the $[l, r]$ interval.
 
       *   $z_0 > r - i + 1$
 
@@ -154,7 +153,7 @@ As the rest of the algorithm obviously works in $O(n)$, we have proved that the 
 
 We will now consider some uses of Z-functions for specific tasks.
 
-These applications will be largely similar to applications of [prefix function](./string/prefix-function.html).
+These applications will be largely similar to applications of [prefix function](prefix-function.md).
 
 ### Search the substring
 
@@ -188,7 +187,7 @@ Given a string $s$ of length $n$. Find its shortest "compressed" representation,
 
 A solution is: compute the Z-function of $s$, loop through all $i$ such that $i$ divides $n$. Stop at the first $i$ such that $i + z[i] = n$. Then, the string $s$ can be compressed to the length $i$.
 
-The proof for this fact is the same as the solution which uses the [prefix function](./string/prefix-function.html).
+The proof for this fact is the same as the solution which uses the [prefix function](prefix-function.md).
 
 ## Practice Problems
 

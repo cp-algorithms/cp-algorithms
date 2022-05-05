@@ -1,5 +1,3 @@
-<!--?title Bellman-Ford Algorithm - shortest paths with negative weights -->
-
 # Bellman-Ford Algorithm
 
 **Single source shortest path with negative weight edges**
@@ -96,7 +94,7 @@ void solve()
 {
     vector<int> d (n, INF);
     d[v] = 0;
-    vector<int> p (n - 1);
+    vector<int> p (n, -1);
 
     for (;;)
     {
@@ -140,7 +138,7 @@ In other words, for any vertex $a$ let us denote the $k$ number of edges in the 
 
 <b>Proof</b>: Consider an arbitrary vertex $a$ to which there is a path from the starting vertex $v$, and consider a shortest path to it $(p_0=v, p_1, \ldots, p_k=a)$. Before the first phase, the shortest path to the vertex $p_0 = v$ was found correctly. During the first phase, the edge $(p_0,p_1)$ has been checked by the algorithm, and therefore, the distance to the vertex $p_1$ was correctly calculated after the first phase. Repeating this statement $k$ times, we see that after $k_{th}$ phase the distance to the vertex $p_k = a$ gets calculated correctly, which we wanted to prove.
 
-The last thing to notice is that any shortest path cannot have more than $n - 1$ edges. Therefore, the algorithm sufficiently goes up to the $(n-1)_{th}$ phase. After that no relaxation are guaranteed to improve the distance to some vertex.
+The last thing to notice is that any shortest path cannot have more than $n - 1$ edges. Therefore, the algorithm sufficiently goes up to the $(n-1)_{th}$ phase. After that, it is guaranteed that no relaxation will improve the distance to some vertex.
 
 ## The case of a negative cycle
 
@@ -150,7 +148,7 @@ It is easy to see that the Bellman-Ford algorithm can endlessly do the relaxatio
 
 Hence we obtain the <b> criterion for presence of a cycle of negative weights reachable for source vertex $v$</b>: after $(n-1)_{th}$ phase, if we run algorithm for one more phase, and it performs at least one more relaxation, then the graph contains a negative weight cycle that is reachable from $v$; otherwise, such a cycle does not exist.
 
-Moreover, if such a cycle is found, the Bellman-Ford algorithm can be modified so that it retrieves this cycle as a sequence of vertices contained in it. For this, it is sufficient to remember the last vertex $x$ for which there was a relaxation in $n_th$ phase. This vertex will either lie in a negative weight cycle, or is reachable from it. To get the vertices that are guaranteed to lie in a negative cycle, starting from the vertex $x$, pass through to the predecessors $n$ times. Hence we will get the vertex $y$, namely the vertex in the cycle earliest reachable from source. We have to go from this vertex, through the predecessors, until we get back to the same vertex $y$ (and it will happen, because relaxation in a negative weight cycle occur in a circular manner).
+Moreover, if such a cycle is found, the Bellman-Ford algorithm can be modified so that it retrieves this cycle as a sequence of vertices contained in it. For this, it is sufficient to remember the last vertex $x$ for which there was a relaxation in $n_{th}$ phase. This vertex will either lie in a negative weight cycle, or is reachable from it. To get the vertices that are guaranteed to lie in a negative cycle, starting from the vertex $x$, pass through to the predecessors $n$ times. Hence we will get the vertex $y$, namely the vertex in the cycle earliest reachable from source. We have to go from this vertex, through the predecessors, until we get back to the same vertex $y$ (and it will happen, because relaxation in a negative weight cycle occur in a circular manner).
 
 ### Implementation:
 
@@ -198,7 +196,7 @@ void solve()
 }
 ```
 
-Due to the presence of a negative cycle, for $n$ iterations of the algorithm, the distances may go far in the negative (apparently, to negative numbers of order $-2^n$). Hence in the code, we adopted additional measures against the integer overflow as follows:
+Due to the presence of a negative cycle, for $n$ iterations of the algorithm, the distances may go far in the negative range (to negative numbers of the order of $-n m W$, where $W$ is the maximum absolute value of any weight in the graph). Hence in the code, we adopted additional measures against the integer overflow as follows:
 
 ```cpp
 d[e[j].b] = max (-INF, d[e[j].a] + e[j].cost);
@@ -206,11 +204,12 @@ d[e[j].b] = max (-INF, d[e[j].a] + e[j].cost);
 
 The above implementation looks for a negative cycle reachable from some starting vertex $v$; however, the algorithm can be modified to just looking for any negative cycle in the graph. For this we need to put all the distance $d[i]$ to zero and not infinity — as if we are looking for the shortest path from all vertices simultaneously; the validity of the detection of a negative cycle is not affected.
 
-For more on this topic — see separate article, [Finding a negative cycle in the graph](./graph/finding-negative-cycle-in-graph.html).
+For more on this topic — see separate article, [Finding a negative cycle in the graph](finding-negative-cycle-in-graph.md).
 
 ## Shortest Path Faster Algorithm (SPFA)
 
-SPFA is a improvement of the Bellman-Ford algorithm which takes advantage of the fact that not all attempts at relaxation will work. The main idea is to create a queue containing only the vertices that were relaxed but that still could not relax their neighbors.
+SPFA is a improvement of the Bellman-Ford algorithm which takes advantage of the fact that not all attempts at relaxation will work.
+The main idea is to create a queue containing only the vertices that were relaxed but that still could further relax their neighbors.
 And whenever you can relax some neighbor, you should put him in the queue. This algorithm can also be used to detect negative cycles as the Bellman-Ford.
 
 The worst case of this algorithm is equal to the $O(n m)$ of the Bellman-Ford, but in practice it works much faster and some [people claim that it works even in $O(m)$ on average](https://en.wikipedia.org/wiki/Shortest_Path_Faster_Algorithm#Average-case_performance). However be careful, because this algorithm is deterministic and it is easy to create counterexamples that make the algorithm run in $O(n m)$.
@@ -219,7 +218,7 @@ There are some care to be taken in the implementation, such as the fact that the
 To avoid this, it is possible to create a counter that stores how many times a vertex has been relaxed and stop the algorithm as soon as some vertex got relaxed for the $n$-th time.
 Note, also there is no reason to put a vertex in the queue if it is already in.
 
-```cpp spfa
+```{.cpp file=spfa}
 const int INF = 1000000000;
 vector<vector<pair<int, int>>> adj;
 
@@ -263,11 +262,13 @@ bool spfa(int s, vector<int>& d) {
 
 A list of tasks that can be solved using the Bellman-Ford algorithm:
 
-* [E-OLIMP #1453 "Ford-Bellman" [difficulty: low]](http://www.e-olimp.com.ua/problems/1453)
+* [E-OLYMP #1453 "Ford-Bellman" [difficulty: low]](https://www.e-olymp.com/en/problems/1453)
 * [UVA #423 "MPI Maelstrom" [difficulty: low]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=364)
 * [UVA #534 "Frogger" [difficulty: medium]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=7&page=show_problem&problem=475)
 * [UVA #10099 "The Tourist Guide" [difficulty: medium]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=12&page=show_problem&problem=1040)
 * [UVA #515 "King" [difficulty: medium]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=456)
 * [UVA 12519 - The Farnsworth Parabox](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3964)
 
-See also the problem list in the article [Finding the negative cycle in a graph](./graph/finding-negative-cycle-in-graph.html).
+See also the problem list in the article [Finding the negative cycle in a graph](finding-negative-cycle-in-graph.md).
+* [CSES - High Score](https://cses.fi/problemset/task/1673)
+* [CSES - Cycle Finding](https://cses.fi/problemset/task/1197)

@@ -9,6 +9,6 @@ int main() {
        capacity = fn.capacity;
        n = capacity.size();
 
-       assert(max_flow() == fn.maxflow);
+       assert(max_flow(fn.source, fn.sink) == fn.maxflow);
     }
 }

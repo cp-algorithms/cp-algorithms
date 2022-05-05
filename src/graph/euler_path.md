@@ -1,4 +1,6 @@
-<!--?title Finding the Eulerian path in O(M)     -->
+---
+title: Finding the Eulerian path in O(M)     
+---
 # Finding the Eulerian path in $O(M)$
 
 A Eulerian path is a path in a graph that passes through all of its edges exactly once.
@@ -82,8 +84,12 @@ int main() {
     }
 
     int first = 0;
-    while (!deg[first])
+    while (first < n && !deg[first])
         ++first;
+    if (first == n) {
+        cout << -1;
+        return 0;
+    }
 
     int v1 = -1, v2 = -1;
     bool bad = false;
@@ -150,3 +156,7 @@ int main() {
     }
 }
 ```
+### Practice problems:
+
+- [CSES : Mail Delivery](https://cses.fi/problemset/task/1691)
+- [CSES : Teleporters Path](https://cses.fi/problemset/task/1693)

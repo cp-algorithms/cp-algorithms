@@ -1,4 +1,3 @@
-<!--?title Second Best Minimum Spanning Tree -->
 # Second Best Minimum Spanning Tree
 
 A Minimum Spanning Tree $T$ is a tree for the given graph $G$ which spans over all vertices of the given graph and has the minimum weight sum of all the edges, from all the possible spanning trees.
@@ -9,7 +8,7 @@ A second best MST $T'$ is a spanning tree, that has the second minimum weight su
 Let $T$ be the Minimum Spanning Tree of a graph $G$.
 It can be observed, that the second best Minimum Spanning Tree differs from $T$ by only one edge replacement. (For a proof of this statement refer to problem 23-1 [here](http://www-bcf.usc.edu/~shanghua/teaching/Spring2010/public_html/files/HW2_Solutions_A.pdf)).
 
-So we need to find an edge $e_{new}$ which is in not in $T$, and replace it with an edge in $T$ (let it be $e_{old}$) such that the new graph $T' = (T \cup \\{e_{new}\\}) \setminus \\{e_{old}\\}$ is a spanning tree and the weight difference ($e_{new} - e_{old}$) is minimum.
+So we need to find an edge $e_{new}$ which is in not in $T$, and replace it with an edge in $T$ (let it be $e_{old}$) such that the new graph $T' = (T \cup \{e_{new}\}) \setminus \{e_{old}\}$ is a spanning tree and the weight difference ($e_{new} - e_{old}$) is minimum.
 
 
 ## Using Kruskal's Algorithm
@@ -43,13 +42,13 @@ The time complexity of the algorithm depends on how we compute the $k$s, which a
 One way to compute them efficiently in $O(E \log V)$ is to transform the problem into a Lowest Common Ancestor (LCA) problem.
 
 We will preprocess the LCA by rooting the MST and will also compute the maximum edge weights for each node on the paths to their ancestors. 
-This can be done using [Binary Lifting](graph/lca_binary_lifting.html) for LCA.
+This can be done using [Binary Lifting](lca_binary_lifting.md) for LCA.
 
 The final time complexity of this approach is $O(E \log V)$.
 
 For example:
 
-<center>![MST](&imgroot&/second_best_mst_1.png) ![Second best MST](&imgroot&/second_best_mst_2.png) <br>
+<center>![MST](second_best_mst_1.png) ![Second best MST](second_best_mst_2.png) <br>
 
 *In the image left is the MST and right is the second best MST.*
 </center>

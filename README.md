@@ -1,16 +1,26 @@
-e-maxx-eng
-==========
+# Algorithms for Competitive Programming
 
 [![Contributors](https://img.shields.io/github/contributors/e-maxx-eng/e-maxx-eng.svg)](https://github.com/e-maxx-eng/e-maxx-eng/graphs/contributors)
 [![Pull Requests](https://img.shields.io/github/issues-pr/e-maxx-eng/e-maxx-eng.svg)](https://github.com/e-maxx-eng/e-maxx-eng/pulls)
 [![Closed Pull Requests](https://img.shields.io/github/issues-pr-closed/e-maxx-eng/e-maxx-eng.svg)](https://github.com/e-maxx-eng/e-maxx-eng/pulls?q=is%3Apr+is%3Aclosed)
-[![Build Status](https://travis-ci.org/e-maxx-eng/e-maxx-eng.svg?branch=master)](https://travis-ci.org/e-maxx-eng/e-maxx-eng)
+[![Build](https://github.com/e-maxx-eng/e-maxx-eng/workflows/test/badge.svg)](https://github.com/e-maxx-eng/e-maxx-eng/actions?query=branch%3Amaster+workflow%3Atest)
 [![Translation Progress](https://img.shields.io/badge/translation_progress-85.2%25-yellowgreen.svg)](https://github.com/e-maxx-eng/e-maxx-eng/wiki/Translation-Progress)
 
-Translation of http://e-maxx.ru into English
+The goal of this project is to translate the wonderful resource
+[http://e-maxx.ru/algo](http://e-maxx.ru/algo) which provides descriptions of many algorithms
+and data structures especially popular in field of competitive programming.
+Moreover we want to improve the collected knowledge by extending the articles
+and adding new articles to the collection.
 
 Compiled pages are published at https://cp-algorithms.com/
 
-Manual for contributors: https://cp-algorithms.com/contrib.html
+## Changelog
 
-Test-your-page form: https://cp-algorithms.com/test.php
+- January 16, 2022: Switched to the [MkDocs](https://www.mkdocs.org/) site generator with the [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) theme, which give the website a more modern look, brings a couple of new features (dark mode, better search, ...), makes the website more stable (in terms of rendering math formulas), and makes it easier to contribute.
+
+Full list of updates: [Commit History](https://github.com/e-maxx-eng/e-maxx-eng/commits/master)
+
+## Contributing
+
+- [Information for contributors](https://cp-algorithms.com/contrib.html)
+- [Test-Your-Page form](https://cp-algorithms.com/preview.html)

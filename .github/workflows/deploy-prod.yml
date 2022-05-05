@@ -1,0 +1,30 @@
+name: Deploy to Live Channel
+
+on:
+  push:
+    branches:
+      - master
+      - mkdocs
+
+jobs:
+  deploy_live_website:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: Install mkdocs-material
+        run: |
+          pip install mkdocs-material
+      - name: Build pages
+        run: |
+          mkdocs build --strict
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          projectId: cp-algorithms
+          channelId: ${{ github.ref == 'refs/heads/master' && 'live' || 'mkdocs' }}

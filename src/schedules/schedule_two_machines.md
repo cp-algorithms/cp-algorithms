@@ -1,4 +1,3 @@
-<!--?title Scheduling jobs on two machines -->
 # Scheduling jobs on two machines
 
 This task is about finding an optimal schedule for $n$ jobs on two machines.
@@ -22,18 +21,24 @@ Consider the order of the jobs, which coincides with their input order $1, 2, \d
 
 We denote by $x_i$ the **idle time** of the second machine immediately before processing $i$.
 Our goal is to **minimize the total idle time**:
+
 $$F(x) = \sum x_i ~ \rightarrow \min$$
 
 For the first job we have $x_1 = a_1$.
 For the second job, since it gets sent to the machine at the time $a_1 + a_2$, and the second machine gets free at $x_1 + b_1$, we have $x_2 = \max\left((a_1 + a_2) - (x_1 + b_1), 0\right)$.
 In general we get the equation:
+
 $$x_k = \max\left(\sum_{i=1}^k a_i - \sum_{i=1}^{k-1} b_i - \sum_{i=1}^{k-1} x_i, 0 \right)$$
 
 We can now calculate the **total idle time** $F(x)$.
 It is claimed that it has the form
+
 $$F(x) = \max_{k=1 \dots n} K_i,$$
+
 where
+
 $$K_i = \sum_{i=1}^k a_i - \sum_{i=1}^{k-1} b_i.$$
+
 This can be easily verified using induction.
 
 We now use the **permutation method**:
@@ -42,13 +47,18 @@ we will exchange two neighboring jobs $j$ and $j+1$ and see how this will change
 By the form of the expression of $K_i$, it is clear that only $K_j$ and $K_{j+1}$ change, we denote their new values with $K_j'$ and $K_{j+1}'$.
 
 If this change from of the jobs $j$ and $j+1$ increased the total idle time, it has to be the case that:
+
 $$\max(K_j, K_{j+1}) \le \max(K_j', K_{j+1}')$$
+
 (Switching two jobs might also have no impact at all.
 The above condition is only a sufficient one, but not a necessary one.)
 
 After removing $\sum_{i=1}^{j+1} a_i - \sum_{i=1}^{j-1} b_i$ from both sides of the inequality, we get:
+
 $$\max(-a_{j+1}, -b_j) \le \max(-b_{j+1}, -a_j)$$
+
 And after getting rid of the negative signs:
+
 $$\min(a_j, b_{j+1}) \le \min(b_j, a_{j+1})$$
 
 Thus we obtained a **comparator**:
@@ -66,7 +76,7 @@ One way or another, it turns out that by Johnson's rule we can solve the problem
 
 Here we implement the second variation of the described algorithm.
 
-```cpp johnsons_rule
+```{.cpp file=johnsons_rule}
 struct Job {
     int a, b, idx;
 

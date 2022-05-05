@@ -1,10 +1,13 @@
-<!--?title Floyd-Warshall algorithm -->
-
 # Floyd-Warshall Algorithm
 
-Given an undirected weighted graph $G$ with $n$ vertices. The task is to find the length of the shortest path $d_{ij}$ between each pair of vertices $i$ and $j$.
+Given a directed or an undirected weighted graph $G$ with $n$ vertices.
+The task is to find the length of the shortest path $d_{ij}$ between each pair of vertices $i$ and $j$.
 
-The graph may have negative weight edges, but no negative weight cycles (for then the shortest path is undefined).
+The graph may have negative weight edges, but no negative weight cycles.
+
+If there is such a negative cycle, you can just traverse this cycle over and over, in each iteration making the cost of the path smaller.
+So you can make certain paths arbitrarily small, or in other words that shortest path is undefined.
+That automatically means that an undirected graph cannot have any negative weight edges, as such an edge forms already a negative cycle as you can move back and forth along that edge as long as you like.
 
 This algorithm can also be used to detect the presence of negative cycles.
 The graph has a negative cycle if at the end of the algorithm, the distance from a vertex $v$ to itself is negative.
@@ -19,7 +22,7 @@ The key idea of the algorithm is to partition the process of finding the shortes
 Let us number the vertices starting from 1 to $n$.
 The matrix of distances is $d[ ][ ]$.
 
-Before $k$-th phase ($k = 1 \dots n$), $d[i][j]$ for any vertices $i$ and $j$ stores the length of the shortest path between the vertex $i$ and vertex $j$, which contains only the vertices $\\{1, 2, ..., k-1\\}$ as internal vertices in the path.
+Before $k$-th phase ($k = 1 \dots n$), $d[i][j]$ for any vertices $i$ and $j$ stores the length of the shortest path between the vertex $i$ and vertex $j$, which contains only the vertices $\{1, 2, ..., k-1\}$ as internal vertices in the path.
 
 In other words, before $k$-th phase the value of $d[i][j]$ is equal to the length of the shortest path from vertex $i$ to the vertex $j$, if this path is allowed to enter only the vertex with numbers smaller than $k$ (the beginning and end of the path are not restricted by this property).
 
@@ -31,16 +34,16 @@ Suppose now that we are in the $k$-th phase, and we want to compute the matrix $
 We have to fix the distances for some vertices pairs $(i, j)$.
 There are two fundamentally different cases:
 
-*   The shortest way from the vertex $i$ to the vertex $j$ with internal vertices from the set $\\{1, 2, \dots, k\\}$ coincides with the shortest path with internal vertices from the set $\\{1, 2, \dots, k-1\\}$.
+*   The shortest way from the vertex $i$ to the vertex $j$ with internal vertices from the set $\{1, 2, \dots, k\}$ coincides with the shortest path with internal vertices from the set $\{1, 2, \dots, k-1\}$.
 
     In this case, $d[i][j]$ will not change during the transition.
 
-*   The shortest path with internal vertices from $\\{1, 2, \dots, k\\}$ is shorter.
+*   The shortest path with internal vertices from $\{1, 2, \dots, k\}$ is shorter.
 
     This means that the new, shorter path passes through the vertex $k$.
     This means that we can split the shortest path between $i$ and $j$ into two paths:
     the path between $i$ and $k$, and the path between $k$ and $j$.
-    It is clear that both this paths only use internal vertices of $\\{1, 2, \dots, k-1\\}$ and are the shortest such paths in that respect.
+    It is clear that both this paths only use internal vertices of $\{1, 2, \dots, k-1\}$ and are the shortest such paths in that respect.
     Therefore we already have computed the lengths of those paths before, and we can compute the length of the shortest path between $i$ and $j$ as $d[i][k] + d[k][j]$.
 
 Combining these two cases we find that we can recalculate the length of all pairs $(i, j)$ in the $k$-th phase in the following way:
@@ -128,7 +131,7 @@ Then a shortest path between vertices $i$ and $j$ does not exist, if and only if
 In addition, when using the Floyd-Warshall algorithm for graphs with negative cycles, we should keep in mind that situations may arise in which distances can get exponentially fast into the negative.
 Therefore integer overflow must be handled by limiting the minimal distance by some value (e.g. $-\text{INF}$).
 
-To learn more about finding negative cycles in a graph, see the separate article [Finding a negative cycle in the graph](./graph/finding-negative-cycle-in-graph.html).
+To learn more about finding negative cycles in a graph, see the separate article [Finding a negative cycle in the graph](finding-negative-cycle-in-graph.md).
 
 ## Practice Problems
  - [UVA: Page Hopping](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=762)
@@ -157,3 +160,4 @@ To learn more about finding negative cycles in a graph, see the separate article
  * [UVA - 12179 - Randomly-priced Tickets](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3331)
  * [LOJ - 1086 - Jogging Trails](http://lightoj.com/volume_showproblem.php?problem=1086)
  * [SPOJ - Ingredients](http://www.spoj.com/problems/INGRED/)
+ * [CSES - Shortest Routes II](https://cses.fi/problemset/task/1672)
