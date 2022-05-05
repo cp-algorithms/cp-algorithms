@@ -165,6 +165,8 @@ int go(int v, char ch) {
 
 It is easy to see, that due to the memoization of the found suffix links and transitions the total time for finding all suffix links and transitions will be linear.
 
+For an illustration of the concept refer to slide number 103 of the [Stanford slides](http://web.stanford.edu/class/archive/cs/cs166/cs166.1166/lectures/02/Slides02.pdf).
+
 ## Applications
 
 ### Find all strings from a given set in a text
@@ -229,3 +231,6 @@ Thus we can find such a path  using depth first search (and if the search looks 
 - [Codeforces - x-prime Substrings](https://codeforces.com/problemset/problem/1400/F)
 - [Codeforces - Frequency of String](http://codeforces.com/problemset/problem/963/D)
 - [CodeChef - TWOSTRS](https://www.codechef.com/MAY20A/problems/TWOSTRS)
+
+## References
+- [Stanford's CS166 - Aho-Corasick Automata](http://web.stanford.edu/class/archive/cs/cs166/cs166.1166/lectures/02/Slides02.pdf) ([Condensed](http://web.stanford.edu/class/archive/cs/cs166/cs166.1166/lectures/02/Small02.pdf))
