@@ -8,7 +8,7 @@ The Speedup is applied for transitions of the form
 
 $$dp(i, j) = \min_{i \leq k < j} [ dp(i, k) + dp(k+1, j) + C(i, j) ].$$
 
-Similar to [divide and conquer DP](../divide-and-conquer-dp.md), let $opt(i, j)$ be the value of $k$ that minimizes the expression in the transition ($opt$ is referred to as the "optimal splitting point" further in this article). The optimization requires that the following holds:
+Similar to [divide and conquer DP](./divide-and-conquer-dp.md), let $opt(i, j)$ be the value of $k$ that minimizes the expression in the transition ($opt$ is referred to as the "optimal splitting point" further in this article). The optimization requires that the following holds:
 
 $$opt(i, j-1) \leq opt(i, j) \leq opt(i+1, j).$$
 
