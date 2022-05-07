@@ -79,6 +79,7 @@ Full list of updates: [Commit History](https://github.com/e-maxx-eng/e-maxx-eng/
 
 - **DP optimizations**
     - [Divide and Conquer DP](dynamic_programming/divide-and-conquer-dp.md)
+    - [Knuth's Optimization](dynamic_programming/knuth-optimization.md)
 - **Tasks**
     - [Dynamic Programming on Broken Profile. Problem "Parquet"](dynamic_programming/profile-dynamics.md)
     - [Finding the largest zero submatrix](dynamic_programming/zero_matrix.md)

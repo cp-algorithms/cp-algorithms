@@ -4,16 +4,17 @@ Divide and Conquer is a dynamic programming optimization.
 
 ### Preconditions
 Some dynamic programming problems have a recurrence of this form: $$dp(i, j) =
-\min_{0 \leq k \leq j} \\{ dp(i - 1, k - 1) + C(k, j) \\}$$ Where $C(k, j)$ is a cost
-function and $dp(i, j) = 0$ when $j \lt 0$.
+\min_{0 \leq k \leq j} \\{ dp(i - 1, k - 1) + C(k, j) \\}$$, where $C(k, j)$ is a cost
+function and $dp(i, j) = 0$ when $j \lt 0$. 
 
 Say $0 \leq i \lt m$ and $0 \leq j \lt n$, and evaluating $C$ takes $O(1)$
 time. Then the straightforward evaluation of the above recurrence is $O(m n^2)$. There
 are $m \times n$ states, and $n$ transitions for each state.
 
-Let $opt(i, j)$ be the value of $k$ that minimizes the above expression. If
-$opt(i, j) \leq opt(i, j + 1)$ for all $i, j$, then we can apply
-divide-and-conquer DP. This is known as the _monotonicity condition_. The optimal
+Let $opt(i, j)$ be the value of $k$ that minimizes the above expression. Assuming that the 
+cost function satisfies the qudrangle inequality, we can show that 
+$opt(i, j) \leq opt(i, j + 1)$ for all $i, j$. This is known as the _monotonicity condition_. 
+Then, we can apply divide and conquer DP. The optimal
 "splitting point" for a fixed $i$ increases as $j$ increases.
 
 This lets us solve for all states more efficiently. Say we compute $opt(i, j)$
@@ -80,9 +81,9 @@ int solve() {
 ### Things to look out for
 
 The greatest difficulty with Divide and Conquer DP problems is proving the
-monotonicity of $opt$. Many Divide and Conquer DP problems can also be solved
-with the Convex Hull trick or vice-versa. It is useful to know and understand
-both!
+monotonicity of $opt$. One special case where this is true is when the cost function satisfies the quadrangle inequality, i.e., $C(a, c) + C(b, d) \leq C(a, d) + C(b, c)$ for all $a \leq b \leq c \leq d$. 
+Many Divide and Conquer DP problems can also be solved with the Convex Hull trick or vice-versa. It is useful to know and understand
+both! 
 
 ## Practice Problems
 - [AtCoder - Yakiniku Restaurants](https://atcoder.jp/contests/arc067/tasks/arc067_d)
