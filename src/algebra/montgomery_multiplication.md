@@ -1,7 +1,6 @@
-<!--?title Montgomery Multiplication -->
 # Montgomery Multiplication
 
-Many algorithms in number theory, like [prime testing](./algebra/primality_tests.html) or [integer factorization](./algebra/factorization.html), and in cryptography, like RSA, require lots of operations modulo a large number.
+Many algorithms in number theory, like [prime testing](primality_tests.md) or [integer factorization](factorization.md), and in cryptography, like RSA, require lots of operations modulo a large number.
 A multiplications like $x y \bmod{n}$ is quite slow to compute with the typical algorithms, since it requires a division to know how many times $n$ has to be subtracted from the product.
 And division is a really expensive operation, especially with big numbers.
 
@@ -19,7 +18,9 @@ In practice we always choose $r$ to be $2^m$ for a positive integer $m$, since m
 $n$ will be an odd number in pretty much all applications, since it is not hard to factorize an even number.
 So every power of $2$ will be coprime to $n$.
 
-The representative $\bar{x}$ of a number $x$ in the Montgomery space is defined as: $$\bar{x} := x \cdot r \bmod n$$
+The representative $\bar{x}$ of a number $x$ in the Montgomery space is defined as: 
+
+$$\bar{x} := x \cdot r \bmod n$$
 
 Notice, the transformation is actually such a multiplication that we want to optimize.
 So this is still an expensive operation.
@@ -29,16 +30,21 @@ And at the end you transform the final result back.
 So as long as you are doing lots of operations modulo $n$, this will be no problem.
 
 Inside the Montgomery space you can still perform most operations as usual.
-You can add two elements ($x \cdot r + y \cdot r \equiv (x + y) \cdot r \bmod n$), subtract, check for equality, and even compute the greatest common multiple of a number with $n$ (since $\gcd(n, r) = 1$).
+You can add two elements ($x \cdot r + y \cdot r \equiv (x + y) \cdot r \bmod n$), subtract, check for equality, and even compute the greatest common divisor of a number with $n$ (since $\gcd(n, r) = 1$).
 All with the usual algorithms.
 
 However this is not the case for multiplication.
 
 We expect the result to be:
+
 $$\bar{x} * \bar{y} = \overline{x \cdot y} = (x \cdot y) \cdot r \bmod n.$$
+
 But the normal multiplication will give us:
+
 $$\bar{x} \cdot \bar{y} = (x \cdot y) \cdot r \cdot r \bmod n.$$
+
 Therefore the multiplication in the Montgomery space is defined as:
+
 $$\bar{x} * \bar{y} := \bar{x} \cdot \bar{y} \cdot r^{-1} \bmod n.$$
 
 ## Montgomery reduction
@@ -47,14 +53,17 @@ The multiplication of two numbers in the Montgomery space requires an efficient 
 This operation is called the **Montgomery reduction**, and is also known as the algorithm **REDC**.
 
 Because $\gcd(n, r) = 1$, we know that there are two numbers $r^{-1}$ and $n^{\prime}$ with $0 < r^{-1}, n^{\prime} < n$ with
+
 $$r \cdot r^{-1} + n \cdot n^{\prime} = 1.$$
-Both $r^{-1}$ and $n^{\prime}$ can be computed using the [Extended Euclidean algorithm](./algebra/extended-euclid-algorithm.html).
+
+Both $r^{-1}$ and $n^{\prime}$ can be computed using the [Extended Euclidean algorithm](extended-euclid-algorithm.md).
 
 Using this identity we can write $x \cdot r^{-1}$ as:
+
 $$\begin{aligned}
-x \cdot r^{-1} &= x \cdot r \cdot r^{-1} / r = x \cdot (-n \cdot n^{\prime} + 1) / r \\\\
-&= (-x \cdot n \cdot n^{\prime} + x) / r \equiv (-x \cdot n \cdot n^{\prime} + l \cdot r \cdot n + x) / r \bmod n\\\\
-&\equiv ((-x \cdot n^{\prime} + l \cdot r) \cdot n + x) / r \bmod n\\\\
+x \cdot r^{-1} &= x \cdot r \cdot r^{-1} / r = x \cdot (-n \cdot n^{\prime} + 1) / r \\
+&= (-x \cdot n \cdot n^{\prime} + x) / r \equiv (-x \cdot n \cdot n^{\prime} + l \cdot r \cdot n + x) / r \bmod n\\
+&\equiv ((-x \cdot n^{\prime} + l \cdot r) \cdot n + x) / r \bmod n
 \end{aligned}$$
 
 The equivalences hold for any arbitrary integer $l$.
@@ -82,14 +91,17 @@ A second application of the Montgomery reduction is to transfer a number back fr
 ## Fast inverse trick
 
 For computing the inverse $n^{\prime} := n^{-1} \bmod r$ efficiently, we can use the following trick (which is inspired from the Newton's method):
+
 $$a \cdot x \equiv 1 \bmod 2^k \Longrightarrow a \cdot x \cdot (2 - a \cdot x) \equiv 1 \bmod 2^{2k}$$
+
 This can easily be proven.
 If we have $a \cdot x = 1 + m \cdot 2^k$, then we have:
+
 $$\begin{aligned}
-a \cdot x \cdot (2 - a \cdot x) &= 2 \cdot a \cdot x - (a \cdot x)^2 \\\\
-&= 2 \cdot (1 + m \cdot 2^k) - (1 + m \cdot 2^k)^2 \\\\
-&= 2 + 2 \cdot m \cdot 2^k - 1 - 2 \cdot m \cdot 2^k - m^2 \cdot 2^{2k} \\\\
-&= 1 - m^2 \cdot 2^{2k} \\\\
+a \cdot x \cdot (2 - a \cdot x) &= 2 \cdot a \cdot x - (a \cdot x)^2 \\
+&= 2 \cdot (1 + m \cdot 2^k) - (1 + m \cdot 2^k)^2 \\
+&= 2 + 2 \cdot m \cdot 2^k - 1 - 2 \cdot m \cdot 2^k - m^2 \cdot 2^{2k} \\
+&= 1 - m^2 \cdot 2^{2k} \\
 &\equiv 1 \bmod 2^{2k}.
 \end{aligned}$$
 
@@ -168,6 +180,7 @@ The current method of transforming a number into Montgomery space is pretty slow
 There are faster ways.
 
 You can notice the following relation:
+
 $$\bar{x} := x \cdot r \bmod n = x \cdot r^2 / r = x * r^2$$
 
 Transforming a number into the space is just a multiplication inside the space of the number with $r^2$.

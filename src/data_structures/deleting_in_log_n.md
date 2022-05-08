@@ -1,4 +1,6 @@
-<!--?title Deleting from a data structure in O(T(n)log n)-->
+---
+title: Deleting from a data structure in O(T(n)log n)
+---
 # Deleting from a data structure in $O(T(n)\log n)$
 
 Suppose you have a data structure which allows adding elements in **true** $O(T(n))$.
@@ -27,7 +29,7 @@ See some problems below.
 This implementation is for the [dynamic connectivity](https://en.wikipedia.org/wiki/Dynamic_connectivity) problem.
 It can add edges, remove edges and count the number of connected components.
 
-```cpp dynamic-conn
+```{.cpp file=dynamic-conn}
 struct dsu_save {
     int v, rnkv, u, rnku;
 

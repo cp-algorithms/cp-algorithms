@@ -1,5 +1,3 @@
-<!--?title Convex hull trick and Li Chao tree -->
-
 # Convex hull trick and Li Chao tree
 
 Consider the following problem. There are $n$ cities. You want to travel from city $1$ to city $n$ by car. To do this you have to buy some gasoline. It is known that a liter of gasoline costs $cost_k$ in the $k^{th}$ city. Initially your fuel tank is empty and you spend one liter of gasoline per kilometer. Cities are located on the same line in ascending order with $k^{th}$ city having coordinate $x_k$. Also you have to pay $toll_k$ to enter $k^{th}$ city. Your task is to make the trip with minimum possible cost. It's obvious that the solution can be calculated via dynamic programming:
@@ -14,7 +12,7 @@ The idea of this approach is to maintain a lower convex hull of linear functions
 Actually it would be a bit more convenient to consider them not as linear functions, but as points $(k;b)$ on the plane such that we will have to find the point which has the least dot product with a given point $(x;1)$, that is, for this point $kx+b$ is minimized which is the same as initial problem.
 Such minimum will necessarily be on lower convex envelope of these points as can be seen below:
 
-<center> ![lower convex hull](&imgroot&/convex_hull_trick.png) </center>
+<center> ![lower convex hull](convex_hull_trick.png) </center>
 
 One has to keep points on the convex hull and normal vectors of the hull's edges.
 When you have a $(x;1)$ query you'll have to find the normal vector closest to it in terms of angles between them, then the optimum linear function will correspond to one of its endpoints.
@@ -87,12 +85,12 @@ Assume we're in some vertex corresponding to half-segment $[l,r)$ and the functi
 
 Here is the illustration of what is going on in the vertex when we add new function:
 
-<center>![Li Chao Tree vertex](&imgroot&/li_chao_vertex.png)</center>
+<center>![Li Chao Tree vertex](li_chao_vertex.png)</center>
 
 Let's go to implementation now. Once again we will use complex numbers to keep linear functions.
 
-```cpp lichaotree_line_definition
-typedef int ftype;
+```{.cpp file=lichaotree_line_definition}
+typedef long long ftype;
 typedef complex<ftype> point;
 #define x real
 #define y imag
@@ -108,7 +106,7 @@ ftype f(point a,  ftype x) {
 We will keep functions in the array $line$ and use binary indexing of the segment tree. If you want to use it on large numbers or doubles, you should use a dynamic segment tree. 
 The segment tree should be initialized with default values, e.g. with lines $0x + \infty$.
 
-```cpp lichaotree_addline
+```{.cpp file=lichaotree_addline}
 const int maxn = 2e5;
  
 point line[4 * maxn];
@@ -130,8 +128,8 @@ void add_line(point nw, int v = 1, int l = 0, int r = maxn) {
 }
 ```
 Now to get the minimum in some point $x$ we simply choose the minimum value along the path to the point.
-```cpp lichaotree_getminimum
-int get(int x, int v = 1, int l = 0, int r = maxn) {
+```{.cpp file=lichaotree_getminimum}
+ftype get(int x, int v = 1, int l = 0, int r = maxn) {
     int m = (l + r) / 2;
     if(r - l == 1) {
         return f(line[v], x);
@@ -145,11 +143,11 @@ int get(int x, int v = 1, int l = 0, int r = maxn) {
 
 ## Problems
 
-* [Dunjudge - TROUBLES](https://dunjudge.me/analysis/problems/896/) (simple application of Convex Hull Trick after a couple of observations)
+* [Codebreaker - TROUBLES](https://codeforces.com/gym/103536/problem/B) (simple application of Convex Hull Trick after a couple of observations)
 * [CS Academy - Squared Ends](https://csacademy.com/contest/archive/task/squared-ends)
 * [Codeforces - Escape Through Leaf](http://codeforces.com/contest/932/problem/F)
 * [CodeChef - Polynomials](https://www.codechef.com/NOV17/problems/POLY)
 * [Codeforces - Kalila and Dimna in the Logging Industry](https://codeforces.com/problemset/problem/319/C)
 * [Codeforces - Product Sum](https://codeforces.com/problemset/problem/631/E)
 * [Codeforces - Bear and Bowling 4](https://codeforces.com/problemset/problem/660/F)
-* [APIO 2010 - Commando](https://dunjudge.me/analysis/problems/264/)
+* [APIO 2010 - Commando](https://dmoj.ca/problem/apio10p1)

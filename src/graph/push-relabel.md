@@ -1,8 +1,7 @@
-<!--?title Maximum flow - Push-relabel algorithm -->
 # Maximum flow - Push-relabel algorithm
 
 The push-relabel algorithm (or also known as preflow-push algorithm) is an algorithm for computing the maximum flow of a flow network.
-The exact definition of the problem that we want to solve can be found in the article [Maximum flow - Ford-Fulkerson and Edmonds-Karp](./graph/edmonds_karp.html).
+The exact definition of the problem that we want to solve can be found in the article [Maximum flow - Ford-Fulkerson and Edmonds-Karp](edmonds_karp.md).
 
 In this article we will consider solving the problem by pushing a preflow through the network, which will run in $O(V^4)$, or more precisely in $O(V^2 E)$, time.
 The algorithm was designed by Andrew Goldberg and Robert Tarjan in 1985.
@@ -11,9 +10,13 @@ The algorithm was designed by Andrew Goldberg and Robert Tarjan in 1985.
 
 During the algorithm we will have to handle a **preflow** - i.e. a function $f$ that is similar to the flow function, but does not necessarily satisfies the flow conservation constraint.
 For it only the constraints
+
 $$0 \le f(e) \le c(e)$$
+
 and
+
 $$\sum_{(v, u) \in E} f((v, u)) \ge \sum_{(u, v) \in E} f((u, v))$$
+
 have to hold.
 
 So it is possible for some vertex to receive more flow than it distributes.
@@ -84,7 +87,7 @@ If we pick a data structure that allows us to find the next vertex with excess i
 
 ## Implementation
 
-```cpp push_relabel
+```{.cpp file=push_relabel}
 const int inf = 1000000000;
 
 int n;

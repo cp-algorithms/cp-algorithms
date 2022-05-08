@@ -1,0 +1,19 @@
+[data-md-color-scheme="cpalgo"] {
+  --md-primary-fg-color:        #7777aa;
+  --md-primary-fg-color--light: #7777aa;
+  --md-primary-fg-color--dark:  #333371;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-hue: 210; 
+  --md-typeset-a-color: #c973d9;
+}
+
+/* hide the primary sidebar */
+.md-sidebar.md-sidebar--primary {
+  display: none;
+}
+
+[data-md-color-scheme="slate"] img {
+  background-color: lightgray;
+}

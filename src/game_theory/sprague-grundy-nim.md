@@ -1,4 +1,3 @@
-<!--?title Sprague-Grundy theorem. Nim -->
 # Sprague-Grundy theorem. Nim
 
 ## Introduction
@@ -69,27 +68,27 @@ Then the proof splits into two parts:
 if for the current position the xor-sum $s = 0$, we have to prove that this state is losing, i.e. all reachable states have xor-sum $t \neq 0$.
 If $s \neq 0$, we have to prove that there is a move leading to a state with $t = 0$.
 
-* Let $s = 0$ and let's consider any move.
-This move reduces the size of a pile $x$ to a size $y$.
-Using elementary properties of $\oplus$, we have
+*   Let $s = 0$ and let's consider any move.
+    This move reduces the size of a pile $x$ to a size $y$.
+    Using elementary properties of $\oplus$, we have
+    
+    \[ t = s \oplus x \oplus y = 0 \oplus x \oplus y = x \oplus y \]
+    
+    Since $y < x$, $y \oplus x$ can't be zero, so $t \neq 0$.
+    That means any reachable state is a winning one (by the assumption of induction), so we are in a losing position.
 
-$$t = s \oplus x \oplus y = 0 \oplus x \oplus y = x \oplus y$$
-
-Since $y < x$, $y \oplus x$ can't be zero, so $t \neq 0$.
-That means any reachable state is a winning one (by the assumption of induction), so we are in a losing position.
-
-* Let $s \neq 0$.
-Consider the binary representation of the number $s$.
-Let $d$ be the number of its leading (biggest value) non-zero bit.
-Our move will be on a pile whose size's bit number $d$ is set (it must exist, otherwise the bit wouldn't be set in $s$).
-We will reduce its size $x$ to $y = x \oplus s$.
-All bits at positions greater than $d$ in $x$ and $y$ match and bit $d$ is set in $x$ but not set in $y$.
-Therefore, $y < x$, which is all we need for a move to be legal.
-Now we have:
-
-$$ t = s \oplus x \oplus y = s \oplus x \oplus (s \oplus x) = 0$$
-
-This means we found a reachable losing state (by the assumption of induction) and the current state is winning.
+*   Let $s \neq 0$.
+    Consider the binary representation of the number $s$.
+    Let $d$ be the number of its leading (biggest value) non-zero bit.
+    Our move will be on a pile whose size's bit number $d$ is set (it must exist, otherwise the bit wouldn't be set in $s$).
+    We will reduce its size $x$ to $y = x \oplus s$.
+    All bits at positions greater than $d$ in $x$ and $y$ match and bit $d$ is set in $x$ but not set in $y$.
+    Therefore, $y < x$, which is all we need for a move to be legal.
+    Now we have:
+    
+    \[ t = s \oplus x \oplus y = s \oplus x \oplus (s \oplus x) = 0 \]
+    
+    This means we found a reachable losing state (by the assumption of induction) and the current state is winning.
 
 **Corollary.**
 Any state of Nim can be replaced by an equivalent state as long as the xor-sum doesn't change.
@@ -114,13 +113,13 @@ Since the game is acyclic, sooner or later the current player won't be able to u
 
 ### Sprague-Grundy theorem
 
-Let's consider a state $v$ of a two-player impartial game and let $v_i$ be the states reachable from it (where $i \in \\{ 1, 2, \dots, k \\} , k \ge 0$).
+Let's consider a state $v$ of a two-player impartial game and let $v_i$ be the states reachable from it (where $i \in \{ 1, 2, \dots, k \} , k \ge 0$).
 To this state, we can assign a fully equivalent game of Nim with one pile of size $x$.
 The number $x$ is called the Grundy value or nim-value of state $v$.
 
 Moreover, this number can be found in the following recursive way:
 
-$$ x = \text{mex}\ \\{ x_1, \ldots, x_k \\}, $$
+$$ x = \text{mex}\ \{ x_1, \ldots, x_k \}, $$
 
 where $x_i$ is the Grundy value for state $v_i$ and the function $\text{mex}$ (*minimum excludant*) is the smallest non-negative integer not found in the given set.
 
@@ -136,7 +135,7 @@ That is correct, since an empty Nim is losing.
 Now consider any other vertex $v$.
 By induction, we assume the values $x_i$ corresponding to its reachable vertices are already calculated.
 
-Let $p = \text{mex}\ \\{ x_1, \ldots, x_k \\}$.
+Let $p = \text{mex}\ \{ x_1, \ldots, x_k \}$.
 Then we know that for any integer $i \in [0, p)$ there exists a reachable vertex with Grundy value $i$.
 This means $v$ is **equivalent to a state of the game of Nim with increases with one pile of size $p$**.
 In such a game we have transitions to piles of every size smaller than $p$ and possibly transitions to piles with sizes greater than $p$.
@@ -189,7 +188,7 @@ For the edge case of the cross being marked on position $1$ or $n$, we go to the
 
 Thus, the Grundy value $g(n)$ has the form:
 
-$$g(n) = \text{mex} \Bigl( \\{ g(n-2) \\} \cup \\{g(i-2) \oplus g(n-i-1) \mid 2 \leq i \leq n-1\\} \Bigr) .$$
+$$g(n) = \text{mex} \Bigl( \{ g(n-2) \} \cup \{g(i-2) \oplus g(n-i-1) \mid 2 \leq i \leq n-1\} \Bigr) .$$
 
 So we've got a $O(n^2)$ solution.
 

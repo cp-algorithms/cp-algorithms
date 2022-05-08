@@ -1,14 +1,12 @@
-<!--?title Strongly Connected Components and Condensation graph -->
-
-# Finding strongly connected components<br/>Building condensation graph
+# Finding strongly connected components / Building condensation graph
 
 ## Definitions
 You are given a directed graph $G$ with vertices $V$ and edges $E$. It is possible that there are loops and multiple edges. Let's denote $n$ as number of vertices and $m$ as number of edges in $G$.
 
 **Strongly connected component** is a maximal subset of vertices $C$ such that any two vertices of this subset are reachable from each other, i.e. for any $u, v \in C$:
-$$
-u \mapsto v, v \mapsto u
-$$
+
+$$u \mapsto v, v \mapsto u$$
+
 where $\mapsto$ means reachability, i.e. existence of the path from first vertex to the second.
 
 It is obvious, that strongly connected components do not intersect each other, i.e. this is a partition of all graph vertices. Thus we can give a definition of condensation graph $G^{SCC}$ as a graph containing every strongly connected component as one vertex. Each vertex of the condensation graph corresponds to the strongly connected component of graph $G$. There is an oriented edge between two vertices $C_i$ and $C_j$ of the condensation graph if and only if there are two vertices $u \in C_i, v \in C_j$ such that there is an edge in initial graph, i.e. $(u, v) \in E$.
@@ -18,7 +16,7 @@ The most important property of the condensation graph is that it is **acyclic**.
 The algorithm described in the next section extracts all strongly connected components in a given graph. It is quite easy to build a condensation graph then.
 
 ## Description of the algorithm
-Described algorithm was independently suggested by Kosaraju and Sharir at 1979. This is an easy-to-implement algorithm based on two series of [depth first search](./graph/depth-first-search.html), and working for $O(n + m)$ time.
+Described algorithm was independently suggested by Kosaraju and Sharir at 1979. This is an easy-to-implement algorithm based on two series of [depth first search](depth-first-search.md), and working for $O(n + m)$ time.
 
 **On the first step** of the algorithm we are doing sequence of depth first searches, visiting the entire graph. We start at each vertex of the graph and run a depth first search from every non-visited vertex. For each vertex we are keeping track of **exit time** $tout[v]$. These exit times have a key role in an algorithm and this role is expressed in next theorem.
 
@@ -34,7 +32,7 @@ There are two main different cases at the proof depending on which component wil
 
 Proved theorem is **the base of algorithm** for finding strongly connected components. It follows that any edge $(C, C')$ in condensation graph comes from a component with a larger value of $tout$ to component with a smaller value.
 
-If we sort all vertices $v \in V$ by decreasing of their exit moment $tout[v]$ then the first vertex $u$ is going to be a vertex from "root" strongly connected component, i.e. a vertex that no edges in a condensation graph come into. Now we want to run such search from this vertex $u$ so that it will visit all vertices in this strongly connected component, but not others; doing so, we can gradually select all strongly connected components: let's remove all vertices corresponding to the first selected component, and then let's find a vertex with the largest value of $tout$, and run this search from it, and so on.
+If we sort all vertices $v \in V$ in decreasing order of their exit time $tout[v]$ then the first vertex $u$ is going to be a vertex belonging to "root" strongly connected component, i.e. a vertex that has no incoming edges in the condensation graph. Now we want to run such search from this vertex $u$ so that it will visit all vertices in this strongly connected component, but not others; doing so, we can gradually select all strongly connected components: let's remove all vertices corresponding to the first selected component, and then let's find a vertex with the largest value of $tout$, and run this search from it, and so on.
 
 Let's consider transposed graph $G^T$, i.e. graph received from $G$ by reversing the direction of each edge.
 Obviously, this graph will have the same strongly connected components as the initial graph.
@@ -51,57 +49,100 @@ Thus, we built next **algorithm** for selecting strongly connected components:
 
 Algorithm asymptotic is $O(n + m)$, because it is just two depth (breadth) first searches.
 
-Finally, it is appropriate to mention [topological sort](./graph/topological-sort.html) here. First of all, step 1 of the algorithm represents reversed topological sort of graph $G$ (actually this is exactly what vertices' sort by exit time means). Secondly, the algorithm's scheme generates strongly connected components by decreasing order of their exit times, thus it generates components - vertices of condensation graph - in topological sort order.
+Finally, it is appropriate to mention [topological sort](topological-sort.md) here. First of all, step 1 of the algorithm represents reversed topological sort of graph $G$ (actually this is exactly what vertices' sort by exit time means). Secondly, the algorithm's scheme generates strongly connected components by decreasing order of their exit times, thus it generates components - vertices of condensation graph - in topological sort order.
 
 ## Implementation
 ```cpp
-    vector < vector<int> > g, gr;
-    vector<bool> used;
-    vector<int> order, component;
-     
-    void dfs1 (int v) {
-        used[v] = true;
-        for (size_t i=0; i<g[v].size(); ++i)
-            if (!used[ g[v][i] ])
-                dfs1 (g[v][i]);
-        order.push_back (v);
+vector<vector<int>> adj, adj_rev;
+vector<bool> used;
+vector<int> order, component;
+ 
+void dfs1(int v) {
+    used[v] = true;
+
+    for (auto u : adj[v])
+        if (!used[u])
+            dfs1(u);
+
+    order.push_back(v);
+}
+ 
+void dfs2(int v) {
+    used[v] = true;
+    component.push_back(v);
+
+    for (auto u : adj_rev[v])
+        if (!used[u])
+            dfs2(u);
+}
+ 
+int main() {
+    int n;
+    // ... read n ...
+
+    for (;;) {
+        int a, b;
+        // ... read next directed edge (a,b) ...
+        adj[a].push_back(b);
+        adj_rev[b].push_back(a);
     }
-     
-    void dfs2 (int v) {
-        used[v] = true;
-        component.push_back (v);
-        for (size_t i=0; i<gr[v].size(); ++i)
-            if (!used[ gr[v][i] ])
-                dfs2 (gr[v][i]);
-    }
-     
-    int main() {
-        int n;
-        ... reading n ...
-        for (;;) {
-            int a, b;
-            ... reading next edge (a,b) ...
-            g[a].push_back (b);
-            gr[b].push_back (a);
+ 
+    used.assign(n, false);
+
+    for (int i = 0; i < n; i++)
+        if (!used[i])
+            dfs1(i);
+
+    used.assign(n, false);
+    reverse(order.begin(), order.end());
+
+    for (auto v : order)
+        if (!used[v]) {
+            dfs2 (v);
+
+            // ... processing next component ...
+
+            component.clear();
         }
-     
-        used.assign (n, false);
-        for (int i=0; i<n; ++i)
-            if (!used[i])
-                dfs1 (i);
-        used.assign (n, false);
-        for (int i=0; i<n; ++i) {
-            int v = order[n-1-i];
-            if (!used[v]) {
-                dfs2 (v);
-                ... printing next component ...
-                component.clear();
-            }
-        }
-    }
+}
 ```
 
 Here, $g$ is graph, $gr$ is transposed graph. Function $dfs1$ implements depth first search on graph $G$, function $dfs2$ - on transposed graph $G^T$. Function $dfs1$ fills the list $order$ with vertices in increasing order of their exit times (actually, it is making a topological sort). Function $dfs2$ stores all reached vertices in list $component$, that is going to store next strongly connected component after each run.
+
+### Condensation Graph Implementation
+
+```cpp
+// continuing from previous code
+
+vector<int> roots(n, 0);
+vector<int> root_nodes;
+vector<vector<int>> adj_scc(n);
+
+for (auto v : order)
+    if (!used[v]) {
+        dfs2(v);
+
+        int root = component.front();
+        for (auto u : component) roots[u] = root;
+        root_nodes.push_back(root);
+
+        component.clear();
+    }
+
+
+for (int v = 0; v < n; v++)
+    for (auto u : adj[v]) {
+        int root_v = roots[v],
+            root_u = roots[u];
+
+        if (root_u != root_v)
+            adj_scc[root_v].push_back(root_u);
+    }
+```
+
+Here, we have selected the root of each component as the first node in its list. This node will represent its entire SCC in the condensation graph. `roots[v]` indicates the root node for the SCC to which node `v` belongs. `root_nodes` is the list of all root nodes (one per component) in the condensation graph. 
+
+`adj_scc` is the adjacency list of the `root_nodes`. We can now traverse on `adj_scc` as our condensation graph, using only those nodes which belong to `root_nodes`.
 
 ## Literature
 

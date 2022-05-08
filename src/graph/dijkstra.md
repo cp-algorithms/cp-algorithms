@@ -1,5 +1,3 @@
-<!--?title Dijkstra Algorithm -->
-
 # Dijkstra Algorithm
 
 You are given a directed or undirected weighted graph with $n$ vertices and $m$ edges. The weights of all edges are non-negative. You are also given a starting vertex $s$. This article discusses finding the lengths of the shortest paths from a starting vertex $s$ to all other vertices, and output the shortest paths themselves.
@@ -52,7 +50,9 @@ The proof is done by induction. For the first iteration this statement is obviou
 
 Consider the shortest path $P$ to the vertex $v$. This path can be split into two parts: $P_1$ which consists of only marked nodes (at least the starting vertex $s$ is part of $P_1$), and the rest of the path $P_2$ (it may include a marked vertex, but it always starts with an unmarked vertex). Let's denote the first vertex of the path $P_2$ as $p$, and the last vertex of the path $P_1$ as $q$.
 
-First we prove our statement for the vertex $p$, i.e. let's prove that $d[p] = l[p]$. This is almost obvious: on one of the previous iterations we chose the vertex $q$ and performed relaxation from it. Since (by virtue of the choice of vertex $p$) the shortest path to $p$ is the shortest path to $q$ plus edge $(p,q)$, the relaxation from $q$ set the value of $d[p]$ to the length of the shortest path $l[q]$.
+First we prove our statement for the vertex $p$, i.e. let's prove that $d[p] = l[p]$.
+This is almost obvious: on one of the previous iterations we chose the vertex $q$ and performed relaxation from it.
+Since (by virtue of the choice of vertex $p$) the shortest path to $p$ is the shortest path to $q$ plus edge $(p,q)$, the relaxation from $q$ set the value of $d[p]$ to the length of the shortest path $l[p]$.
 
 Since the edges' weights are non-negative, the length of the shortest path $l[p]$ (which we just proved to be equal to $d[p]$) does not exceed the length $l[v]$ of the shortest path to the vertex $v$. Given that $l[v] \le d[v]$ (because Dijkstra's algorithm could not have found a shorter way than the shortest possible one), we get the inequality:
 
@@ -82,10 +82,10 @@ For the simplest implementation of these operations on each iteration vertex sea
 $$O(n^2+m)$$ 
 
 This complexity is optimal for dense graph, i.e. when $m \approx n^2$.
-However in sparse graphs, when $m$ is much smaller than the maximal number of edges $n^2$, the problem can be solved in $O(n \log n + m)$ complexity. The algorithm and implementation can be found on the article [Dijkstra on sparse graphs](./graph/dijkstra_sparse.html).
+However in sparse graphs, when $m$ is much smaller than the maximal number of edges $n^2$, the problem can be solved in $O(n \log n + m)$ complexity. The algorithm and implementation can be found on the article [Dijkstra on sparse graphs](dijkstra_sparse.md).
 
 
-```cpp dijkstra_dense
+```{.cpp file=dijkstra_dense}
 const int INF = 1000000000;
 vector<vector<pair<int, int>>> adj;
 
@@ -128,7 +128,7 @@ First of all, the code initializes arrays: distances $d[]$, labels $u[]$ and pre
 
 After performing all the iterations array $d[]$ stores the lengths of the shortest paths to all vertices, and array $p[]$ stores the predecessors of all vertices (except starting vertex $s$). The path to any vertex $t$ can be restored in the following way:
 
-```cpp dijkstra_restore_path
+```{.cpp file=dijkstra_restore_path}
 vector<int> restore_path(int s, int t, vector<int> const& p) {
     vector<int> path;
 

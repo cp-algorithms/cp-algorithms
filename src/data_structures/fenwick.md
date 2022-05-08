@@ -1,13 +1,11 @@
-<!--?title Fenwick Tree -->
-
 # Fenwick Tree
 
 Let, $f$ be some _reversible_ function and $A$ be an array of integers of length $N$.
 
 Fenwick tree is a data structure which:
 
-* calculates the value of function $f$ in the given range $[l, r]$ (i.e. $f(A_l, A_{l+1}, \dots, A_r)$) in $O(\log n)$ time;
-* updates the value of an element of $A$ in $O(\log n)$ time;
+* calculates the value of function $f$ in the given range $[l, r]$ (i.e. $f(A_l, A_{l+1}, \dots, A_r)$) in $O(\log N)$ time;
+* updates the value of an element of $A$ in $O(\log N)$ time;
 * requires $O(N)$ memory, or in other words, exactly the same memory required for $A$;
 * is easy to use and code, especially, in the case of multidimensional arrays.
 
@@ -25,7 +23,9 @@ For the sake of simplicity, we will assume that function $f$ is just a *sum func
 
 Given an array of integers $A[0 \dots N-1]$.
 A Fenwick tree is just an array $T[0 \dots N-1]$, where each of its elements is equal to the sum of elements of $A$ in some range $[g(i), i]$:
+
 $$T_i = \sum_{j = g(i)}^{i}{A_j},$$
+
 where $g$ is some function that satisfies $0 \le g(i) \le i$.
 We will define the function in the next few paragraphs.
 
@@ -60,7 +60,7 @@ The function `sum` works as follows:
 
 The function `increase` works with the same analogy, but "jumps" in the direction of increasing indices:
 
-1. sums of the ranges $[g(j), j]$ that satisfy the condition $g(j) \le i \le j$ are increased by `delta` , that is `t[j] += delta`. Therefore we updated all elements in $T$ that corresponds to ranges in with $A_i$ lies.
+1. sums of the ranges $[g(j), j]$ that satisfy the condition $g(j) \le i \le j$ are increased by `delta` , that is `t[j] += delta`. Therefore we updated all elements in $T$ that correspond to ranges in which $A_i$ lies.
 
 It is obvious that the complexity of both `sum` and `increase` depend on the function $g$.
 There are lots of ways to choose the function $g$, as long as $0 \le g(i) \le i$ for all $i$.
@@ -69,7 +69,7 @@ We can also take the function $g(i) = 0$.
 This will correspond to prefix sum arrays, which means that finding the sum of the range $[0, i]$ will only take constant time, but updates are slow.
 The clever part of the Fenwick algorithm is, that there it uses a special definition of the function $g$ that can handle both operations in $O(\log N)$ time.
 
-### Definition of $g(i)$
+### Definition of $g(i)$ { data-toc-label='Definition of <script type="math/tex">g(i)</script>' }
 
 The computation of $g(i)$ is defined using the following simple operation:
 we replace all trailing $1$ bits in the binary representation of $i$ with $0$ bits.
@@ -88,7 +88,9 @@ g(15) = g(1111_2) = 0000_2 &= 0 \\\\
 \end{align}$$
 
 There exists a simple implementation using bitwise operations for the non-trivial operation described above:
+
 $$g(i) = i ~\&~ (i+1),$$
+
 where $\&$ is the bitwise AND operator. It is not hard to convince yourself that this solution does the same thing as the operation described above.
 
 Now, we just need to find a way to iterate over all $j$'s, such that $g(j) \le i \le j$.
@@ -107,13 +109,15 @@ h(31) = 63 &= 0111111_2 \\\\
 \end{align}$$
 
 Unsurprisingly, there also exists a simple way to perform $h$ using bitwise operations:
+
 $$h(j) = j ~\|~ (j+1),$$
+
 where $\|$ is the bitwise OR operator.
 
 The following image shows a possible interpretation of the Fenwick tree as tree.
 The nodes of the tree show the ranges they cover.
 
-<center>![Binary Indexed Tree](&imgroot&/binary_indexed_tree.png)</center>
+<center>![Binary Indexed Tree](binary_indexed_tree.png)</center>
 
 ## Implementation
 
@@ -127,7 +131,8 @@ This is handled in the `sum(int l, int r)` method.
 Also this implementation supports two constructors.
 You can create a Fenwick tree initialized with zeros, or you can convert an existing array into the Fenwick form.
 
-```cpp fenwick_sum
+
+```{.cpp file=fenwick_sum}
 struct FenwickTree {
     vector<int> bit;  // binary indexed tree
     int n;
@@ -160,13 +165,13 @@ struct FenwickTree {
 };
 ```
 
-### Finding minimum of $[0, r]$ in one-dimensional array
+### Finding minimum of $[0, r]$ in one-dimensional array { data-toc-label='Finding minimum of <script type="math/tex">[0, r]</script> in one-dimensional array' }
 
 It is obvious that there is no easy way of finding minimum of range $[l, r]$ using Fenwick tree, as Fenwick tree can only answer queries of type $[0, r]$.
 Additionally, each time a value is `update`'d, the new value has to be smaller than the current value (because the $min$ function is not reversible).
 These, of course, are significant limitations.
 
-```cpp fenwick_min
+```{.cpp file=fenwick_min}
 struct FenwickTreeMin {
     vector<int> bit;
     int n;
@@ -257,16 +262,18 @@ g(4) = g(100_2) = 000_2 &= 0 \\\\
 \end{align}$$
 
 The last set bit can be extracted using $i ~\&~ (-i)$, so the operation can be expressed as:
+
 $$g(i) = i - (i ~\&~ (-i)).$$
 
 And it's not hard to see, that you need to change all values $T[j]$ in the sequence $i,~ h(i),~ h(h(i)),~ \dots$ when you want to update $A[j]$, where $h(i)$ is defined as:
+
 $$h(i) = i + (i ~\&~ (-i)).$$
 
 As you can see, the main benefit of this approach is that the binary operations complement each other very nicely.
 
 The following implementation can be used like the other implementations, however it uses one-based indexing internally.
 
-```cpp fenwick_sum_onebased
+```{.cpp file=fenwick_sum_onebased}
 struct FenwickTreeOneBasedIndexing {
     vector<int> bit;  // binary indexed tree
     int n;
@@ -365,6 +372,7 @@ def range_add(l, r, x):
     add(B2, r+1, -x*r))
 ```
 After the range update $(l, r, x)$ the range sum query should return the following values:
+
 $$
 sum[0, i]=
 \begin{cases}
@@ -376,6 +384,7 @@ $$
 
 We can write the range sum as difference of two terms, where we use $B_1$ for first term and $B_2$ for second term.
 The difference of the queries will give us prefix sum over $[0, i]$.
+
 $$\begin{align}
 sum[0, i] &= sum(B_1, i) \cdot i - sum(B_2, i) \\\\
 &= \begin{cases}
@@ -431,7 +440,7 @@ def range_sum(l, r):
 * [SRM 310 - FloatingMedian](https://community.topcoder.com/stat?c=problem_statement&pm=6551&rd=9990)
 * [SPOJ - Ada and Behives](http://www.spoj.com/problems/ADABEHIVE/)
 * [Hackerearth - Counting in Byteland](https://www.hackerearth.com/practice/data-structures/advanced-data-structures/fenwick-binary-indexed-trees/practice-problems/algorithm/counting-in-byteland/)
-* [DevSkills - Shan and String](https://devskill.com/CodingProblems/ViewProblem/300)
+* [DevSkill - Shan and String (archived)](http://web.archive.org/web/20210322010617/https://devskill.com/CodingProblems/ViewProblem/300)
 * [Codeforces - Little Artem and Time Machine](http://codeforces.com/contest/669/problem/E)
 * [Codeforces - Hanoi Factory](http://codeforces.com/contest/777/problem/E)
 * [SPOJ - Tulip and Numbers](http://www.spoj.com/problems/TULIPNUM/)
@@ -455,7 +464,7 @@ def range_sum(l, r):
 * [Codeforces - Thor](https://codeforces.com/problemset/problem/704/A)
 * [Latin American Regionals 2017 - Fundraising](http://matcomgrader.com/problem/9346/fundraising/)
 
-### Other sources
+## Other sources
 
 * [Fenwick tree on Wikipedia](http://en.wikipedia.org/wiki/Fenwick_tree)
 * [Binary indexed trees tutorial on TopCoder](https://www.topcoder.com/community/data-science/data-science-tutorials/binary-indexed-trees/)
