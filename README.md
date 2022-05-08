@@ -18,6 +18,11 @@ Compiled pages are published at https://cp-algorithms.com/
 
 - January 16, 2022: Switched to the [MkDocs](https://www.mkdocs.org/) site generator with the [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) theme, which give the website a more modern look, brings a couple of new features (dark mode, better search, ...), makes the website more stable (in terms of rendering math formulas), and makes it easier to contribute.
 
+### New articles
+
+- (7 May 2022) [Knuth's Optimization](https://cp-algorithms.com/dynamic_programming/knuth-optimization.html)
+- (31 March 2022) [Continued fractions](https://cp-algorithms.com/algebra/continued-fractions.html)
+
 Full list of updates: [Commit History](https://github.com/e-maxx-eng/e-maxx-eng/commits/master)
 
 ## Contributing
