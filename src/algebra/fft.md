@@ -656,3 +656,4 @@ If $x$ is the number of wildcards in $P$, then we will have a match of $P$ in $T
 - [Codeforces - Dasha and cyclic table](http://codeforces.com/contest/754/problem/E)
 - [CodeChef - Expected Number of Customers](https://www.codechef.com/COOK112A/problems/MMNN01)
 - [CodeChef - Power Sum](https://www.codechef.com/SEPT19A/problems/PSUM)
+- [Codeforces - Centroid Probabilities](https://codeforces.com/problemset/problem/1667/E)
