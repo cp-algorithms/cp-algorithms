@@ -55,8 +55,12 @@ Notice the half-plane $F$ makes $A$ and $E$ redundant in the intersection. So we
 
 With all of this in mind, we have almost everything we need to actually implement the algorithm, but we still need to talk about some special cases. At the beginning of the article we said we would add a bounding box to take care of the cases where the intersection could be unbounded, so the only tricky case we actually need to handle is parallel half-planes. We can have two sub-cases: two half-planes can be parallel with the same direction or with opposite direction. The reason this case needs to be handled separately is because we will need to compute intersection points of half-plane lines to be able to check if a half-plane is redundant or not, and two parallel lines have no intersection point, so we need a special way to deal with them.
 
-Notice that, because we're adding the bounding box to deal with the unbounded case, this also deals with the case where we have two adjacent parallel half-planes with opposite directions, since there will have to be at least one of the bounding-box half-planes in between these two (remember they are sorted by angle). Thus the only case we actually need to handle is having multiple half-planes with the same angle, and it turns out this is also very easy to handle: just keep the leftmost one and erase the rest, since the others will be completely redundant anyways.
+For the case of parallel half-planes of opposite orientation: Notice that, because we're adding the bounding box to deal with the unbounded case, this also deals with the case where we have two adjacent parallel half-planes with opposite directions after sorting, since there will have to be at least one of the bounding-box half-planes in between these two (remember they are sorted by angle). 
 
+ * However, it is possible that, after removing some half-planes from the back of the deque, two parallel half-planes of opposite direction end up together. This case only happens, specifically, when these two half-planes form an empty intersection, as this last half-plane will cause everything to be removed from the deque. To avoid this problem, we have to manually check for parallel half-planes, and if they have opposite direction, we just instantly stop the algorithm and return an empty intersection.
+
+
+Thus the only case we actually need to handle is having multiple half-planes with the same angle, and it turns out this case is fairly easy to handle: we only have keep the leftmost half-plane and erase the rest, since they will be completely redundant anyways.
 To sum up, the full algorithm will roughly look as follows:
 
 1. We begin by sorting the set of half-planes by angle, which takes $O(N \log N)$ time.
@@ -81,7 +85,7 @@ struct Point {
     long double x, y;
     explicit Point(long double x = 0, long double y = 0) : x(x), y(y) {}
 
-    // Addition, substraction, multiply by constant, cross product.
+    // Addition, substraction, multiply by constant, dot product, cross product.
 
     friend Point operator + (const Point& p, const Point& q) {
         return Point(p.x + q.x, p.y + q.y); 
@@ -94,6 +98,10 @@ struct Point {
     friend Point operator * (const Point& p, const long double& k) { 
         return Point(p.x * k, p.y * k); 
     } 
+    
+    friend long double dot(const Point& p, const Point& q) {
+    	return p.x * q.x + p.y * q.y;
+    }
 
     friend long double cross(const Point& p, const Point& q) { 
         return p.x * q.y - p.y * q.x; 
@@ -119,16 +127,9 @@ struct Halfplane {
     }
 
     // Comparator for sorting. 
-    // If the angle of both half-planes is equal, the leftmost one should go first.
     bool operator < (const Halfplane& e) const { 
-        if (fabsl(angle - e.angle) < eps) return cross(pq, e.p - p) < 0;
         return angle < e.angle;
     } 
-
-    // We use equal comparator for std::unique to easily remove parallel half-planes.
-    bool operator == (const Halfplane& e) const { 
-        return fabsl(angle - e.angle) < eps; 
-    }
 
     // Intersection point of the lines of two half-planes. It is assumed they're never parallel.
     friend Point inter(const Halfplane& s, const Halfplane& t) {
@@ -156,10 +157,8 @@ vector<Point> hp_intersect(vector<Halfplane>& H) {
         H.push_back(aux);
     }
 
-    // Sort and remove duplicates
+    // Sort by angle and start algorithm
     sort(H.begin(), H.end());
-    H.erase(unique(H.begin(), H.end()), H.end());
-
     deque<Halfplane> dq;
     int len = 0;
     for(int i = 0; i < int(H.size()); i++) {
@@ -175,7 +174,21 @@ vector<Point> hp_intersect(vector<Halfplane>& H) {
             dq.pop_front();
             --len;
         }
-
+        
+        // Special case check: Parallel half-planes
+        if (len > 0 && fabsl(cross(H[i].pq, dq[len-1].pq)) < eps) {
+        	// Opposite parallel half-planes that ended up checked against each other.
+        	if (dot(H[i].pq, dq[len-1].pq) < 0.0)
+        		return vector<Point>();
+        	
+        	// Same direction half-plane: keep only the leftmost half-plane.
+        	if (H[i].out(dq[len-1].p)) {
+        		dq.pop_back();
+        		--len;
+        	}
+        	else continue;
+        }
+        
         // Add new half-plane
         dq.push_back(H[i]);
         ++len;
@@ -259,6 +272,7 @@ It is worth mentioning that there also exists a fairly simple randomized algorit
 ### Harder problems
 
 * [POJ - Most Distant Point from the Sea - Medium](http://poj.org/problem?id=3525)
+* [Baekjoon - Jeju's Island - Same as above but seemingly stronger test cases](https://www.acmicpc.net/problem/3903)
 * [POJ - Feng Shui - Medium](http://poj.org/problem?id=3384)
 * [POJ - Triathlon - Medium/hard](http://poj.org/problem?id=1755)
 * [DMOJ - Arrow - Medium/hard](https://dmoj.ca/problem/ccoprep3p3)
