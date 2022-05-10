@@ -127,6 +127,27 @@ Therefore, we can raise this transformation matrix to the $n$-th power to find $
 
 **Solution:** Simply raise the permutation to $k$-th power using binary exponentiation, and then apply it to the sequence. This will give you a time complexity of $O(n \log k)$.
 
+```cpp
+vector<int> applyPermutation(vector<int> sequence, vector<int> permutation) {
+    vector<int> newSequence(sequence.size());
+    for(int i = 0; i < sequence.size(); i++) {
+        newSequence[permutation[i]] = sequence[i];
+    }
+    return newSequence;
+}
+
+vector<int> permute(vector<int> sequence, vector<int> permutation, long long b) {
+    while (b > 0) {
+        if (b & 1) {
+            sequence = applyPermutation(sequence, permutation);
+        }
+        permutation = applyPermutation(permutation, permutation);
+        b >>= 1;
+    }
+    return sequence;
+}
+```
+
 **Note:** This task can be solved more efficiently in linear time by building the permutation graph and considering each cycle independently. You could then compute $k$ modulo the size of the cycle and find the final position for each number which is part of this cycle.
 
 ### Fast application of a set of geometric operations to a set of points
