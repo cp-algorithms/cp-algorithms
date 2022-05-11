@@ -288,7 +288,7 @@ To do this, we compare the strings by power of twos (from highest to lowest powe
 int lcp(int i, int j) {
     int ans = 0;
     for (int k = log_n; k >= 0; k--) {
-        if (c[k][i] == c[k][j]) {
+        if (c[k][i % n] == c[k][j % n]) {
             ans += 1 << k;
             i += 1 << k;
             j += 1 << k;
