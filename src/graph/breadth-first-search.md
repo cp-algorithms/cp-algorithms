@@ -28,31 +28,60 @@ You can also calculate the lengths of the shortest paths (which just requires ma
 
 We write code for the described algorithm in C++.
 
-```cpp
-vector<vector<int>> adj;  // adjacency list representation
-int n; // number of nodes
-int s; // source vertex
+=== "C++"
+    ```cpp
+    vector<vector<int>> adj;  // adjacency list representation
+    int n; // number of nodes
+    int s; // source vertex
 
-queue<int> q;
-vector<bool> used(n);
-vector<int> d(n), p(n);
+    queue<int> q;
+    vector<bool> used(n);
+    vector<int> d(n), p(n);
 
-q.push(s);
-used[s] = true;
-p[s] = -1;
-while (!q.empty()) {
-    int v = q.front();
-    q.pop();
-    for (int u : adj[v]) {
-        if (!used[u]) {
-            used[u] = true;
-            q.push(u);
-            d[u] = d[v] + 1;
-            p[u] = v;
+    q.push(s);
+    used[s] = true;
+    p[s] = -1;
+    while (!q.empty()) {
+        int v = q.front();
+        q.pop();
+        for (int u : adj[v]) {
+            if (!used[u]) {
+                used[u] = true;
+                q.push(u);
+                d[u] = d[v] + 1;
+                p[u] = v;
+            }
         }
     }
-}
-```
+    ```
+=== "Java"
+    ```java
+    ArrayList<ArrayList<Integer>> adj = new ArrayList<>(); // adjacency list representation
+        
+    int n; // number of nodes
+    int s; // source vertex
+
+
+    LinkedList<Integer> q = new LinkedList<Integer>();
+    boolean used[] = new boolean[n];
+    int d[] = new int[n];
+    int p[] = new int[n];
+
+    q.push(s);
+    used[s] = true;
+    p[s] = -1;
+    while (!q.isEmpty()) {
+        int v = q.pop();
+        for (int u : adj.get(v)) {
+            if (!used[u]) {
+                used[u] = true;
+                q.push(u);
+                d[u] = d[v] + 1;
+                p[u] = v;
+            }
+        }
+    }
+    ```
 
 If we have to restore and display the shortest path from the source to some vertex $u$, it can be done in the following manner:
 
