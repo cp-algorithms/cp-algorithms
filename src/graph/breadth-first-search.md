@@ -26,50 +26,93 @@ You can also calculate the lengths of the shortest paths (which just requires ma
 
 ## Implementation
 
-We write code for the described algorithm in C++.
+We write code for the described algorithm in C++ and Java.
 
-```cpp
-vector<vector<int>> adj;  // adjacency list representation
-int n; // number of nodes
-int s; // source vertex
+=== "C++"
+    ```cpp
+    vector<vector<int>> adj;  // adjacency list representation
+    int n; // number of nodes
+    int s; // source vertex
 
-queue<int> q;
-vector<bool> used(n);
-vector<int> d(n), p(n);
+    queue<int> q;
+    vector<bool> used(n);
+    vector<int> d(n), p(n);
 
-q.push(s);
-used[s] = true;
-p[s] = -1;
-while (!q.empty()) {
-    int v = q.front();
-    q.pop();
-    for (int u : adj[v]) {
-        if (!used[u]) {
-            used[u] = true;
-            q.push(u);
-            d[u] = d[v] + 1;
-            p[u] = v;
+    q.push(s);
+    used[s] = true;
+    p[s] = -1;
+    while (!q.empty()) {
+        int v = q.front();
+        q.pop();
+        for (int u : adj[v]) {
+            if (!used[u]) {
+                used[u] = true;
+                q.push(u);
+                d[u] = d[v] + 1;
+                p[u] = v;
+            }
         }
     }
-}
-```
+    ```
+=== "Java"
+    ```java
+    ArrayList<ArrayList<Integer>> adj = new ArrayList<>(); // adjacency list representation
+        
+    int n; // number of nodes
+    int s; // source vertex
 
+
+    LinkedList<Integer> q = new LinkedList<Integer>();
+    boolean used[] = new boolean[n];
+    int d[] = new int[n];
+    int p[] = new int[n];
+
+    q.push(s);
+    used[s] = true;
+    p[s] = -1;
+    while (!q.isEmpty()) {
+        int v = q.pop();
+        for (int u : adj.get(v)) {
+            if (!used[u]) {
+                used[u] = true;
+                q.push(u);
+                d[u] = d[v] + 1;
+                p[u] = v;
+            }
+        }
+    }
+    ```
+    
 If we have to restore and display the shortest path from the source to some vertex $u$, it can be done in the following manner:
-
-```cpp
-if (!used[u]) {
-    cout << "No path!";
-} else {
-    vector<int> path;
-    for (int v = u; v != -1; v = p[v])
-        path.push_back(v);
-    reverse(path.begin(), path.end());
-    cout << "Path: ";
-    for (int v : path)
-        cout << v << " ";
-}
-```
-
+    
+=== "C++"
+    ```cpp
+    if (!used[u]) {
+        cout << "No path!";
+    } else {
+        vector<int> path;
+        for (int v = u; v != -1; v = p[v])
+            path.push_back(v);
+        reverse(path.begin(), path.end());
+        cout << "Path: ";
+        for (int v : path)
+            cout << v << " ";
+    }
+    ```
+=== "Java"
+    ```java
+    if (!used[u]) {
+        System.out.println("No path!");
+    } else {
+        ArrayList<Integer> path = new ArrayList<Integer>();
+        for (int v = u; v != -1; v = p[v])
+            path.add(v);
+        Collections.reverse(path);
+        for(int v : path)
+            System.out.println(v);
+    }
+    ```
+    
 ## Applications of BFS
 
 * Find the shortest path from a source to other vertices in an unweighted graph.
