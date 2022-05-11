@@ -120,7 +120,7 @@ $$
 2^{d-k} \equiv 0 \pmod{2^{d-2-v}},
 $$
 
-thus $v$ must be greater or equal to $k-2$. This is a bit ugly and to mitigate this we said in the beginning that we multiply $L(x)$ by $4$. Now if we know $4L(x)$, we can uniquely decomposing it into a sum of $4L(2^n+1)$ by consequentially checking bits in $4L(x)$. If the $n$-th bit is set to $1$, we will multiply the result with $2^n+1$ and reduce the current $4L(x)$ by $4L(2^n+1)$.
+thus $v$ must be greater or equal than $k-2$. This is a bit ugly and to mitigate this we said in the beginning that we multiply $L(x)$ by $4$. Now if we know $4L(x)$, we can uniquely decomposing it into a sum of $4L(2^n+1)$ by consequentially checking bits in $4L(x)$. If the $n$-th bit is set to $1$, we will multiply the result with $2^n+1$ and reduce the current $4L(x)$ by $4L(2^n+1)$.
 
 Thus, `mbin_exp_32` is implemented as follows:
 
