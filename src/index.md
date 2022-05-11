@@ -15,6 +15,7 @@ and adding new articles to the collection.*
 
 ## New articles
 
+- (12 May 2022) [Factoring Exponentiation](algebra/factoring-exp.md)
 - (7 May 2022) [Knuth's Optimization](dynamic_programming/knuth-optimization.md)
 - (31 March 2022) [Continued fractions](algebra/continued-fractions.md)
 
