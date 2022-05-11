@@ -38,7 +38,7 @@ uint32_t mbin_power_odd_32(uint32_t rem, uint32_t base, uint32_t exp) {
 }
 ```
 
-## Computing $4L(x)$ from $x$
+## Computing 4L(x) from x
 
 Let $x$ be an odd number such that $x \equiv 1 \pmod 4$. It can be represented as 
 
@@ -96,7 +96,7 @@ uint32_t mbin_log_32(uint32_t r, uint32_t x) {
 
 Note that $4L(x) = -4L(x^{-1})$, so instead of adding $4L(2^k+1)$, we subtract it from $r$, which initially equates to $0$.
 
-## Computing $x$ from $4L(x)$
+## Computing x from 4L(x)
 
 Note that for $k \geq 1$ it holds that
 
