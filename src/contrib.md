@@ -19,7 +19,7 @@ In order to make contribution consider the following steps:
 In case you want to make some bigger changes, like adding a new article, or edit multiple files, you should fork the project in the traditional way, create a branch, modify the files in the Github UI or locally on your computer, and create a pull-request.
 If you are unfamiliar with the workflow, read [Step-by-step guide to contributing on GitHub](https://www.dataschool.io/how-to-contribute-on-github/).
 
-In case you are adding a new article, make sure to link to the article from the main (index.md) page.
+In case you are adding a new article, make sure to link to the article from the main ([index.md](https://github.com/e-maxx-eng/e-maxx-eng/blob/master/src/index.md)) page and in [README.md](https://github.com/e-maxx-eng/e-maxx-eng/blob/master/README.md) to announce it.
 
 ## Syntax
 
