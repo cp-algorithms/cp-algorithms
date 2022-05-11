@@ -20,6 +20,7 @@ Compiled pages are published at https://cp-algorithms.com/
 
 ### New articles
 
+- (12 May 2022) [Factoring Exponentiation](https://cp-algorithms.com/algebra/factoring-exp.html)
 - (7 May 2022) [Knuth's Optimization](https://cp-algorithms.com/dynamic_programming/knuth-optimization.html)
 - (31 March 2022) [Continued fractions](https://cp-algorithms.com/algebra/continued-fractions.html)
 
