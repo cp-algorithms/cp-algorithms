@@ -54,7 +54,7 @@ $$
 4L(x) \equiv 4L(2^{a_1}+1)+\dots+4L(2^{a_k}+1) \pmod{2^{d}}.
 $$
 
-So, if we precompute $t_k = 4L(2^k+1)$ for all $1 < k < d$, we will be able to compute $4L(x)$ for any number $x$.
+So, if we precompute $t_k = 4L(2^n+1)$ for all $1 < k < d$, we will be able to compute $4L(x)$ for any number $x$.
 
 For 32-bit integers, we can use the following table:
 
@@ -71,7 +71,7 @@ const uint32_t mbin_log_32_table[32] = {
 };
 ```
 
-On practice, a slightly different approach is used than described above. Rather than finding the factorization for $x$, we will consequently multiply $x$ with $2^k+1$ until we turn it into $1$ modulo $2^d$. In this way, we will find the representation of $x^{-1}$, that is
+On practice, a slightly different approach is used than described above. Rather than finding the factorization for $x$, we will consequently multiply $x$ with $2^n+1$ until we turn it into $1$ modulo $2^d$. In this way, we will find the representation of $x^{-1}$, that is
 
 $$
 x (2^{a_1}+1)\dots(2^{a_k}+1) \equiv 1 \pmod {2^d}.
@@ -96,7 +96,7 @@ uint32_t mbin_log_32(uint32_t r, uint32_t x) {
 }
 ```
 
-Note that $4L(x) = -4L(x^{-1})$, so instead of adding $4L(2^k+1)$, we subtract it from $r$, which initially equates to $0$.
+Note that $4L(x) = -4L(x^{-1})$, so instead of adding $4L(2^n+1)$, we subtract it from $r$, which initially equates to $0$.
 
 ## Computing x from 4L(x)
 
@@ -112,15 +112,17 @@ $$
 (2^a+1)^{2^b} \equiv 1 \pmod{2^{a+b}}.
 $$
 
-Applying this result to $a=2^k+1$ and $b=d-k$ we deduce that the multiplicative order of $2^k+1$ is a divisor of $2^{d-k}$.
+Applying this result to $a=2^n+1$ and $b=d-k$ we deduce that the multiplicative order of $2^n+1$ is a divisor of $2^{d-n}$.
 
-This, in turn, means that $L(2^k+1)$ must be divisible by $2^{k}$, as the order of $b$ is $2^{d-2}$ and the order of $b^y$ is $2^{d-2-v}$, where $2^v$ is the highest power of $2$ that divides $y$, so we need
+This, in turn, means that $L(2^n+1)$ must be divisible by $2^{n}$, as the order of $b$ is $2^{d-2}$ and the order of $b^y$ is $2^{d-2-v}$, where $2^v$ is the highest power of $2$ that divides $y$, so we need
 
 $$
 2^{d-k} \equiv 0 \pmod{2^{d-2-v}},
 $$
 
-thus $v$ must be greater or equal to $k-2$. This is a bit ugly and to mitigate this we said in the beginning that we multiply $L(x)$ by $4$. Now if we know $4L(x)$, we can uniquely decomposing it into a sum of $4L(2^k+1)$ by consequentially checking bits in $4L(x)$. If the $n$-th bit is set to $1$, we will multiply the result with $2^k+1$ and reduce the current $4L(x)$ by $4L(2^k+1)$. Thus, `mbin_exp_32` is implemented as follows:
+thus $v$ must be greater or equal to $k-2$. This is a bit ugly and to mitigate this we said in the beginning that we multiply $L(x)$ by $4$. Now if we know $4L(x)$, we can uniquely decomposing it into a sum of $4L(2^n+1)$ by consequentially checking bits in $4L(x)$. If the $n$-th bit is set to $1$, we will multiply the result with $2^n+1$ and reduce the current $4L(x)$ by $4L(2^n+1)$.
+
+Thus, `mbin_exp_32` is implemented as follows:
 
 ```cpp
 uint32_t mbin_exp_32(uint32_t r, uint32_t x) {
@@ -142,10 +144,10 @@ uint32_t mbin_exp_32(uint32_t r, uint32_t x) {
 It is possible to halve the number of iterations if you note that $4L(2^{d-1}+1)=2^{d-1}$ and that for $2k \geq d$ it holds that
 
 $$
-(2^k+1)^2 \equiv 2^{2k} + 2^{k+1}+1 \equiv 2^{k+1}+1 \pmod{2^d},
+(2^n+1)^2 \equiv 2^{2n} + 2^{n+1}+1 \equiv 2^{n+1}+1 \pmod{2^d},
 $$
 
-which allows to deduce that $4L(2^k+1)=2^k$ for $2k \geq d$. So, you could simplify the algorithm by only going up to $\frac{d}{2}$ and then use the fact above to compute the remaining part with bitwise operations:
+which allows to deduce that $4L(2^n+1)=2^n$ for $2n \geq d$. So, you could simplify the algorithm by only going up to $\frac{d}{2}$ and then use the fact above to compute the remaining part with bitwise operations:
 
 ```cpp
 uint32_t mbin_log_32(uint32_t r, uint32_t x) {
