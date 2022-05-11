@@ -2,6 +2,8 @@
 
 Consider a problem of computing $ax^y \pmod{2^d}$, given integers $a$, $x$, $y$ and $d \geq 3$, where $x$ is odd.
 
+The algorithm below allows to solve this problem with $O(d)$ additions and binary operations and a single multiplication by $y$.
+
 Due to the structure of the multiplicative group modulo $2^d$, any number $x$ such that $x \equiv 1 \pmod 4$ can be represented as
 
 $$
