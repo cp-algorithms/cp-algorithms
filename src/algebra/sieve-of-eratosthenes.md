@@ -22,23 +22,37 @@ Hence if we reach a cell and it is not marked, then it isn't divisible by any sm
 
 ## Implementation
 
-```cpp
-int n;
-vector<bool> is_prime(n+1, true);
-is_prime[0] = is_prime[1] = false;
-for (int i = 2; i <= n; i++) {
-    if (is_prime[i] && (long long)i * i <= n) {
-        for (int j = i * i; j <= n; j += i)
-            is_prime[j] = false;
+=== C++
+    ```cpp
+    int n;
+    vector<bool> is_prime(n+1, true);
+    is_prime[0] = is_prime[1] = false;
+    for (int i = 2; i <= n; i++) {
+        if (is_prime[i] && (long long)i * i <= n) {
+            for (int j = i * i; j <= n; j += i)
+                is_prime[j] = false;
+        }
     }
-}
-```
+    ```
+=== Java
+    ```java
+    int n;
+    boolean[] isPrime = boolean[n+1];
+    for (int i = 0; i <= n; i++) isPrime[i] = true; 
+    
+    for (int i = 2; i <= n; i++) {
+        if (isPrime[i] && (long) i * i <= n) {
+            for (int j = i * i; j <= n; j += i)
+                isPrime[j] = false;
+        }
+    }
+    ```
 
 This code first marks all numbers except zero and one as potential prime numbers, then it begins the process of sifting composite numbers.
 For this it iterates over all numbers from $2$ to $n$.
 If the current number $i$ is a prime number, it marks all numbers that are multiples of $i$ as composite numbers, starting from $i^2$.
 This is already an optimization over naive way of implementing it, and is allowed as all smaller numbers that are multiples of $i$ necessary also have a prime factor which is less than $i$, so all of them were already sifted earlier.
-Since $i^2$ can easily overflow the type `int`, the additional verification is done using type `long long` before the second nested loop.
+Since $i^2$ can easily overflow the type `int`, the additional verification is done using type `long long` (C++) or `long` (Java) before the second nested loop.
 
 Using such implementation the algorithm consumes $O(n)$ of the memory (obviously) and performs $O(n \log \log n)$ (see next section).
 
@@ -89,17 +103,31 @@ The methods presented below allow us to reduce the quantity of the performed ope
 
 Obviously, to find all the prime numbers until $n$, it will be enough just to perform the sifting only by the prime numbers, which do not exceed the root of $n$.
 
-```cpp
-int n;
-vector<bool> is_prime(n+1, true);
-is_prime[0] = is_prime[1] = false;
-for (int i = 2; i * i <= n; i++) {
-    if (is_prime[i]) {
-        for (int j = i * i; j <= n; j += i)
-            is_prime[j] = false;
+=== C++
+    ```cpp
+    int n;
+    vector<bool> is_prime(n+1, true);
+    is_prime[0] = is_prime[1] = false;
+    for (int i = 2; i * i <= n; i++) {
+        if (is_prime[i]) {
+            for (int j = i * i; j <= n; j += i)
+                is_prime[j] = false;
+        }
     }
-}
-```
+    ```
+=== Java
+    ```java
+    int n;
+    boolean[] isPrime = new boolean[n+1];
+    for (int i = 2; i <= n; i++) isPrime[i] = true; 
+    
+    for (int i = 2; (long) i * i <= n; i++) {
+        if (isPrime[i]) {
+            for (int j = i * i; j <= n; j += i)
+                isPrime[j] = false;
+        }
+    }
+    ```
 
 Such optimization doesn't affect the complexity (indeed, by repeating the proof presented above we'll get the evaluation $n \ln \ln \sqrt n + o(n)$, which is asymptotically the same according to the properties of logarithms), though the number of operations will reduce noticeably.
 
@@ -108,6 +136,10 @@ Such optimization doesn't affect the complexity (indeed, by repeating the proof 
 Since all even numbers (except $2$) are composite, we can stop checking even numbers at all. Instead, we need to operate with odd numbers only.
 
 First, it will allow us to half the needed memory. Second, it will reduce the number of operations performing by algorithm approximately in half.
+
+
+??? note "C++ only"
+    For the following portion of the article, the information only applies to C++ and its use of `vector<int>`
 
 ### Memory consumption and speed of operations
 
@@ -128,6 +160,9 @@ The same considerations also apply to `bitset`.
 It's also an efficient way of storing bits, similar to `vector<bool>`, so it takes only $\frac{N}{8}$ bytes of memory, but is a bit slower in accessing the elements.
 In the benchmark above `bitset` performs a bit worse than `vector<bool>`.
 Another drawback from `bitset` is that you need to know the size at compile time.
+
+??? note "C++ only"
+    For the following portion of the article, the information only applies to C++ and its use of `vector<int>` and `vector<char>`
 
 ### Segmented Sieve
 
@@ -196,45 +231,86 @@ Sometimes we need to find all prime numbers in a range $[L,R]$ of small size (e.
 To solve such a problem, we can use the idea of the Segmented sieve.
 We pre-generate all prime numbers up to $\sqrt R$, and use those primes to mark all composite numbers in the segment $[L, R]$.
 
-```cpp
-vector<char> segmentedSieve(long long L, long long R) {
-    // generate all primes up to sqrt(R)
-    long long lim = sqrt(R);
-    vector<char> mark(lim + 1, false);
-    vector<long long> primes;
-    for (long long i = 2; i <= lim; ++i) {
-        if (!mark[i]) {
-            primes.emplace_back(i);
-            for (long long j = i * i; j <= lim; j += i)
-                mark[j] = true;
+=== C++
+    ```cpp
+    vector<char> segmentedSieve(long long L, long long R) {
+        // generate all primes up to sqrt(R)
+        long long lim = sqrt(R);
+        vector<char> mark(lim + 1, false);
+        vector<long long> primes;
+        for (long long i = 2; i <= lim; ++i) {
+            if (!mark[i]) {
+                primes.emplace_back(i);
+                for (long long j = i * i; j <= lim; j += i)
+                    mark[j] = true;
+            }
         }
-    }
 
-    vector<char> isPrime(R - L + 1, true);
-    for (long long i : primes)
-        for (long long j = max(i * i, (L + i - 1) / i * i); j <= R; j += i)
-            isPrime[j - L] = false;
-    if (L == 1)
-        isPrime[0] = false;
-    return isPrime;
-}
-```
+        vector<char> isPrime(R - L + 1, true);
+        for (long long i : primes)
+            for (long long j = max(i * i, (L + i - 1) / i * i); j <= R; j += i)
+                isPrime[j - L] = false;
+        if (L == 1)
+            isPrime[0] = false;
+        return isPrime;
+    }
+    ```
+=== Java
+    ```java
+    boolean[] segmentedSieve(long L, long R) {
+        long lim = (long) Math.sqrt(R);
+        boolean[] mark = new boolean[lim + 1];
+        ArrayList<Long> primes = new ArrayList<>();
+        for (long i = 2; i <= lim; ++i) {
+            if (!mark[i]) {
+                primes.add(i);
+                for (long long j = i * i; j <= lim; j += i)
+                    mark[j] = true;
+            }
+        }
+
+        vector<char> isPrime(R - L + 1, true);
+        boolean[] isPrime = new boolean[R - L + 1];
+        for (long i: primes)
+            for (long j = Math.max(i * i, (L + i - 1) / i * i); j <= R; j += i)
+                isPrime[j - L] = false;
+        if (L == 1)
+            isPrime[0] = false;
+        return isPrime;
+    }
+    ```
 Time complexity of this approach is $O((R - L + 1) \log \log (R) + \sqrt R \log \log \sqrt R)$.
 
 It's also possible that we don't pre-generate all prime numbers:
 
-```cpp
-vector<char> segmentedSieveNoPreGen(long long L, long long R) {
-    vector<char> isPrime(R - L + 1, true);
-    long long lim = sqrt(R);
-    for (long long i = 2; i <= lim; ++i)
-        for (long long j = max(i * i, (L + i - 1) / i * i); j <= R; j += i)
-            isPrime[j - L] = false;
-    if (L == 1)
-        isPrime[0] = false;
-    return isPrime;
-}
-```
+=== C++
+    ```cpp
+    vector<char> segmentedSieveNoPreGen(long long L, long long R) {
+        vector<char> isPrime(R - L + 1, true);
+        long long lim = sqrt(R);
+        for (long long i = 2; i <= lim; ++i)
+            for (long long j = max(i * i, (L + i - 1) / i * i); j <= R; j += i)
+                isPrime[j - L] = false;
+        if (L == 1)
+            isPrime[0] = false;
+        return isPrime;
+    }
+    ```
+=== Java
+    ```java
+    boolean[] segmentedSieveNoPreGen(long L, long R) {
+        boolean[] isPrime = new boolean[R - L + 1];
+        for(int i = 0; i <= R - L; i++) isPrime[i] = true;
+                            
+        long lim = (long) Math.sqrt(R);
+        for (long i = 2; i <= lim; ++i)
+            for (long long j = Math.max(i * i, (L + i - 1) / i * i); j <= R; j += i)
+                isPrime[j - L] = false;
+        if (L == 1)
+            isPrime[0] = false;
+        return isPrime;
+    }
+    ```
 
 Obviously, the complexity is worse, which is $O((R - L + 1) \log (R) + \sqrt R)$. However, it still runs very fast in practice.
 
