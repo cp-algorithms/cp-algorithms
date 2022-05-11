@@ -26,7 +26,7 @@ You can also calculate the lengths of the shortest paths (which just requires ma
 
 ## Implementation
 
-We write code for the described algorithm in C++.
+We write code for the described algorithm in C++ and Java.
 
 === "C++"
     ```cpp
@@ -82,23 +82,37 @@ We write code for the described algorithm in C++.
         }
     }
     ```
-
+    
 If we have to restore and display the shortest path from the source to some vertex $u$, it can be done in the following manner:
-
-```cpp
-if (!used[u]) {
-    cout << "No path!";
-} else {
-    vector<int> path;
-    for (int v = u; v != -1; v = p[v])
-        path.push_back(v);
-    reverse(path.begin(), path.end());
-    cout << "Path: ";
-    for (int v : path)
-        cout << v << " ";
-}
-```
-
+    
+=== "C++"
+    ```cpp
+    if (!used[u]) {
+        cout << "No path!";
+    } else {
+        vector<int> path;
+        for (int v = u; v != -1; v = p[v])
+            path.push_back(v);
+        reverse(path.begin(), path.end());
+        cout << "Path: ";
+        for (int v : path)
+            cout << v << " ";
+    }
+    ```
+=== "Java"
+    ```java
+    if (!used[u]) {
+        System.out.println("No path!");
+    } else {
+        ArrayList<Integer> path = new ArrayList<Integer>();
+        for (int v = u; v != -1; v = p[v])
+            path.add(v);
+        Collections.reverse(path);
+        for(int v : path)
+            System.out.println(v);
+    }
+    ```
+    
 ## Applications of BFS
 
 * Find the shortest path from a source to other vertices in an unweighted graph.
