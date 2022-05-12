@@ -1,5 +1,21 @@
 {% extends "base.html" %}
 
+<!-- moving navigation to the right, assuming toc.integrate is on -->
+{% block site_nav %}
+{% if nav %}
+  {% if page and page.meta and page.meta.hide %}
+    {% set hidden = "hidden" if "navigation" in page.meta.hide %}
+  {% endif %}
+  <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" {{ hidden }}>
+    <div class="md-sidebar__scrollwrap">
+      <div class="md-sidebar__inner">
+        {% include "partials/nav.html" %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% endblock %}
+
 {% block footer %}
 {% import "partials/language.html" as lang with context %}
 <footer class="md-footer">
