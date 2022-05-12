@@ -17,6 +17,13 @@ theme:
         name: Switch to light mode
   logo: favicon.ico
   favicon: favicon.ico
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - navigation.instant
+    - navigation.tracking
+    #- navigation.tabs
+    #- navigation.sections
 repo_url: https://github.com/e-maxx-eng/e-maxx-eng
 edit_uri: edit/master/src/
 copyright: Text is available under the <a href="https://github.com/e-maxx-eng/e-maxx-eng/blob/master/LICENSE">Creative Commons Attribution Share Alike 4.0 International</a> License<br/>Copyright &copy; 2014 - 2022 by https://github.com/e-maxx-eng
