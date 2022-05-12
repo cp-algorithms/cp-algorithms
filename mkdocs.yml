@@ -20,7 +20,7 @@ theme:
   icon:
     repo: fontawesome/brands/github
   features:
-    - navigation.instant
+    #- navigation.instant
     - navigation.tracking
     #- navigation.tabs
     #- navigation.sections
