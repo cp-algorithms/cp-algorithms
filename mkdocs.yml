@@ -20,10 +20,8 @@ theme:
   icon:
     repo: fontawesome/brands/github
   features:
-    #- navigation.instant
     - navigation.tracking
-    #- navigation.tabs
-    #- navigation.sections
+    - navigation.tabs
 repo_url: https://github.com/e-maxx-eng/e-maxx-eng
 edit_uri: edit/master/src/
 copyright: Text is available under the <a href="https://github.com/e-maxx-eng/e-maxx-eng/blob/master/LICENSE">Creative Commons Attribution Share Alike 4.0 International</a> License<br/>Copyright &copy; 2014 - 2022 by https://github.com/e-maxx-eng
@@ -51,3 +49,207 @@ extra:
   analytics:
     provider: google
     property: UA-85220282-1
+nav:
+  - 'Home':
+    - 'index.md'
+    - 'contrib.md'
+    - 'preview.md'
+  - 'Algebra':
+    - 'Fundamentals':
+      - 'algebra/binary-exp.md'
+      - 'algebra/factoring-exp.md'
+      - 'algebra/euclid-algorithm.md'
+      - 'algebra/extended-euclid-algorithm.md'
+      - 'algebra/linear-diophantine-equation.md'
+      - 'algebra/fibonacci-numbers.md'
+    - 'Prime numbers':
+      - 'algebra/sieve-of-eratosthenes.md'
+      - 'algebra/prime-sieve-linear.md'
+      - 'algebra/primality_tests.md'
+      - 'algebra/factorization.md'
+    - 'Number-theoretic functions':
+      - 'algebra/phi-function.md'
+      - 'algebra/divisors.md'
+    - 'Modular arithmetic':
+      - 'algebra/module-inverse.md'
+      - 'algebra/linear_congruence_equation.md'
+      - 'algebra/chinese-remainder-theorem.md'
+      - 'algebra/factorial-modulo.md'
+      - 'algebra/discrete-log.md'
+      - 'algebra/primitive-root.md'
+      - 'algebra/discrete-root.md'
+      - 'algebra/montgomery_multiplication.md'
+    - 'Number systems':
+      - 'algebra/balanced-ternary.md'
+      - 'algebra/gray-code.md'
+    - 'Miscellaneous':
+      - 'algebra/all-submasks.md'
+      - 'algebra/big-integer.md'
+      - 'algebra/fft.md'
+      - 'algebra/polynomial.md'
+      - 'algebra/continued-fractions.md'
+  - 'Data Structures':
+    - 'Fundamentals':
+      - 'data_structures/stack_queue_modification.md'
+      - 'data_structures/sparse-table.md'
+    - 'Trees':
+      - 'data_structures/disjoint_set_union.md'
+      - 'data_structures/fenwick.md'
+      - 'data_structures/sqrt_decomposition.md'
+      - 'data_structures/segment_tree.md'
+      - 'data_structures/treap.md'
+      - 'data_structures/sqrt-tree.md'
+      - 'data_structures/randomized_heap.md'
+    - 'Advanced':
+      - 'data_structures/deleting_in_log_n.md'
+  - 'Dynamic Programming':
+    - 'DP optimizations':
+      - 'dynamic_programming/divide-and-conquer-dp.md'
+      - 'dynamic_programming/knuth-optimization.md'
+    - 'Tasks':
+      - 'dynamic_programming/profile-dynamics.md'
+      - 'dynamic_programming/zero_matrix.md'
+  - 'String Processing':
+    - 'Fundamentals':
+        - 'string/string-hashing.md'
+        - 'string/rabin-karp.md'
+        - 'string/prefix-function.md'
+        - 'string/z-function.md'
+        - 'string/suffix-array.md'
+        - 'string/aho_corasick.md'
+    - 'Advanced':
+        - 'string/suffix-tree-ukkonen.md'
+        - 'string/suffix-automaton.md'
+        - 'string/lyndon_factorization.md'
+    - 'Tasks':
+        - 'string/expression_parsing.md'
+        - 'string/manacher.md'
+        - 'string/main_lorentz.md'
+
+  - 'Linear Algebra':
+    - 'Matrices':
+        - 'linear_algebra/linear-system-gauss.md'
+        - 'linear_algebra/determinant-gauss.md'
+        - 'linear_algebra/determinant-kraut.md'
+        - 'linear_algebra/rank-matrix.md'
+  - 'Combinatorics':
+    - 'Fundamentals':
+        - 'algebra/factorial-divisors.md'
+        - 'combinatorics/binomial-coefficients.md'
+        - 'combinatorics/catalan-numbers.md'
+    - 'Techniques':
+        - 'combinatorics/inclusion-exclusion.md'
+        - 'combinatorics/burnside.md'
+        - 'combinatorics/stars_and_bars.md'
+        - 'combinatorics/generating_combinations.md'
+    - 'Tasks':
+        - 'combinatorics/bishops-on-chessboard.md'
+        - 'combinatorics/bracket_sequences.md'
+        - 'combinatorics/counting_labeled_graphs.md'
+  - 'Numerical Methods':
+    - 'Search':
+        - 'num_methods/ternary_search.md'
+        - 'num_methods/roots_newton.md'
+    - 'Integration':
+        - 'num_methods/simpson-integration.md'
+  - 'Geometry':
+    - 'Elementary operations':
+        - 'geometry/basic-geometry.md'
+        - 'geometry/segment-to-line.md'
+        - 'geometry/lines-intersection.md'
+        - 'geometry/check-segments-intersection.md'
+        - 'geometry/segments-intersection.md'
+        - 'geometry/circle-line-intersection.md'
+        - 'geometry/circle-circle-intersection.md'
+        - 'geometry/tangents-to-two-circles.md'
+        - 'geometry/length-of-segments-union.md'
+    - 'Polygons':
+        - 'geometry/oriented-triangle-area.md'
+        - 'geometry/area-of-simple-polygon.md'
+        - 'geometry/point-in-convex-polygon.md'
+        - 'geometry/minkowski.md'
+        - 'geometry/picks-theorem.md'
+        - 'geometry/lattice-points.md'
+    - 'Convex hull':
+        - 'geometry/convex-hull.md'
+        - 'geometry/convex_hull_trick.md'
+    - 'Sweep-line':
+        - 'geometry/intersecting_segments.md'
+        - 'geometry/point-location.md'
+    - 'Miscellaneous':
+        - 'geometry/nearest_points.md'
+        - 'geometry/delaunay.md'
+        - 'geometry/vertical_decomposition.md'
+        - 'geometry/halfplane-intersection.md'
+  - 'Graphs':
+    - 'Graph traversal':
+      - 'graph/breadth-first-search.md'
+      - 'graph/depth-first-search.md'
+    - 'Connected components, bridges, articulations points':
+      - 'graph/search-for-connected-components.md'
+      - 'graph/bridge-searching.md'
+      - 'graph/bridge-searching-online.md'
+      - 'graph/cutpoints.md'
+      - 'graph/strongly-connected-components.md'
+      - 'graph/strong-orientation.md'
+    - 'Single-source shortest paths':
+      - 'graph/dijkstra.md'
+      - 'graph/dijkstra_sparse.md'
+      - 'graph/bellman_ford.md'
+      - 'graph/01_bfs.md'
+      - 'graph/desopo_pape.md'
+    - 'All-pairs shortest paths':
+      - 'graph/all-pair-shortest-path-floyd-warshall.md'
+      - 'graph/fixed_length_paths.md'
+    - 'Spanning trees':
+      - 'graph/mst_prim.md'
+      - 'graph/mst_kruskal.md'
+      - 'graph/mst_kruskal_with_dsu.md'
+      - 'graph/second_best_mst.md'
+      - 'graph/kirchhoff-theorem.md'
+      - 'graph/pruefer_code.md'
+    - 'Cycles':
+      - 'graph/finding-cycle.md'
+      - 'graph/finding-negative-cycle-in-graph.md'
+      - 'graph/euler_path.md'
+    - 'Lowest common ancestor':
+      - 'graph/lca.md'
+      - 'graph/lca_binary_lifting.md'
+      - 'graph/lca_farachcoltonbender.md'
+      - 'graph/rmq_linear.md'
+      - 'graph/lca_tarjan.md'
+    - 'Flows and related problems':
+      - 'graph/edmonds_karp.md'
+      - 'graph/push-relabel.md'
+      - 'graph/push-relabel-faster.md'
+      - 'graph/dinic.md'
+      - 'graph/mpm.md'
+      - 'graph/flow_with_demands.md'
+      - 'graph/min_cost_flow.md'
+      - 'graph/Assignment-problem-min-flow.md'
+    - 'Matchings and related problems':
+      - 'graph/bipartite-check.md'
+      - 'graph/kuhn_maximum_bipartite_matching.md'
+    - 'Miscellaneous':
+      - 'graph/topological-sort.md'
+      - 'graph/edge_vertex_connectivity.md'
+      - 'graph/tree_painting.md'
+      - 'graph/2SAT.md'
+      - 'graph/hld.md'
+  - 'Miscellaneous':
+    - 'Sequences':
+      - 'sequences/rmq.md'
+      - 'sequences/longest_increasing_subsequence.md'
+      - 'others/maximum_average_segment.md'
+      - 'sequences/k-th.md'
+    - 'Game Theory':
+      - 'game_theory/games_on_graphs.md'
+      - 'game_theory/sprague-grundy-nim.md'
+    - 'Schedules':
+      - 'schedules/schedule_one_machine.md'
+      - 'schedules/schedule_two_machines.md'
+      - 'schedules/schedule-with-completion-duration.md'
+    - 'Miscellaneous':
+      - 'others/josephus_problem.md'
+      - 'others/15-puzzle.md'
+      - 'others/stern_brocot_tree_farey_sequences.md'
