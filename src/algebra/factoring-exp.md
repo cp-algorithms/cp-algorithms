@@ -181,4 +181,32 @@ uint32_t mbin_exp_32(uint32_t r, uint32_t x) {
 }
 ```
 
+## Computing logarithm table
+
+To compute log-table, one could modify the [Pohlig–Hellman algorithm](https://en.wikipedia.org/wiki/Pohlig–Hellman_algorithm) for the case when modulo is a power of $2$.
+
+Our main task here is to compute $x$ such that $g^x \equiv y \pmod{2^d}$, where $g=5$ and $y$ is a number of kind $2^n+1$. 
+
+Squaring both parts $k$ times we arrive to
+
+$$
+g^{2^k x} \equiv y^{2^k} \pmod{2^d}.
+$$
+
+Note that the order of $g$ is not greater than $2^{d}$ (in fact, than $2^{d-2}$, but we will stick to $2^d$ for convenience), hence using $k=d-1$ we will have either $g^1$ or $g^0$ on the left hand side which allows us to determine the smallest bit of $x$ by comparing $y^{2^k}$ to $g$. Now assume that $x=x_0 + 2^k x_1$, where $x_0$ is a known part and $x_1$ is not yet known. Then
+
+$$
+g^{x_0+2^k x_1} \equiv y \pmod{2^d}.
+$$
+
+Multiplying both parts with $g^{-x_0}$, we get
+
+$$
+g^{2^k x_1} \equiv (g^{-x_0} y) \pmod{2^d}.
+$$
+
+Now, squaring both sides $d-k-1$ times we can obtain the next bit of $x$, eventually recovering all its bits.
+
+## References
+
 * [M30, Hans Petter Selasky, 2009](https://ia601602.us.archive.org/29/items/B-001-001-251/B-001-001-251.pdf#page=640)
