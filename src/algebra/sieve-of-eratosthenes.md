@@ -22,7 +22,7 @@ Hence if we reach a cell and it is not marked, then it isn't divisible by any sm
 
 ## Implementation
 
-=== C++
+=== "C++"
     ```cpp
     int n;
     vector<bool> is_prime(n+1, true);
@@ -34,7 +34,8 @@ Hence if we reach a cell and it is not marked, then it isn't divisible by any sm
         }
     }
     ```
-=== Java
+    This code first marks all numbers except zero and one as potential prime numbers, then it begins the process of sifting composite numbers. For this it iterates over all numbers from $2$ to $n$. If the current number $i$ is a prime number, it marks all numbers that are multiples of $i$ as composite numbers, starting from $i^2$. This is already an optimization over naive way of implementing it, and is allowed as all smaller numbers that are multiples of $i$ necessary also have a prime factor which is less than $i$, so all of them were already sifted earlier. Since $i^2$ can easily overflow the type `int`, the additional verification is done using type `long long` before the second nested loop.
+=== "Java"
     ```java
     int n;
     boolean[] isPrime = boolean[n+1];
@@ -47,13 +48,8 @@ Hence if we reach a cell and it is not marked, then it isn't divisible by any sm
         }
     }
     ```
-
-This code first marks all numbers except zero and one as potential prime numbers, then it begins the process of sifting composite numbers.
-For this it iterates over all numbers from $2$ to $n$.
-If the current number $i$ is a prime number, it marks all numbers that are multiples of $i$ as composite numbers, starting from $i^2$.
-This is already an optimization over naive way of implementing it, and is allowed as all smaller numbers that are multiples of $i$ necessary also have a prime factor which is less than $i$, so all of them were already sifted earlier.
-Since $i^2$ can easily overflow the type `int`, the additional verification is done using type `long long` (C++) or `long` (Java) before the second nested loop.
-
+    This code first marks all numbers except zero and one as potential prime numbers, then it begins the process of sifting composite numbers. For this it iterates over all numbers from $2$ to $n$. If the current number $i$ is a prime number, it marks all numbers that are multiples of $i$ as composite numbers, starting from $i^2$. This is already an optimization over naive way of implementing it, and is allowed as all smaller numbers that are multiples of $i$ necessary also have a prime factor which is less than $i$, so all of them were already sifted earlier. Since $i^2$ can easily overflow the type `int`, the additional verification is done using type `long` before the second nested loop.
+    
 Using such implementation the algorithm consumes $O(n)$ of the memory (obviously) and performs $O(n \log \log n)$ (see next section).
 
 ## Asymptotic analysis
@@ -103,7 +99,7 @@ The methods presented below allow us to reduce the quantity of the performed ope
 
 Obviously, to find all the prime numbers until $n$, it will be enough just to perform the sifting only by the prime numbers, which do not exceed the root of $n$.
 
-=== C++
+=== "C++"
     ```cpp
     int n;
     vector<bool> is_prime(n+1, true);
@@ -115,7 +111,7 @@ Obviously, to find all the prime numbers until $n$, it will be enough just to pe
         }
     }
     ```
-=== Java
+=== "Java"
     ```java
     int n;
     boolean[] isPrime = new boolean[n+1];
@@ -137,88 +133,122 @@ Since all even numbers (except $2$) are composite, we can stop checking even num
 
 First, it will allow us to half the needed memory. Second, it will reduce the number of operations performing by algorithm approximately in half.
 
-
-??? note "C++ only"
-    For the following portion of the article, the information only applies to C++ and its use of `vector<int>`
-
 ### Memory consumption and speed of operations
 
-We should notice, that these two implementations of the Sieve of Eratosthenes use $n$ bits of memory by using the data structure `vector<bool>`.
-`vector<bool>` is not a regular container that stores a series of `bool` (as in most computer architectures a `bool` takes one byte of memory).
-It's a memory-optimization specialization of `vector<T>`, that only consumes $\frac{N}{8}$ bytes of memory.
+=== "C++"
+    We should notice, that these two implementations of the Sieve of Eratosthenes use $n$ bits of memory by using the data structure `vector<bool>`. `vector<bool>` is not a regular container that stores a series of `bool` (as in most computer architectures a `bool` takes one byte of memory). It's a memory-optimization specialization of `vector<T>`, that only consumes $\frac{N}{8}$ bytes of memory.
+    
+    Modern processors architectures work much more efficiently with bytes than with bits as they usually cannot access bits directly. So underneath the `vector<bool>` stores the bits in a large continuous memory, accesses the memory in blocks of a few bytes, and extracts/sets the bits with bit operations like bit masking and bit shifting. 
+    
+    Because of that there is a certain overhead when you read or write bits with a `vector<bool>`, and quite often using a `vector<char>` (which uses 1 byte for each entry, so 8x the amount of memory) is faster.
+    
+    However, for the simple implementations of the Sieve of Eratosthenes using a `vector<bool>` is faster. You are limited by how fast you can load the data into the cache, and therefore using less memory gives a big advantage. A benchmark ([link](https://gist.github.com/jakobkogler/e6359ea9ced24fe304f1a8af3c9bee0e)) shows, that using a `vector<bool>` is between 1.4x and 1.7x faster than using a `vector<char>`.
+    
+    The same considerations also apply to `bitset`. It's also an efficient way of storing bits, similar to `vector<bool>`, so it takes only $\frac{N}{8}$ bytes of memory, but is a bit slower in accessing the elements. In the benchmark above `bitset` performs a bit worse than `vector<bool>`. Another drawback from `bitset` is that you need to know the size at compile time.
 
-Modern processors architectures work much more efficiently with bytes than with bits as they usually cannot access bits directly.
-So underneath the `vector<bool>` stores the bits in a large continuous memory, accesses the memory in blocks of a few bytes, and extracts/sets the bits with bit operations like bit masking and bit shifting.
+=== "Java"
+    Similar to C++, modern processors architectures work much more efficiently with bytes than with bits as they usually cannot access bits directly. So underneath the `boolean[]` stores the bits in a large continuous memory, accesses the memory in blocks of a few bytes, and extracts/sets the bits with bit operations like bit masking and bit shifting. 
 
-Because of that there is a certain overhead when you read or write bits with a `vector<bool>`, and quite often using a `vector<char>` (which uses 1 byte for each entry, so 8x the amount of memory) is faster.
+    For Java, the two implementations of the Sieve of Eratosthenes utilizes the `boolean[]` data structure. However, we can take one step further and cut our memory complexity by a factor of $\frac{1}{8}$th by utilizing Java's BitSet. As each boolean is stored as 1 byte, each boolean in BitSet is a single bit.
 
-However, for the simple implementations of the Sieve of Eratosthenes using a `vector<bool>` is faster.
-You are limited by how fast you can load the data into the cache, and therefore using less memory gives a big advantage.
-A benchmark ([link](https://gist.github.com/jakobkogler/e6359ea9ced24fe304f1a8af3c9bee0e)) shows, that using a `vector<bool>` is between 1.4x and 1.7x faster than using a `vector<char>`.
-
-The same considerations also apply to `bitset`.
-It's also an efficient way of storing bits, similar to `vector<bool>`, so it takes only $\frac{N}{8}$ bytes of memory, but is a bit slower in accessing the elements.
-In the benchmark above `bitset` performs a bit worse than `vector<bool>`.
-Another drawback from `bitset` is that you need to know the size at compile time.
-
-??? note "C++ only"
-    For the following portion of the article, the information only applies to C++ and its use of `vector<int>` and `vector<char>`
+    However, despite the decrease in memory allocation, a benchmark ([link](https://gist.github.com/back2sqr1/0dd390487deb6a28da94b4ddf53a1c90)) shows that when using a `boolean[]` can be up to 7.8x faster than `BitSet` in terms of a normal Sieve. This could be due to the various function calls that `BitSet` needs to set, retrieve, and clear its Bits. A word of caution: those numbers might differ depending on architecture, compiler, and optimization levels.
 
 ### Segmented Sieve
 
-It follows from the optimization "sieving till root" that there is no need to keep the whole array `is_prime[1...n]` at all time.
-For sieving it is enough to just keep the prime numbers until the root of $n$, i.e. `prime[1... sqrt(n)]`, split the complete range into blocks, and sieve each block separately.
+It follows from the optimization "sieving till root" that there is no need to keep the whole array `is_prime[1...n]` at all time. For sieving it is enough to just keep the prime numbers until the root of $n$, i.e. `prime[1... sqrt(n)]`, split the complete range into blocks, and sieve each block separately.
+    
+Let $s$ be a constant which determines the size of the block, then we have $\lceil {\frac n s} \rceil$ blocks altogether, and the block $k$ ($k = 0 ... \lfloor {\frac n s} \rfloor$) contains the numbers in a segment $[ks; ks + s - 1]$. We can work on blocks by turns, i.e. for every block $k$ we will go through all the prime numbers (from $1$ to $\sqrt n$) and perform sieving using them. It is worth noting, that we have to modify the strategy a little bit when handling the first numbers: first, all the prime numbers from $[1; \sqrt n]$  shouldn't remove themselves; and second, the numbers $0$ and $1$ should be marked as non-prime numbers. While working on the last block it should not be forgotten that the last needed number $n$ is not necessary located in the end of the block.
 
-Let $s$ be a constant which determines the size of the block, then we have $\lceil {\frac n s} \rceil$ blocks altogether, and the block $k$ ($k = 0 ... \lfloor {\frac n s} \rfloor$) contains the numbers in a segment $[ks; ks + s - 1]$.
-We can work on blocks by turns, i.e. for every block $k$ we will go through all the prime numbers (from $1$ to $\sqrt n$) and perform sieving using them.
-It is worth noting, that we have to modify the strategy a little bit when handling the first numbers: first, all the prime numbers from $[1; \sqrt n]$  shouldn't remove themselves; and second, the numbers $0$ and $1$ should be marked as non-prime numbers.
-While working on the last block it should not be forgotten that the last needed number $n$ is not necessary located in the end of the block.
+=== "C++"
+    As discussed previously, the typical implementation of the Sieve of Eratosthenes is limited by the speed how fast you can load data into the CPU caches. By splitting the range of potential prime numbers $[1; n]$ into smaller blocks, we never have to keep multiple blocks in memory at the same time, and all operations are much more cache-friendlier. As we are now no longer limited by the cache speeds, we can replace the `vector<bool>` with a `vector<char>`, and gain some additional performance as the processors can handle read and writes with bytes directly and don't need to rely on bit operations for extracting individual bits. The benchmark ([link](https://gist.github.com/jakobkogler/e6359ea9ced24fe304f1a8af3c9bee0e)) shows, that using a `vector<char>` is about 3x faster in this situation than using a `vector<bool>`. A word of caution: those numbers might differ depending on architecture, compiler, and optimization levels.
 
-As discussed previously, the typical implementation of the Sieve of Eratosthenes is limited by the speed how fast you can load data into the CPU caches.
-By splitting the range of potential prime numbers $[1; n]$ into smaller blocks, we never have to keep multiple blocks in memory at the same time, and all operations are much more cache-friendlier.
-As we are now no longer limited by the cache speeds, we can replace the `vector<bool>` with a `vector<char>`, and gain some additional performance as the processors can handle read and writes with bytes directly and don't need to rely on bit operations for extracting individual bits.
-The benchmark ([link](https://gist.github.com/jakobkogler/e6359ea9ced24fe304f1a8af3c9bee0e)) shows, that using a `vector<char>` is about 3x faster in this situation than using a `vector<bool>`.
-A word of caution: those numbers might differ depending on architecture, compiler, and optimization levels.
+    Here we have an implementation that counts the number of primes smaller than or equal to $n$ using block sieving.
 
-Here we have an implementation that counts the number of primes smaller than or equal to $n$ using block sieving.
+    ```cpp
+    int count_primes(int n) {
+        const int S = 10000;
 
-```cpp
-int count_primes(int n) {
-    const int S = 10000;
-
-    vector<int> primes;
-    int nsqrt = sqrt(n);
-    vector<char> is_prime(nsqrt + 2, true);
-    for (int i = 2; i <= nsqrt; i++) {
-        if (is_prime[i]) {
-            primes.push_back(i);
-            for (int j = i * i; j <= nsqrt; j += i)
-                is_prime[j] = false;
+        vector<int> primes;
+        int nsqrt = sqrt(n);
+        vector<char> is_prime(nsqrt + 2, true);
+        for (int i = 2; i <= nsqrt; i++) {
+            if (is_prime[i]) {
+                primes.push_back(i);
+                for (int j = i * i; j <= nsqrt; j += i)
+                    is_prime[j] = false;
+            }
         }
+
+        int result = 0;
+        vector<char> block(S);
+        for (int k = 0; k * S <= n; k++) {
+            fill(block.begin(), block.end(), true);
+            int start = k * S;
+            for (int p : primes) {
+                int start_idx = (start + p - 1) / p;
+                int j = max(start_idx, p) * p - start;
+                for (; j < S; j += p)
+                    block[j] = false;
+            }
+            if (k == 0)
+                block[0] = block[1] = false;
+            for (int i = 0; i < S && start + i <= n; i++) {
+                if (block[i])
+                    result++;
+            }
+        }
+        return result;
     }
+    ```
+=== "Java"
+    According to a benchmark ([link](https://gist.github.com/back2sqr1/0dd390487deb6a28da94b4ddf53a1c90)), in terms of the usage of standard arrays like `boolean[]` and `char[]`, a segmented Sieve is actually Slower than their ArrayList counterparts due to optimizations within Java's Collections class. However, a standard Sieve and a `boolean[]` is still 3x faster than a segmented Sieve and a `ArrayList<Boolean>`, due to the standard array's quick accessing times.
 
-    int result = 0;
-    vector<char> block(S);
-    for (int k = 0; k * S <= n; k++) {
-        fill(block.begin(), block.end(), true);
-        int start = k * S;
-        for (int p : primes) {
-            int start_idx = (start + p - 1) / p;
-            int j = max(start_idx, p) * p - start;
-            for (; j < S; j += p)
-                block[j] = false;
+    ```java
+    static int countPrimesSeg(int n) {
+        final int S = 10000;
+        ArrayList<Integer> primes = new ArrayList<>();
+        int nsqrt = (int) Math.sqrt(n);
+
+        boolean[] is_prime = new boolean[nsqrt + 1];
+
+        for(int i = 0; i <= nsqrt; i++) {
+            is_prime[i] = true;
         }
-        if (k == 0)
-            block[0] = block[1] = false;
-        for (int i = 0; i < S && start + i <= n; i++) {
-            if (block[i])
-                result++;
+
+        for (int i = 2; i <= nsqrt; i++) {
+            if (is_prime[i]) {
+                primes.add(i);
+                for (int j = i * i; j <= nsqrt; j += i)
+                    is_prime[i] = false;
+            }
         }
+
+        int result = 0;
+        boolean[] block = new boolean[S];
+
+        for(int i = 0; i < S; i++) block[i] = true;
+
+        for (int k = 0; k * S <= n; k++) {
+            int start = k * S;
+            for (int p : primes) {
+                int start_idx = (start + p - 1) / p;
+                int j = Math.max(start_idx, p) * p - start;
+                for (; j < S; j += p)
+                    block[j] = false;
+            }
+            if (k == 0) {
+                block[0] = false;
+                block[1] = false;
+            }
+            for (int i = 0; i < S && start + i <= n; i++) {
+                if (block[i] )
+                    result++;
+            }
+        }
+        return result;
     }
-    return result;
-}
-```
-
+    ```
+    
 The running time of block sieving is the same as for regular sieve of Eratosthenes (unless the size of the blocks is very small), but the needed memory will shorten to $O(\sqrt{n} + S)$ and we have better caching results.
 On the other hand, there will be a division for each pair of a block and prime number from $[1; \sqrt{n}]$, and that will be far worse for smaller block sizes.
 Hence, it is necessary to keep balance when selecting the constant $S$.
@@ -231,7 +261,7 @@ Sometimes we need to find all prime numbers in a range $[L,R]$ of small size (e.
 To solve such a problem, we can use the idea of the Segmented sieve.
 We pre-generate all prime numbers up to $\sqrt R$, and use those primes to mark all composite numbers in the segment $[L, R]$.
 
-=== C++
+=== "C++"
     ```cpp
     vector<char> segmentedSieve(long long L, long long R) {
         // generate all primes up to sqrt(R)
@@ -255,7 +285,7 @@ We pre-generate all prime numbers up to $\sqrt R$, and use those primes to mark 
         return isPrime;
     }
     ```
-=== Java
+=== "Java"
     ```java
     boolean[] segmentedSieve(long L, long R) {
         long lim = (long) Math.sqrt(R);
@@ -283,7 +313,7 @@ Time complexity of this approach is $O((R - L + 1) \log \log (R) + \sqrt R \log 
 
 It's also possible that we don't pre-generate all prime numbers:
 
-=== C++
+=== "C++"
     ```cpp
     vector<char> segmentedSieveNoPreGen(long long L, long long R) {
         vector<char> isPrime(R - L + 1, true);
@@ -296,7 +326,7 @@ It's also possible that we don't pre-generate all prime numbers:
         return isPrime;
     }
     ```
-=== Java
+=== "Java"
     ```java
     boolean[] segmentedSieveNoPreGen(long L, long R) {
         boolean[] isPrime = new boolean[R - L + 1];
