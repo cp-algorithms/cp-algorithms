@@ -34,7 +34,6 @@ Hence if we reach a cell and it is not marked, then it isn't divisible by any sm
         }
     }
     ```
-    This code first marks all numbers except zero and one as potential prime numbers, then it begins the process of sifting composite numbers. For this it iterates over all numbers from $2$ to $n$. If the current number $i$ is a prime number, it marks all numbers that are multiples of $i$ as composite numbers, starting from $i^2$. This is already an optimization over naive way of implementing it, and is allowed as all smaller numbers that are multiples of $i$ necessary also have a prime factor which is less than $i$, so all of them were already sifted earlier. Since $i^2$ can easily overflow the type `int`, the additional verification is done using type `long long` before the second nested loop.
 === "Java"
     ```java
     int n;
@@ -48,8 +47,12 @@ Hence if we reach a cell and it is not marked, then it isn't divisible by any sm
         }
     }
     ```
-    This code first marks all numbers except zero and one as potential prime numbers, then it begins the process of sifting composite numbers. For this it iterates over all numbers from $2$ to $n$. If the current number $i$ is a prime number, it marks all numbers that are multiples of $i$ as composite numbers, starting from $i^2$. This is already an optimization over naive way of implementing it, and is allowed as all smaller numbers that are multiples of $i$ necessary also have a prime factor which is less than $i$, so all of them were already sifted earlier. Since $i^2$ can easily overflow the type `int`, the additional verification is done using type `long` before the second nested loop.
     
+
+This code first marks all numbers except zero and one as potential prime numbers, then it begins the process of sifting composite numbers. For this it iterates over all numbers from $2$ to $n$. If the current number $i$ is a prime number, it marks all numbers that are multiples of $i$ as composite numbers, starting from $i^2$.
+
+This is already an optimization over naive way of implementing it, and is allowed as all smaller numbers that are multiples of $i$ necessary also have a prime factor which is less than $i$, so all of them were already sifted earlier. Since $i^2$ can easily overflow the type `int`, the additional verification is done using type `long long` (C++) or `long` (Java) before the second nested loop.
+
 Using such implementation the algorithm consumes $O(n)$ of the memory (obviously) and performs $O(n \log \log n)$ (see next section).
 
 ## Asymptotic analysis
