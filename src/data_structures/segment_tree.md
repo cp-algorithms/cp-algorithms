@@ -857,7 +857,7 @@ So we build a 2D Segment Tree: first the Segment Tree using the first coordinate
 
 To make the construction process more understandable, you can forget for a while that the matrix is two-dimensional, and only leave the first coordinate.
 We will construct an ordinary one-dimensional Segment Tree using only the first coordinate.
-But instead of storing a number in a segment, be store an entire Segment Tree: 
+But instead of storing a number in a segment, we store an entire Segment Tree: 
 i.e. at this moment we remember that we also have a second coordinate; but because at this moment the first coordinate is already fixed to some interval $[l \dots r]$, we actually work with such a strip $a[l \dots r, 0 \dots m-1]$ and for it we build a Segment Tree.
 
 Here is the implementation of the construction of a 2D Segment Tree.
