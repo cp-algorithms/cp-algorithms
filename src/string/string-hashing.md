@@ -6,7 +6,7 @@ We want to solve the problem of comparing strings efficiently.
 The brute force way of doing so is just to compare the letters of both strings, which has a time complexity of $O(\min(n_1, n_2))$ if $n_1$ and $n_2$ are the sizes of the two strings.
 We want to do better.
 The idea behind strings is the following: we convert each string into an integer and compare those instead of the strings.
-Comparing two strings is then an $O(1)$ operation.
+Comparing two integers is then an $O(1)$ operation.
 
 For the conversion, we need a so-called **hash function**.
 The goal of it is to convert a string into an integer, the so-called **hash** of the string.
