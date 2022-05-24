@@ -192,3 +192,4 @@ $$ x^n \equiv x^{\phi(m)} x^{(n - \phi(m)) \bmod \phi(m)} \bmod m \equiv x^{\phi
 * [SPOJ - G Force](http://www.spoj.com/problems/DCEPC12G/)
 * [SPOJ - Smallest Inverse Euler Totient Function](http://www.spoj.com/problems/INVPHI/)
 * [Codeforces - Power Tower](http://codeforces.com/problemset/problem/906/D)
+* [Kattis - Exponial](https://open.kattis.com/problems/exponial)
