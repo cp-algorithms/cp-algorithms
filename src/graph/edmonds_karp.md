@@ -84,11 +84,11 @@ Again we look for an augmenting path, this time we find $s - D - A - C - t$ with
 Therefore we can increase the flow by 3 and we get a flow of 8 for the network.
 <center>![Second path](Flow4.png) ![Network after second path](Flow5.png)</center>
 
-This time we find the path $s - D - C - B - t$ with the residual capacities 1, 2, 3, and 3, and hence, we increase by 1.
+This time we find the path $s - D - C - B - t$ with the residual capacities 1, 2, 3, and 3, and hence, we increase the flow by 1.
 <center>![Third path](Flow6.png) ![Network after third path](Flow7.png)</center>
 
 This time we find the augmenting path $s - A - D - C - t$ with the residual capacities 2, 3, 1, and 2.
-We can increase by 1.
+We can increase the flow by 1.
 But this path is very interesting.
 It includes the reversed edge $(A, D)$.
 In the original flow network, we are not allowed to send any flow from $A$ to $D$.
@@ -102,7 +102,7 @@ We have found the maximal flow.
 
 It should be noted, that the Ford-Fulkerson method doesn't specify a method of finding the augmenting path.
 Possible approaches are using [DFS](depth-first-search.md) or [BFS](breadth-first-search.md) which both work in $O(E)$.
-If all capacities of the network are integers, then for each augmenting path the flow of the network increases by at least 1 (for more details see [Integral flow theorem](#integral-theorem)).
+If all the capacities of the network are integers, then for each augmenting path the flow of the network increases by at least 1 (for more details see [Integral flow theorem](#integral-theorem)).
 Therefore, the complexity of Ford-Fulkerson is $O(E F)$, where $F$ is the maximal flow of the network.
 In the case of rational capacities, the algorithm will also terminate, but the complexity is not bounded.
 In the case of irrational capacities, the algorithm might never terminate, and might not even converge to the maximal flow.
@@ -115,7 +115,7 @@ The algorithm was first published by Yefim Dinitz in 1970, and later independent
 The complexity can be given independently of the maximal flow.
 The algorithm runs in $O(V E^2)$ time, even for irrational capacities.
 The intuition is, that every time we find an augmenting path one of the edges becomes saturated, and the distance from the edge to $s$ will be longer if it appears later again in an augmenting path.
-And the length of a simple paths is bounded by $V$.
+Length of the simple paths is bounded by $V$.
 
 ### Implementation
 
