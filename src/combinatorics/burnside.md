@@ -62,7 +62,7 @@ We denote the **group of invariant permutations** by $G$.
 
 For the formulation of the lemma we need one more definition from algebra.
 A **fixed point** $f$ for a permutation $\pi$ is an element that is invariant under this permutation: $f \equiv f \pi$.
-For example in out example the fixed points are those functions $f$, which correspond to colorings that do not change when the permutation $\pi$ is applied to them (i.e. they do not change in the formal sense of the equality of functions).
+For example in our example the fixed points are those functions $f$, which correspond to colorings that do not change when the permutation $\pi$ is applied to them (i.e. they do not change in the formal sense of the equality of functions).
 We denote by $I(\pi)$ the **number of fixed points** for the permutation $\pi$.
 
 Then **Burnside's lemma** goes as follows:
@@ -99,7 +99,7 @@ For equivalent elements the orbits coincides, and the number of orbits gives exa
 Thus the columns of the table decompose into equivalence classes.
 Let us fix a class, and look at the columns in it.
 First, note that these columns can only contain elements $f_i$ of the equivalence class (otherwise some permutation $\pi_j$ moved one of the functions into a different equivalence class, which is impossible since we only look at invariant permutations).
-Secondly each element $f_i$ will occur the same number of times in each columns (this also follows from the fact that the columns correspond to equivalent elements).
+Secondly each element $f_i$ will occur the same number of times in each column (this also follows from the fact that the columns correspond to equivalent elements).
 From this we can conclude, that all the columns within the same equivalence class coincide with each other as multisets.
 
 Now fix an arbitrary element $f$.
@@ -160,7 +160,7 @@ Let us find an explicit formula for calculating $C(\pi_i)$.
 First we note, that the permutation $\pi_i$ has at the $j$-th position the value $i + j$ (taken modulo $n$).
 If we check the cycle structure for $\pi_i$.
 We see that $1$ goes to $1 + i$, $1 + i$ goes to $1 + 2i$, which goes to $1 + 3i$, etc., until we come to a number of the form $1 + k n$.
-Similar statements can be mode for the remaining elements.
+Similar statements can be made for the remaining elements.
 Hence we see that all cycles have the same length, namely $\frac{\text{lcm}(i, n)}{i} = \frac{n}{\gcd(i, n)}$.
 Thus the number of cycles in $\pi_i$ will be equal to $\gcd(i, n)$.
 
