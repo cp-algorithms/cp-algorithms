@@ -151,7 +151,6 @@ Here, we have selected the root of each component as the first node in its list.
 
 ## Practice Problems
 
-* [SPOJ - Submerging Islands](http://www.spoj.com/problems/SUBMERGE/)
 * [SPOJ - Good Travels](http://www.spoj.com/problems/GOODA/)
 * [SPOJ - Lego](http://www.spoj.com/problems/LEGO/)
 * [Codechef - Chef and Round Run](https://www.codechef.com/AUG16/problems/CHEFRRUN)
