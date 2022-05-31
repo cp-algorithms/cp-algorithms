@@ -5,8 +5,8 @@ Hashing algorithms are helpful in solving a lot of problems.
 We want to solve the problem of comparing strings efficiently.
 The brute force way of doing so is just to compare the letters of both strings, which has a time complexity of $O(\min(n_1, n_2))$ if $n_1$ and $n_2$ are the sizes of the two strings.
 We want to do better.
-The idea behind strings is the following: we convert each string into an integer and compare those instead of the strings.
-Comparing two integers is then an $O(1)$ operation.
+The idea behind the string hashing is the following: we map each string into an integer and compare those instead of the strings.
+Doing this allows to reduce the execution time of string comparison to $O(1)$.
 
 For the conversion, we need a so-called **hash function**.
 The goal of it is to convert a string into an integer, the so-called **hash** of the string.
