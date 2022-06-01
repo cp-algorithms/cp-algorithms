@@ -29,7 +29,7 @@ $$\sum_{(s, u) \in E} f((s, u)) = \sum_{(u, t) \in E} f((u, t))$$
 A good analogy for a flow network is the following visualization:
 We represent edges as water pipes, the capacity of an edge is the maximal amount of water that can flow through the pipe per second, and the flow of an edge is the amount of water that currently flows through the pipe per second.
 This motivates the first flow condition. There cannot flow more water through a pipe than its capacity.
-The vertices act as junctions, where water comes out of some pipes, and it distributes the water in some way to other pipes.
+The vertices act as junctions, where water comes out of some pipes, and then, these vertices distribute the water in some way to other pipes.
 This also motivates the second flow condition.
 All the incoming water has to be distributed to the other pipes in each junction.
 It cannot magically disappear or appear.
@@ -115,7 +115,7 @@ The algorithm was first published by Yefim Dinitz in 1970, and later independent
 The complexity can be given independently of the maximal flow.
 The algorithm runs in $O(V E^2)$ time, even for irrational capacities.
 The intuition is, that every time we find an augmenting path one of the edges becomes saturated, and the distance from the edge to $s$ will be longer if it appears later again in an augmenting path.
-Length of the simple paths is bounded by $V$.
+The length of the simple paths is bounded by $V$.
 
 ### Implementation
 
