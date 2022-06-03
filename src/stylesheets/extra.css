@@ -12,3 +12,8 @@
 [data-md-color-scheme="slate"] img {
   background-color: lightgray;
 }
+
+/* Move primary sidebar to the right */
+.md-sidebar--primary {
+  order: 100;
+}
