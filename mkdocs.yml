@@ -52,6 +52,8 @@ plugins:
   - literate-nav:
       nav_file: navigation.md
   - git-revision-date-localized
+  - git-authors:
+      show_contribution: true
   - macros
 
 extra:
