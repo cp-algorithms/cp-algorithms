@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+  - "From: e-maxx.ru"
+---
+
 # Submask Enumeration
 
 ## Enumerating all submasks of a given mask

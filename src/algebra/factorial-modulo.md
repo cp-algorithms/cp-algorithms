@@ -1,3 +1,10 @@
+<!-- Original link: modular_factorial -->
+---
+tags:
+  - Translated
+  - "From: e-maxx.ru"
+---
+
 ---
 title: Factorial modulo p 
 ---

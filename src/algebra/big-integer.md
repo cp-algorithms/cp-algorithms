@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+  - "From: e-maxx.ru"
+---
+
 # Arbitrary-Precision Arithmetic
 
 Arbitrary-Precision arithmetic, also known as "bignum" or simply "long arithmetic" is a set of data structures and algorithms which allows to process much greater numbers than can be fit in standard data types. Here are several types of arbitrary-precision arithmetic.

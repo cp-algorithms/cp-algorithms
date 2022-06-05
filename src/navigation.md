@@ -1,6 +1,7 @@
 - Home
     - [Main Page](index.md)
     - [Navigation](navigation.md)
+    - [Tag index](tags.md)
     - [How to Contribute](contrib.md)
     - [Preview](preview.md)
 - Algebra

@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+  - "From: e-maxx.ru"
+---
+
 # Discrete Logarithm
 
 The discrete logarithm is an integer $x$ satisfying the equation

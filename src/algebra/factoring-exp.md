@@ -1,3 +1,10 @@
+---
+tags:
+  - Original
+  - "Author: hselasky"
+  - "Contributor: adamant"
+---
+
 # Binary Exponentiation by Factoring
 
 Consider a problem of computing $ax^y \pmod{2^d}$, given integers $a$, $x$, $y$ and $d \geq 3$, where $x$ is odd.

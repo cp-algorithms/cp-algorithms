@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+  - "From: e-maxx.ru"
+---
+
 # Gray code
 
 Gray code is a binary numeral system where two successive values differ in only one bit. 
