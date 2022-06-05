@@ -30,4 +30,4 @@ jobs:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           projectId: cp-algorithms
-          channelId: ${{ github.event_name == 'pull' && github.ref == 'refs/heads/master' && env.LIVE_NAME || env.PREVIEW_NAME }}
+          channelId: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' && env.LIVE_NAME || env.PREVIEW_NAME }}
