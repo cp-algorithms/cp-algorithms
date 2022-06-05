@@ -21,9 +21,8 @@ If you are unfamiliar with the workflow, read [Step-by-step guide to contributin
 
 If you're making a new article or moving existing one to a different place, please make sure that your changes are reflected in
 
-- The list of all articles in [index.md](https://github.com/e-maxx-eng/e-maxx-eng/blob/master/src/index.md);
-- The list of all articles in [mkdocs.yml](https://github.com/e-maxx-eng/e-maxx-eng/blob/master/mkdocs.yml);
-- The list of new articles in [index.md](https://github.com/e-maxx-eng/e-maxx-eng/blob/master/src/index.md) and [README.md](https://github.com/e-maxx-eng/e-maxx-eng/blob/master/README.md) (if it is a new article).
+- The list of all articles in [navigation.md](https://github.com/e-maxx-eng/e-maxx-eng/blob/master/src/navigation.md);
+- The list of new articles in [index_body](https://github.com/e-maxx-eng/e-maxx-eng/blob/master/src/index_body) (if it is a new article).
 
 ## Syntax
 

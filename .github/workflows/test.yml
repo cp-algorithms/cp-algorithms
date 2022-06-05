@@ -14,7 +14,7 @@ jobs:
           python-version: '3.8'
       - name: Install mkdocs-material
         run: |
-          pip install mkdocs-material mkdocs-macros-plugin
+          pip install mkdocs-material mkdocs-macros-plugin mkdocs-literate-nav
       - name: Set up C++
         run: |
           sudo apt install -y --no-install-recommends build-essential
