@@ -49,10 +49,9 @@ markdown_extensions:
 
 plugins:
   - search
+  - macros
   - literate-nav:
       nav_file: navigation.md
-  - git-revision-date-localized
-  - macros
 
 extra:
   analytics:
