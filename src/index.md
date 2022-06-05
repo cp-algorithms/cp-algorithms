@@ -1,13 +1,9 @@
 ---
 title: Main Page
 ---
-# Algorithms for Competitive Programming
+# Test Preview 2
 
-*The goal of this project is to translate the wonderful resource
-[http://e-maxx.ru/algo](http://e-maxx.ru/algo) which provides descriptions of many algorithms
-and data structures especially popular in field of competitive programming.
-Moreover we want to improve the collected knowledge by extending the articles
-and adding new articles to the collection.*
+Test test test
 
 ## Changelog
 
