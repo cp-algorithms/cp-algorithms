@@ -33,7 +33,10 @@ For advanced Markdown features of Material for MkDocs see their [reference pages
 
 - [Math formulas with MathJax](https://squidfunk.github.io/mkdocs-material/reference/mathjax/#usage)
   Notice that you need to have an empty line before and after a `$$` math block.
-- [Data tables](https://squidfunk.github.io/mkdocs-material/reference/data-tables/#usage)
+- [Code blocks](https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#usage) for code snippets.
+- [Admonitions](https://squidfunk.github.io/mkdocs-material/reference/admonitions/#usage) (e.g. to decor theorems, proofs, problem examples).
+- [Content tabs](https://squidfunk.github.io/mkdocs-material/reference/content-tabs/#usage) (e.g. for code examples in several languages).
+- [Data tables](https://squidfunk.github.io/mkdocs-material/reference/data-tables/#usage).
 
 However not everything of the features should be used, and some of the features are not enabled or require a paid subscription.
 
