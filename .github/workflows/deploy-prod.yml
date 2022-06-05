@@ -18,7 +18,7 @@ jobs:
           python-version: '3.8'
       - name: Install mkdocs-material
         run: |
-          pip install mkdocs-material mkdocs-macros-plugin mkdocs-literate-nav
+          pip install mkdocs-material mkdocs-macros-plugin mkdocs-literate-nav mkdocs-git-revision-date-localized-plugin
       - name: Build pages
         run: |
           mkdocs build --strict
