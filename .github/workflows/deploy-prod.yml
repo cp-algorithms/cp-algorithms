@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - mkdocs
+  pull_request_target:
 
 jobs:
   deploy_live_website:
@@ -23,8 +23,11 @@ jobs:
         run: |
           mkdocs build --strict
       - uses: FirebaseExtended/action-hosting-deploy@v0
+        env:
+          PREVIEW_NAME: "preview-${{ github.event.pull_request.number }}"
+          LIVE_NAME: "live"
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           projectId: cp-algorithms
-          channelId: ${{ github.ref == 'refs/heads/master' && 'live' || 'mkdocs' }}
+          channelId: ${{ github.event_name == 'pull' && github.ref == 'refs/heads/master' && env.LIVE_NAME || env.PREVIEW_NAME }}
