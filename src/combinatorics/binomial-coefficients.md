@@ -159,7 +159,7 @@ long long binomial_coefficient(int n, int k) {
 }
 ```
 
-### Binomial coefficient modulo prime power  {#mod-prime-pow}
+### Binomial coefficient modulo prime power  { #mod-prime-pow}
 
 Here we want to compute the binomial coefficient modulo some prime power, i.e. $m = p^b$ for some prime $p$.
 If $p > \max(k, n-k)$, then we can use the same method as described in the previous section.

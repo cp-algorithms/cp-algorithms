@@ -89,7 +89,7 @@ void phi_1_to_n(int n) {
 ```
 
 
-## Divisor sum property {#divsum}
+## Divisor sum property { #divsum}
 
 This interesting property was established by Gauss:
 

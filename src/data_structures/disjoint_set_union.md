@@ -422,7 +422,7 @@ bool is_bipartite(int v) {
 }
 ```
 
-### Offline RMQ (range minimum query) in $O(\alpha(n))$ on average / Arpa's trick {#arpa data-toc-label="Offline RMQ / Arpa's trick"}
+### Offline RMQ (range minimum query) in $O(\alpha(n))$ on average / Arpa's trick { #arpa data-toc-label="Offline RMQ / Arpa's trick"}
 
 We are given an array `a[]` and we have to compute some minima in given segments of the array.
 

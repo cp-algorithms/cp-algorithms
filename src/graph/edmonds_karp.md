@@ -176,7 +176,7 @@ int maxflow(int s, int t) {
 }
 ```
 
-## Integral flow theorem ## {#integral-theorem}
+## Integral flow theorem ## { #integral-theorem}
 
 The theorem simply says, that if every capacity in the network is an integer, then the flow in each edge will be an integer in the maximal flow.
 
