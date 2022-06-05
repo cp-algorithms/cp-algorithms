@@ -1,3 +1,4 @@
 mkdocs-material>=8.1.7
+mkdocs-macros-plugin>=0.7.0
 watchdog==2.1.
 beautifulsoup4>=4.10.0
