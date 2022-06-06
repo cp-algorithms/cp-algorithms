@@ -33,4 +33,5 @@ jobs:
           runtime: 'python37'
           memory_mb: '1024'
           service_account_email: 'cp-algorithms@appspot.gserviceaccount.com'
+          entry_point: 'main'
           source_dir: 'preview/'
