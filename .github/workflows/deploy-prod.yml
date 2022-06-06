@@ -20,8 +20,16 @@ jobs:
           python-version: '3.8'
       - name: Install mkdocs-material
         run: |
-          pip install mkdocs-material mkdocs-macros-plugin mkdocs-literate-nav mkdocs-git-revision-date-localized-plugin mkdocs-git-authors-plugin
+          pip install \
+          mkdocs-material \
+          mkdocs-macros-plugin \
+          mkdocs-literate-nav \
+          mkdocs-git-authors-plugin \
+          mkdocs-git-committers-plugin-2 \
+          mkdocs-simple-hooks
       - name: Build pages
+        env:
+          MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.PAT_API_KEY }}
         run: |
           mkdocs build --strict
       - uses: FirebaseExtended/action-hosting-deploy@v0

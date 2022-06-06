@@ -25,13 +25,55 @@ Describe the issue of this article in detail.
   {% include ".icons/material/attribution.svg" %}
 </a>
 {% endif %}
+
+{% set contribs = {} %}
+
+{% for author in git_info.page_authors %}
+{% do contribs.setdefault(author.name, {}) %}
+{% do contribs[author.name].update({
+  'contribution':author.contribution[:-1]|float,
+  'name':author.name,
+  'url':'#'
+}) %}
+{% endfor %}
+
+
+{% for author in committers %}
+{% do contribs.setdefault(author.name, {}) %}
+{% do contribs[author.name].update({
+  'name':author.login,
+  'url':author.url
+}) %}
+{% endfor %}
+
+{% set contribs = contribs.values() |
+  selectattr('contribution') |
+  sort(attribute='contribution',reverse=true) %}
+
+<ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
+  <li class="last-updated-holder displayDate loading">
+    <span class="last-updated-text">Last updated:</span>
+    <time role="presentation" datetime="2018-10-25T00:00:00.000Z" data-article-date-source="ms.date">{% if last_commit_date %}{{ last_commit_date }}{% endif %}</time>
+  </li>
+  <li class="contributors-holder">
+    <span class="contributors-text">Contributors</span>
+    <ul class="contributors" data-bi-name="contributors">
+      {%- for user in contribs -%}
+      <li><a href="{{ user.url }}" title="{{ user.name }}" data-bi-name="contributorprofile" target="_blank">{{ user.name }}</a> ({{user.contribution}}%)</li>
+      {%- endfor -%}
+    </ul>
+  </li>
+</ul>
+
+<!-- Tags -->
+{% if page and page.meta and page.meta.e_maxx_link %}
+{{ tags.append({'name':'From: e-maxx.ru', 'url': 'https://e-maxx.ru/algo/' + page.meta.e_maxx_link}) or '' }}
+{% endif %}
+{% if "tags" in config.plugins %}
+  {% include "partials/tags.html" %}
+{% endif %}
+
 {% if not "\x3ch1" in page.content %}
   <h1>{{ page.title | d(config.site_name, true)}}</h1>
 {% endif %}
 {{ page.content }}
-{% if page and page.meta and (
-  page.meta.git_revision_date_localized or
-  page.meta.revision_date
-) %}
-  {% include "partials/source-file.html" %}
-{% endif %}

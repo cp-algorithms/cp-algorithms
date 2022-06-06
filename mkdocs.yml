@@ -48,12 +48,17 @@ markdown_extensions:
       emoji_generator: !!python/name:materialx.emoji.to_svg
 
 plugins:
+  - mkdocs-simple-hooks:
+      hooks:
+          on_env: "hooks:on_env"
   - search
   - literate-nav:
       nav_file: navigation.md
-  - git-revision-date-localized
-  - git-authors:
-      show_contribution: true
+  - git-authors
+  - git-committers:
+      repository: e-maxx-eng/e-maxx-eng
+      docs_path: src/
+      token: !!python/object/apply:os.getenv ["MKDOCS_GIT_COMMITTERS_APIKEY"]
   - macros
 
 extra:
