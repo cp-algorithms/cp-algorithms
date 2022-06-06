@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  deploy_live_website:
+  deploy_cloud_function:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -25,6 +25,7 @@ jobs:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
       - id: 'deploy'
+        if: steps.changes.outputs.src == 'true'
         uses: 'google-github-actions/deploy-cloud-functions@v0'
         with:
           project_id: 'cp-algorithms'
