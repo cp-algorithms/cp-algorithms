@@ -65,14 +65,6 @@ Describe the issue of this article in detail.
   </li>
 </ul>
 
-<!-- Tags -->
-{% if page and page.meta and page.meta.e_maxx_link %}
-{{ tags.append({'name':'From: e-maxx.ru', 'url': 'https://e-maxx.ru/algo/' + page.meta.e_maxx_link}) or '' }}
-{% endif %}
-{% if "tags" in config.plugins %}
-  {% include "partials/tags.html" %}
-{% endif %}
-
 {% if not "\x3ch1" in page.content %}
   <h1>{{ page.title | d(config.site_name, true)}}</h1>
 {% endif %}
