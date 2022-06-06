@@ -196,7 +196,7 @@ If $m$ is about $10^9$ for each of the two hash functions than this is more or l
 When comparing $10^6$ strings with each other, the probability that at least one collision happens is now reduced to $\approx 10^{-6}$.
 
 ## Practice Problems
-
+* [Good Substrings - Codeforces]https://codeforces.com/contest/271/problem/D
 * [A Needle in the Haystack - SPOJ](http://www.spoj.com/problems/NHAY/)
 * [Double Profiles - Codeforces](http://codeforces.com/problemset/problem/154/C)
 * [Password - Codeforces](http://codeforces.com/problemset/problem/126/B)
