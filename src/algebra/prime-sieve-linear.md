@@ -1,7 +1,7 @@
 ---
 tags:
   - Translated
-  - "From: e-maxx.ru"
+e_maxx_link: prime_sieve_linear
 ---
 
 # Linear Sieve

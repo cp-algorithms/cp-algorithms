@@ -1,8 +1,7 @@
-<!-- Original link: modular_factorial -->
 ---
 tags:
   - Translated
-  - "From: e-maxx.ru"
+e_maxx_link: modular_factorial
 ---
 
 ---

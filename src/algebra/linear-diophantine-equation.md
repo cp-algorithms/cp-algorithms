@@ -1,7 +1,7 @@
 ---
 tags:
   - Translated
-  - "From: e-maxx.ru"
+e_maxx_link: linear_diophantine_equation
 ---
 
 # Linear Diophantine Equation

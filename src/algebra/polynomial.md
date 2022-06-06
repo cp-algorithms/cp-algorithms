@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+  - Original
   - "Author: adamant"
 ---
 

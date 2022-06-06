@@ -58,6 +58,9 @@ Describe the issue of this article in detail.
 </ul>
 
 <!-- Tags -->
+{% if page and page.meta and page.meta.e_maxx_link %}
+{{ tags.append({'name':'From: e-maxx.ru', 'url': 'https://e-maxx.ru/algo/' + page.meta.e_maxx_link}) or '' }}
+{% endif %}
 {% if "tags" in config.plugins %}
   {% include "partials/tags.html" %}
 {% endif %}

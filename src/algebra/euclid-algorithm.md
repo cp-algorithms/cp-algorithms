@@ -1,7 +1,7 @@
 ---
 tags:
   - Translated
-  - "From: e-maxx.ru"
+e_maxx_link: euclid_algorithm
 ---
 
 # Euclidean algorithm for computing the greatest common divisor

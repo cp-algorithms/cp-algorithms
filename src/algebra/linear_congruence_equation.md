@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: linear_congruence_equation
+---
+
 # Linear Congruence Equation
 
 This equation is of the form:

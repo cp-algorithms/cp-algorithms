@@ -1,7 +1,7 @@
 ---
 tags:
   - Translated
-  - "From: e-maxx.ru"
+e_maxx_link: extended_euclid_algorithm
 ---
 
 # Extended Euclidean Algorithm

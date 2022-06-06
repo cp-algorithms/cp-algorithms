@@ -1,3 +1,9 @@
+---
+tags:
+    - Original
+    - 'Author: jakobkogler'
+---
+
 # Primality tests
 
 This article describes multiple algorithms to determine if a number is prime or not.

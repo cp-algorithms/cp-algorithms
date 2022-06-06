@@ -1,7 +1,7 @@
 ---
 tags:
-  - Translated
-  - "From: e-maxx.ru"
+  - Original
+  - "Author: jakobkogler"
 ---
 
 # Integer factorization
