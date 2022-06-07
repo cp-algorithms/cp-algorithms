@@ -22,6 +22,11 @@ jobs:
           mkdocs-git-committers-plugin-2 \
           mkdocs-git-revision-date-localized-plugin \
           mkdocs-simple-hooks
+      - name: Cache Github Users
+        uses: actions/cache@v3
+        with:
+          path: authors.json
+          key: github-users
       - name: Set up C++
         run: |
           sudo apt install -y --no-install-recommends build-essential
