@@ -20,6 +20,7 @@ jobs:
           mkdocs-literate-nav \
           mkdocs-git-authors-plugin \
           mkdocs-git-committers-plugin-2 \
+          mkdocs-git-revision-date-localized-plugin \
           mkdocs-simple-hooks
       - name: Set up C++
         run: |

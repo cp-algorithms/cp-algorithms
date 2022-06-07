@@ -54,6 +54,8 @@ plugins:
   - search
   - literate-nav:
       nav_file: navigation.md
+  - git-revision-date-localized:
+      enable_creation_date: true
   - git-authors
   - git-committers:
       repository: e-maxx-eng/e-maxx-eng
