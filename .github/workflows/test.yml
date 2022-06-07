@@ -26,7 +26,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: authors.json
-          key: github-users
+          key: test-${{ github.event_name }}-github-users
       - name: Set up C++
         run: |
           sudo apt install -y --no-install-recommends build-essential
