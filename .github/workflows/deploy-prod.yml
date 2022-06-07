@@ -26,7 +26,13 @@ jobs:
           mkdocs-literate-nav \
           mkdocs-git-authors-plugin \
           mkdocs-git-committers-plugin-2 \
+          mkdocs-git-revision-date-localized-plugin \
           mkdocs-simple-hooks
+      - name: Cache Github Users
+        uses: actions/cache@v3
+        with:
+          path: authors.json
+          key: github-users
       - name: Build pages
         env:
           MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.PAT_API_KEY }}

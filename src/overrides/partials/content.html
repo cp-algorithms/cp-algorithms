@@ -26,6 +26,7 @@ Describe the issue of this article in detail.
 </a>
 {% endif %}
 
+<!-- Construct the dict of author's contribution percentage -->
 {% set contribs = {} %}
 
 {% for author in git_info.page_authors %}
@@ -50,22 +51,22 @@ Describe the issue of this article in detail.
   selectattr('contribution') |
   sort(attribute='contribution',reverse=true) %}
 
+<!-- Date of last commit -->
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
-  <li class="last-updated-holder displayDate loading">
-    <span class="last-updated-text">Last updated:</span>
-    <time role="presentation" datetime="2018-10-25T00:00:00.000Z" data-article-date-source="ms.date">{% if last_commit_date %}{{ last_commit_date }}{% endif %}</time>
-  </li>
-  <li class="contributors-holder">
-    <span class="contributors-text">Contributors</span>
-    <ul class="contributors" data-bi-name="contributors">
-      {%- for user in contribs -%}
-      <li><a href="{{ user.url }}" title="{{ user.name }}" data-bi-name="contributorprofile" target="_blank">{{ user.name }}</a> ({{user.contribution}}%)</li>
-      {%- endfor -%}
-    </ul>
-  </li>
+  {{ lang.t("source.file.date.updated") }}:
+  {{ page.meta.git_revision_date_localized }}
 </ul>
 
 {% if not "\x3ch1" in page.content %}
   <h1>{{ page.title | d(config.site_name, true)}}</h1>
 {% endif %}
 {{ page.content }}
+
+<ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
+  <span class="contributors-text">Contributors:</span>
+  <ul class="contributors" data-bi-name="contributors">
+    {%- for user in contribs -%}
+    <li><a href="{{ user.url }}" title="{{ user.name }}" data-bi-name="contributorprofile" target="_blank">{{ user.name }}</a> ({{user.contribution}}%)</li>
+    {%- endfor -%}
+  </ul>
+</ul>
