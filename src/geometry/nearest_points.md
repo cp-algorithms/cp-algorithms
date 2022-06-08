@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: nearest_points
+---
+
 # Finding the nearest pair of points
 
 ## Problem statement

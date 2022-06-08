@@ -1,5 +1,8 @@
 ---
 title: Check if point belongs to the convex polygon in O(log N)
+tags:
+  - Translated
+e_maxx_link: pt_in_polygon
 ---
 # Check if point belongs to the convex polygon in $O(\log N)$
 

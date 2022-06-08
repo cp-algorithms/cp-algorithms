@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: voronoi_diagram_2d_n4
+---
+
 # Delaunay triangulation and Voronoi diagram
 
 Consider a set $\{p_i\}$ of points on the plane.

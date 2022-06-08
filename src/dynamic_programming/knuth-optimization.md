@@ -1,3 +1,8 @@
+---
+tags:
+  - Original
+---
+
 # Knuth's Optimization
 
 Knuth's optimization, also known as the Knuth-Yao Speedup, is a special case of dynamic programming on ranges, that can optimize the time complexity of solutions by a linear factor, from $O(n^3)$ for standard range DP to $O(n^2)$.

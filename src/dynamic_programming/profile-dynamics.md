@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: profile_dynamics
+---
+
 # Dynamic Programming on Broken Profile. Problem "Parquet"
 
 Common problems solved using DP on broken profile include:

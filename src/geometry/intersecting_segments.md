@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: intersecting_segments
+---
+
 # Search for a pair of intersecting segments
 
 Given $n$ line segments on the plane. It is required to check whether at least two of them intersect with each other.

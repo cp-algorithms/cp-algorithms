@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: segments_intersection_checking
+---
+
 # Check if two segments intersect
 
 You are given two segments $(a, b)$ and $(c, d)$.

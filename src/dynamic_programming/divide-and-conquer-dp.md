@@ -1,3 +1,8 @@
+---
+tags:
+  - Original
+---
+
 # Divide and Conquer DP
 
 Divide and Conquer is a dynamic programming optimization.
