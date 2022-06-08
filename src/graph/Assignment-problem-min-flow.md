@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: assignment_mincostflow
 ---
 
@@ -8,8 +8,8 @@ e_maxx_link: assignment_mincostflow
 
 The **assignment problem** has two equivalent statements:
 
-   - Given a square matrix $A[1..N, 1..N]$, you need to select $N$ elements in it so that exactly one element is selected in each row and column, and the sum of the values of these elements is the smallest.
-   - There are $N$ orders and $N$ machines. The cost of manufacturing on each machine is known for each order.  Only one order can be performed on each machine. It is required to assign all orders to the machines so that the total cost is minimized.
+-   Given a square matrix $A[1..N, 1..N]$, you need to select $N$ elements in it so that exactly one element is selected in each row and column, and the sum of the values of these elements is the smallest.
+-   There are $N$ orders and $N$ machines. The cost of manufacturing on each machine is known for each order. Only one order can be performed on each machine. It is required to assign all orders to the machines so that the total cost is minimized.
 
 Here we will consider the solution of the problem based on the algorithm for finding the [minimum cost flow (min-cost-flow)](min_cost_flow.md), solving the assignment problem in $\mathcal{O}(N^5)$.
 
@@ -23,8 +23,7 @@ The complexity of this solution of the assignment problem depends on the algorit
 
 ## Implementation
 
-The implementation given here is long, it can probably be significantly reduced.
-It uses the [SPFA algorithm](bellman_ford.md) for finding shortest paths.
+The implementation given here is long, it can probably be significantly reduced. It uses the [SPFA algorithm](bellman_ford.md) for finding shortest paths.
 
 ```cpp
 const int INF = 1000 * 1000 * 1000;

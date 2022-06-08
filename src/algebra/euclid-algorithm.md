@@ -1,13 +1,12 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: euclid_algorithm
 ---
 
 # Euclidean algorithm for computing the greatest common divisor
 
-Given two non-negative integers $a$ and $b$, we have to find their **GCD** (greatest common divisor), i.e. the largest number which is a divisor of both $a$ and $b$.
-It's commonly denoted by $\gcd(a, b)$. Mathematically it is defined as:
+Given two non-negative integers $a$ and $b$, we have to find their **GCD** (greatest common divisor), i.e. the largest number which is a divisor of both $a$ and $b$. It's commonly denoted by $\gcd(a, b)$. Mathematically it is defined as:
 
 $$\gcd(a, b) = \max_ {k = 1 \dots \infty ~ : ~ k \mid a ~ \wedge k ~ \mid b} k.$$
 
@@ -92,15 +91,13 @@ int lcm (int a, int b) {
 
 The Binary GCD algorithm is an optimization to the normal Euclidean algorithm.
 
-The slow part of the normal algorithm are the modulo operations. Modulo operations, although we see them as $O(1)$, are a lot slower than simpler operations like addition, subtraction or bitwise operations.
-So it would be better to avoid those.
+The slow part of the normal algorithm are the modulo operations. Modulo operations, although we see them as $O(1)$, are a lot slower than simpler operations like addition, subtraction or bitwise operations. So it would be better to avoid those.
 
-It turns out, that you can design a fast GCD algorithm that avoids modulo operations.
-It's based on a few properties:
+It turns out, that you can design a fast GCD algorithm that avoids modulo operations. It's based on a few properties:
 
-  - If both numbers are even, then we can factor out a two of both and compute the GCD of the remaining numbers: $\gcd(2a, 2b) = 2 \gcd(a, b)$.
-  - If one of the numbers is even and the other one is odd, then we can remove the factor 2 from the even one: $\gcd(2a, b) = \gcd(a, b)$ if $b$ is odd.
-  - If both numbers are odd, then subtracting one number of the other one will not change the GCD: $\gcd(a, b) = \gcd(b, a-b)$
+-   If both numbers are even, then we can factor out a two of both and compute the GCD of the remaining numbers: $\gcd(2a, 2b) = 2 \gcd(a, b)$.
+-   If one of the numbers is even and the other one is odd, then we can remove the factor 2 from the even one: $\gcd(2a, b) = \gcd(a, b)$ if $b$ is odd.
+-   If both numbers are odd, then subtracting one number of the other one will not change the GCD: $\gcd(a, b) = \gcd(b, a-b)$
 
 Using only these properties, and some fast bitwise functions from GCC, we can implement a fast version:
 
@@ -120,9 +117,8 @@ int gcd(int a, int b) {
 }
 ```
 
-Notice, that such an optimization is usually not necessary, and most programming languages already have a GCD function in their standard libraries.
-E.g. C++17 has such a function `std::gcd` in the `numeric` header.
+Notice, that such an optimization is usually not necessary, and most programming languages already have a GCD function in their standard libraries. E.g. C++17 has such a function `std::gcd` in the `numeric` header.
 
 ## Practice Problems
 
-- [Codechef - GCD and LCM](https://www.codechef.com/problems/FLOW016)
+-   [Codechef - GCD and LCM](https://www.codechef.com/problems/FLOW016)

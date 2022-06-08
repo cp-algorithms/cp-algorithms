@@ -1,6 +1,6 @@
 ---
 tags:
-  - Original
+    - Original
 ---
 
 # Binary Exponentiation by Factoring
@@ -25,9 +25,9 @@ The core idea of the algorithm is to simplify the computation of $L(x)$ and $b^{
 
 In this article, we will cover the implementation for $32$-bit integers. Let
 
-* `mbin_log_32(r, x)` be a function that computes $r+4L(x) \pmod{2^d}$;
-* `mbin_exp_32(r, x)` be a function that computes $r b^{\frac{x}{4}} \pmod{2^d}$;
-* `mbin_power_odd_32(a, x, y)` be a function that computes $ax^y \pmod{2^d}$.
+-   `mbin_log_32(r, x)` be a function that computes $r+4L(x) \pmod{2^d}$;
+-   `mbin_exp_32(r, x)` be a function that computes $r b^{\frac{x}{4}} \pmod{2^d}$;
+-   `mbin_power_odd_32(a, x, y)` be a function that computes $ax^y \pmod{2^d}$.
 
 Then `mbin_power_odd_32` is implemented as follows:
 
@@ -47,7 +47,7 @@ uint32_t mbin_power_odd_32(uint32_t rem, uint32_t base, uint32_t exp) {
 
 ## Computing 4L(x) from x
 
-Let $x$ be an odd number such that $x \equiv 1 \pmod 4$. It can be represented as 
+Let $x$ be an odd number such that $x \equiv 1 \pmod 4$. It can be represented as
 
 $$
 x \equiv (2^{a_1}+1)\dots(2^{a_k}+1) \pmod{2^d},
@@ -190,7 +190,7 @@ uint32_t mbin_exp_32(uint32_t r, uint32_t x) {
 
 To compute log-table, one could modify the [Pohlig–Hellman algorithm](https://en.wikipedia.org/wiki/Pohlig–Hellman_algorithm) for the case when modulo is a power of $2$.
 
-Our main task here is to compute $x$ such that $g^x \equiv y \pmod{2^d}$, where $g=5$ and $y$ is a number of kind $2^n+1$. 
+Our main task here is to compute $x$ such that $g^x \equiv y \pmod{2^d}$, where $g=5$ and $y$ is a number of kind $2^n+1$.
 
 Squaring both parts $k$ times we arrive to
 
@@ -214,4 +214,4 @@ Now, squaring both sides $d-k-1$ times we can obtain the next bit of $x$, eventu
 
 ## References
 
-* [M30, Hans Petter Selasky, 2009](https://ia601602.us.archive.org/29/items/B-001-001-251/B-001-001-251.pdf#page=640)
+-   [M30, Hans Petter Selasky, 2009](https://ia601602.us.archive.org/29/items/B-001-001-251/B-001-001-251.pdf#page=640)

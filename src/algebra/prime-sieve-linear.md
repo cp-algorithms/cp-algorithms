@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: prime_sieve_linear
 ---
 
@@ -18,8 +18,7 @@ The weakness of the given algorithm is in using more memory than the classic sie
 
 Thus, it makes sense to use the described algorithm only until for numbers of order $10^7$ and not greater.
 
-The algorithm's authorship appears to belong to Gries & Misra (Gries, Misra, 1978: see references in the end of the article).
-However it can also be attributed to Euler, and is also known as Euler's Sieve, who already used a similar version of it during his work.
+The algorithm's authorship appears to belong to Gries & Misra (Gries, Misra, 1978: see references in the end of the article). However it can also be attributed to Euler, and is also known as Euler's Sieve, who already used a similar version of it during his work.
 
 ## Algorithm
 
@@ -31,10 +30,10 @@ We'll initialize the values $lp [i]$ with zeros, which means that we assume all 
 
 Now we'll go through the numbers from 2 to $n$. We have two cases for the current number $i$:
 
-- $lp[i] = 0$ - that means that $i$ is prime, i.e. we haven't found any smaller factors for it.  
-  Hence, we assign $lp [i] = i$ and add $i$ to the end of the list $pr[]$.
+-   $lp[i] = 0$ - that means that $i$ is prime, i.e. we haven't found any smaller factors for it.  
+    Hence, we assign $lp [i] = i$ and add $i$ to the end of the list $pr[]$.
 
-- $lp[i] \neq 0$ - that means that $i$ is composite, and its minimum prime factor is $lp [i]$.
+-   $lp[i] \neq 0$ - that means that $i$ is composite, and its minimum prime factor is $lp [i]$.
 
 In both cases we update values of $lp []$ for the numbers that are divisible by $i$. However, our goal is to learn to do so as to set a value $lp []$ at most once for every number. We can do it as follows:
 
@@ -50,7 +49,7 @@ The proof of correctness of this algorithm and its runtime can be found after th
 const int N = 10000000;
 vector<int> lp(N+1);
 vector<int> pr;
- 
+
 for (int i=2; i <= N; ++i) {
 	if (lp[i] == 0) {
 		lp[i] = i;
@@ -80,12 +79,11 @@ Hence, the algorithm will go through every composite number exactly once, settin
 
 ## Runtime and Memory
 
-Although the running time of $O(n)$ is better than $O(n \log \log n)$ of the classic sieve of Eratosthenes, the difference between them is not so big.
-In practice the linear sieve runs about as fast as a typical implementation of the sieve of Eratosthenes.
+Although the running time of $O(n)$ is better than $O(n \log \log n)$ of the classic sieve of Eratosthenes, the difference between them is not so big. In practice the linear sieve runs about as fast as a typical implementation of the sieve of Eratosthenes.
 
 In comparison to optimized versions of the sieve of Erathosthenes, e.g. the segmented sieve, it is much slower.
 
-Considering the memory requirements of this algorithm - an array $lp []$ of length $n$, and an array of $pr []$ of length  $\frac n {\ln n}$, this algorithm seems to worse than the classic sieve in every way.
+Considering the memory requirements of this algorithm - an array $lp []$ of length $n$, and an array of $pr []$ of length $\frac n {\ln n}$, this algorithm seems to worse than the classic sieve in every way.
 
 However, its redeeming quality is that this algorithm calculates an array $lp []$, which allows us to find factorization of any number in the segment $[2; n]$ in the time of the size order of this factorization. Moreover, using just one extra array will allow us to avoid divisions when looking for factorization.
 
@@ -93,4 +91,4 @@ Knowing the factorizations of all numbers is very useful for some tasks, and thi
 
 ## References
 
-- David Gries, Jayadev Misra. **A Linear Sieve Algorithm for Finding Prime Numbers** [1978]
+-   David Gries, Jayadev Misra. **A Linear Sieve Algorithm for Finding Prime Numbers** [1978]

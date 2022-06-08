@@ -1,9 +1,10 @@
 ---
 title: Finding bridges in a graph in O(N+M)
 tags:
-  - Translated
+    - Translated
 e_maxx_link: bridge_searching
 ---
+
 # Finding bridges in a graph in $O(N+M)$
 
 We are given an undirected graph. A bridge is defined as an edge which, when removed, makes the graph disconnected (or more precisely, increases the number of connected components in the graph). The task is to find all bridges in the given graph.
@@ -18,7 +19,7 @@ Note that there is also the article [Finding Bridges Online](bridge-searching-on
 
 Pick an arbitrary vertex of the graph $root$ and run [depth first search](depth-first-search.md) from it. Note the following fact (which is easy to prove):
 
-- Let's say we are in the DFS, looking through the edges starting from vertex $v$. The current edge $(v, to)$ is a bridge if and only if none of the vertices $to$ and its descendants in the DFS traversal tree has a back-edge to vertex $v$ or any of its ancestors. Indeed, this condition means that there is no other way from $v$ to $to$ except for edge $(v, to)$.
+-   Let's say we are in the DFS, looking through the edges starting from vertex $v$. The current edge $(v, to)$ is a bridge if and only if none of the vertices $to$ and its descendants in the DFS traversal tree has a back-edge to vertex $v$ or any of its ancestors. Indeed, this condition means that there is no other way from $v$ to $to$ except for edge $(v, to)$.
 
 Now we have to learn to check this fact for each vertex efficiently. We'll use "time of entry into node" computed by the depth first search.
 
@@ -34,9 +35,9 @@ Thus, the current edge $(v, to)$ in the DFS tree is a bridge if and only if $low
 
 The implementation needs to distinguish three cases: when we go down the edge in DFS tree, when we find a back edge to an ancestor of the vertex and when we return to a parent of the vertex. These are the cases:
 
-- $visited[to] = false$ - the edge is part of DFS tree;
-- $visited[to] = true$ && $to \neq parent$ - the edge is back edge to one of the ancestors;
-- $to = parent$ - the edge leads back to parent in DFS tree.
+-   $visited[to] = false$ - the edge is part of DFS tree;
+-   $visited[to] = true$ && $to \neq parent$ - the edge is back edge to one of the ancestors;
+-   $to = parent$ - the edge leads back to parent in DFS tree.
 
 To implement this, we need a depth first search function which accepts the parent vertex of the current node.
 
@@ -49,7 +50,7 @@ vector<vector<int>> adj; // adjacency list of graph
 vector<bool> visited;
 vector<int> tin, low;
 int timer;
- 
+
 void dfs(int v, int p = -1) {
     visited[v] = true;
     tin[v] = low[v] = timer++;
@@ -65,7 +66,7 @@ void dfs(int v, int p = -1) {
         }
     }
 }
- 
+
 void find_bridges() {
     timer = 0;
     visited.assign(n, false);
@@ -86,13 +87,14 @@ Note that this implementation malfunctions if the graph has multiple edges, sinc
 
 ## Practice Problems
 
-- [UVA #796 "Critical Links"](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=737) [difficulty: low]
-- [UVA #610 "Street Directions"](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=551) [difficulty: medium]
-- [Case of the Computer Network (Codeforces Round #310 Div. 1 E)](http://codeforces.com/problemset/problem/555/E) [difficulty: hard]
-* [UVA 12363 - Hedge Mazes](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=3785)
-* [UVA 315 - Network](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=251)
-* [GYM - Computer Network (J)](http://codeforces.com/gym/100114)
-* [SPOJ - King Graffs Defense](http://www.spoj.com/problems/GRAFFDEF/)
-* [SPOJ - Critical Edges](http://www.spoj.com/problems/EC_P/)
-* [Codeforces - Break Up](http://codeforces.com/contest/700/problem/C)
-* [Codeforces - Tourist Reform](http://codeforces.com/contest/732/problem/F)
+-   [UVA #796 "Critical Links"](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=737) [difficulty: low]
+-   [UVA #610 "Street Directions"](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=551) [difficulty: medium]
+-   [Case of the Computer Network (Codeforces Round #310 Div. 1 E)](http://codeforces.com/problemset/problem/555/E) [difficulty: hard]
+
+*   [UVA 12363 - Hedge Mazes](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=3785)
+*   [UVA 315 - Network](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=251)
+*   [GYM - Computer Network (J)](http://codeforces.com/gym/100114)
+*   [SPOJ - King Graffs Defense](http://www.spoj.com/problems/GRAFFDEF/)
+*   [SPOJ - Critical Edges](http://www.spoj.com/problems/EC_P/)
+*   [Codeforces - Break Up](http://codeforces.com/contest/700/problem/C)
+*   [Codeforces - Tourist Reform](http://codeforces.com/contest/732/problem/F)

@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: extended_euclid_algorithm
 ---
 
@@ -10,21 +10,17 @@ While the [Euclidean algorithm](euclid-algorithm.md) calculates only the greates
 
 $$a \cdot x + b \cdot y = \gcd(a, b)$$
 
-It's important to note, that we can always find such a representation, for instance $\gcd(55, 80) = 5$ therefore we can represent $5$ as a linear combination with the terms $55$ and $80$: $55 \cdot 3 + 80 \cdot (-2) = 5$ 
+It's important to note, that we can always find such a representation, for instance $\gcd(55, 80) = 5$ therefore we can represent $5$ as a linear combination with the terms $55$ and $80$: $55 \cdot 3 + 80 \cdot (-2) = 5$
 
-A more general form of that problem is discussed in the article about [Linear Diophantine Equations](linear-diophantine-equation.md).
-It will build upon this algorithm.
+A more general form of that problem is discussed in the article about [Linear Diophantine Equations](linear-diophantine-equation.md). It will build upon this algorithm.
 
 ## Algorithm
 
 We will denote the GCD of $a$ and $b$ with $g$ in this section.
 
-The changes to the original algorithm are very simple.
-If we recall the algorithm, we can see that the algorithm ends with $b = 0$ and $a = g$.
-For these parameters we can easily find coefficients, namely $g \cdot 1 + 0 \cdot 0 = g$.
+The changes to the original algorithm are very simple. If we recall the algorithm, we can see that the algorithm ends with $b = 0$ and $a = g$. For these parameters we can easily find coefficients, namely $g \cdot 1 + 0 \cdot 0 = g$.
 
-Starting from these coefficients $(x, y) = (1, 0)$, we can go backwards up the recursive calls.
-All we need to do is to figure out how the coefficients $x$ and $y$ change during the transition from $(a, b)$ to $(b, a \bmod b)$.
+Starting from these coefficients $(x, y) = (1, 0)$, we can go backwards up the recursive calls. All we need to do is to figure out how the coefficients $x$ and $y$ change during the transition from $(a, b)$ to $(b, a \bmod b)$.
 
 Let us assume we found the coefficients $(x_1, y_1)$ for $(b, a \bmod b)$:
 
@@ -48,10 +44,12 @@ $$g = a \cdot y_1 + b \cdot \left( x_1 - y_1 \cdot \left\lfloor \frac{a}{b} \rig
 
 We found the values of $x$ and $y$:
 
-$$\begin{cases}
+$$
+\begin{cases}
 x = y_1 \\
 y = x_1 - y_1 \cdot \left\lfloor \frac{a}{b} \right\rfloor
-\end{cases} $$
+\end{cases}
+$$
 
 ## Implementation
 
@@ -76,8 +74,7 @@ This implementation of extended Euclidean algorithm produces correct results for
 
 ## Iterative version
 
-It's also possible to write the Extended Euclidean algorithm in an iterative way.
-Because it avoids recursion, the code will run a little bit faster than the recursive one.
+It's also possible to write the Extended Euclidean algorithm in an iterative way. Because it avoids recursion, the code will run a little bit faster than the recursive one.
 
 ```{.cpp file=extended_gcd_iter}
 int gcd(int a, int b, int& x, int& y) {
@@ -95,18 +92,14 @@ int gcd(int a, int b, int& x, int& y) {
 
 If you look closely at the variable `a1` and `b1`, you can notice that they taking exactly the same values as in the iterative version of the normal [Euclidean algorithm](euclid-algorithm.md). So the algorithm will at least compute the correct GCD.
 
-To see why the algorithm also computes the correct coefficients, you can check that the following invariants will hold at any time (before the while loop, and at the end of each iteration): $x \cdot a + y \cdot b = a_1$ and $x_1 \cdot a + y_1 \cdot b = b_1$.
-It's trivial to see, that these two equations are satisfied at the beginning.
-And you can check that the update in the loop iteration will still keep those equalities valid.
+To see why the algorithm also computes the correct coefficients, you can check that the following invariants will hold at any time (before the while loop, and at the end of each iteration): $x \cdot a + y \cdot b = a_1$ and $x_1 \cdot a + y_1 \cdot b = b_1$. It's trivial to see, that these two equations are satisfied at the beginning. And you can check that the update in the loop iteration will still keep those equalities valid.
 
-At the end we know that $a_1$ contains the GCD, so $x \cdot a + y \cdot b = g$.
-Which means that we have found the required coefficients.
+At the end we know that $a_1$ contains the GCD, so $x \cdot a + y \cdot b = g$. Which means that we have found the required coefficients.
 
-You can even optimize the code more, and remove the variable $a_1$ and $b_1$ from the code, and just reuse $a$ and $b$.
-However if you do so, you loose the ability to argue about the invariants.
+You can even optimize the code more, and remove the variable $a_1$ and $b_1$ from the code, and just reuse $a$ and $b$. However if you do so, you loose the ability to argue about the invariants.
 
 ## Practice Problems
 
-* [10104 - Euclid Problem](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1045)
-* [GYM - (J) Once Upon A Time](http://codeforces.com/gym/100963)
-* [UVA - 12775 - Gift Dilemma](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=4628)
+-   [10104 - Euclid Problem](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1045)
+-   [GYM - (J) Once Upon A Time](http://codeforces.com/gym/100963)
+-   [UVA - 12775 - Gift Dilemma](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=4628)

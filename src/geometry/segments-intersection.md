@@ -1,42 +1,30 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: segments_intersection
 ---
 
 # Finding intersection of two segments
 
-You are given two segments AB and CD, described as pairs of their endpoints. Each segment can be a single point if its endpoints are the same. 
-You have to find the intersection of these segments, which can be empty (if the segments don't intersect), a single point or a segment (if the given segments overlap).
+You are given two segments AB and CD, described as pairs of their endpoints. Each segment can be a single point if its endpoints are the same. You have to find the intersection of these segments, which can be empty (if the segments don't intersect), a single point or a segment (if the given segments overlap).
 
 ## Solution
 
-We can find the intersection point of segments in the same way as [the intersection of lines](lines-intersection.md): 
-reconstruct line equations from the segments' endpoints and check whether they are parallel. 
+We can find the intersection point of segments in the same way as [the intersection of lines](lines-intersection.md): reconstruct line equations from the segments' endpoints and check whether they are parallel.
 
-If the lines are not parallel, we need to find their point of intersection and check whether it belongs to both segments
-(to do this it's sufficient to verify that the intersection point belongs to each segment projected on X and Y axes). 
-In this case the answer will be either "no intersection" or the single point of lines' intersection.
+If the lines are not parallel, we need to find their point of intersection and check whether it belongs to both segments (to do this it's sufficient to verify that the intersection point belongs to each segment projected on X and Y axes). In this case the answer will be either "no intersection" or the single point of lines' intersection.
 
-The case of parallel lines is slightly more complicated (the case of one or more segments being a single point also belongs here).
-In this case we need to check that both segments belong to the same line.
-If they don't, the answer is "no intersection".
-If they do, the answer is the intersection of the segments belonging to the same line, which is obtained by 
-ordering the endpoints of both segments in the increasing order of certain coordinate and taking the rightmost of left endpoints and the leftmost of right endpoints.
+The case of parallel lines is slightly more complicated (the case of one or more segments being a single point also belongs here). In this case we need to check that both segments belong to the same line. If they don't, the answer is "no intersection". If they do, the answer is the intersection of the segments belonging to the same line, which is obtained by ordering the endpoints of both segments in the increasing order of certain coordinate and taking the rightmost of left endpoints and the leftmost of right endpoints.
 
 If both segments are single points, these points have to be identical, and it makes sense to perform this check separately.
 
-In the beginning of the algorithm let's add a bounding box check - it is necessary for the case when the segments belong to the same line, 
-and (being a lightweight check) it allows the algorithm to work faster on average on random tests.
-
+In the beginning of the algorithm let's add a bounding box check - it is necessary for the case when the segments belong to the same line, and (being a lightweight check) it allows the algorithm to work faster on average on random tests.
 
 ## Implementation
 
 Here is the implementation, including all helper functions for lines and segments processing.
 
-The main function `intersect` returns true if the segments have a non-empty intersection, 
-and stores endpoints of the intersection segment in arguments `left` and `right`. 
-If the answer is a single point, the values written to `left` and `right` will be the same.
+The main function `intersect` returns true if the segments have a non-empty intersection, and stores endpoints of the intersection segment in arguments `left` and `right`. If the answer is a single point, the values written to `left` and `right` will be the same.
 
 ```{.cpp file=segment_intersection}
 const double EPS = 1E-9;

@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: chinese_theorem
 ---
 
@@ -12,14 +12,16 @@ The Chinese Remainder Theorem (which will be referred to as CRT in the rest of t
 
 Let $p = p_1 \cdot p_2 \cdots p_k$, where $p_i$ are pairwise relatively prime. In addition to $p_i$, we are also given a set of congruence equations
 
-$$\begin{align}
+$$
+\begin{align}
     a &\equiv a_1 \pmod{p_1} \\\\
     a &\equiv a_2 \pmod{p_2} \\\\
       &\ldots \\\\
     a &\equiv a_k \pmod{p_k}
-\end{align}$$
+\end{align}
+$$
 
-where $a_i$ are some given constants. The original form of CRT then states that the given set of congruence equations always has *one and exactly one* solution modulo $p$.
+where $a_i$ are some given constants. The original form of CRT then states that the given set of congruence equations always has _one and exactly one_ solution modulo $p$.
 
 ### Corollary
 
@@ -29,11 +31,13 @@ $$x \equiv a \pmod{p}$$
 
 is equivalent to the system of equations
 
-$$\begin{align}
+$$
+\begin{align}
     x &\equiv a_1 \pmod{p_1} \\\\
       &\ldots \\\\
     x &\equiv a_k \pmod{p_k}
-\end{align}$$
+\end{align}
+$$
 
 (As above, assume that $p = p_1 p_2 \cdots p_k$ and $p_i$ are pairwise relatively prime).
 
@@ -45,8 +49,7 @@ Any number $a$ less than $p$ can be represented as an array $a_1, \ldots, a_k$, 
 
 $$a = x_1 + x_2 \cdot p_1 + x_3 \cdot p_1 \cdot p_2 + \ldots + x_k \cdot p_1 \cdots p_{k-1}$$
 
-which is called the mixed radix representation of $a$.
-Garner's algorithm computes the coefficients $x_1, \ldots, x_k$.
+which is called the mixed radix representation of $a$. Garner's algorithm computes the coefficients $x_1, \ldots, x_k$.
 
 Let $r_{ij}$ denote the inverse of $p_i$ modulo $p_j$
 
@@ -62,11 +65,13 @@ $$a_2 \equiv x_1 + x_2 p_1 \pmod{p_2}.$$
 
 which can be rewritten by subtracting $x_1$ and dividing by $p_1$ to get
 
-$$\begin{array}{rclr}
+$$
+\begin{array}{rclr}
     a_2 - x_1 &\equiv& x_2 p_1 &\pmod{p_2} \\\\
     (a_2 - x_1) r_{12} &\equiv& x_2 &\pmod{p_2} \\\\
     x_2 &\equiv& (a_2 - x_1) r_{12} &\pmod{p_2}
-\end{array}$$
+\end{array}
+$$
 
 Similarly we get that
 
@@ -97,10 +102,7 @@ It is worth noting that in practice, we almost always need to compute the answer
 
 It is convenient to implement this algorithm using Java, because it has built-in support for large numbers through the `BigInteger` class.
 
-Here we show an implementation that can store big numbers in the form of a set of congruence equations.
-It supports addition, subtraction and multiplication.
-And with Garner's algorithm we can convert the set of equations into the unique integer.
-In this code, we take 100 prime numbers greater than $10^9$, which allows numbers as large as $10^{900}$.
+Here we show an implementation that can store big numbers in the form of a set of congruence equations. It supports addition, subtraction and multiplication. And with Garner's algorithm we can convert the set of equations into the unique integer. In this code, we take 100 prime numbers greater than $10^9$, which allows numbers as large as $10^{900}$.
 
 ```java
 final int SZ = 100;
@@ -179,10 +181,11 @@ class Number {
 
 ### Note on negative numbers
 
-* Let $p$ be the product of all primes.
+-   Let $p$ be the product of all primes.
 
-* Modular scheme itself does not allow representing negative numbers. However, it can be seen that if we know that the absolute values our numbers are smaller than $p / 2$, then we know that it must be negative when the resulting number is greater than $p / 2$. The flag `can_be_negative` in this code allows converting it to negative in this case.
+-   Modular scheme itself does not allow representing negative numbers. However, it can be seen that if we know that the absolute values our numbers are smaller than $p / 2$, then we know that it must be negative when the resulting number is greater than $p / 2$. The flag `can_be_negative` in this code allows converting it to negative in this case.
 
 ## Practice Problems:
-* [Hackerrank - Number of sequences](https://www.hackerrank.com/contests/w22/challenges/number-of-sequences)
-* [Codeforces - Remainders Game](http://codeforces.com/problemset/problem/687/B)
+
+-   [Hackerrank - Number of sequences](https://www.hackerrank.com/contests/w22/challenges/number-of-sequences)
+-   [Codeforces - Remainders Game](http://codeforces.com/problemset/problem/687/B)

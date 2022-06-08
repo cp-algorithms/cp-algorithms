@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: treap
 ---
 
@@ -8,8 +8,7 @@ e_maxx_link: treap
 
 A treap is a data structure which combines binary tree and binary heap (hence the name: tree + heap $\Rightarrow$ Treap).
 
-More specifically, treap is a data structure that stores pairs $(X, Y)$ in a binary tree in such a way that it is a binary search tree by $X$ and a binary heap by $Y$.
-If some node of the tree contains values $(X_0, Y_0)$, all nodes in the left subtree have $X \leq X_0$, all nodes in the right subtree have $X_0 \leq X$, and all nodes in both left and right subtrees have $Y \leq Y_0$.
+More specifically, treap is a data structure that stores pairs $(X, Y)$ in a binary tree in such a way that it is a binary search tree by $X$ and a binary heap by $Y$. If some node of the tree contains values $(X_0, Y_0)$, all nodes in the left subtree have $X \leq X_0$, all nodes in the right subtree have $X_0 \leq X$, and all nodes in both left and right subtrees have $Y \leq Y_0$.
 
 A treap is also often referred to as a "cartesian tree", as it is easy to embed it in a Cartesian plane:
 
@@ -29,18 +28,18 @@ At the same time, **priorities** (when they're unique) allow to **uniquely** spe
 
 A treap provides the following operations:
 
-- **Insert (X,Y)** in $O(\log N)$.  
-  Adds a new node to the tree. One possible variant is to pass only $X$ and generate $Y$ randomly inside the operation.
-- **Search (X)** in $O(\log N)$.  
-  Looks for a node with the specified key value $X$. The implementation is the same as for an ordinary binary search tree.
-- **Erase (X)** in $O(\log N)$.  
-  Looks for a node with the specified key value $X$ and removes it from the tree.
-- **Build ($X_1$, ..., $X_N$)** in $O(N)$.  
-  Builds a tree from a list of values. This can be done in linear time (assuming that $X_1, ..., X_N$ are sorted).
-- **Union ($T_1$, $T_2$)** in $O(M \log (N/M))$.  
-  Merges two trees, assuming that all the elements are different. It is possible to achieve the same complexity if duplicate elements should be removed during merge.
-- **Intersect ($T_1$, $T_2$)** in $O(M \log (N/M))$.  
-  Finds the intersection of two trees (i.e. their common elements). We will not consider the implementation of this operation here.
+-   **Insert (X,Y)** in $O(\log N)$.  
+    Adds a new node to the tree. One possible variant is to pass only $X$ and generate $Y$ randomly inside the operation.
+-   **Search (X)** in $O(\log N)$.  
+    Looks for a node with the specified key value $X$. The implementation is the same as for an ordinary binary search tree.
+-   **Erase (X)** in $O(\log N)$.  
+    Looks for a node with the specified key value $X$ and removes it from the tree.
+-   **Build ($X_1$, ..., $X_N$)** in $O(N)$.  
+    Builds a tree from a list of values. This can be done in linear time (assuming that $X_1, ..., X_N$ are sorted).
+-   **Union ($T_1$, $T_2$)** in $O(M \log (N/M))$.  
+    Merges two trees, assuming that all the elements are different. It is possible to achieve the same complexity if duplicate elements should be removed during merge.
+-   **Intersect ($T_1$, $T_2$)** in $O(M \log (N/M))$.  
+    Finds the intersection of two trees (i.e. their common elements). We will not consider the implementation of this operation here.
 
 In addition, due to the fact that a treap is a binary search tree, it can implement other operations, such as finding the $K$-th largest element or finding the index of an element.
 
@@ -84,7 +83,6 @@ Thus, the split algorithm is:
 Now implementation of **Insert ($X$, $Y$)** becomes obvious. First we descend in the tree (as in a regular binary search tree by X), and stop at the first node in which the priority value is less than $Y$. We have found the place where we will insert the new element. Next, we call **Split (T, X)** on the subtree starting at the found node, and use returned subtrees $L$ and $R$ as left and right children of the new node.
 
 Alternatively, insert can be done by splitting the initial treap on $X$ and doing $2$ merges with the new node (see the picture).
-
 
 ### Erase
 
@@ -144,7 +142,7 @@ This `split` function can be tricky to understand, as it has both pointers (`pit
 1. When the root node value is $\le$ key, we call `split (t->r, key, t->r, r)`, which means: "split treap `t->r` (right subtree of `t`) by value `key` and store the left subtree in `t->r` and right subtree in `r`". After that, we set `l = t`. Note now that the `l` result value contains `t->l`, `t` as well as `t->r` (which is the result of the recursive call we made) all already merged in the correct order! You should pause to ensure that this result of `l` and `r` corresponds exactly with what we discussed earlier in Implementation Description.
 2. When the root node value is greater than key, we call `split (t->l, key, l, t->l)`, which means: "split treap `t->l` (left subtree of `t`) by value `key` and store the left subtree in `l` and right subtree in `t->l`". After that, we set `r = t`. Note now that the `r` result value contains `t->l` (which is the result of the recursive call we made), `t` as well as `t->r`, all already merged in the correct order! You should pause to ensure that this result of `l` and `r` corresponds exactly with what we discussed earlier in Implementation Description.
 
-If you're still having trouble understanding the implementation, you should look at it _inductively_, that is: do *not* try to break down the recursive calls over and over again. Assume the split implementation works correct on empty treap, then try to run it for a single node treap, then a two node treap, and so on, each time reusing your knowledge that split on smaller treaps works.
+If you're still having trouble understanding the implementation, you should look at it _inductively_, that is: do _not_ try to break down the recursive calls over and over again. Assume the split implementation works correct on empty treap, then try to run it for a single node treap, then a two node treap, and so on, each time reusing your knowledge that split on smaller treaps works.
 
 ```cpp
 void insert (pitem & t, pitem it) {
@@ -238,8 +236,7 @@ Note: calling `upd_cnt(t)` is only necessary if you need the subtree sizes.
 
 The approach above always provides a perfectly balanced tree, which is generally good for practical purposes, but at the cost of not preserving the priorities that were initially assigned to each node. Thus, this approach is not feasible to solve the following problem:
 
-!!! example "[acmsguru - Cartesian Tree](https://codeforces.com/problemsets/acmsguru/problem/99999/155)"
-    Given a sequence of pairs $(x_i, y_i)$, construct a cartesian tree on them. All $x_i$ and all $y_i$ are unique.
+!!! example "[acmsguru - Cartesian Tree](https://codeforces.com/problemsets/acmsguru/problem/99999/155)" Given a sequence of pairs $(x_i, y_i)$, construct a cartesian tree on them. All $x_i$ and all $y_i$ are unique.
 
 Note that in this problem priorities are not random, hence just inserting vertices one by one could provide a quadratic solution.
 
@@ -287,16 +284,15 @@ pitem build(int *x, int *y, int n) {
 
 Implicit treap is a simple modification of the regular treap which is a very powerful data structure. In fact, implicit treap can be considered as an array with the following procedures implemented (all in $O (\log N)$ in the online mode):
 
-- Inserting an element in the array in any location
-- Removal of an arbitrary element
-- Finding sum, minimum / maximum element etc. on an arbitrary interval
-- Addition, painting on an arbitrary interval
-- Reversing elements on an arbitrary interval
+-   Inserting an element in the array in any location
+-   Removal of an arbitrary element
+-   Finding sum, minimum / maximum element etc. on an arbitrary interval
+-   Addition, painting on an arbitrary interval
+-   Reversing elements on an arbitrary interval
 
 The idea is that the keys should be null-based **indices** of the elements in the array. But we will not store these values explicitly (otherwise, for example, inserting an element would cause changes of the key in $O (N)$ nodes of the tree).
 
-Note that the key of a node is the number of nodes less than it (such nodes can be present not only in its left subtree but also in left subtrees of its ancestors). 
-More specifically, the **implicit key** for some node T is the number of vertices $cnt (T \rightarrow L)$ in the left subtree of this node plus similar values $cnt (P \rightarrow L) + 1$ for each ancestor P of the node T, if T is in the right subtree of P.
+Note that the key of a node is the number of nodes less than it (such nodes can be present not only in its left subtree but also in left subtrees of its ancestors). More specifically, the **implicit key** for some node T is the number of vertices $cnt (T \rightarrow L)$ in the left subtree of this node plus similar values $cnt (P \rightarrow L) + 1$ for each ancestor P of the node T, if T is in the right subtree of P.
 
 Now it's clear how to calculate the implicit key of current node quickly. Since in all operations we arrive to any node by descending in the tree, we can just accumulate this sum and pass it to the function. If we go to the left subtree, the accumulated sum does not change, if we go to the right subtree it increases by $cnt (T \rightarrow L) +1$.
 
@@ -329,18 +325,18 @@ In the implementation above, after the call of $split(T, T_1, T_2, k)$, the tree
 
 Now let's consider the implementation of various operations on implicit treaps:
 
-- **Insert element**.  
-  Suppose we need to insert an element at position $pos$. We divide the treap into two parts, which correspond to arrays $[0..pos-1]$ and $[pos..sz]$; to do this we call $split(T, T_1, T_2, pos)$. Then we can combine tree $T_1$ with the new vertex by calling $merge(T_1, T_1, \text{new item})$ (it is easy to see that all preconditions are met). Finally, we combine trees $T_1$ and $T_2$ back into $T$ by calling $merge(T, T_1, T_2)$.
-- **Delete element**.  
- This operation is even easier: find the element to be deleted $T$, perform merge of its children $L$ and $R$, and replace the element $T$ with the result of merge. In fact, element deletion in the implicit treap is exactly the same as in the regular treap.
-- Find **sum / minimum**, etc. on the interval.  
- First, create an additional field $F$ in the `item` structure to store the value of the target function for this node's subtree. This field is easy to maintain similarly to maintaining sizes of subtrees: create a function which calculates this value for a node based on values for its children and add calls of this function in the end of all functions which modify the tree.  
- Second, we need to know how to process a query for an arbitrary interval $[A; B]$.  
- To get a part of tree which corresponds to the interval $[A; B]$, we need to call $split(T, T_2, T_3, B+1)$, and then $split(T_2, T_1, T_2, A)$: after this $T_2$ will consist of all the elements in the interval $[A; B]$, and only of them. Therefore, the response to the query will be stored in the field $F$ of the root of $T_2$. After the query is answered, the tree has to be restored by calling $merge(T, T_1, T_2)$ and $merge(T, T, T_3)$.
-- **Addition / painting** on the interval.  
- We act similarly to the previous paragraph, but instead of the field F we will store a field `add` which will contain the added value for the subtree (or the value to which the subtree is painted). Before performing any operation we have to "push" this value correctly - i.e. change $T \rightarrow L \rightarrow add$ and $T \rightarrow R \rightarrow add$, and to clean up `add` in the parent node. This way after any changes to the tree the information will not be lost.
-- **Reverse** on the interval.  
- This is again similar to the previous operation: we have to add boolean flag `rev` and set it to true when the subtree of the current node has to be reversed. "Pushing" this value is a bit complicated - we swap children of this node and set this flag to true for them.
+-   **Insert element**.  
+    Suppose we need to insert an element at position $pos$. We divide the treap into two parts, which correspond to arrays $[0..pos-1]$ and $[pos..sz]$; to do this we call $split(T, T_1, T_2, pos)$. Then we can combine tree $T_1$ with the new vertex by calling $merge(T_1, T_1, \text{new item})$ (it is easy to see that all preconditions are met). Finally, we combine trees $T_1$ and $T_2$ back into $T$ by calling $merge(T, T_1, T_2)$.
+-   **Delete element**.  
+    This operation is even easier: find the element to be deleted $T$, perform merge of its children $L$ and $R$, and replace the element $T$ with the result of merge. In fact, element deletion in the implicit treap is exactly the same as in the regular treap.
+-   Find **sum / minimum**, etc. on the interval.  
+    First, create an additional field $F$ in the `item` structure to store the value of the target function for this node's subtree. This field is easy to maintain similarly to maintaining sizes of subtrees: create a function which calculates this value for a node based on values for its children and add calls of this function in the end of all functions which modify the tree.  
+    Second, we need to know how to process a query for an arbitrary interval $[A; B]$.  
+    To get a part of tree which corresponds to the interval $[A; B]$, we need to call $split(T, T_2, T_3, B+1)$, and then $split(T_2, T_1, T_2, A)$: after this $T_2$ will consist of all the elements in the interval $[A; B]$, and only of them. Therefore, the response to the query will be stored in the field $F$ of the root of $T_2$. After the query is answered, the tree has to be restored by calling $merge(T, T_1, T_2)$ and $merge(T, T, T_3)$.
+-   **Addition / painting** on the interval.  
+    We act similarly to the previous paragraph, but instead of the field F we will store a field `add` which will contain the added value for the subtree (or the value to which the subtree is painted). Before performing any operation we have to "push" this value correctly - i.e. change $T \rightarrow L \rightarrow add$ and $T \rightarrow R \rightarrow add$, and to clean up `add` in the parent node. This way after any changes to the tree the information will not be lost.
+-   **Reverse** on the interval.  
+    This is again similar to the previous operation: we have to add boolean flag `rev` and set it to true when the subtree of the current node has to be reversed. "Pushing" this value is a bit complicated - we swap children of this node and set this flag to true for them.
 
 Here is an example implementation of the implicit treap with reverse on the interval. For each node we store field called `value` which is the actual value of the array element at current position. We also provide implementation of the function `output()`, which outputs an array that corresponds to the current state of the implicit treap.
 
@@ -414,22 +410,22 @@ void output (pitem t) {
 
 ## Literature
 
-* [Blelloch, Reid-Miller "Fast Set Operations Using Treaps"](https://www.cs.cmu.edu/~scandal/papers/treaps-spaa98.pdf)
+-   [Blelloch, Reid-Miller "Fast Set Operations Using Treaps"](https://www.cs.cmu.edu/~scandal/papers/treaps-spaa98.pdf)
 
 ## Practice Problems
 
-* [SPOJ - Ada and Aphids](http://www.spoj.com/problems/ADAAPHID/)
-* [SPOJ - Ada and Harvest](http://www.spoj.com/problems/ADACROP/)
-* [Codeforces - Radio Stations](http://codeforces.com/contest/762/problem/E)
-* [SPOJ - Ghost Town](http://www.spoj.com/problems/COUNT1IT/)
-* [SPOJ - Arrangement Validity](http://www.spoj.com/problems/IITWPC4D/)
-* [SPOJ - All in One](http://www.spoj.com/problems/ALLIN1/)
-* [Codeforces - Dog Show](http://codeforces.com/contest/847/problem/D)
-* [Codeforces - Yet Another Array Queries Problem](http://codeforces.com/contest/863/problem/D)
-* [SPOJ - Mean of Array](http://www.spoj.com/problems/MEANARR/)
-* [SPOJ - TWIST](http://www.spoj.com/problems/TWIST/)
-* [SPOJ - KOILINE](http://www.spoj.com/problems/KOILINE/)
-* [CodeChef - The Prestige](https://www.codechef.com/problems/PRESTIGE)
-* [Codeforces - T-Shirts](https://codeforces.com/contest/702/problem/F)
-* [Codeforces - Wizards and Roads](https://codeforces.com/problemset/problem/167/D)
-* [Codeforces - Yaroslav and Points](https://codeforces.com/contest/295/problem/E)
+-   [SPOJ - Ada and Aphids](http://www.spoj.com/problems/ADAAPHID/)
+-   [SPOJ - Ada and Harvest](http://www.spoj.com/problems/ADACROP/)
+-   [Codeforces - Radio Stations](http://codeforces.com/contest/762/problem/E)
+-   [SPOJ - Ghost Town](http://www.spoj.com/problems/COUNT1IT/)
+-   [SPOJ - Arrangement Validity](http://www.spoj.com/problems/IITWPC4D/)
+-   [SPOJ - All in One](http://www.spoj.com/problems/ALLIN1/)
+-   [Codeforces - Dog Show](http://codeforces.com/contest/847/problem/D)
+-   [Codeforces - Yet Another Array Queries Problem](http://codeforces.com/contest/863/problem/D)
+-   [SPOJ - Mean of Array](http://www.spoj.com/problems/MEANARR/)
+-   [SPOJ - TWIST](http://www.spoj.com/problems/TWIST/)
+-   [SPOJ - KOILINE](http://www.spoj.com/problems/KOILINE/)
+-   [CodeChef - The Prestige](https://www.codechef.com/problems/PRESTIGE)
+-   [Codeforces - T-Shirts](https://codeforces.com/contest/702/problem/F)
+-   [Codeforces - Wizards and Roads](https://codeforces.com/problemset/problem/167/D)
+-   [Codeforces - Yaroslav and Points](https://codeforces.com/contest/295/problem/E)

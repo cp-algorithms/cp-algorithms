@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: dinic
 ---
 
@@ -12,8 +12,8 @@ Dinic's algorithm solves the maximum flow problem in $O(V^2E)$. The maximum flow
 
 A **residual network** $G^R$ of network $G$ is a network which contains two edges for each edge $(v, u)\in G$:<br>
 
-- $(v, u)$ with capacity $c_{vu}^R = c_{vu} - f_{vu}$
-- $(u, v)$ with capacity $c_{uv}^R = f_{vu}$
+-   $(v, u)$ with capacity $c_{vu}^R = c_{vu} - f_{vu}$
+-   $(u, v)$ with capacity $c_{uv}^R = f_{vu}$
 
 A **blocking flow** of some network is such a flow that every path from $s$ to $t$ contains at least one edge which is saturated by this flow. Note that a blocking flow is not necessarily maximal.
 
@@ -27,7 +27,7 @@ The algorithm consists of several phases. On each phase we construct the layered
 
 Let's show that if the algorithm terminates, it finds the maximum flow.
 
-If the algorithm terminated, it couldn't find a blocking flow in the layered network. It means that the layered network doesn't have any path from $s$ to $t$.  It means that the residual network doesn't have any path from $s$ to $t$. It means that the flow is maximum.
+If the algorithm terminated, it couldn't find a blocking flow in the layered network. It means that the layered network doesn't have any path from $s$ to $t$. It means that the residual network doesn't have any path from $s$ to $t$. It means that the flow is maximum.
 
 ## Number of phases
 

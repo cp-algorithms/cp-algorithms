@@ -1,66 +1,40 @@
 ---
 title: Point location in O(log n)
 tags:
-  - Original
+    - Original
 ---
+
 # Point location in $O(log n)$
 
-Consider the following problem: you are given a [planar subdivision](https://en.wikipedia.org/wiki/Planar_straight-line_graph) without no vertices of degree one and zero, and a lot of queries.
-Each query is a point, for which we should determine the face of the subdivision it belongs to.
-We will answer each query in $O(\log n)$ offline.<br>
-This problem may arise when you need to locate some points in a Voronoi diagram or in some simple polygon.
+Consider the following problem: you are given a [planar subdivision](https://en.wikipedia.org/wiki/Planar_straight-line_graph) without no vertices of degree one and zero, and a lot of queries. Each query is a point, for which we should determine the face of the subdivision it belongs to. We will answer each query in $O(\log n)$ offline.<br> This problem may arise when you need to locate some points in a Voronoi diagram or in some simple polygon.
 
 ## Algorithm
 
-Firstly, for each query point $p\ (x_0, y_0)$ we want to find such an edge that if the point belongs to any edge, the point lies on the edge we found, otherwise this edge must intersect the line $x = x_0$ at some unique point $(x_0, y)$ where $y < y_0$ and this $y$ is maximum among all such edges.
-The following image shows both cases.
+Firstly, for each query point $p\ (x_0, y_0)$ we want to find such an edge that if the point belongs to any edge, the point lies on the edge we found, otherwise this edge must intersect the line $x = x_0$ at some unique point $(x_0, y)$ where $y < y_0$ and this $y$ is maximum among all such edges. The following image shows both cases.
 
 <center>![Image of Goal](point_location_goal.png)</center>
 
 We will solve this problem offline using the sweep line algorithm. Let's iterate over x-coordinates of query points and edges' endpoints in increasing order and keep a set of edges $s$. For each x-coordinate we will add some events beforehand.
 
-The events will be of four types: _add_, _remove_, _vertical_, _get_.
-For each vertical edge (both endpoints have the same x-coordinate) we will add one _vertical_ event for the corresponding x-coordinate.
-For every other edge we will add one _add_ event for the minimum of x-coordinates of the endpoints and one _remove_ event for the maximum of x-coordinates of the endpoints.
-Finally, for each query point we will add one _get_ event for its x-coordinate.
+The events will be of four types: _add_, _remove_, _vertical_, _get_. For each vertical edge (both endpoints have the same x-coordinate) we will add one _vertical_ event for the corresponding x-coordinate. For every other edge we will add one _add_ event for the minimum of x-coordinates of the endpoints and one _remove_ event for the maximum of x-coordinates of the endpoints. Finally, for each query point we will add one _get_ event for its x-coordinate.
 
-For each x-coordinate we will sort the events by their types in order (_vertical_, _get_, _remove_, _add_).
-The following image shows all events in sorted order for each x-coordinate.
+For each x-coordinate we will sort the events by their types in order (_vertical_, _get_, _remove_, _add_). The following image shows all events in sorted order for each x-coordinate.
 
 <center>![Image of Events](point_location_events.png)</center>
 
-We will keep two sets during the sweep-line process.
-A set $t$ for all non-vertical edges, and one set $vert$ especially for the vertical ones.
-We will clear the set $vert$ at the beginning of processing each x-coordinate.
+We will keep two sets during the sweep-line process. A set $t$ for all non-vertical edges, and one set $vert$ especially for the vertical ones. We will clear the set $vert$ at the beginning of processing each x-coordinate.
 
 Now let's process the events for a fixed x-coordinate.
 
- - If we got a _vertical_ event, we will simply insert the minimum y-coordinate of the corresponding edge's endpoints to $vert$.
- - If we got a _remove_ or _add_ event, we will remove the corresponding edge from $t$ or add it to $t$.
- - Finally, for each _get_ event we must check if the point lies on some vertical edge by performing a binary search in $vert$.
-If the point doesn't lie on any vertical edge, we must find the answer for this query in $t$.
-To do this, we again make a binary search.
-In order to handle some degenerate cases (e.g. in case of the triangle $(0,~0)$, $(0,~2)$, $(1, 1)$ when we query the point $(0,~0)$), we must answer all _get_ events again after we processed all the events for this x-coordinate and choose the best of two answers.
+-   If we got a _vertical_ event, we will simply insert the minimum y-coordinate of the corresponding edge's endpoints to $vert$.
+-   If we got a _remove_ or _add_ event, we will remove the corresponding edge from $t$ or add it to $t$.
+-   Finally, for each _get_ event we must check if the point lies on some vertical edge by performing a binary search in $vert$. If the point doesn't lie on any vertical edge, we must find the answer for this query in $t$. To do this, we again make a binary search. In order to handle some degenerate cases (e.g. in case of the triangle $(0,~0)$, $(0,~2)$, $(1, 1)$ when we query the point $(0,~0)$), we must answer all _get_ events again after we processed all the events for this x-coordinate and choose the best of two answers.
 
-Now let's choose a comparator for the set $t$.
-This comparator should check if one edge doesn't lie above other for every x-coordinate they both cover. Suppose that we have two edges $(a, b)$ and $(c, d)$. Then the comparator is (in pseudocode):<br>
+Now let's choose a comparator for the set $t$. This comparator should check if one edge doesn't lie above other for every x-coordinate they both cover. Suppose that we have two edges $(a, b)$ and $(c, d)$. Then the comparator is (in pseudocode):<br>
 
-$val = sgn((b - a)\times(c - a)) + sgn((b - a)\times(d - a))$<br>
-<b>if</b> $val \neq 0$<br>
-<b>then return</b> $val > 0$<br>
-$val = sgn((d - c)\times(a - c)) + sgn((d - c)\times(b - c))$<br>
-<b>return</b> $val < 0$<br>
+$val = sgn((b - a)\times(c - a)) + sgn((b - a)\times(d - a))$<br> <b>if</b> $val \neq 0$<br> <b>then return</b> $val > 0$<br> $val = sgn((d - c)\times(a - c)) + sgn((d - c)\times(b - c))$<br> <b>return</b> $val < 0$<br>
 
-Now for every query we have the corresponding edge.
-How to find the face?
-If we couldn't find the edge it means that the point is in the outer face.
-If the point belongs to the edge we found, the face is not unique.
-Otherwise, there are two candidates - the faces that are bounded by this edge.
-How to check which one is the answer? Note that the edge is not vertical.
-Then the answer is the face that is above this edge.
-Let's find such a face for each non-vertical edge.
-Consider a counter-clockwise traversal of each face.
-If during this traversal we increased x-coordinate while passing through the edge, then this face is the face we need to find for this edge.
+Now for every query we have the corresponding edge. How to find the face? If we couldn't find the edge it means that the point is in the outer face. If the point belongs to the edge we found, the face is not unique. Otherwise, there are two candidates - the faces that are bounded by this edge. How to check which one is the answer? Note that the edge is not vertical. Then the answer is the face that is above this edge. Let's find such a face for each non-vertical edge. Consider a counter-clockwise traversal of each face. If during this traversal we increased x-coordinate while passing through the edge, then this face is the face we need to find for this edge.
 
 ## Notes
 
@@ -68,9 +42,7 @@ Actually, with persistent trees this approach can be used to answer the queries 
 
 ## Implementation
 
-The following code is implemented for integers, but it can be easily modified to work with doubles (by changing the compare methods and the point type).
-This implementation assumes that the subdivision is correctly stored inside a [DCEL](https://en.wikipedia.org/wiki/Doubly_connected_edge_list) and the outer face is numbered $-1$.<br>
-For each query a pair $(1, i)$ is returned if the point lies strictly inside the face number $i$, and a pair $(0, i)$ is returned if the point lies on the edge number $i$.
+The following code is implemented for integers, but it can be easily modified to work with doubles (by changing the compare methods and the point type). This implementation assumes that the subdivision is correctly stored inside a [DCEL](https://en.wikipedia.org/wiki/Doubly_connected_edge_list) and the outer face is numbered $-1$.<br> For each query a pair $(1, i)$ is returned if the point lies strictly inside the face number $i$, and a pair $(0, i)$ is returned if the point lies on the edge number $i$.
 
 ```{.cpp file=point-location}
 typedef long long ll;
@@ -292,5 +264,6 @@ vector<pair<int, int>> point_location(DCEL planar, vector<pt> queries)
 ```
 
 ## Problems
- * [TIMUS 1848 Fly Hunt](http://acm.timus.ru/problem.aspx?space=1&num=1848&locale=en)
- * [UVA 12310 Point Location](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=297&page=show_problem&problem=3732)
+
+-   [TIMUS 1848 Fly Hunt](http://acm.timus.ru/problem.aspx?space=1&num=1848&locale=en)
+-   [UVA 12310 Point Location](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=297&page=show_problem&problem=3732)

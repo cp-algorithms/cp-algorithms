@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: mst_kruskal_with_dsu
 ---
 
@@ -12,11 +12,7 @@ In this article we will consider the data structure ["Disjoint Set Union"](../da
 
 ## Description
 
-Just as in the simple version of the Kruskal algorithm, we sort all the edges of the graph in non-decreasing order of weights.
-Then put each vertex in its own tree (i.e. its set) via calls to the `make_set` function - it will take a total of $O(N)$.
-We iterate through all the edges (in sorted order) and for each edge determine whether the ends belong to different trees (with two `find_set` calls in $O(1)$ each).
-Finally, we need to perform the union of the two trees (sets), for which the DSU `union_sets` function will be called - also in $O(1)$.
-So we get the total time complexity of $O(M \log N + N + M)$ = $O(M \log N)$.
+Just as in the simple version of the Kruskal algorithm, we sort all the edges of the graph in non-decreasing order of weights. Then put each vertex in its own tree (i.e. its set) via calls to the `make_set` function - it will take a total of $O(N)$. We iterate through all the edges (in sorted order) and for each edge determine whether the ends belong to different trees (with two `find_set` calls in $O(1)$ each). Finally, we need to perform the union of the two trees (sets), for which the DSU `union_sets` function will be called - also in $O(1)$. So we get the total time complexity of $O(M \log N + N + M)$ = $O(M \log N)$.
 
 ## Implementation
 

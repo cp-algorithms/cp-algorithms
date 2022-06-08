@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: topological_sort
 ---
 
@@ -20,7 +20,7 @@ A common problem in which topological sorting occurs is the following. There are
 
 To solve this problem we will use [depth-first search](depth-first-search.md).
 
-Let's assume that the graph is acyclic, i.e. there is a solution. What does the depth-first search do? When started from some  vertex $v$, it tries to run along all edges outgoing from $v$. It fails to run along the edges for which the opposite ends have been visited previously, and runs along the rest of the edges and starts from their ends.
+Let's assume that the graph is acyclic, i.e. there is a solution. What does the depth-first search do? When started from some vertex $v$, it tries to run along all edges outgoing from $v$. It fails to run along the edges for which the opposite ends have been visited previously, and runs along the rest of the edges and starts from their ends.
 
 Thus, by the time of the call $dfs(v)$ is ended, all vertices that are reachable from $v$ either directly (via one edge) or indirectly are already visited by the search. Therefore, if at the time of exit from $dfs(v)$ we add vertex $v$ to the beginning of a certain list, in the end this list will store a topological ordering of all vertices.
 
@@ -46,7 +46,7 @@ void dfs(int v) {
     }
     ans.push_back(v);
 }
- 
+
 void topological_sort() {
     visited.assign(n, false);
     ans.clear();
@@ -62,12 +62,12 @@ The main function of the solution is `topological_sort`, which initializes DFS v
 
 ## Practice Problems
 
-- [SPOJ TOPOSORT - Topological Sorting [difficulty: easy]](http://www.spoj.com/problems/TOPOSORT/)
-- [UVA 10305 - Ordering Tasks [difficulty: easy]](https://onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1246)
-- [UVA 124 - Following Orders [difficulty: easy]](https://onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=60)
-- [UVA 200 - Rare Order [difficulty: easy]](https://onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=136)
-- [Codeforces 510C - Fox and Names [difficulty: easy]](http://codeforces.com/problemset/problem/510/C)
-- [SPOJ RPLA - Answer the boss!](https://www.spoj.com/problems/RPLA/)
-- [CSES - Course Schedule](https://cses.fi/problemset/task/1679)
-- [CSES - Longest Flight Route](https://cses.fi/problemset/task/1680)
-- [CSES - Game Routes](https://cses.fi/problemset/task/1681)
+-   [SPOJ TOPOSORT - Topological Sorting [difficulty: easy]](http://www.spoj.com/problems/TOPOSORT/)
+-   [UVA 10305 - Ordering Tasks [difficulty: easy]](https://onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1246)
+-   [UVA 124 - Following Orders [difficulty: easy]](https://onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=60)
+-   [UVA 200 - Rare Order [difficulty: easy]](https://onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=136)
+-   [Codeforces 510C - Fox and Names [difficulty: easy]](http://codeforces.com/problemset/problem/510/C)
+-   [SPOJ RPLA - Answer the boss!](https://www.spoj.com/problems/RPLA/)
+-   [CSES - Course Schedule](https://cses.fi/problemset/task/1679)
+-   [CSES - Longest Flight Route](https://cses.fi/problemset/task/1680)
+-   [CSES - Game Routes](https://cses.fi/problemset/task/1681)

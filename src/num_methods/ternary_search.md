@@ -1,19 +1,18 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: ternary_search
----	
+---
 
 # Ternary Search
 
-We are given a function $f(x)$ which is unimodal on an interval $[l, r]$. By unimodal function, we mean one of two behaviors of the function: 
+We are given a function $f(x)$ which is unimodal on an interval $[l, r]$. By unimodal function, we mean one of two behaviors of the function:
 
 1. The function strictly increases first, reaches a maximum (at a single point or over an interval), and then strictly decreases.
 
 2. The function strictly decreases first, reaches a minimum, and then strictly increases.
 
-In this article, we will assume the first scenario.
-The second scenario is completely symmetrical to the first.
+In this article, we will assume the first scenario. The second scenario is completely symmetrical to the first.
 
 The task is to find the maximum of function $f(x)$ on the interval $[l, r]$.
 
@@ -39,7 +38,7 @@ We didn't impose any restrictions on the choice of points $m_1$ and $m_2$. This 
 
 $$m_1 = l + \frac{(r - l)}{3}$$
 
-$$m_2 = r - \frac{(r - l)}{3}$$ 
+$$m_2 = r - \frac{(r - l)}{3}$$
 
 If $m_1$ and $m_2$ are chosen to be closer to each other, the convergence rate will increase slightly.
 
@@ -47,9 +46,9 @@ If $m_1$ and $m_2$ are chosen to be closer to each other, the convergence rate w
 
 $$T(n) = T({2n}/{3}) + 1 = \Theta(\log n)$$
 
-It can be visualized as follows: every time after evaluating the function at points $m_1$ and $m_2$, we are essentially ignoring about one third of the interval, either the left or right one. Thus the size of the search space is ${2n}/{3}$ of the original one. 
+It can be visualized as follows: every time after evaluating the function at points $m_1$ and $m_2$, we are essentially ignoring about one third of the interval, either the left or right one. Thus the size of the search space is ${2n}/{3}$ of the original one.
 
-Applying [Master's Theorem](https://en.wikipedia.org/wiki/Master_theorem_(analysis_of_algorithms)), we get the desired complexity estimate.
+Applying [Master's Theorem](<https://en.wikipedia.org/wiki/Master_theorem_(analysis_of_algorithms)>), we get the desired complexity estimate.
 
 ### The case of the integer arguments
 
@@ -81,18 +80,20 @@ Here `eps` is in fact the absolute error (not taking into account errors due to 
 Instead of the criterion `r - l > eps`, we can select a constant number of iterations as a stopping criterion. The number of iterations should be chosen to ensure the required accuracy. Typically, in most programming challenges the error limit is ${10}^{-6}$ and thus 200 - 300 iterations are sufficient. Also, the number of iterations doesn't depend on the values of $l$ and $r$, so the number of iterations corresponds to the required relative error.
 
 ## Practice Problems
-- [Codechef - Race time](https://www.codechef.com/problems/AMCS03)
-- [Hackerearth - Rescuer](https://www.hackerearth.com/september-circuits/algorithm/rescuer-1/)
-- [Spoj - Building Construction](http://www.spoj.com/problems/KOPC12A/)
-- [Codeforces - Weakness and Poorness](http://codeforces.com/problemset/problem/578/C)
-* [LOJ - Closest Distance](http://lightoj.com/volume_showproblem.php?problem=1146)
-* [GYM - Dome of Circus (D)](http://codeforces.com/gym/101309)
-* [UVA - Galactic Taxes](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=4898)
-* [GYM - Chasing the Cheetahs (A)](http://codeforces.com/gym/100829)
-* [UVA - 12197 - Trick or Treat](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3349)
-* [SPOJ - Building Construction](http://www.spoj.com/problems/KOPC12A/)
-* [Codeforces - Devu and his Brother](https://codeforces.com/problemset/problem/439/D)
-* [Codechef - Is This JEE ](https://www.codechef.com/problems/ICM2003)
-* [Codeforces - Restorer Distance](https://codeforces.com/contest/1355/problem/E)
-* [TIMUS 1719 Kill the Shaitan-Boss](https://acm.timus.ru/problem.aspx?space=1&num=1719)
-* [TIMUS 1913 Titan Ruins: Alignment of Forces](https://acm.timus.ru/problem.aspx?space=1&num=1913)
+
+-   [Codechef - Race time](https://www.codechef.com/problems/AMCS03)
+-   [Hackerearth - Rescuer](https://www.hackerearth.com/september-circuits/algorithm/rescuer-1/)
+-   [Spoj - Building Construction](http://www.spoj.com/problems/KOPC12A/)
+-   [Codeforces - Weakness and Poorness](http://codeforces.com/problemset/problem/578/C)
+
+*   [LOJ - Closest Distance](http://lightoj.com/volume_showproblem.php?problem=1146)
+*   [GYM - Dome of Circus (D)](http://codeforces.com/gym/101309)
+*   [UVA - Galactic Taxes](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=4898)
+*   [GYM - Chasing the Cheetahs (A)](http://codeforces.com/gym/100829)
+*   [UVA - 12197 - Trick or Treat](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3349)
+*   [SPOJ - Building Construction](http://www.spoj.com/problems/KOPC12A/)
+*   [Codeforces - Devu and his Brother](https://codeforces.com/problemset/problem/439/D)
+*   [Codechef - Is This JEE ](https://www.codechef.com/problems/ICM2003)
+*   [Codeforces - Restorer Distance](https://codeforces.com/contest/1355/problem/E)
+*   [TIMUS 1719 Kill the Shaitan-Boss](https://acm.timus.ru/problem.aspx?space=1&num=1719)
+*   [TIMUS 1913 Titan Ruins: Alignment of Forces](https://acm.timus.ru/problem.aspx?space=1&num=1913)

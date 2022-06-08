@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: fenwick_tree
 ---
 
@@ -10,10 +10,10 @@ Let, $f$ be some _reversible_ function and $A$ be an array of integers of length
 
 Fenwick tree is a data structure which:
 
-* calculates the value of function $f$ in the given range $[l, r]$ (i.e. $f(A_l, A_{l+1}, \dots, A_r)$) in $O(\log N)$ time;
-* updates the value of an element of $A$ in $O(\log N)$ time;
-* requires $O(N)$ memory, or in other words, exactly the same memory required for $A$;
-* is easy to use and code, especially, in the case of multidimensional arrays.
+-   calculates the value of function $f$ in the given range $[l, r]$ (i.e. $f(A_l, A_{l+1}, \dots, A_r)$) in $O(\log N)$ time;
+-   updates the value of an element of $A$ in $O(\log N)$ time;
+-   requires $O(N)$ memory, or in other words, exactly the same memory required for $A$;
+-   is easy to use and code, especially, in the case of multidimensional arrays.
 
 Fenwick tree is also called **Binary Indexed Tree**, or just **BIT** abbreviated.
 
@@ -25,23 +25,17 @@ Fenwick tree was first described in a paper titled "A new data structure for cum
 
 ### Overview
 
-For the sake of simplicity, we will assume that function $f$ is just a *sum function*.
+For the sake of simplicity, we will assume that function $f$ is just a _sum function_.
 
-Given an array of integers $A[0 \dots N-1]$.
-A Fenwick tree is just an array $T[0 \dots N-1]$, where each of its elements is equal to the sum of elements of $A$ in some range $[g(i), i]$:
+Given an array of integers $A[0 \dots N-1]$. A Fenwick tree is just an array $T[0 \dots N-1]$, where each of its elements is equal to the sum of elements of $A$ in some range $[g(i), i]$:
 
 $$T_i = \sum_{j = g(i)}^{i}{A_j},$$
 
-where $g$ is some function that satisfies $0 \le g(i) \le i$.
-We will define the function in the next few paragraphs.
+where $g$ is some function that satisfies $0 \le g(i) \le i$. We will define the function in the next few paragraphs.
 
-The data structure is called tree, because there is a nice representation of the data structure as tree, although we don't need to model an actual tree with nodes and edges.
-We will only need to maintain the array $T$ to handle all queries.
+The data structure is called tree, because there is a nice representation of the data structure as tree, although we don't need to model an actual tree with nodes and edges. We will only need to maintain the array $T$ to handle all queries.
 
-**Note:** The Fenwick tree presented here uses zero-based indexing.
-Many people will actually use a version of the Fenwick tree that uses one-based indexing.
-Therefore you will also find an alternative implementation using one-based indexing in the implementation section.
-Both versions are equivalent in terms of time and memory complexity.
+**Note:** The Fenwick tree presented here uses zero-based indexing. Many people will actually use a version of the Fenwick tree that uses one-based indexing. Therefore you will also find an alternative implementation using one-based indexing in the implementation section. Both versions are equivalent in terms of time and memory complexity.
 
 Now we can write some pseudo-code for the two operations mentioned above - get the sum of elements of $A$ in the range $[0, r]$ and update (increase) some element $A_i$:
 
@@ -68,30 +62,25 @@ The function `increase` works with the same analogy, but "jumps" in the directio
 
 1. sums of the ranges $[g(j), j]$ that satisfy the condition $g(j) \le i \le j$ are increased by `delta` , that is `t[j] += delta`. Therefore we updated all elements in $T$ that correspond to ranges in which $A_i$ lies.
 
-It is obvious that the complexity of both `sum` and `increase` depend on the function $g$.
-There are lots of ways to choose the function $g$, as long as $0 \le g(i) \le i$ for all $i$.
-For instance the function $g(i) = i$ works, which results just in $T = A$, and therefore summation queries are slow.
-We can also take the function $g(i) = 0$.
-This will correspond to prefix sum arrays, which means that finding the sum of the range $[0, i]$ will only take constant time, but updates are slow.
-The clever part of the Fenwick algorithm is, that there it uses a special definition of the function $g$ that can handle both operations in $O(\log N)$ time.
+It is obvious that the complexity of both `sum` and `increase` depend on the function $g$. There are lots of ways to choose the function $g$, as long as $0 \le g(i) \le i$ for all $i$. For instance the function $g(i) = i$ works, which results just in $T = A$, and therefore summation queries are slow. We can also take the function $g(i) = 0$. This will correspond to prefix sum arrays, which means that finding the sum of the range $[0, i]$ will only take constant time, but updates are slow. The clever part of the Fenwick algorithm is, that there it uses a special definition of the function $g$ that can handle both operations in $O(\log N)$ time.
 
 ### Definition of $g(i)$ { data-toc-label='Definition of <script type="math/tex">g(i)</script>' }
 
-The computation of $g(i)$ is defined using the following simple operation:
-we replace all trailing $1$ bits in the binary representation of $i$ with $0$ bits.
+The computation of $g(i)$ is defined using the following simple operation: we replace all trailing $1$ bits in the binary representation of $i$ with $0$ bits.
 
-In other words, if the least significant digit of $i$ in binary is $0$, then $g(i) = i$.
-And otherwise the least significant digit is a $1$, and we take this $1$ and all other trailing $1$s and flip them.
+In other words, if the least significant digit of $i$ in binary is $0$, then $g(i) = i$. And otherwise the least significant digit is a $1$, and we take this $1$ and all other trailing $1$s and flip them.
 
 For instance we get
 
-$$\begin{align}
+$$
+\begin{align}
 g(11) = g(1011_2) = 1000_2 &= 8 \\\\
 g(12) = g(1100_2) = 1100_2 &= 12 \\\\
 g(13) = g(1101_2) = 1100_2 &= 12 \\\\
 g(14) = g(1110_2) = 1110_2 &= 14 \\\\
 g(15) = g(1111_2) = 0000_2 &= 0 \\\\
-\end{align}$$
+\end{align}
+$$
 
 There exists a simple implementation using bitwise operations for the non-trivial operation described above:
 
@@ -101,18 +90,18 @@ where $\&$ is the bitwise AND operator. It is not hard to convince yourself that
 
 Now, we just need to find a way to iterate over all $j$'s, such that $g(j) \le i \le j$.
 
-It is easy to see that we can find all such $j$'s by starting with $i$ and flipping the last unset bit.
-We will call this operation $h(j)$.
-For example, for $i = 10$ we have:
+It is easy to see that we can find all such $j$'s by starting with $i$ and flipping the last unset bit. We will call this operation $h(j)$. For example, for $i = 10$ we have:
 
-$$\begin{align}
+$$
+\begin{align}
 10 &= 0001010_2 \\\\
 h(10) = 11 &= 0001011_2 \\\\
 h(11) = 15 &= 0001111_2 \\\\
 h(15) = 31 &= 0011111_2 \\\\
 h(31) = 63 &= 0111111_2 \\\\
 \vdots &
-\end{align}$$
+\end{align}
+$$
 
 Unsurprisingly, there also exists a simple way to perform $h$ using bitwise operations:
 
@@ -120,8 +109,7 @@ $$h(j) = j ~\|~ (j+1),$$
 
 where $\|$ is the bitwise OR operator.
 
-The following image shows a possible interpretation of the Fenwick tree as tree.
-The nodes of the tree show the ranges they cover.
+The following image shows a possible interpretation of the Fenwick tree as tree. The nodes of the tree show the ranges they cover.
 
 <center>![Binary Indexed Tree](binary_indexed_tree.png)</center>
 
@@ -131,12 +119,9 @@ The nodes of the tree show the ranges they cover.
 
 Here we present an implementation of the Fenwick tree for sum queries and single updates.
 
-The normal Fenwick tree can only answer sum queries of the type $[0, r]$ using `sum(int r)`, however we can also answer other queries of the type $[l, r]$ by computing two sums $[0, r]$ and $[0, l-1]$ and subtract them.
-This is handled in the `sum(int l, int r)` method.
+The normal Fenwick tree can only answer sum queries of the type $[0, r]$ using `sum(int r)`, however we can also answer other queries of the type $[l, r]$ by computing two sums $[0, r]$ and $[0, l-1]$ and subtract them. This is handled in the `sum(int l, int r)` method.
 
-Also this implementation supports two constructors.
-You can create a Fenwick tree initialized with zeros, or you can convert an existing array into the Fenwick form.
-
+Also this implementation supports two constructors. You can create a Fenwick tree initialized with zeros, or you can convert an existing array into the Fenwick form.
 
 ```{.cpp file=fenwick_sum}
 struct FenwickTree {
@@ -173,9 +158,7 @@ struct FenwickTree {
 
 ### Finding minimum of $[0, r]$ in one-dimensional array { data-toc-label='Finding minimum of <script type="math/tex">[0, r]</script> in one-dimensional array' }
 
-It is obvious that there is no easy way of finding minimum of range $[l, r]$ using Fenwick tree, as Fenwick tree can only answer queries of type $[0, r]$.
-Additionally, each time a value is `update`'d, the new value has to be smaller than the current value (because the $min$ function is not reversible).
-These, of course, are significant limitations.
+It is obvious that there is no easy way of finding minimum of range $[l, r]$ using Fenwick tree, as Fenwick tree can only answer queries of type $[0, r]$. Additionally, each time a value is `update`'d, the new value has to be smaller than the current value (because the $min$ function is not reversible). These, of course, are significant limitations.
 
 ```{.cpp file=fenwick_min}
 struct FenwickTreeMin {
@@ -207,10 +190,7 @@ struct FenwickTreeMin {
 };
 ```
 
-Note: it is possible to implement a Fenwick tree that can handle arbitrary minimum range queries and arbitrary updates.
-The paper [Efficient Range Minimum Queries using Binary Indexed Trees](http://ioinformatics.org/oi/pdf/v9_2015_39_44.pdf) describes such an approach.
-However with that approach you need to maintain a second binary indexed trees over the data, with a slightly different structure, since you one tree is not enough to store the values of all elements in the array.
-The implementation is also a lot harder compared to the normal implementation for sums.
+Note: it is possible to implement a Fenwick tree that can handle arbitrary minimum range queries and arbitrary updates. The paper [Efficient Range Minimum Queries using Binary Indexed Trees](http://ioinformatics.org/oi/pdf/v9_2015_39_44.pdf) describes such an approach. However with that approach you need to maintain a second binary indexed trees over the data, with a slightly different structure, since you one tree is not enough to store the values of all elements in the array. The implementation is also a lot harder compared to the normal implementation for sums.
 
 ### Finding sum in two-dimensional array
 
@@ -241,9 +221,7 @@ struct FenwickTree2D {
 
 ### One-based indexing approach
 
-For this approach we change the requirements and definition for $T[]$ and $g()$ a little bit.
-We want $T[i]$ to store the sum of $[g(i)+1; i]$.
-This changes the implementation a little bit, and allows for a similar nice definition for $g(i)$:
+For this approach we change the requirements and definition for $T[]$ and $g()$ a little bit. We want $T[i]$ to store the sum of $[g(i)+1; i]$. This changes the implementation a little bit, and allows for a similar nice definition for $g(i)$:
 
 ```python
 def sum(int r):
@@ -258,14 +236,15 @@ def increase(int i, int delta):
         t[j] += delta
 ```
 
-The computation of $g(i)$ is defined as:
-toggling of the last set $1$ bit in the binary representation of $i$.
+The computation of $g(i)$ is defined as: toggling of the last set $1$ bit in the binary representation of $i$.
 
-$$\begin{align}
+$$
+\begin{align}
 g(7) = g(111_2) = 110_2 &= 6 \\\\
 g(6) = g(110_2) = 100_2 &= 4 \\\\
 g(4) = g(100_2) = 000_2 &= 0 \\\\
-\end{align}$$
+\end{align}
+$$
 
 The last set bit can be extracted using $i ~\&~ (-i)$, so the operation can be expressed as:
 
@@ -329,15 +308,9 @@ This is just the ordinary Fenwick tree as explained above.
 
 Using simple tricks we can also do the reverse operations: increasing ranges and querying for single values.
 
-Let the Fenwick tree be initialized with zeros.
-Suppose that we want to increment the interval $[l, r]$ by $x$.
-We make two point update operations on Fenwick tree which are `add(l, x)` and `add(r+1, -x)`.
+Let the Fenwick tree be initialized with zeros. Suppose that we want to increment the interval $[l, r]$ by $x$. We make two point update operations on Fenwick tree which are `add(l, x)` and `add(r+1, -x)`.
 
-If we want to get the value of $A[i]$, we just need to take the prefix sum using the ordinary range sum method.
-To see why this is true, we can just focus on the previous increment operation again.
-If $i < l$, then the two update operations have no effect on the query and we get the sum $0$.
-If $i \in [l, r]$, then we get the answer $x$ because of the first update operation.
-And if $i > r$, then the second update operation will cancel the effect of first one.
+If we want to get the value of $A[i]$, we just need to take the prefix sum using the ordinary range sum method. To see why this is true, we can just focus on the previous increment operation again. If $i < l$, then the two update operations have no effect on the query and we get the sum $0$. If $i \in [l, r]$, then we get the answer $x$ because of the first update operation. And if $i > r$, then the second update operation will cancel the effect of first one.
 
 The following implementation uses one-based indexing.
 
@@ -366,9 +339,7 @@ Note: of course it is also possible to increase a single point $A[i]$ with `rang
 
 To support both range updates and range queries we will use two BITs namely $B_1[]$ and $B_2[]$, initialized with zeros.
 
-Suppose that we want to increment the interval $[l, r]$ by the value $x$.
-Similarly as in the previous method, we perform two point updates on $B_1$: `add(B1, l, x)` and `add(B1, r+1, -x)`.
-And we also update $B_2$. The details will be explained later.
+Suppose that we want to increment the interval $[l, r]$ by the value $x$. Similarly as in the previous method, we perform two point updates on $B_1$: `add(B1, l, x)` and `add(B1, r+1, -x)`. And we also update $B_2$. The details will be explained later.
 
 ```python
 def range_add(l, r, x):
@@ -377,6 +348,7 @@ def range_add(l, r, x):
     add(B2, l, x*(l-1))
     add(B2, r+1, -x*r))
 ```
+
 After the range update $(l, r, x)$ the range sum query should return the following values:
 
 $$
@@ -388,10 +360,10 @@ x \cdot (r-l+1) & i > r \\\\
 \end{cases}
 $$
 
-We can write the range sum as difference of two terms, where we use $B_1$ for first term and $B_2$ for second term.
-The difference of the queries will give us prefix sum over $[0, i]$.
+We can write the range sum as difference of two terms, where we use $B_1$ for first term and $B_2$ for second term. The difference of the queries will give us prefix sum over $[0, i]$.
 
-$$\begin{align}
+$$
+\begin{align}
 sum[0, i] &= sum(B_1, i) \cdot i - sum(B_2, i) \\\\
 &= \begin{cases}
 0 \cdot i - 0 & i < l\\\\
@@ -401,8 +373,7 @@ x \cdot i - x \cdot (l-1) & l \le i \le r \\\\
 \end{align}
 $$
 
-The last expression is exactly equal to the required terms.
-Thus we can use $B_2$ for shaving off extra terms when we multiply $B_1[i]\times i$.
+The last expression is exactly equal to the required terms. Thus we can use $B_2$ for shaving off extra terms when we multiply $B_1[i]\times i$.
 
 We can find arbitrary range sums by computing the prefix sums for $l-1$ and $r$ and taking the difference of them again.
 
@@ -434,44 +405,44 @@ def range_sum(l, r):
 
 ## Practice Problems
 
-* [UVA 12086 - Potentiometers](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3238)
-* [LOJ 1112 - Curious Robin Hood](http://www.lightoj.com/volume_showproblem.php?problem=1112)
-* [LOJ 1266 - Points in Rectangle](http://www.lightoj.com/volume_showproblem.php?problem=1266 "2D Fenwick Tree")
-* [Codechef - SPREAD](http://www.codechef.com/problems/SPREAD)
-* [SPOJ - CTRICK](http://www.spoj.com/problems/CTRICK/)
-* [SPOJ - MATSUM](http://www.spoj.com/problems/MATSUM/)
-* [SPOJ - DQUERY](http://www.spoj.com/problems/DQUERY/)
-* [SPOJ - NKTEAM](http://www.spoj.com/problems/NKTEAM/)
-* [SPOJ - YODANESS](http://www.spoj.com/problems/YODANESS/)
-* [SRM 310 - FloatingMedian](https://community.topcoder.com/stat?c=problem_statement&pm=6551&rd=9990)
-* [SPOJ - Ada and Behives](http://www.spoj.com/problems/ADABEHIVE/)
-* [Hackerearth - Counting in Byteland](https://www.hackerearth.com/practice/data-structures/advanced-data-structures/fenwick-binary-indexed-trees/practice-problems/algorithm/counting-in-byteland/)
-* [DevSkill - Shan and String (archived)](http://web.archive.org/web/20210322010617/https://devskill.com/CodingProblems/ViewProblem/300)
-* [Codeforces - Little Artem and Time Machine](http://codeforces.com/contest/669/problem/E)
-* [Codeforces - Hanoi Factory](http://codeforces.com/contest/777/problem/E)
-* [SPOJ - Tulip and Numbers](http://www.spoj.com/problems/TULIPNUM/)
-* [SPOJ - SUMSUM](http://www.spoj.com/problems/SUMSUM/)
-* [SPOJ - Sabir and Gifts](http://www.spoj.com/problems/SGIFT/)
-* [SPOJ - The Permutation Game Again](http://www.spoj.com/problems/TPGA/)
-* [SPOJ - Zig when you Zag](http://www.spoj.com/problems/ZIGZAG2/)
-* [SPOJ - Cryon](http://www.spoj.com/problems/CRAYON/)
-* [SPOJ - Weird Points](http://www.spoj.com/problems/DCEPC705/)
-* [SPOJ - Its a Murder](http://www.spoj.com/problems/DCEPC206/)
-* [SPOJ - Bored of Suffixes and Prefixes](http://www.spoj.com/problems/KOPC12G/)
-* [SPOJ - Mega Inversions](http://www.spoj.com/problems/TRIPINV/)
-* [Codeforces - Subsequences](http://codeforces.com/contest/597/problem/C)
-* [Codeforces - Ball](http://codeforces.com/contest/12/problem/D)
-* [GYM - The Kamphaeng Phet's Chedis](http://codeforces.com/gym/101047/problem/J)
-* [Codeforces - Garlands](http://codeforces.com/contest/707/problem/E)
-* [Codeforces - Inversions after Shuffle](http://codeforces.com/contest/749/problem/E)
-* [GYM - Cairo Market](http://codeforces.com/problemset/gymProblem/101055/D)
-* [Codeforces - Goodbye Souvenir](http://codeforces.com/contest/849/problem/E)
-* [SPOJ - Ada and Species](http://www.spoj.com/problems/ADACABAA/)
-* [Codeforces - Thor](https://codeforces.com/problemset/problem/704/A)
-* [Latin American Regionals 2017 - Fundraising](http://matcomgrader.com/problem/9346/fundraising/)
+-   [UVA 12086 - Potentiometers](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3238)
+-   [LOJ 1112 - Curious Robin Hood](http://www.lightoj.com/volume_showproblem.php?problem=1112)
+-   [LOJ 1266 - Points in Rectangle](http://www.lightoj.com/volume_showproblem.php?problem=1266 "2D Fenwick Tree")
+-   [Codechef - SPREAD](http://www.codechef.com/problems/SPREAD)
+-   [SPOJ - CTRICK](http://www.spoj.com/problems/CTRICK/)
+-   [SPOJ - MATSUM](http://www.spoj.com/problems/MATSUM/)
+-   [SPOJ - DQUERY](http://www.spoj.com/problems/DQUERY/)
+-   [SPOJ - NKTEAM](http://www.spoj.com/problems/NKTEAM/)
+-   [SPOJ - YODANESS](http://www.spoj.com/problems/YODANESS/)
+-   [SRM 310 - FloatingMedian](https://community.topcoder.com/stat?c=problem_statement&pm=6551&rd=9990)
+-   [SPOJ - Ada and Behives](http://www.spoj.com/problems/ADABEHIVE/)
+-   [Hackerearth - Counting in Byteland](https://www.hackerearth.com/practice/data-structures/advanced-data-structures/fenwick-binary-indexed-trees/practice-problems/algorithm/counting-in-byteland/)
+-   [DevSkill - Shan and String (archived)](http://web.archive.org/web/20210322010617/https://devskill.com/CodingProblems/ViewProblem/300)
+-   [Codeforces - Little Artem and Time Machine](http://codeforces.com/contest/669/problem/E)
+-   [Codeforces - Hanoi Factory](http://codeforces.com/contest/777/problem/E)
+-   [SPOJ - Tulip and Numbers](http://www.spoj.com/problems/TULIPNUM/)
+-   [SPOJ - SUMSUM](http://www.spoj.com/problems/SUMSUM/)
+-   [SPOJ - Sabir and Gifts](http://www.spoj.com/problems/SGIFT/)
+-   [SPOJ - The Permutation Game Again](http://www.spoj.com/problems/TPGA/)
+-   [SPOJ - Zig when you Zag](http://www.spoj.com/problems/ZIGZAG2/)
+-   [SPOJ - Cryon](http://www.spoj.com/problems/CRAYON/)
+-   [SPOJ - Weird Points](http://www.spoj.com/problems/DCEPC705/)
+-   [SPOJ - Its a Murder](http://www.spoj.com/problems/DCEPC206/)
+-   [SPOJ - Bored of Suffixes and Prefixes](http://www.spoj.com/problems/KOPC12G/)
+-   [SPOJ - Mega Inversions](http://www.spoj.com/problems/TRIPINV/)
+-   [Codeforces - Subsequences](http://codeforces.com/contest/597/problem/C)
+-   [Codeforces - Ball](http://codeforces.com/contest/12/problem/D)
+-   [GYM - The Kamphaeng Phet's Chedis](http://codeforces.com/gym/101047/problem/J)
+-   [Codeforces - Garlands](http://codeforces.com/contest/707/problem/E)
+-   [Codeforces - Inversions after Shuffle](http://codeforces.com/contest/749/problem/E)
+-   [GYM - Cairo Market](http://codeforces.com/problemset/gymProblem/101055/D)
+-   [Codeforces - Goodbye Souvenir](http://codeforces.com/contest/849/problem/E)
+-   [SPOJ - Ada and Species](http://www.spoj.com/problems/ADACABAA/)
+-   [Codeforces - Thor](https://codeforces.com/problemset/problem/704/A)
+-   [Latin American Regionals 2017 - Fundraising](http://matcomgrader.com/problem/9346/fundraising/)
 
 ## Other sources
 
-* [Fenwick tree on Wikipedia](http://en.wikipedia.org/wiki/Fenwick_tree)
-* [Binary indexed trees tutorial on TopCoder](https://www.topcoder.com/community/data-science/data-science-tutorials/binary-indexed-trees/)
-* [Range updates and queries ](https://programmingcontests.quora.com/Tutorial-Range-Updates-in-Fenwick-Tree)
+-   [Fenwick tree on Wikipedia](http://en.wikipedia.org/wiki/Fenwick_tree)
+-   [Binary indexed trees tutorial on TopCoder](https://www.topcoder.com/community/data-science/data-science-tutorials/binary-indexed-trees/)
+-   [Range updates and queries ](https://programmingcontests.quora.com/Tutorial-Range-Updates-in-Fenwick-Tree)

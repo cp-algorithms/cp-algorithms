@@ -16,13 +16,12 @@ In order to make contribution consider the following steps:
 6. Create a pull-request by clicking the _Compare & pull request_ button.
 7. Somebody from the core team will look over the changes. This might take a few hours/days.
 
-In case you want to make some bigger changes, like adding a new article, or edit multiple files, you should fork the project in the traditional way, create a branch, modify the files in the Github UI or locally on your computer, and create a pull-request.
-If you are unfamiliar with the workflow, read [Step-by-step guide to contributing on GitHub](https://www.dataschool.io/how-to-contribute-on-github/).
+In case you want to make some bigger changes, like adding a new article, or edit multiple files, you should fork the project in the traditional way, create a branch, modify the files in the Github UI or locally on your computer, and create a pull-request. If you are unfamiliar with the workflow, read [Step-by-step guide to contributing on GitHub](https://www.dataschool.io/how-to-contribute-on-github/).
 
 If you're making a new article or moving existing one to a different place, please make sure that your changes are reflected in
 
-- The list of all articles in [navigation.md](https://github.com/e-maxx-eng/e-maxx-eng/blob/master/src/navigation.md);
-- The list of new articles in [index_body](https://github.com/e-maxx-eng/e-maxx-eng/blob/master/src/index_body) (if it is a new article).
+-   The list of all articles in [navigation.md](https://github.com/e-maxx-eng/e-maxx-eng/blob/master/src/navigation.md);
+-   The list of new articles in [index_body](https://github.com/e-maxx-eng/e-maxx-eng/blob/master/src/index_body) (if it is a new article).
 
 ## Syntax
 
@@ -30,12 +29,11 @@ We use [Markdown](https://daringfireball.net/projects/markdown) for the articles
 
 For advanced Markdown features of Material for MkDocs see their [reference pages](https://squidfunk.github.io/mkdocs-material/reference/formatting), like:
 
-- [Math formulas with MathJax](https://squidfunk.github.io/mkdocs-material/reference/mathjax/#usage)
-  Notice that you need to have an empty line before and after a `$$` math block.
-- [Code blocks](https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#usage) for code snippets.
-- [Admonitions](https://squidfunk.github.io/mkdocs-material/reference/admonitions/#usage) (e.g. to decor theorems, proofs, problem examples).
-- [Content tabs](https://squidfunk.github.io/mkdocs-material/reference/content-tabs/#usage) (e.g. for code examples in several languages).
-- [Data tables](https://squidfunk.github.io/mkdocs-material/reference/data-tables/#usage).
+-   [Math formulas with MathJax](https://squidfunk.github.io/mkdocs-material/reference/mathjax/#usage) Notice that you need to have an empty line before and after a `$$` math block.
+-   [Code blocks](https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#usage) for code snippets.
+-   [Admonitions](https://squidfunk.github.io/mkdocs-material/reference/admonitions/#usage) (e.g. to decor theorems, proofs, problem examples).
+-   [Content tabs](https://squidfunk.github.io/mkdocs-material/reference/content-tabs/#usage) (e.g. for code examples in several languages).
+-   [Data tables](https://squidfunk.github.io/mkdocs-material/reference/data-tables/#usage).
 
 However not everything of the features should be used, and some of the features are not enabled or require a paid subscription.
 
@@ -45,6 +43,7 @@ By default the first header (`# header`) will be also the HTML title of the arti
 ---
 title: Alternative HTML title
 ---
+
 # Proof of $a^2 + b^2 = c^2$
 
 remaining article
@@ -52,7 +51,7 @@ remaining article
 
 ## Some conventions
 
-* We have agreed as of issue [#83](https://github.com/e-maxx-eng/e-maxx-eng/issues/83) to express binomial coefficients with `\binom{n}{k}` instead of `C_n^k`. The first one renders as $\binom{n}{k}$ and is a more universal convention. The second would render as $C_n^k$.
+-   We have agreed as of issue [#83](https://github.com/e-maxx-eng/e-maxx-eng/issues/83) to express binomial coefficients with `\binom{n}{k}` instead of `C_n^k`. The first one renders as $\binom{n}{k}$ and is a more universal convention. The second would render as $C_n^k$.
 
 ## Adding Problems
 
@@ -60,8 +59,7 @@ Try to add problems in ascending order of their difficulty. If you don't have en
 
 ## Local development
 
-You can render the pages very easily also locally.
-All you need is Python, with the installed `mkdocs-material` package.
+You can render the pages very easily also locally. All you need is Python, with the installed `mkdocs-material` package.
 
 ```console
 $ pip install mkdocs-material
@@ -70,20 +68,15 @@ $ mkdocs serve
 
 ## Tests
 
-If your article involves code snippets, then it would be great you also contribute tests for them.
-This way we can make sure that the snippets actually work, and don't contain any bugs.
+If your article involves code snippets, then it would be great you also contribute tests for them. This way we can make sure that the snippets actually work, and don't contain any bugs.
 
-Creating tests works like this:
-You have to name each snippet that you want to test in the markdown article:
+Creating tests works like this: You have to name each snippet that you want to test in the markdown article:
 
     ```{.cpp file=snippet-name}
     // some code
     ```
 
-In the directory `test` you find a script `extract_snippets.py` that you can run.
-This script extracts from every article all named snippets, and puts them in C++ header files: `snippet-name.h`
-In the folder you can create a cpp file, that includes these snippets headers, and tests their behaviour.
-If the snippets don't work, the test program should return 1 instead of 0.
+In the directory `test` you find a script `extract_snippets.py` that you can run. This script extracts from every article all named snippets, and puts them in C++ header files: `snippet-name.h` In the folder you can create a cpp file, that includes these snippets headers, and tests their behaviour. If the snippets don't work, the test program should return 1 instead of 0.
 
 You can run all tests with the script `test.sh`.
 

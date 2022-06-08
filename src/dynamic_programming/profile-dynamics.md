@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: profile_dynamics
 ---
 
@@ -8,10 +8,10 @@ e_maxx_link: profile_dynamics
 
 Common problems solved using DP on broken profile include:
 
-- finding number of ways to fully fill an area (e.g. chessboard/grid) with some figures (e.g. dominoes)
-- finding a way to fill an area with minimum number of figures
-- finding a partial fill with minimum number of unfilled space (or cells, in case of grid)
-- finding a partial fill with the minimum number of figures, such that no more figures can be added
+-   finding number of ways to fully fill an area (e.g. chessboard/grid) with some figures (e.g. dominoes)
+-   finding a way to fill an area with minimum number of figures
+-   finding a partial fill with minimum number of unfilled space (or cells, in case of grid)
+-   finding a partial fill with the minimum number of figures, such that no more figures can be added
 
 ## Problem "Parquet"
 
@@ -70,22 +70,22 @@ int main()
 
 ## Practice Problems
 
-- [UVA 10359 - Tiling](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1300)
-- [UVA 10918 - Tri Tiling](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1859)
-- [SPOJ GNY07H (Four Tiling)](https://www.spoj.com/problems/GNY07H/)
-- [SPOJ M5TILE (Five Tiling)](https://www.spoj.com/problems/M5TILE/)
-- [SPOJ MNTILE (MxN Tiling)](https://www.spoj.com/problems/MNTILE/)
-- [SPOJ DOJ1](https://www.spoj.com/problems/DOJ1/)
-- [SPOJ DOJ2](https://www.spoj.com/problems/DOJ2/)
-- [SPOJ BTCODE_J](https://www.spoj.com/problems/BTCODE_J/)
-- [SPOJ PBOARD](https://www.spoj.com/problems/PBOARD/)
-- [ACM HDU 4285 - Circuits](http://acm.hdu.edu.cn/showproblem.php?pid=4285)
-- [LiveArchive 4608 - Mosaic](https://icpcarchive.ecs.baylor.edu/index.php?option=onlinejudge&page=show_problem&problem=2609)
-- [Timus 1519 - Formula 1](https://acm.timus.ru/problem.aspx?space=1&num=1519)
-- [Codeforces Parquet](https://codeforces.com/problemset/problem/26/C)
+-   [UVA 10359 - Tiling](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1300)
+-   [UVA 10918 - Tri Tiling](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1859)
+-   [SPOJ GNY07H (Four Tiling)](https://www.spoj.com/problems/GNY07H/)
+-   [SPOJ M5TILE (Five Tiling)](https://www.spoj.com/problems/M5TILE/)
+-   [SPOJ MNTILE (MxN Tiling)](https://www.spoj.com/problems/MNTILE/)
+-   [SPOJ DOJ1](https://www.spoj.com/problems/DOJ1/)
+-   [SPOJ DOJ2](https://www.spoj.com/problems/DOJ2/)
+-   [SPOJ BTCODE_J](https://www.spoj.com/problems/BTCODE_J/)
+-   [SPOJ PBOARD](https://www.spoj.com/problems/PBOARD/)
+-   [ACM HDU 4285 - Circuits](http://acm.hdu.edu.cn/showproblem.php?pid=4285)
+-   [LiveArchive 4608 - Mosaic](https://icpcarchive.ecs.baylor.edu/index.php?option=onlinejudge&page=show_problem&problem=2609)
+-   [Timus 1519 - Formula 1](https://acm.timus.ru/problem.aspx?space=1&num=1519)
+-   [Codeforces Parquet](https://codeforces.com/problemset/problem/26/C)
 
 ## References
 
-- [Blog by EvilBunny](https://web.archive.org/web/20180712171735/https://blog.evilbuggy.com/2018/05/broken-profile-dynamic-programming.html)
-- [TopCoder Recipe by "syg96"](https://apps.topcoder.com/forums/?module=Thread&start=0&threadID=697369)
-- [Blogpost by sk765](http://sk765.blogspot.com/2012/02/dynamic-programming-with-profile.html)
+-   [Blog by EvilBunny](https://web.archive.org/web/20180712171735/https://blog.evilbuggy.com/2018/05/broken-profile-dynamic-programming.html)
+-   [TopCoder Recipe by "syg96"](https://apps.topcoder.com/forums/?module=Thread&start=0&threadID=697369)
+-   [Blogpost by sk765](http://sk765.blogspot.com/2012/02/dynamic-programming-with-profile.html)

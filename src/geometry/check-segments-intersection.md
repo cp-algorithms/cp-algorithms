@@ -1,22 +1,16 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: segments_intersection_checking
 ---
 
 # Check if two segments intersect
 
-You are given two segments $(a, b)$ and $(c, d)$.
-You have to check if they intersect.
-Of course, you may find their intersection and check if it isn't empty, but this can't be done in integers for segments with integer coordinates.
-The approach described here can work in integers.
+You are given two segments $(a, b)$ and $(c, d)$. You have to check if they intersect. Of course, you may find their intersection and check if it isn't empty, but this can't be done in integers for segments with integer coordinates. The approach described here can work in integers.
 
 ## Algorithm
 
-Firstly, consider the case when the segments are part of the same line.
-In this case it is sufficient to check if their projections on $Ox$ and $Oy$ intersect.
-In the other case $a$ and $b$ must not lie on the same side of line $(c, d)$, and $c$ and $d$ must not lie on the same side of line $(a, b)$.
-It can be checked with a couple of cross products.
+Firstly, consider the case when the segments are part of the same line. In this case it is sufficient to check if their projections on $Ox$ and $Oy$ intersect. In the other case $a$ and $b$ must not lie on the same side of line $(c, d)$, and $c$ and $d$ must not lie on the same side of line $(a, b)$. It can be checked with a couple of cross products.
 
 ## Implementation
 

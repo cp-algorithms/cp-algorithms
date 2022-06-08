@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: determinant_gauss
 ---
 
@@ -51,4 +51,5 @@ cout << det;
 ```
 
 ## Practice Problems
-* [Codeforces - Wizards and Bets](http://codeforces.com/contest/167/problem/E)
+
+-   [Codeforces - Wizards and Bets](http://codeforces.com/contest/167/problem/E)

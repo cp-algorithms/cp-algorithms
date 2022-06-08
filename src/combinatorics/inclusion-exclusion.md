@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: inclusion_exclusion_principle
 ---
 
@@ -42,10 +42,12 @@ It can also be generalized for an association of $n$ sets.
 
 If $A_i$ $(i = 1,2...n)$ are events and ${\cal P}(A_i)$ the probability of an event from $A_i$ to occur, then the probability of their union (i.e. the probability that at least one of the events occur) is equal to:
 
-$$\begin{eqnarray}
+$$
+\begin{eqnarray}
 {\cal P} \left( \bigcup_{i=1}^n A_i \right) &=& \sum_{i=1}^n{\cal P}(A_i)\ - \sum_{1\leq i<j\leq n} {\cal P}(A_i \cap A_j)\  + \\
 &+& \sum _{1\leq i<j<k\leq n}{\cal P}(A_i \cap A_j \cap A_k) - \cdots + (-1)^{n-1} {\cal P}( A_1 \cap \cdots \cap A_n )
-\end{eqnarray}$$
+\end{eqnarray}
+$$
 
 And in a more compact way:
 
@@ -61,12 +63,12 @@ We want to prove that any element contained in at least one of the sets $A_i$ wi
 
 Consider an element $x$ occurring in $k \geq 1$ sets $A_i$. We will show it is counted only once in the formula. Note that:
 
-* in terms which $|J| = 1$, the item $x$ will be counted **$+\ k$** times;
-* in terms which $|J| = 2$, the item $x$ will be counted **$-\ \binom{k}{2}$** times - because it will be counted in those terms that include two of the $k$ sets containing $x$;
-* in terms which $|J| = 3$, the item $x$ will be counted **$+\ \binom{k}{3}$** times;
-* $\cdots$
-* in terms which $|J| = k$, the item $x$ will be counted **$(-1)^{k-1}\cdot \binom{k}{k}$** times;
-* in terms which $|J| \gt k$, the item $x$ will be counted **zero** times;
+-   in terms which $|J| = 1$, the item $x$ will be counted **$+\ k$** times;
+-   in terms which $|J| = 2$, the item $x$ will be counted **$-\ \binom{k}{2}$** times - because it will be counted in those terms that include two of the $k$ sets containing $x$;
+-   in terms which $|J| = 3$, the item $x$ will be counted **$+\ \binom{k}{3}$** times;
+-   $\cdots$
+-   in terms which $|J| = k$, the item $x$ will be counted **$(-1)^{k-1}\cdot \binom{k}{k}$** times;
+-   in terms which $|J| \gt k$, the item $x$ will be counted **zero** times;
 
 This leads us to the following sum of [binomial coefficients](binomial-coefficients.md):
 
@@ -92,7 +94,7 @@ To prove this formula, consider some particular $B$. Due to basic inclusion-excl
 
 $$\left|\bigcap_{i \in B} A_i \cap \bigcap_{j \not \in B} \overline{A_j}\right|=\sum_{m=r}^{n} (-1)^{m-r} \sum_{\substack{|X|=m \newline B \subset X}}\left|\bigcap_{i\in X} A_{i}\right|$$
 
-The sets on the left side do not intersect for different $B$, thus we can sum them up directly. Also one should note that any set $X$ will always have coefficient $(-1)^{m-r}$ if it occurs and it will occur for exactly $\dbinom{m}{r}$ sets $B$. 
+The sets on the left side do not intersect for different $B$, thus we can sum them up directly. Also one should note that any set $X$ will always have coefficient $(-1)^{m-r}$ if it occurs and it will occur for exactly $\dbinom{m}{r}$ sets $B$.
 
 ## Usage when solving problems
 
@@ -124,14 +126,13 @@ Task: count how many sequences of length $n$ exist consisting only of numbers $0
 
 Again let us turn to the inverse problem, i.e. we calculate the number of sequences which do **not** contain **at least one** of the numbers.
 
-Let's denote by $A_i (i = 0,1,2)$ the set of sequences in which the digit $i$ does **not** occur.
-The formula of inclusion-exclusion on the number of "bad" sequences will be:
+Let's denote by $A_i (i = 0,1,2)$ the set of sequences in which the digit $i$ does **not** occur. The formula of inclusion-exclusion on the number of "bad" sequences will be:
 
 $$ |A_0 \cup A_1 \cup A_2| = |A_0| + |A_1| + |A_2| - |A_0 \cap A_1| - |A_0 \cap A_2| - |A_1 \cap A_2| + |A_0 \cap A_1 \cap A_2| $$
 
-* The size of each $A_i$ is $2^n$, as each sequence can only contain two of the digits.
-* The size of each pairwise intersection $A_i \cap A_j$  is equal to $1$, as there will be only one digit to build the sequence.
-* The size of the intersection of all three sets is equal to $0$, as there will be no digits to build the sequence.
+-   The size of each $A_i$ is $2^n$, as each sequence can only contain two of the digits.
+-   The size of each pairwise intersection $A_i \cap A_j$ is equal to $1$, as there will be only one digit to build the sequence.
+-   The size of the intersection of all three sets is equal to $0$, as there will be no digits to build the sequence.
 
 As we solved the inverse problem, we subtract it from the total of $3^n$ sequences:
 
@@ -238,7 +239,7 @@ Learn now to solve the first version of the problem: when the string must satisf
 
 To solve it, iterate and fix a specific subset $X$ from the set of patterns consisting of $k$ patterns. Then we have to count the number of strings that satisfy this set of patterns, and only matches it, that is, they don't match any other pattern. We will use the inclusion-exclusion principle in a slightly different manner: we sum on all supersets $Y$ (subsets from the original set of strings that contain $X$), and either add to the current answer or subtract it from the number of strings:
 
-$$ ans(X) = \sum_{Y \supseteq X} (-1)^{|Y|-k} \cdot f(Y) $$
+$$ ans(X) = \sum\_{Y \supseteq X} (-1)^{|Y|-k} \cdot f(Y) $$
 
 Where $f(Y)$ is the number of strings that match $Y$ (at least $Y$).
 
@@ -246,13 +247,13 @@ Where $f(Y)$ is the number of strings that match $Y$ (at least $Y$).
 
 If we sum up on all $ans(X)$, we will get the final answer:
 
-$$ ans = \sum_{X ~ : ~ |X| = k} ans(X) $$
+$$ ans = \sum\_{X ~ : ~ |X| = k} ans(X) $$
 
 However, asymptotics of this solution is $O(3^k \cdot k)$. To improve it, notice that different $ans(X)$ computations very often share $Y$ sets.
 
 We will reverse the formula of inclusion-exclusion and sum in terms of $Y$ sets. Now it becomes clear that the same set $Y$ would be taken into account in the computation of $ans(X)$ of $\binom{|Y|}{k}$ sets with the same sign $(-1)^{|Y| - k}$.
 
-$$ ans = \sum_{Y ~ : ~ |Y| \ge k} (-1)^{|Y|-k} \cdot \binom{|Y|}{k} \cdot f(Y) $$
+$$ ans = \sum\_{Y ~ : ~ |Y| \ge k} (-1)^{|Y|-k} \cdot \binom{|Y|}{k} \cdot f(Y) $$
 
 Now our solution has asymptotics $O(2^k \cdot k)$.
 
@@ -260,12 +261,11 @@ We will now solve the second version of the problem: find the number of strings 
 
 Of course, we can just use the solution to the first version of the problem and add the answers for sets with size greater than $k$. However, you may notice that in this problem, a set |Y| is considered in the formula for all sets with size $\ge k$ which are contained in $Y$. That said, we can write the part of the expression that is being multiplied by $f(Y)$ as:
 
-
 $$ (-1)^{|Y|-k} \cdot \binom{|Y|}{k} + (-1)^{|Y|-k-1} \cdot \binom{|Y|}{k+1} + (-1)^{|Y|-k-2} \cdot \binom{|Y|}{k+2} + \cdots + (-1)^{|Y|-|Y|} \cdot \binom{|Y|}{|Y|} $$
 
 Looking at Graham's (Graham, Knuth, Patashnik. "Concrete mathematics" [1998] ), we see a well-known formula for [binomial coefficients](binomial-coefficients.md):
 
-$$ \sum_{k=0}^m (-1)^k \cdot \binom{n}{k} = (-1)^m \cdot \binom{n-1}{m} $$
+$$ \sum\_{k=0}^m (-1)^k \cdot \binom{n}{k} = (-1)^m \cdot \binom{n-1}{m} $$
 
 Applying it here, we find that the entire sum of binomial coefficients is minimized:
 
@@ -273,7 +273,7 @@ $$ (-1)^{|Y|-k} \cdot \binom{|Y|-1}{|Y|-k} $$
 
 Thus, for this task, we also obtained a solution with the asymptotics $O(2^k \cdot k)$:
 
-$$ ans = \sum_{Y ~ : ~ |Y| \ge k} (-1)^{|Y|-k} \cdot \binom{|Y|-1}{|Y|-k} \cdot f(Y) $$
+$$ ans = \sum\_{Y ~ : ~ |Y| \ge k} (-1)^{|Y|-k} \cdot \binom{|Y|-1}{|Y|-k} \cdot f(Y) $$
 
 ### The number of ways of going from a cell to another
 
@@ -319,13 +319,12 @@ To calculate the function $f(d)$, you just have to count the number of multiples
 
 Thus, using the formula of inclusions-exclusions we sum the number of groups of four divisible by a prime number, then subtract the number of quadruples which are divisible by the product of two primes, add quadruples divisible by three primes, etc.
 
-
 ### The number of harmonic triplets
 
 You are given a number $n \le 10^6$. You are required to count the number of triples $2 \le a < b < c \le n$ that satisfy one of the following conditions:
 
-* or ${\rm gcd}(a,b) = {\rm gcd}(a,c) = {\rm gcd}(b,c) = 1$,
-* or ${\rm gcd}(a,b) > 1, {\rm gcd}(a,c) > 1, {\rm gcd}(b,c) > 1$.
+-   or ${\rm gcd}(a,b) = {\rm gcd}(a,c) = {\rm gcd}(b,c) = 1$,
+-   or ${\rm gcd}(a,b) > 1, {\rm gcd}(a,c) > 1, {\rm gcd}(b,c) > 1$.
 
 First, go straight to the inverse problem — i.e. count the number of non-harmonic triples.
 
@@ -344,12 +343,13 @@ Now all we have left to solve is to learn to count the number of coprimes to $i$
 A faster solution is possible with such modification of the sieve of Eratosthenes:
 
 1. First, we find all numbers in the interval $[2;n]$ such that its simple factorization does not include a prime factor twice. We will also need to know, for these numbers, how many factors it includes.
-    * To do this we will maintain an array $deg[i]$ to store the number of primes in the factorization of $i$, and an array $good[i]$, to mark either if $i$ contains each factor at most once ($good[i] = 1$) or not ($good[i] = 0$). When iterating from $2$ to $n$, if we reach a number that has $deg$ equal to $0$, then it is a prime and its $deg$ is $1$.
-    * During the sieve of Eratosthenes, we will iterate $i$ from $2$ to $n$. When processing a prime number we go through all of its multiples and increase their $deg[]$. If one of these multiples is multiple of the square of $i$, then we can put $good$ as false.
+
+    - To do this we will maintain an array $deg[i]$ to store the number of primes in the factorization of $i$, and an array $good[i]$, to mark either if $i$ contains each factor at most once ($good[i] = 1$) or not ($good[i] = 0$). When iterating from $2$ to $n$, if we reach a number that has $deg$ equal to $0$, then it is a prime and its $deg$ is $1$.
+    - During the sieve of Eratosthenes, we will iterate $i$ from $2$ to $n$. When processing a prime number we go through all of its multiples and increase their $deg[]$. If one of these multiples is multiple of the square of $i$, then we can put $good$ as false.
 
 2. Second, we need to calculate the answer for all $i$ from $2$ to $n$, i.e., the array $cnt[]$ — the number of integers not coprime with $i$.
-    * To do this, remember how the formula of inclusion-exclusion works — actually here we implement the same concept, but with inverted logic: we iterate over a component (a product of primes from the factorization) and add or subtract its term on the formula of inclusion-exclusion of each of its multiples.
-    * So, let's say we are processing a number $i$ such that $good[i] = true$, i.e., it is involved in the formula of inclusion-exclusion. Iterate through all numbers that are multiples of $i$, and either add or subtract $\lfloor N/i \rfloor$ from their $cnt[]$ (the signal depends on $deg[i]$: if $deg[i]$ is odd, then we must add, otherwise subtract).
+    - To do this, remember how the formula of inclusion-exclusion works — actually here we implement the same concept, but with inverted logic: we iterate over a component (a product of primes from the factorization) and add or subtract its term on the formula of inclusion-exclusion of each of its multiples.
+    - So, let's say we are processing a number $i$ such that $good[i] = true$, i.e., it is involved in the formula of inclusion-exclusion. Iterate through all numbers that are multiples of $i$, and either add or subtract $\lfloor N/i \rfloor$ from their $cnt[]$ (the signal depends on $deg[i]$: if $deg[i]$ is odd, then we must add, otherwise subtract).
 
 Here's a C++ implementation:
 
@@ -401,12 +401,14 @@ Denote by $A_k$ the set of permutations of length $n$ with a fixed point at posi
 
 We now use the formula of inclusion-exclusion to count the number of permutations with at least one fixed point. For this we need to learn to count sizes of an intersection of sets $A_i$, as follows:
 
-$$\begin{eqnarray}
+$$
+\begin{eqnarray}
 \left| A_p \right| &=& (n-1)!\ , \\
 \left| A_p \cap A_q \right| &=& (n-2)!\ , \\
 \left| A_p \cap A_q \cap A_r \right| &=& (n-3)!\ , \\
 \cdots ,
-\end{eqnarray}$$
+\end{eqnarray}
+$$
 
 because if we know that the number of fixed points is equal $x$, then we know the position of $x$ elements of the permutation, and all other $(n-x)$ elements can be placed anywhere.
 
@@ -430,22 +432,22 @@ It is worth noting that a similar problem can be solved this way: when you need 
 
 A list of tasks that can be solved using the principle of inclusions-exclusions:
 
-* [UVA #10325 "The Lottery" [difficulty: low]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1266)
-* [UVA #11806 "Cheerleaders" [difficulty: low]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2906)
-* [TopCoder SRM 477 "CarelessSecretary" [difficulty: low]](http://www.topcoder.com/stat?c=problem_statement&pm=10875)
-* [TopCoder TCHS 16 "Divisibility" [difficulty: low]](http://community.topcoder.com/stat?c=problem_statement&pm=6658&rd=10068)
-* [SPOJ #6285 NGM2 , "Another Game With Numbers" [difficulty: low]](http://www.spoj.com/problems/NGM2/)
-* [TopCoder SRM 382 "CharmingTicketsEasy" [difficulty: medium]](http://community.topcoder.com/stat?c=problem_statement&pm=8470)
-* [TopCoder SRM 390 "SetOfPatterns" [difficulty: medium]](http://www.topcoder.com/stat?c=problem_statement&pm=8307)
-* [TopCoder SRM 176 "Deranged" [difficulty: medium]](http://community.topcoder.com/stat?c=problem_statement&pm=2013)
-* [TopCoder SRM 457 "TheHexagonsDivOne" [difficulty: medium]](http://community.topcoder.com/stat?c=problem_statement&pm=10702&rd=14144&rm=303184&cr=22697599)
-* [Test>>>thebest "HarmonicTriples" (in Russian) [difficulty: medium]](http://esci.ru/ttb/statement-62.htm)
-* [SPOJ #4191 MSKYCODE "Sky Code" [difficulty: medium]](http://www.spoj.com/problems/MSKYCODE/)
-* [SPOJ #4168 SQFREE "Square-free integers" [difficulty: medium]](http://www.spoj.com/problems/SQFREE/)
-* [CodeChef "Count Relations" [difficulty: medium]](http://www.codechef.com/JAN11/problems/COUNTREL/)
-* [SPOJ - Almost Prime Numbers Again](http://www.spoj.com/problems/KPRIMESB/)
-* [SPOJ - Find number of Pair of Friends](http://www.spoj.com/problems/IITKWPCH/)
-* [SPOJ - Balanced Cow Subsets](http://www.spoj.com/problems/SUBSET/)
-* [SPOJ - EASY MATH [difficulty: medium]](http://www.spoj.com/problems/EASYMATH/)
-* [SPOJ - MOMOS - FEASTOFPIGS [difficulty: easy]](https://www.spoj.com/problems/MOMOS/)
-* [Atcoder - Grid 2 [difficulty: easy]](https://atcoder.jp/contests/dp/tasks/dp_y/)
+-   [UVA #10325 "The Lottery" [difficulty: low]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1266)
+-   [UVA #11806 "Cheerleaders" [difficulty: low]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2906)
+-   [TopCoder SRM 477 "CarelessSecretary" [difficulty: low]](http://www.topcoder.com/stat?c=problem_statement&pm=10875)
+-   [TopCoder TCHS 16 "Divisibility" [difficulty: low]](http://community.topcoder.com/stat?c=problem_statement&pm=6658&rd=10068)
+-   [SPOJ #6285 NGM2 , "Another Game With Numbers" [difficulty: low]](http://www.spoj.com/problems/NGM2/)
+-   [TopCoder SRM 382 "CharmingTicketsEasy" [difficulty: medium]](http://community.topcoder.com/stat?c=problem_statement&pm=8470)
+-   [TopCoder SRM 390 "SetOfPatterns" [difficulty: medium]](http://www.topcoder.com/stat?c=problem_statement&pm=8307)
+-   [TopCoder SRM 176 "Deranged" [difficulty: medium]](http://community.topcoder.com/stat?c=problem_statement&pm=2013)
+-   [TopCoder SRM 457 "TheHexagonsDivOne" [difficulty: medium]](http://community.topcoder.com/stat?c=problem_statement&pm=10702&rd=14144&rm=303184&cr=22697599)
+-   [Test>>>thebest "HarmonicTriples" (in Russian) [difficulty: medium]](http://esci.ru/ttb/statement-62.htm)
+-   [SPOJ #4191 MSKYCODE "Sky Code" [difficulty: medium]](http://www.spoj.com/problems/MSKYCODE/)
+-   [SPOJ #4168 SQFREE "Square-free integers" [difficulty: medium]](http://www.spoj.com/problems/SQFREE/)
+-   [CodeChef "Count Relations" [difficulty: medium]](http://www.codechef.com/JAN11/problems/COUNTREL/)
+-   [SPOJ - Almost Prime Numbers Again](http://www.spoj.com/problems/KPRIMESB/)
+-   [SPOJ - Find number of Pair of Friends](http://www.spoj.com/problems/IITKWPCH/)
+-   [SPOJ - Balanced Cow Subsets](http://www.spoj.com/problems/SUBSET/)
+-   [SPOJ - EASY MATH [difficulty: medium]](http://www.spoj.com/problems/EASYMATH/)
+-   [SPOJ - MOMOS - FEASTOFPIGS [difficulty: easy]](https://www.spoj.com/problems/MOMOS/)
+-   [Atcoder - Grid 2 [difficulty: easy]](https://atcoder.jp/contests/dp/tasks/dp_y/)

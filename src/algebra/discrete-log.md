@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: discrete_log
 ---
 
@@ -42,8 +42,8 @@ $$f_1(p) = f_2(q).$$
 
 This problem can be solved using the meet-in-the-middle method as follows:
 
-* Calculate $f_1$ for all possible arguments $p$. Sort the array of value-argument pairs.
-* For all possible arguments $q$, calculate $f_2$ and look for the corresponding $p$ in the sorted array using binary search.
+-   Calculate $f_1$ for all possible arguments $p$. Sort the array of value-argument pairs.
+-   For all possible arguments $q$, calculate $f_2$ and look for the corresponding $p$ in the sorted array using binary search.
 
 ## Complexity
 
@@ -69,8 +69,7 @@ $$O(\sqrt {m} \log m).$$
 
 ### The simplest implementation
 
-In the following code, the function `powmod` calculates $a^b \pmod m$ and the function `solve` produces a proper solution to the problem.
-It returns $-1$ if there is no solution and returns one of the possible solutions otherwise.
+In the following code, the function `powmod` calculates $a^b \pmod m$ and the function `solve` produces a proper solution to the problem. It returns $-1$ if there is no solution and returns one of the possible solutions otherwise.
 
 ```cpp
 int powmod(int a, int b, int m) {
@@ -102,31 +101,20 @@ int solve(int a, int b, int m) {
 }
 ```
 
-In this code, we used `map` from the C++ standard library to store the values of $f_1$.
-Internally, `map` uses a red-black tree to store values.
-Thus this code is a little bit slower than if we had used an array and binary searched, but is much easier to write.
+In this code, we used `map` from the C++ standard library to store the values of $f_1$. Internally, `map` uses a red-black tree to store values. Thus this code is a little bit slower than if we had used an array and binary searched, but is much easier to write.
 
-Notice that our code assumes $0^0 = 1$, i.e. the code will compute $0$ as solution for the equation $0^x \equiv 1 \pmod m$ and also as solution for $0^x \equiv 0 \pmod 1$.
-This is an often used convention in algebra, but it's also not univerally accepted in all areas.
-Sometimes $0^0$ is simply undefined.
-If you don't like our convention, then you need to handle the case $a=0$ separately:
+Notice that our code assumes $0^0 = 1$, i.e. the code will compute $0$ as solution for the equation $0^x \equiv 1 \pmod m$ and also as solution for $0^x \equiv 0 \pmod 1$. This is an often used convention in algebra, but it's also not univerally accepted in all areas. Sometimes $0^0$ is simply undefined. If you don't like our convention, then you need to handle the case $a=0$ separately:
 
 ```cpp
     if (a == 0)
         return b == 0 ? 1 : -1;
 ```
 
-Another thing to note is that, if there are multiple arguments $p$ that map to the same value of $f_1$, we only store one such argument.
-This works in this case because we only want to return one possible solution.
-If we need to return all possible solutions, we need to change `map<int, int>` to, say, `map<int, vector<int>>`.
-We also need to change the second step accordingly.
+Another thing to note is that, if there are multiple arguments $p$ that map to the same value of $f_1$, we only store one such argument. This works in this case because we only want to return one possible solution. If we need to return all possible solutions, we need to change `map<int, int>` to, say, `map<int, vector<int>>`. We also need to change the second step accordingly.
 
 ## Improved implementation
 
-A possible improvement is to get rid of binary exponentiation.
-This can be done by keeping a variable that is multiplied by $a$ each time we increase $q$ and a variable that is multiplied by $a^n$ each time we increase $p$.
-With this change, the complexity of the algorithm is still the same, but now the $\log$ factor is only for the `map`.
-Instead of a `map`, we can also use a hash table (`unordered_map` in C++) which has the average time complexity $O(1)$ for inserting and searching.
+A possible improvement is to get rid of binary exponentiation. This can be done by keeping a variable that is multiplied by $a$ each time we increase $q$ and a variable that is multiplied by $a^n$ each time we increase $p$. With this change, the complexity of the algorithm is still the same, but now the $\log$ factor is only for the `map`. Instead of a `map`, we can also use a hash table (`unordered_map` in C++) which has the average time complexity $O(1)$ for inserting and searching.
 
 Problems often ask for the minimum $x$ which satisfies the solution.  
 It is possible to get all answers and take the minimum, or reduce the first found answer using [Euler's theorem](phi-function.md#toc-tgt-2), but we can be smart about the order in which we calculate values and ensure the first answer we find is the minimum.
@@ -161,6 +149,7 @@ int solve(int a, int b, int m) {
 The complexity is $O(\sqrt{m})$ using `unordered_map`.
 
 ## When $a$ and $m$ are not coprime { data-toc-label='When a and m are not coprime' }
+
 Let $g = \gcd(a, m)$, and $g > 1$. Clearly $a^x \bmod m$ for every $x \ge 1$ will be divisible by $g$.
 
 If $g \nmid b$, there is no solution for $x$.
@@ -216,12 +205,14 @@ int solve(int a, int b, int m) {
 The time complexity remains $O(\sqrt{m})$ as before since the initial reduction to coprime $a$ and $m$ is done in $O(\log^2 m)$.
 
 ## Practice Problems
-* [Spoj - Power Modulo Inverted](http://www.spoj.com/problems/MOD/)
-* [Topcoder - SplittingFoxes3](https://community.topcoder.com/stat?c=problem_statement&pm=14386&rd=16801)
-* [CodeChef - Inverse of a Function](https://www.codechef.com/problems/INVXOR/)
-* [Hard Equation](https://codeforces.com/gym/101853/problem/G) (assume that $0^0$ is undefined)
-* [CodeChef - Chef and Modular Sequence](https://www.codechef.com/problems/CHEFMOD)
+
+-   [Spoj - Power Modulo Inverted](http://www.spoj.com/problems/MOD/)
+-   [Topcoder - SplittingFoxes3](https://community.topcoder.com/stat?c=problem_statement&pm=14386&rd=16801)
+-   [CodeChef - Inverse of a Function](https://www.codechef.com/problems/INVXOR/)
+-   [Hard Equation](https://codeforces.com/gym/101853/problem/G) (assume that $0^0$ is undefined)
+-   [CodeChef - Chef and Modular Sequence](https://www.codechef.com/problems/CHEFMOD)
 
 ## References
-* [Wikipedia - Baby-step giant-step](https://en.wikipedia.org/wiki/Baby-step_giant-step)
-* [Answer by Zander on Mathematics StackExchange](https://math.stackexchange.com/a/133054)
+
+-   [Wikipedia - Baby-step giant-step](https://en.wikipedia.org/wiki/Baby-step_giant-step)
+-   [Answer by Zander on Mathematics StackExchange](https://math.stackexchange.com/a/133054)

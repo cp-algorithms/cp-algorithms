@@ -1,6 +1,6 @@
 ---
 tags:
-  - Original
+    - Original
 ---
 
 # Sqrt Tree
@@ -42,13 +42,13 @@ For third block $\text{prefixOp}$ is `{7, 15, 24}` and $\text{suffixOp}$ is `{24
 
 $\text{between}$ array is:
 
-~~~~~
+```
 {
     {6, 21, 45},
     {0, 15, 39},
     {0, 0,  24}
 }
-~~~~~
+```
 
 (we assume that invalid elements where $i > j$ are filled with zeroes)
 
@@ -127,11 +127,11 @@ A sqrt-tree is _indexed_, if its root node has $\text{index}$. A sqrt-tree with 
 
 So, we have the following algorithm for updating an _indexed_ tree:
 
-* Update $\text{prefixOp}$ and $\text{suffixOp}$ in $O(\sqrt{n})$.
+-   Update $\text{prefixOp}$ and $\text{suffixOp}$ in $O(\sqrt{n})$.
 
-* Update $\text{index}$. It has length $O(\sqrt{n})$ and we need to update only one item in it (that represents the changed block). So, the time complexity for this step is $O(\sqrt{n})$. We can use the algorithm described in the beginning of this section (the "slow" one) to do it.
+-   Update $\text{index}$. It has length $O(\sqrt{n})$ and we need to update only one item in it (that represents the changed block). So, the time complexity for this step is $O(\sqrt{n})$. We can use the algorithm described in the beginning of this section (the "slow" one) to do it.
 
-* Go into the child node that represents the changed block and update it in $O(\sqrt{n})$ with the "slow" algorithm.
+-   Go into the child node that represents the changed block and update it in $O(\sqrt{n})$ with the "slow" algorithm.
 
 Note that the query complexity is still $O(1)$: we need to use $\text{index}$ in query no more than once, and this will take $O(1)$ time.
 
@@ -149,21 +149,21 @@ We will do lazy propagation in the same way as it is done in segment trees: we m
 
 In the first approach, we say that only nodes on layer $1$ (with length $O(\sqrt{n}$) can be _lazy_. When pushing such node, it updates all its subtree including itself in $O(\sqrt{n}\cdot \log \log n)$. The $\text{massUpdate}$ process is done as follows:
 
-* Consider the nodes on layer $1$ and blocks corresponding to them.
+-   Consider the nodes on layer $1$ and blocks corresponding to them.
 
-* Some blocks are entirely covered by $\text{massUpdate}$. Mark them as _lazy_ in $O(\sqrt{n})$.
+-   Some blocks are entirely covered by $\text{massUpdate}$. Mark them as _lazy_ in $O(\sqrt{n})$.
 
-* Some blocks are partially covered. Note there are no more than two blocks of this kind. Rebuild them in $O(\sqrt{n}\cdot \log \log n)$. If they were _lazy_, take it into account.
+-   Some blocks are partially covered. Note there are no more than two blocks of this kind. Rebuild them in $O(\sqrt{n}\cdot \log \log n)$. If they were _lazy_, take it into account.
 
-* Update $\text{prefixOp}$ and $\text{suffixOp}$ for partially covered blocks in $O(\sqrt{n})$ (because there are only two such blocks).
+-   Update $\text{prefixOp}$ and $\text{suffixOp}$ for partially covered blocks in $O(\sqrt{n})$ (because there are only two such blocks).
 
-* Rebuild the $\text{index}$ in $O(\sqrt{n}\cdot \log \log n)$.
+-   Rebuild the $\text{index}$ in $O(\sqrt{n}\cdot \log \log n)$.
 
 So we can do $\text{massUpdate}$ fast. But how lazy propagation affects queries? They will have the following modifications:
 
-* If our query entirely lies in a _lazy_ block, calculate it and take _lazy_ into account. $O(1)$.
+-   If our query entirely lies in a _lazy_ block, calculate it and take _lazy_ into account. $O(1)$.
 
-* If our query consists of many blocks, some of which are _lazy_, we need to take care of _lazy_ only on the leftmost and the rightmost block. The rest of the blocks are calculated using $\text{index}$, which already knows the answer on _lazy_ block (because it's rebuilt after each modification). $O(1)$.
+-   If our query consists of many blocks, some of which are _lazy_, we need to take care of _lazy_ only on the leftmost and the rightmost block. The rest of the blocks are calculated using $\text{index}$, which already knows the answer on _lazy_ block (because it's rebuilt after each modification). $O(1)$.
 
 The query complexity still remains $O(1)$.
 
@@ -173,15 +173,15 @@ In this approach, each node can be _lazy_ (except root). Even nodes in $\text{in
 
 But $\text{massUpdate}$ becomes faster. It looks in the following way:
 
-* Some blocks are fully covered with $\text{massUpdate}$. So, _lazy_ tags are added to them. It is $O(\sqrt{n})$.
+-   Some blocks are fully covered with $\text{massUpdate}$. So, _lazy_ tags are added to them. It is $O(\sqrt{n})$.
 
-* Update $\text{prefixOp}$ and $\text{suffixOp}$ for partially covered blocks in $O(\sqrt{n})$ (because there are only two such blocks).
+-   Update $\text{prefixOp}$ and $\text{suffixOp}$ for partially covered blocks in $O(\sqrt{n})$ (because there are only two such blocks).
 
-* Do not forget to update the index. It is $O(\sqrt{n})$ (we use the same $\text{massUpdate}$ algorithm).
+-   Do not forget to update the index. It is $O(\sqrt{n})$ (we use the same $\text{massUpdate}$ algorithm).
 
-* Update $\text{between}$ array for _unindexed_ subtrees. 
+-   Update $\text{between}$ array for _unindexed_ subtrees.
 
-* Go into the nodes representing partially covered blocks and call $\text{massUpdate}$ recursively.
+-   Go into the nodes representing partially covered blocks and call $\text{massUpdate}$ recursively.
 
 Note that when we do the recursive call, we do prefix or suffix $\text{massUpdate}$. But for prefix and suffix updates we can have no more than one partially covered child. So, we visit one node on layer $1$, two nodes on layer $2$ and two nodes on any deeper level. So, the time complexity is $O(\sqrt{n} + \sqrt{\sqrt{n}} + \dots) = O(\sqrt{n})$. The approach here is similar to the segment tree mass update.
 
@@ -189,7 +189,7 @@ Note that when we do the recursive call, we do prefix or suffix $\text{massUpdat
 
 The following implementation of Sqrt Tree can perform the following operations: build in $O(n \cdot \log \log n)$, answer queries in $O(1)$ and update an element in $O(\sqrt{n})$.
 
-~~~~~cpp
+```cpp
 SqrtTreeItem op(const SqrtTreeItem &a, const SqrtTreeItem &b);
 
 inline int log2Up(int n) {
@@ -206,7 +206,7 @@ private:
 	vector<SqrtTreeItem> v;
 	vector<int> clz, layers, onLayer;
 	vector< vector<SqrtTreeItem> > pref, suf, between;
-	
+
 	inline void buildBlock(int layer, int l, int r) {
 		pref[layer][l] = v[l];
 		for (int i = l+1; i < r; i++) {
@@ -217,7 +217,7 @@ private:
 			suf[layer][i] = op(v[i], suf[layer][i+1]);
 		}
 	}
-	
+
 	inline void buildBetween(int layer, int lBound, int rBound, int betweenOffs) {
 		int bSzLog = (layers[layer]+1) >> 1;
 		int bCntLog = layers[layer] >> 1;
@@ -232,7 +232,7 @@ private:
 			}
 		}
 	}
-	
+
 	inline void buildBetweenZero() {
 		int bSzLog = (lg+1) >> 1;
 		for (int i = 0; i < indexSz; i++) {
@@ -240,13 +240,13 @@ private:
 		}
 		build(1, n, n + indexSz, (1 << lg) - n);
 	}
-	
+
 	inline void updateBetweenZero(int bid) {
 		int bSzLog = (lg+1) >> 1;
 		v[n+bid] = suf[0][bid << bSzLog];
 		update(1, n, n + indexSz, (1 << lg) - n, n+bid);
 	}
-	
+
 	void build(int layer, int lBound, int rBound, int betweenOffs) {
 		if (layer >= (int)layers.size()) {
 			return;
@@ -263,7 +263,7 @@ private:
 			buildBetween(layer, lBound, rBound, betweenOffs);
 		}
 	}
-	
+
 	void update(int layer, int lBound, int rBound, int betweenOffs, int x) {
 		if (layer >= (int)layers.size()) {
 			return;
@@ -281,7 +281,7 @@ private:
 		}
 		update(layer+1, l, r, betweenOffs, x);
 	}
-	
+
 	inline SqrtTreeItem query(int l, int r, int betweenOffs, int base) {
 		if (l == r) {
 			return v[l];
@@ -311,12 +311,12 @@ public:
 	inline SqrtTreeItem query(int l, int r) {
 		return query(l, r, 0, 0);
 	}
-	
+
 	inline void update(int x, const SqrtTreeItem &item) {
 		v[x] = item;
 		update(0, 0, n, 0, x);
 	}
-	
+
 	SqrtTree(const vector<SqrtTreeItem>& a)
 		: n((int)a.size()), lg(log2Up(n)), v(a), clz(1 << lg), onLayer(lg+1) {
 		clz[0] = 0;
@@ -344,7 +344,7 @@ public:
 	}
 };
 
-~~~~~
+```
 
 ## Problems
 

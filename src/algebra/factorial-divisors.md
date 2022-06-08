@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: factorial_divisors
 ---
 
@@ -46,4 +46,3 @@ int fact_pow (int n, int k) {
 The same idea can't be applied directly. Instead we can factor $k$, representing it as $k = k_1^{p_1} \cdot \ldots \cdot k_m^{p_m}$. For each $k_i$, we find the number of times it is present in $n!$ using the algorithm described above - let's call this value $a_i$. The answer for composite $k$ will be
 
 $$\min_ {i=1 \ldots m} \dfrac{a_i}{p_i}$$
-

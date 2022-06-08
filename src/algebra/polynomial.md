@@ -1,6 +1,6 @@
 ---
 tags:
-  - Original
+    - Original
 ---
 
 # Operations on polynomials and series
@@ -21,19 +21,20 @@ $$
 
 Here $R$ is the remainder of $A$ modulo $B$ and $D$ is called the quotient. If $A$ and $B$ have the same remainder modulo $C$, they're said to be equivalent modulo $C$, which is denoted as $A \equiv B \pmod{C}$. Several important properties of polynomial Euclidean division:
 
-- $A$ is a multiple of $B$ if and only if $A \equiv 0 \pmod B$.
+-   $A$ is a multiple of $B$ if and only if $A \equiv 0 \pmod B$.
 
-- It implies that $A \equiv B \pmod C$ if and only if $A-B$ is a multiple of $C$.
+-   It implies that $A \equiv B \pmod C$ if and only if $A-B$ is a multiple of $C$.
 
-- In particular, $A \equiv B \pmod{C \cdot D}$ implies $A \equiv B \pmod{C}$.
+-   In particular, $A \equiv B \pmod{C \cdot D}$ implies $A \equiv B \pmod{C}$.
 
-- For any linear polynomial $x-r$ it holds that $A(x) \equiv A(r) \pmod{x-r}$.
+-   For any linear polynomial $x-r$ it holds that $A(x) \equiv A(r) \pmod{x-r}$.
 
-- It implies that $A$ is a multiple of $x-r$ if and only if $A(r)=0$.
+-   It implies that $A$ is a multiple of $x-r$ if and only if $A(r)=0$.
 
-- For modulo being $x^k$, it holds that $A \equiv a_0 + a_1 x + \dots + a_{k-1} x^{k-1} \pmod{x^k}$.
+-   For modulo being $x^k$, it holds that $A \equiv a_0 + a_1 x + \dots + a_{k-1} x^{k-1} \pmod{x^k}$.
 
 ## Basic implementation
+
 [Here](https://github.com/e-maxx-eng/e-maxx-eng-aux/blob/master/src/polynomial.cpp) you can find the basic implementation of polynomial algebra.
 
 It supports all trivial operations and some other useful methods. The main class is `poly<T>` for polynomials with coefficients of type `T`.
@@ -44,21 +45,21 @@ There is also the class `modular<m>` for performing arithmetic operations on rem
 
 Other useful functions:
 
-- `deriv()`: computes the derivative $P'(x)$ of $P(x)$.
-- `integr()`: computes the indefinite integral $Q(x) = \int P(x)$ of $P(x)$ such that $Q(0)=0$.
-- `inv(size_t n)`: calculate the first $n$ coefficients of $P^{-1}(x)$ in $O(n \log n)$.
-- `log(size_t n)`: calculate the first $n$ coefficients of $\ln P(x)$ in $O(n \log n)$.
-- `exp(size_t n)`: calculate the first $n$ coefficients of $\exp P(x)$ in $O(n \log n)$.
-- `pow(size_t k, size_t n)`: calculate the first $n$ coefficients for $P^{k}(x)$ in $O(n \log nk)$.
-- `deg()`: returns the degree of $P(x)$.
-- `lead()`: returns the coefficient of $x^{\deg P(x)}$.
-- `resultant(poly<T> a, poly<T> b)`: computes the resultant of $a$ and $b$ in $O(|a| \cdot |b|)$.
-- `bpow(T x, size_t n)`: computes $x^n$.
-- `bpow(T x, size_t n, T m)`: computes $x^n \pmod{m}$.
-- `chirpz(T z, size_t n)`: computes $P(1), P(z), P(z^2), \dots, P(z^{n-1})$ in $O(n \log n)$.
-- `vector<T> eval(vector<T> x)`: evaluates $P(x_1), \dots, P(x_n)$ in $O(n \log^2 n)$.
-- `poly<T> inter(vector<T> x, vector<T> y)`: interpolates a polynomial by a set of pairs $P(x_i) = y_i$ in $O(n \log^2 n)$.
-- And some more, feel free to explore the code!
+-   `deriv()`: computes the derivative $P'(x)$ of $P(x)$.
+-   `integr()`: computes the indefinite integral $Q(x) = \int P(x)$ of $P(x)$ such that $Q(0)=0$.
+-   `inv(size_t n)`: calculate the first $n$ coefficients of $P^{-1}(x)$ in $O(n \log n)$.
+-   `log(size_t n)`: calculate the first $n$ coefficients of $\ln P(x)$ in $O(n \log n)$.
+-   `exp(size_t n)`: calculate the first $n$ coefficients of $\exp P(x)$ in $O(n \log n)$.
+-   `pow(size_t k, size_t n)`: calculate the first $n$ coefficients for $P^{k}(x)$ in $O(n \log nk)$.
+-   `deg()`: returns the degree of $P(x)$.
+-   `lead()`: returns the coefficient of $x^{\deg P(x)}$.
+-   `resultant(poly<T> a, poly<T> b)`: computes the resultant of $a$ and $b$ in $O(|a| \cdot |b|)$.
+-   `bpow(T x, size_t n)`: computes $x^n$.
+-   `bpow(T x, size_t n, T m)`: computes $x^n \pmod{m}$.
+-   `chirpz(T z, size_t n)`: computes $P(1), P(z), P(z^2), \dots, P(z^{n-1})$ in $O(n \log n)$.
+-   `vector<T> eval(vector<T> x)`: evaluates $P(x_1), \dots, P(x_n)$ in $O(n \log^2 n)$.
+-   `poly<T> inter(vector<T> x, vector<T> y)`: interpolates a polynomial by a set of pairs $P(x_i) = y_i$ in $O(n \log^2 n)$.
+-   And some more, feel free to explore the code!
 
 ## Arithmetic
 
@@ -124,12 +125,14 @@ Let $n \geq m$, it would imply that $\deg D = n - m$ and the leading $n-m+1$ coe
 
 The system of linear equations we're talking about can be written in the following form:
 
-$$\begin{bmatrix} a_n \\ \vdots \\ a_{m+1} \\ a_{m} \end{bmatrix} = \begin{bmatrix}
+$$
+\begin{bmatrix} a_n \\ \vdots \\ a_{m+1} \\ a_{m} \end{bmatrix} = \begin{bmatrix}
 b_m & \dots & 0 & 0 \\
 \vdots & \ddots & \vdots & \vdots \\
 \dots & \dots & b_m & 0 \\
 \dots & \dots & b_{m-1} & b_m
-\end{bmatrix} \begin{bmatrix}d_{n-m} \\ \vdots \\ d_1 \\ d_0\end{bmatrix}$$
+\end{bmatrix} \begin{bmatrix}d_{n-m} \\ \vdots \\ d_1 \\ d_0\end{bmatrix}
+$$
 
 From the looks of it, we can conclude that with the introduction of reversed polynomials
 
@@ -197,10 +200,9 @@ As was mentioned earlier, formally and generically this result is known as [Hens
 
 Another example where Hensel's lifting might be helpful are so-called [p-adic numbers](https://en.wikipedia.org/wiki/P-adic_number) where we, in fact, work with the sequence of integer remainders modulo $p$, $p^2$, $p^3$ and so on. For example, Newton's method can be used to find all possible [automorphic numbers](https://en.wikipedia.org/wiki/Automorphic_number) (numbers that end on itself when squared) with a given number base. The problem is left as an exercise to the reader. You might consider [this](https://acm.timus.ru/problem.aspx?space=1&num=1698) problem to check if your solution works for $10$-based numbers.
 
-
 ### Logarithm
 
-For the function $\ln P(x)$ it's known that: 
+For the function $\ln P(x)$ it's known that:
 
 $$
 \boxed{(\ln P(x))' = \dfrac{P'(x)}{P(x)}}
@@ -208,11 +210,9 @@ $$
 
 Thus we can calculate $n$ coefficients of $\ln P(x)$ in $O(n \log n)$.
 
-
 ### Inverse series
 
-Turns out, we can get the formula for $A^{-1}$ using Newton's method.
-For this we take the equation $A=Q^{-1}$, thus:
+Turns out, we can get the formula for $A^{-1}$ using Newton's method. For this we take the equation $A=Q^{-1}$, thus:
 
 $$F(Q) = Q^{-1} - A$$
 
@@ -275,6 +275,7 @@ $$\boxed{A(z^r) = z^{-\binom{r}{2}}\sum\limits_{k=0}^n \left(a_k z^{-\binom{k}{2
 The coefficient of $x^{n+r}$ of the product of the polynomials $A_0(x) = \sum\limits_{k=0}^n a_{n-k}z^{-\binom{n-k}{2}}x^k$ and $A_1(x) = \sum\limits_{k\geq 0}z^{\binom{k}{2}}x^k$ equals $z^{\binom{r}{2}}A(z^r)$. You can use the formula $z^\binom{k+1}{2}=z^{\binom{k}{2}+k}$ to calculate the coefficients of $A_0(x)$ and $A_1(x)$.
 
 ### Multi-point Evaluation
+
 Assume you need to calculate $A(x_1), \dots, A(x_n)$. As mentioned earlier, $A(x) \equiv A(x_i) \pmod{x-x_i}$. Thus you may do the following:
 
 1. Compute a segment tree such that in the segment $[l,r)$ stands the product $P_{l, r}(x) = (x-x_l)(x-x_{l+1})\dots(x-x_{r-1})$.
@@ -292,7 +293,7 @@ $$\boxed{A(x) = \sum\limits_{i=1}^n y_i \prod\limits_{j \neq i}\dfrac{x-x_j}{x_i
 
 Computing it directly is a hard thing but turns out, we may compute it in $O(n \log^2 n)$ with a divide and conquer approach:
 
-Consider $P(x) = (x-x_1)\dots(x-x_n)$. To know the coefficients of the denominators in $A(x)$ we should compute products like: 
+Consider $P(x) = (x-x_1)\dots(x-x_n)$. To know the coefficients of the denominators in $A(x)$ we should compute products like:
 
 $$
 P_i = \prod\limits_{j \neq i} (x_i-x_j)
@@ -304,8 +305,7 @@ Now consider the recursive algorithm done on same segment tree as in the multi-p
 
 When we return from the recursion we should merge the results from the left and the right vertices as $A_{l,r} = A_{l,m}P_{m,r} + P_{l,m} A_{m,r}$.
 
-In this way when you return back to the root you'll have exactly $A(x)$ in it.
-The total procedure also works in $O(n \log^2 n)$.
+In this way when you return back to the root you'll have exactly $A(x)$ in it. The total procedure also works in $O(n \log^2 n)$.
 
 ## GCD and Resultants
 
@@ -317,7 +317,7 @@ You want to know if $A(x)$ and $B(x)$ have any roots in common. There are two in
 
 ### Euclidean algorithm
 
-Well, we already have an [article](euclid-algorithm.md) about it. For an arbitrary  domain you can write the Euclidean algorithm as easy as:
+Well, we already have an [article](euclid-algorithm.md) about it. For an arbitrary domain you can write the Euclidean algorithm as easy as:
 
 ```cpp
 template<typename T>
@@ -327,7 +327,6 @@ T gcd(const T &a, const T &b) {
 ```
 
 It can be proven that for polynomials $A(x)$ and $B(x)$ it will work in $O(nm)$.
-
 
 ### Resultant
 
@@ -347,7 +346,6 @@ The value defined above is called the resultant of the polynomials $A(x)$ and $B
 Miraculously it means that resultant of two polynomials is actually always from the same ring as their coefficients!
 
 Also these properties allow us to calculate the resultant alongside the Euclidean algorithm, which works in $O(nm)$.
-
 
 ```cpp
 template<typename T>
@@ -379,7 +377,7 @@ After half-GCD is implemented, you can repeatedly apply it to polynomials until 
 
 ## Problems
 
-- [CodeChef - RNG](https://www.codechef.com/problems/RNG)
-- [CodeForces - Basis Change](https://codeforces.com/gym/102129/problem/D)
-- [CodeForces - Permutant](https://codeforces.com/gym/102129/problem/G)
-- [CodeForces - Medium Hadron Collider](https://codeforces.com/gym/102129/problem/C)
+-   [CodeChef - RNG](https://www.codechef.com/problems/RNG)
+-   [CodeForces - Basis Change](https://codeforces.com/gym/102129/problem/D)
+-   [CodeForces - Permutant](https://codeforces.com/gym/102129/problem/G)
+-   [CodeForces - Medium Hadron Collider](https://codeforces.com/gym/102129/problem/C)

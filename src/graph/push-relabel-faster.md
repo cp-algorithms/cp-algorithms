@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: preflow_push_faster
 ---
 
@@ -10,13 +10,9 @@ We will modify the [push-relabel method](push-relabel.md) to achieve a better ru
 
 ## Description
 
-The modification is extremely simple:
-In the previous article we chosen a vertex with excess without any particular rule.
-But it turns out, that if we always choose the vertices with the **greatest height**, and apply push and relabel operations on them, then the complexity will become better.
-Moreover, to select the vertices with the greatest height we actually don't need any data structures, we simply store the vertices with the greatest height in a list, and recalculate the list once all of them are processed (then vertices with already lower height will be added to the list), or whenever a new vertex with excess and a greater height appears (after relabeling a vertex).
+The modification is extremely simple: In the previous article we chosen a vertex with excess without any particular rule. But it turns out, that if we always choose the vertices with the **greatest height**, and apply push and relabel operations on them, then the complexity will become better. Moreover, to select the vertices with the greatest height we actually don't need any data structures, we simply store the vertices with the greatest height in a list, and recalculate the list once all of them are processed (then vertices with already lower height will be added to the list), or whenever a new vertex with excess and a greater height appears (after relabeling a vertex).
 
-Despite the simplicity, this modification reduces the complexity by a lot.
-To be precise, the complexity of the resulting algorithm is $O(V E + V^2 \sqrt{E})$, which in the worst case is $O(V^3)$.
+Despite the simplicity, this modification reduces the complexity by a lot. To be precise, the complexity of the resulting algorithm is $O(V E + V^2 \sqrt{E})$, which in the worst case is $O(V^3)$.
 
 This modification was proposed by Cheriyan and Maheshwari in 1989.
 

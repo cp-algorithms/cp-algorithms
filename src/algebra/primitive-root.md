@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: primitive_root
 ---
 
@@ -20,9 +20,9 @@ In particular, for the case where $n$ is a prime, the powers of primitive root r
 
 Primitive root modulo $n$ exists if and only if:
 
-* $n$ is 1, 2, 4, or
-* $n$ is power of an odd prime number $(n = p^k)$, or
-* $n$ is twice power of an odd prime number $(n = 2 \cdot p^k)$.
+-   $n$ is 1, 2, 4, or
+-   $n$ is power of an odd prime number $(n = p^k)$, or
+-   $n$ is twice power of an odd prime number $(n = 2 \cdot p^k)$.
 
 This theorem was proved by Gauss in 1801.
 
@@ -48,11 +48,11 @@ i.e. among the numbers of the form $\frac {\phi (n)} {p_i}$, there would be at l
 
 Now we have a complete algorithm for finding the primitive root:
 
-* First, find $\phi (n)$ and factorize it.
-* Then iterate through all numbers $g \in [1, n]$, and for each number, to check if it is primitive root, we do the following:
+-   First, find $\phi (n)$ and factorize it.
+-   Then iterate through all numbers $g \in [1, n]$, and for each number, to check if it is primitive root, we do the following:
 
-    * Calculate all $g ^ { \frac {\phi (n)} {p_i}} \pmod n$.
-    * If all the calculated values are different from $1$, then $g$ is a primitive root.
+    -   Calculate all $g ^ { \frac {\phi (n)} {p_i}} \pmod n$.
+    -   If all the calculated values are different from $1$, then $g$ is a primitive root.
 
     Running time of this algorithm is $O(Ans \cdot \log \phi (n) \cdot \log n)$ (assume that $\phi (n)$ has $\log \phi (n)$ divisors).
 
@@ -60,7 +60,7 @@ Shoup (1990, 1992) proved, assuming the [generalized Riemann hypothesis](http://
 
 ## Implementation
 
-The following code assumes that the modulo `p` is a prime number. To make it works for any value of `p`, we must add calculation of $\phi (p)$. 
+The following code assumes that the modulo `p` is a prime number. To make it works for any value of `p`, we must add calculation of $\phi (p)$.
 
 ```cpp
 int powmod (int a, int b, int p) {
@@ -72,7 +72,7 @@ int powmod (int a, int b, int p) {
 			a = int (a * 1ll * a % p),  b >>= 1;
 	return res;
 }
- 
+
 int generator (int p) {
 	vector<int> fact;
 	int phi = p-1,  n = phi;
@@ -84,7 +84,7 @@ int generator (int p) {
 		}
 	if (n > 1)
 		fact.push_back (n);
- 
+
 	for (int res=2; res<=p; ++res) {
 		bool ok = true;
 		for (size_t i=0; i<fact.size() && ok; ++i)

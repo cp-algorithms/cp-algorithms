@@ -1,46 +1,34 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: levit_algorithm
 ---
 
 # D´Esopo-Pape algorithm
 
-Given a graph with $n$ vertices and $m$ edges with weights $w_i$ and a starting vertex $v_0$.
-The task is to find the shortest path from the vertex $v_0$ to every other vertex.
+Given a graph with $n$ vertices and $m$ edges with weights $w_i$ and a starting vertex $v_0$. The task is to find the shortest path from the vertex $v_0$ to every other vertex.
 
-The algorithm from D´Esopo-Pape will work faster than [Dijkstra's algorithm](dijkstra.md) and the [Bellman-Ford algorithm](bellman_ford.md) in most cases, and will also work for negative edges.
-However not for negative cycles.
+The algorithm from D´Esopo-Pape will work faster than [Dijkstra's algorithm](dijkstra.md) and the [Bellman-Ford algorithm](bellman_ford.md) in most cases, and will also work for negative edges. However not for negative cycles.
 
 ## Description
 
-Let the array $d$ contain the shortest path lengths, i.e. $d_i$ is the current length of the shortest path from the vertex $v_0$ to the vertex $i$.
-Initially this array is filled with infinity for every vertex, except $d_{v_0} = 0$.
-After the algorithm finishes, this array will contain the shortest distances.
+Let the array $d$ contain the shortest path lengths, i.e. $d_i$ is the current length of the shortest path from the vertex $v_0$ to the vertex $i$. Initially this array is filled with infinity for every vertex, except $d_{v_0} = 0$. After the algorithm finishes, this array will contain the shortest distances.
 
-Let the array $p$ contain the current ancestors, i.e. $p_i$ is the direct ancestor of the vertex $i$ on the current shortest path from $v_0$ to $i$.
-Just like the array $d$, the array $p$ changes gradually during the algorithm and at the end takes its final values.
+Let the array $p$ contain the current ancestors, i.e. $p_i$ is the direct ancestor of the vertex $i$ on the current shortest path from $v_0$ to $i$. Just like the array $d$, the array $p$ changes gradually during the algorithm and at the end takes its final values.
 
-Now to the algorithm.
-At each step three sets of vertices are maintained:
+Now to the algorithm. At each step three sets of vertices are maintained:
 
-- $M_0$ - vertices, for which the distance has already been calculated (although it might not be the final distance)
-- $M_1$ - vertices, for which the distance currently is calculated
-- $M_2$ - vertices, for which the distance has not yet been calculated
+-   $M_0$ - vertices, for which the distance has already been calculated (although it might not be the final distance)
+-   $M_1$ - vertices, for which the distance currently is calculated
+-   $M_2$ - vertices, for which the distance has not yet been calculated
 
 The vertices in the set $M_1$ are stored in a bidirectional queue (deque).
 
-At each step of the algorithm we take a vertex from the set $M_1$ (from the front of the queue).
-Let $u$ be the selected vertex.
-We put this vertex $u$ into the set $M_0$.
-Then we iterate over all edges coming out of this vertex.
-Let $v$ be the second end of the current edge, and $w$ its weight.
+At each step of the algorithm we take a vertex from the set $M_1$ (from the front of the queue). Let $u$ be the selected vertex. We put this vertex $u$ into the set $M_0$. Then we iterate over all edges coming out of this vertex. Let $v$ be the second end of the current edge, and $w$ its weight.
 
-- If $v$ belongs to $M_2$, then $v$ is inserted into the set $M_1$ by inserting it at the back of the queue.
-$d_v$ is set to $d_u + w$.
-- If $v$ belongs to $M_1$, then we try to improve the value of $d_v$: $d_v = \min(d_v, d_u + w)$.
-Since $v$ is already in $M_1$, we don't need to insert it into $M_1$ and the queue.
-- If $v$ belongs to $M_0$, and if $d_v$ can be improved $d_v > d_u + w$, then we improve $d_v$ and insert the vertex $v$ back to the set $M_1$, placing it at the beginning of the queue.
+-   If $v$ belongs to $M_2$, then $v$ is inserted into the set $M_1$ by inserting it at the back of the queue. $d_v$ is set to $d_u + w$.
+-   If $v$ belongs to $M_1$, then we try to improve the value of $d_v$: $d_v = \min(d_v, d_u + w)$. Since $v$ is already in $M_1$, we don't need to insert it into $M_1$ and the queue.
+-   If $v$ belongs to $M_0$, and if $d_v$ can be improved $d_v > d_u + w$, then we improve $d_v$ and insert the vertex $v$ back to the set $M_1$, placing it at the beginning of the queue.
 
 And of course, with each update in the array $d$ we also have to update the corresponding element in the array $p$.
 
@@ -89,6 +77,4 @@ void shortest_paths(int v0, vector<int>& d, vector<int>& p) {
 
 ## Complexity
 
-The algorithm performs usually quite fast.
-In most cases even faster than Dijkstra's algorithm.
-However there exist cases for which the algorithm takes exponential time.
+The algorithm performs usually quite fast. In most cases even faster than Dijkstra's algorithm. However there exist cases for which the algorithm takes exponential time.

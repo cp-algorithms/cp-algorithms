@@ -1,15 +1,12 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: voronoi_diagram_2d_n4
 ---
 
 # Delaunay triangulation and Voronoi diagram
 
-Consider a set $\{p_i\}$ of points on the plane.
-A **Voronoi diagram** $V(\{p_i\})$ of $\{p_i\}$ is a partition of the plane into $n$ regions $V_i$, where $V_i = \{p\in\mathbb{R}^2;\ \rho(p, p_i) = \min\ \rho(p, p_k)\}$.
-The cells of the Voronoi diagram are polygons (possibly infinite).
-A **Delaunay triangulation** $D(\{p_i\})$ of $\{p_i\}$ is a triangulation where every point $p_i$ is outside or on the boundary of the circumcircle of each triangle $T \in D(\{p_i\})$.
+Consider a set $\{p_i\}$ of points on the plane. A **Voronoi diagram** $V(\{p_i\})$ of $\{p_i\}$ is a partition of the plane into $n$ regions $V_i$, where $V_i = \{p\in\mathbb{R}^2;\ \rho(p, p_i) = \min\ \rho(p, p_k)\}$. The cells of the Voronoi diagram are polygons (possibly infinite). A **Delaunay triangulation** $D(\{p_i\})$ of $\{p_i\}$ is a triangulation where every point $p_i$ is outside or on the boundary of the circumcircle of each triangle $T \in D(\{p_i\})$.
 
 There is a nasty degenerated case when the Voronoi diagram isn't connected and Delaunay triangulation doesn't exist. This case is when all points are collinear.
 
@@ -30,18 +27,15 @@ Because of the duality, we only need a fast algorithm to compute only one of $V$
 ## Quad-edge data structure
 
 During the algorithm $D$ will be stored inside the quad-edge data structure. This structure is described in the picture:
+
 <center>![Quad-Edge](quad-edge.png)</center>
 
 In the algorithm we will use the following functions on edges:
 
-  1. `make_edge(a, b)`<br>
-    This function creates an isolated edge from point `a` to point `b` together with its' reverse edge and both dual edges.
-  2. `splice(a, b)`<br>
-    This is a key function of the algorithm. It swaps `a->Onext` with `b->Onext` and `a->Onext->Rot->Onext` with `b->Onext->Rot->Onext`.
-  3. `delete_edge(e)`<br>
-    This function deletes e from the triangulation. To delete `e`, we may simply call `splice(e, e->Oprev)` and `splice(e->Rev, e->Rev->Oprev)`.
-  4. `connect(a, b)`<br>
-    This function creates a new edge `e` from `a->Dest` to `b->Org` in such a way that `a`, `b`, `e` all have the same left face. To do this, we call `e = make_edge(a->Dest, b->Org)`, `splice(e, a->Lnext)` and `splice(e->Rev, b)`.
+1. `make_edge(a, b)`<br> This function creates an isolated edge from point `a` to point `b` together with its' reverse edge and both dual edges.
+2. `splice(a, b)`<br> This is a key function of the algorithm. It swaps `a->Onext` with `b->Onext` and `a->Onext->Rot->Onext` with `b->Onext->Rot->Onext`.
+3. `delete_edge(e)`<br> This function deletes e from the triangulation. To delete `e`, we may simply call `splice(e, e->Oprev)` and `splice(e->Rev, e->Rev->Oprev)`.
+4. `connect(a, b)`<br> This function creates a new edge `e` from `a->Dest` to `b->Org` in such a way that `a`, `b`, `e` all have the same left face. To do this, we call `e = make_edge(a->Dest, b->Org)`, `splice(e, a->Lnext)` and `splice(e->Rev, b)`.
 
 ## Algorithm
 
@@ -49,14 +43,7 @@ The algorithm will compute the triangulation and return two quad-edges: the coun
 
 Let's sort all points by x, and if $x_1 = x_2$ then by y. Let's solve the problem for some segment $(l, r)$ (initially $(l, r) = (0, n - 1)$). If $r - l + 1 = 2$, we will add an edge $(p[l], p[r])$ and return. If $r - l + 1 = 3$, we will firstly add the edges $(p[l], p[l + 1])$ and $(p[l + 1], p[r])$. We must also connect them using `splice(a->Rev, b)`. Now we must close the triangle. Our next action will depend on the orientation of $p[l], p[l + 1], p[r]$. If they are collinear, we can't make a triangle, so we simply return `(a, b->Rev)`. Otherwise, we create a new edge `c` by calling `connect(b, a)`. If the points are oriented counter-clockwise, we return `(a, b->Rev)`. Otherwise we return `(c->Rev, c)`.
 
-Now suppose that $r - l + 1 \ge 4$. Firstly, let's solve $L = (l, \frac{l + r}{2})$ and $R = (\frac{l + r}{2} + 1, r)$ recursively. Now we have to merge these triangulations into one triangulation. Note that our points are sorted, so while merging we will add edges from L to R (so-called _cross_ edges) and remove some edges from L to L and from R to R.
-What is the structure of the cross edges? All these edges must cross a line parallel to the y-axis and placed at the splitting x value. This establishes a linear ordering of the cross edges, so we can talk about successive cross edges, the bottom-most cross edge, etc. The algorithm will add the cross edges in ascending order. Note that any two adjacent cross edges will have a common endpoint, and the third side of the triangle they define goes from L to L or from R to R. Let's call the current cross edge the base. The successor of the base will either go from the left endpoint of the base to one of the R-neighbors of the right endpoint or vice versa.
-Consider the circumcircle of base and the previous cross edge.
-Suppose this circle is transformed into other circles having base as a chord but lying further into the Oy direction.
-Our circle will go up for a while, but unless base is an upper tangent of L and R we will encounter a point belonging either to L or to R giving rise to a new triangle without any points in the circumcircle.
-The new L-R edge of this triangle is the next cross edge added.
-To do this efficiently, we compute two edges `lcand` and `rcand` so that `lcand` points to the first L point encountered in this process, and `rcand` points to the first R point.
-Then we choose the one that would be encountered first. Initially base points to the lower tangent of L and R.
+Now suppose that $r - l + 1 \ge 4$. Firstly, let's solve $L = (l, \frac{l + r}{2})$ and $R = (\frac{l + r}{2} + 1, r)$ recursively. Now we have to merge these triangulations into one triangulation. Note that our points are sorted, so while merging we will add edges from L to R (so-called _cross_ edges) and remove some edges from L to L and from R to R. What is the structure of the cross edges? All these edges must cross a line parallel to the y-axis and placed at the splitting x value. This establishes a linear ordering of the cross edges, so we can talk about successive cross edges, the bottom-most cross edge, etc. The algorithm will add the cross edges in ascending order. Note that any two adjacent cross edges will have a common endpoint, and the third side of the triangle they define goes from L to L or from R to R. Let's call the current cross edge the base. The successor of the base will either go from the left endpoint of the base to one of the R-neighbors of the right endpoint or vice versa. Consider the circumcircle of base and the previous cross edge. Suppose this circle is transformed into other circles having base as a chord but lying further into the Oy direction. Our circle will go up for a while, but unless base is an upper tangent of L and R we will encounter a point belonging either to L or to R giving rise to a new triangle without any points in the circumcircle. The new L-R edge of this triangle is the next cross edge added. To do this efficiently, we compute two edges `lcand` and `rcand` so that `lcand` points to the first L point encountered in this process, and `rcand` points to the first R point. Then we choose the one that would be encountered first. Initially base points to the lower tangent of L and R.
 
 ## Implementation
 
@@ -305,6 +292,7 @@ vector<tuple<pt, pt, pt>> delaunay(vector<pt> p) {
 ```
 
 ## Problems
- * [TIMUS 1504 Good Manners](http://acm.timus.ru/problem.aspx?space=1&num=1504)
- * [TIMUS 1520 Empire Strikes Back](http://acm.timus.ru/problem.aspx?space=1&num=1520)
- * [SGU 383 Caravans](https://codeforces.com/problemsets/acmsguru/problem/99999/383)
+
+-   [TIMUS 1504 Good Manners](http://acm.timus.ru/problem.aspx?space=1&num=1504)
+-   [TIMUS 1520 Empire Strikes Back](http://acm.timus.ru/problem.aspx?space=1&num=1520)
+-   [SGU 383 Caravans](https://codeforces.com/problemsets/acmsguru/problem/99999/383)

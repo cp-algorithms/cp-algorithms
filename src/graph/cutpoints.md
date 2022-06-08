@@ -1,9 +1,10 @@
 ---
 title: Finding articulation points in a graph in O(N+M)
 tags:
-  - Translated
+    - Translated
 e_maxx_link: cutpoints
 ---
+
 # Finding articulation points in a graph in $O(N+M)$
 
 We are given an undirected graph. An articulation point (or cut vertex) is defined as a vertex which, when removed along with associated edges, makes the graph disconnected (or more precisely, increases the number of connected components in the graph). The task is to find all articulation points in the given graph.
@@ -14,11 +15,9 @@ The algorithm described here is based on [depth first search](depth-first-search
 
 Pick an arbitrary vertex of the graph $root$ and run [depth first search](depth-first-search.md) from it. Note the following fact (which is easy to prove):
 
-- Let's say we are in the DFS, looking through the edges starting from vertex $v\ne root$.
-If the current edge $(v, to)$ is such that none of the vertices $to$ or its descendants in the DFS traversal tree has a back-edge to any of ancestors of $v$, then $v$ is an articulation point. Otherwise, $v$ is not an articulation point.
+-   Let's say we are in the DFS, looking through the edges starting from vertex $v\ne root$. If the current edge $(v, to)$ is such that none of the vertices $to$ or its descendants in the DFS traversal tree has a back-edge to any of ancestors of $v$, then $v$ is an articulation point. Otherwise, $v$ is not an articulation point.
 
-- Let's consider the remaining case of $v=root$.
-This vertex will be the point of articulation if and only if this vertex has more than one child in the DFS tree.
+-   Let's consider the remaining case of $v=root$. This vertex will be the point of articulation if and only if this vertex has more than one child in the DFS tree.
 
 Now we have to learn to check this fact for each vertex efficiently. We'll use "time of entry into node" computed by the depth first search.
 
@@ -34,9 +33,9 @@ Thus, the vertex $v$ in the DFS tree is an articulation point if and only if $lo
 
 The implementation needs to distinguish three cases: when we go down the edge in DFS tree, when we find a back edge to an ancestor of the vertex and when we return to a parent of the vertex. These are the cases:
 
-- $visited[to] = false$ - the edge is part of DFS tree;
-- $visited[to] = true$ && $to \neq parent$ - the edge is back edge to one of the ancestors;
-- $to = parent$ - the edge leads back to parent in DFS tree.
+-   $visited[to] = false$ - the edge is part of DFS tree;
+-   $visited[to] = true$ && $to \neq parent$ - the edge is back edge to one of the ancestors;
+-   $to = parent$ - the edge leads back to parent in DFS tree.
 
 To implement this, we need a depth first search function which accepts the parent vertex of the current node.
 
@@ -49,7 +48,7 @@ vector<vector<int>> adj; // adjacency list of graph
 vector<bool> visited;
 vector<int> tin, low;
 int timer;
- 
+
 void dfs(int v, int p = -1) {
     visited[v] = true;
     tin[v] = low[v] = timer++;
@@ -69,7 +68,7 @@ void dfs(int v, int p = -1) {
     if(p == -1 && children > 1)
         IS_CUTPOINT(v);
 }
- 
+
 void find_cutpoints() {
     timer = 0;
     visited.assign(n, false);
@@ -88,7 +87,7 @@ Function `IS_CUTPOINT(a)` is some function that will process the fact that verte
 
 ## Practice Problems
 
-- [UVA #10199 "Tourist Guide"](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=13&page=show_problem&problem=1140) [difficulty: low]
-- [UVA #315 "Network"](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=5&page=show_problem&problem=251) [difficulty: low]
-- [SPOJ - Submerging Islands](http://www.spoj.com/problems/SUBMERGE/)
-- [Codeforces - Cutting Figure](https://codeforces.com/problemset/problem/193/A)
+-   [UVA #10199 "Tourist Guide"](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=13&page=show_problem&problem=1140) [difficulty: low]
+-   [UVA #315 "Network"](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=5&page=show_problem&problem=251) [difficulty: low]
+-   [SPOJ - Submerging Islands](http://www.spoj.com/problems/SUBMERGE/)
+-   [Codeforces - Cutting Figure](https://codeforces.com/problemset/problem/193/A)

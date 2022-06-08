@@ -1,10 +1,10 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: roots_newton
 ---
 
-# Newton's method for finding roots 
+# Newton's method for finding roots
 
 This is an iterative method invented by Isaac Newton around 1664. However, this method is also sometimes called the Raphson method, since Raphson invented the same algorithm a few years after Newton, but his article was published much earlier.
 
@@ -22,7 +22,7 @@ Suppose we have already calculated $x_i$, calculate $x_{i+1}$ as follows. Draw t
 
 It is not difficult to obtain the following formula:
 
-$$ x_{i+1} = x_i - \frac{f(x_i)}{f^\prime(x_i)} $$
+$$ x\_{i+1} = x_i - \frac{f(x_i)}{f^\prime(x_i)} $$
 
 It is intuitively clear that if the function $f(x)$ is "good" (smooth), and $x_i$ is close enough to the root, then $x_{i+1}$ will be even closer to the desired root.
 
@@ -34,7 +34,7 @@ Let's use the calculation of square root as an example of Newton's method.
 
 If we substitute $f(x) = x^2 - n$, then after simplifying the expression, we get:
 
-$$ x_{i+1} = \frac{x_i + \frac{n}{x_i}}{2} $$
+$$ x\_{i+1} = \frac{x_i + \frac{n}{x_i}}{2} $$
 
 The first typical variant of the problem is when a rational number $n$ is given, and its root must be calculated with some accuracy `eps`:
 
@@ -89,4 +89,5 @@ public static BigInteger isqrtNewton(BigInteger n) {
 For example, this code is executed in $60$ milliseconds for $n = 10^{1000}$, and if we remove the improved selection of the initial approximation (just starting with $1$), then it will be executed in about $120$ milliseconds.
 
 ## Practice Problems
-- [UVa 10428 - The Roots](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=1369)
+
+-   [UVa 10428 - The Roots](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=1369)

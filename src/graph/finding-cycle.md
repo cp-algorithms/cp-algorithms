@@ -1,9 +1,10 @@
 ---
 title: Checking a graph for acyclicity and finding a cycle in O(M)
 tags:
-  - Translated
+    - Translated
 e_maxx_link: finding_cycle
 ---
+
 # Checking a graph for acyclicity and finding a cycle in $O(M)$
 
 Consider a directed or undirected graph without loops and multiple edges. We have to check whether it is acyclic, and if it is not, then find any cycle.
@@ -12,8 +13,7 @@ We can solve this problem by using [Depth First Search](depth-first-search.md) i
 
 ## Algorithm
 
-We will run a series of DFS in the graph. Initially all vertices are colored white (0). From each unvisited (white) vertex, start the DFS, mark it gray (1) while entering and mark it black (2) on exit. If DFS moves to a gray vertex, then we have found a cycle (if the graph is undirected, the edge to parent is not considered).
-The cycle itself can be reconstructed using parent array.
+We will run a series of DFS in the graph. Initially all vertices are colored white (0). From each unvisited (white) vertex, start the DFS, mark it gray (1) while entering and mark it black (2) on exit. If DFS moves to a gray vertex, then we have found a cycle (if the graph is undirected, the edge to parent is not considered). The cycle itself can be reconstructed using parent array.
 
 ## Implementation
 
@@ -71,12 +71,7 @@ void find_cycle() {
 }
 ```
 
-Here is an implementation for undirected graph.
-Note that in the undirected version, if a vertex `v` gets colored black, it will never be visited again by the DFS.
-This is because we already explored all connected edges of `v` when we first visited it.
-The connected component containing `v` (after removing the edge between `v` and its parent) must be a tree, if the DFS has completed processing `v` without finding a cycle.
-So we don't even need to distinguish between gray and black states.
-Thus we can turn the char vector `color` into a boolean vector `visited`.
+Here is an implementation for undirected graph. Note that in the undirected version, if a vertex `v` gets colored black, it will never be visited again by the DFS. This is because we already explored all connected edges of `v` when we first visited it. The connected component containing `v` (after removing the edge between `v` and its parent) must be a tree, if the DFS has completed processing `v` without finding a cycle. So we don't even need to distinguish between gray and black states. Thus we can turn the char vector `color` into a boolean vector `visited`.
 
 ```cpp
 int n;
@@ -128,7 +123,8 @@ void find_cycle() {
     }
 }
 ```
+
 ### Practice problems:
 
-- [CSES : Round Trip](https://cses.fi/problemset/task/1669)
-- [CSES : Round Trip II](https://cses.fi/problemset/task/1678/)
+-   [CSES : Round Trip](https://cses.fi/problemset/task/1669)
+-   [CSES : Round Trip II](https://cses.fi/problemset/task/1678/)

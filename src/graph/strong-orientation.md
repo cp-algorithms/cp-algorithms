@@ -1,30 +1,19 @@
 ---
 tags:
-  - Original
+    - Original
 ---
 
 # Strong Orientation
 
-A **strong orientation** of an undirected graph is an assignment of a direction to each edge that makes it a [strongly connected graph](strongly-connected-components.md).
-That is, after the *orientation* we should be able to visit any vertex from any vertex by following the directed edges.
+A **strong orientation** of an undirected graph is an assignment of a direction to each edge that makes it a [strongly connected graph](strongly-connected-components.md). That is, after the _orientation_ we should be able to visit any vertex from any vertex by following the directed edges.
 
 ## Solution
 
-Of course, this cannot be done to *every* graph.
-Consider a [bridge](bridge-searching.md) in a graph.
-We have to assign a direction to it and by doing so we make this bridge "crossable" in only one direction. That means we can't go from one of the bridge's ends to the other, so we can't make the graph strongly connected.
+Of course, this cannot be done to _every_ graph. Consider a [bridge](bridge-searching.md) in a graph. We have to assign a direction to it and by doing so we make this bridge "crossable" in only one direction. That means we can't go from one of the bridge's ends to the other, so we can't make the graph strongly connected.
 
-Now consider a [DFS](depth-first-search.md) through a bridgeless connected graph.
-Clearly, we will visit each vertex.
-And since there are no bridges, we can remove any DFS tree edge and still be able to go
-from below the edge to above the edge by using a path that contains at least one back edge.
-From this follows that from any vertex we can go to the root of the DFS tree.
-Also, from the root of the DFS tree we can visit any vertex we choose.
-We found a strong orientation!
+Now consider a [DFS](depth-first-search.md) through a bridgeless connected graph. Clearly, we will visit each vertex. And since there are no bridges, we can remove any DFS tree edge and still be able to go from below the edge to above the edge by using a path that contains at least one back edge. From this follows that from any vertex we can go to the root of the DFS tree. Also, from the root of the DFS tree we can visit any vertex we choose. We found a strong orientation!
 
-In other words, to strongly orient a bridgeless connected graph,
-run a DFS on it and let the DFS tree edges point away from the DFS root and
-all other edges from the descendant to the ancestor in the DFS tree.
+In other words, to strongly orient a bridgeless connected graph, run a DFS on it and let the DFS tree edges point away from the DFS root and all other edges from the descendant to the ancestor in the DFS tree.
 
 The result that bridgeless connected graphs are exactly the graphs that have strong orientations is called **Robbins' theorem**.
 
@@ -32,27 +21,17 @@ The result that bridgeless connected graphs are exactly the graphs that have str
 
 Let's consider the problem of finding a graph orientation so that the number of SCCs is minimal.
 
-Of course, each graph component can be considered separately.
-Now, since only bridgeless graphs are strongly orientable, let's remove all bridges temporarily.
-We end up with some number of bridgeless components
-(exactly *how many components there were at the beginning* + *how many bridges there were*)
- and we know that we can strongly orient each of them.
+Of course, each graph component can be considered separately. Now, since only bridgeless graphs are strongly orientable, let's remove all bridges temporarily. We end up with some number of bridgeless components (exactly _how many components there were at the beginning_ + _how many bridges there were_) and we know that we can strongly orient each of them.
 
-We were only allowed to orient edges, not remove them, but it turns out we can orient the bridges arbitrarily.
-Of course, the easiest way to orient them is to run the algorithm described above without modifications on each original connected component.
+We were only allowed to orient edges, not remove them, but it turns out we can orient the bridges arbitrarily. Of course, the easiest way to orient them is to run the algorithm described above without modifications on each original connected component.
 
 ### Implementation
 
-Here, the input is *n* — the number of vertices, *m* — the number of edges, then *m* lines describing the edges.
+Here, the input is _n_ — the number of vertices, _m_ — the number of edges, then _m_ lines describing the edges.
 
-The output is the minimal number of SCCs on the first line and on the second line
-a string of *m* characters,
-either `>` — telling us that the corresponding edge from the input
-is oriented from the left to the right vertex (as in the input),
-or `<` — the opposite.
+The output is the minimal number of SCCs on the first line and on the second line a string of _m_ characters, either `>` — telling us that the corresponding edge from the input is oriented from the left to the right vertex (as in the input), or `<` — the opposite.
 
-This is a bridge search algorithm modified to also orient the edges,
-you can as well orient the edges as a first step and count the SCCs on the oriented graph as a second.
+This is a bridge search algorithm modified to also orient the edges, you can as well orient the edges as a first step and count the SCCs on the oriented graph as a second.
 
 ```cpp
 vector<vector<pair<int, int>>> adj; // adjacency list - vertex and edge pairs
@@ -113,4 +92,4 @@ int main() {
 
 ## Practice Problems
 
-* [26th Polish OI - Osiedla](https://szkopul.edu.pl/problemset/problem/nldsb4EW1YuZykBlf4lcZL1Y/site/)
+-   [26th Polish OI - Osiedla](https://szkopul.edu.pl/problemset/problem/nldsb4EW1YuZykBlf4lcZL1Y/site/)

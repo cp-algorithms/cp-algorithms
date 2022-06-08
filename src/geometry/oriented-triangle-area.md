@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: oriented_area
 ---
 
@@ -10,12 +10,9 @@ Given three points $p_1$, $p_2$ and $p_3$, calculate an oriented (signed) area o
 
 Using this signed area, we can both get the regular unsigned area (as the absolute value of the signed area) and determine if the points lie clockwise or counterclockwise in their specified order (which is useful, for example, in convex hull algorithms).
 
-
 ## Calculation
-We can use the fact that a determinant of a $2\times 2$ matrix is equal to the signed area of a parallelogram spanned by column (or row) vectors of the matrix.
-This is analog to the definition of the cross product in 2D (see [Basic Geometry](basic-geometry.md)).
-By dividing this area by two we get the area of a triangle that we are interested in.
-We will use $\vec{p_1p_2}$ and $\vec{p_2p_3}$ as the column vectors and calculate a $2\times 2$ determinant:
+
+We can use the fact that a determinant of a $2\times 2$ matrix is equal to the signed area of a parallelogram spanned by column (or row) vectors of the matrix. This is analog to the definition of the cross product in 2D (see [Basic Geometry](basic-geometry.md)). By dividing this area by two we get the area of a triangle that we are interested in. We will use $\vec{p_1p_2}$ and $\vec{p_2p_3}$ as the column vectors and calculate a $2\times 2$ determinant:
 
 $$2S=\left|\begin{matrix}x_2-x_1 & x_3-x_2\\y_2-y_1 & y_3-y_2\end{matrix}\right|=(x_2-x_1)(y_3-y_2)-(x_3-x_2)(y_2-y_1)$$
 
@@ -40,4 +37,5 @@ bool counter_clockwise(point2d p1, point2d p2, point2d p3) {
 ```
 
 ## Practice Problems
-* [Codechef - Chef and Polygons](https://www.codechef.com/problems/CHEFPOLY)
+
+-   [Codechef - Chef and Polygons](https://www.codechef.com/problems/CHEFPOLY)

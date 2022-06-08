@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: johnson_problem_1
 ---
 
@@ -8,8 +8,7 @@ e_maxx_link: johnson_problem_1
 
 This task is about finding an optimal schedule for $n$ jobs on a single machine, if the job $i$ can be processed in $t_i$ time, but for the $t$ seconds waiting before processing the job a penalty of $f_i(t)$ has to be paid.
 
-Thus the task asks to find such an permutation of the jobs, so that the total penalty is minimal.
-If we denote by $\pi$ the permutation of the jobs ($\pi_1$ is the first processed item, $\pi_2$ the second, etc.), then the total penalty is equal to:
+Thus the task asks to find such an permutation of the jobs, so that the total penalty is minimal. If we denote by $\pi$ the permutation of the jobs ($\pi_1$ is the first processed item, $\pi_2$ the second, etc.), then the total penalty is equal to:
 
 $$F(\pi) = f_{\pi_1}(0) + f_{\pi_2}(t_{\pi_1}) + f_{\pi_3}(t_{\pi_1} + t_{\pi_2}) + \dots + f_{\pi_n}\left(\sum_{i=1}^{n-1} t_{\pi_i}\right)$$
 
@@ -17,23 +16,21 @@ $$F(\pi) = f_{\pi_1}(0) + f_{\pi_2}(t_{\pi_1}) + f_{\pi_3}(t_{\pi_1} + t_{\pi_2}
 
 ### Linear penalty functions
 
-First we will solve the problem in the case that all penalty functions $f_i(t)$ are linear, i.e. they have the form $f_i(t) = c_i \cdot t$, where $c_i$ is a non-negative number.
-Note that these functions don't have a constant term.
-Otherwise we can sum up all constant term, and resolve the problem without them.
+First we will solve the problem in the case that all penalty functions $f_i(t)$ are linear, i.e. they have the form $f_i(t) = c_i \cdot t$, where $c_i$ is a non-negative number. Note that these functions don't have a constant term. Otherwise we can sum up all constant term, and resolve the problem without them.
 
-Let us fixate some permutation $\pi$, and take an index $i = 1 \dots n-1$.
-Let the permutation $\pi'$ be equal to the permutation $\pi$ with the elements $i$ and $i+1$ switched.
-Let's see how much the penalty changed.
+Let us fixate some permutation $\pi$, and take an index $i = 1 \dots n-1$. Let the permutation $\pi'$ be equal to the permutation $\pi$ with the elements $i$ and $i+1$ switched. Let's see how much the penalty changed.
 
 $$F(\pi') - F(\pi) =$$
 
 It is easy to see that the changes only occur in the $i$-th and $(i+1)$-th summands:
 
-$$\begin{align}
+$$
+\begin{align}
 &= c_{\pi_i'} \cdot \sum_{k = 1}^{i-1} t_{\pi_k'} + c_{\pi_{i+1}'} \cdot \sum_{k = 1}^i t_{\pi_k'} - c_{\pi_i} \cdot \sum_{k = 1}^{i-1} t_{\pi_k} - c_{\pi_{i+1}} \cdot \sum_{k = 1}^i t_{\pi_k} \\
 &= c_{\pi_{i+1}} \cdot \sum_{k = 1}^{i-1} t_{\pi_k'} + c_{\pi_i} \cdot \sum_{k = 1}^i t_{\pi_k'} - c_{\pi_i} \cdot \sum_{k = 1}^{i-1} t_{\pi_k} - c_{\pi_{i+1}} \cdot \sum_{k = 1}^i t_{\pi_k} \\
 &= c_{\pi_i} \cdot t_{\pi_{i+1}} - c_{\pi_{i+1}} \cdot t_{\pi_i}
-\end{align}$$
+\end{align}
+$$
 
 It is easy to see, that if the schedule $\pi$ is optimal, than any change in it leads to an increased penalty (or to the identical penalty), therefore for the optimal schedule we can write down the following condition:
 
@@ -45,8 +42,7 @@ $$\frac{c_{\pi_i}}{t_{\pi_i}} \ge \frac{c_{\pi_{i+1}}}{t_{\pi_{i+1}}} \quad \for
 
 Thus we obtain the **optimal schedule** by simply **sorting** the jobs by the fraction $\frac{c_i}{t_i}$ in non-ascending order.
 
-It should be noted, that we constructed this algorithm by the so-called **permutation method**:
-we tried to swap two adjacent elements, calculated how much the penalty changed, and then derived the algorithm for finding the optimal method.
+It should be noted, that we constructed this algorithm by the so-called **permutation method**: we tried to swap two adjacent elements, calculated how much the penalty changed, and then derived the algorithm for finding the optimal method.
 
 ### Exponential penalty function
 
@@ -70,9 +66,9 @@ It is obvious that in this case the optimal permutation is to arrange the jobs b
 
 The Livshits-Kladov theorem establishes that the permutation method is only applicable for the above mentioned three cases, i.e.:
 
-- Linear case: $f_i(t) = c_i(t) + d_i$, where $c_i$ are non-negative constants,
-- Exponential case: $f_i(t) = c_i \cdot e_{\alpha \cdot t} + d_i$, where $c_i$ and $\alpha$ are positive constants,
-- Identical case: $f_i(t) = \phi(t)$, where $\phi$ is a monotone increasing function.
+-   Linear case: $f_i(t) = c_i(t) + d_i$, where $c_i$ are non-negative constants,
+-   Exponential case: $f_i(t) = c_i \cdot e_{\alpha \cdot t} + d_i$, where $c_i$ and $\alpha$ are positive constants,
+-   Identical case: $f_i(t) = \phi(t)$, where $\phi$ is a monotone increasing function.
 
 In all other cases the method cannot be applied.
 

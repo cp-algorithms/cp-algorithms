@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: 15_puzzle
 ---
 
@@ -28,7 +28,7 @@ $$a_1 a_2 ... a_{z-1} a_{z+1} ... a_{15} a_{16}$$
 
 i.e. the permutation of numbers corresponding to the position on the board without a zero element
 
-Let $N$ be the number of inversions in this permutation (i.e. the number of such elements $a_i$  and $a_j$  that $i < j$, but $a_i  > a_j$).
+Let $N$ be the number of inversions in this permutation (i.e. the number of such elements $a_i$ and $a_j$ that $i < j$, but $a_i  > a_j$).
 
 Suppose $K$ is an index of a row where the empty element is located (i.e. using our convention, $K = (z - 1) \div \ 4 + 1$).
 
@@ -66,4 +66,4 @@ In 1999 Archer proposed a much simpler proof (you can download his article [here
 
 ## Practice Problems
 
-* [Hackerrank - N-puzzle](https://www.hackerrank.com/challenges/n-puzzle)
+-   [Hackerrank - N-puzzle](https://www.hackerrank.com/challenges/n-puzzle)

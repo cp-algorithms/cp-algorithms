@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: linear_systems_gauss
 ---
 
@@ -10,12 +10,14 @@ Given a system of $n$ linear algebraic equations (SLAE) with $m$ unknowns. You a
 
 Formally, the problem is formulated as follows: solve the system:
 
-$$\begin{align}
+$$
+\begin{align}
 a_{11} x_1 + a_{12} x_2 + &\dots + a_{1m} x_m = b_1 \\
 a_{21} x_1 + a_{22} x_2 + &\dots + a_{2m} x_m = b_2\\
 &\vdots \\
 a_{n1} x_1 + a_{n2} x_2 + &\dots + a_{nm} x_m = b_n
-\end{align}$$
+\end{align}
+$$
 
 where the coefficients $a_{ij}$ (for $i$ from 1 to $n$, $j$ from 1 to $m$) and $b_i$ ($i$ from 1 to $n$ are known and variables $x_i$ ($i$ from 1 to $m$) are unknowns.
 
@@ -27,12 +29,14 @@ where $A$ is a matrix of size $n \times m$ of coefficients $a_{ij}$ and $b$ is t
 
 It is worth noting that the method presented in this article can also be used to solve the equation modulo any number p, i.e.:
 
-$$\begin{align}
+$$
+\begin{align}
 a_{11} x_1 + a_{12} x_2 + &\dots + a_{1m} x_m \equiv b_1 \pmod p \\
 a_{21} x_1 + a_{22} x_2 + &\dots + a_{2m} x_m \equiv b_2 \pmod p \\
 &\vdots \\
 a_{n1} x_1 + a_{n2} x_2 + &\dots + a_{nm} x_m \equiv b_n \pmod p
-\end{align}$$
+\end{align}
+$$
 
 ## Gauss
 
@@ -42,10 +46,10 @@ Strictly speaking, the method described below should be called "Gauss-Jordan", o
 
 The algorithm is a `sequential elimination` of the variables in each equation, until each equation will have only one remaining variable. If $n = m$, you can think of it as transforming the matrix $A$ to identity matrix, and solve the equation in this obvious case, where solution is unique and is equal to coefficient $b_i$.
 
-Gaussian elimination is based on two simple transformation:   
+Gaussian elimination is based on two simple transformation:
 
-* It is possible to exchange two equations
-* Any equation can be replaced by a linear combination of that row (with non-zero coefficient), and some other rows (with arbitrary coefficients).
+-   It is possible to exchange two equations
+-   Any equation can be replaced by a linear combination of that row (with non-zero coefficient), and some other rows (with arbitrary coefficients).
 
 In the first step, Gauss-Jordan algorithm divides the first row by $a_{11}$. Then, the algorithm adds the first row to the remaining rows such that the coefficients in the first column becomes all zeros. To achieve this, on the i-th row, we must add the first row multiplied by $- a_{i1}$. Note that, this operation must also be performed on vector $b$. In a sense, it behaves as if vector $b$ was the $m+1$-th column of matrix $A$.
 
@@ -71,7 +75,7 @@ Now we consider the `general case`, where $n$ and $m$ are not necessarily equal,
 
 So, some of the variables in the process can be found to be independent. When the number of variables, $m$ is greater than the number of equations, $n$, then at least $m - n$ independent variables will be found.
 
-In general, if you find at least one independent variable, it can take any arbitrary value, while the other (dependent) variables are expressed through it.  This means that when we work in the field of real numbers, the system potentially has infinitely many solutions. But you should remember that when there are independent variables, SLAE can have no solution at all. This happens when the remaining untreated equations have at least one non-zero constant term. You can check this by assigning zeros to all independent variables, calculate other variables, and then plug in to the original SLAE to check if they satisfy it.
+In general, if you find at least one independent variable, it can take any arbitrary value, while the other (dependent) variables are expressed through it. This means that when we work in the field of real numbers, the system potentially has infinitely many solutions. But you should remember that when there are independent variables, SLAE can have no solution at all. This happens when the remaining untreated equations have at least one non-zero constant term. You can check this by assigning zeros to all independent variables, calculate other variables, and then plug in to the original SLAE to check if they satisfy it.
 
 ## Implementation
 
@@ -131,20 +135,19 @@ int gauss (vector < vector<double> > a, vector<double> & ans) {
 
 Implementation notes:
 
-* The function uses two pointers - the current column $col$ and the current row $row$.
-* For each variable $x_i$, the value $where(i)$ is the line where this column is not zero. This vector is needed because some variables can be independent.
-* In this implementation, the current $i$th line is not divided by $a_{ii}$ as described above, so in the end the matrix is not identity matrix (though apparently dividing the $i$th line can help reducing errors).
-* After finding a solution, it is inserted back into the matrix - to check whether the system has at least one solution or not. If the test solution is successful, then the function returns 1 or $\inf$, depending on whether there is at least one independent variable.
+-   The function uses two pointers - the current column $col$ and the current row $row$.
+-   For each variable $x_i$, the value $where(i)$ is the line where this column is not zero. This vector is needed because some variables can be independent.
+-   In this implementation, the current $i$th line is not divided by $a_{ii}$ as described above, so in the end the matrix is not identity matrix (though apparently dividing the $i$th line can help reducing errors).
+-   After finding a solution, it is inserted back into the matrix - to check whether the system has at least one solution or not. If the test solution is successful, then the function returns 1 or $\inf$, depending on whether there is at least one independent variable.
 
 ## Complexity
 
 Now we should estimate the complexity of this algorithm. The algorithm consists of $m$ phases, in each phase:
 
-* Search and reshuffle the pivoting row. This takes $O(n + m)$ when using heuristic mentioned above.
-* If the pivot element in the current column is found - then we must add this equation to all other equations, which takes time $O(nm)$.
+-   Search and reshuffle the pivoting row. This takes $O(n + m)$ when using heuristic mentioned above.
+-   If the pivot element in the current column is found - then we must add this equation to all other equations, which takes time $O(nm)$.
 
-So, the final complexity of the algorithm is $O(\min (n, m) . nm)$.
-In case $n = m$, the complexity is simply $O(n^3)$.
+So, the final complexity of the algorithm is $O(\min (n, m) . nm)$. In case $n = m$, the complexity is simply $O(n^3)$.
 
 Note that when the SLAE is not on real numbers, but is in the modulo two, then the system can be solved much faster, which is described below.
 
@@ -152,8 +155,8 @@ Note that when the SLAE is not on real numbers, but is in the modulo two, then t
 
 The previous implementation can be sped up by two times, by dividing the algorithm into two phases: forward and reverse:
 
-* Forward phase: Similar to the previous implementation, but the current row is only added to the rows after it. As a result, we obtain a triangular matrix instead of diagonal.
-* Reverse phase: When the matrix is triangular, we first calculate the value of the last variable. Then plug this value to find the value of next variable. Then plug these two values to find the next variables...
+-   Forward phase: Similar to the previous implementation, but the current row is only added to the rows after it. As a result, we obtain a triangular matrix instead of diagonal.
+-   Reverse phase: When the matrix is triangular, we first calculate the value of the last variable. Then plug this value to find the value of next variable. Then plug these two values to find the next variables...
 
 Reverse phase only takes $O(nm)$, which is much faster than forward phase. In forward phase, we reduce the number of operations by half, thus reducing the running time of the implementation.
 
@@ -204,11 +207,12 @@ Therefore, the resulting Gauss-Jordan solution must sometimes be improved by app
 Thus, the solution turns into two-step: First, Gauss-Jordan algorithm is applied, and then a numerical method taking initial solution as solution in the first step.
 
 ## Practice Problems
-* [Spoj - Xor Maximization](http://www.spoj.com/problems/XMAX/)
-* [Codechef - Knight Moving](https://www.codechef.com/SEP12/problems/KNGHTMOV)
-* [Lightoj - Graph Coloring](http://lightoj.com/volume_showproblem.php?problem=1279)
-* [UVA 12910 - Snakes and Ladders](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=4775)
-* [TIMUS1042 Central Heating](http://acm.timus.ru/problem.aspx?space=1&num=1042)
-* [TIMUS1766 Humpty Dumpty](http://acm.timus.ru/problem.aspx?space=1&num=1766)
-* [TIMUS1266 Kirchhoff's Law](http://acm.timus.ru/problem.aspx?space=1&num=1266)
-* [Codeforces - No game no life](https://codeforces.com/problemset/problem/1411/G)
+
+-   [Spoj - Xor Maximization](http://www.spoj.com/problems/XMAX/)
+-   [Codechef - Knight Moving](https://www.codechef.com/SEP12/problems/KNGHTMOV)
+-   [Lightoj - Graph Coloring](http://lightoj.com/volume_showproblem.php?problem=1279)
+-   [UVA 12910 - Snakes and Ladders](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=4775)
+-   [TIMUS1042 Central Heating](http://acm.timus.ru/problem.aspx?space=1&num=1042)
+-   [TIMUS1766 Humpty Dumpty](http://acm.timus.ru/problem.aspx?space=1&num=1766)
+-   [TIMUS1266 Kirchhoff's Law](http://acm.timus.ru/problem.aspx?space=1&num=1266)
+-   [Codeforces - No game no life](https://codeforces.com/problemset/problem/1411/G)

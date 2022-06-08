@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: nearest_points
 ---
 
@@ -10,20 +10,21 @@ e_maxx_link: nearest_points
 
 Given $n$ points on the plane. Each point $p_i$ is defined by its coordinates $(x_i,y_i)$. It is required to find among them two such points, such that the distance between them is minimal:
 
-$$ \min_{\scriptstyle i, j=0 \ldots n-1,\atop \scriptstyle i \neq j } \rho (p_i, p_j). $$
+$$ \min\_{\scriptstyle i, j=0 \ldots n-1,\atop \scriptstyle i \neq j } \rho (p_i, p_j). $$
 
 We take the usual Euclidean distances:
 
 $$ \rho (p_i,p_j) = \sqrt{(x_i-x_j)^2 + (y_i-y_j)^2} .$$
 
-The trivial algorithm - iterating over all pairs and calculating the distance for each — works in $O(n^2)$. 
+The trivial algorithm - iterating over all pairs and calculating the distance for each — works in $O(n^2)$.
 
 The algorithm running in time $O(n \log n)$ is described below. This algorithm was proposed by Preparata in 1975. Preparata and Shamos also showed that this algorithm is optimal in the decision tree model.
 
 ## Algorithm
-We construct an algorithm according to the general scheme of **divide-and-conquer** algorithms: the algorithm is designed as a recursive function, to which we pass a set of points; this recursive function splits this set in half, calls itself recursively on each half, and then performs some operations to combine the answers. The operation of combining consist of  detecting the cases when one point of the optimal solution fell into one half, and the other point into the other (in this case, recursive calls from each of the halves cannot detect this pair separately). The main difficulty, as always in case of divide and conquer algorithms, lies in the effective implementation of the merging stage. If a set of $n$ points is passed to the recursive function, then the merge stage should work no more than $O(n)$, then the asymptotics of the whole algorithm $T(n)$ will be found from the equation:
 
-$$T(n) = 2T(n/2) + O(n).$$ 
+We construct an algorithm according to the general scheme of **divide-and-conquer** algorithms: the algorithm is designed as a recursive function, to which we pass a set of points; this recursive function splits this set in half, calls itself recursively on each half, and then performs some operations to combine the answers. The operation of combining consist of detecting the cases when one point of the optimal solution fell into one half, and the other point into the other (in this case, recursive calls from each of the halves cannot detect this pair separately). The main difficulty, as always in case of divide and conquer algorithms, lies in the effective implementation of the merging stage. If a set of $n$ points is passed to the recursive function, then the merge stage should work no more than $O(n)$, then the asymptotics of the whole algorithm $T(n)$ will be found from the equation:
+
+$$T(n) = 2T(n/2) + O(n).$$
 
 The solution to this equation, as is known, is $T(n) = O(n \log n).$
 
@@ -35,14 +36,13 @@ Then take the middle point after sorting $p_m (m = \lfloor n/2 \rfloor)$, and al
 
 $$A_1 = \{p_i \ | \ i = 0 \ldots m \}$$
 
-$$A_2 = \{p_i \ | \ i = m + 1 \ldots n-1 \}.$$ 
+$$A_2 = \{p_i \ | \ i = m + 1 \ldots n-1 \}.$$
 
 Now, calling recursively on each of the sets $A_1$ and $A_2$, we will find the answers $h_1$ and $h_2$ for each of the halves. And take the best of them: $h = \min(h_1, h_2)$.
 
-Now we need to make a **merge stage**, i.e. we try to find such pairs of points, for which the distance between which is less than $h$ and one point is lying in $A_1$ and the other in $A_2$.
-It is obvious that it is sufficient to consider only those points that are separated from the vertical line by a distance less than $h$, i.e. the set $B$ of the points considered at this stage is equal to:
+Now we need to make a **merge stage**, i.e. we try to find such pairs of points, for which the distance between which is less than $h$ and one point is lying in $A_1$ and the other in $A_2$. It is obvious that it is sufficient to consider only those points that are separated from the vertical line by a distance less than $h$, i.e. the set $B$ of the points considered at this stage is equal to:
 
-$$B = \{ p_i\ | \ | x_i - x_m\ | < h \}.$$ 
+$$B = \{ p_i\ | \ | x_i - x_m\ | < h \}.$$
 
 For each point in the set $B$, we try to find the points that are closer to it than $h$. For example, it is sufficient to consider only those points whose $y$-coordinate differs by no more than $h$. Moreover, it makes no sense to consider those points whose $y$-coordinate is greater than the $y$-coordinate of the current point. Thus, for each point $p_i$ we define the set of considered points $C(p_i)$ as follows:
 
@@ -86,13 +86,13 @@ struct cmp_x {
         return a.x < b.x || (a.x == b.x && a.y < b.y);
     }
 };
- 
+
 struct cmp_y {
     bool operator()(const pt & a, const pt & b) const {
         return a.y < b.y;
     }
 };
- 
+
 int n;
 vector<pt> a;
 ```
@@ -102,7 +102,7 @@ For a convenient implementation of recursion, we introduce an auxiliary function
 ```{.cpp file=nearest_pair_update}
 double mindist;
 pair<int, int> best_pair;
- 
+
 void upd_ans(const pt & a, const pt & b) {
     double dist = sqrt((a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y));
     if (dist < mindist) {
@@ -170,9 +170,9 @@ In fact, to solve this problem, the algorithm remains the same: we divide the fi
 
 ## Practice problems
 
-* [UVA 10245 "The Closest Pair Problem" [difficulty: low]](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1186)
-* [SPOJ #8725 CLOPPAIR "Closest Point Pair" [difficulty: low]](https://www.spoj.com/problems/CLOPPAIR/)
-* [CODEFORCES Team Olympiad Saratov - 2011 "Minimum amount" [difficulty: medium]](http://codeforces.com/contest/120/problem/J)
-* [Google CodeJam 2009 Final " Min Perimeter "[difficulty: medium]](https://code.google.com/codejam/contest/311101/dashboard#s=a&a=1)
-* [SPOJ #7029 CLOSEST "Closest Triple" [difficulty: medium]](https://www.spoj.com/problems/CLOSEST/)
-* [TIMUS 1514 National Park [difficulty: medium]](https://acm.timus.ru/problem.aspx?space=1&num=1514)
+-   [UVA 10245 "The Closest Pair Problem" [difficulty: low]](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1186)
+-   [SPOJ #8725 CLOPPAIR "Closest Point Pair" [difficulty: low]](https://www.spoj.com/problems/CLOPPAIR/)
+-   [CODEFORCES Team Olympiad Saratov - 2011 "Minimum amount" [difficulty: medium]](http://codeforces.com/contest/120/problem/J)
+-   [Google CodeJam 2009 Final " Min Perimeter "[difficulty: medium]](https://code.google.com/codejam/contest/311101/dashboard#s=a&a=1)
+-   [SPOJ #7029 CLOSEST "Closest Triple" [difficulty: medium]](https://www.spoj.com/problems/CLOSEST/)
+-   [TIMUS 1514 National Park [difficulty: medium]](https://acm.timus.ru/problem.aspx?space=1&num=1514)

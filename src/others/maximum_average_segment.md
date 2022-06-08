@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: maximum_average_segment
 ---
 
@@ -12,10 +12,9 @@ Here, we consider the problem of finding a subarray with maximum sum, as well as
 
 Given an array of numbers $a[1 \ldots n]$. It is required to find a subarray $a[l \ldots r]$ with the maximal sum:
 
-$$ \max_{ 1 \le l \le r \le n } \sum_{i=l}^{r} a[i].$$
+$$ \max*{ 1 \le l \le r \le n } \sum*{i=l}^{r} a[i].$$
 
-For example, if all integers in array $a[]$ were non-negative, then the answer would be the array itself.
-However, the solution is non-trivial when the array can contain both positive and negative numbers.
+For example, if all integers in array $a[]$ were non-negative, then the answer would be the array itself. However, the solution is non-trivial when the array can contain both positive and negative numbers.
 
 It is clear that the problem of finding the **minimum** subarray is essentially the same, you just need to change the signs of all numbers.
 
@@ -138,8 +137,7 @@ If the problem condition imposes additional restrictions on the required segment
 
 The problem described in this article is naturally generalized to large dimensions. For example, in a two-dimensional case, it turns into a search for such a submatrix $[l_1 \ldots r_1, l_2 \ldots r_2]$ of a given matrix, which has the maximum sum of numbers in it.
 
-Using the solution for the one-dimensional case, it is easy to obtain a solution in $O(n^3)$ for the two-dimensions case:
-we iterate over all possible values of $l_1$ and $r_1$, and calculate the sums from $l_1$ to $r_1$ in each row of the matrix. Now we have the one-dimensional problem of finding the indices $l_2$ and $r_2$ in this array, which can already be solved in linear time.
+Using the solution for the one-dimensional case, it is easy to obtain a solution in $O(n^3)$ for the two-dimensions case: we iterate over all possible values of $l_1$ and $r_1$, and calculate the sums from $l_1$ to $r_1$ in each row of the matrix. Now we have the one-dimensional problem of finding the indices $l_2$ and $r_2$ in this array, which can already be solved in linear time.
 
 **Faster** algorithms for solving this problem are known, but they are not much faster than $O(n^3)$, and are very complex (so complex that many of them are inferior to the trivial algorithm for all reasonable constraints by the hidden constant). Currently, the best known algorithm works in $O\left(n^3 \frac{ \log^3 \log n }{ \log^2 n} \right)$ time (T. Chan 2007 "More algorithms for all-pairs shortest paths in weighted graphs")
 
@@ -149,10 +147,9 @@ This algorithm by Chan, as well as many other results in this area, actually des
 
 This problem lies in finding such a segment $a[l, r]$, such that the average value is maximal:
 
-$$ \max_{l \le r} \frac{ 1 }{ r-l+1 } \sum_{i=l}^{r} a[i].$$
+$$ \max*{l \le r} \frac{ 1 }{ r-l+1 } \sum*{i=l}^{r} a[i].$$
 
-Of course, if no other conditions are imposed on the required segment $[l, r]$, then the solution will always be a segment of length $1$ at the maximum element of the array. 
-The problem only makes sense, if there are additional restrictions (for example, the length of the desired segment is bounded below).
+Of course, if no other conditions are imposed on the required segment $[l, r]$, then the solution will always be a segment of length $1$ at the maximum element of the array. The problem only makes sense, if there are additional restrictions (for example, the length of the desired segment is bounded below).
 
 In this case, we apply the **standard technique** when working with the problems of the average value: we will select the desired maximum average value by **binary search**.
 

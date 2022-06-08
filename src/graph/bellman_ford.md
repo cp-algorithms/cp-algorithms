@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: ford_bellman
 ---
 
@@ -91,7 +91,7 @@ Let us now consider how to modify the algorithm so that it not only finds the le
 
 For that, let's create another array $p[0 \ldots n-1]$, where for each vertex we store its "predecessor", i.e. the penultimate vertex in the shortest path leading to it. In fact, the shortest path to any vertex $a$ is a shortest path to some vertex $p[a]$, to which we added $a$ at the end of the path.
 
-Note that the algorithm works on the same logic: it assumes that the shortest distance to one vertex is already calculated, and, tries to improve the shortest distance to other vertices from that vertex. Therefore, at the time of improvement we just need to remember $p[ ]$, i.e,  the vertex from which this improvement has occurred.
+Note that the algorithm works on the same logic: it assumes that the shortest distance to one vertex is already calculated, and, tries to improve the shortest distance to other vertices from that vertex. Therefore, at the time of improvement we just need to remember $p[ ]$, i.e, the vertex from which this improvement has occurred.
 
 Following is an implementation of the Bellman-Ford with the retrieval of shortest path to a given node $t$:
 
@@ -136,7 +136,7 @@ Here starting from the vertex $t$, we go through the predecessors till we reach 
 
 ## The proof of the algorithm
 
-First, note that for all unreachable vertices $u$ the algorithm will work correctly, the label $d[u]$ will remain equal to infinity (because the algorithm Bellman-Ford will find some way to all reachable vertices from the start vertex $v$, and relaxation for all other  remaining vertices will never happen).
+First, note that for all unreachable vertices $u$ the algorithm will work correctly, the label $d[u]$ will remain equal to infinity (because the algorithm Bellman-Ford will find some way to all reachable vertices from the start vertex $v$, and relaxation for all other remaining vertices will never happen).
 
 Let us now prove the following assertion: After the execution of $i_{th}$ phase, the Bellman-Ford algorithm correctly finds all shortest paths whose number of edges does not exceed $i$.
 
@@ -214,15 +214,11 @@ For more on this topic — see separate article, [Finding a negative cycle in th
 
 ## Shortest Path Faster Algorithm (SPFA)
 
-SPFA is a improvement of the Bellman-Ford algorithm which takes advantage of the fact that not all attempts at relaxation will work.
-The main idea is to create a queue containing only the vertices that were relaxed but that still could further relax their neighbors.
-And whenever you can relax some neighbor, you should put him in the queue. This algorithm can also be used to detect negative cycles as the Bellman-Ford.
+SPFA is a improvement of the Bellman-Ford algorithm which takes advantage of the fact that not all attempts at relaxation will work. The main idea is to create a queue containing only the vertices that were relaxed but that still could further relax their neighbors. And whenever you can relax some neighbor, you should put him in the queue. This algorithm can also be used to detect negative cycles as the Bellman-Ford.
 
 The worst case of this algorithm is equal to the $O(n m)$ of the Bellman-Ford, but in practice it works much faster and some [people claim that it works even in $O(m)$ on average](https://en.wikipedia.org/wiki/Shortest_Path_Faster_Algorithm#Average-case_performance). However be careful, because this algorithm is deterministic and it is easy to create counterexamples that make the algorithm run in $O(n m)$.
 
-There are some care to be taken in the implementation, such as the fact that the algorithm continues forever if there is a negative cycle.
-To avoid this, it is possible to create a counter that stores how many times a vertex has been relaxed and stop the algorithm as soon as some vertex got relaxed for the $n$-th time.
-Note, also there is no reason to put a vertex in the queue if it is already in.
+There are some care to be taken in the implementation, such as the fact that the algorithm continues forever if there is a negative cycle. To avoid this, it is possible to create a counter that stores how many times a vertex has been relaxed and stop the algorithm as soon as some vertex got relaxed for the $n$-th time. Note, also there is no reason to put a vertex in the queue if it is already in.
 
 ```{.cpp file=spfa}
 const int INF = 1000000000;
@@ -263,18 +259,18 @@ bool spfa(int s, vector<int>& d) {
 }
 ```
 
-
 ## Related problems in online judges
 
 A list of tasks that can be solved using the Bellman-Ford algorithm:
 
-* [E-OLYMP #1453 "Ford-Bellman" [difficulty: low]](https://www.e-olymp.com/en/problems/1453)
-* [UVA #423 "MPI Maelstrom" [difficulty: low]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=364)
-* [UVA #534 "Frogger" [difficulty: medium]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=7&page=show_problem&problem=475)
-* [UVA #10099 "The Tourist Guide" [difficulty: medium]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=12&page=show_problem&problem=1040)
-* [UVA #515 "King" [difficulty: medium]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=456)
-* [UVA 12519 - The Farnsworth Parabox](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3964)
+-   [E-OLYMP #1453 "Ford-Bellman" [difficulty: low]](https://www.e-olymp.com/en/problems/1453)
+-   [UVA #423 "MPI Maelstrom" [difficulty: low]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=364)
+-   [UVA #534 "Frogger" [difficulty: medium]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=7&page=show_problem&problem=475)
+-   [UVA #10099 "The Tourist Guide" [difficulty: medium]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=12&page=show_problem&problem=1040)
+-   [UVA #515 "King" [difficulty: medium]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=456)
+-   [UVA 12519 - The Farnsworth Parabox](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3964)
 
 See also the problem list in the article [Finding the negative cycle in a graph](finding-negative-cycle-in-graph.md).
-* [CSES - High Score](https://cses.fi/problemset/task/1673)
-* [CSES - Cycle Finding](https://cses.fi/problemset/task/1197)
+
+-   [CSES - High Score](https://cses.fi/problemset/task/1673)
+-   [CSES - Cycle Finding](https://cses.fi/problemset/task/1197)

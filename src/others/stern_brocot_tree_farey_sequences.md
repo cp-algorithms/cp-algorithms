@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: stern_brocot_farey
 ---
 
@@ -18,7 +18,7 @@ $$
 
 where it should be noted that the second quantity is not strictly a fraction, but it can be interpreted as an irreducible fraction representing infinity.
 
-At every subsequent iteration, consider all adjacent fractions $\frac{a}{b}$ and $\frac{c}{d}$ and insert their [mediant](https://en.wikipedia.org/wiki/Mediant_(mathematics)) $\frac{a+c}{b+d}$ between them.
+At every subsequent iteration, consider all adjacent fractions $\frac{a}{b}$ and $\frac{c}{d}$ and insert their [mediant](<https://en.wikipedia.org/wiki/Mediant_(mathematics)>) $\frac{a+c}{b+d}$ between them.
 
 The first few iterations look like this:
 
@@ -30,7 +30,7 @@ $$
     \end{array}
 $$
 
-Continuing this process to infinity this covers *all* positive fractions. Additionally, all fractions will be *unique* and *irreducible*. Finally, the fractions will also appear in ascending order.
+Continuing this process to infinity this covers _all_ positive fractions. Additionally, all fractions will be _unique_ and _irreducible_. Finally, the fractions will also appear in ascending order.
 
 Before proving these properties, let us actually show a visualization of the Stern-Brocot tree, rather than the list representation. Every fraction in the tree has two children. Each child is the mediant of the closest ancestor on the left and closest ancestor to the right.
 
@@ -72,10 +72,12 @@ $$
 
 the new expressions become
 
-$$\begin{align}
+$$
+\begin{align}
     b(a+c) - a(b+d) &= 1 \\
     c(b+d) - d(a+c) &= 1
-\end{align}$$
+\end{align}
+$$
 
 which, using that $bc-ad=1$, can be easily shown to be true.
 
@@ -125,7 +127,7 @@ void build(int a = 0, int b = 1, int c = 1, int d = 0, int level = 1) {
     int x = a + c, y = b + d;
 
     ... output the current fraction x/y at the current level in the tree
-    
+
     build(a, b, x, y, level + 1);
     build(x, y, c, d, level + 1);
 }

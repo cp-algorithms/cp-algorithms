@@ -1,8 +1,9 @@
 ---
 title: Calculating the determinant using Kraut method
 tags:
-  - Original
+    - Original
 ---
+
 # Calculating the determinant using Kraut method in $O(N^3)$
 
 In this article, we'll describe how to find the determinant of the matrix using Kraut method, which works in $O(N^3)$.
@@ -13,15 +14,16 @@ There is a theorem stating that any invertible matrix has a LU-decomposition, an
 
 Let $A$ be the matrix and $N$ - its size. We will find the elements of the matrices $L$ and $U$ using the following steps:
 
- 1. Let $L_{i i} = 1$ for $i = 1, 2, ..., N$.
- 2. For each $j = 1, 2, ..., N$ perform:
-      - For $i = 1, 2, ..., j$ find values 
-        
-        \[U_{ij} = A_{ij} - \sum_{k=1}^{i-1} L_{ik} \cdot U_{kj}\]
- 
-      - Next, for $i = j+1, j+2, ..., N$ find values
- 
-        \[L_{ij} = \frac{1}{U_{jj}} \left(A_{ij} - \sum_{k=1}^{j-1} L_{ik} \cdot U_{kj} \right).\]
+1.  Let $L_{i i} = 1$ for $i = 1, 2, ..., N$.
+2.  For each $j = 1, 2, ..., N$ perform:
+
+    -   For $i = 1, 2, ..., j$ find values
+
+        \[U*{ij} = A*{ij} - \sum*{k=1}^{i-1} L*{ik} \cdot U\_{kj}\]
+
+    -   Next, for $i = j+1, j+2, ..., N$ find values
+
+        \[L*{ij} = \frac{1}{U*{jj}} \left(A*{ij} - \sum*{k=1}^{j-1} L*{ik} \cdot U*{kj} \right).\]
 
 ## Implementation
 

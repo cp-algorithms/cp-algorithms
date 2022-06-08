@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: tree_painting
 ---
 
@@ -8,41 +8,23 @@ e_maxx_link: tree_painting
 
 This is a fairly common task. Given a tree $G$ with $N$ vertices. There are two types of queries: the first one is to paint an edge, the second one is to query the number of colored edges between two vertices.
 
-Here we will describe a fairly simple solution (using a [segment tree](../data_structures/segment_tree.md)) that will answer each query in $O(\log N)$ time.
-The preprocessing step will take $O(N)$ time.
+Here we will describe a fairly simple solution (using a [segment tree](../data_structures/segment_tree.md)) that will answer each query in $O(\log N)$ time. The preprocessing step will take $O(N)$ time.
 
 ## Algorithm
 
-First, we need to find the [LCA](lca.md) to reduce each query of the second kind $(i,j)$ into two queries $(l,i)$ and $(l,j)$, where $l$ is the LCA of $i$ and $j$.
-The answer of the query $(i,j)$ will be the sum of both subqueries.
-Both these queries have a special structure, the first vertex is an ancestor of the second one.
-For the rest of the article we will only talk about these special kind of queries.
+First, we need to find the [LCA](lca.md) to reduce each query of the second kind $(i,j)$ into two queries $(l,i)$ and $(l,j)$, where $l$ is the LCA of $i$ and $j$. The answer of the query $(i,j)$ will be the sum of both subqueries. Both these queries have a special structure, the first vertex is an ancestor of the second one. For the rest of the article we will only talk about these special kind of queries.
 
-We will start by describing the **preprocessing** step.
-Run a depth-first search from the root of the tree and record the Euler tour of this depth-first search (each vertex is added to the list when the search visits it first and every time we return from one of its children).
-The same technique can be used in the LCA preprocessing.
+We will start by describing the **preprocessing** step. Run a depth-first search from the root of the tree and record the Euler tour of this depth-first search (each vertex is added to the list when the search visits it first and every time we return from one of its children). The same technique can be used in the LCA preprocessing.
 
 This list will contain each edge (in the sense that if $i$ and $j$ are the ends of the edge, then there will be a place in the list where $i$ and $j$ are neighbors in the list), and it appear exactly two times: in the forward direction (from $i$ to $j$, where vertex $i$ is closer to the root than vertex $j$) and in the opposite direction (from $j$ to $i$).
 
-We will build two lists for these edges.
-The first one will store the color of all edges in the forward direction, and the second one the color of all edges in the opposite direction.
-We will use $1$ if the edge is colored, and $0$ otherwise.
-Over these two lists we will build each a segment tree (for sum with a single modification), let's call them $T1$ and $T2$.
+We will build two lists for these edges. The first one will store the color of all edges in the forward direction, and the second one the color of all edges in the opposite direction. We will use $1$ if the edge is colored, and $0$ otherwise. Over these two lists we will build each a segment tree (for sum with a single modification), let's call them $T1$ and $T2$.
 
-Let us answer a query of the form $(i,j)$, where $i$ is the ancestor of $j$.
-We need to determine how many edges are painted on the path between $i$ and $j$.
-Let's find $i$ and $j$ in the Euler tour for the first time, let it be the positions $p$ and $q$ (this can be done in $O(1)$ if we calculate these positions in advance during preprocessing).
-Then the **answer** to the query is the sum $T1[p..q-1]$ minus the sum $T2[p..q-1]$.
+Let us answer a query of the form $(i,j)$, where $i$ is the ancestor of $j$. We need to determine how many edges are painted on the path between $i$ and $j$. Let's find $i$ and $j$ in the Euler tour for the first time, let it be the positions $p$ and $q$ (this can be done in $O(1)$ if we calculate these positions in advance during preprocessing). Then the **answer** to the query is the sum $T1[p..q-1]$ minus the sum $T2[p..q-1]$.
 
-**Why?**
-Consider the segment $[p;q]$ in the Euler tour.
-It contains all edges of the path we need from $i$ to $j$ but also contains a set of edges that lie on other paths from $i$.
-However there is one big difference between the edges we need and the rest of the edges: the edges we need will be listed only once in the forward direction, and all the other edges appear twice: once in the forward and once in the opposite direction.
-Hence, the difference $T1[p..q-1] - T2[p..q-1]$ will give us the correct answer (minus one is necessary because otherwise, we will capture an extra edge going out from vertex $j$).
-The sum query in the segment tree is executed in $O(\log N)$.
+**Why?** Consider the segment $[p;q]$ in the Euler tour. It contains all edges of the path we need from $i$ to $j$ but also contains a set of edges that lie on other paths from $i$. However there is one big difference between the edges we need and the rest of the edges: the edges we need will be listed only once in the forward direction, and all the other edges appear twice: once in the forward and once in the opposite direction. Hence, the difference $T1[p..q-1] - T2[p..q-1]$ will give us the correct answer (minus one is necessary because otherwise, we will capture an extra edge going out from vertex $j$). The sum query in the segment tree is executed in $O(\log N)$.
 
-Answering the **first type of query** (painting an edge) is even easier - we just need to update $T1$ and $T2$, namely to perform a single update of the element that corresponds to our edge (finding the edge in the list, again, is possible in $O(1)$, if you perform this search during preprocessing).
-A single modification in the segment tree is performed in $O(\log N)$.
+Answering the **first type of query** (painting an edge) is even easier - we just need to update $T1$ and $T2$, namely to perform a single update of the element that corresponds to our edge (finding the edge in the list, again, is possible in $O(1)$, if you perform this search during preprocessing). A single modification in the segment tree is performed in $O(\log N)$.
 
 ## Implementation
 

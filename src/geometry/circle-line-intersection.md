@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: circle_line_intersection
 ---
 
@@ -20,10 +20,12 @@ $$ d_0 = \frac{|C|}{\sqrt{A^2+B^2}} $$
 
 Second, since the vector $(A, B)$ is perpendicular to the line, the coordinates of the point must be proportional to the coordinates of this vector. Since we know the distance of the point to the origin, we just need to scale the vector $(A, B)$ to this length, and we'll get:
 
-$$\begin{align}
+$$
+\begin{align}
 x_0 &= - \frac{AC}{A^2 + B^2} \\
-y_0 &= - \frac{BC}{A^2 + B^2} 
-\end{align}$$
+y_0 &= - \frac{BC}{A^2 + B^2}
+\end{align}
+$$
 
 The minus signs are not obvious, but they can be easily verified by substituting $x_0$ and $y_0$ in the equation of the line.
 
@@ -33,15 +35,17 @@ So, we know that the point $(x_0, y_0)$ is inside the circle. The two points of 
 
 $$ d = \sqrt{r^2 - \frac{C^2}{A^2 + B^2}} $$
 
-Note that the vector $(-B, A)$ is collinear to the line, and thus we can find the points in question by adding and subtracting  vector $(-B,A)$, scaled to the length $d$, to the point $(x_0, y_0)$. 
+Note that the vector $(-B, A)$ is collinear to the line, and thus we can find the points in question by adding and subtracting vector $(-B,A)$, scaled to the length $d$, to the point $(x_0, y_0)$.
 
 Finally, the equations of the two points of intersection are:
 
-$$\begin{align}
+$$
+\begin{align}
 m &= \sqrt{\frac{d^2}{A^2 + B^2}} \\
 a_x &= x_0 + B \cdot m, a_y = y_0 - A \cdot m \\
 b_x &= x_0 - B \cdot m, b_y = y_0 + A \cdot m
-\end{align}$$
+\end{align}
+$$
 
 Had we solved the original system of equations using algebraic methods, we would likely get an answer in a different form with a larger error. The geometric method described here is more graphic and more accurate.
 
@@ -73,4 +77,4 @@ else {
 
 ## Practice Problems
 
-- [CODECHEF: ANDOOR](https://www.codechef.com/problems/ANDOOR)
+-   [CODECHEF: ANDOOR](https://www.codechef.com/problems/ANDOOR)

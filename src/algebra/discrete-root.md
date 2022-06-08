@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: discrete_root
 ---
 
@@ -46,7 +46,7 @@ Hence, all the solutions are of the form:
 
 $x = g^{y_0 + \frac {l \cdot \phi (n)}{k}} \pmod n \forall l \in Z$.
 
-where $l$ is chosen such that the fraction must be an integer. For this to be true, the numerator has to be divisible by the least common multiple of  $\phi (n)$ and $k$. Remember that least common multiple of two numbers $lcm(a, b) = \frac{a \cdot b}{gcd(a, b)}$; we'll get
+where $l$ is chosen such that the fraction must be an integer. For this to be true, the numerator has to be divisible by the least common multiple of $\phi (n)$ and $k$. Remember that least common multiple of two numbers $lcm(a, b) = \frac{a \cdot b}{gcd(a, b)}$; we'll get
 
 $x = g^{y_0 + i \frac {\phi (n)}{gcd(k, \phi (n))}} \pmod n \forall i \in Z$.
 
@@ -60,7 +60,7 @@ Here is a full implementation, including procedures for finding the primitive ro
 int gcd(int a, int b) {
 	return a ? gcd(b % a, a) : b;
 }
- 
+
 int powmod(int a, int b, int p) {
 	int res = 1;
 	while (b > 0) {
@@ -72,7 +72,7 @@ int powmod(int a, int b, int p) {
 	}
 	return res;
 }
- 
+
 // Finds the primitive root modulo p
 int generator(int p) {
 	vector<int> fact;
@@ -86,7 +86,7 @@ int generator(int p) {
 	}
 	if (n > 1)
 		fact.push_back(n);
- 
+
 	for (int res = 2; res <= p; ++res) {
 		bool ok = true;
 		for (int factor : fact) {
@@ -99,7 +99,7 @@ int generator(int p) {
 	}
 	return -1;
 }
- 
+
 // This program finds all numbers x such that x^k = a (mod n)
 int main() {
 	int n, k, a;
@@ -108,9 +108,9 @@ int main() {
 		puts("1\n0");
 		return 0;
 	}
- 
+
 	int g = generator(n);
- 
+
 	// Baby-step giant-step discrete logarithm algorithm
 	int sq = (int) sqrt (n + .0) + 1;
 	vector<pair<int, int>> dec(sq);
@@ -130,7 +130,7 @@ int main() {
 		puts("0");
 		return 0;
 	}
- 
+
 	// Print all possible answers
 	int delta = (n-1) / gcd(k, n-1);
 	vector<int> ans;
@@ -145,4 +145,4 @@ int main() {
 
 ## Practice problems
 
-* [Codeforces - Lunar New Year and a Recursive Sequence](https://codeforces.com/contest/1106/problem/F)
+-   [Codeforces - Lunar New Year and a Recursive Sequence](https://codeforces.com/contest/1106/problem/F)

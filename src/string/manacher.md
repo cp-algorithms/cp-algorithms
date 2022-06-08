@@ -1,9 +1,10 @@
 ---
 title: Manacher's Algorithm - Finding all sub-palindromes in O(N)
 tags:
-  - Translated
+    - Translated
 e_maxx_link: palindromes_count
 ---
+
 # Manacher's Algorithm - Finding all sub-palindromes in $O(N)$
 
 ## Statement
@@ -72,50 +73,44 @@ For fast calculation we'll maintain the **borders $(l, r)$** of the rightmost fo
 
 So, we want to calculate $d_1[i]$ for the next $i$, and all the previous values in $d_1[]$ have been already calculated. We do the following:
 
-* If $i$ is outside the current sub-palindrome, i. e. $i \geq r$, we'll just launch the trivial algorithm.
-    
+-   If $i$ is outside the current sub-palindrome, i. e. $i \geq r$, we'll just launch the trivial algorithm.
+
     So we'll increase $d_1[i]$ consecutively and check each time if the current rightmost substring $[i - d_1[i]\dots i + d_1[i]]$ is a palindrome. When we find the first mismatch or meet the boundaries of $s$, we'll stop. In this case we've finally calculated $d_1[i]$. After this, we must not forget to update $(l, r)$. $r$ should be updated in such a way that it represents the last index of the current rightmost sub-palindrome.
 
-* Now consider the case when $i \le r$. We'll try to extract some information from the already calculated values in $d_1[]$. So, let's find the "mirror" position of $i$ in the sub-palindrome $(l, r)$, i.e. we'll get the position $j = l + (r - i)$, and we check the value of $d_1[j]$. Because $j$ is the position symmetrical to $i$ with respect to $(l+r)/2$, we can **almost always** assign $d_1[i] = d_1[j]$. Illustration of this (palindrome around $j$ is actually "copied" into the palindrome around $i$):
-    
+-   Now consider the case when $i \le r$. We'll try to extract some information from the already calculated values in $d_1[]$. So, let's find the "mirror" position of $i$ in the sub-palindrome $(l, r)$, i.e. we'll get the position $j = l + (r - i)$, and we check the value of $d_1[j]$. Because $j$ is the position symmetrical to $i$ with respect to $(l+r)/2$, we can **almost always** assign $d_1[i] = d_1[j]$. Illustration of this (palindrome around $j$ is actually "copied" into the palindrome around $i$):
     $$
-    \ldots\ 
+    \ldots\
     \overbrace{
-        s_{l+1}\ \ldots\ 
+        s_{l+1}\ \ldots\
         \underbrace{
-            s_{j-d_1[j]+1}\ \ldots\ s_j\ \ldots\ s_{j+d_1[j]-1}\ 
-        }_\text{palindrome}\ 
-        \ldots\ 
+            s_{j-d_1[j]+1}\ \ldots\ s_j\ \ldots\ s_{j+d_1[j]-1}\
+        }_\text{palindrome}\
+        \ldots\
         \underbrace{
-            s_{i-d_1[j]+1}\ \ldots\ s_i\ \ldots\ s_{i+d_1[j]-1}\ 
-        }_\text{palindrome}\ 
-        \ldots\ s_{r-1}\ 
-    }^\text{palindrome}\ 
+            s_{i-d_1[j]+1}\ \ldots\ s_i\ \ldots\ s_{i+d_1[j]-1}\
+        }_\text{palindrome}\
+        \ldots\ s_{r-1}\
+    }^\text{palindrome}\
     \ldots
     $$
-    
     But there is a **tricky case** to be handled correctly: when the "inner" palindrome reaches the borders of the "outer" one, i. e. $j - d_1[j] \le l$ (or, which is the same, $i + d_1[j] \ge r$). Because the symmetry outside the "outer" palindrome is not guaranteed, just assigning $d_1[i] = d_1[j]$ will be incorrect: we do not have enough data to state that the palindrome in the position $i$ has the same length.
-    
     Actually, we should restrict the length of our palindrome for now, i. e. assign $d_1[i] = r - i$, to handle such situations correctly. After this we'll run the trivial algorithm which will try to increase $d_1[i]$ while it's possible.
-    
     Illustration of this case (the palindrome with center $j$ is restricted to fit the "outer" palindrome):
-    
     $$
-    \ldots\ 
+    \ldots\
     \overbrace{
         \underbrace{
-            s_{l+1}\ \ldots\ s_j\ \ldots\ s_{j+(j-l)-1}\ 
-        }_\text{palindrome}\ 
-        \ldots\ 
+            s_{l+1}\ \ldots\ s_j\ \ldots\ s_{j+(j-l)-1}\
+        }_\text{palindrome}\
+        \ldots\
         \underbrace{
             s_{i-(r-i)+1}\ \ldots\ s_i\ \ldots\ s_{r-1}
-        }_\text{palindrome}\ 
-    }^\text{palindrome}\ 
+        }_\text{palindrome}\
+    }^\text{palindrome}\
     \underbrace{
         \ldots \ldots \ldots \ldots \ldots
     }_\text{try moving here}
     $$
-    
     It is shown in the illustration that though the palindrome with center $j$ could be larger and go outside the "outer" palindrome, but with $i$ as the center we can use only the part that entirely fits into the "outer" palindrome. But the answer for the position $i$ ($d_1[i]$) can be much bigger than this part, so next we'll run our trivial algorithm that will try to grow it outside our "outer" palindrome, i. e. to the region "try moving here".
 
 Again, we should not forget to update the values $(l, r)$ after calculating each $d_1[i]$.
@@ -134,11 +129,11 @@ Other parts of Manacher's algorithm work obviously in linear time. Thus, we get 
 
 For calculating $d_1[]$, we get the following code. Things to note:
 
- - $i$ is the index of the center letter of the current palindrome.
- - If $i$ exceeds $r$, $d_1[i]$ is initialized to 0.
- - If $i$ does not exceed $r$, $d_1[i]$ is either initialized to the $d_1[j]$, where $j$ is the mirror position of $i$ in $(l,r)$, or $d_1[i]$ is restricted to the size of the "outer" palindrome.
- - The while loop denotes the trivial algorithm. We launch it irrespective of the value of $k$.
- - If the size of palindrome centered at $i$ is $x$, then $d_1[i]$ stores $\frac{x+1}{2}$.
+-   $i$ is the index of the center letter of the current palindrome.
+-   If $i$ exceeds $r$, $d_1[i]$ is initialized to 0.
+-   If $i$ does not exceed $r$, $d_1[i]$ is either initialized to the $d_1[j]$, where $j$ is the mirror position of $i$ in $(l,r)$, or $d_1[i]$ is restricted to the size of the "outer" palindrome.
+-   The while loop denotes the trivial algorithm. We launch it irrespective of the value of $k$.
+-   If the size of palindrome centered at $i$ is $x$, then $d_1[i]$ stores $\frac{x+1}{2}$.
 
 ```cpp
 vector<int> manacher_odd(string s) {
@@ -192,8 +187,8 @@ For simplicity, splitting the array into $d_1$ and $d_2$ as well as their explic
 
 ## Problems
 
-- [Library Checker - Enumerate Palindromes](https://judge.yosupo.jp/problem/enumerate_palindromes)
-- [Longest Palindrome](https://cses.fi/problemset/task/1111)
-- [UVA 11475 - Extend to Palindrome](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=26&page=show_problem&problem=2470)
-- [GYM - (Q) QueryreuQ](https://codeforces.com/gym/101806/problem/Q)
-- [CF - Prefix-Suffix Palindrome](https://codeforces.com/contest/1326/problem/D2)
+-   [Library Checker - Enumerate Palindromes](https://judge.yosupo.jp/problem/enumerate_palindromes)
+-   [Longest Palindrome](https://cses.fi/problemset/task/1111)
+-   [UVA 11475 - Extend to Palindrome](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=26&page=show_problem&problem=2470)
+-   [GYM - (Q) QueryreuQ](https://codeforces.com/gym/101806/problem/Q)
+-   [CF - Prefix-Suffix Palindrome](https://codeforces.com/contest/1326/problem/D2)

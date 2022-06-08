@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: fibonacci_numbers
 ---
 
@@ -18,27 +18,27 @@ $$0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...$$
 
 Fibonacci numbers possess a lot of interesting properties. Here are a few of them:
 
-* Cassini's identity:
-  
+-   Cassini's identity:
+
 $$F_{n-1} F_{n+1} - F_n^2 = (-1)^n$$
 
-* The "addition" rule:
-  
+-   The "addition" rule:
+
 $$F_{n+k} = F_k F_{n+1} + F_{k-1} F_n$$
 
-* Applying the previous identity to the case $k = n$, we get:
-  
+-   Applying the previous identity to the case $k = n$, we get:
+
 $$F_{2n} = F_n (F_{n+1} + F_{n-1})$$
 
-* From this we can prove by induction that for any positive integer $k$,  $F_{nk}$ is multiple of $F_n$.
+-   From this we can prove by induction that for any positive integer $k$, $F_{nk}$ is multiple of $F_n$.
 
-* The inverse is also true: if $F_m$ is multiple of $F_n$, then $m$ is multiple of $n$.
+-   The inverse is also true: if $F_m$ is multiple of $F_n$, then $m$ is multiple of $n$.
 
-* GCD identity:
-  
+-   GCD identity:
+
 $$GCD(F_m, F_n) = F_{GCD(m, n)}$$
 
-* Fibonacci numbers are the worst possible inputs for Euclidean algorithm (see Lame's theorem in [Euclidean algorithm](euclid-algorithm.md))
+-   Fibonacci numbers are the worst possible inputs for Euclidean algorithm (see Lame's theorem in [Euclidean algorithm](euclid-algorithm.md))
 
 ## Fibonacci Coding
 
@@ -48,19 +48,18 @@ $$N = F_{k_1} + F_{k_2} + \ldots + F_{k_r}$$
 
 such that $k_1 \ge k_2 + 2,\ k_2 \ge k_3 + 2,\  \ldots,\  k_r \ge 2$ (i.e.: the representation cannot use two consecutive Fibonacci numbers).
 
-It follows that any number can be uniquely encoded in the Fibonacci coding.
-And we can describe this representation with binary codes $d_0 d_1 d_2 \dots d_s 1$, where $d_i$ is $1$ if $F_{i+2}$ is used in the representation.
-The code will be appended by a $1$ do indicate the end of the code word.
-Notice that this is the only occurrence where two consecutive 1-bits appear.
+It follows that any number can be uniquely encoded in the Fibonacci coding. And we can describe this representation with binary codes $d_0 d_1 d_2 \dots d_s 1$, where $d_i$ is $1$ if $F_{i+2}$ is used in the representation. The code will be appended by a $1$ do indicate the end of the code word. Notice that this is the only occurrence where two consecutive 1-bits appear.
 
-$$\begin{eqnarray}
+$$
+\begin{eqnarray}
 1 &=& 1 &=& F_2 &=& (11)_F \\
 2 &=& 2 &=& F_3 &=& (011)_F \\
 6 &=& 5 + 1 &=& F_5 + F_2 &=& (10011)_F \\
 8 &=& 8 &=& F_6 &=& (000011)_F \\
 9 &=& 8 + 1 &=& F_6 + F_2 &=& (100011)_F \\
 19 &=& 13 + 5 + 1 &=& F_7 + F_5 + F_2 &=& (1001011)_F
-\end{eqnarray}$$
+\end{eqnarray}
+$$
 
 The encoding of an integer $n$ can be done with a simple greedy algorithm:
 
@@ -86,7 +85,7 @@ $$F_n = \frac{\left(\frac{1 + \sqrt{5}}{2}\right)^n - \left(\frac{1 - \sqrt{5}}{
 
 This formula is easy to prove by induction, but it can be deduced with the help of the concept of generating functions or by solving a functional equation.
 
-You can immediately notice that the second term's absolute value is always less than $1$, and it also decreases very rapidly (exponentially). Hence the value of the first term alone is "almost" $F_n$. This can be written strictly as: 
+You can immediately notice that the second term's absolute value is always less than $1$, and it also decreases very rapidly (exponentially). Hence the value of the first term alone is "almost" $F_n$. This can be written strictly as:
 
 $$F_n = \left[\frac{\left(\frac{1 + \sqrt{5}}{2}\right)^n}{\sqrt{5}}\right]$$
 
@@ -110,10 +109,12 @@ Thus, in order to find $F_n$, we must raise the matrix $P$ to $n$. This can be d
 
 Using above method we can find these equations:
 
-$$ \begin{array}{rll}
+$$
+\begin{array}{rll}
                         F_{2k} &= F_k \left( 2F_{k+1} - F_{k} \right). \\
                         F_{2k+1} &= F_{k+1}^2 + F_{k}^2.
-\end{array}$$
+\end{array}
+$$
 
 Thus using above two equations Fibonacci numbers can be calculated easily by the following code:
 
@@ -131,6 +132,7 @@ pair<int, int> fib (int n) {
         return {c, d};
 }
 ```
+
 The above code returns $F_n$ and $F_{n+1}$ as a pair.
 
 ## Periodicity modulo p
@@ -147,10 +149,9 @@ We now choose two pairs of identical remainders with the smallest indices in the
 
 ## Practice Problems
 
-* [SPOJ - Euclid Algorithm Revisited](http://www.spoj.com/problems/MAIN74/)
-* [SPOJ - Fibonacci Sum](http://www.spoj.com/problems/FIBOSUM/)
-* [HackerRank - Is Fibo](https://www.hackerrank.com/challenges/is-fibo/problem)
-* [Project Euler - Even Fibonacci numbers](https://www.hackerrank.com/contests/projecteuler/challenges/euler002/problem)
-* [DMOJ - Fibonacci Sequence](https://dmoj.ca/problem/fibonacci)
-* [DMOJ - Fibonacci Sequence (Harder)](https://dmoj.ca/problem/fibonacci2)
-
+-   [SPOJ - Euclid Algorithm Revisited](http://www.spoj.com/problems/MAIN74/)
+-   [SPOJ - Fibonacci Sum](http://www.spoj.com/problems/FIBOSUM/)
+-   [HackerRank - Is Fibo](https://www.hackerrank.com/challenges/is-fibo/problem)
+-   [Project Euler - Even Fibonacci numbers](https://www.hackerrank.com/contests/projecteuler/challenges/euler002/problem)
+-   [DMOJ - Fibonacci Sequence](https://dmoj.ca/problem/fibonacci)
+-   [DMOJ - Fibonacci Sequence (Harder)](https://dmoj.ca/problem/fibonacci2)

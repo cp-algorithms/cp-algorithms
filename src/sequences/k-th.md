@@ -1,9 +1,10 @@
 ---
 title: K-th order statistic in O(N)
 tags:
-  - Translated
+    - Translated
 e_maxx_link: kth_order_statistics
 ---
+
 # $K$th order statistic in $O(N)$
 
 Given an array $A$ of size $N$ and a number $K$. The problem is to find $K$-th largest number in the array, i.e., $K$-th order statistic.
@@ -56,7 +57,7 @@ T order_statistics (std::vector<T> a, unsigned n, unsigned k)
         // inserting the barrier
         a[l+1] = a[j];
         a[j] = cur;
-        
+
         // we continue to work in that part, which must contain the required element
         if (j >= k)
             r = j-1;
@@ -67,10 +68,11 @@ T order_statistics (std::vector<T> a, unsigned n, unsigned k)
 ```
 
 ## Notes
-* The randomized algorithm above is named [quickselect](https://en.wikipedia.org/wiki/Quickselect). You should do random shuffle on $A$ before calling it or use a random element as a barrier for it to run properly. There are also deterministic algorithms that solve the specified problem in linear time, such as [median of medians](https://en.wikipedia.org/wiki/Median_of_medians).
-* A deterministic linear solution is implemented in C++ standard library as [std::nth_element](https://en.cppreference.com/w/cpp/algorithm/nth_element).
-* Finding $K$ smallest elements can be reduced to finding $K$-th element with a linear overhead, as they're exactly the elements that are smaller than $K$-th.
+
+-   The randomized algorithm above is named [quickselect](https://en.wikipedia.org/wiki/Quickselect). You should do random shuffle on $A$ before calling it or use a random element as a barrier for it to run properly. There are also deterministic algorithms that solve the specified problem in linear time, such as [median of medians](https://en.wikipedia.org/wiki/Median_of_medians).
+-   A deterministic linear solution is implemented in C++ standard library as [std::nth_element](https://en.cppreference.com/w/cpp/algorithm/nth_element).
+-   Finding $K$ smallest elements can be reduced to finding $K$-th element with a linear overhead, as they're exactly the elements that are smaller than $K$-th.
 
 ## Practice Problems
 
-- [CODECHEF: Median](https://www.codechef.com/problems/CD1IT1)
+-   [CODECHEF: Median](https://www.codechef.com/problems/CD1IT1)

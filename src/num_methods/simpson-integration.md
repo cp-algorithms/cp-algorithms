@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: simpson_integrating
 ---
 
@@ -22,10 +22,7 @@ $$h = \frac {b-a} {2n}.$$
 
 Now we calculate the integral separately on each of the segments $[x_ {2i-2}, x_ {2i}]$, $i = 1 \ldots n$, and then add all the values.
 
-So, suppose we consider the next segment $[x_ {2i-2}, x_ {2i}],  i = 1 \ldots n$. Replace the function $f(x)$ on it with a parabola $P(x)$ passing through 3 points $(x_ {2i-2}, x_ {2i-1}, x_ {2i})$. Such a parabola always exists and is unique; it can be found analytically.
-For instance we could construct it using the Lagrange polynomial interpolation.
-The only remaining thing left to do is to integrate this polynomial.
-If you do this for a general function $f$, you receive a remarkably simple expression:
+So, suppose we consider the next segment $[x_ {2i-2}, x_ {2i}],  i = 1 \ldots n$. Replace the function $f(x)$ on it with a parabola $P(x)$ passing through 3 points $(x_ {2i-2}, x_ {2i-1}, x_ {2i})$. Such a parabola always exists and is unique; it can be found analytically. For instance we could construct it using the Lagrange polynomial interpolation. The only remaining thing left to do is to integrate this polynomial. If you do this for a general function $f$, you receive a remarkably simple expression:
 
 $$\int_{x_ {2i-2}} ^ {x_ {2i}} f (x) ~dx \approx \int_{x_ {2i-2}} ^ {x_ {2i}} P (x) ~dx = \left(f(x_{2i-2}) + 4f(x_{2i-1})+(f(x_{2i})\right)\frac {h} {3} $$
 
@@ -64,4 +61,4 @@ double simpson_integration(double a, double b){
 
 ## Practice Problems
 
-* [URI - Environment Protection](https://www.urionlinejudge.com.br/judge/en/problems/view/1297)
+-   [URI - Environment Protection](https://www.urionlinejudge.com.br/judge/en/problems/view/1297)

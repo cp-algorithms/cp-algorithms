@@ -1,6 +1,6 @@
 ---
 tags:
-  - Translated
+    - Translated
 e_maxx_link: sqrt_decomposition
 ---
 
@@ -26,16 +26,13 @@ Then the array $a$ is divided into blocks in the following way:
 
 $$ \underbrace{a[0], a[1], \dots, a[s-1]}\_{\text{b[0]}}, \underbrace{a[s], \dots, a[2s-1]}\_{\text{b[1]}}, \dots, \underbrace{a[(s-1) \cdot s], \dots, a[n-1]}\_{\text{b[s-1]}} $$
 
-The last block may have fewer elements than the others (if $n$ not a multiple of $s$), it is not important to the discussion (as it can be handled easily).
-Thus, for each block $k$, we know the sum of elements on it $b[k]$:
+The last block may have fewer elements than the others (if $n$ not a multiple of $s$), it is not important to the discussion (as it can be handled easily). Thus, for each block $k$, we know the sum of elements on it $b[k]$:
 
-$$ b[k] = \sum\limits_{i=k\cdot s}^{\min {(n-1,(k+1)\cdot s - 1})} a[i] $$
+$$ b[k] = \sum\limits\_{i=k\cdot s}^{\min {(n-1,(k+1)\cdot s - 1})} a[i] $$
 
-So, we have calculated the values of $b[k]$ (this required $O(n)$ operations). How can they help us to answer each query $[l, r]$ ?
-Notice that if the interval $[l, r]$ is long enough, it will contain several whole blocks, and for those blocks we can find the sum of elements in them in a single operation. As a result, the interval $[l, r]$ will contain parts of only two blocks, and we'll have to calculate the sum of elements in these parts trivially.
+So, we have calculated the values of $b[k]$ (this required $O(n)$ operations). How can they help us to answer each query $[l, r]$ ? Notice that if the interval $[l, r]$ is long enough, it will contain several whole blocks, and for those blocks we can find the sum of elements in them in a single operation. As a result, the interval $[l, r]$ will contain parts of only two blocks, and we'll have to calculate the sum of elements in these parts trivially.
 
-Thus, in order to calculate the sum of elements on the interval $[l, r]$ we only need to sum the elements of the two "tails":
-$[l\dots (k + 1)\cdot s-1]$ and $[p\cdot s\dots r]$ , and sum the values $b[i]$ in all the blocks from $k + 1$ to $p-1$:
+Thus, in order to calculate the sum of elements on the interval $[l, r]$ we only need to sum the elements of the two "tails": $[l\dots (k + 1)\cdot s-1]$ and $[p\cdot s\dots r]$ , and sum the values $b[i]$ in all the blocks from $k + 1$ to $p-1$:
 
 $$ \sum\limits\_{i=l}^r a[i] = \sum\limits\_{i=l}^{(k+1) \cdot s-1} a[i] + \sum\limits\_{i=k+1}^{p-1} b[i] + \sum\limits\_{i=p\cdot s}^r a[i] $$
 
@@ -98,7 +95,7 @@ else {
 
 So far we were discussing the problem of finding the sum of elements of a continuous subarray. This problem can be extended to allow to **update individual array elements**. If an element $a[i]$ changes, it's sufficient to update the value of $b[k]$ for the block to which this element belongs ($k = i / s$) in one operation:
 
-$$ b[k] += a_{new}[i] - a_{old}[i] $$
+$$ b[k] += a*{new}[i] - a*{old}[i] $$
 
 On the other hand, the task of finding the sum of elements can be replaced with the task of finding minimal/maximal element of a subarray. If this problem has to address individual elements' updates as well, updating the value of $b[k]$ is also possible, but it will require iterating through all values of block $k$ in $O(s) = O(\sqrt{n})$ operations.
 
@@ -114,24 +111,11 @@ There exist other problems which can be solved using sqrt decomposition, for exa
 
 ## Mo's algorithm
 
-A similar idea, based on sqrt decomposition, can be used to answer range queries ($Q$) offline in $O((N+Q)\sqrt{N})$.
-This might sound like a lot worse than the methods in the previous section, since this is a slightly worse complexity than we had earlier and cannot update values between two queries.
-But in a lot of situations this method has advantages.
-During a normal sqrt decomposition, we have to precompute the answers for each block, and merge them during answering queries.
-In some problems this merging step can be quite problematic.
-E.g. when each queries asks to find the **mode** of its range (the number that appears the most often).
-For this each block would have to store the count of each number in it in some sort of data structure, and we cannot longer perform the merge step fast enough any more.
-**Mo's algorithm** uses a completely different approach, that can answer these kind of queries fast, because it only keeps track of one data structure, and the only operations with it are easy and fast.
+A similar idea, based on sqrt decomposition, can be used to answer range queries ($Q$) offline in $O((N+Q)\sqrt{N})$. This might sound like a lot worse than the methods in the previous section, since this is a slightly worse complexity than we had earlier and cannot update values between two queries. But in a lot of situations this method has advantages. During a normal sqrt decomposition, we have to precompute the answers for each block, and merge them during answering queries. In some problems this merging step can be quite problematic. E.g. when each queries asks to find the **mode** of its range (the number that appears the most often). For this each block would have to store the count of each number in it in some sort of data structure, and we cannot longer perform the merge step fast enough any more. **Mo's algorithm** uses a completely different approach, that can answer these kind of queries fast, because it only keeps track of one data structure, and the only operations with it are easy and fast.
 
-The idea is to answer the queries in a special order based on the indices.
-We will first answer all queries which have the left index in block 0, then answer all queries which have left index in block 1 and so on.
-And also we will have to answer the queries of a block is a special order, namely sorted by the right index of the queries.
+The idea is to answer the queries in a special order based on the indices. We will first answer all queries which have the left index in block 0, then answer all queries which have left index in block 1 and so on. And also we will have to answer the queries of a block is a special order, namely sorted by the right index of the queries.
 
-As already said we will use a single data structure.
-This data structure will store information about the range.
-At the beginning this range will be empty.
-When we want to answer the next query (in the special order), we simply extend or reduce the range, by adding/removing elements on both sides of the current range, until we transformed it into the query range.
-This way, we only need to add or remove a single element once at a time, which should be pretty easy operations in our data structure.
+As already said we will use a single data structure. This data structure will store information about the range. At the beginning this range will be empty. When we want to answer the next query (in the special order), we simply extend or reduce the range, by adding/removing elements on both sides of the current range, until we transformed it into the query range. This way, we only need to add or remove a single element once at a time, which should be pretty easy operations in our data structure.
 
 Since we change the order of answering the queries, this is only possible when we are allowed to answer the queries in offline mode.
 
@@ -187,42 +171,28 @@ vector<int> mo_s_algorithm(vector<Query> queries) {
 }
 ```
 
-Based on the problem we can use a different data structure and modify the `add`/`remove`/`get_answer` functions accordingly.
-For example if we are asked to find range sum queries then we use a simple integer as data structure, which is $0$ at the beginning.
-The `add` function will simply add the value of the position and subsequently update the answer variable.
-On the other hand `remove` function will subtract the value at position and subsequently update the answer variable.
-And `get_answer` just returns the integer.
+Based on the problem we can use a different data structure and modify the `add`/`remove`/`get_answer` functions accordingly. For example if we are asked to find range sum queries then we use a simple integer as data structure, which is $0$ at the beginning. The `add` function will simply add the value of the position and subsequently update the answer variable. On the other hand `remove` function will subtract the value at position and subsequently update the answer variable. And `get_answer` just returns the integer.
 
-For answering mode-queries, we can use a binary search tree (e.g. `map<int, int>`) for storing how often each number appears in the current range, and a second binary search tree (e.g. `set<pair<int, int>>`) for keeping counts of the numbers (e.g. as count-number pairs) in order.
-The `add` method removes the current number from the second BST, increases the count in the first one, and inserts the number back into the second one.
-`remove` does the same thing, it only decreases the count.
-And `get_answer` just looks at second tree and returns the best value in $O(1)$.
+For answering mode-queries, we can use a binary search tree (e.g. `map<int, int>`) for storing how often each number appears in the current range, and a second binary search tree (e.g. `set<pair<int, int>>`) for keeping counts of the numbers (e.g. as count-number pairs) in order. The `add` method removes the current number from the second BST, increases the count in the first one, and inserts the number back into the second one. `remove` does the same thing, it only decreases the count. And `get_answer` just looks at second tree and returns the best value in $O(1)$.
 
 ### Complexity
 
-
 Sorting all queries will take $O(Q \log Q)$.
 
-How about the other operations?
-How many times will the `add` and `remove` be called?
+How about the other operations? How many times will the `add` and `remove` be called?
 
 Let's say the block size is $S$.
 
-If we only look at all queries having the left index in the same block, the queries are sorted by the right index.
-Therefore we will call `add(cur_r)` and `remove(cur_r)` only $O(N)$ times for all these queries combined.
-This gives $O(\frac{N}{S} N)$ calls for all blocks.
+If we only look at all queries having the left index in the same block, the queries are sorted by the right index. Therefore we will call `add(cur_r)` and `remove(cur_r)` only $O(N)$ times for all these queries combined. This gives $O(\frac{N}{S} N)$ calls for all blocks.
 
-The value of `cur_l` can change by at most $O(S)$ during between two queries.
-Therefore we have an additional $O(S Q)$ calls of `add(cur_l)` and `remove(cur_l)`.
+The value of `cur_l` can change by at most $O(S)$ during between two queries. Therefore we have an additional $O(S Q)$ calls of `add(cur_l)` and `remove(cur_l)`.
 
-For $S \approx \sqrt{N}$ this gives $O((N + Q) \sqrt{N})$ operations in total.
-Thus the complexity is $O((N+Q)F\sqrt{N})$ where $O(F)$  is the complexity of `add` and `remove` function.
+For $S \approx \sqrt{N}$ this gives $O((N + Q) \sqrt{N})$ operations in total. Thus the complexity is $O((N+Q)F\sqrt{N})$ where $O(F)$ is the complexity of `add` and `remove` function.
 
 ### Tips for improving runtime
 
-* Block size of precisely $\sqrt{N}$ doesn't always offer the best runtime.  For example, if $\sqrt{N}=750$ then it may happen that block size of $700$ or $800$ may run better.
-More importantly, don't compute the block size at runtime - make it `const`. Division by constants is well optimized by compilers.
-* In odd blocks sort the right index in ascending order and in even blocks sort it in descending order. This will minimize the movement of right pointer, as the normal sorting will move the right pointer from the end back to the beginning at the start of every block. With the improved version this resetting is no more necessary.
+-   Block size of precisely $\sqrt{N}$ doesn't always offer the best runtime. For example, if $\sqrt{N}=750$ then it may happen that block size of $700$ or $800$ may run better. More importantly, don't compute the block size at runtime - make it `const`. Division by constants is well optimized by compilers.
+-   In odd blocks sort the right index in ascending order and in even blocks sort it in descending order. This will minimize the movement of right pointer, as the normal sorting will move the right pointer from the end back to the beginning at the start of every block. With the improved version this resetting is no more necessary.
 
 ```cpp
 bool cmp(pair<int, int> p, pair<int, int> q) {
@@ -236,12 +206,12 @@ You can read about even faster sorting approach [here](https://codeforces.com/bl
 
 ## Practice Problems
 
-* [UVA - 12003 - Array Transformer](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3154)
-* [UVA - 11990 Dynamic Inversion](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3141)
-* [SPOJ - Give Away](http://www.spoj.com/problems/GIVEAWAY/)
-* [Codeforces - Till I Collapse](http://codeforces.com/contest/786/problem/C)
-* [Codeforces - Destiny](http://codeforces.com/contest/840/problem/D)
-* [Codeforces - Holes](http://codeforces.com/contest/13/problem/E)
-* [Codeforces - XOR and Favorite Number](https://codeforces.com/problemset/problem/617/E)
-* [Codeforces - Powerful array](http://codeforces.com/problemset/problem/86/D)
-* [SPOJ - DQUERY](https://www.spoj.com/problems/DQUERY)
+-   [UVA - 12003 - Array Transformer](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3154)
+-   [UVA - 11990 Dynamic Inversion](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3141)
+-   [SPOJ - Give Away](http://www.spoj.com/problems/GIVEAWAY/)
+-   [Codeforces - Till I Collapse](http://codeforces.com/contest/786/problem/C)
+-   [Codeforces - Destiny](http://codeforces.com/contest/840/problem/D)
+-   [Codeforces - Holes](http://codeforces.com/contest/13/problem/E)
+-   [Codeforces - XOR and Favorite Number](https://codeforces.com/problemset/problem/617/E)
+-   [Codeforces - Powerful array](http://codeforces.com/problemset/problem/86/D)
+-   [SPOJ - DQUERY](https://www.spoj.com/problems/DQUERY)
