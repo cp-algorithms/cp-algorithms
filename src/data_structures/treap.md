@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: treap
+---
+
 # Treap (Cartesian tree)
 
 A treap is a data structure which combines binary tree and binary heap (hence the name: tree + heap $\Rightarrow$ Treap).

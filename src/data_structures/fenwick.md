@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: fenwick_tree
+---
+
 # Fenwick Tree
 
 Let, $f$ be some _reversible_ function and $A$ be an array of integers of length $N$.

@@ -51,7 +51,7 @@
         - [Sqrt Tree](data_structures/sqrt-tree.md)
         - [Randomized Heap](data_structures/randomized_heap.md)
     - Advanced
-        - [Deleting from a data structure in O(T(n)log n)](data_structures/deleting_in_log_n.md)
+        - [Deleting from a data structure in O(T(n) log n)](data_structures/deleting_in_log_n.md)
 - Dynamic Programming
     - DP optimizations
         - [Divide and Conquer DP](dynamic_programming/divide-and-conquer-dp.md)
@@ -90,7 +90,7 @@
         - [The Inclusion-Exclusion Principle](combinatorics/inclusion-exclusion.md)
         - [Burnside's lemma / Pólya enumeration theorem](combinatorics/burnside.md)
         - [Stars and bars](combinatorics/stars_and_bars.md)
-        - [Generating all $K$-combinations](combinatorics/generating_combinations.md)
+        - [Generating all K-combinations](combinatorics/generating_combinations.md)
     - Tasks
         - [Placing Bishops on a Chessboard](combinatorics/bishops-on-chessboard.md)
         - [Balanced bracket sequences](combinatorics/bracket_sequences.md)
@@ -129,7 +129,7 @@
         - [Finding the nearest pair of points](geometry/nearest_points.md)
         - [Delaunay triangulation and Voronoi diagram](geometry/delaunay.md)
         - [Vertical decomposition](geometry/vertical_decomposition.md)
-        - [Half-plane intersection - S&I Algorithm in O(Nlog N)](geometry/halfplane-intersection.md)
+        - [Half-plane intersection - S&I Algorithm in O(N log N)](geometry/halfplane-intersection.md)
 - Graphs
     - Graph traversal
         - [Breadth First Search](graph/breadth-first-search.md)

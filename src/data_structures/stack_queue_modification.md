@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: stacks_for_minima
+---
+
 # Minimum stack / Minimum queue
 
 In this article we will consider three problems: 

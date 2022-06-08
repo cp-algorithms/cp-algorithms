@@ -1,5 +1,7 @@
 ---
-title: Deleting from a data structure in O(T(n)log n)
+title: Deleting from a data structure in O(T(n) log n)
+tags:
+  - Original
 ---
 # Deleting from a data structure in $O(T(n)\log n)$
 

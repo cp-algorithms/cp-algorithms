@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: bracket_sequences
+---
+
 # Balanced bracket sequences
 
 A **balanced bracket sequence** is a string consisting of only brackets, such that this sequence, when inserted certain numbers and mathematical operations, gives a valid mathematical expression.
