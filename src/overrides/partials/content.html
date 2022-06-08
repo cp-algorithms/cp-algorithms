@@ -55,15 +55,22 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   {{ lang.t("source.file.date.updated") }}:
   {{ page.meta.git_revision_date_localized }}
-</ul>
-
 <!-- Tags -->
 {% if page and page.meta and page.meta.e_maxx_link %}
 {{ tags.append({'name':'From: e-maxx.ru', 'url': 'https://e-maxx.ru/algo/' + page.meta.e_maxx_link}) or '' }}
 {% endif %}
 {% if "tags" in config.plugins %}
-  {% include "partials/tags.html" %}
+    {% for tag in tags %}
+      {% if tag.url %}
+        <a href="{{ tag.url | url }}" class="md-tag">
+          {{ tag.name }}
+        </a>
+      {% else %}
+        <span class="md-tag">{{ tag.name }}</span>
+      {% endif %}
+    {% endfor %}
 {% endif %}
+</ul>
 
 {% if not "\x3ch1" in page.content %}
   <h1>{{ page.title | d(config.site_name, true)}}</h1>
