@@ -1,7 +1,6 @@
 ---
 tags:
   - Original
-  - "Author: adamant"
 ---
 
 <!--?title Continued fractions -->

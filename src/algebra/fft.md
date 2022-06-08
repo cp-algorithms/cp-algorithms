@@ -1,7 +1,7 @@
 ---
 tags:
   - Translated
-e_maxx_link: fft
+e_maxx_link: fft_multiply
 ---
 
 # Fast Fourier transform

@@ -1,7 +1,7 @@
 ---
 tags:
   - Translated
-e_maxx_link: module_inverse
+e_maxx_link: reverse_element
 ---
 
 # Modular Multiplicative Inverse

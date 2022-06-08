@@ -1,7 +1,7 @@
 ---
 tags:
   - Translated
-e_maxx_link: binary_exp
+e_maxx_link: binary_pow
 ---
 
 # Binary Exponentiation

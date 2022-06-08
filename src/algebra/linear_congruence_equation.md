@@ -1,7 +1,7 @@
 ---
 tags:
   - Translated
-e_maxx_link: linear_congruence_equation
+e_maxx_link: diofant_1_equation
 ---
 
 # Linear Congruence Equation

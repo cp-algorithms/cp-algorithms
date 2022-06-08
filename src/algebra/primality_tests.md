@@ -1,7 +1,6 @@
 ---
 tags:
     - Original
-    - 'Author: jakobkogler'
 ---
 
 # Primality tests

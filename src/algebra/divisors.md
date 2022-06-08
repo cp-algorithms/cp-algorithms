@@ -1,7 +1,6 @@
 ---
 tags:
   - Original
-  - "Author: jakobkogler"
 ---
 
 # Number of divisors / sum of divisors

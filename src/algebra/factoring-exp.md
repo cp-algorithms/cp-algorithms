@@ -1,8 +1,6 @@
 ---
 tags:
   - Original
-  - "Author: hselasky"
-  - "Contributor: adamant"
 ---
 
 # Binary Exponentiation by Factoring

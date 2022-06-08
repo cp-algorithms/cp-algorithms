@@ -1,4 +1,5 @@
 ---
+title: Factorial modulo p
 tags:
   - Translated
 e_maxx_link: modular_factorial

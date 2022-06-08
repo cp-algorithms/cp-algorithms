@@ -1,7 +1,7 @@
 ---
 tags:
   - Translated
-e_maxx_link: sieve_of_erathosthenes
+e_maxx_link: eratosthenes_sieve
 ---
 
 # Sieve of Eratosthenes

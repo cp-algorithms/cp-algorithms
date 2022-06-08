@@ -1,7 +1,6 @@
 ---
 tags:
   - Original
-  - "Author: adamant"
 ---
 
 # Operations on polynomials and series

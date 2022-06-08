@@ -1,7 +1,7 @@
 ---
 tags:
   - Translated
-e_maxx_link: phi_function
+e_maxx_link: euler_function
 ---
 
 # Euler's totient function

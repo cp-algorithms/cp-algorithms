@@ -1,7 +1,7 @@
 ---
 tags:
   - Translated
-e_maxx_link: chinese_remainder_theorem
+e_maxx_link: chinese_theorem
 ---
 
 # Chinese Remainder Theorem
