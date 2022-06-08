@@ -8,3 +8,5 @@ converted.pdf
 /public
 .firebase/
 firebase-debug.log
+
+authors.json
