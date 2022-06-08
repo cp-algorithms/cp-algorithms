@@ -16,7 +16,7 @@ Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorith
 
 ## Changelog
 
-- June 8, 2022: Tags are enabled. Each article is now marked whether it is translated or original. For translated articles, clicking on "From: X" tag would lead to the original article.
+- June 8, 2022: Tags are enabled. Each article is now marked whether it is translated or original, overall info is present in [tag index](https://cp-algorithms.com/tags.html). For translated articles, clicking on `From: X` tag would lead to the original article.
 - June 7, 2022: Date of last commit and author list with contribution percentage is tracked for each page.
 - June 5, 2022: Enabled content tabs and sidebar navigation. The navigation is moved to a [separate page](https://cp-algorithms.com/navigation.html) and its structure should be adjusted in [navigation.md](https://github.com/e-maxx-eng/e-maxx-eng/blob/master/src/navigation.md) whenever a new article is created or an old one is moved.
 - January 16, 2022: Switched to the [MkDocs](https://www.mkdocs.org/) site generator with the [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) theme, which give the website a more modern look, brings a couple of new features (dark mode, better search, ...), makes the website more stable (in terms of rendering math formulas), and makes it easier to contribute.
