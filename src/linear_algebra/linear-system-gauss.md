@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: linear_systems_gauss
+---
+
 # Gauss method for solving system of linear equations
 
 Given a system of $n$ linear algebraic equations (SLAE) with $m$ unknowns. You are asked to solve the system: to determine if it has no solution, exactly one solution or infinite number of solutions. And in case it has at least one solution, find any of them.

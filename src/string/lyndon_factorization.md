@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: duval_algorithm
+---
+
 # Lyndon factorization
 
 ## Lyndon factorization

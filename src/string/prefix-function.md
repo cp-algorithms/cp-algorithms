@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: prefix_function
+---
+
 # Prefix function. Knuth–Morris–Pratt algorithm
 
 ## Prefix function definition

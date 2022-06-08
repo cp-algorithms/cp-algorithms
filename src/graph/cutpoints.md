@@ -1,5 +1,8 @@
 ---
-title: Finding articulation points in a graph in O(N+M) 
+title: Finding articulation points in a graph in O(N+M)
+tags:
+  - Translated
+e_maxx_link: cutpoints
 ---
 # Finding articulation points in a graph in $O(N+M)$
 

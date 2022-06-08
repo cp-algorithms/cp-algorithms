@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: rmq_linear
+---
+
 # Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)
 
 Given an array `A[0..N-1]`.

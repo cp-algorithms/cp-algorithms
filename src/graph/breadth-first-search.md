@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: bfs
+---
+
 # Breadth-first search
 
 Breadth first search is one of the basic and essential searching algorithms on graphs.

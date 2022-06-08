@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: lca_linear
+---
+
 # Lowest Common Ancestor - Farach-Colton and Bender Algorithm
 
 Let $G$ be a tree.

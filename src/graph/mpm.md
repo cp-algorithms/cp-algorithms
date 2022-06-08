@@ -1,3 +1,8 @@
+---
+tags:
+  - Original
+---
+
 # Maximum flow - MPM algorithm
 
 MPM (Malhotra, Pramodh-Kumar and Maheshwari) algorithm solves the maximum flow problem in $O(V^3)$. This algorithm is similar to [Dinic's algorithm](dinic.md).

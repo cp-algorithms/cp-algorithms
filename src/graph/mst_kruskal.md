@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: mst_kruskal
+---
+
 # Minimum spanning tree - Kruskal's algorithm
 
 Given a weighted undirected graph.

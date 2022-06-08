@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: negative_cycle
+---
+
 # Finding a negative cycle in the graph
 
 You are given a directed weighted graph $G$ with $N$ vertices and $M$ edges. Find any cycle of negative weight in it, if such a cycle exists.

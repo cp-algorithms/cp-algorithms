@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: stern_brocot_farey
+---
+
 # The Stern-Brocot tree and Farey sequences
 
 ## Stern-Brocot tree

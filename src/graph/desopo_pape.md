@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: levit_algorithm
+---
+
 # D´Esopo-Pape algorithm
 
 Given a graph with $n$ vertices and $m$ edges with weights $w_i$ and a starting vertex $v_0$.

@@ -57,7 +57,11 @@ Describe the issue of this article in detail.
   {{ page.meta.git_revision_date_localized }}&emsp;
 <!-- Tags -->
 {% if page and page.meta and page.meta.e_maxx_link %}
-{{ tags.append({'name':'From: e-maxx.ru', 'url': 'https://e-maxx.ru/algo/' + page.meta.e_maxx_link}) or '' }}
+  {% set links = page.meta.e_maxx_link %}
+  {% set links = [links] if links is string else links %}
+  {% for link in links %}
+    {% do tags.append({'name':'From: e-maxx.ru', 'url': 'https://e-maxx.ru/algo/' + link}) %}
+  {% endfor %}
 {% endif %}
 {% for tag in tags %}
   {% if tag.url %}

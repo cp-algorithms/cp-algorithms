@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: tree_painting
+---
+
 # Paint the edges of the tree
 
 This is a fairly common task. Given a tree $G$ with $N$ vertices. There are two types of queries: the first one is to paint an edge, the second one is to query the number of colored edges between two vertices.

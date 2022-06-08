@@ -1,5 +1,8 @@
 ---
-title: Checking a graph for acyclicity and finding a cycle in O(M) 
+title: Checking a graph for acyclicity and finding a cycle in O(M)
+tags:
+  - Translated
+e_maxx_link: finding_cycle
 ---
 # Checking a graph for acyclicity and finding a cycle in $O(M)$
 

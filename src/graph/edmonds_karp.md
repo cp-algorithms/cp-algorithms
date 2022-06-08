@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: edmonds_karp
+---
+
 # Maximum flow - Ford-Fulkerson and Edmonds-Karp
 
 The Edmonds-Karp algorithm is an implementation of the Ford-Fulkerson method for computing a maximal flow in a flow network.

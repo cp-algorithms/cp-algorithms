@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: johnson_problem_2
+---
+
 # Scheduling jobs on two machines
 
 This task is about finding an optimal schedule for $n$ jobs on two machines.

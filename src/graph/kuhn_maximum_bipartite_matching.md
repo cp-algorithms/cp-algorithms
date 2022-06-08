@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: kuhn_matching
+---
+
 # Kuhn's Algorithm for Maximum Bipartite Matching
 
 ## Problem

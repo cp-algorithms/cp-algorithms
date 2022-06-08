@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: min_cost_flow
+---
+
 # Minimum-cost flow - Successive shortest path algorithm
 
 Given a network $G$ consisting of $n$ vertices and $m$ edges.

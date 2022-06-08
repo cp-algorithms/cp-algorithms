@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: ford_bellman
+---
+
 # Bellman-Ford Algorithm
 
 **Single source shortest path with negative weight edges**

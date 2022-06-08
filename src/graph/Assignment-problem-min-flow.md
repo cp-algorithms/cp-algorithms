@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: assignment_mincostflow
+---
+
 # Solving assignment problem using min-cost-flow
 
 The **assignment problem** has two equivalent statements:

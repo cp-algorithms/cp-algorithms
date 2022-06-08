@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: bridge_searching_online
+---
+
 # Finding Bridges Online
 
 We are given an undirected graph.

@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: suffix_automata
+---
+
 # Suffix Automaton
 
 A **suffix automaton** is a powerful data structure that allows solving many string-related problems. 

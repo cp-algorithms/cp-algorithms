@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: longest_increasing_subseq_log
+---
+
 # Longest increasing subsequence
 
 We are given an array with $n$ numbers: $a[0 \dots n-1]$.
