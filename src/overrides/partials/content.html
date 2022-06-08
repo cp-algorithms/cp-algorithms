@@ -30,14 +30,19 @@ Describe the issue of this article in detail.
 {% set contribs = {} %}
 
 {% for author in git_info.page_authors %}
-{% do contribs.setdefault(author.name, {}) %}
-{% do contribs[author.name].update({
-  'contribution':author.contribution[:-1]|float,
-  'name':author.name,
-  'url':'#'
-}) %}
+  {% if contribs[author.name] %}
+    {% do contribs[author.name].__setitem__(
+      'contribution',
+      contribs[author.name].contribution + author.contribution[:-1]|float
+    ) %}
+  {% else %}
+    {% do contribs.__setitem__(author.name, {
+      'contribution':author.contribution[:-1]|float,
+      'name':author.name,
+      'url':'#'
+    }) %}
+  {% endif %}
 {% endfor %}
-
 
 {% for author in committers %}
 {% do contribs.setdefault(author.name, {}) %}
