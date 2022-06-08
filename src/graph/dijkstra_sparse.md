@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: dijkstra_sparse
+---
+
 # Dijkstra on sparse graphs
 
 For the statement of the problem, the algorithm with implementation and proof can be found on the article [Dijkstra's algorithm](dijkstra.md).

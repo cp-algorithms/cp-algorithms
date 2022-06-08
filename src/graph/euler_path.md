@@ -1,5 +1,8 @@
 ---
-title: Finding the Eulerian path in O(M)     
+title: Finding the Eulerian path in O(M)
+tags:
+  - Translated
+e_maxx_link: euler_path
 ---
 # Finding the Eulerian path in $O(M)$
 

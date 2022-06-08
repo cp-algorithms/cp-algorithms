@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: expressions_parsing
+---
+
 # Expression parsing
 
 A string containing a mathematical expression containing numbers and various operators is given.

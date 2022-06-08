@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: burnside_polya
+---
+
 # Burnside's lemma / Pólya enumeration theorem
 
 ## Burnside's lemma

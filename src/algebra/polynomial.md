@@ -1,3 +1,8 @@
+---
+tags:
+  - Original
+---
+
 # Operations on polynomials and series
 
 In this article we will cover common operations that you will probably have to do if you deal with polynomials.

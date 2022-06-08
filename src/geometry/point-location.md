@@ -1,5 +1,7 @@
 ---
-title: Point location in O(log n) 
+title: Point location in O(log n)
+tags:
+  - Original
 ---
 # Point location in $O(log n)$
 

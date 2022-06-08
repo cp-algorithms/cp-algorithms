@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: rabin_karp
+---
+
 # Rabin-Karp Algorithm for string matching
 
 This algorithm is based on the concept of hashing, so if you are not familiar with string hashing, refer to the [string hashing](string-hashing.md) article.

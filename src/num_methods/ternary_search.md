@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: ternary_search
+---	
+
 # Ternary Search
 
 We are given a function $f(x)$ which is unimodal on an interval $[l, r]$. By unimodal function, we mean one of two behaviors of the function: 

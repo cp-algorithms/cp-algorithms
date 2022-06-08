@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: rmq
+---
+
 # Range Minimum Query
 
 You are given an array $A[1..N]$.

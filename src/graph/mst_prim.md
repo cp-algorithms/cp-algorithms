@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: mst_prim
+---
+
 # Minimum spanning tree - Prim's algorithm
 
 Given a weighted, undirected graph $G$ with $n$ vertices and $m$ edges.

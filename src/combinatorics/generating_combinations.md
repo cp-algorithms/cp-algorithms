@@ -1,5 +1,8 @@
 ---
 title: Generating all K-combinations
+tags:
+  - Translated
+e_maxx_link: generating_combinations
 ---
 # Generating all $K$-combinations
 

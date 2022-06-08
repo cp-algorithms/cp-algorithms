@@ -1,6 +1,10 @@
 ---
-title: Factorial modulo p 
+title: Factorial modulo p
+tags:
+  - Translated
+e_maxx_link: modular_factorial
 ---
+
 # Factorial modulo $p$
 
 In some cases it is necessary to consider complex formulas modulo some prime $p$, containing factorials in both numerator and denominator, like such that you encounter in the formula for Binomial coefficients.

@@ -1,3 +1,11 @@
+---
+tags:
+  - Translated
+e_maxx_link:
+  - rib_connectivity
+  - vertex_connectivity
+---
+
 # Edge connectivity / Vertex connectivity
 
 ## Definition

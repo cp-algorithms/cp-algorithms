@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: fibonacci_numbers
+---
+
 # Fibonacci Numbers
 
 The Fibonacci sequence is defined as follows:

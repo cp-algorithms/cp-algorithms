@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: dfs
+---
+
 # Depth First Search
 
 Depth First Search is one of the main graph algorithms.

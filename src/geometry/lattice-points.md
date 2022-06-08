@@ -1,3 +1,8 @@
+---
+tags:
+  - Original
+---
+
 # Lattice points inside non-lattice polygon
 
 For lattice polygons there is Pick's formula to enumerate the lattice points inside the polygon.

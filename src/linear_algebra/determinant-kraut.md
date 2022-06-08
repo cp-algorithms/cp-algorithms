@@ -1,5 +1,7 @@
 ---
 title: Calculating the determinant using Kraut method
+tags:
+  - Original
 ---
 # Calculating the determinant using Kraut method in $O(N^3)$
 

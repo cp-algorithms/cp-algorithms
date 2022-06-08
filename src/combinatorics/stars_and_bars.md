@@ -1,3 +1,8 @@
+---
+tags:
+  - Original
+---
+
 # Stars and bars
 
 Stars and bars is a mathematical technique for solving certain combinatorial problems.

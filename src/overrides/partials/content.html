@@ -59,7 +59,24 @@ Describe the issue of this article in detail.
 <!-- Date of last commit -->
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   {{ lang.t("source.file.date.updated") }}:
-  {{ page.meta.git_revision_date_localized }}
+  {{ page.meta.git_revision_date_localized }}&emsp;
+<!-- Tags -->
+{% if page and page.meta and page.meta.e_maxx_link %}
+  {% set links = page.meta.e_maxx_link %}
+  {% set links = [links] if links is string else links %}
+  {% for link in links %}
+    {% do tags.append({'name':'From: e-maxx.ru', 'url': 'https://e-maxx.ru/algo/' + link}) %}
+  {% endfor %}
+{% endif %}
+{% for tag in tags %}
+  {% if tag.url %}
+    <a href="{{ tag.url | url }}" class="md-tag">
+      {{ tag.name }}
+    </a>
+  {% else %}
+    <span class="md-tag">{{ tag.name }}</span>
+  {% endif %}
+{% endfor %}
 </ul>
 
 {% if not "\x3ch1" in page.content %}

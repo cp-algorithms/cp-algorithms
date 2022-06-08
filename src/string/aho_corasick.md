@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: aho_corasick
+---
+
 # Aho-Corasick algorithm
 
 Let there be a set of strings with the total length $m$ (sum of all lengths).

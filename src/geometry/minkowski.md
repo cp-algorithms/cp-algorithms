@@ -1,3 +1,8 @@
+---
+tags:
+  - Original
+---
+
 # Minkowski sum of convex polygons
 
 ## Definition

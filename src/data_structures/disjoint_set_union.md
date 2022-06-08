@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: dsu
+---
+
 # Disjoint Set Union
 
 This article discusses the data structure **Disjoint Set Union** or **DSU**.

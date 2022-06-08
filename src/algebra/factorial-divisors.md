@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: factorial_divisors
+---
+
 # Finding Power of Factorial Divisor
 
 You are given two numbers $n$ and $k$. Find the largest power of $k$ $x$ such that $n!$ is divisible by $k^x$.

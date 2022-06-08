@@ -1,5 +1,8 @@
 ---
 title: K-th order statistic in O(N)
+tags:
+  - Translated
+e_maxx_link: kth_order_statistics
 ---
 # $K$th order statistic in $O(N)$
 

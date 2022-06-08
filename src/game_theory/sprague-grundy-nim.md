@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: sprague_grundy
+---
+
 # Sprague-Grundy theorem. Nim
 
 ## Introduction

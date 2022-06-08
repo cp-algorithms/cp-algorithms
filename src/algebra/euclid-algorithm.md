@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: euclid_algorithm
+---
+
 # Euclidean algorithm for computing the greatest common divisor
 
 Given two non-negative integers $a$ and $b$, we have to find their **GCD** (greatest common divisor), i.e. the largest number which is a divisor of both $a$ and $b$.

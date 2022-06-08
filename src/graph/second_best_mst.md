@@ -1,3 +1,8 @@
+---
+tags:
+  - Original
+---
+
 # Second Best Minimum Spanning Tree
 
 A Minimum Spanning Tree $T$ is a tree for the given graph $G$ which spans over all vertices of the given graph and has the minimum weight sum of all the edges, from all the possible spanning trees.

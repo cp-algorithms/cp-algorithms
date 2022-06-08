@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: segment_tree
+---
+
 # Segment Tree
 
 A Segment Tree is a data structure that allows answering range queries over an array effectively, while still being flexible enough to allow modifying the array. 

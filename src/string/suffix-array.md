@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: suffix_array
+---
+
 # Suffix Array
 
 ## Definition

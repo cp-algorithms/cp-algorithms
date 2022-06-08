@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: joseph_problem
+---
+
 # Josephus Problem
 
 ## Statement

@@ -1,5 +1,8 @@
 ---
 title: Lowest Common Ancestor - O(sqrt(N)) and O(log N) with O(N) preprocessing
+tags:
+  - Translated
+e_maxx_link: lca
 ---
 # Lowest Common Ancestor - $O(\sqrt{N})$ and $O(\log N)$ with $O(N)$ preprocessing
 

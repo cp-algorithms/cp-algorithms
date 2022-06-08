@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: strong_connected_components
+---
+
 # Finding strongly connected components / Building condensation graph
 
 ## Definitions

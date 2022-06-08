@@ -1,3 +1,8 @@
+---
+tags:
+  - Original
+---
+
 # Integer factorization
 
 In this article we list several algorithms for factorizing integers, each of them can be both fast and also slow (some slower than others) depending on their input.

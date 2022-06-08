@@ -1,3 +1,8 @@
+---
+tags:
+  - Original
+---
+
 # Sparse Table
 
 Sparse Table is a data structure, that allows answering range queries.

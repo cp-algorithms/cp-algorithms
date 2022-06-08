@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: balanced_ternary
+---
+
 # Balanced Ternary
 
 !["Setun computer using Balanced Ternary system"](http://ternary.3neko.ru/photo/setun1_small.jpg)

@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: circles_intersection
+---
+
 # Circle-Circle Intersection
 
 You are given two circles on a 2D plane, each one described as coordinates of its center and its radius. Find the points of their intersection (possible cases: one or two points, no intersection or circles coincide).

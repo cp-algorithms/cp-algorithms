@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: maximum_zero_submatrix
+---
+
 # Finding the largest zero submatrix
 
 You are given a matrix with `n` rows and `m` columns. Find the largest submatrix consisting of only zeros (a submatrix is a rectangular area of the matrix).

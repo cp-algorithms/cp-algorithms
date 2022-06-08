@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: string_hashes
+---
+
 # String Hashing
 
 Hashing algorithms are helpful in solving a lot of problems.

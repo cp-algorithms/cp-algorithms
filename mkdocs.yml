@@ -46,21 +46,25 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji 
       emoji_generator: !!python/name:materialx.emoji.to_svg
+  - meta
 
 plugins:
   - mkdocs-simple-hooks:
       hooks:
           on_env: "hooks:on_env"
   - search
+  - tags:
+      tags_file: tags.md
   - literate-nav:
       nav_file: navigation.md
   - git-revision-date-localized:
       enable_creation_date: true
+      enabled: !ENV [MKDOCS_ENABLE_GIT_REVISION_DATE, False]
   - git-authors
   - git-committers:
       repository: e-maxx-eng/e-maxx-eng
       docs_path: src/
-      token: !!python/object/apply:os.getenv ["MKDOCS_GIT_COMMITTERS_APIKEY"]
+      token: !ENV MKDOCS_GIT_COMMITTERS_APIKEY
   - macros
 
 extra:

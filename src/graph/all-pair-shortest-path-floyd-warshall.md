@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: floyd_warshall_algorithm
+---
+
 # Floyd-Warshall Algorithm
 
 Given a directed or an undirected weighted graph $G$ with $n$ vertices.
