@@ -64,7 +64,9 @@ You can render the pages very easily also locally.
 All you need is Python, with the installed `mkdocs-material` package.
 
 ```console
-$ pip install mkdocs-material
+$ git clone --recursive https://github.com/e-maxx-eng/e-maxx-eng.git
+$ cd e-maxx-eng
+$ 
 $ mkdocs serve
 ```
 
