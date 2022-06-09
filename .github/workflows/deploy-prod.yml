@@ -25,9 +25,9 @@ jobs:
           mkdocs-macros-plugin \
           mkdocs-literate-nav \
           mkdocs-git-authors-plugin \
-          mkdocs-git-committers-plugin-2 \
           mkdocs-git-revision-date-localized-plugin \
-          mkdocs-simple-hooks
+          mkdocs-simple-hooks \
+          plugins/mkdocs-git-committers-plugin-2
       - name: Cache Github Users
         uses: actions/cache@v3
         with:

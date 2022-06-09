@@ -28,28 +28,25 @@ Describe the issue of this article in detail.
 
 <!-- Construct the dict of author's contribution percentage -->
 {% set contribs = {} %}
-
-{% for author in git_info.page_authors %}
-  {% if contribs[author.name] %}
-    {% do contribs[author.name].__setitem__(
-      'contribution',
-      contribs[author.name].contribution + author.contribution[:-1]|float
-    ) %}
-  {% else %}
-    {% do contribs.__setitem__(author.name, {
-      'contribution':author.contribution[:-1]|float,
-      'name':author.name,
-      'url':'#'
-    }) %}
-  {% endif %}
-{% endfor %}
+{% set id_for_email = {} %}
 
 {% for author in committers %}
-{% do contribs.setdefault(author.name, {}) %}
-{% do contribs[author.name].update({
-  'name':author.login,
-  'url':author.url
-}) %}
+  {% do contribs.setdefault(author.login, {}) %}
+  {% do contribs[author.login].update({
+    'name':author.login,
+    'url':author.url
+  }) %}
+  {% for email in author.emails %}
+    {% do id_for_email.__setitem__(email, author.login) %}
+  {% endfor %}
+{% endfor %}
+
+{% for author in git_info.page_authors %}
+  {% set id = id_for_email[author.email] %}
+  {% do contribs[id].__setitem__(
+    'contribution',
+    contribs[id].get(contribution, 0) + author.contribution[:-1]|float
+  ) %}
 {% endfor %}
 
 {% set contribs = contribs.values() |
