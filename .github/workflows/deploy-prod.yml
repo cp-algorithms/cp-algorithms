@@ -33,7 +33,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: authors.json
-          key: deploy-${{ github.event_name }}-github-users
+          key: deploy-${{ github.event_name }}-github-users-v0.1
       - name: Build pages
         env:
           MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.PAT_API_KEY }}
