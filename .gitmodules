@@ -1,0 +1,3 @@
+[submodule "plugins/mkdocs-git-committers-plugin-2"]
+	path = plugins/mkdocs-git-committers-plugin-2
+	url = https://github.com/adamant-pwn/mkdocs-git-committers-plugin-2.git
