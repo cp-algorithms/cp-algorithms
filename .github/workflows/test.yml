@@ -31,6 +31,7 @@ jobs:
         env:
           MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.PAT_API_KEY }}
           MKDOCS_ENABLE_GIT_REVISION_DATE: True
+          MKDOCS_ENABLE_GIT_COMMITTERS: True
         run: |
           mkdocs build --strict
       - name: Run algorithm code tests
