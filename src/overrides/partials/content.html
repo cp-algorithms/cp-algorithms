@@ -42,7 +42,8 @@ Describe the issue of this article in detail.
 {% endfor %}
 
 {% for author in git_info.page_authors %}
-  {% set id = id_for_email[author.email] %}
+  {% set id = id_for_email[author.email] if id_for_email[author.email] else author.name %}
+  {% do contribs.setdefault(id, {'name':id, 'url':'#'}) %}
   {% do contribs[id].__setitem__(
     'contribution',
     contribs[id].get(contribution, 0) + author.contribution[:-1]|float
@@ -55,8 +56,10 @@ Describe the issue of this article in detail.
 
 <!-- Date of last commit -->
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
+{% if page.meta.git_revision_date_localized %}
   {{ lang.t("source.file.date.updated") }}:
   {{ page.meta.git_revision_date_localized }}&emsp;
+{% endif %}
 <!-- Tags -->
 {% if page and page.meta and page.meta.e_maxx_link %}
   {% set links = page.meta.e_maxx_link %}
