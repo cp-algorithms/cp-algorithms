@@ -46,7 +46,7 @@ Describe the issue of this article in detail.
   {% do contribs.setdefault(id, {'name':id, 'url':'#'}) %}
   {% do contribs[id].__setitem__(
     'contribution',
-    contribs[id].get(contribution, 0) + author.contribution[:-1]|float
+    contribs[id].get('contribution', 0) + author.contribution[:-1]|float
   ) %}
 {% endfor %}
 
