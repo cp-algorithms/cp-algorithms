@@ -28,18 +28,39 @@ The sum is of course finite, since only approximately the first $\log_k n$ eleme
 
 ### Implementation
 
-```cpp
+=== "C++"
+    ```cpp
+    int fact_pow (int n, int k) {
+        int res = 0;
+        while (n) {
+            n /= k;
+            res += n;
+        }
+        return res;
+    }
+    ```
+=== "Java"
+    ```java
+    static int fact_pow (int n, int k) {
+        int res = 0;
+        while (n > 0) {
+            n /= k;
+            res += n;
+        }
+        return res;
+    }
+    ```
+=== "Python"
+    ```python
+    def fact_pow (n, k) :
+        res = 0
+        while (n > 0) :
+            n //= k 
+            res += n
+        return res
+    ```
 
-int fact_pow (int n, int k) {
-	int res = 0;
-	while (n) {
-		n /= k;
-		res += n;
-	}
-	return res;
-}
 
-```
 
 ## Composite $k$
 
