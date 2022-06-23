@@ -28,22 +28,40 @@ The sum is of course finite, since only approximately the first $\log_k n$ eleme
 
 ### Implementation
 
-```cpp
-
-int fact_pow (int n, int k) {
-	int res = 0;
-	while (n) {
-		n /= k;
-		res += n;
-	}
-	return res;
-}
-
-```
+=== "C++"
+    ```cpp
+    int fact_pow (int n, int k) {
+        int res = 0;
+        while (n) {
+            n /= k;
+            res += n;
+        }
+        return res;
+    }
+    ```
+=== "Java"
+    ```java
+    static int fact_pow (int n, int k) {
+        int res = 0;
+        while (n > 0) {
+            n /= k;
+            res += n;
+        }
+        return res;
+    }
+    ```
+=== "Python"
+    ```python
+    def fact_pow (n, k) :
+        res = 0
+        while (n > 0) :
+            n //= k 
+            res += n
+        return res
+    ```
 
 ## Composite $k$
 
 The same idea can't be applied directly. Instead we can factor $k$, representing it as $k = k_1^{p_1} \cdot \ldots \cdot k_m^{p_m}$. For each $k_i$, we find the number of times it is present in $n!$ using the algorithm described above - let's call this value $a_i$. The answer for composite $k$ will be
 
 $$\min_ {i=1 \ldots m} \dfrac{a_i}{p_i}$$
-
