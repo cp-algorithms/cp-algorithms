@@ -236,8 +236,8 @@ The complexity is $O(B \log B \log^2 n)$ per iteration.
 
 Another factorization algorithm from John Pollard.
 
-Let the prime factorization from a number be $n = p q$.
-The algorithm look at a pseudo-random sequence $\{x_i\} = \{x_0,~f(x_0),~f(f(x_0)),~\dots\}$ where $f$ is a polynomial function, usually $f(x) = x^2 + c \bmod n$ is chosen with $c = 1$.
+Let the prime factorization of a number be $n = p q$.
+The algorithm looks at a pseudo-random sequence $\{x_i\} = \{x_0,~f(x_0),~f(f(x_0)),~\dots\}$ where $f$ is a polynomial function, usually $f(x) = (x^2 + c) \bmod n$ is chosen with $c = 1$.
 
 Actually we are not very interested in the sequence $\{x_i\}$, we are more interested in the sequence $\{x_i \bmod p\}$.
 Since $f$ is a polynomial function and all the values are in the range $[0;~p)$ this sequence will begin to cycle sooner or later.
@@ -253,7 +253,7 @@ There is still one big open question.
 We don't know $p$ yet, so how can we argue about the sequence $\{x_i \bmod p\}$?
 
 It's actually quite easy.
-There is a cycle in the sequence $\{x_i \bmod p\}_{i \le j}$ if and only if there are two indices $s, t \le j$ and $t$ with $x_s \equiv x_t \bmod p$.
+There is a cycle in the sequence $\{x_i \bmod p\}_{i \le j}$ if and only if there are two indices $s, t \le j$ such that $x_s \equiv x_t \bmod p$.
 This equation can be rewritten as $x_s - x_t \equiv 0 \bmod p$ which is the same as $p ~|~ \gcd(x_s - x_t, n)$.
 
 Therefore, if we find two indices $s$ and $t$ with $g = \gcd(x_s - x_t, n) > 1$, we have found a cycle and also a factor $g$ of $n$.
@@ -264,7 +264,7 @@ To find the cycle, we can use any common cycle detection algorithm.
 
 ### Floyd's cycle-finding algorithm
 
-This algorithm finds a cycle by using two pointer.
+This algorithm finds a cycle by using two pointers.
 These pointers move over the sequence at different speeds.
 In each iteration the first pointer advances to the next element, but the second pointer advances two elements.
 It's not hard to see, that if there exists a cycle, the second pointer will make at least one full cycle and then meet the first pointer during the next few cycle loops.
