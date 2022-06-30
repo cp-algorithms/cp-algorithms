@@ -26,7 +26,7 @@ The string contains the following three repetitions:
 
 - $s[2 \dots 5] = abab$
 - $s[3 \dots 6] = baba$
-- $s[7 \dots 7] = ee$
+- $s[7 \dots 8] = ee$
 
 Another example:
 
