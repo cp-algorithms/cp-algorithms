@@ -24,7 +24,7 @@ $$ s = \lceil \sqrt n \rceil $$
 
 Then the array $a$ is divided into blocks in the following way:
 
-$$ \underbrace{a[0], a[1], \dots, a[s-1]}\_{\text{b[0]}}, \underbrace{a[s], \dots, a[2s-1]}\_{\text{b[1]}}, \dots, \underbrace{a[(s-1) \cdot s], \dots, a[n-1]}\_{\text{b[s-1]}} $$
+$$ \underbrace{a[0], a[1], \dots, a[s-1]}_{\text{b[0]}}, \underbrace{a[s], \dots, a[2s-1]}_{\text{b[1]}}, \dots, \underbrace{a[(s-1) \cdot s], \dots, a[n-1]}_{\text{b[s-1]}} $$
 
 The last block may have fewer elements than the others (if $n$ not a multiple of $s$), it is not important to the discussion (as it can be handled easily).
 Thus, for each block $k$, we know the sum of elements on it $b[k]$:
@@ -37,7 +37,7 @@ Notice that if the interval $[l, r]$ is long enough, it will contain several who
 Thus, in order to calculate the sum of elements on the interval $[l, r]$ we only need to sum the elements of the two "tails":
 $[l\dots (k + 1)\cdot s-1]$ and $[p\cdot s\dots r]$ , and sum the values $b[i]$ in all the blocks from $k + 1$ to $p-1$:
 
-$$ \sum\limits\_{i=l}^r a[i] = \sum\limits\_{i=l}^{(k+1) \cdot s-1} a[i] + \sum\limits\_{i=k+1}^{p-1} b[i] + \sum\limits\_{i=p\cdot s}^r a[i] $$
+$$ \sum\limits_{i=l}^r a[i] = \sum\limits_{i=l}^{(k+1) \cdot s-1} a[i] + \sum\limits_{i=k+1}^{p-1} b[i] + \sum\limits_{i=p\cdot s}^r a[i] $$
 
 _Note: When $k = p$, i.e. $l$ and $r$ belong to the same block, the formula can't be applied, and the sum should be calculated trivially._
 
