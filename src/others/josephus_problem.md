@@ -44,6 +44,7 @@ n\setminus k & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
 And here we can clearly see the following **pattern**:
 
 $$J_{n,k} = \left( (J_{n-1,k} + k - 1) \bmod n \right) + 1$$
+
 $$J_{1,k} = 1$$
 
 Here, 1-indexing makes for a somewhat messy formula; if you instead number the positions from 0, you get a very elegant formula:
