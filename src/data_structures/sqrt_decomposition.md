@@ -34,10 +34,10 @@ $$ b[k] = \operatorname{sum} a[ks .. \min {(n,(k+1)s})) $$
 So, we have calculated the values of $b[k]$ (this required $O(n)$ operations). How can they help us to answer each query $[l, r]$ ?
 Notice that if the interval $[l, r]$ is long enough, it will contain several whole blocks, and for those blocks we can find the sum of elements in them in a single operation. There may contain parts of blocks at the start and end of the interval, and we'll have to calculate the sum of elements in these parts trivially.
 
-Suppose $k_l$ and $k_r$ are the indices of the blocks that contain $l$ and $r$. Thus, in order to calculate the sum of elements on the interval $[l, r]$ we only need to sum the elements of the two "tails":
-$[l\dots (k - 1) s)$ and $[p\cdot s\dots r]$ , and sum the values $b[k]$ in all the blocks from $k + 1$ to $p-1$:
+Suppose $c_l$ and $c_r$ are the indices of the blocks that contain $l$ and $r$. Thus, in order to calculate the sum of elements on the interval $[l, r]$ we only need to sum the elements of the two "tails":
+$[l\dots (c_l+1) s)$ and $[c_r \cdot s \dots r]$ , and sum the values $b[k]$ in all the blocks from $c_l + 1$ to $c_r - 1$:
 
-$$ \sum\limits_{i=l}^r a[i] = \sum( a[i] + \sum\limits_{i=k+1}^{p-1} b[i] + \sum\limits_{i=p\cdot s}^r a[i] )$$
+$$ \sum_{i=l}^r a[i] = \sum( a[i] + \sum\limits_{i=k+1}^{p-1} b[i] + \sum\limits_{i=p\cdot s}^r a[i] )$$
 
 _Note: When $k = p$, i.e. $l$ and $r$ belong to the same block, the formula can't be applied, and the sum should be calculated trivially._
 
