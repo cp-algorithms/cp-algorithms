@@ -11,7 +11,7 @@ The task is to find the longest, strictly increasing, subsequence in $a$.
 
 Formally we look for the longest sequence of indices $i_1, \dots i_k$ such that
 
-$$i_1 < i_2 < \dots < i_k,\\\\
+$$i_1 < i_2 < \dots < i_k,\quad
 a[i_1] < a[i_2] < \dots < a[i_k]$$
 
 In this article we discuss multiple algorithms for solving this task.
@@ -42,7 +42,7 @@ Then there are two options:
   If we fixate the index $j$, than the longest increasing subsequence ending in the two elements $a[j]$ and $a[i]$ has the length $d[j] + 1$.
   All of these values $d[j]$ are already known, so we can directly compute $d[i]$ with:
   
-  $$d[i] = \max_{\substack{j = 0 \dots i-1 \\\\ a[j] < a[i]}} \left(d[j] + 1\right)$$
+$$d[i] = \max_{\substack{j = 0 \dots i-1 \\\\ a[j] < a[i]}} \left(d[j] + 1\right)$$
 
 If we combine these two cases we get the final answer for $d[i]$:
 
