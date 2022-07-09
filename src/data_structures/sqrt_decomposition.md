@@ -16,7 +16,7 @@ Given a $n$-length array $a[0 \dots n)$ (end index exclusive), implement a data 
 
 ### Description
 
-The basic idea of sqrt decomposition is preprocessing. We'll divide the array $a$ into blocks of length approximately $\sqrt n$, and for each block $k$ we'll precalculate the sum of elements in it $b[k]$.
+The basic idea of sqrt decomposition is preprocessing. We'll divide the array $a$ into blocks of length approximately $\sqrt n$, and for each block $k$ we'll precalculate the block sum (the sum of the values in the block) $b[k]$.
 
 For simplicity, we can assume that both the size of the blocks and the number of blocks are equal to $\sqrt n$ rounded up:
 
@@ -27,15 +27,15 @@ Then the array $a$ is divided into blocks in the following way:
 $$ \underbrace{a[0..s)}_{b[0]}, \underbrace{a[s..2s)}_{b[1]}, \dots, \underbrace{a[(s-1)s..n)}_{b[s-1]} $$
 
 The last block may have fewer elements than the other blocks if $n$ not a multiple of $s$, so we end the indexing of the last block at $n$ (exlcusive).
-Thus, for each block $k$, we know the sum of elements on it $b[k]$:
+Thus, we can compute each block sum $b[k]$ as the sum over the appropriate interval:
 
 $$ b[k] = \operatorname{sum} a[ks .. \min {(n,(k+1)s})) $$
 
 So, we have calculated the values of $b[k]$ (this required $O(n)$ operations). How can they help us to answer each query $[l, r]$ ?
-Notice that if the interval $[l, r]$ is long enough, it will contain several whole blocks, and for those blocks we can find the sum of elements in them in a single operation. As a result, the interval $[l, r]$ will contain parts of only two blocks, and we'll have to calculate the sum of elements in these parts trivially.
+Notice that if the interval $[l, r]$ is long enough, it will contain several whole blocks, and for those blocks we can find the sum of elements in them in a single operation. There may contain parts of blocks at the start and end of the interval, and we'll have to calculate the sum of elements in these parts trivially.
 
-Thus, in order to calculate the sum of elements on the interval $[l, r]$ we only need to sum the elements of the two "tails":
-$[l\dots (k + 1)\cdot s-1]$ and $[p\cdot s\dots r]$ , and sum the values $b[i]$ in all the blocks from $k + 1$ to $p-1$:
+Suppose $k_l$ and $k_r$ are the indices of the blocks that contain $l$ and $r$. Thus, in order to calculate the sum of elements on the interval $[l, r]$ we only need to sum the elements of the two "tails":
+$[l\dots (k - 1) s)$ and $[p\cdot s\dots r]$ , and sum the values $b[k]$ in all the blocks from $k + 1$ to $p-1$:
 
 $$ \sum\limits_{i=l}^r a[i] = \sum( a[i] + \sum\limits_{i=k+1}^{p-1} b[i] + \sum\limits_{i=p\cdot s}^r a[i] )$$
 
