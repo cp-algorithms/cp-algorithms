@@ -12,13 +12,13 @@ First we describe the data structure for one of the simplest applications of thi
 
 ## Sqrt-decomposition based data structure
 
-Given an array $a[0 \dots n-1]$, implement a data structure that allows to find the sum of the elements $a[l \dots r]$ for arbitrary $l$ and $r$ in $O(\sqrt n)$ operations.
+Given a $n$-length array $a[0 \dots n-1]$, implement a data structure that allows to find the sum of the elements $a[l \dots r]$ for arbitrary bounds $l$ and $r$ in $O(\sqrt n)$ operations.
 
 ### Description
 
-The basic idea of sqrt decomposition is preprocessing. We'll divide the array $a$ into blocks of length approximately $\sqrt n$, and for each block $i$ we'll precalculate the sum of elements in it $b[i]$.
+The basic idea of sqrt decomposition is preprocessing. We'll divide the array $a$ into blocks of length approximately $\sqrt n$, and for each block $k$ we'll precalculate the sum of elements in it $b[k]$.
 
-We can assume that both the size of the block and the number of blocks are equal to $\sqrt n$ rounded up:
+For simplicity, we can assume that both the size of the blocks and the number of blocks are equal to $\sqrt n$ rounded up:
 
 $$ s = \lceil \sqrt n \rceil $$
 
