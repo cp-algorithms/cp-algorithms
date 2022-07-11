@@ -30,13 +30,10 @@ If we computed each query naively, each query would take $O(n)$ time. The Segmen
 
 We can take a divide-and-conquer approach when it comes to array segments. 
 We compute and store the sum of the elements of the whole array, i.e. the sum of the segment $a[0 \dots n-1]$. 
-We then split the array into two halves $a[0 \dots n/2]$ and $a[n/2+1 \dots n-1]$ and compute the sum of each halve and store them. 
-Each of these two halves in turn also split in half, their sums are computed and stored. 
-And this process repeats until all segments reach size $1$. 
-In other words we start with the segment $a[0 \dots n-1]$, split the current segment in half (if it has not yet become a segment containing a single element), and then calling the same procedure for both halves. 
-For each such segment we store the sum of the numbers on it. 
+We then split the array into two halves $a[0 \dots n/2-1]$ and $a[n/2 \dots n-1]$ and compute the sum of each halve and store them. 
+Each of these two halves in turn are split in half, and so on until all segments reach size $1$. 
 
-We can say, that these segments form a binary tree: 
+We can view these segments as forming a binary tree: 
 the root of this tree is the segment $a[0 \dots n-1]$, and each vertex (except leaf vertices) has exactly two child vertices. 
 This is why the data structure is called "Segment Tree", even though in most implementations the tree is not constructed explicitly (see [Implementation](segment_tree.md#implementation)).
 
