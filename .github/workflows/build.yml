@@ -1,0 +1,41 @@
+name: Build
+on: 
+  push:
+    branches:    
+      - 'master'
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: recursive
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: Install mkdocs-material
+        run: |
+          scripts/install-mkdocs.sh
+      - name: Cache Github Users
+        uses: actions/cache@v3
+        with:
+          path: authors.json
+          key: test-${{ github.event_name }}-github-users-v0.1
+      - name: Build pages
+        env:
+          MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.PAT_API_KEY }}
+          MKDOCS_ENABLE_GIT_REVISION_DATE: ${{ secrets.PAT_API_KEY && 'True' || 'False' }}
+          MKDOCS_ENABLE_GIT_COMMITTERS: ${{ secrets.PAT_API_KEY && 'True' || 'False' }}
+        run: |
+          mkdocs build --strict
+      - name: Upload build pages as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: page-build
+          path: public/
