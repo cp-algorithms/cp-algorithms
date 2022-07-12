@@ -30,14 +30,16 @@ jobs:
       - name: Build pages
         env:
           MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.PAT_API_KEY }}
-          MKDOCS_ENABLE_GIT_REVISION_DATE: True
-          MKDOCS_ENABLE_GIT_COMMITTERS: True
+          MKDOCS_ENABLE_GIT_REVISION_DATE: ${{ secrets.PAT_API_KEY && 'True' || 'False' }}
+          MKDOCS_ENABLE_GIT_COMMITTERS: ${{ secrets.PAT_API_KEY && 'True' || 'False' }}
         run: |
           mkdocs build --strict
       - uses: FirebaseExtended/action-hosting-deploy@v0
+        if: env.FIREBASE_SERVICE_ACCOUNT
         env:
           PREVIEW_NAME: "preview-${{ github.event.pull_request.number }}"
           LIVE_NAME: "live"
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
