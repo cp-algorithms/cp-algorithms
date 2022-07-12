@@ -4,7 +4,7 @@ tags:
 e_maxx_link: all_submasks
 ---
 
-# Submask Enumeration
+# Submask Enumeration!
 
 ## Enumerating all submasks of a given mask
 
