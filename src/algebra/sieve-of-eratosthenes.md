@@ -159,7 +159,7 @@ int count_primes(int n) {
 
     vector<int> primes;
     int nsqrt = sqrt(n);
-    vector<char> is_prime(nsqrt + 2, true);
+    vector<bool> is_prime(nsqrt + 2, true);
     for (int i = 2; i <= nsqrt; i++) {
         if (is_prime[i]) {
             primes.push_back(i);
@@ -169,7 +169,7 @@ int count_primes(int n) {
     }
 
     int result = 0;
-    vector<char> block(S);
+    vector<bool> block(S);
     for (int k = 0; k * S <= n; k++) {
         fill(block.begin(), block.end(), true);
         int start = k * S;
@@ -203,7 +203,7 @@ To solve such a problem, we can use the idea of the Segmented sieve.
 We pre-generate all prime numbers up to $\sqrt R$, and use those primes to mark all composite numbers in the segment $[L, R]$.
 
 ```cpp
-vector<char> segmentedSieve(long long L, long long R) {
+vector<bool> segmentedSieve(long long L, long long R) {
     // generate all primes up to sqrt(R)
     long long lim = sqrt(R);
     vector<char> mark(lim + 1, false);
@@ -216,7 +216,7 @@ vector<char> segmentedSieve(long long L, long long R) {
         }
     }
 
-    vector<char> isPrime(R - L + 1, true);
+    vector<bool> isPrime(R - L + 1, true);
     for (long long i : primes)
         for (long long j = max(i * i, (L + i - 1) / i * i); j <= R; j += i)
             isPrime[j - L] = false;
@@ -230,8 +230,8 @@ Time complexity of this approach is $O((R - L + 1) \log \log (R) + \sqrt R \log 
 It's also possible that we don't pre-generate all prime numbers:
 
 ```cpp
-vector<char> segmentedSieveNoPreGen(long long L, long long R) {
-    vector<char> isPrime(R - L + 1, true);
+vector<bool> segmentedSieveNoPreGen(long long L, long long R) {
+    vector<bool> isPrime(R - L + 1, true);
     long long lim = sqrt(R);
     for (long long i = 2; i <= lim; ++i)
         for (long long j = max(i * i, (L + i - 1) / i * i); j <= R; j += i)
