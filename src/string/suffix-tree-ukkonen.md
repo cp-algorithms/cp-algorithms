@@ -6,7 +6,7 @@ e_maxx_link: ukkonen
 
 # Suffix Tree. Ukkonen's Algorithm
 
-*This article is a stub and doesn't contain any descriptions. For a description of the algorithm, refer to other sources, such as [Algorithms on Strings, Trees, and Sequences](http://web.stanford.edu/~mjkay/gusfield.pdf) by Dan Gusfield.*
+*This article is a stub and doesn't contain any descriptions. For a description of the algorithm, refer to other sources, such as [Algorithms on Strings, Trees, and Sequences](https://www.cs.cmu.edu/afs/cs/project/pscico-guyb/realworld/www/slidesF06/cmuonly/gusfield.pdf) by Dan Gusfield.*
 
 This algorithm builds a suffix tree for a given string $s$ of length $n$ in $O(n\log(k))$) time, where $k$ is the size of the alphabet (if $k$ is considered to be a constant, the asymptotic behavior is linear).
 
