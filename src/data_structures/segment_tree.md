@@ -6,7 +6,7 @@ e_maxx_link: segment_tree
 
 # Segment Tree
 
-A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modificiation of the array. 
+A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modification of the array.
 This includes finding the sum of consecutive array elements $a[l \dots r]$, or finding the minimum element in a such a range in $O(\log n)$ time. 
 Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements $a[l \dots r]$ to any value, or adding a value to all element in the subsegment). 
 
@@ -23,11 +23,12 @@ The standard Segment Tree requires $4n$ vertices for working on an array of size
 To start easy, we consider the simplest form of a Segment Tree. 
 We want to answer sum queries efficiently. 
 The formal definition of our task is:
-We have an array $a[0 \dots n-1]$, and the Segment Tree must be able to find the sum of elements between the indices $l$ and $r$ (i.e. computing the sum $\sum_{i=l}^r a[i]$), and also handle changing values of the elements in the array (i.e. perform assignments of the form $a[i] = x$). 
+Given an array $a[0 \dots n-1]$, the Segment Tree must be able to find the sum of elements between the indices $l$ and $r$ (i.e. computing the sum $\sum_{i=l}^r a[i]$), and also handle changing values of the elements in the array (i.e. perform assignments of the form $a[i] = x$).
 The Segment Tree should be able to process **both** queries in $O(\log n)$ time.
 
-A naive array implementation can update elements in $O(1)$, but requires $O(n)$ to recompute each sum query.
-Precomputed prefix sums can compute sum queries in $O(1)$, but updating an array element requires $O(n)$ changes to the prefix sums. 
+This is an improvement over the simpler approaches.
+A naive array implementation - just using a simple array - can update elements in $O(1)$, but requires $O(n)$ to compute each sum query.
+And precomputed prefix sums can compute sum queries in $O(1)$, but updating an array element requires $O(n)$ changes to the prefix sums.
 
 ### Structure of the Segment Tree
 
