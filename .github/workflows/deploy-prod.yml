@@ -1,45 +1,74 @@
-name: Deploy to Live Channel
+name: Deploy
 
 on:
-  push:
-    branches:
-      - master
-  pull_request:
+  workflow_run:
+    # `workflow_run` events have access to secrets
+    workflows: [Build]
+    types:
+      - completed
 
 jobs:
   deploy_live_website:
     runs-on: ubuntu-latest
+    if: >
+      ${{ github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+      - name: 'Download artifact'
+        uses: actions/github-script@v6
         with:
-          fetch-depth: 0
-          submodules: recursive
-      - name: Set up Python
-        uses: actions/setup-python@v2
+          script: |
+            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: context.payload.workflow_run.id,
+            });
+            let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "page-build"
+            })[0];
+            let download = await github.rest.actions.downloadArtifact({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               artifact_id: matchArtifact.id,
+               archive_format: 'zip',
+            });
+            let fs = require('fs');
+            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/page-build.zip`, Buffer.from(download.data));
+      - run: unzip page-build.zip -d public
+      - name: "Get PR information"
+        uses: potiuk/get-workflow-origin@751d47254ef9e8b5eef955e24e79305233702781
+        id: source-run-info
         with:
-          python-version: '3.8'
-      - name: Install mkdocs-material
-        run: |
-          scripts/install-mkdocs.sh
-      - name: Cache Github Users
-        uses: actions/cache@v3
-        with:
-          path: authors.json
-          key: deploy-${{ github.event_name }}-github-users-v0.1
-      - name: Build pages
-        env:
-          MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.PAT_API_KEY }}
-          MKDOCS_ENABLE_GIT_REVISION_DATE: True
-          MKDOCS_ENABLE_GIT_COMMITTERS: True
-        run: |
-          mkdocs build --strict
+          token: ${{ secrets.GITHUB_TOKEN }}
+          sourceRunId: ${{ github.event.workflow_run.id }}
       - uses: FirebaseExtended/action-hosting-deploy@v0
+        id: firebase-deploy
+        if: env.FIREBASE_SERVICE_ACCOUNT
         env:
-          PREVIEW_NAME: "preview-${{ github.event.pull_request.number }}"
+          PREVIEW_NAME: "preview-${{ steps.source-run-info.outputs.pullRequestNumber }}"
           LIVE_NAME: "live"
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           projectId: cp-algorithms
-          channelId: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' && env.LIVE_NAME || env.PREVIEW_NAME }}
+          channelId: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master' && env.LIVE_NAME || env.PREVIEW_NAME }}
+      - name: comment URL to PR
+        if: ${{ steps.source-run-info.outputs.sourceEvent == 'pull_request' }}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const body = `Visit the preview URL for this PR (for commit ${{ steps.source-run-info.outputs.sourceHeadSha }}):
+
+            ${{ steps.firebase-deploy.outputs.details_url }}
+
+            (expires ${{ steps.firebase-deploy.outputs.expire_time }})`;
+
+            github.rest.issues.createComment({
+              issue_number: ${{ steps.source-run-info.outputs.pullRequestNumber }},
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            })
