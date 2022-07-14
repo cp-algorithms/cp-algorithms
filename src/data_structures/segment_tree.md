@@ -6,7 +6,7 @@ e_maxx_link: segment_tree
 
 # Segment Tree
 
-A Segment Tree is a data structure that allows answering range queries over an array effectively, while still being flexible enough to allow modifying the array. 
+A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modification of the array.
 This includes finding the sum of consecutive array elements $a[l \dots r]$, or finding the minimum element in a such a range in $O(\log n)$ time. 
 Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements $a[l \dots r]$ to any value, or adding a value to all element in the subsegment). 
 
@@ -23,21 +23,21 @@ The standard Segment Tree requires $4n$ vertices for working on an array of size
 To start easy, we consider the simplest form of a Segment Tree. 
 We want to answer sum queries efficiently. 
 The formal definition of our task is:
-We have an array $a[0 \dots n-1]$, and the Segment Tree must be able to find the sum of elements between the indices $l$ and $r$ (i.e. computing the sum $\sum_{i=l}^r a[i]$), and also handle changing values of the elements in the array (i.e. perform assignments of the form $a[i] = x$). 
-The Segment Tree should be able to process both queries in $O(\log n)$ time.
+Given an array $a[0 \dots n-1]$, the Segment Tree must be able to find the sum of elements between the indices $l$ and $r$ (i.e. computing the sum $\sum_{i=l}^r a[i]$), and also handle changing values of the elements in the array (i.e. perform assignments of the form $a[i] = x$).
+The Segment Tree should be able to process **both** queries in $O(\log n)$ time.
+
+This is an improvement over the simpler approaches.
+A naive array implementation - just using a simple array - can update elements in $O(1)$, but requires $O(n)$ to compute each sum query.
+And precomputed prefix sums can compute sum queries in $O(1)$, but updating an array element requires $O(n)$ changes to the prefix sums.
 
 ### Structure of the Segment Tree
 
-So, what is a Segment Tree?
-
+We can take a divide-and-conquer approach when it comes to array segments. 
 We compute and store the sum of the elements of the whole array, i.e. the sum of the segment $a[0 \dots n-1]$. 
-We then split the array into two halves $a[0 \dots n/2]$ and $a[n/2+1 \dots n-1]$ and compute the sum of each halve and store them. 
-Each of these two halves in turn also split in half, their sums are computed and stored. 
-And this process repeats until all segments reach size $1$. 
-In other words we start with the segment $a[0 \dots n-1]$, split the current segment in half (if it has not yet become a segment containing a single element), and then calling the same procedure for both halves. 
-For each such segment we store the sum of the numbers on it. 
+We then split the array into two halves $a[0 \dots n/2-1]$ and $a[n/2 \dots n-1]$ and compute the sum of each halve and store them. 
+Each of these two halves in turn are split in half, and so on until all segments reach size $1$. 
 
-We can say, that these segments form a binary tree: 
+We can view these segments as forming a binary tree: 
 the root of this tree is the segment $a[0 \dots n-1]$, and each vertex (except leaf vertices) has exactly two child vertices. 
 This is why the data structure is called "Segment Tree", even though in most implementations the tree is not constructed explicitly (see [Implementation](segment_tree.md#implementation)).
 
