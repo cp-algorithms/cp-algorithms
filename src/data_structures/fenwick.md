@@ -6,7 +6,7 @@ e_maxx_link: fenwick_tree
 
 # Fenwick Tree
 
-Let, $f$ be some _reversible_ function and $A$ be an array of integers of length $N$.
+Let, $f$ be some group operation (binary associative function over a set with identity element and inverse elements) and $A$ be an array of integers of length $N$.
 
 Fenwick tree is a data structure which:
 
@@ -15,13 +15,7 @@ Fenwick tree is a data structure which:
 * requires $O(N)$ memory, or in other words, exactly the same memory required for $A$;
 * is easy to use and code, especially, in the case of multidimensional arrays.
 
-An operation $\circ$ is _reversible_, if we can undo the operation.
-Not only can we compute the result $c$ with $a \circ b = c$ given $a$ and $b$, we can also undo the operation, and compute the second operand if we know the result $c$ and one of the operands.
-Addition is the typical operation that is used in a Fenwick tree. If you know the sum of a set of numbers, and you know the sum of a subset, you can compute the sum of the set difference by just subtracting both sums.
-Other _reversible_ operations include multiplication and XOR.
-Notice, computing the maximum/minimum is not a _reversible_ operation. If you only know the maximum of a set of numbers, and remove a subset with the same maximum, you can't compute the new maximum of the set difference (at least not without going over all numbers in the set).
-
-The most common application of Fenwick tree is _calculating the sum of a range_ (i.e. $f(A_1, A_2, \dots, A_k) = A_1 + A_2 + \dots + A_k$).
+The most common application of Fenwick tree is _calculating the sum of a range_ (i.e. using addition over the set of integers $\mathbb{Z}$: $f(A_1, A_2, \dots, A_k) = A_1 + A_2 + \dots + A_k$).
 
 Fenwick tree is also called **Binary Indexed Tree**, or just **BIT** abbreviated.
 
@@ -180,8 +174,8 @@ struct FenwickTree {
 ### Finding minimum of $[0, r]$ in one-dimensional array { data-toc-label='Finding minimum of <script type="math/tex">[0, r]</script> in one-dimensional array' }
 
 It is obvious that there is no easy way of finding minimum of range $[l, r]$ using Fenwick tree, as Fenwick tree can only answer queries of type $[0, r]$.
-Additionally, each time a value is `update`'d, the new value has to be smaller than the current value (because the $min$ operation is not reversible).
-These, of course, are significant limitations.
+Additionally, each time a value is `update`'d, the new value has to be smaller than the current value.
+Both significant limitations are because the $min$ operation together with the set of integers doesn't form a group, as there are no inverse elements.
 
 ```{.cpp file=fenwick_min}
 struct FenwickTreeMin {
