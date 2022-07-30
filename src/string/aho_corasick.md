@@ -7,7 +7,7 @@ e_maxx_link: aho_corasick
 # Aho-Corasick algorithm
 
 Let there be a set of strings with the total length $m$ (sum of all lengths).
-The Aho-Corasick algorithm constructs a data structure similar to a trie with some additional links, and then constructs a finite state machine (automaton) in $O(m k)$ time, where $k$ is the size of the used alphabet.
+The Aho-Corasick algorithm constructs a data structure similar to a trie with some additional links, and then constructs a finite state machine (automation) in $O(m k)$ time, where $k$ is the size of the used alphabet.
 
 The algorithm was proposed by Alfred Aho and Margaret Corasick in 1975.
 
