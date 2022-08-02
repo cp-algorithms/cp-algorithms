@@ -107,6 +107,13 @@ lg[1] = 0;
 for (int i = 2; i <= MAXN; i++)
     lg[i] = lg[i/2] + 1;
 ```
+With C++20 this can be optimized to:
+```{.cpp file=sparse_table_log_table}
+#include <bit>
+int lg(uint64_t i) {
+    return std::bit_width(i) - 1;
+}
+```
 
 Afterwards we need to precompute the Sparse Table structure. This time we define $f$ with $f(x, y) = \min(x, y)$.
 
