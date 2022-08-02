@@ -110,7 +110,7 @@ for (int i = 2; i <= MAXN; i++)
 With C++20 this can be optimized to:
 ```{.cpp file=sparse_table_log_table}
 #include <bit>
-int lg(uint64_t i) {
+int log2_floor(unsigned long i) {
     return std::bit_width(i) - 1;
 }
 ```
