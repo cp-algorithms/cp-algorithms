@@ -108,7 +108,7 @@ for (int i = 2; i <= MAXN; i++)
     lg[i] = lg[i/2] + 1;
 ```
 With C++20 this can be optimized to:
-```{.cpp file=sparse_table_log_table}
+```c++
 #include <bit>
 int log2_floor(unsigned long i) {
     return std::bit_width(i) - 1;
