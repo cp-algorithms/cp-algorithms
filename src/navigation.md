@@ -175,7 +175,7 @@
         - [Maximum flow - MPM algorithm](graph/mpm.md)
         - [Flows with demands](graph/flow_with_demands.md)
         - [Minimum-cost flow](graph/min_cost_flow.md)
-        - [Assignment problem. Solution using min-cost-flow in O (N^5)](graph/Assignment-problem-min-flow.md)
+        - [Assignment problem](graph/Assignment-problem-min-flow.md)
     - Matchings and related problems
         - [Bipartite Graph Check](graph/bipartite-check.md)
         - [Kuhn's Algorithm - Maximum Bipartite Matching](graph/kuhn_maximum_bipartite_matching.md)
