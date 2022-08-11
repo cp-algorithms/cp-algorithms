@@ -88,7 +88,7 @@ If $s \neq 0$, we have to prove that there is a move leading to a state with $t 
     Let $d$ be the number of its leading (biggest value) non-zero bit.
     Our move will be on a pile whose size's bit number $d$ is set (it must exist, otherwise the bit wouldn't be set in $s$).
     We will reduce its size $x$ to $y = x \oplus s$.
-    All bits at positions greater than $d$ in $x$ and $y$ match and bit $d$ is set in $x$ but not set in $y$.
+    All bits at positions less than $d$ in $x$ and $y$ match and bit $d$ is set in $x$ but not set in $y$.
     Therefore, $y < x$, which is all we need for a move to be legal.
     Now we have:
     
