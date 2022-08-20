@@ -103,6 +103,21 @@ Here is the final procedure:
 If they are equal then we assign $\pi[i] = j + 1$, otherwise we reduce $j$ to $\pi[j-1]$ and repeat this step.
 - If we have reached the length $j = 0$ and still don't have a match, then we assign $\pi[i] = 0$ and go to the next index $i + 1$.
 
+## Summing Up (with example)
+
+Lets take a string $s$ = "abxabansabxabxb". Lets initialize 2 variables *i* and *j*. *i* will iterate over the string and *j* will start matching the prefix when ever $s$[i] = $s$[j] for the first time. Both *i* and *j* will start from $0$ initially.
+
+Starting the algorithm:
+*j* = 0 and *i* = 0. At *i* = 3, for the first time $s$[i] = $s$[j] will happen. If this happens then $\pi$[i] = *j*+1 and both *i* and *j* will increment. Lets see how is $\pi$ table till now(*till i=4*). Table will have these values, [0, 0, 0, 1, 2, $\dots$]. Finally at *i* = 5 and *j* = 2 $s$[i] $\neq$ $s$[j]. Now what we should do is to make *j* = 0 and again start after the index where first match was encountered, $i.e.$ *i* = 4 *(as first encountered was made at i=3 and j=0).* Now we will compare *i* = 4 and *j* = 0 which wont be the same as $s[i] \neq s[j]$. Then next we will compare *i* = 5 and *j* = 0 and they will be equal. **The point is,** the comparison done for *i* = 4 and *j* = 0 was useless.
+
+### How is the above comaprison useless?
+**We will understant this better when mismatch happens at *i*=13.**
+
+At *i* = 5 when the characters are not matching, we need to start the algoritm again. This means we need to take *j* = 0 and *i* = 4, and keep going untill $s[i] = s[0]$. Now try to understant this, at point of mismatch *j* was 2. That mean the length of prefix which is also a suffix is 2. This string is "ab". If we start after the point of first match, *i*=4 we will be comparing prefix which is "ab" with suffix shifted by one character which is not going to match. Suffix shifted by one character means $\dots$ bans $\dots$ *(starting point is i=4)*. This is not going to match. Now the match will begin from $s[5] = s[0]$ which is inefficient.
+
+Lets move forward when *i=12*. At *i=12* $\pi$ table will look like this, [0,0,0,1,2,1,0,0,1,2,3,4,5 $\dots$].
+
+If $j \neq 0$ at point of mismatch *(at i+1)* we are sure that there is some length of prefix which is also a suffix. Here *j* = 5, which means that length of prefix which is also a suffix is 5. The string is "abxab". Rather than going back to *j=0* and starting from latest of point match for *i*, can we just start from *j=2* as $s[2] = s[13]$. How to find this *j*?. As *j* > 0 which implies that there is prefix and suffix of length > 0. Lets take current *i* = 13. Till *i-1* we have $\pi[i] = 5$. We cannot start after latest point of match which here is *i = 8* because the comparisions will be useless. But we need to find a starting point which is equal to character at *j* = 0. This sounds similar. Without knowing the algo we know that we need to start from 'a' at *i* = 11. Which alternativly means that *j* will go to 2. So now we have *i=11 and j=2*. This can be done by find the prefix which is suffix in string "abxab" which is current longest prefix suffix. To achieve this we need to make $j = \pi[i-1]$ and if this is not working keep updating $j = \pi[j-1]$. Because of this reason we need to keep doing this till either *j=0* or $s[j] = s[i+1]$. Below is implementation of the same.
 ### Implementation
 
 The implementation ends up being surprisingly short and expressive.
