@@ -197,3 +197,5 @@ For simplicity, splitting the array into $d_1$ and $d_2$ as well as their explic
 - [UVA 11475 - Extend to Palindrome](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=26&page=show_problem&problem=2470)
 - [GYM - (Q) QueryreuQ](https://codeforces.com/gym/101806/problem/Q)
 - [CF - Prefix-Suffix Palindrome](https://codeforces.com/contest/1326/problem/D2)
+- [SPOJ - Number of Palindromes](https://www.spoj.com/problems/NUMOFPAL/)
+- [Kattis - Palindromes](https://open.kattis.com/problems/palindromes)
