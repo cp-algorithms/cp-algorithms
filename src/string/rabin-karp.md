@@ -52,4 +52,5 @@ vector<int> rabin_karp(string const& s, string const& t) {
 * [SPOJ - Pattern Find](http://www.spoj.com/problems/NAJPF/)
 * [Codeforces - Good Substrings](http://codeforces.com/problemset/problem/271/D)
 * [Codeforces - Palindromic characteristics](https://codeforces.com/problemset/problem/835/D)
+* [Leetcode - Longest Duplicate Substring](https://leetcode.com/problems/longest-duplicate-substring/)
 
