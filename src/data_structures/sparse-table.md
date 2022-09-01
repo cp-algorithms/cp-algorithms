@@ -21,7 +21,7 @@ E.g. $13 = (1101)_2 = 8 + 4 + 1$.
 For a number $x$ there can be at most $\lceil \log_2 x \rceil$ summands.
 
 By the same reasoning any interval can be uniquely represented as a union of intervals with lengths that are decreasing powers of two.
-E.g. $[2, 14] = [2, 9] \cup [10, 13] \cup [14, 14]$, where the complete interval has length 13, and the individual intervals have the lengths 8, 4 and 1 respectably.
+E.g. $[2, 14] = [2, 9] \cup [10, 13] \cup [14, 14]$, where the complete interval has length 13, and the individual intervals have the lengths 8, 4 and 1 respectively.
 And also here the union consists of at most $\lceil \log_2(\text{length of interval}) \rceil$ many intervals.
 
 The main idea behind Sparse Tables is to precompute all answers for range queries with power of two length.
