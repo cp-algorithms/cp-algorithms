@@ -39,7 +39,7 @@ Then there are two options:
   Let's focus on that number:
   it can be any element $a[j]$ with $j = 0 \dots i-1$ and $a[j] < a[i]$.
   In this fashion we can compute $d[i]$ using the following formula:
-  If we fixate the index $j$, than the longest increasing subsequence ending in the two elements $a[j]$ and $a[i]$ has the length $d[j] + 1$.
+  If we fixate the index $j$, then the longest increasing subsequence ending in the two elements $a[j]$ and $a[i]$ has the length $d[j] + 1$.
   All of these values $d[j]$ are already known, so we can directly compute $d[i]$ with:
   
 $$d[i] = \max_{\substack{j = 0 \dots i-1 \\\\ a[j] < a[i]}} \left(d[j] + 1\right)$$
