@@ -58,7 +58,7 @@ The following image shows the maximal flow in the flow network.
 ## Ford-Fulkerson method
 
 Let's define one more thing.
-A **residual capacity** of an directed edge is the capacity minus the flow.
+A **residual capacity** of a directed edge is the capacity minus the flow.
 It should be noted that if there is a flow along some directed edge $(u, v)$, then the reversed edge has capacity 0 and we can define the flow of it as $f((v, u)) = -f((u, v))$.
 This also defines the residual capacity for all the reversed edges.
 We can create a **residual network** from all these edges, which is just a network with the same vertices and edges, but we use the residual capacities as capacities.
