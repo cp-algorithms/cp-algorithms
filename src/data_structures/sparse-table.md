@@ -73,7 +73,7 @@ for (int j = 1; j <= K; j++)
 ```
 
 To answer the sum query for the range $[L, R]$, we iterate over all powers of two, starting from the biggest one.
-As soon as a power of two $2^j$ is smaller or equal to the length of the range ($= R - L + 1$), we process the first the first part of range $[L, L + 2^j - 1]$, and continue with the remaining range $[L + 2^j, R]$.
+As soon as a power of two $2^j$ is smaller or equal to the length of the range ($= R - L + 1$), we process the first part of range $[L, L + 2^j - 1]$, and continue with the remaining range $[L + 2^j, R]$.
 
 ```{.cpp file=sparsetable_sum_query}
 long long sum = 0;
