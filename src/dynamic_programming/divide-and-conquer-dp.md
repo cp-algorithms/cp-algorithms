@@ -8,9 +8,10 @@ tags:
 Divide and Conquer is a dynamic programming optimization.
 
 ### Preconditions
-Some dynamic programming problems have a recurrence of this form: $$dp(i, j) =
-\min_{0 \leq k \leq j} \\{ dp(i - 1, k - 1) + C(k, j) \\}$$, where $C(k, j)$ is a cost
-function and $dp(i, j) = 0$ when $j \lt 0$. 
+Some dynamic programming problems have a recurrence of this form: 
+$$dp(i, j) =
+\min_{0 \leq k \leq j} \\{ dp(i - 1, k - 1) + C(k, j) \\}$$
+where $C(k, j)$ is a cost function and $dp(i, j) = 0$ when $j \lt 0$. 
 
 Say $0 \leq i \lt m$ and $0 \leq j \lt n$, and evaluating $C$ takes $O(1)$
 time. Then the straightforward evaluation of the above recurrence is $O(m n^2)$. There
