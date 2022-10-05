@@ -14,8 +14,7 @@ C++ streams are a bad fit for competetive programming, due to their extensive er
 ```cpp
 #include <iostream>
 
-int main()
-{
+int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     // ...
@@ -38,20 +37,17 @@ When compiling with GCC you can replace `getchar` with `getchar_unlocked` for a 
 #include <cstdio>
 
 template<typename T>
-void read(T& v)
-{
+void read(T& v) {
     char c;
     do
         c = getchar();
     while (c < '0' || c > '9');
 
     v = T{0};
-    do
-    {
+    do {
         v = v * T{10} + T{c - '0'};
         c = getchar();
-    }
-    while (c >= '0' && c <= '9');
+    } while (c >= '0' && c <= '9');
 }
 ```
 
@@ -70,22 +66,19 @@ char buffer[max_input];
 const char* ptr;
 
 template<typename T>
-void read(T& v)
-{
+void read(T& v) {
     while (*ptr < '0' || *ptr > '9')
         ++ptr;
 
     v = T{0};
-    while (*ptr >= '0' && *ptr <= '9')
-    {
+    while (*ptr >= '0' && *ptr <= '9') {
         v = v * T{10} + T{*ptr - '0'};
         ++ptr;
     }
 }
 
-int main()
-{
-    fread(buffer, max_input, max_input, stdin);
+int main() {
+    fread(buffer, sizeof(char), max_input, stdin);
     ptr = buffer;
     // ...
 }
@@ -107,19 +100,16 @@ char buffer[max_output];
 char* ptr;
 
 template<typename T>
-void print(T v)
-{
+void print(T v) {
     ptr = to_chars(ptr, buffer + max_output, v).ptr;
 }
 
 // Used for printing newlines, spaces etc.
-void print(char c)
-{
+void print(char c) {
     *ptr++ = c;
 }
 
-int main()
-{
+int main() {
     ptr = buffer;
     // ...
     puts(buffer);
