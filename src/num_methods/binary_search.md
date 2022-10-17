@@ -117,3 +117,13 @@ $$
 $$
 
 so now we need to check whether there is a subarray of a new array $a_i - \lambda$ of length at least $x+1$ with non-negative sum, which is doable with some prefix sums.
+
+## Continuous search
+
+Let $f : \mathbb R \to \mathbb R$ be a real-valued function that is continuous on a segment $[L, R]$.
+
+Without loss of generality assume that $f(L) \leq f(R)$. From [intermediate value theorem](https://en.wikipedia.org/wiki/Intermediate_value_theorem) it follows that for any $y \in [f(L), f(R)]$ there is $x \in [L, R]$ such that $f(y) = x$. Note that, unlike previous paragraphs, the function is _not_ required to be monotonous.
+
+The value $x$ could be approximated up to $\pm\delta$ in $O\left(\log \frac{R-L}{\delta}\right)$ time for any specific value of $\delta$. The idea is essentially the same, if we take $M \in (L, R)$ then we would be able to reduce the search interval to either $[L, M]$ or $[M, R]$ depending on whether $f(M)$ is larger than $y$. One common example here would be finding roots of odd-degree polynomials.
+
+For example, let $f(x)=x^3 + ax^2 + bx + c$. Then $f(L) \to -\infty$ and $f(R) \to +\infty$ with $L \to -\infty$ and $R \to +\infty$. Which means that it is always possible to find sufficiently small $L$ and sufficiently large $R$ such that $f(L) < 0$ and $f(R) > 0$. Then, it is possible to find with binary search arbitrarily small interval containing $x$ such that $f(x)=0$.
