@@ -73,7 +73,7 @@ During the execution of the algorithm, we never evaluate neither $A_L$ nor $A_R$
 
 ## Search on arbitrary predicate
 
-Let $f : \{0,1,\dots, n-1\} \mapsto \{0, 1\}$ be a boolean function defined on $0,1,\dots,n-1$ such that it is monotonous, that is
+Let $f : \{0,1,\dots, n-1\} \to \{0, 1\}$ be a boolean function defined on $0,1,\dots,n-1$ such that it is monotonous, that is
 
 $$
 f(0) \leq f(1) \leq \dots \leq f(n-1).
