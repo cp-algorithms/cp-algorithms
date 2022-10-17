@@ -97,6 +97,7 @@
         - [Counting labeled graphs](combinatorics/counting_labeled_graphs.md)
 - Numerical Methods
     - Search
+        - [Binary Search](num_methods/binary_search.md)
         - [Ternary Search](num_methods/ternary_search.md)
         - [Newton's method for finding roots](num_methods/roots_newton.md)
     - Integration
