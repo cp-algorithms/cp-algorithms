@@ -220,6 +220,7 @@ Full list of updates: [Commit History](https://github.com/e-maxx-eng/e-maxx-eng/
     - [Longest increasing subsequence](sequences/longest_increasing_subsequence.md)
     - [Search the subsegment with the maximum/minimum sum](others/maximum_average_segment.md)
     - [K-th order statistic in O(N)](sequences/k-th.md)
+    - [MEX task (Minimal Excluded element in an array)](sequences/mex.md)
 - **Game Theory**
     - [Games on arbitrary graphs](game_theory/games_on_graphs.md)
     - [Sprague-Grundy theorem. Nim](game_theory/sprague-grundy-nim.md)
