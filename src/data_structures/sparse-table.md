@@ -117,7 +117,7 @@ int log2_floor(unsigned long i) {
 
 // pre C++20
 int log2_floor(unsigned long long i) {
-    return 63 - (i ? __builtin_clzll(i) : 64);
+    return i ? __builtin_clzll(1) - __builtin_clzll(i) : -1;
 }
 ```
 [This benchmark](https://quick-bench.com/q/SWARd6gSu9_RYZUN8PAGEEiimv0) shows that using `lg` array is slower because of cache misses.
