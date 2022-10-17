@@ -82,6 +82,7 @@ Instead of the criterion `r - l > eps`, we can select a constant number of itera
 
 ## Practice Problems
 - [Codechef - Race time](https://www.codechef.com/problems/AMCS03)
+- [Hackerearth - Rescuer](https://www.hackerearth.com/problem/algorithm/rescuer-2d2495cb/)
 - [Spoj - Building Construction](http://www.spoj.com/problems/KOPC12A/)
 - [Codeforces - Weakness and Poorness](http://codeforces.com/problemset/problem/578/C)
 * [LOJ - Closest Distance](http://lightoj.com/volume_showproblem.php?problem=1146)
