@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: simpson_integrating
+---
+
 # Integration by Simpson's formula
 
 We are going to calculate the value of a definite integral

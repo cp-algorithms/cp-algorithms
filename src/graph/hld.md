@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: heavy_light
+---
+
 # Heavy-light decomposition
 
 **Heavy-light decomposition** is a fairly general technique that allows us to effectively solve many problems that come down to **queries on a tree** .

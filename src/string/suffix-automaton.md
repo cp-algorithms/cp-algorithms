@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: suffix_automata
+---
+
 # Suffix Automaton
 
 A **suffix automaton** is a powerful data structure that allows solving many string-related problems. 
@@ -149,7 +155,7 @@ We denote by $t$ the biggest such suffix, and make a suffix link to it.
 
 In other words, a **suffix link** $link(v)$ leads to the state that corresponds to the **longest suffix** of $w$ that is in another $endpos$-equivalence class.
 
-Here we assume that the initial state $t_0$ corresponds to its own equivalence class (containing only the empty string), and for convenience we set $endpos(t_0) = \\{-1, 0, \dots, length(s)-1\\}$.
+Here we assume that the initial state $t_0$ corresponds to its own equivalence class (containing only the empty string), and for convenience we set $endpos(t_0) = \{-1, 0, \dots, length(s)-1\}$.
 
 **Lemma 4**:
 Suffix links form a **tree** with the root $t_0$.
@@ -232,6 +238,7 @@ Let us describe this process:
     After cloning we direct the suffix link from $cur$ to $clone$, and also from $q$ to clone.
 
     Finally we need to walk from the state $p$ back using suffix links as long as there is a transition through $c$ to the state $q$, and redirect all those to the state $clone$.
+
   - In any of the three cases, after completing the procedure, we update the value $last$ with the state $cur$.
 
 If we also want to know which states are **terminal** and which are not, the we can find all terminal states after constructing the complete suffix automaton for the entire string $s$.
@@ -706,7 +713,7 @@ string lcs (string S, string T) {
             bestpos = i;
         }
     }
-    return t.substr(bestpos - best + 1, best);
+    return T.substr(bestpos - best + 1, best);
 } 
 ```
 

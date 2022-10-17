@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: kuhn_matching
+---
+
 # Kuhn's Algorithm for Maximum Bipartite Matching
 
 ## Problem
@@ -48,13 +54,14 @@ Both sides of the bi-implication will be proven by contradiction.
 
     Let there be a matching $M'$ of greater cardinality than $M$. We consider the symmetric difference $Q = M \oplus M'$. The subgraph $Q$ is no longer necessarily a matching. 
     Any vertex in $Q$ has a maximum degree of $2$, which means that all connected components in it are one of the three - 
+
       * an isolated vertex
       * a (simple) path whose edges are alternately from $M$ and $M'$
       * a cycle of even length whose edges are alternately from $M$ and $M'$
  
     Since $M'$ has a cardinality greater than $M$, $Q$ has more edges from $M'$ than $M$. By the Pigeonhole principle, at least one connected component will be a path having 
     more edges from $M'$ than $M$. Because any such path is alternating, it will have initial and final vertices unsaturated by $M$, making it an augmenting path for $M$, 
-    which contradicts the premise. $\blacksquare$
+    which contradicts the premise. &ensp; $\blacksquare$
   
 ### Kuhn's algorithm
   
@@ -214,3 +221,9 @@ there is a test case against it, on which it will find a matching that is much s
 * Kuhn's algorithm is a subroutine in the **Hungarian algorithm**, also known as the **Kuhn-Munkres algorithm**.
 * Kuhn's algorithm runs in $O(nm)$ time. It is generally simple to implement, however, more efficient algorithms exist for the maximum bipartite matching problem - such as the 
     **Hopcroft-Karp-Karzanov algorithm**, which runs in $O(\sqrt{n}m)$ time.
+* The [minimum vertex cover problem](https://en.wikipedia.org/wiki/Vertex_cover) is NP-hard for general graphs.  However, [Kőnig's theorem](https://en.wikipedia.org/wiki/K%C5%91nig%27s_theorem_(graph_theory)) gives that, for bipartite graphs, the cardinality of the maximum matching equals the cardinality of the minimum vertex cover.  Hence, we can use maximum bipartite matching algorithms to solve the minimum vertex cover problem in polynomial time for bipartite graphs.
+
+## Practice Problems
+
+* [Kattis - Gopher II](https://open.kattis.com/problems/gopher2)
+* [Kattis - Borders](https://open.kattis.com/problems/borders)

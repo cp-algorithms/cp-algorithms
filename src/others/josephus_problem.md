@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: joseph_problem
+---
+
 # Josephus Problem
 
 ## Statement
@@ -38,6 +44,7 @@ n\setminus k & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
 And here we can clearly see the following **pattern**:
 
 $$J_{n,k} = \left( (J_{n-1,k} + k - 1) \bmod n \right) + 1$$
+
 $$J_{1,k} = 1$$
 
 Here, 1-indexing makes for a somewhat messy formula; if you instead number the positions from 0, you get a very elegant formula:
@@ -70,7 +77,7 @@ int josephus(int n, int k) {
 This formula can also be found analytically.
 Again here we assume 0-indexing.
 After we delete the first number, we have $n-1$ numbers left.
-When we repeat the procedure, we will start with the number that had originally the index $k \bmod m$.
+When we repeat the procedure, we will start with the number that had originally the index $k \bmod n$.
 $J_{n-1, k}$ would be the answer for the remaining circle, if we start counting at $0$, but because we actually start with $k$ we have $J_{n, k} = (J_{n-1,k} + k) \ \bmod n$.
 
 ## Modeling a $O(k \log n)$ solution

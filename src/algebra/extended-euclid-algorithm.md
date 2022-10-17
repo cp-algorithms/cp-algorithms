@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: extended_euclid_algorithm
+---
+
 # Extended Euclidean Algorithm
 
 While the [Euclidean algorithm](euclid-algorithm.md) calculates only the greatest common divisor (GCD) of two integers $a$ and $b$, the extended version also finds a way to represent GCD in terms of $a$ and $b$, i.e. coefficients $x$ and $y$ for which:
@@ -97,7 +103,7 @@ At the end we know that $a_1$ contains the GCD, so $x \cdot a + y \cdot b = g$.
 Which means that we have found the required coefficients.
 
 You can even optimize the code more, and remove the variable $a_1$ and $b_1$ from the code, and just reuse $a$ and $b$.
-However if you do so, you loose the ability to argue about the invariants.
+However if you do so, you lose the ability to argue about the invariants.
 
 ## Practice Problems
 

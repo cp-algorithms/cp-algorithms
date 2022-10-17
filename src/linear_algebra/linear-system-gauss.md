@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: linear_systems_gauss
+---
+
 # Gauss method for solving system of linear equations
 
 Given a system of $n$ linear algebraic equations (SLAE) with $m$ unknowns. You are asked to solve the system: to determine if it has no solution, exactly one solution or infinite number of solutions. And in case it has at least one solution, find any of them.
@@ -205,3 +211,4 @@ Thus, the solution turns into two-step: First, Gauss-Jordan algorithm is applied
 * [TIMUS1042 Central Heating](http://acm.timus.ru/problem.aspx?space=1&num=1042)
 * [TIMUS1766 Humpty Dumpty](http://acm.timus.ru/problem.aspx?space=1&num=1766)
 * [TIMUS1266 Kirchhoff's Law](http://acm.timus.ru/problem.aspx?space=1&num=1266)
+* [Codeforces - No game no life](https://codeforces.com/problemset/problem/1411/G)

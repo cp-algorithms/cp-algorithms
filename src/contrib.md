@@ -19,7 +19,10 @@ In order to make contribution consider the following steps:
 In case you want to make some bigger changes, like adding a new article, or edit multiple files, you should fork the project in the traditional way, create a branch, modify the files in the Github UI or locally on your computer, and create a pull-request.
 If you are unfamiliar with the workflow, read [Step-by-step guide to contributing on GitHub](https://www.dataschool.io/how-to-contribute-on-github/).
 
-In case you are adding a new article, make sure to link to the article from the main (index.md) page.
+If you're making a new article or moving existing one to a different place, please make sure that your changes are reflected in
+
+- The list of all articles in [navigation.md](https://github.com/e-maxx-eng/e-maxx-eng/blob/master/src/navigation.md);
+- The list of new articles in [index_body](https://github.com/e-maxx-eng/e-maxx-eng/blob/master/src/index_body) (if it is a new article).
 
 ## Syntax
 
@@ -29,20 +32,57 @@ For advanced Markdown features of Material for MkDocs see their [reference pages
 
 - [Math formulas with MathJax](https://squidfunk.github.io/mkdocs-material/reference/mathjax/#usage)
   Notice that you need to have an empty line before and after a `$$` math block.
-- [Data tables](https://squidfunk.github.io/mkdocs-material/reference/data-tables/#usage)
+- [Code blocks](https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#usage) for code snippets.
+- [Admonitions](https://squidfunk.github.io/mkdocs-material/reference/admonitions/#usage) (e.g. to decor theorems, proofs, problem examples).
+- [Content tabs](https://squidfunk.github.io/mkdocs-material/reference/content-tabs/#usage) (e.g. for code examples in several languages).
+- [Data tables](https://squidfunk.github.io/mkdocs-material/reference/data-tables/#usage).
 
 However not everything of the features should be used, and some of the features are not enabled or require a paid subscription.
+
+To distinguish original and translatory articles, they should be marked with corresponding tags. For original articles, it's
+
+```md
+---
+tags:
+    - Original
+---
+```
+
+And for translated articles, it's
+
+```md
+---
+tags:
+    - Translated
+e_maxx_link: ...
+---
+```
+
+Here, instead of `...` one should place the last part of the link to the original article. E.g. for [Euler function article](http://e-maxx.ru/algo/euler_function) it should be
+
+
+```md
+---
+tags:
+    - Translated
+e_maxx_link: euler_function
+---
+```
 
 By default the first header (`# header`) will be also the HTML title of the article. In case the header contains a math formula, you can define a different HTML title with:
 
 ```markdown
 ---
+tags:
+    - ...
 title: Alternative HTML title
 ---
 # Proof of $a^2 + b^2 = c^2$
 
 remaining article
 ```
+
+
 
 ## Some conventions
 
@@ -54,12 +94,35 @@ Try to add problems in ascending order of their difficulty. If you don't have en
 
 ## Local development
 
-You can render the pages very easily also locally.
-All you need is Python, with the installed `mkdocs-material` package.
+You can render the pages locally. All you need is Python, with the installed `mkdocs-material` package.
 
 ```console
-$ pip install mkdocs-material
+$ git clone --recursive https://github.com/e-maxx-eng/e-maxx-eng.git && cd e-maxx-eng
+$ scripts/install-mkdocs.sh # requires pip installation
 $ mkdocs serve
+```
+
+Note that some features are disabled by default for local builds.
+
+### Git revision date plugin
+
+Disabled because it might produce errors when there are uncommitted changes in the working tree.
+
+To enable it, set the environment variable `MKDOCS_ENABLE_GIT_REVISION_DATE` to `True`:
+
+```console
+$ export MKDOCS_ENABLE_GIT_REVISION_DATE=True
+```
+
+### Git committers plugin
+
+Disabled because it takes a while to prepare and also requires Github personal access token to work with Github APIs.
+
+To enable it, set the environment variable `MKDOCS_ENABLE_GIT_COMMITTERS` to `True` and store your personal access token in the environment variable `MKDOCS_GIT_COMMITTERS_APIKEY`. You can generate the token [here](https://github.com/settings/tokens). Note that you only need the public access, so you shouldn't give the token any permissions.
+
+```console
+$ export MKDOCS_ENABLE_GIT_COMMITTERS=True
+$ export MKDOCS_GIT_COMMITTERS_APIKEY= # put your PAT here 
 ```
 
 ## Tests

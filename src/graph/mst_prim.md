@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: mst_prim
+---
+
 # Minimum spanning tree - Prim's algorithm
 
 Given a weighted, undirected graph $G$ with $n$ vertices and $m$ edges.
@@ -44,7 +50,7 @@ Obviously $T$ is indeed a spanning tree and a subgraph of $G$.
 We only need to show that the weights of $S$ and $T$ coincide.
 
 Consider the first time in the algorithm when we add an edge to $T$ that is not part of $S$.
-Let us denote this edge with $e$, its ends by $a$ and $b$, and the set of already selected vertices as $V$ ($a \in V$ and $b \notin V$, or visa versa).
+Let us denote this edge with $e$, its ends by $a$ and $b$, and the set of already selected vertices as $V$ ($a \in V$ and $b \notin V$, or vice versa).
 
 In the minimal spanning tree $S$ the vertices $a$ and $b$ are connected by some path $P$.
 On this path we can find an edge $f$ such that one end of $f$ lies in $V$ and the other end doesn't.

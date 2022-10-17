@@ -46,6 +46,9 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
+
+plugins:
+  - macros
 """)
     (tmp_path / "docs" / "index.md").write_text(markdown)
 

@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: preflow_push_faster
+---
+
 # Maximum flow - Push-relabel method improved
 
 We will modify the [push-relabel method](push-relabel.md) to achieve a better runtime.

@@ -1,3 +1,8 @@
+---
+tags:
+  - Original
+---
+
 # Operations on polynomials and series
 
 In this article we will cover common operations that you will probably have to do if you deal with polynomials.
@@ -8,7 +13,13 @@ Let $A(x) = a_0 + a_1 x + \dots + a_n x^n$ be a polynomial over some field $\mat
 
 The degree of polynomial $A$ with $a_n \neq 0$ is defined as $\deg A = n$. For consistency, degree of $A(x) = 0$ is defined as $\deg A = -\infty$. In this notion, $\deg AB = \deg A + \deg B$ for arbitrary polynomials $A$ and $B$.
 
-Polynomials form an Euclidean ring which means that for any polynomials $A$ and $B \neq 0$ we can uniquely represent $A$ as $$A = D \cdot B + R,~ \deg R < \deg B.$$ Here $R$ is the remainder of $A$ modulo $B$ and $D$ is called the quotient. If $A$ and $B$ have the same remainder modulo $C$, they're said to be equivalent modulo $C$, which is denoted as $A \equiv B \pmod{C}$. Several important properties of polynomial Euclidean division:
+Polynomials form an Euclidean ring which means that for any polynomials $A$ and $B \neq 0$ we can uniquely represent $A$ as
+
+$$
+A = D \cdot B + R,~ \deg R < \deg B.
+$$
+
+Here $R$ is the remainder of $A$ modulo $B$ and $D$ is called the quotient. If $A$ and $B$ have the same remainder modulo $C$, they're said to be equivalent modulo $C$, which is denoted as $A \equiv B \pmod{C}$. Several important properties of polynomial Euclidean division:
 
 - $A$ is a multiple of $B$ if and only if $A \equiv 0 \pmod B$.
 
@@ -189,7 +200,12 @@ Another example where Hensel's lifting might be helpful are so-called [p-adic nu
 
 ### Logarithm
 
-For the function $\ln P(x)$ it's known that: \[\boxed{(\ln P(x))' = \dfrac{P'(x)}{P(x)}}\]
+For the function $\ln P(x)$ it's known that: 
+
+$$
+\boxed{(\ln P(x))' = \dfrac{P'(x)}{P(x)}}
+$$
+
 Thus we can calculate $n$ coefficients of $\ln P(x)$ in $O(n \log n)$.
 
 
@@ -254,9 +270,9 @@ It gives us an $O(n \log n)$ algorithm when you need to compute values in powers
 
 Another observation is that $kr = \binom{k+r}{2} - \binom{k}{2} - \binom{r}{2}$. Then we have
 
-$$\boxed{A(z^r) = z^{-\binom{r}{2}}\sum\limits_{k=0}^n \left(a_k z^{-\binom{k}{2}}\right)z^\binom{k+r}{2}}$$
+$$\boxed{A(z^r) = z^{-\binom{r}{2}}\sum\limits_{k=0}^n \left(a_k z^{-\binom{k}{2}}\right)z^{\binom{k+r}{2}}}$$
 
-The coefficient of $x^{n+r}$ of the product of the polynomials $A_0(x) = \sum\limits_{k=0}^n a_{n-k}z^{-\binom{n-k}{2}}x^k$ and $A_1(x) = \sum\limits_{k\geq 0}z^{\binom{k}{2}}x^k$ equals $z^{\binom{r}{2}}A(z^r)$. You can use the formula $z^\binom{k+1}{2}=z^{\binom{k}{2}+k}$ to calculate the coefficients of $A_0(x)$ and $A_1(x)$.
+The coefficient of $x^{n+r}$ of the product of the polynomials $A_0(x) = \sum\limits_{k=0}^n a_{n-k}z^{-\binom{n-k}{2}}x^k$ and $A_1(x) = \sum\limits_{k\geq 0}z^{\binom{k}{2}}x^k$ equals $z^{\binom{r}{2}}A(z^r)$. You can use the formula $z^{\binom{k+1}{2}}=z^{\binom{k}{2}+k}$ to calculate the coefficients of $A_0(x)$ and $A_1(x)$.
 
 ### Multi-point Evaluation
 Assume you need to calculate $A(x_1), \dots, A(x_n)$. As mentioned earlier, $A(x) \equiv A(x_i) \pmod{x-x_i}$. Thus you may do the following:
@@ -276,7 +292,11 @@ $$\boxed{A(x) = \sum\limits_{i=1}^n y_i \prod\limits_{j \neq i}\dfrac{x-x_j}{x_i
 
 Computing it directly is a hard thing but turns out, we may compute it in $O(n \log^2 n)$ with a divide and conquer approach:
 
-Consider $P(x) = (x-x_1)\dots(x-x_n)$. To know the coefficients of the denominators in $A(x)$ we should compute products like: \[P_i = \prod\limits_{j \neq i} (x_i-x_j)\]
+Consider $P(x) = (x-x_1)\dots(x-x_n)$. To know the coefficients of the denominators in $A(x)$ we should compute products like: 
+
+$$
+P_i = \prod\limits_{j \neq i} (x_i-x_j)
+$$
 
 But if you consider the derivative $P'(x)$ you'll find out that $P'(x_i) = P_i$. Thus you can compute $P_i$'s via evaluation in $O(n \log^2 n)$.
 
@@ -349,7 +369,13 @@ T resultant(poly<T> a, poly<T> b) {
 
 ### Half-GCD algorithm
 
-There is a way to calculate the GCD and resultants in $O(n \log^2 n)$. To do this you should note that if you consider $a(x) = a_0 + x^k a_1$ and $b(x) = b_0 + x^k b_1$ where $k=\min(\deg a, \deg b)/2$ then basically the first few operations of Euclidean algorithm on $a(x)$ and $b(x)$ are defined by the Euclidean algorithm on $a_1(x)$ and $b_1(x)$ for which you may also calculate GCD recursively and then somehow memorize linear transforms you made with them and apply it to $a(x)$ and $b(x)$ to lower the degrees of polynomials. Implementation of this algorithm seems pretty tedious and technical thus it's not considered in this article yet.
+There is a way to calculate the GCD and resultants in $O(n \log^2 n)$.
+
+The procedure to do so implements a $2 \times 2$ linear transform which maps a pair of polynomials $a(x)$, $b(x)$ into another pair $c(x), d(x)$ such that $\deg d(x) \leq \frac{\deg a(x)}{2}$. If you're careful enough, you can compute the half-GCD of any pair of polynomials with at most $2$ recursive calls to the polynomials which are at least $2$ times smaller.
+
+The specific details of the algorithm are somewhat tedious to explain, however you can find its implementation in the library, as `half_gcd` function.
+
+After half-GCD is implemented, you can repeatedly apply it to polynomials until you're reduced to the pair of $\gcd(a, b)$ and $0$.
 
 ## Problems
 

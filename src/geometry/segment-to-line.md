@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: segment_to_line
+---
+
 # Finding the equation of a line for a segment
 
 The task is: given the coordinates of the ends of a segment, construct a line passing through it.

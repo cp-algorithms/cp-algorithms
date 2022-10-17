@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: matrix_rank
+---
+
 # Finding the rank of a matrix
 
 **The rank of a matrix** is the largest number of linearly independent rows/columns of the matrix. The rank is not only defined  for square matrices.

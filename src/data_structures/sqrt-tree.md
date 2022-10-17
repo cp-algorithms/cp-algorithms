@@ -1,3 +1,8 @@
+---
+tags:
+  - Original
+---
+
 # Sqrt Tree
 
 Given an array $a$ that contains $n$ elements and the operation $\circ$ that satisfies associative property: $(x \circ y) \circ z = x \circ (y \circ z)$ is true for any $x$, $y$, $z$.

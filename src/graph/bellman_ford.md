@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: ford_bellman
+---
+
 # Bellman-Ford Algorithm
 
 **Single source shortest path with negative weight edges**
@@ -157,7 +163,7 @@ void solve()
 {
     vector<int> d (n, INF);
     d[v] = 0;
-    vector<int> p (n - 1);
+    vector<int> p (n, - 1);
     int x;
     for (int i=0; i<n; ++i)
     {

@@ -1,3 +1,8 @@
+---
+tags:
+  - Original
+---
+
 # 0-1 BFS
 
 It is well-known, that you can find the shortest paths between a single source and all other vertices in $O(|E|)$ using [Breadth First Search](breadth-first-search.md) in an **unweighted graph**, i.e. the distance is the minimal number of edges that you need to traverse from the source to another vertex.
@@ -9,7 +14,7 @@ In this article we demonstrate how we can use BFS to solve the SSSP (single-sour
 
 ## Algorithm
 
-We can develop the algorithm by closely study Dijkstra's algorithm and think about the consequences that our special graph implies.
+We can develop the algorithm by closely studying Dijkstra's algorithm and thinking about the consequences that our special graph implies.
 The general form of Dijkstra's algorithm is (here a `set` is used for the priority queue):
 
 ```cpp

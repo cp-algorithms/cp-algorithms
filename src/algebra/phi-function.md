@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: euler_function
+---
+
 # Euler's totient function
 
 Euler's totient function, also known as **phi-function** $\phi (n)$, counts the number of integers between 1 and $n$ inclusive, which are coprime to $n$. Two numbers are coprime if their greatest common divisor equals $1$ ($1$ is considered to be coprime to any number).
@@ -89,7 +95,7 @@ void phi_1_to_n(int n) {
 ```
 
 
-## Divisor sum property {#divsum}
+## Divisor sum property { #divsum}
 
 This interesting property was established by Gauss:
 
@@ -192,3 +198,4 @@ $$ x^n \equiv x^{\phi(m)} x^{(n - \phi(m)) \bmod \phi(m)} \bmod m \equiv x^{\phi
 * [SPOJ - G Force](http://www.spoj.com/problems/DCEPC12G/)
 * [SPOJ - Smallest Inverse Euler Totient Function](http://www.spoj.com/problems/INVPHI/)
 * [Codeforces - Power Tower](http://codeforces.com/problemset/problem/906/D)
+* [Kattis - Exponial](https://open.kattis.com/problems/exponial)

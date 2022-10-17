@@ -1,3 +1,8 @@
+---
+tags:
+  - Original
+---
+
 # Number of divisors / sum of divisors
 
 In this article we discuss how to compute the number of divisors $d(n)$ and the sum of divisors $\sigma(n)$ of a given number $n$.
@@ -22,6 +27,7 @@ A way of thinking about it is the following:
 * If there is only one distinct prime divisor $n = p_1^{e_1}$, then there are obviously $e_1 + 1$ divisors ($1, p_1, p_1^2, \dots, p_1^{e_1}$).
 
 * If there are two distinct prime divisors $n = p_1^{e_1} \cdot p_2^{e_2}$, then you can arrange all divisors in form of a tabular.
+
 $$\begin{array}{c|ccccc}
 & 1 & p_2 & p_2^2 & \dots & p_2^{e_2} \\\\
 \hline
@@ -31,7 +37,8 @@ p_1^2 & p_1^2 & p_1^2 \cdot p_2 & p_1^2 \cdot p_2^2 & \dots & p_1^2 \cdot p_2^{e
 \vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\\\
 p_1^{e_1} & p_1^{e_1} & p_1^{e_1} \cdot p_2 & p_1^{e_1} \cdot p_2^2 & \dots & p_1^{e_1} \cdot p_2^{e_2} \\\\
 \end{array}$$
-  So the number of divisors is trivially $(e_1 + 1) \cdot (e_2 + 1)$.
+
+So the number of divisors is trivially $(e_1 + 1) \cdot (e_2 + 1)$.
 
 * A similar argument can be made if there are more then two distinct prime factors.
 

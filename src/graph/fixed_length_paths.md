@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: fixed_length_paths
+---
+
 # Number of paths of fixed length / Shortest paths of fixed length
 
 The following article describes solutions to these two problems built on the same idea:

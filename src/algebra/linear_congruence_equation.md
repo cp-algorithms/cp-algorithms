@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: diofant_1_equation
+---
+
 # Linear Congruence Equation
 
 This equation is of the form:

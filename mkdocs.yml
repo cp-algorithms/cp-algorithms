@@ -17,6 +17,12 @@ theme:
         name: Switch to light mode
   logo: favicon.ico
   favicon: favicon.ico
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - navigation.tracking
+    - navigation.tabs
+    - toc.integrate
 repo_url: https://github.com/e-maxx-eng/e-maxx-eng
 edit_uri: edit/master/src/
 copyright: Text is available under the <a href="https://github.com/e-maxx-eng/e-maxx-eng/blob/master/LICENSE">Creative Commons Attribution Share Alike 4.0 International</a> License<br/>Copyright &copy; 2014 - 2022 by https://github.com/e-maxx-eng
@@ -40,6 +46,28 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji 
       emoji_generator: !!python/name:materialx.emoji.to_svg
+  - meta
+
+plugins:
+  - mkdocs-simple-hooks:
+      hooks:
+          on_env: "hooks:on_env"
+  - search
+  - tags:
+      tags_file: tags.md
+  - literate-nav:
+      nav_file: navigation.md
+  - git-revision-date-localized:
+      enable_creation_date: true
+      enabled: !ENV [MKDOCS_ENABLE_GIT_REVISION_DATE, False]
+  - git-authors
+  - git-committers:
+      repository: e-maxx-eng/e-maxx-eng
+      docs_path: src/
+      token: !ENV MKDOCS_GIT_COMMITTERS_APIKEY
+      enabled: !ENV [MKDOCS_ENABLE_GIT_COMMITTERS, False]
+  - macros
+
 extra:
   analytics:
     provider: google

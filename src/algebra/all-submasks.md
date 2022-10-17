@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: all_submasks
+---
+
 # Submask Enumeration
 
 ## Enumerating all submasks of a given mask

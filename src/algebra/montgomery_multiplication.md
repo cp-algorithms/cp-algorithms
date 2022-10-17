@@ -1,3 +1,8 @@
+---
+tags:
+  - Original
+---
+
 # Montgomery Multiplication
 
 Many algorithms in number theory, like [prime testing](primality_tests.md) or [integer factorization](factorization.md), and in cryptography, like RSA, require lots of operations modulo a large number.

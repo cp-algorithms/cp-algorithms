@@ -1,5 +1,8 @@
 ---
-title: Checking a graph for acyclicity and finding a cycle in O(M) 
+title: Checking a graph for acyclicity and finding a cycle in O(M)
+tags:
+  - Translated
+e_maxx_link: finding_cycle
 ---
 # Checking a graph for acyclicity and finding a cycle in $O(M)$
 
@@ -116,7 +119,6 @@ void find_cycle() {
         for (int v = cycle_end; v != cycle_start; v = parent[v])
             cycle.push_back(v);
         cycle.push_back(cycle_start);
-        reverse(cycle.begin(), cycle.end());
 
         cout << "Cycle found: ";
         for (int v : cycle)

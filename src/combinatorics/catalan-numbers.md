@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: catalan_numbers
+---
+
 # Catalan Numbers
 Catalan numbers is a number sequence, which is found useful in a number of combinatorial problems, often involving recursively-defined objects.
 

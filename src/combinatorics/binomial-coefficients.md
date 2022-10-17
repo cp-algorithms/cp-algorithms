@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: binomial_coeff
+---
+
 # Binomial Coefficients
 
 Binomial coefficients $\binom n k$ are the number of ways to select a set of $k$ elements from $n$ different elements without taking into account the order of arrangement of these elements (i.e., the number of unordered sets).
@@ -159,7 +165,7 @@ long long binomial_coefficient(int n, int k) {
 }
 ```
 
-### Binomial coefficient modulo prime power  {#mod-prime-pow}
+### Binomial coefficient modulo prime power  { #mod-prime-pow}
 
 Here we want to compute the binomial coefficient modulo some prime power, i.e. $m = p^b$ for some prime $p$.
 If $p > \max(k, n-k)$, then we can use the same method as described in the previous section.

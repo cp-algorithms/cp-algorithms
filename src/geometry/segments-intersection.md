@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: segments_intersection
+---
+
 # Finding intersection of two segments
 
 You are given two segments AB and CD, described as pairs of their endpoints. Each segment can be a single point if its endpoints are the same. 

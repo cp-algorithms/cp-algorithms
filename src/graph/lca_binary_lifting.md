@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: lca_simpler
+---
+
 # Lowest Common Ancestor - Binary Lifting
 
 Let $G$ be a tree.

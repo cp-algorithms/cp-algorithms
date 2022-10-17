@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: counting_connected_graphs
+---
+
 # Counting labeled graphs
 
 ## Labeled graphs

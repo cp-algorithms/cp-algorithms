@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: prime_sieve_linear
+---
+
 # Linear Sieve
 
 Given a number $n$, find all prime numbers in a segment $[2;n]$.

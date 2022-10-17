@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: treap
+---
+
 # Treap (Cartesian tree)
 
 A treap is a data structure which combines binary tree and binary heap (hence the name: tree + heap $\Rightarrow$ Treap).
@@ -106,6 +112,7 @@ struct item {
 	item *l, *r;
 	item () { }
 	item (int key) : key(key), prior(rand()), l(NULL), r(NULL) { }
+	item (int key, int prior) : key(key), prior(prior), l(NULL), r(NULL) { }
 };
 typedef item* pitem;
 ```
@@ -229,6 +236,53 @@ pitem build (int * a, int n) {
 
 Note: calling `upd_cnt(t)` is only necessary if you need the subtree sizes.
 
+The approach above always provides a perfectly balanced tree, which is generally good for practical purposes, but at the cost of not preserving the priorities that were initially assigned to each node. Thus, this approach is not feasible to solve the following problem:
+
+!!! example "[acmsguru - Cartesian Tree](https://codeforces.com/problemsets/acmsguru/problem/99999/155)"
+    Given a sequence of pairs $(x_i, y_i)$, construct a cartesian tree on them. All $x_i$ and all $y_i$ are unique.
+
+Note that in this problem priorities are not random, hence just inserting vertices one by one could provide a quadratic solution.
+
+One of possible solutions here is to find for each element the closest elements to the left and to the right which have a smaller priority than this element. Among these two elements, the one with the larger priority must be the parent of the current element.
+
+This problem is solvable with a [minimum stack](./stack_queue_modification.md) modification in linear time:
+
+```cpp
+void connect(auto from, auto to) {
+    vector<pitem> st;
+    for(auto it: ranges::subrange(from, to)) {
+        while(!st.empty() && st.back()->prior > it->prior) {
+            st.pop_back();
+        }
+        if(!st.empty()) {
+            if(!it->p || it->p->prior < st.back()->prior) {
+                it->p = st.back();
+            }
+        }
+        st.push_back(it);
+    }
+}
+
+pitem build(int *x, int *y, int n) {
+    vector<pitem> nodes(n);
+    for(int i = 0; i < n; i++) {
+        nodes[i] = new item(x[i], y[i]);
+    }
+    connect(nodes.begin(), nodes.end());
+    connect(nodes.rbegin(), nodes.rend());
+    for(int i = 0; i < n; i++) {
+        if(nodes[i]->p) {
+            if(nodes[i]->p->key < nodes[i]->key) {
+                nodes[i]->p->r = nodes[i];
+            } else {
+                nodes[i]->p->l = nodes[i];
+            }
+        }
+    }
+    return nodes[min_element(y, y + n) - y];
+}
+```
+
 ## Implicit Treaps
 
 Implicit treap is a simple modification of the regular treap which is a very powerful data structure. In fact, implicit treap can be considered as an array with the following procedures implemented (all in $O (\log N)$ in the online mode):
@@ -239,7 +293,7 @@ Implicit treap is a simple modification of the regular treap which is a very pow
 - Addition, painting on an arbitrary interval
 - Reversing elements on an arbitrary interval
 
-The idea is that the keys should be **indices** of the elements in the array. But we will not store these values explicitly (otherwise, for example, inserting an element would cause changes of the key in $O (N)$ nodes of the tree).
+The idea is that the keys should be null-based **indices** of the elements in the array. But we will not store these values explicitly (otherwise, for example, inserting an element would cause changes of the key in $O (N)$ nodes of the tree).
 
 Note that the key of a node is the number of nodes less than it (such nodes can be present not only in its left subtree but also in left subtrees of its ancestors). 
 More specifically, the **implicit key** for some node T is the number of vertices $cnt (T \rightarrow L)$ in the left subtree of this node plus similar values $cnt (P \rightarrow L) + 1$ for each ancestor P of the node T, if T is in the right subtree of P.
@@ -271,20 +325,22 @@ void split (pitem t, pitem & l, pitem & r, int key, int add = 0) {
 }
 ```
 
+In the implementation above, after the call of $split(T, T_1, T_2, k)$, the tree $T_1$ will consist of first $k$ elements of $T$ (that is, of elements having their implicit key less than $k$) and $T_2$ will consist of all the rest.
+
 Now let's consider the implementation of various operations on implicit treaps:
 
 - **Insert element**.  
-  Suppose we need to insert an element at position `pos`. We divide the treap into two parts, which correspond to arrays `[0..pos-1]` and `[pos..sz]`; to do this we call `split` (T, $T_1$, $T_2$, pos). Then we can combine tree $T_1$ with the new vertex by calling `merge` ($T_1$, $T_1$, new_item) (it is easy to see that all preconditions are met). Finally, we combine trees $T_1$ and $T_2$ back into T by calling `merge` (T, $T_1$, $T_2$).
+  Suppose we need to insert an element at position $pos$. We divide the treap into two parts, which correspond to arrays $[0..pos-1]$ and $[pos..sz]$; to do this we call $split(T, T_1, T_2, pos)$. Then we can combine tree $T_1$ with the new vertex by calling $merge(T_1, T_1, \text{new item})$ (it is easy to see that all preconditions are met). Finally, we combine trees $T_1$ and $T_2$ back into $T$ by calling $merge(T, T_1, T_2)$.
 - **Delete element**.  
- This operation is even easier: find the element to be deleted T, perform merge of its children L and R, and replace the element T with the result of merge. In fact, element deletion in the implicit treap is exactly the same as in the regular treap.
+ This operation is even easier: find the element to be deleted $T$, perform merge of its children $L$ and $R$, and replace the element $T$ with the result of merge. In fact, element deletion in the implicit treap is exactly the same as in the regular treap.
 - Find **sum / minimum**, etc. on the interval.  
- First, create an additional field F in the `item` structure to store the value of the target function for this node's subtree. This field is easy to maintain similarly to maintaining sizes of subtrees: create a function which calculates this value for a node based on values for its children and add calls of this function in the end of all functions which modify the tree.  
- Second, we need to know how to process a query for an arbitrary interval [A; B].  
- To get a part of tree which corresponds to the interval [A; B], we need to call `split` (T, $T_1$, $T_2$, A), and then `split` ($T_2$, $T_2$, $T_3$, B - A + 1): after this $T_2$ will consist of all the elements in the interval [A; B], and only of them. Therefore, the response to the query will be stored in the field F of the root of $T_2$. After the query is answered, the tree has to be restored by calling `merge` (T, $T_1$, $T_2$) and `merge` ($T$, $T$, $T_3$).
+ First, create an additional field $F$ in the `item` structure to store the value of the target function for this node's subtree. This field is easy to maintain similarly to maintaining sizes of subtrees: create a function which calculates this value for a node based on values for its children and add calls of this function in the end of all functions which modify the tree.  
+ Second, we need to know how to process a query for an arbitrary interval $[A; B]$.  
+ To get a part of tree which corresponds to the interval $[A; B]$, we need to call $split(T, T_2, T_3, B+1)$, and then $split(T_2, T_1, T_2, A)$: after this $T_2$ will consist of all the elements in the interval $[A; B]$, and only of them. Therefore, the response to the query will be stored in the field $F$ of the root of $T_2$. After the query is answered, the tree has to be restored by calling $merge(T, T_1, T_2)$ and $merge(T, T, T_3)$.
 - **Addition / painting** on the interval.  
  We act similarly to the previous paragraph, but instead of the field F we will store a field `add` which will contain the added value for the subtree (or the value to which the subtree is painted). Before performing any operation we have to "push" this value correctly - i.e. change $T \rightarrow L \rightarrow add$ and $T \rightarrow R \rightarrow add$, and to clean up `add` in the parent node. This way after any changes to the tree the information will not be lost.
 - **Reverse** on the interval.  
- This is again similar to the previous operation: we have to add boolean flag ‘rev’ and set it to true when the subtree of the current node has to be reversed. "Pushing" this value is a bit complicated - we swap children of this node and set this flag to true for them.
+ This is again similar to the previous operation: we have to add boolean flag `rev` and set it to true when the subtree of the current node has to be reversed. "Pushing" this value is a bit complicated - we swap children of this node and set this flag to true for them.
 
 Here is an example implementation of the implicit treap with reverse on the interval. For each node we store field called `value` which is the actual value of the array element at current position. We also provide implementation of the function `output()`, which outputs an array that corresponds to the current state of the implicit treap.
 

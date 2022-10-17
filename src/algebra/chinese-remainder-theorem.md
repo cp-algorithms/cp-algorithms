@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: chinese_theorem
+---
+
 # Chinese Remainder Theorem
 
 The Chinese Remainder Theorem (which will be referred to as CRT in the rest of this article) was discovered by Chinese mathematician Sun Zi.

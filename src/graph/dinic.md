@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: dinic
+---
+
 # Maximum flow - Dinic's algorithm
 
 Dinic's algorithm solves the maximum flow problem in $O(V^2E)$. The maximum flow problem is defined in this article [Maximum flow - Ford-Fulkerson and Edmonds-Karp](edmonds_karp.md). This algorithm was discovered by Yefim Dinitz in 1970.
@@ -39,7 +45,9 @@ From these two lemmas we conclude that there are less than $V$ phases because $l
 
 ## Finding blocking flow
 
-In order to find the blocking flow on each iteration, we may simply try pushing flow with DFS from $s$ to $t$ in the layered network while it can be pushed. In order to do it more quickly, we must remove the edges which can't be used to push anymore. To do this we can keep a pointer in each vertex which points to the next edge which can be used. Each pointer can be moved at most $E$ times, so each phase works in $O(VE)$.
+In order to find the blocking flow on each iteration, we may simply try pushing flow with DFS from $s$ to $t$ in the layered network while it can be pushed. In order to do it more quickly, we must remove the edges which can't be used to push anymore. To do this we can keep a pointer in each vertex which points to the next edge which can be used.
+
+A single DFS run takes $O(k+V)$ time, where $k$ is the number of pointer advances on this run. Sumed up over all runs, number of pointer advances can not exceed $E$. On the other hand, total number of runs won't exceed $E$, as every run saturates at least one edge. In this way, total running time of finding a blocking flow is $O(VE)$.
 
 ## Complexity
 
@@ -47,13 +55,19 @@ There are less than $V$ phases, so the total complexity is $O(V^2E)$.
 
 ## Unit networks
 
-A **unit network** is a network in which all the edges have unit capacity, and for any vertex except $s$ and $t$ either incoming or outgoing edge is unique. That's exactly the case with the network we build to solve the maximum matching problem with flows.
+A **unit network** is a network in which for any vertex except $s$ and $t$ **either incoming or outgoing edge is unique and has unit capacity**. That's exactly the case with the network we build to solve the maximum matching problem with flows.
 
 On unit networks Dinic's algorithm works in $O(E\sqrt{V})$. Let's prove this.
 
 Firstly, each phase now works in $O(E)$ because each edge will be considered at most once.
 
 Secondly, suppose there have already been $\sqrt{V}$ phases. Then all the augmenting paths with the length $\le\sqrt{V}$ have been found. Let $f$ be the current flow, $f'$ be the maximum flow. Consider their difference $f' - f$. It is a flow in $G^R$ of value $|f'| - |f|$ and on each edge it is either $0$ or $1$. It can be decomposed into $|f'| - |f|$ paths from $s$ to $t$ and possibly cycles. As the network is unit, they can't have common vertices, so the total number of vertices is $\ge (|f'| - |f|)\sqrt{V}$, but it is also $\le V$, so in another $\sqrt{V}$ iterations we will definitely find the maximum flow.
+
+### Unit capacities networks
+
+In a more generic settings when all edges have unit capacities, _but the number of incoming and outgoing edges is unbounded_, the paths can't have common edges rather than common vertices. In a similar way it allows to prove the bound of $\sqrt E$ on the number of iterations, hence the running time of Dinic algorithm on such networks is at most $O(E \sqrt E)$.
+
+Finally, it is also possible to prove that the number of phases on unit capacity networks doesn't exceed $O(V^{2/3})$, providing an alternative estimate of $O(EV^{2/3})$ on the networks with particularly large number of edges.
 
 ## Implementation
 

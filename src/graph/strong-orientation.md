@@ -1,3 +1,8 @@
+---
+tags:
+  - Original
+---
+
 # Strong Orientation
 
 A **strong orientation** of an undirected graph is an assignment of a direction to each edge that makes it a [strongly connected graph](strongly-connected-components.md).

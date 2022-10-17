@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: diofant_2_equation
+---
+
 # Linear Diophantine Equation
 
 A Linear Diophantine Equation (in two variables) is an equation of the general form:

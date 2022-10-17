@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: string_tandems
+---
+
 # Finding repetitions
 
 Given a string $s$ of length $n$.

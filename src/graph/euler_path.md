@@ -1,5 +1,8 @@
 ---
-title: Finding the Eulerian path in O(M)     
+title: Finding the Eulerian path in O(M)
+tags:
+  - Translated
+e_maxx_link: euler_path
 ---
 # Finding the Eulerian path in $O(M)$
 
@@ -47,7 +50,7 @@ until St is empty
     put the second end of this edge in St;
 ```
 
-It is easy to check the equivalence of these two forms of the algorithm. However, the second form is obviously faster, and the code will be much more.
+It is easy to check the equivalence of these two forms of the algorithm. However, the second form is obviously faster, and the code will be much more efficient.
 
 ## The Domino problem
 

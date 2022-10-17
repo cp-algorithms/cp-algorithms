@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: convex_hull_graham
+---
+
 # Convex Hull construction
 
 In this article we will discuss the problem of constructing a convex hull from a set of points.

@@ -1,3 +1,8 @@
+---
+tags:
+  - Original
+---
+
 # Sparse Table
 
 Sparse Table is a data structure, that allows answering range queries.
@@ -16,7 +21,7 @@ E.g. $13 = (1101)_2 = 8 + 4 + 1$.
 For a number $x$ there can be at most $\lceil \log_2 x \rceil$ summands.
 
 By the same reasoning any interval can be uniquely represented as a union of intervals with lengths that are decreasing powers of two.
-E.g. $[2, 14] = [2, 9] \cup [10, 13] \cup [14, 14]$, where the complete interval has length 13, and the individual intervals have the lengths 8, 4 and 1 respectably.
+E.g. $[2, 14] = [2, 9] \cup [10, 13] \cup [14, 14]$, where the complete interval has length 13, and the individual intervals have the lengths 8, 4 and 1 respectively.
 And also here the union consists of at most $\lceil \log_2(\text{length of interval}) \rceil$ many intervals.
 
 The main idea behind Sparse Tables is to precompute all answers for range queries with power of two length.
@@ -68,7 +73,7 @@ for (int j = 1; j <= K; j++)
 ```
 
 To answer the sum query for the range $[L, R]$, we iterate over all powers of two, starting from the biggest one.
-As soon as a power of two $2^j$ is smaller or equal to the length of the range ($= R - L + 1$), we process the first the first part of range $[L, L + 2^j - 1]$, and continue with the remaining range $[L + 2^j, R]$.
+As soon as a power of two $2^j$ is smaller or equal to the length of the range ($= R - L + 1$), we process the first part of range $[L, L + 2^j - 1]$, and continue with the remaining range $[L + 2^j, R]$.
 
 ```{.cpp file=sparsetable_sum_query}
 long long sum = 0;
@@ -97,10 +102,10 @@ This requires that we are able to compute $\log_2(R - L + 1)$ fast.
 You can accomplish that by precomputing all logarithms:
 
 ```{.cpp file=sparse_table_log_table}
-int log[MAXN+1];
-log[1] = 0;
+int lg[MAXN+1];
+lg[1] = 0;
 for (int i = 2; i <= MAXN; i++)
-    log[i] = log[i/2] + 1;
+    lg[i] = lg[i/2] + 1;
 ```
 
 Afterwards we need to precompute the Sparse Table structure. This time we define $f$ with $f(x, y) = \min(x, y)$.
@@ -119,7 +124,7 @@ for (int j = 1; j <= K; j++)
 And the minimum of a range $[L, R]$ can be computed with:
 
 ```{.cpp file=sparse_table_minimum_query}
-int j = log[R - L + 1];
+int j = lg[R - L + 1];
 int minimum = min(st[L][j], st[R - (1 << j) + 1][j]);
 ```
 
@@ -144,7 +149,7 @@ Another one would be the [Sqrt Tree](sqrt-tree.md).
 * [Codeforces - R2D2 and Droid Army](http://codeforces.com/problemset/problem/514/D)
 * [Codeforces - Maximum of Maximums of Minimums](http://codeforces.com/problemset/problem/872/B)
 * [SPOJ - Miraculous](http://www.spoj.com/problems/TNVFC1M/)
-* [DevSkills - Multiplication Interval](https://devskill.com/CodingProblems/ViewProblem/19)
+* [DevSkill - Multiplication Interval (archived)](http://web.archive.org/web/20200922003506/https://devskill.com/CodingProblems/ViewProblem/19)
 * [Codeforces - Animals and Puzzles](http://codeforces.com/contest/713/problem/D)
 * [Codeforces - Trains and Statistics](http://codeforces.com/contest/675/problem/E)
 * [SPOJ - Postering](http://www.spoj.com/problems/POSTERIN/)

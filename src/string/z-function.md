@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: z_function
+---
+
 # Z-function and its calculation
 
 Suppose we are given a string $s$ of length $n$. The **Z-function** for this string is an array of length $n$ where the $i$-th element is equal to the greatest number of characters starting from the position $i$ that coincide with the first characters of $s$.

@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: rabin_karp
+---
+
 # Rabin-Karp Algorithm for string matching
 
 This algorithm is based on the concept of hashing, so if you are not familiar with string hashing, refer to the [string hashing](string-hashing.md) article.
@@ -46,4 +52,5 @@ vector<int> rabin_karp(string const& s, string const& t) {
 * [SPOJ - Pattern Find](http://www.spoj.com/problems/NAJPF/)
 * [Codeforces - Good Substrings](http://codeforces.com/problemset/problem/271/D)
 * [Codeforces - Palindromic characteristics](https://codeforces.com/problemset/problem/835/D)
+* [Leetcode - Longest Duplicate Substring](https://leetcode.com/problems/longest-duplicate-substring/)
 

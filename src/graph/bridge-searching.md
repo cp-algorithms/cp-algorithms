@@ -1,5 +1,8 @@
 ---
-title: Finding bridges in a graph in O(N+M) 
+title: Finding bridges in a graph in O(N+M)
+tags:
+  - Translated
+e_maxx_link: bridge_searching
 ---
 # Finding bridges in a graph in $O(N+M)$
 

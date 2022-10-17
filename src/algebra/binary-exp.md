@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: binary_pow
+---
+
 # Binary Exponentiation
 
 Binary exponentiation (also known as exponentiation by squaring) is a trick which allows to calculate $a^n$ using only $O(\log n)$ multiplications (instead of $O(n)$ multiplications required by the naive approach).
@@ -23,7 +29,7 @@ Let's write $n$ in base 2, for example:
 
 $$3^{13} = 3^{1101_2} = 3^8 \cdot 3^4 \cdot 3^1$$
 
-Since the number $n$ has exactly $\lfloor \log_2 n \rfloor + 1$ digits in base 2, we only need to perform $O(\log n)$ multiplications, if we know the powers $a^1, a^2, a^4, a^8, \dots, a^{\lfloor \log n \rfloor}$.
+Since the number $n$ has exactly $\lfloor \log_2 n \rfloor + 1$ digits in base 2, we only need to perform $O(\log n)$ multiplications, if we know the powers $a^1, a^2, a^4, a^8, \dots, a^{2^{\lfloor \log n \rfloor}}$.
 
 So we only need to know a fast way to compute those.
 Luckily this is very easy, since an element in the sequence is just the square of the previous element.
@@ -127,6 +133,27 @@ Therefore, we can raise this transformation matrix to the $n$-th power to find $
 
 **Solution:** Simply raise the permutation to $k$-th power using binary exponentiation, and then apply it to the sequence. This will give you a time complexity of $O(n \log k)$.
 
+```cpp
+vector<int> applyPermutation(vector<int> sequence, vector<int> permutation) {
+    vector<int> newSequence(sequence.size());
+    for(int i = 0; i < sequence.size(); i++) {
+        newSequence[permutation[i]] = sequence[i];
+    }
+    return newSequence;
+}
+
+vector<int> permute(vector<int> sequence, vector<int> permutation, long long b) {
+    while (b > 0) {
+        if (b & 1) {
+            sequence = applyPermutation(sequence, permutation);
+        }
+        permutation = applyPermutation(permutation, permutation);
+        b >>= 1;
+    }
+    return sequence;
+}
+```
+
 **Note:** This task can be solved more efficiently in linear time by building the permutation graph and considering each cycle independently. You could then compute $k$ modulo the size of the cycle and find the final position for each number which is part of this cycle.
 
 ### Fast application of a set of geometric operations to a set of points
@@ -229,3 +256,4 @@ $$a \cdot b = \begin{cases}
 * [LA - 3722 Jewel-eating Monsters](https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1723)
 * [SPOJ - Just add it](http://www.spoj.com/problems/ZSUM/)
 * [Codechef - Chef and Riffles](https://www.codechef.com/JAN221B/problems/RIFFLES)
+* [leetcode - Count good numbers](https://leetcode.com/problems/count-good-numbers/)

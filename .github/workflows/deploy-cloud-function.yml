@@ -1,0 +1,38 @@
+name: Deploy Cloud Function
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy_cloud_function:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            src:
+              - 'preview/**'
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      - id: 'deploy'
+        if: steps.changes.outputs.src == 'true'
+        uses: 'google-github-actions/deploy-cloud-functions@v0'
+        with:
+          project_id: 'cp-algorithms'
+          region: 'us-central1'
+          name: 'convert-markdown-mkdocs'
+          runtime: 'python37'
+          memory_mb: '1024'
+          service_account_email: 'cp-algorithms@appspot.gserviceaccount.com'
+          entry_point: 'main'
+          source_dir: 'preview/'

@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: euclid_algorithm
+---
+
 # Euclidean algorithm for computing the greatest common divisor
 
 Given two non-negative integers $a$ and $b$, we have to find their **GCD** (greatest common divisor), i.e. the largest number which is a divisor of both $a$ and $b$.
@@ -84,7 +90,7 @@ int lcm (int a, int b) {
 
 ## Binary GCD
 
-The Binary GCD algorithm is an optimization to the normal Eulidean algorithm.
+The Binary GCD algorithm is an optimization to the normal Euclidean algorithm.
 
 The slow part of the normal algorithm are the modulo operations. Modulo operations, although we see them as $O(1)$, are a lot slower than simpler operations like addition, subtraction or bitwise operations.
 So it would be better to avoid those.

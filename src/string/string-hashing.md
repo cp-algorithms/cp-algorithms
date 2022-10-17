@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: string_hashes
+---
+
 # String Hashing
 
 Hashing algorithms are helpful in solving a lot of problems.
@@ -5,8 +11,8 @@ Hashing algorithms are helpful in solving a lot of problems.
 We want to solve the problem of comparing strings efficiently.
 The brute force way of doing so is just to compare the letters of both strings, which has a time complexity of $O(\min(n_1, n_2))$ if $n_1$ and $n_2$ are the sizes of the two strings.
 We want to do better.
-The idea behind strings is the following: we convert each string into an integer and compare those instead of the strings.
-Comparing two strings is then an $O(1)$ operation.
+The idea behind the string hashing is the following: we map each string into an integer and compare those instead of the strings.
+Doing this allows us to reduce the execution time of the string comparison to $O(1)$.
 
 For the conversion, we need a so-called **hash function**.
 The goal of it is to convert a string into an integer, the so-called **hash** of the string.
@@ -196,7 +202,7 @@ If $m$ is about $10^9$ for each of the two hash functions than this is more or l
 When comparing $10^6$ strings with each other, the probability that at least one collision happens is now reduced to $\approx 10^{-6}$.
 
 ## Practice Problems
-
+* [Good Substrings - Codeforces](https://codeforces.com/contest/271/problem/D)
 * [A Needle in the Haystack - SPOJ](http://www.spoj.com/problems/NHAY/)
 * [Double Profiles - Codeforces](http://codeforces.com/problemset/problem/154/C)
 * [Password - Codeforces](http://codeforces.com/problemset/problem/126/B)

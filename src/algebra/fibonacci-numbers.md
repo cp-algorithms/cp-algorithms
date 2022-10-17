@@ -1,3 +1,9 @@
+---
+tags:
+  - Translated
+e_maxx_link: fibonacci_numbers
+---
+
 # Fibonacci Numbers
 
 The Fibonacci sequence is defined as follows:
@@ -143,7 +149,7 @@ We now choose two pairs of identical remainders with the smallest indices in the
 
 * [SPOJ - Euclid Algorithm Revisited](http://www.spoj.com/problems/MAIN74/)
 * [SPOJ - Fibonacci Sum](http://www.spoj.com/problems/FIBOSUM/)
-* [HackerRank - Is Fibo](https://www.hackerrank.com/contests/codesprint5/challenges/is-fibo/problem)
+* [HackerRank - Is Fibo](https://www.hackerrank.com/challenges/is-fibo/problem)
 * [Project Euler - Even Fibonacci numbers](https://www.hackerrank.com/contests/projecteuler/challenges/euler002/problem)
 * [DMOJ - Fibonacci Sequence](https://dmoj.ca/problem/fibonacci)
 * [DMOJ - Fibonacci Sequence (Harder)](https://dmoj.ca/problem/fibonacci2)
