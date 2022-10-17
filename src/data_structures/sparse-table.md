@@ -107,13 +107,20 @@ lg[1] = 0;
 for (int i = 2; i <= MAXN; i++)
     lg[i] = lg[i/2] + 1;
 ```
-With C++20 this can be optimized to:
+Alternatively, log can be computed on the fly in constant space and time:
 ```c++
+// C++20
 #include <bit>
 int log2_floor(unsigned long i) {
     return std::bit_width(i) - 1;
 }
+
+// pre C++20
+int log2_floor(unsigned long long i) {
+    return 63 - (i ? __builtin_clzll(i) : 64);
+}
 ```
+[This benchmark](https://quick-bench.com/q/SWARd6gSu9_RYZUN8PAGEEiimv0) shows that using `lg` array is slower because of cache misses.
 
 Afterwards we need to precompute the Sparse Table structure. This time we define $f$ with $f(x, y) = \min(x, y)$.
 
