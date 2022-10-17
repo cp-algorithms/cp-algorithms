@@ -120,7 +120,7 @@ int log2_floor(unsigned long long i) {
     return i ? __builtin_clzll(1) - __builtin_clzll(i) : -1;
 }
 ```
-[This benchmark](https://quick-bench.com/q/SWARd6gSu9_RYZUN8PAGEEiimv0) shows that using `lg` array is slower because of cache misses.
+[This benchmark](https://quick-bench.com/q/Zghbdj_TEkmw4XG2nqOpD3tsJ8U) shows that using `lg` array is slower because of cache misses.
 
 Afterwards we need to precompute the Sparse Table structure. This time we define $f$ with $f(x, y) = \min(x, y)$.
 
