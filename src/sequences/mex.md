@@ -9,15 +9,41 @@ First we have to create a set of all elements in the array to quickly check for 
 
 *NB*: This approach is fast, but works well only if your array doesn't change during program execution, e.g. it is not effective in problems with changing the initial array. If your array is changed by any type of array queries, use [O(N log N) approach](https://codeforces.com/blog/entry/81287?#comment-677837) instead.
 
-## Implementation (Python, C++ will come soon):
+## Implementation (C++):
 
-```python
-def mex(array):
-    items = set(array)
-    for i in range(len(array)):
-        if i not in items:
-            return i
-    return len(array)
+```cpp
+int mex(vector<int> a) {
+	set<int> b(a.begin(), a.end());
+	for (int i=0; ; ++i)
+		if (!b.count(i))
+			return i;
+}
+```
+
+If an algorithm requires fast O(N) MEX computation, it is possible by computing an boolean vector of existing elements and then checking the first non-present one:
+
+```cpp
+int mex (const vector<int> & a) {
+	static bool used[D+1] = { 0 };
+	int c = (int) a.size();
+ 
+	for (int i=0; i<c; ++i)
+		if (a[i] <= D)
+			used[a[i]] = true;
+ 
+	int result;
+	for (int i=0; ; ++i)
+		if (!used[i]) {
+			result = i;
+			 2 break;
+		}
+ 
+	for (int  1 i=0; i<c; ++i)
+		if (a[i] <= D)
+			used[a[i]] = false;
+ 
+	return result;
+}
 ```
 
 
