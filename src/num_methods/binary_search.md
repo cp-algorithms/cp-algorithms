@@ -127,3 +127,9 @@ Without loss of generality assume that $f(L) \leq f(R)$. From [intermediate valu
 The value $x$ could be approximated up to $\pm\delta$ in $O\left(\log \frac{R-L}{\delta}\right)$ time for any specific value of $\delta$. The idea is essentially the same, if we take $M \in (L, R)$ then we would be able to reduce the search interval to either $[L, M]$ or $[M, R]$ depending on whether $f(M)$ is larger than $y$. One common example here would be finding roots of odd-degree polynomials.
 
 For example, let $f(x)=x^3 + ax^2 + bx + c$. Then $f(L) \to -\infty$ and $f(R) \to +\infty$ with $L \to -\infty$ and $R \to +\infty$. Which means that it is always possible to find sufficiently small $L$ and sufficiently large $R$ such that $f(L) < 0$ and $f(R) > 0$. Then, it is possible to find with binary search arbitrarily small interval containing $x$ such that $f(x)=0$.
+
+## Search with powers of 2
+
+Another noteworthy way to do binary search is, instead of maintaining an active segment, to maintain the current pointer $i$ and the current power $k$. The pointer starts at $i=L$ and then on each iteration one tests the predicate at point $i+2^k$. If the predicate is still $0$, the pointer is advanced from $i$ to $i+2^k$, otherwise it stays the same, then the power $k$ is decreased by $1$.
+
+This paradigm is widely used in tasks around trees, such as finding lowest common ancestor of two vertices or finding an ancestor of a specific vertex that has a certain height. It could also be adapted to e.g. find the $k$-th non-zero element in a Fenwick tree.
