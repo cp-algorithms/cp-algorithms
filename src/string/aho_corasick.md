@@ -13,6 +13,14 @@ The algorithm was proposed by Alfred Aho and Margaret Corasick in 1975.
 
 ## Construction of the trie
 
+<center>
+<img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Trie.svg" width="400px">
+<br>
+<i>A trie based on words "Java", "Rad", "Rand", "Rau", "Raum" and "Rose".</i>
+<br>
+<i>The <a href="https://commons.wikimedia.org/wiki/File:Trie.svg">image</a> by [nd](https://de.wikipedia.org/wiki/Benutzer:Nd) is distributed under <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">CC BY-SA 3.0</a> license.</i>
+</center>
+
 Formally a trie is a rooted tree, where each edge of the tree is labeled by some letter.
 All outgoing edge from one vertex must have different labels.
 
@@ -96,6 +104,14 @@ If there is no such edge, then we must find the state corresponding to the longe
 For example let the trie be constructed by the strings $ab$ and $bc$, and we are currently at the vertex corresponding to $ab$, which is a $\text{leaf}$.
 For a transition with the letter $c$, we are forced to go to the state corresponding to the string $b$, and from there follow the edge with the letter $c$.
 
+<center>
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/90/A_diagram_of_the_Aho-Corasick_string_search_algorithm.svg" width="300px">
+<br>
+<i>An Aho-Corasick automaton based on words "a", "ab", "bc", "bca", "c" and "caa".</i>
+<br>
+<i>Blue arrows are suffix links, green arrows are terminal links.</i>
+</center>
+
 A **suffix link** for a vertex $p$ is a edge that points to the longest proper suffix of the string corresponding to the vertex $p$.
 The only special case is the root of the trie, the suffix link will point to itself.
 Now we can reformulate the statement about the transitions in the automaton like this:
@@ -172,6 +188,21 @@ int go(int v, char ch) {
 It is easy to see, that due to the memoization of the found suffix links and transitions the total time for finding all suffix links and transitions will be linear.
 
 For an illustration of the concept refer to slide number 103 of the [Stanford slides](http://web.stanford.edu/class/archive/cs/cs166/cs166.1166/lectures/02/Slides02.pdf).
+
+### BFS-based construction
+
+Instead of computing transitions and suffix links with recursive calls of `go` and `get_link` to each other, it is possible to compute them for all vertices at once with an approach that is similar in nature to the Knuth-Morris-Pratt algorithm (which, in itself, is a special case of Aho-Corasick when the dictionary only contains a single string).
+
+This approach has some advantages over the one described above as instead of the total length $m$ its running time would depend on the number of vertices $n$ in a trie. Moreover, it is possible to adapt it for large alphabets with persistent array data structure, thus making construction time $O(n \log k)$ instead of $O(mk)$, which is a significant improvement granted that $m$ may go up to $n^2$.
+
+Algorithm is based on mathematical induction and the fact that BFS traverses vertices in order of increasing length. Thus, by induction on the length of the vertex we may assume that when we're in a vertex $v$, its suffix link $u = link[v]$ is already successfully computed, and for all vertices with shorter length transitions from them are also fully computed.
+
+Assume that at the moment we stand in a vertex $v$ and consider a character $c$. We essentially have two cases:
+ 
+1. $go[v][c] = -1$. In this case, we may assign $go[v][c] = go[u][c]$, which is already known due to induction assumption;
+2. $go[v][c] = w$ and $w \neq -1$. In this case, we may assign $link[w] = go[u][c]$.
+
+In this way, we spend $O(1)$ time per each pair of a vertex and a character, making the running time $O(nk)$. Major overhead here comes from the fact that we copy a lot of transitions from $u$, while remaining transitions form a tree and sum up to $n-1$ over all vertices. To avoid the copying of $go[u][c]$, we may use persistent array data structure (for example, implemented with persistent segment tree on top of array of size $k$), using which we initially copy $go[u]$ into $go[v]$ and then only update values for characters in which the transition would differ. This leads to the $O(n \log k)$ algorithm.
 
 ## Applications
 
