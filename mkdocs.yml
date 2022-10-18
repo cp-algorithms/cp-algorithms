@@ -29,7 +29,7 @@ copyright: Text is available under the <a href="https://github.com/e-maxx-eng/e-
 extra_javascript:
   - javascript/config.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6
-  - https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 extra_css:
   - stylesheets/extra.css
 
