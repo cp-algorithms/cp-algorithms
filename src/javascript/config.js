@@ -63,10 +63,7 @@ MathJax = {
 
       MathJax.startup.defaultReady();
     }
-  }
-}
-
-window.MathJax = {
+  },
   tex: {
     inlineMath: [["\\(", "\\)"]],
     displayMath: [["\\[", "\\]"]],
@@ -77,7 +74,7 @@ window.MathJax = {
     ignoreHtmlClass: ".*|",
     processHtmlClass: "arithmatex"
   }
-};
+}
 
 document$.subscribe(() => {
   MathJax.typesetPromise()
