@@ -22,11 +22,11 @@ The algorithm first finds the bottom-most point $P_0$. If there are multiple poi
 with the same Y coordinate, the one with the smaller X coordinate is considered. This
 step takes $\mathcal{O}(N)$ time.
 
-Next, all the other points are sorted by polar angle in counterclockwise order.
+Next, all the other points are sorted by polar angle in clockwise order.
 If the polar angle between two points is the same, the nearest point is chosen instead.
 
 Then we iterate through each point one by one, and make sure that the current
-point and the two before it make a counterclockwise turn, otherwise the previous
+point and the two before it make a clockwise turn, otherwise the previous
 point is discarded, since it would make a non-convex shape. Checking for clockwise or anticlockwise
 nature can be done by checking the [orientation](oriented-triangle-area.md).
 
