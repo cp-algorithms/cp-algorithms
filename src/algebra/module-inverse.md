@@ -51,7 +51,7 @@ else {
 }
 ```
 
-Notice that we way we modify `x`.
+Notice that the way we modify `x`.
 The resulting `x` from the extended Euclidean algorithm may be negative, so `x % m` might also be negative, and we first have to add `m` to make it positive.
 
 ## Finding the Modular Inverse using Binary Exponentiation
