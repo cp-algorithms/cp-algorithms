@@ -5,7 +5,7 @@ tags:
 
 # Binary search
 
-**Binary search** is a method that allows for quicker search of something by splitting the search interval into two. Its most common application is searching values in sported arrays, however the splitting idea is crucial in many other typical tasks.
+**Binary search** is a method that allows for quicker search of something by splitting the search interval into two. Its most common application is searching values in sorted arrays, however the splitting idea is crucial in many other typical tasks.
 
 ## Search in sorted arrays
 
