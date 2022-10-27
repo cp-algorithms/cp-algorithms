@@ -132,7 +132,7 @@ for (int i = 0; i < N; i++)
 
 for (int j = 1; j <= K; j++)
     for (int i = 0; i + (1 << j) <= N; i++)
-        st[j][i] = min(st[j-1][i], st[j - 1][i + (1 << (j - 1))]);
+        st[j][i] = min(st[j - 1][i], st[j - 1][i + (1 << (j - 1))]);
 ```
 
 And the minimum of a range $[L, R]$ can be computed with:
