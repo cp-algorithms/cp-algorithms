@@ -42,7 +42,7 @@ int st[K + 1][MAXN];
 Because the range $[i, i + 2^j - 1]$ of length $2^j$ splits nicely into the ranges $[i, i + 2^{j - 1} - 1]$ and $[i + 2^{j - 1}, i + 2^j - 1]$, both of length $2^{j - 1}$, we can generate the table efficiently using dynamic programming:
 
 ```{.cpp file=sparsetable_generation}
-st[0] = array;
+std::copy(array.begin(), array.end(), st[0]);
 
 for (int j = 1; j <= K; j++)
     for (int i = 0; i + (1 << j) <= N; i++)
@@ -63,7 +63,7 @@ We can construct the data structure with:
 ```{.cpp file=sparsetable_sum_generation}
 long long st[K + 1][MAXN];
 
-st[0] = array;
+std::copy(array.begin(), array.end(), st[0]);
 
 for (int j = 1; j <= K; j++)
     for (int i = 0; i + (1 << j) <= N; i++)
@@ -125,7 +125,7 @@ Afterwards we need to precompute the Sparse Table structure. This time we define
 ```{.cpp file=sparse_table_minimum_generation}
 int st[K + 1][MAXN];
 
-st[0] = array;
+std::copy(array.begin(), array.end(), st[0]);
 
 for (int j = 1; j <= K; j++)
     for (int i = 0; i + (1 << j) <= N; i++)
