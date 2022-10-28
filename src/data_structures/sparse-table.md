@@ -35,6 +35,8 @@ The size of the 2-dimensional array will be $(K + 1) \times \text{MAXN}$, where 
 $\text{K}$ has to satisfy $\text{K} \ge \lfloor \log_2 \text{MAXN} \rfloor$, because $2^{\lfloor \log_2 \text{MAXN} \rfloor}$ is the biggest power of two range, that we have to support.
 For arrays with reasonable length ($\le 10^7$ elements), $K = 25$ is a good value.
 
+The $\text{MAXN}$ dimension is second to allow (cache friendly) consecutive memory accesses.
+
 ```{.cpp file=sparsetable_definition}
 int st[K + 1][MAXN];
 ```
