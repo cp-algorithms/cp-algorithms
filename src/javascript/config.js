@@ -20,16 +20,22 @@ MathJax = {
       }
   },
   startup: {
-    ready() {
-      MathJax._.output.chtml_ts.CHTML.commonStyles['mjx-copytext'] = {
-        display: 'inline-block',
-        position: 'absolute',
-        top: 0, left: 0, width: 0, height: 0,
-        opacity: 0,
-        overflow: 'hidden'
-      };
-      MathJax.startup.defaultReady();
-    }
+      ready() {
+        const {newState, STATE} = MathJax._.core.MathItem;
+        const {AbstractMathDocument} = MathJax._.core.MathDocument;
+        const {CHTML} = MathJax._.output.chtml_ts;
+        newState('ADDTEXT', 156);
+        AbstractMathDocument.ProcessBits.allocate('addtext');
+        CHTML.commonStyles['mjx-copytext'] = {
+          display: 'inline-block',
+          position: 'absolute',
+          top: 0, left: 0, width: 0, height: 0,
+          opacity: 0,
+          overflow: 'hidden'
+        };
+        MathJax.STATE = STATE;
+        MathJax.startup.defaultReady();
+      }
   },
   tex: {
     inlineMath: [["\\(", "\\)"]],
@@ -41,8 +47,13 @@ MathJax = {
     ignoreHtmlClass: ".*|",
     processHtmlClass: "arithmatex",
     renderActions: {
-      addCopyText: [155,
-        (doc) => {for (const math of doc.math) MathJax.config.addCopyText(math, doc)},
+      addCopyText: [156,
+        (doc) => {
+          if (!doc.processed.isSet('addtext')) {
+            for (const math of doc.math) MathJax.config.addCopyText(math, doc);
+            doc.processed.set('addtext');
+          }
+        },
         (math, doc) => MathJax.config.addCopyText(math, doc)
       ]
     }
