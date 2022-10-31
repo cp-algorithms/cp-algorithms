@@ -36,6 +36,8 @@ extra_css:
 markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
+      tex_inline_wrap: ['$', '$']
+      tex_block_wrap: ['$$', '$$']
   - pymdownx.highlight
   - admonition
   - pymdownx.details
