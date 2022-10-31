@@ -1,66 +1,33 @@
 // Makes text selectable
 MathJax = {
+  addCopyText(math, doc) {
+      if (math.state() < MathJax.STATE.ADDTEXT) {
+          if (!math.isEscaped) {
+              const adaptor = doc.adaptor;
+              const text = adaptor.node('span', {'aria-hidden': true, 'class': 'mathjax_ignore mjx-copytext'}, [
+                adaptor.text(math.start.delim + math.math + math.end.delim)
+              ]);
+              adaptor.append(math.typesetRoot, text);
+              // Insert thin space(s) if math is at begin or end of text
+              if (math.start.n == 0) {
+                  adaptor.insert(adaptor.text('\u200A'), adaptor.firstChild(math.typesetRoot));
+              }
+              if (math.end.n == math.end.node.length) {
+                  adaptor.append(math.typesetRoot, adaptor.text('\u200A'));
+              }
+          }
+          math.state(MathJax.STATE.ADDTEXT);
+      }
+  },
   startup: {
     ready() {
-      const {TeXFont} = MathJax._.output.chtml.fonts.tex_ts;
-      const {CHTMLFontData} = MathJax._.output.chtml.FontData;
-      const {CHTMLTextNode} = MathJax._.output.chtml.Wrappers.TextNode;
-
-      for (const name of Object.keys(TeXFont.defaultChars)) {
-        var chars = TeXFont.defaultChars[name];
-        for (const n of Object.keys(chars)) {
-          const options = chars[n][3];
-          if (options && options.c) {
-            options.c = options.c.replace(/\\[0-9A-F]+/ig, (x) => String.fromCodePoint(parseInt(x.substr(1), 16)));
-          } else if (options) {
-            options.c = String.fromCodePoint(parseInt(n));
-          } else {
-            chars[n][3] = {c: String.fromCodePoint(parseInt(n))};
-          }
-        }
+      MathJax._.output.chtml_ts.CHTML.commonStyles['mjx-copytext'] = {
+        display: 'inline-block',
+        position: 'absolute',
+        top: 0, left: 0, width: 0, height: 0,
+        opacity: 0,
+        overflow: 'hidden'
       };
-      delete TeXFont.defaultStyles['mjx-c::before'];
-
-      CHTMLFontData.prototype.addCharStyles = function (styles, vclass, n, data, charUsed) {
-        const options = data[3];
-        const letter = (options.f !== undefined ? options.f : vletter);
-        const selector = 'mjx-c' + this.charSelector(n) + (letter ? '.TEX-' + letter : '');
-        styles[selector + '::before'] = {padding: this.padding(data, 0, options.ic || 0)};
-      };
-
-      CHTMLTextNode.prototype.toCHTML = function (parent) {
-        this.markUsed();
-        const adaptor = this.adaptor;
-        const variant = this.parent.variant;
-        const text = this.node.getText();
-        if (variant === '-explicitFont') {
-          adaptor.append(parent, this.jax.unknownText(text, variant, this.getBBox().w));
-        } else {
-          let utext = '';
-          const chars = this.remappedText(text, variant);
-          for (const n of chars) {
-            const data = this.getVariantChar(variant, n)[3];
-            if (data.unknown) {
-              utext += String.fromCodePoint(n);
-            } else {
-              utext = this.addUtext(utext, variant, parent);
-              const font = (data.f ? ' TEX-' + data.f : '');
-              adaptor.append(parent, this.html('mjx-c', {class: this.char(n) + font}, [
-                this.text(data.c || String.fromCodePoint(n))
-              ]));
-              this.font.charUsage.add([variant, n]);
-            }
-          }
-          this.addUtext(utext, variant, parent);
-        }
-      };
-      CHTMLTextNode.prototype.addUtext = function (utext, variant, parent) {
-        if (utext) {
-          this.adaptor.append(parent, this.jax.unknownText(utext, variant));
-        }
-        return '';
-      };
-
       MathJax.startup.defaultReady();
     }
   },
@@ -72,7 +39,13 @@ MathJax = {
   },
   options: {
     ignoreHtmlClass: ".*|",
-    processHtmlClass: "arithmatex"
+    processHtmlClass: "arithmatex",
+    renderActions: {
+      addCopyText: [155,
+        (doc) => {for (const math of doc.math) MathJax.config.addCopyText(math, doc)},
+        (math, doc) => MathJax.config.addCopyText(math, doc)
+      ]
+    }
   }
 }
 
