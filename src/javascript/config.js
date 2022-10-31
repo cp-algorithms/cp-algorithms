@@ -60,10 +60,6 @@ MathJax = {
   }
 }
 
-MathJax._.output.svg_ts.SVG.commonStyles['.mjx-copytext'] = {
-    'font-size': 0
-};
-
 document$.subscribe(() => {
   MathJax.typesetPromise()
 })
