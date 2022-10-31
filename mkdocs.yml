@@ -35,7 +35,7 @@ extra_css:
 
 markdown_extensions:
   - pymdownx.arithmatex:
-      generic: true
+      generic: false
   - pymdownx.highlight
   - admonition
   - pymdownx.details
