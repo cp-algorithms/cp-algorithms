@@ -46,3 +46,8 @@ body[dir=rtl] .metadata.page-metadata .contributors-text{
   margin:0;
   padding:0
 }
+
+/* to visibly hide latex code */
+.mjx-copytext {
+    font-size: 0;
+}
