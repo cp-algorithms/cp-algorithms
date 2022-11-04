@@ -201,7 +201,7 @@ We use temporary arrays $pn[]$ and $cn[]$ to store the permutation by the second
 }
 ```
 The algorithm requires $O(n \log n)$ time and $O(n)$ memory.
-However if we take the size of the alphabet $k$ into account, then it uses $O((n + k) \log n)$ time and $O(n + k)$ memory.
+However if we take the size of the alphabet $k$ into account, then it uses $O(n \log n + k)$ time and $O(n + k)$ memory. The first sort takes $O(k)$ time, but all following sorts are bounded by the number of equivalence classes, and take $O(n)$ time.
 
 For simplicity we used the complete ASCII range as alphabet.
 If we know that the string only contains a subset of characters, e.g. only lowercase letters, then this implementation can obviously be optimized.
