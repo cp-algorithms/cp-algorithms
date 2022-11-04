@@ -205,7 +205,7 @@ However if we take the size of the alphabet $k$ into account, then it uses $O(n 
 
 For simplicity we used the complete ASCII range as alphabet.
 If we know that the string only contains a subset of characters, e.g. only lowercase letters, then this implementation can obviously be optimized.
-However not by much, since the alphabet size only appears with a factor of $O(\log n)$ in the complexity.
+However not by much, since the alphabet size affects the runtime of only a single counting sort.
 
 Also note, that this algorithm only sorts the cycle shifts.
 As mentioned at the beginning of this section we can generate the sorted order of the suffixes by appending a character that is smaller than all other characters of the string, and sorting this resulting string by cycle shifts, e.g. by sorting the cycle shifts of $s + $\$.
