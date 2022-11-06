@@ -9,11 +9,11 @@ theme:
     - scheme: cpalgo
       primary: deep purple
       toggle:
-        icon: material/toggle-switch-off-outline
+        icon: material/weather-night
         name: Switch to dark mode
     - scheme: slate 
       toggle:
-        icon: material/toggle-switch
+        icon: material/weather-sunny
         name: Switch to light mode
   logo: favicon.ico
   favicon: favicon.ico
