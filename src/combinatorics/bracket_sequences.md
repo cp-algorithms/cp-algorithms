@@ -156,7 +156,7 @@ This formula can be derived as follows:
 First we "forget" that there are multiple bracket types, and just take the answer $d[2n - i - 1][\text{ndepth}]$.
 Now we consider how the answer will change is we have $k$ types of brackets.
 We have $2n - i - 1$ undefined positions, of which $\text{ndepth}$ are already predetermined because of the opening brackets.
-But all the other brackets ($(2n - i - i - \text{ndepth})/2$ pairs) can be of any type, therefore we multiply the number by such a power of $k$.
+But all the other brackets ($(2n - i - 1 - \text{ndepth})/2$ pairs) can be of any type, therefore we multiply the number by such a power of $k$.
 
 ## Finding the $k$-th sequence {data-toc-label="Finding the k-th sequence"}
 
