@@ -137,7 +137,7 @@ Therefore, we can raise this transformation matrix to the $n$-th power to find $
 vector<int> applyPermutation(vector<int> sequence, vector<int> permutation) {
     vector<int> newSequence(sequence.size());
     for(int i = 0; i < sequence.size(); i++) {
-        newSequence[permutation[i]] = sequence[i];
+        newSequence[i] = sequence[permutation[i]];
     }
     return newSequence;
 }
