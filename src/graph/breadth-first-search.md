@@ -142,8 +142,9 @@ From all such cycles (at most one from each BFS) choose the shortest.
 To do this, run two breadth first searches:
 one from $a$ and one from $b$.
 Let $d_a []$ be the array containing shortest distances obtained from the first BFS (from $a$) and $d_b []$ be the array containing shortest distances obtained from the second BFS from $b$.
-Now for every edge $(u, v)$ it is easy to check whether that edge lies on any shortest path between $a$ and $b$:
-the criterion is the condition $d_a [u] + 1 + d_b [v] = d_a [b]$.
+Now for every edge $(u, v)$ it is easy to check whether that edge lies on any shortest path between $a$ and $b$.
+the criterion is: let $\textbf{x} \in {(u, v)}$ such that $d_a[x]$ = min($d_a[u]$, $d_a[v]$), let $\textbf{y} \in {(u, v)}$ such that $d_b[y]$ = min($d_b[u]$, $d_b[v]$). 
+So $d_a [x] + 1 + d_b [y] = d_a [b]$.
 
 * Find all the vertices on any shortest path between a given pair of vertices $(a, b)$.
 To accomplish that, run two breadth first searches:
