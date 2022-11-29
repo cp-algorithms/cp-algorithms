@@ -678,23 +678,22 @@ One can further prove (and it was first done by Lagrange) that for arbitrary qua
         ```py
         # compute the continued fraction of sqrt(n)
         def sqrt(n):
-            x, y, z = 0, 1, 1
-            a = []
-            def step(x, y, z):
-                a.append(math.floor(x + y * math.sqrt(n)) // z)
-                t = x - a[-1]*z
-                x, y, z = z*t, -z*y, t**2 - n*y**2
-                g = math.gcd(x, math.gcd(y, z))
-                if z < 0:
-                    g *= -1
-                return x // g, y // g, z // g
+          n0 = math.floor(math.sqrt(n))
+          x, y, z = 1, 0, 1
+          a = []
+          def step(x, y, z):
+              a.append((x * n0 + y) // z)
+              t = y - a[-1]*z
+              x, y, z = -z*x, z*t, t**2 - n*x**2
+              g = math.gcd(x, math.gcd(y, z))
+              return x // g, y // g, z // g
 
-            used = dict()
-            for i in range(n):
-                used[x, y, z] = i
-                x, y, z = step(x, y, z)
-                if (x, y, z) in used:
-                    return a
+          used = dict()
+          for i in range(n):
+              used[x, y, z] = i
+              x, y, z = step(x, y, z)
+              if (x, y, z) in used:
+                  return a
         ```
 
     Using the same `step` function but different initial $x$, $y$ and $z$ it is possible to compute it for arbitrary $\frac{x+y \sqrt{n}}{z}$.
