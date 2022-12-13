@@ -39,6 +39,31 @@ For advanced Markdown features of Material for MkDocs see their [reference pages
 
 However not everything of the features should be used, and some of the features are not enabled or require a paid subscription.
 
+By default the first header (`# header`) will be also the HTML title of the article. In case the header contains a math formula, you can define a different HTML title with:
+
+```markdown
+---
+tags:
+    - ...
+title: Alternative HTML title
+---
+# Proof of $a^2 + b^2 = c^2$
+
+remaining article
+```
+
+### Redirects
+
+Files should not be moved or renamed without making redirects, that should generally look as follows:
+
+```md
+<meta http-equiv="refresh" content="0; url=https://cp-algorithms.com/<new section>/<new name>.html">
+# <Article name>
+Article was moved (renamed). <a href="<new section>/<new name>.html">new URL</a>.
+```
+
+### Tags
+
 To distinguish original and translatory articles, they should be marked with corresponding tags. For original articles, it's
 
 ```md
@@ -68,20 +93,6 @@ tags:
 e_maxx_link: euler_function
 ---
 ```
-
-By default the first header (`# header`) will be also the HTML title of the article. In case the header contains a math formula, you can define a different HTML title with:
-
-```markdown
----
-tags:
-    - ...
-title: Alternative HTML title
----
-# Proof of $a^2 + b^2 = c^2$
-
-remaining article
-```
-
 
 
 ## Some conventions
