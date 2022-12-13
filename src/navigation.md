@@ -3,6 +3,7 @@
     - [Navigation](navigation.md)
     - [Tag index](tags.md)
     - [How to Contribute](contrib.md)
+    - [Code of conduct](code_of_conduct.md)
     - [Preview](preview.md)
 - Algebra
     - Fundamentals
