@@ -200,12 +200,9 @@ We use temporary arrays $pn[]$ and $cn[]$ to store the permutation by the second
     return p;
 }
 ```
-The algorithm requires $O(n \log n)$ time and $O(n)$ memory.
-However if we take the size of the alphabet $k$ into account, then it uses $O(n \log n + k)$ time and $O(n + k)$ memory. The first counting sort takes $O(k)$ time, but all following counting sorts are bounded by the number of equivalence classes, and take $O(n)$ time.
+The algorithm requires $O(n \log n)$ time and $O(n)$ memory. For simplicity we used the complete ASCII range as alphabet.
 
-For simplicity we used the complete ASCII range as alphabet.
-If we know that the string only contains a subset of characters, e.g. only lowercase letters, then this implementation can obviously be optimized.
-However not by much, since the alphabet size affects the runtime of only a single counting sort.
+If it is known that the string only contains a subset of characters, e.g. only lowercase letters, then the implementation can be optimized, but the optimization factor would likely be insignificant, as the size of the alphabet only matters on the first iteration. Every other iteration depends on the number of equivalence classes, which may quickly reach $O(n)$ even if initially it was a string over the alphabet of size $2$.
 
 Also note, that this algorithm only sorts the cycle shifts.
 As mentioned at the beginning of this section we can generate the sorted order of the suffixes by appending a character that is smaller than all other characters of the string, and sorting this resulting string by cycle shifts, e.g. by sorting the cycle shifts of $s + $\$.
