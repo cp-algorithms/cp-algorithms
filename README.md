@@ -37,4 +37,5 @@ Full list of articles: [Navigation](https://cp-algorithms.com/navigation.html)
 ## Contributing
 
 - [Information for contributors](https://cp-algorithms.com/contrib.html)
+- [Code of conduct](https://cp-algorithms.com/code_of_conduct.html)
 - [Test-Your-Page form](https://cp-algorithms.com/preview.html)
