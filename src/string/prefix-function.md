@@ -162,7 +162,7 @@ In the second variation of the problem another string $t$ is given and we want t
 
 First we solve the first problem.
 Consider the value of the prefix function $\pi[i]$ at a position $i$.
-By definition it means that in position $i$ the prefix of length $\pi[i]$ of the string $s$ appears and ends at position $i$, and there doesn't exists a longer prefix that follows this definition.
+By definition it means that the prefix of length $\pi[i]$ of the string $s$ occurs and ends at position $i$, and there is no longer prefix that follows this definition.
 At the same time shorter prefixes can end at this position.
 It is not difficult to see, that we have the same question that we already answered when we computed the prefix function itself:
 Given a prefix of length $j$ that is a suffix ending at position $i$, what is the next smaller prefix $\lt j$ that is also a suffix ending at position $i$.
@@ -221,7 +221,7 @@ It is clear, that we only need to find the length of $t$. Knowing the length, th
 
 Let us compute the prefix function for $s$.
 Using the last value of it we define the value $k = n - \pi[n - 1]$.
-We will show, that if $k$ divides $n$, then $k$ will be the answer, otherwise there doesn't exists an effective compression and the answer is $n$.
+We will show, that if $k$ divides $n$, then $k$ will be the answer, otherwise there is no effective compression and the answer is $n$.
 
 Let $n$ be divisible by $k$.
 Then the string can be partitioned into blocks of the length $k$.
