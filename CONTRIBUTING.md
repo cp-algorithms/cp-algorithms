@@ -54,7 +54,7 @@ remaining article
 
 ### Redirects
 
-Files should not be moved or renamed without making redirects, that should generally look as follows:
+Files should not be moved or renamed without making redirects. A redirect page should generally look as follows:
 
 ```md
 <meta http-equiv="refresh" content="0; url=https://cp-algorithms.com/<new section>/<new name>.html">
