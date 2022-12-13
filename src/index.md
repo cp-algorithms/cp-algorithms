@@ -2,7 +2,7 @@
 title: Main Page
 ---
 
-{% include 'index_body' %}
+{% include '../README.md' %}
 
 ## Navigation
 
