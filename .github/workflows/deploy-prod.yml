@@ -36,7 +36,13 @@ jobs:
             });
             let fs = require('fs');
             fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/page-build.zip`, Buffer.from(download.data));
-      - run: unzip page-build.zip -d public
+      - run: |
+          unzip page-build.zip -d public
+
+      - name: change URLs for large files
+        run: |
+          find . -type f -exec sed -i 's|search/search_index.json|https://storage.googleapis.com/cp-algorithms/search_index.json|g' {} +
+
       - name: "Get PR information"
         uses: potiuk/get-workflow-origin@751d47254ef9e8b5eef955e24e79305233702781
         id: source-run-info
