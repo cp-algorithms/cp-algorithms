@@ -16,7 +16,7 @@ Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorith
 
 ## Changelog
 
-- December 20, 2022: The repository name and the owning organizations were renamed! Now the repo is located at https://github.com/cp-algorithms/cp-algorithms. It is recommended to update the upstream link in your local repositories, if you have any.
+- December 20, 2022: The repository name and the owning organizations were renamed! Now the repo is located at [https://github.com/cp-algorithms/cp-algorithms](https://github.com/cp-algorithms/cp-algorithms). It is recommended to update the upstream link in your local repositories, if you have any.
 - October 31, 2022: It is now possible to select and copy $\LaTeX$ source code of formulas within the articles.
 - June 8, 2022: Tags are enabled. Each article is now marked whether it is translated or original, overall tag info is present in the [tag index](https://cp-algorithms.com/tags.html). For translated articles, clicking on `From: X` tag would lead to the original article.
 - June 7, 2022: Date of last commit and author list with contribution percentage is tracked for each page.
