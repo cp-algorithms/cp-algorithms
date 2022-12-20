@@ -89,6 +89,5 @@ void shortest_paths(int v0, vector<int>& d, vector<int>& p) {
 
 ## Complexity
 
-The algorithm performs usually quite fast.
-In most cases even faster than Dijkstra's algorithm.
-However there exist cases for which the algorithm takes exponential time.
+The algorithm usually performs quite fast - in most cases, even faster than Dijkstra's algorithm.
+However there exist cases for which the algorithm takes exponential time, making it unsuitable in the worst-case. Ref: [Stack Overflow: intuitive explanation of exponential time complexity](https://stackoverflow.com/a/67642821)
