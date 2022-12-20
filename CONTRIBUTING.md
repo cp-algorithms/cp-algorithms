@@ -2,7 +2,7 @@
 
 ## General information
 
-This website (articles, design, ...) is developed via [Github](https://github.com/e-maxx-eng/e-maxx-eng). And everybody is welcome to help out. All you need is a Github account.
+This website (articles, design, ...) is developed via [Github](https://github.com/cp-algorithms/cp-algorithms). And everybody is welcome to help out. All you need is a Github account.
 
 Generated pages are compiled and published at [https://cp-algorithms.com](https://cp-algorithms.com).
 
@@ -97,7 +97,7 @@ e_maxx_link: euler_function
 
 ## Some conventions
 
-* We have agreed as of issue [#83](https://github.com/e-maxx-eng/e-maxx-eng/issues/83) to express binomial coefficients with `\binom{n}{k}` instead of `C_n^k`. The first one renders as $\binom{n}{k}$ and is a more universal convention. The second would render as $C_n^k$.
+* We have agreed as of issue [#83](https://github.com/cp-algorithms/cp-algorithms/issues/83) to express binomial coefficients with `\binom{n}{k}` instead of `C_n^k`. The first one renders as $\binom{n}{k}$ and is a more universal convention. The second would render as $C_n^k$.
 
 ## Adding Problems
 
@@ -108,7 +108,7 @@ Try to add problems in ascending order of their difficulty. If you don't have en
 You can render the pages locally. All you need is Python, with the installed `mkdocs-material` package.
 
 ```console
-$ git clone --recursive https://github.com/e-maxx-eng/e-maxx-eng.git && cd e-maxx-eng
+$ git clone --recursive https://github.com/cp-algorithms/cp-algorithms.git && cd cp-algorithms
 $ scripts/install-mkdocs.sh # requires pip installation
 $ mkdocs serve
 ```
@@ -167,4 +167,4 @@ Running test_vertical_decomposition.cpp - Passed in 2397 ms
 51 PASSED in 49.00 seconds
 ```
 
-Also, every pull-request will automatically tested via [Github Actions](https://github.com/e-maxx-eng/e-maxx-eng/actions).
+Also, every pull-request will automatically tested via [Github Actions](https://github.com/cp-algorithms/cp-algorithms/actions).
