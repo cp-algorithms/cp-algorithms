@@ -86,7 +86,7 @@ Below we consider two slightly different algorithms, one for dense and one for s
 
 ### Dense graphs: $O(n^2)$
 
-We approach this problem for a different side:
+We approach this problem from a different angle:
 for every not yet selected vertex we will store the minimum edge to an already selected vertex.
 
 Then during a step we only have to look at these minimum weight edges, which will have a complexity of $O(n)$.
