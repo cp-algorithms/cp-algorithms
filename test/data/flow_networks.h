@@ -20,7 +20,7 @@ struct FlowNetwork {
 };
 
 vector<FlowNetwork> flow_networks = {
-    // flow network from the e-maxx-eng article
+    // flow network from the cp-algorithms article
     {{
         {0, 7, 0, 0, 4, 0},
         {0, 0, 5, 3, 0, 0},
