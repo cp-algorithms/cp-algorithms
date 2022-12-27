@@ -925,7 +925,7 @@ int sum_x(int vx, int tlx, int trx, int lx, int rx, int ly, int ry) {
 }
 ```
 
-This function works in $O(\log n \log m)$ time, since it first descends the free in the first coordinate, and for each traversed vertex in the tree it makes a query in the corresponding Segment Tree along the second coordinate.
+This function works in $O(\log n \log m)$ time, since it first descends the tree in the first coordinate, and for each traversed vertex in the tree it makes a query in the corresponding Segment Tree along the second coordinate.
 
 Finally we consider the modification query. 
 We want to learn how to modify the Segment Tree in accordance with the change in the value of some element $a[x][y] = p$.
