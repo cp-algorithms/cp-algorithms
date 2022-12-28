@@ -71,6 +71,26 @@ while(r - l > 1) {
 
 During the execution of the algorithm, we never evaluate neither $A_L$ nor $A_R$, as $L < M < R$. In the end, $L$ will be the index of the last element that is not greater than $k$ (or $-1$ if there is no such element) and $R$ will be the index of the first element larger than $k$ (or $n$ if there is no such element).
 
+## Invariance and Need for maintaining the invariance
+
+It is better to choose $L=-1$ and $R=n$ i.e. $L$ pointing to $-\infty$ and $R$ pointing to $+\infty$.
+### Invariance
+$$A_L<x$$
+$$A_R \geq x$$
+
+### Reason for maintaining the invariance:-
+
+If we choose $L$ as the first element and $R$ as the last element then if all the elements are greater than $x$ then $A_L<x$ invariance fails. But $L$ points to the first element i.e. $L=0$ and the answer returned will be first element of the array.
+But the array consists of all the elements greater than x so the answer doesn't exists.
+
+Consider Array $A:\{2, 4, 5, 7\}$ and the element to find $x:1$.
+$L=-1$ and $R=n$ $(n=4)$. Here all the elements are greater than $x$, so $R$ moves towards $L$ and $L$ keeps pointing to $-1$ i.e. array gets always divided into lower half. After the end of binary search, $L=-1$ implies that the $x$ was not present in the array.
+
+But if $L=0$ then despite the fact that $x$ is not present in the array still $L$ points to the first element of the array.
+This is not the intended behaviour of the code and may lead to bugs.
+
+Therefore, considering two virtual elements $-\infty$ and $+\infty$ and $L$ and $R$ pointing to $-\infty$ and $+\infty$ respectively will maintain the invariance and will not lead to unknown bug.
+
 ## Search on arbitrary predicate
 
 Let $f : \{0,1,\dots, n-1\} \to \{0, 1\}$ be a boolean function defined on $0,1,\dots,n-1$ such that it is monotonous, that is
