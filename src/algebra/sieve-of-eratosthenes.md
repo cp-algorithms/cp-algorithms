@@ -50,6 +50,8 @@ Using such implementation the algorithm consumes $O(n)$ of the memory (obviously
 
 ## Asymptotic analysis
 
+It's simple to prove a running time of $O(n \log n)$ without knowing anything about the distribution of primes - ignoring the `is_prime` check, the inner loop runs (at most) $n/i$ times for $i = 2, 3, 4, \dots$, leading the total number of operations in the inner loop to be a harmonic sum like $n(1/2 + 1/3 + 1/4 + \cdots)$, which is bounded by $O(n \log n)$.
+
 Let's prove that algorithm's running time is $O(n \log \log n)$.
 The algorithm will perform $\frac{n}{p}$ operations for every prime $p \le n$ the inner loop.
 Hence, we need to evaluate the next expression:
