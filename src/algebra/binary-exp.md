@@ -253,7 +253,7 @@ $$a \cdot b = \begin{cases}
 * [Codeforces - Parking Lot](http://codeforces.com/problemset/problem/630/I)
 * [SPOJ - The last digit](http://www.spoj.com/problems/LASTDIG/)
 * [SPOJ - Locker](http://www.spoj.com/problems/LOCKER/)
-* [LA - 3722 Jewel-eating Monsters](https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1723)
+* [LA - 3722 Jewel-eating Monsters](https://vjudge.net/problem/UVALive-3722)
 * [SPOJ - Just add it](http://www.spoj.com/problems/ZSUM/)
 * [Codechef - Chef and Riffles](https://www.codechef.com/JAN221B/problems/RIFFLES)
 * [leetcode - Count good numbers](https://leetcode.com/problems/count-good-numbers/)
