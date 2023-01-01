@@ -76,45 +76,39 @@ From these results, we can easily find the modular inverse using the [binary exp
 
 Even though this method is easier to understand than the method described in previous paragraph, in the case when $m$ is not a prime number, we need to calculate Euler phi function, which involves factorization of $m$, which might be very hard. If the prime factorization of $m$ is known, then the complexity of this method is $O(\log m)$.
 
-## Finding the modular inverse for every number modulo $m$ { #mod-inv-all-num data-toc-label="Finding the modular inverse for every number modulo m"}
+## Finding the modular inverse using Euclidean Division
 
-The problem is the following: 
-we want to compute the modular inverse for every number in the range $[1, m-1]$.
+Given that $m > i$ (or we can modulo to make it smaller in 1 step), according to [Euclidean Division](https://en.wikipedia.org/wiki/Euclidean_division)
 
-Applying the algorithms described in the previous sections, we can obtain a solution with complexity $O(m \log m)$. 
+$$m = ki + r$$
 
-Here we present a better algorithm with complexity $O(m)$.
-However for this specific algorithm we require that the modulus $m$ is prime.
+where $k = \left\lfloor \frac{m}{i} \right\rfloor$ and $r = m \bmod i$, then
 
-We denote by $\text{inv}[i]$ the modular inverse of $i$. Then for $i > 1$ the following equation is valid:
+$$
+\begin{align*}
+& \implies 0       && \equiv && ki + r          & \mod m \\
+& \iff r           && \equiv && -ki             & \mod m \\
+& \iff \frac{1}{i} && \equiv && -k(\frac{1}{r}) & \mod m
+\end{align*}
+$$
 
-$$\text{inv}[i] = - \left\lfloor \frac{m}{i} \right\rfloor \cdot \text{inv}[m \bmod i] \bmod m$$
+From there we can have the following recursive function (in C++) for computing the modular inverse for number $i$ with respect to module $m$
 
-Thus the implementation is very simple:
+```cpp
+int inv(int i) {
+  return i <= 1 ? i : (m - m/i) * inv(m % i) % m
+}
+```
+
+The time complexity of this approach is $O(\log m)$ since the input is always halved after at most 2 steps.
+
+Applying this formula, we can also precompute the modular inverse for every number in the range $[1, m-1]$ in $O(m)$.
 
 ```cpp
 inv[1] = 1;
 for(int i = 2; i < m; ++i)
     inv[i] = m - (m/i) * inv[m%i] % m;
 ```
-
-### Proof
-
-We have:
-
-$$m \bmod i = m -  \left\lfloor \frac{m}{i} \right\rfloor \cdot i$$
-
-Taking both sides modulo $m$ yields:
-
-$$m \bmod i \equiv - \left\lfloor \frac{m}{i} \right\rfloor \cdot i \mod m$$
-
-Multiply both sides by $i^{-1} \cdot (m \bmod i)^{-1}$ yields
-
-$$(m \bmod i) \cdot i^{-1} \cdot (m \bmod i)^{-1} \equiv -\left\lfloor \frac{m}{i} \right\rfloor \cdot i \cdot i^{-1} \cdot (m \bmod i)^{-1} \mod m,$$
-
-which simplifies to:
-
-$$i^{-1} \equiv -\left\lfloor \frac{m}{i} \right\rfloor \cdot (m \bmod i)^{-1} \mod m,$$
 
 ## Finding the modular inverse for array of numbers modulo $m$
 
