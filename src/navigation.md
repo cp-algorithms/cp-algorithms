@@ -8,7 +8,6 @@
 - Algebra
     - Fundamentals
         - [Binary Exponentiation](algebra/binary-exp.md)
-        - [Factoring Exponentiation](algebra/factoring-exp.md)
         - [Euclidean algorithm for computing the greatest common divisor](algebra/euclid-algorithm.md)
         - [Extended Euclidean Algorithm](algebra/extended-euclid-algorithm.md)
         - [Linear Diophantine Equations](algebra/linear-diophantine-equation.md)
@@ -39,6 +38,7 @@
         - [Fast Fourier transform](algebra/fft.md)
         - [Operations on polynomials and series](algebra/polynomial.md)
         - [Continued fractions](algebra/continued-fractions.md)
+        - [Factoring Exponentiation](algebra/factoring-exp.md)
 - Data Structures
     - Fundamentals
         - [Minimum Stack / Minimum Queue](data_structures/stack_queue_modification.md)
