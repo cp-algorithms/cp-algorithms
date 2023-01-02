@@ -96,7 +96,7 @@ Compute $x^n \bmod m$.
 This is a very common operation. For instance it is used in computing the [modular multiplicative inverse](module-inverse.md).
 
 **Solution:**
-Since we know that the module operator doesn't interfere with multiplications ($a \cdot b \equiv (a \bmod m) \cdot (b \bmod m) \pmod m$), we can directly use the same code, and just replace every multiplication with a modular multiplication:
+Since we know that the module operator doesn't interfere with multiplications ($(a \cdot b) \bmod m \equiv (a \bmod m) \cdot (b \bmod m) \pmod m$), we can directly use the same code, and just replace every multiplication with a modular multiplication:
 
 ```cpp
 long long binpow(long long a, long long b, long long m) {
