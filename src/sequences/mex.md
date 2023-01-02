@@ -3,52 +3,123 @@ tags:
     - Original
 title: MEX (minimal excluded) of a sequence
 ---
-# MEX of a sequence in O(N)
+# MEX (minimal excluded) of a sequence
 
-Given an array $A$ of size $N$. You have to find the minimal element that is not present in the array and is equal to or greater than $0$. See [Wikipedia](https://en.wikipedia.org/wiki/Mex_(mathematics)) for more information.
+Given an array $A$ of size $N$. You have to find the minimal non-negative element that is not present in the array. That number is commonly called the **MEX** (minimal excluded).
 
-First we have to create a set of all elements in the array to quickly check for element presence in $O(1)$. Then check all numbers from $0$ to $N$. If the current number is not present in the set, return it. If all numbers are present in the set, return $N$, because all elements from $0$ to $N-1$ are present.
+$$
+\begin{align}
+\text{mex}(\{0, 1, 2, 4, 5\}) &= 3 \\
+\text{mex}(\{0, 1, 2, 3, 4\}) &= 5 \\
+\text{mex}(\{1, 2, 3, 4, 5\}) &= 0 \\
+\end{align}
+$$
 
-*NB*: This approach is fast, but works well only if your array doesn't change during program execution, e.g. it is not effective in problems with changing the initial array. If your array is changed by any type of array queries, use [O(N log N) approach](https://codeforces.com/blog/entry/81287?#comment-677837) instead.
+Notice, that the MEX of an array of size $N$ can never be bigger than $N$ itself.
 
-## Implementation (C++):
+The easiest approach is to create a set of all elements in the array $A$, so that we can quickly check if a number is part of the array or not.
+Then we can check all numbers from $0$ to $N$, if the current number is not present in the set, return it.
 
-```cpp
-int mex(vector<int> a) {
-	set<int> b(a.begin(), a.end());
-	for (int i=0; ; ++i)
-		if (!b.count(i))
-			return i;
+## Implementation
+
+The following algorithm runs in $O(N \log N)$ time.
+
+```{.cpp file=mex_simple}
+int mex(vector<int> const& A) {
+    set<int> b(A.begin(), A.end());
+
+    int result = 0;
+    while (b.count(result))
+        ++result;
+    return result;
 }
 ```
 
-If an algorithm requires fast $O(N)$ MEX computation, it is possible by computing an boolean vector of existing elements and then checking the first non-present one:
+If an algorithm requires a $O(N)$ MEX computation, it is possible by using a boolean vector instead of a set.
+Notice, that the array needs to be as big as the biggest possible array size.
 
-```cpp
-int mex (const vector<int> & a) {
-	static bool used[D+1] = { 0 };
-	int c = (int) a.size();
 
-	for (int i=0; i<c; ++i)
-		if (a[i] <= D)
-			used[a[i]] = true;
+```{.cpp file=mex_linear}
+int mex(vector<int> const& A) {
+    static bool used[MAX_N+1] = { 0 };
 
-	int result;
-	for (int i=0; ; ++i)
-		if (!used[i]) {
-			result = i;
-			 break;
-		}
+    // mark the given numbers
+    for (int x : A) {
+        if (x <= MAX_N)
+            used[x] = true;
+    }
+
+    // find the mex
+    int result = 0;
+    while (used[result])
+        ++result;
  
-	for (int i=0; i<c; ++i)
-		if (a[i] <= D)
-			used[a[i]] = false;
+    // clear the array again
+    for (int x : A) {
+        if (x <= MAX_N)
+            used[x] = false;
+    }
 
-	return result;
+    return result;
 }
 ```
 
+This approach is fast, but only works well if you have to compute the MEX once.
+If you need to compute the MEX over and over, e.g. because your array keeps changing, then it is not effective.
+For that, we need something better.
+
+## MEX with array updates
+
+In the problem you need to change individual numbers in the array, and compute the new MEX of the array after each such update.
+
+There is a need for a better data structure that handles such queries efficiently.
+
+One approach would be take the frequency of each number from $0$ to $N$, and build a tree-like data structure over it.
+E.g. a segment tree or a treap.
+Each node represents a range of numbers, and together to total frequency in the range, you additionally store the amount of distinct numbers in that range.
+It's possible to update this data structure in $O(\log N)$ time, and also find the MEX in $O(\log N)$ time, by doing a binary search for the MEX.
+If the node representing the range $[0, \lfloor N/2 \rfloor)$ doesn't contain $\lfloor N/2 \rfloor$ many distinct numbers, then one is missing and the MEX is smaller than $\lfloor N/2 \rfloor$, and you can recurse in the left branch of the tree. Otherwise it is at least $\lfloor N/2 \rfloor$, and you can recurse in the right branch of the tree.
+
+It's also possible to use the standard library data structures `map` and `set` (based on an approach explained [here](https://codeforces.com/blog/entry/81287?#comment-677837)).
+With a `map` we will remember the frequency of each number, and with the `set` we represent the numbers that are currently missing from the array.
+Since a `set` is ordered, `*set.begin()` will be the MEX.
+In total we need $O(N \log N)$ precomputation, and afterwards the MEX can be computed in $O(1)$ and an update can be performed in $O(\log N)$.
+
+```{.cpp file=mex_updates}
+class Mex {
+private:
+    map<int, int> frequency;
+    set<int> missing_numbers;
+    vector<int> A;
+
+public:
+    Mex(vector<int> const& A) : A(A) {
+        for (int i = 0; i <= A.size(); i++)
+            missing_numbers.insert(i);
+
+        for (int x : A) {
+            ++frequency[x];
+            missing_numbers.erase(x);
+        }
+    }
+
+    int mex() {
+        return *missing_numbers.begin();
+    }
+
+    void update(int idx, int new_value) {
+        if (--frequency[A[idx]] == 0)
+            missing_numbers.insert(A[idx]);
+        A[idx] = new_value;
+        ++frequency[new_value];
+        missing_numbers.erase(new_value);
+    }
+};
+```
 
 ## Practice Problems
 
-- [CODEFORCES: Replace by MEX](https://codeforces.com/contest/1375/problem/D)
+- [AtCoder: Neq Min](https://atcoder.jp/contests/hhkb2020/tasks/hhkb2020_c)
+- [Codeforces: Replace by MEX](https://codeforces.com/contest/1375/problem/D)
+- [Codeforces: Vitya and Strange Lesson](https://codeforces.com/problemset/problem/842/D)
+- [Codeforces: MEX Queries](https://codeforces.com/contest/817/problem/F)
