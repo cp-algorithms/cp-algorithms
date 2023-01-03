@@ -36,7 +36,7 @@ with $x_i \ge 0$.
 Again we can represent a solution using stars and bars.
 E.g. the solution $1 + 3 + 0 = 4$ for $n = 4$, $k = 3$ can be represented using $\bigstar | \bigstar \bigstar \bigstar |$.
 
-It is easy to see, that this is exactly the stars an bars theorem.
+It is easy to see, that this is exactly the stars and bars theorem.
 Therefore the solution is $\binom{n + k - 1}{n}$.
 
 ## Number of lower-bound integer sums
