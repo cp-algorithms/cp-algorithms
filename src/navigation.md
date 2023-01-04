@@ -1,3 +1,8 @@
+---
+search:
+  exclude: true
+---
+
 - Home
     - [Main Page](index.md)
     - [Navigation](navigation.md)
