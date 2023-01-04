@@ -169,7 +169,7 @@ $$abcbcba \to \#a\#b\#c\#b\#c\#b\#a\#,$$
 
 $$d = [1,2,1,2,1,4,1,8,1,4,1,2,1,2,1].$$
 
-As you can see, $d[2i]=2 d_2[i]+1$ and $d[2i+1]=2 d_1[i]$ where $d$ denotes the Manacher array for odd-length palindromes in `#`-joined string, while $d_1$ and $d_2$ correspond to the arrays defined above in the initial string.
+As you can see, $d[2i]=2 d_{even}[i]+1$ and $d[2i+1]=2 d_{odd}[i]$ where $d$ denotes the Manacher array for odd-length palindromes in `#`-joined string, while $d_{odd}$ and $d_{even}$ correspond to the arrays defined above in the initial string.
 
 Indeed, `#` characters do not affect the odd-length palindromes, which are still centered in the initial string's characters, but now even-length palindromes of the initial string are odd-length palindromes of the new string centered in `#` characters.
 
@@ -188,7 +188,7 @@ vector<int> manacher(string s) {
 }
 ```
 
-For simplicity, splitting the array into $d_1$ and $d_2$ as well as their explicit calculation is omitted.
+For simplicity, splitting the array into $d_{odd}$ and $d_{even}$ as well as their explicit calculation is omitted.
 
 ## Problems
 
