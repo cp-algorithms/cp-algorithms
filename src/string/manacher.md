@@ -18,17 +18,17 @@ But the information about the palindromes can be kept **in a compact way**: for 
 
 Palindromes with a common center form a contiguous chain, that is if we have a palindrome of length $l$ centered in $i$, we also have palindromes of lengths $l-2$, $l-4$ and so on also centered in $i$. Therefore, we will collect the information about all palindromic substrings in this way.
 
-Palindromes of odd and even lengths are accounted for separately as $d_1[i]$ and $d_2[i]$. For the palindromes of even length we assume that they're centered in the position $i$ if their two central characters are $s[i]$ and $s[i-1]$.
+Palindromes of odd and even lengths are accounted for separately as $d_{odd}[i]$ and $d_{even}[i]$. For the palindromes of even length we assume that they're centered in the position $i$ if their two central characters are $s[i]$ and $s[i-1]$.
 
-For instance, string $s = abababc$ has three palindromes with odd length with centers in the position $s[3] = b$, i. e. $d_1[3] = 3$:
+For instance, string $s = abababc$ has three palindromes with odd length with centers in the position $s[3] = b$, i. e. $d_{odd}[3] = 3$:
 
-$$a\ \overbrace{b\ a\ \underbrace{b}_{s_3}\ a\ b}^{d_1[3]=3} c$$
+$$a\ \overbrace{b\ a\ \underbrace{b}_{s_3}\ a\ b}^{d_{odd}[3]=3} c$$
 
-And string $s = cbaabd$ has two palindromes with even length with centers in the position $s[3] = a$, i. e. $d_2[3] = 2$:
+And string $s = cbaabd$ has two palindromes with even length with centers in the position $s[3] = a$, i. e. $d_{even}[3] = 2$:
 
-$$c\ \overbrace{b\ a\ \underbrace{a}_{s_3}\ b}^{d_2[3]=2} d$$
+$$c\ \overbrace{b\ a\ \underbrace{a}_{s_3}\ b}^{d_{even}[3]=2} d$$
 
-It's a surprising fact that there is an algorithm, which is simple enough, that calculates these "palindromity arrays" $d_1[]$ and $d_2[]$ in linear time. The algorithm is described in this article.
+It's a surprising fact that there is an algorithm, which is simple enough, that calculates these "palindromity arrays" $d_{odd}[]$ and $d_{even}[]$ in linear time. The algorithm is described in this article.
 
 ## Solution
 
@@ -66,37 +66,37 @@ Terminal characters `$` and `^` were used to avoid dealing with ends of the stri
 
 ## Manacher's algorithm
 
-We describe the algorithm to find all the sub-palindromes with odd length, i. e. to calculate $d_1[]$.
+We describe the algorithm to find all the sub-palindromes with odd length, i. e. to calculate $d_{odd}[]$.
 
 For fast calculation we'll maintain the **borders $(l, r)$** of the rightmost found (sub-)palindrome (i. e. the current rightmost (sub-)palindrome is $s[l+1] s[l+2] \dots s[r-1]$). Initially we set $l = 0, r = 1$, which corresponds to the empty string.
 
-So, we want to calculate $d_1[i]$ for the next $i$, and all the previous values in $d_1[]$ have been already calculated. We do the following:
+So, we want to calculate $d_{odd}[i]$ for the next $i$, and all the previous values in $d_{odd}[]$ have been already calculated. We do the following:
 
 * If $i$ is outside the current sub-palindrome, i. e. $i \geq r$, we'll just launch the trivial algorithm.
     
-    So we'll increase $d_1[i]$ consecutively and check each time if the current rightmost substring $[i - d_1[i]\dots i + d_1[i]]$ is a palindrome. When we find the first mismatch or meet the boundaries of $s$, we'll stop. In this case we've finally calculated $d_1[i]$. After this, we must not forget to update $(l, r)$. $r$ should be updated in such a way that it represents the last index of the current rightmost sub-palindrome.
+    So we'll increase $d_{odd}[i]$ consecutively and check each time if the current rightmost substring $[i - d_{odd}[i]\dots i + d_{odd}[i]]$ is a palindrome. When we find the first mismatch or meet the boundaries of $s$, we'll stop. In this case we've finally calculated $d_{odd}[i]$. After this, we must not forget to update $(l, r)$. $r$ should be updated in such a way that it represents the last index of the current rightmost sub-palindrome.
 
-* Now consider the case when $i \le r$. We'll try to extract some information from the already calculated values in $d_1[]$. So, let's find the "mirror" position of $i$ in the sub-palindrome $(l, r)$, i.e. we'll get the position $j = l + (r - i)$, and we check the value of $d_1[j]$. Because $j$ is the position symmetrical to $i$ with respect to $(l+r)/2$, we can **almost always** assign $d_1[i] = d_1[j]$. Illustration of this (palindrome around $j$ is actually "copied" into the palindrome around $i$):
+* Now consider the case when $i \le r$. We'll try to extract some information from the already calculated values in $d_{odd}[]$. So, let's find the "mirror" position of $i$ in the sub-palindrome $(l, r)$, i.e. we'll get the position $j = l + (r - i)$, and we check the value of $d_{odd}[j]$. Because $j$ is the position symmetrical to $i$ with respect to $(l+r)/2$, we can **almost always** assign $d_{odd}[i] = d_{odd}[j]$. Illustration of this (palindrome around $j$ is actually "copied" into the palindrome around $i$):
     
     $$
     \ldots\ 
     \overbrace{
         s_{l+1}\ \ldots\ 
         \underbrace{
-            s_{j-d_1[j]+1}\ \ldots\ s_j\ \ldots\ s_{j+d_1[j]-1}\ 
+            s_{j-d_{odd}[j]+1}\ \ldots\ s_j\ \ldots\ s_{j+d_{odd}[j]-1}\ 
         }_\text{palindrome}\ 
         \ldots\ 
         \underbrace{
-            s_{i-d_1[j]+1}\ \ldots\ s_i\ \ldots\ s_{i+d_1[j]-1}\ 
+            s_{i-d_{odd}[j]+1}\ \ldots\ s_i\ \ldots\ s_{i+d_{odd}[j]-1}\ 
         }_\text{palindrome}\ 
         \ldots\ s_{r-1}\ 
     }^\text{palindrome}\ 
     \ldots
     $$
     
-    But there is a **tricky case** to be handled correctly: when the "inner" palindrome reaches the borders of the "outer" one, i. e. $j - d_1[j] \le l$ (or, which is the same, $i + d_1[j] \ge r$). Because the symmetry outside the "outer" palindrome is not guaranteed, just assigning $d_1[i] = d_1[j]$ will be incorrect: we do not have enough data to state that the palindrome in the position $i$ has the same length.
+    But there is a **tricky case** to be handled correctly: when the "inner" palindrome reaches the borders of the "outer" one, i. e. $j - d_{odd}[j] \le l$ (or, which is the same, $i + d_{odd}[j] \ge r$). Because the symmetry outside the "outer" palindrome is not guaranteed, just assigning $d_{odd}[i] = d_{odd}[j]$ will be incorrect: we do not have enough data to state that the palindrome in the position $i$ has the same length.
     
-    Actually, we should restrict the length of our palindrome for now, i. e. assign $d_1[i] = r - i$, to handle such situations correctly. After this we'll run the trivial algorithm which will try to increase $d_1[i]$ while it's possible.
+    Actually, we should restrict the length of our palindrome for now, i. e. assign $d_{odd}[i] = r - i$, to handle such situations correctly. After this we'll run the trivial algorithm which will try to increase $d_{odd}[i]$ while it's possible.
     
     Illustration of this case (the palindrome with center $j$ is restricted to fit the "outer" palindrome):
     
@@ -116,9 +116,9 @@ So, we want to calculate $d_1[i]$ for the next $i$, and all the previous values 
     }_\text{try moving here}
     $$
     
-    It is shown in the illustration that though the palindrome with center $j$ could be larger and go outside the "outer" palindrome, but with $i$ as the center we can use only the part that entirely fits into the "outer" palindrome. But the answer for the position $i$ ($d_1[i]$) can be much bigger than this part, so next we'll run our trivial algorithm that will try to grow it outside our "outer" palindrome, i. e. to the region "try moving here".
+    It is shown in the illustration that though the palindrome with center $j$ could be larger and go outside the "outer" palindrome, but with $i$ as the center we can use only the part that entirely fits into the "outer" palindrome. But the answer for the position $i$ ($d_{odd}[i]$) can be much bigger than this part, so next we'll run our trivial algorithm that will try to grow it outside our "outer" palindrome, i. e. to the region "try moving here".
 
-Again, we should not forget to update the values $(l, r)$ after calculating each $d_1[i]$.
+Again, we should not forget to update the values $(l, r)$ after calculating each $d_{odd}[i]$.
 
 ## Complexity of Manacher's algorithm
 
@@ -132,13 +132,13 @@ Other parts of Manacher's algorithm work obviously in linear time. Thus, we get 
 
 ## Implementation of Manacher's algorithm
 
-For calculating $d_1[]$, we get the following code. Things to note:
+For calculating $d_{odd}[]$, we get the following code. Things to note:
 
  - $i$ is the index of the center letter of the current palindrome.
- - If $i$ exceeds $r$, $d_1[i]$ is initialized to 0.
- - If $i$ does not exceed $r$, $d_1[i]$ is either initialized to the $d_1[j]$, where $j$ is the mirror position of $i$ in $(l,r)$, or $d_1[i]$ is restricted to the size of the "outer" palindrome.
+ - If $i$ exceeds $r$, $d_{odd}[i]$ is initialized to 0.
+ - If $i$ does not exceed $r$, $d_{odd}[i]$ is either initialized to the $d_{odd}[j]$, where $j$ is the mirror position of $i$ in $(l,r)$, or $d_{odd}[i]$ is restricted to the size of the "outer" palindrome.
  - The while loop denotes the trivial algorithm. We launch it irrespective of the value of $k$.
- - If the size of palindrome centered at $i$ is $x$, then $d_1[i]$ stores $\frac{x+1}{2}$.
+ - If the size of palindrome centered at $i$ is $x$, then $d_{odd}[i]$ stores $\frac{x+1}{2}$.
 
 ```cpp
 vector<int> manacher_odd(string s) {
@@ -199,3 +199,4 @@ For simplicity, splitting the array into $d_{odd}$ and $d_{even}$ as well as the
 - [CF - Prefix-Suffix Palindrome](https://codeforces.com/contest/1326/problem/D2)
 - [SPOJ - Number of Palindromes](https://www.spoj.com/problems/NUMOFPAL/)
 - [Kattis - Palindromes](https://open.kattis.com/problems/palindromes)
+
