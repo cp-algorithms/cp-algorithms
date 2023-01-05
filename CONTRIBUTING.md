@@ -1,3 +1,7 @@
+---
+search:
+  exclude: true
+---
 # How to Contribute
 
 ## General information

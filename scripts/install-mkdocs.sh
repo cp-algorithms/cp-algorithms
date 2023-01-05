@@ -1,7 +1,7 @@
 #!/bin/bash
 
 pip install \
-    mkdocs-material \
+    "mkdocs-material>=9.0.2" \
     mkdocs-macros-plugin \
     mkdocs-literate-nav \
     mkdocs-git-authors-plugin \
