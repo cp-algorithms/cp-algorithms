@@ -158,11 +158,11 @@ The green vertices are the vertices that we visit and update.
 
 The main consideration is how to store the Segment Tree.
 Of course we can define a $\text{Vertex}$ struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
-However this requires storing a lot of redundant information.
-We will use a simple trick, to make this a lot more efficient. 
-We only store the sums in an array.
+However, this requires storing a lot of redundant information in the form of pointers.
+We will use a simple trick to make this a lot more efficient of using an _implicit data structure_: Only storing the sums in an array.
+(A similar method is used for binary heaps).
 The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
-It is easy to see, that the left child of a vertex at index $i$ is stored at index $2i$, and the right one at index $2i + 1$. 
+With 1-indexing, conveniently the left child of a vertex at index $i$ is stored at index $2i$, and the right one at index $2i + 1$. 
 
 This simplifies the implementation a lot. 
 We don't need to store the structure of the tree in memory. 
