@@ -578,8 +578,6 @@ Later in 1985 he, along with Leeuwen, published multiple complexity analyses for
 
 Finally in 1989 Fredman and Sachs proved that in the adopted model of computation **any** algorithm for the disjoint set union problem has to work in at least $O(\alpha(n))$ time on average (Fredman, Saks, "The cell probe complexity of dynamic data structures").
 
-However it should also be noted, that there are several articles **disputing** this provisional valuation and asserting that the DSU with path compression and Union by rank runs in $O(1)$ time on average (Zhang "The Union-Find Problem Is Linear", Wu, Otoo "A Simpler Proof of the Average Case Complexity of Union-Find with Path Compression").
-
 ## Problems
 
 * [TIMUS - Anansi's Cobweb](http://acm.timus.ru/problem.aspx?space=1&num=1671)
