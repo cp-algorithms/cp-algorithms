@@ -17,6 +17,7 @@ This is the most basic algorithm to find a prime factorization.
 We divide by each possible divisor $d$.
 We can notice, that it is impossible that all prime factors of a composite number $n$ are bigger than $\sqrt{n}$.
 Therefore, we only need to test the divisors $2 \le d \le \sqrt{n}$, which gives us the prime factorization in $O(\sqrt{n})$.
+(This is [pseudo-polynomial time](https://en.wikipedia.org/wiki/Pseudo-polynomial_time), i.e. polynomial in the value of the input but exponential in the number of bits of the input.)
 
 The smallest divisor has to be a prime number.
 We remove the factor from the number, and repeat the process.
