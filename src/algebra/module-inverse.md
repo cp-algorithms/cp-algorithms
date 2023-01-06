@@ -100,7 +100,7 @@ int inv(int i) {
 }
 ```
 
-The time complexity of this approach is $O(\log m)$ since the input is always halved after at most 2 steps.
+We believe the time complexity of this approach should be $O(\log m)$ but we can't prove it.
 
 Applying this formula, we can also precompute the modular inverse for every number in the range $[1, m-1]$ in $O(m)$.
 
