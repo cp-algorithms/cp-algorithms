@@ -163,6 +163,7 @@ We will use a simple trick to make this a lot more efficient of using an _implic
 (A similar method is used for binary heaps).
 The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
 With 1-indexing, conveniently the left child of a vertex at index $i$ is stored at index $2i$, and the right one at index $2i + 1$. 
+Equivalently, the parent of a vertex at index $i$ is stored at $i/2$ (integer division).
 
 This simplifies the implementation a lot. 
 We don't need to store the structure of the tree in memory. 
