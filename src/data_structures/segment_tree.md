@@ -204,7 +204,7 @@ In order to simplify the code, this function always does two recursive calls, ev
 int sum(int v, int tl, int tr, int l, int r) {
     if (l > r) 
         return 0;
-    if (l == tl && r == tr) {
+    if (l <= tl && tr <= r) {
         return t[v];
     }
     int tm = (tl + tr) / 2;
@@ -304,7 +304,7 @@ void build(int a[], int v, int tl, int tr) {
 pair<int, int> get_max(int v, int tl, int tr, int l, int r) {
     if (l > r)
         return make_pair(-INF, 0);
-    if (l == tl && r == tr)
+    if (l <= tl && tr <= r)
         return t[v];
     int tm = (tl + tr) / 2;
     return combine(get_max(v*2, tl, tm, l, min(r, tm)), 
@@ -496,7 +496,7 @@ Then it should be clear, that the work is exactly the same as in the simple Segm
 data query(int v, int tl, int tr, int l, int r) {
     if (l > r) 
         return make_data(0);
-    if (l == tl && r == tr) 
+    if (l <= tl && tr <= r)
         return t[v];
     int tm = (tl + tr) / 2;
     return combine(query(v*2, tl, tm, l, min(r, tm)), 
@@ -712,7 +712,7 @@ void build(int a[], int v, int tl, int tr) {
 void update(int v, int tl, int tr, int l, int r, int add) {
     if (l > r)
         return;
-    if (l == tl && r == tr) {
+    if (l <= tl && tr <= r) {
         t[v] += add;
     } else {
         int tm = (tl + tr) / 2;
@@ -908,7 +908,7 @@ first break the query on the first coordinate, and then for every reached vertex
 int sum_y(int vx, int vy, int tly, int try_, int ly, int ry) {
     if (ly > ry) 
         return 0;
-    if (ly == tly && try_ == ry)
+    if (ly <= tly && try_ <= ry)
         return t[vx][vy];
     int tmy = (tly + try_) / 2;
     return sum_y(vx, vy*2, tly, tmy, ly, min(ry, tmy))
@@ -918,7 +918,7 @@ int sum_y(int vx, int vy, int tly, int try_, int ly, int ry) {
 int sum_x(int vx, int tlx, int trx, int lx, int rx, int ly, int ry) {
     if (lx > rx)
         return 0;
-    if (lx == tlx && trx == rx)
+    if (lx <= tlx && trx <= rx)
         return sum_y(vx, 1, 0, m-1, ly, ry);
     int tmx = (tlx + trx) / 2;
     return sum_x(vx*2, tlx, tmx, lx, min(rx, tmx), ly, ry)
@@ -1020,7 +1020,7 @@ Vertex* build(int a[], int tl, int tr) {
 int get_sum(Vertex* v, int tl, int tr, int l, int r) {
     if (l > r)
         return 0;
-    if (l == tl && tr == r)
+    if (l <= tl && tr <= r)
         return v->sum;
     int tm = (tl + tr) / 2;
     return get_sum(v->l, tl, tm, l, min(r, tm))
