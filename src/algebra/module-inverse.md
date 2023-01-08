@@ -80,34 +80,37 @@ Even though this method is easier to understand than the method described in pre
 
 Given that $m > i$ (or we can modulo to make it smaller in 1 step), according to [Euclidean Division](https://en.wikipedia.org/wiki/Euclidean_division)
 
-$$m = ki + r$$
+$$m = k \cdot i + r$$
 
 where $k = \left\lfloor \frac{m}{i} \right\rfloor$ and $r = m \bmod i$, then
 
 $$
 \begin{align*}
-& \implies 0       && \equiv && ki + r          & \mod m \\
-& \iff r           && \equiv && -ki             & \mod m \\
-& \iff \frac{1}{i} && \equiv && -k(\frac{1}{r}) & \mod m
+& \implies & 0          & \equiv k \cdot i + r   & \mod m \\
+& \iff & r              & \equiv -k \cdot i      & \mod m \\
+& \iff & r \cdot i^{-1} & \equiv -k              & \mod m \\
+& \iff & i^{-1}         & \equiv -k \cdot r^{-1} & \mod m
 \end{align*}
 $$
 
 From there we can have the following recursive function (in C++) for computing the modular inverse for number $i$ with respect to module $m$
 
-```cpp
+```{.cpp file=modular_inverse_euclidean_division}
 int inv(int i) {
-  return i <= 1 ? i : (m - m/i) * inv(m % i) % m
+  return i <= 1 ? i : m - (long long)(m/i) * inv(m % i) % m;
 }
 ```
 
-We believe the time complexity of this approach should be $O(\log m)$ but we can't prove it.
+The exact time complexity of the this recursion is not known. It's is somewhere between $O(\frac{\log m}{\log\log m})$ and $O(n^{\frac{1}{3} - \frac{2}{177} + \epsilon})$.
+See [On the length of Pierce expansions](https://arxiv.org/abs/2211.08374).
+In practice this implementation is fast, e.g. for the modulus $10^9 + 7$ it will always finish in less than 50 iterations.
 
 Applying this formula, we can also precompute the modular inverse for every number in the range $[1, m-1]$ in $O(m)$.
 
-```cpp
+```{.cpp file=modular_inverse_euclidean_division_all}
 inv[1] = 1;
 for(int i = 2; i < m; ++i)
-    inv[i] = m - (m/i) * inv[m%i] % m;
+    inv[i] = m - (long long)(m/i) * inv[m%i] % m;
 ```
 
 ## Finding the modular inverse for array of numbers modulo $m$
