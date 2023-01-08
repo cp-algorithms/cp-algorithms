@@ -86,8 +86,8 @@ A vertex with the smallest distance gets extracted, and for each successful rela
 
 ### priority_queue
 
-The main difference to the implementation with `set` is that we cannot remove elements from the `priority_queue` (although heaps can support that operation in theory).
-Therefore we have to cheat a little bit.
+The main difference to the implementation with `set` is that in many languages, including C++, we cannot remove elements from the `priority_queue` (although heaps can support that operation in theory).
+Therefore we have to use a workaround:
 We simply don't delete the old pair from the queue.
 As a result a vertex can appear multiple times with different distance in the queue at the same time.
 Among these pairs we are only interested in the pairs where the first element is equal to the corresponding value in $d[]$, all the other pairs are old.
@@ -134,6 +134,8 @@ void dijkstra(int s, vector<int> & d, vector<int> & p) {
 ```
 
 In practice the `priority_queue` version is a little bit faster than the version with `set`.
+
+Interestingly, a [2007 technical report](https://www3.cs.stonybrook.edu/~rezaul/papers/TR-07-54.pdf) concluded the variant of the algorithm not using decrease-key operations ran faster than the decrease-key variant, with a greater performance gap for sparse graphs.
 
 ### Getting rid of pairs
 
