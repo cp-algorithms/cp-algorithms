@@ -181,5 +181,5 @@ After that we run a BFS to find the shortest path from the starting vertex $(s, 
 * [UVA - 11312 - Flipping Frustration](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2287)
 * [SPOJ - Ada and Cycle](http://www.spoj.com/problems/ADACYCLE/)
 * [CSES - Labyrinth](https://cses.fi/problemset/task/1193)
-* [CSES - Message Route](https://cses.fi/problemset/result/794325/)
+* [CSES - Message Route](https://cses.fi/problemset/task/1667/)
 * [CSES - Monsters](https://cses.fi/problemset/task/1194)
