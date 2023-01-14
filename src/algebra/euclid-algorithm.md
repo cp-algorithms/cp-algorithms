@@ -9,7 +9,7 @@ e_maxx_link: euclid_algorithm
 Given two non-negative integers $a$ and $b$, we have to find their **GCD** (greatest common divisor), i.e. the largest number which is a divisor of both $a$ and $b$.
 It's commonly denoted by $\gcd(a, b)$. Mathematically it is defined as:
 
-$$\gcd(a, b) = \max_ {k = 1 \dots \infty ~ : ~ k \mid a ~ \wedge k ~ \mid b} k.$$
+$$\gcd(a, b) = \max \{k : k \mid a \wedge k \mid b \}$$
 
 (here the symbol "$\mid$" denotes divisibility, i.e. "$k \mid a$" means "$k$ divides $a$")
 
