@@ -10,7 +10,7 @@ While the [Euclidean algorithm](euclid-algorithm.md) calculates only the greates
 
 $$a \cdot x + b \cdot y = \gcd(a, b)$$
 
-It's important to note, that we can always find such a representation, for instance $\gcd(55, 80) = 5$ therefore we can represent $5$ as a linear combination with the terms $55$ and $80$: $55 \cdot 3 + 80 \cdot (-2) = 5$ 
+It's important to note that by [Bézout's identity](https://en.wikipedia.org/wiki/B%C3%A9zout%27s_identity) we can always find such a representation. For instance, $\gcd(55, 80) = 5$, therefore we can represent $5$ as a linear combination with the terms $55$ and $80$: $55 \cdot 3 + 80 \cdot (-2) = 5$ 
 
 A more general form of that problem is discussed in the article about [Linear Diophantine Equations](linear-diophantine-equation.md).
 It will build upon this algorithm.
