@@ -13,9 +13,9 @@ The Chinese Remainder Theorem (which will be referred to as CRT in the rest of t
 Let $m = m_1 \cdot m_2 \cdots m_k$, where $m_i$ are pairwise coprime. In addition to $m_i$, we are also given a set of congruence equations
 
 $$\begin{align}
-    a &\equiv a_1 \pmod{m_1} \\\\
-    a &\equiv a_2 \pmod{m_2} \\\\
-      &\ldots \\\\
+    a &\equiv a_1 \pmod{m_1} \\
+    a &\equiv a_2 \pmod{m_2} \\
+      &\ldots \\
     a &\equiv a_k \pmod{m_k}
 \end{align}$$
 
@@ -30,8 +30,8 @@ $$x \equiv a \pmod{m}$$
 is equivalent to the system of equations
 
 $$\begin{align}
-    x &\equiv a_1 \pmod{m_1} \\\\
-      &\ldots \\\\
+    x &\equiv a_1 \pmod{m_1} \\
+      &\ldots \\
     x &\equiv a_k \pmod{m_k}
 \end{align}$$
 
@@ -63,8 +63,8 @@ $$a_2 \equiv x_1 + x_2 p_1 \pmod{p_2}.$$
 which can be rewritten by subtracting $x_1$ and dividing by $p_1$ to get
 
 $$\begin{array}{rclr}
-    a_2 - x_1 &\equiv& x_2 p_1 &\pmod{p_2} \\\\
-    (a_2 - x_1) r_{12} &\equiv& x_2 &\pmod{p_2} \\\\
+    a_2 - x_1 &\equiv& x_2 p_1 &\pmod{p_2} \\
+    (a_2 - x_1) r_{12} &\equiv& x_2 &\pmod{p_2} \\
     x_2 &\equiv& (a_2 - x_1) r_{12} &\pmod{p_2}
 \end{array}$$
 
@@ -184,5 +184,7 @@ class Number {
 * Modular scheme itself does not allow representing negative numbers. However, it can be seen that if we know that the absolute values our numbers are smaller than $p / 2$, then we know that it must be negative when the resulting number is greater than $p / 2$. The flag `can_be_negative` in this code allows converting it to negative in this case.
 
 ## Practice Problems:
+
+* [Google Code Jam - Golf Gophers](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051635/0000000000104f1a#problem)
 * [Hackerrank - Number of sequences](https://www.hackerrank.com/contests/w22/challenges/number-of-sequences)
 * [Codeforces - Remainders Game](http://codeforces.com/problemset/problem/687/B)
