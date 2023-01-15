@@ -10,7 +10,7 @@ The Chinese Remainder Theorem (which will be referred to as CRT in the rest of t
 
 ## Formulation
 
-Let $m = m_1 \cdot m_2 \cdots m_k$, where $m_i$ are pairwise relatively prime. In addition to $m_i$, we are also given a set of congruence equations
+Let $m = m_1 \cdot m_2 \cdots m_k$, where $m_i$ are pairwise coprime. In addition to $m_i$, we are also given a set of congruence equations
 
 $$\begin{align}
     a &\equiv a_1 \pmod{m_1} \\\\
@@ -35,7 +35,7 @@ $$\begin{align}
     x &\equiv a_k \pmod{m_k}
 \end{align}$$
 
-(As above, assume that $m = m_1 m_2 \cdots m_k$ and $m_i$ are pairwise relatively prime).
+(As above, assume that $m = m_1 m_2 \cdots m_k$ and $m_i$ are pairwise coprime).
 
 ## Garner's Algorithm
 
