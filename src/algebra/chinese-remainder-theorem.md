@@ -10,36 +10,36 @@ The Chinese Remainder Theorem (which will be referred to as CRT in the rest of t
 
 ## Formulation
 
-Let $p = p_1 \cdot p_2 \cdots p_k$, where $p_i$ are pairwise relatively prime. In addition to $p_i$, we are also given a set of congruence equations
+Let $m = m_1 \cdot m_2 \cdots m_k$, where $m_i$ are pairwise relatively prime. In addition to $m_i$, we are also given a set of congruence equations
 
 $$\begin{align}
-    a &\equiv a_1 \pmod{p_1} \\\\
-    a &\equiv a_2 \pmod{p_2} \\\\
+    a &\equiv a_1 \pmod{m_1} \\\\
+    a &\equiv a_2 \pmod{m_2} \\\\
       &\ldots \\\\
-    a &\equiv a_k \pmod{p_k}
+    a &\equiv a_k \pmod{m_k}
 \end{align}$$
 
-where $a_i$ are some given constants. The original form of CRT then states that the given set of congruence equations always has *one and exactly one* solution modulo $p$.
+where $a_i$ are some given constants. The original form of CRT then states that the given set of congruence equations always has *one and exactly one* solution modulo $m$.
 
 ### Corollary
 
 A consequence of the CRT is that the equation
 
-$$x \equiv a \pmod{p}$$
+$$x \equiv a \pmod{m}$$
 
 is equivalent to the system of equations
 
 $$\begin{align}
-    x &\equiv a_1 \pmod{p_1} \\\\
+    x &\equiv a_1 \pmod{m_1} \\\\
       &\ldots \\\\
-    x &\equiv a_k \pmod{p_k}
+    x &\equiv a_k \pmod{m_k}
 \end{align}$$
 
-(As above, assume that $p = p_1 p_2 \cdots p_k$ and $p_i$ are pairwise relatively prime).
+(As above, assume that $m = m_1 m_2 \cdots m_k$ and $m_i$ are pairwise relatively prime).
 
 ## Garner's Algorithm
 
-Another consequence of the CRT is that we can represent big numbers using an array of small integers. For example, let $p$ be the product of the first $1000$ primes. From calculations we can see that $p$ has around $3000$ digits.
+Another consequence of the CRT is that we can represent big numbers using an array of small integers. For example, let $p$ be the product of the first $1000$ primes. From calculations we can see that $P$ has around $3000$ digits.
 
 Any number $a$ less than $p$ can be represented as an array $a_1, \ldots, a_k$, where $a_i \equiv a \pmod{p_i}$. But to do this we obviously need to know how to get back the number $a$ from its representation. In this section, we discuss Garner's Algorithm, which can be used for this purpose. We seek a representation on the form
 
