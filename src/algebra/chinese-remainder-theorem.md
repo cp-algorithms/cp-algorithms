@@ -39,7 +39,7 @@ $$\begin{align}
 
 ## Garner's Algorithm
 
-Another consequence of the CRT is that we can represent big numbers using an array of small integers. For example, let $p$ be the product of the first $1000$ primes. From calculations we can see that $P$ has around $3000$ digits.
+Another consequence of the CRT is that we can represent big numbers using an array of small integers. For example, let $p$ be the product of the first $1000$ primes. From calculations we can see that $p$ has around $3000$ digits.
 
 Any number $a$ less than $p$ can be represented as an array $a_1, \ldots, a_k$, where $a_i \equiv a \pmod{p_i}$. But to do this we obviously need to know how to get back the number $a$ from its representation. In this section, we discuss Garner's Algorithm, which can be used for this purpose. We seek a representation on the form
 
