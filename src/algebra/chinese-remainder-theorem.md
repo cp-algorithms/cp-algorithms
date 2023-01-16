@@ -58,6 +58,13 @@ $$a = a_1 n_2 m_2 + a_2 n_1 m_1$$
 
 We can easily verify $a = a_1 (1 - n_1 m_1) + a_2 n_1 m_1 \equiv a_1 \pmod{m_1}$ and vice versa.
 
+## Solution for General Case
+
+### Inductive Solution
+
+As $m_1 m_2$ is coprime to $m_3$, we can inductively repeatedly apply the solution for two moduli for any number of moduli. For example, combine $a \equiv b_2 \pmod{m_1 m_2}$ and $a \equiv a_3 \pmod{m_3}$ to get $a \equiv b_3 \pmod{m_1 m_2 m_3}$, etc.
+
+
 ## Garner's Algorithm
 
 Another consequence of the CRT is that we can represent big numbers using an array of small integers. For example, let $p$ be the product of the first $1000$ primes. From calculations we can see that $p$ has around $3000$ digits.
