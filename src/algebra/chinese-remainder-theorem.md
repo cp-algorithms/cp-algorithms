@@ -15,7 +15,7 @@ Let $m = m_1 \cdot m_2 \cdots m_k$, where $m_i$ are pairwise coprime. In additio
 $$\begin{align}
     a &\equiv a_1 \pmod{m_1} \\
     a &\equiv a_2 \pmod{m_2} \\
-      &\ldots \\
+      & \vdots \\
     a &\equiv a_k \pmod{m_k}
 \end{align}$$
 
@@ -31,7 +31,7 @@ is equivalent to the system of equations
 
 $$\begin{align}
     x &\equiv a_1 \pmod{m_1} \\
-      &\ldots \\
+      &\vdots \\
     x &\equiv a_k \pmod{m_k}
 \end{align}$$
 
