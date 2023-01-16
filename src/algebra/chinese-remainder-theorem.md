@@ -64,6 +64,19 @@ We can easily verify $a = a_1 (1 - n_1 m_1) + a_2 n_1 m_1 \equiv a_1 \pmod{m_1}$
 
 As $m_1 m_2$ is coprime to $m_3$, we can inductively repeatedly apply the solution for two moduli for any number of moduli. For example, combine $a \equiv b_2 \pmod{m_1 m_2}$ and $a \equiv a_3 \pmod{m_3}$ to get $a \equiv b_3 \pmod{m_1 m_2 m_3}$, etc.
 
+### Direct Construction
+
+A direct construction similar to Lagrange interpolation is possible. Let $M_i = \prod_{i \neq j} m_j$, the product of all moduli but $m_i$. Again with the Extended Euclidean algorithm we can find $N_i, n_i$ such that
+
+$$N_i M_i + n_i m_i = 1$$
+
+Then a solution to the system of congruences is
+
+$$a = \sum_{i=1}^k a_i N_i M_i$$
+
+Observe $M_i$ is a multiple of $m_j$ for $i \neq j$, and 
+
+$$a \equiv a_i N_i M_i \equiv a_i (1 - n_i m_i) \equiv a_i \pmod{m_i}$$
 
 ## Garner's Algorithm
 
