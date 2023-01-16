@@ -52,6 +52,8 @@ We want to find a solution for $a \pmod{m_1 m_2}$. Using the [Extended Euclidean
 
 $$n_1 m_1 + n_2 m_2 = 1$$
 
+Equivalently, $n_1 m_1 \equiv 1 \pmod{m_2}$ so $n_1 \equiv m_1^{-1} \pmod{m_2}$, and vice versa $n_2 \equiv m_2^{-1} \pmod{m_1}$. 
+
 Then a solution will be 
 
 $$a = a_1 n_2 m_2 + a_2 n_1 m_1$$
