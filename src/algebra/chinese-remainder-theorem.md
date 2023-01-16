@@ -37,6 +37,27 @@ $$\begin{align}
 
 (As above, assume that $m = m_1 m_2 \cdots m_k$ and $m_i$ are pairwise coprime).
 
+## Solution for Two Moduli
+
+Consider a system of two equations for coprime $m_1, m_2$:
+
+$$
+\begin{align}
+    a &\equiv a_1 \pmod{m_1} \\
+    a &\equiv a_2 \pmod{m_2} \\
+\end{align}
+$$
+
+We want to find a solution for $a \pmod{m_1 m_2}$. Using the [Extended Euclidean Algorithm](extended-euclid-algorithm.md) we can find Bézout coefficients $n_1, n_2$ such that
+
+$$n_1 m_1 + n_2 m_2 = 1$$
+
+Then a solution will be 
+
+$$a = a_1 n_2 m_2 + a_2 n_1 m_1$$
+
+We can easily verify $a = a_1 (1 - n_1 m_1) + a_2 n_1 m_1 \equiv a_1 \pmod{m_1}$ and vice versa.
+
 ## Garner's Algorithm
 
 Another consequence of the CRT is that we can represent big numbers using an array of small integers. For example, let $p$ be the product of the first $1000$ primes. From calculations we can see that $p$ has around $3000$ digits.
