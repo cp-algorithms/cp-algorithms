@@ -76,6 +76,10 @@ Then a solution to the system of congruences is
 
 $$a = \sum_{i=1}^k a_i N_i M_i$$
 
+Again as $N_i \equiv M_i^{-1} \pmod{m_i}$, the solution is equivalent to 
+
+$$a = \sum_{i=1}^k a_i M_i (M_i^{-1} \mod{m_i})$$
+
 Observe $M_i$ is a multiple of $m_j$ for $i \neq j$, and 
 
 $$a \equiv a_i N_i M_i \equiv a_i (1 - n_i m_i) \equiv a_i \pmod{m_i}$$
