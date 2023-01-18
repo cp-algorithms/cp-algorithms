@@ -154,7 +154,7 @@ the criterion is the condition $d_a [v] + d_b [v] = d_a [b]$.
 
 * Find the shortest path of even length from a source vertex $s$ to a target vertex $t$ in an unweighted graph:
 For this, we must construct an auxiliary graph, whose vertices are the state $(v, c)$, where $v$ - the current node, $c = 0$ or $c = 1$ - the current parity.
-Any edge $(a, b)$ of the original graph in this new column will turn into two edges $((u, 0), (v, 1))$ and $((u, 1), (v, 0))$.
+Any edge $(u, v)$ of the original graph in this new column will turn into two edges $((u, 0), (v, 1))$ and $((u, 1), (v, 0))$.
 After that we run a BFS to find the shortest path from the starting vertex $(s, 0)$ to the end vertex $(t, 0)$.
 
 ## Practice Problems
