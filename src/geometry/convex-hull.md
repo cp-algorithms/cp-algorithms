@@ -23,7 +23,7 @@ with the same Y coordinate, the one with the smaller X coordinate is considered.
 step takes $\mathcal{O}(N)$ time.
 
 Next, all the other points are sorted by polar angle in clockwise order.
-If the polar angle between two points is the same, the nearest point is chosen instead.
+If the polar angle between two or more points is the same, the tie should be broken by distance from $P_0$, in increasing order.
 
 Then we iterate through each point one by one, and make sure that the current
 point and the two before it make a clockwise turn, otherwise the previous
