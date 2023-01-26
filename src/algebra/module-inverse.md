@@ -28,7 +28,7 @@ Consider the following equation (with unknown $x$ and $y$):
 $$a \cdot x + m \cdot y = 1$$
 
 This is a [Linear Diophantine equation in two variables](linear-diophantine-equation.md).
-As shown in the linked article, when $\gcd(a, m) = 1$, the equation has a solution which can be found using the [extended Euclidean algorithm](http://en.wikipedia.org/wiki/Extended_Euclidean_algorithm).
+As shown in the linked article, when $\gcd(a, m) = 1$, the equation has a solution which can be found using the [extended Euclidean algorithm](extended-euclid-algorithm.md).
 Note that $\gcd(a, m) = 1$ is also the condition for the modular inverse to exist.
 
 Now, if we take modulo $m$ of both sides, we can get rid of $m \cdot y$, and the equation becomes:
