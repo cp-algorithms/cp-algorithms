@@ -56,3 +56,8 @@ $$\Leftrightarrow ~ ~ x_1' + x_2' + \dots + x_k' = n - a_1 - a_2 - \dots - a_k$$
 
 with $x_i' \ge 0$.
 So we have reduced the problem to the simpler case with $x_i' \ge 0$ and again can apply the stars and bars theorem.
+
+## Number of upper-bound integer sums
+
+With some help of the [Inclusion-Exclusion Principle](./inclusion-exclusion.md), you can also restrict the integers with upper bounds.
+See the [Number of upper-bound integer sums](./inclusion-exclusion.md#number-of-upper-bound-integer-sums) section in the corresponding article.

@@ -137,27 +137,29 @@ As we solved the inverse problem, we subtract it from the total of $3^n$ sequenc
 
 $$3^n - (3 \cdot 2^n - 3 \cdot 1 + 0)$$
 
-### The number of integer solutions to the equation
+<a id="the-number-of-integer-solutions-to-the-equation" />
+### Number of upper-bound integer sums {: #number-of-upper-bound-integer-sums }
 
 Consider the following equation:
 
 $$x_1 + x_2 + x_3 + x_4 + x_5 + x_6 = 20$$
 
-where $0 \le x_i \le 8 (i = 1,2,\ldots 6)$.
+where $0 \le x_i \le 8 ~ (i = 1,2,\ldots 6)$.
 
 Task: count the number of solutions to the equation.
 
-Forget the restriction on $x_i$ for a moment and just count the number of nonnegative solutions to this equation. This is easily done using [binomial coefficients](binomial-coefficients.md): we want to break a sequence of $20$ units into $6$ groups, which is the same as distributing $5$ "walls" over $25$ slots:
+Forget the restriction on $x_i$ for a moment and just count the number of nonnegative solutions to this equation. This is easily done using [Stars and Bars](stars_and_bars.html):
+we want to break a sequence of $20$ units into $6$ groups, which is the same as arranging $5$ _bars_ and $20$ _stars_:
 
 $$N_0 = \binom{25}{5}$$
 
 We will now calculate the number of "bad" solutions with the inclusion-exclusion principle. The "bad" solutions will be those in which one or more $x_i$ are greater than $9$.
 
-Denote by $A_k (k = 1,2\ldots 6)$ the set of solutions where $x_k \ge 9$, and all other $x_i \ge 0 (i \ne k)$ (they may be $\ge 9$ or not). To calculate the size of $A_k$, note that we have essentially the same combinatorial problem that was solved in the two paragraphs above, but now $9$ of the units are excluded from the slots and definitely belong to the first group. Thus:
+Denote by $A_k ~ (k = 1,2\ldots 6)$ the set of solutions where $x_k \ge 9$, and all other $x_i \ge 0 ~ (i \ne k)$ (they may be $\ge 9$ or not). To calculate the size of $A_k$, note that we have essentially the same combinatorial problem that was solved in the two paragraphs above, but now $9$ of the units are excluded from the slots and definitely belong to the first group. Thus:
 
 $$ | A_k | = \binom{16}{5} $$
 
-Similarly, the size of the intersection between sets $A_k$ and $A_p$ is equal to:
+Similarly, the size of the intersection between two sets $A_k$ and $A_p$ (for $k \ne p$) is equal to:
 
 $$ \left| A_k \cap A_p \right| = \binom{7}{5}$$
 
