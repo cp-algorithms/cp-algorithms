@@ -137,7 +137,7 @@ As we solved the inverse problem, we subtract it from the total of $3^n$ sequenc
 
 $$3^n - (3 \cdot 2^n - 3 \cdot 1 + 0)$$
 
-<a id="the-number-of-integer-solutions-to-the-equation" />
+<div id="the-number-of-integer-solutions-to-the-equation"></div>
 ### Number of upper-bound integer sums {: #number-of-upper-bound-integer-sums }
 
 Consider the following equation:
