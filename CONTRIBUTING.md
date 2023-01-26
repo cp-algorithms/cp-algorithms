@@ -66,6 +66,25 @@ Files should not be moved or renamed without making redirects. A redirect page s
 Article was moved (renamed). <a href="<new section>/<new name>.html">new URL</a>.
 ```
 
+### Linking to a section with anchors
+
+Also it's kind of problematic when renaming a section of an article.
+The section title is used for linking.
+E.g. a section on the page `article.md` with
+
+```md
+## Some title
+```
+
+can be linked to with `/article.html#some-title`.
+If the title is changed, the link doesn't work any more, and this breaks links from other articles or other websites.
+
+If you rename an article, insert an anchor so that the old link still works:
+
+```html
+<div id="some-title"></div>
+```
+
 ### Tags
 
 To distinguish original and translatory articles, they should be marked with corresponding tags. For original articles, it's
