@@ -105,6 +105,7 @@ The exact time complexity of the this recursion is not known. It's is somewhere 
 See [On the length of Pierce expansions](https://arxiv.org/abs/2211.08374).
 In practice this implementation is fast, e.g. for the modulus $10^9 + 7$ it will always finish in less than 50 iterations.
 
+<div id="mod-inv-all-num"></div>
 Applying this formula, we can also precompute the modular inverse for every number in the range $[1, m-1]$ in $O(m)$.
 
 ```{.cpp file=modular_inverse_euclidean_division_all}
