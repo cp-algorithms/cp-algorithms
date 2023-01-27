@@ -24,6 +24,7 @@ The final answer is
 
 $$\Bigl\lfloor\dfrac{n}{k}\Bigr\rfloor + \Bigl\lfloor\dfrac{n}{k^2}\Bigr\rfloor + \ldots + \Bigl\lfloor\dfrac{n}{k^i}\Bigr\rfloor + \ldots$$
 
+This result is also known as [Legendre's formula](https://en.wikipedia.org/wiki/Legendre%27s_formula).
 The sum is of course finite, since only approximately the first $\log_k n$ elements are not zeros. Thus, the runtime of this algorithm is $O(\log_k n)$.
 
 ### Implementation
