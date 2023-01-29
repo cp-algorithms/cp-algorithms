@@ -112,8 +112,10 @@ long long binpow(long long a, long long b, long long m) {
 }
 ```
 
-**Note:** If $m$ is a prime number we can speed up a bit this algorithm by calculating $x^{n \bmod (m-1)}$ instead of $x ^ n$.
-This follows directly from [Fermat's little theorem](module-inverse.md#toc-tgt-2).
+**Note:**
+It's possible to speed this algorithm for large $b >> m$.
+If $m$ is a prime number $x^n \equiv x^{n \bmod (m-1)} \pmod{m}$ for prime $m$, and $x^n \equiv x^{n \bmod{\phi(m)}} \pmod{m}$ for composite $m$.
+This follows directly from Fermat's little theorem and Euler's theorem, see the article about [Modular Inverses](module-inverse.md#fermat-euler) for more details.
 
 ### Effective computation of Fibonacci numbers
 

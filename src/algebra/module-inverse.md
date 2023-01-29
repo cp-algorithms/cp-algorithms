@@ -54,6 +54,7 @@ else {
 Notice that the way we modify `x`.
 The resulting `x` from the extended Euclidean algorithm may be negative, so `x % m` might also be negative, and we first have to add `m` to make it positive.
 
+<div id="fermat-euler"></div>
 ## Finding the Modular Inverse using Binary Exponentiation
 
 Another method for finding modular inverse is to use Euler's theorem, which states that the following congruence is true if $a$ and $m$ are relatively prime:
