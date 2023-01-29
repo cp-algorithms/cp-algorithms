@@ -10,16 +10,16 @@ The Chinese Remainder Theorem (which will be referred to as CRT in the rest of t
 
 ## Formulation
 
-Let $m = m_1 \cdot m_2 \cdots m_k$, where $m_i$ are pairwise coprime. In addition to $m_i$, we are also given a set of congruence equations
+Let $m = m_1 \cdot m_2 \cdots m_k$, where $m_i$ are pairwise coprime. In addition to $m_i$, we are also given a system of congruences
 
-$$\begin{align}
-    a &\equiv a_1 \pmod{m_1} \\
-    a &\equiv a_2 \pmod{m_2} \\
-      & \vdots \\
-    a &\equiv a_k \pmod{m_k}
-\end{align}$$
+$$\begin{array}{rcl}
+    a & \equiv & a_1 \pmod{m_1} \\
+    a & \equiv & a_2 \pmod{m_2} \\
+      & \vdots & \\
+    a & \equiv & a_k \pmod{m_k}
+\end{array}$$
 
-where $a_i$ are some given constants. The original form of CRT then states that the given set of congruence equations always has *one and exactly one* solution modulo $m$.
+where $a_i$ are some given constants. The original form of CRT then states that the given system of congruences always has *one and exactly one* solution modulo $m$.
 
 ### Corollary
 
@@ -29,11 +29,11 @@ $$x \equiv a \pmod{m}$$
 
 is equivalent to the system of equations
 
-$$\begin{align}
-    x &\equiv a_1 \pmod{m_1} \\
-      &\vdots \\
-    x &\equiv a_k \pmod{m_k}
-\end{align}$$
+$$\begin{array}{rcl}
+    x & \equiv & a_1 \pmod{m_1} \\
+      & \vdots & \\
+    x & \equiv & a_k \pmod{m_k}
+\end{array}$$
 
 (As above, assume that $m = m_1 m_2 \cdots m_k$ and $m_i$ are pairwise coprime).
 
@@ -50,35 +50,57 @@ $$
 
 We want to find a solution for $a \pmod{m_1 m_2}$. Using the [Extended Euclidean Algorithm](extended-euclid-algorithm.md) we can find Bézout coefficients $n_1, n_2$ such that
 
-$$n_1 m_1 + n_2 m_2 = 1$$
+$$n_1 m_1 + n_2 m_2 = 1.$$
 
-Equivalently, $n_1 m_1 \equiv 1 \pmod{m_2}$ so $n_1 \equiv m_1^{-1} \pmod{m_2}$, and vice versa $n_2 \equiv m_2^{-1} \pmod{m_1}$. 
+In fact $n_1$ and $n_2$ are just the [modular inverses](module-inverse.md) of $m_1$ and $m_2$ modulo $m_2$ and $m_1$.
+We have $n_1 m_1 \equiv 1 \pmod{m_2}$ so $n_1 \equiv m_1^{-1} \pmod{m_2}$, and vice versa $n_2 \equiv m_2^{-1} \pmod{m_1}$. 
 
-Then a solution will be 
+With those two coefficients we can define a solution:
 
-$$a = a_1 n_2 m_2 + a_2 n_1 m_1$$
+$$a = a_1 n_2 m_2 + a_2 n_1 m_1 \bmod{m_1 m_2}$$
 
-We can easily verify $a = a_1 (1 - n_1 m_1) + a_2 n_1 m_1 \equiv a_1 \pmod{m_1}$ and vice versa.
+It's easy to verify that this is indeed a solution by computing $a \bmod{m_1}$ and $a \bmod{m_2}.
+
+$$\begin{array}{rcll}
+a & \equiv & a_1 n_2 m_2 + a_2 n_1 m_1 & \pmod{m_1}\\
+  & \equiv & a_1 (1 - n_1 m_1) + a_2 n_1 m_1 & \pmod{m_1}\\
+  & \equiv & a_1 & \pmod{m_1}
+\end{array}$$
+
+Notice, that the Chinese Remainder Theorem also guarantees, that only 1 solution exists modulo $m_1 m_2$.
+This is also easy to prove.
+
+Lets assume that you have two different solutions $x$ and $y$.
+Because $x \equiv a_i \pmod{m_i}$ and $y \equiv a_i \pmod{m_i}$, it follows that $x − y \equiv 0 \pmod{m_i}$ and therefore $x − y \equiv 0 \pmod{m_1 m_2}$ or $x \equiv y \pmod{m_1 m_2}$.
+So $x$ and $y$ are actually the same solution.
 
 ## Solution for General Case
 
 ### Inductive Solution
 
-As $m_1 m_2$ is coprime to $m_3$, we can inductively repeatedly apply the solution for two moduli for any number of moduli. For example, combine $a \equiv b_2 \pmod{m_1 m_2}$ and $a \equiv a_3 \pmod{m_3}$ to get $a \equiv b_3 \pmod{m_1 m_2 m_3}$, etc.
+As $m_1 m_2$ is coprime to $m_3$, we can inductively repeatedly apply the solution for two moduli for any number of moduli.
+First you compute $b_2 := a \pmod{m_1 m_2}$ using the first two congruences,
+then you can compute $b_3 := a \pmod{m_1 m_2 m_3}$ using the congruences $a \equiv b_2 \pmod{m_1 m_2}$ and $a \equiv a_3 \pmod {m_3}$, etc.
 
 ### Direct Construction
 
-A direct construction similar to Lagrange interpolation is possible. Let $M_i = \prod_{i \neq j} m_j$, the product of all moduli but $m_i$. Again with the Extended Euclidean algorithm we can find $N_i, n_i$ such that
+A direct construction similar to Lagrange interpolation is possible.
 
-$$N_i M_i + n_i m_i = 1$$
+Let $M_i := \prod_{i \neq j} m_j$, the product of all moduli but $m_i$, and $N_i$ the modular inverses $N_i := M_i^{-1} \bmod{m_i}$.
+Then a solution to the system of congruences is:
 
-Then a solution to the system of congruences is
+$$a = \sum_{i=1}^k a_i M_i N_i \bmod{m_1 m_2 \dots m_k}$$
 
-$$a = \sum_{i=1}^k a_i N_i M_i$$
+We can check this is indeed a solution, by computing $a \bmod{m_i}$ for all $i$.
+Because $M_j$ is a multiple of $m_i$ for $i \neq j$ we have
 
-Again as $N_i \equiv M_i^{-1} \pmod{m_i}$, the solution is equivalent to 
+$$\begin{array}{rcll}
+a & \equiv & \sum_{j=1}^k a_j M_j N_j & \pmod{m_i} \\
+  & \equiv & a_i M_i N_i              & \pmod{m_i} \\
+  & \equiv & a_i M_i M_i^{-1}         & \pmod{m_i} \\
+  & \equiv & a_i                      & \pmod{m_i}
+\end{array}$$
 
-$$a = \sum_{i=1}^k a_i M_i (M_i^{-1} \mod{m_i})$$
 
 Observe $M_i$ is a multiple of $m_j$ for $i \neq j$, and 
 
