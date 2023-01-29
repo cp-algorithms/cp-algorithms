@@ -101,10 +101,30 @@ a & \equiv & \sum_{j=1}^k a_j M_j N_j & \pmod{m_i} \\
   & \equiv & a_i                      & \pmod{m_i}
 \end{array}$$
 
+### Implementation
 
-Observe $M_i$ is a multiple of $m_j$ for $i \neq j$, and 
+```{.cpp file=chinese_remainder_theorem}
+struct Congruence {
+    long long a, m, totient_m;
+};
 
-$$a \equiv a_i N_i M_i \equiv a_i (1 - n_i m_i) \equiv a_i \pmod{m_i}$$
+long long chinese_remainder_theorem(vector<Congruence> const& congruences) {
+    long long M = 1;
+    for (auto const& congruence : congruences) {
+        M *= congruence.m;
+    }
+
+    long long solution = 0;
+    for (auto const& congruence : congruences) {
+        long long a_i = congruence.a;
+        long long m_i = congruence.m;
+        long long M_i = M / congruence.m;
+        long long N_i = mod_inv(M_i, m_i);
+        solution = (solution + a_i * M_i % M * N_i) % M;
+    }
+    return solution;
+}
+```
 
 ## Garner's Algorithm
 
