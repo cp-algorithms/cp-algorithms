@@ -12,23 +12,22 @@ The Chinese Remainder Theorem (which will be referred to as CRT in the rest of t
 
 Let $m = m_1 \cdot m_2 \cdots m_k$, where $m_i$ are pairwise coprime. In addition to $m_i$, we are also given a system of congruences
 
-$$\begin{array}{rcl}
+$$\left\{\begin{array}{rcl}
     a & \equiv & a_1 \pmod{m_1} \\
     a & \equiv & a_2 \pmod{m_2} \\
       & \vdots & \\
     a & \equiv & a_k \pmod{m_k}
-\end{array}$$
+\end{array}\right.$$
 
 where $a_i$ are some given constants. The original form of CRT then states that the given system of congruences always has *one and exactly one* solution modulo $m$.
 
 E.g. the system of congruences
 
-$$\begin{array}{rcl}
+$$\left\{\begin{array}{rcl}
     a & \equiv & 2 \pmod{3} \\
     a & \equiv & 3 \pmod{5} \\
-      & \vdots & \\
     a & \equiv & 2 \pmod{7}
-\end{array}$$
+\end{array}\right.$$
 
 has the solution $23$ modulo $105$, because $23 \bmod{3} = 2$, $23 \bmod{5} = 3$, and $23 \bmod{7} = 2$.
 We can write down every solution as $23 + 105\cdot k$ for $k \in \mathbb{Z}$.
@@ -42,11 +41,11 @@ $$x \equiv a \pmod{m}$$
 
 is equivalent to the system of equations
 
-$$\begin{array}{rcl}
+$$\left\{\begin{array}{rcl}
     x & \equiv & a_1 \pmod{m_1} \\
       & \vdots & \\
     x & \equiv & a_k \pmod{m_k}
-\end{array}$$
+\end{array}\right.$$
 
 (As above, assume that $m = m_1 m_2 \cdots m_k$ and $m_i$ are pairwise coprime).
 
@@ -55,10 +54,10 @@ $$\begin{array}{rcl}
 Consider a system of two equations for coprime $m_1, m_2$:
 
 $$
-\begin{align}
+\left\{\begin{align}
     a &\equiv a_1 \pmod{m_1} \\
     a &\equiv a_2 \pmod{m_2} \\
-\end{align}
+\end{align}\right.
 $$
 
 We want to find a solution for $a \pmod{m_1 m_2}$. Using the [Extended Euclidean Algorithm](extended-euclid-algorithm.md) we can find Bézout coefficients $n_1, n_2$ such that
@@ -72,19 +71,22 @@ With those two coefficients we can define a solution:
 
 $$a = a_1 n_2 m_2 + a_2 n_1 m_1 \bmod{m_1 m_2}$$
 
-It's easy to verify that this is indeed a solution by computing $a \bmod{m_1}$ and $a \bmod{m_2}.
+It's easy to verify that this is indeed a solution by computing $a \bmod{m_1}$ and $a \bmod{m_2}$.
 
-$$\begin{array}{rcll}
+$$
+\begin{array}{rcll}
 a & \equiv & a_1 n_2 m_2 + a_2 n_1 m_1 & \pmod{m_1}\\
   & \equiv & a_1 (1 - n_1 m_1) + a_2 n_1 m_1 & \pmod{m_1}\\
+  & \equiv & a_1 - a_1 n_1 m_1 + a_2 n_1 m_1 & \pmod{m_1}\\
   & \equiv & a_1 & \pmod{m_1}
-\end{array}$$
+\end{array}
+$$
 
 Notice, that the Chinese Remainder Theorem also guarantees, that only 1 solution exists modulo $m_1 m_2$.
 This is also easy to prove.
 
 Lets assume that you have two different solutions $x$ and $y$.
-Because $x \equiv a_i \pmod{m_i}$ and $y \equiv a_i \pmod{m_i}$, it follows that $x − y \equiv 0 \pmod{m_i}$ and therefore $x − y \equiv 0 \pmod{m_1 m_2}$ or $x \equiv y \pmod{m_1 m_2}$.
+Because $x \equiv a_i \pmod{m_i}$ and $y \equiv a_i \pmod{m_i}$, it follows that $x − y \equiv 0 \pmod{m_i}$ and therefore $x − y \equiv 0 \pmod{m_1 m_2}$ or equivalently $x \equiv y \pmod{m_1 m_2}$.
 So $x$ and $y$ are actually the same solution.
 
 ## Solution for General Case
@@ -102,7 +104,7 @@ A direct construction similar to Lagrange interpolation is possible.
 Let $M_i := \prod_{i \neq j} m_j$, the product of all moduli but $m_i$, and $N_i$ the modular inverses $N_i := M_i^{-1} \bmod{m_i}$.
 Then a solution to the system of congruences is:
 
-$$a = \sum_{i=1}^k a_i M_i N_i \bmod{m_1 m_2 \dots m_k}$$
+$$a \equiv \sum_{i=1}^k a_i M_i N_i \pmod{m_1 m_2 \cdots m_k}$$
 
 We can check this is indeed a solution, by computing $a \bmod{m_i}$ for all $i$.
 Because $M_j$ is a multiple of $m_i$ for $i \neq j$ we have
@@ -130,9 +132,8 @@ long long chinese_remainder_theorem(vector<Congruence> const& congruences) {
     long long solution = 0;
     for (auto const& congruence : congruences) {
         long long a_i = congruence.a;
-        long long m_i = congruence.m;
         long long M_i = M / congruence.m;
-        long long N_i = mod_inv(M_i, m_i);
+        long long N_i = mod_inv(M_i, congruence.m);
         solution = (solution + a_i * M_i % M * N_i) % M;
     }
     return solution;
@@ -148,10 +149,10 @@ In the not coprime case, a system of congruences has exactly one solution modulo
 E.g. in the following system, the first congruence implies that the solution is odd, and the second congruence implies that the solution is even.
 It's not possible that a number is both odd and even, therefore there is clearly no solution.
 
-$$\begin{align}
+$$\left\{\begin{align}
     a & \equiv 1 \pmod{4} \\
     a & \equiv 2 \pmod{6}
-\end{align}$$
+\end{align}\right.$$
 
 It is pretty simple to determine is a system has a solution.
 And if it has one, we can use the original algorithm to solve a slightly modified system of congruences.
@@ -161,15 +162,15 @@ A single congruence $a \equiv a_i \pmod{m_i}$ is equivalent to the system of con
 With this fact, we can modify the system of congruences into a system, that only has prime powers as moduli.
 E.g. the above system of congruences is equivalent to:
 
-$$\begin{array}{ll}
+$$\left\{\begin{array}{ll}
     a \equiv 1          & \pmod{4} \\
     a \equiv 2 \equiv 0 & \pmod{2} \\
     a \equiv 2          & \pmod{3}
-\end{array}$$
+\end{array}\right.$$
 
-Because originally some moduli had common factors, we will get some congruences moduli based on the same $prime$, however possibly with different prime powers.
+Because originally some moduli had common factors, we will get some congruences moduli based on the same prime, however possibly with different prime powers.
 
-You can observe, that the congruence with the highest prime power modulus will be the only necessary congruence of all congruences based on the same prime number.
+You can observe, that the congruence with the highest prime power modulus will be the strongest congruence of all congruences based on the same prime number.
 Either it will give a contradiction with some other congruence, or it will imply already all other congruences.
 
 In our case, the first congruence $a \equiv 1 \pmod{4}$ implies $a \equiv 1 \pmod{2}$, and therefore contradicts the second congruence $a \equiv 0 \pmod{2}$.
@@ -181,30 +182,30 @@ These moduli are now coprime, and therefore we can solve this one with the algor
 
 E.g. the following system has a solution modulo $\text{lcm}(10, 12) = 60$.
 
-$$\begin{align}
+$$\left\{\begin{align}
     a & \equiv 3 \pmod{10} \\
     a & \equiv 5 \pmod{12}
-\end{align}$$
+\end{align}\right.$$
 
 The system of congruence is equivalent to the system of congruences:
 
-$$\begin{align}
+$$\left\{\begin{align}
     a & \equiv 3 \equiv 1 \pmod{2} \\
     a & \equiv 3 \equiv 3 \pmod{5} \\
     a & \equiv 5 \equiv 1 \pmod{4} \\
     a & \equiv 5 \equiv 2 \pmod{3}
-\end{align}$$
+\end{align}\right.$$
 
 The only congruence with same prime modulo are $a \equiv 1 \pmod{4}$ and $a \equiv 1 \pmod{2}$.
-The first one already implies the second one, so we can ignore it, and solve the following system with coprime moduli instead:
+The first one already implies the second one, so we can ignore the second one, and solve the following system with coprime moduli instead:
 
-$$\begin{align}
+$$\left\{\begin{align}
     a & \equiv 3 \equiv 3 \pmod{5} \\
     a & \equiv 5 \equiv 1 \pmod{4} \\
     a & \equiv 5 \equiv 2 \pmod{3}
-\end{align}$$
+\end{align}\right.$$
 
-Which has the solution $53 \pmod{60}$, and indeed $53 \bmod{10} = 3$ and $53 \bmod{12} = 5$.
+It has the solution $53 \pmod{60}$, and indeed $53 \bmod{10} = 3$ and $53 \bmod{12} = 5$.
 
 ## Garner's Algorithm
 
