@@ -15,7 +15,7 @@ Let $m = m_1 \cdot m_2 \cdots m_k$, where $m_i$ are pairwise coprime. In additio
 $$\begin{align}
     a &\equiv a_1 \pmod{m_1} \\
     a &\equiv a_2 \pmod{m_2} \\
-      &\ldots \\
+      & \vdots \\
     a &\equiv a_k \pmod{m_k}
 \end{align}$$
 
@@ -31,11 +31,58 @@ is equivalent to the system of equations
 
 $$\begin{align}
     x &\equiv a_1 \pmod{m_1} \\
-      &\ldots \\
+      &\vdots \\
     x &\equiv a_k \pmod{m_k}
 \end{align}$$
 
 (As above, assume that $m = m_1 m_2 \cdots m_k$ and $m_i$ are pairwise coprime).
+
+## Solution for Two Moduli
+
+Consider a system of two equations for coprime $m_1, m_2$:
+
+$$
+\begin{align}
+    a &\equiv a_1 \pmod{m_1} \\
+    a &\equiv a_2 \pmod{m_2} \\
+\end{align}
+$$
+
+We want to find a solution for $a \pmod{m_1 m_2}$. Using the [Extended Euclidean Algorithm](extended-euclid-algorithm.md) we can find Bézout coefficients $n_1, n_2$ such that
+
+$$n_1 m_1 + n_2 m_2 = 1$$
+
+Equivalently, $n_1 m_1 \equiv 1 \pmod{m_2}$ so $n_1 \equiv m_1^{-1} \pmod{m_2}$, and vice versa $n_2 \equiv m_2^{-1} \pmod{m_1}$. 
+
+Then a solution will be 
+
+$$a = a_1 n_2 m_2 + a_2 n_1 m_1$$
+
+We can easily verify $a = a_1 (1 - n_1 m_1) + a_2 n_1 m_1 \equiv a_1 \pmod{m_1}$ and vice versa.
+
+## Solution for General Case
+
+### Inductive Solution
+
+As $m_1 m_2$ is coprime to $m_3$, we can inductively repeatedly apply the solution for two moduli for any number of moduli. For example, combine $a \equiv b_2 \pmod{m_1 m_2}$ and $a \equiv a_3 \pmod{m_3}$ to get $a \equiv b_3 \pmod{m_1 m_2 m_3}$, etc.
+
+### Direct Construction
+
+A direct construction similar to Lagrange interpolation is possible. Let $M_i = \prod_{i \neq j} m_j$, the product of all moduli but $m_i$. Again with the Extended Euclidean algorithm we can find $N_i, n_i$ such that
+
+$$N_i M_i + n_i m_i = 1$$
+
+Then a solution to the system of congruences is
+
+$$a = \sum_{i=1}^k a_i N_i M_i$$
+
+Again as $N_i \equiv M_i^{-1} \pmod{m_i}$, the solution is equivalent to 
+
+$$a = \sum_{i=1}^k a_i M_i (M_i^{-1} \mod{m_i})$$
+
+Observe $M_i$ is a multiple of $m_j$ for $i \neq j$, and 
+
+$$a \equiv a_i N_i M_i \equiv a_i (1 - n_i m_i) \equiv a_i \pmod{m_i}$$
 
 ## Garner's Algorithm
 
