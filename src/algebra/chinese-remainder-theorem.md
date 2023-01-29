@@ -21,6 +21,19 @@ $$\begin{array}{rcl}
 
 where $a_i$ are some given constants. The original form of CRT then states that the given system of congruences always has *one and exactly one* solution modulo $m$.
 
+E.g. the system of congruences
+
+$$\begin{array}{rcl}
+    a & \equiv & 2 \pmod{3} \\
+    a & \equiv & 3 \pmod{5} \\
+      & \vdots & \\
+    a & \equiv & 2 \pmod{7}
+\end{array}$$
+
+has the solution $23$ modulo $105$, because $23 \bmod{3} = 2$, $23 \bmod{5} = 3$, and $23 \bmod{7} = 2$.
+We can write down every solution as $23 + 105\cdot k$ for $k \in \mathbb{Z}$.
+
+
 ### Corollary
 
 A consequence of the CRT is that the equation
@@ -105,7 +118,7 @@ a & \equiv & \sum_{j=1}^k a_j M_j N_j & \pmod{m_i} \\
 
 ```{.cpp file=chinese_remainder_theorem}
 struct Congruence {
-    long long a, m, totient_m;
+    long long a, m;
 };
 
 long long chinese_remainder_theorem(vector<Congruence> const& congruences) {
@@ -125,6 +138,73 @@ long long chinese_remainder_theorem(vector<Congruence> const& congruences) {
     return solution;
 }
 ```
+
+## Solution for not coprime moduli
+
+As mentioned, the algorithm above only works for coprime moduli $m_1, m_2, \dots m_k$.
+
+In the not coprime case, a system of congruences has exactly one solution modulo $\text{lcm}(m_1, m_2, \dots, m_k)$, or has no solution at all.
+
+E.g. in the following system, the first congruence implies that the solution is odd, and the second congruence implies that the solution is even.
+It's not possible that a number is both odd and even, therefore there is clearly no solution.
+
+$$\begin{align}
+    a & \equiv 1 \pmod{4} \\
+    a & \equiv 2 \pmod{6}
+\end{align}$$
+
+It is pretty simple to determine is a system has a solution.
+And if it has one, we can use the original algorithm to solve a slightly modified system of congruences.
+
+A single congruence $a \equiv a_i \pmod{m_i}$ is equivalent to the system of congruences $a \equiv a_i \pmod{p_j^{n_j}}$ where $p_1^{n_1} p_2^{n_2}\cdots p_k^{n_k}$ is the prime factorization of $m_i$.
+
+With this fact, we can modify the system of congruences into a system, that only has prime powers as moduli.
+E.g. the above system of congruences is equivalent to:
+
+$$\begin{array}{ll}
+    a \equiv 1          & \pmod{4} \\
+    a \equiv 2 \equiv 0 & \pmod{2} \\
+    a \equiv 2          & \pmod{3}
+\end{array}$$
+
+Because originally some moduli had common factors, we will get some congruences moduli based on the same $prime$, however possibly with different prime powers.
+
+You can observe, that the congruence with the highest prime power modulus will be the only necessary congruence of all congruences based on the same prime number.
+Either it will give a contradiction with some other congruence, or it will imply already all other congruences.
+
+In our case, the first congruence $a \equiv 1 \pmod{4}$ implies $a \equiv 1 \pmod{2}$, and therefore contradicts the second congruence $a \equiv 0 \pmod{2}$.
+Therefore this system of congruences has no solution.
+
+If there are no contradictions, then the system of equation has a solution.
+We can ignore all congruences except the ones with the highest prime power moduli.
+These moduli are now coprime, and therefore we can solve this one with the algorithm discussed in the sections above.
+
+E.g. the following system has a solution modulo $\text{lcm}(10, 12) = 60$.
+
+$$\begin{align}
+    a & \equiv 3 \pmod{10} \\
+    a & \equiv 5 \pmod{12}
+\end{align}$$
+
+The system of congruence is equivalent to the system of congruences:
+
+$$\begin{align}
+    a & \equiv 3 \equiv 1 \pmod{2} \\
+    a & \equiv 3 \equiv 3 \pmod{5} \\
+    a & \equiv 5 \equiv 1 \pmod{4} \\
+    a & \equiv 5 \equiv 2 \pmod{3}
+\end{align}$$
+
+The only congruence with same prime modulo are $a \equiv 1 \pmod{4}$ and $a \equiv 1 \pmod{2}$.
+The first one already implies the second one, so we can ignore it, and solve the following system with coprime moduli instead:
+
+$$\begin{align}
+    a & \equiv 3 \equiv 3 \pmod{5} \\
+    a & \equiv 5 \equiv 1 \pmod{4} \\
+    a & \equiv 5 \equiv 2 \pmod{3}
+\end{align}$$
+
+Which has the solution $53 \pmod{60}$, and indeed $53 \bmod{10} = 3$ and $53 \bmod{12} = 5$.
 
 ## Garner's Algorithm
 
