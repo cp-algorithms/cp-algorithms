@@ -188,7 +188,7 @@ a_{41} & a_ {42} & a_ {43} & a_ {44}
 \end{pmatrix}
  = \begin{pmatrix} x' & y' & z' & 1 \end{pmatrix}$$
 
-(Why introduce a fictitious fourth coordinate, you ask? Without this, it would not be possible to implement the shift operation, as it requires us to add a constant to the coordinates. Without the fictitious coordinates, we would only be able to apply a linear combination to the coordinates, not being able to add a constant.)
+(Why introduce a fictitious fourth coordinate, you ask? That is the beauty of (homogeneous coordinates)[https://en.wikipedia.org/wiki/Homogeneous_coordinates], which find great application in computer graphics. Without this, it would not be possible to implement affine operations like the shift operation as a single matrix multiplication, as it requires us to _add_ a constant to the coordinates. The affine transformation becomes a linear transformation in the higher dimension!)
 
 Here are some examples of how transformations are represented in matrix form:
 
