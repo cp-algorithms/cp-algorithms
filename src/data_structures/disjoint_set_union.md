@@ -544,7 +544,7 @@ To efficiently combine multiple sets we just apply the above-described recipe:
 we merge the sets by simply adding smaller ones to larger.
 In the end we get a $O(n \log^2 n)$ solution, because one number will only added to a set at most $O(\log n)$ times.
 
-### Storing the DSU by maintaining a clear tree structure / Online bridge finding in $O(\alpha(n))$ on average  {data-toc-label="Storing the SDU by maintaining a clear tree structure / Online bridge finding"}
+### Storing the DSU by maintaining a clear tree structure / Online bridge finding in $O(\alpha(n))$ on average  {data-toc-label="Storing the DSU by maintaining a clear tree structure / Online bridge finding"}
 
 One of the most powerful applications of DSU is that it allows you to store both as **compressed and uncompressed trees**.
 The compressed form can be used for merging of trees and for the verification if two vertices are in the same tree, and the uncompressed form can be used - for example - to search for paths between two given vertices, or other traversals of the tree structure.
