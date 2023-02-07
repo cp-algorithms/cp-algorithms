@@ -1,10 +1,10 @@
 # Garner's algorithm
 
 A consequence of the [Chinese Remainder Theorem](chinese-remainder-theorem.md) is, that we can represent big numbers using an array of small integers.
-For example, let $p$ be the product of the first $1000$ primes. $p$ has around $3000$ digits.
+For example, let $p$ be the product of the first $1000$ primes. $p$ has around $3000$ digits.
 
-Any number $a$ less than $p$ can be represented as an array  $a_1, \ldots, a_k$, where $a_i \equiv a \pmod{p_i}$.
-But to do this we obviously need to know how to get back the number $a$ from its representation.
+Any number $a$ less than $p$ can be represented as an array  $a_1, \ldots, a_k$, where $a_i \equiv a \pmod{p_i}$.
+But to do this we obviously need to know how to get back the number $a$ from its representation.
 One way is discussed in the article about the Chinese Remainder Theorem.
 
 In this article we discuss an alternative, Garner's Algorithm, which can also be used for this purpose.
