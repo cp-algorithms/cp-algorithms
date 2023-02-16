@@ -60,7 +60,23 @@ Here is an implementation which assumes that the graph is acyclic, i.e. the desi
 int n; // number of vertices
 vector<vector<int>> adj; // adjacency list of graph
 vector<bool> visited;
+vector<bool> recursion_stack;
 vector<int> ans;
+
+bool has_cycle(int v) {
+    visited[v] = true;
+    recursion_stack[v] = true;
+    for (int u : adj[v]) {
+        if (!visited[u]) {
+            if (has_cycle(u))
+                return true;
+        }
+        else if (recursion_stack[u])
+            return true;
+    }
+    recursion_stack[v] = false;
+    return false;
+}
 
 void dfs(int v) {
     visited[v] = true;
@@ -70,17 +86,22 @@ void dfs(int v) {
     }
     ans.push_back(v);
 }
- 
+
 void topological_sort() {
     visited.assign(n, false);
+    recursion_stack.assign(n, false);
     ans.clear();
     for (int i = 0; i < n; ++i) {
-        if (!visited[i])
+        if (!visited[i]) {
+            if (has_cycle(i))
+                throw runtime_error("Graph contains cycle");
             dfs(i);
+        }
     }
     reverse(ans.begin(), ans.end());
 }
 ```
+This implementation uses an additional `recursion_stack` array to keep track of vertices in the current DFS path. If a visited vertex is found again in the recursion stack, then it means a cycle exists in the graph, and the function throws a runtime error.
 
 The main function of the solution is `topological_sort`, which initializes DFS variables, launches DFS and receives the answer in the vector `ans`.
 
