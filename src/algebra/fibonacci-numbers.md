@@ -74,25 +74,6 @@ The encoding of an integer $n$ can be done with a simple greedy algorithm:
 
 To decode a code word, first remove the final $1$. Then, if the $i$-th bit is set (indexing from 0 from the leftmost to the rightmost bit), sum $F_{i+2}$ to the number.
 
-### Fibonacci O(N) time
-
-We can start from an iterative approach, to take advantage of the use of the formula Fn = Fn-1 + Fn-2, therefore, we will simply precalculate those values in an array. Taking into account the base cases for F(0) and F(1).
-
-```cpp
-int fib(int n) {
-   
-   int fibNumbers[n+1];
-   fibNumbers[0] = 0;
-   fibNumbers[1] = 1;
-   
-   for(int i=2;i<=n;i++) {
-        fibNumbers[i] = fibNumbers[i-1] + fibNumbers[i-2];
-   }
-   return fibNumbers[n];
-}
-```
-
-In this way, we obtain a linear solution, **O(N) time**, saving all the values prior to **N** in the sequence.
 
 ## Formulas for the $n^{\text{th}}$ Fibonacci number { data-toc-label="Formulas for the <script type='math/tex'>n</script>-th Fibonacci number" }
 
@@ -114,27 +95,37 @@ where the square brackets denote rounding to the nearest integer.
 
 As these two formulas would require very high accuracy when working with fractional numbers, they are of little use in practical calculations.
 
+### Fibonacci fast method
+
+The $n$-th Fibonacci number can be easily found in $O(n)$ by computing the numbers one by one up to $n$. However, there are also faster ways, as we will see.
+
+We can start from an iterative approach, to take advantage of the use of the formula $F_n = F_{n-1} + F_{n-2}$, therefore, we will simply precalculate those values in an array. Taking into account the base cases for $F_0$ and $F_1$.
+
+```cpp
+int fib(int n) {
+    int a = 0;
+    int b = 1;
+    for (int i = 0; i < n; i++) {
+        int tmp = a + b;
+        a = b;
+        b = tmp;
+    }
+    return b;
+}
+```
+
+In this way, we obtain a linear solution, $O(n)$ time, saving all the values prior to $n$ in the sequence.
+
 ### Matrix form
 
 It is easy to prove the following relation:
 
-$$\begin{pmatrix}F_{n-1} & F_{n} \cr\end{pmatrix} = \begin{pmatrix}F_{n-2} & F_{n-1} \cr\end{pmatrix} \cdot \begin{pmatrix}0 & 1 \cr 1 & 1 \cr\end{pmatrix}$$
-
-Denoting $P \equiv \begin{pmatrix}0 & 1 \cr 1 & 1 \cr\end{pmatrix}$, we have:
-
-$$\begin{pmatrix}F_n & F_{n+1} \cr\end{pmatrix} = \begin{pmatrix}F_0 & F_1 \cr\end{pmatrix} \cdot P^n$$
-
-Thus, in order to find $F_n$, we must raise the matrix $P$ to $n$. This can be done in $O(\log n)$ (see [Binary exponentiation](binary-exp.md)).
-
-### Matrix exponentiation
-
-The method is based on the relationship:
-
 $$\begin{pmatrix} 1 & 1 \cr 1 & 0 \cr\end{pmatrix} ^ n = \begin{pmatrix} F_{n+1} & F_{n} \cr F_{n} & F_{n-1} \cr\end{pmatrix}$$
+
+Thus, in order to find $F_n$ in $O(log  n)$ time, we must raise the matrix to n. (See [Binary exponentiation](https://github.com/cp-algorithms/cp-algorithms/blob/master/src/algebra/binary-exp.md))
 
 ``` cpp
 typedef long long ll;
-const ll mod = 100000007;
 
 struct matrix{
     ll mat[2][2];
@@ -152,10 +143,7 @@ struct matrix{
 };
 
 matrix matpow(matrix base, ll n){
-    matrix ans;
-    for(int i = 0; i < 2; i++)
-        for(int j = 0; j < 2; j++)
-            ans.mat[i][j] = (i==j);
+    matrix ans {{{1, 0}, {0, 1}}};
     while(n){
         if(n&1)
             ans = ans*base;
@@ -165,18 +153,13 @@ matrix matpow(matrix base, ll n){
     return ans;
 }
 
-void solution(int n) {
-  
-    matrix base, ans;
-    base.mat[0][0] = base.mat[0][1] = base.mat[1][0] = 1;
-    base.mat[1][1] = 0;
-    
-    ans = matpow(base, n);
+long long fib(int n) {  
+    matrix base {{{1, 1}, {1, 0}}};
+    base = matpow(base, n);
+    return base.mat[0][1];
 }  
 
 ```
-
-Note that in many problems, you will have to calculate Fn % m, since Fn could be quite large, you will only have to apply modular arithmetics.
 
 ### Fast Doubling Method
 
