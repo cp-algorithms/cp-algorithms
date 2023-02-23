@@ -104,7 +104,62 @@ Denoting $P \equiv \begin{pmatrix}0 & 1 \cr 1 & 1 \cr\end{pmatrix}$, we have:
 
 $$\begin{pmatrix}F_n & F_{n+1} \cr\end{pmatrix} = \begin{pmatrix}F_0 & F_1 \cr\end{pmatrix} \cdot P^n$$
 
-Thus, in order to find $F_n$, we must raise the matrix $P$ to $n$. This can be done in $O(\log n)$ (see [Binary exponentiation](binary-exp.md)).
+Thus, in order to find $F_n$, we must raise the matrix $P$ to $n$. This can be done in $O(\log n)$ (see [Binary exponentiation](binary-exp.md)) and the following code will be:
+```cpp
+typedef long long ll;
+
+struct matrix{
+    ll mat[2][2];
+    matrix friend operator *(const matrix &a, const matrix &b){
+        matrix c;
+        for(int i = 0; i < 2; i++){
+            for(int j = 0; j < 2; j++){
+                c.mat[i][j] = 0;
+                for(int k = 0; k < 2; k++){
+                    c.mat[i][j] += (a.mat[i][k] * b.mat[k][j]);
+                }
+            }
+        }
+        return c;
+    }
+};
+
+matrix matpow(matrix base, ll n){
+    matrix ans {{{1, 0}, {0, 1}}};
+    while(n){
+        if(n&1)
+            ans = ans * base;
+        base = base * base;
+        n >>= 1;
+    }
+    return ans;
+}
+
+ll fib(int n) {  
+    matrix base {{{1, 1}, {1, 0}}};
+    base = matpow(base, n);
+    return base.mat[0][1];
+}
+```
+### Fibonacci in linear time
+The $n$-th Fibonacci number can be easily found in $O(n)$ by computing the numbers one by one up to $n$. However, there are also faster ways, as we will see.
+
+We can start from an iterative approach, to take advantage of the use of the formula $F_n = F_{n-1} + F_{n-2}$, therefore, we will simply precalculate those values in an array. Taking into account the base cases for $F_0$ and $F_1$.
+```cpp
+int fib(int n) {
+    if(n == 0)
+        return 0;
+    int f0 = 0, f1 = 1, f2;
+    for (int i = 1; i < n; i++) {
+        f2 = f1 + f0;
+        f0 = f1;
+        f1 = f2;
+    }
+    return f1;
+}
+```
+In this way, we obtain a linear solution, $O(n)$ time & $O(1)$ memory saving all the values prior to $n$ in the sequence.
+
 
 ### Fast Doubling Method
 
@@ -153,4 +208,4 @@ We now choose two pairs of identical remainders with the smallest indices in the
 * [Project Euler - Even Fibonacci numbers](https://www.hackerrank.com/contests/projecteuler/challenges/euler002/problem)
 * [DMOJ - Fibonacci Sequence](https://dmoj.ca/problem/fibonacci)
 * [DMOJ - Fibonacci Sequence (Harder)](https://dmoj.ca/problem/fibonacci2)
-
+* [LightOJ -  Number Sequence](https://lightoj.com/problem/number-sequence)
