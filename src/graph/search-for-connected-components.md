@@ -49,6 +49,49 @@ void find_comps() {
 }
 ```
 
+## Iterative implementation of the code 
+``` cpp
+int n;
+vector<int> g[MAXN];
+bool used[MAXN];
+vector<int> comp;
+
+void dfs(int v) {
+    stack<int> st;
+    st.push(v);
+    
+    while (!st.empty()) {
+        int curr = st.top();
+        st.pop();
+        if (!used[curr]) {
+            used[curr] = true;
+            comp.push_back(curr);
+            for (int i = g[curr].size() - 1; i >= 0; i--) {
+                int to = g[curr][i];
+                st.push(to);
+            }
+        }
+    }
+}
+
+void find_comps() {
+    for (int i = 0; i < n ; ++i)
+        used [i] = false;
+    for (int i = 0; i < n ; ++i)
+        if (!used[i]) {
+            comp.clear();
+            dfs(i);
+            cout << "Component:" ;
+            for (size_t j = 0; j < comp.size(); ++j)
+                cout << ' ' << comp[j];
+            cout << endl ;
+        }
+}
+
+```
+
+
+
 * The most important function that is used is `find_comps()` which finds and displays connected components of the graph.
 
 * The graph is stored in adjacency list representation, i.e `g[i]` contains a list of vertices that have edges from the vertex `i`. The constant `MAXN` should be set equal to the maximum possible number of vertices in the graph.
