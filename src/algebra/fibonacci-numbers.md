@@ -77,8 +77,6 @@ To decode a code word, first remove the final $1$. Then, if the $i$-th bit is se
 
 ## Formulas for the $n^{\text{th}}$ Fibonacci number { data-toc-label="Formulas for the <script type='math/tex'>n</script>-th Fibonacci number" }
 
-The $n$-th Fibonacci number can be easily found in $O(n)$ by computing the numbers one by one up to $n$. However, there are also faster ways, as we will see.
-
 ### Closed-form expression
 
 There is a formula known as "Binet's formula", even though it was already known by Moivre:
@@ -95,13 +93,13 @@ where the square brackets denote rounding to the nearest integer.
 
 As these two formulas would require very high accuracy when working with fractional numbers, they are of little use in practical calculations.
 
-### Fibonacci fast method
+### Fibonacci in linear time
 
 The $n$-th Fibonacci number can be easily found in $O(n)$ by computing the numbers one by one up to $n$. However, there are also faster ways, as we will see.
 
 We can start from an iterative approach, to take advantage of the use of the formula $F_n = F_{n-1} + F_{n-2}$, therefore, we will simply precalculate those values in an array. Taking into account the base cases for $F_0$ and $F_1$.
 
-```cpp
+```{.cpp file=fibonacci_linear}
 int fib(int n) {
     int a = 0;
     int b = 1;
@@ -110,7 +108,7 @@ int fib(int n) {
         a = b;
         b = tmp;
     }
-    return b;
+    return a;
 }
 ```
 
@@ -122,29 +120,31 @@ It is easy to prove the following relation:
 
 $$\begin{pmatrix} 1 & 1 \cr 1 & 0 \cr\end{pmatrix} ^ n = \begin{pmatrix} F_{n+1} & F_{n} \cr F_{n} & F_{n-1} \cr\end{pmatrix}$$
 
-Thus, in order to find $F_n$ in $O(log  n)$ time, we must raise the matrix to n. (See [Binary exponentiation](https://github.com/cp-algorithms/cp-algorithms/blob/master/src/algebra/binary-exp.md))
+Thus, in order to find $F_n$ in $O(log  n)$ time, we must raise the matrix to n. (See [Binary exponentiation](binary-exp.md))
 
-``` cpp
-typedef long long ll;
-
-struct matrix{
-    ll mat[2][2];
+```{.cpp file=fibonacci_matrix}
+struct matrix {
+    long long mat[2][2];
     matrix friend operator *(const matrix &a, const matrix &b){
         matrix c;
-        for(int i = 0; i < 2; i++)
-        for(int j = 0; j < 2; j++){
-            c.mat[i][j] = 0;
-            for(int k = 0; k < 2; k++){
-                c.mat[i][j] += (a.mat[i][k]*b.mat[k][j]);
-            }
+        for (int i = 0; i < 2; i++) {
+          for (int j = 0; j < 2; j++) {
+              c.mat[i][j] = 0;
+              for (int k = 0; k < 2; k++) {
+                  c.mat[i][j] += a.mat[i][k] * b.mat[k][j];
+              }
+          }
         }
         return c;
     }
 };
 
-matrix matpow(matrix base, ll n){
-    matrix ans {{{1, 0}, {0, 1}}};
-    while(n){
+matrix matpow(matrix base, long long n) {
+    matrix ans{ {
+      {1, 0},
+      {0, 1}
+    } };
+    while (n) {
         if(n&1)
             ans = ans*base;
         base = base*base;
@@ -153,26 +153,47 @@ matrix matpow(matrix base, ll n){
     return ans;
 }
 
-long long fib(int n) {  
-    matrix base {{{1, 1}, {1, 0}}};
-    base = matpow(base, n);
-    return base.mat[0][1];
-}  
-
+long long fib(int n) {
+    matrix base{ {
+      {1, 1},
+      {1, 0}
+    } };
+    return matpow(base, n).mat[0][1];
+}
 ```
 
 ### Fast Doubling Method
 
-Using above method we can find these equations:
+Using expanding the above matrix expression for $n = 2\cdot k$
 
-$$ \begin{array}{rll}
-                        F_{2k} &= F_k \left( 2F_{k+1} - F_{k} \right). \\
-                        F_{2k+1} &= F_{k+1}^2 + F_{k}^2.
-\end{array}$$
+$$
+\begin{pmatrix}
+F_{2k+1} & F_{2k}\\
+F_{2k} & F_{2k-1}
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & 1\\
+1 & 0
+\end{pmatrix}^{2k}
+=
+\begin{pmatrix}
+F_{k+1} & F_{k}\\
+F_{k} & F_{k-1}
+\end{pmatrix}
+^2
+$$
+
+we can find these simpler equations:
+
+$$ \begin{align}
+F_{2k+1} &= F_{k+1}^2 + F_{k}^2 \\
+F_{2k} &= F_k(F_{k+1}+F_{k-1}) = F_k (2F_{k+1} - F_{k})\\
+\end{align}.$$
 
 Thus using above two equations Fibonacci numbers can be calculated easily by the following code:
 
-```cpp
+```{.cpp file=fibonacci_doubling}
 pair<int, int> fib (int n) {
     if (n == 0)
         return {0, 1};
