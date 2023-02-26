@@ -232,4 +232,4 @@ We now choose two pairs of identical remainders with the smallest indices in the
 * [DMOJ UCLV - Numbered sequence of pencils](https://dmoj.uclv.edu.cu/problem/secnum)
 * [DMOJ UCLV - Fibonacci 2D](https://dmoj.uclv.edu.cu/problem/fibonacci)
 * [DMOJ UCLV - fibonacci calculation](https://dmoj.uclv.edu.cu/problem/fibonaccicalculatio)
-
+* [LightOJ -  Number Sequence](https://lightoj.com/problem/number-sequence)
