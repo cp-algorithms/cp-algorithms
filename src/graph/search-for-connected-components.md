@@ -20,40 +20,53 @@ Given an undirected graph $G$ with $n$ nodes and $m$ edges. We are required to f
 
 ``` cpp
 int n;
-vector<int> g[MAXN] ;
-bool used[MAXN] ;
-vector<int> comp ;
+vector<vector<int>> adj;
+vector<bool> used;
+vector<int> comp;
 
 void dfs(int v) {
     used[v] = true ;
     comp.push_back(v);
-    for (size_t i = 0; i < (int) g[v].size(); ++i) {
-        int to = g[v][i];
-        if (!used[to])
-            dfs(to);
+    for (int u : adj[v]) {
+        if (!used[u])
+            dfs(u);
     }
 }
 
 void find_comps() {
-    for (int i = 0; i < n ; ++i)
-        used [i] = false;
-    for (int i = 0; i < n ; ++i)
+    fill(used.begin(), used.end(), 0);
+    for (int v = 0; v < n; ++v) {
         if (!used[i]) {
             comp.clear();
             dfs(i);
-	        cout << "Component:" ;
-            for (size_t j = 0; j < comp.size(); ++j)
-                cout << ' ' << comp[j];
+            cout << "Component:" ;
+            for (int u : comp)
+                cout << ' ' << u;
             cout << endl ;
         }
+    }
 }
 ```
 
+* The most important function that is used is `find_comps()` which finds and displays connected components of the graph.
+
+* The graph is stored in adjacency list representation, i.e `adj[v]` contains a list of vertices that have edges from the vertex `v`.
+
+* Vector `comp` contains a list of nodes in the current connected component.
+
 ## Iterative implementation of the code 
-``` cpp
+
+Deeply recursive functions are in general bad.
+Ever single recursive call will require a little bit of memory in the stack, and per default programs only have a limited amount of stack space.
+So when you do a recursive DFS over a connected graph with millions of nodes, you might run into stack overflows.
+
+It is always possible to translate a recursive program into an iterative program, by manually maintaining a stack data structure.
+Since this data structure is allocated on the heap, no stack overflow will occur.
+
+```cpp
 int n;
-vector<int> g[MAXN];
-bool used[MAXN];
+vector<vector<int>> adj;
+vector<bool> used;
 vector<int> comp;
 
 void dfs(int v) {
@@ -66,37 +79,27 @@ void dfs(int v) {
         if (!used[curr]) {
             used[curr] = true;
             comp.push_back(curr);
-            for (int i = g[curr].size() - 1; i >= 0; i--) {
-                int to = g[curr][i];
-                st.push(to);
+            for (int i = adj[curr].size() - 1; i >= 0; i--) {
+                st.push(adj[curr][i]);
             }
         }
     }
 }
 
 void find_comps() {
-    for (int i = 0; i < n ; ++i)
-        used [i] = false;
-    for (int i = 0; i < n ; ++i)
-        if (!used[i]) {
+    fill(used.begin(), used.end(), 0);
+    for (int v = 0; v < n ; ++v) {
+        if (!used[v]) {
             comp.clear();
-            dfs(i);
+            dfs(v);
             cout << "Component:" ;
-            for (size_t j = 0; j < comp.size(); ++j)
-                cout << ' ' << comp[j];
+            for (int u : comp)
+                cout << ' ' << u;
             cout << endl ;
         }
+    }
 }
-
 ```
-
-
-
-* The most important function that is used is `find_comps()` which finds and displays connected components of the graph.
-
-* The graph is stored in adjacency list representation, i.e `g[i]` contains a list of vertices that have edges from the vertex `i`. The constant `MAXN` should be set equal to the maximum possible number of vertices in the graph.
-
-* Vector `comp` contains a list of nodes in the current connected component.
 
 ## Practice Problems
  - [SPOJ: CCOMPS](http://www.spoj.com/problems/CCOMPS/)
