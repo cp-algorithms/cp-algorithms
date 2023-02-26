@@ -148,7 +148,7 @@ struct FenwickTree {
         bit.assign(n, 0);
     }
 
-    FenwickTree(vector<int> a) : FenwickTree(a.size()) {
+    FenwickTree(vector<int> const &a) : FenwickTree(a.size()) {
         for (size_t i = 0; i < a.size(); i++)
             add(i, a[i]);
     }
@@ -169,6 +169,24 @@ struct FenwickTree {
             bit[idx] += delta;
     }
 };
+```
+
+### Linear construction
+
+The above implementation requires $O(N \log N)$ time.
+It's possible to improve that to $O(N)$ time.
+
+The idea is, that the number $a[i]$ at index $i$ will contribute to the range stored in $bit[i]$, and to all ranges that the index $i | (i + 1)$ contributes to.
+So by adding the numbers in order, you only have to push the current sum further to the next range, where it will then get pushed further to the next range, and so on.
+
+```cpp
+FenwickTree(vector<int> const &a) : FenwickTree(a.size()){
+    for (int i = 0; i < n; i++) {
+        bit[i] += a[i];
+        int r = i | (i + 1);
+        if (r < n) bit[r] += bit[i];
+    }
+}
 ```
 
 ### Finding minimum of $[0, r]$ in one-dimensional array { data-toc-label='Finding minimum of <script type="math/tex">[0, r]</script> in one-dimensional array' }
