@@ -233,3 +233,7 @@ We now choose two pairs of identical remainders with the smallest indices in the
 * [DMOJ UCLV - Fibonacci 2D](https://dmoj.uclv.edu.cu/problem/fibonacci)
 * [DMOJ UCLV - fibonacci calculation](https://dmoj.uclv.edu.cu/problem/fibonaccicalculatio)
 * [LightOJ -  Number Sequence](https://lightoj.com/problem/number-sequence)
+* [Codeforces - C. Fibonacci](https://codeforces.com/problemset/gymProblem/102644/C)
+* [Codeforces - A. Hexadecimal's theorem](https://codeforces.com/problemset/problem/199/A)
+* [Codeforces - B. Blackboard Fibonacci](https://codeforces.com/problemset/problem/217/B)
+* [Codeforces - E. Fibonacci Number](https://codeforces.com/problemset/problem/193/E)
