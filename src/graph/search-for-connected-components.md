@@ -36,9 +36,9 @@ void dfs(int v) {
 void find_comps() {
     fill(used.begin(), used.end(), 0);
     for (int v = 0; v < n; ++v) {
-        if (!used[i]) {
+        if (!used[v]) {
             comp.clear();
-            dfs(i);
+            dfs(v);
             cout << "Component:" ;
             for (int u : comp)
                 cout << ' ' << u;
