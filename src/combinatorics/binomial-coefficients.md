@@ -230,6 +230,7 @@ When $m$ is not square-free, a [generalization of Lucas's theorem for prime powe
 * [Codeforces - Points, Lines and Ready-made Titles](http://codeforces.com/contest/872/problem/E)
 * [SPOJ - The Ultimate Riddle](https://www.spoj.com/problems/DCEPC13D/)
 * [CodeChef - Long Sandwich](https://www.codechef.com/MAY17/problems/SANDWICH/)
+* [Codeforces - Placing Jinas](https://codeforces.com/problemset/problem/1696/E)
 
 ## References
 * [Blog fishi.devtail.io](https://fishi.devtail.io/weblog/2015/06/25/computing-large-binomial-coefficients-modulo-prime-non-prime/)
