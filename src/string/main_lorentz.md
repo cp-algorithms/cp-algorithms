@@ -74,7 +74,7 @@ The algorithm finds all repetitions starting in the first half and ending in the
 This is the essential part of the Main-Lorentz algorithm, and we will discuss it in detail here.
 
 The complexity of divide-and-conquer algorithms is well researched.
-The master theorem says, that we will end up with an $O(n \log n)$ algorithm, if we can compute the crossing repetitions in $O(n)$ time.
+The [master theorem](https://en.wikipedia.org/wiki/Master_theorem_(analysis_of_algorithms)) says, that we will end up with an $O(n \log n)$ algorithm, if we can compute the crossing repetitions in $O(n)$ time.
 
 ### Search for crossing repetitions
 
