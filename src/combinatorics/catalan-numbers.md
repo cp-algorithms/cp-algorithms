@@ -47,7 +47,10 @@ You can also think it in this manner. By definition, $C_n$ denotes number of cor
 
 $( ) ( ( ) )$ can be divided into $( )$ and $( ( ) )$, but cannot be divided into $( ) ($ and $( ) )$. Again summing over all admissible $k's$, we get the recurrence relation on $C_n$.
 
-#### C++ implementation <span class="toggle-code">Show/Hide</span>
+#### C++ implementation 
+
+<details>
+<summary>Click here to show/hide code</summary>
 
 ```cpp
 const int MOD = ....
@@ -66,6 +69,7 @@ void init() {
     }
 }
 ```
+</details>
 
 ### Analytical formula
 
