@@ -702,7 +702,7 @@ string lcs (string S, string T) {
     for (int i = 0; i < T.size(); i++) {
         while (v && !st[v].next.count(T[i])) {
             v = st[v].link ;
-            l = st[v].length ;
+            l = st[v].len;
         }
         if (st[v].next.count(T[i])) {
             v = st [v].next[T[i]];
