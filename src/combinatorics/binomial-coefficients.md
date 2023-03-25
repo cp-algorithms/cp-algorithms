@@ -85,7 +85,9 @@ int C(int n, int k) {
 
 ### Improved implementation
 
-Note that in the above implementation numerator and denominator have the same number of factors ($k$), each of which is greater than or equal to 1. Therefore, we can replace our fraction with a product $k$ fractions, each of which is real-valued. However, on each step after multiplying current answer by each of the next fractions the answer will still be integer (this follows from the property of factoring in). C++ implementation:
+Note that in the above implementation numerator and denominator have the same number of factors ($k$), each of which is greater than or equal to 1. Therefore, we can replace our fraction with a product $k$ fractions, each of which is real-valued. However, on each step after multiplying current answer by each of the next fractions the answer will still be integer (this follows from the property of factoring in). 
+
+C++ implementation:
 
 ```cpp
 int C(int n, int k) {
@@ -101,6 +103,7 @@ Here we carefully cast the floating point number to an integer, taking into acco
 ### Pascal's Triangle
 
 By using the recurrence relation we can construct a table of binomial coefficients (Pascal's triangle) and take the result from it. The advantage of this method is that intermediate results never exceed the answer and calculating each new table element requires only one addition. The flaw is slow execution for large $n$ and $k$ if you just need a single value and not the whole table (because in order to calculate $\binom n k$ you will need to build a table of all $\binom i j, 1 \le i \le n, 1 \le j \le n$, or at least to $1 \le j \le \min (i, 2k)$). The time complexity can be considered to be $\mathcal{O}(n^2)$.
+
 C++ implementation:
 
 ```cpp
