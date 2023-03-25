@@ -451,3 +451,4 @@ A list of tasks that can be solved using the principle of inclusions-exclusions:
 * [SPOJ - EASY MATH [difficulty: medium]](http://www.spoj.com/problems/EASYMATH/)
 * [SPOJ - MOMOS - FEASTOFPIGS [difficulty: easy]](https://www.spoj.com/problems/MOMOS/)
 * [Atcoder - Grid 2 [difficulty: easy]](https://atcoder.jp/contests/dp/tasks/dp_y/)
+* [Codeforces - Count GCD](https://codeforces.com/contest/1750/problem/D)
