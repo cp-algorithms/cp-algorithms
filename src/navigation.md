@@ -39,6 +39,7 @@ search:
         - [Balanced Ternary](algebra/balanced-ternary.md)
         - [Gray code](algebra/gray-code.md)
     - Miscellaneous
+        - [Bit manipulation](algebra/bit-manipulation.md)
         - [Enumerating submasks of a bitmask](algebra/all-submasks.md)
         - [Arbitrary-Precision Arithmetic](algebra/big-integer.md)
         - [Fast Fourier transform](algebra/fft.md)
