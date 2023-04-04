@@ -20,6 +20,13 @@ If the current edge $(v, to)$ is such that none of the vertices $to$ or its desc
 - Let's consider the remaining case of $v=root$.
 This vertex will be the point of articulation if and only if this vertex has more than one child in the DFS tree.
 
+Overview:-
+A DFS tree is a tree that is constructed during a depth-first search traversal of the graph, where the edges in the tree follow the order in which nodes are visited. If the root node has at least two children in the DFS tree, removing it will disconnect the tree into multiple connected components, one for each child subtree. In this case, the root node is an articulation point.
+
+On the other hand, if the root node has only one child in the DFS tree, removing it will not disconnect the graph into multiple components, since the child subtree will remain connected to the rest of the graph through other nodes. Therefore, the root node is not an articulation point in this case.
+
+It's worth noting that the concept of articulation points applies only to undirected graphs. In directed graphs, the equivalent concept is called strongly connected components, and the terminology and conditions for identifying them are different.
+
 Now we have to learn to check this fact for each vertex efficiently. We'll use "time of entry into node" computed by the depth first search.
 
 So, let $tin[v]$ denote entry time for node $v$. We introduce an array $low[v]$ which will let us check the fact for each vertex $v$. $low[v]$ is the minimum of $tin[v]$, the entry times $tin[p]$ for each node $p$ that is connected to node $v$ via a back-edge $(v, p)$ and the values of $low[to]$ for each vertex $to$ which is a direct descendant of $v$ in the DFS tree:
