@@ -28,9 +28,10 @@ and outgoing edges of a vertex have distinct labels.
 
 We will identify each vertex in the trie with the string formed by the labels on the path from the root to that vertex.
 
-Each vertex will also have a flag $\text{leaf}$ which will be true, if any string from the given set corresponds to this vertex.
+Each vertex will also have a flag $\text{output}$ which will be set
+if the vertex corresponds to a pattern in the dictionary.
 
-Accordingly, a trie for a set of strings is a trie such that each $\text{leaf}$ vertex corresponds to one string from the set, and conversely, each string of the set corresponds to one $\text{leaf}$ vertex.
+Accordingly, a trie for a set of strings is a trie such that each $\text{output}$ vertex corresponds to one string from the set, and conversely, each string of the set corresponds to one $\text{output}$ vertex.
 
 We now describe how to construct a trie for a given set of strings in linear time with respect to their total length.
 
@@ -40,7 +41,7 @@ const int K = 26;
 
 struct Vertex {
     int next[K];
-    bool leaf = false;
+    bool output = false;
 
     Vertex() {
         fill(begin(next), end(next), -1);
@@ -51,14 +52,14 @@ vector<Vertex> trie(1);
 ```
 
 Here, we store the trie as an array of $\text{Vertex}$.
-Each $\text{Vertex}$ contains the flag $\text{leaf}$ and the edges in the form of an array $\text{next}[]$, where $\text{next}[i]$ is the index of the vertex that we reach by following the character $i$, or $-1$ if there is no such edge.
+Each $\text{Vertex}$ contains the flag $\text{output}$ and the edges in the form of an array $\text{next}[]$, where $\text{next}[i]$ is the index of the vertex that we reach by following the character $i$, or $-1$ if there is no such edge.
 Initially, the trie consists of only one vertex - the root - with the index $0$.
 
 Now we implement a function that will add a string $s$ to the trie.
 The implementation is simple:
 we start at the root node, and as long as there are edges corresponding to the characters of $s$ we follow them.
 If there is no edge for one character, we generate a new vertex and connect it with an edge.
-At the end of the process we mark the last vertex with the flag $\text{leaf}$.
+At the end of the process we mark the last vertex with the flag $\text{output}$.
 
 ```{.cpp file=aho_corasick_trie_add}
 void add_string(string const& s) {
@@ -71,7 +72,7 @@ void add_string(string const& s) {
         }
         v = trie[v].next[c];
     }
-    trie[v].leaf = true;
+    trie[v].output = true;
 }
 ```
 
@@ -100,7 +101,7 @@ More precisely, suppose we are in a state corresponding to a string $t$, and we 
 If there is an edge labeled with this letter $c$, then we can simply go over this edge, and get the vertex corresponding to $t + c$.
 If there is no such edge, since we want to maintain the invariant that the current state is the longest partial match in the processed string, we must find the longest string in the trie that's a proper suffix of the string $t$, and try to perform a transition from there.
 
-For example, let the trie be constructed by the strings $ab$ and $bc$, and we are currently at the vertex corresponding to $ab$, which is a $\text{leaf}$.
+For example, let the trie be constructed by the strings $ab$ and $bc$, and we are currently at the vertex corresponding to $ab$, which is a $\text{output}$.
 To transition with the letter $c$, we are forced to go to the state corresponding to the string $b$, and from there follow the edge with the letter $c$.
 
 <center>
@@ -137,7 +138,7 @@ const int K = 26;
 
 struct Vertex {
     int next[K];
-    bool leaf = false;
+    bool output = false;
     int p = -1;
     char pch;
     int link = -1;
@@ -161,7 +162,7 @@ void add_string(string const& s) {
         }
         v = t[v].next[c];
     }
-    t[v].leaf = true;
+    t[v].output = true;
 }
 
 int go(int v, char ch);
@@ -223,14 +224,14 @@ starting at the root of the trie.
 If we are at any time at state $v$, and the next letter is $c$, then we transition to the next state with $\text{go}(v, c)$, thereby either increasing the length of the current match substring by $1$, or decreasing it by following a suffix link.
 
 How can we find out for a state $v$, if there are any matches with strings for the set?
-First, it is clear that if we stand on a $\text{leaf}$ vertex, then the string corresponding to the vertex ends at this position in the text.
+First, it is clear that if we stand on a $\text{output}$ vertex, then the string corresponding to the vertex ends at this position in the text.
 However this is by no means the only possible case of achieving a match:
-if we can reach one or more  $\text{leaf}$ vertices by moving along the suffix links, then there will be also a match corresponding to each found $\text{leaf}$ vertex.
+if we can reach one or more  $\text{output}$ vertices by moving along the suffix links, then there will be also a match corresponding to each found $\text{output}$ vertex.
 A simple example demonstrating this situation can be creating using the set of strings $\{dabce, abc, bc\}$ and the text $dabc$.
 
-Thus if we store in each $\text{leaf}$ vertex the index of the string corresponding to it (or the list of indices if duplicate strings appear in the set), then we can find in $O(n)$ time the indices of all strings which match the current state, by simply following the suffix links from the current vertex to the root.
+Thus if we store in each $\text{output}$ vertex the index of the string corresponding to it (or the list of indices if duplicate strings appear in the set), then we can find in $O(n)$ time the indices of all strings which match the current state, by simply following the suffix links from the current vertex to the root.
 However this is not the most efficient solution, since this gives us $O(n ~ \text{len})$ complexity in total.
-However this can be optimized by computing and storing the nearest $\text{leaf}$ vertex that is reachable using suffix links (this is sometimes called the **exit link**).
+However this can be optimized by computing and storing the nearest $\text{output}$ vertex that is reachable using suffix links (this is sometimes called the **exit link**).
 This value we can compute lazily in linear time.
 Thus for each vertex we can advance in $O(1)$ time to the next marked vertex in the suffix link path, i.e. to the next match.
 Thus for each match we spend $O(1)$ time, and therefore we reach the complexity $O(\text{len} + \text{ans})$.
@@ -245,7 +246,7 @@ A set of strings and a length $L$ is given.
 We have to find a string of length $L$, which does not contain any of the strings, and derive the lexicographically smallest of such strings.
 
 We can construct the automaton for the set of strings.
-Recall that $\text{leaf}$ vertices are the states where we have a match with a string from the set.
+Recall that $\text{output}$ vertices are the states where we have a match with a string from the set.
 Since in this task we have to avoid matches, we are not allowed to enter such states.
 On the other hand we can enter all other vertices.
 Thus we delete all "bad" vertices from the machine, and in the remaining graph of the automaton we find the lexicographical smallest path of length $L$.
