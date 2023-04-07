@@ -240,7 +240,7 @@ If you only want to count the occurrences and not find the indices themselves, y
 This can be calculated in $O(n)$ time in total.
 Thus we can sum up all matches in $O(\text{len})$.
 
-### Finding the lexicographical smallest string of a given length that doesn't match any given strings
+### Finding the lexicographically smallest string of a given length that doesn't match any given strings
 
 A set of strings and a length $L$ is given.
 We have to find a string of length $L$, which does not contain any of the strings, and derive the lexicographically smallest of such strings.
@@ -249,7 +249,7 @@ We can construct the automaton for the set of strings.
 Recall that $\text{output}$ vertices are the states where we have a match with a string from the set.
 Since in this task we have to avoid matches, we are not allowed to enter such states.
 On the other hand we can enter all other vertices.
-Thus we delete all "bad" vertices from the machine, and in the remaining graph of the automaton we find the lexicographical smallest path of length $L$.
+Thus we delete all "bad" vertices from the machine, and in the remaining graph of the automaton we find the lexicographically smallest path of length $L$.
 This task can be solved in $O(L)$ for example by [depth first search](../graph/depth-first-search.md).
 
 ### Finding the shortest string containing all given strings
@@ -261,11 +261,11 @@ initially being in the state $(v = \text{root},~ \text{mask} = 0)$, we want to r
 When we transition from one state to another using a letter, we update the mask accordingly.
 By running a [breadth first search](../graph/breadth-first-search.md) we can find a path to the state $(v,~ \text{mask} = 2^n - 1)$ with the smallest length.
 
-### Finding the lexicographical smallest string of length $L$ containing $k$ strings {data-toc-label="Finding the lexicographical smallest string of length L containing k strings"}
+### Finding the lexicographically smallest string of length $L$ containing $k$ strings {data-toc-label="Finding the lexicographically smallest string of length L containing k strings"}
 
 As in the previous problem, we calculate for each vertex the number of matches that correspond to it (that is the number of marked vertices reachable using suffix links).
 We reformulate the problem: the current state is determined by a triple of numbers $(v,~ \text{len},~ \text{cnt})$, and we want to reach from the state $(\text{root},~ 0,~ 0)$ the state $(v,~ L,~ k)$, where $v$ can be any vertex.
-Thus we can find such a path  using depth first search (and if the search looks at the edges in their natural order, then the found path will automatically be the lexicographical smallest).
+Thus we can find such a path  using depth first search (and if the search looks at the edges in their natural order, then the found path will automatically be the lexicographically smallest).
 
 ## Problems
 
