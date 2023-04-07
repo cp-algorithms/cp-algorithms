@@ -245,7 +245,7 @@ A set of strings and a length $L$ is given.
 We have to find a string of length $L$, which does not contain any of the strings, and derive the lexicographically smallest of such strings.
 
 We can construct the automaton for the set of strings.
-Recall that the vertices from which we can reach a $\text{leaf}$ vertex are the states at which we have a match with a string from the set.
+Recall that $\text{leaf}$ vertices are the states where we have a match with a string from the set.
 Since in this task we have to avoid matches, we are not allowed to enter such states.
 On the other hand we can enter all other vertices.
 Thus we delete all "bad" vertices from the machine, and in the remaining graph of the automaton we find the lexicographical smallest path of length $L$.
