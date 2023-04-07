@@ -34,22 +34,22 @@ void test_automaton() {
 
     int v = 0;
     v = go(v, 'a');
-    assert(t[v].leaf == true);
+    assert(t[v].output == true);
     v = go(v, 'b');
-    assert(t[v].leaf == true);
+    assert(t[v].output == true);
     v = go(v, 'c');
-    assert(t[v].leaf == true);
+    assert(t[v].output == true);
     v = go(v, 'd');
-    assert(t[v].leaf == false);
+    assert(t[v].output == false);
     assert(v == 0);
     v = go(v, 'b');
-    assert(t[v].leaf == false);
+    assert(t[v].output == false);
     v = go(v, 'a');
-    assert(t[v].leaf == false);
+    assert(t[v].output == false);
     v = go(v, 'a');
-    assert(t[v].leaf == true);
+    assert(t[v].output == true);
     v = go(v, 'b');
-    assert(t[v].leaf == true);
+    assert(t[v].output == true);
 }
 
 int main() {
