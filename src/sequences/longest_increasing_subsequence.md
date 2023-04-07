@@ -283,7 +283,7 @@ For instance we can use a [Segment tree](../data_structures/segment_tree.md) or 
 
 This method has obviously some **shortcomings**:
 in terms of length and complexity of the implementation this approach will be worse than the method using binary search.
-In addition if the input numbers $a[i]$ are especially large, then we would have to use some tricks, like compressing the numbers (i.e. renumber them from $0$ to $n-1$), or use an implicit Segment tree (only generate the branches of the tree that are important).
+In addition if the input numbers $a[i]$ are especially large, then we would have to use some tricks, like compressing the numbers (i.e. renumber them from $0$ to $n-1$), or use a dynamic segment tree (only generate the branches of the tree that are important).
 Otherwise the memory consumption will be too high.
 
 On the other hand this method has also some **advantages**:
