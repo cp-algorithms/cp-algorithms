@@ -1126,11 +1126,14 @@ It is easy to generate lookup tables (e.g. using $\text{map}$), that convert a v
 
 
 
-### Implicit segment tree
+### Dynamic segment tree
+
+(Called so because its shape is dynamic and the nodes are usually dynamically allocated.
+Also known as _implicit segment tree_ or _sparse segment tree_.)
 
 Previously, we considered cases when we have the ability to build the original segment tree. But what to do if the original size is filled with some default element, but its size does not allow you to completely build up to it in advance?
- 
-We can solve this problem by not explicitly creating a segment tree. Initially, we will create only the root, and we will create the other vertexes only when we need them. 
+
+We can solve this problem by creating a segment tree lazily (incrementally). Initially, we will create only the root, and we will create the other vertexes only when we need them.
 In this case, we will use the implementation on pointers(before going to the vertex children, check whether they are created, and if not, create them).
 Each query has still only the complexity $O(\log n)$, which is small enough for most use-cases (e.g. $\log_2 10^9 \approx 30$).
 
