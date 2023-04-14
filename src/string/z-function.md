@@ -49,19 +49,19 @@ To obtain an efficient algorithm we will compute the values of $z[i]$ in turn fr
 
 For the sake of brevity, let's call **segment matches** those substrings that coincide with a prefix of $s$. For example, the value of the desired Z-function $z[i]$ is the length of the segment match starting at position $i$ (and that ends at position $i + z[i] - 1$).
 
-To do this, we will keep **the $[l, r]$ indices of the rightmost segment match**. That is, among all detected segments we will keep the one that ends rightmost. In a way, the index $r$ can be seen as the "boundary" to which our string $s$ has been scanned by the algorithm; everything beyond that point is not yet known.
+To do this, we will keep **the $[l, r)$ indices of the rightmost segment match**. That is, among all detected segments we will keep the one that ends rightmost. In a way, the index $r$ can be seen as the "boundary" to which our string $s$ has been scanned by the algorithm; everything beyond that point is not yet known.
 
 Then, if the current index (for which we have to compute the next value of the Z-function) is $i$, we have one of two options:
 
-*   $i > r$ -- the current position is **outside** of what we have already processed.
+*   $i \geq r$ -- the current position is **outside** of what we have already processed.
 
-    We will then compute $z[i]$ with the **trivial algorithm** (that is, just comparing values one by one). Note that in the end, if $z[i] > 0$, we'll have to update the indices of the rightmost segment, because it's guaranteed that the new $r = i + z[i] - 1$ is better than the previous $r$.
+    We will then compute $z[i]$ with the **trivial algorithm** (that is, just comparing values one by one). Note that in the end, if $z[i] > 0$, we'll have to update the indices of the rightmost segment, because it's guaranteed that the new $r = i + z[i]$ is better than the previous $r$.
 
-*   $i \le r$ -- the current position is inside the current segment match $[l, r]$.
+*   $i < r$ -- the current position is inside the current segment match $[l, r)$.
 
     Then we can use the already calculated Z-values to "initialize" the value of $z[i]$ to something (it sure is better than "starting from zero"), maybe even some big number.
 
-    For this, we observe that the substrings $s[l \dots r]$ and $s[0 \dots r-l]$ **match**. This means that as an initial approximation for $z[i]$ we can take the value already computed for the corresponding segment $s[0 \dots r-l]$, and that is $z[i-l]$.
+    For this, we observe that the substrings $s[l \dots r)$ and $s[0 \dots r-l)$ **match**. This means that as an initial approximation for $z[i]$ we can take the value already computed for the corresponding segment $s[0 \dots r-l)$, and that is $z[i-l]$.
 
     However, the value $z[i-l]$ could be too large: when applied to position $i$ it could exceed the index $r$. This is not allowed because we know nothing about the characters to the right of $r$: they may differ from those required.
 
@@ -69,11 +69,11 @@ Then, if the current index (for which we have to compute the next value of the Z
 
     $$ s = "aaaabaa" $$
 
-    When we get to the last position ($i = 6$), the current match segment will be $[5, 6]$. Position $6$ will then match position $6 - 5 = 1$, for which the value of the Z-function is $z[1] = 3$. Obviously, we cannot initialize $z[6]$ to $3$, it would be completely incorrect. The maximum value we could initialize it to is $1$ -- because it's the largest value that doesn't bring us beyond the index $r$ of the match segment $[l, r]$.
+    When we get to the last position ($i = 6$), the current match segment will be $[5, 7)$. Position $6$ will then match position $6 - 5 = 1$, for which the value of the Z-function is $z[1] = 3$. Obviously, we cannot initialize $z[6]$ to $3$, it would be completely incorrect. The maximum value we could initialize it to is $1$ -- because it's the largest value that doesn't bring us beyond the index $r$ of the match segment $[l, r)$.
 
     Thus, as an **initial approximation** for $z[i]$ we can safely take:
 
-    $$ z_0[i] = \min(r - i + 1,\; z[i-l]) $$
+    $$ z_0[i] = \min(r - i,\; z[i-l]) $$
 
     After having $z[i]$ initialized to $z_0[i]$, we try to increment $z[i]$ by running the **trivial algorithm** -- because in general, after the border $r$, we cannot know if the segment will continue to match or not.
 
@@ -83,22 +83,26 @@ The algorithm turns out to be very simple. Despite the fact that on each iterati
 
 ## Implementation
 
-Implementation turns out to be rather laconic:
+Implementation turns out to be rather concise:
 
 ```cpp
 vector<int> z_function(string s) {
-	int n = (int) s.length();
-	vector<int> z(n);
-	int l = 0, r = 0;
-	for (int i = 1; i < n; ++i) {
-		if (i <= r)
-			z[i] = min (r - i + 1, z[i - l]);
-		while (i + z[i] < n && s[z[i]] == s[i + z[i]])
-			++z[i];
-		if (i + z[i] - 1 > r)
-			l = i, r = i + z[i] - 1;
+    int n = s.size();
+    vector<int> z(n);
+    int l = 0, r = 0;
+    for(int i = 1; i < n; i++) {
+    	if(i < r) {
+            z[i] = min(r - i, z[i - l]);
 	}
-	return z;
+        while(s[z[i]] == s[i + z[i]]) {
+            z[i]++;
+        }
+        if(i + z[i] > r) {
+            l = i;
+            r = i + z[i];
+        }
+    }
+    return z;
 }
 ```
 
@@ -106,13 +110,13 @@ vector<int> z_function(string s) {
 
 The whole solution is given as a function which returns an array of length $n$ -- the Z-function of $s$.
 
-Array $z$ is initially filled with zeros. The current rightmost match segment is assumed to be $[0; 0]$ (that is, a deliberately small segment which doesn't contain any $i$).
+Array $z$ is initially filled with zeros. The current rightmost match segment is assumed to be $[0; 0)$ (that is, a deliberately small segment which doesn't contain any $i$).
 
 Inside the loop for $i = 1 \dots n - 1$ we first determine the initial value $z[i]$ -- it will either remain zero or be computed using the above formula.
 
 Thereafter, the trivial algorithm attempts to increase the value of $z[i]$ as much as possible.
 
-In the end, if it's required (that is, if $i + z[i] - 1 > r$), we update the rightmost match segment $[l, r]$.
+In the end, if it's required (that is, if $i + z[i] > r$), we update the rightmost match segment $[l, r)$.
 
 ## Asymptotic behavior of the algorithm
 
@@ -126,29 +130,29 @@ We will show that **each iteration** of the `while` loop will increase the right
 
 To do that, we will consider both branches of the algorithm:
 
-*   $i > r$
+*   $i \geq r$
 
     In this case, either the `while` loop won't make any iteration (if $s[0] \ne s[i]$), or it will take a few iterations, starting at position $i$, each time moving one character to the right. After that, the right border $r$ will necessarily be updated.
 
-    So we have found that, when $i > r$, each iteration of the `while` loop increases the value of the new $r$ index.
+    So we have found that, when $i \geq r$, each iteration of the `while` loop increases the value of the new $r$ index.
 
-*   $i \le r$
+*   $i < r$
 
-    In this case, we initialize $z[i]$ to a certain value $z_0$ given by the above formula. Let's compare this initial value $z_0$ to the value $r - i + 1$. We will have three cases:
+    In this case, we initialize $z[i]$ to a certain value $z_0$ given by the above formula. Let's compare this initial value $z_0$ to the value $r - i$. We will have three cases:
 
-      *   $z_0 < r - i + 1$
+      *   $z_0 < r - i$
 
           We prove that in this case no iteration of the `while` loop will take place.
 
-          It's easy to prove, for example, by contradiction: if the `while` loop made at least one iteration, it would mean that initial approximation $z[i] = z_0$ was inaccurate (less than the match's actual length). But since $s[l \dots r]$ and $s[0 \dots r-l]$ are the same, this would imply that $z[i-l]$ holds the wrong value (less than it should be).
+          It's easy to prove, for example, by contradiction: if the `while` loop made at least one iteration, it would mean that initial approximation $z[i] = z_0$ was inaccurate (less than the match's actual length). But since $s[l \dots r)$ and $s[0 \dots r-l)$ are the same, this would imply that $z[i-l]$ holds the wrong value (less than it should be).
 
-          Thus, since $z[i-l]$ is correct and it is less than $r - i + 1$, it follows that this value coincides with the required value $z[i]$.
+          Thus, since $z[i-l]$ is correct and it is less than $r - i$, it follows that this value coincides with the required value $z[i]$.
 
-      *   $z_0 = r - i + 1$
+      *   $z_0 = r - i$
 
-          In this case, the `while` loop can make a few iterations, but each of them will lead to an increase in the value of the $r$ index because we will start comparing from $s[r+1]$, which will climb beyond the $[l, r]$ interval.
+          In this case, the `while` loop can make a few iterations, but each of them will lead to an increase in the value of the $r$ index because we will start comparing from $s[r]$, which will climb beyond the $[l, r)$ interval.
 
-      *   $z_0 > r - i + 1$
+      *   $z_0 > r - i$
 
           This option is impossible, by definition of $z_0$.
 
