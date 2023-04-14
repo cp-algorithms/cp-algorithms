@@ -39,7 +39,7 @@ It is clear that this $x^\prime$ will also be a solution of the original equatio
 However it will **not be the only solution**.
 It can be shown that the original equation has exactly $g$ solutions, and they will look like this:
 
-$$x_i = (x^\prime + i\cdot n^\prime) \pmod n \quad \text{for } i = 0 \ldots g-1$$
+$$x_i \equiv (x^\prime + i\cdot n^\prime) \pmod n \quad \text{for } i = 0 \ldots g-1$$
 
 Summarizing, we can say that the **number of solutions** of the linear congruence equation is equal to either $g = \gcd(a, n)$ or to zero.
 
