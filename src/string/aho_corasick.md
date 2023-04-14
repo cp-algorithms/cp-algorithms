@@ -118,7 +118,7 @@ Now we can reformulate the statement about the transitions in the automaton like
 while there is no transition from the current vertex of the trie using the current letter (or until we reach the root), we follow the suffix link.
 
 Thus we reduced the problem of constructing an automaton to the problem of finding suffix links for all vertices of the trie.
-However we will build these suffix links, oddly enough, using the transitions constructed in the automaton.
+However, we will build these suffix links, oddly enough, using the transitions constructed in the automaton.
 
 The suffix links of the root vertex and all its immediate children point to the root vertex.
 For any vertex $v$ deeper in the tree, we can calculate the suffix link as follows:
@@ -230,8 +230,8 @@ if we can reach one or more  $\text{output}$ vertices by moving along the suffix
 A simple example demonstrating this situation can be creating using the set of strings $\{dabce, abc, bc\}$ and the text $dabc$.
 
 Thus if we store in each $\text{output}$ vertex the index of the string corresponding to it (or the list of indices if duplicate strings appear in the set), then we can find in $O(n)$ time the indices of all strings which match the current state, by simply following the suffix links from the current vertex to the root.
-However this is not the most efficient solution, since this gives us $O(n ~ \text{len})$ complexity in total.
-However this can be optimized by computing and storing the nearest $\text{output}$ vertex that is reachable using suffix links (this is sometimes called the **exit link**).
+This is not the most efficient solution, since this results in $O(n ~ \text{len})$ complexity overall.
+However, this can be optimized by computing and storing the nearest $\text{output}$ vertex that is reachable using suffix links (this is sometimes called the **exit link**).
 This value we can compute lazily in linear time.
 Thus for each vertex we can advance in $O(1)$ time to the next marked vertex in the suffix link path, i.e. to the next match.
 Thus for each match we spend $O(1)$ time, and therefore we reach the complexity $O(\text{len} + \text{ans})$.
