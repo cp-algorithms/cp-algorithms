@@ -6,7 +6,7 @@ e_maxx_link: balanced_ternary
 
 # Balanced Ternary
 
-!["Setun computer using Balanced Ternary system"](http://ternary.3neko.ru/photo/setun1_small.jpg)
+!["Setun computer using Balanced Ternary system"](https://earltcampbell.files.wordpress.com/2014/12/setun.jpeg?w=300)
 
 This is a non-standard but still positional **numeral system**. Its feature is that digits can have one of the values `-1`, `0` and `1`.
 Nevertheless, its base is still `3` (because there are three possible values). Since it is not convenient to write `-1` as a digit,
