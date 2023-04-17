@@ -40,7 +40,7 @@ The implementation needs to distinguish three cases: when we go down the edge in
 
 To implement this, we need a depth first search function which accepts the parent vertex of the current node.
 
-C++ implementation <span class="toggle-code">Show/Hide</span>
+C++ implementation
 
 ```cpp
 int n; // number of nodes
