@@ -67,7 +67,6 @@ void init() {
 }
 ```
 
-
 ### Analytical formula
 
 $$C_n = \frac{1}{n + 1} {\binom{2n}{n}}$$
