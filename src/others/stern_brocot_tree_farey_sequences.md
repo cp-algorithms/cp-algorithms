@@ -135,21 +135,75 @@ void build(int a = 0, int b = 1, int c = 1, int d = 0, int level = 1) {
 
 The search algorithm was already described in the proof that all fractions appear in the tree, but we will repeat it here. The algorithm is a binary search algorithm. Initially we stand at the root of the tree and we compare our target with the current fraction. If they are the same we are done and stop the process. If our target is smaller we move to the left child, otherwise we move to the right child.
 
-Here is an implementation that returns the path to a given fraction $\frac{x}{y}$ as a sequence of `'L'` and `'R'` characters, meaning traversal to the left and right child respectively. This sequence of characters uniquely defines all positive fractions and is called the Stern-Brocot number system.
+### Naive search
+
+Here is an implementation that returns the path to a given fraction $\frac{p}{q}$ as a sequence of `'L'` and `'R'` characters, meaning traversal to the left and right child respectively. This sequence of characters uniquely defines all positive fractions and is called the Stern-Brocot number system.
 
 ```cpp
-string find(int x, int y, int a = 0, int b = 1, int c = 1, int d = 0) {
-    int m = a + c, n = b + d;
-    if (x == m && y == n)
-        return "";
-    if (x*n < y*m)
-        return 'L' + find(x, y, a, b, m, n);
-    else
-        return 'R' + find(x, y, m, n, c, d);
+string find(int p, int q) {
+    int pL = 0, qL = 1;
+    int pR = 1, qR = 0;
+    int pM = 1, qM = 1;
+    string res;
+    while(pM != p || qM != q) {
+        if(p * qM < pM * q) {
+            res += 'L';
+            tie(pR, qR) = {pM, qM};
+        } else {
+            res += 'R';
+            tie(pL, qL) = {pM, qM};
+        }
+        tie(pM, qM) = pair{pL + pR, qL + qR};
+    }
+    return res;
 }
 ```
 
 Irrational numbers in the Stern-Brocot number system corresponds to infinite sequences of characters. Along the endless path towards the irrational number the algorithm will find reduced fractions with gradually increasing denominators that provides increasingly better approximations of the irrational number. So by taking a prefix of the infinite sequence approximations with any desired precision can be achieved. This application is important in watch-making, which explains why the tree was discovered in that domain.
+
+Note that for a fraction $\frac{p}{q}$, the length of the resulting sequence could be as large as $O(p+q)$, for example when the fraction is of form $\frac{p}{1}$. This means that the algorithm above **should not be used, unless this is an acceptable complexity**! 
+
+### Logarithmic search
+
+Fortunately, it is possible to enhance the algorithm above to guarantee $O(\log (p+q))$ complexity. For this we should note that if the current boundary fractions are $\frac{p_L}{q_L}$ and $\frac{p_R}{q_R}$, then by doing $a$ steps to the right we move to the fraction $\frac{p_L + a p_R}{q_L + a q_R}$, and by doing $a$ steps to the left, we move to the fraction $\frac{a p_L + p_R}{a q_L + q_R}$. 
+
+Therefore, instead of doing steps of `L` or `R` one by one, we can do $k$ steps in the same direction at once, after which we would switch to going into other direction, and so on. In this way, we can find the path to the fraction $\frac{p}{q}$ as its run-length encoding.
+
+As the directions alternate this way, we will always know which one to take. So, for convenience we may represent a path to a fraction $\frac{p}{q}$ as a sequence of fractions
+
+$$
+\frac{p_0}{q_0}, \frac{p_1}{q_1}, \frac{p_2}{q_2}, \dots, \frac{p_n}{q_n}, \frac{p_{n+1}}{q_{n+1}} = \frac{p}{q}
+$$
+
+such that $\frac{p_{k-1}}{q_{k-1}}$ and $\frac{p_k}{q_k}$ are the boundaries of the search interval on the $k$-th step, starting with $\frac{p_0}{q_0} = \frac{0}{1}$ and $\frac{p_1}{q_1} = \frac{1}{0}$. Then, after the $k$-th step we move to a fraction
+
+$$
+\frac{p_{k+1}}{q_{k+1}} = \frac{p_{k-1} + a_k p_k}{q_{k-1} + a_k q_k},
+$$
+
+where $a_k$ is a positive integer number. If you're familiar with [continued fractions](), you would recognize that the sequence $\frac{p_i}{q_i}$ is the sequence of the convergent fractions of $\frac{p}{q}$ and the sequence $[a_1; a_2, \dots, a_{n}, 1]$ represents the continued fraction of $\frac{p}{q}$.
+
+This allows to find the run-length encoding of the path to $\frac{p}{q}$ in the manner which follows the algorithm for computing continued fraction representation of the fraction $\frac{p}{q}$:
+
+```cpp
+auto find(int p, int q) {
+    bool right = true;
+    vector<pair<int, char>> res;
+    while(q) {
+        res.emplace_back(p / q, right ? 'R' : 'L');
+        tie(p, q) = pair{q, p % q};
+        right ^= 1;
+    }
+    res.back().first--;
+    return res;
+}
+```
+
+However, this approach only works if we already know $\frac{p}{q}$ and want to find its place in the Stern-Brocot tree.
+
+On practice, it is often the case that $\frac{p}{q}$ is not known in advance, but we are able to check for specific $\frac{x}{y}$ whether $\frac{x}{y} < \frac{p}{q}$.
+
+Knowing this, we can emulate the search on Stern-Brocot tree by maintaining the current boundaries $\frac{p_{k-1}}{q_{k-1}}$ and $\frac{p_k}{q_k}$, and finding each $a_k$ via binary search. The algorithm then is a bit more technical and potentially have a complexity of $O(\log^2(x+y))$, unless the problem formulation allows you to find $a_k$ faster (for example, using `floor` of some known expression).
 
 ## Farey Sequence
 
