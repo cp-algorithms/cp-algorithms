@@ -49,9 +49,6 @@ $( ) ( ( ) )$ can be divided into $( )$ and $( ( ) )$, but cannot be divided int
 
 #### C++ implementation 
 
-<details>
-<summary>Click here to show/hide code</summary>
-
 ```cpp
 const int MOD = ....
 const int MAX = ....
@@ -69,7 +66,7 @@ void init() {
     }
 }
 ```
-</details>
+
 
 ### Analytical formula
 
