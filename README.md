@@ -25,7 +25,7 @@ Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorith
 
 ### New articles
 
-- (18 April 2023) [Bit manipulation](https://cp-algorithms.com/algebra/bit-manipulation.md)
+- (18 April 2023) [Bit manipulation](https://cp-algorithms.com/algebra/bit-manipulation.html)
 - (17 October 2022) [Binary Search](https://cp-algorithms.com/num_methods/binary_search.html)
 - (17 October 2022) [MEX (Minimum Excluded element in an array)](https://cp-algorithms.com/sequences/mex.html)
 - (12 May 2022) [Factoring Exponentiation](https://cp-algorithms.com/algebra/factoring-exp.html)
