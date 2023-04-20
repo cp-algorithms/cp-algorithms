@@ -142,7 +142,7 @@ By doing this, we get both the hashes multiplied by the same power of $p$ (which
 Here are some typical applications of Hashing:
 
 * [Rabin-Karp algorithm](rabin-karp.md) for pattern matching in a string in $O(n)$ time
-* Calculating the number of different substrings of a string in $O(n^2 \log n)$ (see below)
+* Calculating the number of different substrings of a string in $O(n^2)$ (see below)
 * Calculating the number of palindromic substrings in a string.
 
 ### Determine the number of different substrings in a string
@@ -173,7 +173,7 @@ int count_unique_substrings(string const& s) {
 
     int cnt = 0;
     for (int l = 1; l <= n; l++) {
-        set<long long> hs;
+        unordered_set<long long> hs;
         for (int i = 0; i <= n - l; i++) {
             long long cur_h = (h[i + l] + m - h[i]) % m;
             cur_h = (cur_h * p_pow[n-i-1]) % m;
