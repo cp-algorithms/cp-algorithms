@@ -29,8 +29,7 @@ A way of thinking about it is the following:
 * If there are two distinct prime divisors $n = p_1^{e_1} \cdot p_2^{e_2}$, then you can arrange all divisors in form of a tabular.
 
 $$\begin{array}{c|ccccc}
-& 1 & p_2 & p_2^2 & \dots & p_2^{e_2} \\\\
-\hline
+& 1 & p_2 & p_2^2 & \dots & p_2^{e_2} \\\\ \hline
 1 & 1 & p_2 & p_2^2 & \dots & p_2^{e_2} \\\\
 p_1 & p_1 & p_1 \cdot p_2 & p_1 \cdot p_2^2 & \dots & p_1 \cdot p_2^{e_2} \\\\
 p_1^2 & p_1^2 & p_1^2 \cdot p_2 & p_1^2 \cdot p_2^2 & \dots & p_1^2 \cdot p_2^{e_2} \\\\
@@ -62,6 +61,29 @@ $$ = \frac{p_1^{e_1 + 1} - 1}{p_1 - 1} \cdot \frac{p_2^{e_2 + 1} - 1}{p_2 - 1}$$
 
 $$\sigma(n) = \frac{p_1^{e_1 + 1} - 1}{p_1 - 1} \cdot \frac{p_2^{e_2 + 1} - 1}{p_2 - 1} \cdots \frac{p_k^{e_k + 1} - 1}{p_k - 1}$$
 
+
+```{.cpp file=factorization_trial_division1}
+vector<long long> primes;
+
+long long sumDivisor(long long n) {
+    long long total = 1;
+    
+    for (long long p : primes) {
+        if (p * p > n)
+            break;
+        if(n % p == 0) {
+            int cnt = 1;
+            while (n % p == 0) {
+                cnt++;
+                n /= p;
+            }
+            total *= (pow(p, cnt) - 1) / (p - 1);
+        }
+    }
+    return total;
+}
+```
+
 ## Multiplicative functions
 
 A multiplicative function is a function $f(x)$ which satisfies
@@ -74,6 +96,7 @@ Both $d(n)$ and $\sigma(n)$ are multiplicative functions.
 
 Multiplicative functions have a huge variety of interesting properties, which can be very useful in number theory problems.
 For instance the Dirichlet convolution of two multiplicative functions is also multiplicative.
+
 
 ## Practice Problems
 
