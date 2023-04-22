@@ -185,6 +185,9 @@ int count_unique_substrings(string const& s) {
 }
 ```
 
+Notice, that $O(n^2)$ is not the best possible time complexity for this problem.
+A solution with $O(n \log n)$ is described in the article about [Suffix Arrays](suffix-array.md), and it's even possible to compute it in $O(n)$ using a [Suffix Tree](./suffix-tree-ukkonen.md) or a [Suffix Automaton](./suffix-automaton.md).
+
 ## Improve no-collision probability
 
 Quite often the above mentioned polynomial hash is good enough, and no collisions will happen during tests.
