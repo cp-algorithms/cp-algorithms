@@ -20,7 +20,7 @@ Let us assume that the graph contains no negative weight cycle. The case of pres
 
 We will create an array of distances $d[0 \ldots n-1]$, which after execution of the algorithm will contain the answer to the problem. In the beginning we fill it as follows: $d[v] = 0$, and all other elements $d[ ]$ equal to infinity $\infty$.
 
-The algorithm consists of several phases. Each phase scans through all edges of the graph, and the algorithm tries to produce <b>relaxation</b> along each edge $(a,b)$ having weight $c$. Relaxation along the edges is an attempt to improve the value $d[b]$ using value $d[a] + c$. In fact, it means that we are trying to improve the answer for this vertex using edge $(a,b)$ and current response for vertex $a$.
+The algorithm consists of several phases. Each phase scans through all edges of the graph, and the algorithm tries to produce **relaxation** along each edge $(a,b)$ having weight $c$. Relaxation along the edges is an attempt to improve the value $d[b]$ using value $d[a] + c$. In fact, it means that we are trying to improve the answer for this vertex using edge $(a,b)$ and current response for vertex $a$.
 
 It is claimed that $n-1$ phases of the algorithm are sufficient to correctly calculate the lengths of all shortest paths in the graph (again, we believe that the cycles of negative weight do not exist). For unreachable vertices the distance $d[ ]$ will remain equal to infinity $\infty$.
 
@@ -33,28 +33,27 @@ Unlike many other graph algorithms, for Bellman-Ford algorithm, it is more conve
 The constant $\rm INF$ denotes the number "infinity" — it should be selected in such a way that it is greater than all possible path lengths.
 
 ```cpp
-struct edge
-{
+struct Edge {
     int a, b, cost;
 };
 
 int n, m, v;
-vector<edge> e;
+vector<Edge> edges;
 const int INF = 1000000000;
 
 void solve()
 {
-    vector<int> d (n, INF);
+    vector<int> d(n, INF);
     d[v] = 0;
-    for (int i=0; i<n-1; ++i)
-        for (int j=0; j<m; ++j)
-            if (d[e[j].a] < INF)
-                d[e[j].b] = min (d[e[j].b], d[e[j].a] + e[j].cost);
+    for (int i = 0; i < n - 1; ++i)
+        for (Edge e : edges)
+            if (d[e.a] < INF)
+                d[e.b] = min(d[e.b], d[e.a] + e.cost);
     // display d, for example, on the screen
 }
 ```
 
-The check `if (d[e[j].a] < INF)` is needed only if the graph contains negative weight edges: no such verification would result in relaxation from the vertices to which paths have not yet found, and incorrect distance, of the type $\infty - 1$, $\infty - 2$ etc. would appear.
+The check `if (d[e.a] < INF)` is needed only if the graph contains negative weight edges: no such verification would result in relaxation from the vertices to which paths have not yet found, and incorrect distance, of the type $\infty - 1$, $\infty - 2$ etc. would appear.
 
 ### A better implementation
 
@@ -65,21 +64,20 @@ With this optimization, it is generally unnecessary to restrict manually the num
 ```cpp
 void solve()
 {
-    vector<int> d (n, INF);
+    vector<int> d(n, INF);
     d[v] = 0;
-    for (;;)
-    {
+    for (;;) {
         bool any = false;
 
-        for (int j=0; j<m; ++j)
-            if (d[e[j].a] < INF)
-                if (d[e[j].b] > d[e[j].a] + e[j].cost)
-                {
-                    d[e[j].b] = d[e[j].a] + e[j].cost;
+        for (Edge e : edges)
+            if (d[e.a] < INF)
+                if (d[e.b] > d[e.a] + e.cost) {
+                    d[e.b] = d[e.a] + e.cost;
                     any = true;
                 }
 
-        if (!any) break;
+        if (!any)
+            break;
     }
     // display d, for example, on the screen
 }
@@ -98,36 +96,34 @@ Following is an implementation of the Bellman-Ford with the retrieval of shortes
 ```cpp
 void solve()
 {
-    vector<int> d (n, INF);
+    vector<int> d(n, INF);
     d[v] = 0;
-    vector<int> p (n, -1);
+    vector<int> p(n, -1);
 
-    for (;;)
-    {
+    for (;;) {
         bool any = false;
-        for (int j = 0; j < m; ++j)
-            if (d[e[j].a] < INF)
-                if (d[e[j].b] > d[e[j].a] + e[j].cost)
-                {
-                    d[e[j].b] = d[e[j].a] + e[j].cost;
-                    p[e[j].b] = e[j].a;
+        for (Edge e : edges)
+            if (d[e.a] < INF)
+                if (d[e.b] > d[e.a] + e.cost) {
+                    d[e.b] = d[e.a] + e.cost;
+                    p[e.b] = e.a;
                     any = true;
                 }
-        if (!any)  break;
+        if (!any)
+            break;
     }
 
     if (d[t] == INF)
         cout << "No path from " << v << " to " << t << ".";
-    else
-    {
+    else {
         vector<int> path;
         for (int cur = t; cur != -1; cur = p[cur])
-            path.push_back (cur);
-        reverse (path.begin(), path.end());
+            path.push_back(cur);
+        reverse(path.begin(), path.end());
 
         cout << "Path from " << v << " to " << t << ": ";
-        for (size_t i=0; i<path.size(); ++i)
-            cout << path[i] << ' ';
+        for (int u : path)
+            cout << u << ' ';
     }
 }
 ```
@@ -142,7 +138,8 @@ Let us now prove the following assertion: After the execution of $i_{th}$ phase,
 
 In other words, for any vertex $a$ let us denote the $k$ number of edges in the shortest path to it (if there are several such paths, you can take any). According to this statement, the algorithm guarantees that after $k_{th}$ phase the shortest path for vertex $a$ will be found.
 
-<b>Proof</b>: Consider an arbitrary vertex $a$ to which there is a path from the starting vertex $v$, and consider a shortest path to it $(p_0=v, p_1, \ldots, p_k=a)$. Before the first phase, the shortest path to the vertex $p_0 = v$ was found correctly. During the first phase, the edge $(p_0,p_1)$ has been checked by the algorithm, and therefore, the distance to the vertex $p_1$ was correctly calculated after the first phase. Repeating this statement $k$ times, we see that after $k_{th}$ phase the distance to the vertex $p_k = a$ gets calculated correctly, which we wanted to prove.
+**Proof**:
+Consider an arbitrary vertex $a$ to which there is a path from the starting vertex $v$, and consider a shortest path to it $(p_0=v, p_1, \ldots, p_k=a)$. Before the first phase, the shortest path to the vertex $p_0 = v$ was found correctly. During the first phase, the edge $(p_0,p_1)$ has been checked by the algorithm, and therefore, the distance to the vertex $p_1$ was correctly calculated after the first phase. Repeating this statement $k$ times, we see that after $k_{th}$ phase the distance to the vertex $p_k = a$ gets calculated correctly, which we wanted to prove.
 
 The last thing to notice is that any shortest path cannot have more than $n - 1$ edges. Therefore, the algorithm sufficiently goes up to the $(n-1)_{th}$ phase. After that, it is guaranteed that no relaxation will improve the distance to some vertex.
 
@@ -152,7 +149,7 @@ Everywhere above we considered that there is no negative cycle in the graph (pre
 
 It is easy to see that the Bellman-Ford algorithm can endlessly do the relaxation among all vertices of this cycle and the vertices reachable from it. Therefore, if you do not limit the number of phases to $n - 1$, the algorithm will run indefinitely, constantly improving the distance from these vertices.
 
-Hence we obtain the <b> criterion for presence of a cycle of negative weights reachable for source vertex $v$</b>: after $(n-1)_{th}$ phase, if we run algorithm for one more phase, and it performs at least one more relaxation, then the graph contains a negative weight cycle that is reachable from $v$; otherwise, such a cycle does not exist.
+Hence we obtain the **criterion for presence of a cycle of negative weights reachable for source vertex $v$**: after $(n-1)_{th}$ phase, if we run algorithm for one more phase, and it performs at least one more relaxation, then the graph contains a negative weight cycle that is reachable from $v$; otherwise, such a cycle does not exist.
 
 Moreover, if such a cycle is found, the Bellman-Ford algorithm can be modified so that it retrieves this cycle as a sequence of vertices contained in it. For this, it is sufficient to remember the last vertex $x$ for which there was a relaxation in $n_{th}$ phase. This vertex will either lie in a negative weight cycle, or is reachable from it. To get the vertices that are guaranteed to lie in a negative cycle, starting from the vertex $x$, pass through to the predecessors $n$ times. Hence we will get the vertex $y$, namely the vertex in the cycle earliest reachable from source. We have to go from this vertex, through the predecessors, until we get back to the same vertex $y$ (and it will happen, because relaxation in a negative weight cycle occur in a circular manner).
 
@@ -161,43 +158,39 @@ Moreover, if such a cycle is found, the Bellman-Ford algorithm can be modified s
 ```cpp
 void solve()
 {
-    vector<int> d (n, INF);
+    vector<int> d(n, INF);
     d[v] = 0;
-    vector<int> p (n, - 1);
+    vector<int> p(n, -1);
     int x;
-    for (int i=0; i<n; ++i)
-    {
+    for (int i = 0; i < n; ++i) {
         x = -1;
-        for (int j=0; j<m; ++j)
-            if (d[e[j].a] < INF)
-                if (d[e[j].b] > d[e[j].a] + e[j].cost)
-                {
-                    d[e[j].b] = max (-INF, d[e[j].a] + e[j].cost);
-                    p[e[j].b] = e[j].a;
-                    x = e[j].b;
+        for (Edge e : edges)
+            if (d[e.a] < INF)
+                if (d[e.b] > d[e.a] + e.cost) {
+                    d[e.b] = max(-INF, d[e.a] + e.cost);
+                    p[e.b] = e.a;
+                    x = e.b;
                 }
     }
 
     if (x == -1)
         cout << "No negative cycle from " << v;
-    else
-    {
+    else {
         int y = x;
-        for (int i=0; i<n; ++i)
+        for (int i = 0; i < n; ++i)
             y = p[y];
 
         vector<int> path;
-        for (int cur=y; ; cur=p[cur])
-        {
-            path.push_back (cur);
+        for (int cur = y;; cur = p[cur]) {
+            path.push_back(cur);
             if (cur == y && path.size() > 1)
                 break;
         }
-        reverse (path.begin(), path.end());
+        reverse(path.begin(), path.end());
 
         cout << "Negative cycle: ";
-        for (size_t i=0; i<path.size(); ++i)
-            cout << path[i] << ' ';
+        for (int u : path)
+            cout << u << ' ';
     }
 }
 ```
@@ -205,7 +198,7 @@ void solve()
 Due to the presence of a negative cycle, for $n$ iterations of the algorithm, the distances may go far in the negative range (to negative numbers of the order of $-n m W$, where $W$ is the maximum absolute value of any weight in the graph). Hence in the code, we adopted additional measures against the integer overflow as follows:
 
 ```cpp
-d[e[j].b] = max (-INF, d[e[j].a] + e[j].cost);
+d[e.b] = max(-INF, d[e.a] + e.cost);
 ```
 
 The above implementation looks for a negative cycle reachable from some starting vertex $v$; however, the algorithm can be modified to just looking for any negative cycle in the graph. For this we need to put all the distance $d[i]$ to zero and not infinity — as if we are looking for the shortest path from all vertices simultaneously; the validity of the detection of a negative cycle is not affected.
