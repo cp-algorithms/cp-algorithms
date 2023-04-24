@@ -29,7 +29,7 @@ For this case there exists a very simple algorithm.
 Let $\text{depth}$ be the current number of open brackets.
 Initially $\text{depth} = 0$.
 We iterate over all character of the string, if the current bracket character is an opening bracket, then we increment $\text{depth}$, otherwise we decrement it.
-If at any time the variable $\text{depth}$ gets negative, or at the end it is different from $0$, then the string is not a balances sequence.
+If at any time the variable $\text{depth}$ gets negative, or at the end it is different from $0$, then the string is not a balanced sequence.
 Otherwise it is.
 
 If there are several bracket types involved, then the algorithm needs to be changes.
