@@ -193,7 +193,7 @@ Before proceeding to the algorithm itself, we recap the accumulated knowledge, a
 - For each state $v$ one or multiple substrings match.
   We denote by $longest(v)$ the longest such string, and through $len(v)$ its length.
   We denote by $shortest(v)$ the shortest such substring, and its length with $minlen(v)$.
-  Then all the strings corresponding to this state are different suffixes of the string $longest(v)$ and have all possible lengths in the interval $[minlength(v); len(v)]$.
+  Then all the strings corresponding to this state are different suffixes of the string $longest(v)$ and have all possible lengths in the interval $[minlen(v); len(v)]$.
 - For each state $v \ne t_0$ a suffix link is defined as a link, that leads to a state that corresponds to the suffix of the string $longest(v)$ of length $minlen(v) - 1$.
   The suffix links form a tree with the root in $t_0$, and at the same time this tree forms an inclusion relationship between the sets $endpos$.
 - We can express $minlen(v)$ for $v \ne t_0$ using the suffix link $link(v)$ as:
@@ -493,6 +493,21 @@ I.e. $d[v]$ can be expressed as the sum of answers for all ends of the transitio
 The number of different substrings is the value $d[t_0] - 1$ (since we don't count the empty substring).
 
 Total time complexity: $O(length(S))$
+
+
+Alternatively, we can take advantage of the fact that each state $v$ matches to substrings of length $[minlen(v),len(v)]$.
+Therefore, given $minlen(v) = 1 + len(link(v))$, we have total distinct substrings at state $v$ being $len(v) - minlen(v) + 1 = len(v) - 1 + len(link(v)) + 1 = len(v) - len(link(v))$.
+
+This is demonstrated succinctly below:
+
+```cpp
+long long tot{};
+for(int i=1;i<sz;i++) {
+    tot+=len[i] - len[link[i]];
+}
+```
+
+While this is also $O(length(S))$, it requires no extra space besides (what's used for the suffix automaton construction) and no recursive calls, consequently running faster in practice.
 
 ### Total length of all different substrings
 
