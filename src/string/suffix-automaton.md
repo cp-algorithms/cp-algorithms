@@ -496,7 +496,7 @@ Total time complexity: $O(length(S))$
 
 
 Alternatively, we can take advantage of the fact that each state $v$ matches to substrings of length $[minlen(v),len(v)]$.
-Therefore, given $minlen(v) = 1 + len(link(v))$, we have total distinct substrings at state $v$ being $len(v) - minlen(v) + 1 = len(v) - 1 + len(link(v)) + 1 = len(v) - len(link(v))$.
+Therefore, given $minlen(v) = 1 + len(link(v))$, we have total distinct substrings at state $v$ being $len(v) - minlen(v) + 1 = len(v) - (1 + len(link(v))) + 1 = len(v) - len(link(v))$.
 
 This is demonstrated succinctly below:
 
