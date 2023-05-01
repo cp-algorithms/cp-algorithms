@@ -501,9 +501,12 @@ Therefore, given $minlen(v) = 1 + len(link(v))$, we have total distinct substrin
 This is demonstrated succinctly below:
 
 ```cpp
-long long tot{};
-for(int i=1;i<sz;i++) {
-    tot+=len[i] - len[link[i]];
+long long get_diff_strings(){
+    ll tot{};
+    for(int i=1;i<sz;i++) {
+        tot+=st[i].len-st[st[i].link].len;
+    }
+    return tot;
 }
 ```
 
