@@ -530,7 +530,7 @@ We take the answer of each adjacent vertex $w$, and add to it $d[w]$ (since ever
 Again this task can be computed in $O(length(S))$ time.
 
 Alternatively, we can, again, take advantage of the fact that each state $v$ matches to substrings of length $[minlen(v),len(v)]$.
-Since $minlen(v) = 1 + len(link(v))$ and the arimetic series formula $S[n] = n * (a[1]+a[n]) / 2$ (where $S[n]$ denotes the sum of $n$ terms,$a[1]$ representing the first term, and $a[n]$ representing the last), we can compute the length of substrings at a state in constant time.  We then sum up these totals for each state $v \neq t[0]$ in the automaton. This is shown by the code below:
+Since $minlen(v) = 1 + len(link(v))$ and the arithmetic series formula $S_n = n * (a_1+a_n) / 2$ (where $S_n$ denotes the sum of $n$ terms, $a_1$ representing the first term, and $a_n$ representing the last), we can compute the length of substrings at a state in constant time.  We then sum up these totals for each state $v \neq t_0$ in the automaton. This is shown by the code below:
 
 ```cpp
 long long get_tot_len_diff_substings() {
