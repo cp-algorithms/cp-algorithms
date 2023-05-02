@@ -510,7 +510,7 @@ long long get_diff_strings(){
 }
 ```
 
-While this is also $O(length(S))$, it requires no extra space besides (what's used for the suffix automaton construction) and no recursive calls, consequently running faster in practice.
+While this is also $O(length(S))$, it requires no extra space and no recursive calls, consequently running faster in practice.
 
 ### Total length of all different substrings
 
@@ -528,6 +528,26 @@ $$ans[v] = \sum_{w : (v, w, c) \in DAWG} d[w] + ans[w]$$
 We take the answer of each adjacent vertex $w$, and add to it $d[w]$ (since every substrings is one character longer when starting from the state $v$).
 
 Again this task can be computed in $O(length(S))$ time.
+
+Alternatively, we can, again, take advantage of the fact that each state $v$ matches to substrings of length $[minlen(v),len(v)]$.
+Since $minlen(v) = 1 + len(link(v))$ and the arimetic series formula $S[n] = n * (a[1]+a[n]) / 2$ (where $S[n]$ denotes the sum of $n$ terms,$a[1]$ representing the first term, and $a[n]$ representing the last), we can compute the length of substrings at a state in constant time.  We then sum up these totals for each state $v \neq t[0]$ in the automaton. This is shown by the code below:
+
+```cpp
+long long get_tot_len_diff_substings() {
+    long long tot{};
+    for(int i=1;i<sz;i++) {
+        long long shortest=st[st[i].link].len+1;
+        long long longest=st[i].len;
+        
+        long long num_strings=longest-shortest+1;
+        
+        long long cur=num_strings*(longest+shortest)/2;
+        tot += cur;
+    }
+    return tot;
+}
+```
+This approaches runs in  $O(length(S))$ time, but experimentally runs 20x faster than the memoized dynamic programming version on randomized strings. It requires no extra space and not recursion.
 
 ### Lexicographically $k$-th substring {data-toc-label="Lexicographically k-th substring"}
 
