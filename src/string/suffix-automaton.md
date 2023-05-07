@@ -193,7 +193,7 @@ Before proceeding to the algorithm itself, we recap the accumulated knowledge, a
 - For each state $v$ one or multiple substrings match.
   We denote by $longest(v)$ the longest such string, and through $len(v)$ its length.
   We denote by $shortest(v)$ the shortest such substring, and its length with $minlen(v)$.
-  Then all the strings corresponding to this state are different suffixes of the string $longest(v)$ and have all possible lengths in the interval $[minlength(v); len(v)]$.
+  Then all the strings corresponding to this state are different suffixes of the string $longest(v)$ and have all possible lengths in the interval $[minlen(v); len(v)]$.
 - For each state $v \ne t_0$ a suffix link is defined as a link, that leads to a state that corresponds to the suffix of the string $longest(v)$ of length $minlen(v) - 1$.
   The suffix links form a tree with the root in $t_0$, and at the same time this tree forms an inclusion relationship between the sets $endpos$.
 - We can express $minlen(v)$ for $v \ne t_0$ using the suffix link $link(v)$ as:
@@ -494,6 +494,24 @@ The number of different substrings is the value $d[t_0] - 1$ (since we don't cou
 
 Total time complexity: $O(length(S))$
 
+
+Alternatively, we can take advantage of the fact that each state $v$ matches to substrings of length $[minlen(v),len(v)]$.
+Therefore, given $minlen(v) = 1 + len(link(v))$, we have total distinct substrings at state $v$ being $len(v) - minlen(v) + 1 = len(v) - (1 + len(link(v))) + 1 = len(v) - len(link(v))$.
+
+This is demonstrated succinctly below:
+
+```cpp
+long long get_diff_strings(){
+    long long tot = 0;
+    for(int i = 1; i < sz; i++) {
+        tot += st[i].len - st[st[i].link].len;
+    }
+    return tot;
+}
+```
+
+While this is also $O(length(S))$, it requires no extra space and no recursive calls, consequently running faster in practice.
+
 ### Total length of all different substrings
 
 Given a string $S$.
@@ -510,6 +528,26 @@ $$ans[v] = \sum_{w : (v, w, c) \in DAWG} d[w] + ans[w]$$
 We take the answer of each adjacent vertex $w$, and add to it $d[w]$ (since every substrings is one character longer when starting from the state $v$).
 
 Again this task can be computed in $O(length(S))$ time.
+
+Alternatively, we can, again, take advantage of the fact that each state $v$ matches to substrings of length $[minlen(v),len(v)]$.
+Since $minlen(v) = 1 + len(link(v))$ and the arithmetic series formula $S_n = n \cdot \frac{a_1+a_n}{2}$ (where $S_n$ denotes the sum of $n$ terms, $a_1$ representing the first term, and $a_n$ representing the last), we can compute the length of substrings at a state in constant time.  We then sum up these totals for each state $v \neq t_0$ in the automaton. This is shown by the code below:
+
+```cpp
+long long get_tot_len_diff_substings() {
+    long long tot = 0;
+    for(int i = 1; i < sz; i++) {
+        long long shortest = st[st[i].link].len + 1;
+        long long longest = st[i].len;
+        
+        long long num_strings = longest - shortest + 1;
+        long long cur = num_strings * (longest + shortest) / 2;
+        tot += cur;
+    }
+    return tot;
+}
+```
+
+This approaches runs in  $O(length(S))$ time, but experimentally runs 20x faster than the memoized dynamic programming version on randomized strings. It requires no extra space and no recursion.
 
 ### Lexicographically $k$-th substring {data-toc-label="Lexicographically k-th substring"}
 
