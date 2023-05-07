@@ -376,7 +376,7 @@ Thus we will not overlook any by accident.
 
 Because the suffixes are sorted, it is clear that the current suffix $p[i]$ will give new substrings for all its prefixes, except for the prefixes that coincide with the suffix $p[i-1]$.
 Thus, all its prefixes except the first $\text{lcp}[i-1]$ one.
-Since the length of the current suffix is $n - p[i]$, $n - p[i] - \text{lcp}[i-1]$ new suffixes start at $p[i]$.
+Since the length of the current suffix is $n - p[i]$, $n - p[i] - \text{lcp}[i-1]$ new prefixes start at $p[i]$.
 Summing over all the suffixes, we get the final answer:
 
 $$\sum_{i=0}^{n-1} (n - p[i]) - \sum_{i=0}^{n-2} \text{lcp}[i] = \frac{n^2 + n}{2} - \sum_{i=0}^{n-2} \text{lcp}[i]$$
