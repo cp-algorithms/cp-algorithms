@@ -381,7 +381,7 @@ Therefore we receive the formula ($\oplus$ denotes the XOR operation):
 
 $$t = x \oplus y \oplus 1$$
 
-Thus regardless of how many joins we perform, the parity of the edges is carried from on leader to another.
+Thus regardless of how many joins we perform, the parity of the edges is carried from one leader to another.
 
 We give the implementation of the DSU that supports parity. As in the previous section we use a pair to store the ancestor and the parity. In addition for each set we store in the array `bipartite[]` whether it is still bipartite or not.
 
