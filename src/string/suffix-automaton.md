@@ -502,9 +502,9 @@ This is demonstrated succinctly below:
 
 ```cpp
 long long get_diff_strings(){
-    ll tot{};
-    for(int i=1;i<sz;i++) {
-        tot+=st[i].len-st[st[i].link].len;
+    long long tot = 0;
+    for(int i = 1; i < sz; i++) {
+        tot += st[i].len - st[st[i].link].len;
     }
     return tot;
 }
@@ -530,24 +530,24 @@ We take the answer of each adjacent vertex $w$, and add to it $d[w]$ (since ever
 Again this task can be computed in $O(length(S))$ time.
 
 Alternatively, we can, again, take advantage of the fact that each state $v$ matches to substrings of length $[minlen(v),len(v)]$.
-Since $minlen(v) = 1 + len(link(v))$ and the arithmetic series formula $S_n = n * (a_1+a_n) / 2$ (where $S_n$ denotes the sum of $n$ terms, $a_1$ representing the first term, and $a_n$ representing the last), we can compute the length of substrings at a state in constant time.  We then sum up these totals for each state $v \neq t_0$ in the automaton. This is shown by the code below:
+Since $minlen(v) = 1 + len(link(v))$ and the arithmetic series formula $S_n = n \cdot \frac{a_1+a_n}{2}$ (where $S_n$ denotes the sum of $n$ terms, $a_1$ representing the first term, and $a_n$ representing the last), we can compute the length of substrings at a state in constant time.  We then sum up these totals for each state $v \neq t_0$ in the automaton. This is shown by the code below:
 
 ```cpp
 long long get_tot_len_diff_substings() {
-    long long tot{};
-    for(int i=1;i<sz;i++) {
-        long long shortest=st[st[i].link].len+1;
-        long long longest=st[i].len;
+    long long tot = 0;
+    for(int i = 1; i < sz; i++) {
+        long long shortest = st[st[i].link].len + 1;
+        long long longest = st[i].len;
         
-        long long num_strings=longest-shortest+1;
-        
-        long long cur=num_strings*(longest+shortest)/2;
+        long long num_strings = longest - shortest + 1;
+        long long cur = num_strings * (longest + shortest) / 2;
         tot += cur;
     }
     return tot;
 }
 ```
-This approaches runs in  $O(length(S))$ time, but experimentally runs 20x faster than the memoized dynamic programming version on randomized strings. It requires no extra space and not recursion.
+
+This approaches runs in  $O(length(S))$ time, but experimentally runs 20x faster than the memoized dynamic programming version on randomized strings. It requires no extra space and no recursion.
 
 ### Lexicographically $k$-th substring {data-toc-label="Lexicographically k-th substring"}
 
