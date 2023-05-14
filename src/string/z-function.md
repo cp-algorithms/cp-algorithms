@@ -33,7 +33,7 @@ vector<int> z_function_trivial(string s) {
 	int n = s.size();
 	vector<int> z(n);
 	for (int i = 1; i < n; i++) {
-		while (s[z[i]] == s[i + z[i]]) {
+		while (i + z[i] < n && s[z[i]] == s[i + z[i]]) {
 			z[i]++;
 		}
 	}
@@ -96,7 +96,7 @@ vector<int> z_function(string s) {
         if(i < r) {
             z[i] = min(r - i, z[i - l]);
         }
-        while(s[z[i]] == s[i + z[i]]) {
+        while(i + z[i] < n && s[z[i]] == s[i + z[i]]) {
             z[i]++;
         }
         if(i + z[i] > r) {
