@@ -201,3 +201,4 @@ $$ x^n \equiv x^{\phi(m)} x^{(n - \phi(m)) \bmod \phi(m)} \bmod m \equiv x^{\phi
 * [Kattis - Exponial](https://open.kattis.com/problems/exponial)
 * [LeetCode - 372. Super Pow](https://leetcode.com/problems/super-pow/)
 * [Codeforces - The Holmes Children](http://codeforces.com/problemset/problem/776/E)
+* [Codeforces - Same GCDs](https://codeforces.com/problemset/problem/1295/D)
