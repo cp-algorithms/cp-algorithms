@@ -37,7 +37,7 @@ assert(negative_signed_number == 0b1111'1111'1111'1111'1111'1111'1111'0011);
 
 CPUs are very fast manipulating those bits with specific operations.
 For some problems we can take these binary number representations to our advantage, and speed up the execution time.
-And for some problems (typically in combinatorics or dynamic programming) where we want to track which objects we already picked from a given set of objects, we can just use an large enought integer where each digit represents an object and depending on if we pick or drop the object we set or clear the digit.
+And for some problems (typically in combinatorics or dynamic programming) where we want to track which objects we already picked from a given set of objects, we can just use an large enough integer where each digit represents an object and depending on if we pick or drop the object we set or clear the digit.
 
 ## Bit operators
 
