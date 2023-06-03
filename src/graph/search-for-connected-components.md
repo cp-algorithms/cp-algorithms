@@ -57,7 +57,7 @@ void find_comps() {
 ## Iterative implementation of the code 
 
 Deeply recursive functions are in general bad.
-Ever single recursive call will require a little bit of memory in the stack, and per default programs only have a limited amount of stack space.
+Every single recursive call will require a little bit of memory in the stack, and per default programs only have a limited amount of stack space.
 So when you do a recursive DFS over a connected graph with millions of nodes, you might run into stack overflows.
 
 It is always possible to translate a recursive program into an iterative program, by manually maintaining a stack data structure.
