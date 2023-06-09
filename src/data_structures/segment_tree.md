@@ -759,7 +759,7 @@ After that, we can assign the left child with the new value, without loosing any
 
 Summarizing we get:
 for any queries (a modification or reading query) during the descent along the tree we should always push information from the current vertex into both of its children. 
-We can understand this in such a way, that when we descent the tree we apply delayed modifications, but exactly as much as necessary (so not to degrade the complexity of $O(\log n)$. 
+We can understand this in such a way, that when we descent the tree we apply delayed modifications, but exactly as much as necessary (so not to degrade the complexity of $O(\log n)$). 
 
 For the implementation we need to make a $\text{push}$ function, which will receive the current vertex, and it will push the information for its vertex to both its children. 
 We will call this function at the beginning of the query functions (but we will not call it from the leaves, because there is no need to push information from them any further).
