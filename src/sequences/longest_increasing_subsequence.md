@@ -32,7 +32,7 @@ To accomplish this task, we define an array $d[0 \dots n-1]$, where $d[i]$ is th
 
     $$\begin{array}{ll}
     a &= \{8, 3, 4, 6, 5, 2, 0, 7, 9, 1\} \\
-    d &= \{1, 1, 2, 2, 3, 1, 1, 4, 5, 2\}
+    d &= \{1, 1, 2, 3, 3, 1, 1, 4, 5, 2\}
     \end{array}$$
 
     The longest increasing subsequence that ends at index 4 is $\{3, 4, 5\}$ with a length of 3, the longest ending at index 8 is either $\{3, 4, 5, 7, 9\}$ or $\{3, 4, 6, 7, 9\}$, both having length 5, and the longest ending at index 9 is $\{0, 1\}$ having length 2.
