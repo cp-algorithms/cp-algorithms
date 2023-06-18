@@ -59,9 +59,9 @@ Then the implementation could look like this:
 ```cpp
 ... // a sorted array is stored as a[0], a[1], ..., a[n-1]
 int l = -1, r = n;
-while(r - l > 1) {
-    int m = (l + r) / 2;
-    if(k < a[m]) {
+while (r - l > 1) {
+    int m = l + (r - l) / 2;
+    if (k < a[m]) {
         r = m; // a[l] <= k < a[m] <= a[r]
     } else {
         l = m; // a[l] <= a[m] <= k < a[r]
@@ -70,6 +70,8 @@ while(r - l > 1) {
 ```
 
 During the execution of the algorithm, we never evaluate neither $A_L$ nor $A_R$, as $L < M < R$. In the end, $L$ will be the index of the last element that is not greater than $k$ (or $-1$ if there is no such element) and $R$ will be the index of the first element larger than $k$ (or $n$ if there is no such element).
+
+**Note.** If one calculates `m` as follows `m = (r + l) / 2` it can lead to overflow. It is funny fact that this error lived about 7 years in some Java library which was discussed on Redit.
 
 ## Search on arbitrary predicate
 
@@ -86,9 +88,9 @@ It is possible to use arbitrary monotonous predicate instead of $k < A_M$. It is
 ```cpp
 ... // f(i) is a boolean function such that f(0) <= ... <= f(n-1)
 int l = -1, r = n;
-while(r - l > 1) {
-    int m = (l + r) / 2;
-    if(f(m)) {
+while (r - l > 1) {
+    int m = l + (r - l) / 2;
+    if (f(m)) {
         r = m; // 0 = f(l) < f(m) = 1
     } else {
         l = m; // 0 = f(m) < f(r) = 1
