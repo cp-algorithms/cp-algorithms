@@ -71,7 +71,7 @@ while (r - l > 1) {
 
 During the execution of the algorithm, we never evaluate neither $A_L$ nor $A_R$, as $L < M < R$. In the end, $L$ will be the index of the last element that is not greater than $k$ (or $-1$ if there is no such element) and $R$ will be the index of the first element larger than $k$ (or $n$ if there is no such element).
 
-**Note.** If one calculates `m` as follows `m = (r + l) / 2` it can lead to overflow. It is funny fact that this error lived about 7 years in some Java library which was discussed on Redit.
+**Note.** If one calculates `m` as follows `m = (r + l) / 2` it can lead to overflow. It is funny fact that this error lived about 9 years in JDK as described in the [blogpost](https://ai.googleblog.com/2006/06/extra-extra-read-all-about-it-nearly.html).
 
 ## Search on arbitrary predicate
 
