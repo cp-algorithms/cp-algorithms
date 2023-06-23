@@ -1202,6 +1202,8 @@ Obviously this idea can be extended in lots of different ways. E.g. by adding su
 * [Codeforces - Kefa and Watch](https://codeforces.com/problemset/problem/580/E)
 * [Codeforces - A Simple Task](https://codeforces.com/problemset/problem/558/E)
 * [Codeforces - SUM and REPLACE](https://codeforces.com/problemset/problem/920/F)
+* [Codeforces - XOR on Segment](https://codeforces.com/problemset/problem/242/E) [Lazy propagation]
+* [Codeforces - Please, another Queries on Array?](https://codeforces.com/problemset/problem/1114/F) [Lazy propagation]
 * [COCI - Deda](https://oj.uz/problem/view/COCI17_deda) [Last element smaller or equal to x / Binary search]
 * [Codeforces - The Untended Antiquity](https://codeforces.com/problemset/problem/869/E) [2D]
 * [CSES - Hotel Queries](https://cses.fi/problemset/task/1143)
