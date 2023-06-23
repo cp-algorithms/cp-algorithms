@@ -253,9 +253,15 @@ $$a \cdot b = \begin{cases}
 * [UVa 374 - Big Mod](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=310)
 * [UVa 11029 - Leading and Trailing](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1970)
 * [Codeforces - Parking Lot](http://codeforces.com/problemset/problem/630/I)
+* [leetcode - Count good numbers](https://leetcode.com/problems/count-good-numbers/)
+* [Codechef - Chef and Riffles](https://www.codechef.com/JAN221B/problems/RIFFLES)
+* [Codeforces - Decoding Genome](https://codeforces.com/contest/222/problem/E)
+* [Codeforces - Neural Network Country](https://codeforces.com/contest/852/problem/B)
+* [Codeforces - Magic Gems](https://codeforces.com/problemset/problem/1117/D)
 * [SPOJ - The last digit](http://www.spoj.com/problems/LASTDIG/)
 * [SPOJ - Locker](http://www.spoj.com/problems/LOCKER/)
 * [LA - 3722 Jewel-eating Monsters](https://vjudge.net/problem/UVALive-3722)
 * [SPOJ - Just add it](http://www.spoj.com/problems/ZSUM/)
-* [Codechef - Chef and Riffles](https://www.codechef.com/JAN221B/problems/RIFFLES)
-* [leetcode - Count good numbers](https://leetcode.com/problems/count-good-numbers/)
+* [Codeforces - Stairs and Lines](https://codeforces.com/contest/498/problem/E)
+
+
