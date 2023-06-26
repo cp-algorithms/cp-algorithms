@@ -7,4 +7,5 @@ pip install \
     mkdocs-git-authors-plugin \
     mkdocs-git-revision-date-localized-plugin \
     mkdocs-simple-hooks \
+    mkdocs-rss-plugin \
     plugins/mkdocs-git-committers-plugin-2
