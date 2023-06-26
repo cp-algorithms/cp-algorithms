@@ -79,6 +79,3 @@ extra:
   analytics:
     provider: google
     property: G-7FLS2HCYHH
-  social:
-    - icon: fontawesome/solid/rss
-      link: https://cp-algorithms.com/feed_rss_created.xml
