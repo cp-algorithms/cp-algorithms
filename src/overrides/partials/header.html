@@ -86,12 +86,12 @@
     {% if config.repo_url %}
       <div class="md-header__source">
         {% include "partials/source.html" %}
-        
-        <a href="https://cp-algorithms.com/feed_rss_created.xml" title="RSS" class="md-content__button md-icon">
-          <div class="rss icon">
-            {% include ".icons/fontawesome/solid/rss.svg" %}
-          </div>
-        </a>
+      </div>
+    
+      <div class="rss icon">
+      <a href="https://cp-algorithms.com/feed_rss_created.xml" title="RSS" class="md-content__button md-icon">
+          {% include ".icons/fontawesome/solid/rss.svg" %}
+      </a>
       </div>
 
     {% endif %}
