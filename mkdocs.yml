@@ -1,4 +1,5 @@
 site_name: Algorithms for Competitive Programming
+site_url: https://cp-algorithms.com
 docs_dir: src
 site_dir: public
 use_directory_urls: false
@@ -35,6 +36,8 @@ extra_css:
   - stylesheets/extra.css
 
 markdown_extensions:
+  - toc:
+      baselevel: 2
   - pymdownx.arithmatex:
       generic: true
       tex_inline_wrap: ['$', '$']
@@ -70,8 +73,14 @@ plugins:
       token: !ENV MKDOCS_GIT_COMMITTERS_APIKEY
       enabled: !ENV [MKDOCS_ENABLE_GIT_COMMITTERS, False]
   - macros
+  - autolinks
+  - section-index
+  - mkdocs-newsletter
 
 extra:
   analytics:
     provider: google
     property: G-7FLS2HCYHH
+      social:
+    - icon: fontawesome/solid/rss
+      link: https://cp-algorithms.com/newsletter/0_newsletter_index/
