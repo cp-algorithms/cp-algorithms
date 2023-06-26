@@ -81,6 +81,6 @@ extra:
   analytics:
     provider: google
     property: G-7FLS2HCYHH
-      social:
+  social:
     - icon: fontawesome/solid/rss
       link: https://cp-algorithms.com/newsletter/0_newsletter_index/
