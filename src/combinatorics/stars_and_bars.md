@@ -61,3 +61,9 @@ So we have reduced the problem to the simpler case with $x_i' \ge 0$ and again c
 
 With some help of the [Inclusion-Exclusion Principle](./inclusion-exclusion.md), you can also restrict the integers with upper bounds.
 See the [Number of upper-bound integer sums](./inclusion-exclusion.md#number-of-upper-bound-integer-sums) section in the corresponding article.
+
+## Practice Problems
+
+* [Codeforces - Array](https://codeforces.com/contest/57/problem/C)
+* [Codeforces - Kyoya and Coloured Balls](https://codeforces.com/problemset/problem/553/A)
+
