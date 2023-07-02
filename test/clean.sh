@@ -1,1 +1,3 @@
-rm *.h
+#!/bin/bash
+
+rm ./*.h
