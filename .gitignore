@@ -1,3 +1,5 @@
+__pycache__/*
+.vscode/*
 target
 *.swp
 *.sublime-project
