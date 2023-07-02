@@ -14,10 +14,10 @@ where $a$, $b$, $c$ are given integers, and $x$, $y$ are unknown integers.
 
 In this article, we consider several classical problems on these equations:
 
-* finding one solution
-* finding all solutions
-* finding the number of solutions and the solutions themselves in a given interval
-* finding a solution with minimum value of $x + y$
+- finding one solution
+- finding all solutions
+- finding the number of solutions and the solutions themselves in a given interval
+- finding a solution with minimum value of $x + y$
 
 ## The degenerate case
 
@@ -27,10 +27,12 @@ A degenerate case that need to be taken care of is when $a = b = 0$. It is easy 
 
 When $a \neq 0$ and $b \neq 0$, the equation $ax+by=c$ can be equivalently treated as either of the following:
 
-\begin{gather}
+$$
+\begin{gather*}
 ax \equiv c \pmod b,\newline
 by \equiv c \pmod a.
-\end{gather}
+\end{gather*}
+$$
 
 Without loss of generality, assume that $b \neq 0$ and consider the first equation. When $a$ and $b$ are co-prime, the solution to it is given as
 
@@ -44,10 +46,12 @@ $$(a/g) x \equiv (c/g) \pmod{b/g}.$$
 
 By the definition of $g$, the numbers $a/g$ and $b/g$ are co-prime, so the solution is given explicitly as
 
-$$\begin{cases}
+$$
+\begin{cases}
 x \equiv (c/g)(a/g)^{-1}\pmod{b/g},\\
 y = \frac{c-ax}{b}.
-\end{cases}$$
+\end{cases}
+$$
 
 ## Algorithmic solution
 
@@ -215,8 +219,8 @@ If $a < b$, we need to select smallest possible value of $k$. If $a > b$, we nee
 
 ## Practice Problems
 
-* [Spoj - Crucial Equation](http://www.spoj.com/problems/CEQU/)
-* [SGU 106](http://codeforces.com/problemsets/acmsguru/problem/99999/106)
-* [Codeforces - Ebony and Ivory](http://codeforces.com/contest/633/problem/A)
-* [Codechef - Get AC in one go](https://www.codechef.com/problems/COPR16G)
-* [LightOj - Solutions to an equation](http://www.lightoj.com/volume_showproblem.php?problem=1306)
+- [Spoj - Crucial Equation](http://www.spoj.com/problems/CEQU/)
+- [SGU 106](http://codeforces.com/problemsets/acmsguru/problem/99999/106)
+- [Codeforces - Ebony and Ivory](http://codeforces.com/contest/633/problem/A)
+- [Codechef - Get AC in one go](https://www.codechef.com/problems/COPR16G)
+- [LightOj - Solutions to an equation](http://www.lightoj.com/volume_showproblem.php?problem=1306)
