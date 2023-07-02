@@ -95,12 +95,12 @@ vector<pt> minkowski(vector<pt> P, vector<pt> Q){
     vector<pt> result;
     size_t i = 0, j = 0;
     while(i < P.size() - 2 || j < Q.size() - 2){
-      result.push_back(P[i] + Q[j]);
-      auto cross = (P[i + 1] - P[i]).cross(Q[j + 1] - Q[j]);
-      if(cross >= 0 && i < P.size() - 2)
-        ++i;
-      if(cross <= 0 && j < Q.size() - 2)
-        ++j;
+        result.push_back(P[i] + Q[j]);
+        auto cross = (P[i + 1] - P[i]).cross(Q[j + 1] - Q[j]);
+        if(cross >= 0 && i < P.size() - 2)
+            ++i;
+        if(cross <= 0 && j < Q.size() - 2)
+            ++j;
     }
     return result;
 }
