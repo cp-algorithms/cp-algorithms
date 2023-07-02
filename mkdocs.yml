@@ -13,7 +13,7 @@ theme:
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
-    - scheme: slate 
+    - scheme: slate
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
@@ -31,11 +31,13 @@ repo_name: cp-algorithms/cp-algorithms
 edit_uri: edit/master/src/
 copyright: Text is available under the <a href="https://github.com/cp-algorithms/cp-algorithms/blob/master/LICENSE">Creative Commons Attribution Share Alike 4.0 International</a> License<br/>Copyright &copy; 2014 - 2022 by <a href="https://github.com/cp-algorithms">https://github.com/cp-algorithms</a>
 extra_javascript:
-  - javascript/config.js
+  - javascript/katex.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6
-  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - https://unpkg.com/katex@0.16.8/dist/katex.min.js
+  - https://unpkg.com/katex@0.16.8/dist/contrib/auto-render.min.js
 extra_css:
   - stylesheets/extra.css
+  - https://unpkg.com/katex@0.16.8/dist/katex.min.css
 
 markdown_extensions:
   - pymdownx.arithmatex:
