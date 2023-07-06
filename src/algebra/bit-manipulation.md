@@ -116,7 +116,7 @@ $1 \ll x$ is a number with only the $x$-th bit set, while $\sim(1 \ll x)$ is a n
 
 ### Check if a bit is set
 
-The value of the $x$-th bit can be by shifting the number $x$ positions to the right, the $x$-th bit is the units place, therefore we can extract it by performing a bitwise & with 1
+The value of the $x$-th bit can be checked by shifting the number $x$-positions to the right until the $x$-th bit is at the unit place, then we can extract it by performing a bitwise & with 1.
 
 ``` cpp
 bool is_set(unsigned int number, int x) {
