@@ -596,7 +596,7 @@ $$cnt[link(v)] \text{ += } cnt[v]$$
 This gives the correct value for each state.
 
 Why is this correct?
-The total stats obtained not obtained by cloning are exactly $length(T)$, and the first $i$ of them appeared when we added the first $i$ characters.
+The total states obtained not obtained by cloning are exactly $length(T)$, and the first $i$ of them appeared when we added the first $i$ characters.
 Consequently for each of these states we count the corresponding position at which it was processed.
 Therefore initially we have $cnt = 1$ for each such state, and $cnt = 0$ for all other.
 
