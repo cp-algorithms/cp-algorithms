@@ -16,7 +16,7 @@ $$a \cdot x \equiv 1 \mod m.$$
 We will also denote $x$ simply with $a^{-1}$.
 
 We should note that the modular inverse does not always exist. For example, let $m = 4$, $a = 2$. 
-By checking all possible values modulo $m$ it should become clear that we cannot find $a^{-1}$ satisfying the above equation. 
+By checking all possible values modulo $m$, it should become clear that we cannot find $a^{-1}$ satisfying the above equation. 
 It can be proven that the modular inverse exists if and only if $a$ and $m$ are relatively prime (i.e. $\gcd(a, m) = 1$).
 
 In this article, we present two methods for finding the modular inverse in case it exists, and one method for finding the modular inverse for all numbers in linear time.
