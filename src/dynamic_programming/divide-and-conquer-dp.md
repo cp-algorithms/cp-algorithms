@@ -21,7 +21,7 @@ time. Then the straightforward evaluation of the above recurrence is $O(m n^2)$.
 are $m \times n$ states, and $n$ transitions for each state.
 
 Let $opt(i, j)$ be the value of $k$ that minimizes the above expression. Assuming that the 
-cost function satisfies the qudrangle inequality, we can show that 
+cost function satisfies the quadrangle inequality, we can show that 
 $opt(i, j) \leq opt(i, j + 1)$ for all $i, j$. This is known as the _monotonicity condition_. 
 Then, we can apply divide and conquer DP. The optimal
 "splitting point" for a fixed $i$ increases as $j$ increases.
