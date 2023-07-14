@@ -18,9 +18,7 @@ We want to solve the equation. More precisely, we want to find one of its roots 
 
 The input parameters of the algorithm consist of not only the function $f(x)$ but also the initial approximation - some $x_0$, with which the algorithm starts.
 
-<div style="text-align:center">
-  ![Image](roots_newton.png)
-</div>
+![Image](roots_newton.png)
 
 Suppose we have already calculated $x_i$, calculate $x_{i+1}$ as follows. Draw the tangent to the graph of the function $f(x)$ at the point $x = x_i$, and find the point of intersection of this tangent with the $x$-axis. $x_{i+1}$ is set equal to the $x$-coordinate of the point found, and we repeat the whole process from the beginning.
 
