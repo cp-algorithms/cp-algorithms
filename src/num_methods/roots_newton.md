@@ -18,11 +18,23 @@ We want to solve the equation. More precisely, we want to find one of its roots 
 
 The input parameters of the algorithm consist of not only the function $f(x)$ but also the initial approximation - some $x_0$, with which the algorithm starts.
 
+![](roots_newton.png)
+
 Suppose we have already calculated $x_i$, calculate $x_{i+1}$ as follows. Draw the tangent to the graph of the function $f(x)$ at the point $x = x_i$, and find the point of intersection of this tangent with the $x$-axis. $x_{i+1}$ is set equal to the $x$-coordinate of the point found, and we repeat the whole process from the beginning.
 
-It is not difficult to obtain the following formula:
+It is not difficult to obtain the following formula,
 
 $$ x_{i+1} = x_i - \frac{f(x_i)}{f^\prime(x_i)} $$
+
+First, we calculate the slope $f'(x)$, derivative of $f(x)$, and then determine the equation of the tangent which is,
+
+$$ y - f(x_i) = f'(x_i)(x - x_i) $$ 
+
+The tangent intersects with the x-axis at cordinate, $y = 0$ and $x = x_{i+1}$,
+
+$$ - f(x_i) = f'(x_i)(x_{i+1} - x_i) $$ 
+
+Now, solving the equation we get the value of $x_{i+1}$.
 
 It is intuitively clear that if the function $f(x)$ is "good" (smooth), and $x_i$ is close enough to the root, then $x_{i+1}$ will be even closer to the desired root.
 
