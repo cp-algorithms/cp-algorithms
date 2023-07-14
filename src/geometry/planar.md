@@ -2,6 +2,7 @@
 title: Finding faces of a planar graph
 tags:
   - Translated
+e_maxx_link: facets
 ---
 # Finding faces of a planar graph
 
