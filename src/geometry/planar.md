@@ -301,16 +301,20 @@ std::vector<Point> interSegSeg(Line l1, Line l2){
 std::pair<std::vector<Point>, std::vector<std::vector<size_t>>> build_graph(std::vector<Line> segments) {
     std::vector<Point> p;
     std::vector<std::vector<size_t>> adj;
-    std::map<Point, size_t> point_id;
+    std::map<std::pair<int64_t, int64_t>, size_t> point_id;
     auto get_point_id = [&](Point pt) {
-        if (!point_id.count(pt)) {
+        auto repr = std::make_pair(
+            int64_t(std::round(pt.x * 1000000000) + 1e-6),
+            int64_t(std::round(pt.y * 1000000000) + 1e-6)
+        );
+        if (!point_id.count(repr)) {
             adj.emplace_back();
             size_t id = point_id.size();
-            point_id[pt] = id;
+            point_id[repr] = id;
             p.push_back(pt);
             return id;
         } else {
-            return point_id[pt];
+            return point_id[repr];
         }
     };
     for (size_t i = 0; i < segments.size(); i++) {

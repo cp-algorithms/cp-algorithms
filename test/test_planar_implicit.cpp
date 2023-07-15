@@ -2,6 +2,8 @@
 #include <assert.h>
 #include <cmath>
 #include <map>
+#include <stdint.h>
+#include <utility>
 #include <vector>
 
 #include "planar_implicit.h"
