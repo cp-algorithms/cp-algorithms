@@ -7,7 +7,7 @@ e_maxx_link: facets
 # Finding faces of a planar graph
 
 Consider a graph $G$ with $n$ vertices and $m$ edges, which can be drawn on a plane in such a way that two edges intersect only at a common vertex (if it exists).
-Such graphs are called **planar**. Now suppose that we are given a planar graph together with its straight-line drawing, which means that for each vertex $v$ we have a corresponding point $(x, y)$ and all edges are drawn as line segments between these points without intersection (such drawing always exists). These line segments split the plane into several regions, which are called faces. Exactly one of the faces is unbounded. This face is called **outer**, while the other faces are called **inner**.
+Such graphs are called **planar**. Now suppose that we are given a planar graph together with its straight-line embedding, which means that for each vertex $v$ we have a corresponding point $(x, y)$ and all edges are drawn as line segments between these points without intersection (such embedding always exists). These line segments split the plane into several regions, which are called faces. Exactly one of the faces is unbounded. This face is called **outer**, while the other faces are called **inner**.
 
 In this article we will deal with finding both inner and outer faces of a planar graph. We will assume that the graph is connected.
 
@@ -16,7 +16,7 @@ In this article we will deal with finding both inner and outer faces of a planar
 In this section we present several facts about planar graphs without proof. Readers who are interested in proofs should refer to [Graph Theory by R. Diestel](https://sites.math.washington.edu/~billey/classes/562.winter.2018/articles/GraphTheory.pdf) or some other book.
 
 ### Euler's theorem
-Euler's theorem states that any correct drawing of a connected planar graph with $n$ vertices, $m$ edges and $f$ faces satisfies:
+Euler's theorem states that any correct embedding of a connected planar graph with $n$ vertices, $m$ edges and $f$ faces satisfies:
 
 $$n - m + f = 2$$
 
