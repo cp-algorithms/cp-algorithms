@@ -88,7 +88,7 @@ void preprocess(int root) {
     tin.resize(n);
     tout.resize(n);
     timer = 0;
-    l = ceil(log2(n));
+    l = 31 - __builtin_clzll(n);
     up.assign(n, vector<int>(l + 1));
     dfs(root, root);
 }
