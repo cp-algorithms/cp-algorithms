@@ -263,7 +263,7 @@ Note that the matrix above is a so-called triangular [Toeplitz matrix](https://e
 
 Let's generalize the Sieveking–Kung algorithm. Consider equation $F(P) = 0$ where $P(x)$ should be a polynomial and $F(x)$ is some polynomial-valued function defined as
 
-$$F(x) = \sum\limits_{i=0}^\infty \alpha_i (x-\beta)^k,$$
+$$F(x) = \sum\limits_{i=0}^\infty \alpha_i (x-\beta)^i,$$
 
 where $\beta$ is some constant. It can be proven that if we introduce a new formal variable $y$, we can express $F(x)$ as
 
@@ -271,7 +271,7 @@ $$F(x) = F(y) + (x-y)F'(y) + (x-y)^2 G(x,y),$$
 
 where $F'(x)$ is the derivative formal power series defined as
 
-$$F'(x) = \sum\limits_{i=0}^\infty (k+1)\alpha_{i+1}(x-\beta)^k,$$
+$$F'(x) = \sum\limits_{i=0}^\infty (i+1)\alpha_{i+1}(x-\beta)^i,$$
 
 and $G(x, y)$ is some formal power series of $x$ and $y$. With this result we can find the solution iteratively.
 
