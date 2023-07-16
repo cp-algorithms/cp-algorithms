@@ -96,3 +96,4 @@ void preprocess(int root) {
 ## Practice Problems
 
 * [Codechef - Longest Good Segment](https://www.codechef.com/problems/LGSEG)
+* [HackerEarth - Optimal Connectivity](https://www.hackerearth.com/practice/algorithms/graphs/graph-representation/practice-problems/algorithm/optimal-connectivity-c6ae79ca/)
