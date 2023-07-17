@@ -15,9 +15,13 @@ that no selected edge shares a vertex with any other selected edge.
 ### Required Definitions
 
 * A **matching** $M$ is a set of pairwise non-adjacent edges of a graph (in other words, no more than one edge from the set should be incident to any vertex of the graph $M$). 
-The **cardinality** of a matching is the number of edges in it. The maximum (or largest) matching is a matching whose cardinality is maximum among all possible matchings 
-in a given graph. All those vertices that have an adjacent edge from the matching (i.e., which have degree exactly one in the subgraph formed by $M$) are called **saturated** 
+The **cardinality** of a matching is the number of edges in it.
+All those vertices that have an adjacent edge from the matching (i.e., which have degree exactly one in the subgraph formed by $M$) are called **saturated** 
 by this matching.
+
+* A **maximal matching** is a matching $M$ of a graph $G$ that is not a subset of any other matching.
+
+* A **maximum matching** (also known as maximum-cardinality matching) is a matching that contains the largest possible number of edges. Every maximum matching is a maximal matching.
 
 * A **path** of length $k$ here means a *simple* path (i.e. not containing repeated vertices or edges) containing $k$ edges, unless specified otherwise.
 
@@ -25,10 +29,6 @@ by this matching.
 
 * An **augmenting path** (in a bipartite graph, with respect to some matching) is an alternating path whose initial and final vertices are unsaturated, i.e., 
 they do not belong in the matching. 
-
-* A **maximal matching** is a matching M of a graph G that is not a subset of any other matching.
-
-* A **maximum matching** (also known as maximum-cardinality matching) is a matching that contains the largest possible number of edges. Every maximum matching is a maximal matching.
 
 * The **symmetric difference** (also known as the **disjunctive union**) of sets $A$ and $B$, represented by $A \oplus B$, is the set of all elements that belong to exactly one of $A$ or $B$, but not to both. 
 That is, $A \oplus B = (A - B) \cup (B - A) = (A \cup B) - (A \cap B)$.
