@@ -37,13 +37,13 @@ vector<int> rabin_karp(string const& s, string const& t) {
     for (int i = 0; i < S; i++) 
         h_s = (h_s + (s[i] - 'a' + 1) * p_pow[i]) % m; 
 
-    vector<int> occurences;
-    for (int i = 0; i + S - 1 < T; i++) { 
-        long long cur_h = (h[i+S] + m - h[i]) % m; 
+    vector<int> occurrences;
+    for (int i = 0; i + S - 1 < T; i++) {
+        long long cur_h = (h[i+S] + m - h[i]) % m;
         if (cur_h == h_s * p_pow[i] % m)
-            occurences.push_back(i);
+            occurrences.push_back(i);
     }
-    return occurences;
+    return occurrences;
 }
 ```
 

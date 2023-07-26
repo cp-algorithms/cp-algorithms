@@ -16,7 +16,7 @@ In this section, we focus more on the definitions and "intuitive" properties of 
 ### Polynomial multiplication
 
 !!! info "Definition"
-	**Univariate polynomial** is an expresion of form $A(x) = a_0 + a_1 x + \dots + a_n x^n$.
+	**Univariate polynomial** is an expression of form $A(x) = a_0 + a_1 x + \dots + a_n x^n$.
 
 The values $a_0, \dots, a_n$ are polynomial coefficients, typically taken from some set of numbers or number-like structures. In this article, we assume that the coefficients are taken from some [field](https://en.wikipedia.org/wiki/Field_(mathematics)), meaning that operations of addition, subtraction, multiplication and division are well-defined for them (except for division by $0$) and they generally behave in a similar way to real numbers.
 	
@@ -25,7 +25,7 @@ Typical example of such field is the field of remainders modulo prime number $p$
 For simplicity we will drop the term _univariate_, as this is the only kind of polynomials we consider in this article. We will also write $A$ instead of $A(x)$ wherever possible, which will be understandable from the context. It is assumed that either $a_n \neq 0$ or $A(x)=0$.
 
 !!! info "Definition"
-	The **product** of two polynomials is defined by expanding it as an arythmetic expression:
+	The **product** of two polynomials is defined by expanding it as an arithmetic expression:
 
 	$$
 	A(x) B(x) = \left(\sum\limits_{i=0}^n a_i x^i \right)\left(\sum\limits_{j=0}^m b_j x^j\right) = \sum\limits_{i,j} a_i b_j x^{i+j} = \sum\limits_{k=0}^{n+m} c_k x^k = C(x).
@@ -69,12 +69,12 @@ The coefficient near $x^k$ in the polynomial $A(x)$ is denoted shortly as $[x^k]
 ### Formal power series
 
 !!! info "Definition"
-	A **formal power series** is an infite sum $A(x) = a_0 + a_1 x + a_2 x^2 + \dots$, considered regardless of its convergence properties.
+	A **formal power series** is an infinite sum $A(x) = a_0 + a_1 x + a_2 x^2 + \dots$, considered regardless of its convergence properties.
 
 In other words, when we consider e.g. a sum $1+\frac{1}{2}+\frac{1}{4}+\frac{1}{8}+\dots=2$, we imply that it _converges_ to $2$ when the number of summands approach infinity. However, formal series are only considered in terms of sequences that make them.
 
 !!! info "Definition"
-	The **product** of formal power series $A(x)$ and $B(x)$, is also defined by expanding it as an arythmetic expression:
+	The **product** of formal power series $A(x)$ and $B(x)$, is also defined by expanding it as an arithmetic expression:
 
 
 	$$

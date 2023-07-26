@@ -259,13 +259,13 @@ This function is used many times in the rest of the code, since after the compre
 The DSU for the connected components is stored in the vector `dsu_cc`, and there is also an additional vector `dsu_cc_size` to store the component sizes.
 The function `find_cc(v)` returns the leader of the connectivity component (which is actually the root of the tree).
 
-The re-rooting of a tree `make_root(v)` works as descibed above:
+The re-rooting of a tree `make_root(v)` works as described above:
 if traverses from the vertex $v$ via the ancestors to the root vertex, each time redirecting the ancestor `par` in the opposite direction.
 The link to the representative of the connected component `dsu_cc` is also updated, so that it points to the new root vertex.
 After re-rooting we have to assign the new root the correct size of the connected component.
 Also we have to be careful that we call `find_2ecc()` to get the representatives of the 2-edge-connected component, rather than some other vertex that have already been compressed.
 
-The cycle finding and compression function `merge_path(a, b)` is also implemented as descibed above.
+The cycle finding and compression function `merge_path(a, b)` is also implemented as described above.
 It searches for the LCA of $a$ and $b$ be rising these nodes in parallel, until we meet a vertex for the second time.
 For efficiency purposes we choose a unique identifier for each LCA finding call, and mark the traversed vertices with it.
 This works in $O(1)$, while other approaches like using $set$ perform worse.

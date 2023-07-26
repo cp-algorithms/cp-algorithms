@@ -19,7 +19,7 @@ A mixed radix representation is a positional numeral system, that's a generaliza
 For instance the decimal numeral system is a positional numeral system with the radix (or base) 10.
 Every a number is represented as a string of digits $d_1 d_2 d_3 \dots d_n$ between $0$ and $9$, and 
 E.g. the string $415$ represents the number $4 \cdot 10^2 + 1 \cdot 10^1 + 5 \cdot 10^0$.
-In general the string of digits $d_1 d_2 d_3 \dots d_n$ represents the number $d_1 b^{n-1} + d_2 b^{n-2} + \cdots + d_n b^0$ in the positional numberal system with radix $b$.
+In general the string of digits $d_1 d_2 d_3 \dots d_n$ represents the number $d_1 b^{n-1} + d_2 b^{n-2} + \cdots + d_n b^0$ in the positional numeral system with radix $b$.
 
 In a mixed radix system, we don't have one radix any more. The base varies from position to position.
 
