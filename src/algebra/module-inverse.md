@@ -77,24 +77,28 @@ From these results, we can easily find the modular inverse using the [binary exp
 
 Even though this method is easier to understand than the method described in previous paragraph, in the case when $m$ is not a prime number, we need to calculate Euler phi function, which involves factorization of $m$, which might be very hard. If the prime factorization of $m$ is known, then the complexity of this method is $O(\log m)$.
 
-## Finding the modular inverse using Euclidean Division
+## Finding the modular inverse for prime mods using Euclidean Division
 
-Given that $m > i$ (or we can modulo to make it smaller in 1 step), according to [Euclidean Division](https://en.wikipedia.org/wiki/Euclidean_division)
+Given that $p > i$ (or we can modulo to make it smaller in 1 step), according to [Euclidean Division](https://en.wikipedia.org/wiki/Euclidean_division)
 
-$$m = k \cdot i + r$$
+$$p = k \cdot i + r$$
 
-where $k = \left\lfloor \frac{m}{i} \right\rfloor$ and $r = m \bmod i$, then
+where $k = \left\lfloor \frac{p}{i} \right\rfloor$ and $r = p \bmod i$, then
 
 $$
 \begin{align*}
-& \implies & 0          & \equiv k \cdot i + r   & \mod m \\
-& \iff & r              & \equiv -k \cdot i      & \mod m \\
-& \iff & r \cdot i^{-1} & \equiv -k              & \mod m \\
-& \iff & i^{-1}         & \equiv -k \cdot r^{-1} & \mod m
+& \implies & 0          & \equiv k \cdot i + r   & \mod p \\
+& \iff & r              & \equiv -k \cdot i      & \mod p \\
+& \iff & r \cdot i^{-1} & \equiv -k              & \mod p \\
+& \iff & i^{-1}         & \equiv -k \cdot r^{-1} & \mod p
 \end{align*}
 $$
 
-From there we can have the following recursive function (in C++) for computing the modular inverse for number $i$ with respect to module $m$
+Note that this reasoning does not hold if $p$ is not prime, since the existence of $i^{-1}$ does not imply the existence of $r^{-1}$
+in the general case. To see this, lets try to calculate $5^{-1}$ modulo $12$ with the above formula. We would like to arrive at $5$,
+since $5 \cdot 5 \equiv 1 \bmod 12$. However, $12 = 2 \cdot 5 + 2$, and we have $k=2$ and $r=2$, with $2$ being not invertible modulo $12$.
+
+If the modulus is prime however, all $i$ with $0 < i < p$ are invertible modulo $p$, and we can have the following recursive function (in C++) for computing the modular inverse for number $i$ with respect to $p$
 
 ```{.cpp file=modular_inverse_euclidean_division}
 int inv(int i) {
