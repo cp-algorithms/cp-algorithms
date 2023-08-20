@@ -206,3 +206,6 @@ In fact, $g(n)$ has a period of length 34 starting with $n=52$.
 - [KATTIS S-Nim](https://open.kattis.com/problems/snim)
 - [CodeForces - Marbles (2018-2019 ACM-ICPC Brazil Subregional)](https://codeforces.com/gym/101908/problem/B)
 - [KATTIS - Cuboid Slicing Game](https://open.kattis.com/problems/cuboidslicinggame)
+- [HackerRank - Tower Breakers, Revisited!](https://www.hackerrank.com/contests/5-days-of-game-theory/challenges/tower-breakers-2)
+- [HackerRank - Tower Breakers, Again!](https://www.hackerrank.com/contests/5-days-of-game-theory/challenges/tower-breakers-3/problem)
+- [HackerRank - Chessboard Game, Again!](https://www.hackerrank.com/contests/5-days-of-game-theory/challenges/a-chessboard-game)
