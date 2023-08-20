@@ -133,6 +133,8 @@ search:
         - [Convex hull trick and Li Chao tree](geometry/convex_hull_trick.md)
     - Sweep-line
         - [Search for a pair of intersecting segments](geometry/intersecting_segments.md)
+    - Planar graphs
+        - [Finding faces of a planar graph](geometry/planar.md)
         - [Point location in O(log N)](geometry/point-location.md)
     - Miscellaneous
         - [Finding the nearest pair of points](geometry/nearest_points.md)
