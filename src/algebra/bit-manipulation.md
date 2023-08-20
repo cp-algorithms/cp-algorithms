@@ -170,7 +170,7 @@ int countSetBits(int n)
 }
 ```
 
-### Addtional tricks
+### Additional tricks
 
 - $n ~\&~ (n + 1)$ clears all trailing ones: $0011~0111_2 \rightarrow 0011~0000_2$.
 - $n ~|~ (n + 1)$ sets the last cleared bit: $0011~0101_2 \rightarrow 0011~0111_2$.
