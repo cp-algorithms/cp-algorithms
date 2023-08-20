@@ -381,6 +381,7 @@ The problem can be solved in the same way by constructing the automaton of the p
 * [UVA 12467 - Secret Word](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3911)
 * [UVA 11019 - Matrix Matcher](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1960)
 * [SPOJ - Pattern Find](http://www.spoj.com/problems/NAJPF/)
+* [SPOJ - A Needle in the Haystack](https://www.spoj.com/problems/NHAY/)
 * [Codeforces - Anthem of Berland](http://codeforces.com/contest/808/problem/G)
 * [Codeforces - MUH and Cube Walls](http://codeforces.com/problemset/problem/471/D)
 * [Codeforces - Prefixes and Suffixes](https://codeforces.com/contest/432/problem/D)
