@@ -254,6 +254,8 @@ However, this algorithm also has its own weaknesses.
 
 ## Practice Problems
 
+* [Leetcode - Four Divisors](https://leetcode.com/problems/four-divisors/)
+* [Leetcode - Count Primes](https://leetcode.com/problems/count-primes/)
 * [SPOJ - Printing Some Primes](http://www.spoj.com/problems/TDPRIMES/)
 * [SPOJ - A Conjecture of Paul Erdos](http://www.spoj.com/problems/HS08PAUL/)
 * [SPOJ - Primal Fear](http://www.spoj.com/problems/VECTAR8/)
