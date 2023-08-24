@@ -118,7 +118,7 @@ int min_by_h(int i, int j) {
 }
 
 void precompute_lca(int root) {
-    // get euler tour & indices of first occurences
+    // get euler tour & indices of first occurrences
     first_visit.assign(n, -1);
     height.assign(n, 0);
     euler_tour.reserve(2 * n);

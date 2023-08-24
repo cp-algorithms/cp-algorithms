@@ -17,7 +17,7 @@ Sometimes the task is given a little differently:
 you want to find the maximum flow, and among all maximal flows we want to find the one with the least cost.
 This is called the **minimum-cost maximum-flow problem**.
 
-Both these problems can be solved effectively with the algorithm of sucessive shortest paths.
+Both these problems can be solved effectively with the algorithm of successive shortest paths.
 
 ## Algorithm
 

@@ -207,6 +207,7 @@ When comparing $10^6$ strings with each other, the probability that at least one
 ## Practice Problems
 * [Good Substrings - Codeforces](https://codeforces.com/contest/271/problem/D)
 * [A Needle in the Haystack - SPOJ](http://www.spoj.com/problems/NHAY/)
+* [String Hashing - Kattis](https://open.kattis.com/problems/hashing)
 * [Double Profiles - Codeforces](http://codeforces.com/problemset/problem/154/C)
 * [Password - Codeforces](http://codeforces.com/problemset/problem/126/B)
 * [SUB_PROB - SPOJ](http://www.spoj.com/problems/SUB_PROB/)
