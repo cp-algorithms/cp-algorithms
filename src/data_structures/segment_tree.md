@@ -121,7 +121,7 @@ We can show that this proposition (at most four vertices each level) is true by 
 At the first level, we only visit one vertex, the root vertex, so here we visit less than four vertices. 
 Now let's look at an arbitrary level.
 By induction hypothesis, we visit at most four vertices. 
-If we only visit at most two vertices, the next level has at most four vertices. That trivial, because each vertex can only cause at most two recursive calls. 
+If we only visit at most two vertices, the next level has at most four vertices. That is trivial, because each vertex can only cause at most two recursive calls. 
 So let's assume that we visit three or four vertices in the current level. 
 From those vertices, we will analyze the vertices in the middle more carefully. 
 Since the sum query asks for the sum of a continuous subarray, we know that segments corresponding to the visited vertices in the middle will be completely covered by the segment of the sum query. 
