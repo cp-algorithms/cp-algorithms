@@ -50,6 +50,7 @@ search:
     - Fundamentals
         - [Minimum Stack / Minimum Queue](data_structures/stack_queue_modification.md)
         - [Sparse Table](data_structures/sparse-table.md)
+        - [Hare Tortoise Algorithm (Linked List cycle detection)](hare_tortoise_algorithm.md)
     - Trees
         - [Disjoint Set Union](data_structures/disjoint_set_union.md)
         - [Fenwick Tree](data_structures/fenwick.md)
