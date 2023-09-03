@@ -40,7 +40,7 @@ Logarithmic number of steps is drastically better than that of linear search. Fo
 
 ### Lower bound and upper bound
 
-It is often convenient to find the position of the first element that is not less than $k$ (called the lower bound of $k$ in the array) or the position of the first element that is greater than $k$ (called the upper bound of $k$) rather than the exact position of the element.
+It is often convenient to find the position of the first element that is not greater than $k$ (called the lower bound of $k$ in the array) or the position of the first element that is greater than $k$ (called the upper bound of $k$) rather than the exact position of the element.
 
 Together, lower and upper bounds produce a possibly empty half-interval of the array elements that are equal to $k$. To check whether $k$ is present in the array it's enough to find its lower bound and check if the corresponding element equates to $k$.
 
