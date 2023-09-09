@@ -486,6 +486,7 @@ def range_sum(l, r):
 * [Codeforces - Goodbye Souvenir](http://codeforces.com/contest/849/problem/E)
 * [SPOJ - Ada and Species](http://www.spoj.com/problems/ADACABAA/)
 * [Codeforces - Thor](https://codeforces.com/problemset/problem/704/A)
+* [CSES - Forest Queries II](https://cses.fi/problemset/task/1739/)
 * [Latin American Regionals 2017 - Fundraising](http://matcomgrader.com/problem/9346/fundraising/)
 
 ## Other sources
