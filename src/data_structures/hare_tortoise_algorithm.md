@@ -75,8 +75,8 @@ slow: 0 --> 1 --> 2 --> 3 --> 4 (distance covered)
 fast: 0 --> 2 --> 4 --> 6 --> 8 (distance covered)
 diff: 0 --> 1 --> 2 --> 3 --> 4 (difference between distance covered by both pointers)
 ```
-Let $\lambda$ denote the length of the cycle, and $\mu$ represent the number of steps required for the slow pointer to reach the entry of cycle. There exists a positive integer $k$ ($k > 0$) such that $k\lambda \geq \mu$.
-When the slow pointer has moved $k\lambda$ steps, and the fast pointer has covered $2k\lambda$ steps, both pointers find themselves within the cycle. At this point, there is a separation of $k\lambda$ between them. Given that the cycle's length remains $\lambda$, this signifies that they meet at the same point within the cycle, resulting in their encounter.
+Let $L$ denote the length of the cycle, and $a$ represent the number of steps required for the slow pointer to reach the entry of cycle. There exists a positive integer $k$ ($k > 0$) such that $k \cdot L \geq a$.
+When the slow pointer has moved $k \cdot L$ steps, and the fast pointer has covered $2 \cdot k \cdot L$ steps, both pointers find themselves within the cycle. At this point, there is a separation of $k \cdot L$ between them. Given that the cycle's length remains $L$, this signifies that they meet at the same point within the cycle, resulting in their encounter.
 
 ### Step 2: Starting point of the cycle
 
