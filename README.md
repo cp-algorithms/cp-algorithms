@@ -26,6 +26,7 @@ Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorith
 
 ### New articles
 
+- (10 September 2023) [Tortoise and Hare Algorithm](https://cp-algorithms.com/others/tortoise_and_hare.html)
 - (12 July 2023) [Finding faces of a planar graph](https://cp-algorithms.com/geometry/planar.html)
 - (18 April 2023) [Bit manipulation](https://cp-algorithms.com/algebra/bit-manipulation.html)
 - (17 October 2022) [Binary Search](https://cp-algorithms.com/num_methods/binary_search.html)
