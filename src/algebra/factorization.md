@@ -271,7 +271,7 @@ In each iteration the first pointer advances to the next element, but the second
 It's not hard to see, that if there exists a cycle, the second pointer will make at least one full cycle and then meet the first pointer during the next few cycle loops.
 If the cycle length is $\lambda$ and the $\mu$ is the first index at which the cycle starts, then the algorithm will run in $O(\lambda + \mu)$ time.
 
-This algorithm is also known as **tortoise and the hare algorithm**, based on the tale in which a tortoise (here a slow pointer) and a hare (here a faster pointer) make a race.
+This algorithm is also known as **[tortoise and the hare algorithm]**, based on the tale in which a tortoise (here a slow pointer) and a hare (here a faster pointer) make a race.
 
 It is actually possible to determine the parameter $\lambda$ and $\mu$ using this algorithm (also in $O(\lambda + \mu)$ time and $O(1)$ space), but here is just the simplified version for finding the cycle at all.
 The algorithm and returns true as soon as it detects a cycle.
