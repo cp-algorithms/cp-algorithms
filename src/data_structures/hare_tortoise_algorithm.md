@@ -95,6 +95,7 @@ $fastDist = a + yL + b$            $y\ge0
 - $y$ is the number of times the fast pointer has looped inside the cycle, starting from and ending at **C**.
 
 Knowing that $slowDist = 2 \cdot (fastDist)$
+
 $a + yL + b = 2(a + xL + b)$
 
 $a=(y-2x)L-b$   where $y-2x$ is an integer.
