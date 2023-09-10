@@ -50,7 +50,6 @@ search:
     - Fundamentals
         - [Minimum Stack / Minimum Queue](data_structures/stack_queue_modification.md)
         - [Sparse Table](data_structures/sparse-table.md)
-        - [Hare Tortoise Algorithm (Linked List cycle detection)](data_structures/hare_tortoise_algorithm.md)
     - Trees
         - [Disjoint Set Union](data_structures/disjoint_set_union.md)
         - [Fenwick Tree](data_structures/fenwick.md)
@@ -212,6 +211,7 @@ search:
         - [Scheduling jobs on two machines](schedules/schedule_two_machines.md)
         - [Optimal schedule of jobs given their deadlines and durations](schedules/schedule-with-completion-duration.md)
     - Miscellaneous
+        - [Tortoise and Hare Algorithm (Linked List cycle detection)](others/tortoise_and_hare.md)
         - [Josephus problem](others/josephus_problem.md)
         - [15 Puzzle Game: Existence Of The Solution](others/15-puzzle.md)
         - [The Stern-Brocot Tree and Farey Sequences](others/stern_brocot_tree_farey_sequences.md)
