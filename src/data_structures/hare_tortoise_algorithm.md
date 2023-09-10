@@ -91,10 +91,10 @@ $fastDist = a + yL + b$            $y\ge0
 - $fastDist$ is the total distance covered by fast pointer.
 - $a$ is the number of steps both pointers need to take to enter the cycle.
 - $b$ is the distance between **C** and **G**, i.e., distance between the starting point of cycle and meeting point of both pointers.
-- $x$ is the number of times the slow pointer has circulated inside the cycle, starting from and ending at **C**.
-- $y$ is the number of times the fast pointer has circulated inside the cycle, starting from and ending at **C**.
+- $x$ is the number of times the slow pointer has looped inside the cycle, starting from and ending at **C**.
+- $y$ is the number of times the fast pointer has looped inside the cycle, starting from and ending at **C**.
 
-Knowing that $slowDist = 2 \cdot (fastDist)$.
+Knowing that $slowDist = 2 \cdot (fastDist)$
 $a + yL + b = 2(a + xL + b)$
 
 $a=(y-2x)L-b$   where $y-2x$ is an integer.
