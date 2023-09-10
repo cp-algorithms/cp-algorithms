@@ -75,7 +75,7 @@ slow: 0 --> 1 --> 2 --> 3 --> 4 (distance covered)
 fast: 0 --> 2 --> 4 --> 6 --> 8 (distance covered)
 diff: 0 --> 1 --> 2 --> 3 --> 4 (difference between distance covered by both pointers)
 ```
-Let $\lambda$ denote the length of the cycle, and $\mu$ represent the number of steps required for the slow pointer to reach the cycle. It's important to emphasize that there exists a positive integer $k$ ($k > 0$) such that $k\lambda \geq \mu$.
+Let $\lambda$ denote the length of the cycle, and $\mu$ represent the number of steps required for the slow pointer to reach the entry of cycle. There exists a positive integer $k$ ($k > 0$) such that $k\lambda \geq \mu$.
 When the slow pointer has moved $k\lambda$ steps, and the fast pointer has covered $2k\lambda$ steps, both pointers find themselves within the cycle. At this point, there is a separation of $k\lambda$ between them. Given that the cycle's length remains $\lambda$, this signifies that they meet at the same point within the cycle, resulting in their encounter.
 
 ### Step 2: Starting point of the cycle
@@ -94,14 +94,18 @@ $fastDist = a + yL + b$            $y\ge0
 - $x$ is the number of times the slow pointer has looped inside the cycle, starting from and ending at **C**.
 - $y$ is the number of times the fast pointer has looped inside the cycle, starting from and ending at **C**.
 
-Knowing that $slowDist = 2 \cdot (fastDist)$
+$slowDist = 2 \cdot (fastDist)$
 
 $a + yL + b = 2(a + xL + b)$
 
-$a=(y-2x)L-b$   where $y-2x$ is an integer.
+Resolving the formula we get:
 
-This formula can translated as that basically $a$ steps is same as doing some number of full loops in cycle and go $b$ steps backwards.
-Since the fast pointer already is $b$ steps ahead of the entry of cycle, if fast pointer does another $a$ steps it will end up at the entry of the cycle.
+$a=(y-2x)L-b$
+
+where $y-2x$ is an integer
+
+This basically means that $a$ steps is same as doing some number of full loops in cycle and go $b$ steps backwards.
+Since the fast pointer already is $b$ steps ahead of the entry of cycle, if fast pointer moves another $a$ steps it will end up at the entry of the cycle.
 And since we let the slow pointer start at the start of the linked list, after $a$ steps it will also end up at the cycle entry. So, if they both move $a$ step they both will meet the entry of cycle.
 
 # Problems:
