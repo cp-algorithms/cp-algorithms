@@ -144,13 +144,13 @@ vector<int> applyPermutation(vector<int> sequence, vector<int> permutation) {
     return newSequence;
 }
 
-vector<int> permute(vector<int> sequence, vector<int> permutation, long long b) {
-    while (b > 0) {
-        if (b & 1) {
+vector<int> permute(vector<int> sequence, vector<int> permutation, long long k) {
+    while (k > 0) {
+        if (k & 1) {
             sequence = applyPermutation(sequence, permutation);
         }
         permutation = applyPermutation(permutation, permutation);
-        b >>= 1;
+        k >>= 1;
     }
     return sequence;
 }
