@@ -136,6 +136,12 @@ This paradigm is widely used in tasks around trees, such as finding lowest commo
 
 ## Practice Problems
 
+* [Usaco - Cow Dance Show](http://www.usaco.org/index.php?page=viewproblem2&cpid=690)
+* [Usaco - Convention](http://www.usaco.org/index.php?page=viewproblem2&cpid=858)
+* [Usaco - Angry Cows](http://www.usaco.org/index.php?page=viewproblem2&cpid=594)
+* [Usaco - Social Distancing](http://www.usaco.org/index.php?page=viewproblem2&cpid=1038)
+* [Cses - Room allocation](https://cses.fi/problemset/task/1164)
+* [Cses - Factory Machines](https://cses.fi/problemset/task/1620)
 * [LeetCode -  Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
 * [LeetCode -  Search Insert Position](https://leetcode.com/problems/search-insert-position/)
 * [LeetCode -  Sqrt(x)](https://leetcode.com/problems/sqrtx/)
@@ -143,6 +149,9 @@ This paradigm is widely used in tasks around trees, such as finding lowest commo
 * [LeetCode -  Valid Perfect Square](https://leetcode.com/problems/valid-perfect-square/)
 * [LeetCode -  Guess Number Higher or Lower](https://leetcode.com/problems/guess-number-higher-or-lower/)
 * [LeetCode -  Search a 2D Matrix II](https://leetcode.com/problems/search-a-2d-matrix-ii/)
+* [Leetcode - Koko Eating banana](https://leetcode.com/problems/koko-eating-bananas/)
+* [Leetcode - Time Based Key Value Store](https://leetcode.com/problems/time-based-key-value-store/)
+* [Codeforces - Prime Matrix](https://codeforces.com/problemset/problem/271/B)
 * [Codeforces - Interesting Drink](https://codeforces.com/problemset/problem/706/B/)
 * [Codeforces - Magic Powder - 1](https://codeforces.com/problemset/problem/670/D1)
 * [Codeforces - Another Problem on Strings](https://codeforces.com/problemset/problem/165/C)
