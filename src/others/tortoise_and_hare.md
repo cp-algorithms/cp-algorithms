@@ -94,7 +94,7 @@ $fastDist = a + yL + b$            , $y\ge0$
 - $x$ is the number of times the slow pointer has looped inside the cycle, starting from and ending at **C**.
 - $y$ is the number of times the fast pointer has looped inside the cycle, starting from and ending at **C**.
 
-$slowDist = 2 \cdot (fastDist)$
+$fastDist = 2 \cdot (slowDist)$
 
 $a + yL + b = 2(a + xL + b)$
 
