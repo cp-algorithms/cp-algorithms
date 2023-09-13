@@ -83,9 +83,9 @@ Lets try to calculate the distance covered by both of the pointers till they poi
 
 <center>!["Proof"](tortoise_hare_proof.png)</center>
 
-$slowDist = a + xL + b$            $x\ge0$
+$slowDist = a + xL + b$            , $x\ge0$
 
-$fastDist = a + yL + b$            $y\ge0$
+$fastDist = a + yL + b$            , $y\ge0$
 
 - $slowDist$ is the total distance covered by slow pointer.
 - $fastDist$ is the total distance covered by fast pointer.
