@@ -79,7 +79,7 @@ We will now consistently disassemble every operation that we need to learn to im
     For example you can re-root the tree of vertex $a$, and then attach it to another tree by setting the ancestor of $a$ to $b$.
   
     However the question about the effectiveness of the re-rooting operation arises:
-    in order to re-root the tree with the root $r$ to the vertex $v$, it is necessary to necessary to visit all vertices on the path between $v$ and $r$ and redirect the pointers `par[]` in the opposite direction, and also change the references to the ancestors in the DSU that is responsible for the connected components.
+    in order to re-root the tree with the root $r$ to the vertex $v$, it is necessary to visit all vertices on the path between $v$ and $r$ and redirect the pointers `par[]` in the opposite direction, and also change the references to the ancestors in the DSU that is responsible for the connected components.
   
     Thus, the cost of re-rooting is $O(h)$, where $h$ is the height of the tree.
     You can make an even worse estimate by saying that the cost is $O(\text{size})$ where $\text{size}$ is the number of vertices in the tree.
@@ -103,7 +103,7 @@ We will now consistently disassemble every operation that we need to learn to im
   
   * Searching for the cycle formed by adding a new edge $(a, b)$.
     Since $a$ and $b$ are already connected in the tree we need to find the [Lowest Common Ancestor](lca.md) of the vertices $a$ and $b$.
-    The cycle will consist of the paths from $b$ to the LCA, from the LCA to $b$ and the edge $a$ to $b$.
+    The cycle will consist of the paths from $b$ to the LCA, from the LCA to $a$ and the edge $a$ to $b$.
   
     After finding the cycle we compress all vertices of the detected cycle into one vertex.
     This means that we already have a complexity proportional to the cycle length, which means that we also can use any LCA algorithm proportional to the length, and don't have to use any fast one.
