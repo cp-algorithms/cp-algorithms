@@ -138,6 +138,10 @@ This paradigm is widely used in tasks around trees, such as finding lowest commo
 
 * [LeetCode -  Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
 * [LeetCode -  Search Insert Position](https://leetcode.com/problems/search-insert-position/)
+* [LeetCode -  Find Peak Element](https://leetcode.com/problems/find-peak-element/)
+* [LeetCode -  Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
+* [LeetCode -  Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/)
+* [LeetCode -  Find Right Interval](https://leetcode.com/problems/find-right-interval/)
 * [LeetCode -  Sqrt(x)](https://leetcode.com/problems/sqrtx/)
 * [LeetCode -  First Bad Version](https://leetcode.com/problems/first-bad-version/)
 * [LeetCode -  Valid Perfect Square](https://leetcode.com/problems/valid-perfect-square/)
