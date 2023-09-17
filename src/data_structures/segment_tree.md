@@ -602,7 +602,7 @@ This leads to a construction time of $O(n \log^2 n)$ (in general merging two red
 The $\text{query}$ function is also almost equivalent, only now the $\text{lower_bound}$ function of the $\text{multiset}$ function should be called instead ($\text{std::lower_bound}$ only works in $O(\log n)$ time if used with random-access iterators).
 
 Finally the modification request. 
-To process it, we must go down the tree, and modify all $\text{multiset}$ from the corresponding segments that contain the effected element.
+To process it, we must go down the tree, and modify all $\text{multiset}$ from the corresponding segments that contain the affected element.
 We simply delete the old value of this element (but only one occurrence), and insert the new value.
 
 ```cpp
@@ -682,7 +682,7 @@ other Segment Trees (somewhat discussed in [Generalization to higher dimensions]
 
 ### Range updates (Lazy Propagation)
 
-All problems in the above sections discussed modification queries that only effected a single element of the array each.
+All problems in the above sections discussed modification queries that only affected a single element of the array each.
 However the Segment Tree allows applying modification queries to an entire segment of contiguous elements, and perform the query in the same time $O(\log n)$. 
 
 #### Addition on segments
