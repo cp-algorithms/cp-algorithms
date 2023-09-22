@@ -5,7 +5,7 @@ tags:
 ---
 # Point location in $O(log n)$
 
-Consider the following problem: you are given a [planar subdivision](https://en.wikipedia.org/wiki/Planar_straight-line_graph) without no vertices of degree one and zero, and a lot of queries.
+Consider the following problem: you are given a [planar subdivision](https://en.wikipedia.org/wiki/Planar_straight-line_graph) without any vertices of degree one and zero, and a lot of queries.
 Each query is a point, for which we should determine the face of the subdivision it belongs to.
 We will answer each query in $O(\log n)$ offline.<br>
 This problem may arise when you need to locate some points in a Voronoi diagram or in some simple polygon.
