@@ -14,7 +14,7 @@ Find an assignment of $a, b, c$ such that the following formula is true:
 
 $$(a \lor \lnot b) \land (\lnot a \lor b) \land (\lnot a \lor \lnot b) \land (a \lor \lnot c)$$
 
-SAT is NP-complete, there is no known efficient solution known for it.
+SAT is NP-complete, there is no known efficient solution for it.
 However 2SAT can be solved efficiently in $O(n + m)$ where $n$ is the number of variables and $m$ is the number of clauses.
 
 ## Algorithm:
