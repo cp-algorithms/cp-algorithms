@@ -95,4 +95,5 @@ void preprocess(int root) {
 ```
 ## Practice Problems
 
+* [LeetCode -  Kth Ancestor of a Tree Node](https://leetcode.com/problems/kth-ancestor-of-a-tree-node)
 * [Codechef - Longest Good Segment](https://www.codechef.com/problems/LGSEG)

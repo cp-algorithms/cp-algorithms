@@ -143,7 +143,6 @@ This paradigm is widely used in tasks around trees, such as finding lowest commo
 * [LeetCode -  Valid Perfect Square](https://leetcode.com/problems/valid-perfect-square/)
 * [LeetCode -  Guess Number Higher or Lower](https://leetcode.com/problems/guess-number-higher-or-lower/)
 * [LeetCode -  Search a 2D Matrix II](https://leetcode.com/problems/search-a-2d-matrix-ii/)
-* [LeetCode -  Kth Ancestor of a Tree Node](https://leetcode.com/problems/kth-ancestor-of-a-tree-node)
 * [Codeforces - Interesting Drink](https://codeforces.com/problemset/problem/706/B/)
 * [Codeforces - Magic Powder - 1](https://codeforces.com/problemset/problem/670/D1)
 * [Codeforces - Another Problem on Strings](https://codeforces.com/problemset/problem/165/C)
