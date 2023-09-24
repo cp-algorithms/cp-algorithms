@@ -29,7 +29,7 @@
 </script>
 # Article Preview
 
-<a href="contrib.md">Information for contributors</a>
+<a href="contrib.html">Information for contributors</a>
 <center>
 <form>
   <textarea style="width:100%;height:300px;" id="markdownInput">
