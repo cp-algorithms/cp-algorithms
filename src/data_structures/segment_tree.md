@@ -653,11 +653,11 @@ These values can be computed in parallel to the merging step when we build the t
 
 How does this speed up the queries?
 
-Remember, in the normal solution we did a binary search in ever node.
+Remember, in the normal solution we did a binary search in every node.
 But with this modification, we can avoid all except one.
 
-To answer a query, we simply to a binary search in the root node.
-This gives as the smallest element $y \ge x$ in the complete array, but it also gives us two positions.
+To answer a query, we simply do a binary search in the root node.
+This gives us the smallest element $y \ge x$ in the complete array, but it also gives us two positions.
 The index of the smallest element greater or equal $x$ in the left subtree, and the index of the smallest element $y$ in the right subtree. Notice that $\ge y$ is the same as $\ge x$, since our array doesn't contain any elements between $x$ and $y$.
 In the normal Merge Sort Tree solution we would compute these indices via binary search, but with the help of the precomputed values we can just look them up in $O(1)$.
 And we can repeat that until we visited all nodes that cover our query interval.
@@ -755,7 +755,7 @@ But before we do this, we must first sort out the root vertex first.
 The subtlety here is that the right half of the array should still be assigned to the value of the first query, and at the moment there is no information for the right half stored.
 
 The way to solve this is to push the information of the root to its children, i.e. if the root of the tree was assigned with any number, then we assign the left and the right child vertices with this number and remove the mark of the root.
-After that, we can assign the left child with the new value, without loosing any necessary information.
+After that, we can assign the left child with the new value, without losing any necessary information.
 
 Summarizing we get:
 for any queries (a modification or reading query) during the descent along the tree we should always push information from the current vertex into both of its children. 
