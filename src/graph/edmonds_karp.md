@@ -213,3 +213,4 @@ This partition can be easily found using [DFS](depth-first-search.md) starting a
 - [CSES - Download Speed](https://cses.fi/problemset/task/1694)
 - [CSES - Police Chase](https://cses.fi/problemset/task/1695)
 - [CSES - School Dance](https://cses.fi/problemset/task/1696)
+- [CSES - Distinct Routes](https://cses.fi/problemset/task/1711)

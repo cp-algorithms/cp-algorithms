@@ -18,7 +18,7 @@ It is required to find the last number.
 This task was set by **Flavius Josephus** in the 1st century (though in a somewhat narrower formulation: for $k = 2$).
 
 This problem can be solved by modeling the procedure.
-Brute force modeling will work $O(n^{2})$. Using a [Segment Tree](/data_structures/segment_tree.html), we can improve it to $O(n \log n)$.
+Brute force modeling will work $O(n^{2})$. Using a [Segment Tree](../data_structures/segment_tree.md), we can improve it to $O(n \log n)$.
 We want something better though.
 
 ## Modeling a $O(n)$ solution

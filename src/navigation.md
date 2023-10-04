@@ -133,6 +133,8 @@ search:
         - [Convex hull trick and Li Chao tree](geometry/convex_hull_trick.md)
     - Sweep-line
         - [Search for a pair of intersecting segments](geometry/intersecting_segments.md)
+    - Planar graphs
+        - [Finding faces of a planar graph](geometry/planar.md)
         - [Point location in O(log N)](geometry/point-location.md)
     - Miscellaneous
         - [Finding the nearest pair of points](geometry/nearest_points.md)
@@ -209,6 +211,7 @@ search:
         - [Scheduling jobs on two machines](schedules/schedule_two_machines.md)
         - [Optimal schedule of jobs given their deadlines and durations](schedules/schedule-with-completion-duration.md)
     - Miscellaneous
+        - [Tortoise and Hare Algorithm (Linked List cycle detection)](others/tortoise_and_hare.md)
         - [Josephus problem](others/josephus_problem.md)
         - [15 Puzzle Game: Existence Of The Solution](others/15-puzzle.md)
         - [The Stern-Brocot Tree and Farey Sequences](others/stern_brocot_tree_farey_sequences.md)

@@ -7,7 +7,7 @@
 [![Translation Progress](https://img.shields.io/badge/translation_progress-85.2%25-yellowgreen.svg)](https://github.com/cp-algorithms/cp-algorithms/wiki/Translation-Progress)
 
 The goal of this project is to translate the wonderful resource
-[http://e-maxx.ru/algo](http://e-maxx.ru/algo) which provides descriptions of many algorithms
+[https://e-maxx.ru/algo](https://e-maxx.ru/algo) which provides descriptions of many algorithms
 and data structures especially popular in field of competitive programming.
 Moreover we want to improve the collected knowledge by extending the articles
 and adding new articles to the collection.
@@ -16,6 +16,7 @@ Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorith
 
 ## Changelog
 
+- June 26, 2023: Added automatic RSS feeds for [new articles](https://cp-algorithms.com/feed_rss_created.xml) and [updates in articles](https://cp-algorithms.com/feed_rss_updated.xml).
 - December 20, 2022: The repository name and the owning organizations were renamed! Now the repo is located at [https://github.com/cp-algorithms/cp-algorithms](https://github.com/cp-algorithms/cp-algorithms). It is recommended to update the upstream link in your local repositories, if you have any.
 - October 31, 2022: It is now possible to select and copy $\LaTeX$ source code of formulas within the articles.
 - June 8, 2022: Tags are enabled. Each article is now marked whether it is translated or original, overall tag info is present in the [tag index](https://cp-algorithms.com/tags.html). For translated articles, clicking on `From: X` tag would lead to the original article.
@@ -25,6 +26,8 @@ Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorith
 
 ### New articles
 
+- (10 September 2023) [Tortoise and Hare Algorithm](https://cp-algorithms.com/others/tortoise_and_hare.html)
+- (12 July 2023) [Finding faces of a planar graph](https://cp-algorithms.com/geometry/planar.html)
 - (18 April 2023) [Bit manipulation](https://cp-algorithms.com/algebra/bit-manipulation.html)
 - (17 October 2022) [Binary Search](https://cp-algorithms.com/num_methods/binary_search.html)
 - (17 October 2022) [MEX (Minimum Excluded element in an array)](https://cp-algorithms.com/sequences/mex.html)

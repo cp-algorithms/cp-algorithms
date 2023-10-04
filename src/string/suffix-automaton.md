@@ -596,7 +596,7 @@ $$cnt[link(v)] \text{ += } cnt[v]$$
 This gives the correct value for each state.
 
 Why is this correct?
-The total stats obtained not obtained by cloning are exactly $length(T)$, and the first $i$ of them appeared when we added the first $i$ characters.
+The total number of states obtained _not_ via cloning is exactly $length(T)$, and the first $i$ of them appeared when we added the first $i$ characters.
 Consequently for each of these states we count the corresponding position at which it was processed.
 Therefore initially we have $cnt = 1$ for each such state, and $cnt = 0$ for all other.
 
@@ -775,6 +775,13 @@ After that, the answer to the problem will be the string $longest(v)$ for the st
 
 ## Practice Problems
 
+  - [CSES - Finding Patterns](https://cses.fi/problemset/task/2102)
+  - [CSES - Counting Patterns](https://cses.fi/problemset/task/2103)
+  - [CSES - String Matching](https://cses.fi/problemset/task/1753)
+  - [CSES - Patterns Positions](https://cses.fi/problemset/task/2104)
+  - [CSES - Distinct Substrings](https://cses.fi/problemset/task/2105)
+  - [CSES - Word Combinations](https://cses.fi/problemset/task/1731)
+  - [CSES - String Distribution](https://cses.fi/problemset/task/2110)
   - [AtCoder - K-th Substring](https://atcoder.jp/contests/abc097/tasks/arc097_a)
   - [SPOJ - SUBLEX](https://www.spoj.com/problems/SUBLEX/)
   - [Codeforces - Cyclical Quest](https://codeforces.com/problemset/problem/235/C)

@@ -47,7 +47,7 @@ This problem can be solved using the meet-in-the-middle method as follows:
 
 ## Complexity
 
-We can calculate $f_1(p)$ in $O(\log m)$ using the [binary exponentation algorithm](binary-exp.md). Similarly for $f_2(q)$.
+We can calculate $f_1(p)$ in $O(\log m)$ using the [binary exponentiation algorithm](binary-exp.md). Similarly for $f_2(q)$.
 
 In the first step of the algorithm, we need to calculate $f_1$ for every possible argument $p$ and then sort the values. Thus, this step has complexity:
 
@@ -107,7 +107,7 @@ Internally, `map` uses a red-black tree to store values.
 Thus this code is a little bit slower than if we had used an array and binary searched, but is much easier to write.
 
 Notice that our code assumes $0^0 = 1$, i.e. the code will compute $0$ as solution for the equation $0^x \equiv 1 \pmod m$ and also as solution for $0^x \equiv 0 \pmod 1$.
-This is an often used convention in algebra, but it's also not univerally accepted in all areas.
+This is an often used convention in algebra, but it's also not universally accepted in all areas.
 Sometimes $0^0$ is simply undefined.
 If you don't like our convention, then you need to handle the case $a=0$ separately:
 

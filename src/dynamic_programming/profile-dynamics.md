@@ -80,7 +80,7 @@ int main()
 - [SPOJ BTCODE_J](https://www.spoj.com/problems/BTCODE_J/)
 - [SPOJ PBOARD](https://www.spoj.com/problems/PBOARD/)
 - [ACM HDU 4285 - Circuits](http://acm.hdu.edu.cn/showproblem.php?pid=4285)
-- [LiveArchive 4608 - Mosaic](https://icpcarchive.ecs.baylor.edu/index.php?option=onlinejudge&page=show_problem&problem=2609)
+- [LiveArchive 4608 - Mosaic](https://vjudge.net/problem/UVALive-4608)
 - [Timus 1519 - Formula 1](https://acm.timus.ru/problem.aspx?space=1&num=1519)
 - [Codeforces Parquet](https://codeforces.com/problemset/problem/26/C)
 

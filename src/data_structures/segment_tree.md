@@ -121,7 +121,7 @@ We can show that this proposition (at most four vertices each level) is true by 
 At the first level, we only visit one vertex, the root vertex, so here we visit less than four vertices. 
 Now let's look at an arbitrary level.
 By induction hypothesis, we visit at most four vertices. 
-If we only visit at most two vertices, the next level has at most four vertices. That trivial, because each vertex can only cause at most two recursive calls. 
+If we only visit at most two vertices, the next level has at most four vertices. That is trivial, because each vertex can only cause at most two recursive calls. 
 So let's assume that we visit three or four vertices in the current level. 
 From those vertices, we will analyze the vertices in the middle more carefully. 
 Since the sum query asks for the sum of a continuous subarray, we know that segments corresponding to the visited vertices in the middle will be completely covered by the segment of the sum query. 
@@ -602,7 +602,7 @@ This leads to a construction time of $O(n \log^2 n)$ (in general merging two red
 The $\text{query}$ function is also almost equivalent, only now the $\text{lower_bound}$ function of the $\text{multiset}$ function should be called instead ($\text{std::lower_bound}$ only works in $O(\log n)$ time if used with random-access iterators).
 
 Finally the modification request. 
-To process it, we must go down the tree, and modify all $\text{multiset}$ from the corresponding segments that contain the effected element.
+To process it, we must go down the tree, and modify all $\text{multiset}$ from the corresponding segments that contain the affected element.
 We simply delete the old value of this element (but only one occurrence), and insert the new value.
 
 ```cpp
@@ -682,7 +682,7 @@ other Segment Trees (somewhat discussed in [Generalization to higher dimensions]
 
 ### Range updates (Lazy Propagation)
 
-All problems in the above sections discussed modification queries that only effected a single element of the array each.
+All problems in the above sections discussed modification queries that only affected a single element of the array each.
 However the Segment Tree allows applying modification queries to an entire segment of contiguous elements, and perform the query in the same time $O(\log n)$. 
 
 #### Addition on segments
@@ -759,7 +759,7 @@ After that, we can assign the left child with the new value, without losing any 
 
 Summarizing we get:
 for any queries (a modification or reading query) during the descent along the tree we should always push information from the current vertex into both of its children. 
-We can understand this in such a way, that when we descent the tree we apply delayed modifications, but exactly as much as necessary (so not to degrade the complexity of $O(\log n)$. 
+We can understand this in such a way, that when we descent the tree we apply delayed modifications, but exactly as much as necessary (so not to degrade the complexity of $O(\log n)$). 
 
 For the implementation we need to make a $\text{push}$ function, which will receive the current vertex, and it will push the information for its vertex to both its children. 
 We will call this function at the beginning of the query functions (but we will not call it from the leaves, because there is no need to push information from them any further).
@@ -1202,6 +1202,8 @@ Obviously this idea can be extended in lots of different ways. E.g. by adding su
 * [Codeforces - Kefa and Watch](https://codeforces.com/problemset/problem/580/E)
 * [Codeforces - A Simple Task](https://codeforces.com/problemset/problem/558/E)
 * [Codeforces - SUM and REPLACE](https://codeforces.com/problemset/problem/920/F)
+* [Codeforces - XOR on Segment](https://codeforces.com/problemset/problem/242/E) [Lazy propagation]
+* [Codeforces - Please, another Queries on Array?](https://codeforces.com/problemset/problem/1114/F) [Lazy propagation]
 * [COCI - Deda](https://oj.uz/problem/view/COCI17_deda) [Last element smaller or equal to x / Binary search]
 * [Codeforces - The Untended Antiquity](https://codeforces.com/problemset/problem/869/E) [2D]
 * [CSES - Hotel Queries](https://cses.fi/problemset/task/1143)
