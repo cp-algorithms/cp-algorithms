@@ -1,0 +1,62 @@
+Golden Section Search and the Golden Ratio
+The golden section search algorithm is intimately connected with the golden ratio, represented by the Greek letter φ (phi), approximately equal to 1.61803398875. This mathematical constant holds significance in nature, art, and architecture. In the context of the golden section search, comprehending the golden ratio is vital for optimizing point selection in each iteration.
+
+In this algorithm, two points m1 and m2​ are chosen on the interval [l,r] such that the ratio of the larger segment to the whole interval equals the golden ratio. This relationship is expressed as:
+(r - m1) / (r - l) = (r - l) / (m2 - l) = φ
+
+Here, φ signifies the golden ratio. By employing φ in this manner, the algorithm converges efficiently towards the optimal solution.
+
+When the interval diminishes to a size where (r−l)<3, the algorithm halts, and the remaining candidate points [l,l+1,...,r] are individually checked to find the maximum value of f(x). Integrating the golden ratio into the selection process minimizes the number of function evaluations, rendering the golden section search a potent optimization technique.
+
+
+
+Cpp problem
+
+
+
+Problem Statement: Golden Fibonacci
+
+You are given a positive integer N. Your task is to find the Nth number in the Fibonacci sequence, but with a twist. Instead of using the traditional Fibonacci formula where 
+F(n)=F(n−1)+F(n−2), you need to use a modified formula based on the golden ratio.
+
+The modified formula states that the Nth Fibonacci number F(N) is approximately equal to 
+⌊(ϕ^N) /5⌋, where ϕ represents the golden ratio ϕ≈1.61803398875, and ⌊x⌋ denotes the floor function, which rounds x down to the nearest integer.
+
+Write a C++ function int goldenFibonacci(int N) to compute the Nth Fibonacci number using the modified formula. Your function should take an integer N as input and return the Nth Fibonacci number calculated using the modified golden ratio formula.
+
+Input:
+
+An integer 1≤N≤50).
+
+Output:
+
+The Nth Fibonacci number calculated using the modified golden ratio formula.
+Input: 6
+Output: 8
+
+Input: 10
+Output: 55
+
+
+
+Implementation
+
+
+#include <iostream>
+#include <cmath>
+
+int goldenFibonacci(int N) {
+    double phi = (1 + sqrt(5)) / 2; // Golden Ratio (phi ≈ 1.61803398875)
+    return static_cast<int>(floor(pow(phi, N) / sqrt(5) + 0.5)); // Round to nearest integer
+}
+
+int main() {
+    int N;
+    std::cout << "Enter the value of N: ";
+    std::cin >> N;
+
+    int result = goldenFibonacci(N);
+    std::cout << "The " << N << "th Fibonacci number using the golden ratio formula is: " << result << std::endl;
+
+    return 0;
+}
