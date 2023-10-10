@@ -45,8 +45,10 @@ All those introduced operators are instant (same speed as an addition) on a CPU 
 
 ### Bitwise operators
 
--   $\&$ : The bitwise AND operator compares each bit of its first operand with the corresponding bit of its second operand. 
-    If both bits are 1, the corresponding result bit is set to 1. Otherwise, the corresponding result bit is set to 0.
+-   & : The bitwise AND operator compares each bit of its first operand with the corresponding bit of its second operand. 
+    If both bits are 1, the corresponding result bit is set to 1. Otherwise, the corresponding result bit is set to 0.Using the and operation, we can check if a number x is even because x & 1 = 0
+    if x is even, and x & 1 = 1 if x is odd. More generally, x is divisible by 2k exactly
+    when x & (2k − 1) = 0.
  	
 -   $|$ : The bitwise inclusive OR operator compares each bit of its first operand with the corresponding bit of its second operand.
     If one of the two bits is 1, the corresponding result bit is set to 1. Otherwise, the corresponding result bit is set to 0.
@@ -195,6 +197,7 @@ E.g. GCC defines a list at [Built-in Functions Provided by GCC](https://gcc.gnu.
 - `__builtin_ffs(int)` finds the index of the first (most right) set bit (`__builtin_ffs(0b0001'0010'1100) == 3`)
 - `__builtin_clz(unsigned int)` the count of leading zeros (`__builtin_clz(0b0001'0010'1100) == 23`)
 - `__builtin_ctz(unsigned int)` the count of trailing zeros (`__builtin_ctz(0b0001'0010'1100) == 2`)
+- ` __builtin_parity(x)` the parity (even or odd) of the number of ones in the bit representation
 
 _Note that some of the operations (both the C++20 functions and the Compiler Built-in ones) might be quite slow in GCC if you don't enable a specific compiler target with `#pragma GCC target("popcnt")`._
 
