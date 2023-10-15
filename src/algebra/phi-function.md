@@ -143,6 +143,10 @@ $$a^n \equiv a^{n \bmod \phi(m)} \pmod m$$
 
 This allows computing $x^n \bmod m$ for very big $n$, especially if $n$ is the result of another computation, as it allows to compute $n$ under a modulo.
 
+In group theory, $\phi(n)$ is the [order of the multiplicative group mod n](https://en.wikipedia.org/wiki/Multiplicative_group_of_integers_modulo_n) $(\mathbb Z / n\mathbb Z)^\times$, that is the group of multiplicative units (elements with inverses). The elements with multiplicative inverses are precisely those coprime to $n$.
+
+By Lagrange's Theorem, the multiplicative order of any $a$ must divide $\phi(n)$. If the multiplicative order of $a$ is $\phi(n)$, the largest possible, then $a$ is a [primitive root](primitive-root.md) and the group is cyclic by definition. 
+
 ## Generalization
 
 There is a less known version of the last equivalence, that allows computing $x^n \bmod m$ efficiently for not coprime $x$ and $m$.
