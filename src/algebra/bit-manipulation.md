@@ -45,7 +45,7 @@ All those introduced operators are instant (same speed as an addition) on a CPU 
 
 ### Bitwise operators
 
--   & : The bitwise AND operator compares each bit of its first operand with the corresponding bit of its second operand. 
+-   $\&$ : The bitwise AND operator compares each bit of its first operand with the corresponding bit of its second operand. 
     If both bits are 1, the corresponding result bit is set to 1. Otherwise, the corresponding result bit is set to 0.
  	
 -   $|$ : The bitwise inclusive OR operator compares each bit of its first operand with the corresponding bit of its second operand.
@@ -126,16 +126,19 @@ bool is_set(unsigned int number, int x) {
 
 ### Check if the number is divisible by a power of 2
 
-- Using the and operation, we can check if a number x is even because x & 1 = 0 if x is even, and x & 1 = 1 if x is odd.
-  More generally, x is divisible by $2^{k}$ exactly when x & ($2^{k}$ − 1) = 0.
+Using the and operation, we can check if a number $n$ is even because $n ~\&~ 1 = 0$ if $n$ is even, and $n ~\&~ 1 = 1$ if $n$ is odd.
+More generally, $n$ is divisible by $2^{k}$ exactly when $n ~\&~ (2^{k} − 1) = 0$.
 
 ``` cpp
-bool isDivisibleByPowerOf2(int x, int k) {
+bool isDivisibleByPowerOf2(int n, int k) {
     int powerOf2 = 1 << k;
-    return (x & (powerOf2 - 1)) == 0;
+    return (n & (powerOf2 - 1)) == 0;
 }
 ```
-we can calculate $2^{k}$ by left shifting 1 by k positions. If function return true, x is divisible by $2^{k}$ otherwise not.
+
+We can calculate $2^{k}$ by left shifting 1 by $k$ positions.
+The trick works, because $2^k - 1$ is a number that consists of exactly $k$ ones.
+And a number that is divisible by $2^k$ must have zero digits in those places.
 
 ### Check if an integer is a power of 2
 
