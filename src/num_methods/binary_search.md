@@ -73,16 +73,17 @@ During the execution of the algorithm, we never evaluate neither $A_L$ nor $A_R$
 
 ## Search on arbitrary predicate
 
-Let $f : \{0,1,\dots, n-1\} \to \{0, 1\}$ be a boolean function defined on $0,1,\dots,n-1$ such that it is monotonous, that is
+Let $f : \{0,1,\dots, n-1\} \to \{0, 1\}$ be a boolean function defined on $0,1,\dots,n-1$ such that it is monotonously increasing, that is
 
 $$
 f(0) \leq f(1) \leq \dots \leq f(n-1).
 $$
 
 The binary search, the way it is described above, finds the partition of the array by the predicate $f(M)$, holding the boolean value of $k < A_M$ expression.
-In other words, binary search finds the unique index $L$ such that $f(L) = 0$ and $f(R)=f(L+1)=1$, or gives us $L = n-1$ if $f(0) = \dots = f(n-1) = 0$ or $L = -1$ if $f(0) = \dots = f(n-1) = 1$.
-
 It is possible to use arbitrary monotonous predicate instead of $k < A_M$. It is particularly useful when the computation of $f(k)$ is requires too much time to actually compute it for every possible value.
+In other words, binary search finds the unique index $L$ such that $f(L) = 0$ and $f(R)=f(L+1)=1$ if such a _transition point_ exists, or gives us $L = n-1$ if $f(0) = \dots = f(n-1) = 0$ or $L = -1$ if $f(0) = \dots = f(n-1) = 1$.
+
+Proof of correctness supposing a transition point exists, that is $f(0)=0$ and $f(n-1)=1$: The implementation maintaints the _loop invariant_ $f(l)=0, f(r)=1$ and terminates when $r - l = 1$, giving us our desired transition point.
 
 ```cpp
 ... // f(i) is a boolean function such that f(0) <= ... <= f(n-1)
