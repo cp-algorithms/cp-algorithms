@@ -225,6 +225,6 @@ And with those coefficients you can restore the full number.
 
 ## Practice Problems:
 
-* [Google Code Jam - Golf Gophers](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051635/0000000000104f1a#problem)
+* [Google Code Jam - Golf Gophers](https://github.com/google/coding-competitions-archive/blob/main/codejam/2019/round_1a/golf_gophers/statement.pdf)
 * [Hackerrank - Number of sequences](https://www.hackerrank.com/contests/w22/challenges/number-of-sequences)
 * [Codeforces - Remainders Game](http://codeforces.com/problemset/problem/687/B)
