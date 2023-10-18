@@ -1,0 +1,62 @@
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Merge_Sort
+ */
+public class Merge_Sort {
+    public static void sort(int[] arr, int left , int right)
+    {
+        if(left>=right) return;
+        int mid =  (left+right)/2;
+        sort(arr,left,mid); //left portion of array
+        sort(arr,mid+1,right);
+        // System.out.println(left+" "+mid+" "+right);
+        merge(arr,left,mid,right);
+    }
+    public static void merge(int[]arr, int left,int mid, int right){
+        //merging with comparing
+        List<Integer>ls = new ArrayList<>();
+         int sl = left; //starting of left
+        int sr = mid+1; //starting of right
+
+        while(sl<=mid && sr<=right)
+        {
+            if(arr[sl]<=arr[sr])
+            {
+                ls.add(arr[sl]);
+                sl++;
+            }
+            else{
+                ls.add(arr[sr]);
+                sr++;
+            }
+        }
+     //if still element left in leftpart
+     while(sl<=mid)
+     {
+        ls.add(arr[sl]);
+        sl++;
+     }
+     //if still element left in rightPart
+     while(sr<=right)
+     {
+        ls.add(arr[sr]);
+        sr++;
+     }
+    //pasting the temporary array vlaue to the main arrya
+    for(int i = left;i<right;i++)
+    {
+        arr[i] = ls.get(i-left);
+    }
+    }
+    public static void main(String[] args) {
+        int arr[] = {3,4,6,7,1,2,9};
+        int n = arr.length;
+        Merge_Sort.sort(arr,0,n-1);
+        for(int xx:arr)
+        {
+            System.out.print(xx+" ");
+        }
+    }
+}
