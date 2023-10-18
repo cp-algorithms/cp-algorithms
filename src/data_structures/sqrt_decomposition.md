@@ -244,4 +244,5 @@ You can read about even faster sorting approach [here](https://codeforces.com/bl
 * [Codeforces - Holes](http://codeforces.com/contest/13/problem/E)
 * [Codeforces - XOR and Favorite Number](https://codeforces.com/problemset/problem/617/E)
 * [Codeforces - Powerful array](http://codeforces.com/problemset/problem/86/D)
+* [Codeforces - Kuriyama Mirai's Stones](https://codeforces.com/problemset/problem/433/B)
 * [SPOJ - DQUERY](https://www.spoj.com/problems/DQUERY)
