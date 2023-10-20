@@ -169,6 +169,12 @@ Combining all this into the formula of inclusions-exceptions and given that we s
 
 $$\binom{25}{5} - \left(\binom{6}{1} \cdot \binom{16}{5} - \binom{6}{2} \cdot \binom{7}{5}\right) $$
 
+This easily generalizes to base- $b$ numbers ($0 \le x_i < b$) with $d$ digits (including leading zeros) and digit-sum $s$:
+
+$$\sum_{i=0}^d (-1)^i \binom{d}{i} \binom{s+d-1-(b-1)i}{d-1}$$
+
+Note this problem could also be solved with dynamic programming or generating functions. The inclusion-exclusion answer is computed in $O(d)$ time (assuming math operations like binomial coefficient are constant time), while a simple DP approach (considering $b$ as fixed) would take $O(ds)$ time. 
+
 ### The number of relative primes in a given interval
 
 Task: given two numbers $n$ and $r$, count the number of integers in the interval $[1;r]$ that are relatively prime to n (their greatest common divisor is $1$).
