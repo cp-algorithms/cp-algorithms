@@ -173,6 +173,8 @@ This easily generalizes to base- $b$ numbers ($0 \le x_i < b$) with $d$ digits (
 
 $$\sum_{i=0}^d (-1)^i \binom{d}{i} \binom{s+d-1-(b-1)i}{d-1}$$
 
+As above, we treat binomial coefficients with negative upper index as zero. 
+
 Note this problem could also be solved with dynamic programming or generating functions. The inclusion-exclusion answer is computed in $O(d)$ time (assuming math operations like binomial coefficient are constant time), while a simple DP approach (considering $b$ as fixed) would take $O(ds)$ time. 
 
 ### The number of relative primes in a given interval
