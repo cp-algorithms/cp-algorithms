@@ -146,7 +146,7 @@ $$x_1 + x_2 + x_3 + x_4 + x_5 + x_6 = 20$$
 
 where $0 \le x_i \le 8 ~ (i = 1,2,\ldots 6)$.
 
-Task: count the number of solutions to the equation. This solves, for example: count how many 6-digit (including leading zeros) natural numbers have digits that sum to 20 and only use the digits 0 through 8. 
+Task: count the number of solutions to the equation.
 
 Forget the restriction on $x_i$ for a moment and just count the number of nonnegative solutions to this equation. This is easily done using [Stars and Bars](stars_and_bars.md):
 we want to break a sequence of $20$ units into $6$ groups, which is the same as arranging $5$ _bars_ and $20$ _stars_:
@@ -169,13 +169,13 @@ Combining all this into the formula of inclusions-exceptions and given that we s
 
 $$\binom{25}{5} - \left(\binom{6}{1} \cdot \binom{16}{5} - \binom{6}{2} \cdot \binom{7}{5}\right) $$
 
-This easily generalizes to base- $b$ numbers ($0 \le x_i < b$) with $d$ digits (including leading zeros) and digit-sum $s$:
+This easily generalizes to $d$ numbers that sum up to $s$ with the restriction $0 \le x_i \le b$:
 
-$$\sum_{i=0}^d (-1)^i \binom{d}{i} \binom{s+d-1-(b-1)i}{d-1}$$
+$$\sum_{i=0}^d (-1)^i \binom{d}{i} \binom{s+d-1-(b+1)i}{d-1}$$
 
 As above, we treat binomial coefficients with negative upper index as zero. 
 
-Note this problem could also be solved with dynamic programming or generating functions. The inclusion-exclusion answer is computed in $O(d)$ time (assuming math operations like binomial coefficient are constant time), while a simple DP approach (considering $b$ as fixed) would take $O(ds)$ time. 
+Note this problem could also be solved with dynamic programming or generating functions. The inclusion-exclusion answer is computed in $O(d)$ time (assuming math operations like binomial coefficient are constant time), while a simple DP approach would take $O(ds)$ time. 
 
 ### The number of relative primes in a given interval
 
