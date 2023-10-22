@@ -236,6 +236,7 @@ You can read about even faster sorting approach [here](https://codeforces.com/bl
 
 ## Practice Problems
 
+* [Codeforces - Kuriyama Mirai's Stones](https://codeforces.com/problemset/problem/433/B)
 * [UVA - 12003 - Array Transformer](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3154)
 * [UVA - 11990 Dynamic Inversion](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3141)
 * [SPOJ - Give Away](http://www.spoj.com/problems/GIVEAWAY/)
