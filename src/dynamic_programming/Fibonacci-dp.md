@@ -35,20 +35,15 @@ using namespace std;
 int FibonacciByDynamicProgramming(int n) {
     
     vector<int> fibo_array={0,1};
-
     int size=2;
-
     if(n<=2){
         return fibo_array[n-1];
     }
-
     for(int i=0;i<n-2;i++){
         fibo_array.push_back(fibo_array[size-1]+fibo_array[size-2]);
         size++;
     }
-
     return fibo_array[size-1];
-
 }
 
 
@@ -56,10 +51,8 @@ int main() {
     int num;
     cout << "Enter the range limit for the Fibonacci series: ";
     cin >> num;
-
     for (int i = 1; i <= num; i++) {
         cout << FibonacciByDynamicProgramming(i) << " ";
     }
-
     return 0;
 }
