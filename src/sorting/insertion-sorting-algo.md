@@ -137,14 +137,15 @@ The array is now: `[1, 2, 3, 4, 5]`
 
 - The array is now sorted, so the algorithm terminates.
 
-## Conclusion
-
-Insertion Sort is an in-place sorting algorithm that efficiently builds the sorted array one element at a time. The debugging process helps us understand how the algorithm compares and swaps elements to achieve the final sorted result.
-
-
+  
 ## Complexity
 The insertion sort algorithm has the following time complexity:
 
 - Worst-case: O(n^2)
 - Average-case: O(n^2)
 - Best-case: O(n)
+
+## Conclusion
+
+Insertion Sort is an in-place sorting algorithm that efficiently builds the sorted array one element at a time. The debugging process helps us understand how the algorithm compares and swaps elements to achieve the final sorted result.
+
