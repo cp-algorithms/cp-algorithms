@@ -1,6 +1,6 @@
 ---
 tags:
-  - Original
+  - Original 
 ---
 # Bit manipulation
 
@@ -85,6 +85,23 @@ n         = 01011000
 ~n        = 10100111
 ```
 
+### Bitwise OR and AND Applications
+Bitwise OR and AND are often used for setting or clearing specific bits in binary numbers:
+
+- **Setting a Bit:** To set a specific bit in a binary number, use bitwise OR. For example, `n | (1 << x)` sets the `x`-th bit in `n`.
+
+- **Clearing a Bit:** To clear a bit, use bitwise AND with the complement. `n & ~(1 << x)` clears the `x`-th bit in `n`.
+
+### Bitwise XOR Applications
+Bitwise XOR has various applications, such as finding the unique element in an array or swapping values without a temporary variable:
+
+- **Finding Unique Element:** XORing all elements in an array results in the unique element. For example, in `[2, 4, 2, 4, 7]`, `2 ^ 4 ^ 2 ^ 4 ^ 7` gives `7`.
+
+- **Swapping Values:** XOR can be used to swap values without a temporary variable. For `a` and `b`, `a ^= b` and `b ^= a` will swap their values.
+
+### Bit Manipulation in Real-World Applications
+Bit manipulation is utilized in real-world applications, including networking protocols (e.g., IP addressing), graphics programming (e.g., pixel manipulation), and data compression (e.g., Huffman coding).
+
 ### Shift operators
 
 There are two operators for shifting bits.
@@ -101,6 +118,7 @@ There are two operators for shifting bits.
     E.g. $5 \ll 3 = 101_2 \ll 3 = 101000_2 = 40$ which is the same as $5 \cdot 2^3 = 5 \cdot 8 = 40$.
 
     Notice however that for a fixed-length integer that means dropping the most left digits, and if you shift too much you end up with the number $0$.
+    
 
 
 ## Useful tricks
@@ -185,7 +203,7 @@ int countSetBits(int n)
     return count;
 }
 ```
-
+ 
 ### Additional tricks
 
 - $n ~\&~ (n + 1)$ clears all trailing ones: $0011~0111_2 \rightarrow 0011~0000_2$.
