@@ -138,7 +138,7 @@ And if we stop partitioning whenever the query segment coincides with the vertex
 ### Update queries
 
 Now we want to modify a specific element in the array, let's say we want to do the assignment $a[i] = x$. 
-And we have to rebuild the Segment Tree, such that it correspond to the new, modified array. 
+And we have to rebuild the Segment Tree, such that it corresponds to the new, modified array. 
 
 This query is easier than the sum query. 
 Each level of a Segment Tree forms a partition of the array. 
