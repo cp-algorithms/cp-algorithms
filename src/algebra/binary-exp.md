@@ -64,9 +64,9 @@ long long binpow(long long a, long long b) {
         return 1;
     long long res = binpow(a, b / 2);
     if (b % 2)
-        return res * res * a;
-    else
         return res * res;
+    else
+        return res * res * a;
 }
 ```
 
