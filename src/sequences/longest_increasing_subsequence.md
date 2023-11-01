@@ -46,7 +46,7 @@ Then there are two options:
 
 -   $d[i] = 1$: the required subsequence consists only of the element $a[i]$.
 
--   $d[i] > 1$: The subsequence will end it $a[i]$, and right before it will be some number $a[j]$ with $j < i$ and $a[j] < a[i]$.
+-   $d[i] > 1$: The subsequence will end at $a[i]$, and right before it will be some number $a[j]$ with $j < i$ and $a[j] < a[i]$.
 
     It's easy to see, that the subsequence ending in $a[j]$ will itself be one of the longest increasing subsequences that ends in $a[j]$.
     The number $a[i]$ just extends that longest increasing subsequence by one number.
