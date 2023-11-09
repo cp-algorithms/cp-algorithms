@@ -651,7 +651,9 @@ In other words we need to find all the states that can reach the state $t$ via s
 Therefore to solve the problem we need to save for each state a list of suffix references leading to it.
 The answer to the query then will then contain all $firstpos$ for each state that we can find on a DFS / BFS starting from the state $t$ using only the suffix references.
 
-This workaround will work in time $O(answer(P))$, because we will not visit a state twice (because only one suffix link leaves each state, so there cannot be two different paths leading to the same state).
+Overall, this requires $O(length (T))$ for preprocessing and $O(length(P) + answer(P))$ for each request, where $answer(P)$ — this is the size of the answer.
+
+First, we walk down the automaton for each character in the pattern to find our starting node requiring $O(length(P))$.  Then, we use our workaround which will work in time $O(answer(P))$, because we will not visit a state twice (because only one suffix link leaves each state, so there cannot be two different paths leading to the same state).
 
 We only must take into account that two different states can have the same $firstpos$ value.
 This happens if one state was obtained by cloning another.
