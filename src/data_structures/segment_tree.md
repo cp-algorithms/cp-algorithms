@@ -385,30 +385,20 @@ However, this will lead to a $O(\log^2 n)$ solution.
 
 Instead, we can use the same idea as in the previous sections, and find the position by descending the tree:
 by moving each time to the left or the right, depending on the maximum value of the left child.
-Thus finding the answer in $O(\log n)$ time.
+Thus finding the answer in $O(\log n)$ time. 
 
+An example of using the following code would be get_first(1,0,n-1,5,8,14) since our segment tree starts at node 1.  This would request a value greater than 14 between $[5,8]$.
 ```{.cpp file=segment_tree_first_greater}
-int get_first(int v, int lv, int rv, int l, int r, int x) {
-    if(lv > r || rv < l) return -1;
-    if(l <= lv && rv <= r) {
-        if(t[v] <= x) return -1;
-        while(lv != rv) {
-            int mid = lv + (rv-lv)/2;
-            if(t[2*v] > x) {
-                v = 2*v;
-                rv = mid;
-            }else {
-                v = 2*v+1;
-                lv = mid+1;
-            }
-        }
-        return lv;
-    }
-
-    int mid = lv + (rv-lv)/2;
-    int rs = get_first(2*v, lv, mid, l, r, x);
-    if(rs != -1) return rs;
-    return get_first(2*v+1, mid+1, rv, l ,r, x);
+int get_first(int v, int tl, int tr, int l, int r, int greater_than) {
+    if(tl > r || tr < l) return -1;
+    if(t[v] <= greater_than) return -1;
+    
+    if (tl== tr) return tl;
+    
+    int tm = tl + (tr-tl)/2;
+    int left = get_first(2*v, tl, tm, l, r, greater_than);
+    if(left != -1) return left;
+    return get_first(2*v+1, tm+1, tr, l ,r, greater_than);
 }
 ```
 
