@@ -87,7 +87,7 @@ In practice the linear sieve runs about as fast as a typical implementation of t
 
 In comparison to optimized versions of the sieve of Erathosthenes, e.g. the segmented sieve, it is much slower.
 
-Considering the memory requirements of this algorithm - an array $lp []$ of length $n$, and an array of $pr []$ of length  $\frac n {\ln n}$, this algorithm seems to worse than the classic sieve in every way.
+Considering the memory requirements of this algorithm - an array $lp []$ of length $n$, and an array of $pr []$ of length  $\frac n {\ln n}$, this algorithm seems to be worse than the classic sieve in every way.
 
 However, its redeeming quality is that this algorithm calculates an array $lp []$, which allows us to find factorization of any number in the segment $[2; n]$ in the time of the size order of this factorization. Moreover, using just one extra array will allow us to avoid divisions when looking for factorization.
 

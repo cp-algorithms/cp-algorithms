@@ -129,12 +129,12 @@ Let there be two intervals: $[min_x; max_x]$ and $[min_y; max_y]$ and let's say 
 
 Note that if $a$ or $b$ is $0$, then the problem only has one solution. We don't consider this case here.
 
-First, we can find a solution which have minimum value of $x$, such that $x \ge min_x$. To do this, we first find any solution of the Diophantine equation. Then, we shift this solution to get $x \ge min_x$ (using what we know about the set of all solutions in previous section). This can be done in $O(1)$.
+First, we can find a solution which has minimum value of $x$, such that $x \ge min_x$. To do this, we first find any solution of the Diophantine equation. Then, we shift this solution to get $x \ge min_x$ (using what we know about the set of all solutions in previous section). This can be done in $O(1)$.
 Denote this minimum value of $x$ by $l_{x1}$.
 
-Similarly, we can find the maximum value of $x$ which satisfy $x \le max_x$. Denote this maximum value of $x$ by $r_{x1}$.
+Similarly, we can find the maximum value of $x$ which satisfies $x \le max_x$. Denote this maximum value of $x$ by $r_{x1}$.
 
-Similarly, we can find the minimum value of $y$ $(y \ge min_y)$ and maximum values of $y$ $(y \le max_y)$. Denote the corresponding values of $x$ by $l_{x2}$ and $r_{x2}$.
+Similarly, we can find the minimum value of $y$ $(y \ge min_y)$ and maximum value of $y$ $(y \le max_y)$. Denote the corresponding values of $x$ by $l_{x2}$ and $r_{x2}$.
 
 The final solution is all solutions with x in intersection of $[l_{x1}, r_{x1}]$ and $[l_{x2}, r_{x2}]$. Let denote this intersection by $[l_x, r_x]$.
 
