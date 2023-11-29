@@ -51,3 +51,7 @@ body[dir=rtl] .metadata.page-metadata .contributors-text{
 .mjx-copytext {
     font-size: 0;
 }
+
+.arithmatex{
+  overflow-y: hidden !important;
+}
