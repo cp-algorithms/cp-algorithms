@@ -5,9 +5,9 @@ tags:
 
 # Introduction to Dynamic Programming
 
-The essence of dynamic programming is to avoid repeated calculation.  Oftentimes, dynamic programming problems are naturally solvable by recursion. In such cases, it's easiest to write the recursive solution, then save repeated states in a lookup table. This process is known as top down dynamic programming with memoization. That's read "memoization" (like we are writing in a memo pad) not memorization .
+The essence of dynamic programming is to avoid repeated calculation.  Often, dynamic programming problems are naturally solvable by recursion. In such cases, it's easiest to write the recursive solution, then save repeated states in a lookup table. This process is known as top-down dynamic programming with memoization. That's read "memoization" (like we are writing in a memo pad) not memorization.
 
-One of the most basic, classic examples of this process is the fibonacci sequence. It's recursive formulation is $f(n) = f(n-1) + f(n-2) where n>=2 and f(0)==0 and f(1)==1$. In C++ with would be expressed as:
+One of the most basic, classic examples of this process is the fibonacci sequence. It's recursive formulation is $f(n) = f(n-1) + f(n-2)$ where $n \ge 2$ and $f(0)=0$ and $f(1)=1$. In C++, this would be expressed as:
 
 ```cpp
 int f(int n) {
@@ -17,13 +17,13 @@ int f(int n) {
 }
 ```
 
-The runtime of this recursive function is exponential approximately $O(2^n)$. $T(n) = T(n-1)+T(n-2) + O(1)$. This approximately (upper bound) $T(n) = T(n-1) + T(n-1) + O(1) = 2*T(n-1)+O(1)$. By master theorem, we have $O(2^n)$ complexity. 
+The runtime of this recursive function is exponential - approximately $O(2^n)$ since one function call ( $f(n)$ ) results in 2 similarly sized function calls ($f(n-1)$ and $f(n-2)$ ).
 
-Speeding up Fibonacci with Dynamic Programming (Memoization)
+## Speeding up Fibonacci with Dynamic Programming (Memoization)
 
-Our recursive function currently solves fibonacci in exponential time. This means that we can only handle small input values before the problem becomes intractable. For instance, f(29) results in over 1 million function calls!
+Our recursive function currently solves fibonacci in exponential time. This means that we can only handle small input values before the problem becomes too difficult. For instance, $f(29)$ results in *over 1 million function* calls!
 
-To increase the speed, we recognize that the number of subproblems is only $O(n)$. That is, in order to calculate $f(n)$ we only need to know $f(n-1),f(n-2)...f(0)$. Therefore, instead of recalculating these subproblems, we solve them once and then save the result in a lookup table.  Subsequent calls will use this lookup table and immediately return a result, thus eliminating exponential work! 
+To increase the speed, we recognize that the number of subproblems is only $O(n)$. That is, in order to calculate $f(n)$ we only need to know $f(n-1),f(n-2), \dots ,f(0)$. Therefore, instead of recalculating these subproblems, we solve them once and then save the result in a lookup table.  Subsequent calls will use this lookup table and immediately return a result, thus eliminating exponential work! 
 
 Each recursive call will check against a lookup table to see if the value has been calculated. This is done is $O(1)$ time.  If we have previously calcuated it, return the result, otherwise, we calculate the function normally. The overall runtime is $O(n)$! This is an enormous improvement over our previous exponential time algorithm!
 
@@ -42,9 +42,9 @@ int f(int n) {
 }
 ```
 
-With our new memoized recursive function, $f(29)$, which used to result in over 1 million calls, now results in only 57 calls, nearly 20,000 times fewer function calls! Ironically, we are now limited by our data type. $f(46)$ is the last fibonacci number that can fit into a signed 32 bit integer.
+With our new memoized recursive function, $f(29)$, which used to result in *over 1 million calls*, now results in *only 57 calls*, *nearly 20,000 times fewer* function calls! Ironically, we are now limited by our data type. $f(46)$ is the last fibonacci number that can fit into a signed 32-bit integer.
 
-## *** Important Note ***
+### *** Important Note ***
 
 Typically, we try to save states in arrays,if possible, since the lookup time is $O(1)$ with minimal overhead.  However, more generically, we can save states anyway we like. Other examples include maps (binary search trees) or unordered_maps (hash tables).
 
@@ -74,23 +74,22 @@ int f(int n) {
 }
 ```
 
-Both of these will almost always be slower than the array based version for a generic memoized recursive function.
+Both of these will almost always be slower than the array-based version for a generic memoized recursive function.
 These alternative ways of saving state are primarily useful when saving vectors or strings as part of the state space.
 
-## *** Very important note***
+### *** Very important note***
 
 The layman's way of analyzing the runtime of a memoized recursive function is:
 ** (work per subproblem) * (number of subproblems) **
 
 
-Using a binary search tree (map in C++) to save states will technically result in $O(n*log(n))$ as each lookup and insertion will take $O(log(n))$ work and with $O(n)$ unique subproblems we have $O(n*log(n))$ time.
+Using a binary search tree (map in C++) to save states will technically result in $O(n * log(n))$ as each lookup and insertion will take $O(log(n))$ work and with $O(n)$ unique subproblems we have $O(n*log(n))$ time.
 
-## Bottom up Dynamic Programming
+## Bottom-up Dynamic Programming
 
-Until now you've only seen top down dynamic programming with memoization. However, we can also solve problems with bottom up dynamic programming. 
+Until now you've only seen top-down dynamic programming with memoization. However, we can also solve problems with bottom-up dynamic programming. 
 
-To create a bottom up approach for fibonacci numbers, we initilized the base cases in an array. Then, we simply use the recursive definition on array:
-
+To create a bottom-up approach for fibonacci numbers, we initilize the base cases in an array. Then, we simply use the recursive definition on array:
 
 ```cpp
 const int MAXN = 100;
@@ -127,19 +126,22 @@ int f2(int n) {
 }
 ```
 
-Note that we've changed the constant from $MAXN$ TO $MAX_SAVE$. This is because the total number of elements we need to have access to is only 3. It no longer scales with the size of input and is, by definition, $O(1)$ memory. Additionally, we use a common trick (using the modulo operator) only maintain the values we need.
+Note that we've changed the constant from *MAXN* TO *MAX_SAVE*. This is because the total number of elements we need to have access to is only 3. It no longer scales with the size of input and is, by definition, $O(1)$ memory. Additionally, we use a common trick (using the modulo operator) only maintaining the values we need.
 
 That's it. That's the basics of dynamic programming: Don't repeat work you've done before.  
 
-One of the tricks to getting better at dynamic programming is to study some of the classic examples:
+One of the tricks to getting better at dynamic programming is to study some of the classic examples.
+
+## Classic Dynamic Programming Problems
 - 0-1 Knapsack
 - Subset sum
 - Longest Increasing Subsequence
 - Counting all possible paths from top left to bottom right corner of a matrix
-- Longest Common Subsequence (though suffix automatons are faster)
+- Longest Common Subsequence 
 - Longest Path in a Directed Acyclic Graph (DAG)
 - Coin Change
 - Longest Palindromic Subsequence
 - Rod Cutting
+- Edit Distance
 
 Of course, the most important trick is to practice.
