@@ -95,9 +95,9 @@ $$\Delta = \min_{i\in Z_1,\ j\notin Z_2} A[i][j]-u[i]-v[j].$$
 
 Now let's **recalculate the potential** in this way:
 
-- for all vertices $i\in Z_1$, do $u[i]+=\Delta$,
+- for all vertices $i\in Z_1$, do $u[i] \gets u[i]+\Delta$,
 
-- for all vertices $j\in Z_2$, do $v[j]-=\Delta$.
+- for all vertices $j\in Z_2$, do $v[j] \gets v[j]-\Delta$.
 
 Note that conditions are not mutually exclusive.
 
