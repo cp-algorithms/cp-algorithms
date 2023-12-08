@@ -51,7 +51,7 @@ It has to be called with `compute(0, n-1, 0, n-1)`. The function `solve` compute
 
 ```{.cpp file=divide_and_conquer_dp}
 int m, n;
-vector<long long> dp_before(n), dp_cur(n);
+vector<long long> dp_before, dp_cur;
 
 long long C(int i, int j);
 
@@ -74,7 +74,10 @@ void compute(int l, int r, int optl, int optr) {
     compute(mid + 1, r, opt, optr);
 }
 
-int solve() {
+long long solve() {
+    dp_before.assign(n,0);
+    dp_cur.assign(n,0);
+
     for (int i = 0; i < n; i++)
         dp_before[i] = C(0, i);
 
