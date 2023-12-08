@@ -53,7 +53,7 @@ On the one hand, it is easy to see that the cost of the desired solution $sol$ *
 
 !!! info ""
 
-    **Lemma.** $sol\leq f.$
+    **Lemma.** $sol\geq f.$
 
 ??? info "Proof"
 
