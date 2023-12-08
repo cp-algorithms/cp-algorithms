@@ -11,9 +11,9 @@ One of the most basic, classic examples of this process is the fibonacci sequenc
 
 ```cpp
 int f(int n) {
-    if (n==0) return 0;
-    if (n==1) return 1;
-    return f(n-1)+f(n-2);
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+    return f(n - 1) + f(n - 2);
 }
 ```
 
@@ -21,7 +21,7 @@ The runtime of this recursive function is exponential - approximately $O(2^n)$ s
 
 ## Speeding up Fibonacci with Dynamic Programming (Memoization)
 
-Our recursive function currently solves fibonacci in exponential time. This means that we can only handle small input values before the problem becomes too difficult. For instance, $f(29)$ results in *over 1 million function* calls!
+Our recursive function currently solves fibonacci in exponential time. This means that we can only handle small input values before the problem becomes too difficult. For instance, $f(29)$ results in *over 1 million* function calls!
 
 To increase the speed, we recognize that the number of subproblems is only $O(n)$. That is, in order to calculate $f(n)$ we only need to know $f(n-1),f(n-2), \dots ,f(0)$. Therefore, instead of recalculating these subproblems, we solve them once and then save the result in a lookup table.  Subsequent calls will use this lookup table and immediately return a result, thus eliminating exponential work! 
 
@@ -34,11 +34,11 @@ int memo[MAXN];
 
 int f(int n) {
     if (found[n]) return memo[n];
-    if (n==0) return 0;
-    if (n==1) return 1;
-    
-    found[n]=true;
-    return memo[n]=f(n-1)+f(n-2);
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+
+    found[n] = true;
+    return memo[n] = f(n - 1) + f(n - 2);
 }
 ```
 
@@ -51,13 +51,13 @@ Typically, we try to save states in arrays,if possible, since the lookup time is
 An example of this might be:
 
 ```cpp
-unordered_map<int,int>memo;
+unordered_map<int, int> memo;
 int f(int n) {
     if (memo.count(n)) return memo[n];
-    if (n==0) return 0;
-    if (n==1) return 1;
-    
-    return memo[n]=f(n-1)+f(n-2);
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+
+    return memo[n] = f(n - 1) + f(n - 2);
 }
 ```
 
