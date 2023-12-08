@@ -61,7 +61,7 @@ On the one hand, it is easy to see that the cost of the desired solution $sol$ *
 
 On the other hand, it turns out that there is always a solution and a potential that turns this inequality into **equality**. The Hungarian algorithm described below will be a constructive proof of this fact. For now, let's just pay attention to the fact that if any solution has a cost equal to any potential, then this solution is **optimal**.
 
-Let's fix some potential. Let's call and edge $(i,j)$ **rigid** if $u[i]+v[j]=A[i][j].$
+Let's fix some potential. Let's call an edge $(i,j)$ **rigid** if $u[i]+v[j]=A[i][j].$
 
 Recall an alternative formulation of the assignment problem, using a bipartite graph. Denote with $H$ a bipartite graph composed only of rigid edges. The Hungarian algorithm will maintain, for the current potential, **the maximum-number-of-edges matching** $M$ of the graph $H$. As soon as $M$ contains $n$ edges, then the solution to the problem will be just $M$ (after all, it will be a solution whose cost coincides with the value of a potential).
 
