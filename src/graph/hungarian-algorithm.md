@@ -103,7 +103,7 @@ Note that conditions are not mutually exclusive.
 
 !!! info ""
 
-    **Lemma.** The resulting potential is the correct potential.
+    **Lemma.** The resulting potential is still a correct potential.
 
 ??? info "Proof"
 
