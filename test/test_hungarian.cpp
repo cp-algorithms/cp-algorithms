@@ -15,6 +15,4 @@ int main(){
     0, 1, 6, 4, 9, 4 
     };
     #include "hungarian.h"
-
-
 }
