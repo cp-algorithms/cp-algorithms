@@ -111,7 +111,7 @@ Note that conditions are not mutually exclusive.
 
 !!! info ""
 
-    **Lemma.** The old matching $M$ of hard edges is valid, i.e. all edges of the matching will remain rigid.
+    **Lemma.** The old matching $M$ of rigid edges is valid, i.e. all edges of the matching will remain rigid.
 
 ??? info "Proof"
 
