@@ -158,15 +158,15 @@ From this follow these **key ideas** that allow us to achieve the required compl
 
 - To quickly recalculate the potential (faster than the $\mathcal{O}(n^2)$ naive version), you need to maintain auxiliary minima for each of the columns:
 
-  <br><div style="text-align:center">$minv[j]=\min_{i\in Z_1} A[i][j]-u[i]-v[j].$</div><br>
+    <br><div style="text-align:center">$minv[j]=\min_{i\in Z_1} A[i][j]-u[i]-v[j].$</div><br>
 
-  It's easy to see that the desired value $\Delta$ is expressed in terms of them as follows:
+    It's easy to see that the desired value $\Delta$ is expressed in terms of them as follows:
 
-  <br><div style="text-align:center">$\Delta=\min_{j\notin Z_2} minv[j].$</div><br>
+    <br><div style="text-align:center">$\Delta=\min_{j\notin Z_2} minv[j].$</div><br>
 
-  Thus, finding $\Delta$ can now be done in $\mathcal{O}(n)$.
+    Thus, finding $\Delta$ can now be done in $\mathcal{O}(n)$.
 
-  It is necessary to update the array $minv$ when new visited rows appear. This can be done in $\mathcal{O}(n)$ for the added row (which adds up over all rows to $\mathcal{O}(n^2)$). It is also necessary to update the array $minv$ when recalculating the potential, which is also done in time $\mathcal{O}(n)$ ($minv$ changes only for columns that have not yet been reached: namely, it decreases by $\Delta$).
+    It is necessary to update the array $minv$ when new visited rows appear. This can be done in $\mathcal{O}(n)$ for the added row (which adds up over all rows to $\mathcal{O}(n^2)$). It is also necessary to update the array $minv$ when recalculating the potential, which is also done in time $\mathcal{O}(n)$ ($minv$ changes only for columns that have not yet been reached: namely, it decreases by $\Delta$).
 
 Thus, the algorithm takes the following form: in the outer loop, we consider matrix rows one by one. Each row is processed in time $\mathcal{O}(n^2)$, since only $\mathcal{O}(n)$ potential recalculations could occur (each in time $\mathcal{O}(n)$), and the array $minv$ is maintained in time $\mathcal{O}(n^2)$; Kuhn's algorithm will work in time $\mathcal{O}(n^2)$ (since it is presented in the form of $\mathcal{O}(n)$ iterations, each of which visits a new column).
 
