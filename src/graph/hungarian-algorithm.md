@@ -8,13 +8,13 @@ e_maxx_link: assignment_hungary
 
 ## Statement of the assignment problem
 
-There are various approaches to address this problem (all of which are essentially equivalent). Here are several alternatives:
+There are several standard formulations of the assignment problem (all of which are essentially equivalent). Here are some of them:
 
 - There are $n$ jobs and $n$ workers. Each worker specifies the amount of money they expect for a particular job. Each worker can be assigned to only one job. The objective is to assign jobs to workers in a way that minimizes the total cost.
 
 - Given an $n \times n$ matrix $A$, the task is to select one number from each row such that exactly one number is chosen from each column, and the sum of the selected numbers is minimized.
 
-- Given an $n \times n$ matrix $A$, the goal is to find a permutation $p$ of length $n$ such that the value $\sum A[i]\left[p[i]\right]$ is minimized.
+- Given an $n \times n$ matrix $A$, the task is to find a permutation $p$ of length $n$ such that the value $\sum A[i]\left[p[i]\right]$ is minimized.
 
 - Consider a complete bipartite graph with $n$ vertices per part, where each edge is assigned a weight. The objective is to find a perfect matching with the minimum total weight.
 
@@ -35,9 +35,9 @@ It is also worth noting that Kuhn's original algorithm had an asymptotic complex
 
 ### The $\mathcal{O}(n^4)$ algorithm
 
-To avoid ambiguity, we note right away that we are mainly considering the assignment problem in a matrix formulation (i.e., given a matrix $A$, you need to select $n$ cells from it that are in different rows and columns). We start indexing arrays from one, i.e., for example, a matrix $A$ has indices $A[1 \dots n][1 \dots n]$.
+To avoid ambiguity, we note right away that we are mainly concerned with the assignment problem in a matrix formulation (i.e., given a matrix $A$, you need to select $n$ cells from it that are in different rows and columns). We index arrays starting with $1$, i.e., for example, a matrix $A$ has indices $A[1 \dots n][1 \dots n]$.
 
-We will also assume that all numbers in matrix A are **non-negative** (if this is not the case, you can always go to a non-negative matrix by adding some constant to all numbers).
+We will also assume that all numbers in matrix A are **non-negative** (if this is not the case, you can always make the matrix non-negative by adding some constant to all numbers).
 
 Let's call a **potential** two arbitrary arrays of numbers $u[1 \ldots n]$ and $v[1 \ldots n]$, such that the following condition is satisfied:
 
@@ -49,7 +49,7 @@ Let's call **the value $f$ of the potential** the sum of its elements:
 
 $$f=\sum_{i=1}^{n} u[i] + \sum_{j=1}^{n} v[j].$$
 
-On the one hand, it is easy to see that the cost of the desired solution $sol$ **is not less than** the value of any potential.
+On one hand, it is easy to see that the cost of the desired solution $sol$ **is not less than** the value of any potential.
 
 !!! info ""
 
@@ -73,7 +73,7 @@ Let's proceed directly to **the description of the algorithm**.
 All edges of the matching $M$ are oriented in the direction from the right part to the left one, and all other edges of the graph $H$ are oriented in the opposite direction.
 
 Recall (from the terminology of searching for matchings) that a vertex is called saturated if an edge of the current matching is adjacent to it. A vertex that is not adjacent to any edge of the current matching is called unsaturated. A path of odd length, in which the first edge does not belong to the matching, and for all subsequent edges there is an alternating belonging to the matching (belongs/does not belong) - is called an augmenting path.
-From all unsaturated vertices in the left part, a [depth-first](depth-first-search.md) or [breadth-first](breadth-first-search.md) traversal is started. If, as a result of the search, it was possible to reach the top unsaturated vertex of the right part, we have found an augmenting path from the left part to the right one. If we include odd edges of the path and remove the even ones in the matching (i.e. include the first edge in the matching, exclude the second, include the third, etc.), then we will increase the matching cardinality by one.
+From all unsaturated vertices in the left part, a [depth-first](depth-first-search.md) or [breadth-first](breadth-first-search.md) traversal is started. If, as a result of the search, it was possible to reach an unsaturated vertex of the right part, we have found an augmenting path from the left part to the right one. If we include odd edges of the path and remove the even ones in the matching (i.e. include the first edge in the matching, exclude the second, include the third, etc.), then we will increase the matching cardinality by one.
 
 If there was no augmenting path, then the current matching $M$ is maximal in the graph $H$.
 
@@ -126,7 +126,7 @@ Now let's **recalculate the potential** in this way:
 
 Due to the last lemma, **no more than $n$ potential recalculations can occur** before an augmenting path is found and the matching cardinality of $M$ is increased.
 Thus, sooner or later, a potential that corresponds to a perfect matching $M^*$ will be found, and $M^*$ will be the answer to the problem.
-If we talk about the asymptotic complexity of the algorithm, then it is $\mathcal{O}(n^4)$: in total there should be at most $n$ increases in matching, before each of which there are no more than $n$ potential recalculations, each of which is performed in time $\mathcal{O}(n^2)$.
+If we talk about the complexity of the algorithm, then it is $\mathcal{O}(n^4)$: in total there should be at most $n$ increases in matching, before each of which there are no more than $n$ potential recalculations, each of which is performed in time $\mathcal{O}(n^2)$.
 
 We will not give the implementation for the $\mathcal{O}(n^4)$ algorithm here, since it will turn out to be no shorter than the implementation for the $\mathcal{O}(n^3)$ one, described below.
 
@@ -170,7 +170,7 @@ From this follow these **key ideas** that allow us to achieve the required compl
 
 Thus, the algorithm takes the following form: in the outer loop, we consider matrix rows one by one. Each row is processed in time $\mathcal{O}(n^2)$, since only $\mathcal{O}(n)$ potential recalculations could occur (each in time $\mathcal{O}(n)$), and the array $minv$ is maintained in time $\mathcal{O}(n^2)$; Kuhn's algorithm will work in time $\mathcal{O}(n^2)$ (since it is presented in the form of $\mathcal{O}(n)$ iterations, each of which visits a new column).
 
-The resulting asymptotic complexity is $\mathcal{O}(n^3)$ or, if the problem is rectangular, $\mathcal{O}(n^2m)$.
+The resulting complexity is $\mathcal{O}(n^3)$ or, if the problem is rectangular, $\mathcal{O}(n^2m)$.
 
 ## Implementation of the Hungarian algorithm
 
@@ -288,9 +288,9 @@ Here are a few examples related to the assignment problem, from very trivial to 
 - **The Problem of Potentials**. Given a matrix $A[1 \ldots n][1 \ldots m]$, it is required to find two arrays $u[1 \ldots n]$ and $v[1 \ldots m]$ such that, for any $i$ and $j$, $u[i] + v[j] \leq a[i][j]$ and the sum of elements of arrays $u$ and $v$ is maximum.<br>
   Knowing the Hungarian algorithm, the solution to this problem will not be difficult: the Hungarian algorithm just finds such a potential $u, v$ that satisfies the condition of the problem. On the other hand, without knowledge of the Hungarian algorithm, it seems almost impossible to solve such a problem.
 
-    !!! info "Remark"
+!!! info "Remark"
 
-        This task is also called the **dual problem** of the assignment problem: minimizing the total cost of the assignment is equivalent to maximizing the sum of the potentials.
+    This task is also called the **dual problem** of the assignment problem: minimizing the total cost of the assignment is equivalent to maximizing the sum of the potentials.
 
 ## Literature
 
