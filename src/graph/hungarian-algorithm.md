@@ -31,7 +31,7 @@ In 1957, James **Munkres** showed that this algorithm runs in (strictly) polynom
 Therefore, in literature, this algorithm is known not only as the "Hungarian", but also as the "Kuhn-Mankres algorithm" or "Mankres algorithm".<br>
 However, it was recently discovered in 2006 that the same algorithm was invented **a century before Kuhn** by the German mathematician Carl Gustav **Jacobi**. His work, _About the research of the order of a system of arbitrary ordinary differential equations_, which was published posthumously in 1890, contained, among other findings, a polynomial algorithm for solving the assignment problem. Unfortunately, since the publication was in Latin, it went unnoticed among mathematicians.
 
-It is also worth noting that Kuhn's original algorithm had an asymptotic complexity of $\mathcal{O}(n^4)$, and only later Jack **Edmonds** and Richard **Karp** (and independently **Tomizawa**) showed how to improve it to an asymptotics complexity of $\mathcal{O}(n^3)$.
+It is also worth noting that Kuhn's original algorithm had an asymptotic complexity of $\mathcal{O}(n^4)$, and only later Jack **Edmonds** and Richard **Karp** (and independently **Tomizawa**) showed how to improve it to an asymptotic complexity of $\mathcal{O}(n^3)$.
 
 ### The $\mathcal{O}(n^4)$ algorithm
 
@@ -69,7 +69,7 @@ Let's proceed directly to **the description of the algorithm**.
 
 **Step 1.** At the beginning, the potential is assumed to be zero ($u[i]=v[i]=0$ for all $i$), and the matching $M$ is assumed to be empty.
 
-**Step 2.** Further, at each step of the algorithm, we try, without changing the potential, to increase the cardinality of the current matching $M$ by one (recall that the matching is searched in the graph of rigid edges $H$). To do this, the usual [Kuhn's Algorithm for finding the maximum matching in bipartite graphs](kuhn_maximum_bipartite_matching.md) is used. Let us recall the algorithm here.
+**Step 2.** Further, at each step of the algorithm, we try, without changing the potential, to increase the cardinality of the current matching $M$ by one (recall that the matching is searched in the graph of rigid edges $H$). To do this, the usual [Kuhn Algorithm for finding the maximum matching in bipartite graphs](kuhn_maximum_bipartite_matching.md) is used. Let us recall the algorithm here.
 All edges of the matching $M$ are oriented in the direction from the right part to the left one, and all other edges of the graph $H$ are oriented in the opposite direction.
 
 Recall (from the terminology of searching for matchings) that a vertex is called saturated if an edge of the current matching is adjacent to it. A vertex that is not adjacent to any edge of the current matching is called unsaturated. A path of odd length, in which the first edge does not belong to the matching, and for all subsequent edges there is an alternating belonging to the matching (belongs/does not belong) - is called an augmenting path.
@@ -158,15 +158,15 @@ From this follow these **key ideas** that allow us to achieve the required compl
 
 - To quickly recalculate the potential (faster than the $\mathcal{O}(n^2)$ naive version), you need to maintain auxiliary minima for each of the columns:
 
-    <br><div style="text-align:center">$minv[j]=\min_{i\in Z_1} A[i][j]-u[i]-v[j].$</div><br>
+  <br><div style="text-align:center">$minv[j]=\min_{i\in Z_1} A[i][j]-u[i]-v[j].$</div><br>
 
-    It's easy to see that the desired value $\Delta$ is expressed in terms of them as follows:
+  It's easy to see that the desired value $\Delta$ is expressed in terms of them as follows:
 
-    <br><div style="text-align:center">$\Delta=\min_{j\notin Z_2} minv[j].$</div><br>
+  <br><div style="text-align:center">$\Delta=\min_{j\notin Z_2} minv[j].$</div><br>
 
-    Thus, finding $\Delta$ can now be done in $\mathcal{O}(n)$.
+  Thus, finding $\Delta$ can now be done in $\mathcal{O}(n)$.
 
-    It is necessary to update the array $minv$ when new visited rows appear. This can be done in $\mathcal{O}(n)$ for the added row (which adds up over all rows to $\mathcal{O}(n^2)$). It is also necessary to update the array $minv$ when recalculating the potential, which is also done in time $\mathcal{O}(n)$ ($minv$ changes only for columns that have not yet been reached: namely, it decreases by $\Delta$).
+  It is necessary to update the array $minv$ when new visited rows appear. This can be done in $\mathcal{O}(n)$ for the added row (which adds up over all rows to $\mathcal{O}(n^2)$). It is also necessary to update the array $minv$ when recalculating the potential, which is also done in time $\mathcal{O}(n)$ ($minv$ changes only for columns that have not yet been reached: namely, it decreases by $\Delta$).
 
 Thus, the algorithm takes the following form: in the outer loop, we consider matrix rows one by one. Each row is processed in time $\mathcal{O}(n^2)$, since only $\mathcal{O}(n)$ potential recalculations could occur (each in time $\mathcal{O}(n)$), and the array $minv$ is maintained in time $\mathcal{O}(n^2)$; Kuhn's algorithm will work in time $\mathcal{O}(n^2)$ (since it is presented in the form of $\mathcal{O}(n)$ iterations, each of which visits a new column).
 
@@ -237,6 +237,26 @@ The cost of the matching can simply be taken as the potential of the zero column
 int cost = -v[0];
 ```
 
+## Connection to the Successive Shortest Path Algorithm
+
+The Hungarian algorithm can be seen as the [Successive Shortest Path Algorithm](min_cost_flow.md), adapted for the assignment problem. Without going into the details, let's provide an intuition regarding the connection between them.
+
+The Successive Path algorithm uses a modified version of Johnson's algorithm as reweighting technique. This one is divided into four steps:
+
+- Use the [Bellman-Ford](bellman_ford.md) algorithm, starting from the sink $s$ and, for each node, find the minimum weight $h(v)$ of a path from $s$ to $v$.
+
+For every step of the main algorithm:
+
+- Reweight the edges of the original graph in this way: $w(u,v) \gets w(u,v)+h(u)-h(v)$.
+- Use [Dijkstra](dijkstra.md)'s algorithm to find the shortest-paths subgraph of the original network.
+- Update potentials for the next iteration.
+
+Given this description, we can observe that there is a strong analogy between $h(v)$ and potentials. It can be shown that, after reweighting, the set of all zero-weight edges represents the shortest-path subgraph where the main algorithm tries to increase the flow. This also happens in the Hungarian algorithm: we create a subgraph made of rigid edges (the ones for which the quantity $A[i][j]-u[i]-v[j]$ is zero), and we try to increase the size of the matching.
+
+In step 4, all the $h(v)$ are updated: every time we modify the flow network, we should guarantee that the distances from the source are correct (otherwise, in the next iteration, Dijkstra's algorithm might fail). This sounds like the update performed on the potentials, but there's a difference: though the Hungarian algorithm finds a feasible increment for potentials, this might not be the best. Some improvements of this algorithm are done by finding augmenting paths that make potentials grow faster.
+
+To deepen the understanding of potentials, refer to this [article](https://codeforces.com/blog/entry/105658).
+
 ## Task examples
 
 Here are a few examples related to the assignment problem, from very trivial to less obvious tasks:
@@ -262,11 +282,15 @@ Here are a few examples related to the assignment problem, from very trivial to 
 
 - If, in the assignment problem, the weights are given not at the edges, but at the vertices, and only **at the vertices of the same part**, then it's not necessary to use the Hungarian algorithm: just sort the vertices by weight and run the usual [Kuhn algorithm](kuhn_maximum_bipartite_matching.md) (for more details, see a [separate article](http://e-maxx.ru/algo/vertex_weighted_matching)).
 
-- Consider the following **special case**. Let each vertex of the left part be assigned some number $\alpha[i]$, and each vertex of the right part $\beta[j]$. Let the weight of any edge $(i,j)$ be equal to $\alpha[i]\cdot \beta[j]$ (the numbers $\alpha[i]$ and $\beta[j]$ are known). Solve the assignment problem.\
+- Consider the following **special case**. Let each vertex of the left part be assigned some number $\alpha[i]$, and each vertex of the right part $\beta[j]$. Let the weight of any edge $(i,j)$ be equal to $\alpha[i]\cdot \beta[j]$ (the numbers $\alpha[i]$ and $\beta[j]$ are known). Solve the assignment problem.<br>
   To solve it without the Hungarian algorithm, we first consider the case when both parts have two vertices. In this case, as you can easily see, it is advantageous to connect the vertices in the reverse order: connect the vertex with the smaller $\alpha[i]$ to the vertex with the larger $\beta[j]$. This rule can be easily generalized to an arbitrary number of vertices: you need to sort the vertices of the first part in increasing order of $\alpha[i]$ values, the second part in decreasing order of $\beta[j]$ values, and connect the vertices in pairs in that order. Thus, we obtain a solution with asymptotic complexity of $\mathcal{O}(n\log n)$.
 
-- **The Problem of Potentials**. Given a matrix $A[1 \ldots n][1 \ldots m]$, it is required to find two arrays $u[1 \ldots n]$ and $v[1 \ldots m]$ such that, for any $i$ and $j$, $u[i] + v[j] \leq a[i][j]$ and the sum of elements of arrays $u$ and $v$ is maximum.\
+- **The Problem of Potentials**. Given a matrix $A[1 \ldots n][1 \ldots m]$, it is required to find two arrays $u[1 \ldots n]$ and $v[1 \ldots m]$ such that, for any $i$ and $j$, $u[i] + v[j] \leq a[i][j]$ and the sum of elements of arrays $u$ and $v$ is maximum.<br>
   Knowing the Hungarian algorithm, the solution to this problem will not be difficult: the Hungarian algorithm just finds such a potential $u, v$ that satisfies the condition of the problem. On the other hand, without knowledge of the Hungarian algorithm, it seems almost impossible to solve such a problem.
+
+    !!! info "Remark"
+
+        This task is also called the **dual problem** of the assignment problem: minimizing the total cost of the assignment is equivalent to maximizing the sum of the potentials.
 
 ## Literature
 
