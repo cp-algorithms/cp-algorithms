@@ -190,6 +190,7 @@ search:
     - Matchings and related problems
         - [Bipartite Graph Check](graph/bipartite-check.md)
         - [Kuhn's Algorithm - Maximum Bipartite Matching](graph/kuhn_maximum_bipartite_matching.md)
+        - [Hungarian Algorithm](graph/hungarian-algorithm.md)
     - Miscellaneous
         - [Topological Sorting](graph/topological-sort.md)
         - [Edge connectivity / Vertex connectivity](graph/edge_vertex_connectivity.md)
