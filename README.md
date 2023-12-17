@@ -26,7 +26,7 @@ Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorith
 
 ### New articles
 
-- (16 December 2023) [Introduction to Dynamic Programming] (https://cp-algorithms.com/dynamic_programming/intro-to-dp.html)
+- (16 December 2023) [Introduction to Dynamic Programming](https://cp-algorithms.com/dynamic_programming/intro-to-dp.html)
 - (8 December 2023) [Hungarian Algorithm](https://cp-algorithms.com/graph/hungarian-algorithm.html)
 - (10 September 2023) [Tortoise and Hare Algorithm](https://cp-algorithms.com/others/tortoise_and_hare.html)
 - (12 July 2023) [Finding faces of a planar graph](https://cp-algorithms.com/geometry/planar.html)
