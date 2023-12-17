@@ -80,7 +80,7 @@ These alternative ways of saving state are primarily useful when saving vectors 
 ### *** Very important note***
 
 The layman's way of analyzing the runtime of a memoized recursive function is:
-$$** (work per subproblem) * (number of subproblems) **$$
+$${ \text{work per subproblem} * \text{number of subproblems} }$$
 
 
 Using a binary search tree (map in C++) to save states will technically result in $O(n \log n)$ as each lookup and insertion will take $O(\log n)$ work and with $O(n)$ unique subproblems we have $O(n \log n)$ time.
