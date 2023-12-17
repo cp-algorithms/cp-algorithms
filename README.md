@@ -25,7 +25,9 @@ Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorith
 - January 16, 2022: Switched to the [MkDocs](https://www.mkdocs.org/) site generator with the [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) theme, which give the website a more modern look, brings a couple of new features (dark mode, better search, ...), makes the website more stable (in terms of rendering math formulas), and makes it easier to contribute.
 
 ### New articles
+
 - (16 December 2023) [Introduction to Dynamic Programming] (https://cp-algorithms.com/dynamic_programming/intro-to-dp.html)
+- (8 December 2023) [Hungarian Algorithm](https://cp-algorithms.com/graph/hungarian-algorithm.html)
 - (10 September 2023) [Tortoise and Hare Algorithm](https://cp-algorithms.com/others/tortoise_and_hare.html)
 - (12 July 2023) [Finding faces of a planar graph](https://cp-algorithms.com/geometry/planar.html)
 - (18 April 2023) [Bit manipulation](https://cp-algorithms.com/algebra/bit-manipulation.html)
