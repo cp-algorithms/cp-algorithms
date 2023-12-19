@@ -40,10 +40,12 @@ void solve()
     for (int i = 0; i < n; ++i) {
         x = -1;
         for (Edge e : edges) {
-            if (d[e.a] + e.cost < d[e.b]) {
-                d[e.b] = d[e.a] + e.cost;
-                p[e.b] = e.a;
-                x = e.b;
+            if(d[e.a] < INF){
+                if (d[e.a] + e.cost < d[e.b]) {
+                    d[e.b] = max(-INF, d[e.a] + e.cost);
+                    p[e.b] = e.a;
+                    x = e.b;
+                }
             }
         }
     }
