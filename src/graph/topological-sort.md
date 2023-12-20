@@ -60,23 +60,7 @@ Here is an implementation which assumes that the graph is acyclic, i.e. the desi
 int n; // number of vertices
 vector<vector<int>> adj; // adjacency list of graph
 vector<bool> visited;
-vector<bool> recursion_stack;
 vector<int> ans;
-
-bool has_cycle(int v) {
-    visited[v] = true;
-    recursion_stack[v] = true;
-    for (int u : adj[v]) {
-        if (!visited[u]) {
-            if (has_cycle(u))
-                return true;
-        }
-        else if (recursion_stack[u])
-            return true;
-    }
-    recursion_stack[v] = false;
-    return false;
-}
 
 void dfs(int v) {
     visited[v] = true;
@@ -93,17 +77,14 @@ void topological_sort() {
     ans.clear();
     for (int i = 0; i < n; ++i) {
         if (!visited[i]) {
-            if (has_cycle(i))
-                throw runtime_error("Graph contains cycle");
             dfs(i);
         }
     }
     reverse(ans.begin(), ans.end());
 }
 ```
-This implementation uses an additional `recursion_stack` array to keep track of vertices in the current DFS path. If a visited vertex is found again in the recursion stack, then it means a cycle exists in the graph, and the function throws a runtime error.
 
-The main function of the solution is `topological_sort`, which initializes DFS variables, launches DFS and receives the answer in the vector `ans`.
+The main function of the solution is `topological_sort`, which initializes DFS variables, launches DFS and receives the answer in the vector `ans`. It is worth noting that when the graph is not acyclic, `topological_sort` result would still be somewhat meaningful in a sense that if a vertex $u$ is reachable from vertex $v$, but not vice versa, the vertex $v$ will always come first in the resulting array. This property of the provided implementation is used in [Kosaraju's algorithm](./strongly-connected-components.md) to extract strongly connected components and their topological sorting in a directed graph with cycles.
 
 ## Practice Problems
 
