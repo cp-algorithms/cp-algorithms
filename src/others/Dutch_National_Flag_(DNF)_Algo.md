@@ -1,3 +1,7 @@
+---
+tags:
+  - Original
+---
 
 # Dutch National Flag Algorithm
 
@@ -66,8 +70,3 @@ The Dutch National Flag algorithm operates with O(N) time complexity, where N is
 
 In summary, the Dutch National Flag algorithm is a valuable tool for efficiently sorting an array with three distinct elements while minimizing time and space complexity. Understanding the thought process and intuition behind this algorithm can be a great advantage in interviews, competitive programming, and real-world applications where sorting three distinct values is a common requirement.
 
----
----
-tags:
-  - Original
----
