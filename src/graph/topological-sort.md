@@ -73,7 +73,6 @@ void dfs(int v) {
 
 void topological_sort() {
     visited.assign(n, false);
-    recursion_stack.assign(n, false);
     ans.clear();
     for (int i = 0; i < n; ++i) {
         if (!visited[i]) {
