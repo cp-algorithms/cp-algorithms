@@ -108,55 +108,86 @@ Another class of problems appears when we need to **update array elements on int
 
 For example, let's say we can do two types of operations on an array: add a given value $\delta$ to all array elements on interval $[l, r]$ or query the value of element $a[i]$. Let's store the value which has to be added to all elements of block $k$ in $b[k]$ (initially all $b[k] = 0$). During each "add" operation we need to add $\delta$ to $b[k]$ for all blocks which belong to interval $[l, r]$ and to add $\delta$ to $a[i]$ for all elements which belong to the "tails" of the interval. The answer a query $i$ is simply $a[i] + b[i/s]$. This way "add" operation has $O(\sqrt{n})$ complexity, and answering a query has $O(1)$ complexity.
 
-Finally, those two classes of problems can be combined if the task requires doing **both** element updates on an interval and queries on an interval. Both operations can be done with $O(\sqrt{n})$ complexity. This will require two block arrays $b$ and $c$: one to keep track of element updates and another to keep track of answers to the query.
+Finally, those two classes of problems can be combined if the task requires doing **both** element updates on an interval and queries on an interval. Both operations can be done with $O(\sqrt{n})$ complexity. This will require two block arrays $b$ and $c$: one to keep track of element updates and another to keep track of answers to the query. An example of how to do this is shown below.
 
-```py
-class SqrtDecomp:
-    def __init__(self, nums):
-        self.nums = nums
-        self.width = int(len(nums) ** 0.5) + 1
-        self.bn = (len(nums) // self.width) + 1  # number of blocks
-        self.blocks = [0] * self.bn  # precomputed sums
-        self.lazy = [0] * self.bn  # an additional lazy[block] is added when querying individual elements in a block
-        for i in range(len(nums)):
-            self.blocks[i // self.width] += nums[i]  # add to corresponding block
+```cpp
+class SqrtDecomp {
+    vector<int> a, b, c;
+    int len, block_count;
 
-    def update(self, i, j, diff):
-        first = (i // self.width) + 1  # first fully covered block
-        last = (j // self.width) - 1  # last fully covered block
-        if first > last:  # doesn't cover any blocks
-            for v in range(i, j + 1):
-                self.nums[v] += diff
-                self.blocks[v // self.width] += diff
-            return
+public:
+    SqrtDecomp(vector<int>& input) {
+        len = sqrt(input.size());
+        this->a = input;
+        this->a.resize(input.size() + len, 0);
+        block_count = (input.size() / len) + 1;
+        b.resize(block_count, 0);
+        c.resize(block_count, 0);  // an additional c[block] is added when querying elements in block
+        for (int i = 0; i < block_count; ++i) {  // compute block sums
+            b[i] = accumulate(a.begin() + i * len, a.begin() + (i + 1) * len, 0);
+        }
+    }
+    void update(int l, int r, int diff) {
+        int c_l = (l / len) + 1;
+        int c_r = (r / len) - 1;
+        if (c_l > c_r) {  // doesn't cover any blocks
+            for (int i = l; i <= r; ++i) {
+                a[i] += diff;
+                b[i / len] += diff;
+            }
+            return;
+        }
 
-        for b in range(first, last + 1):  # blocks in the middle
-            self.lazy[b] += diff
-            self.blocks[b] += diff * self.width
-        for v in range(i, first * self.width):  # individual cells
-            self.nums[v] += diff
-            self.blocks[first - 1] += diff
-        for v in range((last + 1) * self.width, j + 1):
-            self.nums[v] += diff
-            self.blocks[last + 1] += diff
+        for (int i = c_l; i <= c_r; ++i) {  // update blocks
+            c[i] += diff;
+            b[i] += diff * len;
+        }
+        for (int i = l; i < c_l * len; ++i) {  // update individual cells
+            a[i] += diff;
+            b[c_l - 1] += diff;
+        }
+        for (int i = (c_r + 1) * len; i <= r; ++i) {
+            a[i] += diff;
+            b[c_r + 1] += diff;
+        }
+    }
 
-    def query(self, i, j):
-        first = (i // self.width) + 1  # first fully covered block
-        last = (j // self.width) - 1  # last fully covered block
-        res = 0
+    int query(int l, int r) {
+        int c_l = (l / len) + 1;
+        int c_r = (r / len) - 1;
+        int sum = 0;
 
-        if first > last:  # doesn't cover any blocks
-            for v in range(i, j + 1):
-                res += self.nums[v] + self.lazy[v // self.width]
-            return res
+        if (c_l > c_r) {  // doesn't cover any blocks
+            for (int i = l; i <= r; ++i) {
+                sum += a[i] + c[i / len];
+            }
+            return sum;
+        }
 
-        for b in range(first, last + 1):  # add value from blocks
-            res += self.blocks[b]
-        for v in range(i, first * self.width):  # add value from individual cells
-            res += self.nums[v] + self.lazy[first - 1]
-        for v in range((last + 1) * self.width, j + 1):
-            res += self.nums[v] + self.lazy[last + 1]
-        return res
+        for (int i = c_l; i <= c_r; ++i) {  // add value from blocks
+            sum += b[i];
+        }
+        for (int i = l; i < c_l * len; ++i) {  // add value from individual cells
+            sum += a[i] + c[c_l - 1];
+        }
+        for (int i = (c_r + 1) * len; i <= r; ++i) {
+            sum += a[i] + c[c_r + 1];
+        }
+        return sum;
+    }
+};
+```
+
+We can now perform updates and queries on an interval.
+```cpp
+vector<int> a(N);
+// create a from input
+
+SqrtDecomp sq(a);
+int l, r, x;
+// read input data for the next query
+sq.update(l, r, x);  // add x to every element on the interval [l, r]
+cout << sq.query(l, r) << "\n";  // query the sum of elements in the interval [l, r]
 ```
 
 There exist other problems which can be solved using sqrt decomposition, for example, a problem about maintaining a set of numbers which would allow adding/deleting numbers, checking whether a number belongs to the set and finding $k$-th largest number. To solve it one has to store numbers in increasing order, split into several blocks with $\sqrt{n}$ numbers in each. Every time a number is added/deleted, the blocks have to be rebalanced by moving numbers between beginnings and ends of adjacent blocks.
