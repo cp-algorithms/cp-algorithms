@@ -66,6 +66,10 @@ void dfs(int v, int p = -1) {
     }
     if(p == -1 && children > 1)
         IS_CUTPOINT(v);
+
+    // If the current node 'v' is a leaf node, it is a articulation point.
+    if(children == 0)
+        IS_CUTPOINT(v);
 }
  
 void find_cutpoints() {
