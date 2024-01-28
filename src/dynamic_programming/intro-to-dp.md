@@ -77,17 +77,18 @@ int f(int n) {
 Both of these will almost always be slower than the array-based version for a generic memoized recursive function.
 These alternative ways of saving state are primarily useful when saving vectors or strings as part of the state space.
 
-### *** Very important note***
-
 The layman's way of analyzing the runtime of a memoized recursive function is:
-$${ \text{work per subproblem} * \text{number of subproblems} }$$
 
+$$\text{work per subproblem} * \text{number of subproblems}$$
 
 Using a binary search tree (map in C++) to save states will technically result in $O(n \log n)$ as each lookup and insertion will take $O(\log n)$ work and with $O(n)$ unique subproblems we have $O(n \log n)$ time.
+
+This approach is called top-down, as we can call the function with a query value and the calculation starts going from the top (queried value) down to the bottom (base cases of the recursion), and makes shortcuts via memorization on the way.
 
 ## Bottom-up Dynamic Programming
 
 Until now you've only seen top-down dynamic programming with memoization. However, we can also solve problems with bottom-up dynamic programming. 
+Bottom up is exactly the opposite of top-down, you start at the bottom (base cases of the recursion), and extend it to more and more values.
 
 To create a bottom-up approach for fibonacci numbers, we initilize the base cases in an array. Then, we simply use the recursive definition on array:
 
@@ -126,7 +127,7 @@ int f(int n) {
 
 Note that we've changed the constant from `MAXN` TO `MAX_SAVE`. This is because the total number of elements we need to have access to is only 3. It no longer scales with the size of input and is, by definition, $O(1)$ memory. Additionally, we use a common trick (using the modulo operator) only maintaining the values we need.
 
-That's it. That's the basics of dynamic programming: Don't repeat work you've done before.  
+That's it. That's the basics of dynamic programming: Don't repeat work you've done before.
 
 One of the tricks to getting better at dynamic programming is to study some of the classic examples.
 
