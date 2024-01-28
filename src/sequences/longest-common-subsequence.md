@@ -46,7 +46,7 @@ For each, $x$ and $y$, we'll check if solution already exists or not. If it does
 ```cpp title="lcs_caching" linenums="1"
 int longest_common_subsequence_caching(string text1, string text2) {
 	int a = text1.size(), b = text2.size();
-	space.resize(a, vector<int>(b, -1));
+	vector<vector<int>> space(a, vector<int>(b, -1));
 
 	function<int(int x, int y)> lcs = [&](int x, int y) -> int {
 		if (x >= a || y >= b) return 0;
@@ -108,7 +108,7 @@ Pull DP is when, the solution for current state relies on the previous calculate
 ```cpp title="lcs_pull_dp" linenums="1"
 int longest_common_subsequence_pulldp(string text1, string text2) {
 	int a = text1.size(), b = text2.size();
-	space.resize(a + 1, vector<int>(b + 1, 0));
+	vector<vector<int>> space(a + 1, vector<int>(b + 1, 0));
 
 	for (int i = 1; i <= a; i++) {
 		for (int j = 1; j <= b; j++) {
@@ -134,7 +134,7 @@ Push DP is when the solution for current state contributes to the future state/s
 ```cpp title="lcs_push_dp" linenums="1"
 int longest_common_subsequence_pushdp(string text1, string text2) {
 	int a = text1.size(), b = text2.size();
-	space.resize(a + 1, vector<int>(b + 1, 0));
+	vector<vector<int>> space(a + 1, vector<int>(b + 1, 0));
 
 	for (ll i = 0; i < a; i++) {
 		for (ll j = 0; j < b; j++) {
@@ -151,6 +151,53 @@ Here, lets focus on one part of the transition from above solution
 
 $$space[i + 1][j + 1] = space[i][j] + 1;$$
 
-We can see that the current state represented by $i$ and $j$ as current index for both the strings as $space[i][j]$, is contributing for the solution of upcoming state for $space[i + 1][j + 1]$
+We can see that the current state represented by $i$ and $j$ as current index for both the strings as $space[i][j]$, is contribu.ting for the solution of upcoming state for $space[i + 1][j + 1]$
 
 Push DP and Pull DP are not that much different from each other, you can decide for yourself which idea to solve tabulated DP clicks you.
+
+## Retrieve Longest Common Subsequence from DP solution
+
+Once we have filled the $space$ (the 2-dimensional vector used in above tabulated solutions), we can retrieve the _longest common subsequence_ string itself from that 2-dimensional space itself.
+
+Intuition is simple. Let's initialize a empty string $res$, which will store the longest common subsequence. We know that the very end cell of the 2D space is the result containing the length of longest common subsequence. We will start from there.
+
+For $i$ and $j$, we'll start with very end cell ie., $i = text1.size()$ and $j = text2.size()$. We'll move as follow:
+
+- If $text1[i - 1] == $text2[j - 1]$ matches then it means that the character is common in both the strings, and we'll add that character to $res$.
+- If it doesn't match, then we'll move to the next adjacent cell (either above or left side) whichever contains max value, which means that we're following the path of common subsequence which is longest and in which direction we move, we decrement either $i$ or $j$.
+
+Once the $res$ is filled properly, that longest common substring itself is in reverse, so to get answer properly we'll have to reverse the string $res$ itself. C++ stl provides `reverse()` method, but I'm providing this small algorithm here:
+
+```cpp title="reverse string" linenums="1"
+int sz = res.size();
+for (int i = 0; i < sz / 2; i++) {
+	char temp = res[i];
+	res[i] = res[sz - i - 1];
+	res[sz - i - 1] = temp;
+}
+```
+
+Here's the implementation, which will make the idea clear:
+
+### Implementation
+
+```cpp title="retrieve lcs string" linenums="1"
+string retreive_longest_common_subsequence(string text1, string text2, vector<vector<int>>& space) {
+	string res{};
+
+	int i = text1.size(), j = text2.size();
+	while (i > 0 && j > 0) {
+		if (text1[i - 1] == text2[j - 1]) {
+			res += text1[i - 1];
+			i--, j--;
+		} else {
+			if (space[i - 1][j] > space[i][j - 1]) i--;
+			else j--;
+		}
+	}
+
+	reverse(res.begin(), res.end());
+
+	return res;
+}
+```
