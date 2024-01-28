@@ -44,8 +44,6 @@ int f(int n) {
 
 With our new memoized recursive function, $f(29)$, which used to result in *over 1 million calls*, now results in *only 57* calls, nearly *20,000 times* fewer function calls! Ironically, we are now limited by our data type. $f(46)$ is the last fibonacci number that can fit into a signed 32-bit integer.
 
-### *** Important Note ***
-
 Typically, we try to save states in arrays,if possible, since the lookup time is $O(1)$ with minimal overhead.  However, more generically, we can save states anyway we like. Other examples include maps (binary search trees) or unordered_maps (hash tables).
 
 An example of this might be:
