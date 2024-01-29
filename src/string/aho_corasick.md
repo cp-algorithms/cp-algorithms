@@ -101,7 +101,7 @@ More precisely, suppose we are in a state corresponding to a string $t$, and we 
 If there is an edge labeled with this letter $c$, then we can simply go over this edge, and get the vertex corresponding to $t + c$.
 If there is no such edge, since we want to maintain the invariant that the current state is the longest partial match in the processed string, we must find the longest string in the trie that's a proper suffix of the string $t$, and try to perform a transition from there.
 
-For example, let the trie be constructed by the strings $ab$ and $bc$, and we are currently at the vertex corresponding to $ab$, which is a $\text{output}$.
+For example, let the trie be constructed by the strings $ab$ and $bc$, and we are currently at the vertex corresponding to $ab$, which is an $\text{output}$.
 To transition with the letter $c$, we are forced to go to the state corresponding to the string $b$, and from there follow the edge with the letter $c$.
 
 <center>
