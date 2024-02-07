@@ -160,3 +160,9 @@ int min_cost_flow(int N, vector<Edge> edges, int K, int s, int t) {
         return cost;
 }
 ```
+
+## Practice Problems
+
+* [CSES - Task Assignment](Task Assignment)
+* [CSES - Grid Puzzle II](https://cses.fi/problemset/task/2131)
+* [AtCoder - Dream Team](https://atcoder.jp/contests/abc247/tasks/abc247_g)
