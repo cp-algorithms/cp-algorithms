@@ -86,6 +86,9 @@ void convex_hull(vector<pt>& a, bool include_collinear = false) {
         st.push_back(a[i]);
     }
 
+    if (include_collinear == false && st.size() == 2 && st[0] == st[1])
+        st.pop_back();
+
     a = st;
 }
 ```
