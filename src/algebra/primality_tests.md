@@ -218,3 +218,4 @@ However, since these numbers (except 2) are not prime, you need to check additio
 ## Practice Problems
 
 - [SPOJ - Prime or Not](https://www.spoj.com/problems/PON/)
+- [Project euler - Investigating a Prime Pattern](https://projecteuler.net/problem=146)
