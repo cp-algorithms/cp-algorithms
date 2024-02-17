@@ -152,7 +152,7 @@ bool isPowerOfTwo(unsigned int n) {
 }
 ```
 
-### Clear the most-right set bit
+### Clear the right-most set bit
 
 The expression $n ~\&~ (n-1)$ can be used to turn off the rightmost set bit of a number $n$.
 This works because the expression $n-1$ flips all bits after the rightmost set bit of $n$, including the rightmost set bit.
