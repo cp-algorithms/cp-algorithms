@@ -352,6 +352,7 @@ I.e. go from left to right and assign the current number or that subsequence end
 - [SPOJ - HMLIS](https://www.spoj.com/problems/HMLIS/)
 - [SPOJ - ONEXLIS](https://www.spoj.com/problems/ONEXLIS/)
 - [SPOJ - SUPPER](http://www.spoj.com/problems/SUPPER/)
+- [Leetcode](https://leetcode.com/problems/longest-increasing-subsequence/)
 - [Topcoder - AutoMarket](https://community.topcoder.com/stat?c=problem_statement&pm=3937&rd=6532)
 - [Topcoder - BridgeArrangement](https://community.topcoder.com/stat?c=problem_statement&pm=2967&rd=5881)
 - [Topcoder - IntegerSequence](https://community.topcoder.com/stat?c=problem_statement&pm=5922&rd=8075)
