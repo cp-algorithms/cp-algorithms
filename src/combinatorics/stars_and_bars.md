@@ -77,4 +77,5 @@ See the [Number of upper-bound integer sums](./inclusion-exclusion.md#number-of-
 
 * [Codeforces - Array](https://codeforces.com/contest/57/problem/C)
 * [Codeforces - Kyoya and Coloured Balls](https://codeforces.com/problemset/problem/553/A)
-
+* [Codeforces - Two Arrays](https://codeforces.com/problemset/problem/1288/C)
+* [Codeforces - One-Dimensional Puzzle](https://codeforces.com/contest/1931/problem/G)
