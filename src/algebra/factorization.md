@@ -190,7 +190,7 @@ In this case we don't receive a factor.
 Therefore, we will try to perform the $\gcd$ multiple time, while we compute $M$.
 
 Some composite numbers don't have $B$-powersmooth factors for small $B$.
-Meaning, the factors of the composite number $100~000~000~000~000~493 = 763~013 \cdot 131~059~365~961$ are $190~753$-powersmooth and $1~092~161~383$-powersmooth.
+For example, the factors of the composite number $100~000~000~000~000~493 = 763~013 \cdot 131~059~365~961$ are $190~753$-powersmooth and $1~092~161~383$-powersmooth.
 We will have to choose $B >= 190~753$ to factorize the number.
 
 In the following implementation we start with $B = 10$ and increase $B$ after each each iteration.
