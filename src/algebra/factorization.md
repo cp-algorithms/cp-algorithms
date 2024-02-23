@@ -239,7 +239,7 @@ The algorithm looks at a pseudo-random sequence $\{x_i\} = \{x_0,~f(x_0),~f(f(x_
 
 In this instance, we are not interested in the sequence $\{x_i\}$. 
 We are more interested in the sequence $\{x_i \bmod p\}$.
-Since $f$ is a polynomial function, and all the values are in the range $[0;~p)$, this sequence will eventually begin to cycle.
+Since $f$ is a polynomial function, and all the values are in the range $[0;~p)$, this sequence will eventually converge into a loop.
 The **birthday paradox** actually suggests that the expected number of elements is $O(\sqrt{p})$ until the repetition starts.
 If $p$ is smaller than $\sqrt{n}$, the repetition will likely start in $O(\sqrt[4]{n})$.
 
