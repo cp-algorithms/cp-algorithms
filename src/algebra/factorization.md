@@ -7,7 +7,7 @@ tags:
 
 In this article we list several algorithms for the factorization of integers, each of which can be either fast or varying levels of slow depending on their input.
 
-Notice, if the number that you want to factorize is actually a prime number, most of the algorithms will run very slowly. This is especially true for Fermat's factorization algorithm, Pollard's p-1.
+Notice, if the number that you want to factorize is actually a prime number, most of the algorithms will run very slowly. This is especially true for Fermat's, Pollard's p-1 and Pollard's rho factorization algorithms.
 Therefore, it makes the most sense to perform a probabilistic (or a fast deterministic) [primality test](primality_tests.md) before trying to factorize the number.
 
 ## Trial division
