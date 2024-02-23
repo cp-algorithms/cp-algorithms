@@ -154,7 +154,7 @@ The algorithm runs in $O(|p - q|)$ time.
 In practice though, this method is rarely used. Once factors become further apart, it is extremely slow. 
 
 However, there are still a large number of optimization options regarding this approach.
-By looking at the squares $a^2$ modulo, a fixed small number, it can be observed that certain values don't have to be viewed, $a$ since they cannot produce a square number $a^2 - n$.
+By looking at the squares $a^2$ modulo a fixed small number, it can be observed that certain values $a$ don't have to be viewed, since they cannot produce a square number $a^2 - n$.
 
 
 ## Pollard's $p - 1$ method { data-toc-label="Pollard's <script type='math/tex'>p - 1</script> method" }
