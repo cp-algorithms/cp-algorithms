@@ -43,7 +43,7 @@ vector<long long> trial_division1(long long n) {
 This is an optimization of the trial division.
 Once we know that the number is not divisible by 2, we don't need to check other even numbers.
 This leaves us with only $50\%$ of the numbers to check.
-After checking 2, and determining it is an odd number, we can simply start with 3 and only count other odd numbers.
+After factoring out 2, and getting an odd number, we can simply start with 3 and only count other odd numbers.
 
 ```{.cpp file=factorization_trial_division2}
 vector<long long> trial_division2(long long n) {
@@ -70,10 +70,10 @@ So we only need to check the numbers $5, 7, 11, 13, 17, 19, 23, \dots$.
 We can observe a pattern of these remaining numbers.
 We need to check all numbers with $d \bmod 6 = 1$ and $d \bmod 6 = 5$.
 So this leaves us with only $33.3\%$ percent of the numbers to check.
-We can implement this by checking the primes 2 and 3 first, and upon discovering they are not divisible by said numbers, start with 5 and only count remainders $1$ and $5$ modulo $6$.
+We can implement this by factoring out the primes 2 and 3 first, after which we start with 5 and only count remainders $1$ and $5$ modulo $6$.
 
 Here is an implementation for the prime number 2, 3 and 5.
-A convenient way to store skippable numbers is with an array.
+It is convenient to store skippable numbers in an array.
 
 ```{.cpp file=factorization_trial_division3}
 vector<long long> trial_division3(long long n) {
