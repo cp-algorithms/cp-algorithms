@@ -70,7 +70,7 @@ So we only need to check the numbers $5, 7, 11, 13, 17, 19, 23, \dots$.
 We can observe a pattern of these remaining numbers.
 We need to check all numbers with $d \bmod 6 = 1$ and $d \bmod 6 = 5$.
 So this leaves us with only $33.3\%$ percent of the numbers to check.
-We can implement this by checking the primes 2 and 3 first, and upon discovering they are not divisible by said numbers, check 5.
+We can implement this by checking the primes 2 and 3 first, and upon discovering they are not divisible by said numbers, start with 5 and only count remainders $1$ and $5$ modulo $6$.
 
 Here is an implementation for the prime number 2, 3 and 5.
 A convenient way to store skippable numbers is with an array.
