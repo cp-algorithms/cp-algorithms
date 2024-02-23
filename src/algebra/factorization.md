@@ -381,7 +381,7 @@ Brent's algorithm also runs in linear time, but is generally faster than Floyd's
 ### Implementation
 
 The straightforward implementation of Brent's algorithm can be sped up by omitting the terms $x_l - x_k$ if $k < \frac{3 \cdot l}{2}$.
-In addition, instead of performing the $\gcd$ computation at every step, we multiply the terms every few steps and backtrack if overshot.
+In addition, instead of performing the $\gcd$ computation at every step, we multiply the terms and only actually check $\gcd$ every few steps and backtrack if overshot.
 
 ```{.cpp file=pollard_rho_brent}
 long long brent(long long n, long long x0=2, long long c=1) {
