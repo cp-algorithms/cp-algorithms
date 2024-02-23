@@ -104,7 +104,7 @@ If we continue exending this method to include even more primes, better percenta
 
 ### Precomputed primes
 
-The further we extend the wheel factorization method, we will only be left with prime numbers to check. 
+Extending the wheel factorization method indefinitely, we will only be left with prime numbers to check. 
 A good way of checking this is to precompute all prime numbers with the [Sieve of Eratosthenes](sieve-of-eratosthenes.md) until $\sqrt{n}$, and test them individually.
 
 ```{.cpp file=factorization_trial_division4}
