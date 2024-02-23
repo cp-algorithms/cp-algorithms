@@ -73,7 +73,7 @@ So this leaves us with only $33.3\%$ percent of the numbers to check.
 We can implement this by factoring out the primes 2 and 3 first, after which we start with 5 and only count remainders $1$ and $5$ modulo $6$.
 
 Here is an implementation for the prime number 2, 3 and 5.
-It is convenient to store skippable numbers in an array.
+It is convenient to store the sizes of skipping increments in an array.
 
 ```{.cpp file=factorization_trial_division3}
 vector<long long> trial_division3(long long n) {
