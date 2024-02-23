@@ -249,7 +249,7 @@ From the form of the sequence you can see very clearly why the algorithm is call
 <center>![Pollard's rho visualization](pollard_rho.png)</center>
 
 Yet, there is still an open question.
-If don't know $p$ yet, how can we argue the sequence $\{x_i \bmod p\}$?
+How can we exploit the properties of the sequence $\{x_i \bmod p\}$ to our advantage without even knowing the number $p$ itself?
 
 It's actually quite easy.
 There is a cycle in the sequence $\{x_i \bmod p\}_{i \le j}$ if and only if there are two indices $s, t \le j$ such that $x_s \equiv x_t \bmod p$.
