@@ -1,4 +1,11 @@
-struct pt { double x, y; };
+struct pt {
+    double x, y;
+    pt() {}
+    pt(double x, double y): x(x), y(y) {}
+    bool operator == (pt const& t) const {
+        return x == t.x && y == t.y;
+    }
+};
 
 struct ConvexHull {
     vector<pt> points;
