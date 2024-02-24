@@ -47,6 +47,11 @@ of the algorithm, otherwise you wouldn't get the smallest convex hull.
 ```{.cpp file=graham_scan}
 struct pt {
     double x, y;
+    pt() {}
+    pt(double x, double y): x(x), y(y) {}
+    bool operator == (pt const& t) const {
+        return x == t.x && y == t.y;
+    }
 };
 
 int orientation(pt a, pt b, pt c) {
