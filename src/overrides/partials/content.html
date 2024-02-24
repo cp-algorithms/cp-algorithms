@@ -3,7 +3,7 @@ window.onload = function() {
 	const newIssueURL = "https://github.com/cp-algorithms/cp-algorithms/issues/new";
   const issueTitle = "Problem on article " + {{page.title | tojson }};
 	const issueBody = `
- **Article:** [{{page.title}}](${window.location.href})
+ **Article:** [`+ {{page.title | tojson }} + `](${window.location.href})
 
 **Problem:**
 <!--
