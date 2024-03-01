@@ -1,6 +1,11 @@
+---
+tags:
+    - Original
+---
+
 # Longest Common Subsequence
 
-Given two strings with of length $a$ and $b$ respectively, where $0 <= a, b <= n$. The task is to find the _length_ of **longest subsequence** which exists in both the strings.
+Given two strings with of length $a$ and $b$ respectively, where $0 \leq a, b \leq n$. The task is to find the _length_ of **longest subsequence** which exists in both the strings.
 
 **Subsequence** of a string is considered collection of characters from that string where some chars are deleted and relative ordering of characters are not changed.
 
