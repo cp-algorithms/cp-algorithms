@@ -28,7 +28,7 @@ theme:
 repo_url: https://github.com/cp-algorithms/cp-algorithms
 repo_name: cp-algorithms/cp-algorithms
 edit_uri: edit/master/src/
-copyright: Text is available under the <a href="https://github.com/cp-algorithms/cp-algorithms/blob/master/LICENSE">Creative Commons Attribution Share Alike 4.0 International</a> License<br/>Copyright &copy; 2014 - 2022 by <a href="https://github.com/cp-algorithms">https://github.com/cp-algorithms</a>
+copyright: Text is available under the <a href="https://github.com/cp-algorithms/cp-algorithms/blob/master/LICENSE">Creative Commons Attribution Share Alike 4.0 International</a> License<br/>Copyright &copy; 2014 - 2024 by <a href="https://github.com/cp-algorithms">https://github.com/cp-algorithms</a>
 extra_javascript:
   - javascript/config.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6
