@@ -25,6 +25,7 @@ theme:
     - navigation.tabs
     - toc.integrate
     - search.suggest
+    - content.code.copy
 repo_url: https://github.com/cp-algorithms/cp-algorithms
 repo_name: cp-algorithms/cp-algorithms
 edit_uri: edit/master/src/
