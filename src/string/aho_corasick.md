@@ -227,7 +227,7 @@ How can we find out for a state $v$, if there are any matches with strings for t
 First, it is clear that if we stand on a $\text{output}$ vertex, then the string corresponding to the vertex ends at this position in the text.
 However this is by no means the only possible case of achieving a match:
 if we can reach one or more  $\text{output}$ vertices by moving along the suffix links, then there will be also a match corresponding to each found $\text{output}$ vertex.
-A simple example demonstrating this situation can be creating using the set of strings $\{dabce, abc, bc\}$ and the text $dabc$.
+A simple example demonstrating this situation can be created using the set of strings $\{dabce, abc, bc\}$ and the text $dabc$.
 
 Thus if we store in each $\text{output}$ vertex the index of the string corresponding to it (or the list of indices if duplicate strings appear in the set), then we can find in $O(n)$ time the indices of all strings which match the current state, by simply following the suffix links from the current vertex to the root.
 This is not the most efficient solution, since this results in $O(n ~ \text{len})$ complexity overall.
