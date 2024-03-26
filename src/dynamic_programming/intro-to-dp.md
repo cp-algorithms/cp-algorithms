@@ -107,7 +107,7 @@ Of course, as written, this is a bit silly for two reasons:
 Firstly, we do repeated work if we call the function more than once. 
 Secondly, we only need to use the two previous values to calculate the current element. Therefore, we can reduce our memory from $O(n)$ to $O(1)$. 
 
-An example of a bottom up dynamic programing solution for fibonacci which uses $O(1)$ might be:
+An example of a bottom up dynamic programming solution for fibonacci which uses $O(1)$ might be:
 
 ```cpp
 const int MAX_SAVE = 3;
