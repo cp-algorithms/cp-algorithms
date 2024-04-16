@@ -173,7 +173,7 @@ $$a^{p - 1} \equiv 1 \pmod{p}$$
 
 This also means that
 
-$$a^{(p - 1)^k} \equiv a^{k \cdot (p - 1)} \equiv 1 \pmod{p}.$$
+$${\left(a^{(p - 1)}\right)}^k \equiv a^{k \cdot (p - 1)} \equiv 1 \pmod{p}.$$
 
 So for any $M$ with $p - 1 ~|~ M$ we know that $a^M \equiv 1$.
 This means that $a^M - 1 = p \cdot r$, and because of that also $p ~|~ \gcd(a^M - 1, n)$.
@@ -187,7 +187,7 @@ $$M = \prod_{\text{prime } q \le B} q^{\lfloor \log_q B \rfloor}$$
 
 Notice, if $p-1$ divides $M$ for all prime factors $p$ of $n$, then $\gcd(a^M - 1, n)$ will just be $n$.
 In this case we don't receive a factor.
-Therefore, we will try to perform the $\gcd$ multiple time, while we compute $M$.
+Therefore, we will try to perform the $\gcd$ multiple times, while we compute $M$.
 
 Some composite numbers don't have $B$-powersmooth factors for small $B$.
 For example, the factors of the composite number $100~000~000~000~000~493 = 763~013 \cdot 131~059~365~961$ are $190~753$-powersmooth and $1~092~161~383$-powersmooth.
