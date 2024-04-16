@@ -78,7 +78,7 @@ there exist some composite numbers where $a^{n-1} \equiv 1 \bmod n$ holds for al
 Such numbers are called *Carmichael numbers*.
 The Fermat primality test can identify these numbers only, if we have immense luck and choose a base $a$ with $\gcd(a, n) \ne 1$.
 
-The Fermat test is still be used in practice, as it is very fast and Carmichael numbers are very rare.
+The Fermat test is still being used in practice, as it is very fast and Carmichael numbers are very rare.
 E.g. there only exist 646 such numbers below $10^9$.
 
 ## Miller-Rabin primality test
