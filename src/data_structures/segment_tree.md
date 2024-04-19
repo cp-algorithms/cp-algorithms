@@ -188,6 +188,7 @@ In the main program this function will be called with the parameters of the root
 void build(int a[], int v, int tl, int tr) {
     if (tl == tr) {
         t[v] = a[tl];
+        return;
     } else {
         int tm = (tl + tr) / 2;
         build(a, v*2, tl, tm);
