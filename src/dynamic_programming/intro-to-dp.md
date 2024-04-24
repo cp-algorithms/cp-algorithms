@@ -168,7 +168,7 @@ One of the tricks to getting better at dynamic programming is to study some of t
   <dd>a technique used to solve various problems related to trees, such as finding the longest path, computing subtree properties, or counting certain structures within the tree. </dd>
 
   <dt>Range Dynamic Programming</dt>
-  <dd>FinRange Dynamic Programming is a technique used to solve problems where you need to find optimal solutions for subranges within a given range or array. </dd>
+  <dd>Range Dynamic Programming is a technique used to solve problems where you need to find optimal solutions for subranges within a given range or array. </dd>
 
 
 </dl>
