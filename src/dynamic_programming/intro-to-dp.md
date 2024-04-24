@@ -130,48 +130,22 @@ That's it. That's the basics of dynamic programming: Don't repeat work you've do
 One of the tricks to getting better at dynamic programming is to study some of the classic examples.
 
 ## Classic Dynamic Programming Problems
-<dl>
-  <dt>0-1 Knapsack</dt>
-  <dd>given a set of items, each with a weight and a value, and a knapsack with a maximum capacity.</dd>
-
-  <dt>Subset Sum</dt>
-  <dd>you are given a set of integers and a target sum. The task is to determine whether there exists a subset of the given set whose elements sum up to the target sum.</dd>
-
-  <dt>Longest Increasing Subsequence</dt>
-  <dd>It's a problem that asks for the length of the longest subsequence of a given sequence such that all elements of the subsequence are sorted in increasing order.</dd>
-
-  <dt>Counting all possible paths from top left to bottom right corner of a matrix</dt>
-  <dd>solved using dynamic programming or recursion with memoization.</dd>
-
-  <dt>Longest Common Subsequence</dt>
-  <dd>Given two sequences (usually strings), the task is to find the length of the longest subsequence that is common to both sequences.</dd>
-
-  <dt>Longest Path in a Directed Acyclic Graph (DAG)</dt>
-  <dd>Unlike finding the longest path in a general graph, which is an NP-hard problem, finding the longest path in a DAG can be solved efficiently using dynamic programming.</dd>
-
-  <dt>Longest Palindromic Subsequence</dt>
-  <dd>Finding the Longest Palindromic Subsequence (LPS) of a given string.</dd>
-
-  <dt>Rod Cutting</dt>
-  <dd>It involves finding the maximum revenue that can be obtained by cutting a rod of length n into smaller pieces and selling them. </dd>
-
-  <dt>Edit Distance</dt>
-  <dd>It involves finding the minimum number of operations required to transform one string into another, where the allowed operations are insertion, deletion, or substitution of a single character. </dd>
-
-  <dt>Bitmask Dynamic Programming</dt>
-  <dd>Bitmask Dynamic Programming is a technique used to solve combinatorial optimization problems, where the state can be represented compactly using bitmasks. </dd>
-
-  <dt>Digit Dynamic Programming</dt>
-  <dd>Digit Dynamic Programming is a technique used to solve problems related to digits of a number. </dd>
-
-  <dt>Dynamic Programming on Trees</dt>
-  <dd>a technique used to solve various problems related to trees, such as finding the longest path, computing subtree properties, or counting certain structures within the tree. </dd>
-
-  <dt>Range Dynamic Programming</dt>
-  <dd>Range Dynamic Programming is a technique used to solve problems where you need to find optimal solutions for subranges within a given range or array. </dd>
-
-
-</dl>
+| Name                                           | Description                                                                                                                                                                                      | Example Poblems                                                                                                                                 |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0-1 Knapsack                                   | 0-1 Knapsack                                                                                                                                                                                     | given a set of items, each with a weight and a value, and a knapsack with a maximum capacity.                                                   | [D - Knapsack 1 (](https://atcoder.jp/contests/dp/tasks/dp_d)[atcoder.jp](http://atcoder.jp)[)](https://atcoder.jp/contests/dp/tasks/dp_d) |
+| 0-1 Knapsack                                   |
+| Subset Sum                                     | you are given a set of integers and a target sum. The task is to determine whether there exists a subset of the given set whose elements sum up to the target sum.                               |                                                                                                                                                 |
+| Longest Increasing Subsequence                 | It's a problem that asks for the length of the longest subsequence of a given sequence such that all elements of the subsequence are sorted in increasing order.                                 | [Longest Increasing Subsequence - LeetCode](https://leetcode.com/problems/longest-increasing-subsequence/description/)                          |
+| Counting all possible paths in a matrix.       | Solved using dynamic programming or recursion with memoization.                                                                                                                                  | [Unique Paths - LeetCode](https://leetcode.com/problems/unique-paths/description/)                                                              |
+| Longest Common Subsequence                     | Given two sequences (usually strings), the task is to find the length of the longest subsequence that is common to both sequences.                                                               | [F - LCS (](https://atcoder.jp/contests/dp/tasks/dp_f)[atcoder.jp](http://atcoder.jp)[)](https://atcoder.jp/contests/dp/tasks/dp_f)             |
+| Longest Path in a Directed Acyclic Graph (DAG) | Unlike finding the longest path in a general graph, which is an NP-hard problem, finding the longest path in a DAG can be solved efficiently using dynamic programming.                          | [G - Longest Path (](https://atcoder.jp/contests/dp/tasks/dp_g)[atcoder.jp](http://atcoder.jp)[)](https://atcoder.jp/contests/dp/tasks/dp_g)    |
+| Longest Palindromic Subsequence                | Finding the Longest Palindromic Subsequence (LPS) of a given string.                                                                                                                             | [Longest Palindromic Subsequence - LeetCode](https://leetcode.com/problems/longest-palindromic-subsequence/description/)                        |
+| Rod Cutting                                    | It involves finding the maximum revenue that can be obtained by cutting a rod of length n into smaller pieces and selling them.                                                                  |                                                                                                                                                 |
+| Edit Distance                                  | It involves finding the minimum number of operations required to transform one string into another, where the allowed operations are insertion, deletion, or substitution of a single character. | [CSES - Edit Distance](https://cses.fi/problemset/task/1639)                                                                                    |
+| Bitmask Dynamic Programming                    | Bitmask Dynamic Programming is a technique used to solve combinatorial optimization problems, where the state can be represented compactly using bitmasks.                                       | [Problem - F - Codeforces](https://codeforces.com/contest/1043/problem/F)                                                                       |
+| Digit Dynamic Programming                      | Digit Dynamic Programming is a technique used to solve problems related to digits of a number.                                                                                                   | [SPOJ.com](http://SPOJ.com) [- Problem PR003004](https://www.spoj.com/problems/PR003004/)                                                       |
+| Dynamic Programming on Trees                   | A technique used to solve various problems related to trees, such as finding the longest path, computing subtree properties, or counting certain structures within the tree.                     | [P - Independent Set (](https://atcoder.jp/contests/dp/tasks/dp_p)[atcoder.jp](http://atcoder.jp)[)](https://atcoder.jp/contests/dp/tasks/dp_p) |
+| Range Dynamic Programming                      | Range Dynamic Programming is a technique used to solve problems where you need to find optimal solutions for subranges within a given range or array.                                            |                                                                                                                                                 |
 
 Of course, the most important trick is to practice.
 
