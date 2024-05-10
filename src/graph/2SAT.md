@@ -102,64 +102,72 @@ Below is the implementation of the solution of the 2-SAT problem for the already
 In the graph the vertices with indices $2k$ and $2k+1$ are the two vertices corresponding to variable $k$ with $2k+1$ corresponding to the negated variable.
 
 ```{.cpp file=2sat}
-int n;
-vector<vector<int>> adj, adj_t;
-vector<bool> used;
-vector<int> order, comp;
-vector<bool> assignment;
+struct TwoSatSolver {
+    int n;
+    vector<vector<int>> adj, adj_t;
+    vector<bool> used;
+    vector<int> order, comp;
+    vector<bool> assignment;
 
-void dfs1(int v) {
-    used[v] = true;
-    for (int u : adj[v]) {
-        if (!used[u])
-            dfs1(u);
-    }
-    order.push_back(v);
-}
-
-void dfs2(int v, int cl) {
-    comp[v] = cl;
-    for (int u : adj_t[v]) {
-        if (comp[u] == -1)
-            dfs2(u, cl);
-    }
-}
-
-bool solve_2SAT() {
-    order.clear();
-    used.assign(n, false);
-    for (int i = 0; i < n; ++i) {
-        if (!used[i])
-            dfs1(i);
+    // n is the number of variables
+    TwoSatSolver(int n) : n(n), adj(2 * n), adj_t(2 * n), used(2 * n), order(), comp(2 * n, -1), assignment(n) {
+        order.reserve(2 * n);
     }
 
-    comp.assign(n, -1);
-    for (int i = 0, j = 0; i < n; ++i) {
-        int v = order[n - i - 1];
-        if (comp[v] == -1)
-            dfs2(v, j++);
+    void dfs1(int v) {
+        used[v] = true;
+        for (int u : adj[v]) {
+            if (!used[u])
+                dfs1(u);
+        }
+        order.push_back(v);
     }
 
-    assignment.assign(n / 2, false);
-    for (int i = 0; i < n; i += 2) {
-        if (comp[i] == comp[i + 1])
-            return false;
-        assignment[i / 2] = comp[i] > comp[i + 1];
+    void dfs2(int v, int cl) {
+        comp[v] = cl;
+        for (int u : adj_t[v]) {
+            if (comp[u] == -1)
+                dfs2(u, cl);
+        }
     }
-    return true;
-}
 
-void add_disjunction(int a, bool na, int b, bool nb) {
-    // na and nb signify whether a and b are to be negated 
-    a = 2*a ^ na;
-    b = 2*b ^ nb;
-    int neg_a = a ^ 1;
-    int neg_b = b ^ 1;
-    adj[neg_a].push_back(b);
-    adj[neg_b].push_back(a);
-    adj_t[b].push_back(neg_a);
-    adj_t[a].push_back(neg_b);
-}
+    // m will be the number of vertices in the graph (= 2 * n)
+    bool solve_2SAT(int m) {
+        order.clear();
+        used.assign(m, false);
+        for (int i = 0; i < m; ++i) {
+            if (!used[i])
+                dfs1(i);
+        }
+
+        comp.assign(m, -1);
+        for (int i = 0, j = 0; i < m; ++i) {
+            int v = order[m - i - 1];
+            if (comp[v] == -1)
+                dfs2(v, j++);
+        }
+
+        assignment.assign(m / 2, false);
+        for (int i = 0; i < m; i += 2) {
+            if (comp[i] == comp[i + 1])
+                return false;
+            assignment[i / 2] = comp[i] > comp[i + 1];
+        }
+        return true;
+    }
+
+    void add_disjunction(int a, bool na, int b, bool nb) {
+        // na and nb signify whether a and b are to be negated 
+        a = 2 * a ^ na;
+        b = 2 * b ^ nb;
+        int neg_a = a ^ 1;
+        int neg_b = b ^ 1;
+        adj[neg_a].push_back(b);
+        adj[neg_b].push_back(a);
+        adj_t[b].push_back(neg_a);
+        adj_t[a].push_back(neg_b);
+    }
+};
 ```
 
 ## Practice Problems
