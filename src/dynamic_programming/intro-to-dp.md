@@ -152,4 +152,5 @@ Of course, the most important trick is to practice.
 * [LeetCode - 1025. Divisor Game](https://leetcode.com/problems/divisor-game/description/)
 * [Codeforces - Zuma](https://codeforces.com/problemset/problem/607/b)
 * [LeetCode - 221. Maximal Square](https://leetcode.com/problems/maximal-square/description/)
+* [LeetCode - 1039. Minimum Score Triangulation of Polygon](https://leetcode.com/problems/minimum-score-triangulation-of-polygon/description/)
 
