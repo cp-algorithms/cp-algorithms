@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <cassert>
 #include <vector>
 #include <set>
@@ -14,7 +15,7 @@ void normalize(vector<pair<int,int>> &v){
     for(auto &p : v){
         if(p.first > p.second)swap(p.first, p.second);
     }
-    std::sort(v.begin(), v.end());
+    sort(v.begin(), v.end());
 }
 
 void test_suite(
