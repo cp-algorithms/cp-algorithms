@@ -14,7 +14,7 @@ void normalize(vector<pair<int,int>> &v){
     for(auto &p : v){
         if(p.first > p.second)swap(p.first, p.second);
     }
-    sort(v.begin(), v.end());
+    std::sort(v.begin(), v.end());
 }
 
 void test_suite(
