@@ -168,3 +168,4 @@ void add_disjunction(int a, bool na, int b, bool nb) {
  * [UVA: Rectangles](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3081)
  * [Codeforces : Radio Stations](https://codeforces.com/problemset/problem/1215/F)
  * [CSES : Giant Pizza](https://cses.fi/problemset/task/1684)
+ * [Codeforces: +-1](https://codeforces.com/contest/1971/problem/H)
