@@ -14,7 +14,7 @@ There are $n$ distinct items and a knapsack of capacity $W$. Each item has 2 att
 You have to select a subset of items to put into the knapsack such that the total weight does not exceed the capacity $W$ and the total value is maximized.
 
 In the example above, since each object has only two possible states (taken or not taken),
-correspoding to binary 0 and 1, this type of problem is called "0-1 knapsack problem".
+correspoding to binary 0 and 1. Thus, this type of problem is called "0-1 knapsack problem".
 
 ## 0-1 Knapsack
 
