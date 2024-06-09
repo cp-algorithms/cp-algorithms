@@ -36,13 +36,13 @@ $$f_{i, j} = \max(f_{i-1, j}, f_{i-1, j-w_i} + v_i)$$
 
 Further, as $f_{i}$ is only dependent on $f_{i-1}$, we can remove the first dimension. We obtain:
 
-$$f_{j} = \max(f_{j}, f_{j-w_i} + v_i)$$
+$$f_j \gets \max(f_j, f_{j-w_i}+v_i)$$
 
-**It is important to remember and understand this transfer equation, because most of the transfer equations for knapsack problems are derived on this basis.**
+**It is important to understand this transition rule, because most of the transitions for knapsack problems are derived in a similar way.**
 
 ### Implementation
 
-Another thing to note is that it is easy to write **erroneous code** like this
+It may be tempting to write **erroneous code** as follows:
 
 ```.c++
 for (int i = 1; i <= n; i++)
@@ -50,14 +50,14 @@ for (int i = 1; i <= n; i++)
     f[j + w[i]] = max(f[j + w[i]], f[j] + v[i]);
 ```
 
-What is wrong with this code? The enumeration order is wrong.
+The problem of the code above is the wrong execution order.
 
-Observing the code carefully, we can find that: for the currently processed item $i$ and the current state $f_{i,j}$, 
+Observing the code carefully, we see that for the currently processed item $i$ and the current state $f_{i,j}$, 
 when $j\geqslant w_{i}$, $f_{i,j}$ will be affected by $f_{i,j-w_{i}}$. 
-This is equivalent to being able to be put item $i$ into the backpack multiple times, which is not consistent with the question.
+This is equivalent to being able to put item $i$ into the backpack multiple times, which is not consistent with the question.
 (In fact, this is exactly the solution to the complete knapsack problem)
 
-To avoid this, we can change the order of enumeration from $W$ to $w_{i}$, so that the above error won't occour, because $f_{i, j}$ is always updated before $f_{i, j-w_i}$
+To avoid this, we can change the order of execution to go over $j$ from $W$ to $w_{i}$, so that the above error won't occour, because $f_{i, j}$ is always implicitly updated before $f_{i, j-w_i}$
 
 Therefore, the actual code is
 
@@ -73,27 +73,27 @@ The complete knapsack model is similar to the 0-1 knapsack, the only difference 
 
 We can refer to the idea of 0-1 knapsack to define the state: $f_{i, j}$, the maximum value the knapsack can obtain using the first $i$ items with maximum capacity $j$.
 
-It should be noted that although the state definition is similar to that of a 0-1 knapsack, its state transfer equation is different from that of a 0-1 knapsack.
+It should be noted that although the state definition is similar to that of a 0-1 knapsack, its transition rule is different from that of a 0-1 knapsack.
 
 ### Explaination
 
 The trivial approach is, for the first $i$ items, enumerate how many each item is to be taken. The time complexity of this is $O(n^3)$.
 
-The state transfer function follows:
+This yields the following transition equation:
 
 $$f_{i, j} = \max\limits_{k=0}^{\infty}(f_{i-1, j-k\cdot w_i} + k\cdot v_i)$$
 
 It can be found that for $f_{i, j}$, it can just transfer through $f_{i, j-w_i}$. The state transfer equation becomes:
 
-$$f_{i, j} = \max(f_{i-1, j},f_{i, j-w_i} + v_i)$$\
+$$f_{i, j} = \max(f_{i-1, j},f_{i, j-w_i} + v_i)$$
 
-The reason this works is that when we transfer like this, $f_{i, j-w_i}$ has already been updated by $f_{i, j-2\cdot w_i}$ and so on.
+The reason this works is that $f_{i, j-w_i}$ has already been updated by $f_{i, j-2\cdot w_i}$ and so on.
 
 Similar to the 0-1 knapsack, we can remove the first dimension to optimize the space complexity.
 
 ## Multiple Knapsack
 
-Multiple knapsack is also a variant of 0-1 knapsack. The main difference is that there are $k_i$ of each item instead of just 1.
+Multiple knapsack is also a variant of 0-1 knapsack. The main difference is that there are $k_i$ of each item instead of just $1$.
 
 ### Explaination
 
@@ -107,7 +107,7 @@ The time complexity of this process is $O(W\sum\limits_{i=1}^{n}k_i)$
 
 We still consider converting the multiple knapsack model into a 0-1 knapsack model for optimization. The time complexity $O(Wn)$ can not be further optimized, so we focus on $O(\sum k_i)$.
 
-Let $A_{i, j}$ denote the $j^{th}$ item split from the $i^{th}$ item. In the trivial approach discussed above, $A_{i, j}$ represents the same item for all $j \leq k_i$. The main reason for our low efficiency is that we are doing a lot of repetetive work. For example, consider selecting $A_{i, 1} and A_{i, 2}$, and selecting $A_{i, 3} and A_{i, 3}$. These two situations are completely equivalent. Thus optimizing the spiltting method will greatly reduces the time complexity.
+Let $A_{i, j}$ denote the $j^{th}$ item split from the $i^{th}$ item. In the trivial approach discussed above, $A_{i, j}$ represents the same item for all $j \leq k_i$. The main reason for our low efficiency is that we are doing a lot of repetetive work. For example, consider selecting $\{A_{i, 1},A_{i, 2}\}$, and selecting $\{A_{i, 3}, A_{i, 3}\}$. These two situations are completely equivalent. Thus optimizing the spiltting method will greatly reduce the time complexity.
 
 The grouping is made more effiecent by using binary grouping.
 
