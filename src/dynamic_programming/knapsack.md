@@ -20,7 +20,7 @@ correspoding to binary 0 and 1. Thus, this type of problem is called "0-1 knapsa
 
 ### Explaination
 
-The known conditions in the example are; the weight of $i^{th}$ item $w_{i}$, value of $i^{th}$ item $v_{i}$, and the total capacity of the knapsack {W}.
+In the example above, the input to the problem is the following: the weight of $i^{th}$ item $w_{i}$, value of $i^{th}$ item $v_{i}$, and the total capacity of the knapsack {W}.
 
 Set the dp state $f_{i, j}$ be the maximum total value the knapsack can carry with capacity $j$, when only the first $i$ items are considered.
 
