@@ -10,7 +10,7 @@ Prerequisite knowledge: [Introduction to Dynamic Programming](https://cp-algorit
 Consider the following example:
 
 ### [[USACO07 Dec] Charm Bracelet](https://www.acmicpc.net/problem/6144) 
-There are $n$ distinguishable items and a knapsack of capacity $W$. Each item has 2 attributes, weight ($w_{i}$) and value ($v_{i}$). 
+There are $n$ distinct items and a knapsack of capacity $W$. Each item has 2 attributes, weight ($w_{i}$) and value ($v_{i}$). 
 It is required to select a number of items to put into the knapsack such that the total weight does not exceed the capacity and the total value is maximized.
 
 In the above example, since each object has only two possible states (taken or not taken),
