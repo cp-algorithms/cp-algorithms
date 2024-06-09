@@ -130,19 +130,22 @@ That's it. That's the basics of dynamic programming: Don't repeat work you've do
 One of the tricks to getting better at dynamic programming is to study some of the classic examples.
 
 ## Classic Dynamic Programming Problems
-- 0-1 Knapsack
-- Subset Sum
-- Longest Increasing Subsequence
-- Counting all possible paths from top left to bottom right corner of a matrix
-- Longest Common Subsequence 
-- Longest Path in a Directed Acyclic Graph (DAG)
-- Coin Change
-- Longest Palindromic Subsequence
-- Rod Cutting
-- Edit Distance
-- Bitmask Dynamic Programming
-- Digit Dynamic Programming
-- Dynamic Programming on Trees
+| Name                                           | Description/Example                                                                                                                                                                                                            |
+| ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 0-1 knapsack                                   | Given $W$, $N$, and $N$ items with weights $w_i$ and values $v_i$, what is the maximum $\sum_{i=1}^{k} v_i$ for each subset of items of size $k$ ($1 \le k \le N$) while ensuring $\sum_{i=1}^{k} w_i \le W$?                  |
+| Subset Sum                                     | Given $N$ integers and $T$, determine whether there exists a subset of the given set whose elements sum up to the $T$.                                                                                                         |
+| Longest Increasing Subsequence                 | You are given an array containing $N$ integers. Your task is to determine the LCS in the array, i.e., LCS where every element is larger than the previous one.                                                                 |
+| Counting all possible paths in a matrix.       | Given $N$ and $M$, count all possible distinct paths from $(1,1)$ to $(N, M)$, where each step is either from $(i,j)$ to $(i+1,j)$ or $(i,j+1)$.                                                                               |
+| Longest Common Subsequence                     | You are given strings $s$ and $t$. Find the length of the longest string that is a subsequence of both $s$ and $t$.                                                                                                            |
+| Longest Path in a Directed Acyclic Graph (DAG) | Finding the longest path in Directed Acyclic Graph (DAG).                                                                                                                                                                      |
+| Longest Palindromic Subsequence                | Finding the Longest Palindromic Subsequence (LPS) of a given string.                                                                                                                                                           |
+| Rod Cutting                                    | Given a rod of length $n$ units, Given an integer array cuts where cuts[i] denotes a position you should perform a cut at. The cost of one cut is the length of the rod to be cut. What is the minimum total cost of the cuts. |
+| Edit Distance                                  | The edit distance between two strings is the minimum number of operations required to transform one string into the other. Operations are ["Add", "Remove", "Replace"]                                                         |
+
+## Related Topics
+* Bitmask Dynamic Programming
+* Digit Dynamic Programming
+* Dynamic Programming on Trees
 
 Of course, the most important trick is to practice.
 
@@ -153,4 +156,8 @@ Of course, the most important trick is to practice.
 * [Codeforces - Zuma](https://codeforces.com/problemset/problem/607/b)
 * [LeetCode - 221. Maximal Square](https://leetcode.com/problems/maximal-square/description/)
 * [LeetCode - 1039. Minimum Score Triangulation of Polygon](https://leetcode.com/problems/minimum-score-triangulation-of-polygon/description/)
+
+## Dp Contests
+* [Atcoder - Educational DP Contest](https://atcoder.jp/contests/dp/tasks)
+* [CSES - Dynamic Programming](https://cses.fi/problemset/list/)
 
