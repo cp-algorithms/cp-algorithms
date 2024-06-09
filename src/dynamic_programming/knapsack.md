@@ -42,30 +42,15 @@ $$f_j \gets \max(f_j, f_{j-w_i}+v_i)$$
 
 ### Implementation
 
-It may be tempting to write **erroneous code** as follows:
-
-```.c++
-for (int i = 1; i <= n; i++)
-  for (int j = 0; j <= W-w[i]; j++)
-    f[j + w[i]] = max(f[j + w[i]], f[j] + v[i]);
-```
-
-The problem of the code above is the wrong execution order.
-
-Observing the code carefully, we see that for the currently processed item $i$ and the current state $f_{i,j}$, 
-when $j\geqslant w_{i}$, $f_{i,j}$ will be affected by $f_{i,j-w_{i}}$. 
-This is equivalent to being able to put item $i$ into the backpack multiple times, which is not consistent with the question.
-(In fact, this is exactly the solution to the complete knapsack problem)
-
-To avoid this, we can change the order of execution to go over $j$ from $W$ to $w_{i}$, so that the above error won't occour, because $f_{i, j}$ is always implicitly updated before $f_{i, j-w_i}$
-
-Therefore, the actual code is
+The alorithm described can be implemented in $O(nW)$ as:
 
 ```.c++
 for (int i = 1; i <= n; i++)
   for (int j = W; j >= w[i]; j--)
     f[j] = max(f[j], f[j - w[i]] + v[i]);
 ```
+
+Note the order of enumeration. We go over all possible weights for each item rather than the other way round. If we execute the loops in the other order, $f_W$ will get updated assuming that we can pick only one item.
 
 ## Complete Knapsack
 
@@ -77,7 +62,7 @@ It should be noted that although the state definition is similar to that of a 0-
 
 ### Explaination
 
-The trivial approach is, for the first $i$ items, enumerate how many each item is to be taken. The time complexity of this is $O(n^3)$.
+The trivial approach is, for the first $i$ items, enumerate how many each item is to be taken. The time complexity of this is $O(n^2W)$.
 
 This yields the following transition equation:
 
@@ -89,7 +74,25 @@ $$f_{i, j} = \max(f_{i-1, j},f_{i, j-w_i} + v_i)$$
 
 The reason this works is that $f_{i, j-w_i}$ has already been updated by $f_{i, j-2\cdot w_i}$ and so on.
 
-Similar to the 0-1 knapsack, we can remove the first dimension to optimize the space complexity.
+Similar to the 0-1 knapsack, we can remove the first dimension to optimize the space complexity. This gives us the same transition rule as 0-1 knapsack.
+
+$$f_j \gets \max(f_j, f_{j-w_i}+v_i)$$
+
+### Implementation
+
+The alorithm described can be implemented in $O(nW)$ as:
+
+```.c++
+for (int i = 1; i <= n; i++)
+  for (int j = 0; j <= W-w[i]; j++)
+    f[j + w[i]] = max(f[j + w[i]], f[j] + v[i]);
+```
+
+Despite the same transfer rule as 0-1 knapsack, the code above is incorrect for it.
+
+Observing the code carefully, we see that for the currently processed item $i$ and the current state $f_{i,j}$, 
+when $j\geqslant w_{i}$, $f_{i,j}$ will be affected by $f_{i,j-w_{i}}$. 
+This is equivalent to being able to put item $i$ into the backpack multiple times, which is consistent with the complete knapsack problem and not the 0-1 knapsack problem.
 
 ## Multiple Knapsack
 
@@ -114,6 +117,8 @@ The grouping is made more effiecent by using binary grouping.
 Specifically, $A_{i, j}$ holds $2^j$ individual items ($j\in[0,\lfloor \log_2(k_i+1)\rfloor-1]$).If $k_i + 1$ is not an integer power of $2$, another bundle of size $k_i-2^{\lfloor \log_2(k_i+1)\rfloor-1}$ is used to make up for it.
 
 Through the above splitting method, any sum of terms $\leq k_i$ will can be obtained by selecting a few $A_{i, j}$'s. After splitting each item in the described way, it is sufficient to use 0-1 knapsack method to solve it.
+
+This optimization gives us a time complexity of $O(W\sum\limits_{i=1}^{n}\log k_i)$.
 
 ### Implementation
 
