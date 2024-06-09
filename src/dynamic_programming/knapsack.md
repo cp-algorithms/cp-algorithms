@@ -7,7 +7,7 @@ tags:
 Prerequisite knowledge: [Introduction to Dynamic Programming](https://cp-algorithms.com/dynamic_programming/intro-to-dp.html)
 
 ## Introduction
-Before we talk about what "knapsack dp" is, let's look at the following example:
+Consider the following example:
 
 ### [[USACO07 Dec] Charm Bracelet](https://www.acmicpc.net/problem/6144) 
 There are $n$ distinguishable items and a knapsack of capacity $W$. Each item has 2 attributes, weight ($w_{i}$) and value ($v_{i}$). 
