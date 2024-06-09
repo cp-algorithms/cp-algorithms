@@ -24,7 +24,7 @@ In the example above, the input to the problem is the following: the weight of $
 
 Let $f_{i, j}$ be the dynamic programming state holding the maximum total value the knapsack can carry with capacity $j$, when only the first $i$ items are considered.
 
-Consider the state transfer. Assuming that all states of first $i-1$ items have been processed, for the $i^{th}$ item;
+Assuming that all states of the first $i-1$ items have been processed, what are the options for the $i^{th}$ item?
 - When it is not put into the knapsack, the remaining capacity remains unchanged and total value does not change. Therefore, the maximum value in this case is $f_{i-1, j}$
 - When it is put into the knapsack, the remaining capacity decreases by $w_{i}$ and the total value increases by $v_{i}$,
 so the maximum value in this case is $f_{i-1, j-w_i} + v_i$
