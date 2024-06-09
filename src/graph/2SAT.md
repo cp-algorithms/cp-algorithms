@@ -103,17 +103,16 @@ In the graph the vertices with indices $2k$ and $2k+1$ are the two vertices corr
 
 ```{.cpp file=2sat}
 struct TwoSatSolver {
-    int n;
+    int n_vars;
+    int n_vertices;
     vector<vector<int>> adj, adj_t;
     vector<bool> used;
     vector<int> order, comp;
     vector<bool> assignment;
 
-    // n is the number of variables
-    TwoSatSolver(int n) : n(n), adj(2 * n), adj_t(2 * n), used(2 * n), order(), comp(2 * n, -1), assignment(n) {
-        order.reserve(2 * n);
+    TwoSatSolver(int _n_vars) : n_vars(_n_vars), n_vertices(2 * n_vars), adj(n_vertices), adj_t(n_vertices), used(n_vertices), order(), comp(n_vertices, -1), assignment(n_vars) {
+        order.reserve(n_vertices);
     }
-
     void dfs1(int v) {
         used[v] = true;
         for (int u : adj[v]) {
@@ -131,24 +130,23 @@ struct TwoSatSolver {
         }
     }
 
-    // m will be the number of vertices in the graph (= 2 * n)
-    bool solve_2SAT(int m) {
+    bool solve_2SAT() {
         order.clear();
-        used.assign(m, false);
-        for (int i = 0; i < m; ++i) {
+        used.assign(n_vertices, false);
+        for (int i = 0; i < n_vertices; ++i) {
             if (!used[i])
                 dfs1(i);
         }
 
-        comp.assign(m, -1);
-        for (int i = 0, j = 0; i < m; ++i) {
-            int v = order[m - i - 1];
+        comp.assign(n_vertices, -1);
+        for (int i = 0, j = 0; i < n_vertices; ++i) {
+            int v = order[n_vertices - i - 1];
             if (comp[v] == -1)
                 dfs2(v, j++);
         }
 
-        assignment.assign(m / 2, false);
-        for (int i = 0; i < m; i += 2) {
+        assignment.assign(n_vars, false);
+        for (int i = 0; i < n_vertices; i += 2) {
             if (comp[i] == comp[i + 1])
                 return false;
             assignment[i / 2] = comp[i] > comp[i + 1];
@@ -166,6 +164,17 @@ struct TwoSatSolver {
         adj[neg_b].push_back(a);
         adj_t[b].push_back(neg_a);
         adj_t[a].push_back(neg_b);
+    }
+
+    static void example_usage() {
+        TwoSatSolver solver(3); // a, b, c
+        solver.add_disjunction(0, false, 1, true);  //     a  v  not b
+        solver.add_disjunction(0, true, 1, true);   // not a  v  not b
+        solver.add_disjunction(1, false, 2, false); //     b  v      c
+        solver.add_disjunction(0, false, 0, false); //     a  v      a
+        assert(solver.solve_2SAT() == true);
+        auto expected = vector<bool>{{true, false, true}};
+        assert(solver.assignment == expected);
     }
 };
 ```
