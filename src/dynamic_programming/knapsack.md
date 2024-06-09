@@ -83,7 +83,7 @@ This yields the following transition equation:
 
 $$f_{i, j} = \max\limits_{k=0}^{\infty}(f_{i-1, j-k\cdot w_i} + k\cdot v_i)$$
 
-It can be found that for $f_{i, j}$, it can just transfer through $f_{i, j-w_i}$. The state transfer equation becomes:
+At the same time, it simplifies into a "flat" equation:
 
 $$f_{i, j} = \max(f_{i-1, j},f_{i, j-w_i} + v_i)$$
 
@@ -105,7 +105,7 @@ The time complexity of this process is $O(W\sum\limits_{i=1}^{n}k_i)$
 
 ### Binary Grouping Optimization
 
-We still consider converting the multiple knapsack model into a 0-1 knapsack model for optimization. The time complexity $O(Wn)$ can not be further optimized, so we focus on $O(\sum k_i)$.
+We still consider converting the multiple knapsack model into a 0-1 knapsack model for optimization. The time complexity $O(Wn)$ can not be further optimized with the approach above, so we focus on $O(\sum k_i)$ component.
 
 Let $A_{i, j}$ denote the $j^{th}$ item split from the $i^{th}$ item. In the trivial approach discussed above, $A_{i, j}$ represents the same item for all $j \leq k_i$. The main reason for our low efficiency is that we are doing a lot of repetetive work. For example, consider selecting $\{A_{i, 1},A_{i, 2}\}$, and selecting $\{A_{i, 3}, A_{i, 3}\}$. These two situations are completely equivalent. Thus optimizing the spiltting method will greatly reduce the time complexity.
 
