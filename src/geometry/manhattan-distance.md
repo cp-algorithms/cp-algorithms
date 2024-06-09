@@ -39,22 +39,22 @@ As we made $p$ and $q$ independent, it is now easy to find the $p$ and $q$ that 
 
 ## Manhattan Minimum Spanning Tree
 
-The Manhattan MST problem consists of, given some points in the plane, find the edges that connect all the points and have a minimum total sum of weights. The weight of an edge that connects to points is their Manhattan distance. For simplicity, we assume that all points have different locations.
-Here we show a way of finding the MST in $O(n\logn)$ by finding for each point its nearest neighbor in each octant, as represented by the image below. This will give us $O(n)$ candidate edges, which will guarantee that they contain the MST. The final step is then using some standard MST, for example, [Kruskal algorithm using disjoint set union](https://cp-algorithms.com/graph/mst_kruskal_with_dsu.html).
+The Manhattan MST problem consists of, given some points in the plane, find the edges that connect all the points and have a minimum total sum of weights. The weight of an edge that connects two points is their Manhattan distance. For simplicity, we assume that all points have different locations.
+Here we show a way of finding the MST in $O(n \log{n})$ by finding for each point its nearest neighbor in each octant, as represented by the image below. This will give us $O(n)$ candidate edges, which will guarantee that they contain the MST. The final step is then using some standard MST, for example, [Kruskal algorithm using disjoint set union](https://cp-algorithms.com/graph/mst_kruskal_with_dsu.html).
 
-The algorithm show here was first presented in a paper from [H. Zhou, N. Shenoy, and W. Nichollos (2002)](https://ieeexplore.ieee.org/document/913303). There is also another know algorithm that uses a Divide and conquer approach by [J. Stolfi](https://www.academia.edu/15667173/On_computing_all_north_east_nearest_neighbors_in_the_L1_metric), which is also very interesting and only differ in the way they find the nearest neighbor in each octant.
+The algorithm show here was first presented in a paper from [H. Zhou, N. Shenoy, and W. Nichollos (2002)](https://ieeexplore.ieee.org/document/913303). There is also another know algorithm that uses a Divide and conquer approach by [J. Stolfi](https://www.academia.edu/15667173/On_computing_all_north_east_nearest_neighbors_in_the_L1_metric), which is also very interesting and only differ in the way they find the nearest neighbor in each octant. They both have the same complexity, but the one presented here is easier to implement and has a lower constant factor.
 
-First, let's understand why it is enough to consider only the nearest neighbor in each octant. The idea is to show that for a point s and any two other points $p$ and $q$ in the same octant, $dist(p, q) < max(dist(s, p), dist(s, q))$. This is important, because it shows that if there was a MST where $s$ is connected to both $p$ and $q$, we could erase one of these edges and add the edge $(p,q)$, which would decrease the total cost. To prove, we assume without loss of generality that $p$ and $q$ are in the octanct $R_1$, which is defined by: $x_s \leq x$ and $x_s - y_s > x -  y$, and then do some casework. The images below give some intuition on why this is true.
+First, let's understand why it is enough to consider only the nearest neighbor in each octant. The idea is to show that for a point $s$ and any two other points $p$ and $q$ in the same octant, $dist(p, q) < max(dist(s, p), dist(s, q))$. This is important, because it shows that if there was a MST where $s$ is connected to both $p$ and $q$, we could erase one of these edges and add the edge $(p,q)$, which would decrease the total cost. To prove this, we assume without loss of generality that $p$ and $q$ are in the octanct $R_1$, which is defined by: $x_s \leq x$ and $x_s - y_s > x -  y$, and then do some casework. The images below give some intuition on why this is true.
 
 Therefore, the main question is how to find the nearest neighbor in each octant for every single of the $n$ points.
 
-## Nearest Neighbor in each Octant in $O(n\logn)$
+## Nearest Neighbor in each Octant in $O(n\log{n})$
 
 For simplicity we focus on the north-east octant. All other directions can be found with the same algorithm by rotating the input.
 	
-We will use a sweep-line approach. We process the points from south-west to north-east, that is, by non-decreasing $x + y$. We also keep a set of points which don't have their nearest neighbor yet. 
+We will use a sweep-line approach. We process the points from south-west to north-east, that is, by non-decreasing $x + y$. We also keep a set of points which don't have their nearest neighbor yet, which we call "active set".
 
-When we add a new point point $p$, for every point $s$ that has it in it's octant we can safely assign $p$ as the nearest neighbor. This is true because their distance is $d(p,s) = |x_p - x_s| + |y_p - y_s| = (x_p + y_p) - (x_s + y_s)$, because $p$ is in the north-east octant. As all the next points will not have a smaller value of $x + y$ because of the process order, $p$ is guaranteed to have the smaller distance. We can then remove all such points from the active set, and finally add $p$ to this set. 
+When we add a new point point $p$, for every point $s$ that has it in it's octant we can safely assign $p$ as the nearest neighbor. This is true because their distance is $d(p,s) = |x_p - x_s| + |y_p - y_s| = (x_p + y_p) - (x_s + y_s)$, because $p$ is in the north-east octant. As all the next points will not have a smaller value of $x + y$ because of the sorting step, $p$ is guaranteed to have the smaller distance. We can then remove all such points from the active set, and finally add $p$ to the active set.
 
 The next question is how to efficiently find which points $s$ have $p$ in the north-east octant. That is, which points $s$ satisfy:
 
