@@ -380,7 +380,7 @@ int point_query(int idx) {
 
 Note: of course it is also possible to increase a single point $A[i]$ with `range_add(i, i, val)`.
 
-### 3. Range Updates and Range Queries
+### 3. Range Update and Range Query
 
 To support both range updates and range queries we will use two BITs namely $B_1[]$ and $B_2[]$, initialized with zeros.
 

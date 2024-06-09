@@ -61,7 +61,7 @@ search:
     - Advanced
         - [Deleting from a data structure in O(T(n) log n)](data_structures/deleting_in_log_n.md)
 - Dynamic Programming
-    - [Introducton to Dynamic Programming](dynamic_programming/intro-to-dp.md)
+    - [Introduction to Dynamic Programming](dynamic_programming/intro-to-dp.md)
     - [Knapsack DP](dynamic_programming/knapsack.md)
     - DP optimizations
         - [Divide and Conquer DP](dynamic_programming/divide-and-conquer-dp.md)
