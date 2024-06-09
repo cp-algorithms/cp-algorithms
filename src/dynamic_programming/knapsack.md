@@ -30,7 +30,7 @@ Assuming that all states of the first $i-1$ items have been processed, what are 
 - When it is put into the knapsack, the remaining capacity decreases by $w_{i}$ and the total value increases by $v_{i}$,
 so the maximum value in this case is $f_{i-1, j-w_i} + v_i$
 
-From this we can derive the state transfer equation:
+From this we can derive the dp transition equation:
 
 $$f_{i, j} = \max(f_{i-1, j}, f_{i-1, j-w_i} + v_i)$$
 
