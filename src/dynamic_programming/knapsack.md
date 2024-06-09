@@ -22,7 +22,7 @@ correspoding to binary 0 and 1. Thus, this type of problem is called "0-1 knapsa
 
 In the example above, the input to the problem is the following: the weight of $i^{th}$ item $w_{i}$, value of $i^{th}$ item $v_{i}$, and the total capacity of the knapsack {W}.
 
-Set the dp state $f_{i, j}$ be the maximum total value the knapsack can carry with capacity $j$, when only the first $i$ items are considered.
+Let $f_{i, j}$ be the dynamic programming state holding the maximum total value the knapsack can carry with capacity $j$, when only the first $i$ items are considered.
 
 Consider the state transfer. Assuming that all states of first $i-1$ items have been processed, for the $i^{th}$ item;
 - When it is not put into the knapsack, the remaining capacity remains unchanged and total value does not change. Therefore, the maximum value in this case is $f_{i-1, j}$
