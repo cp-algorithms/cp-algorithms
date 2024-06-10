@@ -12,7 +12,7 @@ Denote $f$'s infix notation as $*$; that is, $f(x,y) = x*y$ for arbitrary intege
 
 The Fenwick tree is a data structure which:
 
-* calculates the value of function $f$ in the given range $[l, r]$ $\left(\text{i.e. }A_l * A_{l+1} * \dots * A_r)\right)$ in $O(\log N)$ time
+* calculates the value of function $f$ in the given range $[l, r]$ (i.e. $A_l * A_{l+1} * \dots * A_r$) in $O(\log N)$ time
 * updates the value of an element of $A$ in $O(\log N)$ time
 * requires $O(N)$ memory (the same amount required for $A$)
 * is easy to use and code, especially in the case of multidimensional arrays
