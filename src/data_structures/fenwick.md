@@ -7,18 +7,18 @@ e_maxx_link: fenwick_tree
 # Fenwick Tree
 
 Let $f$ be some group operation (a binary associative function over a set with an identity element and inverse elements) and $A$ be an array of integers of length $N$.
-Denote $f$'s infix notation as $\*$; that is, $f(x,y) = x\*y$ for arbitrary integers $x,y$.
+Denote $f$'s infix notation as $*$; that is, $f(x,y) = x*y$ for arbitrary integers $x,y$.
 (Since this is associative, we will omit parentheses for order of application of $f$ when using infix notation.)
 
 The Fenwick tree is a data structure which:
 
-* calculates the value of function $f$ in the given range $[l, r]$ $\left(\text{i.e. }A_l \* A_{l+1} \* \dots \* A_r)\right)$ in $O(\log N)$ time
+* calculates the value of function $f$ in the given range $[l, r]$ $\left(\text{i.e. }A_l * A_{l+1} * \dots * A_r)\right)$ in $O(\log N)$ time
 * updates the value of an element of $A$ in $O(\log N)$ time
 * requires $O(N)$ memory (the same amount required for $A$)
 * is easy to use and code, especially in the case of multidimensional arrays
 
 The most common application of a Fenwick tree is _calculating the sum of a range_.
-For example, using addition over the set of integers as the group operation, i.e. $f(x,y) = x + y$: the binary operation, $\*$, is $+$ in this case, so $A_l \* A_{l+1} \* \dots \* A_r = A_l + A_{l+1} + \dots + A_{r}$.
+For example, using addition over the set of integers as the group operation, i.e. $f(x,y) = x + y$: the binary operation, $*$, is $+$ in this case, so $A_l * A_{l+1} * \dots * A_r = A_l + A_{l+1} + \dots + A_{r}$.
 (In terms of $f$, this would be $f(A_l, f(A_{l+1}, f(f(\dots, \dots),A_r)))$, or any other equivalent way to write this using associativity.)
 
 The Fenwick tree is also called a **Binary Indexed Tree** (BIT).
