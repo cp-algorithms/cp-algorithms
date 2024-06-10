@@ -20,7 +20,7 @@ correspoding to binary 0 and 1. Thus, this type of problem is called "0-1 knapsa
 
 ### Explaination
 
-In the example above, the input to the problem is the following: the weight of $i^{th}$ item $w_{i}$, value of $i^{th}$ item $v_{i}$, and the total capacity of the knapsack {W}.
+In the example above, the input to the problem is the following: the weight of $i^{th}$ item $w_{i}$, value of $i^{th}$ item $v_{i}$, and the total capacity of the knapsack $W$.
 
 Let $f_{i, j}$ be the dynamic programming state holding the maximum total value the knapsack can carry with capacity $j$, when only the first $i$ items are considered.
 
@@ -137,6 +137,22 @@ for (int i = 1; i <= n; i++) {
   list[index].v = h * k;
 }
 ```
+
+### Monotone Queue Optimization
+
+In this optimization, we aim to convert the knapsack problem into a [maximum queue](https://cp-algorithms.com/data_structures/stack_queue_modification.html) one.
+
+For convenience of description, let $g_{x, y} = f_{i, x \cdot w_i + y} ,\space g'_{x, y} = f_{i-1, x \cdot w_i + y}$. Then the transition rule can be written as:
+
+$$g_{x, y} = \max_{k=0}^{k_i}(g'_{x-k, y} + v_i \cdot k)$$
+
+Further, let $G_{x, y} = g'_{x, y} - v_i \cdot x$. Then the transition rile can be expressed as:
+
+$$g_{x, u} \gets \max_{k=0}^{k_i}(G_{x-k, y}) + v_i \cdot x$$
+
+This transforms into a classic monotone queue optimization form. $G_{x, y}$ can be calculated in $O(1)$, so for a fixed $y$, we can calculate $g_{x, y}$ in $O(\lfloor \frac{W}{w_i} \rfloor)$ time.
+Therefore, the complexity of finding all $g_{x, y}$ is $O(\lfloor \frac{W}{w_i} \rfloor) \times O(w_i) = O(W)$.
+In this way, the total complexity of the transfer is reduced to $O(nW)$. 
 
 ## Mixed Knapsack
 
