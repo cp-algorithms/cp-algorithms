@@ -67,6 +67,7 @@ This means that if we keep the active set ordered by $x$ the candidates $s$ are 
 	Now that we have the nearest point in the north-east direction, we rotate the points and repeat. It is possible to show that actually we also find this way the nearest point in the south-west direction, so we can repeat only 4 times, instead of 8.
 
 In summary we:
+
 - Sort the points by $x + y$ in non-decreasing order;
 - For every point, we iterate over the active set starting with the point with the largest $x$ such that $x \leq x_p$, and we break the loop if  $x_p - y_p \geq x_s - y_s$. For every valid point $s$ we add the edge $(s,p, dist(s,p))$ in our list;
 - We add the point $p$ to the active set;
