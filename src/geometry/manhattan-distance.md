@@ -12,6 +12,8 @@ $d(p,q) = |p.x - q.x| + |p.y - q.y|$
 
 This is informally know as the [Manhattan distance, or taxicab geometry](https://en.wikipedia.org/wiki/Taxicab_geometry), because we can think of the points as being intersections in a well designed city, like manhattan, where you can only move on the streets, as shown in the image below:
 
+![Manhattan Distance](https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Manhattan_distance.svg/220px-Manhattan_distance.svg.png)
+
 This images show some of the smallest paths from one black point to the other, all of them with distance $12$.
 
 There are some interseting tricks and algorithms that can be done with this distance, and we will show some of them here.
@@ -31,7 +33,26 @@ Notice that we can extend this idea further for 2 (or more!) dimensions. For $d$
 
 $max_{p, q \in P} (p.x + (-q.x)) + (p.y + (-q.y)) = max_{p \in P}(p.x + p.y) + max_{q \in P}(-q.x - q.y)$.
 
-As we made $p$ and $q$ independent, it is now easy to find the $p$ and $q$ that maximize the expression. 
+As we made $p$ and $q$ independent, it is now easy to find the $p$ and $q$ that maximize the expression.
+
+The code below generalizes this to $d$ dimensions and runs in $O(n \cdot 2^d \cdot d)$.
+
+```cpp
+long long ans = 0;
+for(int msk=0;msk < (1<<d);msk++){
+    long long mx = LLONG_MIN, mn = LLONG_MAX;
+    for(int i=0;i<n;i++){
+        long long cur = 0;
+        for(int j=0;j<d;j++){
+            if(msk & (1<<j)) cur += p[i][j];
+            else cur -= p[i][j];
+        }
+        mx = max(mx, cur);
+        mn = min(mn, cur);
+    }
+    ans = max(ans, mx - mn);
+}
+```
 
 ## Rotating the points and Chebyshev distance
 
@@ -42,9 +63,16 @@ As we made $p$ and $q$ independent, it is now easy to find the $p$ and $q$ that 
 The Manhattan MST problem consists of, given some points in the plane, find the edges that connect all the points and have a minimum total sum of weights. The weight of an edge that connects two points is their Manhattan distance. For simplicity, we assume that all points have different locations.
 Here we show a way of finding the MST in $O(n \log{n})$ by finding for each point its nearest neighbor in each octant, as represented by the image below. This will give us $O(n)$ candidate edges, which will guarantee that they contain the MST. The final step is then using some standard MST, for example, [Kruskal algorithm using disjoint set union](https://cp-algorithms.com/graph/mst_kruskal_with_dsu.html).
 
+![8 octants picture](manhattan-mst-octants.png)
+*The 8 octants relative to a point S*
+
 The algorithm show here was first presented in a paper from [H. Zhou, N. Shenoy, and W. Nichollos (2002)](https://ieeexplore.ieee.org/document/913303). There is also another know algorithm that uses a Divide and conquer approach by [J. Stolfi](https://www.academia.edu/15667173/On_computing_all_north_east_nearest_neighbors_in_the_L1_metric), which is also very interesting and only differ in the way they find the nearest neighbor in each octant. They both have the same complexity, but the one presented here is easier to implement and has a lower constant factor.
 
-First, let's understand why it is enough to consider only the nearest neighbor in each octant. The idea is to show that for a point $s$ and any two other points $p$ and $q$ in the same octant, $dist(p, q) < max(dist(s, p), dist(s, q))$. This is important, because it shows that if there was a MST where $s$ is connected to both $p$ and $q$, we could erase one of these edges and add the edge $(p,q)$, which would decrease the total cost. To prove this, we assume without loss of generality that $p$ and $q$ are in the octanct $R_1$, which is defined by: $x_s \leq x$ and $x_s - y_s > x -  y$, and then do some casework. The images below give some intuition on why this is true.
+First, let's understand why it is enough to consider only the nearest neighbor in each octant. The idea is to show that for a point $s$ and any two other points $p$ and $q$ in the same octant, $dist(p, q) < max(dist(s, p), dist(s, q))$. This is important, because it shows that if there was a MST where $s$ is connected to both $p$ and $q$, we could erase one of these edges and add the edge $(p,q)$, which would decrease the total cost. To prove this, we assume without loss of generality that $p$ and $q$ are in the octanct $R_1$, which is defined by: $x_s \leq x$ and $x_s - y_s > x -  y$, and then do some casework. The image below give some intuition on why this is true.
+
+![unique nearest neighbor](manhattan-mst-uniqueness.png)
+*We can build some intuition that limitation of the octant make it impossible that $s$ is closer to both $p$ and $q$ then each other*
+
 
 Therefore, the main question is how to find the nearest neighbor in each octant for every single of the $n$ points.
 
@@ -52,7 +80,14 @@ Therefore, the main question is how to find the nearest neighbor in each octant 
 
 For simplicity we focus on the north-east octant. All other directions can be found with the same algorithm by rotating the input.
 	
-We will use a sweep-line approach. We process the points from south-west to north-east, that is, by non-decreasing $x + y$. We also keep a set of points which don't have their nearest neighbor yet, which we call "active set".
+We will use a sweep-line approach. We process the points from south-west to north-east, that is, by non-decreasing $x + y$. We also keep a set of points which don't have their nearest neighbor yet, which we call "active set". We add the images below to help visualize the algorithm.
+
+![manhattan-mst-sweep](manhattan-mst-sweep-line-1.png)
+
+*In black with an arrow you can see the direction of the line-sweep. All the points below this lines are in the active set, and the points above are still not processed. In green we see the points which are in the octant of the processed point. In red the points that are not in the searched octant.*
+
+![manhattan-mst-sweep](manhattan-mst-sweep-line-2.png)
+*In this image we see the active set after processing the point $p$. Note that the $2$ green points of the previous image had $p$ in its north-north-east octant and are not in the active set anymore, because they already found their nearest neighbor.*
 
 When we add a new point point $p$, for every point $s$ that has it in it's octant we can safely assign $p$ as the nearest neighbor. This is true because their distance is $d(p,s) = |x_p - x_s| + |y_p - y_s| = (x_p + y_p) - (x_s + y_s)$, because $p$ is in the north-east octant. As all the next points will not have a smaller value of $x + y$ because of the sorting step, $p$ is guaranteed to have the smaller distance. We can then remove all such points from the active set, and finally add $p$ to the active set.
 
@@ -61,7 +96,9 @@ The next question is how to efficiently find which points $s$ have $p$ in the no
 - $x_s \leq x_p$
 - $x_p - y_p < x_s - y_s$
 
-Because no points in the active set are in the R_1 of another, we also have that for two points $q_1$ and $q_2$ in the active set, $x_{q_1} \neq x_{q_2}$ and $x_{q_1} < x_{q_2} \implies x_{q_1} - y_{q_1} \leq x_{q_2} - y_{q_2}$.
+Because no points in the active set are in the $R_1$ of another, we also have that for two points $q_1$ and $q_2$ in the active set, $x_{q_1} \neq x_{q_2}$ and $x_{q_1} < x_{q_2} \implies x_{q_1} - y_{q_1} \leq x_{q_2} - y_{q_2}$.
+
+You can try to visualize this on the images above by thinking of the ordering of $x - y$ as a "sweep-line" that goes from the north-west to the south-east, so perpendicular to the one that is drawn.
 
 This means that if we keep the active set ordered by $x$ the candidates $s$ are consecutively placed. We can then find the largest $x_s \leq x_p$ and process the points in decreasing order of $x$ until the second condition $x_p - y_p < x_s - y_s$ breaks (we can actually allow that $x_p - y_p = x_s - y_s$ and that deals with the case of points with equal coordinates). Notice that because we remove from the set right after processing, this will have an amortized complexity of $O(n \log(n))$.
 	Now that we have the nearest point in the north-east direction, we rotate the points and repeat. It is possible to show that actually we also find this way the nearest point in the south-west direction, so we can repeat only 4 times, instead of 8.
@@ -77,6 +114,8 @@ In summary we:
 Below you can find a implementation, based on the one from [KACTL](https://github.com/kth-competitive-programming/kactl/blob/main/content/geometry/ManhattanMST.h).
 
 ```{.cpp file=manhattan_mst.cpp}
+// Returns a list of edges in the format (weight, u, v). 
+// Passing this list to Kruskal algorithm will give the Manhattan MST.
 vector<tuple<long long,int,int> > manhattan_mst_edges(vector<point> ps){
     vector<int> ids(ps.size());
     iota(ids.begin(), ids.end(), 0);
