@@ -56,6 +56,23 @@ for(int msk=0;msk < (1<<d);msk++){
 
 ## Rotating the points and Chebyshev distance
 
+It's well known that, for all $m, n \in \mathbb{R}$,
+
+$$|m| + |n| = \text{max}(|m + n|, |m - n|).$$
+
+To prove this, we just need to analyze the signs of $m$ and $n$. And it's left as an exercise.
+
+We may apply this equation to the Manhattan distance formula to find out that
+
+$$d((x_1, y_1), (x_2, y_2)) = |x_1 - x_2| + |y_1 - y_2| = \text{max}(|(x_1 + y_1) - (x_2 + y_2)|, |(x_1 - y_1) - (x_2 - y_2)|).$$
+
+The last expression in the previous equation is the [Chebyshev distance](https://en.wikipedia.org/wiki/Chebyshev_distance) of the points $(x_1 + y_1, x_1 - y_1)$ and $(x_2 + y_2, x_2 - y_2)$. This means that, after applying the transformation
+
+$$\alpha : (x, y) \to (x + y, x - y),$$
+
+the Manhattan distance between the points $p$ and $q$ turns into the Chebyshev distance between $\alpha(p)$ and $\alpha(q)$.
+
+Also, we may realize that $\alpha$ is a [spiral similarity](https://en.wikipedia.org/wiki/Spiral_similarity) (rotation of the plane followed by a dilation about a center $O$) with center $(0, 0)$, rotation angle of $45^{\circ}$ in clockwise direction and dilation by $\sqrt{2}$.
 
 
 ## Manhattan Minimum Spanning Tree
