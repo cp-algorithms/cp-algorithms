@@ -95,8 +95,8 @@ Therefore, the main question is how to find the nearest neighbor in each octant 
 
 ## Nearest Neighbor in each Octant in $O(n\log{n})$
 
-For simplicity we focus on the north-east octant. All other directions can be found with the same algorithm by rotating the input.
-	
+For simplicity we focus on the NNE octant ($R_1$ in the image above). All other directions can be found with the same algorithm by rotating the input.
+
 We will use a sweep-line approach. We process the points from south-west to north-east, that is, by non-decreasing $x + y$. We also keep a set of points which don't have their nearest neighbor yet, which we call "active set". We add the images below to help visualize the algorithm.
 
 ![manhattan-mst-sweep](manhattan-mst-sweep-line-1.png)
@@ -106,14 +106,14 @@ We will use a sweep-line approach. We process the points from south-west to nort
 ![manhattan-mst-sweep](manhattan-mst-sweep-line-2.png)
 *In this image we see the active set after processing the point $p$. Note that the $2$ green points of the previous image had $p$ in its north-north-east octant and are not in the active set anymore, because they already found their nearest neighbor.*
 
-When we add a new point point $p$, for every point $s$ that has it in it's octant we can safely assign $p$ as the nearest neighbor. This is true because their distance is $d(p,s) = |x_p - x_s| + |y_p - y_s| = (x_p + y_p) - (x_s + y_s)$, because $p$ is in the north-east octant. As all the next points will not have a smaller value of $x + y$ because of the sorting step, $p$ is guaranteed to have the smaller distance. We can then remove all such points from the active set, and finally add $p$ to the active set.
+When we add a new point point $p$, for every point $s$ that has it in it's octant we can safely assign $p$ as the nearest neighbor. This is true because their distance is $d(p,s) = |x_p - x_s| + |y_p - y_s| = (x_p + y_p) - (x_s + y_s)$, because $p$ is in the north-north-east octant. As all the next points will not have a smaller value of $x + y$ because of the sorting step, $p$ is guaranteed to have the smaller distance. We can then remove all such points from the active set, and finally add $p$ to the active set.
 
-The next question is how to efficiently find which points $s$ have $p$ in the north-east octant. That is, which points $s$ satisfy:
+The next question is how to efficiently find which points $s$ have $p$ in the north-north-east octant. That is, which points $s$ satisfy:
 
 - $x_s \leq x_p$
 - $x_p - y_p < x_s - y_s$
 
-Because no points in the active set are in the $R_1$ of another, we also have that for two points $q_1$ and $q_2$ in the active set, $x_{q_1} \neq x_{q_2}$ and $x_{q_1} < x_{q_2} \implies x_{q_1} - y_{q_1} \leq x_{q_2} - y_{q_2}$.
+Because no points in the active set are in the $R_1$ region of another, we also have that for two points $q_1$ and $q_2$ in the active set, $x_{q_1} \neq x_{q_2}$ and $x_{q_1} < x_{q_2} \implies x_{q_1} - y_{q_1} \leq x_{q_2} - y_{q_2}$.
 
 You can try to visualize this on the images above by thinking of the ordering of $x - y$ as a "sweep-line" that goes from the north-west to the south-east, so perpendicular to the one that is drawn.
 
