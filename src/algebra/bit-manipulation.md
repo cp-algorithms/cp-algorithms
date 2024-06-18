@@ -213,29 +213,15 @@ The next steps needs more explanation.
 - Subtract $2^x$ from $n$ and Recurse with the algorithm using the new $n$.
 
 ```cpp
-int countSetBits(int n){
-	if(n <= 0) return 0;
-	
-	int count = 0;
-	
-	// Find the highest power of 2 that is
-	// less than or equal to the given n.
-	int x = 0;
-	while ((1 << x) <= n) x++;
-	x--;
-	
-	// Count set bits of all the numbers
-	// from 1 to 2^x - 1
-	count = x * (1 << (x - 1));
-	
-	// Count set bits in the most significant
-	// bit of the numbers from 2^x to n.
-	count += (n - (1 << x) + 1);
-	
-	// Recurse for remaining numbers from 2^x to n
-	count += countSetBits(n - (1 << x));
-	
-	return count;
+int countSetBits(int n) {
+        int count = 0;
+        while (n > 0) {
+            int x = std::bit_width(n) - 1;
+            count += x << (x - 1);
+            n -= 1 << x;
+            count += n + 1;
+        }
+        return count;
 }
 ```
 
