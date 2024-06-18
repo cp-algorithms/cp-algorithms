@@ -189,7 +189,7 @@ int countSetBits(int n)
 ### Count set bits upto $n$
 To count the number of set bits of all numbers upto the number $n$ (inclusive), we can run the Brian Kernighan's algorithm on all numbers upto $n$. But this will result in a "Time Limit Exceeded" in contest submissions. 
 
-We can use the fact that for numbers upto $2^x$ (i.e. from $1$ to $2^x - 1$) there are $x*2^{x-1}$ set bits. This can be visualised as follows.
+We can use the fact that for numbers upto $2^x$ (i.e. from $1$ to $2^x - 1$) there are $x \cdot 2^{x-1}$ set bits. This can be visualised as follows.
 ```
 0 ->   0 0 0 0
 1 ->   0 0 0 1
