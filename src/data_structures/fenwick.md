@@ -70,7 +70,7 @@ The function `sum` works as follows:
 
 The function `increase` works with the same analogy, but it "jumps" in the direction of increasing indices:
 
-1. Sums of the range $[g(j), j]$ which satisfy the condition $g(j) \le i \le j$ are increased by `delta`; that is, `t[j] += delta`.
+1. The sum for each range of the form $[g(j), j]$ which satisfies the condition $g(j) \le i \le j$ is increased by `delta`; that is, `t[j] += delta`.
 Therefore, it updates all elements in $T$ that correspond to ranges in which $A_i$ lies.
 
 The complexity of both `sum` and `increase` depend on the function $g$.
