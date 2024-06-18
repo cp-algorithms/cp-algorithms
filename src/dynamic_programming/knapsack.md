@@ -13,14 +13,14 @@ Consider the following example:
 There are $n$ distinct items and a knapsack of capacity $W$. Each item has 2 attributes, weight ($w_{i}$) and value ($v_{i}$). 
 You have to select a subset of items to put into the knapsack such that the total weight does not exceed the capacity $W$ and the total value is maximized.
 
-In the example above, since each object has only two possible states (taken or not taken),
+In the example above, each object has only two possible states (taken or not taken),
 correspoding to binary 0 and 1. Thus, this type of problem is called "0-1 knapsack problem".
 
 ## 0-1 Knapsack
 
 ### Explaination
 
-In the example above, the input to the problem is the following: the weight of $i^{th}$ item $w_{i}$, value of $i^{th}$ item $v_{i}$, and the total capacity of the knapsack $W$.
+In the example above, the input to the problem is the following: the weight of $i^{th}$ item $w_{i}$, the value of $i^{th}$ item $v_{i}$, and the total capacity of the knapsack $W$.
 
 Let $f_{i, j}$ be the dynamic programming state holding the maximum total value the knapsack can carry with capacity $j$, when only the first $i$ items are considered.
 
@@ -62,7 +62,7 @@ It should be noted that although the state definition is similar to that of a 0-
 
 ### Explaination
 
-The trivial approach is, for the first $i$ items, enumerate how many each item is to be taken. The time complexity of this is $O(n^2W)$.
+The trivial approach is, for the first $i$ items, enumerate how many times each item is to be taken. The time complexity of this is $O(n^2W)$.
 
 This yields the following transition equation:
 
@@ -88,7 +88,7 @@ for (int i = 1; i <= n; i++)
     f[j + w[i]] = max(f[j + w[i]], f[j] + v[i]);
 ```
 
-Despite the same transfer rule as 0-1 knapsack, the code above is incorrect for it.
+Despite having the same transition rule, the code above is incorrect for 0-1 knapsack.
 
 Observing the code carefully, we see that for the currently processed item $i$ and the current state $f_{i,j}$, 
 when $j\geqslant w_{i}$, $f_{i,j}$ will be affected by $f_{i,j-w_{i}}$. 
@@ -110,13 +110,13 @@ The time complexity of this process is $O(W\sum\limits_{i=1}^{n}k_i)$
 
 We still consider converting the multiple knapsack model into a 0-1 knapsack model for optimization. The time complexity $O(Wn)$ can not be further optimized with the approach above, so we focus on $O(\sum k_i)$ component.
 
-Let $A_{i, j}$ denote the $j^{th}$ item split from the $i^{th}$ item. In the trivial approach discussed above, $A_{i, j}$ represents the same item for all $j \leq k_i$. The main reason for our low efficiency is that we are doing a lot of repetetive work. For example, consider selecting $\{A_{i, 1},A_{i, 2}\}$, and selecting $\{A_{i, 3}, A_{i, 3}\}$. These two situations are completely equivalent. Thus optimizing the spiltting method will greatly reduce the time complexity.
+Let $A_{i, j}$ denote the $j^{th}$ item split from the $i^{th}$ item. In the trivial approach discussed above, $A_{i, j}$ represents the same item for all $j \leq k_i$. The main reason for our low efficiency is that we are doing a lot of repetetive work. For example, consider selecting $\{A_{i, 1},A_{i, 2}\}$, and selecting $\{A_{i, 2}, A_{i, 3}\}$. These two situations are completely equivalent. Thus optimizing the spiltting method will greatly reduce the time complexity.
 
 The grouping is made more effiecent by using binary grouping.
 
 Specifically, $A_{i, j}$ holds $2^j$ individual items ($j\in[0,\lfloor \log_2(k_i+1)\rfloor-1]$).If $k_i + 1$ is not an integer power of $2$, another bundle of size $k_i-2^{\lfloor \log_2(k_i+1)\rfloor-1}$ is used to make up for it.
 
-Through the above splitting method, any sum of terms $\leq k_i$ will can be obtained by selecting a few $A_{i, j}$'s. After splitting each item in the described way, it is sufficient to use 0-1 knapsack method to solve it.
+Through the above splitting method, it is possible to obtain any sum of $\leq k_i$ items by selecting a few $A_{i, j}$'s. After splitting each item in the described way, it is sufficient to use 0-1 knapsack method to solve the new formulation of the problem.
 
 This optimization gives us a time complexity of $O(W\sum\limits_{i=1}^{n}\log k_i)$.
 
@@ -146,13 +146,13 @@ For convenience of description, let $g_{x, y} = f_{i, x \cdot w_i + y} ,\space g
 
 $$g_{x, y} = \max_{k=0}^{k_i}(g'_{x-k, y} + v_i \cdot k)$$
 
-Further, let $G_{x, y} = g'_{x, y} - v_i \cdot x$. Then the transition rile can be expressed as:
+Further, let $G_{x, y} = g'_{x, y} - v_i \cdot x$. Then the transition rule can be expressed as:
 
-$$g_{x, u} \gets \max_{k=0}^{k_i}(G_{x-k, y}) + v_i \cdot x$$
+$$g_{x, y} \gets \max_{k=0}^{k_i}(G_{x-k, y}) + v_i \cdot x$$
 
 This transforms into a classic monotone queue optimization form. $G_{x, y}$ can be calculated in $O(1)$, so for a fixed $y$, we can calculate $g_{x, y}$ in $O(\lfloor \frac{W}{w_i} \rfloor)$ time.
 Therefore, the complexity of finding all $g_{x, y}$ is $O(\lfloor \frac{W}{w_i} \rfloor) \times O(w_i) = O(W)$.
-In this way, the total complexity of the transfer is reduced to $O(nW)$. 
+In this way, the total complexity of the algorithm is reduced to $O(nW)$. 
 
 ## Mixed Knapsack
 
