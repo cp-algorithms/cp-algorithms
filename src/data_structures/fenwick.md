@@ -19,7 +19,6 @@ The Fenwick tree is a data structure which:
 
 The most common application of a Fenwick tree is _calculating the sum of a range_.
 For example, using addition over the set of integers as the group operation, i.e. $f(x,y) = x + y$: the binary operation, $*$, is $+$ in this case, so $A_l * A_{l+1} * \dots * A_r = A_l + A_{l+1} + \dots + A_{r}$.
-(In terms of $f$, this would be $f(A_l, f(A_{l+1}, f(f(\dots, \dots),A_r)))$, or any other equivalent way to write this using associativity.)
 
 The Fenwick tree is also called a **Binary Indexed Tree** (BIT).
 It was first described in a paper titled "A new data structure for cumulative frequency tables" (Peter M. Fenwick, 1994).
