@@ -210,6 +210,7 @@ With the new knowledge in hand we can come up with the following algorithm:
 - Calculate the number of set bits from $1$ to $2^x - 1$ by using the formua $x \cdot 2^{x-1}$.
 
 The next steps needs more explanation.
+
 - Count the no. of set bits in the most significant bit from $2^x$ to $n$ and add it.
 - Subtract $2^x$ from $n$ and Recurse with the algorithm using the new $n$.
 
