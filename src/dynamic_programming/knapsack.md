@@ -34,9 +34,11 @@ From this we can derive the dp transition equation:
 
 $$f_{i, j} = \max(f_{i-1, j}, f_{i-1, j-w_i} + v_i)$$
 
-Further, as $f_{i}$ is only dependent on $f_{i-1}$, we can remove the first dimension. We obtain:
+Further, as $f_{i}$ is only dependent on $f_{i-1}$, we can remove the first dimension. We obtain the transition rule
 
 $$f_j \gets \max(f_j, f_{j-w_i}+v_i)$$
+
+that should be executed in the **decreasing** order of $j$ (so that $f_{j-w_i}$ implicitly corresponds to $f_{i-1,j-w_i}$ and not $f_{i,j-w_i}$).
 
 **It is important to understand this transition rule, because most of the transitions for knapsack problems are derived in a similar way.**
 
@@ -50,7 +52,7 @@ for (int i = 1; i <= n; i++)
     f[j] = max(f[j], f[j - w[i]] + v[i]);
 ```
 
-Note the order of enumeration. We go over all possible weights for each item rather than the other way round. If we execute the loops in the other order, $f_W$ will get updated assuming that we can pick only one item.
+Again, note the order of execution. It should be strictly followed to ensure the following invariant: Right before the pair $(i, j)$ is processed, $f_k$ corresponds to $f_{i,k}$ for $k > j$, but to $f_{i-1,k}$ for $k < j$. This ensures that $f_{j-w_i}$ is taken from the $(i-1)$-th step, rather than from the $i$-th one.
 
 ## Complete Knapsack
 
@@ -84,8 +86,8 @@ The alorithm described can be implemented in $O(nW)$ as:
 
 ```.c++
 for (int i = 1; i <= n; i++)
-  for (int j = 0; j <= W-w[i]; j++)
-    f[j + w[i]] = max(f[j + w[i]], f[j] + v[i]);
+  for (int j = w[i]; j <= W; j++)
+    f[j] = max(f[j], f[j - w[i]] + v[i]);
 ```
 
 Despite having the same transition rule, the code above is incorrect for 0-1 knapsack.
