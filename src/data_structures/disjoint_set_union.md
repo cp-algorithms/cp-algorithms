@@ -345,12 +345,14 @@ pair<int, int> find_set(int v) {
 }
 
 void union_sets(int a, int b) {
+    int dist_a = find_set(a).second;
+    int dist_b = find_set(b).second;
     a = find_set(a).first;
     b = find_set(b).first;
     if (a != b) {
         if (rank[a] < rank[b])
             swap(a, b);
-        parent[b] = make_pair(a, 1);
+        parent[b] = make_pair(a, dist_a + dist_b + 1);
         if (rank[a] == rank[b])
             rank[a]++;
     }
