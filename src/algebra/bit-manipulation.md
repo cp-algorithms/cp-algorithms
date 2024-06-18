@@ -205,6 +205,7 @@ We can use the fact that for numbers upto $2^x$ (i.e. from $1$ to $2^x - 1$) the
 We can see that the all the columns except the leftmost have $4$ (i.e. $2^2$) set bits each, i.e. upto the number $2^3 - 1$, the number of set bits is $3*(2^{3-1})$.
 
 With the new knowledge in hand we can come up with the following algorithm:
+
 - Find the highest power of $2$ that is lesser than or equal to the given number. Let this number be $x$.
 - Calculate the number of set bits from $1$ to $2^x - 1$ by using the formua $x*(2^{x-1})$.
 
