@@ -208,11 +208,8 @@ With the new knowledge in hand we can come up with the following algorithm:
 
 - Find the highest power of $2$ that is lesser than or equal to the given number. Let this number be $x$.
 - Calculate the number of set bits from $1$ to $2^x - 1$ by using the formua $x \cdot 2^{x-1}$.
-
-The next steps needs more explanation.
-
 - Count the no. of set bits in the most significant bit from $2^x$ to $n$ and add it.
-- Subtract $2^x$ from $n$ and Recurse with the algorithm using the new $n$.
+- Subtract $2^x$ from $n$ and repeat the above steps using the new $n$.
 
 ```cpp
 int countSetBits(int n) {
