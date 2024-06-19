@@ -3,7 +3,7 @@ tags:
   - Original
 ---
 
-# Knapsack problem
+# Knapsack Problem
 Prerequisite knowledge: [Introduction to Dynamic Programming](https://cp-algorithms.com/dynamic_programming/intro-to-dp.html)
 
 ## Introduction
