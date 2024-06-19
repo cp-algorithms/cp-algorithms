@@ -186,6 +186,44 @@ int countSetBits(int n)
 }
 ```
 
+### Count set bits upto $n$
+To count the number of set bits of all numbers upto the number $n$ (inclusive), we can run the Brian Kernighan's algorithm on all numbers upto $n$. But this will result in a "Time Limit Exceeded" in contest submissions. 
+
+We can use the fact that for numbers upto $2^x$ (i.e. from $1$ to $2^x - 1$) there are $x \cdot 2^{x-1}$ set bits. This can be visualised as follows.
+```
+0 ->   0 0 0 0
+1 ->   0 0 0 1
+2 ->   0 0 1 0
+3 ->   0 0 1 1
+4 ->   0 1 0 0
+5 ->   0 1 0 1
+6 ->   0 1 1 0
+7 ->   0 1 1 1
+8 ->   1 0 0 0
+```
+
+We can see that the all the columns except the leftmost have $4$ (i.e. $2^2$) set bits each, i.e. upto the number $2^3 - 1$, the number of set bits is $3 \cdot 2^{3-1}$.
+
+With the new knowledge in hand we can come up with the following algorithm:
+
+- Find the highest power of $2$ that is lesser than or equal to the given number. Let this number be $x$.
+- Calculate the number of set bits from $1$ to $2^x - 1$ by using the formua $x \cdot 2^{x-1}$.
+- Count the no. of set bits in the most significant bit from $2^x$ to $n$ and add it.
+- Subtract $2^x$ from $n$ and repeat the above steps using the new $n$.
+
+```cpp
+int countSetBits(int n) {
+        int count = 0;
+        while (n > 0) {
+            int x = std::bit_width(n) - 1;
+            count += x << (x - 1);
+            n -= 1 << x;
+            count += n + 1;
+        }
+        return count;
+}
+```
+
 ### Additional tricks
 
 - $n ~\&~ (n + 1)$ clears all trailing ones: $0011~0111_2 \rightarrow 0011~0000_2$.
