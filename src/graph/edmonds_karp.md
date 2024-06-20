@@ -66,7 +66,7 @@ We can create a **residual network** from all these edges, which is just a netwo
 The Ford-Fulkerson method works as follows.
 First, we set the flow of each edge to zero.
 Then we look for an **augmenting path** from $s$ to $t$.
-An augmenting path is a simple path in the residual graph, i.e. along the edges whose residual capacity is positive.
+An augmenting path is a simple path in the residual graph where residual capacity is positive for all the edges along that path.
 If such a path is found, then we can increase the flow along these edges.
 We keep on searching for augmenting paths and increasing the flow.
 Once an augmenting path doesn't exist anymore, the flow is maximal.
