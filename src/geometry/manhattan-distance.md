@@ -160,3 +160,11 @@ vector<tuple<long long,int,int> > manhattan_mst_edges(vector<point> ps){
     return edges;
 }
 ```
+
+## Problems
+ * [AtCoder Beginner Contest 178E Dist Max](https://atcoder.jp/contests/abc178/tasks/abc178_e)
+ * [CodeForces 1093G Multidimensional Queries](https://codeforces.com/contest/1093/problem/G)
+ * [CodeForces 944F Game with Tokens](https://codeforces.com/contest/944/problem/F)
+ * [AtCoder Code Festival 2017D Four Coloring](https://atcoder.jp/contests/code-festival-2017-quala/tasks/code_festival_2017_quala_d)
+ * [The 2023 ICPC Asia EC Regionals Online Contest (I) Problem J Minimum Manhattan Distance](https://codeforces.com/gym/104639/problem/J)
+ * [Petrozavodsk Winter Training Camp 2016 Contest 4](https://codeforces.com/group/eqgxxTNwgd/contest/100959/attachments), Problem B Airports
