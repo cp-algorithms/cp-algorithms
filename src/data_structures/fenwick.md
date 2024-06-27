@@ -300,6 +300,18 @@ $$h(i) = i + (i ~\&~ (-i)).$$
 
 As you can see, the main benefit of this approach is that the binary operations complement each other very nicely.
 
+**Note**: for improved portability, the extraction of the last set bit can alternatively be computed as  $i - (i ~\&~ (i-1))$.  Accordingly:
+
+$$g(i) = i ~\&~ (i-1)$$
+
+and
+
+$$h(i) = 2i - (i ~\&~ (i-1)).$$
+
+This also allows the code for $g(i)$ to be succinctly written as `i &= i - 1`.
+
+An example of this lack of portability is any version of C++ prior to C++20.  Before [C++20](https://en.cppreference.com/w/cpp/20), it was not guaranteed for signed integers to be implemented as [two's complement](https://en.wikipedia.org/wiki/Two%27s_complement), so the use of negative numbers ($-i$) alongside bitwise-and ($~\&~$) could ([theoretically](https://en.cppreference.com/w/cpp/language/types#Range_of_values)) lead to unexpected results.
+
 The following implementation can be used like the other implementations, however it uses one-based indexing internally.
 
 ```{.cpp file=fenwick_sum_onebased}
@@ -334,6 +346,21 @@ struct FenwickTreeOneBasedIndexing {
             bit[idx] += delta;
     }
 };
+```
+An equivalent implementation which utilizes the more portable formulas would have the following changes:
+
+```cpp
+    int sum(int idx) {
+        int ret = 0;
+        for (++idx; idx > 0; idx &= idx - 1)
+            ret += bit[idx];
+        return ret;
+    }
+
+    void add(int idx, int delta) {
+        for (++idx; idx < n; idx += idx - (idx & (idx - 1))
+            bit[idx] += delta;
+    }
 ```
 
 ## Range operations
