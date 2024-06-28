@@ -81,6 +81,7 @@ Here `eps` is in fact the absolute error (not taking into account errors due to 
 Instead of the criterion `r - l > eps`, we can select a constant number of iterations as a stopping criterion. The number of iterations should be chosen to ensure the required accuracy. Typically, in most programming challenges the error limit is ${10}^{-6}$ and thus 200 - 300 iterations are sufficient. Also, the number of iterations doesn't depend on the values of $l$ and $r$, so the number of iterations corresponds to the required relative error.
 
 ## Practice Problems
+- [Codeforces - New Bakery](https://codeforces.com/problemset/problem/1978/B)
 - [Codechef - Race time](https://www.codechef.com/problems/AMCS03)
 - [Hackerearth - Rescuer](https://www.hackerearth.com/problem/algorithm/rescuer-2d2495cb/)
 - [Spoj - Building Construction](http://www.spoj.com/problems/KOPC12A/)
