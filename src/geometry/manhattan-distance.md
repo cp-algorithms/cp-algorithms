@@ -12,7 +12,7 @@ $d(p,q) = |p.x - q.x| + |p.y - q.y|$
 
 This is informally know as the [Manhattan distance, or taxicab geometry](https://en.wikipedia.org/wiki/Taxicab_geometry), because we can think of the points as being intersections in a well designed city, like manhattan, where you can only move on the streets, as shown in the image below:
 
-![Manhattan Distance](https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Manhattan_distance.svg/220px-Manhattan_distance.svg.png)
+<center>![Manhattan Distance](https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Manhattan_distance.svg/220px-Manhattan_distance.svg.png)</center>
 
 This images show some of the smallest paths from one black point to the other, all of them with distance $12$.
 
@@ -80,14 +80,14 @@ Also, we may realize that $\alpha$ is a [spiral similarity](https://en.wikipedia
 The Manhattan MST problem consists of, given some points in the plane, find the edges that connect all the points and have a minimum total sum of weights. The weight of an edge that connects two points is their Manhattan distance. For simplicity, we assume that all points have different locations.
 Here we show a way of finding the MST in $O(n \log{n})$ by finding for each point its nearest neighbor in each octant, as represented by the image below. This will give us $O(n)$ candidate edges, which will guarantee that they contain the MST. The final step is then using some standard MST, for example, [Kruskal algorithm using disjoint set union](https://cp-algorithms.com/graph/mst_kruskal_with_dsu.html).
 
-![8 octants picture](manhattan-mst-octants.png)
+<center>![8 octants picture](manhattan-mst-octants.png)</center>
 *The 8 octants relative to a point S*
 
 The algorithm show here was first presented in a paper from [H. Zhou, N. Shenoy, and W. Nichollos (2002)](https://ieeexplore.ieee.org/document/913303). There is also another know algorithm that uses a Divide and conquer approach by [J. Stolfi](https://www.academia.edu/15667173/On_computing_all_north_east_nearest_neighbors_in_the_L1_metric), which is also very interesting and only differ in the way they find the nearest neighbor in each octant. They both have the same complexity, but the one presented here is easier to implement and has a lower constant factor.
 
 First, let's understand why it is enough to consider only the nearest neighbor in each octant. The idea is to show that for a point $s$ and any two other points $p$ and $q$ in the same octant, $dist(p, q) < max(dist(s, p), dist(s, q))$. This is important, because it shows that if there was a MST where $s$ is connected to both $p$ and $q$, we could erase one of these edges and add the edge $(p,q)$, which would decrease the total cost. To prove this, we assume without loss of generality that $p$ and $q$ are in the octanct $R_1$, which is defined by: $x_s \leq x$ and $x_s - y_s > x -  y$, and then do some casework. The image below give some intuition on why this is true.
 
-![unique nearest neighbor](manhattan-mst-uniqueness.png)
+<center>![unique nearest neighbor](manhattan-mst-uniqueness.png)</center>
 *We can build some intuition that limitation of the octant make it impossible that $s$ is closer to both $p$ and $q$ then each other*
 
 
@@ -99,11 +99,11 @@ For simplicity we focus on the NNE octant ($R_1$ in the image above). All other 
 
 We will use a sweep-line approach. We process the points from south-west to north-east, that is, by non-decreasing $x + y$. We also keep a set of points which don't have their nearest neighbor yet, which we call "active set". We add the images below to help visualize the algorithm.
 
-![manhattan-mst-sweep](manhattan-mst-sweep-line-1.png)
+<center>![manhattan-mst-sweep](manhattan-mst-sweep-line-1.png)</center>
 
 *In black with an arrow you can see the direction of the line-sweep. All the points below this lines are in the active set, and the points above are still not processed. In green we see the points which are in the octant of the processed point. In red the points that are not in the searched octant.*
 
-![manhattan-mst-sweep](manhattan-mst-sweep-line-2.png)
+<center>![manhattan-mst-sweep](manhattan-mst-sweep-line-2.png)</center>
 *In this image we see the active set after processing the point $p$. Note that the $2$ green points of the previous image had $p$ in its north-north-east octant and are not in the active set anymore, because they already found their nearest neighbor.*
 
 When we add a new point point $p$, for every point $s$ that has it in it's octant we can safely assign $p$ as the nearest neighbor. This is true because their distance is $d(p,s) = |x_p - x_s| + |y_p - y_s| = (x_p + y_p) - (x_s + y_s)$, because $p$ is in the north-north-east octant. As all the next points will not have a smaller value of $x + y$ because of the sorting step, $p$ is guaranteed to have the smaller distance. We can then remove all such points from the active set, and finally add $p$ to the active set.
