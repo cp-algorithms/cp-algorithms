@@ -74,6 +74,9 @@ the Manhattan distance between the points $p$ and $q$ turns into the Chebyshev d
 
 Also, we may realize that $\alpha$ is a [spiral similarity](https://en.wikipedia.org/wiki/Spiral_similarity) (rotation of the plane followed by a dilation about a center $O$) with center $(0, 0)$, rotation angle of $45^{\circ}$ in clockwise direction and dilation by $\sqrt{2}$.
 
+Here's an image to help visualizing the transformation:
+
+<center>![Chebyshev transformation](chebyshev-transformation.png)</center>
 
 ## Manhattan Minimum Spanning Tree
 
