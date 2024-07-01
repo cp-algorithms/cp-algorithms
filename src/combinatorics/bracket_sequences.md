@@ -32,7 +32,7 @@ We iterate over all character of the string, if the current bracket character is
 If at any time the variable $\text{depth}$ gets negative, or at the end it is different from $0$, then the string is not a balanced sequence.
 Otherwise it is.
 
-If there are several bracket types involved, then the algorithm needs to be changes.
+If there are several bracket types involved, then the algorithm needs to be changed.
 Instead of a counter $\text{depth}$ we create a stack, in which we will store all opening brackets that we meet.
 If the current bracket character is an opening one, we put it onto the stack.
 If it is a closing one, then we check if the stack is non-empty, and if the top element of the stack is of the same type as the current closing bracket.
@@ -49,7 +49,7 @@ The number of balanced bracket sequences of length $2n$ ($n$ pairs of brackets) 
 
 $$\frac{1}{n+1} \binom{2n}{n}$$
 
-If we allow $k$ types of brackets, then each pair be of any of the $k$ types (independently of the others), thus the number of balanced bracket sequences is:
+If we allow $k$ types of brackets, then each pair can be of any of the $k$ types (independently of the others), thus the number of balanced bracket sequences is:
 
 $$\frac{1}{n+1} \binom{2n}{n} k^n$$
 
@@ -82,7 +82,7 @@ When we meet an opening brackets, we will decrement $\text{depth}$, and when we 
 If we are at some point meet an opening bracket, and the balance after processing this symbol is positive, then we have found the rightmost position that we can change.
 We change the symbol, compute the number of opening and closing brackets that we have to add to the right side, and arrange them in the lexicographically minimal way.
 
-If we find do suitable position, then this sequence is already the maximal possible one, and there is no answer.
+If we don't find a suitable position, then this sequence is already the maximal possible one, and there is no answer.
 
 ```{.cpp file=next_balanced_brackets_sequence}
 bool next_balanced_sequence(string & s) {
@@ -117,7 +117,7 @@ To generate then, we can start with the lexicographically smallest sequence $((\
 
 However, if the length of the sequence is not very long (e.g. $n$ smaller than $12$), then we can also generate all permutations conveniently with the C++ STL function `next_permutation`, and check each one for balanceness.
 
-Also they can be generate using the ideas we used for counting all sequences with dynamic programming.
+Also they can be generated using the ideas we used for counting all sequences with dynamic programming.
 We will discuss the ideas in the next two sections.
 
 ## Sequence index
@@ -142,19 +142,19 @@ Thus we can compute this array in $O(n^2)$.
 Now let us generate the index for a given sequence.
 
 First let there be only one type of brackets.
-We will us the counter $\text{depth}$ which tells us how nested we currently are, and iterate over the characters of the sequence.
+We will use the counter $\text{depth}$ which tells us how nested we currently are, and iterate over the characters of the sequence.
 If the current character $s[i]$ is equal to $($, then we increment $\text{depth}$.
 If the current character $s[i]$ is equal to $)$, then we must add $d[2n-i-1][\text{depth}+1]$ to the answer, taking all possible endings starting with a $($ into account (which are lexicographically smaller sequences), and then decrement $\text{depth}$.
 
 New let there be $k$ different bracket types.
 
-Thus, when we look at the current character $s[i]$ before recomputing $\text{depth}$, we have to go through all bracket types that are smaller than the current character, and try to put this bracket into the current position (obtaining a new balance $\text{ndepth} = \text{depth} \pm 1$), and add the number of ways to finish the sequence (length $2n-i-1$, balance $ndepth$) to the answer:
+Thus, when we look at the current character $s[i]$ before recomputing $\text{depth}$, we have to go through all bracket types that are smaller than the current character, and try to place this bracket into the current position (obtaining a new balance $\text{ndepth} = \text{depth} \pm 1$), and add the number of ways to finish the sequence (length $2n-i-1$, balance $ndepth$) to the answer:
 
 $$d[2n - i - 1][\text{ndepth}] \cdot k^{\frac{2n - i - 1 - ndepth}{2}}$$
 
 This formula can be derived as follows:
 First we "forget" that there are multiple bracket types, and just take the answer $d[2n - i - 1][\text{ndepth}]$.
-Now we consider how the answer will change is we have $k$ types of brackets.
+Now we consider how the answer will change if we have $k$ types of brackets.
 We have $2n - i - 1$ undefined positions, of which $\text{ndepth}$ are already predetermined because of the opening brackets.
 But all the other brackets ($(2n - i - 1 - \text{ndepth})/2$ pairs) can be of any type, therefore we multiply the number by such a power of $k$.
 
@@ -169,10 +169,9 @@ First, we start with only one bracket type.
 
 We will iterate over the characters in the string we want to generate.
 As in the previous problem we store a counter $\text{depth}$, the current nesting depth.
-In each position we have to decide if we use an opening of a closing bracket.
-To have to put an opening bracket character, it $d[2n - i - 1][\text{depth}+1] \ge k$.
-We increment the counter $\text{depth}$, and move on to the next character.
-Otherwise we decrement $k$ by $d[2n - i - 1][\text{depth}+1]$, put a closing bracket and move on.
+At each position, we have to decide whether to place an opening or a closing bracket. To place an opening bracket, $d[2n - i - 1][\text{depth}+1] \ge k$ must be true.
+If so, we increment the counter $\text{depth}$, and move on to the next character.
+Otherwise, we decrement $k$ by $d[2n - i - 1][\text{depth}+1]$, place a closing bracket, and move on.
 
 ```{.cpp file=kth_balances_bracket}
 string kth_balanced(int n, int k) {
