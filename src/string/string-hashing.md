@@ -16,7 +16,7 @@ Doing this allows us to reduce the execution time of the string comparison to $O
 
 For the conversion, we need a so-called **hash function**.
 The goal of it is to convert a string into an integer, the so-called **hash** of the string.
-The following condition has to hold: if two strings $s$ and $t$ are equal ($s = t$), then also their hashes have to be equal ($\text{hash}(s) = \text{hash}(t)$).
+The following condition has to hold: if two strings $s$ and $t$ are equal ($s = t$), then their hashes also have to be equal ($\text{hash}(s) = \text{hash}(t)$).
 Otherwise, we will not be able to compare strings.
 
 Notice, the opposite direction doesn't have to hold.
