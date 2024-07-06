@@ -6,18 +6,20 @@ e_maxx_link: strong_connected_components
 
 # Finding strongly connected components / Building condensation graph
 
-## Definitions
-You are given a directed graph $G$ with vertices $V$ and edges $E$. It is possible that there are loops and multiple edges. Let's denote $n$ as number of vertices and $m$ as number of edges in $G$.
+# Definitions
+Let $G=(V,E)$ be a directed graph with vertices $V$ and edges $E$. It is possible that there are self-loops, or multiple edges between the same pair of vertices. We denote with $n=|V|$ the number of vertices and with $m=|E|$ the number of edges in $G$.
 
-**Strongly connected component** is a maximal subset of vertices $C$ such that any two vertices of this subset are reachable from each other, i.e. for any $u, v \in C$:
+A nonempty subset of vertices $C \subseteq V$ is called a **strongly connected component** if the following conditions hold:
 
-$$u \mapsto v, v \mapsto u$$
+- for all $u,v\in C$, if $u \neq v$ there exists a path from $u$ to $v$, and
+- if any node $u$ were removed from $C$, the above condition would not hold anymore.
 
-where $\mapsto$ means reachability, i.e. existence of the path from first vertex to the second.
+We denote with $\text{SCC}(G)$ the set of strongly connected components of $G$. It is clear that these strongly connected components do not intersect each other, and that they cover all nodes in the graph. Thus, the set $\text{SCC}(G)$ is a partition of $V$. We define the **condensation graph** $G^{\text{SCC}}=(V^{\text{SCC}}, E^{\text{SCC}})$ as follows:
 
-It is obvious, that strongly connected components do not intersect each other, i.e. this is a partition of all graph vertices. Thus we can give a definition of condensation graph $G^{SCC}$ as a graph containing every strongly connected component as one vertex. Each vertex of the condensation graph corresponds to the strongly connected component of graph $G$. There is an oriented edge between two vertices $C_i$ and $C_j$ of the condensation graph if and only if there are two vertices $u \in C_i, v \in C_j$ such that there is an edge in initial graph, i.e. $(u, v) \in E$.
+- the vertices of $G^{\text{SCC}}$ are the strongly connected components of $G$; i.e., $V^{\text{SCC}} = \text{SCC}(G)$, and
+- for all vertices $C_i,C_j$ of the condensation graph, there is an edge from $C_i$ to $C_j$ if and only if $C_i \neq C_j$ and there exist $a\in C_i$ and $b\in C_j$ such that there is an edge from $a$ to $b$ in $G$.
 
-The most important property of the condensation graph is that it is **acyclic**. Indeed, suppose that there is an edge between $C$ and $C'$, let's prove that there is no edge from $C'$ to $C$. Suppose that $C' \mapsto C$. Then there are two vertices $u' \in C$ and $v' \in C'$ such that $v' \mapsto u'$. But since $u$ and $u'$ are in the same strongly connected component then there is a path between them; the same for $v$ and $v'$. As a result, if we join these paths we have that $v \mapsto u$ and at the same time $u \mapsto v$. Therefore $u$ and $v$ should be at the same strongly connected component, so this is contradiction. This completes the proof.
+The most important property of the condensation graph is that it is **acyclic**. To prove this, suppose that there is an edge from $C$ to $C'$ in $G^{\text{SCC}}$. Aiming for a contradiction, let us assume that there is also an edge from $C'$ to $C$ in $G^{\text{SCC}}$. Then there are two vertices $u' \in C$ and $v' \in C'$ such that $v' \mapsto u'$. But since $u$ and $u'$ are in the same strongly connected component then there is a path between them; the same for $v$ and $v'$. As a result, if we join these paths we have that $v \mapsto u$ and at the same time $u \mapsto v$. Therefore $u$ and $v$ should be at the same strongly connected component, so this is contradiction. This completes the proof.
 
 The algorithm described in the next section extracts all strongly connected components in a given graph. It is quite easy to build a condensation graph then.
 
