@@ -11,15 +11,15 @@ Let $G=(V,E)$ be a directed graph with vertices $V$ and edges $E$. It is possibl
 
 A nonempty subset of vertices $C \subseteq V$ is called a **strongly connected component** if the following conditions hold:
 
-- for all $u,v\in C$, if $u \neq v$ there exists a path from $u$ to $v$, and
-- if any node $u$ were removed from $C$, the above condition would not hold anymore.
+- for all $u,v\in C$, if $u \neq v$ there exists a path from $u$ to $v$ (and a path from $v$ to $u$), and
+- $C$ is maximal, in the sense that adding any vertex would cause the above condition to fail.
 
-We denote with $\text{SCC}(G)$ the set of strongly connected components of $G$. It is clear that these strongly connected components do not intersect each other, and that they cover all nodes in the graph. Thus, the set $\text{SCC}(G)$ is a partition of $V$. We define the **condensation graph** $G^{\text{SCC}}=(V^{\text{SCC}}, E^{\text{SCC}})$ as follows:
+We denote with $\text{SCC}(G)$ the set of strongly connected components of $G$. These strongly connected components do not intersect each other, and cover all nodes in the graph. Thus, the set $\text{SCC}(G)$ is a partition of $V$. We define the **condensation graph** $G^{\text{SCC}}=(V^{\text{SCC}}, E^{\text{SCC}})$ as follows:
 
 - the vertices of $G^{\text{SCC}}$ are the strongly connected components of $G$; i.e., $V^{\text{SCC}} = \text{SCC}(G)$, and
 - for all vertices $C_i,C_j$ of the condensation graph, there is an edge from $C_i$ to $C_j$ if and only if $C_i \neq C_j$ and there exist $a\in C_i$ and $b\in C_j$ such that there is an edge from $a$ to $b$ in $G$.
 
-The most important property of the condensation graph is that it is **acyclic**. If there were a cycle in $G^{\text{SCC}}$, then there would exist distinct strongly connected components $C_1$ and $C_2$ which are both reachable from each other in $G^{\text{SCC}}$ (recall that, by definition, there are no self-loops in $G^{\text{SCC}}$). However, this would imply that all vertices in $C_1\cup C_2$ are reachable from each other. Thus, $C_1$ and $C_2$ would be part of the same strongly connected component. We reach a contradiction, and conclude that the condensation graph is indeed acyclic.
+The most important property of the condensation graph is that it is **acyclic**. This is easy to see: there are no 'self-loops' in the condensation graph by definition, and if there were a cycle going through two or more vertices (strongly connected components) in the condensation graph, then due to reachability, the union of these strongly connected components would have to be one strongly connected component itself: contradiction.
 
 The algorithm described in the next section finds all strongly connected components in a given graph. After that, the condensation graph can be constructed.
 
@@ -32,11 +32,11 @@ First, we define the exit time $t_\text{out}[C]$ of a strongly connected compone
 
 **Theorem**. Let $C$ and $C'$ be two different strongly connected components, and let there be an edge from $C$ to $C'$ in the condensation graph. Then, $t_\text{out}[C] > t_\text{out}[C']$.
 
-There are two main different cases at the proof depending on which component will be visited by depth first search first, i.e. depending on difference between $t_{\text{in}}[C]$ and $t_{\text{in}}[C']$:
+**Proof.** There are two different cases, depending on which component will first be visited by depth first search:
 
-- The component $C$ was reached first. It means that depth first search comes at some vertex $v$ of component $C$ at some moment, but all other vertices of components $C$ and $C'$ were not visited yet. By condition there is an edge $(C, C')$ in a condensation graph, so not only the entire component $C$ is reachable from $v$ but the whole component $C'$ is reachable as well. It means that depth first search that is running from vertex $v$ will visit all vertices of components $C$ and $C'$, so they will be descendants for $v$ in a depth first search tree, i.e. for each vertex $u \in C \cup C', u \ne v$ we have that $t_\text{out}[v] > t_\text{out}[u]$, as we claimed.
+- Case 1: the component $C$ was visited first (i.e., $t_{\text{in}}[C] < t_{\text{in}}[C']$). It means that depth first search comes at some vertex $v$ of component $C$ at some moment, but all other vertices of components $C$ and $C'$ were not visited yet. By condition there is an edge $(C, C')$ in a condensation graph, so not only the entire component $C$ is reachable from $v$ but the whole component $C'$ is reachable as well. It means that depth first search that is running from vertex $v$ will visit all vertices of components $C$ and $C'$, so they will be descendants for $v$ in a depth first search tree, i.e. for each vertex $u \in C \cup C', u \ne v$ we have that $t_\text{out}[v] > t_\text{out}[u]$, as we claimed.
 
-- Assume that component $C'$ was visited first. Similarly, depth first search comes at some vertex $v$ of component $C'$ at some moment, but all other vertices of components $C$ and $C'$ were not visited yet. But by condition there is an edge $(C, C')$ in the condensation graph, so, because of acyclic property of condensation graph, there is no back path from $C'$ to $C$, i.e. depth first search from vertex $v$ will not reach vertices of $C$. It means that vertices of $C$ will be visited by depth first search later, so $t_\text{out}[C] > t_\text{out}[C']$. This completes the proof.
+- Case 2: the component $C'$ was visited first (i.e., $t_{\text{in}}[C] > t_{\text{in}}[C']$). Similarly, depth first search comes at some vertex $v$ of component $C'$ at some moment, but all other vertices of components $C$ and $C'$ were not visited yet. But by condition there is an edge $(C, C')$ in the condensation graph, so, because of acyclic property of condensation graph, there is no back path from $C'$ to $C$, i.e. depth first search from vertex $v$ will not reach vertices of $C$. It means that vertices of $C$ will be visited by depth first search later, so $t_\text{out}[C] > t_\text{out}[C']$. This completes the proof.
 
 Proved theorem is **the base of algorithm** for finding strongly connected components. It follows that any edge $(C, C')$ in condensation graph comes from a component with a larger value of $t_\text{out}$ to component with a smaller value.
 
