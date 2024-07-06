@@ -19,9 +19,9 @@ We denote with $\text{SCC}(G)$ the set of strongly connected components of $G$. 
 - the vertices of $G^{\text{SCC}}$ are the strongly connected components of $G$; i.e., $V^{\text{SCC}} = \text{SCC}(G)$, and
 - for all vertices $C_i,C_j$ of the condensation graph, there is an edge from $C_i$ to $C_j$ if and only if $C_i \neq C_j$ and there exist $a\in C_i$ and $b\in C_j$ such that there is an edge from $a$ to $b$ in $G$.
 
-The most important property of the condensation graph is that it is **acyclic**. To prove this, suppose that there is an edge from $C$ to $C'$ in $G^{\text{SCC}}$. Aiming for a contradiction, let us assume that there is also an edge from $C'$ to $C$ in $G^{\text{SCC}}$. Then there are two vertices $u' \in C$ and $v' \in C'$ such that $v' \mapsto u'$. But since $u$ and $u'$ are in the same strongly connected component then there is a path between them; the same for $v$ and $v'$. As a result, if we join these paths we have that $v \mapsto u$ and at the same time $u \mapsto v$. Therefore $u$ and $v$ should be at the same strongly connected component, so this is contradiction. This completes the proof.
+The most important property of the condensation graph is that it is **acyclic**. If there were a cycle in $G^{\text{SCC}}$, then there would exist distinct strongly connected components $C_1$ and $C_2$ which are both reachable from each other in $G^{\text{SCC}}$ (recall that, by definition, there are no self-loops in $G^{\text{SCC}}$). However, this would imply that all vertices in $C_1\cup C_2$ are reachable from each other. Thus, $C_1$ and $C_2$ would be part of the same strongly connected component. We reach a contradiction, and conclude that the condensation graph is indeed acyclic.
 
-The algorithm described in the next section extracts all strongly connected components in a given graph. It is quite easy to build a condensation graph then.
+The algorithm described in the next section finds all strongly connected components in a given graph. After that, the condensation graph can be constructed.
 
 ## Description of the algorithm
 Described algorithm was independently suggested by Kosaraju and Sharir at 1979. This is an easy-to-implement algorithm based on two series of [depth first search](depth-first-search.md), and working for $O(n + m)$ time.
