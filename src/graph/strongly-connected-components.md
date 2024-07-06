@@ -30,7 +30,7 @@ The described algorithm was independently suggested by Kosaraju and Sharir aroun
 
 First, we define the exit time $t_\text{out}[C]$ of a strongly connected component $C$ as the maximum of the values $t_\text{out}[v]$ for all $v \in C.$ Furthermore, in the proof of the theorem, we will mention *entry times* $t_{\text{in}}[v]$ for each vertex $v\in G$. For a strongly connected component $C$, we define $t_{\text{in}}[C]$ to be the minimum of the values $t_{\text{in}}[v]$ for all $v \in C$.
 
-**Theorem**. Let $C$ and $C'$ are two different strongly connected components and there is an edge $(C, C')$ in a condensation graph between these two vertices. Then $t_\text{out}[C] > t_\text{out}[C']$.
+**Theorem**. Let $C$ and $C'$ be two different strongly connected components, and let there be an edge from $C$ to $C'$ in the condensation graph. Then, $t_\text{out}[C] > t_\text{out}[C']$.
 
 There are two main different cases at the proof depending on which component will be visited by depth first search first, i.e. depending on difference between $t_{\text{in}}[C]$ and $t_{\text{in}}[C']$:
 
