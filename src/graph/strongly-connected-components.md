@@ -40,16 +40,13 @@ First, we define the exit time $t_\text{out}[C]$ of a strongly connected compone
 
 The proved theorem is very important for finding strongly connected components. It means that any edge $C\rightarrow C'$ in the condensation graph goes from a component with a larger value of $t_\text{out}$ to a component with a smaller value.
 
-If we sort all vertices $v \in V$ in decreasing order of their exit time $t_\text{out}[v]$ then the first vertex $u$ is going to be a vertex belonging to "root" strongly connected component, i.e. a vertex that has no incoming edges in the condensation graph. Now we want to run such search from this vertex $u$ so that it will visit all vertices in this strongly connected component, but not others; doing so, we can gradually select all strongly connected components: let's remove all vertices corresponding to the first selected component, and then let's find a vertex with the largest value of $t_\text{out}$, and run this search from it, and so on.
+If we sort all vertices $v \in V$ in decreasing order of their exit time $t_\text{out}[v]$, then the first vertex $u$ will belong to the "root" strongly connected component, which has no incoming edges in the condensation graph. Now we want to run some type of search from this vertex $u$ so that it will visit all vertices in its strongly connected component, but not other vertices. Doing so, we can gradually find all strongly connected components: we remove all vertices belonging to the first found component, then we find the next remaining vertex with the largest value of $t_\text{out}$, and run this search from it, and so on. In the end, we will have found all strongly connected components. To find a search method that behaves like we want, we consider the following theorem:
 
-Let's consider transposed graph $G^T$, i.e. graph received from $G$ by reversing the direction of each edge.
-Obviously, this graph will have the same strongly connected components as the initial graph.
-Moreover, the condensation graph $G^{SCC}$ will also get transposed.
-It means that there will be no edges from our "root" component to other components.
+**Theorem.** Define the *transpose graph* $G^T$ as the graph obtained by reversing the edge directions in $G$. Then, $\text{SCC}(G)=\text{SCC}(G^T)$. Furthermore, the condensation graph of $G^T$ is the transpose of the condensation graph of $G$.
 
-Thus, for visiting the whole "root" strongly connected component, containing vertex $v$, is enough to run search from vertex $v$ in graph $G^T$. This search will visit all vertices of this strongly connected component and only them. As was mentioned before, we can remove these vertices from the graph then, and find the next vertex with a maximal value of $t_\text{out}[v]$ and run search in transposed graph from it, and so on.
+As a consequence of this theorem, there will be no edges from our "root" component to other components in the condensation graph of $G^T$. Thus, in order to visit the whole "root" strongly connected component, containing vertex $v$, we can just run a depth first search from vertex $v$ in the transpose graph $G^T$! This search will visit all vertices of this strongly connected component, and only those vertices. As was mentioned before, we can then remove these vertices from the graph. Then, we find the next vertex with a maximal value of $t_\text{out}[v]$, and run the search in the transposed graph from that vertex to find the next strongly connected component. Repeating this, we find all strongly connected components.
 
-Thus, we built next **algorithm** for selecting strongly connected components:
+Thus, in summary, we found the following **algorithm** to find strongly connected components:
 
 1st step. Run sequence of depth first search of graph $G$ which will return vertices with increasing exit time $tout$, i.e. some list $order$.
 
