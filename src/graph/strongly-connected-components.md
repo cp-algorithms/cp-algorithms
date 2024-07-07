@@ -38,7 +38,7 @@ First, we define the exit time $t_\text{out}[C]$ of a strongly connected compone
 
 - Case 2: the component $C'$ was reached first (i.e., $t_{\text{in}}[C] > t_{\text{in}}[C']$). In this case, depth first search visits some vertex $v \in C'$ at some moment during which all other vertices of the components $C$ and $C'$ are not visited yet. Since there is an edge from $C$ to $C'$ in the condensation graph, there cannot be an edge from $C'$ to $C$, by the acyclicity property. Hence, the `dfs` execution that is running from vertex $v$ will not reach any vertices of $C$. The vertices of $C$ will be visited by some `dfs` execution later, so indeed we have $t_\text{out}[C] > t_\text{out}[C']$. This completes the proof.
 
-The proved theorem is very important for finding strongly connected components. It means that any edge $C\rightarrow C'$ in the condensation graph goes from a component with a larger value of $t_\text{out}$ to a component with a smaller value.
+The proved theorem is very important for finding strongly connected components. It means that any edge in the condensation graph goes from a component with a larger value of $t_\text{out}$ to a component with a smaller value.
 
 If we sort all vertices $v \in V$ in decreasing order of their exit time $t_\text{out}[v]$, then the first vertex $u$ will belong to the "root" strongly connected component, which has no incoming edges in the condensation graph. Now we want to run some type of search from this vertex $u$ so that it will visit all vertices in its strongly connected component, but not other vertices. Doing so, we can gradually find all strongly connected components: we remove all vertices belonging to the first found component, then we find the next remaining vertex with the largest value of $t_\text{out}$, and run this search from it, and so on. In the end, we will have found all strongly connected components. To find a search method that behaves like we want, we consider the following theorem:
 
@@ -54,7 +54,7 @@ Thus, in summary, we found the following **algorithm** to find strongly connecte
 
 The runtime complexity of the algorithm is $O(n + m)$, because depth first search is performed twice.
 
-Finally, it is appropriate to mention [topological sort](topological-sort.md) here. First of all, step 1 of the algorithm represents reversed topological sort of graph $G$ (actually this is exactly what vertices' sort by exit time means). Secondly, the algorithm's scheme generates strongly connected components by decreasing order of their exit times, thus it generates components - vertices of condensation graph - in topological sort order.
+Finally, it is appropriate to mention [topological sort](topological-sort.md) here. In step 2, the algorithm finds strongly connected components in decreasing order of their exit times; thus, it finds components - vertices of condensation graph - in an order corresponding to a topological sort of the condensation graph.
 
 ## Implementation
 ```cpp
