@@ -7,7 +7,7 @@ e_maxx_link: strong_connected_components
 # Finding strongly connected components / Building condensation graph
 
 # Definitions
-Let $G=(V,E)$ be a directed graph with vertices $V$ and edges $E$. It is possible that there are self-loops, or multiple edges between the same pair of vertices. We denote with $n=|V|$ the number of vertices and with $m=|E|$ the number of edges in $G$.
+Let $G=(V,E)$ be a directed graph with vertices $V$ and edges $E$. We denote with $n=|V|$ the number of vertices and with $m=|E|$ the number of edges in $G$.
 
 A subset of vertices $C \subseteq V$ is called a **strongly connected component** if the following conditions hold:
 

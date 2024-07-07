@@ -1,0 +1,42 @@
+\documentclass{standalone}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning,quotes,hobby,backgrounds,arrows.meta,bending,positioning}
+\begin{document}
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+\begin{tikzpicture}
+	[very thick,every circle node/.style={draw, outer sep=1.1mm},node distance=1cm, every path/.style={->}]
+	\draw [help lines] (-1,-2) grid (7,2);
+	\node[circle] (0) at (0,0) {0};
+	\node[circle] (1) at (1,1) {1};
+	\node[circle] (2) at (3,1) {2};
+	\node[circle] (3) at (5,1) {3};
+	\node[circle] (4) at (6,0) {4};
+	\node[circle] (5) at (4,0) {5};
+	\node[circle] (6) at (2,0) {6};
+	\node[circle] (7) at (1,-1) {7};
+	\node[circle] (8) at (3,-1) {8};
+	\node[circle] (9) at (5,-1) {9};
+
+	\path (0) edge (1);
+	\path (0) edge[bend left=20] (7);
+	\path (1) edge[loop left] (1);
+	\path (1) edge[bend left=20] (2);
+	\path (2) edge[bend left=20] (1);
+	\path (2) edge (5);
+	\path (3) edge (2);
+	\path (3) edge (4);
+	\path (4) edge[bend left=20] (9);
+	\path (5) edge (3);
+	\path (5) edge (6);
+	\path (5) edge (9);
+	\path (6) edge (2);
+	\path (7) edge[bend left=20] (0);
+	\path (7) edge (6);
+	\path (7) edge (8);
+	\path (8) edge (6);
+	\path (8) edge (9);
+	\path (9) edge[bend left=20] (4);
+\end{tikzpicture}
+\end{document}
