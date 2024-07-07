@@ -2,10 +2,6 @@
 using namespace std;
 #include "manhattan_mst.h"
 
-struct point {
-    int x, y;
-};
-
 struct DSU {
     int n;
     vector<int> p, ps;
