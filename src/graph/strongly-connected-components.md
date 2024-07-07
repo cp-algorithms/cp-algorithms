@@ -58,10 +58,12 @@ Finally, it is appropriate to mention [topological sort](topological-sort.md) he
 
 ## Implementation
 ```cpp
-vector<vector<int>> adj, adj_rev;
-vector<bool> visited;
-vector<int> order, component;
+vector<vector<int>> adj, adj_rev; // Adjacency lists of G and G^T.
+vector<bool> visited; // Keeps track of which nodes are already visited.
+vector<int> order; // Sorted list of vertices in G by exit time.
+vector<int> component; // Stores one strongly connected component at a time.
  
+// Depth first search on G, used in step 1 of the algorithm.
 void dfs1(int v) {
     visited[v] = true;
 
@@ -72,6 +74,7 @@ void dfs1(int v) {
     order.push_back(v);
 }
  
+// Depth first search on G^T, used in step 2 of the algorithm.
 void dfs2(int v) {
     visited[v] = true;
     component.push_back(v);
@@ -82,18 +85,18 @@ void dfs2(int v) {
 }
  
 int main() {
-    int n;
-    // ... read n ...
+    int n = ...; // Number of vertices in G.
 
-    for ( ... ) {
-        int a, b;
-        // ... read next directed edge (a,b) ...
+    // Add edges to G.
+    for (int i=0; i < n; i++) {
+        int a = ..., b = ...;
         adj[a].push_back(b);
         adj_rev[b].push_back(a);
     }
  
     visited.assign(n, false);
 
+    // Run the first series of depth first searches.
     for (int i = 0; i < n; i++)
         if (!visited[i])
             dfs1(i);
@@ -101,53 +104,49 @@ int main() {
     visited.assign(n, false);
     reverse(order.begin(), order.end());
 
+    // These vectors are for the condensation graph;
+    // they are explained in the text below.
+    vector<int> roots(n, 0);
+    vector<int> root_nodes;
+    vector<vector<int>> adj_scc(n);
+    
+    // Run the second series of depth first searches,
+    // and add vertices to condensation graph.
+    // During this process, we find all strongly connected components.
     for (auto v : order)
         if (!visited[v]) {
             dfs2(v);
 
-            // ... do something with the found component ...
-
+            // Found a strongly connected component!
+            // Add it to the condensation graph...
+            int root = component.front();
+            for (auto u : component) roots[u] = root;
+            root_nodes.push_back(root);
+    
             component.clear();
         }
+    
+    
+    // Add edges to condensation graph.
+    for (int v = 0; v < n; v++)
+        for (auto u : adj[v]) {
+            int root_v = roots[v],
+                root_u = roots[u];
+    
+            if (root_u != root_v)
+                adj_scc[root_v].push_back(root_u);
+        }
+
+    // We found all strongly connected components,
+    // and constructed the condensation graph.
 }
 ```
 
 Here, the function `dfs1` implements depth first search on $G$, and the function `dfs2` does this on the transpose graph $G^T$. The function `dfs1` fills the list `order` with vertices in increasing order of their exit times. The function `dfs2` adds all reached vertices to the vector `component`, which, after each run, will contain the just-found strongly connected component.
 
-### Condensation Graph Implementation
+When building the condensation graph, we select the *root* of each component as the first node in its list (this is an arbitrary choice). This node will represent its entire SCC in the condensation graph. For each vertex `v`, the value `roots[v]` indicates the root node of the SCC which `v` belongs to. `root_nodes` is the list of all root nodes (one per component) in the condensation graph. 
 
-```cpp
-// continuing from previous code
-
-vector<int> roots(n, 0);
-vector<int> root_nodes;
-vector<vector<int>> adj_scc(n);
-
-for (auto v : order)
-    if (!visited[v]) {
-        dfs2(v);
-
-        int root = component.front();
-        for (auto u : component) roots[u] = root;
-        root_nodes.push_back(root);
-
-        component.clear();
-    }
-
-
-for (int v = 0; v < n; v++)
-    for (auto u : adj[v]) {
-        int root_v = roots[v],
-            root_u = roots[u];
-
-        if (root_u != root_v)
-            adj_scc[root_v].push_back(root_u);
-    }
-```
-
-Here, we have selected the root of each component as the first node in its list. This node will represent its entire SCC in the condensation graph. `roots[v]` indicates the root node for the SCC to which node `v` belongs. `root_nodes` is the list of all root nodes (one per component) in the condensation graph. 
-
-`adj_scc` is the adjacency list of the `root_nodes`. We can now traverse on `adj_scc` as our condensation graph, using only those nodes which belong to `root_nodes`.
+Our condensation graph is now given by the vertices `root_nodes`, and the adjacency list is given by `adj_scc`, using only the nodes which belong to `root_nodes`.
 
 ## Literature
 
@@ -175,5 +174,5 @@ Here, we have selected the root of each component as the first node in its list.
 * [SPOJ - Ada and Panels](http://www.spoj.com/problems/ADAPANEL/)
 * [CSES - Flight Routes Check](https://cses.fi/problemset/task/1682)
 * [CSES - Planets and Kingdoms](https://cses.fi/problemset/task/1683)
-* [CSES -Coin Collector](https://cses.fi/problemset/task/1686)
+* [CSES - Coin Collector](https://cses.fi/problemset/task/1686)
 * [Codeforces - Checkposts](https://codeforces.com/problemset/problem/427/C)
