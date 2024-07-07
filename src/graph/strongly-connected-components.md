@@ -16,11 +16,11 @@ A subset of vertices $C \subseteq V$ is called a **strongly connected component*
 
 We denote with $\text{SCC}(G)$ the set of strongly connected components of $G$. These strongly connected components do not intersect each other, and cover all nodes in the graph. Thus, the set $\text{SCC}(G)$ is a partition of $V$. 
 
-As an example, consider this graph, in which the strongly connected components are highlighted:
+As an example, consider this graph $G_\text{example}$, in which the strongly connected components are highlighted:
 
 <img src="strongly-connected-components-tikzpicture/graph.svg" alt="drawing" style="width:700px;"/>
 
-We can confirm that within each strongly connected component, all vertices are reachable from each other.
+In this case, $\text{SCC}(G_\text{example})=\{\{0,7\},\{1,2,3,5,6\},\{4,9\},\{8\}\}.$ We can confirm that within each strongly connected component, all vertices are reachable from each other.
 
 We define the **condensation graph** $G^{\text{SCC}}=(V^{\text{SCC}}, E^{\text{SCC}})$ as follows:
 
@@ -43,7 +43,7 @@ First, we define the exit time $t_\text{out}[C]$ of a strongly connected compone
 
 **Proof.** There are two different cases, depending on which component will first be reached by depth first search:
 
-- Case 1: the component $C$ was reached first (i.e., $t_{\text{in}}[C] < t_{\text{in}}[C']$). In this case, depth first search visits some vertex $v \in C$ at some moment during which all other vertices of the components $C$ and $C'$ are not visited yet. Since there is an edge from $C$ to $C'$ in the condensation graph, not only are all vertices in $C$ reachable from $v$ in $G$, but all vertices in $C'$ are reachable as well. This means that this `dfs` execution, which is running from vertex $v$, will also visit all other vertices of the components $C$ and $C'$ in the future, so these vertices will be descendants of $v$ in the depth first search tree. This implies that for each vertex $u \in (C \cup C')\setminus \{v\},$ we have that $t_\text{out}[v] > t_\text{out}[u]$. Therefore, $t_\text{out}[C] > t_\text{out}[C']$, which completes this case of the proof.
+- Case 1: the component $C$ was reached first (i.e., $t_{\text{in}}[C] < t_{\text{in}}[C']$). In this case, depth first search visits some vertex $v \in C$ at some moment during which all other vertices of the components $C$ and $C'$ are not visited yet. Since there is an edge from $C$ to $C'$ in the condensation graph, not only are all other vertices in $C$ reachable from $v$ in $G$, but all vertices in $C'$ are reachable as well. This means that this `dfs` execution, which is running from vertex $v$, will also visit all other vertices of the components $C$ and $C'$ in the future, so these vertices will be descendants of $v$ in the depth first search tree. This implies that for each vertex $u \in (C \cup C')\setminus \{v\},$ we have that $t_\text{out}[v] > t_\text{out}[u]$. Therefore, $t_\text{out}[C] > t_\text{out}[C']$, which completes this case of the proof.
 
 - Case 2: the component $C'$ was reached first (i.e., $t_{\text{in}}[C] > t_{\text{in}}[C']$). In this case, depth first search visits some vertex $v \in C'$ at some moment during which all other vertices of the components $C$ and $C'$ are not visited yet. Since there is an edge from $C$ to $C'$ in the condensation graph, there cannot be an edge from $C'$ to $C$, by the acyclicity property. Hence, the `dfs` execution that is running from vertex $v$ will not reach any vertices of $C$. The vertices of $C$ will be visited by some `dfs` execution later, so indeed we have $t_\text{out}[C] > t_\text{out}[C']$. This completes the proof.
 
