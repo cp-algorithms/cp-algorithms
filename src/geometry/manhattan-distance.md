@@ -133,7 +133,7 @@ In summary we:
 
 Below you can find a implementation, based on the one from [KACTL](https://github.com/kth-competitive-programming/kactl/blob/main/content/geometry/ManhattanMST.h).
 
-```{.cpp file=manhattan_mst.cpp}
+```{.cpp file=manhattan_mst}
 // Returns a list of edges in the format (weight, u, v). 
 // Passing this list to Kruskal algorithm will give the Manhattan MST.
 vector<tuple<long long,int,int> > manhattan_mst_edges(vector<point> ps){
