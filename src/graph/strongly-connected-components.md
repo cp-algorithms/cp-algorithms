@@ -4,7 +4,7 @@ tags:
 e_maxx_link: strong_connected_components
 ---
 
-# Finding strongly connected components / Building condensation graph
+# Strongly connected components and the condensation graph
 
 # Definitions
 Let $G=(V,E)$ be a directed graph with vertices $V$ and edges $E$. We denote with $n=|V|$ the number of vertices and with $m=|E|$ the number of edges in $G$.
@@ -20,14 +20,14 @@ As an example, consider this graph $G_\text{example}$, in which the strongly con
 
 <img src="strongly-connected-components-tikzpicture/graph.svg" alt="drawing" style="width:700px;"/>
 
-In this case, $\text{SCC}(G_\text{example})=\{\{0,7\},\{1,2,3,5,6\},\{4,9\},\{8\}\}.$ We can confirm that within each strongly connected component, all vertices are reachable from each other.
+Here we have $\text{SCC}(G_\text{example})=\{\{0,7\},\{1,2,3,5,6\},\{4,9\},\{8\}\}.$ We can confirm that within each strongly connected component, all vertices are reachable from each other.
 
 We define the **condensation graph** $G^{\text{SCC}}=(V^{\text{SCC}}, E^{\text{SCC}})$ as follows:
 
 - the vertices of $G^{\text{SCC}}$ are the strongly connected components of $G$; i.e., $V^{\text{SCC}} = \text{SCC}(G)$, and
 - for all vertices $C_i,C_j$ of the condensation graph, there is an edge from $C_i$ to $C_j$ if and only if $C_i \neq C_j$ and there exist $a\in C_i$ and $b\in C_j$ such that there is an edge from $a$ to $b$ in $G$.
 
-Here is the condensation graph of $G_\text{example}$:
+The condensation graph of $G_\text{example}$ looks as follows:
 
 <img src="strongly-connected-components-tikzpicture/cond_graph.svg" alt="drawing" style="width:700px;"/>
 
