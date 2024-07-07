@@ -1,0 +1,8 @@
+\documentclass{standalone} % say
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}
+\draw[thick] plot[smooth cycle,tension=1]
+coordinates{(0,0)(1,1)(2,0)(1,-1)};
+\end{tikzpicture}
+\end{document}

@@ -1,12 +1,15 @@
-\documentclass{standalone}
+\documentclass[tikz]{standalone}
 \usepackage{xcolor}
-\usepackage{tikz}
-\usetikzlibrary{arrows,positioning,quotes,hobby,backgrounds,arrows.meta,bending,positioning}
+\usetikzlibrary{arrows,positioning,quotes,hobby,backgrounds,arrows.meta,bending,positioning,shapes,shapes.geometric}
 \begin{document}
 \pgfdeclarelayer{background}
 \pgfsetlayers{background,main}
 \begin{tikzpicture}
-	[very thick,every circle node/.style={draw, outer sep=1.1mm},node distance=1cm, every path/.style={->}]
+	[very thick,every circle node/.style={draw,outer sep=1.1mm}, every path/.style={->}]
+
+\draw[thick] plot[smooth cycle,tension=1]
+coordinates{(0,0)(1,1)(2,0)(1,-1)};
+
 	\draw [help lines] (-1,-2) grid (7,2);
 	\node[circle] (0) at (0,0) {0};
 	\node[circle] (1) at (1,1) {1};
@@ -21,7 +24,7 @@
 
 	\path (0) edge (1);
 	\path (0) edge[bend left=20] (7);
-	\path (1) edge[loop left] (1);
+	\path (1) edge[loop below] (1);
 	\path (1) edge[bend left=20] (2);
 	\path (2) edge[bend left=20] (1);
 	\path (2) edge (5);
@@ -38,5 +41,21 @@
 	\path (8) edge (6);
 	\path (8) edge (9);
 	\path (9) edge[bend left=20] (4);
+
+	\begin{pgfonlayer}{background}
+		\draw[thick, red, fill=red!20!white] plot [smooth cycle] coordinates{(0.6,0.4)(1,1.5)(5,1.5)(5.4,0.6)(4.25,-.4)(3,-.3)(1.6,-.4)};
+		\draw[thick, green, fill=green!20!white] plot [smooth cycle] coordinates{(0.2,0.5)(1.5,-0.9)(.9,-1.5)(-.6,-.1)};
+		\draw[thick, blue, fill=blue!20!white] plot [smooth cycle] coordinates{(5.8,0.5)(4.5,-0.9)(5.1,-1.5)(6.6,-.1)};
+        \draw[thick, yellow, fill=yellow!20!white,tension=0] plot [smooth cycle] coordinates{(3,-0.5)(3.5,-1)(3,-1.5)(2.5,-1)};
+	\end{pgfonlayer}
+\end{tikzpicture}
+
+\begin{tikzpicture}[smooth cycle]
+\draw plot[tension=0.2]
+coordinates{(0,0) (1,1) (2,0) (1,-1)};
+\draw[yshift=-2.25cm] plot[tension=0.5]
+coordinates{(0,0) (1,1) (2,0) (1,-1)};
+\draw[yshift=-4.5cm] plot[tension=1]
+coordinates{(0,0) (1,1) (2,0) (1,-1)};
 \end{tikzpicture}
 \end{document}
