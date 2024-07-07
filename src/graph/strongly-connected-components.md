@@ -6,7 +6,7 @@ e_maxx_link: strong_connected_components
 
 # Strongly connected components and the condensation graph
 
-# Definitions
+## Definitions
 Let $G=(V,E)$ be a directed graph with vertices $V$ and edges $E$. We denote with $n=|V|$ the number of vertices and with $m=|E|$ the number of edges in $G$.
 
 A subset of vertices $C \subseteq V$ is called a **strongly connected component** if the following conditions hold:
