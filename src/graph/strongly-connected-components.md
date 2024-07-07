@@ -9,7 +9,7 @@ e_maxx_link: strong_connected_components
 # Definitions
 Let $G=(V,E)$ be a directed graph with vertices $V$ and edges $E$. It is possible that there are self-loops, or multiple edges between the same pair of vertices. We denote with $n=|V|$ the number of vertices and with $m=|E|$ the number of edges in $G$.
 
-A nonempty subset of vertices $C \subseteq V$ is called a **strongly connected component** if the following conditions hold:
+A subset of vertices $C \subseteq V$ is called a **strongly connected component** if the following conditions hold:
 
 - for all $u,v\in C$, if $u \neq v$ there exists a path from $u$ to $v$ (and a path from $v$ to $u$), and
 - $C$ is maximal, in the sense that adding any vertex would cause the above condition to fail.
