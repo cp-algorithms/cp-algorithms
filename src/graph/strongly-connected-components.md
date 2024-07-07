@@ -59,25 +59,25 @@ Finally, it is appropriate to mention [topological sort](topological-sort.md) he
 ## Implementation
 ```cpp
 vector<vector<int>> adj, adj_rev;
-vector<bool> used;
+vector<bool> visited;
 vector<int> order, component;
  
 void dfs1(int v) {
-    used[v] = true;
+    visited[v] = true;
 
     for (auto u : adj[v])
-        if (!used[u])
+        if (!visited[u])
             dfs1(u);
 
     order.push_back(v);
 }
  
 void dfs2(int v) {
-    used[v] = true;
+    visited[v] = true;
     component.push_back(v);
 
     for (auto u : adj_rev[v])
-        if (!used[u])
+        if (!visited[u])
             dfs2(u);
 }
  
@@ -85,34 +85,34 @@ int main() {
     int n;
     // ... read n ...
 
-    for (;;) {
+    for ( ... ) {
         int a, b;
         // ... read next directed edge (a,b) ...
         adj[a].push_back(b);
         adj_rev[b].push_back(a);
     }
  
-    used.assign(n, false);
+    visited.assign(n, false);
 
     for (int i = 0; i < n; i++)
-        if (!used[i])
+        if (!visited[i])
             dfs1(i);
 
-    used.assign(n, false);
+    visited.assign(n, false);
     reverse(order.begin(), order.end());
 
     for (auto v : order)
-        if (!used[v]) {
-            dfs2 (v);
+        if (!visited[v]) {
+            dfs2(v);
 
-            // ... processing next component ...
+            // ... do something with the found component ...
 
             component.clear();
         }
 }
 ```
 
-Here, $g$ is graph, $gr$ is transposed graph. Function $dfs1$ implements depth first search on graph $G$, function $dfs2$ - on transposed graph $G^T$. Function $dfs1$ fills the list $order$ with vertices in increasing order of their exit times (actually, it is making a topological sort). Function $dfs2$ stores all reached vertices in list $component$, that is going to store next strongly connected component after each run.
+Here, the function `dfs1` implements depth first search on $G$, and the function `dfs2` does this on the transpose graph $G^T$. The function `dfs1` fills the list `order` with vertices in increasing order of their exit times. The function `dfs2` adds all reached vertices to the vector `component`, which, after each run, will contain the just-found strongly connected component.
 
 ### Condensation Graph Implementation
 
@@ -124,7 +124,7 @@ vector<int> root_nodes;
 vector<vector<int>> adj_scc(n);
 
 for (auto v : order)
-    if (!used[v]) {
+    if (!visited[v]) {
         dfs2(v);
 
         int root = component.front();
