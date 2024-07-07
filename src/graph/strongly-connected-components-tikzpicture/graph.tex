@@ -1,14 +1,11 @@
 \documentclass[tikz]{standalone}
 \usepackage{xcolor}
-\usetikzlibrary{arrows,positioning,quotes,hobby,backgrounds,arrows.meta,bending,positioning,shapes,shapes.geometric}
+\usetikzlibrary{arrows,positioning,quotes,backgrounds,arrows.meta,bending,positioning,shapes,shapes.geometric}
 \begin{document}
 \pgfdeclarelayer{background}
 \pgfsetlayers{background,main}
 \begin{tikzpicture}
 	[very thick,every circle node/.style={draw,outer sep=1.1mm}, every path/.style={->}]
-
-\draw[thick] plot[smooth cycle,tension=1]
-coordinates{(0,0)(1,1)(2,0)(1,-1)};
 
 	\draw [help lines] (-1,-2) grid (7,2);
 	\node[circle] (0) at (0,0) {0};
@@ -43,19 +40,11 @@ coordinates{(0,0)(1,1)(2,0)(1,-1)};
 	\path (9) edge[bend left=20] (4);
 
 	\begin{pgfonlayer}{background}
-		\draw[thick, red, fill=red!20!white] plot [smooth cycle] coordinates{(0.6,0.4)(1,1.5)(5,1.5)(5.4,0.6)(4.25,-.4)(3,-.3)(1.6,-.4)};
-		\draw[thick, green, fill=green!20!white] plot [smooth cycle] coordinates{(0.2,0.5)(1.5,-0.9)(.9,-1.5)(-.6,-.1)};
-		\draw[thick, blue, fill=blue!20!white] plot [smooth cycle] coordinates{(5.8,0.5)(4.5,-0.9)(5.1,-1.5)(6.6,-.1)};
-        \draw[thick, yellow, fill=yellow!20!white,tension=0] plot [smooth cycle] coordinates{(3,-0.5)(3.5,-1)(3,-1.5)(2.5,-1)};
+        \draw[thick, red, fill=red!20!white] plot [smooth cycle,tension=0.6] coordinates{(0.7,0.3)(0.9,1.5)(5,1.5)(5.4,0.6)(4.25,-.4)(3,-.3)(1.5,-.4)};
+		\draw[thick, green, fill=green!20!white] plot [smooth cycle,tension=0.7] coordinates{(0.2,0.4)(1.5,-0.9)(.9,-1.5)(-.45,-.1)};
+		\draw[thick, blue, fill=blue!20!white] plot [smooth cycle,tension=0.7] coordinates{(5.8,0.5)(4.5,-0.9)(5.1,-1.5)(6.6,-.1)};
+        \draw[thick, yellow, fill=yellow!20!white] plot [smooth cycle,tension=0.7] coordinates{(3,-0.5)(3.5,-1)(3,-1.5)(2.5,-1)};
 	\end{pgfonlayer}
 \end{tikzpicture}
 
-\begin{tikzpicture}[smooth cycle]
-\draw plot[tension=0.2]
-coordinates{(0,0) (1,1) (2,0) (1,-1)};
-\draw[yshift=-2.25cm] plot[tension=0.5]
-coordinates{(0,0) (1,1) (2,0) (1,-1)};
-\draw[yshift=-4.5cm] plot[tension=1]
-coordinates{(0,0) (1,1) (2,0) (1,-1)};
-\end{tikzpicture}
 \end{document}
