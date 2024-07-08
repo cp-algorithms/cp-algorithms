@@ -18,7 +18,7 @@ We denote with $\text{SCC}(G)$ the set of strongly connected components of $G$. 
 
 Consider this graph $G_\text{example}$, in which the strongly connected components are highlighted:
 
-<img src="strongly-connected-components-tikzpicture/graph.svg" alt="drawing" style="width:700px;"/>
+<center><img src="strongly-connected-components-tikzpicture/graph.svg" alt="drawing" style="width:700px;"/></center>
 
 Here we have $\text{SCC}(G_\text{example})=\{\{0,7\},\{1,2,3,5,6\},\{4,9\},\{8\}\}.$ We can confirm that within each strongly connected component, all vertices are reachable from each other.
 
@@ -29,7 +29,7 @@ We define the **condensation graph** $G^{\text{SCC}}=(V^{\text{SCC}}, E^{\text{S
 
 The condensation graph of $G_\text{example}$ looks as follows:
 
-<img src="strongly-connected-components-tikzpicture/cond_graph.svg" alt="drawing" style="width:700px;"/>
+<center><img src="strongly-connected-components-tikzpicture/cond_graph.svg" alt="drawing" style="width:600px;"/></center>
 
 
 The most important property of the condensation graph is that it is **acyclic**. Indeed, there are no 'self-loops' in the condensation graph by definition, and if there were a cycle going through two or more vertices (strongly connected components) in the condensation graph, then due to reachability, the union of these strongly connected components would have to be one strongly connected component itself: contradiction.
