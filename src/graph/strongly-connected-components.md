@@ -73,15 +73,13 @@ Finally, it is appropriate to mention [topological sort](topological-sort.md) he
 
 ## Implementation
 ```cpp
-vector<vector<int>> adj, adj_rev; // Adjacency lists of G and G^T.
-vector<bool> visited; // Keeps track of which nodes are already visited.
-vector<int> order; // Sorted list of vertices in G by exit time.
-vector<int> component; // Stores one strongly connected component at a time.
+vector<vector<int>> adj, adj_rev; // adjacency lists of G and G^T
+vector<bool> visited;             // keeps track of which nodes are already visited
+vector<int> order;                // sorted list of G's vertices by exit time
+vector<int> component;            // stores one strongly connected component at a time
  
-// Depth first search on G, used in step 1 of the algorithm.
 void dfs1(int v) {
     visited[v] = true;
-
     for (auto u : adj[v])
         if (!visited[u])
             dfs1(u);
@@ -89,7 +87,6 @@ void dfs1(int v) {
     order.push_back(v);
 }
  
-// Depth first search on G^T, used in step 2 of the algorithm.
 void dfs2(int v) {
     visited[v] = true;
     component.push_back(v);
@@ -100,10 +97,8 @@ void dfs2(int v) {
 }
  
 int main() {
-    int n = ...; // Number of vertices in G.
-
-    // Add edges to G.
-    for (int i=0; i < n; i++) {
+    int n = ...; 
+    for ( ... ) {
         int a = ..., b = ...;
         adj[a].push_back(b);
         adj_rev[b].push_back(a);
@@ -111,7 +106,7 @@ int main() {
  
     visited.assign(n, false);
 
-    // Run the first series of depth first searches.
+    // first series of depth first searches
     for (int i = 0; i < n; i++)
         if (!visited[i])
             dfs1(i);
@@ -119,41 +114,30 @@ int main() {
     visited.assign(n, false);
     reverse(order.begin(), order.end());
 
-    // These vectors are for the condensation graph;
-    // they are explained in the text below.
-    vector<int> roots(n, 0);
+    // condensation graph (explained in text below)
     vector<int> root_nodes;
+    vector<int> roots(n, 0);
     vector<vector<int>> adj_scc(n);
     
-    // Run the second series of depth first searches,
-    // and add vertices to condensation graph.
-    // During this process, we find all strongly connected components.
+    // second series of depth first searches
     for (auto v : order)
         if (!visited[v]) {
             dfs2(v);
-
-            // Found a strongly connected component!
-            // Add it to the condensation graph...
             int root = component.front();
             for (auto u : component) roots[u] = root;
             root_nodes.push_back(root);
-    
             component.clear();
         }
     
     
-    // Add edges to condensation graph.
+    // add edges to condensation graph
     for (int v = 0; v < n; v++)
-        for (auto u : adj[v]) {
-            int root_v = roots[v],
-                root_u = roots[u];
-    
-            if (root_u != root_v)
-                adj_scc[root_v].push_back(root_u);
-        }
+        for (auto u : adj[v])
+            if (roots[v] != roots[u])
+                adj_scc[roots[v]].push_back(roots[u]);
 
-    // At this point, we found all strongly connected
-    // components and constructed the condensation graph.
+    // finished finding SCCs and constructing condensation graph.
+    .......
 }
 ```
 
