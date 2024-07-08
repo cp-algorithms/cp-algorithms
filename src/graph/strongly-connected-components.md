@@ -7,7 +7,7 @@ e_maxx_link: strong_connected_components
 # Strongly connected components and the condensation graph
 
 ## Definitions
-Let $G=(V,E)$ be a directed graph with vertices $V$ and edges $E$. We denote with $n=|V|$ the number of vertices and with $m=|E|$ the number of edges in $G$.
+Let $G=(V,E)$ be a directed graph with vertices $V$ and edges $E \subseteq V \times V$. We denote with $n=|V|$ the number of vertices and with $m=|E|$ the number of edges in $G$. It is easy to extend all definitions in this article to multigraphs, but we will not focus on that.
 
 A subset of vertices $C \subseteq V$ is called a **strongly connected component** if the following conditions hold:
 
@@ -16,7 +16,7 @@ A subset of vertices $C \subseteq V$ is called a **strongly connected component*
 
 We denote with $\text{SCC}(G)$ the set of strongly connected components of $G$. These strongly connected components do not intersect each other, and cover all nodes in the graph. Thus, the set $\text{SCC}(G)$ is a partition of $V$. 
 
-As an example, consider this graph $G_\text{example}$, in which the strongly connected components are highlighted:
+Consider this graph $G_\text{example}$, in which the strongly connected components are highlighted:
 
 <img src="strongly-connected-components-tikzpicture/graph.svg" alt="drawing" style="width:700px;"/>
 
