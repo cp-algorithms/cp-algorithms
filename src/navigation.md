@@ -189,6 +189,7 @@ search:
         - [Flows with demands](graph/flow_with_demands.md)
         - [Minimum-cost flow](graph/min_cost_flow.md)
         - [Assignment problem](graph/Assignment-problem-min-flow.md)
+        - [All-pairs minimum cut - Gomory Hu](graph/gomory_hu.md)
     - Matchings and related problems
         - [Bipartite Graph Check](graph/bipartite-check.md)
         - [Kuhn's Algorithm - Maximum Bipartite Matching](graph/kuhn_maximum_bipartite_matching.md)
