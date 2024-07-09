@@ -6,7 +6,7 @@ The gomory-hu tree of an undirected graph with capacities consists of a weighted
 
 ## Gusfield's Simplification Algorithm
 
-We can say that two cuts (X, Y) and (U, V) *cross* if all four set intersections $X \cap U$, $X \cap V$, $Y \cap U$, $Y \cap V$ are nonempty. Most of the work of the original gomory-hu method is involved in maintaining the noncrossing condition. The following simpler, yet efficient method, proposed by Gusfield uses crossing cuts to produce equivalent flow trees.
+We can say that two cuts $(X, Y)$ and $(U, V)$ *cross* if all four set intersections $X \cap U$, $X \cap V$, $Y \cap U$, $Y \cap V$ are nonempty. Most of the work of the original gomory-hu method is involved in maintaining the noncrossing condition. The following simpler, yet efficient method, proposed by Gusfield uses crossing cuts to produce equivalent flow trees.
 
 ## Complexity
 
@@ -15,11 +15,11 @@ The algorithm total complexity is $\mathcal{O}(V*MaxFlow)$, wich means that the 
 ### Implementation
 This implementation considers the Gomory-Hu tree as a struct with methods:
 
-- The maximum flow algorithm must also be a struct with methods, in the implementation bellow we utilize Dinic's algorithm to calculate the maximum flow.
+- The maximum flow algorithm must also be a struct with methods, in the implementation below we utilize Dinic's algorithm to calculate the maximum flow.
 
 - The algorithm is 0-indexed and will root the tree in node 0.
 
-- The method *solve* returns the list of edges of the Gomory-Hu tree.
+- The method *solve* returns a list that contains for each index $i$ the cost of the edge connecting $i$ and its parent, and the parent number.
 
 ```{.cpp file=gomoryhu}
 struct gomory_hu {
