@@ -32,7 +32,7 @@ $$\max\limits_{p, q \in P}(p.x + (-q.x)) = \max\limits_{p \in P}(p.x) + \max\lim
 
 Notice that we can extend this idea further for 2 (or more!) dimensions. For $d$ dimensions, we must bruteforce $2^d$ possible values of the signs. For example, if we are in $2$ dimensions and bruteforce that $p$ has both the plus signs we want to find: 
 
-$$\max\limits_{p, q \in P} (p.x + (-q.x)) + (p.y + (-q.y)) = \max\limits_{p \in P}(p.x + p.y) + \max\limits_{q \in P}(-q.x - q.y).$$
+$$\max\limits_{p, q \in P} [(p.x + (-q.x)) + (p.y + (-q.y))] = \max\limits_{p \in P}(p.x + p.y) + \max\limits_{q \in P}(-q.x - q.y).$$
 
 As we made $p$ and $q$ independent, it is now easy to find the $p$ and $q$ that maximize the expression.
 
