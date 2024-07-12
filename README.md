@@ -26,6 +26,7 @@ Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorith
 
 ### New articles
 
+- (8 June 2024) [Knapsack Problem](https://cp-algorithms.com/dynamic_programming/knapsack.html)
 - (28 January 2024) [Introduction to Dynamic Programming](https://cp-algorithms.com/dynamic_programming/intro-to-dp.html)
 - (8 December 2023) [Hungarian Algorithm](https://cp-algorithms.com/graph/hungarian-algorithm.html)
 - (10 September 2023) [Tortoise and Hare Algorithm](https://cp-algorithms.com/others/tortoise_and_hare.html)
