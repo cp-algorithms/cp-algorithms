@@ -99,7 +99,7 @@ First, let's understand why it is enough to consider only the nearest neighbor i
 
 Therefore, the main question is how to find the nearest neighbor in each octant for every single of the $n$ points.
 
-## Nearest Neighbor in each Octant in $O(n\log{n})$
+## Nearest Neighbor in each Octant in O(n log n)
 
 For simplicity we focus on the NNE octant ($R_1$ in the image above). All other directions can be found with the same algorithm by rotating the input.
 
