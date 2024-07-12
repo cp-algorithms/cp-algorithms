@@ -143,6 +143,7 @@ search:
         - [Delaunay triangulation and Voronoi diagram](geometry/delaunay.md)
         - [Vertical decomposition](geometry/vertical_decomposition.md)
         - [Half-plane intersection - S&I Algorithm in O(N log N)](geometry/halfplane-intersection.md)
+        - [Manhattan Distance](geometry/manhattan-distance.md)
 - Graphs
     - Graph traversal
         - [Breadth First Search](graph/breadth-first-search.md)
