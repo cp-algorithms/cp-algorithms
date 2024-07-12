@@ -27,6 +27,7 @@ Let's think first in one dimension, so $y=0$. The main observation is that we ca
 $$|p.x - q.x| = \max(p.x - q.x, -p.x + q.x)$$
 
 So, for example, we can try to have $p$ such that $p.x$ has the plus sign, and then $q$ must have the negative sign. This way we want to find:
+
 $$\max\limits_{p, q \in P}(p.x + (-q.x)) = \max\limits_{p \in P}(p.x) + \max\limits_{q \in P}( - q.x ).$$
 
 Notice that we can extend this idea further for 2 (or more!) dimensions. For $d$ dimensions, we must bruteforce $2^d$ possible values of the signs. For example, if we are in $2$ dimensions and bruteforce that $p$ has both the plus signs we want to find: 
