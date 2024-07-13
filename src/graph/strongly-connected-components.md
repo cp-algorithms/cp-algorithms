@@ -14,7 +14,7 @@ A subset of vertices $C \subseteq V$ is called a **strongly connected component*
 - for all $u,v\in C$, if $u \neq v$ there exists a path from $u$ to $v$ and a path from $v$ to $u$, and
 - $C$ is maximal, in the sense that no vertex can be added without violating the above condition.
 
-We denote with $\text{SCC}(G)$ the set of strongly connected components of $G$. These strongly connected components do not intersect each other, and cover all nodes in the graph. Thus, the set $\text{SCC}(G)$ is a partition of $V$. 
+We denote with $\text{SCC}(G)$ the set of strongly connected components of $G$. These strongly connected components do not intersect with each other, and cover all nodes in the graph. Thus, the set $\text{SCC}(G)$ is a partition of $V$. 
 
 Consider this graph $G_\text{example}$, in which the strongly connected components are highlighted:
 
