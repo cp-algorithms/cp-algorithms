@@ -14,7 +14,7 @@ A subset of vertices $C \subseteq V$ is called a **strongly connected component*
 - for all $u,v\in C$, if $u \neq v$ there exists a path from $u$ to $v$ and a path from $v$ to $u$, and
 - $C$ is maximal, in the sense that no vertex can be added without violating the above condition.
 
-We denote with $\text{SCC}(G)$ the set of strongly connected components of $G$. These strongly connected components do not intersect with each other, and cover all nodes in the graph. Thus, the set $\text{SCC}(G)$ is a partition of $V$. 
+We denote with $\text{SCC}(G)$ the set of strongly connected components of $G$. These strongly connected components do not intersect with each other, and cover all vertices in the graph. Thus, the set $\text{SCC}(G)$ is a partition of $V$. 
 
 Consider this graph $G_\text{example}$, in which the strongly connected components are highlighted:
 
@@ -39,9 +39,9 @@ The algorithm described in the next section finds all strongly connected compone
 ## Description of the algorithm
 The described algorithm was independently suggested by Kosaraju and Sharir around 1980. It is based on two series of [depth first search](depth-first-search.md), with a runtime of $O(n + m)$.
 
-In the first step of the algorithm, we perform a sequence of depth first searches (with the function `dfs`), visiting the entire graph. That is, as long as there are still unvisited vertices, we take one of them, and initiate a depth first search from that vertex. For each vertex, we keep track of the *exit time* $t_\text{out}[v]$. This is the 'timestamp' at which the execution of `dfs` on node $v$ finishes, i.e., the moment at which all nodes reachable from $v$ have been visited and the algorithm is back at $v$. The timestamp counter should *not* be reset between consecutive calls to `dfs`. The exit times play a key role in the algorithm, which will become clear when we discuss the following theorem.
+In the first step of the algorithm, we perform a sequence of depth first searches (with the function `dfs`), visiting the entire graph. That is, as long as there are still unvisited vertices, we take one of them, and initiate a depth first search from that vertex. For each vertex, we keep track of the *exit time* $t_\text{out}[v]$. This is the 'timestamp' at which the execution of `dfs` on vertex $v$ finishes, i.e., the moment at which all vertices reachable from $v$ have been visited and the algorithm is back at $v$. The timestamp counter should *not* be reset between consecutive calls to `dfs`. The exit times play a key role in the algorithm, which will become clear when we discuss the following theorem.
 
-First, we define the exit time $t_\text{out}[C]$ of a strongly connected component $C$ as the maximum of the values $t_\text{out}[v]$ for all $v \in C.$ Furthermore, in the proof of the theorem, we will mention the *entry time* $t_{\text{in}}[v]$ for each vertex $v\in G$. The number $t_{\text{in}}[v]$ represents the 'timestamp' at which `dfs` is called on node $v$ in the first step of the algorithm. For a strongly connected component $C$, we define $t_{\text{in}}[C]$ to be the minimum of the values $t_{\text{in}}[v]$ for all $v \in C$.
+First, we define the exit time $t_\text{out}[C]$ of a strongly connected component $C$ as the maximum of the values $t_\text{out}[v]$ for all $v \in C.$ Furthermore, in the proof of the theorem, we will mention the *entry time* $t_{\text{in}}[v]$ for each vertex $v\in G$. The number $t_{\text{in}}[v]$ represents the 'timestamp' at which `dfs` is called on vertex $v$ in the first step of the algorithm. For a strongly connected component $C$, we define $t_{\text{in}}[C]$ to be the minimum of the values $t_{\text{in}}[v]$ for all $v \in C$.
 
 **Theorem**. Let $C$ and $C'$ be two different strongly connected components, and let there be an edge from $C$ to $C'$ in the condensation graph. Then, $t_\text{out}[C] > t_\text{out}[C']$.
 
@@ -73,7 +73,7 @@ Finally, it is appropriate to mention [topological sort](topological-sort.md) he
 
 ## Implementation
 ```{.cpp file=strongly_connected_components}
-vector<bool> visited; // keeps track of which nodes are already visited
+vector<bool> visited; // keeps track of which vertices are already visited
 
 // runs depth first search starting at vertex v.
 // each visited vertex is appended to the output vector when dfs leaves it.
@@ -87,18 +87,12 @@ void dfs(int v, vector<vector<int>> &adj, vector<int> &output) {
 
 // input: adj -- adjacency list of G
 // output: components -- the strongy connected components in G
-// output: adj_cond -- adjacency list of G^SCC (by root nodes)
+// output: adj_cond -- adjacency list of G^SCC (by root vertices)
 void strongy_connected_components(vector<vector<int>> &adj,
                                   vector<vector<int>> &components,
                                   vector<vector<int>> &adj_cond) {
     int n = adj.size();
     components.clear(), adj_cond.clear();
-
-    // create adjacency list of G^T
-    vector<vector<int>> adj_rev(n);
-    for (int v = 0; v < n; v++)
-        for (int u : adj[v])
-            adj_rev[u].push_back(v);
 
     vector<int> order; // will be a sorted list of G's vertices by exit time
 
@@ -108,6 +102,12 @@ void strongy_connected_components(vector<vector<int>> &adj,
     for (int i = 0; i < n; i++)
         if (!visited[i])
             dfs(i, adj, order);
+
+    // create adjacency list of G^T
+    vector<vector<int>> adj_rev(n);
+    for (int v = 0; v < n; v++)
+        for (int u : adj[v])
+            adj_rev[u].push_back(v);
 
     visited.assign(n, false);
     reverse(order.begin(), order.end());
@@ -135,7 +135,7 @@ void strongy_connected_components(vector<vector<int>> &adj,
 }
 ```
 
-The function `dfs` implements depth first search. It takes as input an adjacency list and a starting node. It also takes a reference to the vector `output`: each visited vertex will be appended to `output` when `dfs` leaves that vertex.
+The function `dfs` implements depth first search. It takes as input an adjacency list and a starting vertex. It also takes a reference to the vector `output`: each visited vertex will be appended to `output` when `dfs` leaves that vertex.
 
 Note that we use the function `dfs` both in the first and second step of the algorithm. In the first step, we pass in the adjacency list of $G$, and during consecutive calls to `dfs`, we keep passing in the same 'output vector' `order`, so that eventually we obtain a list of vertices in increasing order of exit times. In the second step, we pass in the adjacency list of $G^T$, and in each `dfs` call, we pass in an empty 'output vector' `component`, which will give us one strongly connected component at a time.
 
