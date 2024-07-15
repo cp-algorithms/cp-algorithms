@@ -69,7 +69,7 @@ Thus, in summary, we discussed the following algorithm to find strongly connecte
 
 The runtime complexity of the algorithm is $O(n + m)$, because depth first search is performed twice. Building the condensation graph is also $O(n+m).$
 
-Finally, it is appropriate to mention [topological sort](topological-sort.md) here. In step 2, the algorithm finds strongly connected components in decreasing order of their exit times. Thus, it finds components - vertices of the condensation graph - in an order corresponding to a topological sort of the condensation graph.
+Finally, it is appropriate to mention [topological sort](topological-sort.md) here. In step 1, we find the vertices in the order of increasing exit time. If $G$ is acyclic, this corresponds to a (reversed) topological sort of $G$. In step 2, the algorithm finds strongly connected components in decreasing order of their exit times. Thus, it finds components - vertices of the condensation graph - in an order corresponding to a topological sort of the condensation graph.
 
 ## Implementation
 ```{.cpp file=strongly_connected_components}
