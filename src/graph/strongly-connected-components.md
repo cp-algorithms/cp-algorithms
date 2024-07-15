@@ -39,17 +39,17 @@ The algorithm described in the next section finds all strongly connected compone
 ## Description of the algorithm
 The described algorithm was independently suggested by Kosaraju and Sharir around 1980. It is based on two series of [depth first search](depth-first-search.md), with a runtime of $O(n + m)$.
 
-In the first step of the algorithm, we perform a sequence of depth first searches (with the function `dfs1`), visiting the entire graph. That is, as long as there are still unvisited vertices, we take one of them, and initiate a depth first search from that vertex. For each vertex, we keep track of the *exit time* $t_\text{out}[v]$. This is the 'timestamp' at which the execution of `dfs1` on node $v$ finishes; that is, the moment at which all nodes reachable from $v$ have been visited and the algorithm is back at $v$. The timestamp counter should *not* be reset between consecutive calls to `dfs1`. The exit times play a key role in the algorithm, which will become clear when we discuss the following theorem.
+In the first step of the algorithm, we perform a sequence of depth first searches (with the function `dfs`), visiting the entire graph. That is, as long as there are still unvisited vertices, we take one of them, and initiate a depth first search from that vertex. For each vertex, we keep track of the *exit time* $t_\text{out}[v]$. This is the 'timestamp' at which the execution of `dfs` on node $v$ finishes, i.e., the moment at which all nodes reachable from $v$ have been visited and the algorithm is back at $v$. The timestamp counter should *not* be reset between consecutive calls to `dfs`. The exit times play a key role in the algorithm, which will become clear when we discuss the following theorem.
 
-First, we define the exit time $t_\text{out}[C]$ of a strongly connected component $C$ as the maximum of the values $t_\text{out}[v]$ for all $v \in C.$ Furthermore, in the proof of the theorem, we will mention the *entry time* $t_{\text{in}}[v]$ for each vertex $v\in G$. The number $t_{\text{in}}[v]$ represents the 'timestamp' at which `dfs1` is called on node $v$. For a strongly connected component $C$, we define $t_{\text{in}}[C]$ to be the minimum of the values $t_{\text{in}}[v]$ for all $v \in C$.
+First, we define the exit time $t_\text{out}[C]$ of a strongly connected component $C$ as the maximum of the values $t_\text{out}[v]$ for all $v \in C.$ Furthermore, in the proof of the theorem, we will mention the *entry time* $t_{\text{in}}[v]$ for each vertex $v\in G$. The number $t_{\text{in}}[v]$ represents the 'timestamp' at which `dfs` is called on node $v$ in the first step of the algorithm. For a strongly connected component $C$, we define $t_{\text{in}}[C]$ to be the minimum of the values $t_{\text{in}}[v]$ for all $v \in C$.
 
 **Theorem**. Let $C$ and $C'$ be two different strongly connected components, and let there be an edge from $C$ to $C'$ in the condensation graph. Then, $t_\text{out}[C] > t_\text{out}[C']$.
 
 **Proof.** There are two different cases, depending on which component will first be reached by depth first search:
 
-- Case 1: the component $C$ was reached first (i.e., $t_{\text{in}}[C] < t_{\text{in}}[C']$). In this case, depth first search visits some vertex $v \in C$ at some moment at which all other vertices of the components $C$ and $C'$ are not visited yet. Since there is an edge from $C$ to $C'$ in the condensation graph, not only are all other vertices in $C$ reachable from $v$ in $G$, but all vertices in $C'$ are reachable as well. This means that this `dfs1` execution, which is running from vertex $v$, will also visit all other vertices of the components $C$ and $C'$ in the future, so these vertices will be descendants of $v$ in the depth first search tree. This implies that for each vertex $u \in (C \cup C')\setminus \{v\},$ we have that $t_\text{out}[v] > t_\text{out}[u]$. Therefore, $t_\text{out}[C] > t_\text{out}[C']$, which completes this case of the proof.
+- Case 1: the component $C$ was reached first (i.e., $t_{\text{in}}[C] < t_{\text{in}}[C']$). In this case, depth first search visits some vertex $v \in C$ at some moment at which all other vertices of the components $C$ and $C'$ are not visited yet. Since there is an edge from $C$ to $C'$ in the condensation graph, not only are all other vertices in $C$ reachable from $v$ in $G$, but all vertices in $C'$ are reachable as well. This means that this `dfs` execution, which is running from vertex $v$, will also visit all other vertices of the components $C$ and $C'$ in the future, so these vertices will be descendants of $v$ in the depth first search tree. This implies that for each vertex $u \in (C \cup C')\setminus \{v\},$ we have that $t_\text{out}[v] > t_\text{out}[u]$. Therefore, $t_\text{out}[C] > t_\text{out}[C']$, which completes this case of the proof.
 
-- Case 2: the component $C'$ was reached first (i.e., $t_{\text{in}}[C] > t_{\text{in}}[C']$). In this case, depth first search visits some vertex $v \in C'$ at some moment at which all other vertices of the components $C$ and $C'$ are not visited yet. Since there is an edge from $C$ to $C'$ in the condensation graph, there cannot be an edge from $C'$ to $C$, by the acyclicity property. Hence, the `dfs1` execution that is running from vertex $v$ will not reach any vertices of $C$, but it will visit all vertices of $C'$. The vertices of $C$ will be visited by some `dfs1` execution later, so indeed we have $t_\text{out}[C] > t_\text{out}[C']$. This completes the proof.
+- Case 2: the component $C'$ was reached first (i.e., $t_{\text{in}}[C] > t_{\text{in}}[C']$). In this case, depth first search visits some vertex $v \in C'$ at some moment at which all other vertices of the components $C$ and $C'$ are not visited yet. Since there is an edge from $C$ to $C'$ in the condensation graph, $C$ is not reachable from $C'$, by the acyclicity property. Hence, the `dfs` execution that is running from vertex $v$ will not reach any vertices of $C$, but it will visit all vertices of $C'$. The vertices of $C$ will be visited by some `dfs` execution later, so indeed we have $t_\text{out}[C] > t_\text{out}[C']$. This completes the proof.
 
 The proved theorem is very important for finding strongly connected components. It means that any edge in the condensation graph goes from a component with a larger value of $t_\text{out}$ to a component with a smaller value.
 
@@ -87,12 +87,12 @@ void dfs(int v, vector<vector<int>> &adj, vector<int> &output) {
 
 // input: adj -- adjacency list of G
 // output: components -- the strongy connected components in G
-// output: adj_scc -- adjacency list of G^SCC (by root nodes)
+// output: adj_cond -- adjacency list of G^SCC (by root nodes)
 void strongy_connected_components(vector<vector<int>> &adj,
                                   vector<vector<int>> &components,
-                                  vector<vector<int>> &adj_scc) {
+                                  vector<vector<int>> &adj_cond) {
     int n = adj.size();
-    components.clear(), adj_scc.clear();
+    components.clear(), adj_cond.clear();
 
     // create adjacency list of G^T
     vector<vector<int>> adj_rev(n);
@@ -127,19 +127,21 @@ void strongy_connected_components(vector<vector<int>> &adj,
         }
 
     // add edges to condensation graph
-    adj_scc.assign(n, {});
+    adj_cond.assign(n, {});
     for (int v = 0; v < n; v++)
         for (auto u : adj[v])
             if (roots[v] != roots[u])
-                adj_scc[roots[v]].push_back(roots[u]);
+                adj_cond[roots[v]].push_back(roots[u]);
 }
 ```
 
-Here, the function `dfs1` implements depth first search on $G$, and the function `dfs2` implements depth first search on $G^T$. The function `dfs1` fills the vector `order` with vertices in increasing order of their exit times. The function `dfs2` adds all reached vertices to the vector `component`, which, after each run, will contain the just-found strongly connected component.
+The function `dfs` implements depth first search. It takes as input an adjacency list and a starting node. It also takes a reference to the vector `output`: each visited vertex will be appended to `output` when `dfs` leaves that vertex.
 
-When building the condensation graph, we select the *root* of each component as the first node in its list (this is an arbitrary choice). This node will represent its entire SCC in the condensation graph. For each vertex `v`, the value `roots[v]` indicates the root node of the SCC which `v` belongs to. `root_nodes` is the list of all root nodes (one per component) in the condensation graph. 
+Note that we use the function `dfs` both in the first and second step of the algorithm. In the first step, we pass in the adjacency list of $G$, and during consecutive calls to `dfs`, we keep passing in the same 'output vector' `order`, so that eventually we obtain a list of vertices in increasing order of exit times. In the second step, we pass in the adjacency list of $G^T$, and in each `dfs` call, we pass in an empty 'output vector' `component`, which will give us one strongly connected component at a time.
 
-Our condensation graph is now given by the vertices `root_nodes`, and the adjacency list is given by `adj_scc`, using only those vertices which belong to `root_nodes`.
+When building the adjacency list of the condensation graph, we select the *root* of each component as the first vertex in its sorted list of vertices (this is an arbitrary choice). This root vertex represents its entire SCC. For each vertex `v`, the value `roots[v]` indicates the root vertex of the SCC which `v` belongs to.
+
+Our condensation graph is now given by the vertices `components` (one strongly connected component corresponds to one vertex in the condensation graph), and the adjacency list is given by `adj_cond`, using only the root vertices of the strongly connected components.
 
 ## Literature
 
