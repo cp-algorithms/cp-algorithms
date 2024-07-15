@@ -72,72 +72,66 @@ The runtime complexity of the algorithm is $O(n + m)$, because depth first searc
 Finally, it is appropriate to mention [topological sort](topological-sort.md) here. In step 2, the algorithm finds strongly connected components in decreasing order of their exit times. Thus, it finds components - vertices of the condensation graph - in an order corresponding to a topological sort of the condensation graph.
 
 ## Implementation
-```cpp
-vector<vector<int>> adj, adj_rev; // adjacency lists of G and G^T
-vector<bool> visited;             // keeps track of which nodes are already visited
-vector<int> order;                // sorted list of G's vertices by exit time
-vector<int> component;            // stores one strongly connected component at a time
- 
-void dfs1(int v) {
+```{.cpp file=strongly_connected_components}
+vector<bool> visited; // keeps track of which nodes are already visited
+
+// runs depth first search starting at vertex v.
+// each visited vertex is appended to the output vector when dfs leaves it.
+void dfs(int v, vector<vector<int>> &adj, vector<int> &output) {
     visited[v] = true;
     for (auto u : adj[v])
         if (!visited[u])
-            dfs1(u);
-
-    order.push_back(v);
+            dfs(u, adj, output);
+    output.push_back(v);
 }
- 
-void dfs2(int v) {
-    visited[v] = true;
-    component.push_back(v);
 
-    for (auto u : adj_rev[v])
-        if (!visited[u])
-            dfs2(u);
-}
- 
-int main() {
-    int n = ...; 
-    for ( ... ) {
-        int a = ..., b = ...;
-        adj[a].push_back(b);
-        adj_rev[b].push_back(a);
-    }
- 
+// input: adj -- adjacency list of G
+// output: components -- the strongy connected components in G
+// output: adj_scc -- adjacency list of G^SCC (by root nodes)
+void strongy_connected_components(vector<vector<int>> &adj,
+                                  vector<vector<int>> &components,
+                                  vector<vector<int>> &adj_scc) {
+    int n = adj.size();
+    components.clear(), adj_scc.clear();
+
+    // create adjacency list of G^T
+    vector<vector<int>> adj_rev(n);
+    for (int v = 0; v < n; v++)
+        for (int u : adj[v])
+            adj_rev[u].push_back(v);
+
+    vector<int> order; // will be a sorted list of G's vertices by exit time
+
     visited.assign(n, false);
 
     // first series of depth first searches
     for (int i = 0; i < n; i++)
         if (!visited[i])
-            dfs1(i);
+            dfs(i, adj, order);
 
     visited.assign(n, false);
     reverse(order.begin(), order.end());
 
-    // condensation graph (explained in text below)
-    vector<int> root_nodes;
-    vector<int> roots(n, 0);
-    vector<vector<int>> adj_scc(n);
-    
+    vector<int> roots(n, 0); // gives the root vertex of a vertex's SCC
+
     // second series of depth first searches
     for (auto v : order)
         if (!visited[v]) {
-            dfs2(v);
+            std::vector<int> component;
+            dfs(v, adj_rev, component);
+            sort(component.begin(), component.end());
+            components.push_back(component);
             int root = component.front();
-            for (auto u : component) roots[u] = root;
-            root_nodes.push_back(root);
-            component.clear();
+            for (auto u : component)
+                roots[u] = root;
         }
-    
-    
+
     // add edges to condensation graph
+    adj_scc.assign(n, {});
     for (int v = 0; v < n; v++)
         for (auto u : adj[v])
             if (roots[v] != roots[u])
                 adj_scc[roots[v]].push_back(roots[u]);
-
-    // finished finding SCCs and constructing condensation graph.
-    .......
 }
 ```
 
