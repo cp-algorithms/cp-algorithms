@@ -141,7 +141,7 @@ Note that we use the function `dfs` both in the first and second step of the alg
 
 When building the adjacency list of the condensation graph, we select the *root* of each component as the first vertex in its sorted list of vertices (this is an arbitrary choice). This root vertex represents its entire SCC. For each vertex `v`, the value `roots[v]` indicates the root vertex of the SCC which `v` belongs to.
 
-Our condensation graph is now given by the vertices `components` (one strongly connected component corresponds to one vertex in the condensation graph), and the adjacency list is given by `adj_cond`, using only the root vertices of the strongly connected components.
+Our condensation graph is now given by the vertices `components` (one strongly connected component corresponds to one vertex in the condensation graph), and the adjacency list is given by `adj_cond`, using only the root vertices of the strongly connected components. Notice that in our implementation, there will be multiple edges between the same two components in the condensation graph, in case there are multiple edges connecting individual vertices of these components in the original graph.
 
 ## Literature
 
