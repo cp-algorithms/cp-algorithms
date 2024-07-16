@@ -4,151 +4,144 @@ tags:
 e_maxx_link: strong_connected_components
 ---
 
-# Finding strongly connected components / Building condensation graph
+# Strongly connected components and the condensation graph
 
 ## Definitions
-You are given a directed graph $G$ with vertices $V$ and edges $E$. It is possible that there are loops and multiple edges. Let's denote $n$ as number of vertices and $m$ as number of edges in $G$.
+Let $G=(V,E)$ be a directed graph with vertices $V$ and edges $E \subseteq V \times V$. We denote with $n=|V|$ the number of vertices and with $m=|E|$ the number of edges in $G$. It is easy to extend all definitions in this article to multigraphs, but we will not focus on that.
 
-**Strongly connected component** is a maximal subset of vertices $C$ such that any two vertices of this subset are reachable from each other, i.e. for any $u, v \in C$:
+A subset of vertices $C \subseteq V$ is called a **strongly connected component** if the following conditions hold:
 
-$$u \mapsto v, v \mapsto u$$
+- for all $u,v\in C$, if $u \neq v$ there exists a path from $u$ to $v$ and a path from $v$ to $u$, and
+- $C$ is maximal, in the sense that no vertex can be added without violating the above condition.
 
-where $\mapsto$ means reachability, i.e. existence of the path from first vertex to the second.
+We denote with $\text{SCC}(G)$ the set of strongly connected components of $G$. These strongly connected components do not intersect with each other, and cover all vertices in the graph. Thus, the set $\text{SCC}(G)$ is a partition of $V$. 
 
-It is obvious, that strongly connected components do not intersect each other, i.e. this is a partition of all graph vertices. Thus we can give a definition of condensation graph $G^{SCC}$ as a graph containing every strongly connected component as one vertex. Each vertex of the condensation graph corresponds to the strongly connected component of graph $G$. There is an oriented edge between two vertices $C_i$ and $C_j$ of the condensation graph if and only if there are two vertices $u \in C_i, v \in C_j$ such that there is an edge in initial graph, i.e. $(u, v) \in E$.
+Consider this graph $G_\text{example}$, in which the strongly connected components are highlighted:
 
-The most important property of the condensation graph is that it is **acyclic**. Indeed, suppose that there is an edge between $C$ and $C'$, let's prove that there is no edge from $C'$ to $C$. Suppose that $C' \mapsto C$. Then there are two vertices $u' \in C$ and $v' \in C'$ such that $v' \mapsto u'$. But since $u$ and $u'$ are in the same strongly connected component then there is a path between them; the same for $v$ and $v'$. As a result, if we join these paths we have that $v \mapsto u$ and at the same time $u \mapsto v$. Therefore $u$ and $v$ should be at the same strongly connected component, so this is contradiction. This completes the proof.
+<center><img src="strongly-connected-components-tikzpicture/graph.svg" alt="drawing" style="width:700px;"/></center>
 
-The algorithm described in the next section extracts all strongly connected components in a given graph. It is quite easy to build a condensation graph then.
+Here we have $\text{SCC}(G_\text{example})=\{\{0,7\},\{1,2,3,5,6\},\{4,9\},\{8\}\}.$ We can confirm that within each strongly connected component, all vertices are reachable from each other.
+
+We define the **condensation graph** $G^{\text{SCC}}=(V^{\text{SCC}}, E^{\text{SCC}})$ as follows:
+
+- the vertices of $G^{\text{SCC}}$ are the strongly connected components of $G$; i.e., $V^{\text{SCC}} = \text{SCC}(G)$, and
+- for all vertices $C_i,C_j$ of the condensation graph, there is an edge from $C_i$ to $C_j$ if and only if $C_i \neq C_j$ and there exist $a\in C_i$ and $b\in C_j$ such that there is an edge from $a$ to $b$ in $G$.
+
+The condensation graph of $G_\text{example}$ looks as follows:
+
+<center><img src="strongly-connected-components-tikzpicture/cond_graph.svg" alt="drawing" style="width:600px;"/></center>
+
+
+The most important property of the condensation graph is that it is **acyclic**. Indeed, there are no 'self-loops' in the condensation graph by definition, and if there were a cycle going through two or more vertices (strongly connected components) in the condensation graph, then due to reachability, the union of these strongly connected components would have to be one strongly connected component itself: contradiction.
+
+The algorithm described in the next section finds all strongly connected components in a given graph. After that, the condensation graph can be constructed.
 
 ## Description of the algorithm
-Described algorithm was independently suggested by Kosaraju and Sharir at 1979. This is an easy-to-implement algorithm based on two series of [depth first search](depth-first-search.md), and working for $O(n + m)$ time.
+The described algorithm was independently suggested by Kosaraju and Sharir around 1980. It is based on two series of [depth first search](depth-first-search.md), with a runtime of $O(n + m)$.
 
-**On the first step** of the algorithm we are doing sequence of depth first searches, visiting the entire graph. We start at each vertex of the graph and run a depth first search from every non-visited vertex. For each vertex we are keeping track of **exit time** $tout[v]$. These exit times have a key role in an algorithm and this role is expressed in next theorem.
+In the first step of the algorithm, we perform a sequence of depth first searches (`dfs`), visiting the entire graph. That is, as long as there are still unvisited vertices, we take one of them, and initiate a depth first search from that vertex. For each vertex, we keep track of the *exit time* $t_\text{out}[v]$. This is the 'timestamp' at which the execution of `dfs` on vertex $v$ finishes, i.e., the moment at which all vertices reachable from $v$ have been visited and the algorithm is back at $v$. The timestamp counter should *not* be reset between consecutive calls to `dfs`. The exit times play a key role in the algorithm, which will become clear when we discuss the following theorem.
 
-First, let's make notations: let's define exit time $tout[C]$ from the strongly connected component $C$ as maximum of values $tout[v]$ by all $v \in C$. Besides, during the proof of the theorem we will mention entry times $tin[v]$ in each vertex and in the same way consider $tin[C]$ for each strongly connected component $C$ as minimum of values $tin[v]$ by all $v \in C$.
+First, we define the exit time $t_\text{out}[C]$ of a strongly connected component $C$ as the maximum of the values $t_\text{out}[v]$ for all $v \in C.$ Furthermore, in the proof of the theorem, we will mention the *entry time* $t_{\text{in}}[v]$ for each vertex $v\in G$. The number $t_{\text{in}}[v]$ represents the 'timestamp' at which the recursive function `dfs` is called on vertex $v$ in the first step of the algorithm. For a strongly connected component $C$, we define $t_{\text{in}}[C]$ to be the minimum of the values $t_{\text{in}}[v]$ for all $v \in C$.
 
-**Theorem**. Let $C$ and $C'$ are two different strongly connected components and there is an edge $(C, C')$ in a condensation graph between these two vertices. Then $tout[C] > tout[C']$.
+**Theorem**. Let $C$ and $C'$ be two different strongly connected components, and let there be an edge from $C$ to $C'$ in the condensation graph. Then, $t_\text{out}[C] > t_\text{out}[C']$.
 
-There are two main different cases at the proof depending on which component will be visited by depth first search first, i.e. depending on difference between $tin[C]$ and $tin[C']$:
+**Proof.** There are two different cases, depending on which component will first be reached by depth first search:
 
-- The component $C$ was reached first. It means that depth first search comes at some vertex $v$ of component $C$ at some moment, but all other vertices of components $C$ and $C'$ were not visited yet. By condition there is an edge $(C, C')$ in a condensation graph, so not only the entire component $C$ is reachable from $v$ but the whole component $C'$ is reachable as well. It means that depth first search that is running from vertex $v$ will visit all vertices of components $C$ and $C'$, so they will be descendants for $v$ in a depth first search tree, i.e. for each vertex $u \in C \cup C', u \ne v$ we have that $tout[v] > tout[u]$, as we claimed.
+- Case 1: the component $C$ was reached first (i.e., $t_{\text{in}}[C] < t_{\text{in}}[C']$). In this case, depth first search visits some vertex $v \in C$ at some moment at which all other vertices of the components $C$ and $C'$ are not visited yet. Since there is an edge from $C$ to $C'$ in the condensation graph, not only are all other vertices in $C$ reachable from $v$ in $G$, but all vertices in $C'$ are reachable as well. This means that this `dfs` execution, which is running from vertex $v$, will also visit all other vertices of the components $C$ and $C'$ in the future, so these vertices will be descendants of $v$ in the depth first search tree. This implies that for each vertex $u \in (C \cup C')\setminus \{v\},$ we have that $t_\text{out}[v] > t_\text{out}[u]$. Therefore, $t_\text{out}[C] > t_\text{out}[C']$, which completes this case of the proof.
 
-- Assume that component $C'$ was visited first. Similarly, depth first search comes at some vertex $v$ of component $C'$ at some moment, but all other vertices of components $C$ and $C'$ were not visited yet. But by condition there is an edge $(C, C')$ in the condensation graph, so, because of acyclic property of condensation graph, there is no back path from $C'$ to $C$, i.e. depth first search from vertex $v$ will not reach vertices of $C$. It means that vertices of $C$ will be visited by depth first search later, so $tout[C] > tout[C']$. This completes the proof.
+- Case 2: the component $C'$ was reached first (i.e., $t_{\text{in}}[C] > t_{\text{in}}[C']$). In this case, depth first search visits some vertex $v \in C'$ at some moment at which all other vertices of the components $C$ and $C'$ are not visited yet. Since there is an edge from $C$ to $C'$ in the condensation graph, $C$ is not reachable from $C'$, by the acyclicity property. Hence, the `dfs` execution that is running from vertex $v$ will not reach any vertices of $C$, but it will visit all vertices of $C'$. The vertices of $C$ will be visited by some `dfs` execution later during this step of the algorithm, so indeed we have $t_\text{out}[C] > t_\text{out}[C']$. This completes the proof.
 
-Proved theorem is **the base of algorithm** for finding strongly connected components. It follows that any edge $(C, C')$ in condensation graph comes from a component with a larger value of $tout$ to component with a smaller value.
+The proved theorem is very important for finding strongly connected components. It means that any edge in the condensation graph goes from a component with a larger value of $t_\text{out}$ to a component with a smaller value.
 
-If we sort all vertices $v \in V$ in decreasing order of their exit time $tout[v]$ then the first vertex $u$ is going to be a vertex belonging to "root" strongly connected component, i.e. a vertex that has no incoming edges in the condensation graph. Now we want to run such search from this vertex $u$ so that it will visit all vertices in this strongly connected component, but not others; doing so, we can gradually select all strongly connected components: let's remove all vertices corresponding to the first selected component, and then let's find a vertex with the largest value of $tout$, and run this search from it, and so on.
+If we sort all vertices $v \in V$ in decreasing order of their exit time $t_\text{out}[v]$, then the first vertex $u$ will belong to the "root" strongly connected component, which has no incoming edges in the condensation graph. Now we want to run some type of search from this vertex $u$ so that it will visit all vertices in its strongly connected component, but not other vertices. By repeatedly doing so, we can gradually find all strongly connected components: we remove all vertices belonging to the first found component, then we find the next remaining vertex with the largest value of $t_\text{out}$, and run this search from it, and so on. In the end, we will have found all strongly connected components. In order to find a search method that behaves like we want, we consider the following theorem:
 
-Let's consider transposed graph $G^T$, i.e. graph received from $G$ by reversing the direction of each edge.
-Obviously, this graph will have the same strongly connected components as the initial graph.
-Moreover, the condensation graph $G^{SCC}$ will also get transposed.
-It means that there will be no edges from our "root" component to other components.
+**Theorem.** Let $G^T$ denote the *transpose graph* of $G$, obtained by reversing the edge directions in $G$. Then, $\text{SCC}(G)=\text{SCC}(G^T)$. Furthermore, the condensation graph of $G^T$ is the transpose of the condensation graph of $G$.
 
-Thus, for visiting the whole "root" strongly connected component, containing vertex $v$, is enough to run search from vertex $v$ in graph $G^T$. This search will visit all vertices of this strongly connected component and only them. As was mentioned before, we can remove these vertices from the graph then, and find the next vertex with a maximal value of $tout[v]$ and run search in transposed graph from it, and so on.
+The proof is omitted (but straightforward). As a consequence of this theorem, there will be no edges from the "root" component to the other components in the condensation graph of $G^T$. Thus, in order to visit the whole "root" strongly connected component, containing vertex $v$, we can just run a depth first search from vertex $v$ in the transpose graph $G^T$! This will visit precisely all vertices of this strongly connected component. As was mentioned before, we can then remove these vertices from the graph. Then, we find the next vertex with a maximal value of $t_\text{out}[v]$, and run the search in the transpose graph starting from that vertex to find the next strongly connected component. Repeating this, we find all strongly connected components.
 
-Thus, we built next **algorithm** for selecting strongly connected components:
+Thus, in summary, we discussed the following algorithm to find strongly connected components:
 
-1st step. Run sequence of depth first search of graph $G$ which will return vertices with increasing exit time $tout$, i.e. some list $order$.
+ - Step 1. Run a sequence of depth first searches on $G$, which will yield some list (e.g. `order`) of vertices, sorted on increasing exit time $t_\text{out}$.
 
-2nd step. Build transposed graph $G^T$. Run a series of depth (breadth) first searches in the order determined by list $order$ (to be exact in reverse order, i.e. in decreasing order of exit times). Every set of vertices, reached after the next search, will be the next strongly connected component.
+- Step 2. Build the transpose graph $G^T$, and run a series of depth first searches on the vertices in reverse order (i.e., in decreasing order of exit times). Each depth first search will yield one strongly connected component.
 
-Algorithm asymptotic is $O(n + m)$, because it is just two depth (breadth) first searches.
+- Step 3 (optional). Build the condensation graph.
 
-Finally, it is appropriate to mention [topological sort](topological-sort.md) here. First of all, step 1 of the algorithm represents reversed topological sort of graph $G$ (actually this is exactly what vertices' sort by exit time means). Secondly, the algorithm's scheme generates strongly connected components by decreasing order of their exit times, thus it generates components - vertices of condensation graph - in topological sort order.
+The runtime complexity of the algorithm is $O(n + m)$, because depth first search is performed twice. Building the condensation graph is also $O(n+m).$
+
+Finally, it is appropriate to mention [topological sort](topological-sort.md) here. In step 1, we find the vertices in the order of increasing exit time. If $G$ is acyclic, this corresponds to a (reversed) topological sort of $G$. In step 2, the algorithm finds strongly connected components in decreasing order of their exit times. Thus, it finds components - vertices of the condensation graph - in an order corresponding to a topological sort of the condensation graph.
 
 ## Implementation
-```cpp
-vector<vector<int>> adj, adj_rev;
-vector<bool> used;
-vector<int> order, component;
- 
-void dfs1(int v) {
-    used[v] = true;
+```{.cpp file=strongly_connected_components}
+vector<bool> visited; // keeps track of which vertices are already visited
 
+// runs depth first search starting at vertex v.
+// each visited vertex is appended to the output vector when dfs leaves it.
+void dfs(int v, vector<vector<int>> const& adj, vector<int> &output) {
+    visited[v] = true;
     for (auto u : adj[v])
-        if (!used[u])
-            dfs1(u);
-
-    order.push_back(v);
+        if (!visited[u])
+            dfs(u, adj, output);
+    output.push_back(v);
 }
- 
-void dfs2(int v) {
-    used[v] = true;
-    component.push_back(v);
 
-    for (auto u : adj_rev[v])
-        if (!used[u])
-            dfs2(u);
-}
- 
-int main() {
-    int n;
-    // ... read n ...
+// input: adj -- adjacency list of G
+// output: components -- the strongy connected components in G
+// output: adj_cond -- adjacency list of G^SCC (by root vertices)
+void strongy_connected_components(vector<vector<int>> const& adj,
+                                  vector<vector<int>> &components,
+                                  vector<vector<int>> &adj_cond) {
+    int n = adj.size();
+    components.clear(), adj_cond.clear();
 
-    for (;;) {
-        int a, b;
-        // ... read next directed edge (a,b) ...
-        adj[a].push_back(b);
-        adj_rev[b].push_back(a);
-    }
- 
-    used.assign(n, false);
+    vector<int> order; // will be a sorted list of G's vertices by exit time
 
+    visited.assign(n, false);
+
+    // first series of depth first searches
     for (int i = 0; i < n; i++)
-        if (!used[i])
-            dfs1(i);
+        if (!visited[i])
+            dfs(i, adj, order);
 
-    used.assign(n, false);
+    // create adjacency list of G^T
+    vector<vector<int>> adj_rev(n);
+    for (int v = 0; v < n; v++)
+        for (int u : adj[v])
+            adj_rev[u].push_back(v);
+
+    visited.assign(n, false);
     reverse(order.begin(), order.end());
 
+    vector<int> roots(n, 0); // gives the root vertex of a vertex's SCC
+
+    // second series of depth first searches
     for (auto v : order)
-        if (!used[v]) {
-            dfs2 (v);
-
-            // ... processing next component ...
-
-            component.clear();
+        if (!visited[v]) {
+            std::vector<int> component;
+            dfs(v, adj_rev, component);
+            sort(component.begin(), component.end());
+            components.push_back(component);
+            int root = component.front();
+            for (auto u : component)
+                roots[u] = root;
         }
+
+    // add edges to condensation graph
+    adj_cond.assign(n, {});
+    for (int v = 0; v < n; v++)
+        for (auto u : adj[v])
+            if (roots[v] != roots[u])
+                adj_cond[roots[v]].push_back(roots[u]);
 }
 ```
 
-Here, $g$ is graph, $gr$ is transposed graph. Function $dfs1$ implements depth first search on graph $G$, function $dfs2$ - on transposed graph $G^T$. Function $dfs1$ fills the list $order$ with vertices in increasing order of their exit times (actually, it is making a topological sort). Function $dfs2$ stores all reached vertices in list $component$, that is going to store next strongly connected component after each run.
+The function `dfs` implements depth first search. It takes as input an adjacency list and a starting vertex. It also takes a reference to the vector `output`: each visited vertex will be appended to `output` when `dfs` leaves that vertex.
 
-### Condensation Graph Implementation
+Note that we use the function `dfs` both in the first and second step of the algorithm. In the first step, we pass in the adjacency list of $G$, and during consecutive calls to `dfs`, we keep passing in the same 'output vector' `order`, so that eventually we obtain a list of vertices in increasing order of exit times. In the second step, we pass in the adjacency list of $G^T$, and in each call, we pass in an empty 'output vector' `component`, which will give us one strongly connected component at a time.
 
-```cpp
-// continuing from previous code
+When building the adjacency list of the condensation graph, we select the *root* of each component as the first vertex in its sorted list of vertices (this is an arbitrary choice). This root vertex represents its entire SCC. For each vertex `v`, the value `roots[v]` indicates the root vertex of the SCC which `v` belongs to.
 
-vector<int> roots(n, 0);
-vector<int> root_nodes;
-vector<vector<int>> adj_scc(n);
-
-for (auto v : order)
-    if (!used[v]) {
-        dfs2(v);
-
-        int root = component.front();
-        for (auto u : component) roots[u] = root;
-        root_nodes.push_back(root);
-
-        component.clear();
-    }
-
-
-for (int v = 0; v < n; v++)
-    for (auto u : adj[v]) {
-        int root_v = roots[v],
-            root_u = roots[u];
-
-        if (root_u != root_v)
-            adj_scc[root_v].push_back(root_u);
-    }
-```
-
-Here, we have selected the root of each component as the first node in its list. This node will represent its entire SCC in the condensation graph. `roots[v]` indicates the root node for the SCC to which node `v` belongs. `root_nodes` is the list of all root nodes (one per component) in the condensation graph. 
-
-`adj_scc` is the adjacency list of the `root_nodes`. We can now traverse on `adj_scc` as our condensation graph, using only those nodes which belong to `root_nodes`.
+Our condensation graph is now given by the vertices `components` (one strongly connected component corresponds to one vertex in the condensation graph), and the adjacency list is given by `adj_cond`, using only the root vertices of the strongly connected components. Notice that we generate one edge from $C$ to $C'$ in $G^\text{SCC}$ for each edge from some $a\in C$ to some $b\in C'$ in $G$ (if $C\neq C'$). This implies that in our implementation, we can have multiple edges between two components in the condensation graph.
 
 ## Literature
 
@@ -176,5 +169,5 @@ Here, we have selected the root of each component as the first node in its list.
 * [SPOJ - Ada and Panels](http://www.spoj.com/problems/ADAPANEL/)
 * [CSES - Flight Routes Check](https://cses.fi/problemset/task/1682)
 * [CSES - Planets and Kingdoms](https://cses.fi/problemset/task/1683)
-* [CSES -Coin Collector](https://cses.fi/problemset/task/1686)
+* [CSES - Coin Collector](https://cses.fi/problemset/task/1686)
 * [Codeforces - Checkposts](https://codeforces.com/problemset/problem/427/C)
