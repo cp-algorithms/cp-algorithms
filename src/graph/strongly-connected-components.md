@@ -77,7 +77,7 @@ vector<bool> visited; // keeps track of which vertices are already visited
 
 // runs depth first search starting at vertex v.
 // each visited vertex is appended to the output vector when dfs leaves it.
-void dfs(int v, vector<vector<int>> &adj, vector<int> &output) {
+void dfs(int v, vector<vector<int>> const& adj, vector<int> &output) {
     visited[v] = true;
     for (auto u : adj[v])
         if (!visited[u])
@@ -88,7 +88,7 @@ void dfs(int v, vector<vector<int>> &adj, vector<int> &output) {
 // input: adj -- adjacency list of G
 // output: components -- the strongy connected components in G
 // output: adj_cond -- adjacency list of G^SCC (by root vertices)
-void strongy_connected_components(vector<vector<int>> &adj,
+void strongy_connected_components(vector<vector<int>> const& adj,
                                   vector<vector<int>> &components,
                                   vector<vector<int>> &adj_cond) {
     int n = adj.size();
@@ -150,7 +150,7 @@ Our condensation graph is now given by the vertices `components` (one strongly c
 
 ## Practice Problems
 
- [SPOJ - Good Travels](http://www.spoj.com/problems/GOODA/)
+* [SPOJ - Good Travels](http://www.spoj.com/problems/GOODA/)
 * [SPOJ - Lego](http://www.spoj.com/problems/LEGO/)
 * [Codechef - Chef and Round Run](https://www.codechef.com/AUG16/problems/CHEFRRUN)
 * [Dev Skills - A Song of Fire and Ice](https://devskill.com/CodingProblems/ViewProblem/79)
