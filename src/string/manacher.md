@@ -191,7 +191,7 @@ vector<int> manacher(string s) {
 For simplicity, splitting the array into $d_{odd}$ and $d_{even}$ as well as their explicit calculation is omitted.
 
 ## Problems
-
+- [Avoid K Palindrome-2](https://atcoder.jp/contests/abc363/tasks/abc363_c)
 - [Library Checker - Enumerate Palindromes](https://judge.yosupo.jp/problem/enumerate_palindromes)
 - [Longest Palindrome](https://cses.fi/problemset/task/1111)
 - [UVA 11475 - Extend to Palindrome](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=26&page=show_problem&problem=2470)
