@@ -24,7 +24,7 @@ First the approaches that allow modifications to the array between answering que
 - [Segment tree](../data_structures/segment_tree.md) - answers each query in $O(\log N)$, preprocessing done in $O(N)$.
   Pros: good time complexity. Cons: larger amount of code compared to the other data structures.
 - [Fenwick tree](../data_structures/fenwick.md) - answers each query in $O(\log N)$, preprocessing done in $O(N \log N)$.
-  Pros: the shortest code, good time complexity. Cons: Fenwick tree can only be used for queries with $L = 1$, so it is not applicable to many problems.
+  Pros: the shortest code, good time complexity.
 
 And here are the approaches that only work on static arrays, i.e. it is not possible to change a value in the array without recomputing the complete data structure.
 
