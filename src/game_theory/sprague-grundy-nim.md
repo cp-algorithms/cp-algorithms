@@ -100,6 +100,17 @@ If $s \neq 0$, we have to prove that there is a move leading to a state with $t 
 Any state of Nim can be replaced by an equivalent state as long as the xor-sum doesn't change.
 Moreover, when analyzing a Nim with several piles, we can replace it with a single pile of size $s$.
 
+### Misère Game
+
+In a **misère game**, the goal of the game is opposite, so the player who removes the last stick loses the game.
+It turns out that the misère nim game can be optimally played almost like a standard nim game.
+ The idea is to first play the misère game like the standard game, but change the strategy at the end of the game.
+ The new strategy will be introduced in a situation where each heap would contain at most one stick after the next move.
+In the standard game, we should choose a move after which there is an even number of heaps with one stick. However, in 
+the misère game,we choose a move so that there is an odd number of heaps with one stick.
+  This strategy works because a state where the strategy changes always appears in the game, and this state is a 
+  winning state, because it contains exactly one heap that has more than one stick so the nim sum is not 0.
+
 ## The equivalence of impartial games and Nim (Sprague-Grundy theorem)
 
 Now we will learn how to find, for any game state of any impartial game, a corresponding state of Nim.
