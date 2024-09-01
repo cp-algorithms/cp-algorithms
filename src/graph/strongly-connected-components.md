@@ -119,7 +119,6 @@ void strongy_connected_components(vector<vector<int>> const& adj,
         if (!visited[v]) {
             std::vector<int> component;
             dfs(v, adj_rev, component);
-            sort(component.begin(), component.end());
             components.push_back(component);
             int root = component.front();
             for (auto u : component)
