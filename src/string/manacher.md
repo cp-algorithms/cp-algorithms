@@ -199,4 +199,5 @@ For simplicity, splitting the array into $d_{odd}$ and $d_{even}$ as well as the
 - [CF - Prefix-Suffix Palindrome](https://codeforces.com/contest/1326/problem/D2)
 - [SPOJ - Number of Palindromes](https://www.spoj.com/problems/NUMOFPAL/)
 - [Kattis - Palindromes](https://open.kattis.com/problems/palindromes)
+- [LeetCode - Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)
 
