@@ -40,7 +40,7 @@ for (int i = 2; i <= n; i++) {
 }
 ```
 
-This code first marks all numbers except zero and one as potential prime numbers, then it begins the process of sifting composite numbers.
+This code first marks all numbers except zero and one as potential prime numbers, then it begins the process of shifting composite numbers.
 For this it iterates over all numbers from $2$ to $n$.
 If the current number $i$ is a prime number, it marks all numbers that are multiples of $i$ as composite numbers, starting from $i^2$.
 This is already an optimization over naive way of implementing it, and is allowed as all smaller numbers that are multiples of $i$ necessary also have a prime factor which is less than $i$, so all of them were already sifted earlier.
