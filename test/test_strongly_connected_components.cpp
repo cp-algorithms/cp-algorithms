@@ -28,7 +28,7 @@ int main() {
     adj[9].push_back(4);
 
     vector<vector<int>> components, adj_scc;
-    strongy_connected_components(adj, components, adj_scc);
+    strongly_connected_components(adj, components, adj_scc);
 
     // sort things to make it easier to verify
     sort(components.begin(), components.end(),

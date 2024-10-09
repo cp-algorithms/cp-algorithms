@@ -88,7 +88,7 @@ void dfs(int v, vector<vector<int>> const& adj, vector<int> &output) {
 // input: adj -- adjacency list of G
 // output: components -- the strongy connected components in G
 // output: adj_cond -- adjacency list of G^SCC (by root vertices)
-void strongy_connected_components(vector<vector<int>> const& adj,
+void strongly_connected_components(vector<vector<int>> const& adj,
                                   vector<vector<int>> &components,
                                   vector<vector<int>> &adj_cond) {
     int n = adj.size();
@@ -117,7 +117,7 @@ void strongy_connected_components(vector<vector<int>> const& adj,
     // second series of depth first searches
     for (auto v : order)
         if (!visited[v]) {
-            std::vector<int> component;
+            vector<int> component;
             dfs(v, adj_rev, component);
             sort(component.begin(), component.end());
             components.push_back(component);
