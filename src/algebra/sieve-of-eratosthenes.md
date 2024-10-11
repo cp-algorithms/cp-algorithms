@@ -61,7 +61,7 @@ $$\sum_{\substack{p \le n, \\\ p \text{ prime}}} \frac n p = n \cdot \sum_{\subs
 Let's recall two known facts.
 
   - The number of prime numbers less than or equal to $n$ is approximately $\frac n {\ln n}$.
-  - The $k$-th prime number approximately equals $k \ln k$ (this follows immediately from the previous fact).
+  - The $k$-th prime number approximately equals $k \ln k$ (this follows from the previous fact).
 
 Thus we can write down the sum in the following way:
 
