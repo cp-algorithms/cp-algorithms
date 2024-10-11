@@ -29,9 +29,9 @@ jobs:
           key: test-${{ github.event_name }}-github-users-v0.1
       - name: Build pages
         env:
-          MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.PAT_API_KEY }}
-          MKDOCS_ENABLE_GIT_REVISION_DATE: ${{ secrets.PAT_API_KEY && 'True' || 'False' }}
-          MKDOCS_ENABLE_GIT_COMMITTERS: ${{ secrets.PAT_API_KEY && 'True' || 'False' }}
+          MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.GITHUB_TOKEN }}
+          MKDOCS_ENABLE_GIT_REVISION_DATE: ${{ secrets.GITHUB_TOKEN && 'True' || 'False' }}
+          MKDOCS_ENABLE_GIT_COMMITTERS: ${{ secrets.GITHUB_TOKEN && 'True' || 'False' }}
         run: |
           mkdocs build --strict
       - name: Upload build pages as artifact
