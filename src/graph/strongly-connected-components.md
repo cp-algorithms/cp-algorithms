@@ -88,7 +88,7 @@ void dfs(int v, vector<vector<int>> const& adj, vector<int> &output) {
 // input: adj -- adjacency list of G
 // output: components -- the strongy connected components in G
 // output: adj_cond -- adjacency list of G^SCC (by root vertices)
-void strongy_connected_components(vector<vector<int>> const& adj,
+void strongly_connected_components(vector<vector<int>> const& adj,
                                   vector<vector<int>> &components,
                                   vector<vector<int>> &adj_cond) {
     int n = adj.size();
