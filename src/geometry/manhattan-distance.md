@@ -8,7 +8,7 @@ tags:
 ## Definition
 For points $p$ and $q$ on a plane, we can define the distance between them as the sum of the differences between their $x$ and $y$ coordinates: 
 
-$$d(p,q) = |p.x - q.x| + |p.y - q.y|$$
+$$d(p,q) = |x_p - x_q| + |y_p - y_q|$$
 
 Defined this way, the distance corresponds to the so-called [Manhattan (taxicab) geometry](https://en.wikipedia.org/wiki/Taxicab_geometry), in which the points are considered intersections in a well designed city, like Manhattan, where you can only move on the streets horizontally or vertically, as shown in the image below:
 
@@ -20,19 +20,19 @@ There are some interesting tricks and algorithms that can be done with this dist
 
 ## Farthest pair of points in Manhattan distance
 
-Given $n$ points $P$, we want to find the pair of points $p,q$ that are farther apart, that is, maximize $|p.x - q.x| + |p.y - q.y|$.
+Given $n$ points $P$, we want to find the pair of points $p,q$ that are farther apart, that is, maximize $|x_p - x_q| + |y_p - y_q|$.
 
-Let's think first in one dimension, so $y=0$. The main observation is that we can bruteforce if $|p.x - q.x|$ is equal to $p.x - q.x$ or $-p.x + q.x$, because if we "miss the sign" of the absolute value, we will get only a smaller value, so it can't affect the answer. More formally, it holds that:
+Let's think first in one dimension, so $y=0$. The main observation is that we can bruteforce if $|x_p - x_q|$ is equal to $x_p - x_q$ or $-x_p + x_q$, because if we "miss the sign" of the absolute value, we will get only a smaller value, so it can't affect the answer. More formally, it holds that:
 
-$$|p.x - q.x| = \max(p.x - q.x, -p.x + q.x)$$
+$$|x_p - x_q| = \max(x_p - x_q, -x_p + x_q)$$
 
-So, for example, we can try to have $p$ such that $p.x$ has the plus sign, and then $q$ must have the negative sign. This way we want to find:
+So, for example, we can try to have $p$ such that $x_p$ has the plus sign, and then $q$ must have the negative sign. This way we want to find:
 
-$$\max\limits_{p, q \in P}(p.x + (-q.x)) = \max\limits_{p \in P}(p.x) + \max\limits_{q \in P}( - q.x ).$$
+$$\max\limits_{p, q \in P}(x_p + (-x_q)) = \max\limits_{p \in P}(x_p) + \max\limits_{q \in P}( - x_q ).$$
 
 Notice that we can extend this idea further for 2 (or more!) dimensions. For $d$ dimensions, we must bruteforce $2^d$ possible values of the signs. For example, if we are in $2$ dimensions and bruteforce that $p$ has both the plus signs we want to find: 
 
-$$\max\limits_{p, q \in P} [(p.x + (-q.x)) + (p.y + (-q.y))] = \max\limits_{p \in P}(p.x + p.y) + \max\limits_{q \in P}(-q.x - q.y).$$
+$$\max\limits_{p, q \in P} [(x_p + (-x_q)) + (y_p + (-y_q))] = \max\limits_{p \in P}(x_p + y_p) + \max\limits_{q \in P}(-x_q - y_q).$$
 
 As we made $p$ and $q$ independent, it is now easy to find the $p$ and $q$ that maximize the expression.
 
