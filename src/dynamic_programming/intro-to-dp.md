@@ -153,6 +153,8 @@ Of course, the most important trick is to practice.
 * [LeetCode - 1137. N-th Tribonacci Number](https://leetcode.com/problems/n-th-tribonacci-number/description/)
 * [LeetCode - 118. Pascal's Triangle](https://leetcode.com/problems/pascals-triangle/description/)
 * [LeetCode - 1025. Divisor Game](https://leetcode.com/problems/divisor-game/description/)
+* [Codeforces - Vacations](https://codeforces.com/problemset/problem/699/C)
+* [Codeforces - Hard problem](https://codeforces.com/problemset/problem/706/C)
 * [Codeforces - Zuma](https://codeforces.com/problemset/problem/607/b)
 * [LeetCode - 221. Maximal Square](https://leetcode.com/problems/maximal-square/description/)
 * [LeetCode - 1039. Minimum Score Triangulation of Polygon](https://leetcode.com/problems/minimum-score-triangulation-of-polygon/description/)
