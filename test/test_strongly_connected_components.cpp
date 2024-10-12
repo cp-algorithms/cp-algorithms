@@ -33,9 +33,9 @@ int main() {
     // sort things to make it easier to verify
     sort(components.begin(), components.end(),
          [](auto &l, auto &r) { return l[0] < r[0]; });
-    for (vector<int> a : adj_scc)
+    for (vector<int> &a : adj_scc)
         sort(a.begin(), a.end());
-    for (vector<int> a : components)
+    for (vector<int> &a : components)
         sort(a.begin(), a.end());
 
     assert(components.size() == 4);
