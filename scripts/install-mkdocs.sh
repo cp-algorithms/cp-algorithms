@@ -8,4 +8,6 @@ pip install \
     mkdocs-git-revision-date-localized-plugin \
     mkdocs-simple-hooks \
     mkdocs-rss-plugin \
+    mkdocs-mdpo-plugin \
+    mkdocs-material-relative-language-selector \
     plugins/mkdocs-git-committers-plugin-2

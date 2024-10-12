@@ -76,8 +76,16 @@ plugins:
       enabled: !ENV [MKDOCS_ENABLE_GIT_COMMITTERS, False]
   - macros
   - rss
+  - material-relative-language-selector:
+      root_domain: true
 
 extra:
   analytics:
     provider: google
     property: G-7FLS2HCYHH
+  alternate:
+    - name: English
+      lang: en
+    - name: Português
+      link: /pt
+      lang: pt
