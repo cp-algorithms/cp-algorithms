@@ -120,7 +120,7 @@ void strongly_connected_components(vector<vector<int>> const& adj,
             std::vector<int> component;
             dfs(v, adj_rev, component);
             components.push_back(component);
-            int root = component.front();
+            int root = *min_element(begin(component), end(component));
             for (auto u : component)
                 roots[u] = root;
         }
