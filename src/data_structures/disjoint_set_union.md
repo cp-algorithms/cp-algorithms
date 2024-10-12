@@ -98,7 +98,7 @@ The trick is to make the paths for all those nodes shorter, by setting the paren
 You can see the operation in the following image.
 On the left there is a tree, and on the right side there is the compressed tree after calling `find_set(7)`, which shortens the paths for the visited nodes 7, 5, 3 and 2.
 
-![Path compression of call `find_set(7)`](DSU_path_compression.png)
+![Path compression of call find_set(7)](DSU_path_compression.png)
 
 The new implementation of `find_set` is as follows:
 
