@@ -35,6 +35,8 @@ int main() {
          [](auto &l, auto &r) { return l[0] < r[0]; });
     for (vector<int> a : adj_scc)
         sort(a.begin(), a.end());
+    for (vector<int> a : components)
+        sort(a.begin(), a.end());
 
     assert(components.size() == 4);
     assert(components[0] == std::vector<int>({0, 7}));
