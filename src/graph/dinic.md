@@ -118,6 +118,8 @@ struct Dinic {
     }
 
     long long dfs(int v, long long pushed) {
+        if (pushed == 0)
+            return 0;
         if (v == t)
             return pushed;
         for (int& cid = ptr[v]; cid < (int)adj[v].size(); cid++) {
