@@ -184,7 +184,7 @@ int maxflow(int s, int t) {
 
 ## Integral flow theorem ## { #integral-theorem}
 
-The theorem simply says, that if every capacity in the network is an integer, then the flow in each edge will be an integer in the maximal flow.
+The theorem simply says, that if every capacity in the network is an integer, then there exists a maximum flow such that the flow in each edge may be an integer. Ford-Fulkerson method can be used to find such a flow. 
 
 ## Max-flow min-cut theorem
 
