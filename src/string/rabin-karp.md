@@ -13,7 +13,7 @@ Problem: Given two strings - a length $m$ pattern to find in a length $n$ text, 
 
 The naive solution is to simply check all length $m$ substrings in the $n$ length text, but that would take $\Theta(mn)$ time.
 
-The algorithm uses the concept of a "rolling hash", in which we compute a hash for the pattern and another for the first substring in $\Theta(m)$ time, but then use a special hash function that lets us go from one to the next in constant time. We compare the hash to our known hash of the pattern, and if they are the same then we likely have a match.
+The Rabin-Karp algorithm uses the concept of a "rolling hash". In it, a hash function is chosen in such a way that the hash of the first text substring of size $m$ is computed in $\Theta(m)$ time, but the computation of hashes of subsequent substrings of length $m$ is done in $O(1)$ per substring (hence the term "rolling"). Then, the hash of the pattern is compared to hashes of each text substring, and if they are the same then there is a match with high probability.
 
 ## The hash function
 
