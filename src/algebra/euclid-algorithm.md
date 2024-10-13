@@ -88,6 +88,30 @@ int lcm (int a, int b) {
 }
 ```
 
+## GCD of multiple numbers
+
+Given an array of more than two integers, your task is to find the GCD of these integers, which is the largest number that divides **all** of them.
+
+A simple way to achieve this is to calculate the GCD of each integer with the previous GCD result:
+
+```cpp
+// a[0..n-1]
+int res = a[0];
+for (int i = 1; i < n; ++i) {
+    res = gcd(res, a[i]);
+}
+```
+
+It's also possible to interrupt the loop earlier by checking if `res` is equal to 1:
+
+```cpp
+int res = a[0];
+for (int i = 1; i < n; ++i) {
+    if (res == 1) break;
+    res = gcd(res, a[i]);
+}
+```
+
 ## Binary GCD
 
 The Binary GCD algorithm is an optimization to the normal Euclidean algorithm.
