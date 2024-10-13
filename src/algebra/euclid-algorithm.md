@@ -15,7 +15,7 @@ $$\gcd(a, b) = \max \{k > 0 : (k \mid a) \text{ and } (k \mid b) \}$$
 
 When one of the numbers is zero, while the other is non-zero, their greatest common divisor, by definition, is the second number. When both numbers are zero, their greatest common divisor is undefined (it can be any arbitrarily large number), but it is convenient to define it as zero as well to preserve the associativity of $\gcd$. Which gives us a simple rule: if one of the numbers is zero, the greatest common divisor is the other number.
 
-The Euclidean algorithm, discussed below, allows to find the greatest common divisor of two numbers $a$ and $b$ in $O(\log \min(a, b))$.
+The Euclidean algorithm, discussed below, allows to find the greatest common divisor of two numbers $a$ and $b$ in $O(\log \min(a, b))$. Since the function is **associative**, to find the GCD of **more than two numbers**, we can do $\gcd(a, b, c) = \gcd(a, \gcd(b, c))$ and so forth.
 
 The algorithm was first described in Euclid's "Elements" (circa 300 BC), but it is possible that the algorithm has even earlier origins.
 
@@ -85,30 +85,6 @@ A possible implementation, that cleverly avoids integer overflows by first divid
 ```cpp
 int lcm (int a, int b) {
     return a / gcd(a, b) * b;
-}
-```
-
-## GCD of multiple numbers
-
-Given an array of more than two integers, your task is to find the GCD of these integers, which is the largest number that divides **all** of them.
-
-A simple way to achieve this is to calculate the GCD of each integer with the previous GCD result:
-
-```cpp
-// a[0..n-1]
-int res = a[0];
-for (int i = 1; i < n; ++i) {
-    res = gcd(res, a[i]);
-}
-```
-
-It's also possible to interrupt the loop earlier by checking if `res` is equal to 1:
-
-```cpp
-int res = a[0];
-for (int i = 1; i < n; ++i) {
-    if (res == 1) break;
-    res = gcd(res, a[i]);
 }
 ```
 
