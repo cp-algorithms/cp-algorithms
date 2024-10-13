@@ -7,16 +7,27 @@ e_maxx_link: rabin_karp
 # Rabin-Karp Algorithm for string matching
 
 This algorithm is based on the concept of hashing, so if you are not familiar with string hashing, refer to the [string hashing](string-hashing.md) article.
- 
 This algorithm was authored by Rabin and Karp in 1987.
 
-Problem: Given two strings - a pattern $s$ and a text $t$, determine if the pattern appears in the text and if it does, enumerate all its occurrences in $O(|s| + |t|)$ time.
+Problem: Given two strings - a length $m$ pattern to find in a length $n$ text, find all matches in $\Theta(m+n) = \Theta(n)$ average time.
 
-Algorithm: Calculate the hash for the pattern $s$.
-Calculate hash values for all the prefixes of the text $t$.
-Now, we can compare a substring of length $|s|$ with $s$ in constant time using the calculated hashes.
-So, compare each substring of length $|s|$ with the pattern. This will take a total of $O(|t|)$ time.
-Hence the final complexity of the algorithm is $O(|t| + |s|)$: $O(|s|)$ is required for calculating the hash of the pattern and $O(|t|)$ for comparing each substring of length $|s|$ with the pattern.
+The naive solution is to simply check all length $m$ substrings in the $n$ length text, but that would take $\Theta(mn)$ time.
+
+The algorithm uses the concept of a "rolling hash", in which we compute a hash for the pattern and another for the first substring in $\Theta(m)$ time, but then use a special hash function that lets us go from one to the next in constant time. 
+
+## The hash function
+
+The trick is the special polynomial hash function, also known as a Rabin fingerprint. It is defined as 
+
+$$h(S[i..j]) = S[i] x^{m-1} + S[i+1] x^{m-2} + \cdots + S[j-1] x + S[j]$$
+
+This is a polynomial in variable $x$, and $x$ is chosen to be as large as the alphabet, so that we have a unique hash for every fixed-length substring. For example, for a string of bytes, we can take $x = 256$. However, the resulting hash value is large, so we work modulo a large prime $p$. This creates a small chance of hash collisions that needs to be handled. In the worst case of a hash collision every time, the performance degrades to $\Theta(nm)$. 
+
+Now, to "roll" the hash forward,
+
+$$h(S[i+1..j+1) = x \cdot h(S[i..j]) - S[i] x^m + S[j+1]$$
+
+What we did is multiply all terms by $x$, then subtract off the $S[i]$ term, then add the new $S[j+1]$ term. This let us compute our next hash in constant time. 
 
 ## Implementation
 ```{.cpp file=rabin_karp}
@@ -54,3 +65,7 @@ vector<int> rabin_karp(string const& s, string const& t) {
 * [Codeforces - Palindromic characteristics](https://codeforces.com/problemset/problem/835/D)
 * [Leetcode - Longest Duplicate Substring](https://leetcode.com/problems/longest-duplicate-substring/)
 
+## Resources
+
+* [Sleator - String matching algorithms](https://contest.cs.cmu.edu/295/s20/tutorials/strings.mark)
+* CLRS 3ed, Ch 32.2
