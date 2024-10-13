@@ -13,7 +13,7 @@ Problem: Given two strings - a length $m$ pattern to find in a length $n$ text, 
 
 The naive solution is to simply check all length $m$ substrings in the $n$ length text, but that would take $\Theta(mn)$ time.
 
-The algorithm uses the concept of a "rolling hash", in which we compute a hash for the pattern and another for the first substring in $\Theta(m)$ time, but then use a special hash function that lets us go from one to the next in constant time. 
+The algorithm uses the concept of a "rolling hash", in which we compute a hash for the pattern and another for the first substring in $\Theta(m)$ time, but then use a special hash function that lets us go from one to the next in constant time. We compare the hash to our known hash of the pattern, and if they are the same then we likely have a match.
 
 ## The hash function
 
