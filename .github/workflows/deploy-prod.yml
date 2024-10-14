@@ -20,7 +20,6 @@ jobs:
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ github.token }}
           merge-multiple: true
-          name: page-build
           path: public
 
       - name: change URLs for large files
@@ -57,7 +56,6 @@ jobs:
         with:
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ github.token }}
-          name: page-build
           path: public
 
       - name: Get PR number from artifact
