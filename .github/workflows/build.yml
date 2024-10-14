@@ -38,4 +38,3 @@ jobs:
         with:
           name: page-build
           path: public/
-
