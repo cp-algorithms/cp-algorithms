@@ -74,7 +74,7 @@ plugins:
       docs_path: src/
       token: !ENV MKDOCS_GIT_COMMITTERS_APIKEY
       enabled: !ENV [MKDOCS_ENABLE_GIT_COMMITTERS, False]
-      branch: main
+      branch: !ENV [MKDOCS_GIT_COMMITERS_BRANCH, main]
   - macros
   - rss
 
