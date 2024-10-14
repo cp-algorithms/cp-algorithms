@@ -1,12 +1,10 @@
 name: Build
-on: 
-  push:
-    branches:    
-      - 'master'
-  pull_request:
+
+on:
+  workflow_call:
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
