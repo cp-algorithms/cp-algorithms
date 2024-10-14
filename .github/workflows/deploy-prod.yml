@@ -95,7 +95,7 @@ jobs:
             const owner = context.repo.owner;
             const baseUrl = `https://${owner}.github.io/${repo}/`;
             const previewUrl = `${baseUrl}${prNumber}/`;
-            const body = `Preview the changes for this PR here: [${previewUrl}](${previewUrl})`;
+            const body = `Preview the changes for PR #${prNumber} (commit: \`${commitSha}\`) here: [${previewUrl}](${previewUrl})`;
   
             // Retrieve comments for the PR to check if the comment already exists
             const { data: comments } = await github.rest.issues.listComments({
@@ -107,7 +107,16 @@ jobs:
             // Look for an existing comment with the preview link
             const existingComment = comments.find(comment => comment.body.includes('Preview the changes for this PR here:'));
 
-            if (!existingComment) {
+            if (existingComment) {
+              // Update the existing comment
+              await github.rest.issues.updateComment({
+                owner: owner,
+                repo: repo,
+                comment_id: existingComment.id,
+                body: body,
+              });
+            } else {
+              // Create a new comment
               await github.rest.issues.createComment({
                 issue_number: prNumber,
                 owner: owner,
