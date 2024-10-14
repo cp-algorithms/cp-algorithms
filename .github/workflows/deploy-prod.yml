@@ -64,7 +64,7 @@ jobs:
         id: get-pr-number
         run: echo "pr_number=$(ls public)" >> $GITHUB_OUTPUT
 
-        - name: Configure git
+      - name: Configure git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
