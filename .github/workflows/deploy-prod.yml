@@ -18,6 +18,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: 'Download artifact'
         uses: actions/download-artifact@v4
         with:
           name: page-build
