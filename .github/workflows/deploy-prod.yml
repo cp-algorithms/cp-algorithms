@@ -6,10 +6,6 @@ on:
       - 'master'
   pull_request:
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
   build:
     uses: ./.github/workflows/build.yml
