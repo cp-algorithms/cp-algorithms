@@ -87,7 +87,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
-          destination_dir: ${{ github.event.pull_request.number }}/
+          destination_dir: ${{ github.event.pull_request.number || 'master' }}/
 
       - name: Update or create preview comment
         if: github.event_name == 'pull_request'
@@ -111,16 +111,7 @@ jobs:
             // Look for an existing comment with the preview link
             const existingComment = comments.find(comment => comment.body.includes('Preview the changes for this PR here:'));
 
-            if (existingComment) {
-              // Update the existing comment
-              await github.rest.issues.updateComment({
-                owner: owner,
-                repo: repo,
-                comment_id: existingComment.id,
-                body: body,
-              });
-            } else {
-              // Create a new comment
+            if (not existingComment) {
               await github.rest.issues.createComment({
                 issue_number: prNumber,
                 owner: owner,
