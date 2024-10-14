@@ -14,11 +14,11 @@ There are $n$ distinct items and a knapsack of capacity $W$. Each item has 2 att
 You have to select a subset of items to put into the knapsack such that the total weight does not exceed the capacity $W$ and the total value is maximized.
 
 In the example above, each object has only two possible states (taken or not taken),
-correspoding to binary 0 and 1. Thus, this type of problem is called "0-1 knapsack problem".
+corresponding to binary 0 and 1. Thus, this type of problem is called "0-1 knapsack problem".
 
 ## 0-1 Knapsack
 
-### Explaination
+### Explanation
 
 In the example above, the input to the problem is the following: the weight of $i^{th}$ item $w_{i}$, the value of $i^{th}$ item $v_{i}$, and the total capacity of the knapsack $W$.
 
@@ -44,7 +44,7 @@ that should be executed in the **decreasing** order of $j$ (so that $f_{j-w_i}$ 
 
 ### Implementation
 
-The alorithm described can be implemented in $O(nW)$ as:
+The algorithm described can be implemented in $O(nW)$ as:
 
 ```.c++
 for (int i = 1; i <= n; i++)
@@ -62,7 +62,7 @@ We can refer to the idea of 0-1 knapsack to define the state: $f_{i, j}$, the ma
 
 It should be noted that although the state definition is similar to that of a 0-1 knapsack, its transition rule is different from that of a 0-1 knapsack.
 
-### Explaination
+### Explanation
 
 The trivial approach is, for the first $i$ items, enumerate how many times each item is to be taken. The time complexity of this is $O(n^2W)$.
 
@@ -82,7 +82,7 @@ $$f_j \gets \max(f_j, f_{j-w_i}+v_i)$$
 
 ### Implementation
 
-The alorithm described can be implemented in $O(nW)$ as:
+The algorithm described can be implemented in $O(nW)$ as:
 
 ```.c++
 for (int i = 1; i <= n; i++)
@@ -100,7 +100,7 @@ This is equivalent to being able to put item $i$ into the backpack multiple time
 
 Multiple knapsack is also a variant of 0-1 knapsack. The main difference is that there are $k_i$ of each item instead of just $1$.
 
-### Explaination
+### Explanation
 
 A very simple idea is: "choose each item $k_i$ times" is equivalent to "$k_i$ of the same item is selected one by one". Thus converting it to a 0-1 knapsack model, which can be described by the transition function:
 
@@ -112,9 +112,9 @@ The time complexity of this process is $O(W\sum\limits_{i=1}^{n}k_i)$
 
 We still consider converting the multiple knapsack model into a 0-1 knapsack model for optimization. The time complexity $O(Wn)$ can not be further optimized with the approach above, so we focus on $O(\sum k_i)$ component.
 
-Let $A_{i, j}$ denote the $j^{th}$ item split from the $i^{th}$ item. In the trivial approach discussed above, $A_{i, j}$ represents the same item for all $j \leq k_i$. The main reason for our low efficiency is that we are doing a lot of repetetive work. For example, consider selecting $\{A_{i, 1},A_{i, 2}\}$, and selecting $\{A_{i, 2}, A_{i, 3}\}$. These two situations are completely equivalent. Thus optimizing the spiltting method will greatly reduce the time complexity.
+Let $A_{i, j}$ denote the $j^{th}$ item split from the $i^{th}$ item. In the trivial approach discussed above, $A_{i, j}$ represents the same item for all $j \leq k_i$. The main reason for our low efficiency is that we are doing a lot of repetetive work. For example, consider selecting $\{A_{i, 1},A_{i, 2}\}$, and selecting $\{A_{i, 2}, A_{i, 3}\}$. These two situations are completely equivalent. Thus optimizing the splitting method will greatly reduce the time complexity.
 
-The grouping is made more effiecent by using binary grouping.
+The grouping is made more efficient by using binary grouping.
 
 Specifically, $A_{i, j}$ holds $2^j$ individual items ($j\in[0,\lfloor \log_2(k_i+1)\rfloor-1]$).If $k_i + 1$ is not an integer power of $2$, another bundle of size $k_i-2^{\lfloor \log_2(k_i+1)\rfloor-1}$ is used to make up for it.
 
@@ -177,6 +177,8 @@ for (each item) {
 
 - [Atcoder: Knapsack-1](https://atcoder.jp/contests/dp/tasks/dp_d)
 - [Atcoder: Knapsack-2](https://atcoder.jp/contests/dp/tasks/dp_e)
+- [LeetCode - 494. Target Sum](https://leetcode.com/problems/target-sum)
+- [LeetCode - 416. Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum)
 - [CSES: Book Shop II](https://cses.fi/problemset/task/1159)
 - [DMOJ: Knapsack-3](https://dmoj.ca/problem/knapsack)
 - [DMOJ: Knapsack-4](https://dmoj.ca/problem/knapsack4)
