@@ -10,10 +10,6 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
-permissions:
-  id-token: write
-  pages: write
-
 jobs:
   build:
     uses: ./.github/workflows/build.yml
@@ -74,6 +70,9 @@ jobs:
           channelId: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master' && env.LIVE_NAME || env.PREVIEW_NAME }}
 
   deploy_github_pages:
+    permissions:
+      id-token: write
+      pages: write
     needs: build
     environment:
       name: github-pages
