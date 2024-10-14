@@ -65,51 +65,28 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
+      - name: Get PR information
+        uses: potiuk/get-workflow-origin@v1_6
+        id: source-run-info
+        with:
+          token: ${{ github.token }}
+          sourceRunId: ${{ github.event.workflow_run.id }}
+
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ github.token }}
           publish_dir: ./public
           publish_branch: gh-pages
-          destination_dir: ${{ github.event.workflow_run.pull_requests[0].number || 'main' }}/
-
-      - name: Update or create preview comment
-        uses: actions/github-script@v6
-        if: github.event.workflow_run.event == 'pull_request'
+          destination_dir: ${{ steps.source-run-info.outputs.pullRequestNumber || 'main' }}/
+    
+      - name: Create or update PR comment
+        if: steps.source-run-info.outputs.pullRequestNumber
+        uses: peter-evans/create-or-update-comment@v3
         with:
-          script: |
-            const prNumber = ${{ github.event.workflow_run.pull_requests[0].number }};
-            const owner = context.repo.owner;
-            const repo = context.repo.repo;
-            const commitSha = ${{ github.event.workflow_run.head_sha }};
-            const baseUrl = `https://${owner}.github.io/${repo}/`;
-            const previewUrl = `${baseUrl}${prNumber}/`;
-            const body = `Preview the changes for PR #${prNumber} (${commitSha}) here: [${previewUrl}](${previewUrl})`;
-
-            // Retrieve comments for the PR to check if the comment already exists
-            const { data: comments } = await github.rest.issues.listComments({
-              owner: owner,
-              repo: repo,
-              issue_number: prNumber,
-            });
-
-            // Look for an existing comment with the preview link
-            const existingComment = comments.find(comment => comment.body.includes('Preview the changes for PR'));
-
-            if (existingComment) {
-              // Update the existing comment
-              await github.rest.issues.updateComment({
-                owner: owner,
-                repo: repo,
-                comment_id: existingComment.id,
-                body: body,
-              });
-            } else {
-              // Create a new comment
-              await github.rest.issues.createComment({
-                issue_number: prNumber,
-                owner: owner,
-                repo: repo,
-                body: body,
-              });
-            }
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ steps.source-run-info.outputs.pullRequestNumber }}
+          body: |
+            Preview the changes for PR #${{ steps.source-run-info.outputs.pullRequestNumber }} (${{ github.event.workflow_run.head_sha }}) here: https://gh.cp-algorithms.com/${{ steps.source-run-info.outputs.pullRequestNumber }}/
+          body-includes: 'Preview the changes for PR'
+          mode: replace
