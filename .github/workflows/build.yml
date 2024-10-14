@@ -27,6 +27,7 @@ jobs:
           key: test-${{ github.event_name }}-github-users-v0.1
       - name: Build pages
         env:
+          MKDOCS_GIT_COMMITTERS_BRANCH: ${{ github.ref_name }}
           MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.GITHUB_TOKEN }}
           MKDOCS_ENABLE_GIT_REVISION_DATE: ${{ secrets.GITHUB_TOKEN && 'True' || 'False' }}
           MKDOCS_ENABLE_GIT_COMMITTERS: ${{ secrets.GITHUB_TOKEN && 'True' || 'False' }}
