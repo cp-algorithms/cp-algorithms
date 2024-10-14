@@ -28,11 +28,11 @@ theme:
     - content.code.copy
 repo_url: https://github.com/cp-algorithms/cp-algorithms
 repo_name: cp-algorithms/cp-algorithms
-edit_uri: edit/master/src/
-copyright: Text is available under the <a href="https://github.com/cp-algorithms/cp-algorithms/blob/master/LICENSE">Creative Commons Attribution Share Alike 4.0 International</a> License<br/>Copyright &copy; 2014 - 2024 by <a href="https://github.com/cp-algorithms/cp-algorithms/graphs/contributors">cp-algorithms contributors</a>
+edit_uri: edit/main/src/
+copyright: Text is available under the <a href="https://github.com/cp-algorithms/cp-algorithms/blob/main/LICENSE">Creative Commons Attribution Share Alike 4.0 International</a> License<br/>Copyright &copy; 2014 - 2024 by <a href="https://github.com/cp-algorithms/cp-algorithms/graphs/contributors">cp-algorithms contributors</a>
 extra_javascript:
   - javascript/config.js
-  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 extra_css:
   - stylesheets/extra.css
@@ -74,6 +74,7 @@ plugins:
       docs_path: src/
       token: !ENV MKDOCS_GIT_COMMITTERS_APIKEY
       enabled: !ENV [MKDOCS_ENABLE_GIT_COMMITTERS, False]
+      branch: !ENV [MKDOCS_GIT_COMMITERS_BRANCH, main]
   - macros
   - rss
 
