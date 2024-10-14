@@ -106,7 +106,7 @@ struct Dinic {
             int v = q.front();
             q.pop();
             for (int id : adj[v]) {
-                if (edges[id].cap - edges[id].flow < 1)
+                if (edges[id].cap == edges[id].flow)
                     continue;
                 if (level[edges[id].u] != -1)
                     continue;
