@@ -68,32 +68,81 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           projectId: cp-algorithms
           channelId: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master' && env.LIVE_NAME || env.PREVIEW_NAME }}
-
   deploy_github_pages:
-    permissions:
-      id-token: write
-      pages: write
-    needs: build
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    needs: build
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Download pages
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           name: page-build
           path: public
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+
+      - name: Configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          path: public
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
+          destination_dir: ${{ github.event.pull_request.number }}/
+
+
+      - name: Find existing preview comment
+        if: github.event_name == 'pull_request'
+        id: find_comment
+        uses: actions/github-script@v6
         with:
-          preview: true
+          script: |
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ github.event.pull_request.number }},
+            });
+  
+            const previewComment = comments.find(comment => comment.body.includes('Preview the changes for this PR here:'));
+  
+            if (previewComment) {
+              return { comment_id: previewComment.id };
+            } else {
+              return { comment_id: null };
+            }
+
+      - name: Update or create preview comment
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const prNumber = ${{ github.event.pull_request.number }};
+            const repo = context.repo.repo;
+            const owner = context.repo.owner;
+            const baseUrl = `https://${owner}.github.io/${repo}/`;
+            const previewUrl = `${baseUrl}${prNumber}/`;
+            const body = `Preview the changes for this PR here: [${previewUrl}](${previewUrl})`;
+  
+            const commentId = ${{ steps.find_comment.outputs.comment_id }};
+  
+            if (commentId) {
+              // Update the existing comment
+              await github.rest.issues.updateComment({
+                owner: owner,
+                repo: repo,
+                comment_id: commentId,
+                body: body,
+              });
+            } else {
+              // Create a new comment
+              await github.rest.issues.createComment({
+                issue_number: prNumber,
+                owner: owner,
+                repo: repo,
+                body: body,
+              });
+            }
