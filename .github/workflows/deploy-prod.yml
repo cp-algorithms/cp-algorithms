@@ -13,6 +13,7 @@ jobs:
 
   deploy_live_website:
     runs-on: ubuntu-latest
+    needs: build
     if: >
       ${{ github.event.workflow_run.event == 'pull_request' &&
       github.event.workflow_run.conclusion == 'success' }}
@@ -81,13 +82,13 @@ jobs:
 
   deploy_github_pages:
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - name: 'Download pages'
         uses: actions/download-artifact@v4
         with:
           name: page-build
           path: public
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
