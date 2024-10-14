@@ -95,9 +95,32 @@ int gcd(int a, int b, int& x, int& y) {
 
 If you look closely at the variables `a1` and `b1`, you can notice that they take exactly the same values as in the iterative version of the normal [Euclidean algorithm](euclid-algorithm.md). So the algorithm will at least compute the correct GCD.
 
-To see why the algorithm also computes the correct coefficients, you can check that the following invariants will hold at any time (before the while loop, and at the end of each iteration): $x \cdot a + y \cdot b = a_1$ and $x_1 \cdot a + y_1 \cdot b = b_1$.
-It's trivial to see, that these two equations are satisfied at the beginning.
-And you can check that the update in the loop iteration will still keep those equalities valid.
+To see why the algorithm computes the correct coefficients, consider that the following invariants hold at any given time (before the while loop begins and at the end of each iteration):
+
+$$x \cdot a + y \cdot b = a_1$$
+
+$$x_1 \cdot a + y_1 \cdot b = b_1$$
+
+Let the values at the end of an iteration be denoted by a prime ($'$), and assume $q = \frac{a_1}{b_1}$. From the [Euclidean algorithm](euclid-algorithm.md), we have:
+
+$$a_1' = b_1$$
+
+$$b_1' = a_1 - q \cdot b_1$$
+
+For the first invariant to hold, the following should be true:
+
+$$x' \cdot a + y' \cdot b = a_1' = b_1$$
+
+$$x' \cdot a + y' \cdot b = x_1 \cdot a + y_1 \cdot b$$
+
+Similarly for the second invariant, the following should hold:
+
+$$x_1' \cdot a + y_1' \cdot b = a_1 - q \cdot b_1$$
+
+$$x_1' \cdot a + y_1' \cdot b = (x - q \cdot x_1) \cdot a + (y - q \cdot y_1) \cdot b$$
+
+By comparing the coefficients of $a$ and $b$, the update equations for each variable can be derived, ensuring that the invariants are maintained throughout the algorithm.
+
 
 At the end we know that $a_1$ contains the GCD, so $x \cdot a + y \cdot b = g$.
 Which means that we have found the required coefficients.

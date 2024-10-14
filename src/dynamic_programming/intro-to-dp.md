@@ -25,7 +25,7 @@ Our recursive function currently solves fibonacci in exponential time. This mean
 
 To increase the speed, we recognize that the number of subproblems is only $O(n)$. That is, in order to calculate $f(n)$ we only need to know $f(n-1),f(n-2), \dots ,f(0)$. Therefore, instead of recalculating these subproblems, we solve them once and then save the result in a lookup table.  Subsequent calls will use this lookup table and immediately return a result, thus eliminating exponential work! 
 
-Each recursive call will check against a lookup table to see if the value has been calculated. This is done is $O(1)$ time.  If we have previously calcuated it, return the result, otherwise, we calculate the function normally. The overall runtime is $O(n)$! This is an enormous improvement over our previous exponential time algorithm!
+Each recursive call will check against a lookup table to see if the value has been calculated. This is done in $O(1)$ time.  If we have previously calcuated it, return the result, otherwise, we calculate the function normally. The overall runtime is $O(n)$! This is an enormous improvement over our previous exponential time algorithm!
 
 ```cpp
 const int MAXN = 100;
@@ -134,7 +134,7 @@ One of the tricks to getting better at dynamic programming is to study some of t
 | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 0-1 knapsack                                   | Given $W$, $N$, and $N$ items with weights $w_i$ and values $v_i$, what is the maximum $\sum_{i=1}^{k} v_i$ for each subset of items of size $k$ ($1 \le k \le N$) while ensuring $\sum_{i=1}^{k} w_i \le W$?                  |
 | Subset Sum                                     | Given $N$ integers and $T$, determine whether there exists a subset of the given set whose elements sum up to the $T$.                                                                                                         |
-| Longest Increasing Subsequence                 | You are given an array containing $N$ integers. Your task is to determine the LCS in the array, i.e., LCS where every element is larger than the previous one.                                                                 |
+| Longest Increasing Subsequence                 | You are given an array containing $N$ integers. Your task is to determine the LIS in the array, i.e., a subsequence where every element is larger than the previous one.                                                       |
 | Counting all possible paths in a matrix.       | Given $N$ and $M$, count all possible distinct paths from $(1,1)$ to $(N, M)$, where each step is either from $(i,j)$ to $(i+1,j)$ or $(i,j+1)$.                                                                               |
 | Longest Common Subsequence                     | You are given strings $s$ and $t$. Find the length of the longest string that is a subsequence of both $s$ and $t$.                                                                                                            |
 | Longest Path in a Directed Acyclic Graph (DAG) | Finding the longest path in Directed Acyclic Graph (DAG).                                                                                                                                                                      |
@@ -153,6 +153,8 @@ Of course, the most important trick is to practice.
 * [LeetCode - 1137. N-th Tribonacci Number](https://leetcode.com/problems/n-th-tribonacci-number/description/)
 * [LeetCode - 118. Pascal's Triangle](https://leetcode.com/problems/pascals-triangle/description/)
 * [LeetCode - 1025. Divisor Game](https://leetcode.com/problems/divisor-game/description/)
+* [Codeforces - Vacations](https://codeforces.com/problemset/problem/699/C)
+* [Codeforces - Hard problem](https://codeforces.com/problemset/problem/706/C)
 * [Codeforces - Zuma](https://codeforces.com/problemset/problem/607/b)
 * [LeetCode - 221. Maximal Square](https://leetcode.com/problems/maximal-square/description/)
 * [LeetCode - 1039. Minimum Score Triangulation of Polygon](https://leetcode.com/problems/minimum-score-triangulation-of-polygon/description/)

@@ -26,7 +26,7 @@ int brute_force() {
     return dp_before[n - 1];
 }
 
-// sum of last occurrence of x - first occurence of x for all unique x in the range
+// sum of last occurrence of x - first occurrence of x for all unique x in the range
 long long C(int i, int j) {
     map<int, int> last;
 
