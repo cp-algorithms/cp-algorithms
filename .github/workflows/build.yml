@@ -36,8 +36,8 @@ jobs:
           MKDOCS_ENABLE_GIT_COMMITTERS: ${{ github.token && 'True' || 'False' }}
         run: |
           mkdocs build --strict
-      - name: Upload build pages as artifact
+      - name: Upload pages as an artifact
         uses: actions/upload-artifact@v4
         with:
-          name: page-build
+          name: ${{ github.event.number || 'main' }}
           path: public/

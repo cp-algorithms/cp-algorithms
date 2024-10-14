@@ -19,23 +19,23 @@ jobs:
         with:
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ github.token }}
+          merge-multiple: true
           name: page-build
           path: public
 
       - name: change URLs for large files
         shell: bash
-        run: |
-          sed -i 's|search/search_index.json|https://storage.googleapis.com/cp-algorithms/search_index.json|g' public/assets/javascripts/*.js
+        run: sed -i 's|search/search_index.json|https://storage.googleapis.com/cp-algorithms/search_index.json|g' public/assets/javascripts/*.js
 
-      - id: 'auth'
-        uses: 'google-github-actions/auth@v2.1.6'
+      - id: auth
+        uses: google-github-actions/auth@v2.1.6
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-      - uses: 'google-github-actions/upload-cloud-storage@v1'
+      - uses: google-github-actions/upload-cloud-storage@v1
         with:
-          path: 'public/search/search_index.json'
-          destination: 'cp-algorithms'
+          path: public/search/search_index.json
+          destination: cp-algorithms
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         id: firebase-deploy
@@ -60,33 +60,30 @@ jobs:
           name: page-build
           path: public
 
-      - name: Configure git
+      - name: Get PR number from artifact
+        id: get-pr-number
+        run: echo "pr_number=$(ls public)" >> $GITHUB_OUTPUT
+
+        - name: Configure git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Get PR information
-        uses: potiuk/get-workflow-origin@v1_6
-        id: source-run-info
-        with:
-          token: ${{ github.token }}
-          sourceRunId: ${{ github.event.workflow_run.id }}
-
+        
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ github.token }}
-          publish_dir: ./public
+          publish_dir: public/${{ steps.get-pr-number.outputs.pr_number }}
           publish_branch: gh-pages
-          destination_dir: ${{ steps.source-run-info.outputs.pullRequestNumber || 'main' }}/
-    
+          destination_dir: ${{ steps.get-pr-number.outputs.pr_number }}
+
+      
       - name: Create or update PR comment
-        if: steps.source-run-info.outputs.pullRequestNumber
+        if: steps.get-pr-number.outputs.pr_number != 'main'
         uses: peter-evans/create-or-update-comment@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ steps.source-run-info.outputs.pullRequestNumber }}
-          body: |
-            Preview the changes for PR #${{ steps.source-run-info.outputs.pullRequestNumber }} (${{ github.event.workflow_run.head_sha }}) here: https://gh.cp-algorithms.com/${{ steps.source-run-info.outputs.pullRequestNumber }}/
+          token: ${{ github.token }}
+          issue-number: ${{ steps.get-pr-number.outputs.pr_number }}
+          body: 'Preview the changes for PR #${{ steps.get-pr-number.outputs.pr_number }} (${{ github.event.workflow_run.head_sha }}) [here](https://gh.cp-algorithms.com/${{ steps.get-pr-number.outputs.pr_number }}/).'
           body-includes: 'Preview the changes for PR'
           mode: replace
