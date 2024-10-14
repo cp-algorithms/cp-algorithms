@@ -1,36 +1,22 @@
 name: Deploy
 
-on: 
-  push:
-    branches:    
-      - main
-  pull_request:
+on:
+  workflow_run:
+    workflows: [build]
+    types:
+      - completed
 
 jobs:
-  build:
-    uses: ./.github/workflows/build.yml
-    secrets: inherit
-
   deploy_live_website:
     runs-on: ubuntu-latest
-    needs: build
     if: github.event_name == 'push'
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: Download pages
         uses: actions/download-artifact@v4
         with:
+          run-id: ${{ github.event.workflow_run.id }}
           name: page-build
           path: public
-
-      - name: Get PR information
-        uses: potiuk/get-workflow-origin@751d47254ef9e8b5eef955e24e79305233702781
-        id: source-run-info
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          sourceRunId: ${{ github.event.workflow_run.id }}
 
       - name: change URLs for large files
         shell: bash
@@ -49,19 +35,14 @@ jobs:
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         id: firebase-deploy
-        if: env.FIREBASE_SERVICE_ACCOUNT
-        env:
-          LIVE_NAME: "live"
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         with:
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           projectId: cp-algorithms
-          channelId: ${{ env.LIVE_NAME }}
+          channelId: live
 
   deploy_github_pages:
     runs-on: ubuntu-latest
-    needs: build
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3

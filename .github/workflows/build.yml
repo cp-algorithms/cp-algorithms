@@ -1,7 +1,10 @@
 name: Build
 
-on:
-  workflow_call:
+on: 
+  push:
+    branches:    
+      - main
+  pull_request:
 
 jobs:
   build:
