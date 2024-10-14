@@ -125,7 +125,7 @@ struct Dinic {
         for (int& cid = ptr[v]; cid < (int)adj[v].size(); cid++) {
             int id = adj[v][cid];
             int u = edges[id].u;
-            if (level[v] + 1 != level[u] || edges[id].cap - edges[id].flow < 1)
+            if (level[v] + 1 != level[u])
                 continue;
             long long tr = dfs(u, min(pushed, edges[id].cap - edges[id].flow));
             if (tr == 0)
