@@ -23,14 +23,22 @@ In this article, we consider several classical problems on these equations:
 
 A degenerate case that need to be taken care of is when $a = b = 0$. It is easy to see that we either have no solutions or infinitely many solutions, depending on whether $c = 0$ or not. In the rest of this article, we will ignore this case.
 
+## Bézout's lemma
+
+Bézout's lemma (also called Bézout's identity) is a useful result that can be used to understand and prove the following analytic solution. 
+
+> Let $g = \gcd(a,b)$. Then there exist integers $x,y$ such that $ax + by = g$.
+> 
+> Moreover, $g$ is the least such positive integer that can be written as $ax + by$; all integers of the form $ax + by$ are multiples of $g$. 
+
 ## Analytic solution
 
 When $a \neq 0$ and $b \neq 0$, the equation $ax+by=c$ can be equivalently treated as either of the following:
 
-\begin{gather}
-ax \equiv c \pmod b,\newline
-by \equiv c \pmod a.
-\end{gather}
+\begin{align}
+ax &\equiv c \pmod b \\
+by &\equiv c \pmod a
+\end{align}
 
 Without loss of generality, assume that $b \neq 0$ and consider the first equation. When $a$ and $b$ are co-prime, the solution to it is given as
 
