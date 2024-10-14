@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Download pages
         uses: actions/download-artifact@v4
         with:
