@@ -35,15 +35,17 @@ int n, m;
 vector<Edge> edges;
 const int INF = 1000000000;
 
-void solve()
-{
-    vector<int> d(n);
+void solve() {
+    vector<int> d(n, INF);
     vector<int> p(n, -1);
     int x;
+    
+    d[0] = 0;
+
     for (int i = 0; i < n; ++i) {
         x = -1;
         for (Edge e : edges) {
-            if (d[e.a] + e.cost < d[e.b]) {
+            if (d[e.a] < INF && d[e.a] + e.cost < d[e.b]) {
                 d[e.b] = max(-INF, d[e.a] + e.cost);
                 p[e.b] = e.a;
                 x = e.b;
@@ -71,6 +73,7 @@ void solve()
         cout << endl;
     }
 }
+
 ```
 
 ## Using Floyd-Warshall algorithm
