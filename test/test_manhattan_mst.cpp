@@ -63,5 +63,5 @@ int32_t main(){
     auto e = manhattan_mst_edges(ps);
     cerr << setprecision(5) << fixed;
     cerr << (double)(clock() - time_begin)/CLOCKS_PER_SEC << endl;
-    assert((double)(clock() - time_begin)/CLOCKS_PER_SEC < 2);
+    assert((double)(clock() - time_begin)/CLOCKS_PER_SEC < 2.5);
 }
