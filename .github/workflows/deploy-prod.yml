@@ -111,7 +111,7 @@ jobs:
             // Look for an existing comment with the preview link
             const existingComment = comments.find(comment => comment.body.includes('Preview the changes for this PR here:'));
 
-            if (not existingComment) {
+            if (!existingComment) {
               await github.rest.issues.createComment({
                 issue_number: prNumber,
                 owner: owner,
