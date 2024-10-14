@@ -6,12 +6,11 @@ e_maxx_link: rabin_karp
 
 # Rabin-Karp Algorithm for string matching
 
-This algorithm is based on the concept of hashing, so if you are not familiar with string hashing, refer to the [string hashing](string-hashing.md) article.
-This algorithm was authored by Rabin and Karp in 1987.
-
-Problem: Given two strings - a length $m$ pattern to find in a length $n$ text, find all matches in $\Theta(m+n) = \Theta(n)$ average time.
+Consider the string-matching problem: Given two strings - a length $m$ pattern to find in a length $n$ text, find all matches in $\Theta(m+n) = \Theta(n)$ average time.
 
 The naive solution is to simply check all length $m$ substrings in the $n$ length text, but that would take $\Theta(mn)$ time.
+
+This algorithm was authored by Rabin and Karp in 1987 and is based on the concept of [string hashing](string-hashing.md).
 
 The Rabin-Karp algorithm uses the concept of a "rolling hash". In it, a hash function is chosen in such a way that the hash of the first text substring of size $m$ is computed in $\Theta(m)$ time, but the computation of hashes of subsequent substrings of length $m$ is done in $O(1)$ per substring (hence the term "rolling"). Then, the hash of the pattern is compared to hashes of each text substring, and if they are the same then there is a match with high probability.
 
