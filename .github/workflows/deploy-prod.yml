@@ -75,13 +75,12 @@ jobs:
           publish_branch: gh-pages
           destination_dir: ${{ steps.get-pr-number.outputs.pr_number }}
 
-      
       - name: Create or update PR comment
         if: steps.get-pr-number.outputs.pr_number != 'main'
         uses: peter-evans/create-or-update-comment@v3
         with:
           token: ${{ github.token }}
           issue-number: ${{ steps.get-pr-number.outputs.pr_number }}
-          body: 'Preview the changes for PR #${{ steps.get-pr-number.outputs.pr_number }} (${{ github.event.workflow_run.head_sha }}) [here](https://gh.cp-algorithms.com/${{ steps.get-pr-number.outputs.pr_number }}/).'
+          body: 'Preview the changes for PR #${{ steps.get-pr-number.outputs.pr_number }} at https://gh.cp-algorithms.com/${{ steps.get-pr-number.outputs.pr_number }}/ (current version: ${{ github.event.workflow_run.head_sha }}).'
           body-includes: 'Preview the changes for PR'
           mode: replace
