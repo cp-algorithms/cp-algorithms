@@ -18,9 +18,7 @@ jobs:
   deploy_live_website:
     runs-on: ubuntu-latest
     needs: build
-    if: >
-      ${{ github.event.workflow_run.event == 'pull_request' &&
-      github.event.workflow_run.conclusion == 'success' }}
+    if: github.event_name == 'push'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -39,19 +37,16 @@ jobs:
           sourceRunId: ${{ github.event.workflow_run.id }}
 
       - name: change URLs for large files
-        if: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master'}}
         shell: bash
         run: |
           sed -i 's|search/search_index.json|https://storage.googleapis.com/cp-algorithms/search_index.json|g' public/assets/javascripts/*.js
 
       - id: 'auth'
-        if: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master'}}
         uses: 'google-github-actions/auth@v0'
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
       - uses: 'google-github-actions/upload-cloud-storage@v1'
-        if: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master'}}
         with:
           path: 'public/search/search_index.json'
           destination: 'cp-algorithms'
@@ -60,14 +55,13 @@ jobs:
         id: firebase-deploy
         if: env.FIREBASE_SERVICE_ACCOUNT
         env:
-          PREVIEW_NAME: "preview-${{ steps.source-run-info.outputs.pullRequestNumber }}"
           LIVE_NAME: "live"
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           projectId: cp-algorithms
-          channelId: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master' && env.LIVE_NAME || env.PREVIEW_NAME }}
+          channelId: ${{ env.LIVE_NAME }}
 
   deploy_github_pages:
     runs-on: ubuntu-latest
