@@ -9,7 +9,7 @@ on:
 jobs:
   deploy_live_website:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'
     steps:
       - name: Download pages
         uses: actions/download-artifact@v4
@@ -43,13 +43,15 @@ jobs:
 
   deploy_github_pages:
     runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'pull_request'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Download artifact
+      - name: Download pages
         uses: actions/download-artifact@v4
         with:
+          run-id: ${{ github.event.workflow_run.id }}
           name: page-build
           path: public
 
