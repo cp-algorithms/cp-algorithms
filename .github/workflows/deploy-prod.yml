@@ -93,6 +93,7 @@ jobs:
             const prNumber = ${{ github.event.pull_request.number }};
             const repo = context.repo.repo;
             const owner = context.repo.owner;
+            const commitSha = context.payload.pull_request.head.sha;
             const baseUrl = `https://${owner}.github.io/${repo}/`;
             const previewUrl = `${baseUrl}${prNumber}/`;
             const body = `Preview the changes for PR #${prNumber} (commit: \`${commitSha}\`) here: [${previewUrl}](${previewUrl})`;
