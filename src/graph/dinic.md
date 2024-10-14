@@ -154,3 +154,7 @@ struct Dinic {
     }
 };
 ```
+
+## Practice Problems
+
+* [SPOJ: FASTFLOW](https://www.spoj.com/problems/FASTFLOW/)
