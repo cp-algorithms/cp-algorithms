@@ -19,4 +19,3 @@ jobs:
           git rm -r --ignore-unmatch "${PR_DIR}/" || echo "Directory not found"
           git commit -m "Delete preview for PR #${{ github.event.pull_request.number }}"
           git push origin gh-pages
-
