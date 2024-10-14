@@ -11,49 +11,25 @@ jobs:
     uses: ./.github/workflows/build.yml
     secrets: inherit
 
-  download_and_unzip:
+  download_pages:
     needs: build
     runs-on: ubuntu-latest
-    outputs:
-      public_dir: ${{ steps.check_output.outputs.public_dir_path }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: 'Download artifact'
-        uses: actions/github-script@v6
+        uses: actions/download-artifact@v4
         with:
-          script: |
-            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
-               owner: context.repo.owner,
-               repo: context.repo.repo,
-               run_id: context.payload.workflow_run.id,
-            });
-            let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
-              return artifact.name == "page-build"
-            })[0];
-            let download = await github.rest.actions.downloadArtifact({
-               owner: context.repo.owner,
-               repo: context.repo.repo,
-               artifact_id: matchArtifact.id,
-               archive_format: 'zip',
-            });
-            let fs = require('fs');
-            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/page-build.zip`, Buffer.from(download.data));
-
-      - run: |
-          unzip page-build.zip -d public
+          name: page-build
+          path: public/
 
       - name: Check public folder
-        id: check_output
         run: |
           ls public
-          echo "::set-output name=public_dir_path::public"
 
-  # Main job for deploying to live website
   deploy_live_website:
     runs-on: ubuntu-latest
-    needs: download_and_unzip
+    needs: download_pages
     if: >
       ${{ github.event.workflow_run.event == 'pull_request' &&
       github.event.workflow_run.conclusion == 'success' }}
@@ -69,7 +45,7 @@ jobs:
         if: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master'}}
         shell: bash
         run: |
-          sed -i 's|search/search_index.json|https://storage.googleapis.com/cp-algorithms/search_index.json|g' ${{ needs.download_and_unzip.outputs.public_dir }}/assets/javascripts/*.js
+          sed -i 's|search/search_index.json|https://storage.googleapis.com/cp-algorithms/search_index.json|g' public/assets/javascripts/*.js
 
       - id: 'auth'
         if: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master'}}
@@ -114,10 +90,9 @@ jobs:
               body: body
             })
 
-  # Job for deploying to GitHub Pages
   deploy_github_pages:
     runs-on: ubuntu-latest
-    needs: download_and_unzip
+    needs: download_pages
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -126,4 +101,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ${{ needs.download_and_unzip.outputs.public_dir }}
+          publish_dir: public/
