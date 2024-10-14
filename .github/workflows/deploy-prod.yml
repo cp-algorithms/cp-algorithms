@@ -106,7 +106,7 @@ jobs:
             });
 
             // Look for an existing comment with the preview link
-            const existingComment = comments.find(comment => comment.body.includes('Preview the changes for this PR here:'));
+            const existingComment = comments.find(comment => comment.body.includes('Preview the changes for PR'));
 
             if (existingComment) {
               // Update the existing comment
