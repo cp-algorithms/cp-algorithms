@@ -1,0 +1,22 @@
+name: Delete PR Preview
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  delete_pr_preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+
+      - name: Delete PR directory
+        run: |
+          PR_DIR=${{ github.event.pull_request.number }}
+          git rm -r --ignore-unmatch "${PR_DIR}/" || echo "Directory not found"
+          git commit -m "Delete preview for PR #${{ github.event.pull_request.number }}"
+          git push origin gh-pages
+
