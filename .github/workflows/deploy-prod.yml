@@ -57,7 +57,7 @@ jobs:
       - uses: 'google-github-actions/upload-cloud-storage@v1'
         if: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master'}}
         with:
-          path: '${{ needs.download_and_unzip.outputs.public_dir }}/search/search_index.json'
+          path: 'public/search/search_index.json'
           destination: 'cp-algorithms'
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
