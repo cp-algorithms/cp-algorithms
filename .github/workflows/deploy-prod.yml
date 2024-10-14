@@ -9,12 +9,13 @@ on:
 jobs:
   deploy_live_website:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'
     steps:
       - name: Download pages
         uses: actions/download-artifact@v4
         with:
           run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
           name: page-build
           path: public
 
@@ -36,20 +37,23 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         id: firebase-deploy
         with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          repoToken: ${{ github.token }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           projectId: cp-algorithms
           channelId: live
 
   deploy_github_pages:
     runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'pull_request'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Download artifact
+      - name: Download pages
         uses: actions/download-artifact@v4
         with:
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
           name: page-build
           path: public
 
@@ -61,7 +65,7 @@ jobs:
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ github.token }}
           publish_dir: ./public
           publish_branch: gh-pages
           destination_dir: ${{ github.event.pull_request.number || 'main' }}/
