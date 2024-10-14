@@ -96,7 +96,7 @@ jobs:
             const commitSha = context.payload.pull_request.head.sha;
             const baseUrl = `https://${owner}.github.io/${repo}/`;
             const previewUrl = `${baseUrl}${prNumber}/`;
-            const body = `Preview the changes for PR #${prNumber} (commit: \`${commitSha}\`) here: [${previewUrl}](${previewUrl})`;
+            const body = `Preview the changes for PR #${prNumber} (${commitSha}) here: [${previewUrl}](${previewUrl})`;
   
             // Retrieve comments for the PR to check if the comment already exists
             const { data: comments } = await github.rest.issues.listComments({
