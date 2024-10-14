@@ -51,7 +51,7 @@ y = \frac{c-ax}{b}.
 
 ## Algorithmic solution
 
-**Bézout's lemma** (also called Bézout's identity) is a useful result that can be used to understand and prove the following solution. 
+**Bézout's lemma** (also called Bézout's identity) is a useful result that can be used to understand the following solution. 
 
 > Let $g = \gcd(a,b)$. Then there exist integers $x,y$ such that $ax + by = g$.
 > 
@@ -125,7 +125,7 @@ $$y = y_0 - k \cdot \frac{a}{g}$$
 
 are solutions of the given Diophantine equation.
 
-Moreover, this is the set of all possible solutions of the given Diophantine equation.
+Since the equation is linear, all solutions lie on the same line, and by the definition of $g$ this is the set of all possible solutions of the given Diophantine equation.
 
 ## Finding the number of solutions and the solutions in a given interval
 
