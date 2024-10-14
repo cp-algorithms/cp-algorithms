@@ -2,25 +2,17 @@ name: Deploy
 
 on:
   workflow_run:
-    # `workflow_run` events have access to secrets
     workflows: [Build]
     types:
       - completed
 
 jobs:
-  deploy_live_website:
+  # Reusable job for downloading and unzipping the artifact
+  download_and_unzip:
     runs-on: ubuntu-latest
-    if: >
-      ${{ github.event.workflow_run.event == 'pull_request' &&
-      github.event.workflow_run.conclusion == 'success' }}
+    outputs:
+      public_dir: ${{ steps.check_output.outputs.public_dir_path }}
     steps:
-      - name: "Get PR information"
-        uses: potiuk/get-workflow-origin@751d47254ef9e8b5eef955e24e79305233702781
-        id: source-run-info
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          sourceRunId: ${{ github.event.workflow_run.id }}
-
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -31,7 +23,7 @@ jobs:
             let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
                owner: context.repo.owner,
                repo: context.repo.repo,
-               run_id: context.payload.workflow_run.id,
+               run_id: ${{ github.event.workflow_run.id }},
             });
             let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
               return artifact.name == "page-build"
@@ -48,11 +40,32 @@ jobs:
       - run: |
           unzip page-build.zip -d public
 
+      - name: Check public folder
+        id: check_output
+        run: |
+          ls public
+          echo "::set-output name=public_dir_path::public"
+
+  # Main job for deploying to live website
+  deploy_live_website:
+    runs-on: ubuntu-latest
+    needs: download_and_unzip
+    if: >
+      ${{ github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: "Get PR information"
+        uses: potiuk/get-workflow-origin@751d47254ef9e8b5eef955e24e79305233702781
+        id: source-run-info
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          sourceRunId: ${{ github.event.workflow_run.id }}
+
       - name: change URLs for large files
         if: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master'}}
         shell: bash
         run: |
-          sed -i 's|search/search_index.json|https://storage.googleapis.com/cp-algorithms/search_index.json|g' public/assets/javascripts/*.js
+          sed -i 's|search/search_index.json|https://storage.googleapis.com/cp-algorithms/search_index.json|g' ${{ needs.download_and_unzip.outputs.public_dir }}/assets/javascripts/*.js
 
       - id: 'auth'
         if: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master'}}
@@ -63,7 +76,7 @@ jobs:
       - uses: 'google-github-actions/upload-cloud-storage@v1'
         if: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master'}}
         with:
-          path: 'public/search/search_index.json'
+          path: '${{ needs.download_and_unzip.outputs.public_dir }}/search/search_index.json'
           destination: 'cp-algorithms'
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
@@ -96,3 +109,17 @@ jobs:
               repo: context.repo.repo,
               body: body
             })
+
+  # Job for deploying to GitHub Pages
+  deploy_github_pages:
+    runs-on: ubuntu-latest
+    needs: download_and_unzip
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ needs.download_and_unzip.outputs.public_dir }}
