@@ -1,7 +1,10 @@
 name: Build
 
-on:
-  workflow_call:
+on: 
+  push:
+    branches:    
+      - main
+  pull_request:
 
 jobs:
   build:
@@ -28,13 +31,13 @@ jobs:
       - name: Build pages
         env:
           MKDOCS_GIT_COMMITTERS_BRANCH: ${{ github.ref_name }}
-          MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.GITHUB_TOKEN }}
-          MKDOCS_ENABLE_GIT_REVISION_DATE: ${{ secrets.GITHUB_TOKEN && 'True' || 'False' }}
-          MKDOCS_ENABLE_GIT_COMMITTERS: ${{ secrets.GITHUB_TOKEN && 'True' || 'False' }}
+          MKDOCS_GIT_COMMITTERS_APIKEY: ${{ github.token }}
+          MKDOCS_ENABLE_GIT_REVISION_DATE: ${{ github.token && 'True' || 'False' }}
+          MKDOCS_ENABLE_GIT_COMMITTERS: ${{ github.token && 'True' || 'False' }}
         run: |
           mkdocs build --strict
-      - name: Upload build pages as artifact
+      - name: Upload pages as an artifact
         uses: actions/upload-artifact@v4
         with:
-          name: page-build
+          name: ${{ github.event.number || 'main' }}
           path: public/

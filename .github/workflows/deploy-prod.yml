@@ -1,127 +1,86 @@
 name: Deploy
 
-on: 
-  push:
-    branches:    
-      - main
-  pull_request:
+on:
+  workflow_run:
+    workflows: [Build]
+    types:
+      - completed
 
 jobs:
-  build:
-    uses: ./.github/workflows/build.yml
-    secrets: inherit
-
   deploy_live_website:
     runs-on: ubuntu-latest
-    needs: build
-    if: github.event_name == 'push'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Download pages
-        uses: actions/download-artifact@v4
-        with:
-          name: page-build
-          path: public
-
-      - name: Get PR information
-        uses: potiuk/get-workflow-origin@751d47254ef9e8b5eef955e24e79305233702781
-        id: source-run-info
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          sourceRunId: ${{ github.event.workflow_run.id }}
-
-      - name: change URLs for large files
-        shell: bash
-        run: |
-          sed -i 's|search/search_index.json|https://storage.googleapis.com/cp-algorithms/search_index.json|g' public/assets/javascripts/*.js
-
-      - id: 'auth'
-        uses: 'google-github-actions/auth@v2.1.6'
-        with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
-
-      - uses: 'google-github-actions/upload-cloud-storage@v1'
-        with:
-          path: 'public/search/search_index.json'
-          destination: 'cp-algorithms'
-
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        id: firebase-deploy
-        if: env.FIREBASE_SERVICE_ACCOUNT
-        env:
-          LIVE_NAME: "live"
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-        with:
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
-          projectId: cp-algorithms
-          channelId: ${{ env.LIVE_NAME }}
-
-  deploy_github_pages:
-    runs-on: ubuntu-latest
-    needs: build
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Download artifact
+      - name: Download pages
         uses: actions/download-artifact@v4
         with:
-          name: page-build
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+          merge-multiple: true
           path: public
+
+      - name: change URLs for large files
+        shell: bash
+        run: sed -i 's|search/search_index.json|https://storage.googleapis.com/cp-algorithms/search_index.json|g' public/assets/javascripts/*.js
+
+      - id: auth
+        uses: google-github-actions/auth@v2.1.6
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      - uses: google-github-actions/upload-cloud-storage@v1
+        with:
+          path: public/search/search_index.json
+          destination: cp-algorithms
+
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        id: firebase-deploy
+        with:
+          repoToken: ${{ github.token }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: cp-algorithms
+          channelId: live
+
+  deploy_github_pages:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Download pages
+        uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+          path: public
+
+      - name: Get PR number from artifact
+        id: get-pr-number
+        run: echo "pr_number=$(ls public)" >> $GITHUB_OUTPUT
 
       - name: Configure git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
+        
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          github_token: ${{ github.token }}
+          publish_dir: public/${{ steps.get-pr-number.outputs.pr_number }}
           publish_branch: gh-pages
-          destination_dir: ${{ github.event.pull_request.number || 'main' }}/
+          destination_dir: ${{ steps.get-pr-number.outputs.pr_number }}
 
-      - name: Update or create preview comment
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v6
+      - name: Create or update PR comment
+        if: steps.get-pr-number.outputs.pr_number != 'main'
+        uses: peter-evans/create-or-update-comment@v3
         with:
-          script: |
-            const prNumber = ${{ github.event.pull_request.number }};
-            const repo = context.repo.repo;
-            const owner = context.repo.owner;
-            const commitSha = context.payload.pull_request.head.sha;
-            const baseUrl = `https://${owner}.github.io/${repo}/`;
-            const previewUrl = `${baseUrl}${prNumber}/`;
-            const body = `Preview the changes for PR #${prNumber} (${commitSha}) here: [${previewUrl}](${previewUrl})`;
-  
-            // Retrieve comments for the PR to check if the comment already exists
-            const { data: comments } = await github.rest.issues.listComments({
-              owner: owner,
-              repo: repo,
-              issue_number: prNumber,
-            });
-
-            // Look for an existing comment with the preview link
-            const existingComment = comments.find(comment => comment.body.includes('Preview the changes for PR'));
-
-            if (existingComment) {
-              // Update the existing comment
-              await github.rest.issues.updateComment({
-                owner: owner,
-                repo: repo,
-                comment_id: existingComment.id,
-                body: body,
-              });
-            } else {
-              // Create a new comment
-              await github.rest.issues.createComment({
-                issue_number: prNumber,
-                owner: owner,
-                repo: repo,
-                body: body,
-              });
-            }
+          token: ${{ github.token }}
+          issue-number: ${{ steps.get-pr-number.outputs.pr_number }}
+          body: 'Preview the changes for PR #${{ steps.get-pr-number.outputs.pr_number }} at https://gh.cp-algorithms.com/${{ steps.get-pr-number.outputs.pr_number }}/ (current version: ${{ github.event.workflow_run.head_sha }}).'
+          body-includes: 'Preview the changes for PR'
+          mode: replace
