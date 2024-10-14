@@ -38,7 +38,7 @@ jobs:
           sed -i 's|search/search_index.json|https://storage.googleapis.com/cp-algorithms/search_index.json|g' public/assets/javascripts/*.js
 
       - id: 'auth'
-        uses: 'google-github-actions/auth@v0'
+        uses: 'google-github-actions/auth@v2.1.6'
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
