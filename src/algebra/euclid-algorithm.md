@@ -125,4 +125,5 @@ E.g. C++17 has such a function `std::gcd` in the `numeric` header.
 
 ## Practice Problems
 
-- [Codechef - GCD and LCM](https://www.codechef.com/problems/FLOW016)
+- [CSAcademy - Greatest Common Divisor](https://csacademy.com/contest/archive/task/gcd/)
+- [Codeforces 1916B - Two Divisors](https://codeforces.com/contest/1916/problem/B)

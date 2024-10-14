@@ -174,7 +174,6 @@ int find_cc(int v) {
 }
  
 void make_root(int v) {
-    v = find_2ecc(v);
     int root = v;
     int child = -1;
     while (v != -1) {

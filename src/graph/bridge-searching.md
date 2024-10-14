@@ -22,25 +22,34 @@ Pick an arbitrary vertex of the graph $root$ and run [depth first search](depth-
 
 Now we have to learn to check this fact for each vertex efficiently. We'll use "time of entry into node" computed by the depth first search.
 
-So, let $tin[v]$ denote entry time for node $v$. We introduce an array $low$ which will let us check the fact for each vertex $v$. $low[v]$ is the minimum of $tin[v]$, the entry times $tin[p]$ for each node $p$ that is connected to node $v$ via a back-edge $(v, p)$ and the values of $low[to]$ for each vertex $to$ which is a direct descendant of $v$ in the DFS tree:
+So, let $\mathtt{tin}[v]$ denote entry time for node $v$. We introduce an array $\mathtt{low}$ which will let us store the node with earliest entry time found in the DFS search that a node $v$ can reach with a single edge from itself or its descendants. $\mathtt{low}[v]$ is the minimum of $\mathtt{tin}[v]$, the entry times $\mathtt{tin}[p]$ for each node $p$ that is connected to node $v$ via a back-edge $(v, p)$ and the values of $\mathtt{low}[to]$ for each vertex $to$ which is a direct descendant of $v$ in the DFS tree:
 
-$$low[v] = \min \begin{cases} tin[v] \\ tin[p]& \text{ for all }p\text{ for which }(v, p)\text{ is a back edge} \\ low[to]& \text{ for all }to\text{ for which }(v, to)\text{ is a tree edge} \end{cases}$$
+$$\mathtt{low}[v] = \min \left\{ 
+    \begin{array}{l}
+    \mathtt{tin}[v] \\ 
+    \mathtt{tin}[p]  &\text{ for all }p\text{ for which }(v, p)\text{ is a back edge} \\ 
+    \mathtt{low}[to] &\text{ for all }to\text{ for which }(v, to)\text{ is a tree edge}
+    \end{array}
+\right\}$$
 
-Now, there is a back edge from vertex $v$ or one of its descendants to one of its ancestors if and only if vertex $v$ has a child $to$ for which $low[to] \leq tin[v]$. If $low[to] = tin[v]$, the back edge comes directly to $v$, otherwise it comes to one of the ancestors of $v$.
+Now, there is a back edge from vertex $v$ or one of its descendants to one of its ancestors if and only if vertex $v$ has a child $to$ for which $\mathtt{low}[to] \leq \mathtt{tin}[v]$. If $\mathtt{low}[to] = \mathtt{tin}[v]$, the back edge comes directly to $v$, otherwise it comes to one of the ancestors of $v$.
 
-Thus, the current edge $(v, to)$ in the DFS tree is a bridge if and only if $low[to] > tin[v]$.
+Thus, the current edge $(v, to)$ in the DFS tree is a bridge if and only if $\mathtt{low}[to] > \mathtt{tin}[v]$.
 
 ## Implementation
 
 The implementation needs to distinguish three cases: when we go down the edge in DFS tree, when we find a back edge to an ancestor of the vertex and when we return to a parent of the vertex. These are the cases:
 
-- $visited[to] = false$ - the edge is part of DFS tree;
-- $visited[to] = true$ && $to \neq parent$ - the edge is back edge to one of the ancestors;
+- $\mathtt{visited}[to] = false$ - the edge is part of DFS tree;
+- $\mathtt{visited}[to] = true$ && $to \neq parent$ - the edge is back edge to one of the ancestors;
 - $to = parent$ - the edge leads back to parent in DFS tree.
 
 To implement this, we need a depth first search function which accepts the parent vertex of the current node.
 
-```cpp
+For the cases of multiple edges, we need to be careful when ignoring the edge from the parent. To solve this issue, we can add a flag `parent_skipped` which will ensure we only skip the parent once.
+
+```{.cpp file=bridge_searching_offline}
+void IS_BRIDGE(int v,int to); // some function to process the found bridge
 int n; // number of nodes
 vector<vector<int>> adj; // adjacency list of graph
 
@@ -51,8 +60,12 @@ int timer;
 void dfs(int v, int p = -1) {
     visited[v] = true;
     tin[v] = low[v] = timer++;
+    bool parent_skipped = false;
     for (int to : adj[v]) {
-        if (to == p) continue;
+        if (to == p && !parent_skipped) {
+            parent_skipped = true;
+            continue;
+        }
         if (visited[to]) {
             low[v] = min(low[v], tin[to]);
         } else {
@@ -94,3 +107,4 @@ Note that this implementation malfunctions if the graph has multiple edges, sinc
 * [SPOJ - Critical Edges](http://www.spoj.com/problems/EC_P/)
 * [Codeforces - Break Up](http://codeforces.com/contest/700/problem/C)
 * [Codeforces - Tourist Reform](http://codeforces.com/contest/732/problem/F)
+* [Codeforces - Non-academic problem](https://codeforces.com/contest/1986/problem/F)
