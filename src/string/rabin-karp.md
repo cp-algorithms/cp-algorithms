@@ -67,4 +67,4 @@ vector<int> rabin_karp(string const& s, string const& t) {
 ## Resources
 
 * [Sleator - String matching algorithms](https://contest.cs.cmu.edu/295/s20/tutorials/strings.mark)
-* CLRS 3ed, Ch 32.2
+* [CLRS](https://en.wikipedia.org/wiki/Introduction_to_Algorithms) 3ed, Ch 32.2
