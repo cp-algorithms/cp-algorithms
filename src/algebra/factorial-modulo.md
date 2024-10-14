@@ -14,7 +14,7 @@ Otherwise $p!$ and subsequent terms will reduce to zero.
 But in fractions the factors of $p$ can cancel, and the resulting expression will be non-zero modulo $p$.
 
 Thus, formally the task is: You want to calculate $n! \bmod p$, without taking all the multiple factors of $p$ into account that appear in the factorial.
-Imaging you write down the prime factorization of $n!$, remove all factors $p$, and compute the product modulo $p$.
+Imagine you write down the prime factorization of $n!$, remove all factors $p$, and compute the product modulo $p$.
 We will denote this *modified* factorial with $n!_{\%p}$.
 For instance $7!_{\%p} \equiv 1 \cdot 2 \cdot \underbrace{1}_{3} \cdot 4 \cdot 5 \underbrace{2}_{6} \cdot 7 \equiv 2 \bmod 3$.
 

@@ -140,7 +140,7 @@ Polynomial long division is useful because of its many important properties:
 Note that long division can't be properly defined for formal power series. Instead, for any $A(x)$ such that $a_0 \neq 0$, it is possible to define an inverse formal power series $A^{-1}(x)$, such that $A(x) A^{-1}(x) = 1$. This fact, in turn, can be used to compute the result of long division for polynomials.
 
 ## Basic implementation
-[Here](https://cp-algorithms.github.io/cp-algorithms-aux/cp-algo/algebra/poly.hpp) you can find the basic implementation of polynomial algebra.
+[Here](https://cp-algorithms.github.io/cp-algorithms-aux/cp-algo/math/poly.hpp) you can find the basic implementation of polynomial algebra.
 
 It supports all trivial operations and some other useful methods. The main class is `poly<T>` for polynomials with coefficients of type `T`.
 
