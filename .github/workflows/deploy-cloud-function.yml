@@ -3,7 +3,7 @@ name: Deploy Cloud Function
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy_cloud_function:

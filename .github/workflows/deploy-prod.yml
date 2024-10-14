@@ -3,7 +3,7 @@ name: Deploy
 on: 
   push:
     branches:    
-      - 'master'
+      - 'main'
   pull_request:
 
 jobs:
@@ -83,7 +83,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
-          destination_dir: ${{ github.event.pull_request.number || 'master' }}/
+          destination_dir: ${{ github.event.pull_request.number || 'main' }}/
 
       - name: Update or create preview comment
         if: github.event_name == 'pull_request'
