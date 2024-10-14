@@ -19,7 +19,7 @@ Here we consider the polygons to be cyclically enumerated, i. e. $P_{|P|} = P_0,
 Since the size of the sum is linear in terms of the sizes of initial polygons, we should aim at finding a linear-time algorithm.
 Suppose that both polygons are ordered counter-clockwise. Consider sequences of edges $\{\overrightarrow{P_iP_{i+1}}\}$
 and $\{\overrightarrow{Q_jQ_{j+1}}\}$ ordered by polar angle. We claim that the sequence of edges of $P + Q$ can be obtained by merging
-these two sequences preserving polar angle order and replacing consequitive co-directed vectors with their sum. Straightforward usage of this idea results
+these two sequences preserving polar angle order and replacing consecutive co-directed vectors with their sum. Straightforward usage of this idea results
 in a linear-time algorithm, however, restoring the vertices of $P + Q$ from the sequence of sides requires repeated addition of vectors,
 which may introduce unwanted precision issues if we're working with floating-point coordinates, so we will describe a slight
 modification of this idea.

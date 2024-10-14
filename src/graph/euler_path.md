@@ -72,7 +72,7 @@ Finally, the program takes into account that there can be isolated vertices in t
 Notice that we use an adjacency matrix in this problem.
 Also this implementation handles finding the next with brute-force, which requires to iterate over the complete row in the matrix over and over.
 A better way would be to store the graph as an adjacency list, and remove edges in $O(1)$ and mark the reversed edges in separate list.
-This way we can archive a $O(N)$ algorithm.
+This way we can achieve an $O(N)$ algorithm.
 
 ```cpp
 int main() {

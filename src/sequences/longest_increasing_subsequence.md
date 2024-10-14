@@ -216,7 +216,7 @@ We now make two important observations.
 1.  The array $d$ will always be sorted: 
     $d[l-1] < d[l]$ for all $i = 1 \dots n$.
 
-    This is trivial, as you can just remove the last element from the increasing subsequence of length $l$, and you get a increasing subsequence of length $l-1$ with a smalller ending number.
+    This is trivial, as you can just remove the last element from the increasing subsequence of length $l$, and you get a increasing subsequence of length $l-1$ with a smaller ending number.
 
 2.  The element $a[i]$ will only update at most one value $d[l]$.
 

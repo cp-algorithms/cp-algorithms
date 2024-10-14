@@ -205,7 +205,7 @@ The algorithm requires $O(n \log n)$ time and $O(n)$ memory. For simplicity we u
 If it is known that the string only contains a subset of characters, e.g. only lowercase letters, then the implementation can be optimized, but the optimization factor would likely be insignificant, as the size of the alphabet only matters on the first iteration. Every other iteration depends on the number of equivalence classes, which may quickly reach $O(n)$ even if initially it was a string over the alphabet of size $2$.
 
 Also note, that this algorithm only sorts the cycle shifts.
-As mentioned at the beginning of this section we can generate the sorted order of the suffixes by appending a character that is smaller than all other characters of the string, and sorting this resulting string by cycle shifts, e.g. by sorting the cycle shifts of $s + $\$.
+As mentioned at the beginning of this section we can generate the sorted order of the suffixes by appending a character that is smaller than all other characters of the string, and sorting this resulting string by cycle shifts, e.g. by sorting the cycle shifts of $s + \$$.
 This will obviously give the suffix array of $s$, however prepended with $|s|$.
 
 ```{.cpp file=suffix_array_construction}

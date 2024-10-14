@@ -6,44 +6,48 @@ e_maxx_link: fenwick_tree
 
 # Fenwick Tree
 
-Let, $f$ be some group operation (binary associative function over a set with identity element and inverse elements) and $A$ be an array of integers of length $N$.
+Let $f$ be some group operation (a binary associative function over a set with an identity element and inverse elements) and $A$ be an array of integers of length $N$.
+Denote $f$'s infix notation as $*$; that is, $f(x,y) = x*y$ for arbitrary integers $x,y$.
+(Since this is associative, we will omit parentheses for order of application of $f$ when using infix notation.)
 
-Fenwick tree is a data structure which:
+The Fenwick tree is a data structure which:
 
-* calculates the value of function $f$ in the given range $[l, r]$ (i.e. $f(A_l, A_{l+1}, \dots, A_r)$) in $O(\log N)$ time;
-* updates the value of an element of $A$ in $O(\log N)$ time;
-* requires $O(N)$ memory, or in other words, exactly the same memory required for $A$;
-* is easy to use and code, especially, in the case of multidimensional arrays.
+* calculates the value of function $f$ in the given range $[l, r]$ (i.e. $A_l * A_{l+1} * \dots * A_r$) in $O(\log N)$ time
+* updates the value of an element of $A$ in $O(\log N)$ time
+* requires $O(N)$ memory (the same amount required for $A$)
+* is easy to use and code, especially in the case of multidimensional arrays
 
-The most common application of Fenwick tree is _calculating the sum of a range_ (i.e. using addition over the set of integers $\mathbb{Z}$: $f(A_1, A_2, \dots, A_k) = A_1 + A_2 + \dots + A_k$).
+The most common application of a Fenwick tree is _calculating the sum of a range_.
+For example, using addition over the set of integers as the group operation, i.e. $f(x,y) = x + y$: the binary operation, $*$, is $+$ in this case, so $A_l * A_{l+1} * \dots * A_r = A_l + A_{l+1} + \dots + A_{r}$.
 
-Fenwick tree is also called **Binary Indexed Tree**, or just **BIT** abbreviated.
-
-Fenwick tree was first described in a paper titled "A new data structure for cumulative frequency tables" (Peter M. Fenwick, 1994).
+The Fenwick tree is also called a **Binary Indexed Tree** (BIT).
+It was first described in a paper titled "A new data structure for cumulative frequency tables" (Peter M. Fenwick, 1994).
 
 ## Description
 
 ### Overview
 
-For the sake of simplicity, we will assume that function $f$ is just a *sum function*.
+For the sake of simplicity, we will assume that function $f$ is defined as $f(x,y) = x + y$ over the integers.
 
-Given an array of integers $A[0 \dots N-1]$.
-A Fenwick tree is just an array $T[0 \dots N-1]$, where each of its elements is equal to the sum of elements of $A$ in some range $[g(i), i]$:
+Suppose we are given an array of integers, $A[0 \dots N-1]$.
+(Note that we are using zero-based indexing.)
+A Fenwick tree is just an array, $T[0 \dots N-1]$, where each element is equal to the sum of elements of $A$ in some range, $[g(i), i]$:
 
-$$T_i = \sum_{j = g(i)}^{i}{A_j},$$
+$$T_i = \sum_{j = g(i)}^{i}{A_j}$$
 
 where $g$ is some function that satisfies $0 \le g(i) \le i$.
-We will define the function in the next few paragraphs.
+We will define $g$ in the next few paragraphs.
 
-The data structure is called tree, because there is a nice representation of the data structure as tree, although we don't need to model an actual tree with nodes and edges.
-We will only need to maintain the array $T$ to handle all queries.
+The data structure is called a tree because there is a nice representation of it in the form of a tree, although we don't need to model an actual tree with nodes and edges.
+We only need to maintain the array $T$ to handle all queries.
 
 **Note:** The Fenwick tree presented here uses zero-based indexing.
-Many people will actually use a version of the Fenwick tree that uses one-based indexing.
-Therefore you will also find an alternative implementation using one-based indexing in the implementation section.
+Many people use a version of the Fenwick tree that uses one-based indexing.
+As such, you will also find an alternative implementation which uses one-based indexing in the implementation section.
 Both versions are equivalent in terms of time and memory complexity.
 
-Now we can write some pseudo-code for the two operations mentioned above - get the sum of elements of $A$ in the range $[0, r]$ and update (increase) some element $A_i$:
+Now we can write some pseudo-code for the two operations mentioned above.
+Below, we get the sum of elements of $A$ in the range $[0, r]$ and update (increase) some element $A_i$:
 
 ```python
 def sum(int r):
@@ -60,20 +64,21 @@ def increase(int i, int delta):
 
 The function `sum` works as follows:
 
-1. first, it adds the sum of the range $[g(r), r]$ (i.e. $T[r]$) to the `result`
-2. then, it "jumps" to the range $[g(g(r)-1), g(r)-1]$, and adds this range's sum to the `result`
-3. and so on, until it "jumps" from $[0, g(g( \dots g(r)-1 \dots -1)-1)]$ to $[g(-1), -1]$; that is where the `sum` function stops jumping.
+1. First, it adds the sum of the range $[g(r), r]$ (i.e. $T[r]$) to the `result`.
+2. Then, it "jumps" to the range $[g(g(r)-1), g(r)-1]$ and adds this range's sum to the `result`.
+3. This continues until it "jumps" from $[0, g(g( \dots g(r)-1 \dots -1)-1)]$ to $[g(-1), -1]$; this is where the `sum` function stops jumping.
 
-The function `increase` works with the same analogy, but "jumps" in the direction of increasing indices:
+The function `increase` works with the same analogy, but it "jumps" in the direction of increasing indices:
 
-1. sums of the ranges $[g(j), j]$ that satisfy the condition $g(j) \le i \le j$ are increased by `delta` , that is `t[j] += delta`. Therefore we updated all elements in $T$ that correspond to ranges in which $A_i$ lies.
+1. The sum for each range of the form $[g(j), j]$ which satisfies the condition $g(j) \le i \le j$ is increased by `delta`; that is, `t[j] += delta`.
+Therefore, it updates all elements in $T$ that correspond to ranges in which $A_i$ lies.
 
-It is obvious that the complexity of both `sum` and `increase` depend on the function $g$.
-There are lots of ways to choose the function $g$, as long as $0 \le g(i) \le i$ for all $i$.
-For instance the function $g(i) = i$ works, which results just in $T = A$, and therefore summation queries are slow.
-We can also take the function $g(i) = 0$.
-This will correspond to prefix sum arrays, which means that finding the sum of the range $[0, i]$ will only take constant time, but updates are slow.
-The clever part of the Fenwick algorithm is, that there it uses a special definition of the function $g$ that can handle both operations in $O(\log N)$ time.
+The complexity of both `sum` and `increase` depend on the function $g$.
+There are many ways to choose the function $g$ such that $0 \le g(i) \le i$ for all $i$.
+For instance, the function $g(i) = i$ works, which yields $T = A$ (in which case, the summation queries are slow).
+We could also take the function $g(i) = 0$.
+This would correspond to prefix sum arrays (in which case, finding the sum of the range $[0, i]$ will only take constant time; however, updates are slow).
+The clever part of the algorithm for Fenwick trees is how it uses a special definition of the function $g$ which can handle both operations in $O(\log N)$ time.
 
 ### Definition of $g(i)$ { data-toc-label='Definition of <script type="math/tex">g(i)</script>' }
 
@@ -116,9 +121,9 @@ h(31) = 63 &= 0111111_2 \\\\
 
 Unsurprisingly, there also exists a simple way to perform $h$ using bitwise operations:
 
-$$h(j) = j ~\|~ (j+1),$$
+$$h(j) = j ~|~ (j+1),$$
 
-where $\|$ is the bitwise OR operator.
+where $|$ is the bitwise OR operator.
 
 The following image shows a possible interpretation of the Fenwick tree as tree.
 The nodes of the tree show the ranges they cover.
@@ -227,7 +232,7 @@ struct FenwickTreeMin {
 
 Note: it is possible to implement a Fenwick tree that can handle arbitrary minimum range queries and arbitrary updates.
 The paper [Efficient Range Minimum Queries using Binary Indexed Trees](http://ioinformatics.org/oi/pdf/v9_2015_39_44.pdf) describes such an approach.
-However with that approach you need to maintain a second binary indexed trees over the data, with a slightly different structure, since you one tree is not enough to store the values of all elements in the array.
+However with that approach you need to maintain a second binary indexed tree over the data, with a slightly different structure, since one tree is not enough to store the values of all elements in the array.
 The implementation is also a lot harder compared to the normal implementation for sums.
 
 ### Finding sum in two-dimensional array
@@ -380,7 +385,7 @@ int point_query(int idx) {
 
 Note: of course it is also possible to increase a single point $A[i]$ with `range_add(i, i, val)`.
 
-### 3. Range Updates and Range Queries
+### 3. Range Update and Range Query
 
 To support both range updates and range queries we will use two BITs namely $B_1[]$ and $B_2[]$, initialized with zeros.
 

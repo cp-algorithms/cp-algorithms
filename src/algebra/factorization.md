@@ -5,22 +5,22 @@ tags:
 
 # Integer factorization
 
-In this article we list several algorithms for factorizing integers, each of them can be both fast and also slow (some slower than others) depending on their input.
+In this article we list several algorithms for the factorization of integers, each of which can be either fast or varying levels of slow depending on their input.
 
-Notice, if the number that you want to factorize is actually a prime number, most of the algorithms, especially Fermat's factorization algorithm, Pollard's p-1, Pollard's rho algorithm will run very slow.
-So it makes sense to perform a probabilistic (or a fast deterministic) [primality test](primality_tests.md) before trying to factorize the number.
+Notice, if the number that you want to factorize is actually a prime number, most of the algorithms will run very slowly. This is especially true for Fermat's, Pollard's p-1 and Pollard's rho factorization algorithms.
+Therefore, it makes the most sense to perform a probabilistic (or a fast deterministic) [primality test](primality_tests.md) before trying to factorize the number.
 
 ## Trial division
 
 This is the most basic algorithm to find a prime factorization.
 
 We divide by each possible divisor $d$.
-We can notice, that it is impossible that all prime factors of a composite number $n$ are bigger than $\sqrt{n}$.
+It can be observed that it is impossible for all prime factors of a composite number $n$ to be bigger than $\sqrt{n}$.
 Therefore, we only need to test the divisors $2 \le d \le \sqrt{n}$, which gives us the prime factorization in $O(\sqrt{n})$.
 (This is [pseudo-polynomial time](https://en.wikipedia.org/wiki/Pseudo-polynomial_time), i.e. polynomial in the value of the input but exponential in the number of bits of the input.)
 
-The smallest divisor has to be a prime number.
-We remove the factor from the number, and repeat the process.
+The smallest divisor must be a prime number.
+We remove the factored number, and continue the process.
 If we cannot find any divisor in the range $[2; \sqrt{n}]$, then the number itself has to be prime.
 
 ```{.cpp file=factorization_trial_division1}
@@ -41,10 +41,9 @@ vector<long long> trial_division1(long long n) {
 ### Wheel factorization
 
 This is an optimization of the trial division.
-The idea is the following.
-Once we know that the number is not divisible by 2, we don't need to check every other even number.
+Once we know that the number is not divisible by 2, we don't need to check other even numbers.
 This leaves us with only $50\%$ of the numbers to check.
-After checking 2, we can simply start with 3 and skip every other number.
+After factoring out 2, and getting an odd number, we can simply start with 3 and only count other odd numbers.
 
 ```{.cpp file=factorization_trial_division2}
 vector<long long> trial_division2(long long n) {
@@ -65,17 +64,16 @@ vector<long long> trial_division2(long long n) {
 }
 ```
 
-This method can be extended.
+This method can be extended further.
 If the number is not divisible by 3, we can also ignore all other multiples of 3 in the future computations.
 So we only need to check the numbers $5, 7, 11, 13, 17, 19, 23, \dots$.
 We can observe a pattern of these remaining numbers.
 We need to check all numbers with $d \bmod 6 = 1$ and $d \bmod 6 = 5$.
 So this leaves us with only $33.3\%$ percent of the numbers to check.
-We can implement this by checking the primes 2 and 3 first, and then start checking with 5 and alternatively skip 1 or 3 numbers.
+We can implement this by factoring out the primes 2 and 3 first, after which we start with 5 and only count remainders $1$ and $5$ modulo $6$.
 
-We can extend this even further.
 Here is an implementation for the prime number 2, 3 and 5.
-It's convenient to use an array to store how much we have to skip.
+It is convenient to store the skipping strides in an array.
 
 ```{.cpp file=factorization_trial_division3}
 vector<long long> trial_division3(long long n) {
@@ -102,13 +100,12 @@ vector<long long> trial_division3(long long n) {
 }
 ```
 
-If we extend this further with more primes, we can even reach better percentages.
-However, also the skip lists will get a lot bigger.
+If we continue exending this method to include even more primes, better percentages can be reached, but the skip lists will become larger. 
 
 ### Precomputed primes
 
-Extending the wheel factorization with more and more primes will leave exactly the primes to check.
-So a good way of checking is just to precompute all prime numbers with the [Sieve of Eratosthenes](sieve-of-eratosthenes.md) until $\sqrt{n}$ and test them individually.
+Extending the wheel factorization method indefinitely, we will only be left with prime numbers to check. 
+A good way of checking this is to precompute all prime numbers with the [Sieve of Eratosthenes](sieve-of-eratosthenes.md) until $\sqrt{n}$, and test them individually.
 
 ```{.cpp file=factorization_trial_division4}
 vector<long long> primes;
@@ -135,7 +132,7 @@ We can write an odd composite number $n = p \cdot q$ as the difference of two sq
 
 $$n = \left(\frac{p + q}{2}\right)^2 - \left(\frac{p - q}{2}\right)^2$$
 
-Fermat's factorization method tries to exploit the fact, by guessing the first square $a^2$, and check if the remaining part $b^2 = a^2 - n$ is also a square number.
+Fermat's factorization method tries to exploit this fact by guessing the first square $a^2$, and checking if the remaining part, $b^2 = a^2 - n$, is also a square number.
 If it is, then we have found the factors $a - b$ and $a + b$ of $n$.
 
 ```cpp
@@ -152,12 +149,12 @@ int fermat(int n) {
 }
 ```
 
-Notice, this factorization method can be very fast, if the difference between the two factors $p$ and $q$ is small.
+This factorization method can be very fast if the difference between the two factors $p$ and $q$ is small.
 The algorithm runs in $O(|p - q|)$ time.
-However since it is very slow, once the factors are far apart, it is rarely used in practice.
+In practice though, this method is rarely used. Once factors become further apart, it is extremely slow. 
 
-However there are still a huge number of optimizations for this approach.
-E.g. by looking at the squares $a^2$ modulo a fixed small number, you can notice that you don't have to look at certain values $a$ since they cannot produce a square number $a^2 - n$.
+However, there are still a large number of optimization options regarding this approach.
+By looking at the squares $a^2$ modulo a fixed small number, it can be observed that certain values $a$ don't have to be viewed, since they cannot produce a square number $a^2 - n$.
 
 
 ## Pollard's $p - 1$ method { data-toc-label="Pollard's <script type='math/tex'>p - 1</script> method" }
@@ -176,7 +173,7 @@ $$a^{p - 1} \equiv 1 \pmod{p}$$
 
 This also means that
 
-$$a^{(p - 1)^k} \equiv a^{k \cdot (p - 1)} \equiv 1 \pmod{p}.$$
+$${\left(a^{(p - 1)}\right)}^k \equiv a^{k \cdot (p - 1)} \equiv 1 \pmod{p}.$$
 
 So for any $M$ with $p - 1 ~|~ M$ we know that $a^M \equiv 1$.
 This means that $a^M - 1 = p \cdot r$, and because of that also $p ~|~ \gcd(a^M - 1, n)$.
@@ -190,11 +187,11 @@ $$M = \prod_{\text{prime } q \le B} q^{\lfloor \log_q B \rfloor}$$
 
 Notice, if $p-1$ divides $M$ for all prime factors $p$ of $n$, then $\gcd(a^M - 1, n)$ will just be $n$.
 In this case we don't receive a factor.
-Therefore we will try to perform the $\gcd$ multiple time, while we compute $M$.
+Therefore, we will try to perform the $\gcd$ multiple times, while we compute $M$.
 
 Some composite numbers don't have $B$-powersmooth factors for small $B$.
-E.g. the factors of the composite number $100~000~000~000~000~493 = 763~013 \cdot 131~059~365~961$ are $190~753$-powersmooth and $1~092~161~383$-powersmooth.
-We would have to choose $B >= 190~753$ to factorize the number.
+For example, the factors of the composite number $100~000~000~000~000~493 = 763~013 \cdot 131~059~365~961$ are $190~753$-powersmooth and $1~092~161~383$-powersmooth.
+We will have to choose $B >= 190~753$ to factorize the number.
 
 In the following implementation we start with $B = 10$ and increase $B$ after each each iteration.
 
@@ -228,55 +225,55 @@ long long pollards_p_minus_1(long long n) {
 
 ```
 
-Notice, this is a probabilistic algorithm.
-It can happen that the algorithm doesn't find a factor.
+Observe that this is a probabilistic algorithm.
+A consequence of this is that there is a possibility of the algorithm being unable to find a factor at all. 
 
 The complexity is $O(B \log B \log^2 n)$ per iteration.
 
 ## Pollard's rho algorithm
 
-Another factorization algorithm from John Pollard.
+Pollard's Rho Algorithm is yet another factorization algorithm from John Pollard.
 
 Let the prime factorization of a number be $n = p q$.
 The algorithm looks at a pseudo-random sequence $\{x_i\} = \{x_0,~f(x_0),~f(f(x_0)),~\dots\}$ where $f$ is a polynomial function, usually $f(x) = (x^2 + c) \bmod n$ is chosen with $c = 1$.
 
-Actually we are not very interested in the sequence $\{x_i\}$, we are more interested in the sequence $\{x_i \bmod p\}$.
-Since $f$ is a polynomial function and all the values are in the range $[0;~p)$ this sequence will begin to cycle sooner or later.
-The **birthday paradox** actually suggests, that the expected number of elements is $O(\sqrt{p})$ until the repetition starts.
-If $p$ is smaller than $\sqrt{n}$, the repetition will start very likely in $O(\sqrt[4]{n})$.
+In this instance, we are not interested in the sequence $\{x_i\}$. 
+We are more interested in the sequence $\{x_i \bmod p\}$.
+Since $f$ is a polynomial function, and all the values are in the range $[0;~p)$, this sequence will eventually converge into a loop.
+The **birthday paradox** actually suggests that the expected number of elements is $O(\sqrt{p})$ until the repetition starts.
+If $p$ is smaller than $\sqrt{n}$, the repetition will likely start in $O(\sqrt[4]{n})$.
 
 Here is a visualization of such a sequence $\{x_i \bmod p\}$ with $n = 2206637$, $p = 317$, $x_0 = 2$ and $f(x) = x^2 + 1$.
 From the form of the sequence you can see very clearly why the algorithm is called Pollard's $\rho$ algorithm.
 
 <center>![Pollard's rho visualization](pollard_rho.png)</center>
 
-There is still one big open question.
-We don't know $p$ yet, so how can we argue about the sequence $\{x_i \bmod p\}$?
+Yet, there is still an open question.
+How can we exploit the properties of the sequence $\{x_i \bmod p\}$ to our advantage without even knowing the number $p$ itself?
 
 It's actually quite easy.
 There is a cycle in the sequence $\{x_i \bmod p\}_{i \le j}$ if and only if there are two indices $s, t \le j$ such that $x_s \equiv x_t \bmod p$.
 This equation can be rewritten as $x_s - x_t \equiv 0 \bmod p$ which is the same as $p ~|~ \gcd(x_s - x_t, n)$.
 
 Therefore, if we find two indices $s$ and $t$ with $g = \gcd(x_s - x_t, n) > 1$, we have found a cycle and also a factor $g$ of $n$.
-Notice that it is possible that $g = n$.
-In this case we haven't found a proper factor, and we have to repeat the algorithm with different parameter (different starting value $x_0$, different constant $c$ in the polynomial function $f$).
+It is possible that $g = n$.
+In this case we haven't found a proper factor, so we must repeat the algorithm with a different parameter (different starting value $x_0$, different constant $c$ in the polynomial function $f$).
 
 To find the cycle, we can use any common cycle detection algorithm.
 
 ### Floyd's cycle-finding algorithm
 
-This algorithm finds a cycle by using two pointers.
-These pointers move over the sequence at different speeds.
-In each iteration the first pointer advances to the next element, but the second pointer advances two elements.
-It's not hard to see, that if there exists a cycle, the second pointer will make at least one full cycle and then meet the first pointer during the next few cycle loops.
+This algorithm finds a cycle by using two pointers moving over the sequence at differing speeds.
+During each iteration, the first pointer will advance one element over, while the second pointer advances to every other element. 
+Using this idea it is easy to observe that if there is a cycle, at some point the second pointer will come around to meet the first one during the loops. 
 If the cycle length is $\lambda$ and the $\mu$ is the first index at which the cycle starts, then the algorithm will run in $O(\lambda + \mu)$ time.
 
-This algorithm is also known as the [Tortoise and Hare algorithm](../others/tortoise_and_hare.md), based on the tale in which a tortoise (here a slow pointer) and a hare (here a faster pointer) make a race.
+This algorithm is also known as the [Tortoise and Hare algorithm](../others/tortoise_and_hare.md), based on the tale in which a tortoise (the slow pointer) and a hare (the faster pointer) have a race.
 
-It is actually possible to determine the parameter $\lambda$ and $\mu$ using this algorithm (also in $O(\lambda + \mu)$ time and $O(1)$ space), but here is just the simplified version for finding the cycle at all.
-The algorithm and returns true as soon as it detects a cycle.
-If the sequence doesn't have a cycle, then the function will never stop.
-However this cannot happen during Pollard's rho algorithm.
+It is actually possible to determine the parameter $\lambda$ and $\mu$ using this algorithm (also in $O(\lambda + \mu)$ time and $O(1)$ space).
+When a cycle is detected, the algorithm will return 'True'. 
+If the sequence doesn't have a cycle, then the function will loop endlessly.
+However, using Pollard's Rho Algorithm, this can be prevented. 
 
 ```text
 function floyd(f, x0):
@@ -290,8 +287,8 @@ function floyd(f, x0):
 
 ### Implementation
 
-First here is a implementation using the **Floyd's cycle-finding algorithm**.
-The algorithm runs (usually) in $O(\sqrt[4]{n} \log(n))$ time.
+First, here is an implementation using the **Floyd's cycle-finding algorithm**.
+The algorithm generally runs in $O(\sqrt[4]{n} \log(n))$ time.
 
 ```{.cpp file=pollard_rho}
 long long mult(long long a, long long b, long long mod) {
@@ -353,16 +350,15 @@ long long mult(long long a, long long b, long long mod) {
 
 Alternatively you can also implement the [Montgomery multiplication](montgomery_multiplication.md).
 
-As already noticed above: if $n$ is composite and the algorithm returns $n$ as factor, you have to repeat the procedure with different parameter $x_0$ and $c$.
+As stated previously, if $n$ is composite and the algorithm returns $n$ as factor, you have to repeat the procedure with different parameters $x_0$ and $c$.
 E.g. the choice $x_0 = c = 1$ will not factor $25 = 5 \cdot 5$.
-The algorithm will just return $25$.
-However the choice $x_0 = 1$, $c = 2$ will factor it.
+The algorithm will return $25$.
+However, the choice $x_0 = 1$, $c = 2$ will factor it.
 
 ### Brent's algorithm
 
-Brent uses a similar algorithm as Floyd.
-It also uses two pointer.
-But instead of advancing the pointers by one and two respectably, we advance them in powers of two.
+Brent implements a similar method to Floyd, using two pointers.
+The difference being that instead of advancing the pointers by one and two places respectively, they are advanced by powers of two. 
 As soon as $2^i$ is greater than $\lambda$ and $\mu$, we will find the cycle.
 
 ```text
@@ -380,12 +376,12 @@ function floyd(f, x0):
     return true
 ```
 
-Brent's algorithm also runs in linear time, but is usually faster than Floyd's algorithm, since it uses less evaluations of the function $f$.
+Brent's algorithm also runs in linear time, but is generally faster than Floyd's, since it uses less evaluations of the function $f$.
 
 ### Implementation
 
-The straightforward implementation using Brent's algorithms can be speeded up by noticing, that we can omit the terms $x_l - x_k$ if $k < \frac{3 \cdot l}{2}$.
-Also, instead of performing the $\gcd$ computation at every step, we multiply the terms and do it every few steps and backtrack if we overshoot.
+The straightforward implementation of Brent's algorithm can be sped up by omitting the terms $x_l - x_k$ if $k < \frac{3 \cdot l}{2}$.
+In addition, instead of performing the $\gcd$ computation at every step, we multiply the terms and only actually check $\gcd$ every few steps and backtrack if overshot.
 
 ```{.cpp file=pollard_rho_brent}
 long long brent(long long n, long long x0=2, long long c=1) {
@@ -422,7 +418,7 @@ long long brent(long long n, long long x0=2, long long c=1) {
 }
 ```
 
-The combination of a trial division for small prime numbers together with Brent's version of Pollard's rho algorithm will make a very powerful factorization algorithm.
+The combination of a trial division for small prime numbers together with Brent's version of Pollard's rho algorithm makes a very powerful factorization algorithm.
 
 ## Practice Problems
 
