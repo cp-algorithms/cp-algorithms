@@ -64,4 +64,4 @@ double simpson_integration(double a, double b){
 
 ## Practice Problems
 
-* [URI - Environment Protection](https://www.urionlinejudge.com.br/judge/en/problems/view/1297)
+* [Latin American Regionals 2012 - Environment Protection](https://matcomgrader.com/problem/9335/environment-protection/)
