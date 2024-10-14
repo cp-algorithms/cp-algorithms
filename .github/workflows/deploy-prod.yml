@@ -93,6 +93,7 @@ jobs:
             })
 
   deploy_github_pages:
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
