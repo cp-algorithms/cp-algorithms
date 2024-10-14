@@ -44,6 +44,7 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           projectId: cp-algorithms
           channelId: live
+
   deploy_github_pages:
     runs-on: ubuntu-latest
     if: github.event.workflow_run.conclusion == 'success'
@@ -54,8 +55,8 @@ jobs:
       - name: Download pages
         uses: actions/download-artifact@v4
         with:
-            run-id: ${{ github.event.workflow_run.id }}
-            github-token: ${{ github.token }}
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
           name: page-build
           path: public
 
