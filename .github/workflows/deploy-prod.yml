@@ -10,6 +10,9 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+permissions:
+  id-token: write
+
 jobs:
   build:
     uses: ./.github/workflows/build.yml
