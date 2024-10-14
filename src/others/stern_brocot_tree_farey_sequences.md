@@ -181,7 +181,7 @@ $$
 \frac{p_{k+1}}{q_{k+1}} = \frac{p_{k-1} + a_k p_k}{q_{k-1} + a_k q_k},
 $$
 
-where $a_k$ is a positive integer number. If you're familiar with [continued fractions](), you would recognize that the sequence $\frac{p_i}{q_i}$ is the sequence of the convergent fractions of $\frac{p}{q}$ and the sequence $[a_1; a_2, \dots, a_{n}, 1]$ represents the continued fraction of $\frac{p}{q}$.
+where $a_k$ is a positive integer number. If you're familiar with [continued fractions](../algebra/continued-fractions.md), you would recognize that the sequence $\frac{p_i}{q_i}$ is the sequence of the convergent fractions of $\frac{p}{q}$ and the sequence $[a_1; a_2, \dots, a_{n}, 1]$ represents the continued fraction of $\frac{p}{q}$.
 
 This allows to find the run-length encoding of the path to $\frac{p}{q}$ in the manner which follows the algorithm for computing continued fraction representation of the fraction $\frac{p}{q}$:
 

@@ -162,7 +162,7 @@ pair<int, int> solve(const vector<seg>& a) {
 }
 ```
 
-The main function here is `solve()`, which returns the number of found intersecting segments, or $(-1, -1)$, if there are no intersections.
+The main function here is `solve()`, which returns the intersecting segments if exists, or $(-1, -1)$, if there are no intersections.
 
 Checking for the intersection of two segments is carried out by the `intersect ()` function, using an **algorithm based on the oriented area of the triangle**.
 

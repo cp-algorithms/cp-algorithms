@@ -16,7 +16,7 @@ It's easy to see, that either $d \le \sqrt{n}$ or $\frac{n}{d} \le \sqrt{n}$, th
 We can use this information to check for primality.
 
 We try to find a non-trivial divisor, by checking if any of the numbers between $2$ and $\sqrt{n}$ is a divisor of $n$.
-If it is a divisor, than $n$ is definitely not prime, otherwise it is.
+If it is a divisor, then $n$ is definitely not prime, otherwise it is.
 
 ```cpp
 bool isPrime(int x) {
@@ -78,7 +78,7 @@ there exist some composite numbers where $a^{n-1} \equiv 1 \bmod n$ holds for al
 Such numbers are called *Carmichael numbers*.
 The Fermat primality test can identify these numbers only, if we have immense luck and choose a base $a$ with $\gcd(a, n) \ne 1$.
 
-The Fermat test is still be used in practice, as it is very fast and Carmichael numbers are very rare.
+The Fermat test is still being used in practice, as it is very fast and Carmichael numbers are very rare.
 E.g. there only exist 646 such numbers below $10^9$.
 
 ## Miller-Rabin primality test
@@ -112,7 +112,7 @@ $$a^{2^r d} \equiv -1 \bmod n$$
 
 holds for some $0 \le r \le s - 1$.
 
-If we found a base $a$ which doesn't satisfy any of the above equalities, than we found a *witness* for the compositeness of $n$.
+If we found a base $a$ which doesn't satisfy any of the above equalities, then we found a *witness* for the compositeness of $n$.
 In this case we have proven that $n$ is not a prime number.
 
 Similar to the Fermat test, it is also possible that the set of equations is satisfied for a composite number.
@@ -175,7 +175,7 @@ bool MillerRabin(u64 n, int iter=5) { // returns true if n is probably prime, el
 
 Before the Miller-Rabin test you can test additionally if one of the first few prime numbers is a divisor.
 This can speed up the test by a lot, since most composite numbers have very small prime divisors.
-E.g. $88\%$ of all numbers have a prime factors smaller than $100$.
+E.g. $88\%$ of all numbers have a prime factor smaller than $100$.
 
 ### Deterministic version
 
@@ -218,3 +218,4 @@ However, since these numbers (except 2) are not prime, you need to check additio
 ## Practice Problems
 
 - [SPOJ - Prime or Not](https://www.spoj.com/problems/PON/)
+- [Project euler - Investigating a Prime Pattern](https://projecteuler.net/problem=146)

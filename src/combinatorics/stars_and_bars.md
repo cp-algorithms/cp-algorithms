@@ -39,6 +39,17 @@ E.g. the solution $1 + 3 + 0 = 4$ for $n = 4$, $k = 3$ can be represented using 
 It is easy to see, that this is exactly the stars and bars theorem.
 Therefore the solution is $\binom{n + k - 1}{n}$.
 
+## Number of positive integer sums
+
+A second theorem provides a nice interpretation for positive integers. Consider solutions to 
+
+$$x_1 + x_2 + \dots + x_k = n$$
+
+with $x_i \ge 1$.
+
+We can consider $n$ stars, but this time we can put at most _one bar_ between stars, since two bars between stars would represent $x_i=0$, i.e. an empty box. 
+There are $n-1$ gaps between stars to place $k-1$ bars, so the solution is $\binom{n-1}{k-1}$. 
+
 ## Number of lower-bound integer sums
 
 This can easily be extended to integer sums with different lower bounds.
@@ -66,4 +77,6 @@ See the [Number of upper-bound integer sums](./inclusion-exclusion.md#number-of-
 
 * [Codeforces - Array](https://codeforces.com/contest/57/problem/C)
 * [Codeforces - Kyoya and Coloured Balls](https://codeforces.com/problemset/problem/553/A)
-
+* [Codeforces - Colorful Bricks](https://codeforces.com/contest/1081/problem/C)
+* [Codeforces - Two Arrays](https://codeforces.com/problemset/problem/1288/C)
+* [Codeforces - One-Dimensional Puzzle](https://codeforces.com/contest/1931/problem/G)

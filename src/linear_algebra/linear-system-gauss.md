@@ -17,7 +17,7 @@ a_{21} x_1 + a_{22} x_2 + &\dots + a_{2m} x_m = b_2\\
 a_{n1} x_1 + a_{n2} x_2 + &\dots + a_{nm} x_m = b_n
 \end{align}$$
 
-where the coefficients $a_{ij}$ (for $i$ from 1 to $n$, $j$ from 1 to $m$) and $b_i$ ($i$ from 1 to $n$ are known and variables $x_i$ ($i$ from 1 to $m$) are unknowns.
+where the coefficients $a_{ij}$ (for $i$ from 1 to $n$, $j$ from 1 to $m$) and $b_i$ ($i$ from 1 to $n$) are known and variables $x_i$ ($i$ from 1 to $m$) are unknowns.
 
 This problem also has a simple matrix representation:
 

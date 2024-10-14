@@ -120,6 +120,7 @@ public:
 ## Practice Problems
 
 - [AtCoder: Neq Min](https://atcoder.jp/contests/hhkb2020/tasks/hhkb2020_c)
+- [Codeforces: Informatics in MAC](https://codeforces.com/contest/1935/problem/B)
 - [Codeforces: Replace by MEX](https://codeforces.com/contest/1375/problem/D)
 - [Codeforces: Vitya and Strange Lesson](https://codeforces.com/problemset/problem/842/D)
 - [Codeforces: MEX Queries](https://codeforces.com/contest/817/problem/F)

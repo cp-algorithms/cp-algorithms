@@ -66,7 +66,7 @@ We can create a **residual network** from all these edges, which is just a netwo
 The Ford-Fulkerson method works as follows.
 First, we set the flow of each edge to zero.
 Then we look for an **augmenting path** from $s$ to $t$.
-An augmenting path is a simple path in the residual graph, i.e. along the edges whose residual capacity is positive.
+An augmenting path is a simple path in the residual graph where residual capacity is positive for all the edges along that path.
 If such a path is found, then we can increase the flow along these edges.
 We keep on searching for augmenting paths and increasing the flow.
 Once an augmenting path doesn't exist anymore, the flow is maximal.
@@ -184,7 +184,7 @@ int maxflow(int s, int t) {
 
 ## Integral flow theorem ## { #integral-theorem}
 
-The theorem simply says, that if every capacity in the network is an integer, then the flow in each edge will be an integer in the maximal flow.
+The theorem says, that if every capacity in the network is an integer, then the size of the maximum flow is an integer, and there is a maximum flow such that the flow in each edge is an integer as well. In particular, Ford-Fulkerson method finds such a flow.
 
 ## Max-flow min-cut theorem
 

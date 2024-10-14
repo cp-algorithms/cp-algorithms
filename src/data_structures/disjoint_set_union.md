@@ -98,7 +98,7 @@ The trick is to make the paths for all those nodes shorter, by setting the paren
 You can see the operation in the following image.
 On the left there is a tree, and on the right side there is the compressed tree after calling `find_set(7)`, which shortens the paths for the visited nodes 7, 5, 3 and 2.
 
-![Path compression of call `find_set(7)`](DSU_path_compression.png)
+![Path compression of call find_set(7)](DSU_path_compression.png)
 
 The new implementation of `find_set` is as follows:
 
@@ -375,7 +375,7 @@ If we add an edge $(a, b)$ that connects two connected components into one, then
 
 Let's derive a formula, which computes the parity issued to the leader of the set that will get attached to another set.
 Let $x$ be the parity of the path length from vertex $a$ up to its leader $A$, and $y$ as the parity of the path length from vertex $b$ up to its leader $B$, and $t$ the desired parity that we have to assign to $B$ after the merge.
-The path contains the of the three parts:
+The path consists of the three parts:
 from $B$ to $b$, from $b$ to $a$, which is connected by one edge and therefore has parity $1$, and from $a$ to $A$.
 Therefore we receive the formula ($\oplus$ denotes the XOR operation):
 

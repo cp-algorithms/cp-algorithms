@@ -138,7 +138,7 @@ And if we stop partitioning whenever the query segment coincides with the vertex
 ### Update queries
 
 Now we want to modify a specific element in the array, let's say we want to do the assignment $a[i] = x$. 
-And we have to rebuild the Segment Tree, such that it correspond to the new, modified array. 
+And we have to rebuild the Segment Tree, such that it corresponds to the new, modified array. 
 
 This query is easier than the sum query. 
 Each level of a Segment Tree forms a partition of the array. 
@@ -240,7 +240,7 @@ The memory consumption is limited by $4n$, even though a Segment Tree of an arra
 However it can be reduced. 
 We renumber the vertices of the tree in the order of an Euler tour traversal (pre-order traversal), and we write all these vertices next to each other.
 
-Lets look at a vertex at index $v$, and let him be responsible for the segment $[l, r]$, and let $mid = \dfrac{l + r}{2}$.
+Let's look at a vertex at index $v$, and let it be responsible for the segment $[l, r]$, and let $mid = \dfrac{l + r}{2}$.
 It is obvious that the left child will have the index $v + 1$.
 The left child is responsible for the segment $[l, mid]$, i.e. in total there will be $2 * (mid - l + 1) - 1$ vertices in the left child's subtree.
 Thus we can compute the index of the right child of $v$. The index will be $v + 2 * (mid - l + 1)$.
@@ -385,30 +385,19 @@ However, this will lead to a $O(\log^2 n)$ solution.
 
 Instead, we can use the same idea as in the previous sections, and find the position by descending the tree:
 by moving each time to the left or the right, depending on the maximum value of the left child.
-Thus finding the answer in $O(\log n)$ time.
+Thus finding the answer in $O(\log n)$ time. 
 
 ```{.cpp file=segment_tree_first_greater}
-int get_first(int v, int lv, int rv, int l, int r, int x) {
-    if(lv > r || rv < l) return -1;
-    if(l <= lv && rv <= r) {
-        if(t[v] <= x) return -1;
-        while(lv != rv) {
-            int mid = lv + (rv-lv)/2;
-            if(t[2*v] > x) {
-                v = 2*v;
-                rv = mid;
-            }else {
-                v = 2*v+1;
-                lv = mid+1;
-            }
-        }
-        return lv;
-    }
-
-    int mid = lv + (rv-lv)/2;
-    int rs = get_first(2*v, lv, mid, l, r, x);
-    if(rs != -1) return rs;
-    return get_first(2*v+1, mid+1, rv, l ,r, x);
+int get_first(int v, int tl, int tr, int l, int r, int x) {
+    if(tl > r || tr < l) return -1;
+    if(t[v] <= x) return -1;
+    
+    if (tl== tr) return tl;
+    
+    int tm = tl + (tr-tl)/2;
+    int left = get_first(2*v, tl, tm, l, r, x);
+    if(left != -1) return left;
+    return get_first(2*v+1, tm+1, tr, l ,r, x);
 }
 ```
 
@@ -816,6 +805,17 @@ Before traversing to a child vertex, we call $\text{push}$ and propagate the val
 We have to do this in both the $\text{update}$ function and the $\text{query}$ function.
 
 ```cpp
+void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = max(t[v*2], t[v*2 + 1]);
+    }
+}
+
 void push(int v) {
     t[v*2] += lazy[v];
     lazy[v*2] += lazy[v];

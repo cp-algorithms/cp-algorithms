@@ -61,6 +61,8 @@ search:
     - Advanced
         - [Deleting from a data structure in O(T(n) log n)](data_structures/deleting_in_log_n.md)
 - Dynamic Programming
+    - [Introduction to Dynamic Programming](dynamic_programming/intro-to-dp.md)
+    - [Knapsack Problem](dynamic_programming/knapsack.md)
     - DP optimizations
         - [Divide and Conquer DP](dynamic_programming/divide-and-conquer-dp.md)
         - [Knuth's Optimization](dynamic_programming/knuth-optimization.md)
@@ -141,6 +143,7 @@ search:
         - [Delaunay triangulation and Voronoi diagram](geometry/delaunay.md)
         - [Vertical decomposition](geometry/vertical_decomposition.md)
         - [Half-plane intersection - S&I Algorithm in O(N log N)](geometry/halfplane-intersection.md)
+        - [Manhattan Distance](geometry/manhattan-distance.md)
 - Graphs
     - Graph traversal
         - [Breadth First Search](graph/breadth-first-search.md)
@@ -190,6 +193,7 @@ search:
     - Matchings and related problems
         - [Bipartite Graph Check](graph/bipartite-check.md)
         - [Kuhn's Algorithm - Maximum Bipartite Matching](graph/kuhn_maximum_bipartite_matching.md)
+        - [Hungarian Algorithm](graph/hungarian-algorithm.md)
     - Miscellaneous
         - [Topological Sorting](graph/topological-sort.md)
         - [Edge connectivity / Vertex connectivity](graph/edge_vertex_connectivity.md)

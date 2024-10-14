@@ -70,19 +70,20 @@ void dfs(int v) {
     }
     ans.push_back(v);
 }
- 
+
 void topological_sort() {
     visited.assign(n, false);
     ans.clear();
     for (int i = 0; i < n; ++i) {
-        if (!visited[i])
+        if (!visited[i]) {
             dfs(i);
+        }
     }
     reverse(ans.begin(), ans.end());
 }
 ```
 
-The main function of the solution is `topological_sort`, which initializes DFS variables, launches DFS and receives the answer in the vector `ans`.
+The main function of the solution is `topological_sort`, which initializes DFS variables, launches DFS and receives the answer in the vector `ans`. It is worth noting that when the graph is not acyclic, `topological_sort` result would still be somewhat meaningful in a sense that if a vertex $u$ is reachable from vertex $v$, but not vice versa, the vertex $v$ will always come first in the resulting array. This property of the provided implementation is used in [Kosaraju's algorithm](./strongly-connected-components.md) to extract strongly connected components and their topological sorting in a directed graph with cycles.
 
 ## Practice Problems
 
