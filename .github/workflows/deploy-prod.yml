@@ -68,6 +68,7 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           projectId: cp-algorithms
           channelId: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master' && env.LIVE_NAME || env.PREVIEW_NAME }}
+
   deploy_github_pages:
     runs-on: ubuntu-latest
     needs: build
@@ -94,27 +95,6 @@ jobs:
           publish_branch: gh-pages
           destination_dir: ${{ github.event.pull_request.number }}/
 
-
-      - name: Find existing preview comment
-        if: github.event_name == 'pull_request'
-        id: find_comment
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const { data: comments } = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: ${{ github.event.pull_request.number }},
-            });
-  
-            const previewComment = comments.find(comment => comment.body.includes('Preview the changes for this PR here:'));
-  
-            if (previewComment) {
-              return { comment_id: previewComment.id };
-            } else {
-              return { comment_id: null };
-            }
-
       - name: Update or create preview comment
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v6
@@ -127,14 +107,22 @@ jobs:
             const previewUrl = `${baseUrl}${prNumber}/`;
             const body = `Preview the changes for this PR here: [${previewUrl}](${previewUrl})`;
   
-            const commentId = ${{ steps.find_comment.outputs.comment_id }};
-  
-            if (commentId) {
+            // Retrieve comments for the PR to check if the comment already exists
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: owner,
+              repo: repo,
+              issue_number: prNumber,
+            });
+
+            // Look for an existing comment with the preview link
+            const existingComment = comments.find(comment => comment.body.includes('Preview the changes for this PR here:'));
+
+            if (existingComment) {
               // Update the existing comment
               await github.rest.issues.updateComment({
                 owner: owner,
                 repo: repo,
-                comment_id: commentId,
+                comment_id: existingComment.id,
                 body: body,
               });
             } else {
