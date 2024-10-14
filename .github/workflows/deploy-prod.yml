@@ -1,67 +1,48 @@
 name: Deploy
 
-on:
-  workflow_run:
-    # `workflow_run` events have access to secrets
-    workflows: [Build]
-    types:
-      - completed
+on: 
+  push:
+    branches:    
+      - 'main'
+  pull_request:
 
 jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
+
   deploy_live_website:
     runs-on: ubuntu-latest
-    if: >
-      ${{ github.event.workflow_run.event == 'pull_request' &&
-      github.event.workflow_run.conclusion == 'success' }}
+    needs: build
+    if: github.event_name == 'push'
     steps:
-      - name: "Get PR information"
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download pages
+        uses: actions/download-artifact@v4
+        with:
+          name: page-build
+          path: public
+
+      - name: Get PR information
         uses: potiuk/get-workflow-origin@751d47254ef9e8b5eef955e24e79305233702781
         id: source-run-info
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           sourceRunId: ${{ github.event.workflow_run.id }}
 
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: 'Download artifact'
-        uses: actions/github-script@v6
-        with:
-          script: |
-            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
-               owner: context.repo.owner,
-               repo: context.repo.repo,
-               run_id: context.payload.workflow_run.id,
-            });
-            let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
-              return artifact.name == "page-build"
-            })[0];
-            let download = await github.rest.actions.downloadArtifact({
-               owner: context.repo.owner,
-               repo: context.repo.repo,
-               artifact_id: matchArtifact.id,
-               archive_format: 'zip',
-            });
-            let fs = require('fs');
-            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/page-build.zip`, Buffer.from(download.data));
-
-      - run: |
-          unzip page-build.zip -d public
-
       - name: change URLs for large files
-        if: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master'}}
         shell: bash
         run: |
           sed -i 's|search/search_index.json|https://storage.googleapis.com/cp-algorithms/search_index.json|g' public/assets/javascripts/*.js
 
       - id: 'auth'
-        if: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master'}}
-        uses: 'google-github-actions/auth@v0'
+        uses: 'google-github-actions/auth@v2.1.6'
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
       - uses: 'google-github-actions/upload-cloud-storage@v1'
-        if: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master'}}
         with:
           path: 'public/search/search_index.json'
           destination: 'cp-algorithms'
@@ -70,29 +51,77 @@ jobs:
         id: firebase-deploy
         if: env.FIREBASE_SERVICE_ACCOUNT
         env:
-          PREVIEW_NAME: "preview-${{ steps.source-run-info.outputs.pullRequestNumber }}"
           LIVE_NAME: "live"
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           projectId: cp-algorithms
-          channelId: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master' && env.LIVE_NAME || env.PREVIEW_NAME }}
+          channelId: ${{ env.LIVE_NAME }}
 
-      - name: comment URL to PR
-        if: ${{ steps.source-run-info.outputs.sourceEvent == 'pull_request' }}
+  deploy_github_pages:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: page-build
+          path: public
+
+      - name: Configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
+          destination_dir: ${{ github.event.pull_request.number || 'main' }}/
+
+      - name: Update or create preview comment
+        if: github.event_name == 'pull_request'
         uses: actions/github-script@v6
         with:
           script: |
-            const body = `Visit the preview URL for this PR (for commit ${{ steps.source-run-info.outputs.sourceHeadSha }}):
+            const prNumber = ${{ github.event.pull_request.number }};
+            const repo = context.repo.repo;
+            const owner = context.repo.owner;
+            const commitSha = context.payload.pull_request.head.sha;
+            const baseUrl = `https://${owner}.github.io/${repo}/`;
+            const previewUrl = `${baseUrl}${prNumber}/`;
+            const body = `Preview the changes for PR #${prNumber} (${commitSha}) here: [${previewUrl}](${previewUrl})`;
+  
+            // Retrieve comments for the PR to check if the comment already exists
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: owner,
+              repo: repo,
+              issue_number: prNumber,
+            });
 
-            ${{ steps.firebase-deploy.outputs.details_url }}
+            // Look for an existing comment with the preview link
+            const existingComment = comments.find(comment => comment.body.includes('Preview the changes for PR'));
 
-            (expires ${{ steps.firebase-deploy.outputs.expire_time }})`;
-
-            github.rest.issues.createComment({
-              issue_number: ${{ steps.source-run-info.outputs.pullRequestNumber }},
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: body
-            })
+            if (existingComment) {
+              // Update the existing comment
+              await github.rest.issues.updateComment({
+                owner: owner,
+                repo: repo,
+                comment_id: existingComment.id,
+                body: body,
+              });
+            } else {
+              // Create a new comment
+              await github.rest.issues.createComment({
+                issue_number: prNumber,
+                owner: owner,
+                repo: repo,
+                body: body,
+              });
+            }
