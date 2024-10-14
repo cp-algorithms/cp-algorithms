@@ -1,14 +1,20 @@
 name: Deploy
 
-on:
-  workflow_run:
-    workflows: [Build]
-    types:
-      - completed
+on: 
+  push:
+    branches:    
+      - 'master'
+  pull_request:
 
 jobs:
   # Reusable job for downloading and unzipping the artifact
+
+  build:
+    uses: ./.github/workflows/build.yml@${{ github.ref }}
+    secrets: inherit
+
   download_and_unzip:
+    needs: build
     runs-on: ubuntu-latest
     outputs:
       public_dir: ${{ steps.check_output.outputs.public_dir_path }}
