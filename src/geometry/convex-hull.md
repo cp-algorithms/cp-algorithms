@@ -194,6 +194,6 @@ void convex_hull(vector<pt>& a, bool include_collinear = false) {
 
 * [Kattis - Convex Hull](https://open.kattis.com/problems/convexhull)
 * [Kattis - Keep the Parade Safe](https://open.kattis.com/problems/parade)
-* [URI 1464 - Onion Layers](https://www.urionlinejudge.com.br/judge/en/problems/view/1464)
+* [Latin American Regionals 2006 - Onion Layers](https://matcomgrader.com/problem/9413/onion-layers/)
 * [Timus 1185: Wall](http://acm.timus.ru/problem.aspx?space=1&num=1185)
 * [Usaco 2014 January Contest, Gold - Cow Curling](http://usaco.org/index.php?page=viewproblem2&cpid=382)
