@@ -11,9 +11,6 @@ inputs:
   context:
     description: 'The context for the status check'
     default: '${{ github.workflow }} / ${{ github.job }} (${{ github.event.workflow_run.event }})'
-  description:
-    description: 'A short description of the status'
-    default: ${{ job.status }}
   token:
     description: 'GitHub token'
     default: ${{ github.token }}
@@ -27,4 +24,4 @@ runs:
         token: ${{ inputs.token }}
         status: ${{ inputs.status }}
         context: ${{ inputs.context }}
-        description: ${{ inputs.description }}
+        description: ${{ inputs.status }}
