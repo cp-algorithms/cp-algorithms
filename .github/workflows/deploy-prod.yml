@@ -53,6 +53,7 @@ jobs:
         with:
           sha: ${{ github.event.workflow_run.head_sha }}
           token: ${{ github.token }}
+          description: ${{ job.status }}
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -85,3 +86,4 @@ jobs:
           sha: ${{ github.event.workflow_run.head_sha }}
           token: ${{ github.token }}
           status: ${{ job.status }}
+          description: ${{ job.status }}
