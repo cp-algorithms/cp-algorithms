@@ -5612,6 +5612,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#practice-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practice Problems
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -6559,6 +6568,12 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
     
   
 
@@ -6591,6 +6606,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -6619,7 +6638,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 10, 2023</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 15, 2024</span>&emsp;
 
 <!-- Tags -->
 
@@ -6715,7 +6734,7 @@ Describe the issue of this article in detail.
 <span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
 <span class="w">            </span><span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
 <span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">edges</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">cap</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">edges</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">flow</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">edges</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">cap</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">edges</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">flow</span><span class="p">)</span>
 <span class="w">                    </span><span class="k">continue</span><span class="p">;</span>
 <span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">edges</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span>
 <span class="w">                    </span><span class="k">continue</span><span class="p">;</span>
@@ -6734,7 +6753,7 @@ Describe the issue of this article in detail.
 <span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ptr</span><span class="p">[</span><span class="n">v</span><span class="p">];</span><span class="w"> </span><span class="n">cid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">cid</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">cid</span><span class="p">];</span>
 <span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">edges</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">u</span><span class="p">;</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">level</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">edges</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">cap</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">edges</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">flow</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">level</span><span class="p">[</span><span class="n">u</span><span class="p">])</span>
 <span class="w">                </span><span class="k">continue</span><span class="p">;</span>
 <span class="w">            </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">tr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dfs</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">pushed</span><span class="p">,</span><span class="w"> </span><span class="n">edges</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">cap</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">edges</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">flow</span><span class="p">));</span>
 <span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tr</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
@@ -6763,10 +6782,14 @@ Describe the issue of this article in detail.
 <span class="w">    </span><span class="p">}</span>
 <span class="p">};</span>
 </code></pre></div>
+<h2 id="practice-problems">Practice Problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://www.spoj.com/problems/FASTFLOW/">SPOJ: FASTFLOW</a></li>
+</ul>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/SYury" title="SYury" data-bi-name="contributorprofile" target="_blank">SYury</a> (87.18%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (9.62%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (1.28%)</li><li><a href="https://github.com/Naman-Bhalla" title="Naman-Bhalla" data-bi-name="contributorprofile" target="_blank">Naman-Bhalla</a> (1.28%)</li><li><a href="https://github.com/MiniCube11" title="MiniCube11" data-bi-name="contributorprofile" target="_blank">MiniCube11</a> (0.64%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/SYury" title="SYury" data-bi-name="contributorprofile" target="_blank">SYury</a> (83.75%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (9.38%)</li><li><a href="https://github.com/danilopereira10" title="danilopereira10" data-bi-name="contributorprofile" target="_blank">danilopereira10</a> (3.75%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (1.25%)</li><li><a href="https://github.com/Naman-Bhalla" title="Naman-Bhalla" data-bi-name="contributorprofile" target="_blank">Naman-Bhalla</a> (1.25%)</li><li><a href="https://github.com/MiniCube11" title="MiniCube11" data-bi-name="contributorprofile" target="_blank">MiniCube11</a> (0.62%)</li></ul>
 </ul>
                 
               </article>
