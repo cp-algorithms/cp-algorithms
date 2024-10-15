@@ -6529,6 +6529,12 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
     
   
     
@@ -6611,6 +6617,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -6655,7 +6665,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 23, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 15, 2024</span>&emsp;
 
 <!-- Tags -->
 
@@ -6696,10 +6706,10 @@ Describe the issue of this article in detail.
 <p>A degenerate case that need to be taken care of is when <span class="arithmatex">$a = b = 0$</span>. It is easy to see that we either have no solutions or infinitely many solutions, depending on whether <span class="arithmatex">$c = 0$</span> or not. In the rest of this article, we will ignore this case.</p>
 <h2 id="analytic-solution">Analytic solution<a class="headerlink" href="#analytic-solution" title="Permanent link">&para;</a></h2>
 <p>When <span class="arithmatex">$a \neq 0$</span> and <span class="arithmatex">$b \neq 0$</span>, the equation <span class="arithmatex">$ax+by=c$</span> can be equivalently treated as either of the following:</p>
-<div class="arithmatex">$$\begin{gather}
-ax \equiv c \pmod b,\newline
-by \equiv c \pmod a.
-\end{gather}$$</div>
+<div class="arithmatex">$$\begin{align}
+ax &amp;\equiv c \pmod b \\
+by &amp;\equiv c \pmod a
+\end{align}$$</div>
 <p>Without loss of generality, assume that <span class="arithmatex">$b \neq 0$</span> and consider the first equation. When <span class="arithmatex">$a$</span> and <span class="arithmatex">$b$</span> are co-prime, the solution to it is given as</p>
 <div class="arithmatex">$$x \equiv ca^{-1} \pmod b,$$</div>
 <p>where <span class="arithmatex">$a^{-1}$</span> is the <a href="module-inverse.html">modular inverse</a> of <span class="arithmatex">$a$</span> modulo <span class="arithmatex">$b$</span>.</p>
@@ -6711,6 +6721,11 @@ x \equiv (c/g)(a/g)^{-1}\pmod{b/g},\\
 y = \frac{c-ax}{b}.
 \end{cases}$$</div>
 <h2 id="algorithmic-solution">Algorithmic solution<a class="headerlink" href="#algorithmic-solution" title="Permanent link">&para;</a></h2>
+<p><strong>Bézout's lemma</strong> (also called Bézout's identity) is a useful result that can be used to understand the following solution. </p>
+<blockquote>
+<p>Let <span class="arithmatex">$g = \gcd(a,b)$</span>. Then there exist integers <span class="arithmatex">$x,y$</span> such that <span class="arithmatex">$ax + by = g$</span>.</p>
+<p>Moreover, <span class="arithmatex">$g$</span> is the least such positive integer that can be written as <span class="arithmatex">$ax + by$</span>; all integers of the form <span class="arithmatex">$ax + by$</span> are multiples of <span class="arithmatex">$g$</span>. </p>
+</blockquote>
 <p>To find one solution of the Diophantine equation with 2 unknowns, you can use the <a href="extended-euclid-algorithm.html">Extended Euclidean algorithm</a>. First, assume that <span class="arithmatex">$a$</span> and <span class="arithmatex">$b$</span> are non-negative. When we apply Extended Euclidean algorithm for <span class="arithmatex">$a$</span> and <span class="arithmatex">$b$</span>, we can find their greatest common divisor <span class="arithmatex">$g$</span> and 2 numbers <span class="arithmatex">$x_g$</span> and <span class="arithmatex">$y_g$</span> such that:</p>
 <div class="arithmatex">$$a x_g + b y_g = g$$</div>
 <p>If <span class="arithmatex">$c$</span> is divisible by <span class="arithmatex">$g = \gcd(a, b)$</span>, then the given Diophantine equation has a solution, otherwise it does not have any solution. The proof is straight-forward: a linear combination of two numbers is divisible by their common divisor.</p>
@@ -6757,7 +6772,7 @@ y = \frac{c-ax}{b}.
 <div class="arithmatex">$$x = x_0 + k \cdot \frac{b}{g}$$</div>
 <div class="arithmatex">$$y = y_0 - k \cdot \frac{a}{g}$$</div>
 <p>are solutions of the given Diophantine equation.</p>
-<p>Moreover, this is the set of all possible solutions of the given Diophantine equation.</p>
+<p>Since the equation is linear, all solutions lie on the same line, and by the definition of <span class="arithmatex">$g$</span> this is the set of all possible solutions of the given Diophantine equation.</p>
 <h2 id="finding-the-number-of-solutions-and-the-solutions-in-a-given-interval">Finding the number of solutions and the solutions in a given interval<a class="headerlink" href="#finding-the-number-of-solutions-and-the-solutions-in-a-given-interval" title="Permanent link">&para;</a></h2>
 <p>From previous section, it should be clear that if we don't impose any restrictions on the solutions, there would be infinite number of them. So in this section, we add some restrictions on the interval of <span class="arithmatex">$x$</span> and <span class="arithmatex">$y$</span>, and we will try to count and enumerate all the solutions.</p>
 <p>Let there be two intervals: <span class="arithmatex">$[min_x; max_x]$</span> and <span class="arithmatex">$[min_y; max_y]$</span> and let's say we only want to find the solutions in these two intervals.</p>
@@ -6841,7 +6856,7 @@ Since the equation <span class="arithmatex">$a x + b y = c$</span> is equivalent
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/thanhtnguyen" title="thanhtnguyen" data-bi-name="contributorprofile" target="_blank">thanhtnguyen</a> (40.81%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (36.77%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (14.799999999999999%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (3.59%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (1.79%)</li><li><a href="https://github.com/boxlesscat" title="boxlesscat" data-bi-name="contributorprofile" target="_blank">boxlesscat</a> (1.35%)</li><li><a href="https://github.com/traxex2" title="traxex2" data-bi-name="contributorprofile" target="_blank">traxex2</a> (0.45%)</li><li><a href="https://github.com/pin3da" title="pin3da" data-bi-name="contributorprofile" target="_blank">pin3da</a> (0.45%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/thanhtnguyen" title="thanhtnguyen" data-bi-name="contributorprofile" target="_blank">thanhtnguyen</a> (39.3%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (35.81%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (12.67%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (4.8%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (3.49%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (1.75%)</li><li><a href="https://github.com/boxlesscat" title="boxlesscat" data-bi-name="contributorprofile" target="_blank">boxlesscat</a> (1.31%)</li><li><a href="https://github.com/traxex2" title="traxex2" data-bi-name="contributorprofile" target="_blank">traxex2</a> (0.44%)</li><li><a href="https://github.com/pin3da" title="pin3da" data-bi-name="contributorprofile" target="_blank">pin3da</a> (0.44%)</li></ul>
 </ul>
                 
               </article>
