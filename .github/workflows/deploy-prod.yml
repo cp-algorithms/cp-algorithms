@@ -81,6 +81,6 @@ jobs:
         with:
           token: ${{ github.token }}
           issue-number: ${{ steps.get-pr-number.outputs.pr_number }}
-          body: 'Preview the changes for PR #${{ steps.get-pr-number.outputs.pr_number }} at https://gh.cp-algorithms.com/${{ steps.get-pr-number.outputs.pr_number }}/ (current version: ${{ github.event.workflow_run.head_sha }}).'
+          body: 'Preview the changes for PR #${{ steps.get-pr-number.outputs.pr_number }} (for commit ${{ github.event.workflow_run.head_sha }}) at https://gh.cp-algorithms.com/${{ steps.get-pr-number.outputs.pr_number }}/.'
           body-includes: 'Preview the changes for PR'
           mode: replace
