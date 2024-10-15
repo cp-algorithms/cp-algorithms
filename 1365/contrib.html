@@ -6716,12 +6716,12 @@ Describe the issue of this article in detail.
 <li><strong>Edit files locally or in the GitHub UI</strong>.</li>
 <li><strong>Submit a pull request</strong> with your updates.</li>
 </ul>
-<p>For help with this workflow, check out this helpful guide: <a href="https://www.dataschool.io/how-to-contribute-on-github/">Step-by-step guide to contributing on GitHub</a>.</p>
+<p>For help with this workflow, check out this helpful guide: <a href="https://opensource.guide/how-to-contribute/">Step-by-step guide to contributing on GitHub</a>.</p>
 <h3 id="updating-indexes">Updating Indexes<a class="headerlink" href="#updating-indexes" title="Permanent link">&para;</a></h3>
 <p>When you add new articles or reorganize existing ones, be sure to update the following files:</p>
 <ul>
 <li><strong><a href="https://github.com/cp-algorithms/cp-algorithms/blob/main/src/navigation.md">navigation.md</a></strong>: Update the list of all articles.</li>
-<li><strong><a href="https://github.com/cp-algorithms/cp-algorithms/blob/main/README.md">README.md</a></strong>: Add new articles to the main project overview.</li>
+<li><strong><a href="https://github.com/cp-algorithms/cp-algorithms/blob/main/README.md">README.md</a></strong>: Update the list of new articles on the main page.</li>
 </ul>
 <h2 id="article-syntax">Article Syntax<a class="headerlink" href="#article-syntax" title="Permanent link">&para;</a></h2>
 <p>We use <a href="https://daringfireball.net/projects/markdown">Markdown</a> to format articles. Articles are rendered using <a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a>, which provides a lot of flexibility. Here are some key features:</p>
@@ -6770,7 +6770,7 @@ tags:
 <span class="gu">e_maxx_link: &lt;original-link&gt;</span>
 <span class="gu">---</span>
 </code></pre></div>
-<p>Replace <code>&lt;original-link&gt;</code> with the URL to the source article.</p>
+<p>Replace <code>&lt;original-link&gt;</code> with the last part of the URL (e.g., for <code>http://e-maxx.ru/algo/euler_function</code>, use <code>euler_function</code>).</p>
 </li>
 </ul>
 <h2 id="conventions">Conventions<a class="headerlink" href="#conventions" title="Permanent link">&para;</a></h2>
@@ -6782,7 +6782,7 @@ tags:
 <ol>
 <li>
 <p>Clone the repository:</p>
-<div class="highlight"><pre><span></span><code><span class="gp">$ </span>git<span class="w"> </span>clone<span class="w"> </span>--recursive<span class="w"> </span>https://github.com/cp-algorithms/cp-algorithms.git<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>cp-algorithms
+<div class="highlight"><pre><span></span><code><span class="go">git clone --recursive https://github.com/cp-algorithms/cp-algorithms.git &amp;&amp; cd cp-algorithms</span>
 </code></pre></div>
 </li>
 <li>
@@ -6811,22 +6811,22 @@ tags:
 <h2 id="testing-code-snippets">Testing Code Snippets<a class="headerlink" href="#testing-code-snippets" title="Permanent link">&para;</a></h2>
 <p>If your article includes code snippets, it’s helpful to include tests to ensure that they run correctly.</p>
 <ol>
-<li>
-<p>Name the code snippet:</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// code here</span>
-</code></pre></div>
-</li>
-<li>
-<p>Run <code>extract_snippets.py</code> from the <code>test</code> directory to extract snippets into header files. Create a test file that includes these headers and checks their behavior.</p>
-</li>
-<li>
-<p>You can run all tests with the <code>test.sh</code> script:</p>
-<div class="highlight"><pre><span></span><code><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span><span class="nb">test</span>
+<li>Name the code snippet:
+    <div class="highlight"><pre><span></span><code><span class="c1">// code here</span>
+</code></pre></div></li>
+<li>Run <code>extract_snippets.py</code> from the <code>test</code> directory to extract snippets into header files. Create a test file that includes these headers and checks their behavior.</li>
+<li>You can run all tests with the <code>test.sh</code> script:
+    <div class="highlight"><pre><span></span><code><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span><span class="nb">test</span>
 <span class="gp">$ </span>./test.sh
 </code></pre></div>
-</li>
+    <strong>Example Output:</strong>
+    <code>Running test_aho_corasick.cpp - Passed in 635 ms
+   Running test_balanced_brackets.cpp - Passed in 1390 ms
+    Running test_burnside_tori.cpp - Passed in 378 ms
+    ...
+    51 PASSED in 49.00 seconds</code>
+   This script will run tests and display the results.</li>
 </ol>
-<p>This script will run tests and display the results.</p>
 <p>Additionally, all pull requests will be automatically tested via <a href="https://github.com/cp-algorithms/cp-algorithms/actions">GitHub Actions</a>.</p>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
