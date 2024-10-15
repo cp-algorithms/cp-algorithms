@@ -143,7 +143,7 @@ assuming the given conditions are satisfied.
             dp_{z}(a, c) + dp_{y}(b, d) = C(a, c) + C(b, d) + dp(a, z) + dp(z+1, c) + dp(b, y) + dp(y+1, d).
             $$
 
-            Using the QI on $C$ and on the dp state for the indices $z+1 \leq y+1 \leq c \leq d$ (from the induction hypothesis) yields the desired result.
+            Using the QI on $C$ and on the dp state for the indices $a \leq b \leq c \leq d$ (from the induction hypothesis) yields the desired result.
         
         - If $z > y$, the proof of this case is symmetric to the previous case.
 
