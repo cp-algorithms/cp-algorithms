@@ -70,4 +70,4 @@ jobs:
           user_email: github-actions[bot]@users.noreply.github.com
           publish_dir: public/${{ steps.get-pr-number.outputs.pr_number }}
           destination_dir: ${{ steps.get-pr-number.outputs.pr_number }}
-          full_commit_message: "Preview for ${{ steps.get-pr-number.outputs.pr_number != 'main' && '#' || '' }} ${{ steps.get-pr-number.outputs.pr_number }} (${{ github.event.workflow_run.head_sha }}) at https://gh.cp-algorithms.com/${{ steps.get-pr-number.outputs.pr_number }}/"
+          full_commit_message: "Preview for ${{ steps.get-pr-number.outputs.pr_number != 'main' && '#' || '' }}${{ steps.get-pr-number.outputs.pr_number }} (${{ github.event.workflow_run.head_sha }}) at https://gh.cp-algorithms.com/${{ steps.get-pr-number.outputs.pr_number }}/"
