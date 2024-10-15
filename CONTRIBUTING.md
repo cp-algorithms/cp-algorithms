@@ -127,8 +127,8 @@ You can preview changes locally before pushing them to GitHub. To do this:
 2. Install dependencies and serve the site:
 
     ```console
-    $ scripts/install-mkdocs.sh # requires pip
-    $ mkdocs serve
+    scripts/install-mkdocs.sh # requires pip
+    mkdocs serve
     ```
 
    This will run the site locally so you can preview your changes. Note that some features are disabled in local builds.
@@ -138,14 +138,14 @@ You can preview changes locally before pushing them to GitHub. To do this:
 - **Git Revision Date Plugin**: Disabled by default but can be enabled with:
 
     ```console
-    $ export MKDOCS_ENABLE_GIT_REVISION_DATE=True
+    export MKDOCS_ENABLE_GIT_REVISION_DATE=True
     ```
 
 - **Git Committers Plugin**: Disabled by default, as it requires a GitHub personal access token. Enable it like this:
 
     ```console
-    $ export MKDOCS_ENABLE_GIT_COMMITTERS=True
-    $ export MKDOCS_GIT_COMMITTERS_APIKEY=your_token_here
+    export MKDOCS_ENABLE_GIT_COMMITTERS=True
+    export MKDOCS_GIT_COMMITTERS_APIKEY=your_token_here
     ```
 
    You can generate your token [here](https://github.com/settings/tokens). Only public access permissions are needed.
@@ -155,19 +155,21 @@ You can preview changes locally before pushing them to GitHub. To do this:
 If your article includes code snippets, it’s helpful to include tests to ensure that they run correctly.
 
 1. Name the code snippet:
-    ```{.cpp file=snippet-name}
+
+   ```{.cpp file=snippet-name}
     // code here
     ```
-2. Run `extract_snippets.py` from the `test` directory to extract snippets into header files. Create a test file that includes these headers and checks their behavior.
-3. You can run all tests with the `test.sh` script:
+   
+3. Run `extract_snippets.py` from the `test` directory to extract snippets into header files. Create a test file that includes these headers and checks their behavior.
+4. You can run all tests with the `test.sh` script:
     ```console
-    $ cd test
-    $ ./test.sh
+    cd test
+    ./test.sh
     ```
     **Example Output:**
     ```
     Running test_aho_corasick.cpp - Passed in 635 ms
-   Running test_balanced_brackets.cpp - Passed in 1390 ms
+    Running test_balanced_brackets.cpp - Passed in 1390 ms
     Running test_burnside_tori.cpp - Passed in 378 ms
     ...
     51 PASSED in 49.00 seconds
