@@ -11,13 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Attach run to the commit
         uses: ./.github/actions/set-commit-status
         with:
           sha: ${{ github.event.workflow_run.head_sha }}
-
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
       - name: Download pages
         uses: actions/download-artifact@v4
@@ -49,25 +49,23 @@ jobs:
           projectId: cp-algorithms
           channelId: live
 
-
       - name: Set final commit status
         uses: ./.github/actions/set-commit-status
         if: always()
         with:
           sha: ${{ github.event.workflow_run.head_sha }}
-  
-  
+
   deploy_github_pages:
     runs-on: ubuntu-latest
     if: github.event.workflow_run.conclusion == 'success'
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Attach run to the commit
         uses: ./.github/actions/set-commit-status
         with:
           sha: ${{ github.event.workflow_run.head_sha }}
-
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
       - name: Download pages
         uses: actions/download-artifact@v4
