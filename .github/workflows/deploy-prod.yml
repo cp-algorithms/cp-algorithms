@@ -18,6 +18,7 @@ jobs:
         uses: ./.github/actions/set-commit-status
         with:
           sha: ${{ github.event.workflow_run.head_sha }}
+          status: pending
 
       - name: Download pages
         uses: actions/download-artifact@v4
@@ -66,6 +67,7 @@ jobs:
         uses: ./.github/actions/set-commit-status
         with:
           sha: ${{ github.event.workflow_run.head_sha }}
+          status: pending
 
       - name: Download pages
         uses: actions/download-artifact@v4
