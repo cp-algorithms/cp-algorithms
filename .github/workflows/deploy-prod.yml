@@ -14,6 +14,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Attach run to the commit
+        uses: ./.github/actions/set-commit-status
+        with:
+          sha: ${{ github.event.workflow_run.head_sha }}
+
       - name: Download pages
         uses: actions/download-artifact@v4
         with:
@@ -44,19 +49,23 @@ jobs:
           projectId: cp-algorithms
           channelId: live
 
+      - name: Set final commit status
+        uses: ./.github/actions/set-commit-status
+        if: always()
+        with:
+          sha: ${{ github.event.workflow_run.head_sha }}
+
   deploy_github_pages:
     runs-on: ubuntu-latest
     if: github.event.workflow_run.conclusion == 'success'
     steps:
-      - name: Set commit status as pending
-        uses: myrotvorets/set-commit-status-action@v2.0.1
-        with:
-          sha: ${{ github.event.workflow_run.head_sha }}
-          token: ${{ github.token }}
-          description: ${{ job.status }}
-
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Attach run to the commit
+        uses: ./.github/actions/set-commit-status
+        with:
+          sha: ${{ github.event.workflow_run.head_sha }}
 
       - name: Download pages
         uses: actions/download-artifact@v4
@@ -80,10 +89,7 @@ jobs:
           full_commit_message: "Preview for ${{ steps.get-pr-number.outputs.pr_number != 'main' && '#' || '' }}${{ steps.get-pr-number.outputs.pr_number }} (${{ github.event.workflow_run.head_sha }}) at https://gh.cp-algorithms.com/${{ steps.get-pr-number.outputs.pr_number }}/"
 
       - name: Set final commit status
-        uses: myrotvorets/set-commit-status-action@v2.0.1
+        uses: ./.github/actions/set-commit-status
         if: always()
         with:
           sha: ${{ github.event.workflow_run.head_sha }}
-          token: ${{ github.token }}
-          status: ${{ job.status }}
-          description: ${{ job.status }}
