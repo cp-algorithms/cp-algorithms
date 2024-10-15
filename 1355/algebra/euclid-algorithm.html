@@ -6637,6 +6637,10 @@ Describe the issue of this article in detail.
   
   
 
+  
+  
+  
+
 
 
 
@@ -6644,7 +6648,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 13, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 15, 2024</span>&emsp;
 
 <!-- Tags -->
 
@@ -6710,7 +6714,7 @@ It's commonly denoted by <span class="arithmatex">$\gcd(a, b)$</span>. Mathemati
 <p>If <span class="arithmatex">$a &gt; b \geq 1$</span> and <span class="arithmatex">$b &lt; F_n$</span> for some <span class="arithmatex">$n$</span>, the Euclidean algorithm performs at most <span class="arithmatex">$n-2$</span> recursive calls.</p>
 <p>Moreover, it is possible to show that the upper bound of this theorem is optimal. When <span class="arithmatex">$a = F_n$</span> and <span class="arithmatex">$b = F_{n-1}$</span>, <span class="arithmatex">$gcd(a, b)$</span> will perform exactly <span class="arithmatex">$n-2$</span> recursive calls. In other words, consecutive Fibonacci numbers are the worst case input for Euclid's algorithm.</p>
 <p>Given that Fibonacci numbers grow exponentially, we get that the Euclidean algorithm works in <span class="arithmatex">$O(\log \min(a, b))$</span>.</p>
-<p>Another way to estimate the complexity is to notice that <span class="arithmatex">$a \bmod b$</span> for the case <span class="arithmatex">$a \geq b$</span> is at least <span class="arithmatex">$2$</span> times smaller than <span class="arithmatex">$a$</span>, so the larger number is reduced at least in half on each iteration of the algorithm.</p>
+<p>Another way to estimate the complexity is to notice that <span class="arithmatex">$a \bmod b$</span> for the case <span class="arithmatex">$a \geq b$</span> is at least <span class="arithmatex">$2$</span> times smaller than <span class="arithmatex">$a$</span>, so the larger number is reduced at least in half on each iteration of the algorithm. Applying this reasoning to the case when we compute the GCD of the set of numbers <span class="arithmatex">$a_1,\dots,a_n \leq C$</span>, this also allows us to estimate the total runtime as <span class="arithmatex">$O(n + \log C)$</span>, rather than <span class="arithmatex">$O(n \log C)$</span>, since every non-trivial iteration of the algorithm reduces the current GCD candidate by at least a factor of <span class="arithmatex">$2$</span>.</p>
 <h2 id="least-common-multiple">Least common multiple<a class="headerlink" href="#least-common-multiple" title="Permanent link">&para;</a></h2>
 <p>Calculating the least common multiple (commonly denoted <strong>LCM</strong>) can be reduced to calculating the GCD with the following simple formula:</p>
 <div class="arithmatex">$$\text{lcm}(a, b) = \frac{a \cdot b}{\gcd(a, b)}$$</div>
@@ -6756,7 +6760,7 @@ E.g. C++17 has such a function <code>std::gcd</code> in the <code>numeric</code>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (47.29%)</li><li><a href="#" title="Nalin Bhardwaj" data-bi-name="contributorprofile" target="_blank">Nalin Bhardwaj</a> (34.11%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (11.63%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (3.88%)</li><li><a href="https://github.com/mdeapedro" title="mdeapedro" data-bi-name="contributorprofile" target="_blank">mdeapedro</a> (0.78%)</li><li><a href="https://github.com/AniketR10" title="AniketR10" data-bi-name="contributorprofile" target="_blank">AniketR10</a> (0.78%)</li><li><a href="https://github.com/itssachinkr" title="itssachinkr" data-bi-name="contributorprofile" target="_blank">itssachinkr</a> (0.78%)</li><li><a href="https://github.com/jinyulink" title="jinyulink" data-bi-name="contributorprofile" target="_blank">jinyulink</a> (0.78%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (47.29%)</li><li><a href="#" title="Nalin Bhardwaj" data-bi-name="contributorprofile" target="_blank">Nalin Bhardwaj</a> (34.11%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (11.629999999999999%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (3.88%)</li><li><a href="https://github.com/mdeapedro" title="mdeapedro" data-bi-name="contributorprofile" target="_blank">mdeapedro</a> (0.78%)</li><li><a href="https://github.com/AniketR10" title="AniketR10" data-bi-name="contributorprofile" target="_blank">AniketR10</a> (0.78%)</li><li><a href="https://github.com/itssachinkr" title="itssachinkr" data-bi-name="contributorprofile" target="_blank">itssachinkr</a> (0.78%)</li><li><a href="https://github.com/jinyulink" title="jinyulink" data-bi-name="contributorprofile" target="_blank">jinyulink</a> (0.78%)</li></ul>
 </ul>
                 
               </article>
