@@ -1,3 +1,8 @@
+---
+search:
+  exclude: true
+---
+
 # How to Contribute
 
 Thank you for your interest in contributing to the cp-algorithms project! Whether you want to fix a typo, improve an article, or add new content, your help is welcome. All you need is a [GitHub account](https://github.com). Contributions are managed through our [GitHub repository](https://github.com/cp-algorithms/cp-algorithms), where you can directly submit changes or propose improvements.
@@ -24,14 +29,14 @@ If you’re planning to make more significant changes, such as adding new articl
 - **Edit files locally or in the GitHub UI**.
 - **Submit a pull request** with your updates.
 
-For help with this workflow, check out this helpful guide: [Step-by-step guide to contributing on GitHub](https://www.dataschool.io/how-to-contribute-on-github/).
+For help with this workflow, check out this helpful guide: [Step-by-step guide to contributing on GitHub](https://opensource.guide/how-to-contribute/).
 
 ### Updating Indexes
 
 When you add new articles or reorganize existing ones, be sure to update the following files:
 
 - **[navigation.md](https://github.com/cp-algorithms/cp-algorithms/blob/main/src/navigation.md)**: Update the list of all articles.
-- **[README.md](https://github.com/cp-algorithms/cp-algorithms/blob/main/README.md)**: Add new articles to the main project overview.
+- **[README.md](https://github.com/cp-algorithms/cp-algorithms/blob/main/README.md)**: Update the list of new articles on the main page.
 
 ## Article Syntax
 
@@ -99,7 +104,7 @@ We use tags to differentiate between original content and translated articles. A
     ---
     ```
 
-    Replace `<original-link>` with the URL to the source article.
+    Replace `<original-link>` with the last part of the URL (e.g., for `http://e-maxx.ru/algo/euler_function`, use `euler_function`).
 
 ## Conventions
 
@@ -116,7 +121,7 @@ You can preview changes locally before pushing them to GitHub. To do this:
 1. Clone the repository:
 
     ```console
-    $ git clone --recursive https://github.com/cp-algorithms/cp-algorithms.git && cd cp-algorithms
+    git clone --recursive https://github.com/cp-algorithms/cp-algorithms.git && cd cp-algorithms
     ```
 
 2. Install dependencies and serve the site:
@@ -150,20 +155,23 @@ You can preview changes locally before pushing them to GitHub. To do this:
 If your article includes code snippets, it’s helpful to include tests to ensure that they run correctly.
 
 1. Name the code snippet:
-
     ```{.cpp file=snippet-name}
     // code here
     ```
-
 2. Run `extract_snippets.py` from the `test` directory to extract snippets into header files. Create a test file that includes these headers and checks their behavior.
-
 3. You can run all tests with the `test.sh` script:
-
     ```console
     $ cd test
     $ ./test.sh
     ```
-
+    **Example Output:**
+    ```
+    Running test_aho_corasick.cpp - Passed in 635 ms
+   Running test_balanced_brackets.cpp - Passed in 1390 ms
+    Running test_burnside_tori.cpp - Passed in 378 ms
+    ...
+    51 PASSED in 49.00 seconds
+    ```
    This script will run tests and display the results.
 
 Additionally, all pull requests will be automatically tested via [GitHub Actions](https://github.com/cp-algorithms/cp-algorithms/actions).
