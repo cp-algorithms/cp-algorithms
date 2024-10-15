@@ -48,6 +48,12 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.workflow_run.conclusion == 'success'
     steps:
+      - name: Set commit status as pending
+        uses: myrotvorets/set-commit-status-action@v2.0.1
+        with:
+          sha: ${{ github.event.workflow_run.head_sha }}
+          token: ${{ github.token }}
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -71,3 +77,11 @@ jobs:
           publish_dir: public/${{ steps.get-pr-number.outputs.pr_number }}
           destination_dir: ${{ steps.get-pr-number.outputs.pr_number }}
           full_commit_message: "Preview for ${{ steps.get-pr-number.outputs.pr_number != 'main' && '#' || '' }}${{ steps.get-pr-number.outputs.pr_number }} (${{ github.event.workflow_run.head_sha }}) at https://gh.cp-algorithms.com/${{ steps.get-pr-number.outputs.pr_number }}/"
+
+      - name: Set final commit status
+        uses: myrotvorets/set-commit-status-action@v2.0.1
+        if: always()
+        with:
+          sha: ${{ github.event.workflow_run.head_sha }}
+          token: ${{ github.token }}
+          status: ${{ job.status }}
