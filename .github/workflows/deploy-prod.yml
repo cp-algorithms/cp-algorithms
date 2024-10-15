@@ -70,4 +70,4 @@ jobs:
           user_email: github-actions[bot]@users.noreply.github.com
           publish_dir: public/${{ steps.get-pr-number.outputs.pr_number }}
           destination_dir: ${{ steps.get-pr-number.outputs.pr_number }}
-          full_commit_message: 'Preview for the PR #${{ steps.get-pr-number.outputs.pr_number }} (commit ${{ github.event.workflow_run.head_sha }})'
+          full_commit_message: 'Preview for the PR #${{ steps.get-pr-number.outputs.pr_number }} (commit ${{ github.event.workflow_run.head_sha }}) at https://gh.cp-algorithms.com/${{ github.event.workflow_run.head_sha }}/'
