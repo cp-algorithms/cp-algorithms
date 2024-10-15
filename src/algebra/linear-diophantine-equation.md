@@ -27,10 +27,10 @@ A degenerate case that need to be taken care of is when $a = b = 0$. It is easy 
 
 When $a \neq 0$ and $b \neq 0$, the equation $ax+by=c$ can be equivalently treated as either of the following:
 
-\begin{gather}
-ax \equiv c \pmod b,\newline
-by \equiv c \pmod a.
-\end{gather}
+\begin{align}
+ax &\equiv c \pmod b \\
+by &\equiv c \pmod a
+\end{align}
 
 Without loss of generality, assume that $b \neq 0$ and consider the first equation. When $a$ and $b$ are co-prime, the solution to it is given as
 
@@ -50,6 +50,12 @@ y = \frac{c-ax}{b}.
 \end{cases}$$
 
 ## Algorithmic solution
+
+**Bézout's lemma** (also called Bézout's identity) is a useful result that can be used to understand the following solution. 
+
+> Let $g = \gcd(a,b)$. Then there exist integers $x,y$ such that $ax + by = g$.
+> 
+> Moreover, $g$ is the least such positive integer that can be written as $ax + by$; all integers of the form $ax + by$ are multiples of $g$. 
 
 To find one solution of the Diophantine equation with 2 unknowns, you can use the [Extended Euclidean algorithm](extended-euclid-algorithm.md). First, assume that $a$ and $b$ are non-negative. When we apply Extended Euclidean algorithm for $a$ and $b$, we can find their greatest common divisor $g$ and 2 numbers $x_g$ and $y_g$ such that:
 
@@ -119,7 +125,7 @@ $$y = y_0 - k \cdot \frac{a}{g}$$
 
 are solutions of the given Diophantine equation.
 
-Moreover, this is the set of all possible solutions of the given Diophantine equation.
+Since the equation is linear, all solutions lie on the same line, and by the definition of $g$ this is the set of all possible solutions of the given Diophantine equation.
 
 ## Finding the number of solutions and the solutions in a given interval
 
