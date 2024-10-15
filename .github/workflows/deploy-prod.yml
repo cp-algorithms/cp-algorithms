@@ -31,7 +31,7 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-      - uses: google-github-actions/upload-cloud-storage@v1
+      - uses: google-github-actions/upload-cloud-storage@v2.2.0
         with:
           path: public/search/search_index.json
           destination: cp-algorithms
@@ -66,8 +66,8 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ github.token }}
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
           publish_dir: public/${{ steps.get-pr-number.outputs.pr_number }}
           destination_dir: ${{ steps.get-pr-number.outputs.pr_number }}
-          commit_message: 'Preview for the PR #${{ steps.get-pr-number.outputs.pr_number }} (commit ${{ github.event.workflow_run.head_sha }})'
+          full_commit_message: 'Preview for the PR #${{ steps.get-pr-number.outputs.pr_number }} (commit ${{ github.event.workflow_run.head_sha }})'
