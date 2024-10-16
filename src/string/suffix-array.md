@@ -217,6 +217,118 @@ vector<int> suffix_array_construction(string s) {
 }
 ```
 
+### $O(n)$ approach {data-toc-label="O(n) approach"}
+
+Here we will use the **Skew algorithm**, also known as the **DC3 algorithm** (Difference Cover Modulo 3), which is a linear-time algorithm for constructing suffix arrays. It was developed by Kärkkäinen and Sanders in 2003 and is efficient for sorting the suffixes of a string in \(O(n)\) time.
+This algorithm is used to sort the suffixes of a string in **O(n)** time, where `n` is the length of the string. 
+
+### Brief Explanation of the Algorithm:
+
+1. **Divide Step (Triplet Naming)**:
+   - The algorithm divides the suffixes into three groups: those starting at positions that are `0 mod 3`, `1 mod 3`, and `2 mod 3`. These groups help in organizing the suffixes into manageable parts.
+   
+2. **Recursive Sorting**:
+   - The algorithm recursively sorts the suffixes that start at positions `1 mod 3` and `2 mod 3` using a simplified version of radix sort. Then, these two sorted groups are combined and their positions are lexicographically ranked (assigned unique "names").
+   
+3. **Merging**:
+   - The suffixes starting at `0 mod 3` positions are then sorted based on their first character. The previously sorted `1 mod 3` and `2 mod 3` suffixes are merged with this group to form the final suffix array.
+
+4. **Lexicographic Order Comparison**:
+   - The algorithm compares the suffixes lexicographically using helper functions like `leq` (for pairs and triples) to ensure that the suffix array is correctly sorted.
+
+### Example:
+Consider the string `s = "banana"`.
+
+1. The algorithm first divides the suffixes into three groups based on their starting positions.
+2. It sorts the suffixes that start at positions `1 mod 3` and `2 mod 3` using radix sort.
+3. It recursively processes the string, ranks the sorted suffixes, and then merges them with the suffixes starting at `0 mod 3` to generate the full suffix array.
+
+The name **Skew algorithm** comes from the fact that it handles suffixes based on their positions in the original string (`0 mod 3`, `1 mod 3`, `2 mod 3`), creating a "skewed" partition of the suffixes. This partitioning allows for efficient sorting and merging of suffixes in linear time. 
+The skew algorithm is a simple and asymptotically efficient direct algorithm for suffix array construction that is easy to adapt to various models of computation. We expect that it is a good starting point for actual implementations, in particular on parallel machines and for external memory.
+The key to the algorithm is the use of suffixes Si with i mod 3 ∈ {1, 2} in the first, recursive step, which enables simple merging in the third step. There are other choices of suffixes that would work. An interesting possibility, for example, is to take suffixes Si with i mod 7 ∈ {3, 5, 6}. Some adjustments to the algorithm are required (sorting the remaining suffixes in multiple groups and performing a multiway merge in the third step) but the main ideas still work. In general, a suitable choice is a periodic set of positions according to a difference cover. A difference cover D modulo v is a set of integers in the range [0, v) such that, for all i ∈ [0, v), there exist j, k ∈ D such that i ≡ k−j (mod v). For example {1, 2} is a difference cover modulo 3 and {3, 5, 6} is a difference cover modulo 7, but {1} is not a difference cover modulo 2. Any nontrivial difference cover modulo a constant could be used to obtain a linear time algorithm.
+
+#### C++ Implementation of the Linear Suffix Array
+
+```cpp
+inline bool leq(int a1, int a2, int b1, int b2) {
+    return (a1 < b1 || (a1 == b1 && a2 <= b2)); 
+}
+
+inline bool leq(int a1, int a2, int a3, int b1, int b2, int b3) {
+    return (a1 < b1 || (a1 == b1 && leq(a2, a3, b2, b3))); 
+}
+
+static void radixPass(int* a, int* b, int* r, int n, int K) {
+    int* c = new int[K + 1]; 
+    for (int i = 0; i <= K; i++) c[i] = 0;
+    for (int i = 0; i < n; i++) c[r[a[i]]]++;
+    for (int i = 0, sum = 0; i <= K; i++) {
+        int t = c[i]; c[i] = sum; sum += t; 
+    }
+    for (int i = 0; i < n; i++) b[c[r[a[i]]]++] = a[i];
+    delete[] c;
+}
+
+void suffixArray(int* s, int* SA, int n, int K) {
+    int n0 = (n + 2) / 3, n1 = (n + 1) / 3, n2 = n / 3, n02 = n0 + n2;
+    int* s12 = new int[n02 + 3]; s12[n02] = s12[n02 + 1] = s12[n02 + 2] = 0;
+    int* SA12 = new int[n02 + 3]; SA12[n02] = SA12[n02 + 1] = SA12[n02 + 2] = 0;
+    int* s0 = new int[n0];
+    int* SA0 = new int[n0];
+
+    for (int i = 0, j = 0; i < n + (n0 - n1); i++) 
+        if (i % 3 != 0) s12[j++] = i;
+
+    radixPass(s12, SA12, s + 2, n02, K);
+    radixPass(SA12, s12, s + 1, n02, K);
+    radixPass(s12, SA12, s, n02, K);
+
+    int name = 0, c0 = -1, c1 = -1, c2 = -1;
+    for (int i = 0; i < n02; i++) {
+        if (s[SA12[i]] != c0 || s[SA12[i] + 1] != c1 || s[SA12[i] + 2] != c2) {
+            name++; c0 = s[SA12[i]]; c1 = s[SA12[i] + 1]; c2 = s[SA12[i] + 2]; 
+        }
+        if (SA12[i] % 3 == 1) s12[SA12[i] / 3] = name; 
+        else s12[SA12[i] / 3 + n0] = name; 
+    }
+
+    if (name < n02) {
+        suffixArray(s12, SA12, n02, name);
+        for (int i = 0; i < n02; i++) s12[SA12[i]] = i + 1;
+    } else {
+        for (int i = 0; i < n02; i++) SA12[s12[i] - 1] = i;
+    }
+
+    for (int i = 0, j = 0; i < n02; i++) 
+        if (SA12[i] < n0) s0[j++] = 3 * SA12[i];
+    radixPass(s0, SA0, s, n0, K);
+
+    for (int p = 0, t = n0 - n1, k = 0; k < n; k++) {
+        #define GetI() (SA12[t] < n0 ? SA12[t] * 3 + 1 : (SA12[t] - n0) * 3 + 2)
+        int i = GetI(), j = SA0[p];
+        if (SA12[t] < n0 ? leq(s[i], s12[SA12[t] + n0], s[j], s12[j / 3]) :
+            leq(s[i], s[i + 1], s12[SA12[t] - n0 + 1], s[j], s[j + 1], s12[j / 3 + n0])) {
+            SA[k] = i; t++;
+            if (t == n02) {
+                for (k++; p < n0; p++, k++) SA[k] = SA0[p];
+            }
+        } else {
+            SA[k] = j; p++;
+            if (p == n0) {
+                for (k++; t < n02; t++, k++) SA[k] = GetI();
+            }
+        }
+    }
+
+    delete[] s12; delete[] SA12; delete[] SA0; delete[] s0;
+}
+```
+
+The **Skew algorithm (DC3)** is a highly efficient method for constructing suffix arrays in linear time, providing a scalable solution for large string-processing problems. The above implementation strives for conciseness rather than for speed while maintaining its linear time complexity.
+
+---
+
+
 ## Applications
 
 ### Finding the smallest cyclic shift
