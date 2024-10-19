@@ -116,7 +116,7 @@ class state{
     vector<pair<int,int>> points;
 
     state(){ // Initial random order of points
-        points = {{0,0},{2,2},{0,2},{2,0},{0,1},{1,2},{2,1},{1,0}};
+        points = {}; // Fill in some points to start with, or generate them randomly
     }
     state next(){ // picks 2 random indices and swaps them
         state s_next;
