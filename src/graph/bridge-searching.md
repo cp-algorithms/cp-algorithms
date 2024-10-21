@@ -67,7 +67,7 @@ void dfs(int v, int p = -1) {
             continue;
         }
         if (visited[to]) {
-            low[v] = min(low[v], tin[to]);
+            low[v] = min(low[v], low[to]);
         } else {
             dfs(to, v);
             low[v] = min(low[v], low[to]);
