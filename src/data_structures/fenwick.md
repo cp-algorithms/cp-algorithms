@@ -29,13 +29,13 @@ It was first described in a paper titled "A new data structure for cumulative fr
 
 For the sake of simplicity, we will assume that function $f$ is defined as $f(x,y) = x + y$ over the integers.
 
-Suppose we are given an array of integers, $A[0 \dots N-1]$.
-(Note that we are using one-based indexing.)
-A Fenwick tree is just an array, $T[0 \dots N-1]$, where each element is equal to the sum of elements of $A$ in some range, $[g(i), i]$:
+Suppose we are given an array of integers, $A[1 \dots N]$.
+(Note that we are using one-based indexing for tree as well as array.)
+A Fenwick tree is just an array, $T[1 \dots N]$, where each element is equal to the sum of elements of $A$ in some range, $(g(i), i]$:
 
-$$T_i = \sum_{j = g(i)}^{i}{A_j}$$
+$$T_i = \sum_{j = g(i)+1}^{i}{A_j}$$
 
-where $g$ is some function that satisfies $0 \le g(i) \le i$.
+where $g$ is some function that satisfies $0 \le g(i) \lt i$.
 We will define $g$ in the next few paragraphs.
 
 The data structure is called a tree because there is a nice representation of it in the form of a tree, although we don't need to model an actual tree with nodes and edges.
@@ -44,6 +44,7 @@ We only need to maintain the array $T$ to handle all queries.
 **Note:** The Fenwick tree presented here uses one-based indexing.
 Many people use a version of the Fenwick tree that uses zero-based indexing.
 Both versions are equivalent in terms of time and memory complexity.
+The zero-based version is provided later in the article.
 
 Now we can write some pseudo-code for the two operations mentioned above.
 Below, we get the sum of elements of $A$ in the range $[1, r]$ and update (increase) some element $A_i$:
@@ -53,30 +54,29 @@ def sum(int r):
     res = 0
     while (r > 0):
         res += t[r]
-        r -= (r & -r)
+        r = g(r)
     return res
 
 def increase(int i, int delta):
-    while i <= len(t) - 1:
+    for all j with g(j) < i <= j:
         t[j] += delta
-        i += (i & -i)
 ```
 
 The function `sum` works as follows:
 
-1. First, it adds the sum of the range $[g(r), r]$ (i.e. $T[r]$) to the `result`.
-2. Then, it "jumps" to the range $[g(g(r)-1), g(r)-1]$ and adds this range's sum to the `result`.
-3. This continues until it "jumps" from $[1, g(g( \dots g(r)-1 \dots -1)-1)]$ to $[g(-1), -1]$; this is where the `sum` function stops jumping.
+1. First, it adds the sum of the range $(g(r), r]$ (i.e. $T[r]$) to the `result`.
+2. Then, it "jumps" to the range $(g(g(r)), g(r)]$ and adds this range's sum to the `result`.
+3. This continues until it "jumps" from $[1, g(g(g(r) \dots ))]$ to $(g(0), 0]$; this is where the `sum` function stops jumping.
 
 The function `increase` works with the same analogy, but it "jumps" in the direction of increasing indices:
 
-1. The sum for each range of the form $[g(j), j]$ which satisfies the condition $g(j) \le i \le j$ is increased by `delta`; that is, `t[j] += delta`.
+1. The sum for each range of the form $(g(j), j]$ which satisfies the condition $g(j) \lt i \le j$ is increased by `delta`; that is, `t[j] += delta`.
 Therefore, it updates all elements in $T$ that correspond to ranges in which $A_i$ lies.
 
 The complexity of both `sum` and `increase` depend on the function $g$.
-There are many ways to choose the function $g$ such that $0 \le g(i) \le i$ for all $i$.
-For instance, the function $g(i) = i$ works, which yields $T = A$ (in which case, the summation queries are slow).
-We could also take the function $g(i) = 0$.
+There are many ways to choose the function $g$ such that $0 \le g(i) \lt i$ for all $i$.
+For instance, the function $g(i) = i-1$ works, which yields $T = A$ (in which case, the summation queries are slow).
+We could also take the function $g(i) = 1$.
 This would correspond to prefix sum arrays (in which case, finding the sum of the range $[1, i]$ will only take constant time; however, updates are slow).
 The clever part of the algorithm for Fenwick trees is how it uses a special definition of the function $g$ which can handle both operations in $O(\log N)$ time.
 
@@ -102,11 +102,6 @@ $$h(i) = i + (i ~\&~ (-i)).$$
 
 As you can see, the main benefit of this approach is that the binary operations complement each other very nicely.
 
-The following image shows a possible interpretation of the Fenwick tree as tree (in zero-based approach).
-The nodes of the tree show the ranges they cover.
-
-<center>![Binary Indexed Tree](binary_indexed_tree.png)</center>
-
 ## Implementation
 
 ### Finding sum in one-dimensional array
@@ -120,7 +115,7 @@ Also this implementation supports two constructors.
 You can create a Fenwick tree initialized with zeros, or you can convert an existing array into the Fenwick form.
 
 
-```{.cpp file=fenwick_sum}
+```{.cpp file=fenwick_sum_onebased}
 struct FenwickTree {
     vector<int> bit;  // binary indexed tree
     int n;
@@ -147,7 +142,7 @@ struct FenwickTree {
     }
 
     void add(int idx, int delta) {
-        for (; idx <= n; idx += idx & -idx)
+        for (; idx <= n; idx += (idx & -idx))
             bit[idx] += delta;
     }
 };
@@ -163,7 +158,7 @@ So by adding the numbers in order, you only have to push the current sum further
 
 ```cpp
 FenwickTree(vector<int> const &a) : FenwickTree(a.size()){
-    for (int i = 1; i <= n; i++) {
+    for (int i = 1; i <= a.size(); i++) {
         bit[i] += a[i-1];
         int r = i + (i & -i);
         if (r <= n) bit[r] += bit[i];
@@ -171,7 +166,7 @@ FenwickTree(vector<int> const &a) : FenwickTree(a.size()){
 }
 ```
 
-### Finding minimum of $[0, r]$ in one-dimensional array { data-toc-label='Finding minimum of <script type="math/tex">[0, r]</script> in one-dimensional array' }
+### Finding minimum of $[1, r]$ in one-dimensional array { data-toc-label='Finding minimum of <script type="math/tex">[0, r]</script> in one-dimensional array' }
 
 It is obvious that there is no easy way of finding minimum of range $[l, r]$ using Fenwick tree, as Fenwick tree can only answer queries of type $[1, r]$.
 Additionally, each time a value is `update`'d, the new value has to be smaller than the current value.
@@ -239,6 +234,110 @@ struct FenwickTree2D {
 };
 ```
 
+### Zero-based indexing approach
+
+For this approach we change the requirements and definition for $T[]$ and $g()$ a little bit.
+We want $T[i]$ to store the sum of $[g(i); i]$.
+This changes the implementation a little bit, and allows for a similar nice definition for $g(i)$:
+
+```python
+def sum(int r):
+    res = 0
+    while (r >= 0):
+        res += t[r]
+        r = g(r) - 1
+    return res
+
+def increase(int i, int delta):
+    for all j with g(j) <= i <= j:
+        t[j] += delta
+```
+
+The computation of $g(i)$ is defined using the following simple operation:
+we replace all trailing $1$ bits in the binary representation of $i$ with $0$ bits.
+
+In other words, if the least significant digit of $i$ in binary is $0$, then $g(i) = i$.
+And otherwise the least significant digit is a $1$, and we take this $1$ and all other trailing $1$s and flip them.
+
+For instance we get
+
+$$\begin{align}
+g(11) = g(1011_2) = 1000_2 &= 8 \\\\
+g(12) = g(1100_2) = 1100_2 &= 12 \\\\
+g(13) = g(1101_2) = 1100_2 &= 12 \\\\
+g(14) = g(1110_2) = 1110_2 &= 14 \\\\
+g(15) = g(1111_2) = 0000_2 &= 0 \\\\
+\end{align}$$
+
+There exists a simple implementation using bitwise operations for the non-trivial operation described above:
+
+$$g(i) = i ~\&~ (i+1),$$
+
+where $\&$ is the bitwise AND operator. It is not hard to convince yourself that this solution does the same thing as the operation described above.
+
+Now, we just need to find a way to iterate over all $j$'s, such that $g(j) \le i \le j$.
+
+It is easy to see that we can find all such $j$'s by starting with $i$ and flipping the last unset bit.
+We will call this operation $h(j)$.
+For example, for $i = 10$ we have:
+
+$$\begin{align}
+10 &= 0001010_2 \\\\
+h(10) = 11 &= 0001011_2 \\\\
+h(11) = 15 &= 0001111_2 \\\\
+h(15) = 31 &= 0011111_2 \\\\
+h(31) = 63 &= 0111111_2 \\\\
+\vdots &
+\end{align}$$
+
+Unsurprisingly, there also exists a simple way to perform $h$ using bitwise operations:
+
+$$h(j) = j ~|~ (j+1),$$
+
+where $|$ is the bitwise OR operator.
+
+The following image shows a possible interpretation of the Fenwick tree as tree (in zero-based approach).
+The nodes of the tree show the ranges they cover.
+
+<center>
+
+![Binary Indexed Tree](binary_indexed_tree.png)
+
+</center>
+
+```{.cpp file=fenwick_sum}
+struct FenwickTreeZeroBasedIndexing {
+    vector<int> bit;  // binary indexed tree
+    int n;
+
+    FenwickTreeZeroBasedIndexing(int n) {
+        this->n = n;
+        bit.assign(n, 0);
+    }
+
+    FenwickTreeZeroBasedIndexing(vector<int> const &a) : FenwickTreeZeroBasedIndexing(a.size()) {
+        for (size_t i = 0; i < a.size(); i++)
+            add(i, a[i]);
+    }
+
+    int sum(int r) {
+        int ret = 0;
+        for (; r >= 0; r = (r & (r + 1)) - 1)
+            ret += bit[r];
+        return ret;
+    }
+
+    int sum(int l, int r) {
+        return sum(r) - sum(l - 1);
+    }
+
+    void add(int idx, int delta) {
+        for (; idx < n; idx = idx | (idx + 1))
+            bit[idx] += delta;
+    }
+};
+```
+
 ## Range operations
 
 A Fenwick tree can support the following range operations:
@@ -269,7 +368,7 @@ The following implementation uses one-based indexing.
 
 ```cpp
 void add(int idx, int val) {
-    for (++idx; idx < n; idx += idx & -idx)
+    for (; idx <= n; idx += (idx & -idx))
         bit[idx] += val;
 }
 
@@ -280,7 +379,7 @@ void range_add(int l, int r, int val) {
 
 int point_query(int idx) {
     int ret = 0;
-    for (++idx; idx > 0; idx -= idx & -idx)
+    for (; idx > 0; idx -= (idx & -idx))
         ret += bit[idx];
     return ret;
 }
@@ -301,12 +400,12 @@ def range_add(l, r, x):
     add(B1, l, x)
     add(B1, r+1, -x)
     add(B2, l, x*(l-1))
-    add(B2, r+1, -x*r))
+    add(B2, r+1, -x*r)
 ```
 After the range update $(l, r, x)$ the range sum query should return the following values:
 
 $$
-sum[0, i]=
+sum[1, i]=
 \begin{cases}
 0 & i < l \\\\
 x \cdot (i-(l-1)) & l \le i \le r \\\\
@@ -315,10 +414,10 @@ x \cdot (r-l+1) & i > r \\\\
 $$
 
 We can write the range sum as difference of two terms, where we use $B_1$ for first term and $B_2$ for second term.
-The difference of the queries will give us prefix sum over $[0, i]$.
+The difference of the queries will give us prefix sum over $[1, i]$.
 
 $$\begin{align}
-sum[0, i] &= sum(B_1, i) \cdot i - sum(B_2, i) \\\\
+sum[1, i] &= sum(B_1, i) \cdot i - sum(B_2, i) \\\\
 &= \begin{cases}
 0 \cdot i - 0 & i < l\\\\
 x \cdot i - x \cdot (l-1) & l \le i \le r \\\\
