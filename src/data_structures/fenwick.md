@@ -127,12 +127,12 @@ struct FenwickTree {
 
     FenwickTree(vector<int> const &a) : FenwickTree(a.size()) {
         for (size_t i = 1; i <= a.size(); i++)
-            add(i, a[i-1]);
+            add(i-1, a[i-1]);
     }
 
     int sum(int r) {
         int ret = 0;
-        for (; r > 0; r -= (r & -r))
+        for (++r; r > 0; r -= (r & -r))
             ret += bit[r];
         return ret;
     }
@@ -142,7 +142,7 @@ struct FenwickTree {
     }
 
     void add(int idx, int delta) {
-        for (; idx <= n; idx += (idx & -idx))
+        for (++idx; idx <= n; idx += (idx & -idx))
             bit[idx] += delta;
     }
 };
@@ -185,18 +185,18 @@ struct FenwickTreeMin {
 
     FenwickTreeMin(vector<int> a) : FenwickTreeMin(a.size()) {
         for (size_t i = 1; i <= a.size(); i++)
-            update(i, a[i-1]);
+            update(i-1, a[i-1]);
     }
 
     int getmin(int r) {
         int ret = INF;
-        for (; r > 0; r -= (r & -r))
+        for (++r; r > 0; r -= (r & -r))
             ret = min(ret, bit[r]);
         return ret;
     }
 
     void update(int idx, int val) {
-        for (; idx <= n; idx += (idx & -idx))
+        for (++idx; idx <= n; idx += (idx & -idx))
             bit[idx] = min(bit[idx], val);
     }
 };
