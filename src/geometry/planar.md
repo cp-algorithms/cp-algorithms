@@ -13,7 +13,7 @@ In this article we will deal with finding both inner and outer faces of a planar
 
 ## Some facts about planar graphs
 
-In this section we present several facts about planar graphs without proof. Readers who are interested in proofs should refer to [Graph Theory by R. Diestel](https://sites.math.washington.edu/~billey/classes/562.winter.2018/articles/GraphTheory.pdf) or some other book.
+In this section we present several facts about planar graphs without proof. Readers who are interested in proofs should refer to [Graph Theory by R. Diestel](https://diestel-graph-theory.com/) (see [video lectures](https://www.youtube.com/@DiestelGraphTheory) based on this book) or some other book.
 
 ### Euler's theorem
 Euler's theorem states that any correct embedding of a connected planar graph with $n$ vertices, $m$ edges and $f$ faces satisfies:
