@@ -135,7 +135,7 @@ You can preview changes locally before pushing them to GitHub. To do this:
 
 ### Optional Plugins
 
-- **Git Revision Date Plugin**: Disabled by default but can be enabled with:
+- **Git Revision Date Plugin**: Disabled by default, as it produces errors when you have uncommited changes in the working tree. Can be enabled with:
 
     ```console
     export MKDOCS_ENABLE_GIT_REVISION_DATE=True
