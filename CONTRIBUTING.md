@@ -73,7 +73,7 @@ This article has been moved to a [new location](new-section/new-article.md).
 
 ### Maintaining Anchor Links
 
-If you rename a section, the link to that section (`/article.html#section-title`) might break. To avoid this, add an anchor manually:
+If you rename a section, the link to that section (`/article.html#old-section-title`) might break. To avoid this, add an anchor manually:
 
 ```html
 <div id="old-section-title"></div>
