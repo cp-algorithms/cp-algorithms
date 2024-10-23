@@ -155,11 +155,11 @@ You can preview changes locally before pushing them to GitHub. To do this:
 If your article includes code snippets, it’s helpful to include tests to ensure that they run correctly.
 
 1. Name the code snippet:
-
-   ```{.cpp file=snippet-name}
-    // code here
-    ```
-   
+````
+```{.cpp file=snippet-name}
+// code here
+```
+````
 3. Run `extract_snippets.py` from the `test` directory to extract snippets into header files. Create a test file that includes these headers and checks their behavior.
 4. You can run all tests with the `test.sh` script:
     ```console
