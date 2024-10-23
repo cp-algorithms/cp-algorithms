@@ -6811,11 +6811,11 @@ tags:
 <h2 id="testing-code-snippets">Testing Code Snippets<a class="headerlink" href="#testing-code-snippets" title="Permanent link">&para;</a></h2>
 <p>If your article includes code snippets, it’s helpful to include tests to ensure that they run correctly.</p>
 <ol>
-<li>Name the code snippet:</li>
-</ol>
-<p><code>{.cpp file=snippet-name}
-    // code here</code></p>
-<ol>
+<li>Name the code snippet:
+<div class="highlight"><pre><span></span><code>```{.cpp file=snippet-name}
+// code here
+```
+</code></pre></div></li>
 <li>Run <code>extract_snippets.py</code> from the <code>test</code> directory to extract snippets into header files. Create a test file that includes these headers and checks their behavior.</li>
 <li>You can run all tests with the <code>test.sh</code> script:
     <div class="highlight"><pre><span></span><code><span class="go">cd test</span>
