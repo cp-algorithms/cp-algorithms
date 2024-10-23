@@ -108,7 +108,7 @@ We use tags to differentiate between original content and translated articles. A
 
 ## Conventions
 
-We follow certain conventions across the project. For example, we agreed to use the `\binom{n}{k}` notation for binomial coefficients instead of `C_n^k` as outlined in [issue #83](https://github.com/cp-algorithms/cp-algorithms/issues/83).
+We follow certain conventions across the project. For example, we agreed to use the `\binom{n}{k}` notation for binomial coefficients instead of `C_n^k` as outlined in [issue #83](https://github.com/cp-algorithms/cp-algorithms/issues/83). The first one renders as $\binom{n}{k}$ and is a more universal convention. The second would render as $C_n^k$.
 
 ## Adding Problems
 
