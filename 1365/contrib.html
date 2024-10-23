@@ -6742,9 +6742,9 @@ Describe the issue of this article in detail.
 </code></pre></div>
 <h3 id="handling-redirects">Handling Redirects<a class="headerlink" href="#handling-redirects" title="Permanent link">&para;</a></h3>
 <p>If you move or rename an article, make sure to set up a redirect. A redirect file should look like this:</p>
-<div class="highlight"><pre><span></span><code>&lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; url=/&lt;new-section&gt;/&lt;new-article&gt;.html&quot;&gt;
+<div class="highlight"><pre><span></span><code>&lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; url=../new-section/new-article.html&quot;&gt;
 <span class="gh"># Article Name</span>
-This article has been moved to a [<span class="nt">new location</span>](<span class="na">&lt;new-section&gt;/&lt;new-article&gt;.md</span>).
+This article has been moved to a [<span class="nt">new location</span>](<span class="na">new-section/new-article.md</span>).
 </code></pre></div>
 <h3 id="maintaining-anchor-links">Maintaining Anchor Links<a class="headerlink" href="#maintaining-anchor-links" title="Permanent link">&para;</a></h3>
 <p>If you rename a section, the link to that section might break. To avoid this, add an anchor manually:</p>
