@@ -16,7 +16,7 @@ Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorith
 
 ## Changelog
 
-- October, 2024: Welcome new maintainers: [jxu](https://github.com/jxu), [mhayter](https://github.com/mhayter) and [kostero](https://github.com/kostero)!
+- October, 2024: Welcome new maintainers: [jxu](https://github.com/jxu), [hsnmath](https://github.com/hsnmath) ,  [mhayter](https://github.com/mhayter) and [kostero](https://github.com/kostero)!
 - October, 15, 2024: GitHub pages based mirror is now served at [https://gh.cp-algorithms.com/](https://gh.cp-algorithms.com/), and an auxiliary competitive programming library is available at [https://lib.cp-algorithms.com/](https://lib.cp-algorithms.com/).
 - July 16, 2024: Major overhaul of the [Finding strongly connected components / Building condensation graph](https://cp-algorithms.com/graph/strongly-connected-components.html) article.
 - June 26, 2023: Added automatic RSS feeds for [new articles](https://cp-algorithms.com/feed_rss_created.xml) and [updates in articles](https://cp-algorithms.com/feed_rss_updated.xml).
