@@ -10,7 +10,7 @@ tags:
 - `std::ios_base::sync_with_stdio(false)`: by default, C++ works with C++ iostreams (like `std::cin`) and C style stdio streams (like `stdin`) by synchronizing them.
 Since you should never need C style I/O (like `scanf`, `printf`), in C++, disabling this synchronization will make C++ I/O competitive with C style `scanf`.
 - `std::cin.tie(0)`: By default, iostreams flush cout every time you read from cin, so that you will always display any output before reading any input.
-If you are not solving an interactive problem, i.e. you don't require interleaving inputs and outputs, you can disable this automatic flushing to make I/O faster.
+You can disable this automatic flushing to make I/O faster. The exception is for interactive problems with interleaved inputs and outputs, for which you can either not use `cin.tie(0)` or flush explicitly with `cout.flush()`/`cout.endl`.
 
 References:
 [Dr. Dobbs - The Standard Librarian: IOStreams and Stdio](https://www.drdobbs.com/the-standard-librarian-iostreams-and-std/184401305),
