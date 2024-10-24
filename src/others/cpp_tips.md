@@ -20,3 +20,8 @@ References:
 
 - `using namespace std;`: this saves lots of tedious typing of `std::` before all the standard library functions and objects. However, a blanket namespace import like this can cause name clashes, so don't name your variables or functions something common like `find` or anything from [this list](https://en.cppreference.com/w/cpp/symbol_index).
 - `#include <bits/stdc++.h>`: this is a catch-all implementation-defined header in g++ that avoids having a list of dozens of includes like `#include <vector>`, `#include <iostream>`, `#include <string>`, etc. It should work on any CP judge site, but it is not a standard header.
+- `#define int long long`: some people define `int` to always be (at least) 64-bit to avoid overflow issues, since most CP problems use numbers that fit in a 64-bit integer. However, be aware of unexpected issues:
+  - C++ requires `main` to be a function returning `int` and not `long long`, so use `signed main` as a workaround.
+  - Function calls like `min(x, 0)` may complain that `0` is type `int`. 
+  - May require twice as much memory than `int` and make the program slower, which may be important in extremely time-critical code.
+  - Otherwise you can use `typedef long long ll` or use the appropriate fixed-width integer types like `int64_t`. 
