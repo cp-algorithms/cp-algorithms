@@ -1,0 +1,27 @@
+# .github/actions/set-commit-status/action.yml
+name: 'Set Commit Status'
+description: 'Sets the commit status for a given SHA'
+inputs:
+  sha:
+    description: 'The commit SHA to update the status for'
+    required: true
+  status:
+    description: 'The status to set (pending, success, failure, error)'
+    default: ${{ job.status }}
+  context:
+    description: 'The context for the status check'
+    default: '${{ github.workflow }} / ${{ github.job }} (${{ github.event.workflow_run.event }})'
+  token:
+    description: 'GitHub token'
+    default: ${{ github.token }}
+runs:
+  using: 'composite'
+  steps:
+    - name: Set commit status
+      uses: myrotvorets/set-commit-status-action@v2.0.1
+      with:
+        sha: ${{ inputs.sha }}
+        token: ${{ inputs.token }}
+        status: ${{ inputs.status }}
+        context: ${{ inputs.context }}
+        description: ${{ inputs.status }}
