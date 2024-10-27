@@ -140,7 +140,7 @@ This paradigm is widely used in tasks around trees, such as finding lowest commo
 
 ## Parallel Binary Search
 
-<small>Note that this section is following the description in [Sports programming in practice](https://kostka.dev/sp/).</small>
+<small>Note that this section follows the description in [Sports programming in practice](https://kostka.dev/sp/).</small>
 
 Imagine that we want to answer $Z$ queries about the index of the largest value less than or equal to some $X_i$ (for $i=1,2,\ldots,Z$) in some sorted 0-indexed array $A$. Naturally, each query can be answered using binary search. 
 
