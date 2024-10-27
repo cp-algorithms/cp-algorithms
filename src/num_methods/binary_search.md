@@ -184,7 +184,7 @@ vector<int> ParallelBinarySearch(vector<int>& A, vector<int>& X) {
         // Process each value in mid_to_queries.
         for (const auto& [mid, queries]: mid_to_queries) {
             for (int query : queries) {
-                if (A[mid] > X[query]) {
+                if (X[query] < A[mid]>) {
                     right[query] = mid;
                 } else {
                     left[query] = mid;
