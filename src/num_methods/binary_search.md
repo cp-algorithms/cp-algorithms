@@ -142,9 +142,9 @@ This paradigm is widely used in tasks around trees, such as finding lowest commo
 
 <small>Note that this section follows the description in [Sports programming in practice](https://kostka.dev/sp/).</small>
 
-Imagine that we want to answer $Z$ queries about the index of the largest value less than or equal to some $X_i$ (for $i=1,2,\ldots,Z$) in some sorted 0-indexed array $A$. Naturally, each query can be answered using binary search. 
+Imagine that we want to answer $Z$ queries about the index of the largest value less than or equal to some $X_i$ (for $i=1,2,\ldots,Z$) in a sorted 0-indexed array $A$. Naturally, each query can be answered using binary search. 
 
-Specifally, let us consider the following array $A = [1,3,5,7,9,9,13,15]$
+Specifically, let us consider the following array $A = [1,3,5,7,9,9,13,15]$
 with queries: $X = [8,11,4,5]$. We can use binary search for each query sequentially.
 
 | query  | \( X_1 = 8 \)         | \( X_2 = 11 \)         | \( X_3 = 4 \)         | \( X_4 = 5 \)         |
@@ -161,11 +161,11 @@ with queries: $X = [8,11,4,5]$. We can use binary search for each query sequenti
 | **step 4** | answer in \([3,4)\)   | answer in \([5,6)\)   | answer in \([1,2)\)  | answer in \([2,3)\)  |
 |        | \( index = 3 \)       | \( index = 5 \)       | \( index = 1 \)      | \( index = 2 \)      |
 
-We generally process this table by columns (queries), but notice that in each row we often repeat access to certain values of our array. To limit access to the values, we can process the table by rows (steps). This does not make huge difference in our small example problem (as we can access all elements in $\mathcal{O}(1)$), but in more complex problems, where computing these values is more complicated, this might be essential to solve these problems efficiently. Moreover, note that we can arbitrarily choose the order in which we answer questions in a single row. Let us look at the code implementing this approach.
+We generally process this table by columns (queries), but notice that in each row we often repeat access to certain values of the array. To limit access to these values, we can process the table by rows (steps). This does not make huge difference in our small example problem (as we can access all elements in $\mathcal{O}(1)$), but in more complex problems, where computing these values is more complicated, this might be essential to solve these problems efficiently. Moreover, note that we can arbitrarily choose the order in which we answer questions in a single row. Let us look at the code implementing this approach.
 
 ```{.cpp file=parallel-binary-search}
-// Computes the index of the largest value in table A less than or equal to X_i for all i.
-vector<int> ParallelBinarySearch(vector<int>& A, vector<int>& X) {
+// Computes the index of the largest value in a sorted array A less than or equal to X_i for all i.
+vector<int> parallel_binary_search(vector<int>& A, vector<int>& X) {
     int N = A.size();
     int M = X.size();
     vector<int> left(M, -1);
@@ -192,7 +192,7 @@ vector<int> ParallelBinarySearch(vector<int>& A, vector<int>& X) {
             }
         }
     }
-    return P;
+    return left;
 }
 ```
 
