@@ -6812,8 +6812,8 @@ $$</div>
 <p>This paradigm is widely used in tasks around trees, such as finding lowest common ancestor of two vertices or finding an ancestor of a specific vertex that has a certain height. It could also be adapted to e.g. find the <span class="arithmatex">$k$</span>-th non-zero element in a Fenwick tree.</p>
 <h2 id="parallel-binary-search">Parallel Binary Search<a class="headerlink" href="#parallel-binary-search" title="Permanent link">&para;</a></h2>
 <p><small>Note that this section follows the description in <a href="https://kostka.dev/sp/">Sports programming in practice</a>.</small></p>
-<p>Imagine that we want to answer <span class="arithmatex">$Z$</span> queries about the index of the largest value less than or equal to some <span class="arithmatex">$X_i$</span> (for <span class="arithmatex">$i=1,2,\ldots,Z$</span>) in some sorted 0-indexed array <span class="arithmatex">$A$</span>. Naturally, each query can be answered using binary search. </p>
-<p>Specifally, let us consider the following array <span class="arithmatex">$A = [1,3,5,7,9,9,13,15]$</span>
+<p>Imagine that we want to answer <span class="arithmatex">$Z$</span> queries about the index of the largest value less than or equal to some <span class="arithmatex">$X_i$</span> (for <span class="arithmatex">$i=1,2,\ldots,Z$</span>) in a sorted 0-indexed array <span class="arithmatex">$A$</span>. Naturally, each query can be answered using binary search. </p>
+<p>Specifically, let us consider the following array <span class="arithmatex">$A = [1,3,5,7,9,9,13,15]$</span>
 with queries: <span class="arithmatex">$X = [8,11,4,5]$</span>. We can use binary search for each query sequentially.</p>
 <table>
 <thead>
@@ -6905,9 +6905,9 @@ with queries: <span class="arithmatex">$X = [8,11,4,5]$</span>. We can use binar
 </tr>
 </tbody>
 </table>
-<p>We generally process this table by columns (queries), but notice that in each row we often repeat access to certain values of our array. To limit access to the values, we can process the table by rows (steps). This does not make huge difference in our small example problem (as we can access all elements in <span class="arithmatex">$\mathcal{O}(1)$</span>), but in more complex problems, where computing these values is more complicated, this might be essential to solve these problems efficiently. Moreover, note that we can arbitrarily choose the order in which we answer questions in a single row. Let us look at the code implementing this approach.</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// Computes the index of the largest value in table A less than or equal to X_i for all i.</span>
-<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ParallelBinarySearch</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">X</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<p>We generally process this table by columns (queries), but notice that in each row we often repeat access to certain values of the array. To limit access to these values, we can process the table by rows (steps). This does not make huge difference in our small example problem (as we can access all elements in <span class="arithmatex">$\mathcal{O}(1)$</span>), but in more complex problems, where computing these values is more complicated, this might be essential to solve these problems efficiently. Moreover, note that we can arbitrarily choose the order in which we answer questions in a single row. Let us look at the code implementing this approach.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Computes the index of the largest value in a sorted array A less than or equal to X_i for all i.</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">parallel_binary_search</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">X</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">X</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
 <span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">left</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">);</span>
@@ -6934,7 +6934,7 @@ with queries: <span class="arithmatex">$X = [8,11,4,5]$</span>. We can use binar
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">P</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">left</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <h2 id="practice-problems">Practice Problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
