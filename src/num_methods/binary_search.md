@@ -164,7 +164,7 @@ with queries: $X = [8,11,4,5]$. We can use binary search for each query sequenti
 We generally process this table by columns (queries), but notice that in each row we often repeat access to certain values of our array. To limit access to the values, we can process the table by rows (steps). This does not make huge difference in our small example problem (as we can access all elements in $\mathcal{O}(1)$), but in more complex problems, where computing these values is more complicated, this might be essential to solve these problems efficiently. Moreover, note that we can arbitrarily choose the order in which we answer questions in a single row. Let us look at the code implementing this approach.
 
 ```{.cpp file=parallel-binary-search}
-// Computes the index of the largest value in table A less than or equal to $X_i$ for all $i$.
+// Computes the index of the largest value in table A less than or equal to X_i for all i.
 vector<int> ParallelBinarySearch(vector<int>& A, vector<int>& X) {
     int N = A.size();
     int M = X.size();
