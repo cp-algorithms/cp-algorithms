@@ -175,13 +175,13 @@ vector<int> ParallelBinarySearch(vector<int>& A, vector<int>& X) {
         // Map to store indices of queries asking for this value.
         unordered_map<int, vector<int>> mid_to_queries;
 
-        // Calculate mid and populate the important_values map.
+        // Calculate mid and populate the mid_to_queries map.
         for (int i = 0; i < M; ++i) {
             int mid = (left[i] + right[i]) / 2;
             mid_to_queries[mid].push_back(i);
         }
 
-        // Process each value in important_values.
+        // Process each value in mid_to_queries.
         for (const auto& [mid, queries]: mid_to_queries) {
             for (int query : queries) {
                 if (A[mid] > X[query]) {
