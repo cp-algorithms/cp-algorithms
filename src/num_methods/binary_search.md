@@ -168,31 +168,30 @@ We generally process this table by columns (queries), but notice that in each ro
 vector<int> parallel_binary_search(vector<int>& A, vector<int>& X) {
     int N = A.size();
     int M = X.size();
-    vector<int> left(M, -1);
-    vector<int> right(M, N-1);
+    vector<int> l(M, -1), r(M, N-1);
 
     for (int step = 1; step <= ceil(log2(N)); ++step) {
         // Map to store indices of queries asking for this value.
-        unordered_map<int, vector<int>> mid_to_queries;
+        unordered_map<int, vector<int>> m_to_queries;
 
-        // Calculate mid and populate the mid_to_queries map.
+        // Calculate middle point and populate the m_to_queries map.
         for (int i = 0; i < M; ++i) {
-            int mid = (left[i] + right[i]) / 2;
-            mid_to_queries[mid].push_back(i);
+            int m = (l[i] + r[i]) / 2;
+            m_to_queries[m].push_back(i);
         }
 
-        // Process each value in mid_to_queries.
-        for (const auto& [mid, queries]: mid_to_queries) {
+        // Process each value in m_to_queries.
+        for (const auto& [m, queries]: m_to_queries) {
             for (int query : queries) {
-                if (X[query] < A[mid]) {
-                    right[query] = mid;
+                if (X[query] < A[m]) {
+                    r[query] = m;
                 } else {
-                    left[query] = mid;
+                    l[query] = m;
                 }
             }
         }
     }
-    return left;
+    return l;
 }
 ```
 
