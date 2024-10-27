@@ -71,7 +71,7 @@ while (r - l > 1) {
 
 During the execution of the algorithm, we never evaluate neither $A_L$ nor $A_R$, as $L < M < R$. In the end, $L$ will be the index of the last element that is not greater than $k$ (or $-1$ if there is no such element) and $R$ will be the index of the first element larger than $k$ (or $n$ if there is no such element).
 
-**Note.** Calculating `m` as `m = (r + l) / 2` can lead to overflow if `l` and `r` are two positive integers, and this error lived about 9 years in JDK as described in the [blogpost](https://ai.googleblog.com/2006/06/extra-extra-read-all-about-it-nearly.html). Some alternative approaches include e.g. writing `m = l + (r - l) / 2` which always works for positive integer `l` and `r`, but might still overflow if `l` is a negative number. If you use C++20, it offers an alternative solution in the form of `m = std::midpoint(l, r)` which always works correctly.
+**Note.** Calculating `m` as `m = (r + l) / 2` can lead to overflow if `l` and `r` are two positive integers, and this error lived about 9 years in JDK as described in the [blogpost](https://ai.googleblog.com/2006/06/extra-extra-read-all-about-it-nearly.html). Some alternative approaches include e.g. writing `m = l + (r - l) / 2` which always works for positive integer `l` and `r`, but might still overflow if `l` is a negative number. If you use C++20, it offers an alternative solution in the form of `m = midpoint(l, r)` which always works correctly.
 
 ## Search on arbitrary predicate
 
@@ -138,6 +138,134 @@ Another noteworthy way to do binary search is, instead of maintaining an active 
 
 This paradigm is widely used in tasks around trees, such as finding lowest common ancestor of two vertices or finding an ancestor of a specific vertex that has a certain height. It could also be adapted to e.g. find the $k$-th non-zero element in a Fenwick tree.
 
+## Parallel Binary Search 
+
+[^1] Imagine that we want to answer $Z$ queries about the index of the largest value less than or equal to some $X_i$ (for $i=1,2,\ldots,Z$) in some sorted 0-indexed array $A$. Naturally, each query can be answered using binary search. 
+
+Specifally, let us consider the following array $A$:
+
+| $A_0$ | $A_1$ | $A_2$ | $A_3$ | $A_4$ | $A_5$ | $A_6$ | $A_7$ |
+|-------|-------|-------|-------|-------|-------|-------|-------|
+| 1     | 3     | 5     | 7     | 9     | 9     | 13    | 15    |
+
+with queries: $X = [8,11,4,5]$. We can use binary search for each query sequentially.
+
+<table>
+  <tr>
+    <th>query</th>
+    <th>$ X_1 = 8 $</th>
+    <th>$ X_2 = 11 $</th>
+    <th>$ X_3 = 4 $</th>
+    <th>$ X_4 = 5 $</th>
+  </tr>
+  <tr>
+    <th rowspan="3">step 1</th>
+    <td>answer in $[0,7]$</td>
+    <td>answer in $[0,7]$</td>
+    <td>answer in $[0,7]$</td>
+    <td>answer in $[0,7]$</td>
+  </tr>
+  <tr>
+    <td>check $ A_4 $</td>
+    <td>check $ A_4 $</td>
+    <td>check $ A_4 $</td>
+    <td>check $ A_4 $</td>
+  </tr>
+  <tr>
+    <td>$ X_1 < A_4 = 9 $</td>
+    <td>$ X_2 \geq A_4 = 9 $</td>
+    <td>$ X_3 < A_4 = 9 $</td>
+    <td>$ X_4 < A_4 = 9 $</td>
+  </tr>
+  <tr>
+    <th rowspan="3">step 2</th>
+    <td>answer in $[0,3]$</td>
+    <td>answer in $[4,7]$</td>
+    <td>answer in $[0,3]$</td>
+    <td>answer in $[0,3]$</td>
+  </tr>
+  <tr>
+    <td>check $ A_2 $</td>
+    <td>check $ A_6 $</td>
+    <td>check $ A_2 $</td>
+    <td>check $ A_2 $</td>
+  </tr>
+  <tr>
+    <td>$ X_1 \geq A_2 = 5 $</td>
+    <td>$ X_2 < A_6 = 13 $</td>
+    <td>$ X_3 < A_2 = 5 $</td>
+    <td>$ X_4 \geq A_2 = 5 $</td>
+  </tr>
+  <tr>
+    <th rowspan="3">step 3</th>
+    <td>answer in $[2,3]$</td>
+    <td>answer in $[4,5]$</td>
+    <td>answer in $[0,1]$</td>
+    <td>answer in $[2,3]$</td>
+  </tr>
+  <tr>
+    <td>check $ A_3 $</td>
+    <td>check $ A_5 $</td>
+    <td>check $ A_1 $</td>
+    <td>check $ A_3 $</td>
+  </tr>
+  <tr>
+    <td>$ X_1 \geq A_3 = 7 $</td>
+    <td>$ X_2 \geq A_5 = 9 $</td>
+    <td>$ X_3 \geq A_1 = 3 $</td>
+    <td>$ X_4 < A_3 = 7 $</td>
+  </tr>
+  <tr>
+    <th rowspan="2">step 4</th>
+    <td>answer in $[3,3]$</td>
+    <td>answer in $[5,5]$</td>
+    <td>answer in $[1,1]$</td>
+    <td>answer in $[2,2]$</td>
+  </tr>
+  <tr>
+    <td>$ index = 3 $</td>
+    <td>$ index = 5 $</td>
+    <td>$ index = 1 $</td>
+    <td>$ index = 2 $</td>
+  </tr>
+</table>
+
+
+We generally process this table by columns (queries), but notice that in each row we often repeat access to certain values of our array. To limit access to the values, we can process the table by rows (steps). This does not make huge difference in our small example problem (as we can access all elements in $\mathcal{O}(1)$), but in more complex problems, where computing these values is more complicated, this might be essential to solve these problems efficiently. Moreover, note that we can arbitrarily choose the order in which we answer questions in a single row. Let us look at the code implementing this approach.
+
+```cpp
+// Computes the index of the largest value in table A less than or equal to $X_i$ for all $i$.
+vector<int> ParallelBinarySearch(vector<int>& A, vector<int>& X) {
+    int N = A.size();
+    int M = X.size();
+    vector<int> P(M, -1);
+    vector<int> Q(M, N-1);
+
+    for (int step = 1; step <= ceil(log2(N)); ++step) {
+        // Map to store indices of queries asking for this value.
+        unordered_map<int, vector<int>> important_values;
+
+        // Calculate mid and populate the important_values map.
+        for (int i = 0; i < M; ++i) {
+            int mid = (P[i] + Q[i]) / 2;
+            important_values[mid].push_back(i);
+        }
+
+        // Process each value in important_values.
+        for (const auto& [mid, queries]: important_values) {
+            for (int query : queries) {
+                if (A[mid] > X[query]) {
+                    Q[query] = mid;
+                } else {
+                    P[query] = mid;
+                }
+            }
+        }
+    }
+    return P;
+}
+```
+
 ## Practice Problems
 
 * [LeetCode -  Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
@@ -154,3 +282,11 @@ This paradigm is widely used in tasks around trees, such as finding lowest commo
 * [Codeforces - GukiZ hates Boxes](https://codeforces.com/problemset/problem/551/C)
 * [Codeforces - Enduring Exodus](https://codeforces.com/problemset/problem/645/C)
 * [Codeforces - Chip 'n Dale Rescue Rangers](https://codeforces.com/problemset/problem/590/B)
+
+### Parallel Binary Search
+
+* [Szkopul - Meteors](https://szkopul.edu.pl/problemset/problem/7JrCYZ7LhEK4nBR5zbAXpcmM/site/?key=statement)
+* [AtCoder - Stamp Rally](https://atcoder.jp/contests/agc002/tasks/agc002_d)
+
+
+[^1]: Note that this section is following the description in [Sports programming in practice](https://kostka.dev/sp/).
