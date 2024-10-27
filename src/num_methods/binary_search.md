@@ -168,7 +168,7 @@ We generally process this table by columns (queries), but notice that in each ro
 vector<int> parallel_binary_search(vector<int>& A, vector<int>& X) {
     int N = A.size();
     int M = X.size();
-    vector<int> l(M, -1), r(M, N-1);
+    vector<int> l(M, -1), r(M, N);
 
     for (int step = 1; step <= ceil(log2(N)); ++step) {
         // Map to store indices of queries asking for this value.
