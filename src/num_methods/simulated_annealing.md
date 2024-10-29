@@ -7,7 +7,7 @@ tags:
 
 **Simulated Annealing (SA)** is a randomized algorithm, which approximates the global optimum of a function. It's called a randomized algorithm, because it employs a certain amount of randomness in its search and thus its output can vary for the same input.
 
-## The Problem
+## The problem
 
 We are given a function $E(s)$, which calculates the potential of the state $s$. We are tasked with finding the state $s_{best}$ at which $E(s)$ is minimized. **SA** is suited for problems where the states are discrete and $E(s)$ has multiple local minima. We'll take the example of the [Travelling Salesman Problem (TSP)](https://en.wikipedia.org/wiki/Travelling_salesman_problem). 
 
@@ -18,17 +18,17 @@ You are given a set of nodes in 2 dimensional space. Each node is characterised 
 ### State
 
 State space is the collection of all possible values that can be taken by the independent variables.
-A State is a unique point in the state space of the problem. In the case of TSP, all possible paths that we can take to visit all the nodes is the state space, and any single one of these paths can be considered as a State.
+A state is a unique point in the state space of the problem. In the case of TSP, all possible paths that we can take to visit all the nodes is the state space, and any single one of these paths can be considered as a state.
 
 ### Neighbouring state
 
 It is a state in the state space which is close to the previous state. This usually means that we can obtain the neighbouring state from the original state using a simple transform. In the case of the Travelling Salesman Problem, a neighbouring state is obtained by randomly choosing 2 nodes, and swapping their positions in the current state. 
 
-### The Energy Function E(s)
+### The energy function E(s)
 
 $E(s)$ is the function which needs to be minimised (or maximised). It maps every state to a real number. In the case of TSP, $E(s)$ returns the distance of travelling one full circle in the order of nodes in the state. 
 
-## The Approach
+## The approach
 
 We start of with a random state $s$. In every step, we choose a neighbouring state $s_{next}$ of the current state $s$. If $E(s_{next}) < E(s)$, then we update $s = s_{next}$. Otherwise, we use a probability acceptance function $P(E(s),E(s_{next}),T)$ which decides whether we should move to $s_{next}$ or stay at $s$. T here is the temperature, which is initially set to a high value and decays slowly with every step. The higher the temperature, the more likely it is to move to $s_{next}$. 
 At the same time we also keep a track of the best state $s_{best}$ across all iterations. Proceeding till convergence or time runs out.
@@ -48,7 +48,7 @@ Simulated annealing, literally simulates this process. We start off with some ra
 <i>This <a href="https://upload.wikimedia.org/wikipedia/commons/d/d5/Hill_Climbing_with_Simulated_Annealing.gif">gif</a> by [Kingpin13](https://commons.wikimedia.org/wiki/User:Kingpin13) is distributed under <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0 1.0</a></i> license.
 </center>
 
-## Probability Acceptance Function
+## Probability Acceptance Function(PAF)
 
 $P(E,E_{next},T) = 
     \begin{cases}
@@ -60,9 +60,8 @@ This function takes in the current state, the next state and the Temperature , r
 
 ```cpp
 bool P(double E,double E_next,double T){
-    double e = 2.71828;
     double prob = (double)rand()/RAND_MAX; // Generate a random number between 0 and 1
-    if(pow(e,-(E_next-E)/T) > prob) return true;
+    if(exp(-(E_next-E)/T) > prob) return true;
     else return false;
 }
 ```
@@ -74,23 +73,28 @@ class state{
     state(){
         // Generate the initial state
     }
+    state(state& s){
+        // Implement the copy constructor
+    }
     state next(){
-        state next;
-        next = s;
-        // Make changes to the state "next" and then return it
-        return next;
+        state s_next = state(*this);
+
+        // Modify s_next to the neighbouring state
+
+        return s_next;
     }
     double E(){
-        // implement the cost function here
+        // Implement the cost function here
     };
 };
 
-pair<int,state> simAnneal(){
+pair<double,state> simAnneal(){
     state s = state();
-    state best = s;
+    state best = state(s);
     double T = 1000; // Initial temperature
     double u = 0.99; // decay rate
-    double E = s.E(),E_next;
+    double E = s.E();
+    double E_next;
     double E_best = E;
     while (T > 1){
         state next = s.next();
@@ -113,39 +117,42 @@ pair<int,state> simAnneal(){
 Fill in the state class functions as appropriate. If you are trying to find a global maxima and not a minima, ensure that the $E()$ function returns negative of the function you are maximising and finally print out $-E_{best}$. Set the below parameters as per your need.
 
 ### Parameters
-- $T$ : Temperature. Set it to a higher value if you want the search to run for a longer time
-- $u$ : Decay. Decides the rate of cooling. A slower cooling rate (larger value of u) usually gives better results. Ensure $u < 1$. 
+- $T$ : Temperature. Set it to a higher value if you want the search to run for a longer time.
+- $u$ : Decay. Decides the rate of cooling. A slower cooling rate (larger value of u) usually gives better results, at the cost of running for a longer time. Ensure $u < 1$. 
 
 The number of iterations the loop will run for is given by the expression
 
 $N =   \lceil -\log_{u}{T} \rceil$ 
 
-To see the effect of decay rate on solution results, run simulated annealing for decay rates 0.95 , 0.97 and 0.99 and see the difference.
+Tips for choosing $T$ and $u$ : If there are many local minimas and a wide state space, set $u = 0.999$, for a slow cooling rate, which will allow the algorithm to explore more possibilities. On the other hand, if the state space is narrower, $u = 0.99$ should suffice. If you are not sure, play it safe by setting $u = 0.998$ or higher. Calculate the time complexity of a single iteration of the algorithm, and use this to approximate a value of $N$ which will prevent TLE, then use the below formula to obtain $T$.
 
-### Example State class for TSP
+$T = u^{-N}$
+
+### Example implementation for TSP
 ```cpp
+
 class state{
     public:
     vector<pair<int,int>> points;
 
-    state(){ // Initial random order of points
-        points = {}; // Fill in some points to start with, or generate them randomly
+    state(){
+        points = { {0,0},{2,2},{0,2},{2,0},{0,1},{1,2},{2,1},{1,0} };
     }
-    state next(){ // picks 2 random indices and swaps them
-        state s_next;
-        s_next.points = points;
-        int a = ((rand()*points.size())/RAND_MAX);
-        int b = ((rand()*points.size())/RAND_MAX);
-        pair<int,int> t = s_next.points[a];
-        s_next.points[a] = s_next.points[b];
-        s_next.points[b] = t;
+    state(state& s){
+        points = s.points;
+    }
+    state next(){
+        state s_next = state(*this);
+        int a = (rand()%points.size());
+        int b = (rand()%points.size());
+        s_next.points[a].swap(s_next.points[b]);
         return s_next;
     }
 
-    double euclidean(pair<int,int> a, pair<int,int> b){ // return euclidean distance between 2 points
+    double euclidean(pair<int,int> a, pair<int,int> b){
         return pow(pow((a.first-b.first),2)+pow((a.second-b.second),2),0.5);
     }
-    double E(){ // calculates the round cost of travelling one full circle.
+    double E(){
         double dist = 0;
         bool first = true;
         int n = points.size();
@@ -155,13 +162,34 @@ class state{
         return dist;
     };
 };
+
+
+int main(){
+    pair<int,state> res;
+    res = simAnneal();
+    double E_best = res.first;
+    state best = res.second;
+    cout << "Lenght of shortest path found : " << E_best << "\n";
+    cout << "Order of points in shortest path : \n";
+    for(auto x: best.points){
+        cout << x.first << " " << x.second << "\n";
+    }
+}
 ```
 
-## Extra Modifications to the Algorithm:
+## Further modifications to the algorithm:
 
 - Add a time based exit condition to the while loop to prevent TLE
-- You can replace the e value in the Probability Acceptance function to any real number > 1. For a given $E_{next} - E > 0$, a higher e value reduces the chance of accepting that state and a smaller e value, increases it. 
-
+- The Probability acceptance function given above, prefers accepting states which are lower in energy because of the $E_{next} - E$ factor in the numerator of the exponent. You can simply remove this factor, to make the PAF independent of the difference in energies.
+- The effect of the difference in energies, $E_{next} - E$ on the PAF can be increased/decreased by increasing/decreasing the base of the exponent as shown below: 
+```cpp
+bool P(double E,double E_next,double T){
+    double e = 2; // set e to any real number greater than 1
+    double prob = (double)rand()/RAND_MAX; // Generate a random number between 0 and 1
+    if(pow(e,-(E_next-E)/T) > prob) return true;
+    else return false;
+}
+```
 
 ## Problems
 
