@@ -136,7 +136,7 @@ class state{
     vector<pair<int,int>> points;
 
     state(){
-        points = { {0,0},{2,2},{0,2},{2,0},{0,1},{1,2},{2,1},{1,0} };
+        {% raw %}points = {{0,0},{2,2},{0,2},{2,0},{0,1},{1,2},{2,1},{1,0}};{% endraw %} 
     }
     state(state& s){
         points = s.points;
@@ -181,7 +181,7 @@ int main(){
 
 - Add a time based exit condition to the while loop to prevent TLE
 - The Probability acceptance function given above, prefers accepting states which are lower in energy because of the $E_{next} - E$ factor in the numerator of the exponent. You can simply remove this factor, to make the PAF independent of the difference in energies.
-- The effect of the difference in energies, $E_{next} - E$ on the PAF can be increased/decreased by increasing/decreasing the base of the exponent as shown below: 
+- The effect of the difference in energies, $E_{next} - E$, on the PAF can be increased/decreased by increasing/decreasing the base of the exponent as shown below: 
 ```cpp
 bool P(double E,double E_next,double T){
     double e = 2; // set e to any real number greater than 1
