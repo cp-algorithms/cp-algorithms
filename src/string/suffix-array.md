@@ -217,116 +217,181 @@ vector<int> suffix_array_construction(string s) {
 }
 ```
 
-### $O(n)$ approach {data-toc-label="O(n) approach"}
+### $O(n)$ Approach {data-toc-label="O(n) approach"}
 
-Here we will use the **Skew algorithm**, also known as the **DC3 algorithm** (Difference Cover Modulo 3), which is a linear-time algorithm for constructing suffix arrays. It was developed by Kärkkäinen and Sanders in 2003 and is efficient for sorting the suffixes of a string in \(O(n)\) time.
-This algorithm is used to sort the suffixes of a string in **O(n)** time, where `n` is the length of the string. 
+In this approach, we are using the **SA-IS algorithm**, a linear-time algorithm for constructing suffix arrays. SA-IS (Suffix Array Induced Sorting) is a highly efficient algorithm that builds suffix arrays by sorting induced substrings, enabling \(O(n)\) time complexity for suffix array construction. Developed by Nong, Zhang, and Chan in 2009, it is widely regarded for its simplicity and performance.
 
-### Brief Explanation of the Algorithm:
+### Brief Explanation of the SA-IS Algorithm:
 
-1. **Divide Step (Triplet Naming)**:
-   - The algorithm divides the suffixes into three groups: those starting at positions that are `0 mod 3`, `1 mod 3`, and `2 mod 3`. These groups help in organizing the suffixes into manageable parts.
-   
-2. **Recursive Sorting**:
-   - The algorithm recursively sorts the suffixes that start at positions `1 mod 3` and `2 mod 3` using a simplified version of radix sort. Then, these two sorted groups are combined and their positions are lexicographically ranked (assigned unique "names").
-   
-3. **Merging**:
-   - The suffixes starting at `0 mod 3` positions are then sorted based on their first character. The previously sorted `1 mod 3` and `2 mod 3` suffixes are merged with this group to form the final suffix array.
+1. **L-Type and S-Type Suffixes**:
+   - The SA-IS algorithm classifies suffixes into two types: **L-type** (where the current suffix is lexicographically greater than the next one) and **S-type** (where the current suffix is smaller than the next one). This classification helps the algorithm sort and rank the suffixes efficiently.
 
-4. **Lexicographic Order Comparison**:
-   - The algorithm compares the suffixes lexicographically using helper functions like `leq` (for pairs and triples) to ensure that the suffix array is correctly sorted.
+2. **Identifying LMS Substrings**:
+   - SA-IS identifies LMS (Leftmost S-type) positions, which are boundaries between L-type and S-type suffixes. LMS substrings are critical as they serve as anchor points for the sorting process.
 
+3. **Induced Sorting**:
+   - The algorithm first sorts LMS substrings recursively, then induces the order of the remaining suffixes. Sorting the LMS substrings is the key part of the algorithm, and once sorted, the remaining suffixes are arranged by their lexicographical order relative to LMS substrings.
+
+4. **Recursive Call for LMS Substrings**:
+   - If necessary, the algorithm further processes the LMS substrings recursively. After this, it merges the sorted LMS substrings with the other suffixes to construct the final suffix array.
+
+
+
+The SA-IS algorithm is highly efficient for handling large datasets, making it suitable for applications where memory and time efficiency are essential.
+
+### Understanding L-Type and S-Type Suffixes
+
+In the SA-IS algorithm, suffixes are classified as:
+- **L-type (Left)**: A suffix is L-type if it is lexicographically greater than the suffix immediately following it.
+- **S-type (Right)**: A suffix is S-type if it is lexicographically smaller than or equal to the suffix immediately following it.
+
+For the string `banana$`, let's classify each suffix:
+1. Starting from the end, `$` is considered S-type by definition.
+2. Moving leftward, the suffixes ending in `a`, `n`, etc., are classified as follows:
+
+| Position | Suffix  | Type |
+|----------|---------|------|
+| 6        | `$`     | S    |
+| 5        | `a$`    | S    |
+| 4        | `na$`   | L    |
+| 3        | `ana$`  | S    |
+| 2        | `nana$` | L    |
+| 1        | `anana$`| S    |
+| 0        | `banana$`| S    |
+
+The `L` and `S` types provide crucial information for sorting suffixes using induced sorting.
 ### Example:
-Consider the string `s = "banana"`.
+For the string `s = "banana"`, The steps were :
+1. The algorithm first classifies suffixes into L-type and S-type.
+2. It identifies LMS positions based on the L and S classifications.
+3. It sorts the LMS substrings and uses them to induce the order of remaining suffixes.
+4. The final suffix array is constructed after all suffixes are sorted.
 
-1. The algorithm first divides the suffixes into three groups based on their starting positions.
-2. It sorts the suffixes that start at positions `1 mod 3` and `2 mod 3` using radix sort.
-3. It recursively processes the string, ranks the sorted suffixes, and then merges them with the suffixes starting at `0 mod 3` to generate the full suffix array.
+### C++ Implementation of the SA-IS Algorithm
 
-The name **Skew algorithm** comes from the fact that it handles suffixes based on their positions in the original string (`0 mod 3`, `1 mod 3`, `2 mod 3`), creating a "skewed" partition of the suffixes. This partitioning allows for efficient sorting and merging of suffixes in linear time. 
-The skew algorithm is a simple and asymptotically efficient direct algorithm for suffix array construction that is easy to adapt to various models of computation. We expect that it is a good starting point for actual implementations, in particular on parallel machines and for external memory.
-The key to the algorithm is the use of suffixes Si with i mod 3 ∈ {1, 2} in the first, recursive step, which enables simple merging in the third step. There are other choices of suffixes that would work. An interesting possibility, for example, is to take suffixes Si with i mod 7 ∈ {3, 5, 6}. Some adjustments to the algorithm are required (sorting the remaining suffixes in multiple groups and performing a multiway merge in the third step) but the main ideas still work. In general, a suitable choice is a periodic set of positions according to a difference cover. A difference cover D modulo v is a set of integers in the range [0, v) such that, for all i ∈ [0, v), there exist j, k ∈ D such that i ≡ k−j (mod v). For example {1, 2} is a difference cover modulo 3 and {3, 5, 6} is a difference cover modulo 7, but {1} is not a difference cover modulo 2. Any nontrivial difference cover modulo a constant could be used to obtain a linear time algorithm.
+Let's focus on the Implementation of the algorithm. 
 
-#### C++ Implementation of the Linear Suffix Array
+### 1. **Suffix Array Initialization and Base Cases**
+   ```cpp
+   std::vector<int> sa_is(const std::vector<int>& s, int upper) {
+       int n = s.size();
+       if (n == 0) return {};
+       if (n == 1) return {0};
+       if (n == 2) return (s[0] < s[1]) ? std::vector<int>{0, 1} : std::vector<int>{1, 0};
+   ```
+   This part initializes the `sa_is` function, which constructs the suffix array for a given input vector `s`. It first handles edge cases:
+   - If the string is empty (`n == 0`), it returns an empty array.
+   - For one character (`n == 1`), it returns `{0}` since only one suffix exists.
+   - For two characters (`n == 2`), it returns `{0, 1}` or `{1, 0}` depending on the lexicographic order.
 
-```cpp
-inline bool leq(int a1, int a2, int b1, int b2) {
-    return (a1 < b1 || (a1 == b1 && a2 <= b2)); 
-}
+### 2. **Classifying Suffix Types and Calculating Buckets**
+   ```cpp
+       std::vector<int> sa(n, -1), ls(n);
+       for (int i = n - 2; i >= 0; i--) {
+           ls[i] = (s[i] < s[i + 1]) || (s[i] == s[i + 1] && ls[i + 1]);
+       }
 
-inline bool leq(int a1, int a2, int a3, int b1, int b2, int b3) {
-    return (a1 < b1 || (a1 == b1 && leq(a2, a3, b2, b3))); 
-}
+       std::vector<int> sum_l(upper + 1), sum_s(upper + 1);
+       for (int i = 0; i < n; i++) {
+           if (!ls[i]) sum_s[s[i]]++;
+           else sum_l[s[i] + 1]++;
+       }
+       for (int i = 0; i <= upper; i++) {
+           sum_s[i] += sum_l[i];
+           if (i < upper) sum_l[i + 1] += sum_s[i];
+       }
+   ```
+   This part:
+   - Initializes the `sa` array to store suffix positions and the `ls` array to classify each suffix as S-type or L-type.
+   - Classifies each suffix by comparing the current character with the next one.
+   - Fills `sum_s` and `sum_l`, which hold counts of S-type and L-type suffixes respectively, to help with induced sorting later.
 
-static void radixPass(int* a, int* b, int* r, int n, int K) {
-    int* c = new int[K + 1]; 
-    for (int i = 0; i <= K; i++) c[i] = 0;
-    for (int i = 0; i < n; i++) c[r[a[i]]]++;
-    for (int i = 0, sum = 0; i <= K; i++) {
-        int t = c[i]; c[i] = sum; sum += t; 
-    }
-    for (int i = 0; i < n; i++) b[c[r[a[i]]]++] = a[i];
-    delete[] c;
-}
+### 3. **Induced Sorting with LMS Suffixes**
+   ```cpp
+       auto induce = [&](const std::vector<int>& lms) {
+           std::fill(sa.begin(), sa.end(), -1);
+           std::vector<int> buf = sum_s;
+           for (int d : lms) {
+               if (d == n) continue;
+               sa[buf[s[d]]++] = d;
+           }
+           buf = sum_l;
+           sa[buf[s[n - 1]]++] = n - 1;
+           for (int i = 0; i < n; i++) {
+               int v = sa[i];
+               if (v >= 1 && !ls[v - 1]) sa[buf[s[v - 1]]++] = v - 1;
+           }
+           buf = sum_l;
+           for (int i = n - 1; i >= 0; i--) {
+               int v = sa[i];
+               if (v >= 1 && ls[v - 1]) sa[--buf[s[v - 1] + 1]] = v - 1;
+           }
+       };
+   ```
+   Here, the `induce` function sorts suffixes by first placing LMS (leftmost S-type) suffixes in the correct order, and then inducing the order for L-type and S-type suffixes based on LMS positions. The buffers `sum_l` and `sum_s` are used for efficiently placing suffixes within their buckets.
 
-void suffixArray(int* s, int* SA, int n, int K) {
-    int n0 = (n + 2) / 3, n1 = (n + 1) / 3, n2 = n / 3, n02 = n0 + n2;
-    int* s12 = new int[n02 + 3]; s12[n02] = s12[n02 + 1] = s12[n02 + 2] = 0;
-    int* SA12 = new int[n02 + 3]; SA12[n02] = SA12[n02 + 1] = SA12[n02 + 2] = 0;
-    int* s0 = new int[n0];
-    int* SA0 = new int[n0];
+### 4. **Recursive Sorting of LMS Substring and Final Output**
+   ```cpp
+       std::vector<int> lms_map(n + 1, -1), lms;
+       int m = 0;
+       for (int i = 1; i < n; i++) {
+           if (!ls[i - 1] && ls[i]) {
+               lms_map[i] = m++;
+               lms.push_back(i);
+           }
+       }
+       induce(lms);
 
-    for (int i = 0, j = 0; i < n + (n0 - n1); i++) 
-        if (i % 3 != 0) s12[j++] = i;
+       if (m) {
+           std::vector<int> sorted_lms, rec_s(m), rec_sa;
+           for (int i : sa) if (lms_map[i] != -1) sorted_lms.push_back(i);
+           int rec_upper = 0;
+           rec_s[lms_map[sorted_lms[0]]] = 0;
+           for (int i = 1; i < m; i++) {
+               int l = sorted_lms[i - 1], r = sorted_lms[i];
+               int end_l = (lms_map[l] + 1 < m) ? lms[lms_map[l] + 1] : n;
+               int end_r = (lms_map[r] + 1 < m) ? lms[lms_map[r] + 1] : n;
+               bool same = (end_l - l == end_r - r);
+               for (int j = 0; same && j < end_l - l; j++) {
+                   if (s[l + j] != s[r + j]) same = false;
+               }
+               if (!same) rec_upper++;
+               rec_s[lms_map[sorted_lms[i]]] = rec_upper;
+           }
+           rec_sa = sa_is(rec_s, rec_upper);
 
-    radixPass(s12, SA12, s + 2, n02, K);
-    radixPass(SA12, s12, s + 1, n02, K);
-    radixPass(s12, SA12, s, n02, K);
+           for (int i = 0; i < m; i++) sorted_lms[i] = lms[rec_sa[i]];
+           induce(sorted_lms);
+       }
+       return sa;
+   }
+   ```
+   - Constructs the suffix array of LMS substrings recursively.
+   - Sorts LMS suffixes by generating `rec_s`, a reduced string representation, and calls `sa_is` recursively on it.
+   - After sorting LMS substrings, the `induce` function finalizes the order for all suffixes.
+Here's an addition to the breakdown, covering the missing part:
 
-    int name = 0, c0 = -1, c1 = -1, c2 = -1;
-    for (int i = 0; i < n02; i++) {
-        if (s[SA12[i]] != c0 || s[SA12[i] + 1] != c1 || s[SA12[i] + 2] != c2) {
-            name++; c0 = s[SA12[i]]; c1 = s[SA12[i] + 1]; c2 = s[SA12[i] + 2]; 
-        }
-        if (SA12[i] % 3 == 1) s12[SA12[i] / 3] = name; 
-        else s12[SA12[i] / 3 + n0] = name; 
-    }
+### 5. **Wrapper for Suffix Array and Main Function**
+   ```cpp
+   std::vector<int> suffix_array(const std::string& s) {
+       std::vector<int> s_vec(s.size() + 1);
+       for (size_t i = 0; i < s.size(); i++) s_vec[i] = s[i];
+       s_vec[s.size()] = 0;
+       return sa_is(s_vec, 255);
+   }
 
-    if (name < n02) {
-        suffixArray(s12, SA12, n02, name);
-        for (int i = 0; i < n02; i++) s12[SA12[i]] = i + 1;
-    } else {
-        for (int i = 0; i < n02; i++) SA12[s12[i] - 1] = i;
-    }
-
-    for (int i = 0, j = 0; i < n02; i++) 
-        if (SA12[i] < n0) s0[j++] = 3 * SA12[i];
-    radixPass(s0, SA0, s, n0, K);
-
-    for (int p = 0, t = n0 - n1, k = 0; k < n; k++) {
-        #define GetI() (SA12[t] < n0 ? SA12[t] * 3 + 1 : (SA12[t] - n0) * 3 + 2)
-        int i = GetI(), j = SA0[p];
-        if (SA12[t] < n0 ? leq(s[i], s12[SA12[t] + n0], s[j], s12[j / 3]) :
-            leq(s[i], s[i + 1], s12[SA12[t] - n0 + 1], s[j], s[j + 1], s12[j / 3 + n0])) {
-            SA[k] = i; t++;
-            if (t == n02) {
-                for (k++; p < n0; p++, k++) SA[k] = SA0[p];
-            }
-        } else {
-            SA[k] = j; p++;
-            if (p == n0) {
-                for (k++; t < n02; t++, k++) SA[k] = GetI();
-            }
-        }
-    }
-
-    delete[] s12; delete[] SA12; delete[] SA0; delete[] s0;
-}
-```
-
-The **Skew algorithm (DC3)** is a highly efficient method for constructing suffix arrays in linear time, providing a scalable solution for large string-processing problems. The above implementation strives for conciseness rather than for speed while maintaining its linear time complexity.
-
----
+   int main() {
+       std::string text;
+       std::cin >> text;
+       auto suffix_arr = suffix_array(text);
+       for (size_t i = 1; i < suffix_arr.size(); i++) {
+           std::cout << suffix_arr[i] << (i + 1 < suffix_arr.size() ? " " : "\n");
+       }
+       return 0;
+   }
+   ```
+   - **`suffix_array` Function**: This wrapper function prepares the input string `s` by converting it into a vector of integers (`s_vec`), where each character is represented as an integer. An additional `0` is appended to mark the end of the string. The function then calls `sa_is` to construct and return the suffix array.
+   - **`main` Function**: The main function reads a string `text` from standard input, computes its suffix array using the `suffix_array` function, and then outputs the suffix array (starting from index 1) in a space-separated format. This provides the lexicographically sorted order of suffixes for the input text.
 
 
 ## Applications
