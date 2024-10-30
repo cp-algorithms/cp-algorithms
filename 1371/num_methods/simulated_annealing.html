@@ -3530,11 +3530,11 @@
         <li class="md-nav__item">
   <a href="#the-problem" class="md-nav__link">
     <span class="md-ellipsis">
-      The Problem
+      The problem
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="The Problem">
+    <nav class="md-nav" aria-label="The problem">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3567,7 +3567,7 @@
           <li class="md-nav__item">
   <a href="#the-energy-function-es" class="md-nav__link">
     <span class="md-ellipsis">
-      The Energy Function E(s)
+      The energy function E(s)
     </span>
   </a>
   
@@ -3581,11 +3581,11 @@
         <li class="md-nav__item">
   <a href="#the-approach" class="md-nav__link">
     <span class="md-ellipsis">
-      The Approach
+      The approach
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="The Approach">
+    <nav class="md-nav" aria-label="The approach">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3603,9 +3603,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#probability-acceptance-function" class="md-nav__link">
+  <a href="#probability-acceptance-functionpaf" class="md-nav__link">
     <span class="md-ellipsis">
-      Probability Acceptance Function
+      Probability Acceptance Function(PAF)
     </span>
   </a>
   
@@ -3640,9 +3640,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#example-state-class-for-tsp" class="md-nav__link">
+  <a href="#example-implementation-for-tsp" class="md-nav__link">
     <span class="md-ellipsis">
-      Example State class for TSP
+      Example implementation for TSP
     </span>
   </a>
   
@@ -3654,9 +3654,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#extra-modifications-to-the-algorithm" class="md-nav__link">
+  <a href="#further-modifications-to-the-algorithm" class="md-nav__link">
     <span class="md-ellipsis">
-      Extra Modifications to the Algorithm:
+      Further modifications to the algorithm:
     </span>
   </a>
   
@@ -6647,7 +6647,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 21, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 29, 2024</span>&emsp;
 
 <!-- Tags -->
 
@@ -6663,18 +6663,18 @@ Describe the issue of this article in detail.
 
 <h1 id="simulated-annealing">Simulated Annealing<a class="headerlink" href="#simulated-annealing" title="Permanent link">&para;</a></h1>
 <p><strong>Simulated Annealing (SA)</strong> is a randomized algorithm, which approximates the global optimum of a function. It's called a randomized algorithm, because it employs a certain amount of randomness in its search and thus its output can vary for the same input.</p>
-<h2 id="the-problem">The Problem<a class="headerlink" href="#the-problem" title="Permanent link">&para;</a></h2>
+<h2 id="the-problem">The problem<a class="headerlink" href="#the-problem" title="Permanent link">&para;</a></h2>
 <p>We are given a function <span class="arithmatex">$E(s)$</span>, which calculates the potential of the state <span class="arithmatex">$s$</span>. We are tasked with finding the state <span class="arithmatex">$s_{best}$</span> at which <span class="arithmatex">$E(s)$</span> is minimized. <strong>SA</strong> is suited for problems where the states are discrete and <span class="arithmatex">$E(s)$</span> has multiple local minima. We'll take the example of the <a href="https://en.wikipedia.org/wiki/Travelling_salesman_problem">Travelling Salesman Problem (TSP)</a>. </p>
 <h3 id="travelling-salesman-problem-tsp">Travelling Salesman Problem (TSP)<a class="headerlink" href="#travelling-salesman-problem-tsp" title="Permanent link">&para;</a></h3>
 <p>You are given a set of nodes in 2 dimensional space. Each node is characterised by its <span class="arithmatex">$x$</span> and <span class="arithmatex">$y$</span> coordinates. Your task is to find the an ordering of the nodes, which will minimise the distance to be travelled when visiting these nodes in that order.</p>
 <h3 id="state">State<a class="headerlink" href="#state" title="Permanent link">&para;</a></h3>
 <p>State space is the collection of all possible values that can be taken by the independent variables.
-A State is a unique point in the state space of the problem. In the case of TSP, all possible paths that we can take to visit all the nodes is the state space, and any single one of these paths can be considered as a State.</p>
+A state is a unique point in the state space of the problem. In the case of TSP, all possible paths that we can take to visit all the nodes is the state space, and any single one of these paths can be considered as a state.</p>
 <h3 id="neighbouring-state">Neighbouring state<a class="headerlink" href="#neighbouring-state" title="Permanent link">&para;</a></h3>
 <p>It is a state in the state space which is close to the previous state. This usually means that we can obtain the neighbouring state from the original state using a simple transform. In the case of the Travelling Salesman Problem, a neighbouring state is obtained by randomly choosing 2 nodes, and swapping their positions in the current state. </p>
-<h3 id="the-energy-function-es">The Energy Function E(s)<a class="headerlink" href="#the-energy-function-es" title="Permanent link">&para;</a></h3>
+<h3 id="the-energy-function-es">The energy function E(s)<a class="headerlink" href="#the-energy-function-es" title="Permanent link">&para;</a></h3>
 <p><span class="arithmatex">$E(s)$</span> is the function which needs to be minimised (or maximised). It maps every state to a real number. In the case of TSP, <span class="arithmatex">$E(s)$</span> returns the distance of travelling one full circle in the order of nodes in the state. </p>
-<h2 id="the-approach">The Approach<a class="headerlink" href="#the-approach" title="Permanent link">&para;</a></h2>
+<h2 id="the-approach">The approach<a class="headerlink" href="#the-approach" title="Permanent link">&para;</a></h2>
 <p>We start of with a random state <span class="arithmatex">$s$</span>. In every step, we choose a neighbouring state <span class="arithmatex">$s_{next}$</span> of the current state <span class="arithmatex">$s$</span>. If <span class="arithmatex">$E(s_{next}) &lt; E(s)$</span>, then we update <span class="arithmatex">$s = s_{next}$</span>. Otherwise, we use a probability acceptance function <span class="arithmatex">$P(E(s),E(s_{next}),T)$</span> which decides whether we should move to <span class="arithmatex">$s_{next}$</span> or stay at <span class="arithmatex">$s$</span>. T here is the temperature, which is initially set to a high value and decays slowly with every step. The higher the temperature, the more likely it is to move to <span class="arithmatex">$s_{next}$</span>. 
 At the same time we also keep a track of the best state <span class="arithmatex">$s_{best}$</span> across all iterations. Proceeding till convergence or time runs out.</p>
 <h3 id="how-does-this-work">How does this work?<a class="headerlink" href="#how-does-this-work" title="Permanent link">&para;</a></h3>
@@ -6687,7 +6687,7 @@ At the same time we also keep a track of the best state <span class="arithmatex"
 <br>
 <i>This <a href="https://upload.wikimedia.org/wikipedia/commons/d/d5/Hill_Climbing_with_Simulated_Annealing.gif">gif</a> by <a href="https://commons.wikimedia.org/wiki/User:Kingpin13">Kingpin13</a> is distributed under <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0 1.0</a></i> license.
 </center></p>
-<h2 id="probability-acceptance-function">Probability Acceptance Function<a class="headerlink" href="#probability-acceptance-function" title="Permanent link">&para;</a></h2>
+<h2 id="probability-acceptance-functionpaf">Probability Acceptance Function(PAF)<a class="headerlink" href="#probability-acceptance-functionpaf" title="Permanent link">&para;</a></h2>
 <p><span class="arithmatex">$P(E,E_{next},T) = 
     \begin{cases}
        \text{True} &amp;\quad\text{if }  \exp{\frac{-(E_{next}-E)}{T}} \ge random(0,1) \\
@@ -6695,9 +6695,8 @@ At the same time we also keep a track of the best state <span class="arithmatex"
      \end{cases}$</span></p>
 <p>This function takes in the current state, the next state and the Temperature , returning a boolean value, which tells our search whether it should move to <span class="arithmatex">$s_{next}$</span> or stay at <span class="arithmatex">$s$</span>. Note that for <span class="arithmatex">$E_{next} &lt; E$</span> , this function will always return True. </p>
 <div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="nf">P</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">E</span><span class="p">,</span><span class="kt">double</span><span class="w"> </span><span class="n">E_next</span><span class="p">,</span><span class="kt">double</span><span class="w"> </span><span class="n">T</span><span class="p">){</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.71828</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">prob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">rand</span><span class="p">()</span><span class="o">/</span><span class="n">RAND_MAX</span><span class="p">;</span><span class="w"> </span><span class="c1">// Generate a random number between 0 and 1</span>
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">pow</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="o">-</span><span class="p">(</span><span class="n">E_next</span><span class="o">-</span><span class="n">E</span><span class="p">)</span><span class="o">/</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">prob</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">E_next</span><span class="o">-</span><span class="n">E</span><span class="p">)</span><span class="o">/</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">prob</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
 <span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -6707,23 +6706,28 @@ At the same time we also keep a track of the best state <span class="arithmatex"
 <span class="w">    </span><span class="n">state</span><span class="p">(){</span>
 <span class="w">        </span><span class="c1">// Generate the initial state</span>
 <span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">state</span><span class="p">(</span><span class="n">state</span><span class="o">&amp;</span><span class="w"> </span><span class="n">s</span><span class="p">){</span>
+<span class="w">        </span><span class="c1">// Implement the copy constructor</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="n">next</span><span class="p">(){</span>
-<span class="w">        </span><span class="n">state</span><span class="w"> </span><span class="n">next</span><span class="p">;</span>
-<span class="w">        </span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">;</span>
-<span class="w">        </span><span class="c1">// Make changes to the state &quot;next&quot; and then return it</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">next</span><span class="p">;</span>
+<span class="w">        </span><span class="n">state</span><span class="w"> </span><span class="n">s_next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Modify s_next to the neighbouring state</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">s_next</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">E</span><span class="p">(){</span>
-<span class="w">        </span><span class="c1">// implement the cost function here</span>
+<span class="w">        </span><span class="c1">// Implement the cost function here</span>
 <span class="w">    </span><span class="p">};</span>
 <span class="p">};</span>
 
-<span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="n">state</span><span class="o">&gt;</span><span class="w"> </span><span class="n">simAnneal</span><span class="p">(){</span>
+<span class="n">pair</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="n">state</span><span class="o">&gt;</span><span class="w"> </span><span class="n">simAnneal</span><span class="p">(){</span>
 <span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="p">();</span>
-<span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="n">best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">;</span>
+<span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="n">best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
 <span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"> </span><span class="c1">// Initial temperature</span>
 <span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.99</span><span class="p">;</span><span class="w"> </span><span class="c1">// decay rate</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">E</span><span class="p">(),</span><span class="n">E_next</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">E</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">E_next</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">E_best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">E</span><span class="p">;</span>
 <span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">){</span>
 <span class="w">        </span><span class="n">state</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">next</span><span class="p">();</span>
@@ -6745,35 +6749,36 @@ At the same time we also keep a track of the best state <span class="arithmatex"
 <p>Fill in the state class functions as appropriate. If you are trying to find a global maxima and not a minima, ensure that the <span class="arithmatex">$E()$</span> function returns negative of the function you are maximising and finally print out <span class="arithmatex">$-E_{best}$</span>. Set the below parameters as per your need.</p>
 <h3 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h3>
 <ul>
-<li><span class="arithmatex">$T$</span> : Temperature. Set it to a higher value if you want the search to run for a longer time</li>
-<li><span class="arithmatex">$u$</span> : Decay. Decides the rate of cooling. A slower cooling rate (larger value of u) usually gives better results. Ensure <span class="arithmatex">$u &lt; 1$</span>. </li>
+<li><span class="arithmatex">$T$</span> : Temperature. Set it to a higher value if you want the search to run for a longer time.</li>
+<li><span class="arithmatex">$u$</span> : Decay. Decides the rate of cooling. A slower cooling rate (larger value of u) usually gives better results, at the cost of running for a longer time. Ensure <span class="arithmatex">$u &lt; 1$</span>. </li>
 </ul>
 <p>The number of iterations the loop will run for is given by the expression</p>
 <p><span class="arithmatex">$N =   \lceil -\log_{u}{T} \rceil$</span> </p>
-<p>To see the effect of decay rate on solution results, run simulated annealing for decay rates 0.95 , 0.97 and 0.99 and see the difference.</p>
-<h3 id="example-state-class-for-tsp">Example State class for TSP<a class="headerlink" href="#example-state-class-for-tsp" title="Permanent link">&para;</a></h3>
+<p>Tips for choosing <span class="arithmatex">$T$</span> and <span class="arithmatex">$u$</span> : If there are many local minimas and a wide state space, set <span class="arithmatex">$u = 0.999$</span>, for a slow cooling rate, which will allow the algorithm to explore more possibilities. On the other hand, if the state space is narrower, <span class="arithmatex">$u = 0.99$</span> should suffice. If you are not sure, play it safe by setting <span class="arithmatex">$u = 0.998$</span> or higher. Calculate the time complexity of a single iteration of the algorithm, and use this to approximate a value of <span class="arithmatex">$N$</span> which will prevent TLE, then use the below formula to obtain <span class="arithmatex">$T$</span>.</p>
+<p><span class="arithmatex">$T = u^{-N}$</span></p>
+<h3 id="example-implementation-for-tsp">Example implementation for TSP<a class="headerlink" href="#example-implementation-for-tsp" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">state</span><span class="p">{</span>
 <span class="w">    </span><span class="k">public</span><span class="o">:</span>
 <span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">points</span><span class="p">;</span>
 
-<span class="w">    </span><span class="n">state</span><span class="p">(){</span><span class="w"> </span><span class="c1">// Initial random order of points</span>
-<span class="w">        </span><span class="n">points</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span><span class="w"> </span><span class="c1">// Fill in some points to start with, or generate them randomly</span>
+<span class="w">    </span><span class="n">state</span><span class="p">(){</span>
+<span class="w">        </span><span class="n">points</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">},{</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">},{</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">},{</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">},{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">},{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">},{</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">},{</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">}};</span><span class="w"> </span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="n">next</span><span class="p">(){</span><span class="w"> </span><span class="c1">// picks 2 random indices and swaps them</span>
-<span class="w">        </span><span class="n">state</span><span class="w"> </span><span class="n">s_next</span><span class="p">;</span>
-<span class="w">        </span><span class="n">s_next</span><span class="p">.</span><span class="n">points</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">points</span><span class="p">;</span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="n">rand</span><span class="p">()</span><span class="o">*</span><span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="o">/</span><span class="n">RAND_MAX</span><span class="p">);</span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="n">rand</span><span class="p">()</span><span class="o">*</span><span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="o">/</span><span class="n">RAND_MAX</span><span class="p">);</span>
-<span class="w">        </span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s_next</span><span class="p">.</span><span class="n">points</span><span class="p">[</span><span class="n">a</span><span class="p">];</span>
-<span class="w">        </span><span class="n">s_next</span><span class="p">.</span><span class="n">points</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s_next</span><span class="p">.</span><span class="n">points</span><span class="p">[</span><span class="n">b</span><span class="p">];</span>
-<span class="w">        </span><span class="n">s_next</span><span class="p">.</span><span class="n">points</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
+<span class="w">    </span><span class="n">state</span><span class="p">(</span><span class="n">state</span><span class="o">&amp;</span><span class="w"> </span><span class="n">s</span><span class="p">){</span>
+<span class="w">        </span><span class="n">points</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">points</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="n">next</span><span class="p">(){</span>
+<span class="w">        </span><span class="n">state</span><span class="w"> </span><span class="n">s_next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">rand</span><span class="p">()</span><span class="o">%</span><span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">rand</span><span class="p">()</span><span class="o">%</span><span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+<span class="w">        </span><span class="n">s_next</span><span class="p">.</span><span class="n">points</span><span class="p">[</span><span class="n">a</span><span class="p">].</span><span class="n">swap</span><span class="p">(</span><span class="n">s_next</span><span class="p">.</span><span class="n">points</span><span class="p">[</span><span class="n">b</span><span class="p">]);</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">s_next</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">euclidean</span><span class="p">(</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">){</span><span class="w"> </span><span class="c1">// return euclidean distance between 2 points</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">euclidean</span><span class="p">(</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">){</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">pow</span><span class="p">(</span><span class="n">pow</span><span class="p">((</span><span class="n">a</span><span class="p">.</span><span class="n">first</span><span class="o">-</span><span class="n">b</span><span class="p">.</span><span class="n">first</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="n">pow</span><span class="p">((</span><span class="n">a</span><span class="p">.</span><span class="n">second</span><span class="o">-</span><span class="n">b</span><span class="p">.</span><span class="n">second</span><span class="p">),</span><span class="mi">2</span><span class="p">),</span><span class="mf">0.5</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">E</span><span class="p">(){</span><span class="w"> </span><span class="c1">// calculates the round cost of travelling one full circle.</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">E</span><span class="p">(){</span>
 <span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
 <span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
@@ -6783,11 +6788,32 @@ At the same time we also keep a track of the best state <span class="arithmatex"
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">dist</span><span class="p">;</span>
 <span class="w">    </span><span class="p">};</span>
 <span class="p">};</span>
+
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+<span class="w">    </span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="n">state</span><span class="o">&gt;</span><span class="w"> </span><span class="n">res</span><span class="p">;</span>
+<span class="w">    </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">simAnneal</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">E_best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+<span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="n">best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res</span><span class="p">.</span><span class="n">second</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Lenght of shortest path found : &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">E_best</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Order of points in shortest path : </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">x</span><span class="o">:</span><span class="w"> </span><span class="n">best</span><span class="p">.</span><span class="n">points</span><span class="p">){</span>
+<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">first</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">second</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
-<h2 id="extra-modifications-to-the-algorithm">Extra Modifications to the Algorithm:<a class="headerlink" href="#extra-modifications-to-the-algorithm" title="Permanent link">&para;</a></h2>
+<h2 id="further-modifications-to-the-algorithm">Further modifications to the algorithm:<a class="headerlink" href="#further-modifications-to-the-algorithm" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Add a time based exit condition to the while loop to prevent TLE</li>
-<li>You can replace the e value in the Probability Acceptance function to any real number &gt; 1. For a given <span class="arithmatex">$E_{next} - E &gt; 0$</span>, a higher e value reduces the chance of accepting that state and a smaller e value, increases it. </li>
+<li>The Probability acceptance function given above, prefers accepting states which are lower in energy because of the <span class="arithmatex">$E_{next} - E$</span> factor in the numerator of the exponent. You can simply remove this factor, to make the PAF independent of the difference in energies.</li>
+<li>The effect of the difference in energies, <span class="arithmatex">$E_{next} - E$</span>, on the PAF can be increased/decreased by increasing/decreasing the base of the exponent as shown below: 
+<div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="nf">P</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">E</span><span class="p">,</span><span class="kt">double</span><span class="w"> </span><span class="n">E_next</span><span class="p">,</span><span class="kt">double</span><span class="w"> </span><span class="n">T</span><span class="p">){</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="c1">// set e to any real number greater than 1</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">prob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">rand</span><span class="p">()</span><span class="o">/</span><span class="n">RAND_MAX</span><span class="p">;</span><span class="w"> </span><span class="c1">// Generate a random number between 0 and 1</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">pow</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="o">-</span><span class="p">(</span><span class="n">E_next</span><span class="o">-</span><span class="n">E</span><span class="p">)</span><span class="o">/</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">prob</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></li>
 </ul>
 <h2 id="problems">Problems<a class="headerlink" href="#problems" title="Permanent link">&para;</a></h2>
 <ul>
