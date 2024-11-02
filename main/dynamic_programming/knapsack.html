@@ -23,7 +23,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
@@ -6621,6 +6621,18 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
     
@@ -6647,6 +6659,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -6667,7 +6683,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 16, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 31, 2024</span>&emsp;
 
 <!-- Tags -->
 
@@ -6746,7 +6762,7 @@ This is equivalent to being able to put item <span class="arithmatex">$i$</span>
 <p>We still consider converting the multiple knapsack model into a 0-1 knapsack model for optimization. The time complexity <span class="arithmatex">$O(Wn)$</span> can not be further optimized with the approach above, so we focus on <span class="arithmatex">$O(\sum k_i)$</span> component.</p>
 <p>Let <span class="arithmatex">$A_{i, j}$</span> denote the <span class="arithmatex">$j^{th}$</span> item split from the <span class="arithmatex">$i^{th}$</span> item. In the trivial approach discussed above, <span class="arithmatex">$A_{i, j}$</span> represents the same item for all <span class="arithmatex">$j \leq k_i$</span>. The main reason for our low efficiency is that we are doing a lot of repetetive work. For example, consider selecting <span class="arithmatex">$\{A_{i, 1},A_{i, 2}\}$</span>, and selecting <span class="arithmatex">$\{A_{i, 2}, A_{i, 3}\}$</span>. These two situations are completely equivalent. Thus optimizing the splitting method will greatly reduce the time complexity.</p>
 <p>The grouping is made more efficient by using binary grouping.</p>
-<p>Specifically, <span class="arithmatex">$A_{i, j}$</span> holds <span class="arithmatex">$2^j$</span> individual items (<span class="arithmatex">$j\in[0,\lfloor \log_2(k_i+1)\rfloor-1]$</span>).If <span class="arithmatex">$k_i + 1$</span> is not an integer power of <span class="arithmatex">$2$</span>, another bundle of size <span class="arithmatex">$k_i-2^{\lfloor \log_2(k_i+1)\rfloor-1}$</span> is used to make up for it.</p>
+<p>Specifically, <span class="arithmatex">$A_{i, j}$</span> holds <span class="arithmatex">$2^j$</span> individual items (<span class="arithmatex">$j\in[0,\lfloor \log_2(k_i+1)\rfloor-1]$</span>).If <span class="arithmatex">$k_i + 1$</span> is not an integer power of <span class="arithmatex">$2$</span>, another bundle of size <span class="arithmatex">$k_i-(2^{\lfloor \log_2(k_i+1)\rfloor}-1)$</span> is used to make up for it.</p>
 <p>Through the above splitting method, it is possible to obtain any sum of <span class="arithmatex">$\leq k_i$</span> items by selecting a few <span class="arithmatex">$A_{i, j}$</span>'s. After splitting each item in the described way, it is sufficient to use 0-1 knapsack method to solve the new formulation of the problem.</p>
 <p>This optimization gives us a time complexity of <span class="arithmatex">$O(W\sum\limits_{i=1}^{n}\log k_i)$</span>.</p>
 <h3 id="implementation_2">Implementation<a class="headerlink" href="#implementation_2" title="Permanent link">&para;</a></h3>
@@ -6798,7 +6814,7 @@ In this way, the total complexity of the algorithm is reduced to <span class="ar
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/OverRancid" title="OverRancid" data-bi-name="contributorprofile" target="_blank">OverRancid</a> (98.37%)</li><li><a href="https://github.com/Ahmed-Elshitehi" title="Ahmed-Elshitehi" data-bi-name="contributorprofile" target="_blank">Ahmed-Elshitehi</a> (1.09%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (0.54%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/OverRancid" title="OverRancid" data-bi-name="contributorprofile" target="_blank">OverRancid</a> (97.83%)</li><li><a href="https://github.com/Ahmed-Elshitehi" title="Ahmed-Elshitehi" data-bi-name="contributorprofile" target="_blank">Ahmed-Elshitehi</a> (1.09%)</li><li><a href="https://github.com/virinci" title="virinci" data-bi-name="contributorprofile" target="_blank">virinci</a> (0.54%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (0.54%)</li></ul>
 </ul>
                 
               </article>
