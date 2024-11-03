@@ -229,8 +229,8 @@ void fft(vector<cd> & a, bool invert) {
         a[i] = a0[i] + w * a1[i];
         a[i + n/2] = a0[i] - w * a1[i];
         if (invert) {
-            a[i] /= 2;
-            a[i + n/2] /= 2;
+            a[i] /= n;
+            a[i + n/2] /= n;
         }
         w *= wn;
     }
