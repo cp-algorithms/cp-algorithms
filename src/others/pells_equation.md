@@ -76,9 +76,31 @@ $$\sf=2+\cfrac{1}{1+\cfrac1{1+\cfrac1{1+\cfrac4{\vdots}}}}$$
 we get the continued fraction of $\sf$ as $[2; 1, 1, 4, 1, 1, 4, \ldots]$.
 
 ### Finding the solution using Chakravala method
+The Chakravala method is an ancient Indian algorithm to solve Pell's equation. It is based on the Brahmagupta's identity of quadratic decomposition.
+$(x_{1}^{2} - n \cdot y_{1}^{2}) \cdot (x_{2}^{2} - n \cdot y_{2}^{2}) = (x_{1} \cdot x_{2} + n \cdot y_{1} \cdot y_{2})^{2} - n \cdot (x_{1} \cdot y_{2} + x_{2} \cdot y_{1})^{2}$
+$(x_{1}^{2} - n \cdot y_{1}^{2}) \cdot (x_{2}^{2} - n \cdot y_{2}^{2}) = (x_{1} \cdot x_{2} - n \cdot y_{1} \cdot y_{2})^{2} - n \cdot (x_{1} \cdot y_{2} - x_{2} \cdot y_{1})^{2}$
 
+Using above Brahmagupta's identity, If $(x_{1}, y_{1}, k_{1})$ and $(x_{2}, y_{2}, k_{2})$ satisfy $(x_{1}^{2} - y_1^{2}) \cdot (x_{2}^{2} - y_2^{2}) = k_{1} \cdot k_{2} $, then $(x_{1} \cdot x_{2} + n \cdot y_{1} \cdot y_{2}, x_{1} \cdot y_{2} + y_{1} \cdot x_{2}, k_{1} \cdot k_{2})$ is also a solution of $(x_{1} \cdot x_{2} + n \cdot y_{1} \cdot y_{2})^{2} - n \cdot (x_{1} \cdot y_{2} + x_{2} \cdot y_{1})^{2} = k_{1} \cdot k_{2}$
+
+[//]: # (First, we choose $y_{1} = 1$ and choose $x_{1} = \lfloor \sqrt n \rfloor$ such that $k_{1}$ is a small integer.)
+
+[//]: # ()
+[//]: # (Then, Iteratively we adjust $x_{1}$ and $y_{1}$ so that $k_{1} = 1$. The solution is given by $&#40;x_{1}, y_{1}&#41;$ to original Pell's equation.)
+[//]: # ()
+[//]: # ( Choosing m. At e)
 
 ## Implementation
 ```cpp
 
 ```
+
+## References
+- [Pell's equation - Wikipedia](https://en.wikipedia.org/wiki/Pell%27s_equation)
+- [Periodic Continued Fractions](https://en.wikipedia.org/wiki/Periodic_continued_fraction)
+- [Chakralava Method - Wikipedia](https://en.wikipedia.org/wiki/Chakravala_method)
+- [Chakralava Method](https://www.isibang.ac.in/~sury/chakravala.pdf)
+- [Codeforces Pell's Equation](https://codeforces.com/topic/116937/en20)
+
+## Problems
+- [Project Euler 66](https://projecteuler.net/problem=66)
+- [Hackerrank ProjectEuler-066](https://www.hackerrank.com/contests/projecteuler/challenges/euler066/problem)
