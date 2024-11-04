@@ -19,7 +19,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
@@ -6425,7 +6425,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 24, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 4, 2024</span>&emsp;
 
 <!-- Tags -->
 
@@ -6442,7 +6442,7 @@ Describe the issue of this article in detail.
 <h1 id="c-tips-and-tricks-for-competition-programming">C++ Tips and Tricks for Competition Programming<a class="headerlink" href="#c-tips-and-tricks-for-competition-programming" title="Permanent link">&para;</a></h1>
 <h2 id="faster-io">Faster I/O<a class="headerlink" href="#faster-io" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>std::ios_base::sync_with_stdio(false)</code>: by default, C++ works with C++ iostreams (like <code>std::cin</code>) and C style stdio streams (like <code>stdin</code>) by synchronizing them.
+<li><code>std::ios_base::sync_with_stdio(false)</code>: by default, C++ works with C++ iostreams (like <code>std::cin</code>, may not apply to new C++23 <code>std::print</code>/<code>std::println</code>) and C style stdio streams (like <code>stdin</code>) by synchronizing them.
 Since you should never need C style I/O (like <code>scanf</code>, <code>printf</code>), in C++, disabling this synchronization will make C++ I/O competitive with C style <code>scanf</code>.</li>
 <li><code>std::cin.tie(0)</code>: By default, iostreams flush cout every time you read from cin, so that you will always display any output before reading any input.
 You can disable this automatic flushing to make I/O faster. The exception is for interactive problems with interleaved inputs and outputs, for which you can either not use <code>cin.tie(0)</code> or flush explicitly with <code>cout.flush()</code>/<code>cout.endl</code>.</li>
@@ -6453,11 +6453,11 @@ You can disable this automatic flushing to make I/O faster. The exception is for
 <h2 id="less-typing">Less Typing<a class="headerlink" href="#less-typing" title="Permanent link">&para;</a></h2>
 <ul>
 <li><code>using namespace std;</code>: this saves lots of tedious typing of <code>std::</code> before all the standard library functions and objects. However, a blanket namespace import like this can cause name clashes, so don't name your variables or functions something common like <code>find</code> or anything from <a href="https://en.cppreference.com/w/cpp/symbol_index">this list</a>.</li>
-<li><code>#include &lt;bits/stdc++.h&gt;</code>: this is a catch-all implementation-defined header in g++ that avoids having a list of dozens of includes like <code>#include &lt;vector&gt;</code>, <code>#include &lt;iostream&gt;</code>, <code>#include &lt;string&gt;</code>, etc. It should work on any CP judge site, but it is not a standard header.</li>
-<li><code>#define int long long</code>: some people define <code>int</code> to always be (at least) 64-bit to avoid overflow issues, since most CP problems use numbers that fit in a 64-bit integer. However, be aware of unexpected issues:</li>
+<li><code>#include &lt;bits/stdc++.h&gt;</code>: this is a catch-all implementation-defined header in g++ that avoids having a list of dozens of includes like <code>#include &lt;vector&gt;</code>, <code>#include &lt;iostream&gt;</code>, <code>#include &lt;string&gt;</code>, etc. It should work on any CP judge site, but it is not a standard header. On your local machine, it can be pre-compiled to greatly save compilation time.</li>
+<li><code>#define int long long</code>: some people define <code>int</code> to always be (at least) 64-bit to avoid overflow issues, since most CP problems use numbers that fit in a 64-bit integer. However, this is <strong>not recommended</strong> because of many unexpected issues:</li>
 <li>C++ requires <code>main</code> to be a function returning <code>int</code> and not <code>long long</code>, so use <code>signed main</code> as a workaround.</li>
 <li>Function calls like <code>min(x, 0)</code> may complain that <code>0</code> is type <code>int</code>. </li>
-<li>May require twice as much memory than <code>int</code> and make the program slower, which may be important in extremely time-critical code.</li>
+<li>Requires twice as much memory than <code>int</code> and may make the program slower, which may be important in extremely time-critical code.</li>
 <li>Otherwise you can use <code>typedef long long ll</code> or use the appropriate fixed-width integer types like <code>int64_t</code>. </li>
 </ul>
 
