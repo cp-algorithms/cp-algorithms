@@ -225,7 +225,7 @@ Let us describe this process:
     We start at the state $last$.
     While there isn't a transition through the letter $c$, we will add a transition to the state $cur$, and follow the suffix link.
     If at some point there already exists a transition through the letter $c$, then we will stop and denote this state with $p$.
-  - If it haven't found such a state $p$, then we reached the fictitious state $-1$, then we can just assign $link(cur) = 0$ and leave.
+  - If we haven't found such a state $p$, then we reached the fictitious state $-1$, then we can just assign $link(cur) = 0$ and leave.
   - Suppose now that we have found a state $p$, from which there exists a transition through the letter $c$.
     We will denote the state, to which the transition leads,  with $q$.
   - Now we have two cases. Either $len(p) + 1 = len(q)$, or not.
