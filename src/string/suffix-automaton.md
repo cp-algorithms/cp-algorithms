@@ -221,7 +221,7 @@ Let us describe this process:
     (Initially we set $last = 0$, and we will change $last$ in the last step of the algorithm accordingly.)
   - Create a new state $cur$, and assign it with $len(cur) = len(last) + 1$.
     The value $link(cur)$ is not known at the time.
-  - Now we to the following procedure:
+  - Now we do the following procedure:
     We start at the state $last$.
     While there isn't a transition through the letter $c$, we will add a transition to the state $cur$, and follow the suffix link.
     If at some point there already exists a transition through the letter $c$, then we will stop and denote this state with $p$.
