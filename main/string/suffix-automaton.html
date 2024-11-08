@@ -23,7 +23,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
     
     
       
@@ -6733,37 +6733,9 @@ Describe the issue of this article in detail.
   
     
   
-    
-  
 
   
   
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
   
     
   
@@ -6793,17 +6765,13 @@ Describe the issue of this article in detail.
   
     
   
-    
-  
 
   
   
   
     
   
-
-  
-  
+    
   
     
   
@@ -6846,7 +6814,49 @@ Describe the issue of this article in detail.
     
   
 
+  
+  
+  
+    
+  
 
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+
+
+  
+  
+  
 
   
   
@@ -6911,7 +6921,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2023</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 8, 2024</span>&emsp;
 
 <!-- Tags -->
 
@@ -7090,11 +7100,11 @@ Let us describe this process:</p>
     (Initially we set <span class="arithmatex">$last = 0$</span>, and we will change <span class="arithmatex">$last$</span> in the last step of the algorithm accordingly.)</li>
 <li>Create a new state <span class="arithmatex">$cur$</span>, and assign it with <span class="arithmatex">$len(cur) = len(last) + 1$</span>.
     The value <span class="arithmatex">$link(cur)$</span> is not known at the time.</li>
-<li>Now we to the following procedure:
+<li>Now we do the following procedure:
     We start at the state <span class="arithmatex">$last$</span>.
     While there isn't a transition through the letter <span class="arithmatex">$c$</span>, we will add a transition to the state <span class="arithmatex">$cur$</span>, and follow the suffix link.
     If at some point there already exists a transition through the letter <span class="arithmatex">$c$</span>, then we will stop and denote this state with <span class="arithmatex">$p$</span>.</li>
-<li>If it haven't found such a state <span class="arithmatex">$p$</span>, then we reached the fictitious state <span class="arithmatex">$-1$</span>, then we can just assign <span class="arithmatex">$link(cur) = 0$</span> and leave.</li>
+<li>If we haven't found such a state <span class="arithmatex">$p$</span>, then we reached the fictitious state <span class="arithmatex">$-1$</span>, then we can just assign <span class="arithmatex">$link(cur) = 0$</span> and leave.</li>
 <li>Suppose now that we have found a state <span class="arithmatex">$p$</span>, from which there exists a transition through the letter <span class="arithmatex">$c$</span>.
     We will denote the state, to which the transition leads,  with <span class="arithmatex">$q$</span>.</li>
 <li>Now we have two cases. Either <span class="arithmatex">$len(p) + 1 = len(q)$</span>, or not.</li>
@@ -7111,7 +7121,7 @@ Let us describe this process:</p>
 <p>In any of the three cases, after completing the procedure, we update the value <span class="arithmatex">$last$</span> with the state <span class="arithmatex">$cur$</span>.</p>
 </li>
 </ul>
-<p>If we also want to know which states are <strong>terminal</strong> and which are not, the we can find all terminal states after constructing the complete suffix automaton for the entire string <span class="arithmatex">$s$</span>.
+<p>If we also want to know which states are <strong>terminal</strong> and which are not, we can find all terminal states after constructing the complete suffix automaton for the entire string <span class="arithmatex">$s$</span>.
 To do this, we take the state corresponding to the entire string (stored in the variable <span class="arithmatex">$last$</span>), and follow its suffix links until we reach the initial state.
 We will mark all visited states as terminal.
 It is easy to understand that by doing so we will mark exactly the states corresponding to all the suffixes of the string <span class="arithmatex">$s$</span>, which are exactly the terminal states.</p>
@@ -7151,7 +7161,7 @@ In contrast non-continuous transition may change, when new letters are added to 
 <li>
 <p>In the second case we came across an existing transition <span class="arithmatex">$(p, q)$</span>.
     This means that we tried to add a string <span class="arithmatex">$x + c$</span> (where <span class="arithmatex">$x$</span> is a suffix of <span class="arithmatex">$s$</span>) to the machine that <strong>already exists</strong> in the machine (the string <span class="arithmatex">$x + c$</span> already appears as a substring of <span class="arithmatex">$s$</span>).
-    Since we assume that the automaton for the string <span class="arithmatex">$s$</span> is build correctly, we should not add a new transition here.</p>
+    Since we assume that the automaton for the string <span class="arithmatex">$s$</span> is built correctly, we should not add a new transition here.</p>
 <p>However there is a difficulty.
 To which state should the suffix link from the state <span class="arithmatex">$cur$</span> lead?
 We have to make a suffix link to a state, in which the longest string is exactly <span class="arithmatex">$x + c$</span>, i.e. the <span class="arithmatex">$len$</span> of this state should be <span class="arithmatex">$len(p) + 1$</span>.
@@ -7191,14 +7201,14 @@ Thus we reach the <span class="arithmatex">$O(n)$</span> time complexity for the
 <li>The second place is the copying of transitions when the state <span class="arithmatex">$q$</span> is cloned into a new state <span class="arithmatex">$clone$</span>.</li>
 <li>Third place is changing the transition leading to <span class="arithmatex">$q$</span>, redirecting them to <span class="arithmatex">$clone$</span>.</li>
 </ul>
-<p>We use the fact that the size of the suffix automaton (both in number of states and in the number of transitions) is <strong>linear</strong>.
+<p>We use the fact that the size of the suffix automaton (both in the number of states and in the number of transitions) is <strong>linear</strong>.
 (The proof of the linearity of the number of states is the algorithm itself, and the proof of linearity of the number of states is given below, after the implementation of the algorithm).</p>
 <p>Thus the total complexity of the <strong>first and second places</strong> is obvious, after all each operation adds only one amortized new transition to the automaton.</p>
 <p>It remains to estimate the total complexity of the <strong>third place</strong>, in which we redirect transitions, that pointed originally to <span class="arithmatex">$q$</span>, to <span class="arithmatex">$clone$</span>.
 We denote <span class="arithmatex">$v = longest(p)$</span>.
 This is a suffix of the string <span class="arithmatex">$s$</span>, and with each iteration its length decreases - and therefore the position <span class="arithmatex">$v$</span> as the suffix of the string <span class="arithmatex">$s$</span> increases monotonically with each iteration.
 In this case, if before the first iteration of the loop, the corresponding string <span class="arithmatex">$v$</span> was at the depth <span class="arithmatex">$k$</span> (<span class="arithmatex">$k \ge 2$</span>) from <span class="arithmatex">$last$</span> (by counting the depth as the number of suffix links), then after the last iteration the string <span class="arithmatex">$v + c$</span> will be a <span class="arithmatex">$2$</span>-th suffix link on the path from <span class="arithmatex">$cur$</span> (which will become the new value <span class="arithmatex">$last$</span>).</p>
-<p>Thus, each iteration of this loop leads to the fact that the position of the string <span class="arithmatex">$longest(link(link(last))$</span> as suffix of the current string will monotonically increase.
+<p>Thus, each iteration of this loop leads to the fact that the position of the string <span class="arithmatex">$longest(link(link(last))$</span> as a suffix of the current string will monotonically increase.
 Therefore this cycle cannot be executed more than <span class="arithmatex">$n$</span> iterations, which was required to prove.</p>
 <h3 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h3>
 <p>First we describe a data structure that will store all information about a specific transition (<span class="arithmatex">$len$</span>, <span class="arithmatex">$link$</span> and the list of transitions).
@@ -7281,7 +7291,7 @@ Let the current non-continuous transition be <span class="arithmatex">$(p, q)$</
 We take the correspondent string <span class="arithmatex">$u + c + w$</span>, where the string <span class="arithmatex">$u$</span> corresponds to the longest path from the initial state to <span class="arithmatex">$p$</span>, and <span class="arithmatex">$w$</span> to the longest path from <span class="arithmatex">$q$</span> to any terminal state.
 On one hand, each such string <span class="arithmatex">$u + c + w$</span> for each incomplete strings will be different (since the strings <span class="arithmatex">$u$</span> and <span class="arithmatex">$w$</span> are formed only by complete transitions).
 On the other hand each such string <span class="arithmatex">$u + c + w$</span>, by the definition of the terminal states, will be a suffix of the entire string <span class="arithmatex">$s$</span>.
-Since there are only <span class="arithmatex">$n$</span> non-empty suffixes of <span class="arithmatex">$s$</span>, and non of the strings <span class="arithmatex">$u + c + w$</span> can contain <span class="arithmatex">$s$</span> (because the entire string only contains complete transitions), the total number of incomplete transitions does not exceed <span class="arithmatex">$n - 1$</span>.</p>
+Since there are only <span class="arithmatex">$n$</span> non-empty suffixes of <span class="arithmatex">$s$</span>, and none of the strings <span class="arithmatex">$u + c + w$</span> can contain <span class="arithmatex">$s$</span> (because the entire string only contains complete transitions), the total number of incomplete transitions does not exceed <span class="arithmatex">$n - 1$</span>.</p>
 <p>Combining these two estimates gives us the bound <span class="arithmatex">$3n - 3$</span>.
 However, since the maximum number of states can only be achieved with the test case <span class="arithmatex">$\text{"abbb\dots bbb"}$</span> and this case has clearly less than <span class="arithmatex">$3n - 3$</span> transitions, we get the tighter bound of <span class="arithmatex">$3n - 4$</span> for the number of transitions in a suffix automaton.</p>
 <p>This bound can also be achieved with the string:</p>
@@ -7290,7 +7300,7 @@ However, since the maximum number of states can only be achieved with the test c
 <p>Here we look at some tasks that can be solved using the suffix automaton.
 For the simplicity we assume that the alphabet size <span class="arithmatex">$k$</span> is constant, which allows us to consider the complexity of appending a character and the traversal as constant.</p>
 <h3 id="check-for-occurrence">Check for occurrence<a class="headerlink" href="#check-for-occurrence" title="Permanent link">&para;</a></h3>
-<p>Given a text <span class="arithmatex">$T$</span>, and multiple patters <span class="arithmatex">$P$</span>.
+<p>Given a text <span class="arithmatex">$T$</span>, and multiple patterns <span class="arithmatex">$P$</span>.
 We have to check whether or not the strings <span class="arithmatex">$P$</span> appear as a substring of <span class="arithmatex">$T$</span>.</p>
 <p>We build a suffix automaton of the text <span class="arithmatex">$T$</span> in <span class="arithmatex">$O(length(T))$</span> time.
 To check if a pattern <span class="arithmatex">$P$</span> appears in <span class="arithmatex">$T$</span>, we follow the transitions, starting from <span class="arithmatex">$t_0$</span>, according to the characters of <span class="arithmatex">$P$</span>.
@@ -7331,7 +7341,7 @@ the number of different substrings <span class="arithmatex">$d[v]$</span> and th
 <p>We already described how to compute <span class="arithmatex">$d[v]$</span> in the previous task.
 The value <span class="arithmatex">$ans[v]$</span> can be computed using the recursion:</p>
 <div class="arithmatex">$$ans[v] = \sum_{w : (v, w, c) \in DAWG} d[w] + ans[w]$$</div>
-<p>We take the answer of each adjacent vertex <span class="arithmatex">$w$</span>, and add to it <span class="arithmatex">$d[w]$</span> (since every substrings is one character longer when starting from the state <span class="arithmatex">$v$</span>).</p>
+<p>We take the answer of each adjacent vertex <span class="arithmatex">$w$</span>, and add to it <span class="arithmatex">$d[w]$</span> (since every substring is one character longer when starting from the state <span class="arithmatex">$v$</span>).</p>
 <p>Again this task can be computed in <span class="arithmatex">$O(length(S))$</span> time.</p>
 <p>Alternatively, we can, again, take advantage of the fact that each state <span class="arithmatex">$v$</span> matches to substrings of length <span class="arithmatex">$[minlen(v),len(v)]$</span>.
 Since <span class="arithmatex">$minlen(v) = 1 + len(link(v))$</span> and the arithmetic series formula <span class="arithmatex">$S_n = n \cdot \frac{a_1+a_n}{2}$</span> (where <span class="arithmatex">$S_n$</span> denotes the sum of <span class="arithmatex">$n$</span> terms, <span class="arithmatex">$a_1$</span> representing the first term, and <span class="arithmatex">$a_n$</span> representing the last), we can compute the length of substrings at a state in constant time.  We then sum up these totals for each state <span class="arithmatex">$v \neq t_0$</span> in the automaton. This is shown by the code below:</p>
@@ -7348,12 +7358,12 @@ Since <span class="arithmatex">$minlen(v) = 1 + len(link(v))$</span> and the ari
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">tot</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>This approaches runs in  <span class="arithmatex">$O(length(S))$</span> time, but experimentally runs 20x faster than the memoized dynamic programming version on randomized strings. It requires no extra space and no recursion.</p>
+<p>This approach runs in  <span class="arithmatex">$O(length(S))$</span> time, but experimentally runs 20x faster than the memoized dynamic programming version on randomized strings. It requires no extra space and no recursion.</p>
 <h3 id="lexicographically-k-th-substring">Lexicographically <span class="arithmatex">$k$</span>-th substring<a class="headerlink" href="#lexicographically-k-th-substring" title="Permanent link">&para;</a></h3>
 <p>Given a string <span class="arithmatex">$S$</span>.
 We have to answer multiple queries.
 For each given number <span class="arithmatex">$K_i$</span> we have to find the <span class="arithmatex">$K_i$</span>-th string in the lexicographically ordered list of all substrings.</p>
-<p>The solution of this problem is based on the idea of the previous two problems.
+<p>The solution to this problem is based on the idea of the previous two problems.
 The lexicographically <span class="arithmatex">$k$</span>-th substring corresponds to the lexicographically <span class="arithmatex">$k$</span>-th path in the suffix automaton.
 Therefore after counting the number of paths from each state, we can easily search for the <span class="arithmatex">$k$</span>-th path starting from the root of the automaton.</p>
 <p>This takes <span class="arithmatex">$O(length(S))$</span> time for preprocessing and then <span class="arithmatex">$O(length(ans) \cdot k)$</span> for each query (where <span class="arithmatex">$ans$</span> is the answer for the query and <span class="arithmatex">$k$</span> is the size of the alphabet).</p>
@@ -7367,7 +7377,7 @@ Then the automaton will contain in itself as paths all the cyclic shifts of the 
 <h3 id="number-of-occurrences">Number of occurrences<a class="headerlink" href="#number-of-occurrences" title="Permanent link">&para;</a></h3>
 <p>For a given text <span class="arithmatex">$T$</span>.
 We have to answer multiple queries.
-For each given pattern <span class="arithmatex">$P$</span> we have to find out how many times the string <span class="arithmatex">$P$</span> appears in the string <span class="arithmatex">$T$</span> as substring.</p>
+For each given pattern <span class="arithmatex">$P$</span> we have to find out how many times the string <span class="arithmatex">$P$</span> appears in the string <span class="arithmatex">$T$</span> as a substring.</p>
 <p>We construct the suffix automaton for the text <span class="arithmatex">$T$</span>.</p>
 <p>Next we do the following preprocessing:
 for each state <span class="arithmatex">$v$</span> in the automaton we calculate the number <span class="arithmatex">$cnt[v]$</span> that is equal to the size of the set <span class="arithmatex">$endpos(v)$</span>.
@@ -7384,7 +7394,7 @@ Consequently for each of these states we count the corresponding position at whi
 Therefore initially we have <span class="arithmatex">$cnt = 1$</span> for each such state, and <span class="arithmatex">$cnt = 0$</span> for all other.</p>
 <p>Then we apply the following operation for each <span class="arithmatex">$v$</span>: <span class="arithmatex">$cnt[link(v)] \text{ += } cnt[v]$</span>.
 The meaning behind this is, that if a string <span class="arithmatex">$v$</span> appears <span class="arithmatex">$cnt[v]$</span> times, then also all its suffixes appear at the exact same end positions, therefore also <span class="arithmatex">$cnt[v]$</span> times.</p>
-<p>Why don't we overcount in this procedure (i.e. don't count some position twice)?
+<p>Why don't we overcount in this procedure (i.e. don't count some positions twice)?
 Because we add the positions of a state to only one other state, so it can not happen that one state directs its positions to another state twice in two different ways.</p>
 <p>Thus we can compute the quantities <span class="arithmatex">$cnt$</span> for all states in the automaton in <span class="arithmatex">$O(length(T))$</span> time.</p>
 <p>After that answering a query by just looking up the value <span class="arithmatex">$cnt[t]$</span>, where <span class="arithmatex">$t$</span> is the state corresponding to the pattern, if such a state exists.
@@ -7446,7 +7456,7 @@ Thus if we remember the flag <code>is_cloned</code> for each state, we can simpl
 </code></pre></div>
 <h3 id="shortest-non-appearing-string">Shortest non-appearing string<a class="headerlink" href="#shortest-non-appearing-string" title="Permanent link">&para;</a></h3>
 <p>Given a string <span class="arithmatex">$S$</span> and a certain alphabet.
-We have to find a string of smallest length, that doesn't appear in <span class="arithmatex">$S$</span>.</p>
+We have to find a string of the smallest length, that doesn't appear in <span class="arithmatex">$S$</span>.</p>
 <p>We will apply dynamic programming on the suffix automaton built for the string <span class="arithmatex">$S$</span>.</p>
 <p>Let <span class="arithmatex">$d[v]$</span> be the answer for the node <span class="arithmatex">$v$</span>, i.e. we already processed part of the substring, are currently in the state <span class="arithmatex">$v$</span>, and want to find the smallest number of characters that have to be added to find a non-existent transition.
 Computing <span class="arithmatex">$d[v]$</span> is very simple.
@@ -7456,7 +7466,7 @@ Otherwise one character is not enough, and so we need to take the minimum of all
 <p>The answer to the problem will be <span class="arithmatex">$d[t_0]$</span>, and the actual string can be restored using the computed array <span class="arithmatex">$d[]$</span>.</p>
 <h3 id="longest-common-substring-of-two-strings">Longest common substring of two strings<a class="headerlink" href="#longest-common-substring-of-two-strings" title="Permanent link">&para;</a></h3>
 <p>Given two strings <span class="arithmatex">$S$</span> and <span class="arithmatex">$T$</span>.
-We have to find the longest common substring, i.e. such a string <span class="arithmatex">$X$</span> that appears as substring in <span class="arithmatex">$S$</span> and also in <span class="arithmatex">$T$</span>.</p>
+We have to find the longest common substring, i.e. such a string <span class="arithmatex">$X$</span> that appears as a substring in <span class="arithmatex">$S$</span> and also in <span class="arithmatex">$T$</span>.</p>
 <p>We construct a suffix automaton for the string <span class="arithmatex">$S$</span>.</p>
 <p>We will now take the string <span class="arithmatex">$T$</span>, and for each prefix look for the longest suffix of this prefix in <span class="arithmatex">$S$</span>.
 In other words, for each position in the string <span class="arithmatex">$T$</span>, we want to find the longest common substring of <span class="arithmatex">$S$</span> and <span class="arithmatex">$T$</span> ending in that position.</p>
@@ -7525,7 +7535,7 @@ After that, the answer to the problem will be the string <span class="arithmatex
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (91.77%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (3.92%)</li><li><a href="https://github.com/iagorrr" title="iagorrr" data-bi-name="contributorprofile" target="_blank">iagorrr</a> (0.89%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (0.89%)</li><li><a href="https://github.com/wilsjame" title="wilsjame" data-bi-name="contributorprofile" target="_blank">wilsjame</a> (0.76%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.76%)</li><li><a href="https://github.com/Ir1d" title="Ir1d" data-bi-name="contributorprofile" target="_blank">Ir1d</a> (0.25%)</li><li><a href="https://github.com/abeaumont" title="abeaumont" data-bi-name="contributorprofile" target="_blank">abeaumont</a> (0.13%)</li><li><a href="https://github.com/rohaquinlop" title="rohaquinlop" data-bi-name="contributorprofile" target="_blank">rohaquinlop</a> (0.13%)</li><li><a href="https://github.com/Kakalinn" title="Kakalinn" data-bi-name="contributorprofile" target="_blank">Kakalinn</a> (0.13%)</li><li><a href="https://github.com/hieplpvip" title="hieplpvip" data-bi-name="contributorprofile" target="_blank">hieplpvip</a> (0.13%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.13%)</li><li><a href="https://github.com/NAbdulla1" title="NAbdulla1" data-bi-name="contributorprofile" target="_blank">NAbdulla1</a> (0.13%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (89.87%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (3.92%)</li><li><a href="https://github.com/AtharvaThorve" title="AtharvaThorve" data-bi-name="contributorprofile" target="_blank">AtharvaThorve</a> (1.9%)</li><li><a href="https://github.com/iagorrr" title="iagorrr" data-bi-name="contributorprofile" target="_blank">iagorrr</a> (0.89%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (0.89%)</li><li><a href="https://github.com/wilsjame" title="wilsjame" data-bi-name="contributorprofile" target="_blank">wilsjame</a> (0.76%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.76%)</li><li><a href="https://github.com/Ir1d" title="Ir1d" data-bi-name="contributorprofile" target="_blank">Ir1d</a> (0.25%)</li><li><a href="https://github.com/abeaumont" title="abeaumont" data-bi-name="contributorprofile" target="_blank">abeaumont</a> (0.13%)</li><li><a href="https://github.com/rohaquinlop" title="rohaquinlop" data-bi-name="contributorprofile" target="_blank">rohaquinlop</a> (0.13%)</li><li><a href="https://github.com/Kakalinn" title="Kakalinn" data-bi-name="contributorprofile" target="_blank">Kakalinn</a> (0.13%)</li><li><a href="https://github.com/hieplpvip" title="hieplpvip" data-bi-name="contributorprofile" target="_blank">hieplpvip</a> (0.13%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.13%)</li><li><a href="https://github.com/NAbdulla1" title="NAbdulla1" data-bi-name="contributorprofile" target="_blank">NAbdulla1</a> (0.13%)</li></ul>
 </ul>
                 
               </article>
