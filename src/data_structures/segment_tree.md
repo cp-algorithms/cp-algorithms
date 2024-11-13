@@ -91,8 +91,6 @@ There are three possible cases:
 
 So, processing a sum query is a function that recursively calls itself with left and right children until it finds a complete or no overlap between ranges.
 
-So processing a sum query is a function that recursively calls itself once with either the left or the right child (without changing the query boundaries), or twice, once for the left and once for the right child (by splitting the query into two subqueries). And the recursion ends, whenever the boundaries of the current query segment coincides with the boundaries of the segment of the current vertex. In that case the answer will be the precomputed value of the sum of this segment, which is stored in the tree.
-
 In other words, the calculation of the query is a traversal of the tree, which spreads through all necessary branches of the tree, and uses the precomputed sum values of the segments in the tree. 
 
 Obviously we will start the traversal from the root vertex of the Segment Tree.
