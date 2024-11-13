@@ -84,22 +84,14 @@ For now we are going to answer sum queries. As an input we receive two integers 
 
 To do this, we will traverse the Segment Tree and use the precomputed sums of the segments.
 Let's assume that we are currently at the vertex that covers the segment $a[tl \dots tr]$.
-There are three possible cases. 
+There are three possible cases:
+1. $[tl \dots tr]$ is completely contained in $[l \dots r]$ : In this case, we know that the sum of this segment will surely be a part of the final answer, so we return this sum.
+2. $[tl \dots tr]$ partially covers $[l \dots r]$ : In this case, we cannot include this vertex's sum and we must explore both the left and right children. First we go to the left child($[tl \dots tm]$), compute a partial answer for this vertex (i.e. the sum of values of the intersection between the segment of the query and the segment of the left child), then go to the right child($[tm + 1 \dots tr]$, compute the partial answer using that vertex, and then combine the answers by adding them.
+3. There is no intersection between $[tl \dots tr]$ and $[l \dots r]$ : This segment does not contribute to the sum, so we return zero.
 
-The easiest case is when the segment $a[l \dots r]$ is equal to the corresponding segment of the current vertex (i.e. $a[l \dots r] = a[tl \dots tr]$), then we are finished and can return the precomputed sum that is stored in the vertex.
+So, processing a sum query is a function that recursively calls itself with left and right children until it finds a complete or no overlap between ranges.
 
-Alternatively the segment of the query can fall completely into the domain of either the left or the right child.
-Recall that the left child covers the segment $a[tl \dots tm]$ and the right vertex covers the segment $a[tm + 1 \dots tr]$ with $tm = (tl + tr) / 2$. 
-In this case we can simply go to the child vertex, which corresponding segment covers the query segment, and execute the algorithm described here with that vertex. 
-
-And then there is the last case, the query segment intersects with both children. 
-In this case we have no other option as to make two recursive calls, one for each child.
-First we go to the left child, compute a partial answer for this vertex (i.e. the sum of values of the intersection between the segment of the query and the segment of the left child), then go to the right child, compute the partial answer using that vertex, and then combine the answers by adding them. 
-In other words, since the left child represents the segment $a[tl \dots tm]$ and the right child the segment $a[tm+1 \dots tr]$, we compute the sum query $a[l \dots tm]$ using the left child, and the sum query $a[tm+1 \dots r]$ using the right child. 
-
-So processing a sum query is a function that recursively calls itself once with either the left or the right child (without changing the query boundaries), or twice, once for the left and once for the right child (by splitting the query into two subqueries). 
-And the recursion ends, whenever the boundaries of the current query segment coincides with the boundaries of the segment of the current vertex. 
-In that case the answer will be the precomputed value of the sum of this segment, which is stored in the tree.
+So processing a sum query is a function that recursively calls itself once with either the left or the right child (without changing the query boundaries), or twice, once for the left and once for the right child (by splitting the query into two subqueries). And the recursion ends, whenever the boundaries of the current query segment coincides with the boundaries of the segment of the current vertex. In that case the answer will be the precomputed value of the sum of this segment, which is stored in the tree.
 
 In other words, the calculation of the query is a traversal of the tree, which spreads through all necessary branches of the tree, and uses the precomputed sum values of the segments in the tree. 
 
@@ -202,14 +194,13 @@ In order to simplify the code, this function always does two recursive calls, ev
 
 ```{.cpp file=segment_tree_implementation_sum}
 int sum(int v, int tl, int tr, int l, int r) {
-    if (l > r) 
-        return 0;
-    if (l == tl && r == tr) {
-        return t[v];
-    }
+    if (tr < l || tl > r) return 0;  // no overlap
+    if (tl >= l && tr <= r) return t[v];  // complete overlap
+
     int tm = (tl + tr) / 2;
-    return sum(v*2, tl, tm, l, min(r, tm))
-           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
+    // partial overlap
+    return sum(v * 2, tl, tm, l, r)
+            + sum(v * 2 + 1, tm + 1, tr, l, r);
 }
 ```
 
