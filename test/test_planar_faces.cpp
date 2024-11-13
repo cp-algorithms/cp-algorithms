@@ -93,8 +93,60 @@ void test_cycle_with_chain() {
     assert(equal_cycles(faces[1], {2, 5, 4, 5, 2, 1, 0, 3}));
 }
 
+void test_complex_outer() {
+    std::vector<Point> p = {
+        Point(334, 181),
+        Point(403, 177),
+        Point(463, 181),
+        Point(524, 181),
+        Point(521, 568),
+        Point(460, 564),
+        Point(405, 572),
+        Point(335, 563),
+        Point(333, 386),
+        Point(400, 387),
+        Point(466, 389),
+        Point(523, 396),
+        Point(521, 353),
+        Point(466, 351),
+        Point(409, 354),
+        Point(333, 350),
+    };
+
+    std::vector<std::vector<size_t>> adj = {
+        {1, 15},
+        {0, 2, 14},
+        {1, 3, 13},
+        {2, 12},
+        {5, 11},
+        {6, 4, 10},
+        {7, 5, 9},
+        {8, 6},
+        {9, 7, 15},
+        {10, 8, 6},
+        {11, 9, 5},
+        {12, 10, 4},
+        {3, 13, 11},
+        {12, 14, 2},
+        {13, 15, 1},
+        {14, 0, 8},
+    };
+
+    auto faces = find_faces(p, adj);
+    assert(faces.size() == 8u);
+    assert(equal_cycles(faces[0], {15, 8, 7, 6, 5, 4, 11, 12, 3, 2, 1, 0}));
+    assert(equal_cycles(faces[1], {1, 14, 15, 0}));
+    assert(equal_cycles(faces[2], {2, 13, 14, 1}));
+    assert(equal_cycles(faces[3], {3, 12, 13, 2}));
+    assert(equal_cycles(faces[4], {5, 10, 11, 4}));
+    assert(equal_cycles(faces[5], {6, 9, 10, 5}));
+    assert(equal_cycles(faces[6], {7, 8, 9, 6}));
+    assert(equal_cycles(faces[7], {15, 14, 13, 12, 11, 10, 9, 8}));
+}
+
 int main() {
     test_simple();
     test_degenerate();
     test_cycle_with_chain();
+    test_complex_outer();
 }
