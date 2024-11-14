@@ -6,7 +6,7 @@ using namespace std;
 string getRandomString(size_t n, uint32_t seed, char minLetter='a', char maxLetter='b') {
     assert(minLetter <= maxLetter);
     const size_t nLetters = static_cast<int>(maxLetter) - static_cast<int>(minLetter) + 1;
-    static std::uniform_int_distribution<size_t> distr(0, nLetters - 1);
+    std::uniform_int_distribution<size_t> distr(0, nLetters - 1);
     std::mt19937 gen(seed);
 
     string res;
