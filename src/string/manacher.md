@@ -49,7 +49,7 @@ Such an algorithm is slow, it can calculate the answer only in $O(n^2)$.
 The implementation of the trivial algorithm is:
 
 ```cpp
-vector<int> manacher_odd(string s) {
+vector<int> manacher_odd_trivial(string s) {
     int n = s.size();
     s = "$" + s + "^";
     vector<int> p(n + 2);
@@ -68,7 +68,7 @@ Terminal characters `$` and `^` were used to avoid dealing with ends of the stri
 
 We describe the algorithm to find all the sub-palindromes with odd length, i. e. to calculate $d_{odd}[]$.
 
-For fast calculation we'll maintain the **borders $(l, r)$** of the rightmost found (sub-)palindrome (i. e. the current rightmost (sub-)palindrome is $s[l+1] s[l+2] \dots s[r-1]$). Initially we set $l = 0, r = 1$, which corresponds to the empty string.
+For fast calculation we'll maintain the **exclusive borders $(l, r)$** of the rightmost found (sub-)palindrome (i. e. the current rightmost (sub-)palindrome is $s[l+1] s[l+2] \dots s[r-1]$). Initially we set $l = 0, r = 1$, which corresponds to the empty string.
 
 So, we want to calculate $d_{odd}[i]$ for the next $i$, and all the previous values in $d_{odd}[]$ have been already calculated. We do the following:
 
@@ -145,7 +145,7 @@ vector<int> manacher_odd(string s) {
     int n = s.size();
     s = "$" + s + "^";
     vector<int> p(n + 2);
-    int l = 1, r = 1;
+    int l = 0, r = 1;
     for(int i = 1; i <= n; i++) {
         p[i] = max(0, min(r - i, p[l + (r - i)]));
         while(s[i - p[i]] == s[i + p[i]]) {
