@@ -140,7 +140,7 @@ For calculating $d_{odd}[]$, we get the following code. Things to note:
  - The while loop denotes the trivial algorithm. We launch it irrespective of the value of $k$.
  - If the size of palindrome centered at $i$ is $x$, then $d_{odd}[i]$ stores $\frac{x+1}{2}$.
 
-```cpp
+```{.cpp file=manacher_odd}
 vector<int> manacher_odd(string s) {
     int n = s.size();
     s = "$" + s + "^";
