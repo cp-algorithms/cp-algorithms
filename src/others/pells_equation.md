@@ -108,6 +108,92 @@ We get $x_{1} = 1$. Update the triple $(p_{1}, q_{1}, m_{1}) = ( \frac{1 \cdot 3
 
 ## Implementation
 ```cpp
+bool isSquare(long long n) {
+    long long sqrtN = (long long)sqrt(n);
+    return sqrtN * sqrtN == n;
+}
+
+long long mod(long long a, long long b) {
+    return (a % b + b) % b;
+}
+
+long long modInv(long long a, long long b) {
+    long long b0 = b, x0 = 0, x1 = 1;
+    if (b == 1) return 1;
+    while (a > 1) {
+        long long q = a / b;
+        long long temp = b;
+        b = a % b;
+        a = temp;
+        temp = x0;
+        x0 = x1 - q * x0;
+        x1 = temp;
+    }
+    if (x1 < 0) x1 += b0;
+    return x1;
+}
+
+
+// Chakravala method for solving Pell's equation
+pair<long long, long long> chakravala(int n) {
+    // Check if n is a perfect square
+    if (isSquare(n)) {
+        throw invalid_argument("n is a perfect square. No solutions exist for Pell's equation.");
+    }
+
+    // Initial values
+    double sqrt_n = sqrt(n);
+    long long a = (long long)floor(sqrt_n); // Initial a
+    long long b = 1;                 // Initial b
+    long long k = a * a - n;         // Initial k
+   
+    int steps = 0; // Step counter for iterations
+
+    // Repeat until k = 1
+    while (k != 1) {
+        long long absK = abs(k);
+
+        // Find m such that k | (a + bm), and minimize |m^2 - n|
+        long long m;
+        if (absK == 1) {
+            m = (long long)round(sqrt(n)); // round to nearest integer
+        } else {
+            long long r = mod(-a, absK);    // Negative of a mod(k) // (a + m*b)/|k|
+            long long s = modInv(b, absK);     // Modular inverse of b mod(k)
+            m = mod(r * s, absK);     // Compute m for (a + b*m) mod(k) = 0
+
+            // Approximate value of m
+            // m = m +  ((long long)floor((sqrt_n - m) / absK)) * absK;
+
+            // Adjust m to ensure m < sqrt(n) < m + k
+            while (m > sqrt(n)) m -= absK;
+            while (m + absK < sqrt_n) m += absK;
+
+            // Select closest value to n
+            if (abs(m * m - n) > abs((m + absK) * (m + absK) - n)) {
+                m = m + absK;
+            }
+        }
+
+        // Print the current triple
+        cout << "[a = " << a << ", b = " << b << ", k = " << k << "]" << endl;
+
+        // Update a, b, k using the recurrence relations
+        long long alpha = a;
+        a = (m * a + n * b) / absK;
+        b = (alpha + m * b) / absK;
+        k = (m * m - n) / k;
+
+        // Increment step counter
+        steps++;
+    }
+
+    // Print final result
+    cout << a << "^2 - " << n << " x " << b << "^2 = 1 in " << steps << " calculations." << endl;
+
+    // Return the solution as a pair (a, b)
+    return {a, b};
+}
 
 ```
 
