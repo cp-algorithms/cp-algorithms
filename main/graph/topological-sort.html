@@ -23,7 +23,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.45">
     
     
       
@@ -6493,6 +6493,18 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
 
@@ -6589,6 +6601,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -6645,7 +6661,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 20, 2023</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 20, 2024</span>&emsp;
 
 <!-- Tags -->
 
@@ -6687,11 +6703,11 @@ The example graph also has multiple topological orders, a second topological ord
 </center></p>
 <p>A Topological order may <strong>not exist</strong> at all.
 It only exists, if the directed graph contains no cycles.
-Otherwise because there is a contradiction: if there is a cycle containing the vertices <span class="arithmatex">$a$</span> and <span class="arithmatex">$b$</span>, then <span class="arithmatex">$a$</span> needs to have a smaller index than <span class="arithmatex">$b$</span> (since you can reach <span class="arithmatex">$b$</span> from <span class="arithmatex">$a$</span>) and also a bigger one (as you can reach <span class="arithmatex">$a$</span> from <span class="arithmatex">$b$</span>).
+Otherwise, there is a contradiction: if there is a cycle containing the vertices <span class="arithmatex">$a$</span> and <span class="arithmatex">$b$</span>, then <span class="arithmatex">$a$</span> needs to have a smaller index than <span class="arithmatex">$b$</span> (since you can reach <span class="arithmatex">$b$</span> from <span class="arithmatex">$a$</span>) and also a bigger one (as you can reach <span class="arithmatex">$a$</span> from <span class="arithmatex">$b$</span>).
 The algorithm described in this article also shows by construction, that every acyclic directed graph contains at least one topological order.</p>
-<p>A common problem in which topological sorting occurs is the following. There are <span class="arithmatex">$n$</span> variables with unknown values. For some variables we know that one of them is less than the other. You have to check whether these constraints are contradictory, and if not, output the variables in ascending order (if several answers are possible, output any of them). It is easy to notice that this is exactly the problem of finding topological order of a graph with <span class="arithmatex">$n$</span> vertices.</p>
+<p>A common problem in which topological sorting occurs is the following. There are <span class="arithmatex">$n$</span> variables with unknown values. For some variables, we know that one of them is less than the other. You have to check whether these constraints are contradictory, and if not, output the variables in ascending order (if several answers are possible, output any of them). It is easy to notice that this is exactly the problem of finding the topological order of a graph with <span class="arithmatex">$n$</span> vertices.</p>
 <h2 id="the-algorithm">The Algorithm<a class="headerlink" href="#the-algorithm" title="Permanent link">&para;</a></h2>
-<p>To solve this problem we will use <a href="depth-first-search.html">depth-first search</a>.</p>
+<p>To solve this problem, we will use <a href="depth-first-search.html">depth-first search</a>.</p>
 <p>Let's assume that the graph is acyclic. What does the depth-first search do?</p>
 <p>When starting from some vertex <span class="arithmatex">$v$</span>, DFS tries to traverse along all edges outgoing from <span class="arithmatex">$v$</span>.
 It stops at the edges for which the ends have been already been visited previously, and traverses along the rest of the edges and continues recursively at their ends.</p>
@@ -6747,7 +6763,7 @@ It is easy to understand that exit time of any vertex <span class="arithmatex">$
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (46.94%)</li><li><a href="https://github.com/vicky002" title="vicky002" data-bi-name="contributorprofile" target="_blank">vicky002</a> (18.37%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (8.16%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (7.140000000000001%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (7.14%)</li><li><a href="https://github.com/Nafyaz" title="Nafyaz" data-bi-name="contributorprofile" target="_blank">Nafyaz</a> (5.1%)</li><li><a href="https://github.com/iAngkur" title="iAngkur" data-bi-name="contributorprofile" target="_blank">iAngkur</a> (3.06%)</li><li><a href="https://github.com/wttc-nitr" title="wttc-nitr" data-bi-name="contributorprofile" target="_blank">wttc-nitr</a> (1.02%)</li><li><a href="https://github.com/PratikDevlekar" title="PratikDevlekar" data-bi-name="contributorprofile" target="_blank">PratikDevlekar</a> (1.02%)</li><li><a href="https://github.com/Aryamn" title="Aryamn" data-bi-name="contributorprofile" target="_blank">Aryamn</a> (1.02%)</li><li><a href="https://github.com/RodionGork" title="RodionGork" data-bi-name="contributorprofile" target="_blank">RodionGork</a> (1.02%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (44.9%)</li><li><a href="https://github.com/vicky002" title="vicky002" data-bi-name="contributorprofile" target="_blank">vicky002</a> (18.37%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (8.16%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (7.140000000000001%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (6.12%)</li><li><a href="https://github.com/Nafyaz" title="Nafyaz" data-bi-name="contributorprofile" target="_blank">Nafyaz</a> (5.1%)</li><li><a href="https://github.com/DairyQueenXD" title="DairyQueenXD" data-bi-name="contributorprofile" target="_blank">DairyQueenXD</a> (3.06%)</li><li><a href="https://github.com/iAngkur" title="iAngkur" data-bi-name="contributorprofile" target="_blank">iAngkur</a> (3.06%)</li><li><a href="https://github.com/wttc-nitr" title="wttc-nitr" data-bi-name="contributorprofile" target="_blank">wttc-nitr</a> (1.02%)</li><li><a href="https://github.com/PratikDevlekar" title="PratikDevlekar" data-bi-name="contributorprofile" target="_blank">PratikDevlekar</a> (1.02%)</li><li><a href="https://github.com/Aryamn" title="Aryamn" data-bi-name="contributorprofile" target="_blank">Aryamn</a> (1.02%)</li><li><a href="https://github.com/RodionGork" title="RodionGork" data-bi-name="contributorprofile" target="_blank">RodionGork</a> (1.02%)</li></ul>
 </ul>
                 
               </article>
