@@ -6,7 +6,7 @@ e_maxx_link: euler_path
 ---
 # Finding the Eulerian path in $O(M)$
 
-A Eulerian path is a path in a graph that passes through all of its edges exactly once.
+An Eulerian path is a path in a graph that passes through all of its edges exactly once.
 A Eulerian cycle is a Eulerian path that is a cycle.
 
 The problem is to find the Eulerian path in an **undirected multigraph with loops**.
