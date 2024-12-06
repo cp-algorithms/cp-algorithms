@@ -61,8 +61,8 @@ void dfs(int v, int p = -1) {
             low[v] = min(low[v], low[to]);
             if (low[to] >= tin[v] && p!=-1)
                 IS_CUTPOINT(v);
-            ++children;
         }
+        ++children;
     }
     if(p == -1 && children > 1)
         IS_CUTPOINT(v);
