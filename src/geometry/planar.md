@@ -125,20 +125,14 @@ std::vector<std::vector<size_t>> find_faces(std::vector<Point> vertices, std::ve
                 e = e1;
             }
             std::reverse(face.begin(), face.end());
-            int sign = 0;
-            for (size_t j = 0; j < face.size(); j++) {
-                size_t j1 = (j + 1) % face.size();
-                size_t j2 = (j + 2) % face.size();
-                int64_t val = vertices[face[j]].cross(vertices[face[j1]], vertices[face[j2]]);
-                if (val > 0) {
-                    sign = 1;
-                    break;
-                } else if (val < 0) {
-                    sign = -1;
-                    break;
-                }
+            Point p1 = vertices[face[0]];
+            __int128 sum = 0;
+            for (int j = 0; j < face.size(); ++j) {
+                Point p2 = vertices[face[j]];
+                Point p3 = vertices[face[(j + 1) % face.size()]];
+                sum += (p2 - p1).cross(p3 - p2);
             }
-            if (sign <= 0) {
+            if (sum <= 0) {
                 faces.insert(faces.begin(), face);
             } else {
                 faces.emplace_back(face);
