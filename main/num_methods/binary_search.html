@@ -23,7 +23,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
     
     
       
@@ -6550,6 +6550,32 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
     
   
     
@@ -6572,8 +6598,6 @@ Describe the issue of this article in detail.
   
     
   
-    
-  
 
   
   
@@ -6605,25 +6629,11 @@ Describe the issue of this article in detail.
     
   
 
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
 
 
+  
+  
+  
 
   
   
@@ -6672,7 +6682,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 21, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 20, 2024</span>&emsp;
 
 <!-- Tags -->
 
@@ -6738,9 +6748,9 @@ $$</div>
 f(0) \leq f(1) \leq \dots \leq f(n-1).
 $$</div>
 <p>The binary search, the way it is described above, finds the partition of the array by the predicate <span class="arithmatex">$f(M)$</span>, holding the boolean value of <span class="arithmatex">$k &lt; A_M$</span> expression.
-It is possible to use arbitrary monotonous predicate instead of <span class="arithmatex">$k &lt; A_M$</span>. It is particularly useful when the computation of <span class="arithmatex">$f(k)$</span> is requires too much time to actually compute it for every possible value.
+It is possible to use arbitrary monotonous predicate instead of <span class="arithmatex">$k &lt; A_M$</span>. It is particularly useful when the computation of <span class="arithmatex">$f(k)$</span> requires too much time to actually compute it for every possible value.
 In other words, binary search finds the unique index <span class="arithmatex">$L$</span> such that <span class="arithmatex">$f(L) = 0$</span> and <span class="arithmatex">$f(R)=f(L+1)=1$</span> if such a <em>transition point</em> exists, or gives us <span class="arithmatex">$L = n-1$</span> if <span class="arithmatex">$f(0) = \dots = f(n-1) = 0$</span> or <span class="arithmatex">$L = -1$</span> if <span class="arithmatex">$f(0) = \dots = f(n-1) = 1$</span>.</p>
-<p>Proof of correctness supposing a transition point exists, that is <span class="arithmatex">$f(0)=0$</span> and <span class="arithmatex">$f(n-1)=1$</span>: The implementation maintaints the <em>loop invariant</em> <span class="arithmatex">$f(l)=0, f(r)=1$</span>. When <span class="arithmatex">$r - l &gt; 1$</span>, the choice of <span class="arithmatex">$m$</span> means <span class="arithmatex">$r-l$</span> will always decrease. The loop terminates when <span class="arithmatex">$r - l = 1$</span>, giving us our desired transition point.</p>
+<p>Proof of correctness supposing a transition point exists, that is <span class="arithmatex">$f(0)=0$</span> and <span class="arithmatex">$f(n-1)=1$</span>: The implementation maintains the <em>loop invariant</em> <span class="arithmatex">$f(l)=0, f(r)=1$</span>. When <span class="arithmatex">$r - l &gt; 1$</span>, the choice of <span class="arithmatex">$m$</span> means <span class="arithmatex">$r-l$</span> will always decrease. The loop terminates when <span class="arithmatex">$r - l = 1$</span>, giving us our desired transition point.</p>
 <div class="highlight"><pre><span></span><code><span class="p">...</span><span class="w"> </span><span class="c1">// f(i) is a boolean function such that f(0) &lt;= ... &lt;= f(n-1)</span>
 <span class="kt">int</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
 <span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -6794,7 +6804,7 @@ $$</div>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (80.77%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (7.69%)</li><li><a href="https://github.com/RomanSteinberg" title="RomanSteinberg" data-bi-name="contributorprofile" target="_blank">RomanSteinberg</a> (3.21%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (2.56%)</li><li><a href="https://github.com/100godmoon" title="100godmoon" data-bi-name="contributorprofile" target="_blank">100godmoon</a> (1.92%)</li><li><a href="https://github.com/iAngkur" title="iAngkur" data-bi-name="contributorprofile" target="_blank">iAngkur</a> (1.92%)</li><li><a href="https://github.com/Draac0" title="Draac0" data-bi-name="contributorprofile" target="_blank">Draac0</a> (0.64%)</li><li><a href="https://github.com/mbordia-eightfold" title="mbordia-eightfold" data-bi-name="contributorprofile" target="_blank">mbordia-eightfold</a> (0.64%)</li><li><a href="https://github.com/twfksh" title="twfksh" data-bi-name="contributorprofile" target="_blank">twfksh</a> (0.64%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (80.13%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (7.69%)</li><li><a href="https://github.com/RomanSteinberg" title="RomanSteinberg" data-bi-name="contributorprofile" target="_blank">RomanSteinberg</a> (3.21%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (1.92%)</li><li><a href="https://github.com/100godmoon" title="100godmoon" data-bi-name="contributorprofile" target="_blank">100godmoon</a> (1.92%)</li><li><a href="https://github.com/iAngkur" title="iAngkur" data-bi-name="contributorprofile" target="_blank">iAngkur</a> (1.92%)</li><li><a href="https://github.com/konstantinosalatzas" title="konstantinosalatzas" data-bi-name="contributorprofile" target="_blank">konstantinosalatzas</a> (1.28%)</li><li><a href="https://github.com/Draac0" title="Draac0" data-bi-name="contributorprofile" target="_blank">Draac0</a> (0.64%)</li><li><a href="https://github.com/mbordia-eightfold" title="mbordia-eightfold" data-bi-name="contributorprofile" target="_blank">mbordia-eightfold</a> (0.64%)</li><li><a href="https://github.com/twfksh" title="twfksh" data-bi-name="contributorprofile" target="_blank">twfksh</a> (0.64%)</li></ul>
 </ul>
                 
               </article>
@@ -6840,7 +6850,7 @@ $$</div>
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
+      <script src="../assets/javascripts/bundle.88dd0f4e.min.js"></script>
       
         <script src="../javascript/config.js"></script>
       

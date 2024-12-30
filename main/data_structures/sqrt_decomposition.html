@@ -23,7 +23,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
     
     
       
@@ -6559,10 +6559,6 @@ Describe the issue of this article in detail.
   
     
   
-    
-  
-    
-  
 
   
   
@@ -6576,24 +6572,6 @@ Describe the issue of this article in detail.
     
   
     
-  
-
-  
-  
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
   
     
   
@@ -6645,6 +6623,40 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
     
   
 
@@ -6673,6 +6685,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -6741,7 +6757,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 1, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 20, 2024</span>&emsp;
 
 <!-- Tags -->
 
@@ -6848,7 +6864,7 @@ But in a lot of situations this method has advantages.
 During a normal sqrt decomposition, we have to precompute the answers for each block, and merge them during answering queries.
 In some problems this merging step can be quite problematic.
 E.g. when each queries asks to find the <strong>mode</strong> of its range (the number that appears the most often).
-For this each block would have to store the count of each number in it in some sort of data structure, and we cannot longer perform the merge step fast enough any more.
+For this each block would have to store the count of each number in it in some sort of data structure, and we can no longer perform the merge step fast enough any more.
 <strong>Mo's algorithm</strong> uses a completely different approach, that can answer these kind of queries fast, because it only keeps track of one data structure, and the only operations with it are easy and fast.</p>
 <p>The idea is to answer the queries in a special order based on the indices.
 We will first answer all queries which have the left index in block 0, then answer all queries which have left index in block 1 and so on.
@@ -6958,7 +6974,7 @@ More importantly, don't compute the block size at runtime - make it <code>const<
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/madhur4127" title="madhur4127" data-bi-name="contributorprofile" target="_blank">madhur4127</a> (56.63%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (25.3%)</li><li><a href="https://github.com/RodionGork" title="RodionGork" data-bi-name="contributorprofile" target="_blank">RodionGork</a> (4.02%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (3.61%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.21%)</li><li><a href="https://github.com/tanmay-sinha" title="tanmay-sinha" data-bi-name="contributorprofile" target="_blank">tanmay-sinha</a> (2.01%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (1.2%)</li><li><a href="https://github.com/gampu" title="gampu" data-bi-name="contributorprofile" target="_blank">gampu</a> (1.2%)</li><li><a href="https://github.com/abirc8010" title="abirc8010" data-bi-name="contributorprofile" target="_blank">abirc8010</a> (0.4%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (0.4%)</li><li><a href="https://github.com/3centroids" title="3centroids" data-bi-name="contributorprofile" target="_blank">3centroids</a> (0.4%)</li><li><a href="https://github.com/mrpandey" title="mrpandey" data-bi-name="contributorprofile" target="_blank">mrpandey</a> (0.4%)</li><li><a href="https://github.com/rajatdiptabiswas" title="rajatdiptabiswas" data-bi-name="contributorprofile" target="_blank">rajatdiptabiswas</a> (0.4%)</li><li><a href="https://github.com/meooow25" title="meooow25" data-bi-name="contributorprofile" target="_blank">meooow25</a> (0.4%)</li><li><a href="https://github.com/algmyr" title="algmyr" data-bi-name="contributorprofile" target="_blank">algmyr</a> (0.4%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/madhur4127" title="madhur4127" data-bi-name="contributorprofile" target="_blank">madhur4127</a> (56.22%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (25.3%)</li><li><a href="https://github.com/RodionGork" title="RodionGork" data-bi-name="contributorprofile" target="_blank">RodionGork</a> (4.02%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (3.61%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.21%)</li><li><a href="https://github.com/tanmay-sinha" title="tanmay-sinha" data-bi-name="contributorprofile" target="_blank">tanmay-sinha</a> (2.01%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (1.2%)</li><li><a href="https://github.com/gampu" title="gampu" data-bi-name="contributorprofile" target="_blank">gampu</a> (1.2%)</li><li><a href="https://github.com/ypratik817" title="ypratik817" data-bi-name="contributorprofile" target="_blank">ypratik817</a> (0.4%)</li><li><a href="https://github.com/abirc8010" title="abirc8010" data-bi-name="contributorprofile" target="_blank">abirc8010</a> (0.4%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (0.4%)</li><li><a href="https://github.com/3centroids" title="3centroids" data-bi-name="contributorprofile" target="_blank">3centroids</a> (0.4%)</li><li><a href="https://github.com/mrpandey" title="mrpandey" data-bi-name="contributorprofile" target="_blank">mrpandey</a> (0.4%)</li><li><a href="https://github.com/rajatdiptabiswas" title="rajatdiptabiswas" data-bi-name="contributorprofile" target="_blank">rajatdiptabiswas</a> (0.4%)</li><li><a href="https://github.com/meooow25" title="meooow25" data-bi-name="contributorprofile" target="_blank">meooow25</a> (0.4%)</li><li><a href="https://github.com/algmyr" title="algmyr" data-bi-name="contributorprofile" target="_blank">algmyr</a> (0.4%)</li></ul>
 </ul>
                 
               </article>
@@ -7004,7 +7020,7 @@ More importantly, don't compute the block size at runtime - make it <code>const<
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
+      <script src="../assets/javascripts/bundle.88dd0f4e.min.js"></script>
       
         <script src="../javascript/config.js"></script>
       
