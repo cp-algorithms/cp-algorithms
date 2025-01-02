@@ -39,7 +39,7 @@ It is clear, that the vertex connectivity of a graph is equal to the minimal siz
 
 ### The Whitney inequalities
 
-The **Whitney inequalities** (1932) gives a relation between the edge connectivity $\lambda$, the vertex connectivity $\kappa$ and the smallest degree of the vertices $\delta$:
+The **Whitney inequalities** (1932) gives a relation between the edge connectivity $\lambda$, the vertex connectivity $\kappa$, and the minimum degree of any vertex in the graph $\delta$:
 
 $$\kappa \le \lambda \le \delta$$
 
@@ -77,7 +77,7 @@ Especially the algorithm will run pretty fast for random graphs.
 
 ### Special algorithm for edge connectivity 
 
-The task of finding the edge connectivity if equal to the task of finding the **global minimum cut**.
+The task of finding the edge connectivity is equal to the task of finding the **global minimum cut**.
 
 Special algorithms have been developed for this task.
 One of them is the Stoer-Wagner algorithm, which works in $O(V^3)$ or $O(V E)$ time.
