@@ -58,7 +58,7 @@ def sum(int r):
     return res
 
 def increase(int i, int delta):
-    for all j with g(j) <= i <= j:
+    for all j with g(i) <= j <= i:
         t[j] += delta
 ```
 
