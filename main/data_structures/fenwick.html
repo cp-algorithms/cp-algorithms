@@ -6937,14 +6937,14 @@ As such, you will also find an alternative implementation which uses one-based i
 Both versions are equivalent in terms of time and memory complexity.</p>
 <p>Now we can write some pseudo-code for the two operations mentioned above.
 Below, we get the sum of elements of <span class="arithmatex">$A$</span> in the range <span class="arithmatex">$[0, r]$</span> and update (increase) some element <span class="arithmatex">$A_i$</span>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="nb">int</span> <span class="n">r</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="nb">int</span> <span class="n">r</span><span class="p">):</span>
     <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">while</span> <span class="p">(</span><span class="n">r</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">):</span>
         <span class="n">res</span> <span class="o">+=</span> <span class="n">t</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="n">res</span>
 
-<span class="k">def</span> <span class="nf">increase</span><span class="p">(</span><span class="nb">int</span> <span class="n">i</span><span class="p">,</span> <span class="nb">int</span> <span class="n">delta</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">increase</span><span class="p">(</span><span class="nb">int</span> <span class="n">i</span><span class="p">,</span> <span class="nb">int</span> <span class="n">delta</span><span class="p">):</span>
     <span class="k">for</span> <span class="nb">all</span> <span class="n">j</span> <span class="k">with</span> <span class="n">g</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">j</span><span class="p">:</span>
         <span class="n">t</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">delta</span>
 </code></pre></div>
@@ -7113,14 +7113,14 @@ The implementation is also a lot harder compared to the normal implementation fo
 <p>For this approach we change the requirements and definition for <span class="arithmatex">$T[]$</span> and <span class="arithmatex">$g()$</span> a little bit.
 We want <span class="arithmatex">$T[i]$</span> to store the sum of <span class="arithmatex">$[g(i)+1; i]$</span>.
 This changes the implementation a little bit, and allows for a similar nice definition for <span class="arithmatex">$g(i)$</span>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="nb">int</span> <span class="n">r</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="nb">int</span> <span class="n">r</span><span class="p">):</span>
     <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">while</span> <span class="p">(</span><span class="n">r</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
         <span class="n">res</span> <span class="o">+=</span> <span class="n">t</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">res</span>
 
-<span class="k">def</span> <span class="nf">increase</span><span class="p">(</span><span class="nb">int</span> <span class="n">i</span><span class="p">,</span> <span class="nb">int</span> <span class="n">delta</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">increase</span><span class="p">(</span><span class="nb">int</span> <span class="n">i</span><span class="p">,</span> <span class="nb">int</span> <span class="n">delta</span><span class="p">):</span>
     <span class="k">for</span> <span class="nb">all</span> <span class="n">j</span> <span class="k">with</span> <span class="n">g</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">j</span><span class="p">:</span>
         <span class="n">t</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">delta</span>
 </code></pre></div>
@@ -7212,7 +7212,7 @@ And if <span class="arithmatex">$i &gt; r$</span>, then the second update operat
 <p>Suppose that we want to increment the interval <span class="arithmatex">$[l, r]$</span> by the value <span class="arithmatex">$x$</span>.
 Similarly as in the previous method, we perform two point updates on <span class="arithmatex">$B_1$</span>: <code>add(B1, l, x)</code> and <code>add(B1, r+1, -x)</code>.
 And we also update <span class="arithmatex">$B_2$</span>. The details will be explained later.</p>
-<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">range_add</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">range_add</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
     <span class="n">add</span><span class="p">(</span><span class="n">B1</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
     <span class="n">add</span><span class="p">(</span><span class="n">B1</span><span class="p">,</span> <span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="n">x</span><span class="p">)</span>
     <span class="n">add</span><span class="p">(</span><span class="n">B2</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
@@ -7241,28 +7241,28 @@ $$</div>
 <p>The last expression is exactly equal to the required terms.
 Thus we can use <span class="arithmatex">$B_2$</span> for shaving off extra terms when we multiply <span class="arithmatex">$B_1[i]\times i$</span>.</p>
 <p>We can find arbitrary range sums by computing the prefix sums for <span class="arithmatex">$l-1$</span> and <span class="arithmatex">$r$</span> and taking the difference of them again.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
     <span class="k">while</span> <span class="n">idx</span> <span class="o">&lt;=</span> <span class="n">N</span><span class="p">:</span>
         <span class="n">b</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">+=</span> <span class="n">x</span>
         <span class="n">idx</span> <span class="o">+=</span> <span class="n">idx</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">idx</span>
 
-<span class="k">def</span> <span class="nf">range_add</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="n">r</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">range_add</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="n">r</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
     <span class="n">add</span><span class="p">(</span><span class="n">B1</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
     <span class="n">add</span><span class="p">(</span><span class="n">B1</span><span class="p">,</span> <span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="n">x</span><span class="p">)</span>
     <span class="n">add</span><span class="p">(</span><span class="n">B2</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
     <span class="n">add</span><span class="p">(</span><span class="n">B2</span><span class="p">,</span> <span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="n">x</span><span class="o">*</span><span class="n">r</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
     <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">while</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">total</span> <span class="o">+=</span> <span class="n">b</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
         <span class="n">idx</span> <span class="o">-=</span> <span class="n">idx</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">idx</span>
     <span class="k">return</span> <span class="n">total</span>
 
-<span class="k">def</span> <span class="nf">prefix_sum</span><span class="p">(</span><span class="n">idx</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">prefix_sum</span><span class="p">(</span><span class="n">idx</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">B1</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span><span class="o">*</span><span class="n">idx</span> <span class="o">-</span>  <span class="nb">sum</span><span class="p">(</span><span class="n">B2</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">range_sum</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">range_sum</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">prefix_sum</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">-</span> <span class="n">prefix_sum</span><span class="p">(</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="practice-problems">Practice Problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
@@ -7332,7 +7332,7 @@ Thus we can use <span class="arithmatex">$B_2$</span> for shaving off extra term
       <div class="md-footer-copyright">
         
           <div class="md-footer-copyright__highlight">
-            Text is available under the <a href="https://github.com/cp-algorithms/cp-algorithms/blob/main/LICENSE">Creative Commons Attribution Share Alike 4.0 International</a> License<br/>Copyright &copy; 2014 - 2024 by <a href="https://github.com/cp-algorithms/cp-algorithms/graphs/contributors">cp-algorithms contributors</a>
+            Text is available under the <a href="https://github.com/cp-algorithms/cp-algorithms/blob/main/LICENSE">Creative Commons Attribution Share Alike 4.0 International</a> License<br/>Copyright &copy; 2014 - 2025 by <a href="https://github.com/cp-algorithms/cp-algorithms/graphs/contributors">cp-algorithms contributors</a>
           </div>
         
         
