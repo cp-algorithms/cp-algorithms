@@ -6534,6 +6534,12 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
     
   
     
@@ -6592,6 +6598,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -6632,7 +6642,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 24, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 9, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6648,7 +6658,7 @@ Describe the issue of this article in detail.
 
 <h1 id="introduction-to-dynamic-programming">Introduction to Dynamic Programming<a class="headerlink" href="#introduction-to-dynamic-programming" title="Permanent link">&para;</a></h1>
 <p>The essence of dynamic programming is to avoid repeated calculation.  Often, dynamic programming problems are naturally solvable by recursion. In such cases, it's easiest to write the recursive solution, then save repeated states in a lookup table. This process is known as top-down dynamic programming with memoization. That's read "memoization" (like we are writing in a memo pad) not memorization.</p>
-<p>One of the most basic, classic examples of this process is the fibonacci sequence. It's recursive formulation is <span class="arithmatex">$f(n) = f(n-1) + f(n-2)$</span> where <span class="arithmatex">$n \ge 2$</span> and <span class="arithmatex">$f(0)=0$</span> and <span class="arithmatex">$f(1)=1$</span>. In C++, this would be expressed as:</p>
+<p>One of the most basic, classic examples of this process is the fibonacci sequence. Its recursive formulation is <span class="arithmatex">$f(n) = f(n-1) + f(n-2)$</span> where <span class="arithmatex">$n \ge 2$</span> and <span class="arithmatex">$f(0)=0$</span> and <span class="arithmatex">$f(1)=1$</span>. In C++, this would be expressed as:</p>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
@@ -6659,7 +6669,7 @@ Describe the issue of this article in detail.
 <h2 id="speeding-up-fibonacci-with-dynamic-programming-memoization">Speeding up Fibonacci with Dynamic Programming (Memoization)<a class="headerlink" href="#speeding-up-fibonacci-with-dynamic-programming-memoization" title="Permanent link">&para;</a></h2>
 <p>Our recursive function currently solves fibonacci in exponential time. This means that we can only handle small input values before the problem becomes too difficult. For instance, <span class="arithmatex">$f(29)$</span> results in <em>over 1 million</em> function calls!</p>
 <p>To increase the speed, we recognize that the number of subproblems is only <span class="arithmatex">$O(n)$</span>. That is, in order to calculate <span class="arithmatex">$f(n)$</span> we only need to know <span class="arithmatex">$f(n-1),f(n-2), \dots ,f(0)$</span>. Therefore, instead of recalculating these subproblems, we solve them once and then save the result in a lookup table.  Subsequent calls will use this lookup table and immediately return a result, thus eliminating exponential work! </p>
-<p>Each recursive call will check against a lookup table to see if the value has been calculated. This is done in <span class="arithmatex">$O(1)$</span> time.  If we have previously calcuated it, return the result, otherwise, we calculate the function normally. The overall runtime is <span class="arithmatex">$O(n)$</span>. This is an enormous improvement over our previous exponential time algorithm!</p>
+<p>Each recursive call will check against a lookup table to see if the value has been calculated. This is done in <span class="arithmatex">$O(1)$</span> time.  If we have previously calculated it, return the result, otherwise, we calculate the function normally. The overall runtime is <span class="arithmatex">$O(n)$</span>. This is an enormous improvement over our previous exponential time algorithm!</p>
 <div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MAXN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
 <span class="kt">bool</span><span class="w"> </span><span class="n">found</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
 <span class="kt">int</span><span class="w"> </span><span class="n">memo</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
@@ -6704,7 +6714,7 @@ These alternative ways of saving state are primarily useful when saving vectors 
 <h2 id="bottom-up-dynamic-programming">Bottom-up Dynamic Programming<a class="headerlink" href="#bottom-up-dynamic-programming" title="Permanent link">&para;</a></h2>
 <p>Until now you've only seen top-down dynamic programming with memoization. However, we can also solve problems with bottom-up dynamic programming. 
 Bottom-up is exactly the opposite of top-down, you start at the bottom (base cases of the recursion), and extend it to more and more values.</p>
-<p>To create a bottom-up approach for fibonacci numbers, we initilize the base cases in an array. Then, we simply use the recursive definition on array:</p>
+<p>To create a bottom-up approach for fibonacci numbers, we initialize the base cases in an array. Then, we simply use the recursive definition on array:</p>
 <div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MAXN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
 <span class="kt">int</span><span class="w"> </span><span class="n">fib</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
 
@@ -6808,7 +6818,7 @@ Secondly, we only need to use the two previous values to calculate the current e
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (79.39%)</li><li><a href="https://github.com/Zyad-Ayad" title="Zyad-Ayad" data-bi-name="contributorprofile" target="_blank">Zyad-Ayad</a> (9.7%)</li><li><a href="https://github.com/clumsy" title="clumsy" data-bi-name="contributorprofile" target="_blank">clumsy</a> (5.45%)</li><li><a href="https://github.com/ShubhamPhapale" title="ShubhamPhapale" data-bi-name="contributorprofile" target="_blank">ShubhamPhapale</a> (1.82%)</li><li><a href="https://github.com/Ahmed-Elshitehi" title="Ahmed-Elshitehi" data-bi-name="contributorprofile" target="_blank">Ahmed-Elshitehi</a> (1.21%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (1.21%)</li><li><a href="https://github.com/tj91" title="tj91" data-bi-name="contributorprofile" target="_blank">tj91</a> (0.61%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (0.61%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (78.18%)</li><li><a href="https://github.com/Zyad-Ayad" title="Zyad-Ayad" data-bi-name="contributorprofile" target="_blank">Zyad-Ayad</a> (9.7%)</li><li><a href="https://github.com/clumsy" title="clumsy" data-bi-name="contributorprofile" target="_blank">clumsy</a> (4.85%)</li><li><a href="https://github.com/konstantinosalatzas" title="konstantinosalatzas" data-bi-name="contributorprofile" target="_blank">konstantinosalatzas</a> (1.82%)</li><li><a href="https://github.com/ShubhamPhapale" title="ShubhamPhapale" data-bi-name="contributorprofile" target="_blank">ShubhamPhapale</a> (1.82%)</li><li><a href="https://github.com/Ahmed-Elshitehi" title="Ahmed-Elshitehi" data-bi-name="contributorprofile" target="_blank">Ahmed-Elshitehi</a> (1.21%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (1.21%)</li><li><a href="https://github.com/tj91" title="tj91" data-bi-name="contributorprofile" target="_blank">tj91</a> (0.61%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (0.61%)</li></ul>
 </ul>
                 
               </article>
