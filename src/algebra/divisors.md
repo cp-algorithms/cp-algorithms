@@ -127,3 +127,4 @@ For instance the Dirichlet convolution of two multiplicative functions is also m
   - [SPOJ - COMDIV](https://www.spoj.com/problems/COMDIV/)
   - [SPOJ - DIVSUM](https://www.spoj.com/problems/DIVSUM/)
   - [SPOJ - DIVSUM2](https://www.spoj.com/problems/DIVSUM2/)
+  - [kattis](https://open.kattis.com/problems/yetanotherdivisorproblem)
