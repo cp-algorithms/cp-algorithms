@@ -110,5 +110,6 @@ And since we let the slow pointer start at the start of the linked list, after $
 
 # Problems:
 - [Linked List Cycle (EASY)](https://leetcode.com/problems/linked-list-cycle/)
+- [Happy Number (Easy)](https://leetcode.com/problems/happy-number/)
 - [Find the Duplicate Number (Medium)](https://leetcode.com/problems/find-the-duplicate-number/)
 
