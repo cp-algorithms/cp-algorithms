@@ -15,7 +15,7 @@ $$
 \end{align}
 $$
 
-Notice, that the MEX of an array of size $N$ can never be bigger than $N$ itself.
+Notice, that the MEX of an array of size $N$ can never be greater or equal to $N$ itself.
 
 The easiest approach is to create a set of all elements in the array $A$, so that we can quickly check if a number is part of the array or not.
 Then we can check all numbers from $0$ to $N$, if the current number is not present in the set, return it.
