@@ -300,7 +300,7 @@ This is in fact nearly the same problem.
 Only now it is allowed to use identical numbers in the subsequence.
 
 The solution is essentially also nearly the same.
-We just have to change the inequality signs, and make a slightly modification to the binary search.
+We just have to change the inequality signs, and make a slight modification to the binary search.
 
 ### Number of longest increasing subsequences
 
