@@ -69,7 +69,7 @@ We have $n_1 m_1 \equiv 1 \pmod{m_2}$ so $n_1 \equiv m_1^{-1} \pmod{m_2}$, and v
 
 With those two coefficients we can define a solution:
 
-$$a = a_1 n_2 m_2 + a_2 n_1 m_1 \bmod{m_1 m_2}$$
+$$a = (a_1 n_2 m_2 + a_2 n_1 m_1) \bmod{m_1 m_2}$$
 
 It's easy to verify that this is indeed a solution by computing $a \bmod{m_1}$ and $a \bmod{m_2}$.
 
