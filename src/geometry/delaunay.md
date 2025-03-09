@@ -268,7 +268,7 @@ pair<QuadEdge*, QuadEdge*> build_tr(int l, int r, vector<pt>& p) {
         else
             basel = connect(basel->rev(), lcand->rev());
     }
-    return make_pair(ldo, rdo);
+    return make_pair(ldo, rdi);
 }
 
 vector<tuple<pt, pt, pt>> delaunay(vector<pt> p) {
