@@ -200,6 +200,7 @@ search:
         - [Tree painting](graph/tree_painting.md)
         - [2-SAT](graph/2SAT.md)
         - [Heavy-light decomposition](graph/hld.md)
+        - [Virtual trees](graph/virtual_trees.md)
 - Miscellaneous
     - Sequences
         - [RMQ task (Range Minimum Query - the smallest element in an interval)](sequences/rmq.md)
