@@ -193,7 +193,7 @@ In order to simplify the code, this function always does two recursive calls, ev
 ```{.cpp file=segment_tree_implementation_sum}
 int sum(int v, int tl, int tr, int l, int r) {
     if (tr < l || tl > r) return 0;  // no overlap
-    if (tl >= l && tr <= r) return t[v];  // complete overlap
+    if (l <= tl && tr <= r) return t[v];  // nested segment
 
     int tm = (tl + tr) / 2;
     // partial overlap
