@@ -3620,6 +3620,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#golden-section-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Golden section search
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -6734,6 +6743,12 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
     
   
     
@@ -6757,12 +6772,6 @@ Describe the issue of this article in detail.
   
   
     
-  
-    
-  
-
-  
-  
   
     
   
@@ -6902,7 +6911,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 28, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 24, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6969,6 +6978,13 @@ The second scenario is completely symmetrical to the first.</p>
 <h3 id="the-case-of-the-integer-arguments">The case of the integer arguments<a class="headerlink" href="#the-case-of-the-integer-arguments" title="Permanent link">&para;</a></h3>
 <p>If <span class="arithmatex">$f(x)$</span> takes integer parameter, the interval <span class="arithmatex">$[l, r]$</span> becomes discrete. Since we did not impose any restrictions on the choice of points <span class="arithmatex">$m_1$</span> and <span class="arithmatex">$m_2$</span>, the correctness of the algorithm is not affected. <span class="arithmatex">$m_1$</span> and <span class="arithmatex">$m_2$</span> can still be chosen to divide <span class="arithmatex">$[l, r]$</span> into 3 approximately equal parts.</p>
 <p>The difference occurs in the stopping criterion of the algorithm. Ternary search will have to stop when <span class="arithmatex">$(r - l) &lt; 3$</span>, because in that case we can no longer select <span class="arithmatex">$m_1$</span> and <span class="arithmatex">$m_2$</span> to be different from each other as well as from <span class="arithmatex">$l$</span> and <span class="arithmatex">$r$</span>, and this can cause an infinite loop. Once <span class="arithmatex">$(r - l) &lt; 3$</span>, the remaining pool of candidate points <span class="arithmatex">$(l, l + 1, \ldots, r)$</span> needs to be checked to find the point which produces the maximum value <span class="arithmatex">$f(x)$</span>.</p>
+<h3 id="golden-section-search">Golden section search<a class="headerlink" href="#golden-section-search" title="Permanent link">&para;</a></h3>
+<p>In some cases computing <span class="arithmatex">$f(x)$</span> may be quite slow, but reducing the number of iterations is infeasible due to precision issues. Fortunately, it is possible to compute <span class="arithmatex">$f(x)$</span> only once at each iteration (except the first one).</p>
+<p>To see how to do this, let's revisit the selection method for <span class="arithmatex">$m_1$</span> and <span class="arithmatex">$m_2$</span>. Suppose that we select <span class="arithmatex">$m_1$</span> and <span class="arithmatex">$m_2$</span> on <span class="arithmatex">$[l, r]$</span> in such a way that <span class="arithmatex">$\frac{r - l}{r - m_1} = \frac{r - l}{m_2 - l} = \varphi$</span> where <span class="arithmatex">$\varphi$</span> is some constant. In order to reduce the amount of computations, we want to select such <span class="arithmatex">$\varphi$</span> that on the next iteration one of the new evaluation points <span class="arithmatex">$m_1'$</span>, <span class="arithmatex">$m_2'$</span> will coincide with either <span class="arithmatex">$m_1$</span> or <span class="arithmatex">$m_2$</span>, so that we can reuse the already computed function value.</p>
+<p>Now suppose that after the current iteration we set <span class="arithmatex">$l = m_1$</span>. Then the point <span class="arithmatex">$m_1'$</span> will satisfy <span class="arithmatex">$\frac{r - m_1}{r - m_1'} = \varphi$</span>. We want this point to coincide with <span class="arithmatex">$m_2$</span>, meaning that <span class="arithmatex">$\frac{r - m_1}{r - m_2} = \varphi$</span>.</p>
+<p>Multiplying both sides of <span class="arithmatex">$\frac{r - m_1}{r - m_2} = \varphi$</span> by <span class="arithmatex">$\frac{r - m_2}{r - l}$</span> we obtain <span class="arithmatex">$\frac{r - m_1}{r - l} = \varphi\frac{r - m_2}{r - l}$</span>. Note that <span class="arithmatex">$\frac{r - m_1}{r - l} = \frac{1}{\varphi}$</span> and <span class="arithmatex">$\frac{r - m_2}{r - l} = \frac{r - l + l - m_2}{r - l} = 1 - \frac{1}{\varphi}$</span>. Substituting that and multiplying by <span class="arithmatex">$\varphi$</span>, we obtain the following equation:</p>
+<p><span class="arithmatex">$\varphi^2 - \varphi - 1 = 0$</span></p>
+<p>This is a well-known golden section equation. Solving it yields <span class="arithmatex">$\frac{1 \pm \sqrt{5}}{2}$</span>. Since <span class="arithmatex">$\varphi$</span> must be positive, we obtain <span class="arithmatex">$\varphi = \frac{1 + \sqrt{5}}{2}$</span>. By applying the same logic to the case when we set <span class="arithmatex">$r = m_2$</span> and want <span class="arithmatex">$m_2'$</span> to coincide with <span class="arithmatex">$m_1$</span>, we obtain the same value of <span class="arithmatex">$\varphi$</span> as well. So, if we choose <span class="arithmatex">$m_1 = l + \frac{r - l}{1 + \varphi}$</span> and <span class="arithmatex">$m_2 = r - \frac{r - l}{1 + \varphi}$</span>, on each iteration we can re-use one of the values <span class="arithmatex">$f(x)$</span> computed on the previous iteration.</p>
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kt">double</span><span class="w"> </span><span class="nf">ternary_search</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">eps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-9</span><span class="p">;</span><span class="w">              </span><span class="c1">//set the error limit here</span>
@@ -7003,13 +7019,16 @@ The second scenario is completely symmetrical to the first.</p>
 <li><a href="https://codeforces.com/problemset/problem/439/D">Codeforces - Devu and his Brother</a></li>
 <li><a href="https://www.codechef.com/problems/ICM2003">Codechef - Is This JEE </a></li>
 <li><a href="https://codeforces.com/contest/1355/problem/E">Codeforces - Restorer Distance</a></li>
+<li><a href="https://acm.timus.ru/problem.aspx?space=1&amp;num=1058">TIMUS 1058 Chocolate</a></li>
+<li><a href="https://acm.timus.ru/problem.aspx?space=1&amp;num=1436">TIMUS 1436 Billboard</a></li>
+<li><a href="https://acm.timus.ru/problem.aspx?space=1&amp;num=1451">TIMUS 1451 Beerhouse Tale</a></li>
 <li><a href="https://acm.timus.ru/problem.aspx?space=1&amp;num=1719">TIMUS 1719 Kill the Shaitan-Boss</a></li>
 <li><a href="https://acm.timus.ru/problem.aspx?space=1&amp;num=1913">TIMUS 1913 Titan Ruins: Alignment of Forces</a></li>
 </ul>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (46.46%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (19.19%)</li><li><a href="https://github.com/AbhijeetKrishnan" title="AbhijeetKrishnan" data-bi-name="contributorprofile" target="_blank">AbhijeetKrishnan</a> (13.13%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (7.069999999999999%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (6.06%)</li><li><a href="https://github.com/SYury" title="SYury" data-bi-name="contributorprofile" target="_blank">SYury</a> (2.02%)</li><li><a href="https://github.com/joaquingx" title="joaquingx" data-bi-name="contributorprofile" target="_blank">joaquingx</a> (2.02%)</li><li><a href="https://github.com/Ahmed-Elshitehi" title="Ahmed-Elshitehi" data-bi-name="contributorprofile" target="_blank">Ahmed-Elshitehi</a> (1.01%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (1.01%)</li><li><a href="https://github.com/lovish24-ctrl" title="lovish24-ctrl" data-bi-name="contributorprofile" target="_blank">lovish24-ctrl</a> (1.01%)</li><li><a href="https://github.com/p1unit" title="p1unit" data-bi-name="contributorprofile" target="_blank">p1unit</a> (1.01%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (39.32%)</li><li><a href="https://github.com/SYury" title="SYury" data-bi-name="contributorprofile" target="_blank">SYury</a> (17.09%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (16.24%)</li><li><a href="https://github.com/AbhijeetKrishnan" title="AbhijeetKrishnan" data-bi-name="contributorprofile" target="_blank">AbhijeetKrishnan</a> (11.11%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (5.9799999999999995%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (5.13%)</li><li><a href="https://github.com/joaquingx" title="joaquingx" data-bi-name="contributorprofile" target="_blank">joaquingx</a> (1.71%)</li><li><a href="https://github.com/Ahmed-Elshitehi" title="Ahmed-Elshitehi" data-bi-name="contributorprofile" target="_blank">Ahmed-Elshitehi</a> (0.85%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (0.85%)</li><li><a href="https://github.com/lovish24-ctrl" title="lovish24-ctrl" data-bi-name="contributorprofile" target="_blank">lovish24-ctrl</a> (0.85%)</li><li><a href="https://github.com/p1unit" title="p1unit" data-bi-name="contributorprofile" target="_blank">p1unit</a> (0.85%)</li></ul>
 </ul>
                 
               </article>
