@@ -44,6 +44,7 @@ At the same time we also keep a track of the best state $s_{best}$ across all it
 <i>A visual representation of simulated annealing, searching for the maxima of this function with multiple local maxima.</i>.
 <br>
 <i>This <a href="https://commons.wikimedia.org/wiki/File:Hill_Climbing_with_Simulated_Annealing.gif">animation</a> by [Kingpin13](https://commons.wikimedia.org/wiki/User:Kingpin13) is distributed under <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0 1.0</a></i> license.
+</center>
 
 ### Temperature($T$) and decay($u$)
 
