@@ -29,7 +29,7 @@ theme:
 repo_url: https://github.com/cp-algorithms/cp-algorithms
 repo_name: cp-algorithms/cp-algorithms
 edit_uri: edit/main/src/
-copyright: Text is available under the <a href="https://github.com/cp-algorithms/cp-algorithms/blob/main/LICENSE">Creative Commons Attribution Share Alike 4.0 International</a> License<br/>Copyright &copy; 2014 - 2024 by <a href="https://github.com/cp-algorithms/cp-algorithms/graphs/contributors">cp-algorithms contributors</a>
+copyright: Text is available under the <a href="https://github.com/cp-algorithms/cp-algorithms/blob/main/LICENSE">Creative Commons Attribution Share Alike 4.0 International</a> License<br/>Copyright &copy; 2014 - 2025 by <a href="https://github.com/cp-algorithms/cp-algorithms/graphs/contributors">cp-algorithms contributors</a>
 extra_javascript:
   - javascript/config.js
   - https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6
@@ -61,8 +61,7 @@ plugins:
       hooks:
           on_env: "hooks:on_env"
   - search
-  - tags:
-      tags_file: tags.md
+  - tags
   - literate-nav:
       nav_file: navigation.md
   - git-revision-date-localized:

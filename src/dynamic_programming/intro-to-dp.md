@@ -7,7 +7,7 @@ tags:
 
 The essence of dynamic programming is to avoid repeated calculation.  Often, dynamic programming problems are naturally solvable by recursion. In such cases, it's easiest to write the recursive solution, then save repeated states in a lookup table. This process is known as top-down dynamic programming with memoization. That's read "memoization" (like we are writing in a memo pad) not memorization.
 
-One of the most basic, classic examples of this process is the fibonacci sequence. It's recursive formulation is $f(n) = f(n-1) + f(n-2)$ where $n \ge 2$ and $f(0)=0$ and $f(1)=1$. In C++, this would be expressed as:
+One of the most basic, classic examples of this process is the fibonacci sequence. Its recursive formulation is $f(n) = f(n-1) + f(n-2)$ where $n \ge 2$ and $f(0)=0$ and $f(1)=1$. In C++, this would be expressed as:
 
 ```cpp
 int f(int n) {
@@ -25,7 +25,7 @@ Our recursive function currently solves fibonacci in exponential time. This mean
 
 To increase the speed, we recognize that the number of subproblems is only $O(n)$. That is, in order to calculate $f(n)$ we only need to know $f(n-1),f(n-2), \dots ,f(0)$. Therefore, instead of recalculating these subproblems, we solve them once and then save the result in a lookup table.  Subsequent calls will use this lookup table and immediately return a result, thus eliminating exponential work! 
 
-Each recursive call will check against a lookup table to see if the value has been calculated. This is done in $O(1)$ time.  If we have previously calcuated it, return the result, otherwise, we calculate the function normally. The overall runtime is $O(n)$. This is an enormous improvement over our previous exponential time algorithm!
+Each recursive call will check against a lookup table to see if the value has been calculated. This is done in $O(1)$ time.  If we have previously calculated it, return the result, otherwise, we calculate the function normally. The overall runtime is $O(n)$. This is an enormous improvement over our previous exponential time algorithm!
 
 ```cpp
 const int MAXN = 100;
@@ -88,7 +88,7 @@ This approach is called top-down, as we can call the function with a query value
 Until now you've only seen top-down dynamic programming with memoization. However, we can also solve problems with bottom-up dynamic programming. 
 Bottom-up is exactly the opposite of top-down, you start at the bottom (base cases of the recursion), and extend it to more and more values.
 
-To create a bottom-up approach for fibonacci numbers, we initilize the base cases in an array. Then, we simply use the recursive definition on array:
+To create a bottom-up approach for fibonacci numbers, we initialize the base cases in an array. Then, we simply use the recursive definition on array:
 
 ```cpp
 const int MAXN = 100;
@@ -107,7 +107,7 @@ Of course, as written, this is a bit silly for two reasons:
 Firstly, we do repeated work if we call the function more than once. 
 Secondly, we only need to use the two previous values to calculate the current element. Therefore, we can reduce our memory from $O(n)$ to $O(1)$. 
 
-An example of a bottom-up dynamic programming solution for fibonacci which uses $O(1)$ might be:
+An example of a bottom-up dynamic programming solution for fibonacci which uses $O(1)$ memory might be:
 
 ```cpp
 const int MAX_SAVE = 3;
