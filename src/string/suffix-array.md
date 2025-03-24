@@ -205,7 +205,7 @@ The algorithm requires $O(n \log n)$ time and $O(n)$ memory. For simplicity we u
 If it is known that the string only contains a subset of characters, e.g. only lowercase letters, then the implementation can be optimized, but the optimization factor would likely be insignificant, as the size of the alphabet only matters on the first iteration. Every other iteration depends on the number of equivalence classes, which may quickly reach $O(n)$ even if initially it was a string over the alphabet of size $2$.
 
 Also note, that this algorithm only sorts the cycle shifts.
-As mentioned at the beginning of this section we can generate the sorted order of the suffixes by appending a character that is smaller than all other characters of the string, and sorting this resulting string by cycle shifts, e.g. by sorting the cycle shifts of $s + $\$.
+As mentioned at the beginning of this section we can generate the sorted order of the suffixes by appending a character that is smaller than all other characters of the string, and sorting this resulting string by cycle shifts, e.g. by sorting the cycle shifts of $s + \$$.
 This will obviously give the suffix array of $s$, however prepended with $|s|$.
 
 ```{.cpp file=suffix_array_construction}
@@ -395,25 +395,24 @@ $$\sum_{i=0}^{n-1} (n - p[i]) - \sum_{i=0}^{n-2} \text{lcp}[i] = \frac{n^2 + n}{
 * [UVA - 1227 - The longest constant gene](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=3668)
 * [SPOJ - Longest Common Substring](http://www.spoj.com/problems/LCS/en/)
 * [UVA 11512 - GATTACA](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2507)
-* [LA 7502 - Suffixes and Palindromes](https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&Itemid=8&category=720&page=show_problem&problem=5524)
+* [LA 7502 - Suffixes and Palindromes](https://vjudge.net/problem/UVALive-7502)
 * [GYM - Por Costel and the Censorship Committee](http://codeforces.com/gym/100923/problem/D)
 * [UVA 1254 - Top 10](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3695)
 * [UVA 12191 - File Recover](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3343)
 * [UVA 12206 - Stammering Aliens](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=3358)
 * [Codechef - Jarvis and LCP](https://www.codechef.com/problems/INSQ16F)
-* [LA 3943 - Liking's Letter](https://icpcarchive.ecs.baylor.edu/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=1944)
+* [LA 3943 - Liking's Letter](https://vjudge.net/problem/UVALive-3943)
 * [UVA 11107 - Life Forms](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2048)
 * [UVA 12974 - Exquisite Strings](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=862&page=show_problem&problem=4853)
 * [UVA 10526 - Intellectual Property](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1467)
 * [UVA 12338 - Anti-Rhyme Pairs](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=3760)
-* [DevSkills Reconstructing Blue Print of Life (archived)](http://web.archive.org/web/20210126015936/https://devskill.com/CodingProblems/ViewProblem/328)
 * [UVA 12191 - File Recover](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3343)
 * [SPOJ - Suffix Array](http://www.spoj.com/problems/SARRAY/)
-* [LA 4513 - Stammering Aliens](https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2514)
+* [LA 4513 - Stammering Aliens](https://vjudge.net/problem/UVALive-4513)
 * [SPOJ - LCS2](http://www.spoj.com/problems/LCS2/)
 * [Codeforces - Fake News (hard)](http://codeforces.com/contest/802/problem/I)
 * [SPOJ - Longest Commong Substring](http://www.spoj.com/problems/LONGCS/)
 * [SPOJ - Lexicographical Substring Search](http://www.spoj.com/problems/SUBLEX/)
 * [Codeforces - Forbidden Indices](http://codeforces.com/contest/873/problem/F)
 * [Codeforces - Tricky and Clever Password](http://codeforces.com/contest/30/problem/E)
-* [LA 6856 - Circle of digits](https://icpcarchive.ecs.baylor.edu/index.php?option=onlinejudge&page=show_problem&problem=4868)
+* [LA 6856 - Circle of digits](https://vjudge.net/problem/UVALive-6856)

@@ -101,8 +101,7 @@ vector<vector<int>> capacity, flow;
 vector<int> height, excess, seen;
 queue<int> excess_vertices;
 
-void push(int u, int v)
-{
+void push(int u, int v) {
     int d = min(excess[u], capacity[u][v] - flow[u][v]);
     flow[u][v] += d;
     flow[v][u] -= d;
@@ -112,8 +111,7 @@ void push(int u, int v)
         excess_vertices.push(v);
 }
 
-void relabel(int u)
-{
+void relabel(int u) {
     int d = inf;
     for (int i = 0; i < n; i++) {
         if (capacity[u][i] - flow[u][i] > 0)
@@ -123,8 +121,7 @@ void relabel(int u)
         height[u] = d + 1;
 }
 
-void discharge(int u)
-{
+void discharge(int u) {
     while (excess[u] > 0) {
         if (seen[u] < n) {
             int v = seen[u];
@@ -139,8 +136,7 @@ void discharge(int u)
     }
 }
 
-int max_flow(int s, int t)
-{
+int max_flow(int s, int t) {
     height.assign(n, 0);
     height[s] = n;
     flow.assign(n, vector<int>(n, 0));

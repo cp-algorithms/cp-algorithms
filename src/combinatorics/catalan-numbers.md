@@ -9,7 +9,7 @@ Catalan numbers is a number sequence, which is found useful in a number of combi
 
 This sequence was named after the Belgian mathematician [Catalan](https://en.wikipedia.org/wiki/Eug%C3%A8ne_Charles_Catalan), who lived in the 19th century. (In fact it was known before to Euler, who lived a century before Catalan).
 
-The first few numbers Catalan numbers, $C_n$ (starting from zero):
+The first few Catalan numbers $C_n$ (starting from zero):
 
  $1, 1, 2, 5, 14, 42, 132, 429, 1430, \ldots$
 

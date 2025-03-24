@@ -121,7 +121,7 @@ We can show that this proposition (at most four vertices each level) is true by 
 At the first level, we only visit one vertex, the root vertex, so here we visit less than four vertices. 
 Now let's look at an arbitrary level.
 By induction hypothesis, we visit at most four vertices. 
-If we only visit at most two vertices, the next level has at most four vertices. That trivial, because each vertex can only cause at most two recursive calls. 
+If we only visit at most two vertices, the next level has at most four vertices. That is trivial, because each vertex can only cause at most two recursive calls. 
 So let's assume that we visit three or four vertices in the current level. 
 From those vertices, we will analyze the vertices in the middle more carefully. 
 Since the sum query asks for the sum of a continuous subarray, we know that segments corresponding to the visited vertices in the middle will be completely covered by the segment of the sum query. 
@@ -138,7 +138,7 @@ And if we stop partitioning whenever the query segment coincides with the vertex
 ### Update queries
 
 Now we want to modify a specific element in the array, let's say we want to do the assignment $a[i] = x$. 
-And we have to rebuild the Segment Tree, such that it correspond to the new, modified array. 
+And we have to rebuild the Segment Tree, such that it corresponds to the new, modified array. 
 
 This query is easier than the sum query. 
 Each level of a Segment Tree forms a partition of the array. 
@@ -240,7 +240,7 @@ The memory consumption is limited by $4n$, even though a Segment Tree of an arra
 However it can be reduced. 
 We renumber the vertices of the tree in the order of an Euler tour traversal (pre-order traversal), and we write all these vertices next to each other.
 
-Lets look at a vertex at index $v$, and let him be responsible for the segment $[l, r]$, and let $mid = \dfrac{l + r}{2}$.
+Let's look at a vertex at index $v$, and let it be responsible for the segment $[l, r]$, and let $mid = \dfrac{l + r}{2}$.
 It is obvious that the left child will have the index $v + 1$.
 The left child is responsible for the segment $[l, mid]$, i.e. in total there will be $2 * (mid - l + 1) - 1$ vertices in the left child's subtree.
 Thus we can compute the index of the right child of $v$. The index will be $v + 2 * (mid - l + 1)$.
@@ -385,30 +385,19 @@ However, this will lead to a $O(\log^2 n)$ solution.
 
 Instead, we can use the same idea as in the previous sections, and find the position by descending the tree:
 by moving each time to the left or the right, depending on the maximum value of the left child.
-Thus finding the answer in $O(\log n)$ time.
+Thus finding the answer in $O(\log n)$ time. 
 
 ```{.cpp file=segment_tree_first_greater}
-int get_first(int v, int lv, int rv, int l, int r, int x) {
-    if(lv > r || rv < l) return -1;
-    if(l <= lv && rv <= r) {
-        if(t[v] <= x) return -1;
-        while(lv != rv) {
-            int mid = lv + (rv-lv)/2;
-            if(t[2*v] > x) {
-                v = 2*v;
-                rv = mid;
-            }else {
-                v = 2*v+1;
-                lv = mid+1;
-            }
-        }
-        return lv;
-    }
-
-    int mid = lv + (rv-lv)/2;
-    int rs = get_first(2*v, lv, mid, l, r, x);
-    if(rs != -1) return rs;
-    return get_first(2*v+1, mid+1, rv, l ,r, x);
+int get_first(int v, int tl, int tr, int l, int r, int x) {
+    if(tl > r || tr < l) return -1;
+    if(t[v] <= x) return -1;
+    
+    if (tl== tr) return tl;
+    
+    int tm = tl + (tr-tl)/2;
+    int left = get_first(2*v, tl, tm, l, r, x);
+    if(left != -1) return left;
+    return get_first(2*v+1, tm+1, tr, l ,r, x);
 }
 ```
 
@@ -602,7 +591,7 @@ This leads to a construction time of $O(n \log^2 n)$ (in general merging two red
 The $\text{query}$ function is also almost equivalent, only now the $\text{lower_bound}$ function of the $\text{multiset}$ function should be called instead ($\text{std::lower_bound}$ only works in $O(\log n)$ time if used with random-access iterators).
 
 Finally the modification request. 
-To process it, we must go down the tree, and modify all $\text{multiset}$ from the corresponding segments that contain the effected element.
+To process it, we must go down the tree, and modify all $\text{multiset}$ from the corresponding segments that contain the affected element.
 We simply delete the old value of this element (but only one occurrence), and insert the new value.
 
 ```cpp
@@ -653,11 +642,11 @@ These values can be computed in parallel to the merging step when we build the t
 
 How does this speed up the queries?
 
-Remember, in the normal solution we did a binary search in ever node.
+Remember, in the normal solution we did a binary search in every node.
 But with this modification, we can avoid all except one.
 
-To answer a query, we simply to a binary search in the root node.
-This gives as the smallest element $y \ge x$ in the complete array, but it also gives us two positions.
+To answer a query, we simply do a binary search in the root node.
+This gives us the smallest element $y \ge x$ in the complete array, but it also gives us two positions.
 The index of the smallest element greater or equal $x$ in the left subtree, and the index of the smallest element $y$ in the right subtree. Notice that $\ge y$ is the same as $\ge x$, since our array doesn't contain any elements between $x$ and $y$.
 In the normal Merge Sort Tree solution we would compute these indices via binary search, but with the help of the precomputed values we can just look them up in $O(1)$.
 And we can repeat that until we visited all nodes that cover our query interval.
@@ -682,7 +671,7 @@ other Segment Trees (somewhat discussed in [Generalization to higher dimensions]
 
 ### Range updates (Lazy Propagation)
 
-All problems in the above sections discussed modification queries that only effected a single element of the array each.
+All problems in the above sections discussed modification queries that only affected a single element of the array each.
 However the Segment Tree allows applying modification queries to an entire segment of contiguous elements, and perform the query in the same time $O(\log n)$. 
 
 #### Addition on segments
@@ -755,7 +744,7 @@ But before we do this, we must first sort out the root vertex first.
 The subtlety here is that the right half of the array should still be assigned to the value of the first query, and at the moment there is no information for the right half stored.
 
 The way to solve this is to push the information of the root to its children, i.e. if the root of the tree was assigned with any number, then we assign the left and the right child vertices with this number and remove the mark of the root.
-After that, we can assign the left child with the new value, without loosing any necessary information.
+After that, we can assign the left child with the new value, without losing any necessary information.
 
 Summarizing we get:
 for any queries (a modification or reading query) during the descent along the tree we should always push information from the current vertex into both of its children. 
@@ -816,6 +805,17 @@ Before traversing to a child vertex, we call $\text{push}$ and propagate the val
 We have to do this in both the $\text{update}$ function and the $\text{query}$ function.
 
 ```cpp
+void build(int a[], int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = max(t[v*2], t[v*2 + 1]);
+    }
+}
+
 void push(int v) {
     t[v*2] += lazy[v];
     lazy[v*2] += lazy[v];

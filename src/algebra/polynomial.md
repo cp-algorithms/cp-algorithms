@@ -16,7 +16,7 @@ In this section, we focus more on the definitions and "intuitive" properties of 
 ### Polynomial multiplication
 
 !!! info "Definition"
-	**Univariate polynomial** is an expresion of form $A(x) = a_0 + a_1 x + \dots + a_n x^n$.
+	**Univariate polynomial** is an expression of form $A(x) = a_0 + a_1 x + \dots + a_n x^n$.
 
 The values $a_0, \dots, a_n$ are polynomial coefficients, typically taken from some set of numbers or number-like structures. In this article, we assume that the coefficients are taken from some [field](https://en.wikipedia.org/wiki/Field_(mathematics)), meaning that operations of addition, subtraction, multiplication and division are well-defined for them (except for division by $0$) and they generally behave in a similar way to real numbers.
 	
@@ -25,7 +25,7 @@ Typical example of such field is the field of remainders modulo prime number $p$
 For simplicity we will drop the term _univariate_, as this is the only kind of polynomials we consider in this article. We will also write $A$ instead of $A(x)$ wherever possible, which will be understandable from the context. It is assumed that either $a_n \neq 0$ or $A(x)=0$.
 
 !!! info "Definition"
-	The **product** of two polynomials is defined by expanding it as an arythmetic expression:
+	The **product** of two polynomials is defined by expanding it as an arithmetic expression:
 
 	$$
 	A(x) B(x) = \left(\sum\limits_{i=0}^n a_i x^i \right)\left(\sum\limits_{j=0}^m b_j x^j\right) = \sum\limits_{i,j} a_i b_j x^{i+j} = \sum\limits_{k=0}^{n+m} c_k x^k = C(x).
@@ -69,12 +69,12 @@ The coefficient near $x^k$ in the polynomial $A(x)$ is denoted shortly as $[x^k]
 ### Formal power series
 
 !!! info "Definition"
-	A **formal power series** is an infite sum $A(x) = a_0 + a_1 x + a_2 x^2 + \dots$, considered regardless of its convergence properties.
+	A **formal power series** is an infinite sum $A(x) = a_0 + a_1 x + a_2 x^2 + \dots$, considered regardless of its convergence properties.
 
 In other words, when we consider e.g. a sum $1+\frac{1}{2}+\frac{1}{4}+\frac{1}{8}+\dots=2$, we imply that it _converges_ to $2$ when the number of summands approach infinity. However, formal series are only considered in terms of sequences that make them.
 
 !!! info "Definition"
-	The **product** of formal power series $A(x)$ and $B(x)$, is also defined by expanding it as an arythmetic expression:
+	The **product** of formal power series $A(x)$ and $B(x)$, is also defined by expanding it as an arithmetic expression:
 
 
 	$$
@@ -140,7 +140,7 @@ Polynomial long division is useful because of its many important properties:
 Note that long division can't be properly defined for formal power series. Instead, for any $A(x)$ such that $a_0 \neq 0$, it is possible to define an inverse formal power series $A^{-1}(x)$, such that $A(x) A^{-1}(x) = 1$. This fact, in turn, can be used to compute the result of long division for polynomials.
 
 ## Basic implementation
-[Here](https://github.com/cp-algorithms/cp-algorithms-aux/blob/master/src/polynomial.cpp) you can find the basic implementation of polynomial algebra.
+[Here](https://cp-algorithms.github.io/cp-algorithms-aux/cp-algo/math/poly.hpp) you can find the basic implementation of polynomial algebra.
 
 It supports all trivial operations and some other useful methods. The main class is `poly<T>` for polynomials with coefficients of type `T`.
 
@@ -263,7 +263,7 @@ Note that the matrix above is a so-called triangular [Toeplitz matrix](https://e
 
 Let's generalize the Sieveking–Kung algorithm. Consider equation $F(P) = 0$ where $P(x)$ should be a polynomial and $F(x)$ is some polynomial-valued function defined as
 
-$$F(x) = \sum\limits_{i=0}^\infty \alpha_i (x-\beta)^k,$$
+$$F(x) = \sum\limits_{i=0}^\infty \alpha_i (x-\beta)^i,$$
 
 where $\beta$ is some constant. It can be proven that if we introduce a new formal variable $y$, we can express $F(x)$ as
 
@@ -271,7 +271,7 @@ $$F(x) = F(y) + (x-y)F'(y) + (x-y)^2 G(x,y),$$
 
 where $F'(x)$ is the derivative formal power series defined as
 
-$$F'(x) = \sum\limits_{i=0}^\infty (k+1)\alpha_{i+1}(x-\beta)^k,$$
+$$F'(x) = \sum\limits_{i=0}^\infty (i+1)\alpha_{i+1}(x-\beta)^i,$$
 
 and $G(x, y)$ is some formal power series of $x$ and $y$. With this result we can find the solution iteratively.
 
@@ -384,7 +384,7 @@ The coefficient of $x^{n+r}$ of the product of the polynomials $A_0(x) = \sum\li
 Assume you need to calculate $A(x_1), \dots, A(x_n)$. As mentioned earlier, $A(x) \equiv A(x_i) \pmod{x-x_i}$. Thus you may do the following:
 
 1. Compute a segment tree such that in the segment $[l,r)$ stands the product $P_{l, r}(x) = (x-x_l)(x-x_{l+1})\dots(x-x_{r-1})$.
-2. Starting with $l=1$ and $r=n$ at the root node. Let $m=\lfloor(l+r)/2\rfloor$. Let's move down to $[l,m)$ with the polynomial $A(x) \pmod{P_{l,m}(x)}$.
+2. Starting with $l=1$ and $r=n+1$ at the root node. Let $m=\lfloor(l+r)/2\rfloor$. Let's move down to $[l,m)$ with the polynomial $A(x) \pmod{P_{l,m}(x)}$.
 3. This will recursively compute $A(x_l), \dots, A(x_{m-1})$, now do the same for $[m,r)$ with $A(x) \pmod{P_{m,r}(x)}$.
 4. Concatenate the results from the first and second recursive call and return them.
 

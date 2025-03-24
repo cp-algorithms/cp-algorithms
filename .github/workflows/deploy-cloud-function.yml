@@ -3,14 +3,14 @@ name: Deploy Cloud Function
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy_cloud_function:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - uses: dorny/paths-filter@v2
         id: changes
@@ -20,7 +20,7 @@ jobs:
               - 'preview/**'
 
       - id: 'auth'
-        uses: 'google-github-actions/auth@v0'
+        uses: 'google-github-actions/auth@v2.1.6'
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 

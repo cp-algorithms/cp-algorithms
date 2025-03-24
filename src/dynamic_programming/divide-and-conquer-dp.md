@@ -21,7 +21,7 @@ time. Then the straightforward evaluation of the above recurrence is $O(m n^2)$.
 are $m \times n$ states, and $n$ transitions for each state.
 
 Let $opt(i, j)$ be the value of $k$ that minimizes the above expression. Assuming that the 
-cost function satisfies the qudrangle inequality, we can show that 
+cost function satisfies the quadrangle inequality, we can show that 
 $opt(i, j) \leq opt(i, j + 1)$ for all $i, j$. This is known as the _monotonicity condition_. 
 Then, we can apply divide and conquer DP. The optimal
 "splitting point" for a fixed $i$ increases as $j$ increases.
@@ -51,7 +51,7 @@ It has to be called with `compute(0, n-1, 0, n-1)`. The function `solve` compute
 
 ```{.cpp file=divide_and_conquer_dp}
 int m, n;
-vector<long long> dp_before(n), dp_cur(n);
+vector<long long> dp_before, dp_cur;
 
 long long C(int i, int j);
 
@@ -74,7 +74,10 @@ void compute(int l, int r, int optl, int optr) {
     compute(mid + 1, r, opt, optr);
 }
 
-int solve() {
+long long solve() {
+    dp_before.assign(n,0);
+    dp_cur.assign(n,0);
+
     for (int i = 0; i < n; i++)
         dp_before[i] = C(0, i);
 
@@ -110,7 +113,7 @@ both!
 - [SPOJ - LARMY](https://www.spoj.com/problems/LARMY/)
 - [SPOJ - NKLEAVES](https://www.spoj.com/problems/NKLEAVES/)
 - [Timus - Bicolored Horses](https://acm.timus.ru/problem.aspx?space=1&num=1167)
-- [USACO - Circular Barn](http://www.usaco.org/index.php?page=viewproblem2&cpid=616)
+- [USACO - Circular Barn](https://usaco.org/index.php?page=viewproblem2&cpid=626)
 - [UVA - Arranging Heaps](https://onlinejudge.org/external/125/12524.pdf)
 - [UVA - Naming Babies](https://onlinejudge.org/external/125/12594.pdf)
 

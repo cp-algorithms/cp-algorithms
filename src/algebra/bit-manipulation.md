@@ -124,6 +124,22 @@ bool is_set(unsigned int number, int x) {
 }
 ```
 
+### Check if the number is divisible by a power of 2
+
+Using the and operation, we can check if a number $n$ is even because $n ~\&~ 1 = 0$ if $n$ is even, and $n ~\&~ 1 = 1$ if $n$ is odd.
+More generally, $n$ is divisible by $2^{k}$ exactly when $n ~\&~ (2^{k} − 1) = 0$.
+
+``` cpp
+bool isDivisibleByPowerOf2(int n, int k) {
+    int powerOf2 = 1 << k;
+    return (n & (powerOf2 - 1)) == 0;
+}
+```
+
+We can calculate $2^{k}$ by left shifting 1 by $k$ positions.
+The trick works, because $2^k - 1$ is a number that consists of exactly $k$ ones.
+And a number that is divisible by $2^k$ must have zero digits in those places.
+
 ### Check if an integer is a power of 2
 
 A power of two is a number that has only a single bit in it (e.g. $32 = 0010~0000_2$), while the predecessor of that number has that digit not set and all the digits after it set ($31 = 0001~1111_2$).
@@ -136,7 +152,7 @@ bool isPowerOfTwo(unsigned int n) {
 }
 ```
 
-### Clear the most-right set bit
+### Clear the right-most set bit
 
 The expression $n ~\&~ (n-1)$ can be used to turn off the rightmost set bit of a number $n$.
 This works because the expression $n-1$ flips all bits after the rightmost set bit of $n$, including the rightmost set bit.
@@ -170,7 +186,45 @@ int countSetBits(int n)
 }
 ```
 
-### Addtional tricks
+### Count set bits upto $n$
+To count the number of set bits of all numbers upto the number $n$ (inclusive), we can run the Brian Kernighan's algorithm on all numbers upto $n$. But this will result in a "Time Limit Exceeded" in contest submissions. 
+
+We can use the fact that for numbers upto $2^x$ (i.e. from $1$ to $2^x - 1$) there are $x \cdot 2^{x-1}$ set bits. This can be visualised as follows.
+```
+0 ->   0 0 0 0
+1 ->   0 0 0 1
+2 ->   0 0 1 0
+3 ->   0 0 1 1
+4 ->   0 1 0 0
+5 ->   0 1 0 1
+6 ->   0 1 1 0
+7 ->   0 1 1 1
+8 ->   1 0 0 0
+```
+
+We can see that the all the columns except the leftmost have $4$ (i.e. $2^2$) set bits each, i.e. upto the number $2^3 - 1$, the number of set bits is $3 \cdot 2^{3-1}$.
+
+With the new knowledge in hand we can come up with the following algorithm:
+
+- Find the highest power of $2$ that is lesser than or equal to the given number. Let this number be $x$.
+- Calculate the number of set bits from $1$ to $2^x - 1$ by using the formula $x \cdot 2^{x-1}$.
+- Count the no. of set bits in the most significant bit from $2^x$ to $n$ and add it.
+- Subtract $2^x$ from $n$ and repeat the above steps using the new $n$.
+
+```cpp
+int countSetBits(int n) {
+        int count = 0;
+        while (n > 0) {
+            int x = std::bit_width(n) - 1;
+            count += x << (x - 1);
+            n -= 1 << x;
+            count += n + 1;
+        }
+        return count;
+}
+```
+
+### Additional tricks
 
 - $n ~\&~ (n + 1)$ clears all trailing ones: $0011~0111_2 \rightarrow 0011~0000_2$.
 - $n ~|~ (n + 1)$ sets the last cleared bit: $0011~0101_2 \rightarrow 0011~0111_2$.
@@ -195,6 +249,7 @@ E.g. GCC defines a list at [Built-in Functions Provided by GCC](https://gcc.gnu.
 - `__builtin_ffs(int)` finds the index of the first (most right) set bit (`__builtin_ffs(0b0001'0010'1100) == 3`)
 - `__builtin_clz(unsigned int)` the count of leading zeros (`__builtin_clz(0b0001'0010'1100) == 23`)
 - `__builtin_ctz(unsigned int)` the count of trailing zeros (`__builtin_ctz(0b0001'0010'1100) == 2`)
+- ` __builtin_parity(x)` the parity (even or odd) of the number of ones in the bit representation
 
 _Note that some of the operations (both the C++20 functions and the Compiler Built-in ones) might be quite slow in GCC if you don't enable a specific compiler target with `#pragma GCC target("popcnt")`._
 

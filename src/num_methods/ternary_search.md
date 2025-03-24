@@ -45,7 +45,7 @@ If $m_1$ and $m_2$ are chosen to be closer to each other, the convergence rate w
 
 ### Run time analysis
 
-$$T(n) = T({2n}/{3}) + 1 = \Theta(\log n)$$
+$$T(n) = T({2n}/{3}) + O(1) = \Theta(\log n)$$
 
 It can be visualized as follows: every time after evaluating the function at points $m_1$ and $m_2$, we are essentially ignoring about one third of the interval, either the left or right one. Thus the size of the search space is ${2n}/{3}$ of the original one. 
 
@@ -96,6 +96,7 @@ Instead of the criterion `r - l > eps`, we can select a constant number of itera
 
 ## Practice Problems
 
+- [Codeforces - New Bakery](https://codeforces.com/problemset/problem/1978/B)
 - [Codechef - Race time](https://www.codechef.com/problems/AMCS03)
 - [Hackerearth - Rescuer](https://www.hackerearth.com/problem/algorithm/rescuer-2d2495cb/)
 - [Spoj - Building Construction](http://www.spoj.com/problems/KOPC12A/)

@@ -2,7 +2,7 @@ name: Test
 on: 
   push:
     branches:    
-      - 'master'
+      - 'main'
   pull_request:
 
 jobs:
@@ -11,9 +11,9 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5.2.0
         with:
           python-version: '3.8'
       - name: Set up C++

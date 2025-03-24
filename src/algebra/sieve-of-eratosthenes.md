@@ -15,7 +15,7 @@ A proper multiple of a number $x$, is a number greater than $x$ and divisible by
 Then we find the next number that hasn't been marked as composite, in this case it is 3.
 Which means 3 is prime, and we mark all proper multiples of 3 as composite.
 The next unmarked number is 5, which is the next prime number, and we mark all proper multiples of it.
-And we continue this procedure until we processed all numbers in the row.
+And we continue this procedure until we have processed all numbers in the row.
 
 In the following image you can see a visualization of the algorithm for computing all prime numbers in the range $[1; 16]$. It can be seen, that quite often we mark numbers as composite multiple times.
 
@@ -23,7 +23,7 @@ In the following image you can see a visualization of the algorithm for computin
 
 The idea behind is this:
 A number is prime, if none of the smaller prime numbers divides it.
-Since we iterate over the prime numbers in order, we already marked all numbers, who are divisible by at least one of the prime numbers, as divisible.
+Since we iterate over the prime numbers in order, we already marked all numbers, which are divisible by at least one of the prime numbers, as divisible.
 Hence if we reach a cell and it is not marked, then it isn't divisible by any smaller prime number and therefore has to be prime.
 
 ## Implementation
@@ -53,7 +53,7 @@ Using such implementation the algorithm consumes $O(n)$ of the memory (obviously
 It's simple to prove a running time of $O(n \log n)$ without knowing anything about the distribution of primes - ignoring the `is_prime` check, the inner loop runs (at most) $n/i$ times for $i = 2, 3, 4, \dots$, leading the total number of operations in the inner loop to be a harmonic sum like $n(1/2 + 1/3 + 1/4 + \cdots)$, which is bounded by $O(n \log n)$.
 
 Let's prove that algorithm's running time is $O(n \log \log n)$.
-The algorithm will perform $\frac{n}{p}$ operations for every prime $p \le n$ the inner loop.
+The algorithm will perform $\frac{n}{p}$ operations for every prime $p \le n$ in the inner loop.
 Hence, we need to evaluate the next expression:
 
 $$\sum_{\substack{p \le n, \\\ p \text{ prime}}} \frac n p = n \cdot \sum_{\substack{p \le n, \\\ p \text{ prime}}} \frac 1 p.$$
@@ -61,7 +61,7 @@ $$\sum_{\substack{p \le n, \\\ p \text{ prime}}} \frac n p = n \cdot \sum_{\subs
 Let's recall two known facts.
 
   - The number of prime numbers less than or equal to $n$ is approximately $\frac n {\ln n}$.
-  - The $k$-th prime number approximately equals $k \ln k$ (that follows immediately from the previous fact).
+  - The $k$-th prime number approximately equals $k \ln k$ (this follows from the previous fact).
 
 Thus we can write down the sum in the following way:
 
@@ -115,7 +115,7 @@ Such optimization doesn't affect the complexity (indeed, by repeating the proof 
 
 Since all even numbers (except $2$) are composite, we can stop checking even numbers at all. Instead, we need to operate with odd numbers only.
 
-First, it will allow us to half the needed memory. Second, it will reduce the number of operations performing by algorithm approximately in half.
+First, it will allow us to halve the needed memory. Second, it will reduce the number of operations performed by algorithm approximately in half.
 
 ### Memory consumption and speed of operations
 
@@ -139,13 +139,13 @@ Another drawback from `bitset` is that you need to know the size at compile time
 
 ### Segmented Sieve
 
-It follows from the optimization "sieving till root" that there is no need to keep the whole array `is_prime[1...n]` at all time.
+It follows from the optimization "sieving till root" that there is no need to keep the whole array `is_prime[1...n]` at all times.
 For sieving it is enough to just keep the prime numbers until the root of $n$, i.e. `prime[1... sqrt(n)]`, split the complete range into blocks, and sieve each block separately.
 
 Let $s$ be a constant which determines the size of the block, then we have $\lceil {\frac n s} \rceil$ blocks altogether, and the block $k$ ($k = 0 ... \lfloor {\frac n s} \rfloor$) contains the numbers in a segment $[ks; ks + s - 1]$.
 We can work on blocks by turns, i.e. for every block $k$ we will go through all the prime numbers (from $1$ to $\sqrt n$) and perform sieving using them.
 It is worth noting, that we have to modify the strategy a little bit when handling the first numbers: first, all the prime numbers from $[1; \sqrt n]$  shouldn't remove themselves; and second, the numbers $0$ and $1$ should be marked as non-prime numbers.
-While working on the last block it should not be forgotten that the last needed number $n$ is not necessary located in the end of the block.
+While working on the last block it should not be forgotten that the last needed number $n$ is not necessarily located at the end of the block.
 
 As discussed previously, the typical implementation of the Sieve of Eratosthenes is limited by the speed how fast you can load data into the CPU caches.
 By splitting the range of potential prime numbers $[1; n]$ into smaller blocks, we never have to keep multiple blocks in memory at the same time, and all operations are much more cache-friendlier.
@@ -254,6 +254,8 @@ However, this algorithm also has its own weaknesses.
 
 ## Practice Problems
 
+* [Leetcode - Four Divisors](https://leetcode.com/problems/four-divisors/)
+* [Leetcode - Count Primes](https://leetcode.com/problems/count-primes/)
 * [SPOJ - Printing Some Primes](http://www.spoj.com/problems/TDPRIMES/)
 * [SPOJ - A Conjecture of Paul Erdos](http://www.spoj.com/problems/HS08PAUL/)
 * [SPOJ - Primal Fear](http://www.spoj.com/problems/VECTAR8/)
@@ -269,4 +271,4 @@ However, this algorithm also has its own weaknesses.
 * [SPOJ - Prime Generator](http://www.spoj.com/problems/PRIME1/)
 * [SPOJ - Printing some primes (hard)](http://www.spoj.com/problems/PRIMES2/)
 * [Codeforces - Nodbach Problem](https://codeforces.com/problemset/problem/17/A)
-* [Codefoces - Colliders](https://codeforces.com/problemset/problem/154/B)
+* [Codeforces - Colliders](https://codeforces.com/problemset/problem/154/B)

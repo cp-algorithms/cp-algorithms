@@ -40,7 +40,7 @@ Logarithmic number of steps is drastically better than that of linear search. Fo
 
 ### Lower bound and upper bound
 
-It is often convenient to find the position of the first element that is not less than $k$ (called the lower bound of $k$ in the array) or the position of the first element that is greater than $k$ (called the upper bound of $k$) rather than the exact position of the element.
+It is often convenient to find the position of the first element that is greater or equal than $k$ (called the lower bound of $k$ in the array) or the position of the first element that is greater than $k$ (called the upper bound of $k$) rather than the exact position of the element.
 
 Together, lower and upper bounds produce a possibly empty half-interval of the array elements that are equal to $k$. To check whether $k$ is present in the array it's enough to find its lower bound and check if the corresponding element equates to $k$.
 
@@ -59,9 +59,9 @@ Then the implementation could look like this:
 ```cpp
 ... // a sorted array is stored as a[0], a[1], ..., a[n-1]
 int l = -1, r = n;
-while(r - l > 1) {
+while (r - l > 1) {
     int m = (l + r) / 2;
-    if(k < a[m]) {
+    if (k < a[m]) {
         r = m; // a[l] <= k < a[m] <= a[r]
     } else {
         l = m; // a[l] <= a[m] <= k < a[r]
@@ -71,24 +71,28 @@ while(r - l > 1) {
 
 During the execution of the algorithm, we never evaluate neither $A_L$ nor $A_R$, as $L < M < R$. In the end, $L$ will be the index of the last element that is not greater than $k$ (or $-1$ if there is no such element) and $R$ will be the index of the first element larger than $k$ (or $n$ if there is no such element).
 
+**Note.** Calculating `m` as `m = (r + l) / 2` can lead to overflow if `l` and `r` are two positive integers, and this error lived about 9 years in JDK as described in the [blogpost](https://ai.googleblog.com/2006/06/extra-extra-read-all-about-it-nearly.html). Some alternative approaches include e.g. writing `m = l + (r - l) / 2` which always works for positive integer `l` and `r`, but might still overflow if `l` is a negative number. If you use C++20, it offers an alternative solution in the form of `m = std::midpoint(l, r)` which always works correctly.
+
 ## Search on arbitrary predicate
 
-Let $f : \{0,1,\dots, n-1\} \to \{0, 1\}$ be a boolean function defined on $0,1,\dots,n-1$ such that it is monotonous, that is
+Let $f : \{0,1,\dots, n-1\} \to \{0, 1\}$ be a boolean function defined on $0,1,\dots,n-1$ such that it is monotonously increasing, that is
 
 $$
 f(0) \leq f(1) \leq \dots \leq f(n-1).
 $$
 
-The binary search, the way it is described above, finds the partition of the array by the predicate $f(M)$, holding the boolean value of $k < A_M$ expression. In other words, binary search finds the unique index $L$ such that $f(L) = 0$ and $f(R)=f(L+1)=1$.
+The binary search, the way it is described above, finds the partition of the array by the predicate $f(M)$, holding the boolean value of $k < A_M$ expression.
+It is possible to use arbitrary monotonous predicate instead of $k < A_M$. It is particularly useful when the computation of $f(k)$ requires too much time to actually compute it for every possible value.
+In other words, binary search finds the unique index $L$ such that $f(L) = 0$ and $f(R)=f(L+1)=1$ if such a _transition point_ exists, or gives us $L = n-1$ if $f(0) = \dots = f(n-1) = 0$ or $L = -1$ if $f(0) = \dots = f(n-1) = 1$.
 
-It is possible to use arbitrary monotonous predicate instead of $k < A_M$. It is particularly useful when the computation of $f(k)$ is requires too much time to actually compute it for every possible value.
+Proof of correctness supposing a transition point exists, that is $f(0)=0$ and $f(n-1)=1$: The implementation maintains the _loop invariant_ $f(l)=0, f(r)=1$. When $r - l > 1$, the choice of $m$ means $r-l$ will always decrease. The loop terminates when $r - l = 1$, giving us our desired transition point.
 
 ```cpp
 ... // f(i) is a boolean function such that f(0) <= ... <= f(n-1)
 int l = -1, r = n;
-while(r - l > 1) {
+while (r - l > 1) {
     int m = (l + r) / 2;
-    if(f(m)) {
+    if (f(m)) {
         r = m; // 0 = f(l) < f(m) = 1
     } else {
         l = m; // 0 = f(m) < f(r) = 1
@@ -138,11 +142,11 @@ This paradigm is widely used in tasks around trees, such as finding lowest commo
 
 * [LeetCode -  Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
 * [LeetCode -  Search Insert Position](https://leetcode.com/problems/search-insert-position/)
-* [LeetCode -  Sqrt(x)](https://leetcode.com/problems/sqrtx/)
 * [LeetCode -  First Bad Version](https://leetcode.com/problems/first-bad-version/)
 * [LeetCode -  Valid Perfect Square](https://leetcode.com/problems/valid-perfect-square/)
-* [LeetCode -  Guess Number Higher or Lower](https://leetcode.com/problems/guess-number-higher-or-lower/)
-* [LeetCode -  Search a 2D Matrix II](https://leetcode.com/problems/search-a-2d-matrix-ii/)
+* [LeetCode -  Find Peak Element](https://leetcode.com/problems/find-peak-element/)
+* [LeetCode -  Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
+* [LeetCode -  Find Right Interval](https://leetcode.com/problems/find-right-interval/)
 * [Codeforces - Interesting Drink](https://codeforces.com/problemset/problem/706/B/)
 * [Codeforces - Magic Powder - 1](https://codeforces.com/problemset/problem/670/D1)
 * [Codeforces - Another Problem on Strings](https://codeforces.com/problemset/problem/165/C)

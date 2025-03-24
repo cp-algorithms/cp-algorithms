@@ -106,7 +106,7 @@ Sqrt decomposition can be applied in a similar way to a whole class of other pro
 
 Another class of problems appears when we need to **update array elements on intervals**: increment existing elements or replace them with a given value.
 
-For example, let's say we can do two types of operations on an array: add a given value $\delta$ to all array elements on interval $[l, r]$ or query the value of element $a[i]$. Let's store the value which has to be added to all elements of block $k$ in $b[k]$ (initially all $b[k] = 0$). During each "add" operation we need to add $\delta$ to $b[k]$ for all blocks which belong to interval $[l, r]$ and to add $\delta$ to $a[i]$ for all elements which belong to the "tails" of the interval. The answer a query $i$ is simply $a[i] + b[i/s]$. This way "add" operation has $O(\sqrt{n})$ complexity, and answering a query has $O(1)$ complexity.
+For example, let's say we can do two types of operations on an array: add a given value $\delta$ to all array elements on interval $[l, r]$ or query the value of element $a[i]$. Let's store the value which has to be added to all elements of block $k$ in $b[k]$ (initially all $b[k] = 0$). During each "add" operation we need to add $\delta$ to $b[k]$ for all blocks which belong to interval $[l, r]$ and to add $\delta$ to $a[i]$ for all elements which belong to the "tails" of the interval. The answer to query $i$ is simply $a[i] + b[i/s]$. This way "add" operation has $O(\sqrt{n})$ complexity, and answering a query has $O(1)$ complexity.
 
 Finally, those two classes of problems can be combined if the task requires doing **both** element updates on an interval and queries on an interval. Both operations can be done with $O(\sqrt{n})$ complexity. This will require two block arrays $b$ and $c$: one to keep track of element updates and another to keep track of answers to the query.
 
@@ -120,7 +120,7 @@ But in a lot of situations this method has advantages.
 During a normal sqrt decomposition, we have to precompute the answers for each block, and merge them during answering queries.
 In some problems this merging step can be quite problematic.
 E.g. when each queries asks to find the **mode** of its range (the number that appears the most often).
-For this each block would have to store the count of each number in it in some sort of data structure, and we cannot longer perform the merge step fast enough any more.
+For this each block would have to store the count of each number in it in some sort of data structure, and we can no longer perform the merge step fast enough any more.
 **Mo's algorithm** uses a completely different approach, that can answer these kind of queries fast, because it only keeps track of one data structure, and the only operations with it are easy and fast.
 
 The idea is to answer the queries in a special order based on the indices.
@@ -236,6 +236,7 @@ You can read about even faster sorting approach [here](https://codeforces.com/bl
 
 ## Practice Problems
 
+* [Codeforces - Kuriyama Mirai's Stones](https://codeforces.com/problemset/problem/433/B)
 * [UVA - 12003 - Array Transformer](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3154)
 * [UVA - 11990 Dynamic Inversion](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3141)
 * [SPOJ - Give Away](http://www.spoj.com/problems/GIVEAWAY/)
@@ -245,3 +246,4 @@ You can read about even faster sorting approach [here](https://codeforces.com/bl
 * [Codeforces - XOR and Favorite Number](https://codeforces.com/problemset/problem/617/E)
 * [Codeforces - Powerful array](http://codeforces.com/problemset/problem/86/D)
 * [SPOJ - DQUERY](https://www.spoj.com/problems/DQUERY)
+* [Codeforces - Robin Hood Archery](https://codeforces.com/contest/2014/problem/H)

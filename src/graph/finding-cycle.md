@@ -129,5 +129,6 @@ void find_cycle() {
 ```
 ### Practice problems:
 
+- [AtCoder : Reachability in Functional Graph](https://atcoder.jp/contests/abc357/tasks/abc357_e)
 - [CSES : Round Trip](https://cses.fi/problemset/task/1669)
 - [CSES : Round Trip II](https://cses.fi/problemset/task/1678/)

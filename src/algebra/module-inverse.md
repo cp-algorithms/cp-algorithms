@@ -16,7 +16,7 @@ $$a \cdot x \equiv 1 \mod m.$$
 We will also denote $x$ simply with $a^{-1}$.
 
 We should note that the modular inverse does not always exist. For example, let $m = 4$, $a = 2$. 
-By checking all possible values modulo $m$ is should become clear that we cannot find $a^{-1}$ satisfying the above equation. 
+By checking all possible values modulo $m$, it should become clear that we cannot find $a^{-1}$ satisfying the above equation. 
 It can be proven that the modular inverse exists if and only if $a$ and $m$ are relatively prime (i.e. $\gcd(a, m) = 1$).
 
 In this article, we present two methods for finding the modular inverse in case it exists, and one method for finding the modular inverse for all numbers in linear time.
@@ -77,32 +77,37 @@ From these results, we can easily find the modular inverse using the [binary exp
 
 Even though this method is easier to understand than the method described in previous paragraph, in the case when $m$ is not a prime number, we need to calculate Euler phi function, which involves factorization of $m$, which might be very hard. If the prime factorization of $m$ is known, then the complexity of this method is $O(\log m)$.
 
-## Finding the modular inverse using Euclidean Division
+<div id="finding-the-modular-inverse-using-euclidean-division"></div>
+## Finding the modular inverse for prime moduli using Euclidean Division
 
-Given that $m > i$ (or we can modulo to make it smaller in 1 step), according to [Euclidean Division](https://en.wikipedia.org/wiki/Euclidean_division)
+Given a prime modulus $m > a$ (or we can apply modulo to make it smaller in 1 step), according to [Euclidean Division](https://en.wikipedia.org/wiki/Euclidean_division)
 
-$$m = k \cdot i + r$$
+$$m = k \cdot a + r$$
 
-where $k = \left\lfloor \frac{m}{i} \right\rfloor$ and $r = m \bmod i$, then
+where $k = \left\lfloor \frac{m}{a} \right\rfloor$ and $r = m \bmod a$, then
 
 $$
 \begin{align*}
-& \implies & 0          & \equiv k \cdot i + r   & \mod m \\
-& \iff & r              & \equiv -k \cdot i      & \mod m \\
-& \iff & r \cdot i^{-1} & \equiv -k              & \mod m \\
-& \iff & i^{-1}         & \equiv -k \cdot r^{-1} & \mod m
+& \implies & 0          & \equiv k \cdot a + r   & \mod m \\
+& \iff & r              & \equiv -k \cdot a      & \mod m \\
+& \iff & r \cdot a^{-1} & \equiv -k              & \mod m \\
+& \iff & a^{-1}         & \equiv -k \cdot r^{-1} & \mod m
 \end{align*}
 $$
 
-From there we can have the following recursive function (in C++) for computing the modular inverse for number $i$ with respect to module $m$
+Note that this reasoning does not hold if $m$ is not prime, since the existence of $a^{-1}$ does not imply the existence of $r^{-1}$
+in the general case. To see this, lets try to calculate $5^{-1}$ modulo $12$ with the above formula. We would like to arrive at $5$,
+since $5 \cdot 5 \equiv 1 \bmod 12$. However, $12 = 2 \cdot 5 + 2$, and we have $k=2$ and $r=2$, with $2$ being not invertible modulo $12$.
+
+If the modulus is prime however, all $a$ with $0 < a < m$ are invertible modulo $m$, and we can have the following recursive function (in C++) for computing the modular inverse for number $a$ with respect to $m$
 
 ```{.cpp file=modular_inverse_euclidean_division}
-int inv(int i) {
-  return i <= 1 ? i : m - (long long)(m/i) * inv(m % i) % m;
+int inv(int a) {
+  return a <= 1 ? a : m - (long long)(m/a) * inv(m % a) % m;
 }
 ```
 
-The exact time complexity of the this recursion is not known. It's is somewhere between $O(\frac{\log m}{\log\log m})$ and $O(n^{\frac{1}{3} - \frac{2}{177} + \epsilon})$.
+The exact time complexity of the this recursion is not known. It's is somewhere between $O(\frac{\log m}{\log\log m})$ and $O(m^{\frac{1}{3} - \frac{2}{177} + \epsilon})$.
 See [On the length of Pierce expansions](https://arxiv.org/abs/2211.08374).
 In practice this implementation is fast, e.g. for the modulus $10^9 + 7$ it will always finish in less than 50 iterations.
 
@@ -111,8 +116,8 @@ Applying this formula, we can also precompute the modular inverse for every numb
 
 ```{.cpp file=modular_inverse_euclidean_division_all}
 inv[1] = 1;
-for(int i = 2; i < m; ++i)
-    inv[i] = m - (long long)(m/i) * inv[m%i] % m;
+for(int a = 2; a < m; ++a)
+    inv[a] = m - (long long)(m/a) * inv[m%a] % m;
 ```
 
 ## Finding the modular inverse for array of numbers modulo $m$

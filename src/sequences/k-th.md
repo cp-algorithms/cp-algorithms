@@ -72,5 +72,5 @@ T order_statistics (std::vector<T> a, unsigned n, unsigned k)
 * Finding $K$ smallest elements can be reduced to finding $K$-th element with a linear overhead, as they're exactly the elements that are smaller than $K$-th.
 
 ## Practice Problems
-
+- [Leetcode: Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/description/)
 - [CODECHEF: Median](https://www.codechef.com/problems/CD1IT1)

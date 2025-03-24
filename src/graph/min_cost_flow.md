@@ -17,7 +17,7 @@ Sometimes the task is given a little differently:
 you want to find the maximum flow, and among all maximal flows we want to find the one with the least cost.
 This is called the **minimum-cost maximum-flow problem**.
 
-Both these problems can be solved effectively with the algorithm of sucessive shortest paths.
+Both these problems can be solved effectively with the algorithm of successive shortest paths.
 
 ## Algorithm
 
@@ -42,7 +42,7 @@ the residual network contains only unsaturated edges (i.e. edges in which $F_{i 
 
 Now we can talk about the **algorithms** to compute the minimum-cost flow.
 At each iteration of the algorithm we find the shortest path in the residual graph from $s$ to $t$.
-In contrary to Edmonds-Karp we look for the shortest path in terms of the cost of the path, instead of the number of edges.
+In contrast to Edmonds-Karp, we look for the shortest path in terms of the cost of the path instead of the number of edges.
 If there doesn't exists a path anymore, then the algorithm terminates, and the stream $F$ is the desired one.
 If a path was found, we increase the flow along it as much as possible (i.e. we find the minimal residual capacity $R$ of the path, and increase the flow by it, and reduce the back edges by the same amount).
 If at some point the flow reaches the value $K$, then we stop the algorithm (note that in the last iteration of the algorithm it is necessary to increase the flow by only such an amount so that the final flow value doesn't surpass $K$).
@@ -160,3 +160,9 @@ int min_cost_flow(int N, vector<Edge> edges, int K, int s, int t) {
         return cost;
 }
 ```
+
+## Practice Problems
+
+* [CSES - Task Assignment](https://cses.fi/problemset/task/2129)
+* [CSES - Grid Puzzle II](https://cses.fi/problemset/task/2131)
+* [AtCoder - Dream Team](https://atcoder.jp/contests/abc247/tasks/abc247_g)

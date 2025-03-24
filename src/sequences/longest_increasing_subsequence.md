@@ -46,7 +46,7 @@ Then there are two options:
 
 -   $d[i] = 1$: the required subsequence consists only of the element $a[i]$.
 
--   $d[i] > 1$: The subsequence will end it $a[i]$, and right before it will be some number $a[j]$ with $j < i$ and $a[j] < a[i]$.
+-   $d[i] > 1$: The subsequence will end at $a[i]$, and right before it will be some number $a[j]$ with $j < i$ and $a[j] < a[i]$.
 
     It's easy to see, that the subsequence ending in $a[j]$ will itself be one of the longest increasing subsequences that ends in $a[j]$.
     The number $a[i]$ just extends that longest increasing subsequence by one number.
@@ -216,7 +216,7 @@ We now make two important observations.
 1.  The array $d$ will always be sorted: 
     $d[l-1] < d[l]$ for all $i = 1 \dots n$.
 
-    This is trivial, as you can just remove the last element from the increasing subsequence of length $l$, and you get a increasing subsequence of length $l-1$ with a smalller ending number.
+    This is trivial, as you can just remove the last element from the increasing subsequence of length $l$, and you get a increasing subsequence of length $l-1$ with a smaller ending number.
 
 2.  The element $a[i]$ will only update at most one value $d[l]$.
 
@@ -300,7 +300,7 @@ This is in fact nearly the same problem.
 Only now it is allowed to use identical numbers in the subsequence.
 
 The solution is essentially also nearly the same.
-We just have to change the inequality signs, and make a slightly modification to the binary search.
+We just have to change the inequality signs, and make a slight modification to the binary search.
 
 ### Number of longest increasing subsequences
 

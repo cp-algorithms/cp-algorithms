@@ -47,7 +47,7 @@ From these two lemmas we conclude that there are less than $V$ phases because $l
 
 In order to find the blocking flow on each iteration, we may simply try pushing flow with DFS from $s$ to $t$ in the layered network while it can be pushed. In order to do it more quickly, we must remove the edges which can't be used to push anymore. To do this we can keep a pointer in each vertex which points to the next edge which can be used.
 
-A single DFS run takes $O(k+V)$ time, where $k$ is the number of pointer advances on this run. Sumed up over all runs, number of pointer advances can not exceed $E$. On the other hand, total number of runs won't exceed $E$, as every run saturates at least one edge. In this way, total running time of finding a blocking flow is $O(VE)$.
+A single DFS run takes $O(k+V)$ time, where $k$ is the number of pointer advances on this run. Summed up over all runs, number of pointer advances can not exceed $E$. On the other hand, total number of runs won't exceed $E$, as every run saturates at least one edge. In this way, total running time of finding a blocking flow is $O(VE)$.
 
 ## Complexity
 
@@ -106,7 +106,7 @@ struct Dinic {
             int v = q.front();
             q.pop();
             for (int id : adj[v]) {
-                if (edges[id].cap - edges[id].flow < 1)
+                if (edges[id].cap == edges[id].flow)
                     continue;
                 if (level[edges[id].u] != -1)
                     continue;
@@ -125,7 +125,7 @@ struct Dinic {
         for (int& cid = ptr[v]; cid < (int)adj[v].size(); cid++) {
             int id = adj[v][cid];
             int u = edges[id].u;
-            if (level[v] + 1 != level[u] || edges[id].cap - edges[id].flow < 1)
+            if (level[v] + 1 != level[u])
                 continue;
             long long tr = dfs(u, min(pushed, edges[id].cap - edges[id].flow));
             if (tr == 0)
@@ -154,3 +154,7 @@ struct Dinic {
     }
 };
 ```
+
+## Practice Problems
+
+* [SPOJ: FASTFLOW](https://www.spoj.com/problems/FASTFLOW/)

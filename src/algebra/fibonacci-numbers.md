@@ -50,7 +50,7 @@ such that $k_1 \ge k_2 + 2,\ k_2 \ge k_3 + 2,\  \ldots,\  k_r \ge 2$ (i.e.: the 
 
 It follows that any number can be uniquely encoded in the Fibonacci coding.
 And we can describe this representation with binary codes $d_0 d_1 d_2 \dots d_s 1$, where $d_i$ is $1$ if $F_{i+2}$ is used in the representation.
-The code will be appended by a $1$ do indicate the end of the code word.
+The code will be appended by a $1$ to indicate the end of the code word.
 Notice that this is the only occurrence where two consecutive 1-bits appear.
 
 $$\begin{eqnarray}
@@ -164,7 +164,7 @@ long long fib(int n) {
 
 ### Fast Doubling Method
 
-Using expanding the above matrix expression for $n = 2\cdot k$
+By expanding the above matrix expression for $n = 2\cdot k$
 
 $$
 \begin{pmatrix}
@@ -217,7 +217,7 @@ Let us prove this by contradiction. Consider the first $p^2 + 1$ pairs of Fibona
 
 $$(F_0,\ F_1),\ (F_1,\ F_2),\ \ldots,\ (F_{p^2},\ F_{p^2 + 1})$$
 
-There can only be $p$ different remainders modulo $p$, and at most $p^2$ different pairs of remainders, so there are at least two identical pairs among them. This is sufficient to prove the sequence is periodic, as a Fibonacci number is only determined by it's two predecessors. Hence if two pairs of consecutive numbers repeat, that would also mean the numbers after the pair will repeat in the same fashion.
+There can only be $p$ different remainders modulo $p$, and at most $p^2$ different pairs of remainders, so there are at least two identical pairs among them. This is sufficient to prove the sequence is periodic, as a Fibonacci number is only determined by its two predecessors. Hence if two pairs of consecutive numbers repeat, that would also mean the numbers after the pair will repeat in the same fashion.
 
 We now choose two pairs of identical remainders with the smallest indices in the sequence. Let the pairs be $(F_a,\ F_{a + 1})$ and $(F_b,\ F_{b + 1})$. We will prove that $a = 0$. If this was false, there would be two previous pairs $(F_{a-1},\ F_a)$ and $(F_{b-1},\ F_b)$, which, by the property of Fibonacci numbers, would also be equal. However, this contradicts the fact that we had chosen pairs with the smallest indices, completing our proof that there is no pre-period (i.e the numbers are periodic starting from $F_0$).
 

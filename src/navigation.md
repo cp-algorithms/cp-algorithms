@@ -61,6 +61,8 @@ search:
     - Advanced
         - [Deleting from a data structure in O(T(n) log n)](data_structures/deleting_in_log_n.md)
 - Dynamic Programming
+    - [Introduction to Dynamic Programming](dynamic_programming/intro-to-dp.md)
+    - [Knapsack Problem](dynamic_programming/knapsack.md)
     - DP optimizations
         - [Divide and Conquer DP](dynamic_programming/divide-and-conquer-dp.md)
         - [Knuth's Optimization](dynamic_programming/knuth-optimization.md)
@@ -133,12 +135,15 @@ search:
         - [Convex hull trick and Li Chao tree](geometry/convex_hull_trick.md)
     - Sweep-line
         - [Search for a pair of intersecting segments](geometry/intersecting_segments.md)
+    - Planar graphs
+        - [Finding faces of a planar graph](geometry/planar.md)
         - [Point location in O(log N)](geometry/point-location.md)
     - Miscellaneous
         - [Finding the nearest pair of points](geometry/nearest_points.md)
         - [Delaunay triangulation and Voronoi diagram](geometry/delaunay.md)
         - [Vertical decomposition](geometry/vertical_decomposition.md)
         - [Half-plane intersection - S&I Algorithm in O(N log N)](geometry/halfplane-intersection.md)
+        - [Manhattan Distance](geometry/manhattan-distance.md)
 - Graphs
     - Graph traversal
         - [Breadth First Search](graph/breadth-first-search.md)
@@ -188,6 +193,7 @@ search:
     - Matchings and related problems
         - [Bipartite Graph Check](graph/bipartite-check.md)
         - [Kuhn's Algorithm - Maximum Bipartite Matching](graph/kuhn_maximum_bipartite_matching.md)
+        - [Hungarian Algorithm](graph/hungarian-algorithm.md)
     - Miscellaneous
         - [Topological Sorting](graph/topological-sort.md)
         - [Edge connectivity / Vertex connectivity](graph/edge_vertex_connectivity.md)
@@ -209,6 +215,7 @@ search:
         - [Scheduling jobs on two machines](schedules/schedule_two_machines.md)
         - [Optimal schedule of jobs given their deadlines and durations](schedules/schedule-with-completion-duration.md)
     - Miscellaneous
+        - [Tortoise and Hare Algorithm (Linked List cycle detection)](others/tortoise_and_hare.md)
         - [Josephus problem](others/josephus_problem.md)
         - [15 Puzzle Game: Existence Of The Solution](others/15-puzzle.md)
         - [The Stern-Brocot Tree and Farey Sequences](others/stern_brocot_tree_farey_sequences.md)

@@ -2,7 +2,6 @@ name: Deploy
 
 on:
   workflow_run:
-    # `workflow_run` events have access to secrets
     workflows: [Build]
     types:
       - completed
@@ -10,89 +9,89 @@ on:
 jobs:
   deploy_live_website:
     runs-on: ubuntu-latest
-    if: >
-      ${{ github.event.workflow_run.event == 'pull_request' &&
-      github.event.workflow_run.conclusion == 'success' }}
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'
     steps:
-      - name: "Get PR information"
-        uses: potiuk/get-workflow-origin@751d47254ef9e8b5eef955e24e79305233702781
-        id: source-run-info
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          sourceRunId: ${{ github.event.workflow_run.id }}
-
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: 'Download artifact'
-        uses: actions/github-script@v6
+      - name: Attach run to the commit
+        uses: ./.github/actions/set-commit-status
         with:
-          script: |
-            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
-               owner: context.repo.owner,
-               repo: context.repo.repo,
-               run_id: context.payload.workflow_run.id,
-            });
-            let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
-              return artifact.name == "page-build"
-            })[0];
-            let download = await github.rest.actions.downloadArtifact({
-               owner: context.repo.owner,
-               repo: context.repo.repo,
-               artifact_id: matchArtifact.id,
-               archive_format: 'zip',
-            });
-            let fs = require('fs');
-            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/page-build.zip`, Buffer.from(download.data));
+          sha: ${{ github.event.workflow_run.head_sha }}
+          status: pending
 
-      - run: |
-          unzip page-build.zip -d public
+      - name: Download pages
+        uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+          merge-multiple: true
+          path: public
 
       - name: change URLs for large files
-        if: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master'}}
         shell: bash
-        run: |
-          sed -i 's|search/search_index.json|https://storage.googleapis.com/cp-algorithms/search_index.json|g' public/assets/javascripts/*.js
+        run: sed -i 's|search/search_index.json|https://storage.googleapis.com/cp-algorithms/search_index.json|g' public/assets/javascripts/*.js
 
-      - id: 'auth'
-        if: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master'}}
-        uses: 'google-github-actions/auth@v0'
+      - id: auth
+        uses: google-github-actions/auth@v2.1.6
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-      - uses: 'google-github-actions/upload-cloud-storage@v1'
-        if: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master'}}
+      - uses: google-github-actions/upload-cloud-storage@v2.2.0
         with:
-          path: 'public/search/search_index.json'
-          destination: 'cp-algorithms'
+          path: public/search/search_index.json
+          destination: cp-algorithms
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         id: firebase-deploy
-        if: env.FIREBASE_SERVICE_ACCOUNT
-        env:
-          PREVIEW_NAME: "preview-${{ steps.source-run-info.outputs.pullRequestNumber }}"
-          LIVE_NAME: "live"
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         with:
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          repoToken: ${{ github.token }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           projectId: cp-algorithms
-          channelId: ${{ steps.source-run-info.outputs.sourceEvent == 'push' && steps.source-run-info.outputs.targetBranch == 'master' && env.LIVE_NAME || env.PREVIEW_NAME }}
+          channelId: live
 
-      - name: comment URL to PR
-        if: ${{ steps.source-run-info.outputs.sourceEvent == 'pull_request' }}
-        uses: actions/github-script@v6
+      - name: Set final commit status
+        uses: ./.github/actions/set-commit-status
+        if: always()
         with:
-          script: |
-            const body = `Visit the preview URL for this PR (for commit ${{ steps.source-run-info.outputs.sourceHeadSha }}):
+          sha: ${{ github.event.workflow_run.head_sha }}
 
-            ${{ steps.firebase-deploy.outputs.details_url }}
+  deploy_github_pages:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-            (expires ${{ steps.firebase-deploy.outputs.expire_time }})`;
+      - name: Attach run to the commit
+        uses: ./.github/actions/set-commit-status
+        with:
+          sha: ${{ github.event.workflow_run.head_sha }}
+          status: pending
 
-            github.rest.issues.createComment({
-              issue_number: ${{ steps.source-run-info.outputs.pullRequestNumber }},
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: body
-            })
+      - name: Download pages
+        uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+          path: public
+
+      - name: Get PR number from artifact
+        id: get-pr-number
+        run: echo "pr_number=$(ls public)" >> $GITHUB_OUTPUT
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ github.token }}
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
+          publish_dir: public/${{ steps.get-pr-number.outputs.pr_number }}
+          destination_dir: ${{ steps.get-pr-number.outputs.pr_number }}
+          full_commit_message: "Preview for ${{ steps.get-pr-number.outputs.pr_number != 'main' && '#' || '' }}${{ steps.get-pr-number.outputs.pr_number }} (${{ github.event.workflow_run.head_sha }}) at https://gh.cp-algorithms.com/${{ steps.get-pr-number.outputs.pr_number }}/"
+
+      - name: Set final commit status
+        uses: ./.github/actions/set-commit-status
+        if: always()
+        with:
+          sha: ${{ github.event.workflow_run.head_sha }}

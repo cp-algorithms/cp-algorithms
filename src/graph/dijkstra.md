@@ -38,7 +38,7 @@ Note that if some vertices are unreachable from the starting vertex $s$, the val
 
 ### Restoring Shortest Paths 
 
-Usually one needs to know not only the lengths of shortest paths but also the shortest paths themselves. Let's see how to maintain sufficient information to restore the shortest path from $s$ to any vertex. We'll maintain an array of predecessors $p[]$ in which for each vertex $v \ne s$ $p[v]$ is the penultimate vertex in the shortest path from $s$ to $v$. Here we use the fact that if we take the shortest path to some vertex $v$ and remove $v$ from this path, we'll get a path ending in at vertex $p[v]$, and this path will be the shortest for the vertex $p[v]$. This array of predecessors can be used to restore the shortest path to any vertex: starting with $v$, repeatedly take the predecessor of the current vertex until we reach the starting vertex $s$ to get the required shortest path with vertices listed in reverse order. So, the shortest path $P$ to the vertex $v$ is equal to:
+Usually one needs to know not only the lengths of shortest paths but also the shortest paths themselves. Let's see how to maintain sufficient information to restore the shortest path from $s$ to any vertex. We'll maintain an array of predecessors $p[]$ in which for each vertex $v \ne s$, $p[v]$ is the penultimate vertex in the shortest path from $s$ to $v$. Here we use the fact that if we take the shortest path to some vertex $v$ and remove $v$ from this path, we'll get a path ending in at vertex $p[v]$, and this path will be the shortest for the vertex $p[v]$. This array of predecessors can be used to restore the shortest path to any vertex: starting with $v$, repeatedly take the predecessor of the current vertex until we reach the starting vertex $s$ to get the required shortest path with vertices listed in reverse order. So, the shortest path $P$ to the vertex $v$ is equal to:
 
 $$P = (s, \ldots, p[p[p[v]]], p[p[v]], p[v], v)$$
 
@@ -165,7 +165,7 @@ vector<int> restore_path(int s, int t, vector<int> const& p) {
 * [TopCoder - SkiResorts](https://community.topcoder.com/stat?c=problem_statement&pm=12468)
 * [TopCoder - MaliciousPath](https://community.topcoder.com/stat?c=problem_statement&pm=13596)
 * [SPOJ - Ada and Trip](http://www.spoj.com/problems/ADATRIP/)
-* [LA - 3850 - Here We Go(relians) Again](https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1851)
+* [LA - 3850 - Here We Go(relians) Again](https://vjudge.net/problem/UVALive-3850)
 * [GYM - Destination Unknown (D)](http://codeforces.com/gym/100625)
 * [UVA 12950 - Even Obsession](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=4829)
 * [GYM - Journey to Grece (A)](http://codeforces.com/gym/100753)
@@ -176,7 +176,7 @@ vector<int> restore_path(int s, int t, vector<int> const& p) {
 * [UVA 11813 - Shopping](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2913)
 * [UVA 11833 - Route Change](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=226&page=show_problem&problem=2933)
 * [SPOJ - Easy Dijkstra Problem](http://www.spoj.com/problems/EZDIJKST/en/)
-* [LA - 2819 - Cave Raider](https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=820)
+* [LA - 2819 - Cave Raider](https://vjudge.net/problem/UVALive-2819)
 * [UVA 12144 - Almost Shortest Path](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=3296)
 * [UVA 12047 - Highest Paid Toll](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3198)
 * [UVA 11514 - Batman](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=2509)

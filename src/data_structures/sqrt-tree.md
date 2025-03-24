@@ -17,7 +17,7 @@ Sqrt Tree can process such queries in $O(1)$ time with $O(n \cdot \log \log n)$ 
 
 ### Building sqrt decomposition
 
-Let's make a [sqrt decomposition](/data_structures/sqrt_decomposition.html). We divide our array in $\sqrt{n}$ blocks, each block has size $\sqrt{n}$. For each block, we compute:
+Let's make a [sqrt decomposition](sqrt_decomposition.md). We divide our array in $\sqrt{n}$ blocks, each block has size $\sqrt{n}$. For each block, we compute:
 
 1. Answers to the queries that lie in the block and begin at the beginning of the block ($\text{prefixOp}$)
 2. Answers to the queries that lie in the block and end at the end of the block ($\text{suffixOp}$)

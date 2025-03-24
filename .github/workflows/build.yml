@@ -1,22 +1,23 @@
 name: Build
+
 on: 
   push:
     branches:    
-      - 'master'
+      - main
   pull_request:
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           submodules: recursive
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5.2.0
         with:
           python-version: '3.8'
       - name: Install mkdocs-material
@@ -29,13 +30,14 @@ jobs:
           key: test-${{ github.event_name }}-github-users-v0.1
       - name: Build pages
         env:
-          MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.PAT_API_KEY }}
-          MKDOCS_ENABLE_GIT_REVISION_DATE: ${{ secrets.PAT_API_KEY && 'True' || 'False' }}
-          MKDOCS_ENABLE_GIT_COMMITTERS: ${{ secrets.PAT_API_KEY && 'True' || 'False' }}
+          MKDOCS_GIT_COMMITTERS_BRANCH: ${{ github.ref_name }}
+          MKDOCS_GIT_COMMITTERS_APIKEY: ${{ github.token }}
+          MKDOCS_ENABLE_GIT_REVISION_DATE: ${{ github.token && 'True' || 'False' }}
+          MKDOCS_ENABLE_GIT_COMMITTERS: ${{ github.token && 'True' || 'False' }}
         run: |
           mkdocs build --strict
-      - name: Upload build pages as artifact
-        uses: actions/upload-artifact@v2
+      - name: Upload pages as an artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: page-build
+          name: ${{ github.event.number || 'main' }}
           path: public/

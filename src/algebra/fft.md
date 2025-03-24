@@ -15,8 +15,7 @@ Some researchers attribute the discovery of the FFT to Runge and König in 1924.
 But actually Gauss developed such a method already in 1805, but never published it.
 
 Notice, that the FFT algorithm presented here runs in $O(n \log n)$ time, but it doesn't work for multiplying arbitrary big polynomials with arbitrary large coefficients or for multiplying arbitrary big integers.
-It can easily handle polynomials of size $10^5$ with small coefficients, or multiplying two numbers of size $10^6$, but at some point the range and the precision of the used floating point numbers will not no longer be enough to give accurate results.
-That is usually enough for solving competitive programming problems, but there are also more complex variations that can perform arbitrary large polynomial/integer multiplications.
+It can easily handle polynomials of size $10^5$ with small coefficients, or multiplying two numbers of size $10^6$, which is usually enough for solving competitive programming problems. Beyond the scale of multiplying numbers with $10^6$ bits, the range and precision of the floating point numbers used during the computation will not be enough to give accurate final results, though there are more complex variations that can perform arbitrary large polynomial/integer multiplications.
 E.g. in 1971 Schönhage and Strasser developed a variation for multiplying arbitrary large numbers that applies the FFT recursively in rings structures running in $O(n \log n \log \log n)$.
 And recently (in 2019) Harvey and van der Hoeven published an algorithm that runs in true $O(n \log n)$.
 
@@ -98,7 +97,7 @@ It is easy to see that
 
 $$A(x) = A_0(x^2) + x A_1(x^2).$$
 
-The polynomials $A_0$ and $A_1$ are only half as much coefficients as the polynomial $A$.
+The polynomials $A_0$ and $A_1$ have only half as many coefficients as the polynomial $A$.
 If we can compute the $\text{DFT}(A)$ in linear time using $\text{DFT}(A_0)$ and $\text{DFT}(A_1)$, then we get the recurrence $T_{\text{DFT}}(n) = 2 T_{\text{DFT}}\left(\frac{n}{2}\right) + O(n)$ for the time complexity, which results in $T_{\text{DFT}}(n) = O(n \log n)$ by the **master theorem**.
 
 Let's learn how we can accomplish that.

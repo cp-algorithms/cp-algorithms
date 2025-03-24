@@ -16,7 +16,7 @@ Doing this allows us to reduce the execution time of the string comparison to $O
 
 For the conversion, we need a so-called **hash function**.
 The goal of it is to convert a string into an integer, the so-called **hash** of the string.
-The following condition has to hold: if two strings $s$ and $t$ are equal ($s = t$), then also their hashes have to be equal ($\text{hash}(s) = \text{hash}(t)$).
+The following condition has to hold: if two strings $s$ and $t$ are equal ($s = t$), then their hashes also have to be equal ($\text{hash}(s) = \text{hash}(t)$).
 Otherwise, we will not be able to compare strings.
 
 Notice, the opposite direction doesn't have to hold.
@@ -207,6 +207,7 @@ When comparing $10^6$ strings with each other, the probability that at least one
 ## Practice Problems
 * [Good Substrings - Codeforces](https://codeforces.com/contest/271/problem/D)
 * [A Needle in the Haystack - SPOJ](http://www.spoj.com/problems/NHAY/)
+* [String Hashing - Kattis](https://open.kattis.com/problems/hashing)
 * [Double Profiles - Codeforces](http://codeforces.com/problemset/problem/154/C)
 * [Password - Codeforces](http://codeforces.com/problemset/problem/126/B)
 * [SUB_PROB - SPOJ](http://www.spoj.com/problems/SUB_PROB/)
