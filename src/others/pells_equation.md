@@ -8,9 +8,7 @@ tags:
 ## Statement
 We are given a natural number $d$. We need to find the smallest positive integer $x$ such that $x^{2} - d \cdot y^{2} = 1$ for some integer $y$.
 
-OR
-
-We want to find all the possible solutions of the equation $x^{2} - d \cdot y^{2} = 1$.
+Alternative formulation: We want to find all the possible solutions of the equation $x^{2} - d \cdot y^{2} = 1$.
 
 ## Solution
 Here we will consider the case when $d$ is not a perfect square and $d>1$. The case when $d$ is a perfect square is trivial.
