@@ -190,9 +190,7 @@ pair<long long, long long> chakravala(int n) {
 ## References
 - [Pell's equation - Wikipedia](https://en.wikipedia.org/wiki/Pell%27s_equation)
 - [Periodic Continued Fractions](https://en.wikipedia.org/wiki/Periodic_continued_fraction)
-- [Chakravala Method - Wikipedia](https://en.wikipedia.org/wiki/Chakravala_method)
 - [Chakravala Method](http://publications.azimpremjifoundation.org/1630/1/3_The%20Chakravala%20Method.pdf)
-- [Chakravala Method](https://www.isibang.ac.in/~sury/chakravala.pdf)
 - [Codeforces Pell's Equation](https://codeforces.com/topic/116937/en20)
 
 ## Problems
