@@ -13,7 +13,7 @@ OR
 We want to find all the possible solutions of the equation $x^{2} - d \cdot y^{2} = 1$.
 
 ## Solution
-Here we will consider the case when $d$ is not a perfect square and $d>1$. The case when $n$ is a perfect square is trivial.
+Here we will consider the case when $d$ is not a perfect square and $d>1$. The case when $d$ is a perfect square is trivial.
 We can even assume that $d$ is square-free (i.e. it is not divisible by the square of any prime number) as we can absorb the factors of $d$ into y.
 
 $x^{2} - d \cdot y^{2} = ( x + \sqrt{d} \cdot y ) ( x - \sqrt{d} \cdot y ) = 1$
