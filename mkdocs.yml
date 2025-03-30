@@ -61,8 +61,7 @@ plugins:
       hooks:
           on_env: "hooks:on_env"
   - search
-  - tags:
-      tags_file: tags.md
+  - tags
   - literate-nav:
       nav_file: navigation.md
   - git-revision-date-localized:
