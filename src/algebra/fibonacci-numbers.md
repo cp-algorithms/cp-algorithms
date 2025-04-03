@@ -59,7 +59,7 @@ $$\begin{eqnarray}
 6 &=& 5 + 1 &=& F_5 + F_2 &=& (10011)_F \\
 8 &=& 8 &=& F_6 &=& (000011)_F \\
 9 &=& 8 + 1 &=& F_6 + F_2 &=& (100011)_F \\
-19 &=& 13 + 5 + 1 &=& F_7 + F_5 + F_2 &=& (1001011)_F
+19 &=& 13 + 5 + 1 &=& F_7 + F_5 + F_2 &=& (1010011)_F
 \end{eqnarray}$$
 
 The encoding of an integer $n$ can be done with a simple greedy algorithm:
