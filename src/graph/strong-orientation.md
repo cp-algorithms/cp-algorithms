@@ -78,7 +78,7 @@ void find_bridges(int v) {
 				bridge_cnt++;
 			}
 		} else {
-			low[v] = min(low[v], low[nv]);
+			low[v] = min(low[v], tin[nv]);
 		}
 	}
 }
