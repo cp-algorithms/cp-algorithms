@@ -77,7 +77,7 @@ $$
 \sum\limits_{i=1}^N \sum\limits_{j=i}^{N-1} [opt(i+1,j+1)-opt(i,j)].
 $$
 
-As you see, most of the terms in this expression cancel each other out, except for positive terms with $j=N$ and negative terms with $i=1$. Thus, the whole sum can be estimated as
+As you see, most of the terms in this expression cancel each other out, except for positive terms with $j=N-1$ and negative terms with $i=1$. Thus, the whole sum can be estimated as
 
 $$
 \sum\limits_{k=1}^N[opt(k,N)-opt(1,k)] = O(n^2),
