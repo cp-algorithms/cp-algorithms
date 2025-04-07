@@ -179,3 +179,4 @@ vector<tuple<long long, int, int>> manhattan_mst_edges(vector<point> ps) {
  * [AtCoder Code Festival 2017D - Four Coloring](https://atcoder.jp/contests/code-festival-2017-quala/tasks/code_festival_2017_quala_d)
  * [The 2023 ICPC Asia EC Regionals Online Contest (I) - J. Minimum Manhattan Distance](https://codeforces.com/gym/104639/problem/J)
  * [Petrozavodsk Winter Training Camp 2016 Contest 4 - B. Airports](https://codeforces.com/group/eqgxxTNwgd/contest/100959/attachments)
+ * [CodeForces 263A - Beautiful Matrix](https://codeforces.com/problemset/problem/263/A)
