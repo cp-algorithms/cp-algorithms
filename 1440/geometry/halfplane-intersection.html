@@ -249,9 +249,7 @@
 
 
 
-  
-
-<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="Algorithms for Competitive Programming" class="md-nav__button md-logo" aria-label="Algorithms for Competitive Programming" data-md-component="logo">
       
@@ -6751,6 +6749,227 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#initial-clarifications-and-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initial clarifications and definitions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#brute-force-approach-on3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Brute force approach - O(N^3)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#incremental-approach-on2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Incremental approach - O(N^2)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sort-and-incremental-algorithm-on-log-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sort-and-Incremental algorithm - O(N log N)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sort-and-Incremental algorithm - O(N log N)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#direct-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Direct implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-discussion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation discussion
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problems-tasks-and-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problems, tasks and applications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problems, tasks and applications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#convex-polygon-intersection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Convex polygon intersection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visibility-in-the-plane" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visibility in the plane
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#half-plane-intersection-with-binary-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Half-plane intersection with binary search
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-dimensional-linear-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      Two-dimensional linear programming
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practice problems
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Practice problems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#classic-problems-direct-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      Classic problems, direct application
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#harder-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Harder problems
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional problems
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references-bibliography-and-other-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      References, bibliography and other sources
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="References, bibliography and other sources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#main-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Main sources
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#good-blogs-chinese" class="md-nav__link">
+    <span class="md-ellipsis">
+      Good blogs (Chinese)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#randomized-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Randomized algorithm
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           
             <div class="md-content" data-md-component="content">
@@ -7175,7 +7394,7 @@ Given a set <span class="arithmatex">$p$</span> of points <span class="arithmate
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy", "navigation.expand"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["search.suggest", "content.code.copy", "navigation.expand"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>

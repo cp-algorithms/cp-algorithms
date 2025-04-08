@@ -249,9 +249,7 @@
 
 
 
-  
-
-<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="Algorithms for Competitive Programming" class="md-nav__button md-logo" aria-label="Algorithms for Competitive Programming" data-md-component="logo">
       
@@ -6709,6 +6707,185 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#solution-in-on2-with-dynamic-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solution in O(n^2) with dynamic programming
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Solution in O(n^2) with dynamic programming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#finding-the-length" class="md-nav__link">
+    <span class="md-ellipsis">
+      Finding the length
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restoring-the-subsequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restoring the subsequence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-of-restoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation of restoring
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-way-of-restoring-the-subsequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alternative way of restoring the subsequence
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution-in-on-log-n-with-dynamic-programming-and-binary-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solution in O(n log n) with dynamic programming and binary search
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Solution in O(n log n) with dynamic programming and binary search">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restoring-the-subsequence_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restoring the subsequence
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution-in-on-log-n-with-data-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solution in O(n log n) with data structures
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related tasks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Related tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#longest-non-decreasing-subsequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Longest non-decreasing subsequence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#number-of-longest-increasing-subsequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      Number of longest increasing subsequences
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smallest-number-of-non-increasing-subsequences-covering-a-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Smallest number of non-increasing subsequences covering a sequence
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practice Problems
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           
             <div class="md-content" data-md-component="content">
@@ -7222,7 +7399,7 @@ I.e. go from left to right and assign the current number or that subsequence end
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy", "navigation.expand"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["search.suggest", "content.code.copy", "navigation.expand"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>

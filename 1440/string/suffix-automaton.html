@@ -249,9 +249,7 @@
 
 
 
-  
-
-<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="Algorithms for Competitive Programming" class="md-nav__button md-logo" aria-label="Algorithms for Competitive Programming" data-md-component="logo">
       
@@ -6823,6 +6821,299 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#definition-of-a-suffix-automaton" class="md-nav__link">
+    <span class="md-ellipsis">
+      Definition of a suffix automaton
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Definition of a suffix automaton">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#substring-property" class="md-nav__link">
+    <span class="md-ellipsis">
+      Substring property
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples-of-constructed-suffix-automata" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples of constructed suffix automata
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#construction-in-linear-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction in linear time
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Construction in linear time">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#end-positions-endpos" class="md-nav__link">
+    <span class="md-ellipsis">
+      End positions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#suffix-links-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      Suffix links
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recap
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Algorithm
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#correctness" class="md-nav__link">
+    <span class="md-ellipsis">
+      Correctness
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linear-number-of-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linear number of operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional properties
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Additional properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#number-of-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      Number of states
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#number-of-transitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Number of transitions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Applications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Applications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-for-occurrence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check for occurrence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#number-of-different-substrings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Number of different substrings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#total-length-of-all-different-substrings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Total length of all different substrings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lexicographically-k-th-substring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lexicographically k-th substring
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smallest-cyclic-shift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Smallest cyclic shift
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#number-of-occurrences" class="md-nav__link">
+    <span class="md-ellipsis">
+      Number of occurrences
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first-occurrence-position" class="md-nav__link">
+    <span class="md-ellipsis">
+      First occurrence position
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#all-occurrence-positions" class="md-nav__link">
+    <span class="md-ellipsis">
+      All occurrence positions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shortest-non-appearing-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shortest non-appearing string
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#longest-common-substring-of-two-strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Longest common substring of two strings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#largest-common-substring-of-multiple-strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Largest common substring of multiple strings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practice Problems
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           
             <div class="md-content" data-md-component="content">
@@ -7713,7 +8004,7 @@ After that, the answer to the problem will be the string <span class="arithmatex
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy", "navigation.expand"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["search.suggest", "content.code.copy", "navigation.expand"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
