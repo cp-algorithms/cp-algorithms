@@ -56,7 +56,7 @@ markdown_extensions:
   - toc:
       permalink: true
 
-  plugins:
+plugins:
   - toggle-sidebar:
       toggle_button: all
   - mkdocs-simple-hooks:
