@@ -25,6 +25,7 @@ theme:
     - toc.integrate
     - search.suggest
     - content.code.copy
+    - navigation.footer
 repo_url: https://github.com/cp-algorithms/cp-algorithms
 repo_name: cp-algorithms/cp-algorithms
 edit_uri: edit/main/src/
@@ -55,9 +56,9 @@ markdown_extensions:
   - toc:
       permalink: true
 
-plugins:
+  plugins:
   - toggle-sidebar:
-    toggle_button: all
+      toggle_button: all
   - mkdocs-simple-hooks:
       hooks:
           on_env: "hooks:on_env"
