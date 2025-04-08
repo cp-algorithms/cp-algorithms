@@ -22,6 +22,7 @@ theme:
   icon:
     repo: fontawesome/brands/github
   features:
+    - toc.integrate
     - search.suggest
     - content.code.copy
     - navigation.expand
