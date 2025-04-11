@@ -29,6 +29,7 @@ Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorith
 
 ### New articles
 
+- (26 March 2025) [Pell's equation](https://cp-algorithms.com/others/pell_equation.html)
 - (12 July 2024) [Manhattan distance](https://cp-algorithms.com/geometry/manhattan-distance.html)
 - (8 June 2024) [Knapsack Problem](https://cp-algorithms.com/dynamic_programming/knapsack.html)
 - (28 January 2024) [Introduction to Dynamic Programming](https://cp-algorithms.com/dynamic_programming/intro-to-dp.html)
