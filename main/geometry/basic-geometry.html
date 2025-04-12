@@ -6762,7 +6762,8 @@ And 3D points:
 <p>The dot (or scalar) product <span class="arithmatex">$\mathbf a \cdot \mathbf b$</span> for vectors <span class="arithmatex">$\mathbf a$</span> and <span class="arithmatex">$\mathbf b$</span> can be defined in two identical ways.
 Geometrically it is product of the length of the first vector by the length of the projection of the second vector onto the first one.
 As you may see from the image below this projection is nothing but <span class="arithmatex">$|\mathbf a| \cos \theta$</span> where <span class="arithmatex">$\theta$</span> is the angle between <span class="arithmatex">$\mathbf a$</span> and <span class="arithmatex">$\mathbf b$</span>. Thus <span class="arithmatex">$\mathbf a\cdot  \mathbf b = |\mathbf a| \cos \theta \cdot |\mathbf b|$</span>.</p>
-<p><center><img alt="" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Dot_Product.svg/300px-Dot_Product.svg.png" /></center></p>
+<center>![](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Dot_Product.svg/300px-Dot_Product.svg.png)</center>
+
 <p>The dot product holds some notable properties:</p>
 <ol>
 <li><span class="arithmatex">$\mathbf a \cdot \mathbf b = \mathbf b \cdot \mathbf a$</span></li>
@@ -6815,19 +6816,22 @@ For example </p>
 <p>To see the next important property we should take a look at the set of points <span class="arithmatex">$\mathbf r$</span> for which <span class="arithmatex">$\mathbf r\cdot \mathbf a = C$</span> for some fixed constant <span class="arithmatex">$C$</span>.
 You can see that this set of points is exactly the set of points for which the projection onto <span class="arithmatex">$\mathbf a$</span> is the point <span class="arithmatex">$C \cdot \dfrac{\mathbf a}{|\mathbf a|}$</span> and they form a hyperplane orthogonal to <span class="arithmatex">$\mathbf a$</span>.
 You can see the vector <span class="arithmatex">$\mathbf a$</span> alongside with several such vectors having same dot product with it in 2D on the picture below:</p>
-<p><center><img alt="Vectors having same dot product with a" src="https://i.imgur.com/eyO7St4.png" /></center></p>
+<center>![Vectors having same dot product with a](https://i.imgur.com/eyO7St4.png)</center>
+
 <p>In 2D these vectors will form a line, in 3D they will form a plane.
 Note that this result allows us to define a line in 2D as <span class="arithmatex">$\mathbf r\cdot \mathbf n=C$</span> or <span class="arithmatex">$(\mathbf r - \mathbf r_0)\cdot \mathbf n=0$</span> where <span class="arithmatex">$\mathbf n$</span> is vector orthogonal to the line and <span class="arithmatex">$\mathbf r_0$</span> is any vector already present on the line and <span class="arithmatex">$C = \mathbf r_0\cdot \mathbf n$</span>.
 In the same manner a plane can be defined in 3D.</p>
 <h2 id="cross-product">Cross product<a class="headerlink" href="#cross-product" title="Permanent link">&para;</a></h2>
 <h3 id="definition_1">Definition<a class="headerlink" href="#definition_1" title="Permanent link">&para;</a></h3>
-<p>Assume you have three vectors <span class="arithmatex">$\mathbf a$</span>, <span class="arithmatex">$\mathbf b$</span> and <span class="arithmatex">$\mathbf c$</span> in 3D space joined in a parallelepiped as in the picture below:
-<center><img alt="Three vectors" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Parallelepiped_volume.svg/240px-Parallelepiped_volume.svg.png" /></center></p>
+<p>Assume you have three vectors <span class="arithmatex">$\mathbf a$</span>, <span class="arithmatex">$\mathbf b$</span> and <span class="arithmatex">$\mathbf c$</span> in 3D space joined in a parallelepiped as in the picture below:</p>
+<center>![Three vectors](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Parallelepiped_volume.svg/240px-Parallelepiped_volume.svg.png)</center>
+
 <p>How would you calculate its volume?
 From school we know that we should multiply the area of the base with the height, which is projection of <span class="arithmatex">$\mathbf a$</span> onto direction orthogonal to base.
 That means that if we define <span class="arithmatex">$\mathbf b \times \mathbf c$</span> as the vector which is orthogonal to both <span class="arithmatex">$\mathbf b$</span> and <span class="arithmatex">$\mathbf c$</span> and which length is equal to the area of the parallelogram formed by <span class="arithmatex">$\mathbf b$</span> and <span class="arithmatex">$\mathbf c$</span> then <span class="arithmatex">$|\mathbf a\cdot (\mathbf b\times\mathbf c)|$</span> will be equal to the volume of the parallelepiped.
 For integrity we will say that <span class="arithmatex">$\mathbf b\times \mathbf c$</span> will be always directed in such way that the rotation from the vector <span class="arithmatex">$\mathbf b$</span> to the vector <span class="arithmatex">$\mathbf c$</span> from the point of <span class="arithmatex">$\mathbf b\times \mathbf c$</span> is always counter-clockwise (see the picture below).</p>
-<p><center><img alt="cross product" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Cross_product_vector.svg/250px-Cross_product_vector.svg.png" /></center></p>
+<center>![cross product](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Cross_product_vector.svg/250px-Cross_product_vector.svg.png)</center>
+
 <p>This defines the cross (or vector) product <span class="arithmatex">$\mathbf b\times \mathbf c$</span> of the vectors <span class="arithmatex">$\mathbf b$</span> and <span class="arithmatex">$\mathbf c$</span> and the triple product <span class="arithmatex">$\mathbf a\cdot(\mathbf b\times \mathbf c)$</span> of the vectors <span class="arithmatex">$\mathbf a$</span>, <span class="arithmatex">$\mathbf b$</span> and <span class="arithmatex">$\mathbf c$</span>.</p>
 <p>Some notable properties of cross and triple products:</p>
 <ol>

@@ -6656,8 +6656,9 @@ A <strong>Delaunay triangulation</strong> <span class="arithmatex">$D(\{p_i\})$<
 <h2 id="building-delaunay-and-voronoi">Building Delaunay and Voronoi<a class="headerlink" href="#building-delaunay-and-voronoi" title="Permanent link">&para;</a></h2>
 <p>Because of the duality, we only need a fast algorithm to compute only one of <span class="arithmatex">$V$</span> and <span class="arithmatex">$D$</span>. We will describe how to build <span class="arithmatex">$D(\{p_i\})$</span> in <span class="arithmatex">$O(n\log n)$</span>. The triangulation will be built via divide-and-conquer algorithm due to Guibas and Stolfi.</p>
 <h2 id="quad-edge-data-structure">Quad-edge data structure<a class="headerlink" href="#quad-edge-data-structure" title="Permanent link">&para;</a></h2>
-<p>During the algorithm <span class="arithmatex">$D$</span> will be stored inside the quad-edge data structure. This structure is described in the picture:
-<center><img alt="Quad-Edge" src="quad-edge.png" /></center></p>
+<p>During the algorithm <span class="arithmatex">$D$</span> will be stored inside the quad-edge data structure. This structure is described in the picture:</p>
+<center>![Quad-Edge](quad-edge.png)</center>
+
 <p>In the algorithm we will use the following functions on edges:</p>
 <ol>
 <li><code>make_edge(a, b)</code><br>

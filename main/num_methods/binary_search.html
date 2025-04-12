@@ -6735,13 +6735,14 @@ Describe the issue of this article in detail.
 <p><strong>Binary search</strong> is a method that allows for quicker search of something by splitting the search interval into two. Its most common application is searching values in sorted arrays, however the splitting idea is crucial in many other typical tasks.</p>
 <h2 id="search-in-sorted-arrays">Search in sorted arrays<a class="headerlink" href="#search-in-sorted-arrays" title="Permanent link">&para;</a></h2>
 <p>The most typical problem that leads to the binary search is as follows. You're given a sorted array <span class="arithmatex">$A_0 \leq A_1 \leq \dots \leq A_{n-1}$</span>, check if <span class="arithmatex">$k$</span> is present within the sequence. The simplest solution would be to check every element one by one and compare it with <span class="arithmatex">$k$</span> (a so-called linear search). This approach works in <span class="arithmatex">$O(n)$</span>, but doesn't utilize the fact that the array is sorted.</p>
-<p><center>
+<center>
 <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Binary_Search_Depiction.svg" width="800px">
 <br>
-<i>Binary search of the value <span class="arithmatex">$7$</span> in an array</i>.
+<i>Binary search of the value $7$ in an array</i>.
 <br>
-<i>The <a href="https://commons.wikimedia.org/wiki/File:Binary_Search_Depiction.svg">image</a> by <a href="https://commons.wikimedia.org/wiki/User:AlwaysAngry">AlwaysAngry</a> is distributed under <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC BY-SA 4.0</a></i> license.
-</center></p>
+<i>The <a href="https://commons.wikimedia.org/wiki/File:Binary_Search_Depiction.svg">image</a> by [AlwaysAngry](https://commons.wikimedia.org/wiki/User:AlwaysAngry) is distributed under <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC BY-SA 4.0</a></i> license.
+</center>
+
 <p>Now assume that we know two indices <span class="arithmatex">$L &lt; R$</span> such that <span class="arithmatex">$A_L \leq k \leq A_R$</span>. Because the array is sorted, we can deduce that <span class="arithmatex">$k$</span> either occurs among <span class="arithmatex">$A_L, A_{L+1}, \dots, A_R$</span> or doesn't occur in the array at all. If we pick an arbitrary index <span class="arithmatex">$M$</span> such that <span class="arithmatex">$L &lt; M &lt; R$</span> and check whether <span class="arithmatex">$k$</span> is less or greater than <span class="arithmatex">$A_M$</span>. We have two possible cases:</p>
 <ol>
 <li><span class="arithmatex">$A_L \leq k \leq A_M$</span>. In this case, we reduce the problem from <span class="arithmatex">$[L, R]$</span> to <span class="arithmatex">$[L, M]$</span>;</li>

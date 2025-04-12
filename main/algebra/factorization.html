@@ -6919,7 +6919,8 @@ The <strong>birthday paradox</strong> actually suggests that the expected number
 If <span class="arithmatex">$p$</span> is smaller than <span class="arithmatex">$\sqrt{n}$</span>, the repetition will likely start in <span class="arithmatex">$O(\sqrt[4]{n})$</span>.</p>
 <p>Here is a visualization of such a sequence <span class="arithmatex">$\{x_i \bmod p\}$</span> with <span class="arithmatex">$n = 2206637$</span>, <span class="arithmatex">$p = 317$</span>, <span class="arithmatex">$x_0 = 2$</span> and <span class="arithmatex">$f(x) = x^2 + 1$</span>.
 From the form of the sequence you can see very clearly why the algorithm is called Pollard's <span class="arithmatex">$\rho$</span> algorithm.</p>
-<p><center><img alt="Pollard's rho visualization" src="pollard_rho.png" /></center></p>
+<center>![Pollard's rho visualization](pollard_rho.png)</center>
+
 <p>Yet, there is still an open question.
 How can we exploit the properties of the sequence <span class="arithmatex">$\{x_i \bmod p\}$</span> to our advantage without even knowing the number <span class="arithmatex">$p$</span> itself?</p>
 <p>It's actually quite easy.

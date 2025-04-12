@@ -6778,13 +6778,14 @@ We will denote the total length of its constituent strings by <span class="arith
 The algorithm constructs a finite state automaton based on a trie in <span class="arithmatex">$O(m k)$</span> time and then uses it to process the text.</p>
 <p>The algorithm was proposed by Alfred Aho and Margaret Corasick in 1975.</p>
 <h2 id="construction-of-the-trie">Construction of the trie<a class="headerlink" href="#construction-of-the-trie" title="Permanent link">&para;</a></h2>
-<p><center>
+<center>
 <img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Trie.svg" width="400px">
 <br>
 <i>A trie based on words "Java", "Rad", "Rand", "Rau", "Raum" and "Rose".</i>
 <br>
-<i>The <a href="https://commons.wikimedia.org/wiki/File:Trie.svg">image</a> by <a href="https://de.wikipedia.org/wiki/Benutzer:Nd">nd</a> is distributed under <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">CC BY-SA 3.0</a> license.</i>
-</center></p>
+<i>The <a href="https://commons.wikimedia.org/wiki/File:Trie.svg">image</a> by [nd](https://de.wikipedia.org/wiki/Benutzer:Nd) is distributed under <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">CC BY-SA 3.0</a> license.</i>
+</center>
+
 <p>Formally, a trie is a rooted tree, where each edge of the tree is labeled with some letter
 and outgoing edges of a vertex have distinct labels.</p>
 <p>We will identify each vertex in the trie with the string formed by the labels on the path from the root to that vertex.</p>
@@ -6847,13 +6848,14 @@ If there is an edge labeled with this letter <span class="arithmatex">$c$</span>
 If there is no such edge, since we want to maintain the invariant that the current state is the longest partial match in the processed string, we must find the longest string in the trie that's a proper suffix of the string <span class="arithmatex">$t$</span>, and try to perform a transition from there.</p>
 <p>For example, let the trie be constructed by the strings <span class="arithmatex">$ab$</span> and <span class="arithmatex">$bc$</span>, and we are currently at the vertex corresponding to <span class="arithmatex">$ab$</span>, which is also an <span class="arithmatex">$\text{output}$</span> vertex.
 To transition with the letter <span class="arithmatex">$c$</span>, we are forced to go to the state corresponding to the string <span class="arithmatex">$b$</span>, and from there follow the edge with the letter <span class="arithmatex">$c$</span>.</p>
-<p><center>
+<center>
 <img src="https://upload.wikimedia.org/wikipedia/commons/9/90/A_diagram_of_the_Aho-Corasick_string_search_algorithm.svg" width="300px">
 <br>
 <i>An Aho-Corasick automaton based on words "a", "ab", "bc", "bca", "c" and "caa".</i>
 <br>
 <i>Blue arrows are suffix links, green arrows are terminal links.</i>
-</center></p>
+</center>
+
 <p>A <strong>suffix link</strong> for a vertex <span class="arithmatex">$p$</span> is an edge that points to the longest proper suffix of the string corresponding to the vertex <span class="arithmatex">$p$</span>.
 The only special case is the root of the trie, whose suffix link will point to itself.
 Now we can reformulate the statement about the transitions in the automaton like this:

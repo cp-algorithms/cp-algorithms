@@ -6686,9 +6686,11 @@ One way to compute them efficiently in <span class="arithmatex">$O(E \log V)$</s
 This can be done using <a href="lca_binary_lifting.html">Binary Lifting</a> for LCA.</p>
 <p>The final time complexity of this approach is <span class="arithmatex">$O(E \log V)$</span>.</p>
 <p>For example:</p>
-<p><center><img alt="MST" src="second_best_mst_1.png" /> <img alt="Second best MST" src="second_best_mst_2.png" /> <br></p>
-<p><em>In the image left is the MST and right is the second best MST.</em>
-</center></p>
+<center>![MST](second_best_mst_1.png) ![Second best MST](second_best_mst_2.png) <br>
+
+*In the image left is the MST and right is the second best MST.*
+</center>
+
 <p>In the given graph suppose we root the MST at the blue vertex on the top, and then run our algorithm by start picking the edges not in MST.
 Let the edge picked first be the edge <span class="arithmatex">$(u, v)$</span> with weight 36.
 Adding this edge to the tree forms a cycle 36 - 7 - 2 - 34.</p>

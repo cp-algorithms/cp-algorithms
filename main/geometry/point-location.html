@@ -6633,7 +6633,8 @@ This problem may arise when you need to locate some points in a Voronoi diagram 
 <h2 id="algorithm">Algorithm<a class="headerlink" href="#algorithm" title="Permanent link">&para;</a></h2>
 <p>Firstly, for each query point <span class="arithmatex">$p\ (x_0, y_0)$</span> we want to find such an edge that if the point belongs to any edge, the point lies on the edge we found, otherwise this edge must intersect the line <span class="arithmatex">$x = x_0$</span> at some unique point <span class="arithmatex">$(x_0, y)$</span> where <span class="arithmatex">$y &lt; y_0$</span> and this <span class="arithmatex">$y$</span> is maximum among all such edges.
 The following image shows both cases.</p>
-<p><center><img alt="Image of Goal" src="point_location_goal.png" /></center></p>
+<center>![Image of Goal](point_location_goal.png)</center>
+
 <p>We will solve this problem offline using the sweep line algorithm. Let's iterate over x-coordinates of query points and edges' endpoints in increasing order and keep a set of edges <span class="arithmatex">$s$</span>. For each x-coordinate we will add some events beforehand.</p>
 <p>The events will be of four types: <em>add</em>, <em>remove</em>, <em>vertical</em>, <em>get</em>.
 For each vertical edge (both endpoints have the same x-coordinate) we will add one <em>vertical</em> event for the corresponding x-coordinate.
@@ -6641,7 +6642,8 @@ For every other edge we will add one <em>add</em> event for the minimum of x-coo
 Finally, for each query point we will add one <em>get</em> event for its x-coordinate.</p>
 <p>For each x-coordinate we will sort the events by their types in order (<em>vertical</em>, <em>get</em>, <em>remove</em>, <em>add</em>).
 The following image shows all events in sorted order for each x-coordinate.</p>
-<p><center><img alt="Image of Events" src="point_location_events.png" /></center></p>
+<center>![Image of Events](point_location_events.png)</center>
+
 <p>We will keep two sets during the sweep-line process.
 A set <span class="arithmatex">$t$</span> for all non-vertical edges, and one set <span class="arithmatex">$vert$</span> especially for the vertical ones.
 We will clear the set <span class="arithmatex">$vert$</span> at the beginning of processing each x-coordinate.</p>

@@ -6741,7 +6741,8 @@ The edges will correspond to the implications.</p>
 b \Rightarrow a &amp; \lnot b \Rightarrow \lnot a &amp; b \Rightarrow \lnot a &amp; c \Rightarrow a
 \end{array}$$</div>
 <p>You can see the implication graph in the following image:</p>
-<p><center><img alt="&quot;Implication Graph of 2-SAT example&quot;" src="2SAT.png" /></center></p>
+<center>!["Implication Graph of 2-SAT example"](2SAT.png)</center>
+
 <p>It is worth paying attention to the property of the implication graph:
 if there is an edge <span class="arithmatex">$a \Rightarrow b$</span>, then there also is an edge <span class="arithmatex">$\lnot b \Rightarrow \lnot a$</span>. </p>
 <p>Also note, that if <span class="arithmatex">$x$</span> is reachable from <span class="arithmatex">$\lnot x$</span>, and <span class="arithmatex">$\lnot x$</span> is reachable from <span class="arithmatex">$x$</span>, then the problem has no solution.
@@ -6755,7 +6756,8 @@ Therefore we can formulate the criterion for the existence of a solution as foll
 <p>The following image shows all strongly connected components for the example.
 As we can check easily, neither of the four components contain a vertex <span class="arithmatex">$x$</span> and its negation <span class="arithmatex">$\lnot x$</span>, therefore the example has a solution.
 We will learn in the next paragraphs how to compute a valid assignment, but just for demonstration purposes the solution <span class="arithmatex">$a = \text{false}$</span>, <span class="arithmatex">$b = \text{false}$</span>, <span class="arithmatex">$c = \text{false}$</span> is given.</p>
-<p><center><img alt="&quot;Strongly Connected Components of the 2-SAT example&quot;" src="2SAT_SCC.png" /></center></p>
+<center>!["Strongly Connected Components of the 2-SAT example"](2SAT_SCC.png)</center>
+
 <p>Now we construct the algorithm for finding the solution of the 2-SAT problem on the assumption that the solution exists.</p>
 <p>Note that, in spite of the fact that the solution exists, it can happen that <span class="arithmatex">$\lnot x$</span> is reachable from <span class="arithmatex">$x$</span> in the implication graph, or that (but not simultaneously) <span class="arithmatex">$x$</span> is reachable from <span class="arithmatex">$\lnot x$</span>.
 In that case the choice of either <span class="arithmatex">$\text{true}$</span> or <span class="arithmatex">$\text{false}$</span> for <span class="arithmatex">$x$</span> will lead to a contradiction, while the choice of the other one will not.

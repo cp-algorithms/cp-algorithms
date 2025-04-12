@@ -6816,7 +6816,8 @@ Which means 3 is prime, and we mark all proper multiples of 3 as composite.
 The next unmarked number is 5, which is the next prime number, and we mark all proper multiples of it.
 And we continue this procedure until we have processed all numbers in the row.</p>
 <p>In the following image you can see a visualization of the algorithm for computing all prime numbers in the range <span class="arithmatex">$[1; 16]$</span>. It can be seen, that quite often we mark numbers as composite multiple times.</p>
-<p><center><img alt="Sieve of Eratosthenes" src="sieve_eratosthenes.png" /></center></p>
+<center>![Sieve of Eratosthenes](sieve_eratosthenes.png)</center>
+
 <p>The idea behind is this:
 A number is prime, if none of the smaller prime numbers divides it.
 Since we iterate over the prime numbers in order, we already marked all numbers, which are divisible by at least one of the prime numbers, as divisible.

@@ -6704,8 +6704,9 @@ And in the Euler tour we essentially use the shortest path, except that we addit
 But all vertices in these subtrees are lower in the tree than the LCA and therefore have a larger height.
 So the <span class="arithmatex">$\text{LCA}(v_1, v_2)$</span> can be uniquely determined by finding the vertex with the smallest height in the Euler tour between <span class="arithmatex">$\text{first}(v_1)$</span> and <span class="arithmatex">$\text{first}(v_2)$</span>.</p>
 <p>Let's illustrate this idea.
-Consider the following graph and the Euler tour with the corresponding heights:
-<center><img alt="LCA_Euler_Tour" src="LCA_Euler.png" /></center></p>
+Consider the following graph and the Euler tour with the corresponding heights:</p>
+<center>![LCA_Euler_Tour](LCA_Euler.png)</center>
+
 <div class="arithmatex">$$\begin{array}{|l|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
 \text{Vertices:}   &amp; 1 &amp; 2 &amp; 5 &amp; 2 &amp; 6 &amp; 2 &amp; 1 &amp; 3 &amp; 1 &amp; 4 &amp; 7 &amp; 4 &amp; 1 \\ \hline

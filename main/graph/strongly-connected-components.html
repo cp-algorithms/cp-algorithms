@@ -6546,6 +6546,12 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
     
   
 
@@ -6798,7 +6804,8 @@ Describe the issue of this article in detail.
 </ul>
 <p>We denote with <span class="arithmatex">$\text{SCC}(G)$</span> the set of strongly connected components of <span class="arithmatex">$G$</span>. These strongly connected components do not intersect with each other, and cover all vertices in the graph. Thus, the set <span class="arithmatex">$\text{SCC}(G)$</span> is a partition of <span class="arithmatex">$V$</span>. </p>
 <p>Consider this graph <span class="arithmatex">$G_\text{example}$</span>, in which the strongly connected components are highlighted:</p>
-<p><center><img src="strongly-connected-components-tikzpicture/graph.svg" alt="drawing" style="width:700px;"/></center></p>
+<center><img src="strongly-connected-components-tikzpicture/graph.svg" alt="drawing" style="width:700px;"/></center>
+
 <p>Here we have <span class="arithmatex">$\text{SCC}(G_\text{example})=\{\{0,7\},\{1,2,3,5,6\},\{4,9\},\{8\}\}.$</span> We can confirm that within each strongly connected component, all vertices are reachable from each other.</p>
 <p>We define the <strong>condensation graph</strong> <span class="arithmatex">$G^{\text{SCC}}=(V^{\text{SCC}}, E^{\text{SCC}})$</span> as follows:</p>
 <ul>
@@ -6806,7 +6813,8 @@ Describe the issue of this article in detail.
 <li>for all vertices <span class="arithmatex">$C_i,C_j$</span> of the condensation graph, there is an edge from <span class="arithmatex">$C_i$</span> to <span class="arithmatex">$C_j$</span> if and only if <span class="arithmatex">$C_i \neq C_j$</span> and there exist <span class="arithmatex">$a\in C_i$</span> and <span class="arithmatex">$b\in C_j$</span> such that there is an edge from <span class="arithmatex">$a$</span> to <span class="arithmatex">$b$</span> in <span class="arithmatex">$G$</span>.</li>
 </ul>
 <p>The condensation graph of <span class="arithmatex">$G_\text{example}$</span> looks as follows:</p>
-<p><center><img src="strongly-connected-components-tikzpicture/cond_graph.svg" alt="drawing" style="width:600px;"/></center></p>
+<center><img src="strongly-connected-components-tikzpicture/cond_graph.svg" alt="drawing" style="width:600px;"/></center>
+
 <p>The most important property of the condensation graph is that it is <strong>acyclic</strong>. Indeed, there are no 'self-loops' in the condensation graph by definition, and if there were a cycle going through two or more vertices (strongly connected components) in the condensation graph, then due to reachability, the union of these strongly connected components would have to be one strongly connected component itself: contradiction.</p>
 <p>The algorithm described in the next section finds all strongly connected components in a given graph. After that, the condensation graph can be constructed.</p>
 <h2 id="description-of-the-algorithm">Description of the algorithm<a class="headerlink" href="#description-of-the-algorithm" title="Permanent link">&para;</a></h2>

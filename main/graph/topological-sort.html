@@ -6733,15 +6733,17 @@ Describe the issue of this article in detail.
 You have to find an <strong>order of the vertices</strong>, so that every edge leads from the vertex with a smaller index to a vertex with a larger one.</p>
 <p>In other words, you want to find a permutation of the vertices (<strong>topological order</strong>) which corresponds to the order defined by all edges of the graph.</p>
 <p>Here is one given graph together with its topological order:</p>
-<p><center>
-<img alt="example directed graph" src="topological_1.png" />
-<img alt="one topological order" src="topological_2.png" />
-</center></p>
-<p>Topological order can be <strong>non-unique</strong> (for example, if there exist three vertices <span class="arithmatex">$a$</span>, <span class="arithmatex">$b$</span>, <span class="arithmatex">$c$</span> for which there exist paths from <span class="arithmatex">$a$</span> to <span class="arithmatex">$b$</span> and from <span class="arithmatex">$a$</span> to <span class="arithmatex">$c$</span> but not paths from <span class="arithmatex">$b$</span> to <span class="arithmatex">$c$</span> or from <span class="arithmatex">$c$</span> to <span class="arithmatex">$b$</span>).
-The example graph also has multiple topological orders, a second topological order is the following:
 <center>
-<img alt="second topological order" src="topological_3.png" />
-</center></p>
+![example directed graph](topological_1.png)
+![one topological order](topological_2.png)
+</center>
+
+<p>Topological order can be <strong>non-unique</strong> (for example, if there exist three vertices <span class="arithmatex">$a$</span>, <span class="arithmatex">$b$</span>, <span class="arithmatex">$c$</span> for which there exist paths from <span class="arithmatex">$a$</span> to <span class="arithmatex">$b$</span> and from <span class="arithmatex">$a$</span> to <span class="arithmatex">$c$</span> but not paths from <span class="arithmatex">$b$</span> to <span class="arithmatex">$c$</span> or from <span class="arithmatex">$c$</span> to <span class="arithmatex">$b$</span>).
+The example graph also has multiple topological orders, a second topological order is the following:</p>
+<center>
+![second topological order](topological_3.png)
+</center>
+
 <p>A Topological order may <strong>not exist</strong> at all.
 It only exists, if the directed graph contains no cycles.
 Otherwise, there is a contradiction: if there is a cycle containing the vertices <span class="arithmatex">$a$</span> and <span class="arithmatex">$b$</span>, then <span class="arithmatex">$a$</span> needs to have a smaller index than <span class="arithmatex">$b$</span> (since you can reach <span class="arithmatex">$b$</span> from <span class="arithmatex">$a$</span>) and also a bigger one (as you can reach <span class="arithmatex">$a$</span> from <span class="arithmatex">$b$</span>).

@@ -6744,7 +6744,8 @@ $$</div>
 <p>Thus, we can go through at most <span class="arithmatex">$\log n$</span> light edges before subtree size reduces to one.</p>
 <p>Since we can move from one heavy path to another only through a light edge (each heavy path, except the one starting at the root, has one light edge), we cannot change heavy paths more than <span class="arithmatex">$\log n$</span> times along the path from the root to any vertex, as required.</p>
 <p>The following image illustrates the decomposition of a sample tree. The heavy edges are thicker than the light edges. The heavy paths are marked by dotted boundaries.</p>
-<p><center><img alt="Image of HLD" src="hld.png" /></center></p>
+<center>![Image of HLD](hld.png)</center>
+
 <h2 id="sample-problems">Sample problems<a class="headerlink" href="#sample-problems" title="Permanent link">&para;</a></h2>
 <p>When solving problems, it is sometimes more convenient to consider the heavy-light decomposition as a set of <strong>vertex disjoint</strong> paths (rather than edge disjoint paths). To do this, it suffices to exclude the last edge from each heavy path if it is a light edge, then no properties are violated, but now each vertex belongs to exactly one heavy path.</p>
 <p>Below we will look at some typical tasks that can be solved with the help of heavy-light decomposition.</p>

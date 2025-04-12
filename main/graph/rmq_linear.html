@@ -6600,15 +6600,17 @@ A Cartesian tree of an array <code>A</code> is a binary tree with the min-heap p
 <p>In other words, a Cartesian tree is a recursive data structure.
 The array <code>A</code> will be partitioned into 3 parts: the prefix of the array up to the minimum, the minimum, and the remaining suffix.
 The root of the tree will be a node corresponding to the minimum element of the array <code>A</code>, the left subtree will be the Cartesian tree of the prefix, and the right subtree will be a Cartesian tree of the suffix.</p>
-<p>In the following image you can see one array of length 10 and the corresponding Cartesian tree.
-<center><img alt="Image of Cartesian Tree" src="CartesianTree.png" /></center></p>
+<p>In the following image you can see one array of length 10 and the corresponding Cartesian tree.</p>
+<center>![Image of Cartesian Tree](CartesianTree.png)</center>
+
 <p>The range minimum query <code>[l, r]</code> is equivalent to the lowest common ancestor query <code>[l', r']</code>, where <code>l'</code> is the node corresponding to the element <code>A[l]</code> and <code>r'</code> the node corresponding to the element <code>A[r]</code>.
 Indeed the node corresponding to the smallest element in the range has to be an ancestor of all nodes in the range, therefor also from <code>l'</code> and <code>r'</code>.
 This automatically follows from the min-heap property.
 And is also has to be the lowest ancestor, because otherwise <code>l'</code> and <code>r'</code> would be both in the left or in the right subtree, which generates a contradiction since in such a case the minimum wouldn't even be in the range.</p>
 <p>In the following image you can see the LCA queries for the RMQ queries <code>[1, 3]</code> and <code>[5, 9]</code>.
-In the first query the LCA of the nodes <code>A[1]</code> and <code>A[3]</code> is the node corresponding to <code>A[2]</code> which has the value 2, and in the second query the LCA of <code>A[5]</code> and <code>A[9]</code> is the node corresponding to <code>A[8]</code> which has the value 3.
-<center><img alt="LCA queries in the Cartesian Tree" src="CartesianTreeLCA.png" /></center></p>
+In the first query the LCA of the nodes <code>A[1]</code> and <code>A[3]</code> is the node corresponding to <code>A[2]</code> which has the value 2, and in the second query the LCA of <code>A[5]</code> and <code>A[9]</code> is the node corresponding to <code>A[8]</code> which has the value 3.</p>
+<center>![LCA queries in the Cartesian Tree](CartesianTreeLCA.png)</center>
+
 <p>Such a tree can be built in <span class="arithmatex">$O(N)$</span> time and the Farach-Colton and Benders algorithm can preprocess the tree in <span class="arithmatex">$O(N)$</span> and find the LCA in <span class="arithmatex">$O(1)$</span>.</p>
 <h2 id="construction-of-a-cartesian-tree">Construction of a Cartesian tree<a class="headerlink" href="#construction-of-a-cartesian-tree" title="Permanent link">&para;</a></h2>
 <p>We will build the Cartesian tree by adding the elements one after another.

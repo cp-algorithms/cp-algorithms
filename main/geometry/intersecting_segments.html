@@ -6635,13 +6635,16 @@ If the answer is yes, then print this pair of intersecting segments; it is enoug
 <h2 id="algorithm">Algorithm<a class="headerlink" href="#algorithm" title="Permanent link">&para;</a></h2>
 <p>Let's draw a vertical line <span class="arithmatex">$x = -\infty$</span> mentally and start moving this line to the right.
 In the course of its movement, this line will meet with segments, and at each time a segment intersect with our line it intersects in exactly one point (we will assume that there are no vertical segments).</p>
-<p><center><img alt="sweep line and line segment intersection" src="sweep_line_1.png" /></center></p>
+<center>![sweep line and line segment intersection](sweep_line_1.png)</center>
+
 <p>Thus, for each segment, at some point in time, its point will appear on the sweep line, then with the movement of the line, this point will move, and finally, at some point, the segment will disappear from the line.</p>
 <p>We are interested in the <strong>relative order of the segments</strong> along the vertical.
 Namely, we will store a list of segments crossing the sweep line at a given time, where the segments will be sorted by their <span class="arithmatex">$y$</span>-coordinate on the sweep line.</p>
-<p><center><img alt="relative order of the segments across sweep line" src="sweep_line_2.png" /></center></p>
+<center>![relative order of the segments across sweep line](sweep_line_2.png)</center>
+
 <p>This order is interesting because intersecting segments will have the same <span class="arithmatex">$y$</span>-coordinate at least at one time:</p>
-<p><center><img alt="intersection point having same y-coordinate" src="sweep_line_3.png" /></center></p>
+<center>![intersection point having same y-coordinate](sweep_line_3.png)</center>
+
 <p>We formulate key statements:</p>
 <ul>
 <li>To find an intersecting pair, it is sufficient to consider <strong>only adjacent segments</strong> at each fixed position of the sweep line.</li>
