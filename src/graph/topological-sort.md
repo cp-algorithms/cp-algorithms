@@ -20,9 +20,9 @@ Here is one given graph together with its topological order:
 
 Topological order can be **non-unique** (for example, if there exist three vertices $a$, $b$, $c$ for which there exist paths from $a$ to $b$ and from $a$ to $c$ but not paths from $b$ to $c$ or from $c$ to $b$).
 The example graph also has multiple topological orders, a second topological order is the following:
-<center>
-![second topological order](topological_3.png)
-</center>
+<div style="text-align: center;">
+  <img src="topological_3.png" alt="second topological order">
+</div>
 
 A Topological order may **not exist** at all.
 It only exists, if the directed graph contains no cycles.

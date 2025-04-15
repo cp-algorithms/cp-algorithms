@@ -22,7 +22,6 @@ theme:
   icon:
     repo: fontawesome/brands/github
   features:
-    - navigation.tabs
     - toc.integrate
     - search.suggest
     - content.code.copy
@@ -57,6 +56,8 @@ markdown_extensions:
       permalink: true
 
 plugins:
+  - toggle-sidebar:
+      toggle_button: all
   - mkdocs-simple-hooks:
       hooks:
           on_env: "hooks:on_env"
