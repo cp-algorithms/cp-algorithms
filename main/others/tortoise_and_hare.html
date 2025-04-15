@@ -6635,7 +6635,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 10, 2025 01:35:26">January 10, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 15, 2025 02:32:08">April 15, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6651,7 +6651,9 @@ Describe the issue of this article in detail.
 
 <h1 id="floyds-linked-list-cycle-finding-algorithm">Floyd's Linked List Cycle Finding Algorithm<a class="headerlink" href="#floyds-linked-list-cycle-finding-algorithm" title="Permanent link">&para;</a></h1>
 <p>Given a linked list where the starting point of that linked list is denoted by <strong>head</strong>, and there may or may not be a cycle present. For instance:</p>
-<center>!["Linked list with cycle"](tortoise_hare_algo.png)</center>
+<div style="text-align: center;">
+  <img src="tortoise_hare_algo.png" alt=""Linked list with cycle"">
+</div>
 
 <p>Here we need to find out the point <strong>C</strong>, i.e the starting point of the cycle.</p>
 <h2 id="proposed-algorithm">Proposed algorithm<a class="headerlink" href="#proposed-algorithm" title="Permanent link">&para;</a></h2>
@@ -6670,7 +6672,9 @@ So, it involved two steps:
 <li>If they point to any same node at any point of their journey, it would indicate that the cycle indeed exists in the linked list.</li>
 <li>If we get null, it would indicate that the linked list has no cycle.</li>
 </ol>
-<center>!["Found cycle"](tortoise_hare_cycle_found.png)</center>
+<div style="text-align: center;">
+  <img src="tortoise_hare_cycle_found.png" alt=""Found cycle"">
+</div>
 
 <p>Now, that we have figured out that there is a cycle present in the linked list, for the next step we need to find out the starting point of cycle, i.e., <strong>C</strong>.</p>
 <h3 id="step-2-starting-point-of-the-cycle">Step 2: Starting point of the cycle<a class="headerlink" href="#step-2-starting-point-of-the-cycle" title="Permanent link">&para;</a></h3>
@@ -6716,7 +6720,9 @@ Let <span class="arithmatex">$L$</span> denote the length of the cycle, and <spa
 When the slow pointer has moved <span class="arithmatex">$k \cdot L$</span> steps, and the fast pointer has covered <span class="arithmatex">$2 \cdot k \cdot L$</span> steps, both pointers find themselves within the cycle. At this point, there is a separation of <span class="arithmatex">$k \cdot L$</span> between them. Given that the cycle's length remains <span class="arithmatex">$L$</span>, this signifies that they meet at the same point within the cycle, resulting in their encounter.</p>
 <h3 id="step-2-starting-point-of-the-cycle_1">Step 2: Starting point of the cycle<a class="headerlink" href="#step-2-starting-point-of-the-cycle_1" title="Permanent link">&para;</a></h3>
 <p>Lets try to calculate the distance covered by both of the pointers till they point they met within the cycle.</p>
-<center>!["Proof"](tortoise_hare_proof.png)</center>
+<div style="text-align: center;">
+  <img src="tortoise_hare_proof.png" alt=""Proof"">
+</div>
 
 <p><span class="arithmatex">$slowDist = a + xL + b$</span>            , <span class="arithmatex">$x\ge0$</span></p>
 <p><span class="arithmatex">$fastDist = a + yL + b$</span>            , <span class="arithmatex">$y\ge0$</span></p>
@@ -6745,7 +6751,7 @@ And since we let the slow pointer start at the start of the linked list, after <
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/sourav15102" title="sourav15102" data-bi-name="contributorprofile" target="_blank">sourav15102</a> (93.04%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (2.61%)</li><li><a href="https://github.com/kanwaekan" title="kanwaekan" data-bi-name="contributorprofile" target="_blank">kanwaekan</a> (2.61%)</li><li><a href="https://github.com/ericmiranda7" title="ericmiranda7" data-bi-name="contributorprofile" target="_blank">ericmiranda7</a> (0.87%)</li><li><a href="https://github.com/toluwalase104" title="toluwalase104" data-bi-name="contributorprofile" target="_blank">toluwalase104</a> (0.87%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/sourav15102" title="sourav15102" data-bi-name="contributorprofile" target="_blank">sourav15102</a> (88.43%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (7.44%)</li><li><a href="https://github.com/kanwaekan" title="kanwaekan" data-bi-name="contributorprofile" target="_blank">kanwaekan</a> (2.48%)</li><li><a href="https://github.com/ericmiranda7" title="ericmiranda7" data-bi-name="contributorprofile" target="_blank">ericmiranda7</a> (0.83%)</li><li><a href="https://github.com/toluwalase104" title="toluwalase104" data-bi-name="contributorprofile" target="_blank">toluwalase104</a> (0.83%)</li></ul>
 </ul>
                 
               </article>
