@@ -6540,12 +6540,6 @@ Describe the issue of this article in detail.
   
     
   
-
-  
-  
-  
-    
-  
     
   
     
@@ -6614,6 +6608,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -6650,7 +6648,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 20, 2024 18:33:37">October 20, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 16, 2025 00:31:59">April 16, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6735,7 +6733,7 @@ Describe the issue of this article in detail.
 <h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
 <ul>
 <li>The randomized algorithm above is named <a href="https://en.wikipedia.org/wiki/Quickselect">quickselect</a>. You should do random shuffle on <span class="arithmatex">$A$</span> before calling it or use a random element as a barrier for it to run properly. There are also deterministic algorithms that solve the specified problem in linear time, such as <a href="https://en.wikipedia.org/wiki/Median_of_medians">median of medians</a>.</li>
-<li>A deterministic linear solution is implemented in C++ standard library as <a href="https://en.cppreference.com/w/cpp/algorithm/nth_element">std::nth_element</a>.</li>
+<li><a href="https://en.cppreference.com/w/cpp/algorithm/nth_element">std::nth_element</a> solves this in C++ but gcc's implementation runs in worst case <span class="arithmatex">$O(n \log n )$</span> time.</li>
 <li>Finding <span class="arithmatex">$K$</span> smallest elements can be reduced to finding <span class="arithmatex">$K$</span>-th element with a linear overhead, as they're exactly the elements that are smaller than <span class="arithmatex">$K$</span>-th.</li>
 </ul>
 <h2 id="practice-problems">Practice Problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
@@ -6746,7 +6744,7 @@ Describe the issue of this article in detail.
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/ErzhanDS" title="ErzhanDS" data-bi-name="contributorprofile" target="_blank">ErzhanDS</a> (73.68%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (13.16%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (5.26%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (2.63%)</li><li><a href="#" title="shark_s" data-bi-name="contributorprofile" target="_blank">shark_s</a> (2.63%)</li><li><a href="https://github.com/random1001guy" title="random1001guy" data-bi-name="contributorprofile" target="_blank">random1001guy</a> (1.32%)</li><li><a href="https://github.com/dufferzafar" title="dufferzafar" data-bi-name="contributorprofile" target="_blank">dufferzafar</a> (1.32%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/ErzhanDS" title="ErzhanDS" data-bi-name="contributorprofile" target="_blank">ErzhanDS</a> (73.68%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (11.84%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (5.26%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (2.63%)</li><li><a href="#" title="shark_s" data-bi-name="contributorprofile" target="_blank">shark_s</a> (2.63%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (1.32%)</li><li><a href="https://github.com/random1001guy" title="random1001guy" data-bi-name="contributorprofile" target="_blank">random1001guy</a> (1.32%)</li><li><a href="https://github.com/dufferzafar" title="dufferzafar" data-bi-name="contributorprofile" target="_blank">dufferzafar</a> (1.32%)</li></ul>
 </ul>
                 
               </article>

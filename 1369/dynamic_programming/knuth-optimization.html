@@ -6579,8 +6579,6 @@ Describe the issue of this article in detail.
   
     
   
-    
-  
 
   
   
@@ -6595,6 +6593,14 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+    
+  
     
   
 
@@ -6607,6 +6613,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -6627,7 +6637,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 7, 2023 11:26:17">December 7, 2023</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 5, 2025 15:39:54">April 5, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6700,7 +6710,7 @@ example. The structure of the code is almost identical to that of Range DP.</p>
 \sum\limits_{i=1}^N \sum\limits_{j=i+1}^N [opt(i+1,j)-opt(i,j-1)] =
 \sum\limits_{i=1}^N \sum\limits_{j=i}^{N-1} [opt(i+1,j+1)-opt(i,j)].
 $$</div>
-<p>As you see, most of the terms in this expression cancel each other out, except for positive terms with <span class="arithmatex">$j=N$</span> and negative terms with <span class="arithmatex">$i=1$</span>. Thus, the whole sum can be estimated as</p>
+<p>As you see, most of the terms in this expression cancel each other out, except for positive terms with <span class="arithmatex">$j=N-1$</span> and negative terms with <span class="arithmatex">$i=1$</span>. Thus, the whole sum can be estimated as</p>
 <div class="arithmatex">$$
 \sum\limits_{k=1}^N[opt(k,N)-opt(1,k)] = O(n^2),
 $$</div>
@@ -6805,7 +6815,7 @@ $$</div>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (71.28%)</li><li><a href="https://github.com/omkarbajaj073" title="omkarbajaj073" data-bi-name="contributorprofile" target="_blank">omkarbajaj073</a> (28.21%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (0.51%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (70.77%)</li><li><a href="https://github.com/omkarbajaj073" title="omkarbajaj073" data-bi-name="contributorprofile" target="_blank">omkarbajaj073</a> (28.21%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (0.51%)</li><li><a href="https://github.com/FloppaInspector" title="FloppaInspector" data-bi-name="contributorprofile" target="_blank">FloppaInspector</a> (0.51%)</li></ul>
 </ul>
                 
               </article>
