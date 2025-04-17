@@ -20,20 +20,20 @@ Here is one given graph together with its topological order:
 
 Topological order can be **non-unique** (for example, if there exist three vertices $a$, $b$, $c$ for which there exist paths from $a$ to $b$ and from $a$ to $c$ but not paths from $b$ to $c$ or from $c$ to $b$).
 The example graph also has multiple topological orders, a second topological order is the following:
-<center>
-![second topological order](topological_3.png)
-</center>
+<div style="text-align: center;">
+  <img src="topological_3.png" alt="second topological order">
+</div>
 
 A Topological order may **not exist** at all.
 It only exists, if the directed graph contains no cycles.
-Otherwise because there is a contradiction: if there is a cycle containing the vertices $a$ and $b$, then $a$ needs to have a smaller index than $b$ (since you can reach $b$ from $a$) and also a bigger one (as you can reach $a$ from $b$).
+Otherwise, there is a contradiction: if there is a cycle containing the vertices $a$ and $b$, then $a$ needs to have a smaller index than $b$ (since you can reach $b$ from $a$) and also a bigger one (as you can reach $a$ from $b$).
 The algorithm described in this article also shows by construction, that every acyclic directed graph contains at least one topological order.
 
-A common problem in which topological sorting occurs is the following. There are $n$ variables with unknown values. For some variables we know that one of them is less than the other. You have to check whether these constraints are contradictory, and if not, output the variables in ascending order (if several answers are possible, output any of them). It is easy to notice that this is exactly the problem of finding topological order of a graph with $n$ vertices.
+A common problem in which topological sorting occurs is the following. There are $n$ variables with unknown values. For some variables, we know that one of them is less than the other. You have to check whether these constraints are contradictory, and if not, output the variables in ascending order (if several answers are possible, output any of them). It is easy to notice that this is exactly the problem of finding the topological order of a graph with $n$ vertices.
 
 ## The Algorithm
 
-To solve this problem we will use [depth-first search](depth-first-search.md).
+To solve this problem, we will use [depth-first search](depth-first-search.md).
 
 Let's assume that the graph is acyclic. What does the depth-first search do?
 
@@ -65,8 +65,9 @@ vector<int> ans;
 void dfs(int v) {
     visited[v] = true;
     for (int u : adj[v]) {
-        if (!visited[u])
+        if (!visited[u]) {
             dfs(u);
+        }
     }
     ans.push_back(v);
 }
