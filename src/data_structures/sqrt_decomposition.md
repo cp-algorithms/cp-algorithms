@@ -200,7 +200,7 @@ But in a lot of situations this method has advantages.
 During a normal sqrt decomposition, we have to precompute the answers for each block, and merge them during answering queries.
 In some problems this merging step can be quite problematic.
 E.g. when each queries asks to find the **mode** of its range (the number that appears the most often).
-For this each block would have to store the count of each number in it in some sort of data structure, and we cannot longer perform the merge step fast enough any more.
+For this each block would have to store the count of each number in it in some sort of data structure, and we can no longer perform the merge step fast enough any more.
 **Mo's algorithm** uses a completely different approach, that can answer these kind of queries fast, because it only keeps track of one data structure, and the only operations with it are easy and fast.
 
 The idea is to answer the queries in a special order based on the indices.

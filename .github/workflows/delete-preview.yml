@@ -1,7 +1,7 @@
 name: Delete PR Preview
 
 on:
-  pull_request:
+  pull_request_target:
     types: [closed]
 
 jobs:
@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout gh-pages branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: gh-pages
 
@@ -22,5 +22,5 @@ jobs:
         run: |
           PR_DIR=${{ github.event.pull_request.number }}
           git rm -r --ignore-unmatch "${PR_DIR}/" || echo "Directory not found"
-          git commit -m "Delete preview for PR #${{ github.event.pull_request.number }}"
+          git commit -m "Delete preview for #${{ github.event.pull_request.number }}"
           git push origin gh-pages
