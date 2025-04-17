@@ -38,7 +38,9 @@ We have two cases:
     This amount is the same as the number of points such that $0 < y \leq (k - \lfloor k \rfloor) \cdot x + (b - \lfloor b \rfloor)$.
     So we reduced our problem to $k'= k - \lfloor k \rfloor$, $b' = b - \lfloor b \rfloor$ and both $k'$ and $b'$ less than $1$ now.
     Here is a picture, we just summed up blue points and subtracted the blue linear function from the black one to reduce problem to smaller values for $k$ and $b$:
-    <center>![Subtracting floored linear function](lattice.png)</center>
+    <div style="text-align: center;">
+  <img src="lattice.png" alt="Subtracting floored linear function">
+</div>
 
   - $k < 1$ and $b < 1$.
 
@@ -51,7 +53,9 @@ We have two cases:
     
     which returns us back to the case $k>1$.
     You can see new reference point $O'$ and axes $X'$ and $Y'$ in the picture below:
-    <center>![New reference and axes](mirror.png)</center>
+    <div style="text-align: center;">
+  <img src="mirror.png" alt="New reference and axes">
+</div>
     As you see, in new reference system linear function will have coefficient $\tfrac 1 k$ and its zero will be in the point $\lfloor k\cdot n + b \rfloor-(k\cdot n+b)$ which makes formula above correct.
 
 ## Complexity analysis

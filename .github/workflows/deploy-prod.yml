@@ -12,7 +12,13 @@ jobs:
     if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Attach run to the commit
+        uses: ./.github/actions/set-commit-status
+        with:
+          sha: ${{ github.event.workflow_run.head_sha }}
+          status: pending
 
       - name: Download pages
         uses: actions/download-artifact@v4
@@ -31,7 +37,7 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-      - uses: google-github-actions/upload-cloud-storage@v1
+      - uses: google-github-actions/upload-cloud-storage@v2.2.0
         with:
           path: public/search/search_index.json
           destination: cp-algorithms
@@ -44,12 +50,24 @@ jobs:
           projectId: cp-algorithms
           channelId: live
 
+      - name: Set final commit status
+        uses: ./.github/actions/set-commit-status
+        if: always()
+        with:
+          sha: ${{ github.event.workflow_run.head_sha }}
+
   deploy_github_pages:
     runs-on: ubuntu-latest
     if: github.event.workflow_run.conclusion == 'success'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Attach run to the commit
+        uses: ./.github/actions/set-commit-status
+        with:
+          sha: ${{ github.event.workflow_run.head_sha }}
+          status: pending
 
       - name: Download pages
         uses: actions/download-artifact@v4
@@ -62,25 +80,18 @@ jobs:
         id: get-pr-number
         run: echo "pr_number=$(ls public)" >> $GITHUB_OUTPUT
 
-      - name: Configure git
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        
       - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ github.token }}
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
           publish_dir: public/${{ steps.get-pr-number.outputs.pr_number }}
-          publish_branch: gh-pages
           destination_dir: ${{ steps.get-pr-number.outputs.pr_number }}
+          full_commit_message: "Preview for ${{ steps.get-pr-number.outputs.pr_number != 'main' && '#' || '' }}${{ steps.get-pr-number.outputs.pr_number }} (${{ github.event.workflow_run.head_sha }}) at https://gh.cp-algorithms.com/${{ steps.get-pr-number.outputs.pr_number }}/"
 
-      - name: Create or update PR comment
-        if: steps.get-pr-number.outputs.pr_number != 'main'
-        uses: peter-evans/create-or-update-comment@v3
+      - name: Set final commit status
+        uses: ./.github/actions/set-commit-status
+        if: always()
         with:
-          token: ${{ github.token }}
-          issue-number: ${{ steps.get-pr-number.outputs.pr_number }}
-          body: 'Preview the changes for PR #${{ steps.get-pr-number.outputs.pr_number }} at https://gh.cp-algorithms.com/${{ steps.get-pr-number.outputs.pr_number }}/ (current version: ${{ github.event.workflow_run.head_sha }}).'
-          body-includes: 'Preview the changes for PR'
-          mode: replace
+          sha: ${{ github.event.workflow_run.head_sha }}

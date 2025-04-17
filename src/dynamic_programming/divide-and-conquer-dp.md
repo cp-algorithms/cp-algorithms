@@ -113,7 +113,7 @@ both!
 - [SPOJ - LARMY](https://www.spoj.com/problems/LARMY/)
 - [SPOJ - NKLEAVES](https://www.spoj.com/problems/NKLEAVES/)
 - [Timus - Bicolored Horses](https://acm.timus.ru/problem.aspx?space=1&num=1167)
-- [USACO - Circular Barn](http://www.usaco.org/index.php?page=viewproblem2&cpid=616)
+- [USACO - Circular Barn](https://usaco.org/index.php?page=viewproblem2&cpid=626)
 - [UVA - Arranging Heaps](https://onlinejudge.org/external/125/12524.pdf)
 - [UVA - Naming Babies](https://onlinejudge.org/external/125/12594.pdf)
 
