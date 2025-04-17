@@ -22,6 +22,8 @@ Fibonacci numbers possess a lot of interesting properties. Here are a few of the
   
 $$F_{n-1} F_{n+1} - F_n^2 = (-1)^n$$
 
+This can be proved by induction. A one-line proof due to Knuth comes from taking the determinant of the 2x2 matrix form below.
+
 * The "addition" rule:
   
 $$F_{n+k} = F_k F_{n+1} + F_{k-1} F_n$$
