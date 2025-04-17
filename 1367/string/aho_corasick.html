@@ -6603,6 +6603,18 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
     
@@ -6701,6 +6713,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -6745,7 +6761,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 25, 2024 14:27:28">March 25, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 16, 2025 08:32:22">April 16, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6940,7 +6956,7 @@ We may assume that when we're in a vertex <span class="arithmatex">$v$</span>, i
 <li><span class="arithmatex">$go[v][c] = -1$</span>. In this case, we may assign <span class="arithmatex">$go[v][c] = go[u][c]$</span>, which is already known by the induction hypothesis;</li>
 <li><span class="arithmatex">$go[v][c] = w \neq -1$</span>. In this case, we may assign <span class="arithmatex">$link[w] = go[u][c]$</span>.</li>
 </ol>
-<p>In this way, we spend <span class="arithmatex">$O(1)$</span> time per each pair of a vertex and a character, making the running time <span class="arithmatex">$O(mk)$</span>. The major overhead here is that we copy a lot of transitions from <span class="arithmatex">$u$</span> in the first case, while the transitions of the second case form the trie and sum up to <span class="arithmatex">$m$</span> over all vertices. To avoid the copying of <span class="arithmatex">$go[u][c]$</span>, we may use a persistent array data structure, using which we initially copy <span class="arithmatex">$go[u]$</span> into <span class="arithmatex">$go[v]$</span> and then only update values for characters in which the transition would differ. This leads to the <span class="arithmatex">$O(m \log k)$</span> algorithm.</p>
+<p>In this way, we spend <span class="arithmatex">$O(1)$</span> time per each pair of a vertex and a character, making the running time <span class="arithmatex">$O(mk)$</span>. The major overhead here is that we copy a lot of transitions from <span class="arithmatex">$u$</span> in the first case, while the transitions of the second case form the trie and sum up to <span class="arithmatex">$m$</span> over all vertices. To avoid the copying of <span class="arithmatex">$go[u][c]$</span>, we may use a persistent array data structure, using which we initially copy <span class="arithmatex">$go[u]$</span> into <span class="arithmatex">$go[v]$</span> and then only update values for characters in which the transition would differ. This leads to the <span class="arithmatex">$O(n \log k)$</span> algorithm.</p>
 <h2 id="applications">Applications<a class="headerlink" href="#applications" title="Permanent link">&para;</a></h2>
 <h3 id="find-all-strings-from-a-given-set-in-a-text">Find all strings from a given set in a text<a class="headerlink" href="#find-all-strings-from-a-given-set-in-a-text" title="Permanent link">&para;</a></h3>
 <p>We are given a set of strings and a text.
@@ -6999,7 +7015,7 @@ Thus we can find such a path  using depth first search (and if the search looks 
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (61.07%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (23.93%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (11.79%)</li><li><a href="https://github.com/madhur4127" title="madhur4127" data-bi-name="contributorprofile" target="_blank">madhur4127</a> (1.79%)</li><li><a href="https://github.com/iamlockon" title="iamlockon" data-bi-name="contributorprofile" target="_blank">iamlockon</a> (0.36%)</li><li><a href="https://github.com/gafeol" title="gafeol" data-bi-name="contributorprofile" target="_blank">gafeol</a> (0.36%)</li><li><a href="https://github.com/amanCoder110599" title="amanCoder110599" data-bi-name="contributorprofile" target="_blank">amanCoder110599</a> (0.36%)</li><li><a href="https://github.com/GaurangTandon" title="GaurangTandon" data-bi-name="contributorprofile" target="_blank">GaurangTandon</a> (0.36%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (61.07%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (23.93%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (11.43%)</li><li><a href="https://github.com/madhur4127" title="madhur4127" data-bi-name="contributorprofile" target="_blank">madhur4127</a> (1.79%)</li><li><a href="https://github.com/mriuntil25" title="mriuntil25" data-bi-name="contributorprofile" target="_blank">mriuntil25</a> (0.36%)</li><li><a href="https://github.com/iamlockon" title="iamlockon" data-bi-name="contributorprofile" target="_blank">iamlockon</a> (0.36%)</li><li><a href="https://github.com/gafeol" title="gafeol" data-bi-name="contributorprofile" target="_blank">gafeol</a> (0.36%)</li><li><a href="https://github.com/amanCoder110599" title="amanCoder110599" data-bi-name="contributorprofile" target="_blank">amanCoder110599</a> (0.36%)</li><li><a href="https://github.com/GaurangTandon" title="GaurangTandon" data-bi-name="contributorprofile" target="_blank">GaurangTandon</a> (0.36%)</li></ul>
 </ul>
                 
               </article>
