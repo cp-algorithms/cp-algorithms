@@ -53,7 +53,9 @@ Since we can move from one heavy path to another only through a light edge (each
 
 The following image illustrates the decomposition of a sample tree. The heavy edges are thicker than the light edges. The heavy paths are marked by dotted boundaries.
 
-<center>![Image of HLD](hld.png)</center>
+<div style="text-align: center;">
+  <img src="hld.png" alt="Image of HLD">
+</div>
 
 
 ## Sample problems
@@ -183,3 +185,8 @@ int query(int a, int b) {
 ## Practice problems
 
 - [SPOJ - QTREE - Query on a tree](https://www.spoj.com/problems/QTREE/)
+- [CSES - Path Queries II](https://cses.fi/problemset/task/2134)
+- [Codeforces - Subway Lines](https://codeforces.com/gym/101908/problem/L)
+- [Codeforces - Tree Queries](https://codeforces.com/contest/1254/problem/D)
+- [Codeforces - Tree or not Tree](https://codeforces.com/contest/117/problem/E)
+- [Codeforces - The Tree](https://codeforces.com/contest/1017/problem/G)
