@@ -23,7 +23,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.4af4bdda.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.2afb09e1.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
@@ -6733,6 +6733,10 @@ Describe the issue of this article in detail.
   
   
 
+  
+  
+  
+
 
 
 
@@ -6740,7 +6744,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 13, 2025 22:21:04">January 13, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 15, 2025 02:32:08">April 15, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6795,7 +6799,9 @@ Now let's traverse the graph in the following way. Suppose that we entered verte
 <p>It's quite clear that the complexity of the algorithm is <span class="arithmatex">$O(m \log m)$</span> because of sorting, and since <span class="arithmatex">$m = O(n)$</span>, it's actually <span class="arithmatex">$O(n \log n)$</span>. As mentioned before, without sorting the complexity becomes <span class="arithmatex">$O(n)$</span>.</p>
 <h2 id="what-if-the-graph-isnt-connected">What if the graph isn't connected?<a class="headerlink" href="#what-if-the-graph-isnt-connected" title="Permanent link">&para;</a></h2>
 <p>At the first glance it may seem that finding faces of a disconnected graph is not much harder because we can run the same algorithm for each connected component. However, the components may be drawn in a nested way, forming <strong>holes</strong> (see the image below). In this case the inner face of some component becomes the outer face of some other components and has a complex disconnected border. Dealing with such cases is quite hard, one possible approach is to identify nested components with <a href="point-location.html">point location</a> algorithms. </p>
-<center>![Planar graph with holes](planar_hole.png)</center>
+<div style="text-align: center;">
+  <img src="planar_hole.png" alt="Planar graph with holes">
+</div>
 
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
 <p>The following implementation returns a vector of vertices for each face, outer face goes first.
@@ -6884,7 +6890,9 @@ Inner faces are returned in counter-clockwise orders and the outer face is retur
 </code></pre></div></p>
 <h2 id="building-planar-graph-from-line-segments">Building planar graph from line segments<a class="headerlink" href="#building-planar-graph-from-line-segments" title="Permanent link">&para;</a></h2>
 <p>Sometimes you are not given a graph explicitly, but rather as a set of line segments on a plane, and the actual graph is formed by intersecting those segments, as shown in the picture below. In this case you have to build the graph manually. The easiest way to do so is as follows. Fix a segment and intersect it with all other segments. Then sort all intersection points together with the two endpoints of the segment lexicographically and add them to the graph as vertices. Also link each two adjacent vertices in lexicographical order by an edge. After doing this procedure for all edges we will obtain the graph. Of course, we should ensure that two equal intersection points will always correspond to the same vertex. The easiest way to do this is to store the points in a map by their coordinates, regarding points whose coordinates differ by a small number (say, less than <span class="arithmatex">$10^{-9}$</span>) as equal. This algorithm works in <span class="arithmatex">$O(n^2 \log n)$</span>.</p>
-<center>![Implicitly defined graph](planar_implicit.png)</center>
+<div style="text-align: center;">
+  <img src="planar_implicit.png" alt="Implicitly defined graph">
+</div>
 
 <h2 id="implementation_1">Implementation<a class="headerlink" href="#implementation_1" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">dbl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">double</span><span class="p">;</span>
@@ -7083,7 +7091,7 @@ Inner faces are returned in counter-clockwise orders and the outer face is retur
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/SYury" title="SYury" data-bi-name="contributorprofile" target="_blank">SYury</a> (97.39%)</li><li><a href="https://github.com/hazzlerr" title="hazzlerr" data-bi-name="contributorprofile" target="_blank">hazzlerr</a> (2.03%)</li><li><a href="https://github.com/Kostero" title="Kostero" data-bi-name="contributorprofile" target="_blank">Kostero</a> (0.29%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (0.29%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/SYury" title="SYury" data-bi-name="contributorprofile" target="_blank">SYury</a> (95.7%)</li><li><a href="https://github.com/hazzlerr" title="hazzlerr" data-bi-name="contributorprofile" target="_blank">hazzlerr</a> (2.01%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (1.72%)</li><li><a href="https://github.com/Kostero" title="Kostero" data-bi-name="contributorprofile" target="_blank">Kostero</a> (0.29%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (0.29%)</li></ul>
 </ul>
                 
               </article>

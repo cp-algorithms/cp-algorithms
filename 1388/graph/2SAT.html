@@ -23,7 +23,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.4af4bdda.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.2afb09e1.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
@@ -6551,18 +6551,6 @@ Describe the issue of this article in detail.
   
     
   
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-    
-  
 
   
   
@@ -6577,16 +6565,6 @@ Describe the issue of this article in detail.
   
     
   
-
-  
-  
-  
-    
-  
-
-  
-  
-  
     
   
     
@@ -6596,22 +6574,6 @@ Describe the issue of this article in detail.
   
   
     
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
   
     
   
@@ -6647,6 +6609,50 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
     
@@ -6655,6 +6661,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -6715,7 +6725,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 19, 2024 16:32:34">June 19, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 15, 2025 02:32:08">April 15, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6764,7 +6774,9 @@ The edges will correspond to the implications.</p>
 b \Rightarrow a &amp; \lnot b \Rightarrow \lnot a &amp; b \Rightarrow \lnot a &amp; c \Rightarrow a
 \end{array}$$</div>
 <p>You can see the implication graph in the following image:</p>
-<center>!["Implication Graph of 2-SAT example"](2SAT.png)</center>
+<div style="text-align: center;">
+  <img src="2SAT.png" alt=""Implication Graph of 2-SAT example"">
+</div>
 
 <p>It is worth paying attention to the property of the implication graph:
 if there is an edge <span class="arithmatex">$a \Rightarrow b$</span>, then there also is an edge <span class="arithmatex">$\lnot b \Rightarrow \lnot a$</span>. </p>
@@ -6779,7 +6791,9 @@ Therefore we can formulate the criterion for the existence of a solution as foll
 <p>The following image shows all strongly connected components for the example.
 As we can check easily, neither of the four components contain a vertex <span class="arithmatex">$x$</span> and its negation <span class="arithmatex">$\lnot x$</span>, therefore the example has a solution.
 We will learn in the next paragraphs how to compute a valid assignment, but just for demonstration purposes the solution <span class="arithmatex">$a = \text{false}$</span>, <span class="arithmatex">$b = \text{false}$</span>, <span class="arithmatex">$c = \text{false}$</span> is given.</p>
-<center>!["Strongly Connected Components of the 2-SAT example"](2SAT_SCC.png)</center>
+<div style="text-align: center;">
+  <img src="2SAT_SCC.png" alt=""Strongly Connected Components of the 2-SAT example"">
+</div>
 
 <p>Now we construct the algorithm for finding the solution of the 2-SAT problem on the assumption that the solution exists.</p>
 <p>Note that, in spite of the fact that the solution exists, it can happen that <span class="arithmatex">$\lnot x$</span> is reachable from <span class="arithmatex">$x$</span> in the implication graph, or that (but not simultaneously) <span class="arithmatex">$x$</span> is reachable from <span class="arithmatex">$\lnot x$</span>.
@@ -6898,7 +6912,7 @@ In the graph the vertices with indices <span class="arithmatex">$2k$</span> and 
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (75.0%)</li><li><a href="https://github.com/dpaleka" title="dpaleka" data-bi-name="contributorprofile" target="_blank">dpaleka</a> (13.299999999999999%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.19%)</li><li><a href="https://github.com/jatin-code777" title="jatin-code777" data-bi-name="contributorprofile" target="_blank">jatin-code777</a> (3.19%)</li><li><a href="https://github.com/matbensch" title="matbensch" data-bi-name="contributorprofile" target="_blank">matbensch</a> (1.06%)</li><li><a href="https://github.com/vatsalsharma376" title="vatsalsharma376" data-bi-name="contributorprofile" target="_blank">vatsalsharma376</a> (1.06%)</li><li><a href="https://github.com/Sarthak3204" title="Sarthak3204" data-bi-name="contributorprofile" target="_blank">Sarthak3204</a> (0.53%)</li><li><a href="https://github.com/sumitrawat10" title="sumitrawat10" data-bi-name="contributorprofile" target="_blank">sumitrawat10</a> (0.53%)</li><li><a href="https://github.com/aiifabbf" title="aiifabbf" data-bi-name="contributorprofile" target="_blank">aiifabbf</a> (0.53%)</li><li><a href="https://github.com/Aryamn" title="Aryamn" data-bi-name="contributorprofile" target="_blank">Aryamn</a> (0.53%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.53%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.53%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (72.4%)</li><li><a href="https://github.com/dpaleka" title="dpaleka" data-bi-name="contributorprofile" target="_blank">dpaleka</a> (13.020000000000001%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (3.12%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.12%)</li><li><a href="https://github.com/jatin-code777" title="jatin-code777" data-bi-name="contributorprofile" target="_blank">jatin-code777</a> (3.12%)</li><li><a href="https://github.com/matbensch" title="matbensch" data-bi-name="contributorprofile" target="_blank">matbensch</a> (1.04%)</li><li><a href="https://github.com/vatsalsharma376" title="vatsalsharma376" data-bi-name="contributorprofile" target="_blank">vatsalsharma376</a> (1.04%)</li><li><a href="https://github.com/Sarthak3204" title="Sarthak3204" data-bi-name="contributorprofile" target="_blank">Sarthak3204</a> (0.52%)</li><li><a href="https://github.com/sumitrawat10" title="sumitrawat10" data-bi-name="contributorprofile" target="_blank">sumitrawat10</a> (0.52%)</li><li><a href="https://github.com/aiifabbf" title="aiifabbf" data-bi-name="contributorprofile" target="_blank">aiifabbf</a> (0.52%)</li><li><a href="https://github.com/Aryamn" title="Aryamn" data-bi-name="contributorprofile" target="_blank">Aryamn</a> (0.52%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.52%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.52%)</li></ul>
 </ul>
                 
               </article>

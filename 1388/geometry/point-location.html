@@ -23,7 +23,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.4af4bdda.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.2afb09e1.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
@@ -6566,6 +6566,28 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
     
   
 
@@ -6582,22 +6604,6 @@ Describe the issue of this article in detail.
   
     
   
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
 
   
   
@@ -6606,6 +6612,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -6634,7 +6644,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 22, 2023 11:17:11">September 22, 2023</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 15, 2025 02:32:08">April 15, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6656,7 +6666,9 @@ This problem may arise when you need to locate some points in a Voronoi diagram 
 <h2 id="algorithm">Algorithm<a class="headerlink" href="#algorithm" title="Permanent link">&para;</a></h2>
 <p>Firstly, for each query point <span class="arithmatex">$p\ (x_0, y_0)$</span> we want to find such an edge that if the point belongs to any edge, the point lies on the edge we found, otherwise this edge must intersect the line <span class="arithmatex">$x = x_0$</span> at some unique point <span class="arithmatex">$(x_0, y)$</span> where <span class="arithmatex">$y &lt; y_0$</span> and this <span class="arithmatex">$y$</span> is maximum among all such edges.
 The following image shows both cases.</p>
-<center>![Image of Goal](point_location_goal.png)</center>
+<div style="text-align: center;">
+  <img src="point_location_goal.png" alt="Image of Goal">
+</div>
 
 <p>We will solve this problem offline using the sweep line algorithm. Let's iterate over x-coordinates of query points and edges' endpoints in increasing order and keep a set of edges <span class="arithmatex">$s$</span>. For each x-coordinate we will add some events beforehand.</p>
 <p>The events will be of four types: <em>add</em>, <em>remove</em>, <em>vertical</em>, <em>get</em>.
@@ -6665,7 +6677,9 @@ For every other edge we will add one <em>add</em> event for the minimum of x-coo
 Finally, for each query point we will add one <em>get</em> event for its x-coordinate.</p>
 <p>For each x-coordinate we will sort the events by their types in order (<em>vertical</em>, <em>get</em>, <em>remove</em>, <em>add</em>).
 The following image shows all events in sorted order for each x-coordinate.</p>
-<center>![Image of Events](point_location_events.png)</center>
+<div style="text-align: center;">
+  <img src="point_location_events.png" alt="Image of Events">
+</div>
 
 <p>We will keep two sets during the sweep-line process.
 A set <span class="arithmatex">$t$</span> for all non-vertical edges, and one set <span class="arithmatex">$vert$</span> especially for the vertical ones.
@@ -6927,7 +6941,7 @@ For each query a pair <span class="arithmatex">$(1, i)$</span> is returned if th
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/SYury" title="SYury" data-bi-name="contributorprofile" target="_blank">SYury</a> (95.61%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (3.04%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (0.68%)</li><li><a href="https://github.com/JustAnAverageGuy" title="JustAnAverageGuy" data-bi-name="contributorprofile" target="_blank">JustAnAverageGuy</a> (0.34%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.34%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/SYury" title="SYury" data-bi-name="contributorprofile" target="_blank">SYury</a> (94.33%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (2.33%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (2.0%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (0.67%)</li><li><a href="https://github.com/JustAnAverageGuy" title="JustAnAverageGuy" data-bi-name="contributorprofile" target="_blank">JustAnAverageGuy</a> (0.33%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.33%)</li></ul>
 </ul>
                 
               </article>

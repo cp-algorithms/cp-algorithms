@@ -23,7 +23,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.4af4bdda.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.2afb09e1.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
@@ -6593,6 +6593,12 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
     
   
     
@@ -6723,6 +6729,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -6791,7 +6801,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2024 09:24:36">October 13, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 15, 2025 02:32:08">April 15, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6842,7 +6852,9 @@ It cannot magically disappear or appear.
 The source <span class="arithmatex">$s$</span> is origin of all the water, and the water can only drain in the sink <span class="arithmatex">$t$</span>.</p>
 <p>The following image shows a flow network.
 The first value of each edge represents the flow, which is initially 0, and the second value represents the capacity.</p>
-<center>![Flow network](Flow1.png)</center>
+<div style="text-align: center;">
+  <img src="Flow1.png" alt="Flow network">
+</div>
 
 <p>The value of the flow of a network is the sum of all the flows that get produced in the source <span class="arithmatex">$s$</span>, or equivalently to the sum of all the flows that are consumed by the sink <span class="arithmatex">$t$</span>.
 A <strong>maximal flow</strong> is a flow with the maximal possible value.
@@ -6850,7 +6862,9 @@ Finding this maximal flow of a flow network is the problem that we want to solve
 <p>In the visualization with water pipes, the problem can be formulated in the following way:
 how much water can we push through the pipes from the source to the sink?</p>
 <p>The following image shows the maximal flow in the flow network.</p>
-<center>![Maximal flow](Flow9.png)</center>
+<div style="text-align: center;">
+  <img src="Flow9.png" alt="Maximal flow">
+</div>
 
 <h2 id="ford-fulkerson-method">Ford-Fulkerson method<a class="headerlink" href="#ford-fulkerson-method" title="Permanent link">&para;</a></h2>
 <p>Let's define one more thing.
@@ -6872,7 +6886,9 @@ we update <span class="arithmatex">$f((u, v)) ~\text{+=}~ C$</span> and <span cl
 <p>Here is an example to demonstrate the method.
 We use the same flow network as above.
 Initially we start with a flow of 0.</p>
-<center>![Flow network](Flow1.png)</center>
+<div style="text-align: center;">
+  <img src="Flow1.png" alt="Flow network">
+</div>
 
 <p>We can find the path <span class="arithmatex">$s - A - B - t$</span> with the residual capacities 7, 5, and 8.
 Their minimum is 5, therefore we can increase the flow along this path by 5.
@@ -6977,7 +6993,9 @@ It says that the capacity of the maximum flow has to be equal to the capacity of
 <p>In the following image, you can see the minimum cut of the flow network we used earlier.
 It shows that the capacity of the cut <span class="arithmatex">$\{s, A, D\}$</span> and <span class="arithmatex">$\{B, C, t\}$</span> is <span class="arithmatex">$5 + 3 + 2 = 10$</span>, which is equal to the maximum flow that we found.
 Other cuts will have a bigger capacity, like the capacity between <span class="arithmatex">$\{s, A\}$</span> and <span class="arithmatex">$\{B, C, D, t\}$</span> is <span class="arithmatex">$4 + 3 + 5 = 12$</span>.</p>
-<center>![Minimum cut](Cut.png)</center>
+<div style="text-align: center;">
+  <img src="Cut.png" alt="Minimum cut">
+</div>
 
 <p>A minimum cut can be found after performing a maximum flow computation using the Ford-Fulkerson method.
 One possible minimum cut is the following:
@@ -6995,7 +7013,7 @@ This partition can be easily found using <a href="depth-first-search.html">DFS</
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (75.46%)</li><li><a href="https://github.com/DamianArado" title="DamianArado" data-bi-name="contributorprofile" target="_blank">DamianArado</a> (12.5%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.2399999999999998%)</li><li><a href="https://github.com/infalmo" title="infalmo" data-bi-name="contributorprofile" target="_blank">infalmo</a> (1.85%)</li><li><a href="https://github.com/LUTLJS" title="LUTLJS" data-bi-name="contributorprofile" target="_blank">LUTLJS</a> (1.39%)</li><li><a href="https://github.com/Aryamn" title="Aryamn" data-bi-name="contributorprofile" target="_blank">Aryamn</a> (1.39%)</li><li><a href="https://github.com/Kakalinn" title="Kakalinn" data-bi-name="contributorprofile" target="_blank">Kakalinn</a> (0.93%)</li><li><a href="https://github.com/kd1729" title="kd1729" data-bi-name="contributorprofile" target="_blank">kd1729</a> (0.46%)</li><li><a href="https://github.com/obiwac" title="obiwac" data-bi-name="contributorprofile" target="_blank">obiwac</a> (0.46%)</li><li><a href="https://github.com/shivensinha4" title="shivensinha4" data-bi-name="contributorprofile" target="_blank">shivensinha4</a> (0.46%)</li><li><a href="https://github.com/lm10-piyush" title="lm10-piyush" data-bi-name="contributorprofile" target="_blank">lm10-piyush</a> (0.46%)</li><li><a href="https://github.com/ShayekhBinIslam" title="ShayekhBinIslam" data-bi-name="contributorprofile" target="_blank">ShayekhBinIslam</a> (0.46%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.46%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.46%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (70.98%)</li><li><a href="https://github.com/DamianArado" title="DamianArado" data-bi-name="contributorprofile" target="_blank">DamianArado</a> (12.05%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (5.36%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.1300000000000003%)</li><li><a href="https://github.com/infalmo" title="infalmo" data-bi-name="contributorprofile" target="_blank">infalmo</a> (1.79%)</li><li><a href="https://github.com/LUTLJS" title="LUTLJS" data-bi-name="contributorprofile" target="_blank">LUTLJS</a> (1.34%)</li><li><a href="https://github.com/Aryamn" title="Aryamn" data-bi-name="contributorprofile" target="_blank">Aryamn</a> (1.34%)</li><li><a href="https://github.com/Kakalinn" title="Kakalinn" data-bi-name="contributorprofile" target="_blank">Kakalinn</a> (0.89%)</li><li><a href="https://github.com/kd1729" title="kd1729" data-bi-name="contributorprofile" target="_blank">kd1729</a> (0.45%)</li><li><a href="https://github.com/obiwac" title="obiwac" data-bi-name="contributorprofile" target="_blank">obiwac</a> (0.45%)</li><li><a href="https://github.com/shivensinha4" title="shivensinha4" data-bi-name="contributorprofile" target="_blank">shivensinha4</a> (0.45%)</li><li><a href="https://github.com/lm10-piyush" title="lm10-piyush" data-bi-name="contributorprofile" target="_blank">lm10-piyush</a> (0.45%)</li><li><a href="https://github.com/ShayekhBinIslam" title="ShayekhBinIslam" data-bi-name="contributorprofile" target="_blank">ShayekhBinIslam</a> (0.45%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.45%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.45%)</li></ul>
 </ul>
                 
               </article>

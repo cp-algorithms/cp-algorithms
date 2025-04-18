@@ -23,7 +23,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.4af4bdda.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.2afb09e1.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
@@ -6578,6 +6578,12 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
     
   
     
@@ -6604,6 +6610,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -6632,7 +6642,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 12, 2024 14:55:01">October 12, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 15, 2025 02:32:08">April 15, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6651,7 +6661,9 @@ Describe the issue of this article in detail.
 <p>For points <span class="arithmatex">$p$</span> and <span class="arithmatex">$q$</span> on a plane, we can define the distance between them as the sum of the differences between their <span class="arithmatex">$x$</span> and <span class="arithmatex">$y$</span> coordinates: </p>
 <div class="arithmatex">$$d(p,q) = |x_p - x_q| + |y_p - y_q|$$</div>
 <p>Defined this way, the distance corresponds to the so-called <a href="https://en.wikipedia.org/wiki/Taxicab_geometry">Manhattan (taxicab) geometry</a>, in which the points are considered intersections in a well designed city, like Manhattan, where you can only move on the streets horizontally or vertically, as shown in the image below:</p>
-<center>![Manhattan Distance](https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Manhattan_distance.svg/220px-Manhattan_distance.svg.png)</center>
+<div style="text-align: center;">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Manhattan_distance.svg/220px-Manhattan_distance.svg.png" alt="Manhattan Distance">
+</div>
 
 <p>This images show some of the smallest paths from one black point to the other, all of them with length <span class="arithmatex">$12$</span>.</p>
 <p>There are some interesting tricks and algorithms that can be done with this distance, and we will show some of them here.</p>
@@ -6691,7 +6703,9 @@ Describe the issue of this article in detail.
 <p>the Manhattan distance between the points <span class="arithmatex">$p$</span> and <span class="arithmatex">$q$</span> turns into the Chebyshev distance between <span class="arithmatex">$\alpha(p)$</span> and <span class="arithmatex">$\alpha(q)$</span>.</p>
 <p>Also, we may realize that <span class="arithmatex">$\alpha$</span> is a <a href="https://en.wikipedia.org/wiki/Spiral_similarity">spiral similarity</a> (rotation of the plane followed by a dilation about a center <span class="arithmatex">$O$</span>) with center <span class="arithmatex">$(0, 0)$</span>, rotation angle of <span class="arithmatex">$45^{\circ}$</span> in clockwise direction and dilation by <span class="arithmatex">$\sqrt{2}$</span>.</p>
 <p>Here's an image to help visualizing the transformation:</p>
-<center>![Chebyshev transformation](chebyshev-transformation.png)</center>
+<div style="text-align: center;">
+  <img src="chebyshev-transformation.png" alt="Chebyshev transformation">
+</div>
 
 <h2 id="manhattan-minimum-spanning-tree">Manhattan Minimum Spanning Tree<a class="headerlink" href="#manhattan-minimum-spanning-tree" title="Permanent link">&para;</a></h2>
 <p>The Manhattan MST problem consists of, given some points in the plane, find the edges that connect all the points and have a minimum total sum of weights. The weight of an edge that connects two points is their Manhattan distance. For simplicity, we assume that all points have different locations.
@@ -6782,7 +6796,7 @@ Here we show a way of finding the MST in <span class="arithmatex">$O(n \log{n})$
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/NaimSS" title="NaimSS" data-bi-name="contributorprofile" target="_blank">NaimSS</a> (82.32%)</li><li><a href="https://github.com/gabsrp2002" title="gabsrp2002" data-bi-name="contributorprofile" target="_blank">gabsrp2002</a> (12.71%)</li><li><a href="https://github.com/izanbf1803" title="izanbf1803" data-bi-name="contributorprofile" target="_blank">izanbf1803</a> (3.87%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (1.1%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/NaimSS" title="NaimSS" data-bi-name="contributorprofile" target="_blank">NaimSS</a> (80.0%)</li><li><a href="https://github.com/gabsrp2002" title="gabsrp2002" data-bi-name="contributorprofile" target="_blank">gabsrp2002</a> (11.89%)</li><li><a href="https://github.com/izanbf1803" title="izanbf1803" data-bi-name="contributorprofile" target="_blank">izanbf1803</a> (3.78%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (3.24%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (1.08%)</li></ul>
 </ul>
                 
               </article>

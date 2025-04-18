@@ -23,7 +23,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.4af4bdda.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.2afb09e1.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
@@ -6557,6 +6557,12 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
     
   
     
@@ -6625,7 +6631,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 22, 2024 17:55:40">February 22, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 15, 2025 02:32:08">April 15, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6658,15 +6664,21 @@ If the answer is yes, then print this pair of intersecting segments; it is enoug
 <h2 id="algorithm">Algorithm<a class="headerlink" href="#algorithm" title="Permanent link">&para;</a></h2>
 <p>Let's draw a vertical line <span class="arithmatex">$x = -\infty$</span> mentally and start moving this line to the right.
 In the course of its movement, this line will meet with segments, and at each time a segment intersect with our line it intersects in exactly one point (we will assume that there are no vertical segments).</p>
-<center>![sweep line and line segment intersection](sweep_line_1.png)</center>
+<div style="text-align: center;">
+  <img src="sweep_line_1.png" alt="sweep line and line segment intersection">
+</div>
 
 <p>Thus, for each segment, at some point in time, its point will appear on the sweep line, then with the movement of the line, this point will move, and finally, at some point, the segment will disappear from the line.</p>
 <p>We are interested in the <strong>relative order of the segments</strong> along the vertical.
 Namely, we will store a list of segments crossing the sweep line at a given time, where the segments will be sorted by their <span class="arithmatex">$y$</span>-coordinate on the sweep line.</p>
-<center>![relative order of the segments across sweep line](sweep_line_2.png)</center>
+<div style="text-align: center;">
+  <img src="sweep_line_2.png" alt="relative order of the segments across sweep line">
+</div>
 
 <p>This order is interesting because intersecting segments will have the same <span class="arithmatex">$y$</span>-coordinate at least at one time:</p>
-<center>![intersection point having same y-coordinate](sweep_line_3.png)</center>
+<div style="text-align: center;">
+  <img src="sweep_line_3.png" alt="intersection point having same y-coordinate">
+</div>
 
 <p>We formulate key statements:</p>
 <ul>
@@ -6807,7 +6819,7 @@ Namely, we will store a list of segments crossing the sweep line at a given time
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/singamandeep" title="singamandeep" data-bi-name="contributorprofile" target="_blank">singamandeep</a> (92.05%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.41%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (1.7%)</li><li><a href="https://github.com/SYury" title="SYury" data-bi-name="contributorprofile" target="_blank">SYury</a> (1.7%)</li><li><a href="https://github.com/juan-c-s" title="juan-c-s" data-bi-name="contributorprofile" target="_blank">juan-c-s</a> (0.57%)</li><li><a href="https://github.com/algmyr" title="algmyr" data-bi-name="contributorprofile" target="_blank">algmyr</a> (0.57%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/singamandeep" title="singamandeep" data-bi-name="contributorprofile" target="_blank">singamandeep</a> (89.01%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (4.95%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.3%)</li><li><a href="https://github.com/SYury" title="SYury" data-bi-name="contributorprofile" target="_blank">SYury</a> (1.65%)</li><li><a href="https://github.com/juan-c-s" title="juan-c-s" data-bi-name="contributorprofile" target="_blank">juan-c-s</a> (0.55%)</li><li><a href="https://github.com/algmyr" title="algmyr" data-bi-name="contributorprofile" target="_blank">algmyr</a> (0.55%)</li></ul>
 </ul>
                 
               </article>
