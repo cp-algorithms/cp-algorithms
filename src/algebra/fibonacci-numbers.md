@@ -116,11 +116,50 @@ In this way, we obtain a linear solution, $O(n)$ time, saving all the values pri
 
 ### Matrix form
 
-It is easy to prove the following relation:
+To go from $(F_n, F_{n-1})$ to $(F_{n+1}, F_n)$, we can express the linear recurrence as a 2x2 matrix multiplication:
 
-$$\begin{pmatrix} 1 & 1 \cr 1 & 0 \cr\end{pmatrix} ^ n = \begin{pmatrix} F_{n+1} & F_{n} \cr F_{n} & F_{n-1} \cr\end{pmatrix}$$
+$$
+\begin{pmatrix}
+1 & 1 \\
+1 & 0
+\end{pmatrix}
+\begin{pmatrix}
+F_n \\
+F_{n-1}
+\end{pmatrix}
+=
+\begin{pmatrix}
+F_n + F_{n-1}  \\
+F_{n}
+\end{pmatrix}
+=
+\begin{pmatrix}
+F_{n+1}  \\
+F_{n}
+\end{pmatrix}
+$$
 
-Thus, in order to find $F_n$ in $O(log  n)$ time, we must raise the matrix to n. (See [Binary exponentiation](binary-exp.md))
+This lets us treat iterating the recurrence as repeated matrix multiplication, which has nice properties. In particular,
+
+$$
+\begin{pmatrix}
+1 & 1 \\
+1 & 0
+\end{pmatrix}^n
+\begin{pmatrix}
+F_1 \\
+F_0
+\end{pmatrix}
+=
+\begin{pmatrix}
+F_{n+1}  \\
+F_{n}
+\end{pmatrix}
+$$
+
+where $F_1 = 1, F_0 = 0$.
+
+Thus, in order to find $F_n$ in $O(\log  n)$ time, we must raise the matrix to n. (See [Binary exponentiation](binary-exp.md))
 
 ```{.cpp file=fibonacci_matrix}
 struct matrix {
