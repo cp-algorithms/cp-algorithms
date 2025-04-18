@@ -159,7 +159,7 @@ $$
 
 where $F_1 = 1, F_0 = 0$.
 
-Thus, in order to find $F_n$ in $O(log  n)$ time, we must raise the matrix to n. (See [Binary exponentiation](binary-exp.md))
+Thus, in order to find $F_n$ in $O(\log  n)$ time, we must raise the matrix to n. (See [Binary exponentiation](binary-exp.md))
 
 ```{.cpp file=fibonacci_matrix}
 struct matrix {
