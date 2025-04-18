@@ -23,7 +23,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.4af4bdda.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.2afb09e1.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
@@ -6590,18 +6590,6 @@ Describe the issue of this article in detail.
   
     
   
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
     
   
 
@@ -6613,8 +6601,6 @@ Describe the issue of this article in detail.
 
   
   
-  
-    
   
     
   
@@ -6652,6 +6638,26 @@ Describe the issue of this article in detail.
   
     
   
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
 
   
   
@@ -6688,6 +6694,14 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
+
+  
+  
+  
 
   
   
@@ -6748,7 +6762,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 25, 2023 06:29:42">November 25, 2023</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 18, 2025 18:42:14">April 18, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6865,9 +6879,45 @@ Notice that this is the only occurrence where two consecutive 1-bits appear.</p>
 </code></pre></div>
 <p>In this way, we obtain a linear solution, <span class="arithmatex">$O(n)$</span> time, saving all the values prior to <span class="arithmatex">$n$</span> in the sequence.</p>
 <h3 id="matrix-form">Matrix form<a class="headerlink" href="#matrix-form" title="Permanent link">&para;</a></h3>
-<p>It is easy to prove the following relation:</p>
-<div class="arithmatex">$$\begin{pmatrix} 1 &amp; 1 \cr 1 &amp; 0 \cr\end{pmatrix} ^ n = \begin{pmatrix} F_{n+1} &amp; F_{n} \cr F_{n} &amp; F_{n-1} \cr\end{pmatrix}$$</div>
-<p>Thus, in order to find <span class="arithmatex">$F_n$</span> in <span class="arithmatex">$O(log  n)$</span> time, we must raise the matrix to n. (See <a href="binary-exp.html">Binary exponentiation</a>)</p>
+<p>To go from <span class="arithmatex">$(F_n, F_{n-1})$</span> to <span class="arithmatex">$(F_{n+1}, F_n)$</span>, we can express the linear recurrence as a 2x2 matrix multiplication:</p>
+<div class="arithmatex">$$
+\begin{pmatrix}
+1 &amp; 1 \\
+1 &amp; 0
+\end{pmatrix}
+\begin{pmatrix}
+F_n \\
+F_{n-1}
+\end{pmatrix}
+=
+\begin{pmatrix}
+F_n + F_{n-1}  \\
+F_{n}
+\end{pmatrix}
+=
+\begin{pmatrix}
+F_{n+1}  \\
+F_{n}
+\end{pmatrix}
+$$</div>
+<p>This lets us treat iterating the recurrence as repeated matrix multiplication, which has nice properties. In particular,</p>
+<div class="arithmatex">$$
+\begin{pmatrix}
+1 &amp; 1 \\
+1 &amp; 0
+\end{pmatrix}^n
+\begin{pmatrix}
+F_1 \\
+F_0
+\end{pmatrix}
+=
+\begin{pmatrix}
+F_{n+1}  \\
+F_{n}
+\end{pmatrix}
+$$</div>
+<p>where <span class="arithmatex">$F_1 = 1, F_0 = 0$</span>.</p>
+<p>Thus, in order to find <span class="arithmatex">$F_n$</span> in <span class="arithmatex">$O(\log  n)$</span> time, we must raise the matrix to n. (See <a href="binary-exp.html">Binary exponentiation</a>)</p>
 <div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">matrix</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">mat</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">];</span>
 <span class="w">    </span><span class="n">matrix</span><span class="w"> </span><span class="k">friend</span><span class="w"> </span><span class="k">operator</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">matrix</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">matrix</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">){</span>
@@ -6971,7 +7021,7 @@ The above code returns <span class="arithmatex">$F_n$</span> and <span class="ar
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/gabrielsimoes" title="gabrielsimoes" data-bi-name="contributorprofile" target="_blank">gabrielsimoes</a> (28.87%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (25.52%)</li><li><a href="#" title="Carlos Javier Blanco" data-bi-name="contributorprofile" target="_blank">Carlos Javier Blanco</a> (20.5%)</li><li><a href="https://github.com/madhur4127" title="madhur4127" data-bi-name="contributorprofile" target="_blank">madhur4127</a> (7.53%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (6.28%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.51%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (2.51%)</li><li><a href="https://github.com/md-shamim-ahmad" title="md-shamim-ahmad" data-bi-name="contributorprofile" target="_blank">md-shamim-ahmad</a> (2.09%)</li><li><a href="https://github.com/boxlesscat" title="boxlesscat" data-bi-name="contributorprofile" target="_blank">boxlesscat</a> (1.26%)</li><li><a href="https://github.com/yeetholmes619" title="yeetholmes619" data-bi-name="contributorprofile" target="_blank">yeetholmes619</a> (1.26%)</li><li><a href="https://github.com/pasthec" title="pasthec" data-bi-name="contributorprofile" target="_blank">pasthec</a> (0.84%)</li><li><a href="https://github.com/conlacda" title="conlacda" data-bi-name="contributorprofile" target="_blank">conlacda</a> (0.42%)</li><li><a href="https://github.com/ankit-kumar-dwivedi" title="ankit-kumar-dwivedi" data-bi-name="contributorprofile" target="_blank">ankit-kumar-dwivedi</a> (0.42%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/gabrielsimoes" title="gabrielsimoes" data-bi-name="contributorprofile" target="_blank">gabrielsimoes</a> (24.82%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (21.58%)</li><li><a href="#" title="Carlos Javier Blanco" data-bi-name="contributorprofile" target="_blank">Carlos Javier Blanco</a> (16.55%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (15.11%)</li><li><a href="https://github.com/madhur4127" title="madhur4127" data-bi-name="contributorprofile" target="_blank">madhur4127</a> (6.47%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (5.4%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.52%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (2.16%)</li><li><a href="https://github.com/md-shamim-ahmad" title="md-shamim-ahmad" data-bi-name="contributorprofile" target="_blank">md-shamim-ahmad</a> (1.8%)</li><li><a href="https://github.com/boxlesscat" title="boxlesscat" data-bi-name="contributorprofile" target="_blank">boxlesscat</a> (1.08%)</li><li><a href="https://github.com/yeetholmes619" title="yeetholmes619" data-bi-name="contributorprofile" target="_blank">yeetholmes619</a> (1.08%)</li><li><a href="https://github.com/pasthec" title="pasthec" data-bi-name="contributorprofile" target="_blank">pasthec</a> (0.72%)</li><li><a href="https://github.com/conlacda" title="conlacda" data-bi-name="contributorprofile" target="_blank">conlacda</a> (0.36%)</li><li><a href="https://github.com/ankit-kumar-dwivedi" title="ankit-kumar-dwivedi" data-bi-name="contributorprofile" target="_blank">ankit-kumar-dwivedi</a> (0.36%)</li></ul>
 </ul>
                 
               </article>
