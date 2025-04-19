@@ -6,7 +6,7 @@ tags:
 # Pell's Equation (Pell-Fermat Equation)
 
 ## Statement
-We are given a natural number $d$. We need to find the smallest positive integer $x$ such that $x^{2} - d \cdot y^{2} = 1$ for some integer $y$.
+We are given a natural number $d$. We need to find the smallest positive integer $x$ such that $x^{2} - d \cdot y^{2} = 1$ for some positive integer $y$.
 
 Alternative formulation: We want to find all the possible solutions of the equation $x^{2} - d \cdot y^{2} = 1$.
 
