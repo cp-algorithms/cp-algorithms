@@ -157,7 +157,19 @@ F_{n}
 \end{pmatrix}
 $$
 
-where $F_1 = 1, F_0 = 0$.
+where $F_1 = 1, F_0 = 0$. 
+In fact, since 
+$$
+\begin{pmatrix} 1 & 1 \\ 1 & 0 \end{pmatrix}
+= \begin{pmatrix} F_2 & F_1 \\ F_1 & F_0 \end{pmatrix}
+$$
+
+we can use the matrix directly:
+
+$$
+\begin{pmatrix} 1 & 1 \\ 1 & 0 \end{pmatrix}^n
+= \begin{pmatrix} F_{n+1} & F_n \\ F_n & F_{n-1} \end{pmatrix}
+$$
 
 Thus, in order to find $F_n$ in $O(\log  n)$ time, we must raise the matrix to n. (See [Binary exponentiation](binary-exp.md))
 
