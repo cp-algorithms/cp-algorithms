@@ -32,7 +32,7 @@ But this contradicts our assumption that $( x_{0} + \sqrt{d} \cdot y_{0} )$ is t
 
 Hence, we conclude that all solutions are given by $( x_{0} + \sqrt{d} \cdot y_{0} )^{n}$ for some integer $n$.
 
-## To find the smallest positive solution
+## Finding the smallest positive solution
 ### Expressing the solution in terms of continued fractions
 We can express the solution in terms of continued fractions. The continued fraction of $\sqrt{d}$ is periodic. Let's assume the continued fraction of $\sqrt{d}$ is $[a_{0}; \overline{a_{1}, a_{2}, \ldots, a_{r}}]$. The smallest positive solution is given by the convergent $[a_{0}; a_{1}, a_{2}, \ldots, a_{r}]$ where $r$ is the period of the continued fraction.
 
