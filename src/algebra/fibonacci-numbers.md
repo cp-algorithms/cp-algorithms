@@ -159,6 +159,7 @@ $$
 
 where $F_1 = 1, F_0 = 0$. 
 In fact, since 
+
 $$
 \begin{pmatrix} 1 & 1 \\ 1 & 0 \end{pmatrix}
 = \begin{pmatrix} F_2 & F_1 \\ F_1 & F_0 \end{pmatrix}
