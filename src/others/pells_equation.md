@@ -16,17 +16,19 @@ We can even assume that $d$ is square-free (i.e. it is not divisible by the squa
 
 $x^{2} - d \cdot y^{2} = ( x + \sqrt{d} \cdot y ) ( x - \sqrt{d} \cdot y ) = 1$
 
-The first part $( x + \sqrt{d} \cdot y )$ is always greater than 1. And the second part $( x - \sqrt{d} \cdot y )$ is always less than 1.
+The first part $( x + \sqrt{d} \cdot y )$ is always greater than 1. And the second part $( x - \sqrt{d} \cdot y )$ is always less than 1, since the product is 1.
 
 We will prove that all solutions to Pell's equation are given by powers of the smallest positive solution. Let's assume it to be 
-$ x_{0} +  y_{0} \cdot \sqrt{d} $
+$x_{0} +  y_{0} \cdot \sqrt{d}$
 
-We use method of descent to prove it. suppose there is a solution $u + v \cdot \sqrt{d}$ such that $u^{2} - d \cdot v^{2} = 1 $
-Therefore, $ ( x_{0} + \sqrt{d} \cdot y_{0} )^{n}  < u + v \cdot \sqrt{d} < ( x_{0} + \sqrt{d} \cdot y_{0} )^{n+1} $
+We use method of descent to prove it.  
+Suppose there is a solution $u + v \cdot \sqrt{d}$ such that $u^{2} - d \cdot v^{2} = 1$ and is not a power of  $( x_{0} + \sqrt{d} \cdot y_{0} )$
+Then it must lie between two powers of $( x_{0} + \sqrt{d} \cdot y_{0} )$. 
+i.e, For some n, $( x_{0} + \sqrt{d} \cdot y_{0} )^{n}  < u + v \cdot \sqrt{d} < ( x_{0} + \sqrt{d} \cdot y_{0} )^{n+1}$
 
 Multiplying the above inequality by $( x_{0} - \sqrt{d} \cdot y_{0} )^{n}$,(which is > 0 and < 1) we get
 
-$ 1 < (u + v \cdot \sqrt{d})( x_{0} - \sqrt{d} \cdot y_{0} )^{n} < ( x_{0} + \sqrt{d} \cdot y_{0} ) $
+$1 < (u + v \cdot \sqrt{d})( x_{0} - \sqrt{d} \cdot y_{0} )^{n} < ( x_{0} + \sqrt{d} \cdot y_{0} )$
 Because both $(u + v \cdot \sqrt{d})$ and $( x_{0} - \sqrt{d} \cdot y_{0} )^{n}$ have norm 1, their product is also a solution.
 But this contradicts our assumption that $( x_{0} + \sqrt{d} \cdot y_{0} )$ is the smallest solution. Therefore, there is no solution between $( x_{0} + \sqrt{d} \cdot y_{0} )^{n}$ and $( x_{0} + \sqrt{d} \cdot y_{0} )^{n+1}$.
 
@@ -41,32 +43,33 @@ The convergents $p_{n}/q_{n}$ are the rational approximations to $\sqrt{d}$ obta
 Check whether the convergent satisfies the Pell's equation. If it does, then the convergent is the smallest positive solution.
 
 Let's take an example to understand this by solving the equation $x^{2} - 2 \cdot y^{2} = 1$.
-$\sqrt{2} = [1; \overline{2}] = 1 + 1/(2 + 1/(2 + 1/(2+ ...))) $. The convergents are $1/1, 3/2, 7/5, 17/12, 41/29, 99/70, \ldots$.
+$\sqrt{2} = [1; \overline{2}] = 1 + 1/(2 + 1/(2 + 1/(2+ ...)))$. The convergents are $1/1, 3/2, 7/5, 17/12, 41/29, 99/70, \ldots$.
 Now check for each convergent whether it satisfies the Pell's equation. The smallest positive solution is $3/2$.
 
 ### How to calculate the continued fraction of $\sqrt{d}$?
-Let's find the continued fraction of $\def\sf{\sqrt 7}\sf$.
+Let's find the continued fraction of $\sqrt{7}$.
 
-$\sf \approx 2.6457 = 2 + 0.6457$
+$\sqrt{7} \approx 2.6457 = 2 + 0.6457$
 
-$a_{0} = 2 $
+$a_{0} = 2$
 
 Subtract $a_{0}$ from the number and take the reciprocal of the remaining number.
 
-That is, we calculate ${1\over \sf - 2} \approx 1.5486$. The integer part $a_{1}$ is $1$.
-So:
-    $$\sf=2+\cfrac{1}{1+\cfrac1{\vdots}}$$ Where we haven't calculated the $\vdots$ part yet.
+That is, we calculate ${1\over \sqrt{7} - 2} \approx 1.5486$. The integer part $a_{1}$ is $1$.
+So:  
+$\sqrt{7}=2+\cfrac{1}{1+\cfrac1{\vdots}}$  
+Where we haven't calculated the $( \vdots )$ part yet.  
 To get that, we subtract $a_{1}$ from the number and take the reciprocal of the remaining number. That is, we calculate ${1\over 1.5486 - 1} \approx 1.8228$. The integer part $a_{2}$ is $1$.
-So:
-    $$\sf=2+\cfrac{1}{1+\cfrac1{1+\cfrac1{\vdots}}}$$
-Now ${1\over 1.8228 - 1} \approx 1.2153$. So $a_{3} = 1$.
+So:  
+$\sqrt{7}=2+\cfrac{1}{1+\cfrac1{1+\cfrac1{\vdots}}}$   
+Now ${1\over 1.8228 - 1} \approx 1.2153$.  So $a_{3} = 1$.
 Continuing this process, ${1\over 1.2153 - 1} \approx 4.645$. So $a_{4} = 4$.
 
-$$\sf=2+\cfrac{1}{1+\cfrac1{1+\cfrac1{1+\cfrac4{\vdots}}}}$$
+$$\sqrt{7}=2+\cfrac{1}{1+\cfrac1{1+\cfrac1{1+\cfrac4{\vdots}}}}$$
 
-we get the continued fraction of $\sf$ as $[2; 1, 1, 4, 1, 1, 4, \ldots]$.
+we get the continued fraction of $\sqrt{7}$ as $[2; 1, 1, 4, 1, 1, 4, \ldots]$.
 
-It can also be calculated using only [integer based calculation](https://cp-algorithms.com/algebra/continued-fractions.html) 
+This can also be calculated using [integer based calculation(continued fractions)](https://cp-algorithms.com/algebra/continued-fractions.html) 
 
 ### Finding the solution using Chakravala method
 The Chakravala method is an ancient Indian algorithm to solve Pell's equation. It is based on the Brahmagupta's identity of quadratic decomposition 
@@ -74,12 +77,12 @@ $(x_{1}^{2} - n \cdot y_{1}^{2}) \cdot (x_{2}^{2} - n \cdot y_{2}^{2}) = (x_{1} 
 $(x_{1}^{2} - n \cdot y_{1}^{2}) \cdot (x_{2}^{2} - n \cdot y_{2}^{2}) = (x_{1} \cdot x_{2} - n \cdot y_{1} \cdot y_{2})^{2} - n \cdot (x_{1} \cdot y_{2} - x_{2} \cdot y_{1})^{2}$
 
 And Bhaskara's Lemma:
-    If $x^{2} - n \cdot y^{2} = k$, then  $ ( \frac{ m \cdot x + n \cdot y }{k})^{2} - n \cdot ( \frac{ x + m \cdot y }{k})^{2} = \frac{m^2 - n}{k}$
+    If $x^{2} - n \cdot y^{2} = k$, then  $( \frac{ m \cdot x + n \cdot y }{k})^{2} - n \cdot ( \frac{ x + m \cdot y }{k})^{2} = \frac{m^2 - n}{k}$
 
-Using above Brahmagupta's identity, If $(x_{1}, y_{1}, k_{1})$ and $(x_{2}, y_{2}, k_{2})$ satisfy $(x_{1}^{2} - y_1^{2}) \cdot (x_{2}^{2} - y_2^{2}) = k_{1} \cdot k_{2} $, then $(x_{1} \cdot x_{2} + n \cdot y_{1} \cdot y_{2}, x_{1} \cdot y_{2} + y_{1} \cdot x_{2}, k_{1} \cdot k_{2})$ is also a solution of $(x_{1} \cdot x_{2} + n \cdot y_{1} \cdot y_{2})^{2} - n \cdot (x_{1} \cdot y_{2} + x_{2} \cdot y_{1})^{2} = k_{1} \cdot k_{2}$
+Using above Brahmagupta's identity, If $(x_{1}, y_{1}, k_{1})$ and $(x_{2}, y_{2}, k_{2})$ satisfy $(x_{1}^{2} - y_1^{2}) \cdot (x_{2}^{2} - y_2^{2}) = k_{1} \cdot k_{2}$, then $(x_{1} \cdot x_{2} + n \cdot y_{1} \cdot y_{2}, x_{1} \cdot y_{2} + y_{1} \cdot x_{2}, k_{1} \cdot k_{2})$ is also a solution of $(x_{1} \cdot x_{2} + n \cdot y_{1} \cdot y_{2})^{2} - n \cdot (x_{1} \cdot y_{2} + x_{2} \cdot y_{1})^{2} = k_{1} \cdot k_{2}$
 
 #### Steps
-1. Initialization:Choose an initial solution $(p_{0}, q_{0}, m_{0})$ where $p_{0}$ and $q_{0}$ are co-prime such that $p_{0}^{2} - N \cdot q_{0}^{2} = m_{0}$. Typically, start with $p_{0} = \lfloor \sqrt N \rfloor $, $q_{0} = 1$, $m_{0} = p_0^2 - N $.
+1. Initialization:Choose an initial solution $(p_{0}, q_{0}, m_{0})$ where $p_{0}$ and $q_{0}$ are co-prime such that $p_{0}^{2} - N \cdot q_{0}^{2} = m_{0}$. Typically, start with $p_{0} = \lfloor \sqrt N \rfloor$, $q_{0} = 1$, $m_{0} = p_0^2 - N$.
 2. Key step: Find $x_{1}$ such that: $q_{0} \cdot x_{1} \equiv -p_{0} \pmod {\lvert m_{0}\rvert}$ and $\lvert x_{1}^2 - N \rvert$ is minimized.
     Update the triple $(p_{1}, q_{1}, m_{1}) = ( \frac{x_{1} \cdot p_{0} + N \cdot q_{0}}{\lvert m_{0} \rvert}, \frac{p_{0} + x_{1} \cdot q_{0}}{\lvert m_{0} \rvert}, \frac{x_1^{2} - N}{m_{0}})$.
 3. Termination: When $m_{k}=1$, the values of $p_{k}$ and $q_{k}$ are the smallest positive solution of the Pell's equation.
@@ -93,8 +96,8 @@ We get $x_{1} = 1$. Update the triple $(p_{1}, q_{1}, m_{1}) = ( \frac{1 \cdot 3
 3. Substituting $(p_{1}, q_{1}, k_{1}) = (4, 1, 3)$ in key step, we get $x_{2} \equiv -4 \pmod 3$ and minimize $\lvert x_{2}^2 - 13 \rvert$ i.e, $x_{2} = 2$. Update the triple $(p_{2}, q_{2}, m_{2}) = ( \frac{2 \cdot 4 + 13 \cdot 1}{3}, \frac{4 + 2 \cdot 1}{3}, \frac{2^{2} - 13}{-3}) = (7, 2, -3)$. 
 4. Substituting $(p_{2}, q_{2}, m_{2}) = (7, 2, -3)$ in key step, we get $2 \cdot x_{3} \equiv -7 \pmod 3$ and minimize $\lvert x_{3}^2 - 13 \rvert$ i.e, $x_{3} = 4$. Update the triple $(p_{3}, q_{3}, m_{3}) = ( \frac{4 \cdot 7 + 13 \cdot 2}{3}, \frac{7 + 4 \cdot 2}{3}, \frac{4^{2} - 13}{-3}) = (18, 5, -1)$.
 5. Substituting $(p_{3}, q_{3}, m_{3}) = (18, 5, -1)$ in key step, we get $5 \cdot x_{4} \equiv -18 \pmod 1$ and minimize $\lvert x_{4}^2 - 13 \rvert$ i.e, $x_{4} = 4$. Update the triple $(p_{4}, q_{4}, m_{4}) = ( \frac{4 \cdot 18 + 13 \cdot 5}{1}, \frac{18 + 4 \cdot 5}{1}, \frac{4^{2} - 13}{-1}) = (137, 38, -3)$.
-6. Substituting $(p_{4}, q_{4}, m_{4}) = (137, 38, -3)$ in key step, we get $ 38 \cdot x_{5} \equiv -137 \pmod 3$ and minimize $\lvert x_{5}^2 - 13 \rvert$ i.e, $x_{5} = 2$. Update the triple $(p_{5}, q_{5}, m_{5}) = ( \frac{2 \cdot 137 + 13 \cdot 38}{3}, \frac{137 + 2 \cdot 38}{3}, \frac{2^{2} - 13}{-3}) = (256, 71, 3)$.
-7. Substituting $(p_{5}, q_{5}, m_{5}) = (256, 71, 3)$ in key step, we get $ 71 \cdot x_{6} \equiv -256 \pmod 3$ and minimize $\lvert x_{6}^2 - 13 \rvert$ i.e, $x_{6} = 4$. Update the triple $(p_{6}, q_{6}, m_{6}) = ( \frac{4 \cdot 256 + 13 \cdot 71}{3}, \frac{256 + 4 \cdot 71}{3}, \frac{4^{2} - 13}{3}) = (649, 180, 1)$.
+6. Substituting $(p_{4}, q_{4}, m_{4}) = (137, 38, -3)$ in key step, we get $38 \cdot x_{5} \equiv -137 \pmod 3$ and minimize $\lvert x_{5}^2 - 13 \rvert$ i.e, $x_{5} = 2$. Update the triple $(p_{5}, q_{5}, m_{5}) = ( \frac{2 \cdot 137 + 13 \cdot 38}{3}, \frac{137 + 2 \cdot 38}{3}, \frac{2^{2} - 13}{-3}) = (256, 71, 3)$.
+7. Substituting $(p_{5}, q_{5}, m_{5}) = (256, 71, 3)$ in key step, we get $71 \cdot x_{6} \equiv -256 \pmod 3$ and minimize $\lvert x_{6}^2 - 13 \rvert$ i.e, $x_{6} = 4$. Update the triple $(p_{6}, q_{6}, m_{6}) = ( \frac{4 \cdot 256 + 13 \cdot 71}{3}, \frac{256 + 4 \cdot 71}{3}, \frac{4^{2} - 13}{3}) = (649, 180, 1)$.
 
 ## Implementation
 ```cpp
