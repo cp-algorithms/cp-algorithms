@@ -6778,7 +6778,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 15, 2025 02:32:08">April 15, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 22, 2025 02:45:52">April 22, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6870,14 +6870,23 @@ Initially we start with a flow of 0.</p>
 <p>We can find the path <span class="arithmatex">$s - A - B - t$</span> with the residual capacities 7, 5, and 8.
 Their minimum is 5, therefore we can increase the flow along this path by 5.
 This gives a flow of 5 for the network.</p>
-<center>![First path](Flow2.png) ![Network after first path](Flow3.png)</center>
+<div style="text-align: center;">
+  <img src="Flow2.png" alt="First path">
+  <img src="Flow3.png" alt="Network after first path">
+</div>
 
 <p>Again we look for an augmenting path, this time we find <span class="arithmatex">$s - D - A - C - t$</span> with the residual capacities 4, 3, 3, and 5.
 Therefore we can increase the flow by 3 and we get a flow of 8 for the network.</p>
-<center>![Second path](Flow4.png) ![Network after second path](Flow5.png)</center>
+<div style="text-align: center;">
+  <img src="Flow4.png" alt="Second path">
+  <img src="Flow5.png" alt="Network after second path">
+</div>
 
 <p>This time we find the path <span class="arithmatex">$s - D - C - B - t$</span> with the residual capacities 1, 2, 3, and 3, and hence, we increase the flow by 1.</p>
-<center>![Third path](Flow6.png) ![Network after third path](Flow7.png)</center>
+<div style="text-align: center;">
+  <img src="Flow6.png" alt="Third path">
+  <img src="Flow7.png" alt="Network after third path">
+</div>
 
 <p>This time we find the augmenting path <span class="arithmatex">$s - A - D - C - t$</span> with the residual capacities 2, 3, 1, and 2.
 We can increase the flow by 1.
@@ -6887,7 +6896,10 @@ In the original flow network, we are not allowed to send any flow from <span cla
 But because we already have a flow of 3 from <span class="arithmatex">$D$</span> to <span class="arithmatex">$A$</span>, this is possible.
 The intuition of it is the following:
 Instead of sending a flow of 3 from <span class="arithmatex">$D$</span> to <span class="arithmatex">$A$</span>, we only send 2 and compensate this by sending an additional flow of 1 from <span class="arithmatex">$s$</span> to <span class="arithmatex">$A$</span>, which allows us to send an additional flow of 1 along the path <span class="arithmatex">$D - C - t$</span>.</p>
-<center>![Fourth path](Flow8.png) ![Network after fourth path](Flow9.png)</center>
+<div style="text-align: center;">
+  <img src="Flow8.png" alt="Fourth path">
+  <img src="Flow9.png" alt="Network after fourth path">
+</div>
 
 <p>Now, it is impossible to find an augmenting path between <span class="arithmatex">$s$</span> and <span class="arithmatex">$t$</span>, therefore this flow of <span class="arithmatex">$10$</span> is the maximal possible.
 We have found the maximal flow.</p>
@@ -6990,7 +7002,7 @@ This partition can be easily found using <a href="depth-first-search.html">DFS</
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (70.98%)</li><li><a href="https://github.com/DamianArado" title="DamianArado" data-bi-name="contributorprofile" target="_blank">DamianArado</a> (12.05%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (5.36%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.1300000000000003%)</li><li><a href="https://github.com/infalmo" title="infalmo" data-bi-name="contributorprofile" target="_blank">infalmo</a> (1.79%)</li><li><a href="https://github.com/LUTLJS" title="LUTLJS" data-bi-name="contributorprofile" target="_blank">LUTLJS</a> (1.34%)</li><li><a href="https://github.com/Aryamn" title="Aryamn" data-bi-name="contributorprofile" target="_blank">Aryamn</a> (1.34%)</li><li><a href="https://github.com/Kakalinn" title="Kakalinn" data-bi-name="contributorprofile" target="_blank">Kakalinn</a> (0.89%)</li><li><a href="https://github.com/kd1729" title="kd1729" data-bi-name="contributorprofile" target="_blank">kd1729</a> (0.45%)</li><li><a href="https://github.com/obiwac" title="obiwac" data-bi-name="contributorprofile" target="_blank">obiwac</a> (0.45%)</li><li><a href="https://github.com/shivensinha4" title="shivensinha4" data-bi-name="contributorprofile" target="_blank">shivensinha4</a> (0.45%)</li><li><a href="https://github.com/lm10-piyush" title="lm10-piyush" data-bi-name="contributorprofile" target="_blank">lm10-piyush</a> (0.45%)</li><li><a href="https://github.com/ShayekhBinIslam" title="ShayekhBinIslam" data-bi-name="contributorprofile" target="_blank">ShayekhBinIslam</a> (0.45%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.45%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.45%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (65.68%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (11.86%)</li><li><a href="https://github.com/DamianArado" title="DamianArado" data-bi-name="contributorprofile" target="_blank">DamianArado</a> (11.44%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.96%)</li><li><a href="https://github.com/infalmo" title="infalmo" data-bi-name="contributorprofile" target="_blank">infalmo</a> (1.69%)</li><li><a href="https://github.com/LUTLJS" title="LUTLJS" data-bi-name="contributorprofile" target="_blank">LUTLJS</a> (1.27%)</li><li><a href="https://github.com/Aryamn" title="Aryamn" data-bi-name="contributorprofile" target="_blank">Aryamn</a> (1.27%)</li><li><a href="https://github.com/Kakalinn" title="Kakalinn" data-bi-name="contributorprofile" target="_blank">Kakalinn</a> (0.85%)</li><li><a href="https://github.com/kd1729" title="kd1729" data-bi-name="contributorprofile" target="_blank">kd1729</a> (0.42%)</li><li><a href="https://github.com/obiwac" title="obiwac" data-bi-name="contributorprofile" target="_blank">obiwac</a> (0.42%)</li><li><a href="https://github.com/shivensinha4" title="shivensinha4" data-bi-name="contributorprofile" target="_blank">shivensinha4</a> (0.42%)</li><li><a href="https://github.com/lm10-piyush" title="lm10-piyush" data-bi-name="contributorprofile" target="_blank">lm10-piyush</a> (0.42%)</li><li><a href="https://github.com/ShayekhBinIslam" title="ShayekhBinIslam" data-bi-name="contributorprofile" target="_blank">ShayekhBinIslam</a> (0.42%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.42%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.42%)</li></ul>
 </ul>
                 
               </article>
