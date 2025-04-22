@@ -6778,7 +6778,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 22, 2025 02:11:52">April 22, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 22, 2025 02:45:52">April 22, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6872,20 +6872,20 @@ Their minimum is 5, therefore we can increase the flow along this path by 5.
 This gives a flow of 5 for the network.</p>
 <div style="text-align: center;">
   <img src="Flow2.png" alt="First path">
-  ![Network after first path](Flow3.png)
+  <img src="Flow3.png" alt="Network after first path">
 </div>
 
 <p>Again we look for an augmenting path, this time we find <span class="arithmatex">$s - D - A - C - t$</span> with the residual capacities 4, 3, 3, and 5.
 Therefore we can increase the flow by 3 and we get a flow of 8 for the network.</p>
 <div style="text-align: center;">
   <img src="Flow4.png" alt="Second path">
-  ![Network after second path](Flow5.png)
+  <img src="Flow5.png" alt="Network after second path">
 </div>
 
 <p>This time we find the path <span class="arithmatex">$s - D - C - B - t$</span> with the residual capacities 1, 2, 3, and 3, and hence, we increase the flow by 1.</p>
 <div style="text-align: center;">
   <img src="Flow6.png" alt="Third path">
-  ![Network after third path](Flow7.png)
+  <img src="Flow7.png" alt="Network after third path">
 </div>
 
 <p>This time we find the augmenting path <span class="arithmatex">$s - A - D - C - t$</span> with the residual capacities 2, 3, 1, and 2.
@@ -6898,7 +6898,7 @@ The intuition of it is the following:
 Instead of sending a flow of 3 from <span class="arithmatex">$D$</span> to <span class="arithmatex">$A$</span>, we only send 2 and compensate this by sending an additional flow of 1 from <span class="arithmatex">$s$</span> to <span class="arithmatex">$A$</span>, which allows us to send an additional flow of 1 along the path <span class="arithmatex">$D - C - t$</span>.</p>
 <div style="text-align: center;">
   <img src="Flow8.png" alt="Fourth path">
-  ![Network after fourth path](Flow9.png)
+  <img src="Flow9.png" alt="Network after fourth path">
 </div>
 
 <p>Now, it is impossible to find an augmenting path between <span class="arithmatex">$s$</span> and <span class="arithmatex">$t$</span>, therefore this flow of <span class="arithmatex">$10$</span> is the maximal possible.
