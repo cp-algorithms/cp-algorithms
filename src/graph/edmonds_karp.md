@@ -90,14 +90,23 @@ Initially we start with a flow of 0.
 We can find the path $s - A - B - t$ with the residual capacities 7, 5, and 8.
 Their minimum is 5, therefore we can increase the flow along this path by 5.
 This gives a flow of 5 for the network.
-<center>![First path](Flow2.png) ![Network after first path](Flow3.png)</center>
+<div style="text-align: center;">
+  <img src="Flow2.png" alt="First path">
+  ![Network after first path](Flow3.png)
+</div>
 
 Again we look for an augmenting path, this time we find $s - D - A - C - t$ with the residual capacities 4, 3, 3, and 5.
 Therefore we can increase the flow by 3 and we get a flow of 8 for the network.
-<center>![Second path](Flow4.png) ![Network after second path](Flow5.png)</center>
+<div style="text-align: center;">
+  <img src="Flow4.png" alt="Second path">
+  ![Network after second path](Flow5.png)
+</div>
 
 This time we find the path $s - D - C - B - t$ with the residual capacities 1, 2, 3, and 3, and hence, we increase the flow by 1.
-<center>![Third path](Flow6.png) ![Network after third path](Flow7.png)</center>
+<div style="text-align: center;">
+  <img src="Flow6.png" alt="Third path">
+  ![Network after third path](Flow7.png)
+</div>
 
 This time we find the augmenting path $s - A - D - C - t$ with the residual capacities 2, 3, 1, and 2.
 We can increase the flow by 1.
@@ -107,7 +116,10 @@ In the original flow network, we are not allowed to send any flow from $A$ to $D
 But because we already have a flow of 3 from $D$ to $A$, this is possible.
 The intuition of it is the following:
 Instead of sending a flow of 3 from $D$ to $A$, we only send 2 and compensate this by sending an additional flow of 1 from $s$ to $A$, which allows us to send an additional flow of 1 along the path $D - C - t$.
-<center>![Fourth path](Flow8.png) ![Network after fourth path](Flow9.png)</center>
+<div style="text-align: center;">
+  <img src="Flow8.png" alt="Fourth path">
+  ![Network after fourth path](Flow9.png)
+</div>
 
 Now, it is impossible to find an augmenting path between $s$ and $t$, therefore this flow of $10$ is the maximal possible.
 We have found the maximal flow.
