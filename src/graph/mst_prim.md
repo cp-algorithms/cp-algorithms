@@ -15,7 +15,7 @@ In the left image you can see a weighted undirected graph, and in the right imag
 
 <div style="text-align: center;">
   <img src="MST_before.png" alt="Random graph">
-  ![MST of this graph](MST_after.png)
+  <img src="MST_after.png" alt="MST of this graph">
 </div>
 
 It is easy to see that any spanning tree will necessarily contain $n-1$ edges.
