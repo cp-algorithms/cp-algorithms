@@ -92,20 +92,20 @@ Their minimum is 5, therefore we can increase the flow along this path by 5.
 This gives a flow of 5 for the network.
 <div style="text-align: center;">
   <img src="Flow2.png" alt="First path">
-  ![Network after first path](Flow3.png)
+  <img src="Flow3.png" alt="Network after first path">
 </div>
 
 Again we look for an augmenting path, this time we find $s - D - A - C - t$ with the residual capacities 4, 3, 3, and 5.
 Therefore we can increase the flow by 3 and we get a flow of 8 for the network.
 <div style="text-align: center;">
   <img src="Flow4.png" alt="Second path">
-  ![Network after second path](Flow5.png)
+  <img src="Flow5.png" alt="Network after second path">
 </div>
 
 This time we find the path $s - D - C - B - t$ with the residual capacities 1, 2, 3, and 3, and hence, we increase the flow by 1.
 <div style="text-align: center;">
   <img src="Flow6.png" alt="Third path">
-  ![Network after third path](Flow7.png)
+  <img src="Flow7.png" alt="Network after third path">
 </div>
 
 This time we find the augmenting path $s - A - D - C - t$ with the residual capacities 2, 3, 1, and 2.
@@ -118,7 +118,7 @@ The intuition of it is the following:
 Instead of sending a flow of 3 from $D$ to $A$, we only send 2 and compensate this by sending an additional flow of 1 from $s$ to $A$, which allows us to send an additional flow of 1 along the path $D - C - t$.
 <div style="text-align: center;">
   <img src="Flow8.png" alt="Fourth path">
-  ![Network after fourth path](Flow9.png)
+  <img src="Flow9.png" alt="Network after fourth path">
 </div>
 
 Now, it is impossible to find an augmenting path between $s$ and $t$, therefore this flow of $10$ is the maximal possible.
