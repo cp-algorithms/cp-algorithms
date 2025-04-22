@@ -15,7 +15,7 @@ Here is one given graph together with its topological order:
 
 <div style="text-align: center;">
   <img src="topological_1.png" alt="example directed graph">
-  ![one topological order](topological_2.png)
+  <img src="topological_2.png" alt="one topological order">
 </div>
 
 Topological order can be **non-unique** (for example, if there exist three vertices $a$, $b$, $c$ for which there exist paths from $a$ to $b$ and from $a$ to $c$ but not paths from $b$ to $c$ or from $c$ to $b$).

@@ -55,7 +55,8 @@ For example:
 
 <div style="text-align: center;">
   <img src="second_best_mst_1.png" alt="MST">
-  ![Second best MST](second_best_mst_2.png) <br>
+  <img src="second_best_mst_2.png" alt="Second best MST">
+  <br />
 
 *In the image left is the MST and right is the second best MST.*
 </div>
