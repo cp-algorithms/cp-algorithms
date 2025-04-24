@@ -132,9 +132,9 @@ One of the tricks to getting better at dynamic programming is to study some of t
 ## Classic Dynamic Programming Problems
 | Name                                           | Description/Example                                                                                                                                                                                                            |
 | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [0-1 Knapsack](knapsack.md)                                   | Given $W$, $N$, and $N$ items with weights $w_i$ and values $v_i$, what is the maximum $\sum_{i=1}^{k} v_i$ for each subset of items of size $k$ ($1 \le k \le N$) while ensuring $\sum_{i=1}^{k} w_i \le W$?                  |
+| [0-1 Knapsack](/knapsack.md)                                   | Given $W$, $N$, and $N$ items with weights $w_i$ and values $v_i$, what is the maximum $\sum_{i=1}^{k} v_i$ for each subset of items of size $k$ ($1 \le k \le N$) while ensuring $\sum_{i=1}^{k} w_i \le W$?                  |
 | Subset Sum                                     | Given $N$ integers and $T$, determine whether there exists a subset of the given set whose elements sum up to the $T$.                                                                                                         |
-| [Longest Increasing Subsequence (LIS)](longest_increasing_subsequence.md)           | You are given an array containing $N$ integers. Your task is to determine the LIS in the array, i.e., a subsequence where every element is larger than the previous one.                                                       |
+| [Longest Increasing Subsequence (LIS)](/longest_increasing_subsequence.md)           | You are given an array containing $N$ integers. Your task is to determine the LIS in the array, i.e., a subsequence where every element is larger than the previous one.                                                       |
 | Counting Paths in a 2D Array                   | Given $N$ and $M$, count all possible distinct paths from $(1,1)$ to $(N, M)$, where each step is either from $(i,j)$ to $(i+1,j)$ or $(i,j+1)$.                                                                               |
 | Longest Common Subsequence                     | You are given strings $s$ and $t$. Find the length of the longest string that is a subsequence of both $s$ and $t$.                                                                                                            |
 | Longest Path in a Directed Acyclic Graph (DAG) | Finding the longest path in Directed Acyclic Graph (DAG).                                                                                                                                                                      |
@@ -143,7 +143,7 @@ One of the tricks to getting better at dynamic programming is to study some of t
 | Edit Distance                                  | The edit distance between two strings is the minimum number of operations required to transform one string into the other. Operations are ["Add", "Remove", "Replace"]                                                         |
 
 ## Related Topics
-* [Bitmask Dynamic Programming](profile-dynamics.md)
+* [Bitmask Dynamic Programming](/profile-dynamics.md)
 * Digit Dynamic Programming
 * Dynamic Programming on Trees
 
