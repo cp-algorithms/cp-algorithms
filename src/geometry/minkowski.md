@@ -41,7 +41,9 @@ We repeat the following steps while $i < |P|$ or $j < |Q|$.
 
 Here is a nice visualization, which may help you understand what is going on.
 
-<center>![Visual](minkowski.gif)</center>
+<div style="text-align: center;">
+  <img src="minkowski.gif" alt="Visual">
+</div>
 
 ## Distance between two polygons
 One of the most common applications of Minkowski sum is computing the distance between two convex polygons (or simply checking whether they intersect).

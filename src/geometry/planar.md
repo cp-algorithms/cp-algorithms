@@ -53,7 +53,9 @@ It's quite clear that the complexity of the algorithm is $O(m \log m)$ because o
 
 At the first glance it may seem that finding faces of a disconnected graph is not much harder because we can run the same algorithm for each connected component. However, the components may be drawn in a nested way, forming **holes** (see the image below). In this case the inner face of some component becomes the outer face of some other components and has a complex disconnected border. Dealing with such cases is quite hard, one possible approach is to identify nested components with [point location](point-location.md) algorithms. 
 
-<center>![Planar graph with holes](planar_hole.png)</center>
+<div style="text-align: center;">
+  <img src="planar_hole.png" alt="Planar graph with holes">
+</div>
 
 ## Implementation
 The following implementation returns a vector of vertices for each face, outer face goes first.
@@ -147,7 +149,9 @@ std::vector<std::vector<size_t>> find_faces(std::vector<Point> vertices, std::ve
 
 Sometimes you are not given a graph explicitly, but rather as a set of line segments on a plane, and the actual graph is formed by intersecting those segments, as shown in the picture below. In this case you have to build the graph manually. The easiest way to do so is as follows. Fix a segment and intersect it with all other segments. Then sort all intersection points together with the two endpoints of the segment lexicographically and add them to the graph as vertices. Also link each two adjacent vertices in lexicographical order by an edge. After doing this procedure for all edges we will obtain the graph. Of course, we should ensure that two equal intersection points will always correspond to the same vertex. The easiest way to do this is to store the points in a map by their coordinates, regarding points whose coordinates differ by a small number (say, less than $10^{-9}$) as equal. This algorithm works in $O(n^2 \log n)$.
 
-<center>![Implicitly defined graph](planar_implicit.png)</center>
+<div style="text-align: center;">
+  <img src="planar_implicit.png" alt="Implicitly defined graph">
+</div>
 
 ## Implementation
 ```{.cpp file=planar_implicit}

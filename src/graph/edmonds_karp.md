@@ -43,7 +43,9 @@ The source $s$ is origin of all the water, and the water can only drain in the s
 
 The following image shows a flow network.
 The first value of each edge represents the flow, which is initially 0, and the second value represents the capacity.
-<center>![Flow network](Flow1.png)</center>
+<div style="text-align: center;">
+  <img src="Flow1.png" alt="Flow network">
+</div>
 
 The value of the flow of a network is the sum of all the flows that get produced in the source $s$, or equivalently to the sum of all the flows that are consumed by the sink $t$.
 A **maximal flow** is a flow with the maximal possible value.
@@ -53,7 +55,9 @@ In the visualization with water pipes, the problem can be formulated in the foll
 how much water can we push through the pipes from the source to the sink?
 
 The following image shows the maximal flow in the flow network.
-<center>![Maximal flow](Flow9.png)</center>
+<div style="text-align: center;">
+  <img src="Flow9.png" alt="Maximal flow">
+</div>
 
 ## Ford-Fulkerson method
 
@@ -79,19 +83,30 @@ we update $f((u, v)) ~\text{+=}~ C$ and $f((v, u)) ~\text{-=}~ C$ for every edge
 Here is an example to demonstrate the method.
 We use the same flow network as above.
 Initially we start with a flow of 0.
-<center>![Flow network](Flow1.png)</center>
+<div style="text-align: center;">
+  <img src="Flow1.png" alt="Flow network">
+</div>
 
 We can find the path $s - A - B - t$ with the residual capacities 7, 5, and 8.
 Their minimum is 5, therefore we can increase the flow along this path by 5.
 This gives a flow of 5 for the network.
-<center>![First path](Flow2.png) ![Network after first path](Flow3.png)</center>
+<div style="text-align: center;">
+  <img src="Flow2.png" alt="First path">
+  <img src="Flow3.png" alt="Network after first path">
+</div>
 
 Again we look for an augmenting path, this time we find $s - D - A - C - t$ with the residual capacities 4, 3, 3, and 5.
 Therefore we can increase the flow by 3 and we get a flow of 8 for the network.
-<center>![Second path](Flow4.png) ![Network after second path](Flow5.png)</center>
+<div style="text-align: center;">
+  <img src="Flow4.png" alt="Second path">
+  <img src="Flow5.png" alt="Network after second path">
+</div>
 
 This time we find the path $s - D - C - B - t$ with the residual capacities 1, 2, 3, and 3, and hence, we increase the flow by 1.
-<center>![Third path](Flow6.png) ![Network after third path](Flow7.png)</center>
+<div style="text-align: center;">
+  <img src="Flow6.png" alt="Third path">
+  <img src="Flow7.png" alt="Network after third path">
+</div>
 
 This time we find the augmenting path $s - A - D - C - t$ with the residual capacities 2, 3, 1, and 2.
 We can increase the flow by 1.
@@ -101,7 +116,10 @@ In the original flow network, we are not allowed to send any flow from $A$ to $D
 But because we already have a flow of 3 from $D$ to $A$, this is possible.
 The intuition of it is the following:
 Instead of sending a flow of 3 from $D$ to $A$, we only send 2 and compensate this by sending an additional flow of 1 from $s$ to $A$, which allows us to send an additional flow of 1 along the path $D - C - t$.
-<center>![Fourth path](Flow8.png) ![Network after fourth path](Flow9.png)</center>
+<div style="text-align: center;">
+  <img src="Flow8.png" alt="Fourth path">
+  <img src="Flow9.png" alt="Network after fourth path">
+</div>
 
 Now, it is impossible to find an augmenting path between $s$ and $t$, therefore this flow of $10$ is the maximal possible.
 We have found the maximal flow.
@@ -200,7 +218,9 @@ It says that the capacity of the maximum flow has to be equal to the capacity of
 In the following image, you can see the minimum cut of the flow network we used earlier.
 It shows that the capacity of the cut $\{s, A, D\}$ and $\{B, C, t\}$ is $5 + 3 + 2 = 10$, which is equal to the maximum flow that we found.
 Other cuts will have a bigger capacity, like the capacity between $\{s, A\}$ and $\{B, C, D, t\}$ is $4 + 3 + 5 = 12$.
-<center>![Minimum cut](Cut.png)</center>
+<div style="text-align: center;">
+  <img src="Cut.png" alt="Minimum cut">
+</div>
 
 A minimum cut can be found after performing a maximum flow computation using the Ford-Fulkerson method.
 One possible minimum cut is the following:

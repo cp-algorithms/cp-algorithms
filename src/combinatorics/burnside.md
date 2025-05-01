@@ -266,3 +266,8 @@ int solve(int n, int m) {
     return sum / s.size();
 }
 ```
+## Practice Problems
+* [CSES - Counting Necklaces](https://cses.fi/problemset/task/2209)
+* [CSES - Counting Grids](https://cses.fi/problemset/task/2210)
+* [Codeforces - Buildings](https://codeforces.com/gym/101873/problem/B)
+* [CS Academy - Cube Coloring](https://csacademy.com/contest/beta-round-8/task/cube-coloring/)

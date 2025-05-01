@@ -53,7 +53,9 @@ Since we can move from one heavy path to another only through a light edge (each
 
 The following image illustrates the decomposition of a sample tree. The heavy edges are thicker than the light edges. The heavy paths are marked by dotted boundaries.
 
-<center>![Image of HLD](hld.png)</center>
+<div style="text-align: center;">
+  <img src="hld.png" alt="Image of HLD">
+</div>
 
 
 ## Sample problems

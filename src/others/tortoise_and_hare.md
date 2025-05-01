@@ -7,7 +7,9 @@ tags:
 
 Given a linked list where the starting point of that linked list is denoted by **head**, and there may or may not be a cycle present. For instance:
 
-<center>!["Linked list with cycle"](tortoise_hare_algo.png)</center>
+<div style="text-align: center;">
+  <img src="tortoise_hare_algo.png" alt=""Linked list with cycle"">
+</div>
 
 Here we need to find out the point **C**, i.e the starting point of the cycle.
 
@@ -27,7 +29,9 @@ So, it involved two steps:
 6. If they point to any same node at any point of their journey, it would indicate that the cycle indeed exists in the linked list.
 7. If we get null, it would indicate that the linked list has no cycle.
 
-<center>!["Found cycle"](tortoise_hare_cycle_found.png)</center>
+<div style="text-align: center;">
+  <img src="tortoise_hare_cycle_found.png" alt=""Found cycle"">
+</div>
 
 Now, that we have figured out that there is a cycle present in the linked list, for the next step we need to find out the starting point of cycle, i.e., **C**.
 ### Step 2: Starting point of the cycle
@@ -81,7 +85,9 @@ When the slow pointer has moved $k \cdot L$ steps, and the fast pointer has cove
 
 Lets try to calculate the distance covered by both of the pointers till they point they met within the cycle.
 
-<center>!["Proof"](tortoise_hare_proof.png)</center>
+<div style="text-align: center;">
+  <img src="tortoise_hare_proof.png" alt=""Proof"">
+</div>
 
 $slowDist = a + xL + b$            , $x\ge0$
 
