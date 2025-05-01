@@ -16,7 +16,7 @@ We are given a function $E(s)$, which calculates the energy of the state $s$. We
 You are given a set of nodes in 2 dimensional space. Each node is characterised by its $x$ and $y$ coordinates. Your task is to find an ordering of the nodes, which will minimise the distance to be travelled when visiting these nodes in that order.
 
 ## Motivation
-Annealing is a metallurgical process , wherein a material is heated up and allowed to cool, in order to allow the atoms inside to rearrange themselves in an arrangement with minimal internal energy, which in turn causes the material to have different properties. The state is the arrangement of atoms and the internal energy is the function being minimised. We can think of the original state of the atoms, as a local minima for its internal energy. To make the material rearrange its atoms, we need to motivate it to go across a region where its internal energy is not minimised in order to reach the global minima. This motivation is given by heating the material to a higher temperature. 
+Annealing is a metallurgical process, wherein a material is heated up and allowed to cool, in order to allow the atoms inside to rearrange themselves in an arrangement with minimal internal energy, which in turn causes the material to have different properties. The state is the arrangement of atoms and the internal energy is the function being minimised. We can think of the original state of the atoms, as a local minima for its internal energy. To make the material rearrange its atoms, we need to motivate it to go across a region where its internal energy is not minimised in order to reach the global minima. This motivation is given by heating the material to a higher temperature. 
 
 Simulated annealing, literally, simulates this process. We start off with some random state (material) and set a high temperature (heat it up). Now, the algorithm is ready to accept states which have a higher energy than the current state, as it is motivated by the high temperature. This prevents the algorithm from getting stuck inside local minimas and move towards the global minima. As time progresses, the algorithm cools down and refuses the states with higher energy and moves into the closest minima it has found.
 
@@ -26,7 +26,7 @@ $E(s)$ is the function which needs to be minimised (or maximised). It maps every
 
 ### State
 
-The state space is the domain of the energy function, E(s), and a state is any element which belongs to the state space. In the case of TSP, all possible paths that we can take to visit all the nodes is the state space, and any single one of these paths can be considered as a state.
+The state space is the domain of the energy function, $E(s)$, and a state is any element which belongs to the state space. In the case of TSP, all possible paths that we can take to visit all the nodes is the state space, and any single one of these paths can be considered as a state.
 
 ### Neighbouring state
 
@@ -41,12 +41,11 @@ At the same time we also keep a track of the best state $s_{best}$ across all it
 <center>
 <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Hill_Climbing_with_Simulated_Annealing.gif" width="800px">
 <br>
-<i>A visual representation of simulated annealing, searching for the maxima of this function with multiple local maxima.</i>.
+<i>A visual representation of simulated annealing, searching for the maxima of this function with multiple local maxima.</i>
 <br>
-<i>This <a href="https://commons.wikimedia.org/wiki/File:Hill_Climbing_with_Simulated_Annealing.gif">animation</a> by [Kingpin13](https://commons.wikimedia.org/wiki/User:Kingpin13) is distributed under <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0 1.0</a></i> license.
 </center>
 
-### Temperature($T$) and decay($u$)
+### Temperature(T) and decay(u)
 
 The temperature of the system quantifies the willingness of the algorithm to accept a state with a higher energy. The decay is a constant which quantifies the "cooling rate" of the algorithm. A slow cooling rate (larger $u$) is known to give better results.
 
@@ -107,8 +106,8 @@ pair<double, state> simAnneal() {
                 best = s;
                 E_best = E_next;
             }
+            E = E_next;
         }
-        E = E_next;
         T *= u;
     }
     return {E_best, best};
@@ -158,7 +157,6 @@ class state {
     
     double E() {
         double dist = 0;
-        bool first = true;
         int n = points.size();
         for (int i = 0;i < n; i++)
             dist += euclidean(points[i], points[(i+1)%n]);
@@ -187,8 +185,8 @@ int main() {
 - The effect of the difference in energies, $E_{next} - E$, on the PAF can be increased/decreased by increasing/decreasing the base of the exponent as shown below: 
 ```cpp
 bool P(double E, double E_next, double T, mt19937 rng) {
-    e = 2 // set e to any real number greater than 1
-    double prob =  exp(-(E_next-E)/T);
+    double e = 2 // set e to any real number greater than 1
+    double prob =  pow(e,-(E_next-E)/T);
     if (prob > 1)
         return true;
     else {
