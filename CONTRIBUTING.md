@@ -19,7 +19,7 @@ Follow these steps to start contributing:
 4. **Preview your changes** using the [preview page](preview.md) to ensure they look correct.
 5. **Commit your changes** by clicking the _Propose changes_ button.
 6. **Create a Pull Request (PR)** by clicking _Compare & pull request_.
-7. **Review process**: Someone from the core team will review your changes. This may take a few hours to a few days.
+7. **Review process**: Someone from the core team will review your changes. This may take a few days to a few weeks.
 
 ### Making Larger Changes
 
