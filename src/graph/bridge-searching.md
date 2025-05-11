@@ -22,13 +22,12 @@ Pick an arbitrary vertex of the graph $root$ and run [depth first search](depth-
 
 Now we have to learn to check this fact for each vertex efficiently. We'll use "time of entry into node" computed by the depth first search.
 
-So, let $\mathtt{tin}[v]$ denote entry time for node $v$. We introduce an array $\mathtt{low}$ which will let us store the node with earliest entry time found in the DFS search that a node $v$ can reach with a single edge from itself or its descendants. $\mathtt{low}[v]$ is the minimum of $\mathtt{tin}[v]$, the entry times $\mathtt{tin}[p]$ for each node $p$ that is connected to node $v$ via a back-edge $(v, p)$ and the values of $\mathtt{low}[to]$ for each vertex $to$ which is a direct descendant of $v$ in the DFS tree:
+So, let $\mathtt{tin}[v]$ denote entry time for node $v$. We introduce an array $\mathtt{low}$ which will let us store the node with earliest entry time found in the DFS search that a node $v$ can reach with a single edge from itself or its descendants. $\mathtt{low}[v]$ is the minimum of $\mathtt{tin}[v]$, the entry times $\mathtt{low}[p]$ for each node $p$ that is connected to node $v$ via a back-edge $(v, p)$ and the values of $\mathtt{low}[to]$ for each vertex $to$ which is a direct descendant of $v$ in the DFS tree:
 
 $$\mathtt{low}[v] = \min \left\{ 
     \begin{array}{l}
     \mathtt{tin}[v] \\ 
-    \mathtt{tin}[p]  &\text{ for all }p\text{ for which }(v, p)\text{ is a back edge} \\ 
-    \mathtt{low}[to] &\text{ for all }to\text{ for which }(v, to)\text{ is a tree edge}
+    \mathtt{low}[to] &\text{ for all }to\text{ for which }(v, to)\text{ is a tree edge, whether they are descendants in the DFS tree or already visited ancestors (i.e., back-edges)}
     \end{array}
 \right\}$$
 
@@ -67,7 +66,7 @@ void dfs(int v, int p = -1) {
             continue;
         }
         if (visited[to]) {
-            low[v] = min(low[v], tin[to]);
+            low[v] = min(low[v], low[to]);
         } else {
             dfs(to, v);
             low[v] = min(low[v], low[to]);
