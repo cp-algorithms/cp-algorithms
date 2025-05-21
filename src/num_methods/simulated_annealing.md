@@ -185,7 +185,7 @@ int main() {
 - The effect of the difference in energies, $E_{next} - E$, on the PAF can be increased/decreased by increasing/decreasing the base of the exponent as shown below: 
 ```cpp
 bool P(double E, double E_next, double T, mt19937 rng) {
-    double e = 2 // set e to any real number greater than 1
+    double e = 2; // set e to any real number greater than 1
     double prob =  pow(e,-(E_next-E)/T);
     if (prob > 1)
         return true;
