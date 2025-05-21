@@ -110,6 +110,7 @@ search:
         - [Binary Search](num_methods/binary_search.md)
         - [Ternary Search](num_methods/ternary_search.md)
         - [Newton's method for finding roots](num_methods/roots_newton.md)
+        - [Simulated Annealing](num_methods/simulated_annealing.md)
     - Integration
         - [Integration by Simpson's formula](num_methods/simpson-integration.md)
 - Geometry
