@@ -160,7 +160,7 @@ By looking at the squares $a^2$ modulo a fixed small number, it can be observed 
 ## Pollard's $p - 1$ method { data-toc-label="Pollard's <script type='math/tex'>p - 1</script> method" }
 
 It is very likely that at least one factor of a number is $B$**-powersmooth** for small $B$.
-$B$-powersmooth means that every prime power $d^k$ that divides $p-1$ is at most $B$. Formally, let $\mathrm{B} \geqslant 1$ and $n \geqslant 1$ with prime factorization $n = \prod {p_i}^{e_i},$ then $n$ is $\mathrm{B}$-powersmooth if, for all $i,$ ${p_i}^{e_i} \leqslant \mathrm{B}$. 
+$B$-powersmooth means that every prime power $d^k$ that divides $p-1$ is at most $B$. Formally, let $\mathrm{B} \geqslant 1$ and let $p$ be a prime such that $(p - 1) \geqslant 1$. Suppose the prime factorization of $(p - 1)$ is $(p - 1) = \prod {q_i}^{e_i}$, where each $q_i$ is a prime and $e_i \geqslant 1$ then $(p - 1)$ is $\mathrm{B}$-powersmooth if, for all $i$, ${q_i}^{e_i} \leqslant \mathrm{B}$. 
 E.g. the prime factorization of $4817191$ is $1303 \cdot 3697$.
 And the factors are $31$-powersmooth and $16$-powersmooth respectably, because $1303 - 1 = 2 \cdot 3 \cdot 7 \cdot 31$ and $3697 - 1 = 2^4 \cdot 3 \cdot 7 \cdot 11$.
 In 1974 John Pollard invented a method to extracts $B$-powersmooth factors from a composite number.
