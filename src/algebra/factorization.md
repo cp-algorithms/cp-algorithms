@@ -159,11 +159,10 @@ By looking at the squares $a^2$ modulo a fixed small number, it can be observed 
 
 ## Pollard's $p - 1$ method { data-toc-label="Pollard's <script type='math/tex'>p - 1</script> method" }
 
-It is very likely that at least one factor of a number is $B$**-powersmooth** for small $B$.
-$B$-powersmooth means that every prime power $d^k$ that divides $p-1$ is at most $B$. Formally, let $\mathrm{B} \geqslant 1$ and let $p$ be a prime such that $(p - 1) \geqslant 1$. Suppose the prime factorization of $(p - 1)$ is $(p - 1) = \prod {q_i}^{e_i}$, where each $q_i$ is a prime and $e_i \geqslant 1$ then $(p - 1)$ is $\mathrm{B}$-powersmooth if, for all $i$, ${q_i}^{e_i} \leqslant \mathrm{B}$. 
+It is very likely that a number $n$ has at least one prime factor $p$ such that $p - 1$ is $\mathrm{B}$**-powersmooth** for small $\mathrm{B}$. An integer $m$ is said to be $\mathrm{B}$-powersmooth if every prime power dividing $m$ is at most $\mathrm{B}$. Formally, let $\mathrm{B} \geqslant 1$ and let $m$ be any positive integer. Suppose the prime factorization of $m$ is $m = \prod {q_i}^{e_i}$, where each $q_i$ is a prime and $e_i \geqslant 1$. Then $m$ is $\mathrm{B}$-powersmooth if, for all $i$, ${q_i}^{e_i} \leqslant \mathrm{B}$. 
 E.g. the prime factorization of $4817191$ is $1303 \cdot 3697$.
-And the factors are $31$-powersmooth and $16$-powersmooth respectably, because $1303 - 1 = 2 \cdot 3 \cdot 7 \cdot 31$ and $3697 - 1 = 2^4 \cdot 3 \cdot 7 \cdot 11$.
-In 1974 John Pollard invented a method to extracts $B$-powersmooth factors from a composite number.
+And the values, $1303 - 1$ and $3697 - 1$, are $31$-powersmooth and $16$-powersmooth respectively, because $1303 - 1 = 2 \cdot 3 \cdot 7 \cdot 31$ and $3697 - 1 = 2^4 \cdot 3 \cdot 7 \cdot 11$.
+In 1974 John Pollard invented a method to extracts $\mathrm{B}$-powersmooth factors from a composite number.
 
 The idea comes from [Fermat's little theorem](phi-function.md#application).
 Let a factorization of $n$ be $n = p \cdot q$.
@@ -180,7 +179,7 @@ This means that $a^M - 1 = p \cdot r$, and because of that also $p ~|~ \gcd(a^M 
 
 Therefore, if $p - 1$ for a factor $p$ of $n$ divides $M$, we can extract a factor using [Euclid's algorithm](euclid-algorithm.md).
 
-It is clear, that the smallest $M$ that is a multiple of every $B$-powersmooth number is $\text{lcm}(1,~2~,3~,4~,~\dots,~B)$.
+It is clear, that the smallest $M$ that is a multiple of every $\mathrm{B}$-powersmooth number is $\text{lcm}(1,~2~,3~,4~,~\dots,~B)$.
 Or alternatively:
 
 $$M = \prod_{\text{prime } q \le B} q^{\lfloor \log_q B \rfloor}$$
@@ -189,11 +188,11 @@ Notice, if $p-1$ divides $M$ for all prime factors $p$ of $n$, then $\gcd(a^M - 
 In this case we don't receive a factor.
 Therefore, we will try to perform the $\gcd$ multiple times, while we compute $M$.
 
-Some composite numbers don't have $B$-powersmooth factors for small $B$.
+Some composite numbers don't have $\mathrm{B}$-powersmooth factors for small $\mathrm{B}$.
 For example, the factors of the composite number $100~000~000~000~000~493 = 763~013 \cdot 131~059~365~961$ are $190~753$-powersmooth and $1~092~161~383$-powersmooth.
 We will have to choose $B >= 190~753$ to factorize the number.
 
-In the following implementation we start with $B = 10$ and increase $B$ after each each iteration.
+In the following implementation we start with $\mathrm{B} = 10$ and increase $\mathrm{B}$ after each each iteration.
 
 ```{.cpp file=factorization_p_minus_1}
 long long pollards_p_minus_1(long long n) {
