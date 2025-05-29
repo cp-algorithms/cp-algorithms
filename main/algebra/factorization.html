@@ -6637,32 +6637,6 @@ Describe the issue of this article in detail.
   
     
   
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
     
   
 
@@ -6703,6 +6677,38 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
 
@@ -6713,6 +6719,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -6757,7 +6767,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 15, 2025 02:32:08">April 15, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 29, 2025 05:50:00 UTC">May 29, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6895,11 +6905,10 @@ In practice though, this method is rarely used. Once factors become further apar
 <p>However, there are still a large number of optimization options regarding this approach.
 By looking at the squares <span class="arithmatex">$a^2$</span> modulo a fixed small number, it can be observed that certain values <span class="arithmatex">$a$</span> don't have to be viewed, since they cannot produce a square number <span class="arithmatex">$a^2 - n$</span>.</p>
 <h2 id="pollards-p-1-method">Pollard's <span class="arithmatex">$p - 1$</span> method<a class="headerlink" href="#pollards-p-1-method" title="Permanent link">&para;</a></h2>
-<p>It is very likely that at least one factor of a number is <span class="arithmatex">$B$</span><strong>-powersmooth</strong> for small <span class="arithmatex">$B$</span>.
-<span class="arithmatex">$B$</span>-powersmooth means that every prime power <span class="arithmatex">$d^k$</span> that divides <span class="arithmatex">$p-1$</span> is at most <span class="arithmatex">$B$</span>.
+<p>It is very likely that a number <span class="arithmatex">$n$</span> has at least one prime factor <span class="arithmatex">$p$</span> such that <span class="arithmatex">$p - 1$</span> is <span class="arithmatex">$\mathrm{B}$</span><strong>-powersmooth</strong> for small <span class="arithmatex">$\mathrm{B}$</span>. An integer <span class="arithmatex">$m$</span> is said to be <span class="arithmatex">$\mathrm{B}$</span>-powersmooth if every prime power dividing <span class="arithmatex">$m$</span> is at most <span class="arithmatex">$\mathrm{B}$</span>. Formally, let <span class="arithmatex">$\mathrm{B} \geqslant 1$</span> and let <span class="arithmatex">$m$</span> be any positive integer. Suppose the prime factorization of <span class="arithmatex">$m$</span> is <span class="arithmatex">$m = \prod {q_i}^{e_i}$</span>, where each <span class="arithmatex">$q_i$</span> is a prime and <span class="arithmatex">$e_i \geqslant 1$</span>. Then <span class="arithmatex">$m$</span> is <span class="arithmatex">$\mathrm{B}$</span>-powersmooth if, for all <span class="arithmatex">$i$</span>, <span class="arithmatex">${q_i}^{e_i} \leqslant \mathrm{B}$</span>. 
 E.g. the prime factorization of <span class="arithmatex">$4817191$</span> is <span class="arithmatex">$1303 \cdot 3697$</span>.
-And the factors are <span class="arithmatex">$31$</span>-powersmooth and <span class="arithmatex">$16$</span>-powersmooth respectably, because <span class="arithmatex">$1303 - 1 = 2 \cdot 3 \cdot 7 \cdot 31$</span> and <span class="arithmatex">$3697 - 1 = 2^4 \cdot 3 \cdot 7 \cdot 11$</span>.
-In 1974 John Pollard invented a method to extracts <span class="arithmatex">$B$</span>-powersmooth factors from a composite number.</p>
+And the values, <span class="arithmatex">$1303 - 1$</span> and <span class="arithmatex">$3697 - 1$</span>, are <span class="arithmatex">$31$</span>-powersmooth and <span class="arithmatex">$16$</span>-powersmooth respectively, because <span class="arithmatex">$1303 - 1 = 2 \cdot 3 \cdot 7 \cdot 31$</span> and <span class="arithmatex">$3697 - 1 = 2^4 \cdot 3 \cdot 7 \cdot 11$</span>.
+In 1974 John Pollard invented a method to extract factors <span class="arithmatex">$p$</span>, s.t. <span class="arithmatex">$p-1$</span> is <span class="arithmatex">$\mathrm{B}$</span>-powersmooth, from a composite number.</p>
 <p>The idea comes from <a href="phi-function.html#application">Fermat's little theorem</a>.
 Let a factorization of <span class="arithmatex">$n$</span> be <span class="arithmatex">$n = p \cdot q$</span>.
 It says that if <span class="arithmatex">$a$</span> is coprime to <span class="arithmatex">$p$</span>, the following statement holds:</p>
@@ -6909,16 +6918,16 @@ It says that if <span class="arithmatex">$a$</span> is coprime to <span class="a
 <p>So for any <span class="arithmatex">$M$</span> with <span class="arithmatex">$p - 1 ~|~ M$</span> we know that <span class="arithmatex">$a^M \equiv 1$</span>.
 This means that <span class="arithmatex">$a^M - 1 = p \cdot r$</span>, and because of that also <span class="arithmatex">$p ~|~ \gcd(a^M - 1, n)$</span>.</p>
 <p>Therefore, if <span class="arithmatex">$p - 1$</span> for a factor <span class="arithmatex">$p$</span> of <span class="arithmatex">$n$</span> divides <span class="arithmatex">$M$</span>, we can extract a factor using <a href="euclid-algorithm.html">Euclid's algorithm</a>.</p>
-<p>It is clear, that the smallest <span class="arithmatex">$M$</span> that is a multiple of every <span class="arithmatex">$B$</span>-powersmooth number is <span class="arithmatex">$\text{lcm}(1,~2~,3~,4~,~\dots,~B)$</span>.
+<p>It is clear, that the smallest <span class="arithmatex">$M$</span> that is a multiple of every <span class="arithmatex">$\mathrm{B}$</span>-powersmooth number is <span class="arithmatex">$\text{lcm}(1,~2~,3~,4~,~\dots,~B)$</span>.
 Or alternatively:</p>
 <div class="arithmatex">$$M = \prod_{\text{prime } q \le B} q^{\lfloor \log_q B \rfloor}$$</div>
 <p>Notice, if <span class="arithmatex">$p-1$</span> divides <span class="arithmatex">$M$</span> for all prime factors <span class="arithmatex">$p$</span> of <span class="arithmatex">$n$</span>, then <span class="arithmatex">$\gcd(a^M - 1, n)$</span> will just be <span class="arithmatex">$n$</span>.
 In this case we don't receive a factor.
 Therefore, we will try to perform the <span class="arithmatex">$\gcd$</span> multiple times, while we compute <span class="arithmatex">$M$</span>.</p>
-<p>Some composite numbers don't have <span class="arithmatex">$B$</span>-powersmooth factors for small <span class="arithmatex">$B$</span>.
-For example, the factors of the composite number <span class="arithmatex">$100~000~000~000~000~493 = 763~013 \cdot 131~059~365~961$</span> are <span class="arithmatex">$190~753$</span>-powersmooth and <span class="arithmatex">$1~092~161~383$</span>-powersmooth.
-We will have to choose <span class="arithmatex">$B &gt;= 190~753$</span> to factorize the number.</p>
-<p>In the following implementation we start with <span class="arithmatex">$B = 10$</span> and increase <span class="arithmatex">$B$</span> after each each iteration.</p>
+<p>Some composite numbers don't have factors <span class="arithmatex">$p$</span> s.t. <span class="arithmatex">$p-1$</span> is <span class="arithmatex">$\mathrm{B}$</span>-powersmooth for small <span class="arithmatex">$\mathrm{B}$</span>.
+For example, for the composite number <span class="arithmatex">$100~000~000~000~000~493 = 763~013 \cdot 131~059~365~961$</span>, values <span class="arithmatex">$p-1$</span> are <span class="arithmatex">$190~753$</span>-powersmooth and <span class="arithmatex">$1~092~161~383$</span>-powersmooth correspondingly.
+We will have to choose <span class="arithmatex">$B \geq 190~753$</span> to factorize the number.</p>
+<p>In the following implementation we start with <span class="arithmatex">$\mathrm{B} = 10$</span> and increase <span class="arithmatex">$\mathrm{B}$</span> after each each iteration.</p>
 <div class="highlight"><pre><span></span><code><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">pollards_p_minus_1</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
@@ -7115,7 +7124,7 @@ In addition, instead of performing the <span class="arithmatex">$\gcd$</span> co
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (84.42%)</li><li><a href="https://github.com/chloeimb" title="chloeimb" data-bi-name="contributorprofile" target="_blank">chloeimb</a> (9.77%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.49%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (0.7%)</li><li><a href="https://github.com/0xGodspeed" title="0xGodspeed" data-bi-name="contributorprofile" target="_blank">0xGodspeed</a> (0.7%)</li><li><a href="https://github.com/pokorj54" title="pokorj54" data-bi-name="contributorprofile" target="_blank">pokorj54</a> (0.47%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (0.23%)</li><li><a href="https://github.com/kyomukyomupurin" title="kyomukyomupurin" data-bi-name="contributorprofile" target="_blank">kyomukyomupurin</a> (0.23%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (82.98%)</li><li><a href="https://github.com/chloeimb" title="chloeimb" data-bi-name="contributorprofile" target="_blank">chloeimb</a> (9.56%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.27%)</li><li><a href="https://github.com/t0wbo2t" title="t0wbo2t" data-bi-name="contributorprofile" target="_blank">t0wbo2t</a> (1.86%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (0.7%)</li><li><a href="https://github.com/0xGodspeed" title="0xGodspeed" data-bi-name="contributorprofile" target="_blank">0xGodspeed</a> (0.7%)</li><li><a href="https://github.com/pokorj54" title="pokorj54" data-bi-name="contributorprofile" target="_blank">pokorj54</a> (0.47%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (0.23%)</li><li><a href="https://github.com/kyomukyomupurin" title="kyomukyomupurin" data-bi-name="contributorprofile" target="_blank">kyomukyomupurin</a> (0.23%)</li></ul>
 </ul>
                 
               </article>
