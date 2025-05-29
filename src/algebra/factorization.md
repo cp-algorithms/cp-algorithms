@@ -162,7 +162,7 @@ By looking at the squares $a^2$ modulo a fixed small number, it can be observed 
 It is very likely that a number $n$ has at least one prime factor $p$ such that $p - 1$ is $\mathrm{B}$**-powersmooth** for small $\mathrm{B}$. An integer $m$ is said to be $\mathrm{B}$-powersmooth if every prime power dividing $m$ is at most $\mathrm{B}$. Formally, let $\mathrm{B} \geqslant 1$ and let $m$ be any positive integer. Suppose the prime factorization of $m$ is $m = \prod {q_i}^{e_i}$, where each $q_i$ is a prime and $e_i \geqslant 1$. Then $m$ is $\mathrm{B}$-powersmooth if, for all $i$, ${q_i}^{e_i} \leqslant \mathrm{B}$. 
 E.g. the prime factorization of $4817191$ is $1303 \cdot 3697$.
 And the values, $1303 - 1$ and $3697 - 1$, are $31$-powersmooth and $16$-powersmooth respectively, because $1303 - 1 = 2 \cdot 3 \cdot 7 \cdot 31$ and $3697 - 1 = 2^4 \cdot 3 \cdot 7 \cdot 11$.
-In 1974 John Pollard invented a method to extracts $\mathrm{B}$-powersmooth factors from a composite number.
+In 1974 John Pollard invented a method to extract factors $p$, s.t. $p-1$ is $\mathrm{B}$-powersmooth, from a composite number.
 
 The idea comes from [Fermat's little theorem](phi-function.md#application).
 Let a factorization of $n$ be $n = p \cdot q$.
