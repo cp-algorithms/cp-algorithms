@@ -1,0 +1,7183 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="The goal of this project is to translate the wonderful resource http://e-maxx.ru/algo which provides descriptions of many algorithms and data structures especially popular in field of competitive programming. Moreover we want to improve the collected knowledge by extending the articles and adding new articles to the collection.">
+      
+      
+      
+        <link rel="canonical" href="https://cp-algorithms.com/string/prefix-function.html">
+      
+      
+        <link rel="prev" href="rabin-karp.html">
+      
+      
+        <link rel="next" href="z-function.html">
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
+      
+      <link rel="icon" href="../favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Prefix function - Knuth-Morris-Pratt - Algorithms for Competitive Programming</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-7FLS2HCYHH"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-7FLS2HCYHH",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-7FLS2HCYHH",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="cpalgo" data-md-color-primary="deep-purple" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#prefix-function-knuthmorrispratt-algorithm" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      <!-- overwrite:
+- scroll to top when clicking title
+- go to main page when clicking the site title
+-->
+
+
+<header class="md-header" data-md-component="header">
+  <script>
+    function scrollToTop() {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }
+  </script>
+  <nav class="md-header__inner md-grid" aria-label="header.title">
+    <a href=".." title="Algorithms for Competitive Programming" class="md-header__button md-logo" aria-label="Algorithms for Competitive Programming" data-md-component="logo">
+      
+  <img src="../favicon.ico" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            <a href=".." title="Algorithms for Competitive Programming" aria-label="Algorithms for Competitive Programming" data-md-component="logo">
+              Algorithms for Competitive Programming
+            </a>
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            <a href="#" onclick="scrollToTop()">
+              
+                Prefix function - Knuth-Morris-Pratt
+              
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="cpalgo" data-md-color-primary="deep-purple" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cp-algorithms/cp-algorithms" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    cp-algorithms/cp-algorithms
+  </div>
+</a>
+      </div>
+    
+      <div class="rss icon">
+      <a href="https://cp-algorithms.com/feed_rss_created.xml" title="RSS" class="md-content__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M0 64c0-17.7 14.3-32 32-32 229.8 0 416 186.2 416 416 0 17.7-14.3 32-32 32s-32-14.3-32-32C384 253.6 226.4 96 32 96 14.3 96 0 81.7 0 64m0 352a64 64 0 1 1 128 0 64 64 0 1 1-128 0m32-256c159.1 0 288 128.9 288 288 0 17.7-14.3 32-32 32s-32-14.3-32-32c0-123.7-100.3-224-224-224-17.7 0-32-14.3-32-32s14.3-32 32-32"/></svg>
+      </a>
+      </div>
+
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Algorithms for Competitive Programming" class="md-nav__button md-logo" aria-label="Algorithms for Competitive Programming" data-md-component="logo">
+      
+  <img src="../favicon.ico" alt="logo">
+
+    </a>
+    Algorithms for Competitive Programming
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cp-algorithms/cp-algorithms" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    cp-algorithms/cp-algorithms
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Home
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Main Page
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../navigation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Navigation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tag index
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contrib.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to Contribute
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../code_of_conduct.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code of conduct
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Preview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Algebra
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Fundamentals
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Fundamentals
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/binary-exp.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Binary Exponentiation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/euclid-algorithm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Euclidean algorithm for computing the greatest common divisor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/extended-euclid-algorithm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extended Euclidean Algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/linear-diophantine-equation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linear Diophantine Equations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/fibonacci-numbers.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fibonacci Numbers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Prime numbers
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Prime numbers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/sieve-of-eratosthenes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sieve of Eratosthenes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/prime-sieve-linear.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linear Sieve
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/primality_tests.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Primality tests
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/factorization.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Integer factorization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Number-theoretic functions
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Number-theoretic functions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/phi-function.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Euler's totient function
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/divisors.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Number of divisors / sum of divisors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Modular arithmetic
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Modular arithmetic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/module-inverse.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modular Inverse
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/linear_congruence_equation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linear Congruence Equation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/chinese-remainder-theorem.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chinese Remainder Theorem
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/garners-algorithm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Garner's Algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/factorial-modulo.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Factorial modulo p
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/discrete-log.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Discrete Log
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/primitive-root.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Primitive Root
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/discrete-root.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Discrete Root
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/montgomery_multiplication.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Montgomery Multiplication
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Number systems
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Number systems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/balanced-ternary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Balanced Ternary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/gray-code.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gray code
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Miscellaneous
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Miscellaneous
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/bit-manipulation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bit manipulation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/all-submasks.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Enumerating submasks of a bitmask
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/big-integer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Arbitrary-Precision Arithmetic
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/fft.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fast Fourier transform
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/polynomial.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Operations on polynomials and series
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/continued-fractions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Continued fractions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/factoring-exp.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Factoring Exponentiation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Data Structures
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Structures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Fundamentals
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Fundamentals
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_structures/stack_queue_modification.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Minimum Stack / Minimum Queue
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_structures/sparse-table.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sparse Table
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Trees
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Trees
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_structures/disjoint_set_union.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Disjoint Set Union
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_structures/fenwick.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fenwick Tree
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_structures/sqrt_decomposition.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sqrt Decomposition
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_structures/segment_tree.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Segment Tree
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_structures/treap.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Treap
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_structures/sqrt-tree.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sqrt Tree
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_structures/randomized_heap.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Randomized Heap
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Advanced
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_structures/deleting_in_log_n.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deleting from a data structure in O(T(n) log n)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Dynamic Programming
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Dynamic Programming
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dynamic_programming/intro-to-dp.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Dynamic Programming
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dynamic_programming/knapsack.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Knapsack Problem
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    DP optimizations
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            DP optimizations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dynamic_programming/divide-and-conquer-dp.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Divide and Conquer DP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dynamic_programming/knuth-optimization.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Knuth's Optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tasks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Tasks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dynamic_programming/profile-dynamics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dynamic Programming on Broken Profile. Problem "Parquet"
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dynamic_programming/zero_matrix.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Finding the largest zero submatrix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    String Processing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            String Processing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Fundamentals
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Fundamentals
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="string-hashing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    String Hashing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="rabin-karp.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Rabin-Karp for String Matching
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Prefix function - Knuth-Morris-Pratt
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="prefix-function.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prefix function - Knuth-Morris-Pratt
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prefix-function-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prefix function definition
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trivial-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trivial Algorithm
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#efficient-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Efficient Algorithm
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Efficient Algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      First optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#second-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Second optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#final-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Final algorithm
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Applications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Applications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#search-for-a-substring-in-a-string-the-knuth-morris-pratt-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Search for a substring in a string. The Knuth-Morris-Pratt algorithm
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#counting-the-number-of-occurrences-of-each-prefix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Counting the number of occurrences of each prefix
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-number-of-different-substring-in-a-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      The number of different substring in a string
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compressing-a-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compressing a string
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-an-automaton-according-to-the-prefix-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building an automaton according to the prefix function
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practice Problems
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="z-function.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Z-function
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="suffix-array.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Suffix Array
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="aho_corasick.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Aho-Corasick algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Advanced
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="suffix-tree-ukkonen.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Suffix Tree
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="suffix-automaton.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Suffix Automaton
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="lyndon_factorization.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lyndon factorization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tasks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Tasks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="expression_parsing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Expression parsing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="manacher.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manacher's Algorithm - Finding all sub-palindromes in O(N)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="main_lorentz.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Finding repetitions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Linear Algebra
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Linear Algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Matrices
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            Matrices
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/linear-system-gauss.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gauss & System of Linear Equations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/determinant-gauss.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gauss & Determinant
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/determinant-kraut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kraut & Determinant
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/rank-matrix.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Rank of a matrix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Combinatorics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Combinatorics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_1" id="__nav_7_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Fundamentals
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_1">
+            <span class="md-nav__icon md-icon"></span>
+            Fundamentals
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra/factorial-divisors.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Finding Power of Factorial Divisor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../combinatorics/binomial-coefficients.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Binomial Coefficients
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../combinatorics/catalan-numbers.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Catalan Numbers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Techniques
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            Techniques
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../combinatorics/inclusion-exclusion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    The Inclusion-Exclusion Principle
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../combinatorics/burnside.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Burnside's lemma / Pólya enumeration theorem
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../combinatorics/stars_and_bars.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Stars and bars
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../combinatorics/generating_combinations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Generating all K-combinations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tasks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            Tasks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../combinatorics/bishops-on-chessboard.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Placing Bishops on a Chessboard
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../combinatorics/bracket_sequences.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Balanced bracket sequences
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../combinatorics/counting_labeled_graphs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Counting labeled graphs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Numerical Methods
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Numerical Methods
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_1" id="__nav_8_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Search
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_1">
+            <span class="md-nav__icon md-icon"></span>
+            Search
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../num_methods/binary_search.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Binary Search
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../num_methods/ternary_search.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ternary Search
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../num_methods/roots_newton.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Newton's method for finding roots
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../num_methods/simulated_annealing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Simulated Annealing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_2" id="__nav_8_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Integration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_2">
+            <span class="md-nav__icon md-icon"></span>
+            Integration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../num_methods/simpson-integration.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Integration by Simpson's formula
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Geometry
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Geometry
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_1" id="__nav_9_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Elementary operations
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_1">
+            <span class="md-nav__icon md-icon"></span>
+            Elementary operations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/basic-geometry.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Basic Geometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/segment-to-line.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Finding the equation of a line for a segment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/lines-intersection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intersection Point of Lines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/check-segments-intersection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Check if two segments intersect
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/segments-intersection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intersection of Segments
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/circle-line-intersection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Circle-Line Intersection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/circle-circle-intersection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Circle-Circle Intersection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/tangents-to-two-circles.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Common tangents to two circles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/length-of-segments-union.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Length of the union of segments
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_2" id="__nav_9_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Polygons
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_2">
+            <span class="md-nav__icon md-icon"></span>
+            Polygons
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/oriented-triangle-area.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Oriented area of a triangle
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/area-of-simple-polygon.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Area of simple polygon
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/point-in-convex-polygon.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Check if points belong to the convex polygon in O(log N)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/minkowski.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Minkowski sum of convex polygons
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/picks-theorem.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pick's Theorem - area of lattice polygons
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/lattice-points.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lattice points of non-lattice polygon
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_3" id="__nav_9_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Convex hull
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_3">
+            <span class="md-nav__icon md-icon"></span>
+            Convex hull
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/convex-hull.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Convex hull construction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/convex_hull_trick.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Convex hull trick and Li Chao tree
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_4" id="__nav_9_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Sweep-line
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_4">
+            <span class="md-nav__icon md-icon"></span>
+            Sweep-line
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/intersecting_segments.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Search for a pair of intersecting segments
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_5" id="__nav_9_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Planar graphs
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_5">
+            <span class="md-nav__icon md-icon"></span>
+            Planar graphs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/planar.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Finding faces of a planar graph
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/point-location.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Point location in O(log N)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_6" id="__nav_9_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Miscellaneous
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_6">
+            <span class="md-nav__icon md-icon"></span>
+            Miscellaneous
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/nearest_points.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Finding the nearest pair of points
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/delaunay.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Delaunay triangulation and Voronoi diagram
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/vertical_decomposition.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vertical decomposition
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/halfplane-intersection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Half-plane intersection - S&I Algorithm in O(N log N)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/manhattan-distance.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manhattan Distance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Graphs
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Graphs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_1" id="__nav_10_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Graph traversal
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_1">
+            <span class="md-nav__icon md-icon"></span>
+            Graph traversal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/breadth-first-search.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Breadth First Search
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/depth-first-search.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Depth First Search
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_2" id="__nav_10_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Connected components, bridges, articulations points
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_2">
+            <span class="md-nav__icon md-icon"></span>
+            Connected components, bridges, articulations points
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/search-for-connected-components.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Finding Connected Components
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/bridge-searching.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Finding Bridges in O(N+M)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/bridge-searching-online.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Finding Bridges Online
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/cutpoints.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Finding Articulation Points in O(N+M)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/strongly-connected-components.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Strongly Connected Components and Condensation Graph
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/strong-orientation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Strong Orientation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_3" id="__nav_10_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Single-source shortest paths
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_3">
+            <span class="md-nav__icon md-icon"></span>
+            Single-source shortest paths
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/dijkstra.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dijkstra - finding shortest paths from given vertex
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/dijkstra_sparse.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dijkstra on sparse graphs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/bellman_ford.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bellman-Ford - finding shortest paths with negative weights
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/01_bfs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    0-1 BFS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/desopo_pape.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    D´Esopo-Pape algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_4" id="__nav_10_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    All-pairs shortest paths
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_4">
+            <span class="md-nav__icon md-icon"></span>
+            All-pairs shortest paths
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/all-pair-shortest-path-floyd-warshall.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Floyd-Warshall - finding all shortest paths
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/fixed_length_paths.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Number of paths of fixed length / Shortest paths of fixed length
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_5" id="__nav_10_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Spanning trees
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_5">
+            <span class="md-nav__icon md-icon"></span>
+            Spanning trees
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/mst_prim.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Minimum Spanning Tree - Prim's Algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/mst_kruskal.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Minimum Spanning Tree - Kruskal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/mst_kruskal_with_dsu.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Minimum Spanning Tree - Kruskal with Disjoint Set Union
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/second_best_mst.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Second best Minimum Spanning Tree - Using Kruskal and Lowest Common Ancestor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/kirchhoff-theorem.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kirchhoff Theorem
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/pruefer_code.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prüfer code
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_6" id="__nav_10_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cycles
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_6">
+            <span class="md-nav__icon md-icon"></span>
+            Cycles
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/finding-cycle.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Checking a graph for acyclicity and finding a cycle in O(M)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/finding-negative-cycle-in-graph.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Finding a Negative Cycle in the Graph
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/euler_path.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Eulerian Path
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_7" id="__nav_10_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Lowest common ancestor
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_7">
+            <span class="md-nav__icon md-icon"></span>
+            Lowest common ancestor
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/lca.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lowest Common Ancestor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/lca_binary_lifting.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lowest Common Ancestor - Binary Lifting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/lca_farachcoltonbender.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lowest Common Ancestor - Farach-Colton and Bender algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/rmq_linear.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Solve RMQ by finding LCA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/lca_tarjan.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lowest Common Ancestor - Tarjan's off-line algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_8" id="__nav_10_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Flows and related problems
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_8">
+            <span class="md-nav__icon md-icon"></span>
+            Flows and related problems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/edmonds_karp.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Maximum flow - Ford-Fulkerson and Edmonds-Karp
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/push-relabel.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Maximum flow - Push-relabel algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/push-relabel-faster.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Maximum flow - Push-relabel algorithm improved
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/dinic.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Maximum flow - Dinic's algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/mpm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Maximum flow - MPM algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/flow_with_demands.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Flows with demands
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/min_cost_flow.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Minimum-cost flow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/Assignment-problem-min-flow.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Assignment problem
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_9" id="__nav_10_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Matchings and related problems
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_9">
+            <span class="md-nav__icon md-icon"></span>
+            Matchings and related problems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/bipartite-check.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bipartite Graph Check
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/kuhn_maximum_bipartite_matching.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kuhn's Algorithm - Maximum Bipartite Matching
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/hungarian-algorithm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hungarian Algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_10" id="__nav_10_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Miscellaneous
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_10">
+            <span class="md-nav__icon md-icon"></span>
+            Miscellaneous
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/topological-sort.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Topological Sorting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/edge_vertex_connectivity.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Edge connectivity / Vertex connectivity
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/tree_painting.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tree painting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/2SAT.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2-SAT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/hld.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Heavy-light decomposition
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Miscellaneous
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Miscellaneous
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_1" id="__nav_11_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Sequences
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_1">
+            <span class="md-nav__icon md-icon"></span>
+            Sequences
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequences/rmq.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RMQ task (Range Minimum Query - the smallest element in an interval)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequences/longest_increasing_subsequence.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Longest increasing subsequence
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../others/maximum_average_segment.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Search the subsegment with the maximum/minimum sum
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequences/k-th.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    K-th order statistic in O(N)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequences/mex.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MEX task (Minimal Excluded element in an array)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_2" id="__nav_11_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Game Theory
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_2">
+            <span class="md-nav__icon md-icon"></span>
+            Game Theory
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../game_theory/games_on_graphs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Games on arbitrary graphs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../game_theory/sprague-grundy-nim.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sprague-Grundy theorem. Nim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_3" id="__nav_11_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Schedules
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_3">
+            <span class="md-nav__icon md-icon"></span>
+            Schedules
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schedules/schedule_one_machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Scheduling jobs on one machine
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schedules/schedule_two_machines.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Scheduling jobs on two machines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schedules/schedule-with-completion-duration.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Optimal schedule of jobs given their deadlines and durations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_4" id="__nav_11_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Miscellaneous
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_4">
+            <span class="md-nav__icon md-icon"></span>
+            Miscellaneous
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../others/tortoise_and_hare.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tortoise and Hare Algorithm (Linked List cycle detection)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../others/josephus_problem.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Josephus problem
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../others/15-puzzle.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    15 Puzzle Game: Existence Of The Solution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../others/stern_brocot_tree_farey_sequences.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    The Stern-Brocot Tree and Farey Sequences
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  <script type="text/javascript">
+window.onload = function() {
+	const newIssueURL = "https://github.com/cp-algorithms/cp-algorithms/issues/new";
+  const issueTitle = "Problem on article " + "Prefix function - Knuth-Morris-Pratt";
+	const issueBody = `
+ **Article:** [`+ "Prefix function - Knuth-Morris-Pratt" + `](${window.location.href})
+
+**Problem:**
+<!--
+Describe the issue of this article in detail.
+-->
+`;
+  var issue_a = document.getElementById("report_issue_a");
+  issue_a.href = `${newIssueURL}?` + `title=${encodeURIComponent(issueTitle)}&` + `body=${encodeURIComponent(issueBody)}`;
+}
+</script>
+
+<a href="https://github.com/cp-algorithms/cp-algorithms/edit/main/src/string/prefix-function.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
+</a>
+<a id="report_issue_a" href="" title="Report a problem" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14h-2V9h2m0 9h-2v-2h2M1 21h22L12 2z"/></svg>
+</a>
+<a href="https://github.com/cp-algorithms/cp-algorithms/commits/main/src/string/prefix-function.md" title="Page authors" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><rect fill="none" height="24" width="24"/></g><g><g><g><path d="M12,8.5c-0.91,0-2.75,0.46-2.75,1.38v4.62h1.5V19h2.5v-4.5h1.5V9.88C14.75,8.97,12.91,8.5,12,8.5z"/><path d="M12,2C6.47,2,2,6.47,2,12s4.47,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.42,0-8-3.58-8-8s3.58-8,8-8s8,3.58,8,8 S16.42,20,12,20z"/><circle cx="12" cy="6.5" r="1.5"/></g></g></g></svg>
+</a>
+
+
+<!-- Construct the dict of author's contribution percentage -->
+
+
+
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+
+
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+
+
+
+
+<!-- Date of last commit -->
+<ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
+
+  Last update:
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 20, 2023 18:20:34 UTC">August 20, 2023</span>&emsp;
+
+<!-- Tags -->
+
+  
+  
+  
+    
+  
+
+
+  
+    <a href="../tags.html#tag:translated" class="md-tag">
+      Translated
+    </a>
+  
+
+  
+    <a href="https://e-maxx.ru/algo/prefix_function" class="md-tag">
+      From: e-maxx.ru
+    </a>
+  
+
+</ul>
+
+
+<h1 id="prefix-function-knuthmorrispratt-algorithm">Prefix function. Knuth–Morris–Pratt algorithm<a class="headerlink" href="#prefix-function-knuthmorrispratt-algorithm" title="Permanent link">&para;</a></h1>
+<h2 id="prefix-function-definition">Prefix function definition<a class="headerlink" href="#prefix-function-definition" title="Permanent link">&para;</a></h2>
+<p>You are given a string <span class="arithmatex">$s$</span> of length <span class="arithmatex">$n$</span>.
+The <strong>prefix function</strong> for this string is defined as an array <span class="arithmatex">$\pi$</span> of length <span class="arithmatex">$n$</span>, where <span class="arithmatex">$\pi[i]$</span> is the length of the longest proper prefix of the substring <span class="arithmatex">$s[0 \dots i]$</span> which is also a suffix of this substring.
+A proper prefix of a string is a prefix that is not equal to the string itself.
+By definition, <span class="arithmatex">$\pi[0] = 0$</span>.</p>
+<p>Mathematically the definition of the prefix function can be written as follows:</p>
+<div class="arithmatex">$$\pi[i] = \max_ {k = 0 \dots i} \{k : s[0 \dots k-1] = s[i-(k-1) \dots i] \}$$</div>
+<p>For example, prefix function of string "abcabcd" is <span class="arithmatex">$[0, 0, 0, 1, 2, 3, 0]$</span>, and prefix function of string "aabaaab" is <span class="arithmatex">$[0, 1, 0, 1, 2, 2, 3]$</span>.</p>
+<h2 id="trivial-algorithm">Trivial Algorithm<a class="headerlink" href="#trivial-algorithm" title="Permanent link">&para;</a></h2>
+<p>An algorithm which follows the definition of prefix function exactly is the following:</p>
+<div class="highlight"><pre><span></span><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">prefix_function</span><span class="p">(</span><span class="n">string</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">s</span><span class="p">.</span><span class="n">length</span><span class="p">();</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pi</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="o">++</span><span class="p">)</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">))</span>
+<span class="w">                </span><span class="n">pi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">k</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">pi</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>It is easy to see that its complexity is <span class="arithmatex">$O(n^3)$</span>, which has room for improvement.</p>
+<h2 id="efficient-algorithm">Efficient Algorithm<a class="headerlink" href="#efficient-algorithm" title="Permanent link">&para;</a></h2>
+<p>This algorithm was proposed by Knuth and Pratt and independently from them by Morris in 1977. 
+It was used as the main function of a substring search algorithm.</p>
+<h3 id="first-optimization">First optimization<a class="headerlink" href="#first-optimization" title="Permanent link">&para;</a></h3>
+<p>The first important observation is, that the values of the prefix function can only increase by at most one.</p>
+<p>Indeed, otherwise, if <span class="arithmatex">$\pi[i + 1] \gt \pi[i] + 1$</span>, then we can take this suffix ending in position <span class="arithmatex">$i + 1$</span> with the length <span class="arithmatex">$\pi[i + 1]$</span> and remove the last character from it.
+We end up with a suffix ending in position <span class="arithmatex">$i$</span> with the length <span class="arithmatex">$\pi[i + 1] - 1$</span>, which is better than <span class="arithmatex">$\pi[i]$</span>, i.e. we get a contradiction.</p>
+<p>The following illustration shows this contradiction.
+The longest proper suffix at position <span class="arithmatex">$i$</span> that also is a prefix is of length <span class="arithmatex">$2$</span>, and at position <span class="arithmatex">$i+1$</span> it is of length <span class="arithmatex">$4$</span>.
+Therefore the string <span class="arithmatex">$s_0 ~ s_1 ~ s_2 ~ s_3$</span> is equal to the string <span class="arithmatex">$s_{i-2} ~ s_{i-1} ~ s_i ~ s_{i+1}$</span>, which means that also the strings <span class="arithmatex">$s_0 ~ s_1 ~ s_2$</span> and <span class="arithmatex">$s_{i-2} ~ s_{i-1} ~ s_i$</span> are equal, therefore <span class="arithmatex">$\pi[i]$</span> has to be <span class="arithmatex">$3$</span>.</p>
+<div class="arithmatex">$$\underbrace{\overbrace{s_0 ~ s_1}^{\pi[i] = 2} ~ s_2 ~ s_3}_{\pi[i+1] = 4} ~ \dots ~ \underbrace{s_{i-2} ~ \overbrace{s_{i-1} ~ s_{i}}^{\pi[i] = 2} ~ s_{i+1}}_{\pi[i+1] = 4}$$</div>
+<p>Thus when moving to the next position, the value of the prefix function can either increase by one, stay the same, or decrease by some amount.
+This fact already allows us to reduce the complexity of the algorithm to <span class="arithmatex">$O(n^2)$</span>, because in one step the prefix function can grow at most by one.
+In total the function can grow at most <span class="arithmatex">$n$</span> steps, and therefore also only can decrease a total of <span class="arithmatex">$n$</span> steps.
+This means we only have to perform <span class="arithmatex">$O(n)$</span> string comparisons, and reach the complexity <span class="arithmatex">$O(n^2)$</span>.</p>
+<h3 id="second-optimization">Second optimization<a class="headerlink" href="#second-optimization" title="Permanent link">&para;</a></h3>
+<p>Let's go further, we want to get rid of the string comparisons.
+To accomplish this, we have to use all the information computed in the previous steps.</p>
+<p>So let us compute the value of the prefix function <span class="arithmatex">$\pi$</span> for <span class="arithmatex">$i + 1$</span>.
+If <span class="arithmatex">$s[i+1] = s[\pi[i]]$</span>, then we can say with certainty that <span class="arithmatex">$\pi[i+1] = \pi[i] + 1$</span>, since we already know that the suffix at position <span class="arithmatex">$i$</span> of length <span class="arithmatex">$\pi[i]$</span> is equal to the prefix of length <span class="arithmatex">$\pi[i]$</span>.
+This is illustrated again with an example.</p>
+<div class="arithmatex">$$\underbrace{\overbrace{s_0 ~ s_1 ~ s_2}^{\pi[i]} ~ \overbrace{s_3}^{s_3 = s_{i+1}}}_{\pi[i+1] = \pi[i] + 1} ~ \dots ~ \underbrace{\overbrace{s_{i-2} ~ s_{i-1} ~ s_{i}}^{\pi[i]} ~ \overbrace{s_{i+1}}^{s_3 = s_{i + 1}}}_{\pi[i+1] = \pi[i] + 1}$$</div>
+<p>If this is not the case, <span class="arithmatex">$s[i+1] \neq s[\pi[i]]$</span>, then we need to try a shorter string.
+In order to speed things up, we would like to immediately move to the longest length <span class="arithmatex">$j \lt \pi[i]$</span>, such that the prefix property in the position <span class="arithmatex">$i$</span> holds, i.e. <span class="arithmatex">$s[0 \dots j-1] = s[i-j+1 \dots i]$</span>:</p>
+<div class="arithmatex">$$\overbrace{\underbrace{s_0 ~ s_1}_j ~ s_2 ~ s_3}^{\pi[i]} ~ \dots ~ \overbrace{s_{i-3} ~ s_{i-2} ~ \underbrace{s_{i-1} ~ s_{i}}_j}^{\pi[i]} ~ s_{i+1}$$</div>
+<p>Indeed, if we find such a length <span class="arithmatex">$j$</span>, then we again only need to compare the characters <span class="arithmatex">$s[i+1]$</span> and <span class="arithmatex">$s[j]$</span>.
+If they are equal, then we can assign <span class="arithmatex">$\pi[i+1] = j + 1$</span>.
+Otherwise we will need to find the largest value smaller than <span class="arithmatex">$j$</span>, for which the prefix property holds, and so on.
+It can happen that this goes until <span class="arithmatex">$j = 0$</span>.
+If then <span class="arithmatex">$s[i+1] = s[0]$</span>, we assign <span class="arithmatex">$\pi[i+1] = 1$</span>, and <span class="arithmatex">$\pi[i+1] = 0$</span> otherwise.</p>
+<p>So we already have a general scheme of the algorithm.
+The only question left is how do we effectively find the lengths for <span class="arithmatex">$j$</span>.
+Let's recap:
+for the current length <span class="arithmatex">$j$</span> at the position <span class="arithmatex">$i$</span> for which the prefix property holds, i.e. <span class="arithmatex">$s[0 \dots j-1] = s[i-j+1 \dots i]$</span>, we want to find the greatest <span class="arithmatex">$k \lt j$</span>, for which the prefix property holds.</p>
+<div class="arithmatex">$$\overbrace{\underbrace{s_0 ~ s_1}_k ~ s_2 ~ s_3}^j ~ \dots ~ \overbrace{s_{i-3} ~ s_{i-2} ~ \underbrace{s_{i-1} ~ s_{i}}_k}^j ~s_{i+1}$$</div>
+<p>The illustration shows, that this has to be the value of <span class="arithmatex">$\pi[j-1]$</span>, which we already calculated earlier.</p>
+<h3 id="final-algorithm">Final algorithm<a class="headerlink" href="#final-algorithm" title="Permanent link">&para;</a></h3>
+<p>So we finally can build an algorithm that doesn't perform any string comparisons and only performs <span class="arithmatex">$O(n)$</span> actions.</p>
+<p>Here is the final procedure:</p>
+<ul>
+<li>We compute the prefix values <span class="arithmatex">$\pi[i]$</span> in a loop by iterating from <span class="arithmatex">$i = 1$</span> to <span class="arithmatex">$i = n-1$</span> (<span class="arithmatex">$\pi[0]$</span> just gets assigned with <span class="arithmatex">$0$</span>).</li>
+<li>To calculate the current value <span class="arithmatex">$\pi[i]$</span> we set the variable <span class="arithmatex">$j$</span> denoting the length of the best suffix for <span class="arithmatex">$i-1$</span>. Initially <span class="arithmatex">$j = \pi[i-1]$</span>.</li>
+<li>Test if the suffix of length <span class="arithmatex">$j+1$</span> is also a prefix by comparing <span class="arithmatex">$s[j]$</span> and <span class="arithmatex">$s[i]$</span>.
+If they are equal then we assign <span class="arithmatex">$\pi[i] = j + 1$</span>, otherwise we reduce <span class="arithmatex">$j$</span> to <span class="arithmatex">$\pi[j-1]$</span> and repeat this step.</li>
+<li>If we have reached the length <span class="arithmatex">$j = 0$</span> and still don't have a match, then we assign <span class="arithmatex">$\pi[i] = 0$</span> and go to the next index <span class="arithmatex">$i + 1$</span>.</li>
+</ul>
+<h3 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h3>
+<p>The implementation ends up being surprisingly short and expressive.</p>
+<div class="highlight"><pre><span></span><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">prefix_function</span><span class="p">(</span><span class="n">string</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">s</span><span class="p">.</span><span class="n">length</span><span class="p">();</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pi</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pi</span><span class="p">[</span><span class="n">i</span><span class="mi">-1</span><span class="p">];</span>
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">s</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+<span class="w">            </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pi</span><span class="p">[</span><span class="n">j</span><span class="mi">-1</span><span class="p">];</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">s</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+<span class="w">            </span><span class="n">j</span><span class="o">++</span><span class="p">;</span>
+<span class="w">        </span><span class="n">pi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">pi</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This is an <strong>online</strong> algorithm, i.e. it processes the data as it arrives - for example, you can read the string characters one by one and process them immediately, finding the value of prefix function for each next character.
+The algorithm still requires storing the string itself and the previously calculated values of prefix function, but if we know beforehand the maximum value <span class="arithmatex">$M$</span> the prefix function can take on the string, we can store only <span class="arithmatex">$M+1$</span> first characters of the string and the same number of values of the prefix function.</p>
+<h2 id="applications">Applications<a class="headerlink" href="#applications" title="Permanent link">&para;</a></h2>
+<h3 id="search-for-a-substring-in-a-string-the-knuth-morris-pratt-algorithm">Search for a substring in a string. The Knuth-Morris-Pratt algorithm<a class="headerlink" href="#search-for-a-substring-in-a-string-the-knuth-morris-pratt-algorithm" title="Permanent link">&para;</a></h3>
+<p>The task is the classical application of the prefix function.</p>
+<p>Given a text <span class="arithmatex">$t$</span> and a string <span class="arithmatex">$s$</span>, we want to find and display the positions of all occurrences of the string <span class="arithmatex">$s$</span> in the text <span class="arithmatex">$t$</span>.</p>
+<p>For convenience we denote with <span class="arithmatex">$n$</span> the length of the string s and with <span class="arithmatex">$m$</span> the length of the text <span class="arithmatex">$t$</span>.</p>
+<p>We generate the string <span class="arithmatex">$s + \# + t$</span>, where <span class="arithmatex">$\#$</span> is a separator that appears neither in <span class="arithmatex">$s$</span> nor in <span class="arithmatex">$t$</span>.
+Let us calculate the prefix function for this string.
+Now think about the meaning of the values of the prefix function, except for the first <span class="arithmatex">$n + 1$</span> entries (which belong to the string <span class="arithmatex">$s$</span> and the separator).
+By definition the value <span class="arithmatex">$\pi[i]$</span> shows the longest length of a substring ending in position <span class="arithmatex">$i$</span> that coincides with the prefix.
+But in our case this is nothing more than the largest block that coincides with <span class="arithmatex">$s$</span> and ends at position <span class="arithmatex">$i$</span>.
+This length cannot be bigger than <span class="arithmatex">$n$</span> due to the separator.
+But if equality <span class="arithmatex">$\pi[i] = n$</span> is achieved, then it means that the string <span class="arithmatex">$s$</span> appears completely in at this position, i.e. it ends at position <span class="arithmatex">$i$</span>.
+Just do not forget that the positions are indexed in the string <span class="arithmatex">$s + \# + t$</span>.</p>
+<p>Thus if at some position <span class="arithmatex">$i$</span> we have <span class="arithmatex">$\pi[i] = n$</span>, then at the position <span class="arithmatex">$i - (n + 1) - n + 1 = i - 2n$</span> in the string <span class="arithmatex">$t$</span> the string <span class="arithmatex">$s$</span> appears.</p>
+<p>As already mentioned in the description of the prefix function computation, if we know that the prefix values never exceed a certain value, then we do not need to store the entire string and the entire function, but only its beginning.
+In our case this means that we only need to store the string <span class="arithmatex">$s + \#$</span> and the values of the prefix function for it.
+We can read one character at a time of the string <span class="arithmatex">$t$</span> and calculate the current value of the prefix function.</p>
+<p>Thus the Knuth-Morris-Pratt algorithm solves the problem in <span class="arithmatex">$O(n + m)$</span> time and <span class="arithmatex">$O(n)$</span> memory.</p>
+<h3 id="counting-the-number-of-occurrences-of-each-prefix">Counting the number of occurrences of each prefix<a class="headerlink" href="#counting-the-number-of-occurrences-of-each-prefix" title="Permanent link">&para;</a></h3>
+<p>Here we discuss two problems at once.
+Given a string <span class="arithmatex">$s$</span> of length <span class="arithmatex">$n$</span>.
+In the first variation of the problem we want to count the number of appearances of each prefix <span class="arithmatex">$s[0 \dots i]$</span> in the same string.
+In the second variation of the problem another string <span class="arithmatex">$t$</span> is given and we want to count the number of appearances of each prefix <span class="arithmatex">$s[0 \dots i]$</span> in <span class="arithmatex">$t$</span>.</p>
+<p>First we solve the first problem.
+Consider the value of the prefix function <span class="arithmatex">$\pi[i]$</span> at a position <span class="arithmatex">$i$</span>.
+By definition it means that the prefix of length <span class="arithmatex">$\pi[i]$</span> of the string <span class="arithmatex">$s$</span> occurs and ends at position <span class="arithmatex">$i$</span>, and there is no longer prefix that follows this definition.
+At the same time shorter prefixes can end at this position.
+It is not difficult to see, that we have the same question that we already answered when we computed the prefix function itself:
+Given a prefix of length <span class="arithmatex">$j$</span> that is a suffix ending at position <span class="arithmatex">$i$</span>, what is the next smaller prefix <span class="arithmatex">$\lt j$</span> that is also a suffix ending at position <span class="arithmatex">$i$</span>.
+Thus at the position <span class="arithmatex">$i$</span> ends the prefix of length <span class="arithmatex">$\pi[i]$</span>, the prefix of length <span class="arithmatex">$\pi[\pi[i] - 1]$</span>, the prefix <span class="arithmatex">$\pi[\pi[\pi[i] - 1] - 1]$</span>, and so on, until the index becomes zero.
+Thus we can compute the answer in the following way.</p>
+<div class="highlight"><pre><span></span><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ans</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="n">ans</span><span class="p">[</span><span class="n">pi</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">++</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="mi">-1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">--</span><span class="p">)</span>
+<span class="w">    </span><span class="n">ans</span><span class="p">[</span><span class="n">pi</span><span class="p">[</span><span class="n">i</span><span class="mi">-1</span><span class="p">]]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+</code></pre></div>
+<p>Here for each value of the prefix function we first count how many times it occurs in the array <span class="arithmatex">$\pi$</span>, and then compute the final answers:
+if we know that the length prefix <span class="arithmatex">$i$</span> appears exactly <span class="arithmatex">$\text{ans}[i]$</span> times, then this number must be added to the number of occurrences of its longest suffix that is also a prefix.
+At the end we need to add <span class="arithmatex">$1$</span> to each result, since we also need to count the original prefixes also.</p>
+<p>Now let us consider the second problem.
+We apply the trick from Knuth-Morris-Pratt:
+we create the string <span class="arithmatex">$s + \# + t$</span> and compute its prefix function.
+The only differences to the first task is, that we are only interested in the prefix values that relate to the string <span class="arithmatex">$t$</span>, i.e. <span class="arithmatex">$\pi[i]$</span> for <span class="arithmatex">$i \ge n + 1$</span>.
+With those values we can perform the exact same computations as in the first task.</p>
+<h3 id="the-number-of-different-substring-in-a-string">The number of different substring in a string<a class="headerlink" href="#the-number-of-different-substring-in-a-string" title="Permanent link">&para;</a></h3>
+<p>Given a string <span class="arithmatex">$s$</span> of length <span class="arithmatex">$n$</span>.
+We want to compute the number of different substrings appearing in it.</p>
+<p>We will solve this problem iteratively.
+Namely we will learn, knowing the current number of different substrings, how to recompute this count by adding a character to the end.</p>
+<p>So let <span class="arithmatex">$k$</span> be the current number of different substrings in <span class="arithmatex">$s$</span>, and we add the character <span class="arithmatex">$c$</span> to the end of <span class="arithmatex">$s$</span>.
+Obviously some new substrings ending in <span class="arithmatex">$c$</span> will appear.
+We want to count these new substrings that didn't appear before.</p>
+<p>We take the string <span class="arithmatex">$t = s + c$</span> and reverse it.
+Now the task is transformed into computing how many prefixes there are that don't appear anywhere else.
+If we compute the maximal value of the prefix function <span class="arithmatex">$\pi_{\text{max}}$</span> of the reversed string <span class="arithmatex">$t$</span>, then the longest prefix that appears in <span class="arithmatex">$s$</span> is <span class="arithmatex">$\pi_{\text{max}}$</span> long.
+Clearly also all prefixes of smaller length appear in it.</p>
+<p>Therefore the number of new substrings appearing when we add a new character <span class="arithmatex">$c$</span> is <span class="arithmatex">$|s| + 1 - \pi_{\text{max}}$</span>.</p>
+<p>So for each character appended we can compute the number of new substrings in <span class="arithmatex">$O(n)$</span> times, which gives a time complexity of <span class="arithmatex">$O(n^2)$</span> in total.</p>
+<p>It is worth noting, that we can also compute the number of different substrings by appending the characters at the beginning, or by deleting characters from the beginning or the end.</p>
+<h3 id="compressing-a-string">Compressing a string<a class="headerlink" href="#compressing-a-string" title="Permanent link">&para;</a></h3>
+<p>Given a string <span class="arithmatex">$s$</span> of length <span class="arithmatex">$n$</span>.
+We want to find the shortest "compressed" representation of the string, i.e. we want to find a string <span class="arithmatex">$t$</span> of smallest length such that <span class="arithmatex">$s$</span> can be represented as a concatenation of one or more copies of <span class="arithmatex">$t$</span>.</p>
+<p>It is clear, that we only need to find the length of <span class="arithmatex">$t$</span>. Knowing the length, the answer to the problem will be the prefix of <span class="arithmatex">$s$</span> with this length.</p>
+<p>Let us compute the prefix function for <span class="arithmatex">$s$</span>.
+Using the last value of it we define the value <span class="arithmatex">$k = n - \pi[n - 1]$</span>.
+We will show, that if <span class="arithmatex">$k$</span> divides <span class="arithmatex">$n$</span>, then <span class="arithmatex">$k$</span> will be the answer, otherwise there is no effective compression and the answer is <span class="arithmatex">$n$</span>.</p>
+<p>Let <span class="arithmatex">$n$</span> be divisible by <span class="arithmatex">$k$</span>.
+Then the string can be partitioned into blocks of the length <span class="arithmatex">$k$</span>.
+By definition of the prefix function, the prefix of length <span class="arithmatex">$n - k$</span> will be equal with its suffix.
+But this means that the last block is equal to the block before.
+And the block before has to be equal to the block before it.
+And so on.
+As a result, it turns out that all blocks are equal, therefore we can compress the string <span class="arithmatex">$s$</span> to length <span class="arithmatex">$k$</span>.</p>
+<p>Of course we still need to show that this is actually the optimum.
+Indeed, if there was a smaller compression than <span class="arithmatex">$k$</span>, than the prefix function at the end would be greater than <span class="arithmatex">$n - k$</span>.
+Therefore <span class="arithmatex">$k$</span> is really the answer.</p>
+<p>Now let us assume that <span class="arithmatex">$n$</span> is not divisible by <span class="arithmatex">$k$</span>.
+We show that this implies that the length of the answer is <span class="arithmatex">$n$</span>.
+We prove it by contradiction.
+Assuming there exists an answer, and the compression has length <span class="arithmatex">$p$</span> (<span class="arithmatex">$p$</span> divides <span class="arithmatex">$n$</span>).
+Then the last value of the prefix function has to be greater than <span class="arithmatex">$n - p$</span>, i.e. the suffix will partially cover the first block.
+Now consider the second block of the string.
+Since the prefix is equal with the suffix, and both the prefix and the suffix cover this block and their displacement relative to each other <span class="arithmatex">$k$</span> does not divide the block length <span class="arithmatex">$p$</span> (otherwise <span class="arithmatex">$k$</span> divides <span class="arithmatex">$n$</span>), then all the characters of the block have to be identical.
+But then the string consists of only one character repeated over and over, hence we can compress it to a string of size <span class="arithmatex">$1$</span>, which gives <span class="arithmatex">$k = 1$</span>, and <span class="arithmatex">$k$</span> divides <span class="arithmatex">$n$</span>.
+Contradiction.</p>
+<div class="arithmatex">$$\overbrace{s_0 ~ s_1 ~ s_2 ~ s_3}^p ~ \overbrace{s_4 ~ s_5 ~ s_6 ~ s_7}^p$$</div>
+<div class="arithmatex">$$s_0 ~ s_1 ~ s_2 ~ \underbrace{\overbrace{s_3 ~ s_4 ~ s_5 ~ s_6}^p ~ s_7}_{\pi[7] = 5}$$</div>
+<div class="arithmatex">$$s_4 = s_3, ~ s_5 = s_4, ~ s_6 = s_5, ~ s_7 = s_6 ~ \Rightarrow ~ s_0 = s_1 = s_2 = s_3$$</div>
+<h3 id="building-an-automaton-according-to-the-prefix-function">Building an automaton according to the prefix function<a class="headerlink" href="#building-an-automaton-according-to-the-prefix-function" title="Permanent link">&para;</a></h3>
+<p>Let's return to the concatenation to the two strings through a separator, i.e. for the strings <span class="arithmatex">$s$</span> and <span class="arithmatex">$t$</span> we compute the prefix function for the string <span class="arithmatex">$s + \# + t$</span>.
+Obviously, since <span class="arithmatex">$\#$</span> is a separator, the value of the prefix function will never exceed <span class="arithmatex">$|s|$</span>.
+It follows, that it is sufficient to only store the string <span class="arithmatex">$s + \#$</span> and the values of the prefix function for it, and we can compute the prefix function for all subsequent character on the fly:</p>
+<div class="arithmatex">$$\underbrace{s_0 ~ s_1 ~ \dots ~ s_{n-1} ~ \#}_{\text{need to store}} ~ \underbrace{t_0 ~ t_1 ~ \dots ~ t_{m-1}}_{\text{do not need to store}}$$</div>
+<p>Indeed, in such a situation, knowing the next character <span class="arithmatex">$c \in t$</span> and the value of the prefix function of the previous position is enough information to compute the next value of the prefix function, without using any previous characters of the string <span class="arithmatex">$t$</span> and the value of the prefix function in them.</p>
+<p>In other words, we can construct an <strong>automaton</strong> (a finite state machine): the state in it is the current value of the prefix function, and the transition from one state to another will be performed via the next character.</p>
+<p>Thus, even without having the string <span class="arithmatex">$t$</span>, we can construct such a transition table <span class="arithmatex">$(\text{old}_\pi, c) \rightarrow \text{new}_\pi$</span> using the same algorithm as for calculating the transition table:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">compute_automaton</span><span class="p">(</span><span class="n">string</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span><span class="w"> </span><span class="n">aut</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">s</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="sc">&#39;#&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prefix_function</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="w">    </span><span class="n">aut</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">26</span><span class="p">));</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">26</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">s</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+<span class="w">                </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pi</span><span class="p">[</span><span class="n">j</span><span class="mi">-1</span><span class="p">];</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">s</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+<span class="w">                </span><span class="n">j</span><span class="o">++</span><span class="p">;</span>
+<span class="w">            </span><span class="n">aut</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">c</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>However in this form the algorithm runs in <span class="arithmatex">$O(n^2 26)$</span> time for the lowercase letters of the alphabet.
+Note that we can apply dynamic programming and use the already calculated parts of the table.
+Whenever we go from the value <span class="arithmatex">$j$</span> to the value <span class="arithmatex">$\pi[j-1]$</span>, we actually mean that the transition <span class="arithmatex">$(j, c)$</span> leads to the same state as the transition as <span class="arithmatex">$(\pi[j-1], c)$</span>, and this answer is already accurately computed.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">compute_automaton</span><span class="p">(</span><span class="n">string</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span><span class="w"> </span><span class="n">aut</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">s</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="sc">&#39;#&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prefix_function</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="w">    </span><span class="n">aut</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">26</span><span class="p">));</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">26</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="w">                </span><span class="n">aut</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">c</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aut</span><span class="p">[</span><span class="n">pi</span><span class="p">[</span><span class="n">i</span><span class="mi">-1</span><span class="p">]][</span><span class="n">c</span><span class="p">];</span>
+<span class="w">            </span><span class="k">else</span>
+<span class="w">                </span><span class="n">aut</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">c</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>As a result we construct the automaton in <span class="arithmatex">$O(26 n)$</span> time.</p>
+<p>When is such a automaton useful?
+To begin with, remember that we use the prefix function for the string <span class="arithmatex">$s + \# + t$</span> and its values mostly for a single purpose: find all occurrences of the string <span class="arithmatex">$s$</span> in the string <span class="arithmatex">$t$</span>.</p>
+<p>Therefore the most obvious benefit of this automaton is the <strong>acceleration of calculating the prefix function</strong> for the string <span class="arithmatex">$s + \# + t$</span>.
+By building the automaton for <span class="arithmatex">$s + \#$</span>, we no longer need to store the string <span class="arithmatex">$s$</span> or the values of the prefix function in it.
+All transitions are already computed in the table.</p>
+<p>But there is a second, less obvious, application.
+We can use the automaton when the string <span class="arithmatex">$t$</span> is a <strong>gigantic string constructed using some rules</strong>.
+This can for instance be the Gray strings, or a string formed by a recursive combination of several short strings from the input.</p>
+<p>For completeness we will solve such a problem:
+given a number <span class="arithmatex">$k \le 10^5$</span> and a string <span class="arithmatex">$s$</span> of length <span class="arithmatex">$\le 10^5$</span>.
+We have to compute the number of occurrences of <span class="arithmatex">$s$</span> in the <span class="arithmatex">$k$</span>-th Gray string.
+Recall that Gray's strings are define in the following way:</p>
+<div class="arithmatex">$$\begin{align}
+g_1 &amp;= \text{"a"}\\
+g_2 &amp;= \text{"aba"}\\
+g_3 &amp;= \text{"abacaba"}\\
+g_4 &amp;= \text{"abacabadabacaba"}
+\end{align}$$</div>
+<p>In such cases even constructing the string <span class="arithmatex">$t$</span> will be impossible, because of its astronomical length.
+The <span class="arithmatex">$k$</span>-th Gray string is <span class="arithmatex">$2^k-1$</span> characters long.
+However we can calculate the value of the prefix function at the end of the string effectively, by only knowing the value of the prefix function at the start.</p>
+<p>In addition to the automaton itself, we also compute values <span class="arithmatex">$G[i][j]$</span> - the value of the automaton after processing the string <span class="arithmatex">$g_i$</span> starting with the state <span class="arithmatex">$j$</span>.
+And additionally we compute values <span class="arithmatex">$K[i][j]$</span> - the number of occurrences of <span class="arithmatex">$s$</span> in <span class="arithmatex">$g_i$</span>, before during the processing of <span class="arithmatex">$g_i$</span> starting with the state <span class="arithmatex">$j$</span>.
+Actually <span class="arithmatex">$K[i][j]$</span> is the number of times that the prefix function took the value <span class="arithmatex">$|s|$</span> while performing the operations.
+The answer to the problem will then be <span class="arithmatex">$K[k][0]$</span>.</p>
+<p>How can we compute these values?
+First the basic values are <span class="arithmatex">$G[0][j] = j$</span> and <span class="arithmatex">$K[0][j] = 0$</span>.
+And all subsequent values can be calculated from the previous values and using the automaton.
+To calculate the value for some <span class="arithmatex">$i$</span> we remember that the string <span class="arithmatex">$g_i$</span> consists of <span class="arithmatex">$g_{i-1}$</span>, the <span class="arithmatex">$i$</span> character of the alphabet, and <span class="arithmatex">$g_{i-1}$</span>.
+Thus the automaton will go into the state:</p>
+<div class="arithmatex">$$\text{mid} = \text{aut}[G[i-1][j]][i]$$</div>
+<div class="arithmatex">$$G[i][j] = G[i-1][\text{mid}]$$</div>
+<p>The values for <span class="arithmatex">$K[i][j]$</span> can also be easily counted.</p>
+<div class="arithmatex">$$K[i][j] = K[i-1][j] + (\text{mid} == |s|) + K[i-1][\text{mid}]$$</div>
+<p>So we can solve the problem for Gray strings, and similarly also a huge number of other similar problems.
+For example the exact same method also solves the following problem:
+we are given a string <span class="arithmatex">$s$</span> and some patterns <span class="arithmatex">$t_i$</span>, each of which is specified as follows:
+it is a string of ordinary characters, and there might be some recursive insertions of the previous strings of the form <span class="arithmatex">$t_k^{\text{cnt}}$</span>, which means that at this place we have to insert the string <span class="arithmatex">$t_k$</span> <span class="arithmatex">$\text{cnt}$</span> times.
+An example of such patterns:</p>
+<div class="arithmatex">$$\begin{align}
+t_1 &amp;= \text{"abdeca"}\\
+t_2 &amp;= \text{"abc"} + t_1^{30} + \text{"abd"}\\
+t_3 &amp;= t_2^{50} + t_1^{100}\\
+t_4 &amp;= t_2^{10} + t_3^{100}
+\end{align}$$</div>
+<p>The recursive substitutions blow the string up, so that their lengths can reach the order of <span class="arithmatex">$100^{100}$</span>.</p>
+<p>We have to find the number of times the string <span class="arithmatex">$s$</span> appears in each of the strings.</p>
+<p>The problem can be solved in the same way by constructing the automaton of the prefix function, and then we calculate the transitions in for each pattern by using the previous results.</p>
+<h2 id="practice-problems">Practice Problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="http://uva.onlinejudge.org/index.php?option=onlinejudge&amp;page=show_problem&amp;problem=396">UVA # 455 "Periodic Strings"</a></li>
+<li><a href="http://uva.onlinejudge.org/index.php?option=onlinejudge&amp;page=show_problem&amp;problem=1963">UVA # 11022 "String Factoring"</a></li>
+<li><a href="http://uva.onlinejudge.org/index.php?option=onlinejudge&amp;page=show_problem&amp;problem=2447">UVA # 11452 "Dancing the Cheeky-Cheeky"</a></li>
+<li><a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=4282">UVA 12604 - Caesar Cipher</a></li>
+<li><a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=3911">UVA 12467 - Secret Word</a></li>
+<li><a href="https://uva.onlinejudge.org/index.php?option=onlinejudge&amp;page=show_problem&amp;problem=1960">UVA 11019 - Matrix Matcher</a></li>
+<li><a href="http://www.spoj.com/problems/NAJPF/">SPOJ - Pattern Find</a></li>
+<li><a href="https://www.spoj.com/problems/NHAY/">SPOJ - A Needle in the Haystack</a></li>
+<li><a href="http://codeforces.com/contest/808/problem/G">Codeforces - Anthem of Berland</a></li>
+<li><a href="http://codeforces.com/problemset/problem/471/D">Codeforces - MUH and Cube Walls</a></li>
+<li><a href="https://codeforces.com/contest/432/problem/D">Codeforces - Prefixes and Suffixes</a></li>
+</ul>
+
+<ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
+  <span class="contributors-text">Contributors:</span>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (80.62%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (14.21%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.07%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (1.29%)</li><li><a href="https://github.com/joaquingx" title="joaquingx" data-bi-name="contributorprofile" target="_blank">joaquingx</a> (0.52%)</li><li><a href="https://github.com/harshit-jain52" title="harshit-jain52" data-bi-name="contributorprofile" target="_blank">harshit-jain52</a> (0.26%)</li><li><a href="https://github.com/Kakalinn" title="Kakalinn" data-bi-name="contributorprofile" target="_blank">Kakalinn</a> (0.26%)</li><li><a href="https://github.com/GaurangTandon" title="GaurangTandon" data-bi-name="contributorprofile" target="_blank">GaurangTandon</a> (0.26%)</li><li><a href="https://github.com/shaan1337" title="shaan1337" data-bi-name="contributorprofile" target="_blank">shaan1337</a> (0.26%)</li><li><a href="https://github.com/ashutosh1598" title="ashutosh1598" data-bi-name="contributorprofile" target="_blank">ashutosh1598</a> (0.26%)</li></ul>
+</ul>
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Text is available under the <a href="https://github.com/cp-algorithms/cp-algorithms/blob/main/LICENSE">Creative Commons Attribution Share Alike 4.0 International</a> License<br/>Copyright &copy; 2014 - 2025 by <a href="https://github.com/cp-algorithms/cp-algorithms/graphs/contributors">cp-algorithms contributors</a>
+          </div>
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      <div class="md-social">
+  
+</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+        <script src="../javascript/config.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../assets/javascripts/toggle-sidebar.js" async></script>
+      
+    
+  </body>
+</html>
