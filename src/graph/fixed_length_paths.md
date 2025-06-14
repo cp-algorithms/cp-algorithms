@@ -63,7 +63,7 @@ Then the following formula computes each entry of $L_{k+1}$:
 $$L_{k+1}[i][j] = \min_{p = 1 \ldots n} \left(L_k[i][p] + G[p][j]\right)$$
 
 When looking closer at this formula, we can draw an analogy with the matrix multiplication:
-in fact the matrix $L_k$ is multiplied by the matrix $G$, the only difference is that instead in the multiplication operation we take the minimum of the sum.
+in fact the matrix $L_k$ is multiplied by the matrix $G$, the only difference is that instead in the multiplication operation we take the minimum instead of the sum, and the sum instead of the multiplication as the inner operation.
 
 $$L_{k+1} = L_k \odot G,$$
 
