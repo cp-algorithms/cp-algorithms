@@ -162,6 +162,145 @@ mindist = 1E20;
 rec(0, n);
 ```
 
+## Linear time randomized algorithms
+
+### A linear time (with high probability) algorithm
+
+An alternative method arises from a very simple idea to heuristically improve the runtime: We can divide the plane into a grid of $d \times d$ squares, then it is only required to test distances between same-block or adjacent-block points (unless all squares are disconnected from each other, we will avoid this by design), since any other pair has larger distance that the two points in the same square.
+
+<div style="text-align: center;">
+    <img src="nearest_points_blocks_example.png" alt="Example of the squares strategy" height="300px">
+</div>
+
+
+We will consider only the squares containing at least one point. Denote by $n_1, n_2, \dots, n_k$ the number of points in each of the $k$ remaining squares. Assuming at least two points are in the same or in adjacent squares,  the time complexity is $\Theta(\sum_{i=1}^{k} n_i^2)$.
+
+**Proof.** For the $i$-th square containing $n_i$ points, the number of pairs inside is $\Theta(n_i^2)$. If the $i$-th square is adjacent to the $j$-th square, then we also perform $n_i n_j \le \max(n_i, n_j)^2 \le n_i^2 + n_j^2$ distance comparisons. Notice that each cube has at most $8$ adjacent cubes, so we can bound the sum of all comparisons by $\Theta(\sum_{i=1}^{k} n_i^2)$. $\quad \blacksquare$
+
+Now we need to decide on how to set $d$ so that it minimizes $\Theta(\sum_{i=1}^{k} n_i^2)$.
+
+####  Choosing d
+
+We need $d$ to be an approximation of the minimum distance $d$, and the trick is to just sample $n$ distances randomly and choose $d$ to be the smallest of these distances. We now prove that with high probability this has linear cost.
+
+**Proof.** Assume with a particular choice of $d$, the resulting squares have $C \coloneqq \sum_{i=1}^{k} n_i^2 = \lambda n$. What is the probability that such $d$ survives the sampling of $n$ independent distances? If a single pair among the sampled ones has distance smaller than $d$, this arrangement is not possible. Inside a square, at least half of the pairs would raise a smaller distance, so we have $\sum_{i=1}^{k} \frac{1}{2} {n_i \choose 2}$ pairs which yield a smaller final $d$. This is, approximately, $\frac{1}{4} \sum_{i=1}^{k} n_i^2 = \frac{\lambda}{4} n$. On the other hand, there are about $\frac{1}{2} n^2$ pairs that can be sampled. We have that the probability of sampling a pair with distance smaller than $d$ is at least (approximately) $\frac{\lambda n / 4}{n^2 / 2} = \frac{\lambda/2}{n}$, so the probability of at least one such pair being chosen during the $n$ rounds (and therefore avoiding this situation) is $1 - (1 - \frac{\lambda/2}{n})^n \approx 1 - e^{-\lambda/2}$. This goes to $1$ as $\lambda$ increases. $\quad \blacksquare$
+
+#### Implementation of the algorithm
+
+The advantage of this algorithm is that it is straightforward to implement, but still has good performance in practise.
+
+```{.cpp file=nearest_pair_randomized}
+using ll = long long;
+using ld = long double;
+
+struct RealPoint {
+	ld x, y;
+	RealPoint() {}
+	RealPoint(T x_, T y_) : x(x_), y(y_) {}
+};
+using pt = RealPoint;
+
+struct CustomHash {
+	size_t operator()(const pair<ll,ll>& p) const {
+		static const uint64_t C = chrono::steady_clock::now().time_since_epoch().count();
+		return C ^ ((p.first << 32) ^ p.second);
+	}
+};
+
+ld dist(pt a, pt b) {
+	ld dx = a.x - b.x;
+	ld dy = a.y - b.y;
+	return sqrt(dx*dx + dy*dy);
+}
+
+pair<pt,pt> closest_pair_of_points_rand_reals(vector<pt> P) {
+    const ld eps = 1e-9;
+
+	int n = int(P.size());
+	assert(n >= 2);
+	unordered_map<pair<ll,ll>,vector<pt>,CustomHash> grid;
+	grid.reserve(n);
+
+	mt19937 rd(chrono::system_clock::now().time_since_epoch().count());
+	uniform_int_distribution<int> dis(0, n-1);
+
+	ld d = dist(P[0], P[1]);
+	pair<pt,pt> closest = {P[0], P[1]};
+
+	auto consider_pair = [&](const pt& a, const pt& b) -> void {
+		ld ab = dist(a, b);
+		if (ab + eps < d) {
+			d = ab;
+			closest = {a, b};
+		}
+	};
+
+	for (int i = 0; i < n; ++i) {
+		int j = dis(rd);
+		int k = dis(rd);
+		while (j == k)
+            k = dis(rd);
+		consider_pair(P[j], P[k]);
+	}
+
+	for (const pt& p : P)
+		grid[{ll(p.x/d), ll(p.y/d)}].push_back(p);
+
+	for (const auto& it : grid) { // same block
+		int k = int(it.second.size());
+		for (int i = 0; i < k; ++i) {
+			for (int j = i+1; j < k; ++j)
+				consider_pair(it.second[i], it.second[j]);
+		}
+	}
+ 
+	for (const auto& it : grid) { // adjacent blocks
+		auto coord = it.first;
+		for (int dx = 0; dx <= 1; ++dx) {
+			for (int dy = -1; dy <= 1; ++dy) {
+				if (dx == 0 and dy == 0) continue;
+				pair<ll,ll> neighbour = {
+					coord.first  + dx, 
+					coord.second + dy
+				};
+				for (const pt& p : it.second) {
+					if (not grid.count(neighbour)) continue;
+					for (const pt& q : grid.at(neighbour))
+						candidate_closest(p, q);
+				}
+			}
+		}
+	}
+
+	return closest;
+}
+```
+
+
+### A randomized algorithm with expected linear time
+
+Now we introduce a different randomized algorithm which is less practical but very easy to show that it runs in expected linear time.
+
+- Permute the $n$ points randomly
+- Take $\delta \coloneqq \operatorname{dist}(p_1, p_2)$
+- Partition the plane in squares of side $\delta/2$
+- For $i = 1,2,\dots,n$:
+  - Take the square corresponding to $p_i$
+  - Interate over the $25$ squares within two steps to our square in the grid of squares partitioning the plane
+  - If some $p_j$ in those squares has $\operatorname{dist}(p_j, p_i) < \delta$, then
+    - Recompute the partition and squares with $\delta \coloneqq \operatorname{dist}(p_j, p_i)$
+    - Store points $p_1, \dots, p_i$ in the corresponding squares
+  - else, store $p_i$ in the corresponding square
+- output $\delta$
+
+While this algorithm may look slow, because of recomputing everything multiple times, we can show the total expected cost is linear. 
+
+**Proof.** Let $X_i$ the random variable that is $1$ when point $p_i$ causes a change of $\delta$ and a recomputation of the data structures, and $0$ if not. It is easy to show that the cost is $O(n + \sum_{i=1}^{n} i X_i)$, since on the $i$-th step we are considering only the first $i$ points. However, turns out that $\Pr(X_i = 1) \le \frac{2}{i}$. This is because on the $i$-th step, $\delta$ is the distance of the closest pair in $\{p_1,\dots,p_i\}$, and $\Pr(X_i = 1)$ is the probability of $p_i$ belonging to the closest pair, which only happens in $2(i-1)$ pairs out of the $i(i-1)$ possible pairs (assuming all distances are different), so the probability is at most $\frac{2(i-1)}{i(i-1)} = \frac{2}{i}$, since we previously shuffled the points uniformly.
+
+We can therefore see that the expected cost is 
+$$O(n + \sum_{i=1}^{n} i \Pr(X_i = 1)) \le O(n + \sum_{i=1}^{n} i \frac{2}{i}) = O(3n) = O(n) \quad \quad \blacksquare $$ 
+
+
 ## Generalization: finding a triangle with minimal perimeter
 
 The algorithm described above is interestingly generalized to this problem: among a given set of points, choose three different points so that the sum of pairwise distances between them is the smallest.
