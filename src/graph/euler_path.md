@@ -98,17 +98,8 @@ int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     int n, m;
-    cin >> n >> m;
-    edges.clear();
-    g.assign(n, vector<int> ());
-    used.assign(m + 1, false);
-    res.clear();
-    for (int i = 0; i < m; i++) {
-        int u, v;
-        cin >> u >> v;
-        u--, v--;
-        add_edge(u, v);
-    }
+    // reading the graph
+
     int v1 = -1, v2 = -1;
     bool bad = false;
     for (int i = 0; i < n; i++) {
@@ -122,18 +113,24 @@ int main() {
             }
         }
     }
+
     int first = 0;
     while (first < n && g[first].empty()) {
         first++;
     }
+
     if (bad || (v1 != -1 && v2 == -1) || first == n) {
         cout << -1 << '\n';
         return 0;
     }
+
     if (v1 != -1) {
         add_edge(v1, v2);
     }
+
+    used.assign((int) edges.size(), false);
     dfs(first);
+
     if (v1 != -1) {
         for (int i = 0; i + 1 < (int) res.size(); i++) {
             if ((res[i] == v1 && res[i + 1] == v2) ||
@@ -150,12 +147,14 @@ int main() {
             }
         }
     }
+
     for (int i = 0; i < n; i++) {
         if (!g[i].empty()) {
             cout << -1 << '\n';
             return 0;
         }
     }
+
     for (int x : res) {
         cout << x + 1 << ' ';
     }
