@@ -164,9 +164,9 @@ rec(0, n);
 
 ## Linear time randomized algorithms
 
-### A linear time (with high probability) algorithm
+### A randomized algorithm with linear expected time
 
-An alternative method arises from a very simple idea to heuristically improve the runtime: We can divide the plane into a grid of $d \times d$ squares, then it is only required to test distances between same-block or adjacent-block points (unless all squares are disconnected from each other, we will avoid this by design), since any other pair has larger distance that the two points in the same square.
+An alternative method arises from a very simple idea to heuristically improve the runtime: We can divide the plane into a grid of $d \times d$ squares, then it is only required to test distances between same-block or adjacent-block points (unless all squares are disconnected from each other, but we will avoid this by design), since any other pair has larger distance that the two points in the same square.
 
 <div style="text-align: center;">
     <img src="nearest_points_blocks_example.png" alt="Example of the squares strategy" height="300px">
@@ -183,7 +183,18 @@ Now we need to decide on how to set $d$ so that it minimizes $\Theta(\sum_{i=1}^
 
 We need $d$ to be an approximation of the minimum distance $d$, and the trick is to just sample $n$ distances randomly and choose $d$ to be the smallest of these distances. We now prove that with high probability this has linear cost.
 
-**Proof.** Assume with a particular choice of $d$, the resulting squares have $C \coloneqq \sum_{i=1}^{k} n_i^2 = \lambda n$. What is the probability that such $d$ survives the sampling of $n$ independent distances? If a single pair among the sampled ones has distance smaller than $d$, this arrangement is not possible. Inside a square, at least half of the pairs would raise a smaller distance, so we have $\sum_{i=1}^{k} \frac{1}{2} {n_i \choose 2}$ pairs which yield a smaller final $d$. This is, approximately, $\frac{1}{4} \sum_{i=1}^{k} n_i^2 = \frac{\lambda}{4} n$. On the other hand, there are about $\frac{1}{2} n^2$ pairs that can be sampled. We have that the probability of sampling a pair with distance smaller than $d$ is at least (approximately) $\frac{\lambda n / 4}{n^2 / 2} = \frac{\lambda/2}{n}$, so the probability of at least one such pair being chosen during the $n$ rounds (and therefore avoiding this situation) is $1 - (1 - \frac{\lambda/2}{n})^n \approx 1 - e^{-\lambda/2}$. This goes to $1$ as $\lambda$ increases. $\quad \blacksquare$
+**Proof.** Imagine the disposition of points in squares with a particular choice of $d$, say $x$. Consider $d$ a random variable, resulting from our sampling of distances. Let's define $C(x) = \sum_{i=1}^{k(x)} n_i(x)^2$ as the cost estimation for a particular disposition when we choose $d=x$. Now, let's define $\lambda(x)$ such that $C(x) = \lambda(x) \, n$. What is the probability that such choice $x$ survives the sampling of $n$ independent distances? If a single pair among the sampled ones has distance smaller than $x$, this arrangement will be replaced by the smaller $d$. Inside a square, at least a quarter of the pairs would raise a smaller distance (imagine four subsquares in every square, and use the pigeonhole principle), so we have $\sum_{i=1}^{k} \frac{1}{4} {n_i \choose 2}$ pairs which yield a smaller final $d$. This is, approximately, $\frac{1}{8} \sum_{i=1}^{k} n_i^2 = \frac{1}{8} \lambda(x) n$. On the other hand, there are about $\frac{1}{2} n^2$ pairs that can be sampled. We have that the probability of sampling a pair with distance smaller than $x$ is at least (approximately) 
+$$\frac{\lambda(x) n / 8}{n^2 / 2} = \frac{\lambda(x)/4}{n}$$
+so the probability of at least one such pair being chosen during the $n$ rounds (and therefore finding a smaller $d$) is 
+$$1 - \left(1 - \frac{\lambda(x)/4}{n}\right)^n \ge 1 - e^{-\lambda(x)/4}$$
+(we have used that $(1 + x)^n \le e^{xn}$ for any real number $x$, check https://en.wikipedia.org/wiki/Bernoulli%27s_inequality#Related_inequalities). <br> Notice this goes to $1$ exponentially as $\lambda(x)$ increases. This hints that $\lambda$ will be small usually.
+
+
+We have shown that $\Pr(d \le x) \ge 1 - e^{-\lambda(x)/4}$, or equivalently, $\Pr(d \ge x) \le e^{-\lambda(x)/4}$. We need to know $\Pr(\lambda(d) \ge \text{something})$ to be able to estimate its expected value. We notice that $\lambda(d) \ge \lambda(x) \iff d \ge x$. This is because making the squares smaller only reduces the number of points in each square (splits the points into other squares), and this keeps reducing the sum of squares. Therefore,
+$$\Pr(\lambda(d) \ge \lambda(x)) = \Pr(d \ge x) \le e^{-\lambda(x)/4} \implies \Pr(\lambda(d) \ge t) \le e^{-t/4} \implies \mathbb{E}[\lambda(d)] \le \int_{0}^{+\infty} e^{-t/4} \, \mathrm{d}t = 4$$
+(we have used that $E[X] = \int_0^{+\infty} \Pr(X \ge x) \, \mathrm{d}x$, check https://math.stackexchange.com/a/1690829).
+
+Finally, $\mathbb{E}[C(d)] = \mathbb{E}[\lambda(d) \, n] \le 4n$, and the expected running time is $O(n)$, with a reasonable constant factor. $\quad \blacksquare$
 
 #### Implementation of the algorithm
 
@@ -277,7 +288,7 @@ pair<pt,pt> closest_pair_of_points_rand_reals(vector<pt> P) {
 ```
 
 
-### A randomized algorithm with expected linear time
+### An alternative randomized linear expected time algorithm
 
 Now we introduce a different randomized algorithm which is less practical but very easy to show that it runs in expected linear time.
 
