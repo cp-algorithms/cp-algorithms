@@ -181,7 +181,7 @@ Now we need to decide on how to set $d$ so that it minimizes $\Theta(\sum_{i=1}^
 
 ####  Choosing d
 
-We need $d$ to be an approximation of the minimum distance $d$, and the trick is to just sample $n$ distances randomly and choose $d$ to be the smallest of these distances. We now prove that with high probability this has linear cost.
+We need $d$ to be an approximation of the minimum distance $d$, and the trick is to just sample $n$ distances randomly and choose $d$ to be the smallest of these distances. We now prove that the expected running time is linear.
 
 **Proof.** Imagine the disposition of points in squares with a particular choice of $d$, say $x$. Consider $d$ a random variable, resulting from our sampling of distances. Let's define $C(x) = \sum_{i=1}^{k(x)} n_i(x)^2$ as the cost estimation for a particular disposition when we choose $d=x$. Now, let's define $\lambda(x)$ such that $C(x) = \lambda(x) \, n$. What is the probability that such choice $x$ survives the sampling of $n$ independent distances? If a single pair among the sampled ones has distance smaller than $x$, this arrangement will be replaced by the smaller $d$. Inside a square, at least a quarter of the pairs would raise a smaller distance (imagine four subsquares in every square, and use the pigeonhole principle), so we have $\sum_{i=1}^{k} \frac{1}{4} {n_i \choose 2}$ pairs which yield a smaller final $d$. This is, approximately, $\frac{1}{8} \sum_{i=1}^{k} n_i^2 = \frac{1}{8} \lambda(x) n$. On the other hand, there are about $\frac{1}{2} n^2$ pairs that can be sampled. We have that the probability of sampling a pair with distance smaller than $x$ is at least (approximately) 
 $$\frac{\lambda(x) n / 8}{n^2 / 2} = \frac{\lambda(x)/4}{n}$$
