@@ -4314,13 +4314,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#a-linear-time-with-high-probability-algorithm" class="md-nav__link">
+  <a href="#a-randomized-algorithm-with-linear-expected-time" class="md-nav__link">
     <span class="md-ellipsis">
-      A linear time (with high probability) algorithm
+      A randomized algorithm with linear expected time
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="A linear time (with high probability) algorithm">
+    <nav class="md-nav" aria-label="A randomized algorithm with linear expected time">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -4347,9 +4347,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#a-randomized-algorithm-with-expected-linear-time" class="md-nav__link">
+  <a href="#an-alternative-randomized-linear-expected-time-algorithm" class="md-nav__link">
     <span class="md-ellipsis">
-      A randomized algorithm with expected linear time
+      An alternative randomized linear expected time algorithm
     </span>
   </a>
   
@@ -6737,7 +6737,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 24, 2025 23:23:35 UTC">June 24, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 26, 2025 19:29:50 UTC">June 26, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6873,8 +6873,8 @@ It is obvious that it is sufficient to consider only those points that are separ
 <span class="n">rec</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
 </code></pre></div>
 <h2 id="linear-time-randomized-algorithms">Linear time randomized algorithms<a class="headerlink" href="#linear-time-randomized-algorithms" title="Permanent link">&para;</a></h2>
-<h3 id="a-linear-time-with-high-probability-algorithm">A linear time (with high probability) algorithm<a class="headerlink" href="#a-linear-time-with-high-probability-algorithm" title="Permanent link">&para;</a></h3>
-<p>An alternative method arises from a very simple idea to heuristically improve the runtime: We can divide the plane into a grid of <span class="arithmatex">$d \times d$</span> squares, then it is only required to test distances between same-block or adjacent-block points (unless all squares are disconnected from each other, we will avoid this by design), since any other pair has larger distance that the two points in the same square.</p>
+<h3 id="a-randomized-algorithm-with-linear-expected-time">A randomized algorithm with linear expected time<a class="headerlink" href="#a-randomized-algorithm-with-linear-expected-time" title="Permanent link">&para;</a></h3>
+<p>An alternative method arises from a very simple idea to heuristically improve the runtime: We can divide the plane into a grid of <span class="arithmatex">$d \times d$</span> squares, then it is only required to test distances between same-block or adjacent-block points (unless all squares are disconnected from each other, but we will avoid this by design), since any other pair has larger distance that the two points in the same square.</p>
 <div style="text-align: center;">
     <img src="nearest_points_blocks_example.png" alt="Example of the squares strategy" height="300px">
 </div>
@@ -6884,7 +6884,15 @@ It is obvious that it is sufficient to consider only those points that are separ
 <p>Now we need to decide on how to set <span class="arithmatex">$d$</span> so that it minimizes <span class="arithmatex">$\Theta(\sum_{i=1}^{k} n_i^2)$</span>.</p>
 <h4 id="choosing-d">Choosing d<a class="headerlink" href="#choosing-d" title="Permanent link">&para;</a></h4>
 <p>We need <span class="arithmatex">$d$</span> to be an approximation of the minimum distance <span class="arithmatex">$d$</span>, and the trick is to just sample <span class="arithmatex">$n$</span> distances randomly and choose <span class="arithmatex">$d$</span> to be the smallest of these distances. We now prove that with high probability this has linear cost.</p>
-<p><strong>Proof.</strong> Assume with a particular choice of <span class="arithmatex">$d$</span>, the resulting squares have <span class="arithmatex">$C \coloneqq \sum_{i=1}^{k} n_i^2 = \lambda n$</span>. What is the probability that such <span class="arithmatex">$d$</span> survives the sampling of <span class="arithmatex">$n$</span> independent distances? If a single pair among the sampled ones has distance smaller than <span class="arithmatex">$d$</span>, this arrangement is not possible. Inside a square, at least half of the pairs would raise a smaller distance, so we have <span class="arithmatex">$\sum_{i=1}^{k} \frac{1}{2} {n_i \choose 2}$</span> pairs which yield a smaller final <span class="arithmatex">$d$</span>. This is, approximately, <span class="arithmatex">$\frac{1}{4} \sum_{i=1}^{k} n_i^2 = \frac{\lambda}{4} n$</span>. On the other hand, there are about <span class="arithmatex">$\frac{1}{2} n^2$</span> pairs that can be sampled. We have that the probability of sampling a pair with distance smaller than <span class="arithmatex">$d$</span> is at least (approximately) <span class="arithmatex">$\frac{\lambda n / 4}{n^2 / 2} = \frac{\lambda/2}{n}$</span>, so the probability of at least one such pair being chosen during the <span class="arithmatex">$n$</span> rounds (and therefore avoiding this situation) is <span class="arithmatex">$1 - (1 - \frac{\lambda/2}{n})^n \approx 1 - e^{-\lambda/2}$</span>. This goes to <span class="arithmatex">$1$</span> as <span class="arithmatex">$\lambda$</span> increases. <span class="arithmatex">$\quad \blacksquare$</span></p>
+<p><strong>Proof.</strong> Imagine the disposition of points in squares with a particular choice of <span class="arithmatex">$d$</span>, say <span class="arithmatex">$x$</span>. Consider <span class="arithmatex">$d$</span> a random variable, resulting from our sampling of distances. Let's define <span class="arithmatex">$C(x) = \sum_{i=1}^{k(x)} n_i(x)^2$</span> as the cost estimation for a particular disposition when we choose <span class="arithmatex">$d=x$</span>. Now, let's define <span class="arithmatex">$\lambda(x)$</span> such that <span class="arithmatex">$C(x) = \lambda(x) \, n$</span>. What is the probability that such choice <span class="arithmatex">$x$</span> survives the sampling of <span class="arithmatex">$n$</span> independent distances? If a single pair among the sampled ones has distance smaller than <span class="arithmatex">$x$</span>, this arrangement will be replaced by the smaller <span class="arithmatex">$d$</span>. Inside a square, at least a quarter of the pairs would raise a smaller distance (imagine four subsquares in every square, and use the pigeonhole principle), so we have <span class="arithmatex">$\sum_{i=1}^{k} \frac{1}{4} {n_i \choose 2}$</span> pairs which yield a smaller final <span class="arithmatex">$d$</span>. This is, approximately, <span class="arithmatex">$\frac{1}{8} \sum_{i=1}^{k} n_i^2 = \frac{1}{8} \lambda(x) n$</span>. On the other hand, there are about <span class="arithmatex">$\frac{1}{2} n^2$</span> pairs that can be sampled. We have that the probability of sampling a pair with distance smaller than <span class="arithmatex">$x$</span> is at least (approximately) 
+<span class="arithmatex">$<span class="arithmatex">$\frac{\lambda(x) n / 8}{n^2 / 2} = \frac{\lambda(x)/4}{n}$</span>$</span>
+so the probability of at least one such pair being chosen during the <span class="arithmatex">$n$</span> rounds (and therefore finding a smaller <span class="arithmatex">$d$</span>) is 
+<span class="arithmatex">$<span class="arithmatex">$1 - \left(1 - \frac{\lambda(x)/4}{n}\right)^n \ge 1 - e^{-\lambda(x)/4}$</span>$</span>
+(we have used that <span class="arithmatex">$(1 + x)^n \le e^{xn}$</span> for any real number <span class="arithmatex">$x$</span>, check https://en.wikipedia.org/wiki/Bernoulli%27s_inequality#Related_inequalities). <br> Notice this goes to <span class="arithmatex">$1$</span> exponentially as <span class="arithmatex">$\lambda(x)$</span> increases. This hints that <span class="arithmatex">$\lambda$</span> will be small usually.</p>
+<p>We have shown that <span class="arithmatex">$\Pr(d \le x) \ge 1 - e^{-\lambda(x)/4}$</span>, or equivalently, <span class="arithmatex">$\Pr(d \ge x) \le e^{-\lambda(x)/4}$</span>. We need to know <span class="arithmatex">$\Pr(\lambda(d) \ge \text{something})$</span> to be able to estimate its expected value. We notice that <span class="arithmatex">$\lambda(d) \ge \lambda(x) \iff d \ge x$</span>. This is because making the squares smaller only reduces the number of points in each square (splits the points into other squares), and this keeps reducing the sum of squares. Therefore,
+<span class="arithmatex">$<span class="arithmatex">$\Pr(\lambda(d) \ge \lambda(x)) = \Pr(d \ge x) \le e^{-\lambda(x)/4} \implies \Pr(\lambda(d) \ge t) \le e^{-t/4} \implies \mathbb{E}[\lambda(d)] \le \int_{0}^{+\infty} e^{-t/4} \, \mathrm{d}t = 4$</span>$</span>
+(we have used that <span class="arithmatex">$E[X] = \int_0^{+\infty} \Pr(X \ge x) \, \mathrm{d}x$</span>, check https://math.stackexchange.com/a/1690829).</p>
+<p>Finally, <span class="arithmatex">$\mathbb{E}[C(d)] = \mathbb{E}[\lambda(d) \, n] \le 4n$</span>, and the expected running time is <span class="arithmatex">$O(n)$</span>, with a reasonable constant factor. <span class="arithmatex">$\quad \blacksquare$</span></p>
 <h4 id="implementation-of-the-algorithm">Implementation of the algorithm<a class="headerlink" href="#implementation-of-the-algorithm" title="Permanent link">&para;</a></h4>
 <p>The advantage of this algorithm is that it is straightforward to implement, but still has good performance in practise.</p>
 <div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">ll</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">;</span>
@@ -6972,7 +6980,7 @@ It is obvious that it is sufficient to consider only those points that are separ
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">closest</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<h3 id="a-randomized-algorithm-with-expected-linear-time">A randomized algorithm with expected linear time<a class="headerlink" href="#a-randomized-algorithm-with-expected-linear-time" title="Permanent link">&para;</a></h3>
+<h3 id="an-alternative-randomized-linear-expected-time-algorithm">An alternative randomized linear expected time algorithm<a class="headerlink" href="#an-alternative-randomized-linear-expected-time-algorithm" title="Permanent link">&para;</a></h3>
 <p>Now we introduce a different randomized algorithm which is less practical but very easy to show that it runs in expected linear time.</p>
 <ul>
 <li>Permute the <span class="arithmatex">$n$</span> points randomly</li>
@@ -7008,7 +7016,7 @@ $$O(n + \sum_{i=1}^{n} i \Pr(X_i = 1)) \le O(n + \sum_{i=1}^{n} i \frac{2}{i}) =
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/singamandeep" title="singamandeep" data-bi-name="contributorprofile" target="_blank">singamandeep</a> (51.42%)</li><li><a href="https://github.com/izanbf1803" title="izanbf1803" data-bi-name="contributorprofile" target="_blank">izanbf1803</a> (43.85%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.21%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (1.58%)</li><li><a href="https://github.com/Kostero" title="Kostero" data-bi-name="contributorprofile" target="_blank">Kostero</a> (0.32%)</li><li><a href="https://github.com/SYury" title="SYury" data-bi-name="contributorprofile" target="_blank">SYury</a> (0.32%)</li><li><a href="https://github.com/avishekp4" title="avishekp4" data-bi-name="contributorprofile" target="_blank">avishekp4</a> (0.32%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/singamandeep" title="singamandeep" data-bi-name="contributorprofile" target="_blank">singamandeep</a> (49.7%)</li><li><a href="https://github.com/izanbf1803" title="izanbf1803" data-bi-name="contributorprofile" target="_blank">izanbf1803</a> (45.73%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.13%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (1.52%)</li><li><a href="https://github.com/Kostero" title="Kostero" data-bi-name="contributorprofile" target="_blank">Kostero</a> (0.3%)</li><li><a href="https://github.com/SYury" title="SYury" data-bi-name="contributorprofile" target="_blank">SYury</a> (0.3%)</li><li><a href="https://github.com/avishekp4" title="avishekp4" data-bi-name="contributorprofile" target="_blank">avishekp4</a> (0.3%)</li></ul>
 </ul>
                 
               </article>
