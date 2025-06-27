@@ -69,94 +69,102 @@ To find the Euler path (not a cycle), let's do this: if $V1$ and $V2$ are two ve
 We will look for the Euler cycle exactly as described above (non-recursive version), and at the same time at the end of this algorithm we will check whether the graph was connected or not (if the graph was not connected, then at the end of the algorithm some edges will remain in the graph, and in this case we need to print $-1$).
 Finally, the program takes into account that there can be isolated vertices in the graph.
 
-Notice that we use an adjacency matrix in this problem.
-Also this implementation handles finding the next with brute-force, which requires to iterate over the complete row in the matrix over and over.
-A better way would be to store the graph as an adjacency list, and remove edges in $O(1)$ and mark the reversed edges in separate list.
-This way we can achieve an $O(N)$ algorithm.
-
 ```cpp
+vector<pair<int,int>> edges;
+vector<vector<int>> g;
+vector<bool> used;
+vector<int> res;
+
+void add_edge(int u, int v) {
+    int idx = (int) edges.size();
+    edges.emplace_back(u, v);
+    g[u].push_back(idx);
+    g[v].push_back(idx);
+}
+
 int main() {
-    int n;
-    vector<vector<int>> g(n, vector<int>(n));
-    // reading the graph in the adjacency matrix
-
-    vector<int> deg(n);
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j)
-            deg[i] += g[i][j];
-    }
-
-    int first = 0;
-    while (first < n && !deg[first])
-        ++first;
-    if (first == n) {
-        cout << -1;
-        return 0;
-    }
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    int n, m;
+    // reading the graph
 
     int v1 = -1, v2 = -1;
     bool bad = false;
-    for (int i = 0; i < n; ++i) {
-        if (deg[i] & 1) {
-            if (v1 == -1)
+    for (int i = 0; i < n; i++) {
+        if ((int) g[i].size() % 2) {
+            if (v1 == -1) {
                 v1 = i;
-            else if (v2 == -1)
+            } else if (v2 == -1) {
                 v2 = i;
-            else
+            } else {
                 bad = true;
+            }
         }
     }
 
-    if (v1 != -1)
-        ++g[v1][v2], ++g[v2][v1];
+    int first = 0;
+    while (first < n && g[first].empty()) {
+        first++;
+    }
 
-    stack<int> st;
-    st.push(first);
-    vector<int> res;
-    while (!st.empty()) {
-        int v = st.top();
-        int i;
-        for (i = 0; i < n; ++i)
-            if (g[v][i])
-                break;
-        if (i == n) {
-            res.push_back(v);
-            st.pop();
-        } else {
-            --g[v][i];
-            --g[i][v];
-            st.push(i);
-        }
+    if (bad || (v1 != -1 && v2 == -1) || first == n) {
+        cout << -1 << '\n';
+        return 0;
     }
 
     if (v1 != -1) {
-        for (size_t i = 0; i + 1 < res.size(); ++i) {
+        add_edge(v1, v2);
+    }
+
+    used.assign((int) edges.size(), false);
+    
+    stack <int> s;
+    s.push(first);
+    while (!s.empty()) {
+        int v = s.top();
+        if (g[v].empty()) {
+            res.push_back(v);
+            s.pop();
+            continue;
+        }
+        int idx = g[v].back();
+        g[v].pop_back();
+        if (used[idx]) continue;
+        used[idx] = true;
+        auto [u, w] = edges[idx];
+        int nxt = v ^ u ^ w;
+        s.push(nxt);
+    }
+
+    if (v1 != -1) {
+        for (int i = 0; i + 1 < (int) res.size(); i++) {
             if ((res[i] == v1 && res[i + 1] == v2) ||
                 (res[i] == v2 && res[i + 1] == v1)) {
-                vector<int> res2;
-                for (size_t j = i + 1; j < res.size(); ++j)
-                    res2.push_back(res[j]);
-                for (size_t j = 1; j <= i; ++j)
-                    res2.push_back(res[j]);
-                res = res2;
+                vector<int> nw;
+                for (int j = i + 1; j < (int) res.size(); j++) {
+                    nw.push_back(res[j]);
+                }
+                for (int j = 1; j <= i; j++) {
+                    nw.push_back(res[j]);
+                }
+                res = nw;
                 break;
             }
         }
     }
 
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            if (g[i][j])
-                bad = true;
+    for (int i = 0; i < n; i++) {
+        if (!g[i].empty()) {
+            cout << -1 << '\n';
+            return 0;
         }
     }
 
-    if (bad) {
-        cout << -1;
-    } else {
-        for (int x : res)
-            cout << x << " ";
+    for (int x : res) {
+        cout << x + 1 << ' ';
     }
+    cout << '\n';
+    return 0;
 }
 ```
 ### Practice problems:
