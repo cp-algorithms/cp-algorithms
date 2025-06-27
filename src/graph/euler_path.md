@@ -66,7 +66,7 @@ The program below searches for and outputs a Eulerian loop or path in a graph, o
 
 First, the program checks the degree of vertices: if there are no vertices with an odd degree, then the graph has an Euler cycle, if there are $2$ vertices with an odd degree, then in the graph there is only an Euler path (but no Euler cycle), if there are more than $2$ such vertices, then in the graph there is no Euler cycle or Euler path.
 To find the Euler path (not a cycle), let's do this: if $V1$ and $V2$ are two vertices of odd degree, then just add an edge $(V1, V2)$, in the resulting graph we find the Euler cycle (it will obviously exist), and then remove the "fictitious" edge $(V1, V2)$ from the answer.
-We will look for the Euler cycle exactly as described above (recursive version), and at the same time at the end of this algorithm we will check whether the graph was connected or not (if the graph was not connected, then at the end of the algorithm some edges will remain in the graph, and in this case we need to print $-1$).
+We will look for the Euler cycle exactly as described above (non-recursive version), and at the same time at the end of this algorithm we will check whether the graph was connected or not (if the graph was not connected, then at the end of the algorithm some edges will remain in the graph, and in this case we need to print $-1$).
 Finally, the program takes into account that there can be isolated vertices in the graph.
 
 ```cpp
@@ -80,18 +80,6 @@ void add_edge(int u, int v) {
     edges.emplace_back(u, v);
     g[u].push_back(idx);
     g[v].push_back(idx);
-}
-
-void dfs(int v) {
-    while (!g[v].empty()) {
-        int idx = g[v].back();
-        g[v].pop_back();
-        if (used[idx]) continue;
-        used[idx] = true;
-        auto [u, w] = edges[idx];
-        dfs(u ^ w ^ v);
-    }
-    res.push_back(v);
 }
 
 int main() {
@@ -129,7 +117,24 @@ int main() {
     }
 
     used.assign((int) edges.size(), false);
-    dfs(first);
+    
+    stack <int> s;
+    s.push(first);
+    while (!s.empty()) {
+        int v = s.top();
+        if (g[v].empty()) {
+            res.push_back(v);
+            s.pop();
+            continue;
+        }
+        int idx = g[v].back();
+        g[v].pop_back();
+        if (used[idx]) continue;
+        used[idx] = true;
+        auto [u, w] = edges[idx];
+        int nxt = v ^ u ^ w;
+        s.push(nxt);
+    }
 
     if (v1 != -1) {
         for (int i = 0; i + 1 < (int) res.size(); i++) {
