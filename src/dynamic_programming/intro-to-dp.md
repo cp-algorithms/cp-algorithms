@@ -143,7 +143,7 @@ One of the tricks to getting better at dynamic programming is to study some of t
 | Edit Distance                                  | The edit distance between two strings is the minimum number of operations required to transform one string into the other. Operations are ["Add", "Remove", "Replace"]                                                         |
 
 ## Related Topics
-* [Bitmask Dynamic Programming](https://cp-algorithms.com/dynamic_programming/profile-dynamics.html)
+* [Bitmask Dynamic Programming](../dynamic_programming/profile-dynamics.md)
 * Digit Dynamic Programming
 * Dynamic Programming on Trees
 
