@@ -166,7 +166,7 @@ rec(0, n);
 
 ### A randomized algorithm with linear expected time
 
-An alternative method arises from a very simple idea to heuristically improve the runtime: We can divide the plane into a grid of $d \times d$ squares, then it is only required to test distances between same-block or adjacent-block points (unless all squares are disconnected from each other, but we will avoid this by design), since any other pair has larger distance that the two points in the same square.
+An alternative method arises from a very simple idea to heuristically improve the runtime: We can divide the plane into a grid of $d \times d$ squares, then it is only required to test distances between same-block or adjacent-block points (unless all squares are disconnected from each other, but we will avoid this by design), since any other pair has a larger distance than the two points in the same square.
 
 <div style="text-align: center;">
     <img src="nearest_points_blocks_example.png" alt="Example of the squares strategy" width="350px">
@@ -191,14 +191,14 @@ so the probability of at least one such pair being chosen during the $n$ rounds 
 
 $$1 - \left(1 - \frac{\lambda(x)/4}{n}\right)^n \ge 1 - e^{-\lambda(x)/4}$$
 
-(we have used that $(1 + x)^n \le e^{xn}$ for any real number $x$, check [this Wikipedia page](https://en.wikipedia.org/wiki/Bernoulli%27s_inequality#Related_inequalities)). <br> Notice this goes to $1$ exponentially as $\lambda(x)$ increases. This hints that $\lambda$ will be small usually.
+(we have used that $(1 + x)^n \le e^{xn}$ for any real number $x$, check [Bernoulli inequalities](https://en.wikipedia.org/wiki/Bernoulli%27s_inequality#Related_inequalities)). <br> Notice this goes to $1$ exponentially as $\lambda(x)$ increases. This hints that $\lambda$ will be small usually.
 
 
 We have shown that $\Pr(d \le x) \ge 1 - e^{-\lambda(x)/4}$, or equivalently, $\Pr(d \ge x) \le e^{-\lambda(x)/4}$. We need to know $\Pr(\lambda(d) \ge \text{something})$ to be able to estimate its expected value. We notice that $\lambda(d) \ge \lambda(x) \iff d \ge x$. This is because making the squares smaller only reduces the number of points in each square (splits the points into other squares), and this keeps reducing the sum of squares. Therefore,
 
 $$\Pr(\lambda(d) \ge \lambda(x)) = \Pr(d \ge x) \le e^{-\lambda(x)/4} \implies \Pr(\lambda(d) \ge t) \le e^{-t/4} \implies \mathbb{E}[\lambda(d)] \le \int_{0}^{+\infty} e^{-t/4} \, \mathrm{d}t = 4$$
 
-(we have used that $E[X] = \int_0^{+\infty} \Pr(X \ge x) \, \mathrm{d}x$, check [the proof](https://math.stackexchange.com/a/1690829)).
+(we have used that $E[X] = \int_0^{+\infty} \Pr(X \ge x) \, \mathrm{d}x$, check [Stackexchange proof](https://math.stackexchange.com/a/1690829)).
 
 Finally, $\mathbb{E}[C(d)] = \mathbb{E}[\lambda(d) \, n] \le 4n$, and the expected running time is $O(n)$, with a reasonable constant factor. $\quad \blacksquare$
 
@@ -315,7 +315,7 @@ While this algorithm may look slow, because of recomputing everything multiple t
 **Proof.** Let $X_i$ the random variable that is $1$ when point $p_i$ causes a change of $\delta$ and a recomputation of the data structures, and $0$ if not. It is easy to show that the cost is $O(n + \sum_{i=1}^{n} i X_i)$, since on the $i$-th step we are considering only the first $i$ points. However, turns out that $\Pr(X_i = 1) \le \frac{2}{i}$. This is because on the $i$-th step, $\delta$ is the distance of the closest pair in $\{p_1,\dots,p_i\}$, and $\Pr(X_i = 1)$ is the probability of $p_i$ belonging to the closest pair, which only happens in $2(i-1)$ pairs out of the $i(i-1)$ possible pairs (assuming all distances are different), so the probability is at most $\frac{2(i-1)}{i(i-1)} = \frac{2}{i}$, since we previously shuffled the points uniformly.
 
 We can therefore see that the expected cost is 
-$$O(n + \sum_{i=1}^{n} i \Pr(X_i = 1)) \le O(n + \sum_{i=1}^{n} i \frac{2}{i}) = O(3n) = O(n) \quad \quad \blacksquare $$ 
+$$O(n + \sum_{i=1}^{n} i \Pr(X_i = 1)) \le O(n + \sum_{i=1}^{n} i \frac{2}{i}) = O(3n) = O(n) \quad \quad \blacksquare$$ 
 
 
 ## Generalization: finding a triangle with minimal perimeter
