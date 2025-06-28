@@ -6730,6 +6730,10 @@ Describe the issue of this article in detail.
   
   
 
+  
+  
+  
+
 
 
 
@@ -6737,7 +6741,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 26, 2025 19:43:19 UTC">June 26, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 28, 2025 18:31:49 UTC">June 28, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6874,7 +6878,7 @@ It is obvious that it is sufficient to consider only those points that are separ
 </code></pre></div>
 <h2 id="linear-time-randomized-algorithms">Linear time randomized algorithms<a class="headerlink" href="#linear-time-randomized-algorithms" title="Permanent link">&para;</a></h2>
 <h3 id="a-randomized-algorithm-with-linear-expected-time">A randomized algorithm with linear expected time<a class="headerlink" href="#a-randomized-algorithm-with-linear-expected-time" title="Permanent link">&para;</a></h3>
-<p>An alternative method arises from a very simple idea to heuristically improve the runtime: We can divide the plane into a grid of <span class="arithmatex">$d \times d$</span> squares, then it is only required to test distances between same-block or adjacent-block points (unless all squares are disconnected from each other, but we will avoid this by design), since any other pair has larger distance that the two points in the same square.</p>
+<p>An alternative method arises from a very simple idea to heuristically improve the runtime: We can divide the plane into a grid of <span class="arithmatex">$d \times d$</span> squares, then it is only required to test distances between same-block or adjacent-block points (unless all squares are disconnected from each other, but we will avoid this by design), since any other pair has a larger distance than the two points in the same square.</p>
 <div style="text-align: center;">
     <img src="nearest_points_blocks_example.png" alt="Example of the squares strategy" width="350px">
 </div>
@@ -6888,10 +6892,10 @@ It is obvious that it is sufficient to consider only those points that are separ
 <div class="arithmatex">$$\frac{\lambda(x) n / 8}{n^2 / 2} = \frac{\lambda(x)/4}{n}$$</div>
 <p>so the probability of at least one such pair being chosen during the <span class="arithmatex">$n$</span> rounds (and therefore finding a smaller <span class="arithmatex">$d$</span>) is </p>
 <div class="arithmatex">$$1 - \left(1 - \frac{\lambda(x)/4}{n}\right)^n \ge 1 - e^{-\lambda(x)/4}$$</div>
-<p>(we have used that <span class="arithmatex">$(1 + x)^n \le e^{xn}$</span> for any real number <span class="arithmatex">$x$</span>, check <a href="https://en.wikipedia.org/wiki/Bernoulli%27s_inequality#Related_inequalities">this Wikipedia page</a>). <br> Notice this goes to <span class="arithmatex">$1$</span> exponentially as <span class="arithmatex">$\lambda(x)$</span> increases. This hints that <span class="arithmatex">$\lambda$</span> will be small usually.</p>
+<p>(we have used that <span class="arithmatex">$(1 + x)^n \le e^{xn}$</span> for any real number <span class="arithmatex">$x$</span>, check <a href="https://en.wikipedia.org/wiki/Bernoulli%27s_inequality#Related_inequalities">Bernoulli inequalities</a>). <br> Notice this goes to <span class="arithmatex">$1$</span> exponentially as <span class="arithmatex">$\lambda(x)$</span> increases. This hints that <span class="arithmatex">$\lambda$</span> will be small usually.</p>
 <p>We have shown that <span class="arithmatex">$\Pr(d \le x) \ge 1 - e^{-\lambda(x)/4}$</span>, or equivalently, <span class="arithmatex">$\Pr(d \ge x) \le e^{-\lambda(x)/4}$</span>. We need to know <span class="arithmatex">$\Pr(\lambda(d) \ge \text{something})$</span> to be able to estimate its expected value. We notice that <span class="arithmatex">$\lambda(d) \ge \lambda(x) \iff d \ge x$</span>. This is because making the squares smaller only reduces the number of points in each square (splits the points into other squares), and this keeps reducing the sum of squares. Therefore,</p>
 <div class="arithmatex">$$\Pr(\lambda(d) \ge \lambda(x)) = \Pr(d \ge x) \le e^{-\lambda(x)/4} \implies \Pr(\lambda(d) \ge t) \le e^{-t/4} \implies \mathbb{E}[\lambda(d)] \le \int_{0}^{+\infty} e^{-t/4} \, \mathrm{d}t = 4$$</div>
-<p>(we have used that <span class="arithmatex">$E[X] = \int_0^{+\infty} \Pr(X \ge x) \, \mathrm{d}x$</span>, check <a href="https://math.stackexchange.com/a/1690829">the proof</a>).</p>
+<p>(we have used that <span class="arithmatex">$E[X] = \int_0^{+\infty} \Pr(X \ge x) \, \mathrm{d}x$</span>, check <a href="https://math.stackexchange.com/a/1690829">Stackexchange proof</a>).</p>
 <p>Finally, <span class="arithmatex">$\mathbb{E}[C(d)] = \mathbb{E}[\lambda(d) \, n] \le 4n$</span>, and the expected running time is <span class="arithmatex">$O(n)$</span>, with a reasonable constant factor. <span class="arithmatex">$\quad \blacksquare$</span></p>
 <h4 id="implementation-of-the-algorithm">Implementation of the algorithm<a class="headerlink" href="#implementation-of-the-algorithm" title="Permanent link">&para;</a></h4>
 <p>The advantage of this algorithm is that it is straightforward to implement, but still has good performance in practise.</p>
@@ -7000,7 +7004,7 @@ It is obvious that it is sufficient to consider only those points that are separ
 <p>While this algorithm may look slow, because of recomputing everything multiple times, we can show the total expected cost is linear. </p>
 <p><strong>Proof.</strong> Let <span class="arithmatex">$X_i$</span> the random variable that is <span class="arithmatex">$1$</span> when point <span class="arithmatex">$p_i$</span> causes a change of <span class="arithmatex">$\delta$</span> and a recomputation of the data structures, and <span class="arithmatex">$0$</span> if not. It is easy to show that the cost is <span class="arithmatex">$O(n + \sum_{i=1}^{n} i X_i)$</span>, since on the <span class="arithmatex">$i$</span>-th step we are considering only the first <span class="arithmatex">$i$</span> points. However, turns out that <span class="arithmatex">$\Pr(X_i = 1) \le \frac{2}{i}$</span>. This is because on the <span class="arithmatex">$i$</span>-th step, <span class="arithmatex">$\delta$</span> is the distance of the closest pair in <span class="arithmatex">$\{p_1,\dots,p_i\}$</span>, and <span class="arithmatex">$\Pr(X_i = 1)$</span> is the probability of <span class="arithmatex">$p_i$</span> belonging to the closest pair, which only happens in <span class="arithmatex">$2(i-1)$</span> pairs out of the <span class="arithmatex">$i(i-1)$</span> possible pairs (assuming all distances are different), so the probability is at most <span class="arithmatex">$\frac{2(i-1)}{i(i-1)} = \frac{2}{i}$</span>, since we previously shuffled the points uniformly.</p>
 <p>We can therefore see that the expected cost is 
-$$O(n + \sum_{i=1}^{n} i \Pr(X_i = 1)) \le O(n + \sum_{i=1}^{n} i \frac{2}{i}) = O(3n) = O(n) \quad \quad \blacksquare $$ </p>
+<span class="arithmatex">$<span class="arithmatex">$O(n + \sum_{i=1}^{n} i \Pr(X_i = 1)) \le O(n + \sum_{i=1}^{n} i \frac{2}{i}) = O(3n) = O(n) \quad \quad \blacksquare$</span>$</span> </p>
 <h2 id="generalization-finding-a-triangle-with-minimal-perimeter">Generalization: finding a triangle with minimal perimeter<a class="headerlink" href="#generalization-finding-a-triangle-with-minimal-perimeter" title="Permanent link">&para;</a></h2>
 <p>The algorithm described above is interestingly generalized to this problem: among a given set of points, choose three different points so that the sum of pairwise distances between them is the smallest.</p>
 <p>In fact, to solve this problem, the algorithm remains the same: we divide the field into two halves of the vertical line, call the solution recursively on both halves, choose the minimum <span class="arithmatex">$minper$</span> from the found perimeters, build a strip with the thickness of <span class="arithmatex">$minper / 2$</span>, and iterate through all triangles that can improve the answer. (Note that the triangle with perimeter <span class="arithmatex">$\le minper$</span> has the longest side <span class="arithmatex">$\le minper / 2$</span>.)</p>
@@ -7016,7 +7020,7 @@ $$O(n + \sum_{i=1}^{n} i \Pr(X_i = 1)) \le O(n + \sum_{i=1}^{n} i \frac{2}{i}) =
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/singamandeep" title="singamandeep" data-bi-name="contributorprofile" target="_blank">singamandeep</a> (48.8%)</li><li><a href="https://github.com/izanbf1803" title="izanbf1803" data-bi-name="contributorprofile" target="_blank">izanbf1803</a> (46.71%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.1%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (1.5%)</li><li><a href="https://github.com/Kostero" title="Kostero" data-bi-name="contributorprofile" target="_blank">Kostero</a> (0.3%)</li><li><a href="https://github.com/SYury" title="SYury" data-bi-name="contributorprofile" target="_blank">SYury</a> (0.3%)</li><li><a href="https://github.com/avishekp4" title="avishekp4" data-bi-name="contributorprofile" target="_blank">avishekp4</a> (0.3%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/singamandeep" title="singamandeep" data-bi-name="contributorprofile" target="_blank">singamandeep</a> (48.8%)</li><li><a href="https://github.com/izanbf1803" title="izanbf1803" data-bi-name="contributorprofile" target="_blank">izanbf1803</a> (45.81%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.1%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (1.5%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (0.9%)</li><li><a href="https://github.com/Kostero" title="Kostero" data-bi-name="contributorprofile" target="_blank">Kostero</a> (0.3%)</li><li><a href="https://github.com/SYury" title="SYury" data-bi-name="contributorprofile" target="_blank">SYury</a> (0.3%)</li><li><a href="https://github.com/avishekp4" title="avishekp4" data-bi-name="contributorprofile" target="_blank">avishekp4</a> (0.3%)</li></ul>
 </ul>
                 
               </article>
