@@ -6741,7 +6741,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 28, 2025 20:13:26 UTC">June 28, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 28, 2025 20:20:28 UTC">June 28, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6990,7 +6990,7 @@ It is obvious that it is sufficient to consider only those points that are separ
 <li>Permute the <span class="arithmatex">$n$</span> points randomly</li>
 <li>Take <span class="arithmatex">$\delta := \operatorname{dist}(p_1, p_2)$</span></li>
 <li>Partition the plane in squares of side <span class="arithmatex">$\delta/2$</span></li>
-<li>For <span class="arithmatex">$i = 1,2,\dots,n$</span>:</li>
+<li>For <span class="arithmatex">$i = 1,2,\dots,n$</span>:<ul>
 <li>Take the square corresponding to <span class="arithmatex">$p_i$</span></li>
 <li>Interate over the <span class="arithmatex">$25$</span> squares within two steps to our square in the grid of squares partitioning the plane</li>
 <li>If some <span class="arithmatex">$p_j$</span> in those squares has <span class="arithmatex">$\operatorname{dist}(p_j, p_i) &lt; \delta$</span>, then<ul>
@@ -6999,12 +6999,14 @@ It is obvious that it is sufficient to consider only those points that are separ
 </ul>
 </li>
 <li>else, store <span class="arithmatex">$p_i$</span> in the corresponding square</li>
+</ul>
+</li>
 <li>output <span class="arithmatex">$\delta$</span></li>
 </ul>
 <p>While this algorithm may look slow, because of recomputing everything multiple times, we can show the total expected cost is linear. </p>
 <p><strong>Proof.</strong> Let <span class="arithmatex">$X_i$</span> the random variable that is <span class="arithmatex">$1$</span> when point <span class="arithmatex">$p_i$</span> causes a change of <span class="arithmatex">$\delta$</span> and a recomputation of the data structures, and <span class="arithmatex">$0$</span> if not. It is easy to show that the cost is <span class="arithmatex">$O(n + \sum_{i=1}^{n} i X_i)$</span>, since on the <span class="arithmatex">$i$</span>-th step we are considering only the first <span class="arithmatex">$i$</span> points. However, turns out that <span class="arithmatex">$\Pr(X_i = 1) \le \frac{2}{i}$</span>. This is because on the <span class="arithmatex">$i$</span>-th step, <span class="arithmatex">$\delta$</span> is the distance of the closest pair in <span class="arithmatex">$\{p_1,\dots,p_i\}$</span>, and <span class="arithmatex">$\Pr(X_i = 1)$</span> is the probability of <span class="arithmatex">$p_i$</span> belonging to the closest pair, which only happens in <span class="arithmatex">$2(i-1)$</span> pairs out of the <span class="arithmatex">$i(i-1)$</span> possible pairs (assuming all distances are different), so the probability is at most <span class="arithmatex">$\frac{2(i-1)}{i(i-1)} = \frac{2}{i}$</span>, since we previously shuffled the points uniformly.</p>
 <p>We can therefore see that the expected cost is </p>
-<div class="arithmatex">$$O(n + \sum_{i=1}^{n} i \Pr(X_i = 1)) \le O(n + \sum_{i=1}^{n} i \frac{2}{i}) = O(3n) = O(n) \quad \quad \blacksquare$$</div>
+<div class="arithmatex">$$O\left(n + \sum_{i=1}^{n} i \Pr(X_i = 1)\right) \le O\left(n + \sum_{i=1}^{n} i \frac{2}{i}\right) = O(3n) = O(n) \quad \quad \blacksquare$$</div>
 <h2 id="generalization-finding-a-triangle-with-minimal-perimeter">Generalization: finding a triangle with minimal perimeter<a class="headerlink" href="#generalization-finding-a-triangle-with-minimal-perimeter" title="Permanent link">&para;</a></h2>
 <p>The algorithm described above is interestingly generalized to this problem: among a given set of points, choose three different points so that the sum of pairwise distances between them is the smallest.</p>
 <p>In fact, to solve this problem, the algorithm remains the same: we divide the field into two halves of the vertical line, call the solution recursively on both halves, choose the minimum <span class="arithmatex">$minper$</span> from the found perimeters, build a strip with the thickness of <span class="arithmatex">$minper / 2$</span>, and iterate through all triangles that can improve the answer. (Note that the triangle with perimeter <span class="arithmatex">$\le minper$</span> has the longest side <span class="arithmatex">$\le minper / 2$</span>.)</p>
