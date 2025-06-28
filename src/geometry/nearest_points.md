@@ -302,12 +302,12 @@ Now we introduce a different randomized algorithm which is less practical but ve
 - Take $\delta := \operatorname{dist}(p_1, p_2)$
 - Partition the plane in squares of side $\delta/2$
 - For $i = 1,2,\dots,n$:
-  - Take the square corresponding to $p_i$
-  - Interate over the $25$ squares within two steps to our square in the grid of squares partitioning the plane
-  - If some $p_j$ in those squares has $\operatorname{dist}(p_j, p_i) < \delta$, then
-    - Recompute the partition and squares with $\delta := \operatorname{dist}(p_j, p_i)$
-    - Store points $p_1, \dots, p_i$ in the corresponding squares
-  - else, store $p_i$ in the corresponding square
+	- Take the square corresponding to $p_i$
+	- Interate over the $25$ squares within two steps to our square in the grid of squares partitioning the plane
+	- If some $p_j$ in those squares has $\operatorname{dist}(p_j, p_i) < \delta$, then
+		- Recompute the partition and squares with $\delta := \operatorname{dist}(p_j, p_i)$
+		- Store points $p_1, \dots, p_i$ in the corresponding squares
+	- else, store $p_i$ in the corresponding square
 - output $\delta$
 
 While this algorithm may look slow, because of recomputing everything multiple times, we can show the total expected cost is linear. 
@@ -316,7 +316,7 @@ While this algorithm may look slow, because of recomputing everything multiple t
 
 We can therefore see that the expected cost is 
 
-$$O(n + \sum_{i=1}^{n} i \Pr(X_i = 1)) \le O(n + \sum_{i=1}^{n} i \frac{2}{i}) = O(3n) = O(n) \quad \quad \blacksquare$$ 
+$$O\left(n + \sum_{i=1}^{n} i \Pr(X_i = 1)\right) \le O\left(n + \sum_{i=1}^{n} i \frac{2}{i}\right) = O(3n) = O(n) \quad \quad \blacksquare$$ 
 
 
 ## Generalization: finding a triangle with minimal perimeter
