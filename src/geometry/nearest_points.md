@@ -204,7 +204,7 @@ Finally, $\mathbb{E}[C(d)] = \mathbb{E}[\lambda(d) \, n] \le 4n$, and the expect
 
 #### Implementation of the algorithm
 
-The advantage of this algorithm is that it is straightforward to implement, but still has good performance in practise.
+The advantage of this algorithm is that it is straightforward to implement, but still has good performance in practise. We first sample $n$ distances and set $d$ as the minimum of the distances. Then we insert points into the "blocks" by using a hash table from 2D coordinates to a vector of points. Finally, just compute distances between same-block pairs and adjacent-block pairs. Hash table operations have $O(1)$ expected time cost, and therefore our algorithm retains the $O(n)$ expected time cost with an increased constant.
 
 ```{.cpp file=nearest_pair_randomized}
 using ll = long long;
