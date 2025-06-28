@@ -175,7 +175,8 @@ An alternative method arises from a very simple idea to heuristically improve th
 
 We will consider only the squares containing at least one point. Denote by $n_1, n_2, \dots, n_k$ the number of points in each of the $k$ remaining squares. Assuming at least two points are in the same or in adjacent squares,  the time complexity is $\Theta(\sum_{i=1}^{k} n_i^2)$.
 
-**Proof.** For the $i$-th square containing $n_i$ points, the number of pairs inside is $\Theta(n_i^2)$. If the $i$-th square is adjacent to the $j$-th square, then we also perform $n_i n_j \le \max(n_i, n_j)^2 \le n_i^2 + n_j^2$ distance comparisons. Notice that each cube has at most $8$ adjacent cubes, so we can bound the sum of all comparisons by $\Theta(\sum_{i=1}^{k} n_i^2)$. $\quad \blacksquare$
+??? info "Proof"
+	For the $i$-th square containing $n_i$ points, the number of pairs inside is $\Theta(n_i^2)$. If the $i$-th square is adjacent to the $j$-th square, then we also perform $n_i n_j \le \max(n_i, n_j)^2 \le n_i^2 + n_j^2$ distance comparisons. Notice that each cube has at most $8$ adjacent cubes, so we can bound the sum of all comparisons by $\Theta(\sum_{i=1}^{k} n_i^2)$. $\quad \blacksquare$
 
 Now we need to decide on how to set $d$ so that it minimizes $\Theta(\sum_{i=1}^{k} n_i^2)$.
 
@@ -183,24 +184,25 @@ Now we need to decide on how to set $d$ so that it minimizes $\Theta(\sum_{i=1}^
 
 We need $d$ to be an approximation of the minimum distance $d$, and the trick is to just sample $n$ distances randomly and choose $d$ to be the smallest of these distances. We now prove that the expected running time is linear.
 
-**Proof.** Imagine the disposition of points in squares with a particular choice of $d$, say $x$. Consider $d$ a random variable, resulting from our sampling of distances. Let's define $C(x) := \sum_{i=1}^{k(x)} n_i(x)^2$ as the cost estimation for a particular disposition when we choose $d=x$. Now, let's define $\lambda(x)$ such that $C(x) = \lambda(x) \, n$. What is the probability that such choice $x$ survives the sampling of $n$ independent distances? If a single pair among the sampled ones has distance smaller than $x$, this arrangement will be replaced by the smaller $d$. Inside a square, at least a quarter of the pairs would raise a smaller distance (imagine four subsquares in every square, and use the pigeonhole principle), so we have $\sum_{i=1}^{k} \frac{1}{4} {n_i \choose 2}$ pairs which yield a smaller final $d$. This is, approximately, $\frac{1}{8} \sum_{i=1}^{k} n_i^2 = \frac{1}{8} \lambda(x) n$. On the other hand, there are about $\frac{1}{2} n^2$ pairs that can be sampled. We have that the probability of sampling a pair with distance smaller than $x$ is at least (approximately) 
-
-$$\frac{\lambda(x) n / 8}{n^2 / 2} = \frac{\lambda(x)/4}{n}$$
-
-so the probability of at least one such pair being chosen during the $n$ rounds (and therefore finding a smaller $d$) is 
-
-$$1 - \left(1 - \frac{\lambda(x)/4}{n}\right)^n \ge 1 - e^{-\lambda(x)/4}$$
-
-(we have used that $(1 + x)^n \le e^{xn}$ for any real number $x$, check [Bernoulli inequalities](https://en.wikipedia.org/wiki/Bernoulli%27s_inequality#Related_inequalities)). <br> Notice this goes to $1$ exponentially as $\lambda(x)$ increases. This hints that $\lambda$ will be small usually.
-
-
-We have shown that $\Pr(d \le x) \ge 1 - e^{-\lambda(x)/4}$, or equivalently, $\Pr(d \ge x) \le e^{-\lambda(x)/4}$. We need to know $\Pr(\lambda(d) \ge \text{something})$ to be able to estimate its expected value. We notice that $\lambda(d) \ge \lambda(x) \iff d \ge x$. This is because making the squares smaller only reduces the number of points in each square (splits the points into other squares), and this keeps reducing the sum of squares. Therefore,
-
-$$\Pr(\lambda(d) \ge \lambda(x)) = \Pr(d \ge x) \le e^{-\lambda(x)/4} \implies \Pr(\lambda(d) \ge t) \le e^{-t/4} \implies \mathbb{E}[\lambda(d)] \le \int_{0}^{+\infty} e^{-t/4} \, \mathrm{d}t = 4$$
-
-(we have used that $E[X] = \int_0^{+\infty} \Pr(X \ge x) \, \mathrm{d}x$, check [Stackexchange proof](https://math.stackexchange.com/a/1690829)).
-
-Finally, $\mathbb{E}[C(d)] = \mathbb{E}[\lambda(d) \, n] \le 4n$, and the expected running time is $O(n)$, with a reasonable constant factor. $\quad \blacksquare$
+??? info "Proof"
+	Imagine the disposition of points in squares with a particular choice of $d$, say $x$. Consider $d$ a random variable, resulting from our sampling of distances. Let's define $C(x) := \sum_{i=1}^{k(x)} n_i(x)^2$ as the cost estimation for a particular disposition when we choose $d=x$. Now, let's define $\lambda(x)$ such that $C(x) = \lambda(x) \, n$. What is the probability that such choice $x$ survives the sampling of $n$ independent distances? If a single pair among the sampled ones has distance smaller than $x$, this arrangement will be replaced by the smaller $d$. Inside a square, at least a quarter of the pairs would raise a smaller distance (imagine four subsquares in every square, and use the pigeonhole principle), so we have $\sum_{i=1}^{k} \frac{1}{4} {n_i \choose 2}$ pairs which yield a smaller final $d$. This is, approximately, $\frac{1}{8} \sum_{i=1}^{k} n_i^2 = \frac{1}{8} \lambda(x) n$. On the other hand, there are about $\frac{1}{2} n^2$ pairs that can be sampled. We have that the probability of sampling a pair with distance smaller than $x$ is at least (approximately) 
+	
+	$$\frac{\lambda(x) n / 8}{n^2 / 2} = \frac{\lambda(x)/4}{n}$$
+	
+	so the probability of at least one such pair being chosen during the $n$ rounds (and therefore finding a smaller $d$) is 
+	
+	$$1 - \left(1 - \frac{\lambda(x)/4}{n}\right)^n \ge 1 - e^{-\lambda(x)/4}$$
+	
+	(we have used that $(1 + x)^n \le e^{xn}$ for any real number $x$, check [Bernoulli inequalities](https://en.wikipedia.org/wiki/Bernoulli%27s_inequality#Related_inequalities)). <br> Notice this goes to $1$ exponentially as $\lambda(x)$ increases. This hints that $\lambda$ will be small usually.
+	
+	
+	We have shown that $\Pr(d \le x) \ge 1 - e^{-\lambda(x)/4}$, or equivalently, $\Pr(d \ge x) \le e^{-\lambda(x)/4}$. We need to know $\Pr(\lambda(d) \ge \text{something})$ to be able to estimate its expected value. We notice that $\lambda(d) \ge \lambda(x) \iff d \ge x$. This is because making the squares smaller only reduces the number of points in each square (splits the points into other squares), and this keeps reducing the sum of squares. Therefore,
+	
+	$$\Pr(\lambda(d) \ge \lambda(x)) = \Pr(d \ge x) \le e^{-\lambda(x)/4} \implies \Pr(\lambda(d) \ge t) \le e^{-t/4} \implies \mathbb{E}[\lambda(d)] \le \int_{0}^{+\infty} e^{-t/4} \, \mathrm{d}t = 4$$
+	
+	(we have used that $E[X] = \int_0^{+\infty} \Pr(X \ge x) \, \mathrm{d}x$, check [Stackexchange proof](https://math.stackexchange.com/a/1690829)).
+	
+	Finally, $\mathbb{E}[C(d)] = \mathbb{E}[\lambda(d) \, n] \le 4n$, and the expected running time is $O(n)$, with a reasonable constant factor. $\quad \blacksquare$
 
 #### Implementation of the algorithm
 
@@ -312,11 +314,12 @@ Now we introduce a different randomized algorithm which is less practical but ve
 
 While this algorithm may look slow, because of recomputing everything multiple times, we can show the total expected cost is linear. 
 
-**Proof.** Let $X_i$ the random variable that is $1$ when point $p_i$ causes a change of $\delta$ and a recomputation of the data structures, and $0$ if not. It is easy to show that the cost is $O(n + \sum_{i=1}^{n} i X_i)$, since on the $i$-th step we are considering only the first $i$ points. However, turns out that $\Pr(X_i = 1) \le \frac{2}{i}$. This is because on the $i$-th step, $\delta$ is the distance of the closest pair in $\{p_1,\dots,p_i\}$, and $\Pr(X_i = 1)$ is the probability of $p_i$ belonging to the closest pair, which only happens in $2(i-1)$ pairs out of the $i(i-1)$ possible pairs (assuming all distances are different), so the probability is at most $\frac{2(i-1)}{i(i-1)} = \frac{2}{i}$, since we previously shuffled the points uniformly.
-
-We can therefore see that the expected cost is 
-
-$$O\left(n + \sum_{i=1}^{n} i \Pr(X_i = 1)\right) \le O\left(n + \sum_{i=1}^{n} i \frac{2}{i}\right) = O(3n) = O(n) \quad \quad \blacksquare$$ 
+??? info "Proof"
+	Let $X_i$ the random variable that is $1$ when point $p_i$ causes a change of $\delta$ and a recomputation of the data structures, and $0$ if not. It is easy to show that the cost is $O(n + \sum_{i=1}^{n} i X_i)$, since on the $i$-th step we are considering only the first $i$ points. However, turns out that $\Pr(X_i = 1) \le \frac{2}{i}$. This is because on the $i$-th step, $\delta$ is the distance of the closest pair in $\{p_1,\dots,p_i\}$, and $\Pr(X_i = 1)$ is the probability of $p_i$ belonging to the closest pair, which only happens in $2(i-1)$ pairs out of the $i(i-1)$ possible pairs (assuming all distances are different), so the probability is at most $\frac{2(i-1)}{i(i-1)} = \frac{2}{i}$, since we previously shuffled the points uniformly.
+	
+	We can therefore see that the expected cost is 
+	
+	$$O\left(n + \sum_{i=1}^{n} i \Pr(X_i = 1)\right) \le O\left(n + \sum_{i=1}^{n} i \frac{2}{i}\right) = O(3n) = O(n) \quad \quad \blacksquare$$ 
 
 
 ## Generalization: finding a triangle with minimal perimeter
