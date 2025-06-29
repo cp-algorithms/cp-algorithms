@@ -213,85 +213,85 @@ using ll = long long;
 using ld = long double;
 
 struct RealPoint {
-	ld x, y;
-	RealPoint() {}
-	RealPoint(T x_, T y_) : x(x_), y(y_) {}
+    ld x, y;
+    RealPoint() {}
+    RealPoint(ld x_, ld y_) : x(x_), y(y_) {}
 };
 using pt = RealPoint;
 
 struct CustomHash {
-	size_t operator()(const pair<ll,ll>& p) const {
-		static const uint64_t C = chrono::steady_clock::now().time_since_epoch().count();
-		return C ^ ((p.first << 32) ^ p.second);
-	}
+    size_t operator()(const pair<ll,ll>& p) const {
+        static const uint64_t C = chrono::steady_clock::now().time_since_epoch().count();
+        return C ^ ((p.first << 32) ^ p.second);
+    }
 };
 
-ld dist(pt a, pt b) {
-	ld dx = a.x - b.x;
-	ld dy = a.y - b.y;
-	return sqrt(dx*dx + dy*dy);
+ld dist(const pt& a, const pt& b) {
+    ld dx = a.x - b.x;
+    ld dy = a.y - b.y;
+    return sqrt(dx*dx + dy*dy);
 }
 
 pair<pt,pt> closest_pair_of_points_rand_reals(vector<pt> P) {
     const ld eps = 1e-9;
 
-	int n = int(P.size());
-	assert(n >= 2);
-	unordered_map<pair<ll,ll>,vector<pt>,CustomHash> grid;
-	grid.reserve(n);
+    int n = int(P.size());
+    assert(n >= 2);
+    unordered_map<pair<ll,ll>,vector<pt>,CustomHash> grid;
+    grid.reserve(n);
 
-	mt19937 rd(chrono::system_clock::now().time_since_epoch().count());
-	uniform_int_distribution<int> dis(0, n-1);
+    mt19937 prng(chrono::system_clock::now().time_since_epoch().count());
+    uniform_int_distribution<int> uniform(0, n-1);
 
-	ld d = dist(P[0], P[1]);
-	pair<pt,pt> closest = {P[0], P[1]};
+    ld d = dist(P[0], P[1]);
+    pair<pt,pt> closest = {P[0], P[1]};
 
-	auto consider_pair = [&](const pt& a, const pt& b) -> void {
-		ld ab = dist(a, b);
-		if (ab + eps < d) {
-			d = ab;
-			closest = {a, b};
-		}
-	};
+    auto consider_pair = [&](const pt& a, const pt& b) -> void {
+        ld ab = dist(a, b);
+        if (ab + eps < d) {
+            d = ab;
+            closest = {a, b};
+        }
+    };
 
-	for (int i = 0; i < n; ++i) {
-		int j = dis(rd);
-		int k = dis(rd);
-		while (j == k)
-            k = dis(rd);
-		consider_pair(P[j], P[k]);
-	}
+    for (int i = 0; i < n; ++i) {
+        int j = uniform(prng);
+        int k = uniform(prng);
+        while (j == k)
+            k = uniform(prng);
+        consider_pair(P[j], P[k]);
+    }
 
-	for (const pt& p : P)
-		grid[{ll(p.x/d), ll(p.y/d)}].push_back(p);
+    for (const pt& p : P)
+        grid[{ll(p.x/d), ll(p.y/d)}].push_back(p);
 
-	for (const auto& it : grid) { // same block
-		int k = int(it.second.size());
-		for (int i = 0; i < k; ++i) {
-			for (int j = i+1; j < k; ++j)
-				consider_pair(it.second[i], it.second[j]);
-		}
-	}
+    for (const auto& it : grid) { // same block
+        int k = int(it.second.size());
+        for (int i = 0; i < k; ++i) {
+            for (int j = i+1; j < k; ++j)
+                consider_pair(it.second[i], it.second[j]);
+        }
+    }
  
-	for (const auto& it : grid) { // adjacent blocks
-		auto coord = it.first;
-		for (int dx = 0; dx <= 1; ++dx) {
-			for (int dy = -1; dy <= 1; ++dy) {
-				if (dx == 0 and dy == 0) continue;
-				pair<ll,ll> neighbour = {
-					coord.first  + dx, 
-					coord.second + dy
-				};
-				for (const pt& p : it.second) {
-					if (not grid.count(neighbour)) continue;
-					for (const pt& q : grid.at(neighbour))
-						candidate_closest(p, q);
-				}
-			}
-		}
-	}
+    for (const auto& it : grid) { // adjacent blocks
+        auto coord = it.first;
+        for (int dx = 0; dx <= 1; ++dx) {
+            for (int dy = -1; dy <= 1; ++dy) {
+                if (dx == 0 and dy == 0) continue;
+                pair<ll,ll> neighbour = {
+                    coord.first  + dx, 
+                    coord.second + dy
+                };
+                for (const pt& p : it.second) {
+                    if (not grid.count(neighbour)) continue;
+                    for (const pt& q : grid.at(neighbour))
+                        consider_pair(p, q);
+                }
+            }
+        }
+    }
 
-	return closest;
+    return closest;
 }
 ```
 
