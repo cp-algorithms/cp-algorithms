@@ -23,7 +23,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
     
     
       
@@ -6599,11 +6599,17 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
     
   
 
   
   
+  
+    
   
     
   
@@ -6711,7 +6717,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 22, 2025 02:22:24 UTC">April 22, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 30, 2025 19:15:08 UTC">June 30, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6849,7 +6855,7 @@ This task can be solved by the described algorithm in <span class="arithmatex">$
 <span class="p">}</span>
 </code></pre></div>
 <p>The adjacency matrix <code>adj[][]</code> of size <span class="arithmatex">$n \times n$</span> stores the weights of the edges, and it uses the weight <code>INF</code> if there doesn't exist an edge between two vertices.
-The algorithm uses two arrays: the flag <code>selected[]</code>, which indicates which vertices we already have selected, and the array <code>min_e[]</code> which stores the edge with minimal weight to an selected vertex for each not-yet-selected vertex (it stores the weight and the end vertex).
+The algorithm uses two arrays: the flag <code>selected[]</code>, which indicates which vertices we already have selected, and the array <code>min_e[]</code> which stores the edge with minimal weight to a selected vertex for each not-yet-selected vertex (it stores the weight and the end vertex).
 The algorithm does <span class="arithmatex">$n$</span> steps, in each iteration the vertex with the smallest edge weight is selected, and the <code>min_e[]</code> of all other vertices gets updated.</p>
 <h3 id="sparse-graphs-om-log-n">Sparse graphs: <span class="arithmatex">$O(m \log n)$</span><a class="headerlink" href="#sparse-graphs-om-log-n" title="Permanent link">&para;</a></h3>
 <p>In the above described algorithm it is possible to interpret the operations of finding the minimum and modifying some values as set operations.
@@ -6910,7 +6916,7 @@ The algorithm does <code>n</code> steps, on each of which it selects the vertex 
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (92.52%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.8%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (1.87%)</li><li><a href="https://github.com/mrpandey" title="mrpandey" data-bi-name="contributorprofile" target="_blank">mrpandey</a> (0.93%)</li><li><a href="https://github.com/ekanshi258" title="ekanshi258" data-bi-name="contributorprofile" target="_blank">ekanshi258</a> (0.47%)</li><li><a href="https://github.com/jyterencekim" title="jyterencekim" data-bi-name="contributorprofile" target="_blank">jyterencekim</a> (0.47%)</li><li><a href="https://github.com/Naman-Bhalla" title="Naman-Bhalla" data-bi-name="contributorprofile" target="_blank">Naman-Bhalla</a> (0.47%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.47%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (92.52%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.8%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (1.87%)</li><li><a href="https://github.com/mrpandey" title="mrpandey" data-bi-name="contributorprofile" target="_blank">mrpandey</a> (0.93%)</li><li><a href="https://github.com/aleksmish" title="aleksmish" data-bi-name="contributorprofile" target="_blank">aleksmish</a> (0.47%)</li><li><a href="https://github.com/ekanshi258" title="ekanshi258" data-bi-name="contributorprofile" target="_blank">ekanshi258</a> (0.47%)</li><li><a href="https://github.com/jyterencekim" title="jyterencekim" data-bi-name="contributorprofile" target="_blank">jyterencekim</a> (0.47%)</li><li><a href="https://github.com/Naman-Bhalla" title="Naman-Bhalla" data-bi-name="contributorprofile" target="_blank">Naman-Bhalla</a> (0.47%)</li></ul>
 </ul>
                 
               </article>
@@ -6958,7 +6964,7 @@ The algorithm does <code>n</code> steps, on each of which it selects the vertex 
       <script id="__config" type="application/json">{"base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      <script src="../assets/javascripts/bundle.56ea9cef.min.js"></script>
       
         <script src="../javascript/config.js"></script>
       
