@@ -138,6 +138,63 @@ Another noteworthy way to do binary search is, instead of maintaining an active 
 
 This paradigm is widely used in tasks around trees, such as finding lowest common ancestor of two vertices or finding an ancestor of a specific vertex that has a certain height. It could also be adapted to e.g. find the $k$-th non-zero element in a Fenwick tree.
 
+## Parallel Binary Search
+
+<small>Note that this section follows the description in [Sports programming in practice](https://kostka.dev/sp/).</small>
+
+Imagine that we want to answer $Z$ queries about the index of the largest value less than or equal to some $X_i$ (for $i=1,2,\ldots,Z$) in a sorted 0-indexed array $A$. Naturally, each query can be answered using binary search. 
+
+Specifically, let us consider the following array $A = [1,3,5,7,9,9,13,15]$
+with queries: $X = [8,11,4,5]$. We can use binary search for each query sequentially.
+
+| query  | \( X_1 = 8 \)         | \( X_2 = 11 \)         | \( X_3 = 4 \)         | \( X_4 = 5 \)         |
+|--------|------------------------|------------------------|-----------------------|-----------------------|
+| **step 1** | answer in \([0,8)\)   | answer in \([0,8)\)   | answer in \([0,8)\)  | answer in \([0,8)\)  |
+|        | check \( A_4 \)       | check \( A_4 \)       | check \( A_4 \)      | check \( A_4 \)      |
+|        | \( X_1 < A_4 = 9 \)    | \( X_2 \geq A_4 = 9 \) | \( X_3 < A_4 = 9 \)   | \( X_4 < A_4 = 9 \)   |
+| **step 2** | answer in \([0,4)\)   | answer in \([4,8)\)   | answer in \([0,4)\)  | answer in \([0,4)\)  |
+|        | check \( A_2 \)       | check \( A_6 \)       | check \( A_2 \)      | check \( A_2 \)      |
+|        | \( X_1 \geq A_2 = 5 \) | \( X_2 < A_6 = 13 \)   | \( X_3 < A_2 = 5 \)   | \( X_4 \geq A_2 = 5 \) |
+| **step 3** | answer in \([2,4)\)   | answer in \([4,6)\)   | answer in \([0,2)\)  | answer in \([2,4)\)  |
+|        | check \( A_3 \)       | check \( A_5 \)       | check \( A_1 \)      | check \( A_3 \)      |
+|        | \( X_1 \geq A_3 = 7 \) | \( X_2 \geq A_5 = 9 \) | \( X_3 \geq A_1 = 3 \) | \( X_4 < A_3 = 7 \)   |
+| **step 4** | answer in \([3,4)\)   | answer in \([5,6)\)   | answer in \([1,2)\)  | answer in \([2,3)\)  |
+|        | \( index = 3 \)       | \( index = 5 \)       | \( index = 1 \)      | \( index = 2 \)      |
+
+We generally process this table by columns (queries), but notice that in each row we often repeat access to certain values of the array. To limit access to these values, we can process the table by rows (steps). This does not make huge difference in our small example problem (as we can access all elements in $\mathcal{O}(1)$), but in more complex problems, where computing these values is more complicated, this might be essential to solve these problems efficiently. Moreover, note that we can arbitrarily choose the order in which we answer questions in a single row. Let us look at the code implementing this approach.
+
+```{.cpp file=parallel-binary-search}
+// Computes the index of the largest value in a sorted array A less than or equal to X_i for all i.
+vector<int> parallel_binary_search(vector<int>& A, vector<int>& X) {
+    int N = A.size();
+    int M = X.size();
+    vector<int> l(M, -1), r(M, N);
+
+    for (int step = 1; step <= ceil(log2(N)); ++step) {
+        // Map to store indices of queries asking for this value.
+        unordered_map<int, vector<int>> m_to_queries;
+
+        // Calculate middle point and populate the m_to_queries map.
+        for (int i = 0; i < M; ++i) {
+            int m = (l[i] + r[i]) / 2;
+            m_to_queries[m].push_back(i);
+        }
+
+        // Process each value in m_to_queries.
+        for (const auto& [m, queries]: m_to_queries) {
+            for (int query : queries) {
+                if (X[query] < A[m]) {
+                    r[query] = m;
+                } else {
+                    l[query] = m;
+                }
+            }
+        }
+    }
+    return l;
+}
+```
+
 ## Practice Problems
 
 * [LeetCode -  Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
@@ -154,3 +211,8 @@ This paradigm is widely used in tasks around trees, such as finding lowest commo
 * [Codeforces - GukiZ hates Boxes](https://codeforces.com/problemset/problem/551/C)
 * [Codeforces - Enduring Exodus](https://codeforces.com/problemset/problem/645/C)
 * [Codeforces - Chip 'n Dale Rescue Rangers](https://codeforces.com/problemset/problem/590/B)
+
+### Parallel Binary Search
+
+* [Szkopul - Meteors](https://szkopul.edu.pl/problemset/problem/7JrCYZ7LhEK4nBR5zbAXpcmM/site/?key=statement)
+* [AtCoder - Stamp Rally](https://atcoder.jp/contests/agc002/tasks/agc002_d)
