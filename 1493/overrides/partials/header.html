@@ -88,13 +88,17 @@
         {% include "partials/source.html" %}
       </div>
     {% endif %}
+    <div class="md-header__option>
       <a href="https://cp-algorithms.com/feed_rss_created.xml" title="RSS" class="md-header__button md-icon" aria-label="RSS">
         {% include ".icons/fontawesome/solid/rss.svg" %}
       </a>
-    
+    </div>
+
+    <div class="md-header__option">
       <a href="https://discord.gg/HZ5AecN3KX" title="Discord" class="md-header__button md-icon" aria-label="Discord">
         {% include ".icons/fontawesome/brands/discord.svg" %}
       </a>
+    </div>
   </nav>
   {% if "navigation.tabs.sticky" in features %}
     {% if "navigation.tabs" in features %}
