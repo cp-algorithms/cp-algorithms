@@ -80,6 +80,8 @@ plugins:
 
 extra:
   social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/cp-algorithms/cp-algorithms
     - icon: fontawesome/brands/discord
       link: https://discord.gg/HZ5AecN3KX
   analytics:
