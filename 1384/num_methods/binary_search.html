@@ -3617,27 +3617,18 @@ const registerKeyboardEventHandler = () => {
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#motivation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Motivation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example-application-meteors" class="md-nav__link">
-    <span class="md-ellipsis">
-      Example Application: Meteors
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#implementation_1" class="md-nav__link">
     <span class="md-ellipsis">
       Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-problem-meteors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Problem: Meteors
     </span>
   </a>
   
@@ -7027,7 +7018,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 11, 2025 00:40:14 UTC">August 11, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 11, 2025 00:48:28 UTC">August 11, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -7060,9 +7051,9 @@ Describe the issue of this article in detail.
 </ol>
 <p>When it is impossible to pick  <span class="arithmatex">$M$</span>, that is, when <span class="arithmatex">$R = L + 1$</span>, we directly compare <span class="arithmatex">$k$</span> with <span class="arithmatex">$A_L$</span> and <span class="arithmatex">$A_R$</span>. Otherwise we would want to pick <span class="arithmatex">$M$</span> in such manner that it reduces the active segment to a single element as quickly as possible <em>in the worst case</em>.</p>
 <p>Since in the worst case we will always reduce to larger segment of <span class="arithmatex">$[L, M]$</span> and <span class="arithmatex">$[M, R]$</span>. Thus, in the worst case scenario the reduction would be from <span class="arithmatex">$R-L$</span> to <span class="arithmatex">$\max(M-L, R-M)$</span>. To minimize this value, we should pick <span class="arithmatex">$M \approx \frac{L+R}{2}$</span>, then</p>
-<p>$
+<div class="arithmatex">$$
 M-L \approx \frac{R-L}{2} \approx R-M.
-$</p>
+$$</div>
 <p>In other words, from the worst-case scenario perspective it is optimal to always pick <span class="arithmatex">$M$</span> in the middle of <span class="arithmatex">$[L, R]$</span> and split it in half. Thus, the active segment halves on each step until it becomes of size <span class="arithmatex">$1$</span>. So, if the process needs <span class="arithmatex">$h$</span> steps, in the end it reduces the difference between <span class="arithmatex">$R$</span> and <span class="arithmatex">$L$</span> from <span class="arithmatex">$R-L$</span> to <span class="arithmatex">$\frac{R-L}{2^h} \approx 1$</span>, giving us the equation <span class="arithmatex">$2^h \approx R-L$</span>.</p>
 <p>Taking <span class="arithmatex">$\log_2$</span> on both sides, we get <span class="arithmatex">$h \approx \log_2(R-L) \in O(\log n)$</span>.</p>
 <p>Logarithmic number of steps is drastically better than that of linear search. For example, for <span class="arithmatex">$n \approx 2^{20} \approx 10^6$</span> you'd need to make approximately a million operations for linear search, but only around <span class="arithmatex">$20$</span> operations with the binary search.</p>
@@ -7090,9 +7081,9 @@ $</p>
 <p><strong>Note.</strong> Calculating <code>m</code> as <code>m = (r + l) / 2</code> can lead to overflow if <code>l</code> and <code>r</code> are two positive integers, and this error lived about 9 years in JDK as described in the <a href="https://ai.googleblog.com/2006/06/extra-extra-read-all-about-it-nearly.html">blogpost</a>. Some alternative approaches include e.g. writing <code>m = l + (r - l) / 2</code> which always works for positive integer <code>l</code> and <code>r</code>, but might still overflow if <code>l</code> is a negative number. If you use C++20, it offers an alternative solution in the form of <code>m = std::midpoint(l, r)</code> which always works correctly.</p>
 <h2 id="search-on-arbitrary-predicate">Search on arbitrary predicate<a class="headerlink" href="#search-on-arbitrary-predicate" title="Permanent link">&para;</a></h2>
 <p>Let <span class="arithmatex">$f : \{0,1,\dots, n-1\} \to \{0, 1\}$</span> be a boolean function defined on <span class="arithmatex">$0,1,\dots,n-1$</span> such that it is monotonously increasing, that is</p>
-<p>$
+<div class="arithmatex">$$
 f(0) \leq f(1) \leq \dots \leq f(n-1).
-$</p>
+$$</div>
 <p>The binary search, the way it is described above, finds the partition of the array by the predicate <span class="arithmatex">$f(M)$</span>, holding the boolean value of <span class="arithmatex">$k &lt; A_M$</span> expression.
 It is possible to use arbitrary monotonous predicate instead of <span class="arithmatex">$k &lt; A_M$</span>. It is particularly useful when the computation of <span class="arithmatex">$f(k)$</span> requires too much time to actually compute it for every possible value.
 In other words, binary search finds the unique index <span class="arithmatex">$L$</span> such that <span class="arithmatex">$f(L) = 0$</span> and <span class="arithmatex">$f(R)=f(L+1)=1$</span> if such a <em>transition point</em> exists, or gives us <span class="arithmatex">$L = n-1$</span> if <span class="arithmatex">$f(0) = \dots = f(n-1) = 0$</span> or <span class="arithmatex">$L = -1$</span> if <span class="arithmatex">$f(0) = \dots = f(n-1) = 1$</span>.</p>
@@ -7110,17 +7101,17 @@ In other words, binary search finds the unique index <span class="arithmatex">$L
 </code></pre></div>
 <h3 id="binary-search-on-the-answer">Binary search on the answer<a class="headerlink" href="#binary-search-on-the-answer" title="Permanent link">&para;</a></h3>
 <p>Such situation often occurs when we're asked to compute some value, but we're only capable of checking whether this value is at least <span class="arithmatex">$i$</span>. For example, you're given an array <span class="arithmatex">$a_1,\dots,a_n$</span> and you're asked to find the maximum floored average sum</p>
-<p>$
+<div class="arithmatex">$$
 \left \lfloor \frac{a_l + a_{l+1} + \dots + a_r}{r-l+1} \right\rfloor
-$</p>
+$$</div>
 <p>among all possible pairs of <span class="arithmatex">$l,r$</span> such that <span class="arithmatex">$r-l \geq x$</span>. One of simple ways to solve this problem is to check whether the answer is at least <span class="arithmatex">$\lambda$</span>, that is if there is a pair <span class="arithmatex">$l, r$</span> such that the following is true:</p>
-<p>$
+<div class="arithmatex">$$
 \frac{a_l + a_{l+1} + \dots + a_r}{r-l+1} \geq \lambda.
-$</p>
+$$</div>
 <p>Equivalently, it rewrites as</p>
-<p>$
+<div class="arithmatex">$$
 (a_l - \lambda) + (a_{l+1} - \lambda) + \dots + (a_r - \lambda) \geq 0,
-$</p>
+$$</div>
 <p>so now we need to check whether there is a subarray of a new array <span class="arithmatex">$a_i - \lambda$</span> of length at least <span class="arithmatex">$x+1$</span> with non-negative sum, which is doable with some prefix sums.</p>
 <h2 id="continuous-search">Continuous search<a class="headerlink" href="#continuous-search" title="Permanent link">&para;</a></h2>
 <p>Let <span class="arithmatex">$f : \mathbb R \to \mathbb R$</span> be a real-valued function that is continuous on a segment <span class="arithmatex">$[L, R]$</span>.</p>
@@ -7131,63 +7122,23 @@ $</p>
 <p>Another noteworthy way to do binary search is, instead of maintaining an active segment, to maintain the current pointer <span class="arithmatex">$i$</span> and the current power <span class="arithmatex">$k$</span>. The pointer starts at <span class="arithmatex">$i=L$</span> and then on each iteration one tests the predicate at point <span class="arithmatex">$i+2^k$</span>. If the predicate is still <span class="arithmatex">$0$</span>, the pointer is advanced from <span class="arithmatex">$i$</span> to <span class="arithmatex">$i+2^k$</span>, otherwise it stays the same, then the power <span class="arithmatex">$k$</span> is decreased by <span class="arithmatex">$1$</span>.</p>
 <p>This paradigm is widely used in tasks around trees, such as finding lowest common ancestor of two vertices or finding an ancestor of a specific vertex that has a certain height. It could also be adapted to e.g. find the <span class="arithmatex">$k$</span>-th non-zero element in a Fenwick tree.</p>
 <h2 id="parallel-binary-search">Parallel Binary Search<a class="headerlink" href="#parallel-binary-search" title="Permanent link">&para;</a></h2>
-<p>When we are faced with multiple queries that can each be solved with a binary search, it is sometimes too slow to solve them one by one. Parallel Binary Search is a technique that allows us to solve all of these queries simultaneously, often leading to a significant performance improvement. The main idea is to perform the binary search for all queries at the same time, step by step. This is particularly effective when the check function for the binary search is costly and can be optimized by processing queries in batches.</p>
-<h3 id="motivation">Motivation<a class="headerlink" href="#motivation" title="Permanent link">&para;</a></h3>
+<p>When we are faced with multiple queries that can each be solved with a binary search, it is sometimes too slow to solve them one by one. Parallel Binary Search is a technique that allows us to solve all of these queries simultaneously, often leading to a significant performance improvement. The main idea is to perform the binary search for all queries at the same time (in parallel), step by step. This is particularly effective when the check function for the binary search is costly and can be optimized by processing queries in batches.</p>
 <p>Consider a scenario where we have <span class="arithmatex">$Q$</span> queries, and for each query <span class="arithmatex">$q$</span>, we need to find the smallest value <span class="arithmatex">$x$</span> that satisfies a certain condition <span class="arithmatex">$P(q, x)$</span>. If <span class="arithmatex">$P(q, x)$</span> is monotonic on <span class="arithmatex">$x$</span>, we can use binary search for each query. This would result in a total complexity of <span class="arithmatex">$O(Q \cdot \log(\t{range}) \cdot T_{check})$</span>, where <span class="arithmatex">$T_{check}$</span> is the time to evaluate <span class="arithmatex">$P(q, x)$</span>.</p>
-<p>Parallel binary search optimizes this by changing the order of operations. Instead of processing each query independently, we process all queries simultaneously, step by step. In each step of the binary search, we compute the middle points <span class="arithmatex">$m_i$</span> for all queries <span class="arithmatex">$q_i$</span> and group the queries by their middle point. This is particularly powerful if the check function <span class="arithmatex">$P(q, x)$</span> has a structure that allows for efficient batching or updates.</p>
+<p>Parallel binary search optimizes this by changing the order of operations. Instead of processing each query independently, we process all queries simultaneously, step by step. In each step of the binary search, we compute the middle points <span class="arithmatex">$m_i$</span> for all queries and group the queries by their middle point. This is particularly powerful if the check function <span class="arithmatex">$P(q, x)$</span> has a structure that allows for efficient batching or updates.</p>
 <p>Specifically, the major performance gain comes from two scenarios:
 1. <strong>Batching expensive checks:</strong> If multiple queries need to check the same value <span class="arithmatex">$m$</span> in a given step, we can perform the expensive part of the check only once and reuse the result.
 2. <strong>Efficiently updatable checks:</strong> Often, the check for a value <span class="arithmatex">$m$</span> (e.g., "process the first <span class="arithmatex">$m$</span> events") can be performed much faster if we have already computed the state for <span class="arithmatex">$m-1$</span>. By processing the check values <span class="arithmatex">$m$</span> in increasing order, we can update the state from one check to the next, instead of recomputing from scratch each time. This is a very common pattern in problems involving time or a sequence of updates.</p>
 <p>This "offline" processing of queries, where we collect all queries and answer them together in a way that is convenient for our data structures, is the core idea behind parallel binary search.</p>
-<h3 id="example-application-meteors">Example Application: Meteors<a class="headerlink" href="#example-application-meteors" title="Permanent link">&para;</a></h3>
-<p>A classic example is the "Meteors" problem, which is listed in the practice problems. We are given <span class="arithmatex">$N$</span> countries, and for each country, a target number of meteors to collect. We are also given a sequence of <span class="arithmatex">$K$</span> meteor showers, each affecting a range of countries. The goal is to find, for each country, the earliest time (i.e., which meteor shower) they reach their target.</p>
-<p>For a single country, we could binary search for the answer from <span class="arithmatex">$1$</span> to <span class="arithmatex">$K$</span>. The check for a given time <span class="arithmatex">$t$</span> would involve summing up the meteors from the first <span class="arithmatex">$t$</span> showers for that country. A naive check takes <span class="arithmatex">$O(t)$</span> time, leading to an overall complexity of <span class="arithmatex">$O(K \log K)$</span> for one country, and <span class="arithmatex">$O(N \cdot K \log K)$</span> for all, which is too slow.</p>
-<p>With parallel binary search, we search for the answer for all <span class="arithmatex">$N$</span> countries at once. In each of the <span class="arithmatex">$O(\log K)$</span> steps, we have a set of check values <span class="arithmatex">$t_i$</span> for the countries. We can process these <span class="arithmatex">$t_i$</span> in increasing order. To perform the check for time <span class="arithmatex">$t$</span>, we can use a data structure like a Fenwick tree or a segment tree to maintain the meteor counts for all countries. When moving from checking time <span class="arithmatex">$t_i$</span> to <span class="arithmatex">$t_{i+1}$</span>, we only need to add the effects of showers from <span class="arithmatex">$t_i+1$</span> to <span class="arithmatex">$t_{i+1}$</span> to our data structure. This "update" approach is much faster than recomputing from scratch. The total complexity becomes something like <span class="arithmatex">$O((N+K)\log N \log K)$</span>, a significant improvement.</p>
 <h3 id="implementation_1">Implementation<a class="headerlink" href="#implementation_1" title="Permanent link">&para;</a></h3>
-<p>Now, let's go back to the simple problem to see the implementation structure. Imagine that we want to answer <span class="arithmatex">$Z$</span> queries about the index of the largest value less than or equal to some <span class="arithmatex">$X_i$</span> (for <span class="arithmatex">$i=1,2,\ldots,Z$</span>) in a sorted 0-indexed array <span class="arithmatex">$A$</span>. Naturally, each query can be answered using binary search. </p>
+<p>Imagine that we want to answer <span class="arithmatex">$Z$</span> queries about the index of the largest value less than or equal to some <span class="arithmatex">$X_i$</span> (for <span class="arithmatex">$i=1,2,\ldots,Z$</span>) in a sorted 0-indexed array <span class="arithmatex">$A$</span>. Naturally, each query can be answered using binary search. </p>
 <p>Specifically, let us consider the following array <span class="arithmatex">$A = [1,3,5,7,9,9,13,15]$</span>
-with queries: <span class="arithmatex">$X = [8,11,4,5]$</span>. We can use binary search for each query sequentially.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: center;">query</th>
-<th style="text-align: center;"><span class="arithmatex">$ X_1 = 8 $</span></th>
-<th style="text-align: center;"><span class="arithmatex">$ X_2 = 11 $</span></th>
-<th style="text-align: center;"><span class="arithmatex">$ X_3 = 4 $</span></th>
-<th style="text-align: center;"><span class="arithmatex">$ X_4 = 5 $</span></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: center;"><strong>step 1</strong></td>
-<td style="text-align: center;">answer in <span class="arithmatex">$[0,8)$</span><br>check <span class="arithmatex">$ A_4 $</span><br><span class="arithmatex">$ X_1 &lt; A_4 = 9 $</span></td>
-<td style="text-align: center;">answer in <span class="arithmatex">$[0,8)$</span><br>check <span class="arithmatex">$ A_4 $</span><br><span class="arithmatex">$ X_2 \geq A_4 = 9 $</span></td>
-<td style="text-align: center;">answer in <span class="arithmatex">$[0,8)$</span><br>check <span class="arithmatex">$ A_4 $</span><br><span class="arithmatex">$ X_3 &lt; A_4 = 9 $</span></td>
-<td style="text-align: center;">answer in <span class="arithmatex">$[0,8)$</span><br>check <span class="arithmatex">$ A_4 $</span><br><span class="arithmatex">$ X_4 &lt; A_4 = 9 $</span></td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>step 2</strong></td>
-<td style="text-align: center;">answer in <span class="arithmatex">$[0,4)$</span><br>check <span class="arithmatex">$ A_2 $</span><br><span class="arithmatex">$ X_1 \geq A_2 = 5 $</span></td>
-<td style="text-align: center;">answer in <span class="arithmatex">$[4,8)$</span><br>check <span class="arithmatex">$ A_6 $</span><br><span class="arithmatex">$ X_2 &lt; A_6 = 13 $</span></td>
-<td style="text-align: center;">answer in <span class="arithmatex">$[0,4)$</span><br>check <span class="arithmatex">$ A_2 $</span><br><span class="arithmatex">$ X_3 &lt; A_2 = 5 $</span></td>
-<td style="text-align: center;">answer in <span class="arithmatex">$[0,4)$</span><br>check <span class="arithmatex">$ A_2 $</span><br><span class="arithmatex">$ X_4 \geq A_2 = 5 $</span></td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>step 3</strong></td>
-<td style="text-align: center;">answer in <span class="arithmatex">$[2,4)$</span><br>check <span class="arithmatex">$ A_3 $</span><br><span class="arithmatex">$ X_1 \geq A_3 = 7 $</span></td>
-<td style="text-align: center;">answer in <span class="arithmatex">$[4,6)$</span><br>check <span class="arithmatex">$ A_5 $</span><br><span class="arithmatex">$ X_2 \geq A_5 = 9 $</span></td>
-<td style="text-align: center;">answer in <span class="arithmatex">$[0,2)$</span><br>check <span class="arithmatex">$ A_1 $</span><br><span class="arithmatex">$ X_3 \geq A_1 = 3 $</span></td>
-<td style="text-align: center;">answer in <span class="arithmatex">$[2,4)$</span><br>check <span class="arithmatex">$ A_3 $</span><br><span class="arithmatex">$ X_4 &lt; A_3 = 7 $</span></td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>step 4</strong></td>
-<td style="text-align: center;">answer in <span class="arithmatex">$[3,4)$</span><br><span class="arithmatex">$ index = 3 $</span></td>
-<td style="text-align: center;">answer in <span class="arithmatex">$[5,6)$</span><br><span class="arithmatex">$ index = 5 $</span></td>
-<td style="text-align: center;">answer in <span class="arithmatex">$[1,2)$</span><br><span class="arithmatex">$ index = 1 $</span></td>
-<td style="text-align: center;">answer in <span class="arithmatex">$[2,3)$</span><br><span class="arithmatex">$ index = 2 $</span></td>
-</tr>
-</tbody>
-</table>
+with queries: <span class="arithmatex">$X = [8,11,4,5]$</span>. We can use binary search for each query sequentially.
+| Query  | <span class="arithmatex">$ X_1 = 8 $</span>                           | <span class="arithmatex">$ X_2 = 11 $</span>                           | <span class="arithmatex">$ X_3 = 4 $</span>                             | <span class="arithmatex">$ X_4 = 5 $</span>                             |
+|--------|:----------------------------------------:|:-----------------------------------------:|:------------------------------------------:|:------------------------------------------:|
+| <strong>Step 1</strong> | Answer in <span class="arithmatex">$[0,8)$</span> <br> Check <span class="arithmatex">$ A_4 $</span> <br> <span class="arithmatex">$ X_1 &lt; A_4 = 9 $</span>  | Answer in <span class="arithmatex">$[0,8)$</span> <br> Check <span class="arithmatex">$ A_4 $</span> <br> <span class="arithmatex">$ X_2 \geq A_4 = 9 $</span>  | Answer in <span class="arithmatex">$[0,8)$</span> <br> Check <span class="arithmatex">$ A_4 $</span> <br> <span class="arithmatex">$ X_3 &lt; A_4 = 9 $</span>   | Answer in <span class="arithmatex">$[0,8)$</span> <br> Check <span class="arithmatex">$ A_4 $</span> <br> <span class="arithmatex">$ X_4 &lt; A_4 = 9 $</span>   |
+| <strong>Step 2</strong> | Answer in <span class="arithmatex">$[0,4)$</span> <br> Check <span class="arithmatex">$ A_2 $</span> <br> <span class="arithmatex">$ X_1 \geq A_2 = 5 $</span> | Answer in <span class="arithmatex">$[4,8)$</span> <br> Check <span class="arithmatex">$ A_6 $</span> <br> <span class="arithmatex">$ X_2 &lt; A_6 = 13 $</span>   | Answer in <span class="arithmatex">$[0,4)$</span> <br> Check <span class="arithmatex">$ A_2 $</span> <br> <span class="arithmatex">$ X_3 &lt; A_2 = 5 $</span>   | Answer in <span class="arithmatex">$[0,4)$</span> <br> Check <span class="arithmatex">$ A_2 $</span> <br> <span class="arithmatex">$ X_4 \geq A_2 = 5 $</span> |
+| <strong>Step 3</strong> | Answer in <span class="arithmatex">$[2,4)$</span> <br> Check <span class="arithmatex">$ A_3 $</span> <br> <span class="arithmatex">$ X_1 \geq A_3 = 7 $</span> | Answer in <span class="arithmatex">$[4,6)$</span> <br> Check <span class="arithmatex">$ A_5 $</span> <br> <span class="arithmatex">$ X_2 \geq A_5 = 9 $</span>  | Answer in <span class="arithmatex">$[0,2)$</span> <br> Check <span class="arithmatex">$ A_1 $</span> <br> <span class="arithmatex">$ X_3 \geq A_1 = 3 $</span>  | Answer in <span class="arithmatex">$[2,4)$</span> <br> Check <span class="arithmatex">$ A_3 $</span> <br> <span class="arithmatex">$ X_4 &lt; A_3 = 7 $</span>   |
+| <strong>Step 4</strong> | Answer in <span class="arithmatex">$[3,4)$</span> <br> <span class="arithmatex">$ index = 3 $</span> | Answer in <span class="arithmatex">$[5,6)$</span> <br> <span class="arithmatex">$ index = 5 $</span> | Answer in <span class="arithmatex">$[1,2)$</span> <br> <span class="arithmatex">$ index = 1 $</span> | Answer in <span class="arithmatex">$[2,3)$</span> <br> <span class="arithmatex">$ index = 2 $</span> |</p>
 <p>We generally process this table by columns (queries), but notice that in each row we often repeat access to certain values of the array. To limit access to these values, we can process the table by rows (steps). This does not make huge difference in our small example problem (as we can access all elements in <span class="arithmatex">$O(1)$</span>), but in more complex problems, where computing these values is more complicated, this might be essential to solve these problems efficiently. Moreover, note that we can arbitrarily choose the order in which we answer questions in a single row. Let us look at the code implementing this approach.</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Computes the index of the largest value in a sorted array A less than or equal to X_i for all i.</span>
 <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">parallel_binary_search</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">X</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -7197,7 +7148,6 @@ with queries: <span class="arithmatex">$X = [8,11,4,5]$</span>. We can use binar
 
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">ceil</span><span class="p">(</span><span class="n">log2</span><span class="p">(</span><span class="n">N</span><span class="p">));</span><span class="w"> </span><span class="o">++</span><span class="n">step</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="c1">// A vector of vectors to store indices of queries for each middle point.</span>
-<span class="w">        </span><span class="c1">// This is generally faster and safer than std::unordered_map in competitive programming.</span>
 <span class="w">        </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">m_to_queries</span><span class="p">(</span><span class="n">N</span><span class="p">);</span>
 
 <span class="w">        </span><span class="c1">// Group queries by their middle point.</span>
@@ -7225,6 +7175,10 @@ with queries: <span class="arithmatex">$X = [8,11,4,5]$</span>. We can use binar
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">l</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
+<h3 id="example-problem-meteors">Example Problem: Meteors<a class="headerlink" href="#example-problem-meteors" title="Permanent link">&para;</a></h3>
+<p>A pretty well known problem using this method is called "Meteors", and is listed in the practice problems. We are given <span class="arithmatex">$N$</span> countries, and for each country, a target number of meteors to collect. We are also given a sequence of <span class="arithmatex">$K$</span> meteor showers, each affecting a range of countries. The goal is to find, for each country, the earliest time (i.e., which meteor shower) they reach their target.</p>
+<p>For a single country, we could binary search for the answer from <span class="arithmatex">$1$</span> to <span class="arithmatex">$K$</span>. The check for a given time <span class="arithmatex">$t$</span> would involve summing up the meteors from the first <span class="arithmatex">$t$</span> showers for that country. A naive check takes <span class="arithmatex">$O(t)$</span> time, leading to an overall complexity of <span class="arithmatex">$O(K \log K)$</span> for one country, and <span class="arithmatex">$O(N \cdot K \log K)$</span> for all, which is too slow.</p>
+<p>With parallel binary search, we search for the answer for all <span class="arithmatex">$N$</span> countries at once. In each of the <span class="arithmatex">$O(\log K)$</span> steps, we have a set of check values <span class="arithmatex">$t_i$</span> for the countries. We can process these <span class="arithmatex">$t_i$</span> in increasing order. To perform the check for time <span class="arithmatex">$t$</span>, we can use a data structure like a Fenwick tree or a segment tree to maintain the meteor counts for all countries. When moving from checking time <span class="arithmatex">$t_i$</span> to <span class="arithmatex">$t_{i+1}$</span>, we only need to add the effects of showers from <span class="arithmatex">$t_i+1$</span> to <span class="arithmatex">$t_{i+1}$</span> to our data structure. This "update" approach is much faster than recomputing from scratch. The total complexity becomes <span class="arithmatex">$O((N+K)\log N \log K)$</span>.</p>
 <h2 id="practice-problems">Practice Problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/">LeetCode -  Find First and Last Position of Element in Sorted Array</a></li>
@@ -7250,7 +7204,7 @@ with queries: <span class="arithmatex">$X = [8,11,4,5]$</span>. We can use binar
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (49.38%)</li><li><a href="https://github.com/Kostero" title="Kostero" data-bi-name="contributorprofile" target="_blank">Kostero</a> (39.33%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (5.02%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (1.26%)</li><li><a href="https://github.com/100godmoon" title="100godmoon" data-bi-name="contributorprofile" target="_blank">100godmoon</a> (1.26%)</li><li><a href="https://github.com/iAngkur" title="iAngkur" data-bi-name="contributorprofile" target="_blank">iAngkur</a> (1.26%)</li><li><a href="https://github.com/konstantinosalatzas" title="konstantinosalatzas" data-bi-name="contributorprofile" target="_blank">konstantinosalatzas</a> (0.84%)</li><li><a href="https://github.com/Draac0" title="Draac0" data-bi-name="contributorprofile" target="_blank">Draac0</a> (0.42%)</li><li><a href="https://github.com/RomanSteinberg" title="RomanSteinberg" data-bi-name="contributorprofile" target="_blank">RomanSteinberg</a> (0.42%)</li><li><a href="https://github.com/mbordia-eightfold" title="mbordia-eightfold" data-bi-name="contributorprofile" target="_blank">mbordia-eightfold</a> (0.42%)</li><li><a href="https://github.com/twfksh" title="twfksh" data-bi-name="contributorprofile" target="_blank">twfksh</a> (0.42%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (50.21%)</li><li><a href="https://github.com/Kostero" title="Kostero" data-bi-name="contributorprofile" target="_blank">Kostero</a> (38.3%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (5.11%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (1.28%)</li><li><a href="https://github.com/100godmoon" title="100godmoon" data-bi-name="contributorprofile" target="_blank">100godmoon</a> (1.28%)</li><li><a href="https://github.com/iAngkur" title="iAngkur" data-bi-name="contributorprofile" target="_blank">iAngkur</a> (1.28%)</li><li><a href="https://github.com/konstantinosalatzas" title="konstantinosalatzas" data-bi-name="contributorprofile" target="_blank">konstantinosalatzas</a> (0.85%)</li><li><a href="https://github.com/Draac0" title="Draac0" data-bi-name="contributorprofile" target="_blank">Draac0</a> (0.43%)</li><li><a href="https://github.com/RomanSteinberg" title="RomanSteinberg" data-bi-name="contributorprofile" target="_blank">RomanSteinberg</a> (0.43%)</li><li><a href="https://github.com/mbordia-eightfold" title="mbordia-eightfold" data-bi-name="contributorprofile" target="_blank">mbordia-eightfold</a> (0.43%)</li><li><a href="https://github.com/twfksh" title="twfksh" data-bi-name="contributorprofile" target="_blank">twfksh</a> (0.43%)</li></ul>
 </ul>
                 
               </article>
