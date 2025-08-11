@@ -1,0 +1,109 @@
+[data-md-color-scheme="cpalgo"] {
+  --md-primary-fg-color:        #7777aa;
+  --md-primary-fg-color--light: #7777aa;
+  --md-primary-fg-color--dark:  #333371;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-hue: 210; 
+  --md-typeset-a-color: #c973d9;
+}
+
+[data-md-color-scheme="slate"] img {
+  background-color: lightgray;
+}
+
+/* Move primary sidebar to the right */
+.md-sidebar--primary {
+  order: 100;
+}
+
+/* For proper rendering of contribution meta */
+.metadata{
+  list-style:none;
+  padding:0;
+  margin:0;
+  margin-bottom: 15px;
+  color: #999;
+  font-size:0.85em;
+}
+.metadata.page-metadata .contributors-text{
+  margin-right:5px
+}
+body[dir=rtl] .metadata.page-metadata .contributors-text{
+  margin-right:0;
+  margin-left:5px
+}
+.page-metadata .contributors{
+  display:inline-block;
+  list-style:none;
+  margin:0!important;
+  padding:0!important
+}
+.page-metadata .contributors li{
+  display:inline-block;
+  vertical-align:top;
+  margin:0;
+  padding:0
+}
+
+/* Visually hide latex code */
+.mjx-copytext {
+    font-size: 0;
+}
+
+.arithmatex{
+  overflow-y: hidden !important;
+}
+
+/* Keyboard hint for search ("/") */
+.kbd-hint {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 4px;
+  padding: 0 6px;
+  height: 22px;
+  border-radius: 4px;
+  border: 1px solid var(--md-default-fg-color--lightest, rgba(0,0,0,.2));
+  background: var(--md-default-bg-color, #fff);
+  color: var(--md-default-fg-color, rgba(0,0,0,.87));
+  font: 500 12px/1 var(--md-text-font, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif);
+  opacity: .72;
+}
+
+/* Show "/" hint inside the search input on desktop */
+.md-search__form {
+  position: relative;
+}
+
+.md-search__form::after {
+  content: "/";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 4px;
+  border: 1px solid var(--md-default-fg-color--lightest, rgba(0,0,0,.2));
+  background: var(--md-default-bg-color, #fff);
+  color: var(--md-default-fg-color, rgba(0,0,0,.87));
+  font: 500 12px/1 var(--md-text-font, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif);
+  opacity: .72;
+  pointer-events: none;
+}
+
+/* Hide hint when typing/focused so it doesn't overlap text */
+.md-search__form:focus-within::after,
+.md-search__form input:not(:placeholder-shown) + .md-search__icon ~ *::after {
+  opacity: 0;
+}
+
+/* Only show on wider viewports where the inline search is visible */
+@media (max-width: 959px) {
+  .md-search__form::after { display: none; }
+}
