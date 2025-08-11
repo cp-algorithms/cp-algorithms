@@ -210,7 +210,7 @@ A pretty well known problem using this method is called "Meteors", and is listed
 
 For a single country, we could binary search for the answer from $1$ to $K$. The check for a given time $t$ would involve summing up the meteors from the first $t$ showers for that country. A naive check takes $O(t)$ time, leading to an overall complexity of $O(K \log K)$ for one country, and $O(N \cdot K \log K)$ for all, which is too slow.
 
-With parallel binary search, we search for the answer for all $N$ countries at once. In each of the $O(\log K)$ steps, we have a set of check values $t_i$ for the countries. We can process these $t_i$ in increasing order. To perform the check for time $t$, we can use a data structure like a Fenwick tree or a segment tree to maintain the meteor counts for all countries. When moving from checking time $t_i$ to $t_{i+1}$, we only need to add the effects of showers from $t_i+1$ to $t_{i+1}$ to our data structure. This "update" approach is much faster than recomputing from scratch. The total complexity becomes something like $O((N+K)\log N \log K)$, a significant improvement.
+With parallel binary search, we search for the answer for all $N$ countries at once. In each of the $O(\log K)$ steps, we have a set of check values $t_i$ for the countries. We can process these $t_i$ in increasing order. To perform the check for time $t$, we can use a data structure like a Fenwick tree or a segment tree to maintain the meteor counts for all countries. When moving from checking time $t_i$ to $t_{i+1}$, we only need to add the effects of showers from $t_i+1$ to $t_{i+1}$ to our data structure. This "update" approach is much faster than recomputing from scratch. The total complexity becomes $O((N+K)\log N \log K)$.
 
 ## Practice Problems
 
