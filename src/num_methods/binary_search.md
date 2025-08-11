@@ -158,6 +158,7 @@ Imagine that we want to answer $Z$ queries about the index of the largest value 
 
 Specifically, let us consider the following array $A = [1,3,5,7,9,9,13,15]$
 with queries: $X = [8,11,4,5]$. We can use binary search for each query sequentially.
+
 | Query  | \( X_1 = 8 \)                           | \( X_2 = 11 \)                           | \( X_3 = 4 \)                             | \( X_4 = 5 \)                             |
 |--------|:----------------------------------------:|:-----------------------------------------:|:------------------------------------------:|:------------------------------------------:|
 | **Step 1** | Answer in \([0,8)\) <br> Check \( A_4 \) <br> \( X_1 < A_4 = 9 \)  | Answer in \([0,8)\) <br> Check \( A_4 \) <br> \( X_2 \geq A_4 = 9 \)  | Answer in \([0,8)\) <br> Check \( A_4 \) <br> \( X_3 < A_4 = 9 \)   | Answer in \([0,8)\) <br> Check \( A_4 \) <br> \( X_4 < A_4 = 9 \)   |
