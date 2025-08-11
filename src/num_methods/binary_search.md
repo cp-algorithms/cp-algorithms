@@ -28,9 +28,9 @@ When it is impossible to pick  $M$, that is, when $R = L + 1$, we directly compa
 
 Since in the worst case we will always reduce to larger segment of $[L, M]$ and $[M, R]$. Thus, in the worst case scenario the reduction would be from $R-L$ to $\max(M-L, R-M)$. To minimize this value, we should pick $M \approx \frac{L+R}{2}$, then
 
-$
+$$
 M-L \approx \frac{R-L}{2} \approx R-M.
-$
+$$
 
 In other words, from the worst-case scenario perspective it is optimal to always pick $M$ in the middle of $[L, R]$ and split it in half. Thus, the active segment halves on each step until it becomes of size $1$. So, if the process needs $h$ steps, in the end it reduces the difference between $R$ and $L$ from $R-L$ to $\frac{R-L}{2^h} \approx 1$, giving us the equation $2^h \approx R-L$.
 
@@ -77,9 +77,9 @@ During the execution of the algorithm, we never evaluate neither $A_L$ nor $A_R$
 
 Let $f : \{0,1,\dots, n-1\} \to \{0, 1\}$ be a boolean function defined on $0,1,\dots,n-1$ such that it is monotonously increasing, that is
 
-$
+$$
 f(0) \leq f(1) \leq \dots \leq f(n-1).
-$
+$$
 
 The binary search, the way it is described above, finds the partition of the array by the predicate $f(M)$, holding the boolean value of $k < A_M$ expression.
 It is possible to use arbitrary monotonous predicate instead of $k < A_M$. It is particularly useful when the computation of $f(k)$ requires too much time to actually compute it for every possible value.
@@ -104,21 +104,21 @@ while (r - l > 1) {
 
 Such situation often occurs when we're asked to compute some value, but we're only capable of checking whether this value is at least $i$. For example, you're given an array $a_1,\dots,a_n$ and you're asked to find the maximum floored average sum
 
-$
+$$
 \left \lfloor \frac{a_l + a_{l+1} + \dots + a_r}{r-l+1} \right\rfloor
-$
+$$
 
 among all possible pairs of $l,r$ such that $r-l \geq x$. One of simple ways to solve this problem is to check whether the answer is at least $\lambda$, that is if there is a pair $l, r$ such that the following is true:
 
-$
+$$
 \frac{a_l + a_{l+1} + \dots + a_r}{r-l+1} \geq \lambda.
-$
+$$
 
 Equivalently, it rewrites as
 
-$
+$$
 (a_l - \lambda) + (a_{l+1} - \lambda) + \dots + (a_r - \lambda) \geq 0,
-$
+$$
 
 so now we need to check whether there is a subarray of a new array $a_i - \lambda$ of length at least $x+1$ with non-negative sum, which is doable with some prefix sums.
 
@@ -140,13 +140,11 @@ This paradigm is widely used in tasks around trees, such as finding lowest commo
 
 ## Parallel Binary Search
 
-When we are faced with multiple queries that can each be solved with a binary search, it is sometimes too slow to solve them one by one. Parallel Binary Search is a technique that allows us to solve all of these queries simultaneously, often leading to a significant performance improvement. The main idea is to perform the binary search for all queries at the same time, step by step. This is particularly effective when the check function for the binary search is costly and can be optimized by processing queries in batches.
-
-### Motivation
+When we are faced with multiple queries that can each be solved with a binary search, it is sometimes too slow to solve them one by one. Parallel Binary Search is a technique that allows us to solve all of these queries simultaneously, often leading to a significant performance improvement. The main idea is to perform the binary search for all queries at the same time (in parallel), step by step. This is particularly effective when the check function for the binary search is costly and can be optimized by processing queries in batches.
 
 Consider a scenario where we have $Q$ queries, and for each query $q$, we need to find the smallest value $x$ that satisfies a certain condition $P(q, x)$. If $P(q, x)$ is monotonic on $x$, we can use binary search for each query. This would result in a total complexity of $O(Q \cdot \log(\t{range}) \cdot T_{check})$, where $T_{check}$ is the time to evaluate $P(q, x)$.
 
-Parallel binary search optimizes this by changing the order of operations. Instead of processing each query independently, we process all queries simultaneously, step by step. In each step of the binary search, we compute the middle points $m_i$ for all queries $q_i$ and group the queries by their middle point. This is particularly powerful if the check function $P(q, x)$ has a structure that allows for efficient batching or updates.
+Parallel binary search optimizes this by changing the order of operations. Instead of processing each query independently, we process all queries simultaneously, step by step. In each step of the binary search, we compute the middle points $m_i$ for all queries and group the queries by their middle point. This is particularly powerful if the check function $P(q, x)$ has a structure that allows for efficient batching or updates.
 
 Specifically, the major performance gain comes from two scenarios:
 1. **Batching expensive checks:** If multiple queries need to check the same value $m$ in a given step, we can perform the expensive part of the check only once and reuse the result.
@@ -154,27 +152,18 @@ Specifically, the major performance gain comes from two scenarios:
 
 This "offline" processing of queries, where we collect all queries and answer them together in a way that is convenient for our data structures, is the core idea behind parallel binary search.
 
-### Example Application: Meteors
-
-A classic example is the "Meteors" problem, which is listed in the practice problems. We are given $N$ countries, and for each country, a target number of meteors to collect. We are also given a sequence of $K$ meteor showers, each affecting a range of countries. The goal is to find, for each country, the earliest time (i.e., which meteor shower) they reach their target.
-
-For a single country, we could binary search for the answer from $1$ to $K$. The check for a given time $t$ would involve summing up the meteors from the first $t$ showers for that country. A naive check takes $O(t)$ time, leading to an overall complexity of $O(K \log K)$ for one country, and $O(N \cdot K \log K)$ for all, which is too slow.
-
-With parallel binary search, we search for the answer for all $N$ countries at once. In each of the $O(\log K)$ steps, we have a set of check values $t_i$ for the countries. We can process these $t_i$ in increasing order. To perform the check for time $t$, we can use a data structure like a Fenwick tree or a segment tree to maintain the meteor counts for all countries. When moving from checking time $t_i$ to $t_{i+1}$, we only need to add the effects of showers from $t_i+1$ to $t_{i+1}$ to our data structure. This "update" approach is much faster than recomputing from scratch. The total complexity becomes something like $O((N+K)\log N \log K)$, a significant improvement.
-
 ### Implementation
 
-Now, let's go back to the simple problem to see the implementation structure. Imagine that we want to answer $Z$ queries about the index of the largest value less than or equal to some $X_i$ (for $i=1,2,\ldots,Z$) in a sorted 0-indexed array $A$. Naturally, each query can be answered using binary search. 
+Imagine that we want to answer $Z$ queries about the index of the largest value less than or equal to some $X_i$ (for $i=1,2,\ldots,Z$) in a sorted 0-indexed array $A$. Naturally, each query can be answered using binary search. 
 
 Specifically, let us consider the following array $A = [1,3,5,7,9,9,13,15]$
 with queries: $X = [8,11,4,5]$. We can use binary search for each query sequentially.
-
-| query | \( X_1 = 8 \) | \( X_2 = 11 \) | \( X_3 = 4 \) | \( X_4 = 5 \) |
-|:-----:|:------------------------------------------------------------------:|:-------------------------------------------------------------------:|:------------------------------------------------------------------:|:------------------------------------------------------------------:|
-| **step 1** | answer in \([0,8)\)<br>check \( A_4 \)<br>\( X_1 < A_4 = 9 \)    | answer in \([0,8)\)<br>check \( A_4 \)<br>\( X_2 \geq A_4 = 9 \) | answer in \([0,8)\)<br>check \( A_4 \)<br>\( X_3 < A_4 = 9 \)   | answer in \([0,8)\)<br>check \( A_4 \)<br>\( X_4 < A_4 = 9 \)   |
-| **step 2** | answer in \([0,4)\)<br>check \( A_2 \)<br>\( X_1 \geq A_2 = 5 \) | answer in \([4,8)\)<br>check \( A_6 \)<br>\( X_2 < A_6 = 13 \)   | answer in \([0,4)\)<br>check \( A_2 \)<br>\( X_3 < A_2 = 5 \)   | answer in \([0,4)\)<br>check \( A_2 \)<br>\( X_4 \geq A_2 = 5 \) |
-| **step 3** | answer in \([2,4)\)<br>check \( A_3 \)<br>\( X_1 \geq A_3 = 7 \) | answer in \([4,6)\)<br>check \( A_5 \)<br>\( X_2 \geq A_5 = 9 \) | answer in \([0,2)\)<br>check \( A_1 \)<br>\( X_3 \geq A_1 = 3 \) | answer in \([2,4)\)<br>check \( A_3 \)<br>\( X_4 < A_3 = 7 \)   |
-| **step 4** | answer in \([3,4)\)<br>\( index = 3 \)                             | answer in \([5,6)\)<br>\( index = 5 \)                             | answer in \([1,2)\)<br>\( index = 1 \)                             | answer in \([2,3)\)<br>\( index = 2 \)                             |
+| Query  | \( X_1 = 8 \)                           | \( X_2 = 11 \)                           | \( X_3 = 4 \)                             | \( X_4 = 5 \)                             |
+|--------|:----------------------------------------:|:-----------------------------------------:|:------------------------------------------:|:------------------------------------------:|
+| **Step 1** | Answer in \([0,8)\) <br> Check \( A_4 \) <br> \( X_1 < A_4 = 9 \)  | Answer in \([0,8)\) <br> Check \( A_4 \) <br> \( X_2 \geq A_4 = 9 \)  | Answer in \([0,8)\) <br> Check \( A_4 \) <br> \( X_3 < A_4 = 9 \)   | Answer in \([0,8)\) <br> Check \( A_4 \) <br> \( X_4 < A_4 = 9 \)   |
+| **Step 2** | Answer in \([0,4)\) <br> Check \( A_2 \) <br> \( X_1 \geq A_2 = 5 \) | Answer in \([4,8)\) <br> Check \( A_6 \) <br> \( X_2 < A_6 = 13 \)   | Answer in \([0,4)\) <br> Check \( A_2 \) <br> \( X_3 < A_2 = 5 \)   | Answer in \([0,4)\) <br> Check \( A_2 \) <br> \( X_4 \geq A_2 = 5 \) |
+| **Step 3** | Answer in \([2,4)\) <br> Check \( A_3 \) <br> \( X_1 \geq A_3 = 7 \) | Answer in \([4,6)\) <br> Check \( A_5 \) <br> \( X_2 \geq A_5 = 9 \)  | Answer in \([0,2)\) <br> Check \( A_1 \) <br> \( X_3 \geq A_1 = 3 \)  | Answer in \([2,4)\) <br> Check \( A_3 \) <br> \( X_4 < A_3 = 7 \)   |
+| **Step 4** | Answer in \([3,4)\) <br> \( index = 3 \) | Answer in \([5,6)\) <br> \( index = 5 \) | Answer in \([1,2)\) <br> \( index = 1 \) | Answer in \([2,3)\) <br> \( index = 2 \) |
 
 We generally process this table by columns (queries), but notice that in each row we often repeat access to certain values of the array. To limit access to these values, we can process the table by rows (steps). This does not make huge difference in our small example problem (as we can access all elements in $O(1)$), but in more complex problems, where computing these values is more complicated, this might be essential to solve these problems efficiently. Moreover, note that we can arbitrarily choose the order in which we answer questions in a single row. Let us look at the code implementing this approach.
 
@@ -187,7 +176,6 @@ vector<int> parallel_binary_search(vector<int>& A, vector<int>& X) {
 
     for (int step = 1; step <= ceil(log2(N)); ++step) {
         // A vector of vectors to store indices of queries for each middle point.
-        // This is generally faster and safer than std::unordered_map in competitive programming.
         vector<vector<int>> m_to_queries(N);
 
         // Group queries by their middle point.
@@ -215,6 +203,14 @@ vector<int> parallel_binary_search(vector<int>& A, vector<int>& X) {
     return l;
 }
 ```
+
+### Example Problem: Meteors
+
+A pretty well known problem using this method is called "Meteors", and is listed in the practice problems. We are given $N$ countries, and for each country, a target number of meteors to collect. We are also given a sequence of $K$ meteor showers, each affecting a range of countries. The goal is to find, for each country, the earliest time (i.e., which meteor shower) they reach their target.
+
+For a single country, we could binary search for the answer from $1$ to $K$. The check for a given time $t$ would involve summing up the meteors from the first $t$ showers for that country. A naive check takes $O(t)$ time, leading to an overall complexity of $O(K \log K)$ for one country, and $O(N \cdot K \log K)$ for all, which is too slow.
+
+With parallel binary search, we search for the answer for all $N$ countries at once. In each of the $O(\log K)$ steps, we have a set of check values $t_i$ for the countries. We can process these $t_i$ in increasing order. To perform the check for time $t$, we can use a data structure like a Fenwick tree or a segment tree to maintain the meteor counts for all countries. When moving from checking time $t_i$ to $t_{i+1}$, we only need to add the effects of showers from $t_i+1$ to $t_{i+1}$ to our data structure. This "update" approach is much faster than recomputing from scratch. The total complexity becomes something like $O((N+K)\log N \log K)$, a significant improvement.
 
 ## Practice Problems
 
