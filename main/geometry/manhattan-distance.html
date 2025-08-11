@@ -6784,6 +6784,28 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
     
   
 
@@ -6800,22 +6822,6 @@ Describe the issue of this article in detail.
   
     
   
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
 
   
   
@@ -6824,6 +6830,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -6856,7 +6866,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 22, 2025 02:11:52 UTC">April 22, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 11, 2025 08:42:20 UTC">August 11, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6911,9 +6921,9 @@ Describe the issue of this article in detail.
 <div class="arithmatex">$$|m| + |n| = \text{max}(|m + n|, |m - n|).$$</div>
 <p>To prove this, we just need to analyze the signs of <span class="arithmatex">$m$</span> and <span class="arithmatex">$n$</span>. And it's left as an exercise.</p>
 <p>We may apply this equation to the Manhattan distance formula to find out that</p>
-<div class="arithmatex">$$d((x_1, y_1), (x_2, y_2)) = |x_1 - x_2| + |y_1 - y_2| = \text{max}(|(x_1 + y_1) - (x_2 + y_2)|, |(x_1 - y_1) - (x_2 - y_2)|).$$</div>
-<p>The last expression in the previous equation is the <a href="https://en.wikipedia.org/wiki/Chebyshev_distance">Chebyshev distance</a> of the points <span class="arithmatex">$(x_1 + y_1, x_1 - y_1)$</span> and <span class="arithmatex">$(x_2 + y_2, x_2 - y_2)$</span>. This means that, after applying the transformation</p>
-<div class="arithmatex">$$\alpha : (x, y) \to (x + y, x - y),$$</div>
+<div class="arithmatex">$$d((x_1, y_1), (x_2, y_2)) = |x_1 - x_2| + |y_1 - y_2| = \text{max}(|(x_1 + y_1) - (x_2 + y_2)|, |(y_1 - x_1) - (y_2 - x_2)|).$$</div>
+<p>The last expression in the previous equation is the <a href="https://en.wikipedia.org/wiki/Chebyshev_distance">Chebyshev distance</a> of the points <span class="arithmatex">$(x_1 + y_1, y_1 - x_1)$</span> and <span class="arithmatex">$(x_2 + y_2, y_2 - x_2)$</span>. This means that, after applying the transformation</p>
+<div class="arithmatex">$$\alpha : (x, y) \to (x + y, y - x),$$</div>
 <p>the Manhattan distance between the points <span class="arithmatex">$p$</span> and <span class="arithmatex">$q$</span> turns into the Chebyshev distance between <span class="arithmatex">$\alpha(p)$</span> and <span class="arithmatex">$\alpha(q)$</span>.</p>
 <p>Also, we may realize that <span class="arithmatex">$\alpha$</span> is a <a href="https://en.wikipedia.org/wiki/Spiral_similarity">spiral similarity</a> (rotation of the plane followed by a dilation about a center <span class="arithmatex">$O$</span>) with center <span class="arithmatex">$(0, 0)$</span>, rotation angle of <span class="arithmatex">$45^{\circ}$</span> in clockwise direction and dilation by <span class="arithmatex">$\sqrt{2}$</span>.</p>
 <p>Here's an image to help visualizing the transformation:</p>
@@ -7014,7 +7024,7 @@ Here we show a way of finding the MST in <span class="arithmatex">$O(n \log{n})$
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/NaimSS" title="NaimSS" data-bi-name="contributorprofile" target="_blank">NaimSS</a> (71.95%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (11.64%)</li><li><a href="https://github.com/gabsrp2002" title="gabsrp2002" data-bi-name="contributorprofile" target="_blank">gabsrp2002</a> (11.64%)</li><li><a href="https://github.com/izanbf1803" title="izanbf1803" data-bi-name="contributorprofile" target="_blank">izanbf1803</a> (3.7%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (1.06%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/NaimSS" title="NaimSS" data-bi-name="contributorprofile" target="_blank">NaimSS</a> (71.95%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (11.64%)</li><li><a href="https://github.com/gabsrp2002" title="gabsrp2002" data-bi-name="contributorprofile" target="_blank">gabsrp2002</a> (10.05%)</li><li><a href="https://github.com/izanbf1803" title="izanbf1803" data-bi-name="contributorprofile" target="_blank">izanbf1803</a> (3.7%)</li><li><a href="https://github.com/Shoot" title="Shoot" data-bi-name="contributorprofile" target="_blank">Shoot</a> (1.59%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (1.06%)</li></ul>
 </ul>
                 
               </article>
