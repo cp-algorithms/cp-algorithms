@@ -7018,7 +7018,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 11, 2025 00:56:14 UTC">August 11, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 11, 2025 01:12:50 UTC">August 11, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -7132,13 +7132,48 @@ $$</div>
 <h3 id="implementation_1">Implementation<a class="headerlink" href="#implementation_1" title="Permanent link">&para;</a></h3>
 <p>Imagine that we want to answer <span class="arithmatex">$Z$</span> queries about the index of the largest value less than or equal to some <span class="arithmatex">$X_i$</span> (for <span class="arithmatex">$i=1,2,\ldots,Z$</span>) in a sorted 0-indexed array <span class="arithmatex">$A$</span>. Naturally, each query can be answered using binary search. </p>
 <p>Specifically, let us consider the following array <span class="arithmatex">$A = [1,3,5,7,9,9,13,15]$</span>
-with queries: <span class="arithmatex">$X = [8,11,4,5]$</span>. We can use binary search for each query sequentially.
-| Query  | <span class="arithmatex">$ X_1 = 8 $</span>                           | <span class="arithmatex">$ X_2 = 11 $</span>                           | <span class="arithmatex">$ X_3 = 4 $</span>                             | <span class="arithmatex">$ X_4 = 5 $</span>                             |
-|--------|:----------------------------------------:|:-----------------------------------------:|:------------------------------------------:|:------------------------------------------:|
-| <strong>Step 1</strong> | Answer in <span class="arithmatex">$[0,8)$</span> <br> Check <span class="arithmatex">$ A_4 $</span> <br> <span class="arithmatex">$ X_1 &lt; A_4 = 9 $</span>  | Answer in <span class="arithmatex">$[0,8)$</span> <br> Check <span class="arithmatex">$ A_4 $</span> <br> <span class="arithmatex">$ X_2 \geq A_4 = 9 $</span>  | Answer in <span class="arithmatex">$[0,8)$</span> <br> Check <span class="arithmatex">$ A_4 $</span> <br> <span class="arithmatex">$ X_3 &lt; A_4 = 9 $</span>   | Answer in <span class="arithmatex">$[0,8)$</span> <br> Check <span class="arithmatex">$ A_4 $</span> <br> <span class="arithmatex">$ X_4 &lt; A_4 = 9 $</span>   |
-| <strong>Step 2</strong> | Answer in <span class="arithmatex">$[0,4)$</span> <br> Check <span class="arithmatex">$ A_2 $</span> <br> <span class="arithmatex">$ X_1 \geq A_2 = 5 $</span> | Answer in <span class="arithmatex">$[4,8)$</span> <br> Check <span class="arithmatex">$ A_6 $</span> <br> <span class="arithmatex">$ X_2 &lt; A_6 = 13 $</span>   | Answer in <span class="arithmatex">$[0,4)$</span> <br> Check <span class="arithmatex">$ A_2 $</span> <br> <span class="arithmatex">$ X_3 &lt; A_2 = 5 $</span>   | Answer in <span class="arithmatex">$[0,4)$</span> <br> Check <span class="arithmatex">$ A_2 $</span> <br> <span class="arithmatex">$ X_4 \geq A_2 = 5 $</span> |
-| <strong>Step 3</strong> | Answer in <span class="arithmatex">$[2,4)$</span> <br> Check <span class="arithmatex">$ A_3 $</span> <br> <span class="arithmatex">$ X_1 \geq A_3 = 7 $</span> | Answer in <span class="arithmatex">$[4,6)$</span> <br> Check <span class="arithmatex">$ A_5 $</span> <br> <span class="arithmatex">$ X_2 \geq A_5 = 9 $</span>  | Answer in <span class="arithmatex">$[0,2)$</span> <br> Check <span class="arithmatex">$ A_1 $</span> <br> <span class="arithmatex">$ X_3 \geq A_1 = 3 $</span>  | Answer in <span class="arithmatex">$[2,4)$</span> <br> Check <span class="arithmatex">$ A_3 $</span> <br> <span class="arithmatex">$ X_4 &lt; A_3 = 7 $</span>   |
-| <strong>Step 4</strong> | Answer in <span class="arithmatex">$[3,4)$</span> <br> <span class="arithmatex">$ index = 3 $</span> | Answer in <span class="arithmatex">$[5,6)$</span> <br> <span class="arithmatex">$ index = 5 $</span> | Answer in <span class="arithmatex">$[1,2)$</span> <br> <span class="arithmatex">$ index = 1 $</span> | Answer in <span class="arithmatex">$[2,3)$</span> <br> <span class="arithmatex">$ index = 2 $</span> |</p>
+with queries: <span class="arithmatex">$X = [8,11,4,5]$</span>. We can use binary search for each query sequentially.</p>
+<table>
+<thead>
+<tr>
+<th>Query</th>
+<th style="text-align: center;"><span class="arithmatex">$ X_1 = 8 $</span></th>
+<th style="text-align: center;"><span class="arithmatex">$ X_2 = 11 $</span></th>
+<th style="text-align: center;"><span class="arithmatex">$ X_3 = 4 $</span></th>
+<th style="text-align: center;"><span class="arithmatex">$ X_4 = 5 $</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Step 1</strong></td>
+<td style="text-align: center;">Answer in <span class="arithmatex">$[0,8)$</span> <br> Check <span class="arithmatex">$ A_4 $</span> <br> <span class="arithmatex">$ X_1 &lt; A_4 = 9 $</span></td>
+<td style="text-align: center;">Answer in <span class="arithmatex">$[0,8)$</span> <br> Check <span class="arithmatex">$ A_4 $</span> <br> <span class="arithmatex">$ X_2 \geq A_4 = 9 $</span></td>
+<td style="text-align: center;">Answer in <span class="arithmatex">$[0,8)$</span> <br> Check <span class="arithmatex">$ A_4 $</span> <br> <span class="arithmatex">$ X_3 &lt; A_4 = 9 $</span></td>
+<td style="text-align: center;">Answer in <span class="arithmatex">$[0,8)$</span> <br> Check <span class="arithmatex">$ A_4 $</span> <br> <span class="arithmatex">$ X_4 &lt; A_4 = 9 $</span></td>
+</tr>
+<tr>
+<td><strong>Step 2</strong></td>
+<td style="text-align: center;">Answer in <span class="arithmatex">$[0,4)$</span> <br> Check <span class="arithmatex">$ A_2 $</span> <br> <span class="arithmatex">$ X_1 \geq A_2 = 5 $</span></td>
+<td style="text-align: center;">Answer in <span class="arithmatex">$[4,8)$</span> <br> Check <span class="arithmatex">$ A_6 $</span> <br> <span class="arithmatex">$ X_2 &lt; A_6 = 13 $</span></td>
+<td style="text-align: center;">Answer in <span class="arithmatex">$[0,4)$</span> <br> Check <span class="arithmatex">$ A_2 $</span> <br> <span class="arithmatex">$ X_3 &lt; A_2 = 5 $</span></td>
+<td style="text-align: center;">Answer in <span class="arithmatex">$[0,4)$</span> <br> Check <span class="arithmatex">$ A_2 $</span> <br> <span class="arithmatex">$ X_4 \geq A_2 = 5 $</span></td>
+</tr>
+<tr>
+<td><strong>Step 3</strong></td>
+<td style="text-align: center;">Answer in <span class="arithmatex">$[2,4)$</span> <br> Check <span class="arithmatex">$ A_3 $</span> <br> <span class="arithmatex">$ X_1 \geq A_3 = 7 $</span></td>
+<td style="text-align: center;">Answer in <span class="arithmatex">$[4,6)$</span> <br> Check <span class="arithmatex">$ A_5 $</span> <br> <span class="arithmatex">$ X_2 \geq A_5 = 9 $</span></td>
+<td style="text-align: center;">Answer in <span class="arithmatex">$[0,2)$</span> <br> Check <span class="arithmatex">$ A_1 $</span> <br> <span class="arithmatex">$ X_3 \geq A_1 = 3 $</span></td>
+<td style="text-align: center;">Answer in <span class="arithmatex">$[2,4)$</span> <br> Check <span class="arithmatex">$ A_3 $</span> <br> <span class="arithmatex">$ X_4 &lt; A_3 = 7 $</span></td>
+</tr>
+<tr>
+<td><strong>Step 4</strong></td>
+<td style="text-align: center;">Answer in <span class="arithmatex">$[3,4)$</span> <br> <span class="arithmatex">$ index = 3 $</span></td>
+<td style="text-align: center;">Answer in <span class="arithmatex">$[5,6)$</span> <br> <span class="arithmatex">$ index = 5 $</span></td>
+<td style="text-align: center;">Answer in <span class="arithmatex">$[1,2)$</span> <br> <span class="arithmatex">$ index = 1 $</span></td>
+<td style="text-align: center;">Answer in <span class="arithmatex">$[2,3)$</span> <br> <span class="arithmatex">$ index = 2 $</span></td>
+</tr>
+</tbody>
+</table>
 <p>We generally process this table by columns (queries), but notice that in each row we often repeat access to certain values of the array. To limit access to these values, we can process the table by rows (steps). This does not make huge difference in our small example problem (as we can access all elements in <span class="arithmatex">$O(1)$</span>), but in more complex problems, where computing these values is more complicated, this might be essential to solve these problems efficiently. Moreover, note that we can arbitrarily choose the order in which we answer questions in a single row. Let us look at the code implementing this approach.</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Computes the index of the largest value in a sorted array A less than or equal to X_i for all i.</span>
 <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">parallel_binary_search</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">X</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -7204,7 +7239,7 @@ with queries: <span class="arithmatex">$X = [8,11,4,5]$</span>. We can use binar
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (50.21%)</li><li><a href="https://github.com/Kostero" title="Kostero" data-bi-name="contributorprofile" target="_blank">Kostero</a> (38.3%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (5.11%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (1.28%)</li><li><a href="https://github.com/100godmoon" title="100godmoon" data-bi-name="contributorprofile" target="_blank">100godmoon</a> (1.28%)</li><li><a href="https://github.com/iAngkur" title="iAngkur" data-bi-name="contributorprofile" target="_blank">iAngkur</a> (1.28%)</li><li><a href="https://github.com/konstantinosalatzas" title="konstantinosalatzas" data-bi-name="contributorprofile" target="_blank">konstantinosalatzas</a> (0.85%)</li><li><a href="https://github.com/Draac0" title="Draac0" data-bi-name="contributorprofile" target="_blank">Draac0</a> (0.43%)</li><li><a href="https://github.com/RomanSteinberg" title="RomanSteinberg" data-bi-name="contributorprofile" target="_blank">RomanSteinberg</a> (0.43%)</li><li><a href="https://github.com/mbordia-eightfold" title="mbordia-eightfold" data-bi-name="contributorprofile" target="_blank">mbordia-eightfold</a> (0.43%)</li><li><a href="https://github.com/twfksh" title="twfksh" data-bi-name="contributorprofile" target="_blank">twfksh</a> (0.43%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (50.0%)</li><li><a href="https://github.com/Kostero" title="Kostero" data-bi-name="contributorprofile" target="_blank">Kostero</a> (38.56%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (5.08%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (1.27%)</li><li><a href="https://github.com/100godmoon" title="100godmoon" data-bi-name="contributorprofile" target="_blank">100godmoon</a> (1.27%)</li><li><a href="https://github.com/iAngkur" title="iAngkur" data-bi-name="contributorprofile" target="_blank">iAngkur</a> (1.27%)</li><li><a href="https://github.com/konstantinosalatzas" title="konstantinosalatzas" data-bi-name="contributorprofile" target="_blank">konstantinosalatzas</a> (0.85%)</li><li><a href="https://github.com/Draac0" title="Draac0" data-bi-name="contributorprofile" target="_blank">Draac0</a> (0.42%)</li><li><a href="https://github.com/RomanSteinberg" title="RomanSteinberg" data-bi-name="contributorprofile" target="_blank">RomanSteinberg</a> (0.42%)</li><li><a href="https://github.com/mbordia-eightfold" title="mbordia-eightfold" data-bi-name="contributorprofile" target="_blank">mbordia-eightfold</a> (0.42%)</li><li><a href="https://github.com/twfksh" title="twfksh" data-bi-name="contributorprofile" target="_blank">twfksh</a> (0.42%)</li></ul>
 </ul>
                 
               </article>
