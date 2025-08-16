@@ -55,3 +55,55 @@ body[dir=rtl] .metadata.page-metadata .contributors-text{
 .arithmatex{
   overflow-y: hidden !important;
 }
+
+/* Keyboard hint for search ("/") */
+.kbd-hint {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 4px;
+  padding: 0 6px;
+  height: 22px;
+  border-radius: 4px;
+  border: 1px solid var(--md-default-fg-color--lightest, rgba(0,0,0,.2));
+  background: var(--md-default-bg-color, #fff);
+  color: var(--md-default-fg-color, rgba(0,0,0,.87));
+  font: 500 12px/1 var(--md-text-font, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif);
+  opacity: .72;
+}
+
+/* Show "/" hint inside the search input on desktop */
+.md-search__form {
+  position: relative;
+}
+
+.md-search__form::after {
+  content: "/";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 4px;
+  border: 1px solid var(--md-default-fg-color--lightest, rgba(0,0,0,.2));
+  background: var(--md-default-bg-color, #fff);
+  color: var(--md-default-fg-color, rgba(0,0,0,.87));
+  font: 500 12px/1 var(--md-text-font, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif);
+  opacity: .72;
+  pointer-events: none;
+}
+
+/* Hide hint when typing/focused so it doesn't overlap text */
+.md-search__form:focus-within::after,
+.md-search__form input:not(:placeholder-shown) + .md-search__icon ~ *::after {
+  opacity: 0;
+}
+
+/* Only show on wider viewports where the inline search is visible */
+@media (max-width: 959px) {
+  .md-search__form::after { display: none; }
+}
