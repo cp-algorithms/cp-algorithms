@@ -279,4 +279,4 @@ int solve(int n, int m) {
 * [POJ - Magic Bracelet](http://poj.org/problem?id=2888)
 * [SPOJ - Sorting Machine](https://www.spoj.com/problems/SRTMACH/)
 * [Project Euler - Pizza Toppings](https://projecteuler.net/problem=281)
-* [ICPC 2011 SERCP - Alphabet Soup](https://archive.algo.is/icpc/swerc/2011/SWERC-set.pdf)
+* [ICPC 2011 SERCP - Alphabet Soup](https://basecamp.eolymp.com/tr/problems/3064)
