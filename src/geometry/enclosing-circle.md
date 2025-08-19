@@ -161,7 +161,7 @@ But which one of them means that $z$ is inside or outside of the circle? As we a
 
 In other words, if $\angle bca$ is positive, points inside the circle will have $\angle azb + \angle bca < 0^\circ$, otherwise they will have $\angle azb + \angle bca > 0^\circ$, assuming that we normalize the angles between $-180^\circ$ and $180^\circ$. This, in turn, can be checked by the signs of imaginary parts of $I_2=(a-c)\overline{(b-c)}$ and $I_1 = I_0 I_2$.
 
-**Note**: As we multiply four complex numbers here, the intermediate coefficients can be as large as $O(A^4)$, where $A$ is the largest coordinate magnitude in the input. On the bright side, if the input is integer, both checks above can be done fully in integers.
+**Note**: As we multiply four complex numbers to get $I_1$, the intermediate coefficients can be as large as $O(A^4)$, where $A$ is the largest coordinate magnitude in the input. On the bright side, if the input is integer, both checks above can be done fully in integers.
 
 #### Implementation
 
