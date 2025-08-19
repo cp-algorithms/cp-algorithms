@@ -6635,7 +6635,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 19, 2025 10:35:22 UTC">August 19, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 19, 2025 14:23:55 UTC">August 19, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6660,24 +6660,24 @@ Describe the issue of this article in detail.
 <p>To better understand the reasoning below, we should immediately note that the solution to the problem is unique:</p>
 <details class="question">
 <summary>Why is the MEC unique?</summary>
-<p>Consider the following setup: Let <span class="arithmatex">$r$</span> be the radius of the MEC. We draw a circle of radius <span class="arithmatex">$r$</span> around each of the p <span class="arithmatex">$p_1,\dots,p_n$</span>. Geometrically, the centers of circles that have radius <span class="arithmatex">$r$</span> and cover all the p <span class="arithmatex">$p_1,\dots,p_n$</span> form the intersection of all <span class="arithmatex">$n$</span> circles.</p>
+<p>Consider the following setup: Let <span class="arithmatex">$r$</span> be the radius of the MEC. We draw a circle of radius <span class="arithmatex">$r$</span> around each of the p <span class="arithmatex">$p_1,\dots,p_n$</span>. Geometrically, the centers of circles that have radius <span class="arithmatex">$r$</span> and cover all the points <span class="arithmatex">$p_1,\dots,p_n$</span> form the intersection of all <span class="arithmatex">$n$</span> circles.</p>
 <p>Now, if the intersection is just a single point, this already proves that it is unique. Otherwise, the intersection is a shape of non-zero area, so we can reduce <span class="arithmatex">$r$</span> by a tiny bit, and still have non-empty intersection, which contradicts the assumption that <span class="arithmatex">$r$</span> was the minimum possible radius of the enclosing circle.</p>
-<p>With a similar logic, we can also show the uniqueness of the MEC if we additionally demand that it passes through a given specific point <span class="arithmatex">$p_i$</span> or two p <span class="arithmatex">$p_i$</span> and <span class="arithmatex">$p_j$</span> (which is also unique because its radius uniquely define it).</p>
+<p>With a similar logic, we can also show the uniqueness of the MEC if we additionally demand that it passes through a given specific point <span class="arithmatex">$p_i$</span> or two points <span class="arithmatex">$p_i$</span> and <span class="arithmatex">$p_j$</span> (it is also unique because its radius uniquely defines it).</p>
 <p>Alternatively, we can also assume that there are two MECs, and then notice that their intersection (which contains p <span class="arithmatex">$p_1,\dots,p_n$</span> already) must have a smaller diameter than initial circles, and thus can be covered with a smaller circle.</p>
 </details>
 <h2 id="welzls-algorithm">Welzl's algorithm<a class="headerlink" href="#welzls-algorithm" title="Permanent link">&para;</a></h2>
 <p>For brevity, let's denote <span class="arithmatex">$\operatorname{mec}(p_1,\dots,p_n)$</span> to be the MEC of <span class="arithmatex">$\{p_1,\dots,p_n\}$</span>, and let <span class="arithmatex">$P_i = \{p_1,\dots,p_i\}$</span>.</p>
 <p>The algorithm, initially <a href="https://doi.org/10.1007/BFb0038202">proposed</a> by Welzl in 1991, goes as follows:</p>
 <ol>
-<li>Apply a random permutation to the input sequence of p.</li>
+<li>Apply a random permutation to the input sequence of points.</li>
 <li>Maintain the current candidate to be the MEC <span class="arithmatex">$C$</span>, starting with <span class="arithmatex">$C = \operatorname{mec}(p_1, p_2)$</span>.</li>
 <li>Iterate over <span class="arithmatex">$i=3..n$</span> and check if <span class="arithmatex">$p_i \in C$</span>.<ol>
 <li>If <span class="arithmatex">$p_i \in C$</span> it means that <span class="arithmatex">$C$</span> is the MEC of <span class="arithmatex">$P_i$</span>.</li>
 <li>Otherwise, assign <span class="arithmatex">$C = \operatorname{mec}(p_i, p_1)$</span> and iterate over <span class="arithmatex">$j=2..i$</span> and check if <span class="arithmatex">$p_j \in C$</span>.<ol>
-<li>If <span class="arithmatex">$p_j \in C$</span>, then <span class="arithmatex">$C$</span> is the MEC of <span class="arithmatex">$P_j$</span> that passes through <span class="arithmatex">$p_i$</span>.</li>
+<li>If <span class="arithmatex">$p_j \in C$</span>, then <span class="arithmatex">$C$</span> is the MEC of <span class="arithmatex">$P_j$</span> among circles that pass through <span class="arithmatex">$p_i$</span>.</li>
 <li>Otherwise, assign <span class="arithmatex">$C=\operatorname{mec}(p_i, p_j)$</span> and iterate over <span class="arithmatex">$k=1..j$</span> and check if <span class="arithmatex">$p_k \in C$</span>.<ol>
-<li>If <span class="arithmatex">$p_k \in C$</span>, then <span class="arithmatex">$C$</span> is the MEC of <span class="arithmatex">$P_k$</span> that passes through <span class="arithmatex">$p_i$</span> and <span class="arithmatex">$p_j$</span>.</li>
-<li>Otherwise, <span class="arithmatex">$C=\operatorname{mec}(p_i,p_j,p_k)$</span> is the MEC of <span class="arithmatex">$P_k$</span> that passes through <span class="arithmatex">$p_i$</span> and <span class="arithmatex">$p_j$</span>.</li>
+<li>If <span class="arithmatex">$p_k \in C$</span>, then <span class="arithmatex">$C$</span> is the MEC of <span class="arithmatex">$P_k$</span> among circles that pass through <span class="arithmatex">$p_i$</span> and <span class="arithmatex">$p_j$</span>.</li>
+<li>Otherwise, <span class="arithmatex">$C=\operatorname{mec}(p_i,p_j,p_k)$</span> is the MEC of <span class="arithmatex">$P_k$</span> among circles that pass through <span class="arithmatex">$p_i$</span> and <span class="arithmatex">$p_j$</span>.</li>
 </ol>
 </li>
 </ol>
@@ -6685,11 +6685,11 @@ Describe the issue of this article in detail.
 </ol>
 </li>
 </ol>
-<p>We can see that each level of nestedness here has an invariant to maintain (that <span class="arithmatex">$C$</span> is the MEC that also passes through additionally given <span class="arithmatex">$0$</span>, <span class="arithmatex">$1$</span> or <span class="arithmatex">$2$</span> points), and whenever the inner loop closes, its invariant becomes equivalent to the invariant of the current iteration of its parent loop. This, in turn, ensures the <em>correctness</em> of the algorithm as a whole.</p>
+<p>We can see that each level of nestedness here has an invariant to maintain (that <span class="arithmatex">$C$</span> is the MEC among circles that also pass through additionally given <span class="arithmatex">$0$</span>, <span class="arithmatex">$1$</span> or <span class="arithmatex">$2$</span> points), and whenever the inner loop closes, its invariant becomes equivalent to the invariant of the current iteration of its parent loop. This, in turn, ensures the <em>correctness</em> of the algorithm as a whole.</p>
 <p>Omitting some technical details, for now, the whole algorithm can be implemented in C++ as follows:</p>
 <div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">point</span><span class="w"> </span><span class="p">{...};</span>
 
-<span class="c1">// Is represented by 2 or 3 p on its circumference</span>
+<span class="c1">// Is represented by 2 or 3 points on its circumference</span>
 <span class="k">struct</span><span class="w"> </span><span class="nc">mec</span><span class="w"> </span><span class="p">{...};</span>
 
 <span class="kt">bool</span><span class="w"> </span><span class="nf">inside</span><span class="p">(</span><span class="n">mec</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">point</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
