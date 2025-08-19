@@ -19,11 +19,11 @@ To better understand the reasoning below, we should immediately note that the so
 
 ??? question "Why is the MEC unique?"
 
-    Consider the following setup: Let $r$ be the radius of the MEC. We draw a circle of radius $r$ around each of the p $p_1,\dots,p_n$. Geometrically, the centers of circles that have radius $r$ and cover all the p $p_1,\dots,p_n$ form the intersection of all $n$ circles.
+    Consider the following setup: Let $r$ be the radius of the MEC. We draw a circle of radius $r$ around each of the p $p_1,\dots,p_n$. Geometrically, the centers of circles that have radius $r$ and cover all the points $p_1,\dots,p_n$ form the intersection of all $n$ circles.
 
     Now, if the intersection is just a single point, this already proves that it is unique. Otherwise, the intersection is a shape of non-zero area, so we can reduce $r$ by a tiny bit, and still have non-empty intersection, which contradicts the assumption that $r$ was the minimum possible radius of the enclosing circle.
 
-    With a similar logic, we can also show the uniqueness of the MEC if we additionally demand that it passes through a given specific point $p_i$ or two p $p_i$ and $p_j$ (which is also unique because its radius uniquely define it).
+    With a similar logic, we can also show the uniqueness of the MEC if we additionally demand that it passes through a given specific point $p_i$ or two points $p_i$ and $p_j$ (it is also unique because its radius uniquely defines it).
 
     Alternatively, we can also assume that there are two MECs, and then notice that their intersection (which contains p $p_1,\dots,p_n$ already) must have a smaller diameter than initial circles, and thus can be covered with a smaller circle.
 
@@ -33,24 +33,24 @@ For brevity, let's denote $\operatorname{mec}(p_1,\dots,p_n)$ to be the MEC of $
 
 The algorithm, initially [proposed](https://doi.org/10.1007/BFb0038202) by Welzl in 1991, goes as follows:
 
-1. Apply a random permutation to the input sequence of p.
+1. Apply a random permutation to the input sequence of points.
 2. Maintain the current candidate to be the MEC $C$, starting with $C = \operatorname{mec}(p_1, p_2)$.
 3. Iterate over $i=3..n$ and check if $p_i \in C$.
     1. If $p_i \in C$ it means that $C$ is the MEC of $P_i$.
     2. Otherwise, assign $C = \operatorname{mec}(p_i, p_1)$ and iterate over $j=2..i$ and check if $p_j \in C$.
-        1. If $p_j \in C$, then $C$ is the MEC of $P_j$ that passes through $p_i$.
+        1. If $p_j \in C$, then $C$ is the MEC of $P_j$ among circles that pass through $p_i$.
         2. Otherwise, assign $C=\operatorname{mec}(p_i, p_j)$ and iterate over $k=1..j$ and check if $p_k \in C$.
-            1. If $p_k \in C$, then $C$ is the MEC of $P_k$ that passes through $p_i$ and $p_j$.
-            2. Otherwise, $C=\operatorname{mec}(p_i,p_j,p_k)$ is the MEC of $P_k$ that passes through $p_i$ and $p_j$.
+            1. If $p_k \in C$, then $C$ is the MEC of $P_k$ among circles that pass through $p_i$ and $p_j$.
+            2. Otherwise, $C=\operatorname{mec}(p_i,p_j,p_k)$ is the MEC of $P_k$ among circles that pass through $p_i$ and $p_j$.
 
-We can see that each level of nestedness here has an invariant to maintain (that $C$ is the MEC that also passes through additionally given $0$, $1$ or $2$ points), and whenever the inner loop closes, its invariant becomes equivalent to the invariant of the current iteration of its parent loop. This, in turn, ensures the _correctness_ of the algorithm as a whole.
+We can see that each level of nestedness here has an invariant to maintain (that $C$ is the MEC among circles that also pass through additionally given $0$, $1$ or $2$ points), and whenever the inner loop closes, its invariant becomes equivalent to the invariant of the current iteration of its parent loop. This, in turn, ensures the _correctness_ of the algorithm as a whole.
 
 Omitting some technical details, for now, the whole algorithm can be implemented in C++ as follows:
 
 ```cpp
 struct point {...};
 
-// Is represented by 2 or 3 p on its circumference
+// Is represented by 2 or 3 points on its circumference
 struct mec {...};
 
 bool inside(mec const& C, point p) {
