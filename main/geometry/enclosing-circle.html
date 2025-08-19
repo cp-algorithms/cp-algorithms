@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://cp-algorithms.com/dynamic_programming/intro-to-dp.html">
+        <link rel="canonical" href="https://cp-algorithms.com/geometry/enclosing-circle.html">
       
       
-        <link rel="prev" href="../data_structures/deleting_in_log_n.html">
+        <link rel="prev" href="manhattan-distance.html">
       
       
-        <link rel="next" href="knapsack.html">
+        <link rel="next" href="../graph/breadth-first-search.html">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../feed_rss_created.xml">
@@ -27,7 +27,7 @@
     
     
       
-        <title>Introduction to Dynamic Programming - Algorithms for Competitive Programming</title>
+        <title>Minimum Enclosing Circle - Algorithms for Competitive Programming</title>
       
     
     
@@ -91,7 +91,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#introduction-to-dynamic-programming" class="md-skip">
+        <a href="#minimum-enclosing-circle" class="md-skip">
           Skip to content
         </a>
       
@@ -136,7 +136,7 @@
           <span class="md-ellipsis">
             <a href="#" onclick="scrollToTop()">
               
-                Introduction to Dynamic Programming
+                Minimum Enclosing Circle
               
             </a>
           </span>
@@ -1867,20 +1867,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -1896,7 +1894,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             Dynamic Programming
@@ -1907,32 +1905,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Introduction to Dynamic Programming
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="intro-to-dp.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../dynamic_programming/intro-to-dp.html" class="md-nav__link">
         
   
   
@@ -1943,80 +1919,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#speeding-up-fibonacci-with-dynamic-programming-memoization" class="md-nav__link">
-    <span class="md-ellipsis">
-      Speeding up Fibonacci with Dynamic Programming (Memoization)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bottom-up-dynamic-programming" class="md-nav__link">
-    <span class="md-ellipsis">
-      Bottom-up Dynamic Programming
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#classic-dynamic-programming-problems" class="md-nav__link">
-    <span class="md-ellipsis">
-      Classic Dynamic Programming Problems
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-topics" class="md-nav__link">
-    <span class="md-ellipsis">
-      Related Topics
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#practice-problems" class="md-nav__link">
-    <span class="md-ellipsis">
-      Practice Problems
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dp-contests" class="md-nav__link">
-    <span class="md-ellipsis">
-      DP Contests
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2029,7 +1931,7 @@
   
   
     <li class="md-nav__item">
-      <a href="knapsack.html" class="md-nav__link">
+      <a href="../dynamic_programming/knapsack.html" class="md-nav__link">
         
   
   
@@ -2090,7 +1992,7 @@
   
   
     <li class="md-nav__item">
-      <a href="divide-and-conquer-dp.html" class="md-nav__link">
+      <a href="../dynamic_programming/divide-and-conquer-dp.html" class="md-nav__link">
         
   
   
@@ -2113,7 +2015,7 @@
   
   
     <li class="md-nav__item">
-      <a href="knuth-optimization.html" class="md-nav__link">
+      <a href="../dynamic_programming/knuth-optimization.html" class="md-nav__link">
         
   
   
@@ -2182,7 +2084,7 @@
   
   
     <li class="md-nav__item">
-      <a href="profile-dynamics.html" class="md-nav__link">
+      <a href="../dynamic_programming/profile-dynamics.html" class="md-nav__link">
         
   
   
@@ -2205,7 +2107,7 @@
   
   
     <li class="md-nav__item">
-      <a href="zero_matrix.html" class="md-nav__link">
+      <a href="../dynamic_programming/zero_matrix.html" class="md-nav__link">
         
   
   
@@ -3547,18 +3449,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
           <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
@@ -3574,7 +3478,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             Geometry
@@ -3626,7 +3530,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/basic-geometry.html" class="md-nav__link">
+      <a href="basic-geometry.html" class="md-nav__link">
         
   
   
@@ -3649,7 +3553,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/segment-to-line.html" class="md-nav__link">
+      <a href="segment-to-line.html" class="md-nav__link">
         
   
   
@@ -3672,7 +3576,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/lines-intersection.html" class="md-nav__link">
+      <a href="lines-intersection.html" class="md-nav__link">
         
   
   
@@ -3695,7 +3599,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/check-segments-intersection.html" class="md-nav__link">
+      <a href="check-segments-intersection.html" class="md-nav__link">
         
   
   
@@ -3718,7 +3622,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/segments-intersection.html" class="md-nav__link">
+      <a href="segments-intersection.html" class="md-nav__link">
         
   
   
@@ -3741,7 +3645,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/circle-line-intersection.html" class="md-nav__link">
+      <a href="circle-line-intersection.html" class="md-nav__link">
         
   
   
@@ -3764,7 +3668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/circle-circle-intersection.html" class="md-nav__link">
+      <a href="circle-circle-intersection.html" class="md-nav__link">
         
   
   
@@ -3787,7 +3691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/tangents-to-two-circles.html" class="md-nav__link">
+      <a href="tangents-to-two-circles.html" class="md-nav__link">
         
   
   
@@ -3810,7 +3714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/length-of-segments-union.html" class="md-nav__link">
+      <a href="length-of-segments-union.html" class="md-nav__link">
         
   
   
@@ -3879,7 +3783,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/oriented-triangle-area.html" class="md-nav__link">
+      <a href="oriented-triangle-area.html" class="md-nav__link">
         
   
   
@@ -3902,7 +3806,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/area-of-simple-polygon.html" class="md-nav__link">
+      <a href="area-of-simple-polygon.html" class="md-nav__link">
         
   
   
@@ -3925,7 +3829,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/point-in-convex-polygon.html" class="md-nav__link">
+      <a href="point-in-convex-polygon.html" class="md-nav__link">
         
   
   
@@ -3948,7 +3852,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/minkowski.html" class="md-nav__link">
+      <a href="minkowski.html" class="md-nav__link">
         
   
   
@@ -3971,7 +3875,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/picks-theorem.html" class="md-nav__link">
+      <a href="picks-theorem.html" class="md-nav__link">
         
   
   
@@ -3994,7 +3898,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/lattice-points.html" class="md-nav__link">
+      <a href="lattice-points.html" class="md-nav__link">
         
   
   
@@ -4063,7 +3967,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/convex-hull.html" class="md-nav__link">
+      <a href="convex-hull.html" class="md-nav__link">
         
   
   
@@ -4086,7 +3990,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/convex_hull_trick.html" class="md-nav__link">
+      <a href="convex_hull_trick.html" class="md-nav__link">
         
   
   
@@ -4155,7 +4059,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/intersecting_segments.html" class="md-nav__link">
+      <a href="intersecting_segments.html" class="md-nav__link">
         
   
   
@@ -4224,7 +4128,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/planar.html" class="md-nav__link">
+      <a href="planar.html" class="md-nav__link">
         
   
   
@@ -4247,7 +4151,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/point-location.html" class="md-nav__link">
+      <a href="point-location.html" class="md-nav__link">
         
   
   
@@ -4275,18 +4179,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_6" checked>
         
           
           <label class="md-nav__link" for="__nav_9_6" id="__nav_9_6_label" tabindex="0">
@@ -4302,7 +4208,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_9_6">
             <span class="md-nav__icon md-icon"></span>
             Miscellaneous
@@ -4316,7 +4222,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/nearest_points.html" class="md-nav__link">
+      <a href="nearest_points.html" class="md-nav__link">
         
   
   
@@ -4339,7 +4245,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/delaunay.html" class="md-nav__link">
+      <a href="delaunay.html" class="md-nav__link">
         
   
   
@@ -4362,7 +4268,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/vertical_decomposition.html" class="md-nav__link">
+      <a href="vertical_decomposition.html" class="md-nav__link">
         
   
   
@@ -4385,7 +4291,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/halfplane-intersection.html" class="md-nav__link">
+      <a href="halfplane-intersection.html" class="md-nav__link">
         
   
   
@@ -4408,7 +4314,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../geometry/manhattan-distance.html" class="md-nav__link">
+      <a href="manhattan-distance.html" class="md-nav__link">
         
   
   
@@ -4428,10 +4334,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../geometry/enclosing-circle.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Minimum Enclosing Circle
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="enclosing-circle.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -4442,6 +4370,101 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#welzls-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Welzl's algorithm
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Welzl&#39;s algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complexity-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complexity analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checking-that-a-point-is-in-the-mec-of-2-or-3-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      Checking that a point is in the MEC of 2 or 3 points
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Checking that a point is in the MEC of 2 or 3 points">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mec-of-2-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      MEC of 2 points
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mec-of-3-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      MEC of 3 points
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practice problems
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -6568,9 +6591,9 @@
                   <script type="text/javascript">
 window.onload = function() {
 	const newIssueURL = "https://github.com/cp-algorithms/cp-algorithms/issues/new";
-  const issueTitle = "Problem on article " + "Introduction to Dynamic Programming";
+  const issueTitle = "Problem on article " + "Minimum Enclosing Circle";
 	const issueBody = `
- **Article:** [`+ "Introduction to Dynamic Programming" + `](${window.location.href})
+ **Article:** [`+ "Minimum Enclosing Circle" + `](${window.location.href})
 
 **Problem:**
 <!--
@@ -6582,13 +6605,13 @@ Describe the issue of this article in detail.
 }
 </script>
 
-<a href="https://github.com/cp-algorithms/cp-algorithms/edit/main/src/dynamic_programming/intro-to-dp.md" title="Edit this page" class="md-content__button md-icon">
+<a href="https://github.com/cp-algorithms/cp-algorithms/edit/main/src/geometry/enclosing-circle.md" title="Edit this page" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
 </a>
 <a id="report_issue_a" href="" title="Report a problem" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14h-2V9h2m0 9h-2v-2h2M1 21h22L12 2z"/></svg>
 </a>
-<a href="https://github.com/cp-algorithms/cp-algorithms/commits/main/src/dynamic_programming/intro-to-dp.md" title="Page authors" class="md-content__button md-icon">
+<a href="https://github.com/cp-algorithms/cp-algorithms/commits/main/src/geometry/enclosing-circle.md" title="Page authors" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><rect fill="none" height="24" width="24"/></g><g><g><g><path d="M12,8.5c-0.91,0-2.75,0.46-2.75,1.38v4.62h1.5V19h2.5v-4.5h1.5V9.88C14.75,8.97,12.91,8.5,12,8.5z"/><path d="M12,2C6.47,2,2,6.47,2,12s4.47,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.42,0-8-3.58-8-8s3.58-8,8-8s8,3.58,8,8 S16.42,20,12,20z"/><circle cx="12" cy="6.5" r="1.5"/></g></g></g></svg>
 </a>
 
@@ -6603,128 +6626,12 @@ Describe the issue of this article in detail.
   
     
   
-
-  
-  
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
     
   
     
   
 
 
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
 
   
   
@@ -6737,7 +6644,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 9, 2025 19:52:23 UTC">January 9, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 19, 2025 15:59:22 UTC">August 19, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6751,169 +6658,171 @@ Describe the issue of this article in detail.
 </ul>
 
 
-<h1 id="introduction-to-dynamic-programming">Introduction to Dynamic Programming<a class="headerlink" href="#introduction-to-dynamic-programming" title="Permanent link">&para;</a></h1>
-<p>The essence of dynamic programming is to avoid repeated calculation.  Often, dynamic programming problems are naturally solvable by recursion. In such cases, it's easiest to write the recursive solution, then save repeated states in a lookup table. This process is known as top-down dynamic programming with memoization. That's read "memoization" (like we are writing in a memo pad) not memorization.</p>
-<p>One of the most basic, classic examples of this process is the fibonacci sequence. Its recursive formulation is <span class="arithmatex">$f(n) = f(n-1) + f(n-2)$</span> where <span class="arithmatex">$n \ge 2$</span> and <span class="arithmatex">$f(0)=0$</span> and <span class="arithmatex">$f(1)=1$</span>. In C++, this would be expressed as:</p>
-<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<h1 id="minimum-enclosing-circle">Minimum Enclosing Circle<a class="headerlink" href="#minimum-enclosing-circle" title="Permanent link">&para;</a></h1>
+<p>Consider the following problem:</p>
+<div class="admonition example">
+<p class="admonition-title"><a href="https://judge.yosupo.jp/problem/minimum_enclosing_circle">Library Checker - Minimum Enclosing Circle</a></p>
+<p>You're given <span class="arithmatex">$n \leq 10^5$</span> points <span class="arithmatex">$p_i=(x_i, y_i)$</span>.</p>
+<p>For each <span class="arithmatex">$p_i$</span>, find whether it lies on the circumference of the minimum enclosing circle of <span class="arithmatex">$\{p_1,\dots,p_n\}$</span>.</p>
+</div>
+<p>Here, by the minimum enclosing circle (MEC) we mean a circle with minimum possible radius that contains all the <span class="arithmatex">$n$</span> p, inside the circle or on its boundary. This problem has a simple randomized solution that, on first glance, looks like it would run in <span class="arithmatex">$O(n^3)$</span>, but actually works in <span class="arithmatex">$O(n)$</span> expected time.</p>
+<p>To better understand the reasoning below, we should immediately note that the solution to the problem is unique:</p>
+<details class="question">
+<summary>Why is the MEC unique?</summary>
+<p>Consider the following setup: Let <span class="arithmatex">$r$</span> be the radius of the MEC. We draw a circle of radius <span class="arithmatex">$r$</span> around each of the p <span class="arithmatex">$p_1,\dots,p_n$</span>. Geometrically, the centers of circles that have radius <span class="arithmatex">$r$</span> and cover all the points <span class="arithmatex">$p_1,\dots,p_n$</span> form the intersection of all <span class="arithmatex">$n$</span> circles.</p>
+<p>Now, if the intersection is just a single point, this already proves that it is unique. Otherwise, the intersection is a shape of non-zero area, so we can reduce <span class="arithmatex">$r$</span> by a tiny bit, and still have non-empty intersection, which contradicts the assumption that <span class="arithmatex">$r$</span> was the minimum possible radius of the enclosing circle.</p>
+<p>With a similar logic, we can also show the uniqueness of the MEC if we additionally demand that it passes through a given specific point <span class="arithmatex">$p_i$</span> or two points <span class="arithmatex">$p_i$</span> and <span class="arithmatex">$p_j$</span> (it is also unique because its radius uniquely defines it).</p>
+<p>Alternatively, we can also assume that there are two MECs, and then notice that their intersection (which contains p <span class="arithmatex">$p_1,\dots,p_n$</span> already) must have a smaller diameter than initial circles, and thus can be covered with a smaller circle.</p>
+</details>
+<h2 id="welzls-algorithm">Welzl's algorithm<a class="headerlink" href="#welzls-algorithm" title="Permanent link">&para;</a></h2>
+<p>For brevity, let's denote <span class="arithmatex">$\operatorname{mec}(p_1,\dots,p_n)$</span> to be the MEC of <span class="arithmatex">$\{p_1,\dots,p_n\}$</span>, and let <span class="arithmatex">$P_i = \{p_1,\dots,p_i\}$</span>.</p>
+<p>The algorithm, initially <a href="https://doi.org/10.1007/BFb0038202">proposed</a> by Welzl in 1991, goes as follows:</p>
+<ol>
+<li>Apply a random permutation to the input sequence of points.</li>
+<li>Maintain the current candidate to be the MEC <span class="arithmatex">$C$</span>, starting with <span class="arithmatex">$C = \operatorname{mec}(p_1, p_2)$</span>.</li>
+<li>Iterate over <span class="arithmatex">$i=3..n$</span> and check if <span class="arithmatex">$p_i \in C$</span>.<ol>
+<li>If <span class="arithmatex">$p_i \in C$</span> it means that <span class="arithmatex">$C$</span> is the MEC of <span class="arithmatex">$P_i$</span>.</li>
+<li>Otherwise, assign <span class="arithmatex">$C = \operatorname{mec}(p_i, p_1)$</span> and iterate over <span class="arithmatex">$j=2..i$</span> and check if <span class="arithmatex">$p_j \in C$</span>.<ol>
+<li>If <span class="arithmatex">$p_j \in C$</span>, then <span class="arithmatex">$C$</span> is the MEC of <span class="arithmatex">$P_j$</span> among circles that pass through <span class="arithmatex">$p_i$</span>.</li>
+<li>Otherwise, assign <span class="arithmatex">$C=\operatorname{mec}(p_i, p_j)$</span> and iterate over <span class="arithmatex">$k=1..j$</span> and check if <span class="arithmatex">$p_k \in C$</span>.<ol>
+<li>If <span class="arithmatex">$p_k \in C$</span>, then <span class="arithmatex">$C$</span> is the MEC of <span class="arithmatex">$P_k$</span> among circles that pass through <span class="arithmatex">$p_i$</span> and <span class="arithmatex">$p_j$</span>.</li>
+<li>Otherwise, <span class="arithmatex">$C=\operatorname{mec}(p_i,p_j,p_k)$</span> is the MEC of <span class="arithmatex">$P_k$</span> among circles that pass through <span class="arithmatex">$p_i$</span> and <span class="arithmatex">$p_j$</span>.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>We can see that each level of nestedness here has an invariant to maintain (that <span class="arithmatex">$C$</span> is the MEC among circles that also pass through additionally given <span class="arithmatex">$0$</span>, <span class="arithmatex">$1$</span> or <span class="arithmatex">$2$</span> points), and whenever the inner loop closes, its invariant becomes equivalent to the invariant of the current iteration of its parent loop. This, in turn, ensures the <em>correctness</em> of the algorithm as a whole.</p>
+<p>Omitting some technical details, for now, the whole algorithm can be implemented in C++ as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">point</span><span class="w"> </span><span class="p">{...};</span>
+
+<span class="c1">// Is represented by 2 or 3 points on its circumference</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">mec</span><span class="w"> </span><span class="p">{...};</span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="nf">inside</span><span class="p">(</span><span class="n">mec</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">point</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">...;</span>
+<span class="p">}</span>
+
+<span class="c1">// Choose some good generator of randomness for the shuffle</span>
+<span class="n">mt19937_64</span><span class="w"> </span><span class="nf">gen</span><span class="p">(...);</span>
+<span class="n">mec</span><span class="w"> </span><span class="nf">enclosing_circle</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">point</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ranges</span><span class="o">::</span><span class="n">shuffle</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">gen</span><span class="p">);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mec</span><span class="p">{</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]};</span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">inside</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">C</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mec</span><span class="p">{</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]};</span>
+<span class="w">            </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">inside</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">C</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mec</span><span class="p">{</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]};</span>
+<span class="w">                    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">j</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">inside</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                            </span><span class="n">C</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mec</span><span class="p">{</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">],</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">k</span><span class="p">]};</span>
+<span class="w">                        </span><span class="p">}</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">C</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>The runtime of this recursive function is exponential - approximately <span class="arithmatex">$O(2^n)$</span> since one function call ( <span class="arithmatex">$f(n)$</span> ) results in 2 similarly sized function calls (<span class="arithmatex">$f(n-1)$</span> and <span class="arithmatex">$f(n-2)$</span> ).</p>
-<h2 id="speeding-up-fibonacci-with-dynamic-programming-memoization">Speeding up Fibonacci with Dynamic Programming (Memoization)<a class="headerlink" href="#speeding-up-fibonacci-with-dynamic-programming-memoization" title="Permanent link">&para;</a></h2>
-<p>Our recursive function currently solves fibonacci in exponential time. This means that we can only handle small input values before the problem becomes too difficult. For instance, <span class="arithmatex">$f(29)$</span> results in <em>over 1 million</em> function calls!</p>
-<p>To increase the speed, we recognize that the number of subproblems is only <span class="arithmatex">$O(n)$</span>. That is, in order to calculate <span class="arithmatex">$f(n)$</span> we only need to know <span class="arithmatex">$f(n-1),f(n-2), \dots ,f(0)$</span>. Therefore, instead of recalculating these subproblems, we solve them once and then save the result in a lookup table.  Subsequent calls will use this lookup table and immediately return a result, thus eliminating exponential work! </p>
-<p>Each recursive call will check against a lookup table to see if the value has been calculated. This is done in <span class="arithmatex">$O(1)$</span> time.  If we have previously calculated it, return the result, otherwise, we calculate the function normally. The overall runtime is <span class="arithmatex">$O(n)$</span>. This is an enormous improvement over our previous exponential time algorithm!</p>
-<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MAXN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
-<span class="kt">bool</span><span class="w"> </span><span class="n">found</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">memo</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
+<p>Now, it is to be expected that checking that a point <span class="arithmatex">$p_i$</span> is inside the MEC of <span class="arithmatex">$2$</span> or <span class="arithmatex">$3$</span> points can be done in <span class="arithmatex">$O(1)$</span> (we will discuss this later on). But even then, the algorithm above looks as if it would take <span class="arithmatex">$O(n^3)$</span> in the worst case just because of all the nested loops. So, how come we claimed the linear expected runtime? Let's figure out!</p>
+<h3 id="complexity-analysis">Complexity analysis<a class="headerlink" href="#complexity-analysis" title="Permanent link">&para;</a></h3>
+<p>For the inner-most loop (over <span class="arithmatex">$k$</span>), clearly its expected runtime is <span class="arithmatex">$O(j)$</span> operations. What about the loop over <span class="arithmatex">$j$</span>?</p>
+<p>It only triggers the next loop if <span class="arithmatex">$p_j$</span> is on the boundary of the MEC of <span class="arithmatex">$P_j$</span> that also passes through point <span class="arithmatex">$i$</span>, <em>and removing <span class="arithmatex">$p_j$</span> would further shrink the circle</em>. Of all points in <span class="arithmatex">$P_j$</span> there can only be at most <span class="arithmatex">$2$</span> points with such property, because if there are more than <span class="arithmatex">$2$</span> points from <span class="arithmatex">$P_j$</span> on the boundary, it means that after removing any of them, there will still be at least <span class="arithmatex">$3$</span> points on the boundary, sufficient to uniquely define the circle.</p>
+<p>In other words, after initial random shuffle, there is at most <span class="arithmatex">$\frac{2}{j}$</span> probability that we get one of the at most two unlucky points as <span class="arithmatex">$p_j$</span>. Summing it up over all <span class="arithmatex">$j$</span> from <span class="arithmatex">$1$</span> to <span class="arithmatex">$i$</span>, we get the expected runtime of</p>
+<div class="arithmatex">$$
+\sum\limits_{j=1}^i \frac{2}{j} \cdot O(j) = O(i).
+$$</div>
+<p>In exactly same fashion we can now also prove that the outermost loop has expected runtime of <span class="arithmatex">$O(n)$</span>.</p>
+<h3 id="checking-that-a-point-is-in-the-mec-of-2-or-3-points">Checking that a point is in the MEC of 2 or 3 points<a class="headerlink" href="#checking-that-a-point-is-in-the-mec-of-2-or-3-points" title="Permanent link">&para;</a></h3>
+<p>Let's now figure out the implementation detail of <code>point</code> and <code>mec</code>. In this problem, it turns out to be particularly useful to use <a href="https://codeforces.com/blog/entry/22175">std::complex</a> as a class for points:</p>
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">ftype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">int64_t</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">point</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="o">&lt;</span><span class="n">ftype</span><span class="o">&gt;</span><span class="p">;</span>
+</code></pre></div>
+<p>As a reminder, a complex number is a number of type <span class="arithmatex">$x+yi$</span>, where <span class="arithmatex">$i^2=-1$</span> and <span class="arithmatex">$x, y \in \mathbb R$</span>. In C++, such complex number is represented by a 2-dimensional point <span class="arithmatex">$(x, y)$</span>. Complex numbers already implement basic component-wise linear operations (addition, multiplication by a real number), but also their multiplication and division carry certain geometric meaning.</p>
+<p>Without going in too much detail, we will note the most important property for this particular task: Multiplying two complex numbers adds up their polar angles (counted from <span class="arithmatex">$Ox$</span> counter-clockwise), and taking a conjugate (i.e. changing <span class="arithmatex">$z=x+yi$</span> into <span class="arithmatex">$\overline{z} = x-yi$</span>) multiplies the polar angle with <span class="arithmatex">$-1$</span>. This allows us to formulate some very simple criteria for whether a point <span class="arithmatex">$z$</span> is inside the MEC of <span class="arithmatex">$2$</span> or <span class="arithmatex">$3$</span> specific points.</p>
+<h4 id="mec-of-2-points">MEC of 2 points<a class="headerlink" href="#mec-of-2-points" title="Permanent link">&para;</a></h4>
+<p>For <span class="arithmatex">$2$</span> points <span class="arithmatex">$a$</span> and <span class="arithmatex">$b$</span>, their MEC is simply the circle centered at <span class="arithmatex">$\frac{a+b}{2}$</span> with the radius <span class="arithmatex">$\frac{|a-b|}{2}$</span>, in other words the circle that has <span class="arithmatex">$ab$</span> as a diameter. To check if <span class="arithmatex">$z$</span> is inside this circle we simply need to check that the angle between <span class="arithmatex">$za$</span> and <span class="arithmatex">$zb$</span> is not acute.</p>
+<center>
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Diameter_angles.svg">
+<br>
+<i>Inner angles are obtuse, external angles are acute and angles on the circumference are right</i>
+</center>
 
-<span class="kt">int</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">found</span><span class="p">[</span><span class="n">n</span><span class="p">])</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">memo</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<p>Equivalently, we need to check that</p>
+<div class="arithmatex">$$
+I_0=(b-z)\overline{(a-z)}
+$$</div>
+<p>doesn't have a positive real coordinate (corresponding to points that have a polar angle between <span class="arithmatex">$-90^\circ$</span> and <span class="arithmatex">$90^\circ$</span>).</p>
+<h4 id="mec-of-3-points">MEC of 3 points<a class="headerlink" href="#mec-of-3-points" title="Permanent link">&para;</a></h4>
+<p>Adding <span class="arithmatex">$z$</span> to the triangle <span class="arithmatex">$abc$</span> will make it a quadrilateral. Consider the following expression:</p>
+<div class="arithmatex">$$
+\angle azb + \angle bca
+$$</div>
+<p>In a <a href="https://en.wikipedia.org/wiki/Cyclic_quadrilateral">cyclic quadrilateral</a>, if <span class="arithmatex">$c$</span> and <span class="arithmatex">$z$</span> are from the same side of <span class="arithmatex">$ab$</span>, then the angles are equal, and will ad up to <span class="arithmatex">$0^\circ$</span> when summed up signed (i.e. positive if counter-clockwise and negative if clockwise). Correspondingly, if <span class="arithmatex">$c$</span> and <span class="arithmatex">$z$</span> are on the opposite sides, the angles will add up to <span class="arithmatex">$180^\circ$</span>.</p>
+<center>
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Opposing_inscribed_angles.svg">
+<br>
+<i>Adjacent inscribed angles are same, opposing angles complement to 180 degrees</i>
+</center>
 
-<span class="w">    </span><span class="n">found</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">memo</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<p>In terms of complex numbers, we can note that <span class="arithmatex">$\angle azb$</span> is the polar angle of <span class="arithmatex">$(b-z)\overline{(a-z)}$</span> and <span class="arithmatex">$\angle bca$</span> is the polar angle of <span class="arithmatex">$(a-c)\overline{(b-c)}$</span>. Thus, we can conclude that <span class="arithmatex">$\angle azb + \angle bca$</span> is the polar angle of</p>
+<div class="arithmatex">$$
+I_1 = (b-z) \overline{(a-z)} (a-c) \overline{(b-c)}
+$$</div>
+<p>If the angle is <span class="arithmatex">$0^\circ$</span> or <span class="arithmatex">$180^\circ$</span>, it means that the imaginary part of <span class="arithmatex">$I_1$</span> is <span class="arithmatex">$0$</span>, otherwise we can deduce whether <span class="arithmatex">$z$</span> is inside or outside of the enclosing circle of <span class="arithmatex">$abc$</span> by checking the sign of the imaginary part of <span class="arithmatex">$I_1$</span>. Positive imaginary part corresponds to positive angles, and negative imaginary part corresponds to negative angles.</p>
+<p>But which one of them means that <span class="arithmatex">$z$</span> is inside or outside of the circle? As we already noticed, having <span class="arithmatex">$z$</span> inside the circle generally increases the magnitude of <span class="arithmatex">$\angle azb$</span>, while having it outside the circle decreases it. As such, we have the following 4 cases:</p>
+<ol>
+<li><span class="arithmatex">$\angle bca &gt; 0^\circ$</span>, <span class="arithmatex">$c$</span> on the same side of <span class="arithmatex">$ab$</span> as <span class="arithmatex">$z$</span>. Then, <span class="arithmatex">$\angle azb &lt; 0^\circ$</span>, and <span class="arithmatex">$\angle azb + \angle bca &lt; 0^\circ$</span> for points inside the circle.</li>
+<li><span class="arithmatex">$\angle bca &lt; 0^\circ$</span>, <span class="arithmatex">$c$</span> on the same side of <span class="arithmatex">$ab$</span> as <span class="arithmatex">$z$</span>. Then, <span class="arithmatex">$\angle azb &gt; 0^\circ$</span>, and <span class="arithmatex">$\angle azb + \angle bca &gt; 0^\circ$</span> for points inside the circle.</li>
+<li><span class="arithmatex">$\angle bca &gt; 0^\circ$</span>, <span class="arithmatex">$c$</span> on the opposite side of <span class="arithmatex">$ab$</span> to <span class="arithmatex">$z$</span>. Then, <span class="arithmatex">$\angle azb &gt; 0^\circ$</span> and <span class="arithmatex">$\angle azb + \angle bca &gt; 180^\circ$</span> for points inside the circle.</li>
+<li><span class="arithmatex">$\angle bca &lt; 0^\circ$</span>, <span class="arithmatex">$c$</span> on the opposite side of <span class="arithmatex">$ab$</span> to <span class="arithmatex">$z$</span>. Then, <span class="arithmatex">$\angle azb &lt; 0^\circ$</span> and <span class="arithmatex">$\angle azb + \angle bca &lt; 180^\circ$</span> for points inside the circle.</li>
+</ol>
+<p>In other words, if <span class="arithmatex">$\angle bca$</span> is positive, points inside the circle will have <span class="arithmatex">$\angle azb + \angle bca &lt; 0^\circ$</span>, otherwise they will have <span class="arithmatex">$\angle azb + \angle bca &gt; 0^\circ$</span>, assuming that we normalize the angles between <span class="arithmatex">$-180^\circ$</span> and <span class="arithmatex">$180^\circ$</span>. This, in turn, can be checked by the signs of imaginary parts of <span class="arithmatex">$I_2=(a-c)\overline{(b-c)}$</span> and <span class="arithmatex">$I_1 = I_0 I_2$</span>.</p>
+<p><strong>Note</strong>: As we multiply four complex numbers to get <span class="arithmatex">$I_1$</span>, the intermediate coefficients can be as large as <span class="arithmatex">$O(A^4)$</span>, where <span class="arithmatex">$A$</span> is the largest coordinate magnitude in the input. On the bright side, if the input is integer, both checks above can be done fully in integers.</p>
+<h4 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h4>
+<p>Now, to actually implement the check, we should first decide how to represent the MEC. As our criteria work with the points directly, a natural and efficient way to do this is to say that MEC is directly represented as a pair or triple of points that defines it:</p>
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">mec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">variant</span><span class="o">&lt;</span>
+<span class="w">    </span><span class="n">array</span><span class="o">&lt;</span><span class="n">point</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">array</span><span class="o">&lt;</span><span class="n">point</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="o">&gt;</span>
+<span class="o">&gt;</span><span class="p">;</span>
+</code></pre></div>
+<p>Now, we can use <code>std::visit</code> to efficiently deal with both cases in accordance with criteria above:</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/* I &lt; 0 if z inside C,</span>
+<span class="cm">   I &gt; 0 if z outside C,</span>
+<span class="cm">   I = 0 if z on the circumference of C */</span>
+<span class="n">ftype</span><span class="w"> </span><span class="nf">indicator</span><span class="p">(</span><span class="n">mec</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">point</span><span class="w"> </span><span class="n">z</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">visit</span><span class="p">([</span><span class="o">&amp;</span><span class="p">](</span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="n">C</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">point</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="w">        </span><span class="n">point</span><span class="w"> </span><span class="n">I0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">b</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">z</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">conj</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">z</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">C</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">real</span><span class="p">(</span><span class="n">I0</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">point</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">C</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="w">            </span><span class="n">point</span><span class="w"> </span><span class="n">I2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">conj</span><span class="p">(</span><span class="n">b</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">c</span><span class="p">);</span>
+<span class="w">            </span><span class="n">point</span><span class="w"> </span><span class="n">I1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">I0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">I2</span><span class="p">;</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">imag</span><span class="p">(</span><span class="n">I2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="o">-</span><span class="n">imag</span><span class="p">(</span><span class="n">I1</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">imag</span><span class="p">(</span><span class="n">I1</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="n">C</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="nf">inside</span><span class="p">(</span><span class="n">mec</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">point</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">indicator</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>With our new memoized recursive function, <span class="arithmatex">$f(29)$</span>, which used to result in <em>over 1 million calls</em>, now results in <em>only 57</em> calls, nearly <em>20,000 times</em> fewer function calls! Ironically, we are now limited by our data type. <span class="arithmatex">$f(46)$</span> is the last fibonacci number that can fit into a signed 32-bit integer.</p>
-<p>Typically, we try to save states in arrays, if possible, since the lookup time is <span class="arithmatex">$O(1)$</span> with minimal overhead.  However, more generically, we can save states any way we like. Other examples include binary search trees (<code>map</code> in C++) or hash tables (<code>unordered_map</code> in C++).</p>
-<p>An example of this might be:</p>
-<div class="highlight"><pre><span></span><code><span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">memo</span><span class="p">;</span>
-<span class="kt">int</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">memo</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">n</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">memo</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">memo</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>Or analogously:</p>
-<div class="highlight"><pre><span></span><code><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">memo</span><span class="p">;</span>
-<span class="kt">int</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">memo</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">n</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">memo</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">memo</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>Both of these will almost always be slower than the array-based version for a generic memoized recursive function.
-These alternative ways of saving state are primarily useful when saving vectors or strings as part of the state space.</p>
-<p>The layman's way of analyzing the runtime of a memoized recursive function is:</p>
-<div class="arithmatex">$$\text{work per subproblem} * \text{number of subproblems}$$</div>
-<p>Using a binary search tree (map in C++) to save states will technically result in <span class="arithmatex">$O(n \log n)$</span> as each lookup and insertion will take <span class="arithmatex">$O(\log n)$</span> work and with <span class="arithmatex">$O(n)$</span> unique subproblems we have <span class="arithmatex">$O(n \log n)$</span> time.</p>
-<p>This approach is called top-down, as we can call the function with a query value and the calculation starts going from the top (queried value) down to the bottom (base cases of the recursion), and makes shortcuts via memoization on the way.</p>
-<h2 id="bottom-up-dynamic-programming">Bottom-up Dynamic Programming<a class="headerlink" href="#bottom-up-dynamic-programming" title="Permanent link">&para;</a></h2>
-<p>Until now you've only seen top-down dynamic programming with memoization. However, we can also solve problems with bottom-up dynamic programming. 
-Bottom-up is exactly the opposite of top-down, you start at the bottom (base cases of the recursion), and extend it to more and more values.</p>
-<p>To create a bottom-up approach for fibonacci numbers, we initialize the base cases in an array. Then, we simply use the recursive definition on array:</p>
-<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MAXN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">fib</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
-
-<span class="kt">int</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">fib</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="n">fib</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="n">fib</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fib</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fib</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">];</span>
-
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">fib</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>Of course, as written, this is a bit silly for two reasons: 
-Firstly, we do repeated work if we call the function more than once. 
-Secondly, we only need to use the two previous values to calculate the current element. Therefore, we can reduce our memory from <span class="arithmatex">$O(n)$</span> to <span class="arithmatex">$O(1)$</span>. </p>
-<p>An example of a bottom-up dynamic programming solution for fibonacci which uses <span class="arithmatex">$O(1)$</span> memory might be:</p>
-<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MAX_SAVE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">fib</span><span class="p">[</span><span class="n">MAX_SAVE</span><span class="p">];</span>
-
-<span class="kt">int</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">fib</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="n">fib</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
-<span class="w">        </span><span class="n">fib</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">MAX_SAVE</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fib</span><span class="p">[(</span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">MAX_SAVE</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fib</span><span class="p">[(</span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">MAX_SAVE</span><span class="p">];</span>
-
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">fib</span><span class="p">[</span><span class="n">n</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">MAX_SAVE</span><span class="p">];</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>Note that we've changed the constant from <code>MAXN</code> TO <code>MAX_SAVE</code>. This is because the total number of elements we need to access is only 3. It no longer scales with the size of input and is, by definition, <span class="arithmatex">$O(1)$</span> memory. Additionally, we use a common trick (using the modulo operator) only maintaining the values we need.</p>
-<p>That's it. That's the basics of dynamic programming: Don't repeat the work you've done before.</p>
-<p>One of the tricks to getting better at dynamic programming is to study some of the classic examples.</p>
-<h2 id="classic-dynamic-programming-problems">Classic Dynamic Programming Problems<a class="headerlink" href="#classic-dynamic-programming-problems" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description/Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0-1 Knapsack</td>
-<td>Given <span class="arithmatex">$W$</span>, <span class="arithmatex">$N$</span>, and <span class="arithmatex">$N$</span> items with weights <span class="arithmatex">$w_i$</span> and values <span class="arithmatex">$v_i$</span>, what is the maximum <span class="arithmatex">$\sum_{i=1}^{k} v_i$</span> for each subset of items of size <span class="arithmatex">$k$</span> (<span class="arithmatex">$1 \le k \le N$</span>) while ensuring <span class="arithmatex">$\sum_{i=1}^{k} w_i \le W$</span>?</td>
-</tr>
-<tr>
-<td>Subset Sum</td>
-<td>Given <span class="arithmatex">$N$</span> integers and <span class="arithmatex">$T$</span>, determine whether there exists a subset of the given set whose elements sum up to the <span class="arithmatex">$T$</span>.</td>
-</tr>
-<tr>
-<td>Longest Increasing Subsequence (LIS)</td>
-<td>You are given an array containing <span class="arithmatex">$N$</span> integers. Your task is to determine the LIS in the array, i.e., a subsequence where every element is larger than the previous one.</td>
-</tr>
-<tr>
-<td>Counting Paths in a 2D Array</td>
-<td>Given <span class="arithmatex">$N$</span> and <span class="arithmatex">$M$</span>, count all possible distinct paths from <span class="arithmatex">$(1,1)$</span> to <span class="arithmatex">$(N, M)$</span>, where each step is either from <span class="arithmatex">$(i,j)$</span> to <span class="arithmatex">$(i+1,j)$</span> or <span class="arithmatex">$(i,j+1)$</span>.</td>
-</tr>
-<tr>
-<td>Longest Common Subsequence</td>
-<td>You are given strings <span class="arithmatex">$s$</span> and <span class="arithmatex">$t$</span>. Find the length of the longest string that is a subsequence of both <span class="arithmatex">$s$</span> and <span class="arithmatex">$t$</span>.</td>
-</tr>
-<tr>
-<td>Longest Path in a Directed Acyclic Graph (DAG)</td>
-<td>Finding the longest path in Directed Acyclic Graph (DAG).</td>
-</tr>
-<tr>
-<td>Longest Palindromic Subsequence</td>
-<td>Finding the Longest Palindromic Subsequence (LPS) of a given string.</td>
-</tr>
-<tr>
-<td>Rod Cutting</td>
-<td>Given a rod of length <span class="arithmatex">$n$</span> units, Given an integer array cuts where cuts[i] denotes a position you should perform a cut at. The cost of one cut is the length of the rod to be cut. What is the minimum total cost of the cuts.</td>
-</tr>
-<tr>
-<td>Edit Distance</td>
-<td>The edit distance between two strings is the minimum number of operations required to transform one string into the other. Operations are ["Add", "Remove", "Replace"]</td>
-</tr>
-</tbody>
-</table>
-<h2 id="related-topics">Related Topics<a class="headerlink" href="#related-topics" title="Permanent link">&para;</a></h2>
+<p>Now, we can finally ensure that everything works by submitting the problem to the Library Checker: <a href="https://judge.yosupo.jp/submission/308668">#308668</a>.</p>
+<h2 id="practice-problems">Practice problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Bitmask Dynamic Programming</li>
-<li>Digit Dynamic Programming</li>
-<li>Dynamic Programming on Trees</li>
-</ul>
-<p>Of course, the most important trick is to practice.</p>
-<h2 id="practice-problems">Practice Problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="https://leetcode.com/problems/n-th-tribonacci-number/description/">LeetCode - 1137. N-th Tribonacci Number</a></li>
-<li><a href="https://leetcode.com/problems/pascals-triangle/description/">LeetCode - 118. Pascal's Triangle</a></li>
-<li><a href="https://leetcode.com/problems/divisor-game/description/">LeetCode - 1025. Divisor Game</a></li>
-<li><a href="https://codeforces.com/problemset/problem/699/C">Codeforces - Vacations</a></li>
-<li><a href="https://codeforces.com/problemset/problem/706/C">Codeforces - Hard problem</a></li>
-<li><a href="https://codeforces.com/problemset/problem/607/b">Codeforces - Zuma</a></li>
-<li><a href="https://leetcode.com/problems/maximal-square/description/">LeetCode - 221. Maximal Square</a></li>
-<li><a href="https://leetcode.com/problems/minimum-score-triangulation-of-polygon/description/">LeetCode - 1039. Minimum Score Triangulation of Polygon</a></li>
-</ul>
-<h2 id="dp-contests">DP Contests<a class="headerlink" href="#dp-contests" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="https://atcoder.jp/contests/dp/tasks">Atcoder - Educational DP Contest</a></li>
-<li><a href="https://cses.fi/problemset/list/">CSES - Dynamic Programming</a></li>
+<li><a href="https://judge.yosupo.jp/problem/minimum_enclosing_circle">Library Checker - Minimum Enclosing Circle</a></li>
+<li><a href="https://www.spoj.com/problems/ALIENS">BOI 2002 - Aliens</a></li>
 </ul>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (78.18%)</li><li><a href="https://github.com/Zyad-Ayad" title="Zyad-Ayad" data-bi-name="contributorprofile" target="_blank">Zyad-Ayad</a> (9.7%)</li><li><a href="https://github.com/clumsy" title="clumsy" data-bi-name="contributorprofile" target="_blank">clumsy</a> (4.85%)</li><li><a href="https://github.com/konstantinosalatzas" title="konstantinosalatzas" data-bi-name="contributorprofile" target="_blank">konstantinosalatzas</a> (1.82%)</li><li><a href="https://github.com/ShubhamPhapale" title="ShubhamPhapale" data-bi-name="contributorprofile" target="_blank">ShubhamPhapale</a> (1.82%)</li><li><a href="https://github.com/Ahmed-Elshitehi" title="Ahmed-Elshitehi" data-bi-name="contributorprofile" target="_blank">Ahmed-Elshitehi</a> (1.21%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (1.21%)</li><li><a href="https://github.com/tj91" title="tj91" data-bi-name="contributorprofile" target="_blank">tj91</a> (0.61%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (0.61%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (100.0%)</li></ul>
 </ul>
                 
               </article>
