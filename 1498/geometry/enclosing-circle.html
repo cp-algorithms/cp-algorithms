@@ -6644,7 +6644,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 19, 2025 15:41:41 UTC">August 19, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 19, 2025 15:42:12 UTC">August 19, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6782,7 +6782,7 @@ $$</div>
 <li><span class="arithmatex">$\angle bca &lt; 0^\circ$</span>, <span class="arithmatex">$c$</span> on the opposite side of <span class="arithmatex">$ab$</span> to <span class="arithmatex">$z$</span>. Then, <span class="arithmatex">$\angle azb &lt; 0^\circ$</span> and <span class="arithmatex">$\angle azb + \angle bca &lt; 180^\circ$</span> for points inside the circle.</li>
 </ol>
 <p>In other words, if <span class="arithmatex">$\angle bca$</span> is positive, points inside the circle will have <span class="arithmatex">$\angle azb + \angle bca &lt; 0^\circ$</span>, otherwise they will have <span class="arithmatex">$\angle azb + \angle bca &gt; 0^\circ$</span>, assuming that we normalize the angles between <span class="arithmatex">$-180^\circ$</span> and <span class="arithmatex">$180^\circ$</span>. This, in turn, can be checked by the signs of imaginary parts of <span class="arithmatex">$I_2=(a-c)\overline{(b-c)}$</span> and <span class="arithmatex">$I_1 = I_0 I_2$</span>.</p>
-<p><strong>Note</strong>: As we multiply four complex numbers here, the intermediate coefficients can be as large as <span class="arithmatex">$O(A^4)$</span>, where <span class="arithmatex">$A$</span> is the largest coordinate magnitude in the input. On the bright side, if the input is integer, both checks above can be done fully in integers.</p>
+<p><strong>Note</strong>: As we multiply four complex numbers to get <span class="arithmatex">$I_1$</span>, the intermediate coefficients can be as large as <span class="arithmatex">$O(A^4)$</span>, where <span class="arithmatex">$A$</span> is the largest coordinate magnitude in the input. On the bright side, if the input is integer, both checks above can be done fully in integers.</p>
 <h4 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h4>
 <p>Now, to actually implement the check, we should first decide how to represent the MEC. As our criteria work with the points directly, a natural and efficient way to do this is to say that MEC is directly represented as a pair or triple of points that defines it:</p>
 <div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">mec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">variant</span><span class="o">&lt;</span>
