@@ -6635,7 +6635,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 19, 2025 14:23:55 UTC">August 19, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 19, 2025 14:45:35 UTC">August 19, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6727,14 +6727,14 @@ Describe the issue of this article in detail.
 <div class="arithmatex">$$
 \sum\limits_{j=1}^i \frac{2}{j} \cdot O(j) = O(i).
 $$</div>
-<p>In exactly same fashion we can now also proof that the outermost loop has expected runtime of <span class="arithmatex">$O(n)$</span>.</p>
+<p>In exactly same fashion we can now also prove that the outermost loop has expected runtime of <span class="arithmatex">$O(n)$</span>.</p>
 <h3 id="checking-that-a-point-is-in-the-mec-of-2-or-3-points">Checking that a point is in the MEC of 2 or 3 points<a class="headerlink" href="#checking-that-a-point-is-in-the-mec-of-2-or-3-points" title="Permanent link">&para;</a></h3>
-<p>Let's now figure the implementation detail of <code>point</code> and <code>mec</code>. In this problem, it turns out to be particularly useful to use <a href="https://codeforces.com/blog/entry/22175">std::complex</a> as a class for points:</p>
+<p>Let's now figure out the implementation detail of <code>point</code> and <code>mec</code>. In this problem, it turns out to be particularly useful to use <a href="https://codeforces.com/blog/entry/22175">std::complex</a> as a class for points:</p>
 <div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">ftype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">int64_t</span><span class="p">;</span>
 <span class="k">using</span><span class="w"> </span><span class="n">point</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">complex</span><span class="o">&lt;</span><span class="n">ftype</span><span class="o">&gt;</span><span class="p">;</span>
 </code></pre></div>
 <p>As a reminder, a complex number is a number of type <span class="arithmatex">$x+yi$</span>, where <span class="arithmatex">$i^2=-1$</span> and <span class="arithmatex">$x, y \in \mathbb R$</span>. In C++, such complex number is represented by a 2-dimensional point <span class="arithmatex">$(x, y)$</span>. Complex numbers already implement basic component-wise linear operations (addition, multiplication by a real number), but also their multiplication and division carry certain geometric meaning.</p>
-<p>Without going in too much detail, we will notice the most important property for this particular task: Multiplying two complex numbers adds up their polar angles (counted from <span class="arithmatex">$Ox$</span> counter-clockwise), and taking a conjugate (i.e. changing <span class="arithmatex">$z=x+yi$</span> into <span class="arithmatex">$\overline{z} = x-yi$</span>) multiplies the polar angle with <span class="arithmatex">$-1$</span>. This allows us to formulate some very simple criteria for whether a point <span class="arithmatex">$z$</span> is inside the MEC of <span class="arithmatex">$2$</span> or <span class="arithmatex">$3$</span> specific points.</p>
+<p>Without going in too much detail, we will note the most important property for this particular task: Multiplying two complex numbers adds up their polar angles (counted from <span class="arithmatex">$Ox$</span> counter-clockwise), and taking a conjugate (i.e. changing <span class="arithmatex">$z=x+yi$</span> into <span class="arithmatex">$\overline{z} = x-yi$</span>) multiplies the polar angle with <span class="arithmatex">$-1$</span>. This allows us to formulate some very simple criteria for whether a point <span class="arithmatex">$z$</span> is inside the MEC of <span class="arithmatex">$2$</span> or <span class="arithmatex">$3$</span> specific points.</p>
 <h4 id="mec-of-2-points">MEC of 2 points<a class="headerlink" href="#mec-of-2-points" title="Permanent link">&para;</a></h4>
 <p>For <span class="arithmatex">$2$</span> points <span class="arithmatex">$a$</span> and <span class="arithmatex">$b$</span>, their MEC is simply the circle centered at <span class="arithmatex">$\frac{a+b}{2}$</span> with the radius <span class="arithmatex">$\frac{|a-b|}{2}$</span>, in other words the circle that has <span class="arithmatex">$ab$</span> as a diameter. To check if <span class="arithmatex">$z$</span> is inside this circle we simply need to check that the angle between <span class="arithmatex">$za$</span> and <span class="arithmatex">$zb$</span> is not acute.</p>
 <center>
@@ -6743,7 +6743,7 @@ $$</div>
 <i>Inner angles are obtuse, external angles are acute and angles on the circumference are right</i>
 </center>
 
-<p>Equivalently, we need to check whether</p>
+<p>Equivalently, we need to check that</p>
 <div class="arithmatex">$$
 I_0=(b-z)\overline{(a-z)}
 $$</div>
@@ -6772,7 +6772,7 @@ $$</div>
 <li><span class="arithmatex">$\angle bca &gt; 0^\circ$</span>, <span class="arithmatex">$c$</span> on the opposite side of <span class="arithmatex">$ab$</span> to <span class="arithmatex">$z$</span>. Then, <span class="arithmatex">$\angle azb &gt; 0^\circ$</span> and <span class="arithmatex">$\angle azb + \angle bca &gt; 180^\circ$</span> for points inside the circle.</li>
 <li><span class="arithmatex">$\angle bca &lt; 0^\circ$</span>, <span class="arithmatex">$c$</span> on the opposite side of <span class="arithmatex">$ab$</span> to <span class="arithmatex">$z$</span>. Then, <span class="arithmatex">$\angle azb &lt; 0^\circ$</span> and <span class="arithmatex">$\angle azb + \angle bca &lt; 180^\circ$</span> for points inside the circle.</li>
 </ol>
-<p>In other words, if <span class="arithmatex">$\angle bca$</span> is positive, points inside the circle will have <span class="arithmatex">$\angle azb + \angle bca &lt; 0^\circ$</span>, otherwise they will have <span class="arithmatex">$\angle azb + \angle bca &gt; 0^\circ$</span>, assuming that we keep compute the angles between <span class="arithmatex">$-180^\circ$</span> and <span class="arithmatex">$180^\circ$</span>. This, in turn, can be checked by the signs of imaginary parts of <span class="arithmatex">$I_2=(a-c)\overline{(b-c)}$</span> and <span class="arithmatex">$I_1 = I_0 I_2$</span>.</p>
+<p>In other words, if <span class="arithmatex">$\angle bca$</span> is positive, points inside the circle will have <span class="arithmatex">$\angle azb + \angle bca &lt; 0^\circ$</span>, otherwise they will have <span class="arithmatex">$\angle azb + \angle bca &gt; 0^\circ$</span>, assuming that we normalize the angles between <span class="arithmatex">$-180^\circ$</span> and <span class="arithmatex">$180^\circ$</span>. This, in turn, can be checked by the signs of imaginary parts of <span class="arithmatex">$I_2=(a-c)\overline{(b-c)}$</span> and <span class="arithmatex">$I_1 = I_0 I_2$</span>.</p>
 <h4 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h4>
 <p>Now, to actually implement the check, we should first decide how to represent the MEC. As our criteria work with the points directly, a natural and efficient way to do this is to say that MEC is directly represented as a pair or triple of points that defines it:</p>
 <div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">mec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">variant</span><span class="o">&lt;</span>
