@@ -95,11 +95,11 @@ $$
 \sum\limits_{j=1}^i \frac{2}{j} \cdot O(j) = O(i).
 $$
 
-In exactly same fashion we can now also proof that the outermost loop has expected runtime of $O(n)$.
+In exactly same fashion we can now also prove that the outermost loop has expected runtime of $O(n)$.
 
 ### Checking that a point is in the MEC of 2 or 3 points
 
-Let's now figure the implementation detail of `point` and `mec`. In this problem, it turns out to be particularly useful to use [std::complex](https://codeforces.com/blog/entry/22175) as a class for points:
+Let's now figure out the implementation detail of `point` and `mec`. In this problem, it turns out to be particularly useful to use [std::complex](https://codeforces.com/blog/entry/22175) as a class for points:
 
 ```cpp
 using ftype = int64_t;
@@ -108,7 +108,7 @@ using point = complex<ftype>;
 
 As a reminder, a complex number is a number of type $x+yi$, where $i^2=-1$ and $x, y \in \mathbb R$. In C++, such complex number is represented by a 2-dimensional point $(x, y)$. Complex numbers already implement basic component-wise linear operations (addition, multiplication by a real number), but also their multiplication and division carry certain geometric meaning.
 
-Without going in too much detail, we will notice the most important property for this particular task: Multiplying two complex numbers adds up their polar angles (counted from $Ox$ counter-clockwise), and taking a conjugate (i.e. changing $z=x+yi$ into $\overline{z} = x-yi$) multiplies the polar angle with $-1$. This allows us to formulate some very simple criteria for whether a point $z$ is inside the MEC of $2$ or $3$ specific points.
+Without going in too much detail, we will note the most important property for this particular task: Multiplying two complex numbers adds up their polar angles (counted from $Ox$ counter-clockwise), and taking a conjugate (i.e. changing $z=x+yi$ into $\overline{z} = x-yi$) multiplies the polar angle with $-1$. This allows us to formulate some very simple criteria for whether a point $z$ is inside the MEC of $2$ or $3$ specific points.
 
 #### MEC of 2 points
 
@@ -120,7 +120,7 @@ For $2$ points $a$ and $b$, their MEC is simply the circle centered at $\frac{a+
 <i>Inner angles are obtuse, external angles are acute and angles on the circumference are right</i>
 </center>
 
-Equivalently, we need to check whether
+Equivalently, we need to check that
 
 $$
 I_0=(b-z)\overline{(a-z)}
@@ -159,7 +159,7 @@ But which one of them means that $z$ is inside or outside of the circle? As we a
 2. $\angle bca > 0^\circ$, $c$ on the opposite side of $ab$ to $z$. Then, $\angle azb > 0^\circ$ and $\angle azb + \angle bca > 180^\circ$ for points inside the circle.
 4. $\angle bca < 0^\circ$, $c$ on the opposite side of $ab$ to $z$. Then, $\angle azb < 0^\circ$ and $\angle azb + \angle bca < 180^\circ$ for points inside the circle.
 
-In other words, if $\angle bca$ is positive, points inside the circle will have $\angle azb + \angle bca < 0^\circ$, otherwise they will have $\angle azb + \angle bca > 0^\circ$, assuming that we keep compute the angles between $-180^\circ$ and $180^\circ$. This, in turn, can be checked by the signs of imaginary parts of $I_2=(a-c)\overline{(b-c)}$ and $I_1 = I_0 I_2$.
+In other words, if $\angle bca$ is positive, points inside the circle will have $\angle azb + \angle bca < 0^\circ$, otherwise they will have $\angle azb + \angle bca > 0^\circ$, assuming that we normalize the angles between $-180^\circ$ and $180^\circ$. This, in turn, can be checked by the signs of imaginary parts of $I_2=(a-c)\overline{(b-c)}$ and $I_1 = I_0 I_2$.
 
 #### Implementation
 
