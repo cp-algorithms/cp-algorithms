@@ -161,6 +161,8 @@ But which one of them means that $z$ is inside or outside of the circle? As we a
 
 In other words, if $\angle bca$ is positive, points inside the circle will have $\angle azb + \angle bca < 0^\circ$, otherwise they will have $\angle azb + \angle bca > 0^\circ$, assuming that we normalize the angles between $-180^\circ$ and $180^\circ$. This, in turn, can be checked by the signs of imaginary parts of $I_2=(a-c)\overline{(b-c)}$ and $I_1 = I_0 I_2$.
 
+**Note**: As we multiply four complex numbers here, the intermediate coefficients can be as large as $O(A^4)$, where $A$ is the largest coordinate magnitude in the input. On the bright side, if the input is integer, both checks above can be done fully in integers.
+
 #### Implementation
 
 Now, to actually implement the check, we should first decide how to represent the MEC. As our criteria work with the points directly, a natural and efficient way to do this is to say that MEC is directly represented as a pair or triple of points that defines it:
@@ -200,3 +202,8 @@ bool inside(mec const& C, point p) {
 ```
 
 Now, we can finally ensure that everything works by submitting the problem to the Library Checker: [#308668](https://judge.yosupo.jp/submission/308668).
+
+## Practice problems
+
+- [Library Checker - Minimum Enclosing Circle](https://judge.yosupo.jp/problem/minimum_enclosing_circle)
+- [BOI 2002 - Aliens](https://www.spoj.com/problems/ALIENS)
