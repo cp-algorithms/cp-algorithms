@@ -1,32 +1,30 @@
 document.addEventListener("DOMContentLoaded", () => {
-  if (document.cookie.indexOf("donation_banner_hidden=true") !== -1) return;
+  const STORAGE_KEY = "donationBannerHiddenUntil";
+  const HIDE_DAYS = 180;
 
-  const banner = document.createElement("div");
+  const hiddenUntil = Number(localStorage.getItem(STORAGE_KEY) || 0);
+  if (Date.now() < hiddenUntil) return;
+
+  const banner = document.createElement("aside");
   banner.id = "donation-banner";
-  banner.style = "display:flex;align-items:center;justify-content:space-between;position:relative;background:#f44336;color:white;padding:0.75rem 1rem;margin-bottom:1rem;font-size:1rem;";
+  banner.innerHTML = `
+    <div class="donation-banner">
+      <p class="donation-text">
+        <strong>Please consider
+          <a class="donation-link" href="https://github.com/sponsors/cp-algorithms">
+            supporting us</a>
+        </strong> — ad-free, volunteer-run.
+      </p>
+      <button class="donation-close" type="button" aria-label="Dismiss">×</button>
+    </div>
+  `;
 
-  const span = document.createElement("span");
-  span.innerHTML = `
-  <strong>
-    Please consider 
-    <a href="https://github.com/sponsors/cp-algorithms" style="color: #bbdefb; text-decoration: underline;">
-      Donating
-    </a>.
-  </strong> This website is ad‑free and run by volunteers.
-`;
-  banner.appendChild(span);
+  const content = document.querySelector("div.md-content") || document.body;
+  content.insertBefore(banner, content.firstChild);
 
-  const button = document.createElement("button");
-  button.innerText = "×";
-  button.style = "background:none;border:none;color:inherit;font-size:1.5rem;cursor:pointer;";
-  button.addEventListener("click", () => {
-    banner.style.display = "none";
-    document.cookie = "donation_banner_hidden=true; path=/; max-age=" + 60 * 60 * 24 * 2;// 2 days 
+  banner.querySelector(".donation-close").addEventListener("click", () => {
+    banner.remove();
+    const until = Date.now() + HIDE_DAYS * 24 * 60 * 60 * 1000;
+    localStorage.setItem(STORAGE_KEY, String(until));
   });
-  banner.appendChild(button);
-
-  const content = document.querySelector("div.md-container"); // adjust to the correct parent container
-  if (content && content.firstChild) {
-    content.insertBefore(banner, content.firstChild);
-  }
 });

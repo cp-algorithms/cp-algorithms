@@ -55,3 +55,37 @@ body[dir=rtl] .metadata.page-metadata .contributors-text{
 .arithmatex{
   overflow-y: hidden !important;
 }
+
+/* Donation banner */
+#donation-banner {
+  margin: 0.75rem 0.75rem 0;
+}
+
+.donation-banner {
+  display: flex;
+
+  background: #fff9c4;
+  border: 1px solid #f0e68c;
+  color: #2b2b2b;
+
+  padding: 0.5rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+}
+
+.donation-text { margin: 0; }
+.donation-link {
+  text-decoration: underline;
+}
+
+.donation-close {
+  margin-left: auto;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+[data-md-color-scheme="slate"] .donation-banner {
+  background: #3b3200;
+  border-color: #665c1e;
+  color: #fff7b3;
+}
