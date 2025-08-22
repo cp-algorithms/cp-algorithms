@@ -75,6 +75,7 @@ body[dir=rtl] .metadata.page-metadata .contributors-text{
 
 .donation-text { margin: 0; }
 .donation-link {
+  color: revert;
   text-decoration: underline;
 }
 
