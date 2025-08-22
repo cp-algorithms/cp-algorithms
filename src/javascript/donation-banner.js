@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const STORAGE_KEY = "donationBannerHiddenUntil";
-  const HIDE_DAYS = 180;
+  const HIDE_DAYS = 90;
 
   const hiddenUntil = Number(localStorage.getItem(STORAGE_KEY) || 0);
   if (Date.now() < hiddenUntil) return;
