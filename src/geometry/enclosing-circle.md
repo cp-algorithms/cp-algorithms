@@ -206,4 +206,3 @@ Now, we can finally ensure that everything works by submitting the problem to th
 ## Practice problems
 
 - [Library Checker - Minimum Enclosing Circle](https://judge.yosupo.jp/problem/minimum_enclosing_circle)
-- [BOI 2002 - Aliens](https://www.spoj.com/problems/ALIENS)
