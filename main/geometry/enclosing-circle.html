@@ -6632,12 +6632,22 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
     
   
     
   
 
 
+
+  
+  
+  
 
   
   
@@ -6650,7 +6660,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 23, 2025 21:26:37 UTC">August 23, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 23, 2025 22:03:07 UTC">August 23, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6671,14 +6681,14 @@ Describe the issue of this article in detail.
 <p>You're given <span class="arithmatex">$n \leq 10^5$</span> points <span class="arithmatex">$p_i=(x_i, y_i)$</span>.</p>
 <p>For each <span class="arithmatex">$p_i$</span>, find whether it lies on the circumference of the minimum enclosing circle of <span class="arithmatex">$\{p_1,\dots,p_n\}$</span>.</p>
 </div>
-<p>Here, by the minimum enclosing circle (MEC) we mean a circle with minimum possible radius that contains all the <span class="arithmatex">$n$</span> p, inside the circle or on its boundary. This problem has a simple randomized solution that, on first glance, looks like it would run in <span class="arithmatex">$O(n^3)$</span>, but actually works in <span class="arithmatex">$O(n)$</span> expected time.</p>
+<p>Here, by the minimum enclosing circle (MEC) we mean a circle with minimum possible radius that contains all the <span class="arithmatex">$n$</span> points, inside the circle or on its boundary. This problem has a simple randomized solution that, on first glance, looks like it would run in <span class="arithmatex">$O(n^3)$</span>, but actually works in <span class="arithmatex">$O(n)$</span> expected time.</p>
 <p>To better understand the reasoning below, we should immediately note that the solution to the problem is unique:</p>
 <details class="question">
 <summary>Why is the MEC unique?</summary>
-<p>Consider the following setup: Let <span class="arithmatex">$r$</span> be the radius of the MEC. We draw a circle of radius <span class="arithmatex">$r$</span> around each of the p <span class="arithmatex">$p_1,\dots,p_n$</span>. Geometrically, the centers of circles that have radius <span class="arithmatex">$r$</span> and cover all the points <span class="arithmatex">$p_1,\dots,p_n$</span> form the intersection of all <span class="arithmatex">$n$</span> circles.</p>
+<p>Consider the following setup: Let <span class="arithmatex">$r$</span> be the radius of the MEC. We draw a circle of radius <span class="arithmatex">$r$</span> around each of the points <span class="arithmatex">$p_1,\dots,p_n$</span>. Geometrically, the centers of circles that have radius <span class="arithmatex">$r$</span> and cover all the points <span class="arithmatex">$p_1,\dots,p_n$</span> form the intersection of all <span class="arithmatex">$n$</span> circles.</p>
 <p>Now, if the intersection is just a single point, this already proves that it is unique. Otherwise, the intersection is a shape of non-zero area, so we can reduce <span class="arithmatex">$r$</span> by a tiny bit, and still have non-empty intersection, which contradicts the assumption that <span class="arithmatex">$r$</span> was the minimum possible radius of the enclosing circle.</p>
 <p>With a similar logic, we can also show the uniqueness of the MEC if we additionally demand that it passes through a given specific point <span class="arithmatex">$p_i$</span> or two points <span class="arithmatex">$p_i$</span> and <span class="arithmatex">$p_j$</span> (it is also unique because its radius uniquely defines it).</p>
-<p>Alternatively, we can also assume that there are two MECs, and then notice that their intersection (which contains p <span class="arithmatex">$p_1,\dots,p_n$</span> already) must have a smaller diameter than initial circles, and thus can be covered with a smaller circle.</p>
+<p>Alternatively, we can also assume that there are two MECs, and then notice that their intersection (which contains the points <span class="arithmatex">$p_1,\dots,p_n$</span> already) must have a smaller diameter than initial circles, and thus can be covered with a smaller circle.</p>
 </details>
 <h2 id="welzls-algorithm">Welzl's algorithm<a class="headerlink" href="#welzls-algorithm" title="Permanent link">&para;</a></h2>
 <p>For brevity, let's denote <span class="arithmatex">$\operatorname{mec}(p_1,\dots,p_n)$</span> to be the MEC of <span class="arithmatex">$\{p_1,\dots,p_n\}$</span>, and let <span class="arithmatex">$P_i = \{p_1,\dots,p_i\}$</span>.</p>
@@ -6823,11 +6833,12 @@ $$</div>
 <h2 id="practice-problems">Practice problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://judge.yosupo.jp/problem/minimum_enclosing_circle">Library Checker - Minimum Enclosing Circle</a></li>
+<li><a href="https://www.spoj.com/problems/ALIENS">BOI 2002 - Aliens</a></li>
 </ul>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (100.0%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (98.09%)</li><li><a href="https://github.com/MKLOL" title="MKLOL" data-bi-name="contributorprofile" target="_blank">MKLOL</a> (1.91%)</li></ul>
 </ul>
                 
               </article>
