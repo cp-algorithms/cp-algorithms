@@ -180,7 +180,7 @@ double angle(point2d a, point2d b) {
 ```
 
 To see the next important property we should take a look at the set of points $\mathbf r$ for which $\mathbf r\cdot \mathbf a = C$ for some fixed constant $C$.
-You can see that this set of points is exactly the set of points for which the projection onto $\mathbf a$ is the point $C \cdot \dfrac{\mathbf a}{|\mathbf a|}$ and they form a hyperplane orthogonal to $\mathbf a$.
+You can see that this set of points is exactly the set of points for which the projection onto $\mathbf a$ is the point $C \cdot \dfrac{\mathbf a}{|\mathbf a| ^ 2}$ and they form a hyperplane orthogonal to $\mathbf a$.
 You can see the vector $\mathbf a$ alongside with several such vectors having same dot product with it in 2D on the picture below:
 
 <div style="text-align: center;">

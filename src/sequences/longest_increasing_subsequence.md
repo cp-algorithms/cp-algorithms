@@ -174,7 +174,7 @@ We will again gradually process the numbers, first $a[0]$, then $a[1]$, etc, and
     $$
 
 When we process $a[i]$, we can ask ourselves.
-What have the conditions to be, that we write the current number $a[i]$ into the $d[0 \dots n]$ array?
+Under what conditions should we write the current number $a[i]$ into the $d[0 \dots n]$ array?
 
 We set $d[l] = a[i]$, if there is a longest increasing sequence of length $l$ that ends in $a[i]$, and there is no longest increasing sequence of length $l$ that ends in a smaller number.
 Similar to the previous approach, if we remove the number $a[i]$ from the longest increasing sequence of length $l$, we get another longest increasing sequence of length $l -1$.

@@ -177,7 +177,7 @@ a_{31} & a_ {32} & a_ {33} & a_ {34} \\
 a_{41} & a_ {42} & a_ {43} & a_ {44}
 \end{pmatrix}$$
 
-that, when multiplied by a vector with the old coordinates and an unit gives a new vector with the new coordinates and an unit:
+that, when multiplied by a vector with the old coordinates and a unit gives a new vector with the new coordinates and a unit:
 
 $$\begin{pmatrix} x & y & z & 1 \end{pmatrix} \cdot
 \begin{pmatrix}

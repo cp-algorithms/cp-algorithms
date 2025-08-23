@@ -21,7 +21,7 @@ The following algorithm works also in the case of multiple edges:
 if some pair of vertices $(i, j)$ is connected with $m$ edges, then we can record this in the adjacency matrix by setting $G[i][j] = m$.
 Also the algorithm works if the graph contains loops (a loop is an edge that connect a vertex with itself).
 
-It is obvious that the constructed adjacency matrix if the answer to the problem for the case $k = 1$.
+It is obvious that the constructed adjacency matrix is the answer to the problem for the case $k = 1$.
 It contains the number of paths of length $1$ between each pair of vertices.
 
 We will build the solution iteratively:
@@ -63,7 +63,7 @@ Then the following formula computes each entry of $L_{k+1}$:
 $$L_{k+1}[i][j] = \min_{p = 1 \ldots n} \left(L_k[i][p] + G[p][j]\right)$$
 
 When looking closer at this formula, we can draw an analogy with the matrix multiplication:
-in fact the matrix $L_k$ is multiplied by the matrix $G$, the only difference is that instead in the multiplication operation we take the minimum instead of the sum.
+in fact the matrix $L_k$ is multiplied by the matrix $G$, the only difference is that instead in the multiplication operation we take the minimum instead of the sum, and the sum instead of the multiplication as the inner operation.
 
 $$L_{k+1} = L_k \odot G,$$
 
