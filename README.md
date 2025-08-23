@@ -16,6 +16,7 @@ Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorith
 
 ## Changelog
 
+- August, 2025: Overhaul of CP-Algorithms [donation system](https://github.com/sponsors/cp-algorithms). Please consider supporting us, so that we can grow!
 - August, 2025: Launched a [Discord server](https://discord.gg/HZ5AecN3KX)!
 - October, 2024: Welcome new maintainers: [jxu](https://github.com/jxu), [mhayter](https://github.com/mhayter) and [kostero](https://github.com/kostero)!
 - October, 15, 2024: GitHub pages based mirror is now served at [https://gh.cp-algorithms.com/](https://gh.cp-algorithms.com/), and an auxiliary competitive programming library is available at [https://lib.cp-algorithms.com/](https://lib.cp-algorithms.com/).
