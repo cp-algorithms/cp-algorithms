@@ -6774,7 +6774,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 23, 2025 17:57:51 UTC">August 23, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 23, 2025 18:52:59 UTC">August 23, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6916,12 +6916,12 @@ It is obvious that it is sufficient to consider only those points that are separ
     <img src="nearest_points_blocks_example.png" alt="Example of the squares strategy" width="350px">
 </div>
 
-<p>We will consider only the squares containing at least one point. Denote by <span class="arithmatex">$n_1, n_2, \dots, n_k$</span> the number of points in each of the <span class="arithmatex">$k$</span> remaining squares. Assuming at least two points are in the same or in adjacent squares, and that there are no duplicated points, the time complexity is <span class="arithmatex">$\Theta\left(\sum\limits_{i=1}^k n_i^2\right)$</span>. We can look for duplicated points in expected linear time using a hash table, and in the affirmative case, the answer is this pair.</p>
+<p>We will consider only the squares containing at least one point. Denote by <span class="arithmatex">$n_1, n_2, \dots, n_k$</span> the number of points in each of the <span class="arithmatex">$k$</span> remaining squares. Assuming at least two points are in the same or in adjacent squares, and that there are no duplicated points, the time complexity is <span class="arithmatex">$\Theta\!\left(\sum\limits_{i=1}^k n_i^2\right)$</span>. We can look for duplicated points in expected linear time using a hash table, and in the affirmative case, the answer is this pair.</p>
 <details class="info">
 <summary>Proof</summary>
 <p>For the <span class="arithmatex">$i$</span>-th square containing <span class="arithmatex">$n_i$</span> points, the number of pairs inside is <span class="arithmatex">$\Theta(n_i^2)$</span>. If the <span class="arithmatex">$i$</span>-th square is adjacent to the <span class="arithmatex">$j$</span>-th square, then we also perform <span class="arithmatex">$n_i n_j \le \max(n_i, n_j)^2 \le n_i^2 + n_j^2$</span> distance comparisons. Notice that each square has at most <span class="arithmatex">$8$</span> adjacent squares, so we can bound the sum of all comparisons by <span class="arithmatex">$\Theta(\sum_{i=1}^{k} n_i^2)$</span>. <span class="arithmatex">$\quad \blacksquare$</span></p>
 </details>
-<p>Now we need to decide on how to set <span class="arithmatex">$d$</span> so that it minimizes <span class="arithmatex">$\Theta\left(\sum\limits_{i=1}^k n_i^2\right)$</span>.</p>
+<p>Now we need to decide on how to set <span class="arithmatex">$d$</span> so that it minimizes <span class="arithmatex">$\Theta\!\left(\sum\limits_{i=1}^k n_i^2\right)$</span>.</p>
 <h4 id="choosing-d">Choosing d<a class="headerlink" href="#choosing-d" title="Permanent link">&para;</a></h4>
 <p>We need <span class="arithmatex">$d$</span> to be an approximation of the minimum distance <span class="arithmatex">$d$</span>. Richard Lipton proposed to sample <span class="arithmatex">$n$</span> distances randomly and choose <span class="arithmatex">$d$</span> to be the smallest of these distances as an approximation for <span class="arithmatex">$d$</span>. We now prove that the expected running time of the algorithm is linear.</p>
 <details class="info">
@@ -6975,8 +6975,7 @@ It is obvious that it is sufficient to consider only those points that are separ
 <span class="p">}</span>
 
 
-<span class="c1">// O(n)</span>
-<span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">closest_pair_of_points_rand_ints</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pt</span><span class="o">&gt;</span><span class="w"> </span><span class="n">P</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">closest_pair_of_points</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pt</span><span class="o">&gt;</span><span class="w"> </span><span class="n">P</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="n">P</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
 <span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
 
@@ -7094,7 +7093,7 @@ It is obvious that it is sufficient to consider only those points that are separ
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/izanbf1803" title="izanbf1803" data-bi-name="contributorprofile" target="_blank">izanbf1803</a> (51.09%)</li><li><a href="https://github.com/singamandeep" title="singamandeep" data-bi-name="contributorprofile" target="_blank">singamandeep</a> (44.29%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (1.9%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (1.36%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (0.54%)</li><li><a href="https://github.com/Kostero" title="Kostero" data-bi-name="contributorprofile" target="_blank">Kostero</a> (0.27%)</li><li><a href="https://github.com/SYury" title="SYury" data-bi-name="contributorprofile" target="_blank">SYury</a> (0.27%)</li><li><a href="https://github.com/avishekp4" title="avishekp4" data-bi-name="contributorprofile" target="_blank">avishekp4</a> (0.27%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/izanbf1803" title="izanbf1803" data-bi-name="contributorprofile" target="_blank">izanbf1803</a> (50.95%)</li><li><a href="https://github.com/singamandeep" title="singamandeep" data-bi-name="contributorprofile" target="_blank">singamandeep</a> (44.41%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (1.91%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (1.36%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (0.54%)</li><li><a href="https://github.com/Kostero" title="Kostero" data-bi-name="contributorprofile" target="_blank">Kostero</a> (0.27%)</li><li><a href="https://github.com/SYury" title="SYury" data-bi-name="contributorprofile" target="_blank">SYury</a> (0.27%)</li><li><a href="https://github.com/avishekp4" title="avishekp4" data-bi-name="contributorprofile" target="_blank">avishekp4</a> (0.27%)</li></ul>
 </ul>
                 
               </article>
