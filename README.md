@@ -16,6 +16,7 @@ Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorith
 
 ## Changelog
 
+- August, 2025: Launched a [Discord server](https://discord.gg/HZ5AecN3KX)!
 - October, 2024: Welcome new maintainers: [jxu](https://github.com/jxu), [mhayter](https://github.com/mhayter) and [kostero](https://github.com/kostero)!
 - October, 15, 2024: GitHub pages based mirror is now served at [https://gh.cp-algorithms.com/](https://gh.cp-algorithms.com/), and an auxiliary competitive programming library is available at [https://lib.cp-algorithms.com/](https://lib.cp-algorithms.com/).
 - July 16, 2024: Major overhaul of the [Finding strongly connected components / Building condensation graph](https://cp-algorithms.com/graph/strongly-connected-components.html) article.
@@ -29,6 +30,7 @@ Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorith
 
 ### New articles
 
+- (19 August 2025) [Minimum Enclosing Circle](https://cp-algorithms.com/geometry/enclosing-circle.html)
 - (21 May 2025) [Simulated Annealing](https://cp-algorithms.com/num_methods/simulated_annealing.html)
 - (12 July 2024) [Manhattan distance](https://cp-algorithms.com/geometry/manhattan-distance.html)
 - (8 June 2024) [Knapsack Problem](https://cp-algorithms.com/dynamic_programming/knapsack.html)

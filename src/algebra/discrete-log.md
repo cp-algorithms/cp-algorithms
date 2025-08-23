@@ -129,7 +129,7 @@ With this change, the complexity of the algorithm is still the same, but now the
 Instead of a `map`, we can also use a hash table (`unordered_map` in C++) which has the average time complexity $O(1)$ for inserting and searching.
 
 Problems often ask for the minimum $x$ which satisfies the solution.  
-It is possible to get all answers and take the minimum, or reduce the first found answer using [Euler's theorem](phi-function.md#toc-tgt-2), but we can be smart about the order in which we calculate values and ensure the first answer we find is the minimum.
+It is possible to get all answers and take the minimum, or reduce the first found answer using [Euler's theorem](phi-function.md#application), but we can be smart about the order in which we calculate values and ensure the first answer we find is the minimum.
 
 ```{.cpp file=discrete_log}
 // Returns minimum x for which a ^ x % m = b % m, a and m are coprime.

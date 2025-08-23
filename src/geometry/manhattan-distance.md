@@ -67,11 +67,11 @@ To prove this, we just need to analyze the signs of $m$ and $n$. And it's left a
 
 We may apply this equation to the Manhattan distance formula to find out that
 
-$$d((x_1, y_1), (x_2, y_2)) = |x_1 - x_2| + |y_1 - y_2| = \text{max}(|(x_1 + y_1) - (x_2 + y_2)|, |(x_1 - y_1) - (x_2 - y_2)|).$$
+$$d((x_1, y_1), (x_2, y_2)) = |x_1 - x_2| + |y_1 - y_2| = \text{max}(|(x_1 + y_1) - (x_2 + y_2)|, |(y_1 - x_1) - (y_2 - x_2)|).$$
 
-The last expression in the previous equation is the [Chebyshev distance](https://en.wikipedia.org/wiki/Chebyshev_distance) of the points $(x_1 + y_1, x_1 - y_1)$ and $(x_2 + y_2, x_2 - y_2)$. This means that, after applying the transformation
+The last expression in the previous equation is the [Chebyshev distance](https://en.wikipedia.org/wiki/Chebyshev_distance) of the points $(x_1 + y_1, y_1 - x_1)$ and $(x_2 + y_2, y_2 - x_2)$. This means that, after applying the transformation
 
-$$\alpha : (x, y) \to (x + y, x - y),$$
+$$\alpha : (x, y) \to (x + y, y - x),$$
 
 the Manhattan distance between the points $p$ and $q$ turns into the Chebyshev distance between $\alpha(p)$ and $\alpha(q)$.
 
