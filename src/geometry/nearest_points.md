@@ -173,12 +173,12 @@ An alternative method, originally proposed by Rabin in 1976, arises from a very 
 </div>
 
 
-We will consider only the squares containing at least one point. Denote by $n_1, n_2, \dots, n_k$ the number of points in each of the $k$ remaining squares. Assuming at least two points are in the same or in adjacent squares, and that there are no duplicated points, the time complexity is $\Theta\left(\sum\limits_{i=1}^k n_i^2\right)$. We can look for duplicated points in expected linear time using a hash table, and in the affirmative case, the answer is this pair.
+We will consider only the squares containing at least one point. Denote by $n_1, n_2, \dots, n_k$ the number of points in each of the $k$ remaining squares. Assuming at least two points are in the same or in adjacent squares, and that there are no duplicated points, the time complexity is $\Theta\!\left(\sum\limits_{i=1}^k n_i^2\right)$. We can look for duplicated points in expected linear time using a hash table, and in the affirmative case, the answer is this pair.
 
 ??? info "Proof"
 	For the $i$-th square containing $n_i$ points, the number of pairs inside is $\Theta(n_i^2)$. If the $i$-th square is adjacent to the $j$-th square, then we also perform $n_i n_j \le \max(n_i, n_j)^2 \le n_i^2 + n_j^2$ distance comparisons. Notice that each square has at most $8$ adjacent squares, so we can bound the sum of all comparisons by $\Theta(\sum_{i=1}^{k} n_i^2)$. $\quad \blacksquare$
 
-Now we need to decide on how to set $d$ so that it minimizes $\Theta\left(\sum\limits_{i=1}^k n_i^2\right)$.
+Now we need to decide on how to set $d$ so that it minimizes $\Theta\!\left(\sum\limits_{i=1}^k n_i^2\right)$.
 
 ####  Choosing d
 
@@ -246,8 +246,7 @@ ll dist2(pt a, pt b) {
 }
 
 
-// O(n)
-pair<int,int> closest_pair_of_points_rand_ints(vector<pt> P) {
+pair<int,int> closest_pair_of_points(vector<pt> P) {
     int n = int(P.size());
     assert(n >= 2);
 
