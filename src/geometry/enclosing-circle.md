@@ -13,19 +13,19 @@ Consider the following problem:
 
     For each $p_i$, find whether it lies on the circumference of the minimum enclosing circle of $\{p_1,\dots,p_n\}$.
 
-Here, by the minimum enclosing circle (MEC) we mean a circle with minimum possible radius that contains all the $n$ p, inside the circle or on its boundary. This problem has a simple randomized solution that, on first glance, looks like it would run in $O(n^3)$, but actually works in $O(n)$ expected time.
+Here, by the minimum enclosing circle (MEC) we mean a circle with minimum possible radius that contains all the $n$ points, inside the circle or on its boundary. This problem has a simple randomized solution that, on first glance, looks like it would run in $O(n^3)$, but actually works in $O(n)$ expected time.
 
 To better understand the reasoning below, we should immediately note that the solution to the problem is unique:
 
 ??? question "Why is the MEC unique?"
 
-    Consider the following setup: Let $r$ be the radius of the MEC. We draw a circle of radius $r$ around each of the p $p_1,\dots,p_n$. Geometrically, the centers of circles that have radius $r$ and cover all the points $p_1,\dots,p_n$ form the intersection of all $n$ circles.
+    Consider the following setup: Let $r$ be the radius of the MEC. We draw a circle of radius $r$ around each of the points $p_1,\dots,p_n$. Geometrically, the centers of circles that have radius $r$ and cover all the points $p_1,\dots,p_n$ form the intersection of all $n$ circles.
 
     Now, if the intersection is just a single point, this already proves that it is unique. Otherwise, the intersection is a shape of non-zero area, so we can reduce $r$ by a tiny bit, and still have non-empty intersection, which contradicts the assumption that $r$ was the minimum possible radius of the enclosing circle.
 
     With a similar logic, we can also show the uniqueness of the MEC if we additionally demand that it passes through a given specific point $p_i$ or two points $p_i$ and $p_j$ (it is also unique because its radius uniquely defines it).
 
-    Alternatively, we can also assume that there are two MECs, and then notice that their intersection (which contains p $p_1,\dots,p_n$ already) must have a smaller diameter than initial circles, and thus can be covered with a smaller circle.
+    Alternatively, we can also assume that there are two MECs, and then notice that their intersection (which contains the points $p_1,\dots,p_n$ already) must have a smaller diameter than initial circles, and thus can be covered with a smaller circle.
 
 ## Welzl's algorithm
 
@@ -206,3 +206,4 @@ Now, we can finally ensure that everything works by submitting the problem to th
 ## Practice problems
 
 - [Library Checker - Minimum Enclosing Circle](https://judge.yosupo.jp/problem/minimum_enclosing_circle)
+- [BOI 2002 - Aliens](https://www.spoj.com/problems/ALIENS)
