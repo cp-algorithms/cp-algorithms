@@ -173,7 +173,7 @@ An alternative method arises from a very simple idea to heuristically improve th
 </div>
 
 
-We will consider only the squares containing at least one point. Denote by $n_1, n_2, \dots, n_k$ the number of points in each of the $k$ remaining squares. Assuming at least two points are in the same or in adjacent squares,  the time complexity is $\Theta(\sum_{i=1}^{k} n_i^2)$.
+We will consider only the squares containing at least one point. Denote by $n_1, n_2, \dots, n_k$ the number of points in each of the $k$ remaining squares. Assuming at least two points are in the same or in adjacent squares,  the time complexity is $\Theta\left(\sum\limits_{i=1}^k n_i^2\right)$.
 
 ??? info "Proof"
 	For the $i$-th square containing $n_i$ points, the number of pairs inside is $\Theta(n_i^2)$. If the $i$-th square is adjacent to the $j$-th square, then we also perform $n_i n_j \le \max(n_i, n_j)^2 \le n_i^2 + n_j^2$ distance comparisons. Notice that each cube has at most $8$ adjacent cubes, so we can bound the sum of all comparisons by $\Theta(\sum_{i=1}^{k} n_i^2)$. $\quad \blacksquare$
