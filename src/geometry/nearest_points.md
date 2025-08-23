@@ -166,14 +166,14 @@ rec(0, n);
 
 ### A randomized algorithm with linear expected time
 
-An alternative method arises from a very simple idea to heuristically improve the runtime: We can divide the plane into a grid of $d \times d$ squares, then it is only required to test distances between same-block or adjacent-block points (unless all squares are disconnected from each other, but we will avoid this by design), since any other pair has a larger distance than the two points in the same square.
+An alternative method, originally proposed by Rabin in 1976, arises from a very simple idea to heuristically improve the runtime: We can divide the plane into a grid of $d \times d$ squares, then it is only required to test distances between same-block or adjacent-block points (unless all squares are disconnected from each other, but we will avoid this by design), since any other pair has a larger distance than the two points in the same square.
 
 <div style="text-align: center;">
     <img src="nearest_points_blocks_example.png" alt="Example of the squares strategy" width="350px">
 </div>
 
 
-We will consider only the squares containing at least one point. Denote by $n_1, n_2, \dots, n_k$ the number of points in each of the $k$ remaining squares. Assuming at least two points are in the same or in adjacent squares,  the time complexity is $\Theta\left(\sum\limits_{i=1}^k n_i^2\right)$.
+We will consider only the squares containing at least one point. Denote by $n_1, n_2, \dots, n_k$ the number of points in each of the $k$ remaining squares. Assuming at least two points are in the same or in adjacent squares, and that there are no duplicated points, the time complexity is $\Theta\left(\sum\limits_{i=1}^k n_i^2\right)$. We can look for duplicated points in expected linear time using a hash table, and in the affirmative case, the answer is this pair.
 
 ??? info "Proof"
 	For the $i$-th square containing $n_i$ points, the number of pairs inside is $\Theta(n_i^2)$. If the $i$-th square is adjacent to the $j$-th square, then we also perform $n_i n_j \le \max(n_i, n_j)^2 \le n_i^2 + n_j^2$ distance comparisons. Notice that each square has at most $8$ adjacent squares, so we can bound the sum of all comparisons by $\Theta(\sum_{i=1}^{k} n_i^2)$. $\quad \blacksquare$
@@ -182,7 +182,7 @@ Now we need to decide on how to set $d$ so that it minimizes $\Theta\left(\sum\l
 
 ####  Choosing d
 
-We need $d$ to be an approximation of the minimum distance $d$, and the trick is to just sample $n$ distances randomly and choose $d$ to be the smallest of these distances. We now prove that the expected running time is linear.
+We need $d$ to be an approximation of the minimum distance $d$. Richard Lipton proposed to sample $n$ distances randomly and choose $d$ to be the smallest of these distances as an approximation for $d$. We now prove that the expected running time of the algorithm is linear.
 
 ??? info "Proof"
 	Imagine the disposition of points in squares with a particular choice of $d$, say $x$. Consider $d$ a random variable, resulting from our sampling of distances. Let's define $C(x) := \sum_{i=1}^{k(x)} n_i(x)^2$ as the cost estimation for a particular disposition when we choose $d=x$. Now, let's define $\lambda(x)$ such that $C(x) = \lambda(x) \, n$. What is the probability that such choice $x$ survives the sampling of $n$ independent distances? If a single pair among the sampled ones has distance smaller than $x$, this arrangement will be replaced by the smaller $d$. Inside a square, at least a quarter of the pairs would raise a smaller distance (imagine four subsquares in every square, and use the pigeonhole principle), so we have $\sum_{i=1}^{k} \frac{1}{4} {n_i \choose 2}$ pairs which yield a smaller final $d$. This is, approximately, $\frac{1}{8} \sum_{i=1}^{k} n_i^2 = \frac{1}{8} \lambda(x) n$. On the other hand, there are about $\frac{1}{2} n^2$ pairs that can be sampled. We have that the probability of sampling a pair with distance smaller than $x$ is at least (approximately) 
@@ -209,89 +209,119 @@ We need $d$ to be an approximation of the minimum distance $d$, and the trick is
 The advantage of this algorithm is that it is straightforward to implement, but still has good performance in practise. We first sample $n$ distances and set $d$ as the minimum of the distances. Then we insert points into the "blocks" by using a hash table from 2D coordinates to a vector of points. Finally, just compute distances between same-block pairs and adjacent-block pairs. Hash table operations have $O(1)$ expected time cost, and therefore our algorithm retains the $O(n)$ expected time cost with an increased constant.
 
 ```{.cpp file=nearest_pair_randomized}
+#include <bits/stdc++.h>
+using namespace std;
+
+
 using ll = long long;
 using ld = long double;
 
-struct RealPoint {
-    ld x, y;
-    RealPoint() {}
-    RealPoint(ld x_, ld y_) : x(x_), y(y_) {}
-};
-using pt = RealPoint;
 
-struct CustomHash {
-    size_t operator()(const pair<ll,ll>& p) const {
-        static const uint64_t C = chrono::steady_clock::now().time_since_epoch().count();
-        return C ^ ((p.first << 32) ^ p.second);
-    }
+struct pt {
+	ll x, y;
+	pt() {}
+	pt(ll x_, ll y_) : x(x_), y(y_) {}
+	void read() {
+		cin >> x >> y;
+	}
 };
 
-ld dist(const pt& a, const pt& b) {
-    ld dx = a.x - b.x;
-    ld dy = a.y - b.y;
-    return sqrt(dx*dx + dy*dy);
+bool operator==(const pt& a, const pt& b) {
+    return a.x == b.x and a.y == b.y;
 }
 
-pair<pt,pt> closest_pair_of_points_rand_reals(vector<pt> P) {
-    const ld eps = 1e-9;
 
+struct CustomHashPoint {
+	size_t operator()(const pt& p) const {
+		static const uint64_t C = chrono::steady_clock::now().time_since_epoch().count();
+		return C ^ ((p.x << 32) ^ p.y);
+	}
+};
+
+
+ll dist2(pt a, pt b) {
+	ll dx = a.x - b.x;
+	ll dy = a.y - b.y;
+	return dx*dx + dy*dy;
+}
+
+
+// O(n)
+pair<int,int> closest_pair_of_points_rand_ints(vector<pt> P) {
     int n = int(P.size());
     assert(n >= 2);
-    unordered_map<pair<ll,ll>,vector<pt>,CustomHash> grid;
-    grid.reserve(n);
 
-    mt19937 prng(chrono::system_clock::now().time_since_epoch().count());
-    uniform_int_distribution<int> uniform(0, n-1);
-
-    ld d = dist(P[0], P[1]);
-    pair<pt,pt> closest = {P[0], P[1]};
-
-    auto consider_pair = [&](const pt& a, const pt& b) -> void {
-        ld ab = dist(a, b);
-        if (ab + eps < d) {
-            d = ab;
-            closest = {a, b};
+    // if there is a duplicated point, we have the solution
+    unordered_map<pt,int,CustomHashPoint> previous;
+    for (int i = 0; i < int(P.size()); ++i) {
+        auto it = previous.find(P[i]);
+        if (it != previous.end()) {
+            return {it->second, i};
         }
-    };
-
-    for (int i = 0; i < n; ++i) {
-        int j = uniform(prng);
-        int k = uniform(prng);
-        while (j == k)
-            k = uniform(prng);
-        consider_pair(P[j], P[k]);
+        previous[P[i]] = i;
     }
 
-    for (const pt& p : P)
-        grid[{ll(p.x/d), ll(p.y/d)}].push_back(p);
+	unordered_map<pt,vector<int>,CustomHashPoint> grid;
+	grid.reserve(n);
 
-    for (const auto& it : grid) { // same block
-        int k = int(it.second.size());
-        for (int i = 0; i < k; ++i) {
-            for (int j = i+1; j < k; ++j)
-                consider_pair(it.second[i], it.second[j]);
-        }
-    }
+	mt19937 rd(chrono::system_clock::now().time_since_epoch().count());
+	uniform_int_distribution<int> dis(0, n-1);
+
+	ll d2 = dist2(P[0], P[1]);
+	pair<int,int> closest = {0, 1};
+
+	auto candidate_closest = [&](int i, int j) -> void {
+		ll ab2 = dist2(P[i], P[j]);
+		if (ab2 < d2) {
+			d2 = ab2;
+			closest = {i, j};
+		}
+	};
+
+	for (int i = 0; i < n; ++i) {
+		int j = dis(rd);
+		int k = dis(rd);
+		while (j == k) k = dis(rd);
+		candidate_closest(j, k);
+	}
+
+	ll d = ll( sqrt(ld(d2)) + 1 );
+
+	for (int i = 0; i < n; ++i) {
+		grid[{P[i].x/d, P[i].y/d}].push_back(i);
+	}
+
+	// same block
+	for (const auto& it : grid) {
+		int k = int(it.second.size());
+		for (int i = 0; i < k; ++i) {
+			for (int j = i+1; j < k; ++j) {
+				candidate_closest(it.second[i], it.second[j]);
+			}
+		}
+	}
  
-    for (const auto& it : grid) { // adjacent blocks
-        auto coord = it.first;
-        for (int dx = 0; dx <= 1; ++dx) {
-            for (int dy = -1; dy <= 1; ++dy) {
-                if (dx == 0 and dy == 0) continue;
-                pair<ll,ll> neighbour = {
-                    coord.first  + dx, 
-                    coord.second + dy
-                };
-                for (const pt& p : it.second) {
-                    if (not grid.count(neighbour)) continue;
-                    for (const pt& q : grid.at(neighbour))
-                        consider_pair(p, q);
-                }
-            }
-        }
-    }
+	// adjacent blocks
+	for (const auto& it : grid) {
+		auto coord = it.first;
+		for (int dx = 0; dx <= 1; ++dx) {
+			for (int dy = -1; dy <= 1; ++dy) {
+				if (dx == 0 and dy == 0) continue;
+				pt neighbour = pt(
+					coord.x  + dx, 
+					coord.y + dy
+                );
+				for (int i : it.second) {
+					if (not grid.count(neighbour)) continue;
+					for (int j : grid.at(neighbour)) {
+						candidate_closest(i, j);
+					}
+				}
+			}
+		}
+	}
 
-    return closest;
+	return closest;
 }
 ```
 
