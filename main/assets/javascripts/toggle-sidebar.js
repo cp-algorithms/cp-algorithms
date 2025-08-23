@@ -49,8 +49,8 @@
     // - registerKeyboardEventHandler() -> void
     const setCombinedVisibility = (showNavigation, showTOC) => {
     // Hide the button when on mobile (and menu us shown as hamburger menu anyways).
-    // The exact max-width is taken from the styling of the 'body > header > nav > a' element
-    
+    // Uses the 60em threshold that is used for hiding the TOC, search bar, repo info (name + stars), etc
+
     let style = `
 .mkdocs-toggle-sidebar-button {
     cursor: pointer;
@@ -58,7 +58,7 @@
     margin-left: 1rem;
 }
 
-@media screen and (max-width: 76.1875em) {
+@media screen and (max-width: 60em) {
     .mkdocs-toggle-sidebar-button {
         display: none;
     }
@@ -79,6 +79,7 @@ if (!showTOC) {
         
     // We always have to show the navigation in mobile view, otherwise the hamburger menu is broken
     // In material for mkdocs's blog mode, navigation's class is '.md-sidebar--post', see #9
+    // The exact width (76.1875em) is taken from the styling of the 'body > header > nav > a' element, I think
     if (!showNavigation) {
         style += `
 @media screen and (min-width: 76.1875em) {
