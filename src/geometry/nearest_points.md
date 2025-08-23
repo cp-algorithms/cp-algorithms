@@ -178,7 +178,7 @@ We will consider only the squares containing at least one point. Denote by $n_1,
 ??? info "Proof"
 	For the $i$-th square containing $n_i$ points, the number of pairs inside is $\Theta(n_i^2)$. If the $i$-th square is adjacent to the $j$-th square, then we also perform $n_i n_j \le \max(n_i, n_j)^2 \le n_i^2 + n_j^2$ distance comparisons. Notice that each square has at most $8$ adjacent squares, so we can bound the sum of all comparisons by $\Theta(\sum_{i=1}^{k} n_i^2)$. $\quad \blacksquare$
 
-Now we need to decide on how to set $d$ so that it minimizes $\Theta(\sum_{i=1}^{k} n_i^2)$.
+Now we need to decide on how to set $d$ so that it minimizes $\Theta\left(\sum\limits_{i=1}^k n_i^2\right)$.
 
 ####  Choosing d
 
