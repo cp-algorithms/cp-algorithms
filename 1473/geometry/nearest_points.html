@@ -6768,7 +6768,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 23, 2025 13:26:40 UTC">August 23, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 23, 2025 13:27:52 UTC">August 23, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6913,9 +6913,9 @@ It is obvious that it is sufficient to consider only those points that are separ
 <p>We will consider only the squares containing at least one point. Denote by <span class="arithmatex">$n_1, n_2, \dots, n_k$</span> the number of points in each of the <span class="arithmatex">$k$</span> remaining squares. Assuming at least two points are in the same or in adjacent squares,  the time complexity is <span class="arithmatex">$\Theta\left(\sum\limits_{i=1}^k n_i^2\right)$</span>.</p>
 <details class="info">
 <summary>Proof</summary>
-<p>For the <span class="arithmatex">$i$</span>-th square containing <span class="arithmatex">$n_i$</span> points, the number of pairs inside is <span class="arithmatex">$\Theta(n_i^2)$</span>. If the <span class="arithmatex">$i$</span>-th square is adjacent to the <span class="arithmatex">$j$</span>-th square, then we also perform <span class="arithmatex">$n_i n_j \le \max(n_i, n_j)^2 \le n_i^2 + n_j^2$</span> distance comparisons. Notice that each cube has at most <span class="arithmatex">$8$</span> adjacent cubes, so we can bound the sum of all comparisons by <span class="arithmatex">$\Theta(\sum_{i=1}^{k} n_i^2)$</span>. <span class="arithmatex">$\quad \blacksquare$</span></p>
+<p>For the <span class="arithmatex">$i$</span>-th square containing <span class="arithmatex">$n_i$</span> points, the number of pairs inside is <span class="arithmatex">$\Theta(n_i^2)$</span>. If the <span class="arithmatex">$i$</span>-th square is adjacent to the <span class="arithmatex">$j$</span>-th square, then we also perform <span class="arithmatex">$n_i n_j \le \max(n_i, n_j)^2 \le n_i^2 + n_j^2$</span> distance comparisons. Notice that each square has at most <span class="arithmatex">$8$</span> adjacent squares, so we can bound the sum of all comparisons by <span class="arithmatex">$\Theta(\sum_{i=1}^{k} n_i^2)$</span>. <span class="arithmatex">$\quad \blacksquare$</span></p>
 </details>
-<p>Now we need to decide on how to set <span class="arithmatex">$d$</span> so that it minimizes <span class="arithmatex">$\Theta(\sum_{i=1}^{k} n_i^2)$</span>.</p>
+<p>Now we need to decide on how to set <span class="arithmatex">$d$</span> so that it minimizes <span class="arithmatex">$\Theta\left(\sum\limits_{i=1}^k n_i^2\right)$</span>.</p>
 <h4 id="choosing-d">Choosing d<a class="headerlink" href="#choosing-d" title="Permanent link">&para;</a></h4>
 <p>We need <span class="arithmatex">$d$</span> to be an approximation of the minimum distance <span class="arithmatex">$d$</span>, and the trick is to just sample <span class="arithmatex">$n$</span> distances randomly and choose <span class="arithmatex">$d$</span> to be the smallest of these distances. We now prove that the expected running time is linear.</p>
 <details class="info">
