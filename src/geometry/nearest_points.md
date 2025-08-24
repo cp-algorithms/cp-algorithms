@@ -352,7 +352,7 @@ While this algorithm may look slow, because of recomputing everything multiple t
 	
 	We can therefore see that the expected cost is 
 	
-	$$O\left(n + \sum_{i=1}^{n} i \Pr(X_i = 1)\right) \le O\left(n + \sum_{i=1}^{n} i \frac{2}{i}\right) = O(3n) = O(n) \quad \quad \blacksquare$$ 
+	$$O\!\left(n + \sum_{i=1}^{n} i \Pr(X_i = 1)\right) \le O\!\left(n + \sum_{i=1}^{n} i \frac{2}{i}\right) = O(3n) = O(n) \quad \quad \blacksquare$$ 
 
 
 ## Generalization: finding a triangle with minimal perimeter
