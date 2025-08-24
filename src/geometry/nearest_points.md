@@ -185,28 +185,30 @@ Now we need to decide on how to set $d$ so that it minimizes $\Theta\!\left(\sum
 We need $d$ to be an approximation of the minimum distance $d$. Richard Lipton proposed to sample $n$ distances randomly and choose $d$ to be the smallest of these distances as an approximation for $d$. We now prove that the expected running time of the algorithm is linear.
 
 ??? info "Proof"
-	Imagine the disposition of points in squares with a particular choice of $d$, say $x$. Consider $d$ a random variable, resulting from our sampling of distances. Let's define $C(x) := \sum_{i=1}^{k(x)} n_i(x)^2$ as the cost estimation for a particular disposition when we choose $d=x$. Now, let's define $\lambda(x)$ such that $C(x) = \lambda(x) \, n$. What is the probability that such choice $x$ survives the sampling of $n$ independent distances? If a single pair among the sampled ones has distance smaller than $x$, this arrangement will be replaced by the smaller $d$. Inside a square, at least a quarter of the pairs would raise a smaller distance (imagine four subsquares in every square, and use the pigeonhole principle), so we have $\sum_{i=1}^{k} \frac{1}{4} {n_i \choose 2}$ pairs which yield a smaller final $d$. This is, approximately, $\frac{1}{8} \sum_{i=1}^{k} n_i^2 = \frac{1}{8} \lambda(x) n$. On the other hand, there are about $\frac{1}{2} n^2$ pairs that can be sampled. We have that the probability of sampling a pair with distance smaller than $x$ is at least (approximately) 
+	Imagine the disposition of points in squares with a particular choice of $d$, say $x$. Consider $d$ a random variable, resulting from our sampling of distances. Let's define $C(x) := \sum_{i=1}^{k(x)} n_i(x)^2$ as the cost estimation for a particular disposition when we choose $d=x$. Now, let's define $\lambda(x)$ such that $C(x) = \lambda(x) \, n$. What is the probability that such choice $x$ survives the sampling of $n$ independent distances? If a single pair among the sampled ones has distance smaller than $x$, this arrangement will be replaced by the smaller $d$. Inside a square, about $1/16$ of the pairs would raise a smaller distance (imagine four subsquares in every square; using the pigeonhole principle, at least one subsquare has $n_i/4$ points), so we have about $\sum_{i=1}^{k} {n_i/4 \choose 2} \approx \sum_{i=1}^{k} \frac{1}{16} {n_i \choose 2}$ pairs which yield a smaller final $d$. This is, approximately, $\frac{1}{32} \sum_{i=1}^{k} n_i^2 = \frac{1}{32} \lambda(x) n$. On the other hand, there are about $\frac{1}{2} n^2$ pairs that can be sampled. We have that the probability of sampling a pair with distance smaller than $x$ is at least (approximately) 
 	
-	$$\frac{\lambda(x) n / 8}{n^2 / 2} = \frac{\lambda(x)/4}{n}$$
+	$$\frac{\lambda(x) \, n / 32}{n^2 / 2} = \frac{\lambda(x)/16}{n}$$
 	
 	so the probability of at least one such pair being chosen during the $n$ rounds (and therefore finding a smaller $d$) is 
 	
-	$$1 - \left(1 - \frac{\lambda(x)/4}{n}\right)^n \ge 1 - e^{-\lambda(x)/4}$$
+	$$1 - \left(1 - \frac{\lambda(x)/16}{n}\right)^n \ge 1 - e^{-\lambda(x)/16}$$
 	
-	(we have used that $(1 + x)^n \le e^{xn}$ for any real number $x$, check [Bernoulli inequalities](https://en.wikipedia.org/wiki/Bernoulli%27s_inequality#Related_inequalities)). <br> Notice this goes to $1$ exponentially as $\lambda(x)$ increases. This hints that $\lambda$ will be small usually.
+	(we have used that $(1 + x)^n \le e^{xn}$ for any real number $x$, check [Bernoulli inequalities](https://en.wikipedia.org/wiki/Bernoulli%27s_inequality#Related_inequalities)). <br> Notice this goes to $1$ exponentially as $\lambda(x)$ increases. This hints that $\lambda$ will be small for a poorly chosen $d$.
 	
 	
-	We have shown that $\Pr(d \le x) \ge 1 - e^{-\lambda(x)/4}$, or equivalently, $\Pr(d \ge x) \le e^{-\lambda(x)/4}$. We need to know $\Pr(\lambda(d) \ge \text{something})$ to be able to estimate its expected value. We notice that $\lambda(d) \ge \lambda(x) \iff d \ge x$. This is because making the squares smaller only reduces the number of points in each square (splits the points into other squares), and this keeps reducing the sum of squares. Therefore,
+	We have shown that $\Pr(d \le x) \ge 1 - e^{-\lambda(x)/16}$, or equivalently, $\Pr(d \ge x) \le e^{-\lambda(x)/16}$. We need to know $\Pr(\lambda(d) \ge \text{something})$ to be able to estimate its expected value. We notice that $\lambda(d) \ge \lambda(x) \iff d \ge x$. This is because making the squares smaller only reduces the number of points in each square (splits the points into other squares), and this keeps reducing the sum of squares. Therefore,
 	
-	$$\Pr(\lambda(d) \ge \lambda(x)) = \Pr(d \ge x) \le e^{-\lambda(x)/4} \implies \Pr(\lambda(d) \ge t) \le e^{-t/4} \implies \mathbb{E}[\lambda(d)] \le \int_{0}^{+\infty} e^{-t/4} \, \mathrm{d}t = 4$$
+	$$\Pr(\lambda(d) \ge \lambda(x)) = \Pr(d \ge x) \le e^{-\lambda(x)/16} \implies \Pr(\lambda(d) \ge t) \le e^{-t/16} \implies \mathbb{E}[\lambda(d)] \le \int_{0}^{+\infty} e^{-t/16} \, \mathrm{d}t = 16$$
 	
 	(we have used that $E[X] = \int_0^{+\infty} \Pr(X \ge x) \, \mathrm{d}x$, check [Stackexchange proof](https://math.stackexchange.com/a/1690829)).
 	
-	Finally, $\mathbb{E}[C(d)] = \mathbb{E}[\lambda(d) \, n] \le 4n$, and the expected running time is $O(n)$, with a reasonable constant factor. $\quad \blacksquare$
+	Finally, $\mathbb{E}[C(d)] = \mathbb{E}[\lambda(d) \, n] \le 16n$, and the expected running time is $O(n)$, with a reasonable constant factor. $\quad \blacksquare$
 
 #### Implementation of the algorithm
 
 The advantage of this algorithm is that it is straightforward to implement, but still has good performance in practise. We first sample $n$ distances and set $d$ as the minimum of the distances. Then we insert points into the "blocks" by using a hash table from 2D coordinates to a vector of points. Finally, just compute distances between same-block pairs and adjacent-block pairs. Hash table operations have $O(1)$ expected time cost, and therefore our algorithm retains the $O(n)$ expected time cost with an increased constant.
+
+Check out [this submission](https://judge.yosupo.jp/submission/309605) to Library Checker.
 
 ```{.cpp file=nearest_pair_randomized}
 #include <bits/stdc++.h>
@@ -334,12 +336,14 @@ Now we introduce a different randomized algorithm which is less practical but ve
 - Partition the plane in squares of side $\delta/2$
 - For $i = 1,2,\dots,n$:
 	- Take the square corresponding to $p_i$
-	- Interate over the $25$ squares within two steps to our square in the grid of squares partitioning the plane
+	- Iterate over the $25$ squares within two steps to our square in the grid of squares partitioning the plane
 	- If some $p_j$ in those squares has $\operatorname{dist}(p_j, p_i) < \delta$, then
 		- Recompute the partition and squares with $\delta := \operatorname{dist}(p_j, p_i)$
 		- Store points $p_1, \dots, p_i$ in the corresponding squares
 	- else, store $p_i$ in the corresponding square
 - output $\delta$
+
+The correctness follows from the fact that at any moment we already have some pair with distance $\delta$, so we try to find only new pairs with distance smaller than $\delta$. Since each square has side $\delta/2$, a candidate pair can be at most at a distance of $2$ squares, so for a given point we check candidates in the surrounding $25$ squares. Any point in a square further away will always give a distace larger than $\delta$.
 
 While this algorithm may look slow, because of recomputing everything multiple times, we can show the total expected cost is linear. 
 
