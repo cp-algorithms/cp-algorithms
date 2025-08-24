@@ -63,7 +63,7 @@ $$a x_g + b y_g = g$$
 
 If $c$ is divisible by $g = \gcd(a, b)$, then the given Diophantine equation has a solution, otherwise it does not have any solution. The proof is straight-forward: a linear combination of two numbers is divisible by their common divisor.
 
-Now supposed that $c$ is divisible by $g$, then we have:
+Now suppose that $c$ is divisible by $g$, then we have:
 
 $$a \cdot x_g \cdot \frac{c}{g} + b \cdot y_g \cdot \frac{c}{g} = c$$
 
