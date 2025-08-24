@@ -1,6 +1,7 @@
 (function() {
     const customDynamicStyle = document.createElement("style");
-    document.head.appendChild(customDynamicStyle);
+    // We must put it outside of the head and body, since they are replaced by the instant navigation feature in the Material theme
+    document.documentElement.appendChild(customDynamicStyle);
 
     const TOGGLE_BUTTON_REFERENCE_ELEMENT_NOT_FOUND_WARNING = "[mkdocs-toggle-sidebar-plugin] Reference element for inserting 'toggle_button' not found. This version of the plugin may not be compatible with this version of the theme. Try updating both to the latest version. If that fails, you can open an GitHub issue.";
 
@@ -48,8 +49,8 @@
     // - registerKeyboardEventHandler() -> void
     const setCombinedVisibility = (showNavigation, showTOC) => {
     // Hide the button when on mobile (and menu us shown as hamburger menu anyways).
-    // The exact max-width is taken from the styling of the 'body > header > nav > a' element
-    
+    // Uses the 60em threshold that is used for hiding the TOC, search bar, repo info (name + stars), etc
+
     let style = `
 .mkdocs-toggle-sidebar-button {
     cursor: pointer;
@@ -57,7 +58,7 @@
     margin-left: 1rem;
 }
 
-@media screen and (max-width: 76.1875em) {
+@media screen and (max-width: 60em) {
     .mkdocs-toggle-sidebar-button {
         display: none;
     }
@@ -77,10 +78,12 @@ if (!showTOC) {
         }
         
     // We always have to show the navigation in mobile view, otherwise the hamburger menu is broken
+    // In material for mkdocs's blog mode, navigation's class is '.md-sidebar--post', see #9
+    // The exact width (76.1875em) is taken from the styling of the 'body > header > nav > a' element, I think
     if (!showNavigation) {
         style += `
 @media screen and (min-width: 76.1875em) {
-    div.md-sidebar.md-sidebar--primary {
+    div.md-sidebar.md-sidebar--primary, div.md-sidebar.md-sidebar--post {
         display: none;
     }
 }
@@ -132,7 +135,7 @@ const registerKeyboardEventHandler = () => {
         }
     }
 
-    window.addEventListener("load", () => {
+    const onPageLoadedAction = () => {
         console.log("The mkdocs-toggle-sidebar-plugin is installed. It adds the following key bindings:\n T -> toggle table of contents sidebar\n M -> toggle navigation menu sidebar\n B -> toggle both sidebars (TOC and navigation)");
 
         const toggle_button = "all";
@@ -149,8 +152,7 @@ const registerKeyboardEventHandler = () => {
         }
 
         registerKeyboardEventHandler();
-        customDynamicStyle.innerHTML = setCombinedVisibility(loadNavigationState(), loadTocState());
-    });
+    }
 
     const createDefaultToggleButton = (toggleNavigation, toggleTOC) => {
         const toggleBtn = document.createElement("div");
@@ -186,4 +188,17 @@ const registerKeyboardEventHandler = () => {
         toggleTocVisibility: () => toggleVisibility(false, true),
         toggleAllVisibility: () => toggleVisibility(true, true)
     };
+
+    // Run this immediately instead of waiting for page.onload to prevent page flicker
+    customDynamicStyle.innerHTML = setCombinedVisibility(loadNavigationState(), loadTocState());
+    // console.log("Debug: hide sidebar completed");
+
+    // SEE https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event#checking_whether_loading_is_already_complete
+    if (document.readyState === "loading") {
+        // console.debug("Registering DOMContentLoaded event listener");
+        document.addEventListener("DOMContentLoaded", onPageLoadedAction);
+    } else {
+        // console.debug("DOMContentLoaded has already fired");
+        onPageLoadedAction();
+    }
 }());
