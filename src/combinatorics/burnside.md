@@ -280,3 +280,4 @@ int solve(int n, int m) {
 * [SPOJ - Sorting Machine](https://www.spoj.com/problems/SRTMACH/)
 * [Project Euler - Pizza Toppings](https://projecteuler.net/problem=281)
 * [ICPC 2011 SERCP - Alphabet Soup](https://basecamp.eolymp.com/tr/problems/3064)
+* [GCPC 2017 - Buildings](https://basecamp.eolymp.com/en/problems/11615)
