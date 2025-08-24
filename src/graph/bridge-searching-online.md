@@ -57,7 +57,7 @@ When adding the next edge $(a, b)$ there can occur three situations:
     In this case, this edge forms a cycle along with some of the old bridges.
     All these bridges end being bridges, and the resulting cycle must be compressed into a new 2-edge-connected component.
 
-    Thus, in this case the number of bridges decreases by two or more.
+    Thus, in this case the number of bridges decreases by one or more.
 
 Consequently the whole task is reduced to the effective implementation of all these operations over the forest of 2-edge-connected components.
 

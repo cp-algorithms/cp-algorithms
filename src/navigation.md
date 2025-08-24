@@ -111,6 +111,7 @@ search:
         - [Binary Search](num_methods/binary_search.md)
         - [Ternary Search](num_methods/ternary_search.md)
         - [Newton's method for finding roots](num_methods/roots_newton.md)
+        - [Simulated Annealing](num_methods/simulated_annealing.md)
     - Integration
         - [Integration by Simpson's formula](num_methods/simpson-integration.md)
 - Geometry
@@ -145,6 +146,7 @@ search:
         - [Vertical decomposition](geometry/vertical_decomposition.md)
         - [Half-plane intersection - S&I Algorithm in O(N log N)](geometry/halfplane-intersection.md)
         - [Manhattan Distance](geometry/manhattan-distance.md)
+        - [Minimum Enclosing Circle](geometry/enclosing-circle.md)
 - Graphs
     - Graph traversal
         - [Breadth First Search](graph/breadth-first-search.md)
