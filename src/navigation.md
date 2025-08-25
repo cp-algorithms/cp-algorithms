@@ -63,6 +63,7 @@ search:
 - Dynamic Programming
     - [Introduction to Dynamic Programming](dynamic_programming/intro-to-dp.md)
     - [Knapsack Problem](dynamic_programming/knapsack.md)
+    - [Longest increasing subsequence](dynamic_programming/longest_increasing_subsequence.md)
     - DP optimizations
         - [Divide and Conquer DP](dynamic_programming/divide-and-conquer-dp.md)
         - [Knuth's Optimization](dynamic_programming/knuth-optimization.md)
@@ -205,7 +206,6 @@ search:
 - Miscellaneous
     - Sequences
         - [RMQ task (Range Minimum Query - the smallest element in an interval)](sequences/rmq.md)
-        - [Longest increasing subsequence](sequences/longest_increasing_subsequence.md)
         - [Search the subsegment with the maximum/minimum sum](others/maximum_average_segment.md)
         - [K-th order statistic in O(N)](sequences/k-th.md)
         - [MEX task (Minimal Excluded element in an array)](sequences/mex.md)
