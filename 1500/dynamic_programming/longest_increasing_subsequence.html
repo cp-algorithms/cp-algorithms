@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://cp-algorithms.com/graph/pruefer_code.html">
+        <link rel="canonical" href="https://cp-algorithms.com/dynamic_programming/longest_increasing_subsequence.html">
       
       
-        <link rel="prev" href="kirchhoff-theorem.html">
+        <link rel="prev" href="knapsack.html">
       
       
-        <link rel="next" href="finding-cycle.html">
+        <link rel="next" href="divide-and-conquer-dp.html">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../feed_rss_created.xml">
@@ -27,7 +27,7 @@
     
     
       
-        <title>Prüfer code - Algorithms for Competitive Programming</title>
+        <title>Longest increasing subsequence - Algorithms for Competitive Programming</title>
       
     
     
@@ -91,7 +91,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#prufer-code" class="md-skip">
+        <a href="#longest-increasing-subsequence" class="md-skip">
           Skip to content
         </a>
       
@@ -136,7 +136,7 @@
           <span class="md-ellipsis">
             <a href="#" onclick="scrollToTop()">
               
-                Prüfer code
+                Longest increasing subsequence
               
             </a>
           </span>
@@ -1873,18 +1873,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -1900,7 +1902,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             Dynamic Programming
@@ -1914,7 +1916,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dynamic_programming/intro-to-dp.html" class="md-nav__link">
+      <a href="intro-to-dp.html" class="md-nav__link">
         
   
   
@@ -1937,7 +1939,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dynamic_programming/knapsack.html" class="md-nav__link">
+      <a href="knapsack.html" class="md-nav__link">
         
   
   
@@ -1957,10 +1959,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../dynamic_programming/longest_increasing_subsequence.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Longest increasing subsequence
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="longest_increasing_subsequence.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1971,6 +1995,179 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#solution-in-on2-with-dynamic-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solution in O(n^2) with dynamic programming
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Solution in O(n^2) with dynamic programming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#finding-the-length" class="md-nav__link">
+    <span class="md-ellipsis">
+      Finding the length
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restoring-the-subsequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restoring the subsequence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-of-restoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation of restoring
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-way-of-restoring-the-subsequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alternative way of restoring the subsequence
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution-in-on-log-n-with-dynamic-programming-and-binary-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solution in O(n log n) with dynamic programming and binary search
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Solution in O(n log n) with dynamic programming and binary search">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restoring-the-subsequence_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restoring the subsequence
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution-in-on-log-n-with-data-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solution in O(n log n) with data structures
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related tasks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Related tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#longest-non-decreasing-subsequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Longest non-decreasing subsequence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#number-of-longest-increasing-subsequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      Number of longest increasing subsequences
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smallest-number-of-non-increasing-subsequences-covering-a-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Smallest number of non-increasing subsequences covering a sequence
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practice Problems
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2021,7 +2218,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dynamic_programming/divide-and-conquer-dp.html" class="md-nav__link">
+      <a href="divide-and-conquer-dp.html" class="md-nav__link">
         
   
   
@@ -2044,7 +2241,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dynamic_programming/knuth-optimization.html" class="md-nav__link">
+      <a href="knuth-optimization.html" class="md-nav__link">
         
   
   
@@ -2113,7 +2310,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dynamic_programming/profile-dynamics.html" class="md-nav__link">
+      <a href="profile-dynamics.html" class="md-nav__link">
         
   
   
@@ -2136,7 +2333,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dynamic_programming/zero_matrix.html" class="md-nav__link">
+      <a href="zero_matrix.html" class="md-nav__link">
         
   
   
@@ -4397,20 +4594,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
         
           
           <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
@@ -4426,7 +4621,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
             Graphs
@@ -4478,7 +4673,7 @@
   
   
     <li class="md-nav__item">
-      <a href="breadth-first-search.html" class="md-nav__link">
+      <a href="../graph/breadth-first-search.html" class="md-nav__link">
         
   
   
@@ -4501,7 +4696,7 @@
   
   
     <li class="md-nav__item">
-      <a href="depth-first-search.html" class="md-nav__link">
+      <a href="../graph/depth-first-search.html" class="md-nav__link">
         
   
   
@@ -4570,7 +4765,7 @@
   
   
     <li class="md-nav__item">
-      <a href="search-for-connected-components.html" class="md-nav__link">
+      <a href="../graph/search-for-connected-components.html" class="md-nav__link">
         
   
   
@@ -4593,7 +4788,7 @@
   
   
     <li class="md-nav__item">
-      <a href="bridge-searching.html" class="md-nav__link">
+      <a href="../graph/bridge-searching.html" class="md-nav__link">
         
   
   
@@ -4616,7 +4811,7 @@
   
   
     <li class="md-nav__item">
-      <a href="bridge-searching-online.html" class="md-nav__link">
+      <a href="../graph/bridge-searching-online.html" class="md-nav__link">
         
   
   
@@ -4639,7 +4834,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cutpoints.html" class="md-nav__link">
+      <a href="../graph/cutpoints.html" class="md-nav__link">
         
   
   
@@ -4662,7 +4857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="strongly-connected-components.html" class="md-nav__link">
+      <a href="../graph/strongly-connected-components.html" class="md-nav__link">
         
   
   
@@ -4685,7 +4880,7 @@
   
   
     <li class="md-nav__item">
-      <a href="strong-orientation.html" class="md-nav__link">
+      <a href="../graph/strong-orientation.html" class="md-nav__link">
         
   
   
@@ -4754,7 +4949,7 @@
   
   
     <li class="md-nav__item">
-      <a href="dijkstra.html" class="md-nav__link">
+      <a href="../graph/dijkstra.html" class="md-nav__link">
         
   
   
@@ -4777,7 +4972,7 @@
   
   
     <li class="md-nav__item">
-      <a href="dijkstra_sparse.html" class="md-nav__link">
+      <a href="../graph/dijkstra_sparse.html" class="md-nav__link">
         
   
   
@@ -4800,7 +4995,7 @@
   
   
     <li class="md-nav__item">
-      <a href="bellman_ford.html" class="md-nav__link">
+      <a href="../graph/bellman_ford.html" class="md-nav__link">
         
   
   
@@ -4823,7 +5018,7 @@
   
   
     <li class="md-nav__item">
-      <a href="01_bfs.html" class="md-nav__link">
+      <a href="../graph/01_bfs.html" class="md-nav__link">
         
   
   
@@ -4846,7 +5041,7 @@
   
   
     <li class="md-nav__item">
-      <a href="desopo_pape.html" class="md-nav__link">
+      <a href="../graph/desopo_pape.html" class="md-nav__link">
         
   
   
@@ -4915,7 +5110,7 @@
   
   
     <li class="md-nav__item">
-      <a href="all-pair-shortest-path-floyd-warshall.html" class="md-nav__link">
+      <a href="../graph/all-pair-shortest-path-floyd-warshall.html" class="md-nav__link">
         
   
   
@@ -4938,7 +5133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="fixed_length_paths.html" class="md-nav__link">
+      <a href="../graph/fixed_length_paths.html" class="md-nav__link">
         
   
   
@@ -4966,20 +5161,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_5" >
         
           
           <label class="md-nav__link" for="__nav_10_5" id="__nav_10_5_label" tabindex="0">
@@ -4995,7 +5188,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10_5">
             <span class="md-nav__icon md-icon"></span>
             Spanning trees
@@ -5009,7 +5202,7 @@
   
   
     <li class="md-nav__item">
-      <a href="mst_prim.html" class="md-nav__link">
+      <a href="../graph/mst_prim.html" class="md-nav__link">
         
   
   
@@ -5032,7 +5225,7 @@
   
   
     <li class="md-nav__item">
-      <a href="mst_kruskal.html" class="md-nav__link">
+      <a href="../graph/mst_kruskal.html" class="md-nav__link">
         
   
   
@@ -5055,7 +5248,7 @@
   
   
     <li class="md-nav__item">
-      <a href="mst_kruskal_with_dsu.html" class="md-nav__link">
+      <a href="../graph/mst_kruskal_with_dsu.html" class="md-nav__link">
         
   
   
@@ -5078,7 +5271,7 @@
   
   
     <li class="md-nav__item">
-      <a href="second_best_mst.html" class="md-nav__link">
+      <a href="../graph/second_best_mst.html" class="md-nav__link">
         
   
   
@@ -5101,7 +5294,7 @@
   
   
     <li class="md-nav__item">
-      <a href="kirchhoff-theorem.html" class="md-nav__link">
+      <a href="../graph/kirchhoff-theorem.html" class="md-nav__link">
         
   
   
@@ -5121,32 +5314,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Prüfer code
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="pruefer_code.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../graph/pruefer_code.html" class="md-nav__link">
         
   
   
@@ -5157,122 +5328,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#prufer-code_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      Prüfer code
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Prüfer code">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#building-the-prufer-code-for-a-given-tree" class="md-nav__link">
-    <span class="md-ellipsis">
-      Building the Prüfer code for a given tree
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#building-the-prufer-code-for-a-given-tree-in-linear-time" class="md-nav__link">
-    <span class="md-ellipsis">
-      Building the Prüfer code for a given tree in linear time
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#some-properties-of-the-prufer-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      Some properties of the Prüfer code
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#restoring-the-tree-using-the-prufer-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      Restoring the tree using the Prüfer code
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#restoring-the-tree-using-the-prufer-code-in-linear-time" class="md-nav__link">
-    <span class="md-ellipsis">
-      Restoring the tree using the Prüfer code in linear time
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bijection-between-trees-and-prufer-codes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Bijection between trees and Prüfer codes
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cayleys-formula" class="md-nav__link">
-    <span class="md-ellipsis">
-      Cayley's formula
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#number-of-ways-to-make-a-graph-connected" class="md-nav__link">
-    <span class="md-ellipsis">
-      Number of ways to make a graph connected
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#practice-problems" class="md-nav__link">
-    <span class="md-ellipsis">
-      Practice problems
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -5331,7 +5386,7 @@
   
   
     <li class="md-nav__item">
-      <a href="finding-cycle.html" class="md-nav__link">
+      <a href="../graph/finding-cycle.html" class="md-nav__link">
         
   
   
@@ -5354,7 +5409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="finding-negative-cycle-in-graph.html" class="md-nav__link">
+      <a href="../graph/finding-negative-cycle-in-graph.html" class="md-nav__link">
         
   
   
@@ -5377,7 +5432,7 @@
   
   
     <li class="md-nav__item">
-      <a href="euler_path.html" class="md-nav__link">
+      <a href="../graph/euler_path.html" class="md-nav__link">
         
   
   
@@ -5446,7 +5501,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lca.html" class="md-nav__link">
+      <a href="../graph/lca.html" class="md-nav__link">
         
   
   
@@ -5469,7 +5524,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lca_binary_lifting.html" class="md-nav__link">
+      <a href="../graph/lca_binary_lifting.html" class="md-nav__link">
         
   
   
@@ -5492,7 +5547,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lca_farachcoltonbender.html" class="md-nav__link">
+      <a href="../graph/lca_farachcoltonbender.html" class="md-nav__link">
         
   
   
@@ -5515,7 +5570,7 @@
   
   
     <li class="md-nav__item">
-      <a href="rmq_linear.html" class="md-nav__link">
+      <a href="../graph/rmq_linear.html" class="md-nav__link">
         
   
   
@@ -5538,7 +5593,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lca_tarjan.html" class="md-nav__link">
+      <a href="../graph/lca_tarjan.html" class="md-nav__link">
         
   
   
@@ -5607,7 +5662,7 @@
   
   
     <li class="md-nav__item">
-      <a href="edmonds_karp.html" class="md-nav__link">
+      <a href="../graph/edmonds_karp.html" class="md-nav__link">
         
   
   
@@ -5630,7 +5685,7 @@
   
   
     <li class="md-nav__item">
-      <a href="push-relabel.html" class="md-nav__link">
+      <a href="../graph/push-relabel.html" class="md-nav__link">
         
   
   
@@ -5653,7 +5708,7 @@
   
   
     <li class="md-nav__item">
-      <a href="push-relabel-faster.html" class="md-nav__link">
+      <a href="../graph/push-relabel-faster.html" class="md-nav__link">
         
   
   
@@ -5676,7 +5731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="dinic.html" class="md-nav__link">
+      <a href="../graph/dinic.html" class="md-nav__link">
         
   
   
@@ -5699,7 +5754,7 @@
   
   
     <li class="md-nav__item">
-      <a href="mpm.html" class="md-nav__link">
+      <a href="../graph/mpm.html" class="md-nav__link">
         
   
   
@@ -5722,7 +5777,7 @@
   
   
     <li class="md-nav__item">
-      <a href="flow_with_demands.html" class="md-nav__link">
+      <a href="../graph/flow_with_demands.html" class="md-nav__link">
         
   
   
@@ -5745,7 +5800,7 @@
   
   
     <li class="md-nav__item">
-      <a href="min_cost_flow.html" class="md-nav__link">
+      <a href="../graph/min_cost_flow.html" class="md-nav__link">
         
   
   
@@ -5768,7 +5823,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Assignment-problem-min-flow.html" class="md-nav__link">
+      <a href="../graph/Assignment-problem-min-flow.html" class="md-nav__link">
         
   
   
@@ -5837,7 +5892,7 @@
   
   
     <li class="md-nav__item">
-      <a href="bipartite-check.html" class="md-nav__link">
+      <a href="../graph/bipartite-check.html" class="md-nav__link">
         
   
   
@@ -5860,7 +5915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="kuhn_maximum_bipartite_matching.html" class="md-nav__link">
+      <a href="../graph/kuhn_maximum_bipartite_matching.html" class="md-nav__link">
         
   
   
@@ -5883,7 +5938,7 @@
   
   
     <li class="md-nav__item">
-      <a href="hungarian-algorithm.html" class="md-nav__link">
+      <a href="../graph/hungarian-algorithm.html" class="md-nav__link">
         
   
   
@@ -5952,7 +6007,7 @@
   
   
     <li class="md-nav__item">
-      <a href="topological-sort.html" class="md-nav__link">
+      <a href="../graph/topological-sort.html" class="md-nav__link">
         
   
   
@@ -5975,7 +6030,7 @@
   
   
     <li class="md-nav__item">
-      <a href="edge_vertex_connectivity.html" class="md-nav__link">
+      <a href="../graph/edge_vertex_connectivity.html" class="md-nav__link">
         
   
   
@@ -5998,7 +6053,7 @@
   
   
     <li class="md-nav__item">
-      <a href="tree_painting.html" class="md-nav__link">
+      <a href="../graph/tree_painting.html" class="md-nav__link">
         
   
   
@@ -6021,7 +6076,7 @@
   
   
     <li class="md-nav__item">
-      <a href="2SAT.html" class="md-nav__link">
+      <a href="../graph/2SAT.html" class="md-nav__link">
         
   
   
@@ -6044,7 +6099,7 @@
   
   
     <li class="md-nav__item">
-      <a href="hld.html" class="md-nav__link">
+      <a href="../graph/hld.html" class="md-nav__link">
         
   
   
@@ -6618,9 +6673,9 @@
                   <script type="text/javascript">
 window.onload = function() {
 	const newIssueURL = "https://github.com/cp-algorithms/cp-algorithms/issues/new";
-  const issueTitle = "Problem on article " + "Pr\u00fcfer code";
+  const issueTitle = "Problem on article " + "Longest increasing subsequence";
 	const issueBody = `
- **Article:** [`+ "Pr\u00fcfer code" + `](${window.location.href})
+ **Article:** [`+ "Longest increasing subsequence" + `](${window.location.href})
 
 **Problem:**
 <!--
@@ -6632,13 +6687,13 @@ Describe the issue of this article in detail.
 }
 </script>
 
-<a href="https://github.com/cp-algorithms/cp-algorithms/edit/main/src/graph/pruefer_code.md" title="Edit this page" class="md-content__button md-icon">
+<a href="https://github.com/cp-algorithms/cp-algorithms/edit/main/src/dynamic_programming/longest_increasing_subsequence.md" title="Edit this page" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
 </a>
 <a id="report_issue_a" href="" title="Report a problem" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14h-2V9h2m0 9h-2v-2h2M1 21h22L12 2z"/></svg>
 </a>
-<a href="https://github.com/cp-algorithms/cp-algorithms/commits/main/src/graph/pruefer_code.md" title="Page authors" class="md-content__button md-icon">
+<a href="https://github.com/cp-algorithms/cp-algorithms/commits/main/src/dynamic_programming/longest_increasing_subsequence.md" title="Page authors" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><rect fill="none" height="24" width="24"/></g><g><g><g><path d="M12,8.5c-0.91,0-2.75,0.46-2.75,1.38v4.62h1.5V19h2.5v-4.5h1.5V9.88C14.75,8.97,12.91,8.5,12,8.5z"/><path d="M12,2C6.47,2,2,6.47,2,12s4.47,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.42,0-8-3.58-8-8s3.58-8,8-8s8,3.58,8,8 S16.42,20,12,20z"/><circle cx="12" cy="6.5" r="1.5"/></g></g></g></svg>
 </a>
 
@@ -6653,7 +6708,31 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
     
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
   
     
   
@@ -6666,11 +6745,71 @@ Describe the issue of this article in detail.
     
   
 
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
 
 
-  
-  
-  
 
   
   
@@ -6683,7 +6822,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 8, 2022 12:55:09 UTC">June 8, 2022</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 25, 2025 06:45:10 UTC">August 25, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6701,7 +6840,7 @@ Describe the issue of this article in detail.
   
 
   
-    <a href="https://e-maxx.ru/algo/prufer_code_cayley_formula" class="md-tag">
+    <a href="https://e-maxx.ru/algo/longest_increasing_subseq_log" class="md-tag">
       From: e-maxx.ru
     </a>
   
@@ -6709,263 +6848,286 @@ Describe the issue of this article in detail.
 </ul>
 
 
-<h1 id="prufer-code">Prüfer code<a class="headerlink" href="#prufer-code" title="Permanent link">&para;</a></h1>
-<p>In this article we will look at the so-called <strong>Prüfer code</strong> (or Prüfer sequence), which is a way of encoding a labeled tree into a sequence of numbers in a unique way.</p>
-<p>With the help of the Prüfer code we will prove <strong>Cayley's formula</strong> (which specified the number of spanning trees in a complete graph).
-Also we show the solution to the problem of counting the number of ways of adding edges to a graph to make it connected.</p>
-<p><strong>Note</strong>, we will not consider trees consisting of a single vertex - this is a special case in which multiple statements clash.</p>
-<h2 id="prufer-code_1">Prüfer code<a class="headerlink" href="#prufer-code_1" title="Permanent link">&para;</a></h2>
-<p>The Prüfer code is a way of encoding a labeled tree with <span class="arithmatex">$n$</span> vertices using a sequence of <span class="arithmatex">$n - 2$</span> integers in the interval <span class="arithmatex">$[0; n-1]$</span>.
-This encoding also acts as a <strong>bijection</strong> between all spanning trees of a complete graph and the numerical sequences.</p>
-<p>Although using the Prüfer code for storing and operating on tree is impractical due the specification of the representation, the Prüfer codes are used frequently: mostly in solving combinatorial problems.</p>
-<p>The inventor - Heinz Prüfer - proposed this code in 1918 as a proof for Cayley's formula.</p>
-<h3 id="building-the-prufer-code-for-a-given-tree">Building the Prüfer code for a given tree<a class="headerlink" href="#building-the-prufer-code-for-a-given-tree" title="Permanent link">&para;</a></h3>
-<p>The Prüfer code is constructed as follows.
-We will repeat the following procedure <span class="arithmatex">$n - 2$</span> times:
-we select the leaf of the tree with the smallest number, remove it from the tree, and write down the number of the vertex that was connected to it.
-After <span class="arithmatex">$n - 2$</span> iterations there will only remain <span class="arithmatex">$2$</span> vertices, and the algorithm ends.</p>
-<p>Thus the Prüfer code for a given tree is a sequence of <span class="arithmatex">$n - 2$</span> numbers, where each number is the number of the connected vertex, i.e. this number is in the interval <span class="arithmatex">$[0, n-1]$</span>.</p>
-<p>The algorithm for computing the Prüfer code can be implemented easily with <span class="arithmatex">$O(n \log n)$</span> time complexity, simply by using a data structure to extract the minimum (for instance <code>set</code> or <code>priority_queue</code> in C++), which contains a list of all the current leafs.</p>
-<div class="highlight"><pre><span></span><code><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">adj</span><span class="p">;</span>
-
-<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pruefer_code</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">adj</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-<span class="w">    </span><span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">leafs</span><span class="p">;</span>
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">degree</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="w"> </span><span class="n">killed</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">degree</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">();</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">degree</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
-<span class="w">            </span><span class="n">leafs</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">code</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">leaf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">leafs</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
-<span class="w">        </span><span class="n">leafs</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">leafs</span><span class="p">.</span><span class="n">begin</span><span class="p">());</span>
-<span class="w">        </span><span class="n">killed</span><span class="p">[</span><span class="n">leaf</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
-
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">leaf</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">killed</span><span class="p">[</span><span class="n">u</span><span class="p">])</span>
-<span class="w">                </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-
-<span class="w">        </span><span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">--</span><span class="n">degree</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
-<span class="w">            </span><span class="n">leafs</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">code</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>However the construction can also be implemented in linear time.
-Such an approach is described in the next section.</p>
-<h3 id="building-the-prufer-code-for-a-given-tree-in-linear-time">Building the Prüfer code for a given tree in linear time<a class="headerlink" href="#building-the-prufer-code-for-a-given-tree-in-linear-time" title="Permanent link">&para;</a></h3>
-<p>The essence of the algorithm is to use a <strong>moving pointer</strong>, which will always point to the current leaf vertex that we want to remove.</p>
-<p>At first glance this seems impossible, because during the process of constructing the Prüfer code the leaf number can increase and decrease.
-However after a closer look, this is actually not true.
-The number of leafs will not increase. Either the number decreases by one (we remove one leaf vertex and don't gain a new one), or it stay the same (we remove one leaf vertex and gain another one).
-In the first case there is no other way than searching for the next smallest leaf vertex.
-In the second case, however, we can decide in <span class="arithmatex">$O(1)$</span> time, if we can continue using the vertex that became a new leaf vertex, or if we have to search for the next smallest leaf vertex.
-And in quite a lot of times we can continue with the new leaf vertex.</p>
-<p>To do this we will use a variable <span class="arithmatex">$\text{ptr}$</span>, which will indicate that in the set of vertices between <span class="arithmatex">$0$</span> and <span class="arithmatex">$\text{ptr}$</span> is at most one leaf vertex, namely the current one.
-All other vertices in that range are either already removed from the tree, or have still more than one adjacent vertices.
-At the same time we say, that we haven't removed any leaf vertices bigger than <span class="arithmatex">$\text{ptr}$</span> yet.</p>
-<p>This variable is already very helpful in the first case.
-After removing the current leaf node, we know that there cannot be a leaf node between <span class="arithmatex">$0$</span> and <span class="arithmatex">$\text{ptr}$</span>, therefore we can start the search for the next one directly at <span class="arithmatex">$\text{ptr} + 1$</span>, and we don't have to start the search back at vertex <span class="arithmatex">$0$</span>.
-And in the second case, we can further distinguish two cases:
-Either the newly gained leaf vertex is smaller than <span class="arithmatex">$\text{ptr}$</span>, then this must be the next leaf vertex, since we know that there are no other vertices smaller than <span class="arithmatex">$\text{ptr}$</span>.
-Or the newly gained leaf vertex is bigger.
-But then we also know that it has to be bigger than <span class="arithmatex">$\text{ptr}$</span>, and can start the search again at <span class="arithmatex">$\text{ptr} + 1$</span>.</p>
-<p>Even though we might have to perform multiple linear searches for the next leaf vertex, the pointer <span class="arithmatex">$\text{ptr}$</span> only increases and therefore the time complexity in total is <span class="arithmatex">$O(n)$</span>.</p>
-<div class="highlight"><pre><span></span><code><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">adj</span><span class="p">;</span>
-<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">parent</span><span class="p">;</span>
-
-<span class="kt">void</span><span class="w"> </span><span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">parent</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
-<span class="w">            </span><span class="n">dfs</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-
-<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pruefer_code</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">adj</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-<span class="w">    </span><span class="n">parent</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
-<span class="w">    </span><span class="n">parent</span><span class="p">[</span><span class="n">n</span><span class="mi">-1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
-<span class="w">    </span><span class="n">dfs</span><span class="p">(</span><span class="n">n</span><span class="mi">-1</span><span class="p">);</span>
-
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">degree</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">degree</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">();</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">degree</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span>
-<span class="w">            </span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">code</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">leaf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ptr</span><span class="p">;</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">leaf</span><span class="p">];</span>
-<span class="w">        </span><span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">next</span><span class="p">;</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">--</span><span class="n">degree</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">leaf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">next</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">ptr</span><span class="o">++</span><span class="p">;</span>
-<span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">degree</span><span class="p">[</span><span class="n">ptr</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
-<span class="w">                </span><span class="n">ptr</span><span class="o">++</span><span class="p">;</span>
-<span class="w">            </span><span class="n">leaf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ptr</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">code</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>In the code we first find for each its ancestor <code>parent[i]</code>, i.e. the ancestor that this vertex will have once we remove it from the tree.
-We can find this ancestor by rooting the tree at the vertex <span class="arithmatex">$n-1$</span>.
-This is possible because the vertex <span class="arithmatex">$n-1$</span> will never be removed from the tree.
-We also compute the degree for each vertex.
-<code>ptr</code> is the pointer that indicates the minimum size of the remaining leaf vertices (except the current one <code>leaf</code>).
-We will either assign the current leaf vertex with <code>next</code>, if this one is also a leaf vertex and it is smaller than <code>ptr</code>, or we start a linear search for the smallest leaf vertex by increasing the pointer.</p>
-<p>It can be easily seen, that this code has the complexity <span class="arithmatex">$O(n)$</span>.</p>
-<h3 id="some-properties-of-the-prufer-code">Some properties of the Prüfer code<a class="headerlink" href="#some-properties-of-the-prufer-code" title="Permanent link">&para;</a></h3>
+<h1 id="longest-increasing-subsequence">Longest increasing subsequence<a class="headerlink" href="#longest-increasing-subsequence" title="Permanent link">&para;</a></h1>
+<p>We are given an array with <span class="arithmatex">$n$</span> numbers: <span class="arithmatex">$a[0 \dots n-1]$</span>.
+The task is to find the longest, strictly increasing, subsequence in <span class="arithmatex">$a$</span>.</p>
+<p>Formally we look for the longest sequence of indices <span class="arithmatex">$i_1, \dots i_k$</span> such that</p>
+<div class="arithmatex">$$i_1 &lt; i_2 &lt; \dots &lt; i_k,\quad
+a[i_1] &lt; a[i_2] &lt; \dots &lt; a[i_k]$$</div>
+<p>In this article we discuss multiple algorithms for solving this task.
+Also we will discuss some other problems, that can be reduced to this problem.</p>
+<h2 id="solution-in-on2-with-dynamic-programming">Solution in <span class="arithmatex">$O(n^2)$</span> with dynamic programming<a class="headerlink" href="#solution-in-on2-with-dynamic-programming" title="Permanent link">&para;</a></h2>
+<p>Dynamic programming is a very general technique that allows to solve a huge class of problems.
+Here we apply the technique for our specific task.</p>
+<p>First we will search only for the <strong>length</strong> of the longest increasing subsequence, and only later learn how to restore the subsequence itself.</p>
+<h3 id="finding-the-length">Finding the length<a class="headerlink" href="#finding-the-length" title="Permanent link">&para;</a></h3>
+<p>To accomplish this task, we define an array <span class="arithmatex">$d[0 \dots n-1]$</span>, where <span class="arithmatex">$d[i]$</span> is the length of the longest increasing subsequence that ends in the element at index <span class="arithmatex">$i$</span>.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="arithmatex">$$\begin{array}{ll}
+a &amp;= \{8, 3, 4, 6, 5, 2, 0, 7, 9, 1\} \\
+d &amp;= \{1, 1, 2, 3, 3, 1, 1, 4, 5, 2\}
+\end{array}$$</div>
+<p>The longest increasing subsequence that ends at index 4 is <span class="arithmatex">$\{3, 4, 5\}$</span> with a length of 3, the longest ending at index 8 is either <span class="arithmatex">$\{3, 4, 5, 7, 9\}$</span> or <span class="arithmatex">$\{3, 4, 6, 7, 9\}$</span>, both having length 5, and the longest ending at index 9 is <span class="arithmatex">$\{0, 1\}$</span> having length 2.</p>
+</div>
+<p>We will compute this array gradually: first <span class="arithmatex">$d[0]$</span>, then <span class="arithmatex">$d[1]$</span>, and so on.
+After this array is computed, the answer to the problem will be the maximum value in the array <span class="arithmatex">$d[]$</span>.</p>
+<p>So let the current index be <span class="arithmatex">$i$</span>.
+I.e. we want to compute the value <span class="arithmatex">$d[i]$</span> and all previous values <span class="arithmatex">$d[0], \dots, d[i-1]$</span> are already known.
+Then there are two options:</p>
 <ul>
-<li>After constructing the Prüfer code two vertices will remain.
-  One of them is the highest vertex <span class="arithmatex">$n-1$</span>, but nothing else can be said about the other one.</li>
-<li>Each vertex appears in the Prüfer code exactly a fixed number of times - its degree minus one.
-  This can be easily checked, since the degree will get smaller every time we record its label in the code, and we remove it once the degree is <span class="arithmatex">$1$</span>.
-  For the two remaining vertices this fact is also true.</li>
+<li>
+<p><span class="arithmatex">$d[i] = 1$</span>: the required subsequence consists only of the element <span class="arithmatex">$a[i]$</span>.</p>
+</li>
+<li>
+<p><span class="arithmatex">$d[i] &gt; 1$</span>: The subsequence will end at <span class="arithmatex">$a[i]$</span>, and right before it will be some number <span class="arithmatex">$a[j]$</span> with <span class="arithmatex">$j &lt; i$</span> and <span class="arithmatex">$a[j] &lt; a[i]$</span>.</p>
+<p>It's easy to see, that the subsequence ending in <span class="arithmatex">$a[j]$</span> will itself be one of the longest increasing subsequences that ends in <span class="arithmatex">$a[j]$</span>.
+The number <span class="arithmatex">$a[i]$</span> just extends that longest increasing subsequence by one number.</p>
+<p>Therefore, we can just iterate over all <span class="arithmatex">$j &lt; i$</span> with <span class="arithmatex">$a[j] &lt; a[i]$</span>, and take the longest sequence that we get by appending <span class="arithmatex">$a[i]$</span> to the longest increasing subsequence ending in <span class="arithmatex">$a[j]$</span>.
+The longest increasing subsequence ending in <span class="arithmatex">$a[j]$</span> has length <span class="arithmatex">$d[j]$</span>, extending it by one gives the length <span class="arithmatex">$d[j] + 1$</span>.</p>
+<div class="arithmatex">$$d[i] = \max_{\substack{j &lt; i \\\\ a[j] &lt; a[i]}} \left(d[j] + 1\right)$$</div>
+</li>
 </ul>
-<h3 id="restoring-the-tree-using-the-prufer-code">Restoring the tree using the Prüfer code<a class="headerlink" href="#restoring-the-tree-using-the-prufer-code" title="Permanent link">&para;</a></h3>
-<p>To restore the tree it suffice to only focus on the property discussed in the last section.
-We already know the degree of all the vertices in the desired tree.
-Therefore we can find all leaf vertices, and also the first leaf that was removed in the first step (it has to be the smallest leaf).
-This leaf vertex was connected to the vertex corresponding to the number in the first cell of the Prüfer code.</p>
-<p>Thus we found the first edge removed by when then the Prüfer code was generated.
-We can add this edge to the answer and reduce the degrees at both ends of the edge.</p>
-<p>We will repeat this operation until we have used all numbers of the Prüfer code:
-we look for the minimum vertex with degree equal to <span class="arithmatex">$1$</span>, connect it with the next vertex from the Prüfer code, and reduce the degree.</p>
-<p>In the end we only have two vertices left with degree equal to <span class="arithmatex">$1$</span>.
-These are the vertices that didn't got removed by the Prüfer code process.
-We connect them to get the last edge of the tree.
-One of them will always be the vertex <span class="arithmatex">$n-1$</span>.</p>
-<p>This algorithm can be <strong>implemented</strong> easily in <span class="arithmatex">$O(n \log n)$</span>: we use a data structure that supports extracting the minimum (for example <code>set&lt;&gt;</code> or <code>priority_queue&lt;&gt;</code> in C++) to store all the leaf vertices.</p>
-<p>The following implementation returns the list of edges corresponding to the tree.</p>
-<div class="highlight"><pre><span></span><code><span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">pruefer_decode</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">code</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">code</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">degree</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">code</span><span class="p">)</span>
-<span class="w">        </span><span class="n">degree</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">leaves</span><span class="p">;</span>
+<p>If we combine these two cases we get the final answer for <span class="arithmatex">$d[i]$</span>:</p>
+<div class="arithmatex">$$d[i] = \max\left(1, \max_{\substack{j &lt; i \\\\ a[j] &lt; a[i]}} \left(d[j] + 1\right)\right)$$</div>
+<h3 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h3>
+<p>Here is an implementation of the algorithm described above, which computes the length of the longest increasing subsequence.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">lis</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">d</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">degree</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
-<span class="w">            </span><span class="n">leaves</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">edges</span><span class="p">;</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">code</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">leaf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">leaves</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
-<span class="w">        </span><span class="n">leaves</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">leaves</span><span class="p">.</span><span class="n">begin</span><span class="p">());</span>
-
-<span class="w">        </span><span class="n">edges</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">leaf</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">--</span><span class="n">degree</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
-<span class="w">            </span><span class="n">leaves</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="n">edges</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="o">*</span><span class="n">leaves</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">n</span><span class="mi">-1</span><span class="p">);</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">edges</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="restoring-the-tree-using-the-prufer-code-in-linear-time">Restoring the tree using the Prüfer code in linear time<a class="headerlink" href="#restoring-the-tree-using-the-prufer-code-in-linear-time" title="Permanent link">&para;</a></h3>
-<p>To obtain the tree in linear time we can apply the same technique used to obtain the Prüfer code in linear time.</p>
-<p>We don't need a data structure to extract the minimum.
-Instead we can notice that, after processing the current edge, only one vertex becomes a leaf.
-Therefore we can either continue with this vertex, or we find a smaller one with a linear search by moving a pointer.</p>
-<div class="highlight"><pre><span></span><code><span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">pruefer_decode</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">code</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">code</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">degree</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">code</span><span class="p">)</span>
-<span class="w">        </span><span class="n">degree</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
-
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">degree</span><span class="p">[</span><span class="n">ptr</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
-<span class="w">        </span><span class="n">ptr</span><span class="o">++</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">leaf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ptr</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">edges</span><span class="p">;</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">code</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">edges</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">leaf</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">--</span><span class="n">degree</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">leaf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">ptr</span><span class="o">++</span><span class="p">;</span>
-<span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">degree</span><span class="p">[</span><span class="n">ptr</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
-<span class="w">                </span><span class="n">ptr</span><span class="o">++</span><span class="p">;</span>
-<span class="w">            </span><span class="n">leaf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ptr</span><span class="p">;</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="w">                </span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="n">edges</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">leaf</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="mi">-1</span><span class="p">);</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">edges</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ans</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<h3 id="bijection-between-trees-and-prufer-codes">Bijection between trees and Prüfer codes<a class="headerlink" href="#bijection-between-trees-and-prufer-codes" title="Permanent link">&para;</a></h3>
-<p>For each tree there exists a Prüfer code corresponding to it.
-And for each Prüfer code we can restore the original tree.</p>
-<p>It follows that also every Prüfer code (i.e. a sequence of <span class="arithmatex">$n-2$</span> numbers in the range <span class="arithmatex">$[0; n - 1]$</span>) corresponds to a tree.</p>
-<p>Therefore all trees and all Prüfer codes form a bijection (a <strong>one-to-one correspondence</strong>).</p>
-<h2 id="cayleys-formula">Cayley's formula<a class="headerlink" href="#cayleys-formula" title="Permanent link">&para;</a></h2>
-<p>Cayley's formula states that the <strong>number of spanning trees in a complete labeled graph</strong> with <span class="arithmatex">$n$</span> vertices is equal to:</p>
-<div class="arithmatex">$$n^{n-2}$$</div>
-<p>There are multiple proofs for this formula.
-Using the Prüfer code concept this statement comes without any surprise.</p>
-<p>In fact any Prüfer code with <span class="arithmatex">$n-2$</span> numbers from the interval <span class="arithmatex">$[0; n-1]$</span> corresponds to some tree with <span class="arithmatex">$n$</span> vertices.
-So we have <span class="arithmatex">$n^{n-2}$</span> different such Prüfer codes.
-Since each such tree is a spanning tree of a complete graph with <span class="arithmatex">$n$</span> vertices, the number of such spanning trees is also <span class="arithmatex">$n^{n-2}$</span>.</p>
-<h2 id="number-of-ways-to-make-a-graph-connected">Number of ways to make a graph connected<a class="headerlink" href="#number-of-ways-to-make-a-graph-connected" title="Permanent link">&para;</a></h2>
-<p>The concept of Prüfer codes are even more powerful.
-It allows to create a lot more general formulas than Cayley's formula.</p>
-<p>In this problem we are given a graph with <span class="arithmatex">$n$</span> vertices and <span class="arithmatex">$m$</span> edges.
-The graph currently has <span class="arithmatex">$k$</span> components.
-We want to compute the number of ways of adding <span class="arithmatex">$k-1$</span> edges so that the graph becomes connected (obviously <span class="arithmatex">$k-1$</span> is the minimum number necessary to make the graph connected).</p>
-<p>Let us derive a formula for solving this problem.</p>
-<p>We use <span class="arithmatex">$s_1, \dots, s_k$</span> for the sizes of the connected components in the graph.
-We cannot add edges within a connected component.
-Therefore it turns out that this problem is very similar to the search for the number of spanning trees of a complete graph with <span class="arithmatex">$k$</span> vertices.
-The only difference is that each vertex has actually the size <span class="arithmatex">$s_i$</span>: each edge connecting the vertex <span class="arithmatex">$i$</span>, actually multiplies the answer by <span class="arithmatex">$s_i$</span>.</p>
-<p>Thus in order to calculate the number of possible ways it is important to count how often each of the <span class="arithmatex">$k$</span> vertices is used in the connecting tree.
-To obtain a formula for the problem it is necessary to sum the answer over all possible degrees.</p>
-<p>Let <span class="arithmatex">$d_1, \dots, d_k$</span> be the degrees of the vertices in the tree after connecting the vertices.
-The sum of the degrees is twice the number of edges:</p>
-<div class="arithmatex">$$\sum_{i=1}^k d_i = 2k - 2$$</div>
-<p>If the vertex <span class="arithmatex">$i$</span> has degree <span class="arithmatex">$d_i$</span>, then it appears <span class="arithmatex">$d_i - 1$</span> times in the Prüfer code.
-The Prüfer code for a tree with <span class="arithmatex">$k$</span> vertices has length <span class="arithmatex">$k-2$</span>.
-So the number of ways to choose a code with <span class="arithmatex">$k-2$</span> numbers where the number <span class="arithmatex">$i$</span> appears exactly <span class="arithmatex">$d_i - 1$</span> times is equal to the <strong>multinomial coefficient</strong></p>
-<div class="arithmatex">$$\binom{k-2}{d_1-1, d_2-1, \dots, d_k-1} = \frac{(k-2)!}{(d_1-1)! (d_2-1)! \cdots (d_k-1)!}.$$</div>
-<p>The fact that each edge adjacent to the vertex <span class="arithmatex">$i$</span> multiplies the answer by <span class="arithmatex">$s_i$</span> we receive the answer, assuming that the degrees of the vertices are <span class="arithmatex">$d_1, \dots, d_k$</span>:</p>
-<div class="arithmatex">$$s_1^{d_1} \cdot s_2^{d_2} \cdots s_k^{d_k} \cdot \binom{k-2}{d_1-1, d_2-1, \dots, d_k-1}$$</div>
-<p>To get the final answer we need to sum this for all possible ways to choose the degrees:</p>
-<div class="arithmatex">$$\sum_{\substack{d_i \ge 1 \\\\ \sum_{i=1}^k d_i = 2k -2}} s_1^{d_1} \cdot s_2^{d_2} \cdots s_k^{d_k} \cdot \binom{k-2}{d_1-1, d_2-1, \dots, d_k-1}$$</div>
-<p>Currently this looks like a really horrible answer, however we can use the <strong>multinomial theorem</strong>, which says:</p>
-<div class="arithmatex">$$(x_1 + \dots + x_m)^p = \sum_{\substack{c_i \ge 0 \\\\ \sum_{i=1}^m c_i = p}} x_1^{c_1} \cdot x_2^{c_2} \cdots x_m^{c_m} \cdot \binom{p}{c_1, c_2, \dots c_m}$$</div>
-<p>This look already pretty similar.
-To use it we only need to substitute with <span class="arithmatex">$e_i = d_i - 1$</span>:</p>
-<div class="arithmatex">$$\sum_{\substack{e_i \ge 0 \\\\ \sum_{i=1}^k e_i = k - 2}} s_1^{e_1+1} \cdot s_2^{e_2+1} \cdots s_k^{e_k+1} \cdot \binom{k-2}{e_1, e_2, \dots, e_k}$$</div>
-<p>After applying the multinomial theorem we get the <strong>answer to the problem</strong>:</p>
-<div class="arithmatex">$$s_1 \cdot s_2 \cdots s_k \cdot (s_1 + s_2 + \dots + s_k)^{k-2} = s_1 \cdot s_2 \cdots s_k \cdot n^{k-2}$$</div>
-<p>By accident this formula also holds for <span class="arithmatex">$k = 1$</span>.</p>
-<h2 id="practice-problems">Practice problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
+<h3 id="restoring-the-subsequence">Restoring the subsequence<a class="headerlink" href="#restoring-the-subsequence" title="Permanent link">&para;</a></h3>
+<p>So far we only learned how to find the length of the subsequence, but not how to find the subsequence itself.</p>
+<p>To be able to restore the subsequence we generate an additional auxiliary array <span class="arithmatex">$p[0 \dots n-1]$</span> that we will compute alongside the array <span class="arithmatex">$d[]$</span>.
+<span class="arithmatex">$p[i]$</span> will be the index <span class="arithmatex">$j$</span> of the second last element in the longest increasing subsequence ending in <span class="arithmatex">$i$</span>.
+In other words the index <span class="arithmatex">$p[i]$</span> is the same index <span class="arithmatex">$j$</span> at which the highest value <span class="arithmatex">$d[i]$</span> was obtained.
+This auxiliary array <span class="arithmatex">$p[]$</span> points in some sense to the ancestors.</p>
+<p>Then to derive the subsequence, we just start at the index <span class="arithmatex">$i$</span> with the maximal <span class="arithmatex">$d[i]$</span>, and follow the ancestors until we deduced the entire subsequence, i.e. until we reach the element with <span class="arithmatex">$d[i] = 1$</span>.</p>
+<h3 id="implementation-of-restoring">Implementation of restoring<a class="headerlink" href="#implementation-of-restoring" title="Permanent link">&para;</a></h3>
+<p>We will change the code from the previous sections a little bit.
+We will compute the array <span class="arithmatex">$p[]$</span> alongside <span class="arithmatex">$d[]$</span>, and afterwards compute the subsequence.</p>
+<p>For convenience we originally assign the ancestors with <span class="arithmatex">$p[i] = -1$</span>.
+For elements with <span class="arithmatex">$d[i] = 1$</span>, the ancestors value will remain <span class="arithmatex">$-1$</span>, which will be slightly more convenient for restoring the subsequence.</p>
+<div class="highlight"><pre><span></span><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lis</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">d</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">                </span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">ans</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">            </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">subseq</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">pos</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">subseq</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">pos</span><span class="p">]);</span>
+<span class="w">        </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">pos</span><span class="p">];</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">reverse</span><span class="p">(</span><span class="n">subseq</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">subseq</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">subseq</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="alternative-way-of-restoring-the-subsequence">Alternative way of restoring the subsequence<a class="headerlink" href="#alternative-way-of-restoring-the-subsequence" title="Permanent link">&para;</a></h3>
+<p>It is also possible to restore the subsequence without the auxiliary array <span class="arithmatex">$p[]$</span>.
+We can simply recalculate the current value of <span class="arithmatex">$d[i]$</span> and also see how the maximum was reached.</p>
+<p>This method leads to a slightly longer code, but in return we save some memory.</p>
+<h2 id="solution-in-on-log-n-with-dynamic-programming-and-binary-search">Solution in <span class="arithmatex">$O(n \log n)$</span> with dynamic programming and binary search<a class="headerlink" href="#solution-in-on-log-n-with-dynamic-programming-and-binary-search" title="Permanent link">&para;</a></h2>
+<p>In order to obtain a faster solution for the problem, we construct a different dynamic programming solution that runs in <span class="arithmatex">$O(n^2)$</span>, and then later improve it to <span class="arithmatex">$O(n \log n)$</span>.</p>
+<p>We will use the dynamic programming array <span class="arithmatex">$d[0 \dots n]$</span>.
+This time <span class="arithmatex">$d[l]$</span> doesn't corresponds to the element <span class="arithmatex">$a[i]$</span> or to an prefix of the array. 
+<span class="arithmatex">$d[l]$</span> will be the smallest element at which an increasing subsequence of length <span class="arithmatex">$l$</span> ends.</p>
+<p>Initially we assume <span class="arithmatex">$d[0] = -\infty$</span> and for all other lengths <span class="arithmatex">$d[l] = \infty$</span>.</p>
+<p>We will again gradually process the numbers, first <span class="arithmatex">$a[0]$</span>, then <span class="arithmatex">$a[1]$</span>, etc, and in each step maintain the array <span class="arithmatex">$d[]$</span> so that it is up to date.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>Given the array <span class="arithmatex">$a = \{8, 3, 4, 6, 5, 2, 0, 7, 9, 1\}$</span>, here are all their prefixes and their dynamic programming array.
+Notice, that the values of the array don't always change at the end.</p>
+<div class="arithmatex">$$
+\begin{array}{ll}
+\text{prefix} = \{\} &amp;\quad d = \{-\infty, \infty, \dots\}\\
+\text{prefix} = \{8\} &amp;\quad d = \{-\infty, 8, \infty, \dots\}\\
+\text{prefix} = \{8, 3\} &amp;\quad d = \{-\infty, 3, \infty, \dots\}\\
+\text{prefix} = \{8, 3, 4\} &amp;\quad d = \{-\infty, 3, 4, \infty, \dots\}\\
+\text{prefix} = \{8, 3, 4, 6\} &amp;\quad d = \{-\infty, 3, 4, 6, \infty, \dots\}\\
+\text{prefix} = \{8, 3, 4, 6, 5\} &amp;\quad d = \{-\infty, 3, 4, 5, \infty, \dots\}\\
+\text{prefix} = \{8, 3, 4, 6, 5, 2\} &amp;\quad d = \{-\infty, 2, 4, 5, \infty, \dots \}\\
+\text{prefix} = \{8, 3, 4, 6, 5, 2, 0\} &amp;\quad d = \{-\infty, 0, 4, 5, \infty, \dots \}\\
+\text{prefix} = \{8, 3, 4, 6, 5, 2, 0, 7\} &amp;\quad d = \{-\infty, 0, 4, 5, 7, \infty, \dots \}\\
+\text{prefix} = \{8, 3, 4, 6, 5, 2, 0, 7, 9\} &amp;\quad d = \{-\infty, 0, 4, 5, 7, 9, \infty, \dots \}\\
+\text{prefix} = \{8, 3, 4, 6, 5, 2, 0, 7, 9, 1\} &amp;\quad d = \{-\infty, 0, 1, 5, 7, 9, \infty, \dots \}\\
+\end{array}
+$$</div>
+</div>
+<p>When we process <span class="arithmatex">$a[i]$</span>, we can ask ourselves.
+What have the conditions to be, that we write the current number <span class="arithmatex">$a[i]$</span> into the <span class="arithmatex">$d[0 \dots n]$</span> array?</p>
+<p>We set <span class="arithmatex">$d[l] = a[i]$</span>, if there is a longest increasing sequence of length <span class="arithmatex">$l$</span> that ends in <span class="arithmatex">$a[i]$</span>, and there is no longest increasing sequence of length <span class="arithmatex">$l$</span> that ends in a smaller number.
+Similar to the previous approach, if we remove the number <span class="arithmatex">$a[i]$</span> from the longest increasing sequence of length <span class="arithmatex">$l$</span>, we get another longest increasing sequence of length <span class="arithmatex">$l -1$</span>.
+So we want to extend a longest increasing sequence of length <span class="arithmatex">$l - 1$</span> by the number <span class="arithmatex">$a[i]$</span>, and obviously the longest increasing sequence of length <span class="arithmatex">$l - 1$</span> that ends with the smallest element will work the best, in other words the sequence of length <span class="arithmatex">$l-1$</span> that ends in element <span class="arithmatex">$d[l-1]$</span>.</p>
+<p>There is a longest increasing sequence of length <span class="arithmatex">$l - 1$</span> that we can extend with the number <span class="arithmatex">$a[i]$</span>, exactly if <span class="arithmatex">$d[l-1] &lt; a[i]$</span>.
+So we can just iterate over each length <span class="arithmatex">$l$</span>, and check if we can extend a longest increasing sequence of length <span class="arithmatex">$l - 1$</span> by checking the criteria.</p>
+<p>Additionally we also need to check, if we maybe have already found a longest increasing sequence of length <span class="arithmatex">$l$</span> with a smaller number at the end.
+So we only update if <span class="arithmatex">$a[i] &lt; d[l]$</span>.</p>
+<p>After processing all the elements of <span class="arithmatex">$a[]$</span> the length of the desired subsequence is the largest <span class="arithmatex">$l$</span> with <span class="arithmatex">$d[l] &lt; \infty$</span>.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">lis</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e9</span><span class="p">;</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">d</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">INF</span><span class="p">);</span>
+<span class="w">    </span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">INF</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">l</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">l</span><span class="mi">-1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">l</span><span class="p">])</span>
+<span class="w">                </span><span class="n">d</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">l</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">INF</span><span class="p">)</span>
+<span class="w">            </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ans</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>We now make two important observations.</p>
+<ol>
+<li>
+<p>The array <span class="arithmatex">$d$</span> will always be sorted: 
+    <span class="arithmatex">$d[l-1] &lt; d[l]$</span> for all <span class="arithmatex">$i = 1 \dots n$</span>.</p>
+<p>This is trivial, as you can just remove the last element from the increasing subsequence of length <span class="arithmatex">$l$</span>, and you get a increasing subsequence of length <span class="arithmatex">$l-1$</span> with a smaller ending number.</p>
+</li>
+<li>
+<p>The element <span class="arithmatex">$a[i]$</span> will only update at most one value <span class="arithmatex">$d[l]$</span>.</p>
+<p>This follows immediately from the above implementation.
+There can only be one place in the array with <span class="arithmatex">$d[l-1] &lt; a[i] &lt; d[l]$</span>.</p>
+</li>
+</ol>
+<p>Thus we can find this element in the array <span class="arithmatex">$d[]$</span> using <a href="../num_methods/binary_search.html">binary search</a> in <span class="arithmatex">$O(\log n)$</span>.
+In fact we can simply look in the array <span class="arithmatex">$d[]$</span> for the first number that is strictly greater than <span class="arithmatex">$a[i]$</span>, and we try to update this element in the same way as the above implementation.</p>
+<h3 id="implementation_1">Implementation<a class="headerlink" href="#implementation_1" title="Permanent link">&para;</a></h3>
+<p>This gives us the improved <span class="arithmatex">$O(n \log n)$</span> implementation:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">lis</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e9</span><span class="p">;</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">d</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">INF</span><span class="p">);</span>
+<span class="w">    </span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">INF</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">upper_bound</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">l</span><span class="mi">-1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">l</span><span class="p">])</span>
+<span class="w">            </span><span class="n">d</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">l</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">INF</span><span class="p">)</span>
+<span class="w">            </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ans</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="restoring-the-subsequence_1">Restoring the subsequence<a class="headerlink" href="#restoring-the-subsequence_1" title="Permanent link">&para;</a></h3>
+<p>It is also possible to restore the subsequence using this approach.
+This time we have to maintain two auxiliary arrays.
+One that tells us the index of the elements in <span class="arithmatex">$d[]$</span>.
+And again we have to create an array of "ancestors" <span class="arithmatex">$p[i]$</span>.
+<span class="arithmatex">$p[i]$</span> will be the index of the previous element for the optimal subsequence ending in element <span class="arithmatex">$i$</span>.</p>
+<p>It's easy to maintain these two arrays in the course of iteration over the array <span class="arithmatex">$a[]$</span> alongside the computations of <span class="arithmatex">$d[]$</span>.
+And at the end it is not difficult to restore the desired subsequence using these arrays.</p>
+<h2 id="solution-in-on-log-n-with-data-structures">Solution in <span class="arithmatex">$O(n \log n)$</span> with data structures<a class="headerlink" href="#solution-in-on-log-n-with-data-structures" title="Permanent link">&para;</a></h2>
+<p>Instead of the above method for computing the longest increasing subsequence in <span class="arithmatex">$O(n \log n)$</span> we can also solve the problem in a different way: using some simple data structures.</p>
+<p>Let's go back to the first method.
+Remember that <span class="arithmatex">$d[i]$</span> is the value <span class="arithmatex">$d[j] + 1$</span> with <span class="arithmatex">$j &lt; i$</span> and <span class="arithmatex">$a[j] &lt; a[i]$</span>.</p>
+<p>Thus if we define an additional array <span class="arithmatex">$t[]$</span> such that</p>
+<div class="arithmatex">$$t[a[i]] = d[i],$$</div>
+<p>then the problem of computing the value <span class="arithmatex">$d[i]$</span> is equivalent to finding the <strong>maximum value in a prefix</strong> of the array <span class="arithmatex">$t[]$</span>:</p>
+<div class="arithmatex">$$d[i] = \max\left(t[0 \dots a[i] - 1] + 1\right)$$</div>
+<p>The problem of finding the maximum of a prefix of an array (which changes) is a standard problem that can be solved by many different data structures. 
+For instance we can use a <a href="../data_structures/segment_tree.html">Segment tree</a> or a <a href="../data_structures/fenwick.html">Fenwick tree</a>.</p>
+<p>This method has obviously some <strong>shortcomings</strong>:
+in terms of length and complexity of the implementation this approach will be worse than the method using binary search.
+In addition if the input numbers <span class="arithmatex">$a[i]$</span> are especially large, then we would have to use some tricks, like compressing the numbers (i.e. renumber them from <span class="arithmatex">$0$</span> to <span class="arithmatex">$n-1$</span>), or use a dynamic segment tree (only generate the branches of the tree that are important).
+Otherwise the memory consumption will be too high.</p>
+<p>On the other hand this method has also some <strong>advantages</strong>:
+with this method you don't have to think about any tricky properties in the dynamic programming solution.
+And this approach allows us to generalize the problem very easily (see below).</p>
+<h2 id="related-tasks">Related tasks<a class="headerlink" href="#related-tasks" title="Permanent link">&para;</a></h2>
+<p>Here are several problems that are closely related to the problem of finding the longest increasing subsequence.</p>
+<h3 id="longest-non-decreasing-subsequence">Longest non-decreasing subsequence<a class="headerlink" href="#longest-non-decreasing-subsequence" title="Permanent link">&para;</a></h3>
+<p>This is in fact nearly the same problem.
+Only now it is allowed to use identical numbers in the subsequence.</p>
+<p>The solution is essentially also nearly the same.
+We just have to change the inequality signs, and make a slight modification to the binary search.</p>
+<h3 id="number-of-longest-increasing-subsequences">Number of longest increasing subsequences<a class="headerlink" href="#number-of-longest-increasing-subsequences" title="Permanent link">&para;</a></h3>
+<p>We can use the first discussed method, either the <span class="arithmatex">$O(n^2)$</span> version or the version using data structures.
+We only have to additionally store in how many ways we can obtain longest increasing subsequences ending in the values <span class="arithmatex">$d[i]$</span>.</p>
+<p>The number of ways to form a longest increasing subsequences ending in <span class="arithmatex">$a[i]$</span> is the sum of all ways for all longest increasing subsequences ending in <span class="arithmatex">$j$</span> where <span class="arithmatex">$d[j]$</span> is maximal.
+There can be multiple such <span class="arithmatex">$j$</span>, so we need to sum all of them.</p>
+<p>Using a Segment tree this approach can also be implemented in <span class="arithmatex">$O(n \log n)$</span>.</p>
+<p>It is not possible to use the binary search approach for this task.</p>
+<h3 id="smallest-number-of-non-increasing-subsequences-covering-a-sequence">Smallest number of non-increasing subsequences covering a sequence<a class="headerlink" href="#smallest-number-of-non-increasing-subsequences-covering-a-sequence" title="Permanent link">&para;</a></h3>
+<p>For a given array with <span class="arithmatex">$n$</span> numbers <span class="arithmatex">$a[0 \dots n - 1]$</span> we have to colorize the numbers in the smallest number of colors, so that each color forms a non-increasing subsequence.</p>
+<p>To solve this, we notice that the minimum number of required colors is equal to the length of the longest increasing subsequence.</p>
+<p><strong>Proof</strong>:
+We need to prove the <strong>duality</strong> of these two problems.</p>
+<p>Let's denote by <span class="arithmatex">$x$</span> the length of the longest increasing subsequence and by <span class="arithmatex">$y$</span> the least number of non-increasing subsequences that form a cover.
+We need to prove that <span class="arithmatex">$x = y$</span>.</p>
+<p>It is clear that <span class="arithmatex">$y &lt; x$</span> is not possible, because if we have <span class="arithmatex">$x$</span> strictly increasing elements, than no two can be part of the same non-increasing subsequence.
+Therefore we have <span class="arithmatex">$y \ge x$</span>.</p>
+<p>We now show that <span class="arithmatex">$y &gt; x$</span> is not possible by contradiction.
+Suppose that <span class="arithmatex">$y &gt; x$</span>.
+Then we consider any optimal set of <span class="arithmatex">$y$</span> non-increasing subsequences.
+We transform this in set in the following way:
+as long as there are two such subsequences such that the first begins before the second subsequence, and the first sequence start with a number greater than or equal to the second, then we unhook this starting number and attach it to the beginning of second.
+After a finite number of steps we have <span class="arithmatex">$y$</span> subsequences, and their starting numbers will form an increasing subsequence of length <span class="arithmatex">$y$</span>.
+Since we assumed that <span class="arithmatex">$y &gt; x$</span> we reached a contradiction.</p>
+<p>Thus it follows that <span class="arithmatex">$y = x$</span>.</p>
+<p><strong>Restoring the sequences</strong>:
+The desired partition of the sequence into subsequences can be done greedily.
+I.e. go from left to right and assign the current number or that subsequence ending with the minimal number which is greater than or equal to the current one.</p>
+<h2 id="practice-problems">Practice Problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=20&amp;page=show_problem&amp;problem=1784">UVA #10843 - Anne's game</a></li>
-<li><a href="http://acm.timus.ru/problem.aspx?space=1&amp;num=1069">Timus #1069 - Prufer Code</a></li>
-<li><a href="http://codeforces.com/contest/156/problem/D">Codeforces - Clues</a></li>
-<li><a href="https://community.topcoder.com/stat?c=problem_statement&amp;pm=10774&amp;rd=14146">Topcoder - TheCitiesAndRoadsDivTwo</a></li>
+<li><a href="http://codeforces.com/problemsets/acmsguru/problem/99999/521">ACMSGURU - "North-East"</a></li>
+<li><a href="http://codeforces.com/problemset/problem/10/D">Codeforces - LCIS</a></li>
+<li><a href="http://codeforces.com/contest/76/problem/F">Codeforces - Tourist</a></li>
+<li><a href="https://www.spoj.com/problems/DOSA/">SPOJ - DOSA</a></li>
+<li><a href="https://www.spoj.com/problems/HMLIS/">SPOJ - HMLIS</a></li>
+<li><a href="https://www.spoj.com/problems/ONEXLIS/">SPOJ - ONEXLIS</a></li>
+<li><a href="http://www.spoj.com/problems/SUPPER/">SPOJ - SUPPER</a></li>
+<li><a href="https://community.topcoder.com/stat?c=problem_statement&amp;pm=3937&amp;rd=6532">Topcoder - AutoMarket</a></li>
+<li><a href="https://community.topcoder.com/stat?c=problem_statement&amp;pm=2967&amp;rd=5881">Topcoder - BridgeArrangement</a></li>
+<li><a href="https://community.topcoder.com/stat?c=problem_statement&amp;pm=5922&amp;rd=8075">Topcoder - IntegerSequence</a></li>
+<li><a href="https://onlinejudge.org/external/127/12747.pdf">UVA - Back To Edit Distance</a></li>
+<li><a href="https://onlinejudge.org/external/120/12002.pdf">UVA - Happy Birthday</a></li>
+<li><a href="https://onlinejudge.org/external/11/1196.pdf">UVA - Tiling Up Blocks</a></li>
 </ul>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (98.17%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (1.83%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (100.0%)</li></ul>
 </ul>
                 
               </article>
