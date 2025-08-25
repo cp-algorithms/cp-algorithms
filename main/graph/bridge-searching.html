@@ -6584,6 +6584,12 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
     
   
     
@@ -6688,6 +6694,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -6740,7 +6750,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 25, 2024 19:33:59 UTC">June 25, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 25, 2025 17:30:05 UTC">August 25, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6777,7 +6787,7 @@ Describe the issue of this article in detail.
 <li>Let's say we are in the DFS, looking through the edges starting from vertex <span class="arithmatex">$v$</span>. The current edge <span class="arithmatex">$(v, to)$</span> is a bridge if and only if none of the vertices <span class="arithmatex">$to$</span> and its descendants in the DFS traversal tree has a back-edge to vertex <span class="arithmatex">$v$</span> or any of its ancestors. Indeed, this condition means that there is no other way from <span class="arithmatex">$v$</span> to <span class="arithmatex">$to$</span> except for edge <span class="arithmatex">$(v, to)$</span>.</li>
 </ul>
 <p>Now we have to learn to check this fact for each vertex efficiently. We'll use "time of entry into node" computed by the depth first search.</p>
-<p>So, let <span class="arithmatex">$\mathtt{tin}[v]$</span> denote entry time for node <span class="arithmatex">$v$</span>. We introduce an array <span class="arithmatex">$\mathtt{low}$</span> which will let us store the node with earliest entry time found in the DFS search that a node <span class="arithmatex">$v$</span> can reach with a single edge from itself or its descendants. <span class="arithmatex">$\mathtt{low}[v]$</span> is the minimum of <span class="arithmatex">$\mathtt{tin}[v]$</span>, the entry times <span class="arithmatex">$\mathtt{tin}[p]$</span> for each node <span class="arithmatex">$p$</span> that is connected to node <span class="arithmatex">$v$</span> via a back-edge <span class="arithmatex">$(v, p)$</span> and the values of <span class="arithmatex">$\mathtt{low}[to]$</span> for each vertex <span class="arithmatex">$to$</span> which is a direct descendant of <span class="arithmatex">$v$</span> in the DFS tree:</p>
+<p>So, let <span class="arithmatex">$\mathtt{tin}[v]$</span> denote entry time for node <span class="arithmatex">$v$</span>. We introduce an array <span class="arithmatex">$\mathtt{low}$</span> which will let us store the earliest entry time of the node found in the DFS search that a node <span class="arithmatex">$v$</span> can reach with a single edge from itself or its descendants. <span class="arithmatex">$\mathtt{low}[v]$</span> is the minimum of <span class="arithmatex">$\mathtt{tin}[v]$</span>, the entry times <span class="arithmatex">$\mathtt{tin}[p]$</span> for each node <span class="arithmatex">$p$</span> that is connected to node <span class="arithmatex">$v$</span> via a back-edge <span class="arithmatex">$(v, p)$</span> and the values of <span class="arithmatex">$\mathtt{low}[to]$</span> for each vertex <span class="arithmatex">$to$</span> which is a direct descendant of <span class="arithmatex">$v$</span> in the DFS tree:</p>
 <div class="arithmatex">$$\mathtt{low}[v] = \min \left\{ 
     \begin{array}{l}
     \mathtt{tin}[v] \\ 
@@ -6855,7 +6865,7 @@ Describe the issue of this article in detail.
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="#" title="Nalin Bhardwaj" data-bi-name="contributorprofile" target="_blank">Nalin Bhardwaj</a> (31.82%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (18.18%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (12.73%)</li><li><a href="https://github.com/pr4-kp" title="pr4-kp" data-bi-name="contributorprofile" target="_blank">pr4-kp</a> (11.82%)</li><li><a href="https://github.com/NaimSS" title="NaimSS" data-bi-name="contributorprofile" target="_blank">NaimSS</a> (8.18%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (5.45%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (5.45%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.73%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (1.82%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.91%)</li><li><a href="https://github.com/vatsalsharma376" title="vatsalsharma376" data-bi-name="contributorprofile" target="_blank">vatsalsharma376</a> (0.91%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="#" title="Nalin Bhardwaj" data-bi-name="contributorprofile" target="_blank">Nalin Bhardwaj</a> (31.82%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (18.18%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (12.73%)</li><li><a href="https://github.com/pr4-kp" title="pr4-kp" data-bi-name="contributorprofile" target="_blank">pr4-kp</a> (10.91%)</li><li><a href="https://github.com/NaimSS" title="NaimSS" data-bi-name="contributorprofile" target="_blank">NaimSS</a> (8.18%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (5.45%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (5.45%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.73%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (1.82%)</li><li><a href="https://github.com/nikhil-kumar-tomar" title="nikhil-kumar-tomar" data-bi-name="contributorprofile" target="_blank">nikhil-kumar-tomar</a> (0.91%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.91%)</li><li><a href="https://github.com/vatsalsharma376" title="vatsalsharma376" data-bi-name="contributorprofile" target="_blank">vatsalsharma376</a> (0.91%)</li></ul>
 </ul>
                 
               </article>
