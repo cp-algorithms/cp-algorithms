@@ -122,3 +122,4 @@ bool pointInConvexPolygon(pt point) {
 ## Problems
 * [SGU253 Theodore Roosevelt](https://codeforces.com/problemsets/acmsguru/problem/99999/253)
 * [Codeforces 55E Very simple problem](https://codeforces.com/contest/55/problem/E)
+* [Codeforces 166B Polygons](https://codeforces.com/problemset/problem/166/B)
