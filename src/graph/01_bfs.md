@@ -15,21 +15,23 @@ In this article we demonstrate how we can use BFS to solve the SSSP (single-sour
 ## Algorithm
 
 We can develop the algorithm by closely studying Dijkstra's algorithm and thinking about the consequences that our special graph implies.
-The general form of Dijkstra's algorithm is (here a `set` is used for the priority queue):
+The general form of Dijkstra's algorithm is:
 
 === "C++"
     ```cpp
+    int n = adj.size();
     d.assign(n, INF);
     d[s] = 0;
-    priority_queue<pair<int, int>> q = {{0, s}};
-    while (!empty(q)) {
-        int [dv, v] = q.top();
+    priority_queue<pair<int, int>,vector<pair<int,int>>, greater<pair<int,int>> > q;
+    q.push({0,s});
+    while (!q.empty()) {
+        auto [dv, v] = q.top();
         q.pop();
-        if (-dv == d[v]) {
+        if (dv == d[v]) {
             for (auto [u, w] : adj[v]) {
                 if (d[v] + w < d[u]) {
                     d[u] = d[v] + w;
-                    q.insert({-d[u], u});
+                    q.push({d[u], u});
                 }
             }
         }
