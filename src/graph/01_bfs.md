@@ -74,14 +74,11 @@ This way the queue still remains sorted at all time.
     ```cpp
     vector<int> d(n, INF);
     d[s] = 0;
-    deque<int> q;
-    q.push_front(s);
-    while (!q.empty()) {
+    deque<int> q = {s};
+    while (!empty(q)) {
         int v = q.front();
         q.pop_front();
-        for (auto edge : adj[v]) {
-            int u = edge.first;
-            int w = edge.second;
+        for (auto [u, w] : adj[v]) {
             if (d[v] + w < d[u]) {
                 d[u] = d[v] + w;
                 if (w == 1)
