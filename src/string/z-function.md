@@ -204,6 +204,7 @@ The proof for this fact is the same as the solution which uses the [prefix funct
 
 ## Practice Problems
 
+* [CSES - Finding Borders](https://cses.fi/problemset/task/1732)
 * [eolymp - Blocks of string](https://www.eolymp.com/en/problems/1309)
 * [Codeforces - Password [Difficulty: Easy]](http://codeforces.com/problemset/problem/126/B)
 * [UVA # 455 "Periodic Strings" [Difficulty: Medium]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=396)
