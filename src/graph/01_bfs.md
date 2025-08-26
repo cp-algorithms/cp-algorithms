@@ -21,20 +21,16 @@ The general form of Dijkstra's algorithm is (here a `set` is used for the priori
     ```cpp
     d.assign(n, INF);
     d[s] = 0;
-    set<pair<int, int>> q;
-    q.insert({0, s});
-    while (!q.empty()) {
-        int v = q.begin()->second;
-        q.erase(q.begin());
-
-        for (auto edge : adj[v]) {
-            int u = edge.first;
-            int w = edge.second;
-
-            if (d[v] + w < d[u]) {
-                q.erase({d[u], u});
-                d[u] = d[v] + w;
-                q.insert({d[u], u});
+    priority_queue<pair<int, int>> q = {{0, s}};
+    while (!empty(q)) {
+        int [dv, v] = q.top();
+        q.pop();
+        if (-dv == d[v]) {
+            for (auto [u, w] : adj[v]) {
+                if (d[v] + w < d[u]) {
+                    d[u] = d[v] + w;
+                    q.insert({-d[u], u});
+                }
             }
         }
     }
