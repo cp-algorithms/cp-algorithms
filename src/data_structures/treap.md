@@ -418,6 +418,7 @@ void output (pitem t) {
 
 ## Practice Problems
 
+* [Codeforces - Cartesian Tree](https://codeforces.com/problemsets/acmsguru/problem/99999/155)
 * [SPOJ - Ada and Aphids](http://www.spoj.com/problems/ADAAPHID/)
 * [SPOJ - Ada and Harvest](http://www.spoj.com/problems/ADACROP/)
 * [Codeforces - Radio Stations](http://codeforces.com/contest/762/problem/E)
