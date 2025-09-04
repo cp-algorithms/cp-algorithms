@@ -12,7 +12,18 @@ and data structures especially popular in field of competitive programming.
 Moreover we want to improve the collected knowledge by extending the articles
 and adding new articles to the collection.
 
+We are an ad-free website which is volunteer-run provided for free. Users can contribute articles or help sponsor bounties on articles for greater. Your help is greatly appreciated.
+
 Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorithms.com/).
+
+## Become a contributor
+
+- [How to contribute](https://cp-algorithms.com/contrib.html)
+- [Code of conduct](https://cp-algorithms.com/code_of_conduct.html)
+- [Test-Your-Page form](https://cp-algorithms.com/preview.html)
+
+## Sponsor us
+- [Become a financial supporter](https://github.com/sponsors/cp-algorithms)
 
 ## Changelog
 
@@ -50,8 +61,4 @@ Full list of updates: [Commit History](https://github.com/cp-algorithms/cp-algor
 
 Full list of articles: [Navigation](https://cp-algorithms.com/navigation.html)
 
-## Contributing
 
-- [Information for contributors](https://cp-algorithms.com/contrib.html)
-- [Code of conduct](https://cp-algorithms.com/code_of_conduct.html)
-- [Test-Your-Page form](https://cp-algorithms.com/preview.html)
