@@ -3,8 +3,7 @@ title: Supporters
 search:
   exclude: true
 ---
-# Supporters
-
+# Financial Supporters
 
 
 # Current Team
@@ -15,8 +14,7 @@ search:
 [Jakob Kogler](https://github.com/jakobkogler)
 
 
-
-# Legendary Supporters
+# Legendary Contributors
 [Jakob Kogler](https://github.com/jakobkogler)
 [Oleksandr Kulkov](https://github.com/adamant-pwn)
 [RodionGork](https://github.com/RodionGork)
