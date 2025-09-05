@@ -178,7 +178,7 @@ $$
 The baby-step giant-step algorithm can be easily extended to solve $ka^{x} \equiv b \pmod m$ for $x$.
 
 ```{.cpp file=discrete_log_extended}
-// Returns minimum x for which a ^ x % m = b % m.
+// Returns one of the x's for which a ^ x % m = b % m.
 int solve(int a, int b, int m) {
     a %= m, b %= m;
     int k = 1, add = 0, g;
