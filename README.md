@@ -12,7 +12,7 @@ and data structures especially popular in field of competitive programming.
 Moreover we want to improve the collected knowledge by extending the articles
 and adding new articles to the collection.
 
-We are an ad-free website which is volunteer-run provided for free. Users can contribute articles or help sponsor bounties on articles for greater algorithmic coverage. Your help is greatly appreciated.
+We're an ad-free, volunteer-run website that's free for everyone. Users can contribute articles or help sponsor bounties on articles for greater algorithmic coverage. Your help is greatly appreciated.
 
 Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorithms.com/).
 
