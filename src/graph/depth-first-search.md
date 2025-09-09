@@ -44,7 +44,7 @@ For more details check out the implementation.
     The required topological ordering will be the vertices sorted in descending order of exit time.
   
   
-  * Check whether a given graph is acyclic and find cycles in a graph. (As mentioned above by counting back edges in every connected components).
+  * Check whether a given graph is acyclic and find cycles in a graph. (As mentioned below by counting back edges in every connected components).
   
   * Find strongly connected components in a directed graph:
   
