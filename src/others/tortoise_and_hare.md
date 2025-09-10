@@ -37,7 +37,7 @@ Now, that we have figured out if there is a cycle present in the linked list, fo
 ### Step 2: Starting point of the cycle
 1. Reset the $slow$ pointer to the **head** of the linked list.
 2. Move both pointers one step at a time.
-3. The point they will meet at will be the starti	ng point of the cycle.
+3. The point they will meet at will be the starting point of the cycle.
 
 ```java
 // Presence of cycle
