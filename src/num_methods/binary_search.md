@@ -138,6 +138,81 @@ Another noteworthy way to do binary search is, instead of maintaining an active 
 
 This paradigm is widely used in tasks around trees, such as finding lowest common ancestor of two vertices or finding an ancestor of a specific vertex that has a certain height. It could also be adapted to e.g. find the $k$-th non-zero element in a Fenwick tree.
 
+## Parallel Binary Search
+
+When we are faced with multiple queries that can each be solved with a binary search, it is sometimes too slow to solve them one by one. Parallel Binary Search is a technique that allows us to solve all of these queries simultaneously, often leading to a significant performance improvement. The main idea is to perform the binary search for all queries at the same time (in parallel), step by step. This is particularly effective when the check function for the binary search is costly and can be optimized by processing queries in batches.
+
+Consider a scenario where we have $Q$ queries, and for each query $q$, we need to find the smallest value $x$ that satisfies a certain condition $P(q, x)$. If $P(q, x)$ is monotonic on $x$, we can use binary search for each query. This would result in a total complexity of $O(Q \cdot \log(range) \cdot T_{check})$, where $T_{check}$ is the time to evaluate $P(q, x)$.
+
+Parallel binary search optimizes this by changing the order of operations. Instead of processing each query independently, we process all queries simultaneously, step by step. In each step of the binary search, we compute the middle points $m_i$ for all queries and group the queries by their middle point. This is particularly powerful if the check function $P(q, x)$ has a structure that allows for efficient batching or updates.
+
+Specifically, the major performance gain comes from two scenarios:
+1. **Batching expensive checks:** If multiple queries need to check the same value $m$ in a given step, we can perform the expensive part of the check only once and reuse the result.
+2. **Efficiently updatable checks:** Often, the check for a value $m$ (e.g., "process the first $m$ events") can be performed much faster if we have already computed the state for $m-1$. By processing the check values $m$ in increasing order, we can update the state from one check to the next, instead of recomputing from scratch each time. This is a very common pattern in problems involving time or a sequence of updates.
+
+This "offline" processing of queries, where we collect all queries and answer them together in a way that is convenient for our data structures, is the core idea behind parallel binary search.
+
+### Implementation
+
+Imagine that we want to answer $Z$ queries about the index of the largest value less than or equal to some $X_i$ (for $i=1,2,\ldots,Z$) in a sorted 0-indexed array $A$. Naturally, each query can be answered using binary search. 
+
+Specifically, let us consider the following array $A = [1,3,5,7,9,9,13,15]$
+with queries: $X = [8,11,4,5]$. We can use binary search for each query sequentially.
+
+| Query  | \( X_1 = 8 \)                           | \( X_2 = 11 \)                           | \( X_3 = 4 \)                             | \( X_4 = 5 \)                             |
+|--------|:----------------------------------------:|:-----------------------------------------:|:------------------------------------------:|:------------------------------------------:|
+| **Step 1** | Answer in \([0,8)\) <br> Check \( A_4 \) <br> \( X_1 < A_4 = 9 \)  | Answer in \([0,8)\) <br> Check \( A_4 \) <br> \( X_2 \geq A_4 = 9 \)  | Answer in \([0,8)\) <br> Check \( A_4 \) <br> \( X_3 < A_4 = 9 \)   | Answer in \([0,8)\) <br> Check \( A_4 \) <br> \( X_4 < A_4 = 9 \)   |
+| **Step 2** | Answer in \([0,4)\) <br> Check \( A_2 \) <br> \( X_1 \geq A_2 = 5 \) | Answer in \([4,8)\) <br> Check \( A_6 \) <br> \( X_2 < A_6 = 13 \)   | Answer in \([0,4)\) <br> Check \( A_2 \) <br> \( X_3 < A_2 = 5 \)   | Answer in \([0,4)\) <br> Check \( A_2 \) <br> \( X_4 \geq A_2 = 5 \) |
+| **Step 3** | Answer in \([2,4)\) <br> Check \( A_3 \) <br> \( X_1 \geq A_3 = 7 \) | Answer in \([4,6)\) <br> Check \( A_5 \) <br> \( X_2 \geq A_5 = 9 \)  | Answer in \([0,2)\) <br> Check \( A_1 \) <br> \( X_3 \geq A_1 = 3 \)  | Answer in \([2,4)\) <br> Check \( A_3 \) <br> \( X_4 < A_3 = 7 \)   |
+| **Step 4** | Answer in \([3,4)\) <br> \( index = 3 \) | Answer in \([5,6)\) <br> \( index = 5 \) | Answer in \([1,2)\) <br> \( index = 1 \) | Answer in \([2,3)\) <br> \( index = 2 \) |
+
+We generally process this table by columns (queries), but notice that in each row we often repeat access to certain values of the array. To limit access to these values, we can process the table by rows (steps). This does not make huge difference in our small example problem (as we can access all elements in $O(1)$), but in more complex problems, where computing these values is more complicated, this might be essential to solve these problems efficiently. Moreover, note that we can arbitrarily choose the order in which we answer questions in a single row. Let us look at the code implementing this approach.
+
+```{.cpp file=parallel-binary-search}
+// Computes the index of the largest value in a sorted array A less than or equal to X_i for all i.
+vector<int> parallel_binary_search(vector<int>& A, vector<int>& X) {
+    int N = A.size();
+    int Z = X.size();
+    vector<int> l(Z, -1), r(Z, N);
+
+    for (int step = 1; step <= ceil(log2(N)); ++step) {
+        // A vector of vectors to store indices of queries for each middle point.
+        vector<vector<int>> m_to_queries(N);
+
+        // Group queries by their middle point.
+        for (int i = 0; i < Z; ++i) {
+            if (l[i] < r[i] - 1) {
+                int m = l[i] + (r[i] - l[i]) / 2;
+                m_to_queries[m].push_back(i);
+            }
+        }
+
+        // Process each group of queries.
+        for (int m = 0; m < N; ++m) {
+            if (m_to_queries[m].empty()) {
+                continue;
+            }
+            for (int query : m_to_queries[m]) {
+                if (X[query] < A[m]) {
+                    r[query] = m;
+                } else {
+                    l[query] = m;
+                }
+            }
+        }
+    }
+    return l;
+}
+```
+
+### Example Problem: Meteors
+
+A pretty well known problem using this method is called "Meteors", and is listed in the practice problems. We are given $N$ countries, and for each country, a target number of meteors to collect. We are also given a sequence of $K$ meteor showers, each affecting a range of countries. The goal is to find, for each country, the earliest time (i.e., which meteor shower) they reach their target.
+
+For a single country, we could binary search for the answer from $1$ to $K$. The check for a given time $t$ would involve summing up the meteors from the first $t$ showers for that country. A naive check takes $O(t)$ time, leading to an overall complexity of $O(K \log K)$ for one country, and $O(N \cdot K \log K)$ for all, which is too slow.
+
+With parallel binary search, we search for the answer for all $N$ countries at once. In each of the $O(\log K)$ steps, we have a set of check values $t_i$ for the countries. We can process these $t_i$ in increasing order. To perform the check for time $t$, we can use a data structure like a Fenwick tree or a segment tree to maintain the meteor counts for all countries. When moving from checking time $t_i$ to $t_{i+1}$, we only need to add the effects of showers from $t_i+1$ to $t_{i+1}$ to our data structure. This "update" approach is much faster than recomputing from scratch. The total complexity becomes $O((N+K)\log N \log K)$.
+
 ## Practice Problems
 
 * [LeetCode -  Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
@@ -154,3 +229,8 @@ This paradigm is widely used in tasks around trees, such as finding lowest commo
 * [Codeforces - GukiZ hates Boxes](https://codeforces.com/problemset/problem/551/C)
 * [Codeforces - Enduring Exodus](https://codeforces.com/problemset/problem/645/C)
 * [Codeforces - Chip 'n Dale Rescue Rangers](https://codeforces.com/problemset/problem/590/B)
+
+### Parallel Binary Search
+
+* [Szkopul - Meteors](https://szkopul.edu.pl/problemset/problem/7JrCYZ7LhEK4nBR5zbAXpcmM/site/?key=statement)
+* [AtCoder - Stamp Rally](https://atcoder.jp/contests/agc002/tasks/agc002_d)
