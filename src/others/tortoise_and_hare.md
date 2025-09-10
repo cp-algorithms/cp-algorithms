@@ -15,7 +15,7 @@ Here we need to find out the point **C**, i.e the starting point of the cycle.
 
 ## Proposed algorithm
 The algorithm is called **Floyd’s Cycle Algorithm or Tortoise And Hare algorithm**.
-In order to figure out the starting point of the cycle, we need to figure out if the the cycle even exists or not.
+In order to figure out the starting point of the cycle, we need to figure out if a cycle even exists.
 This involves involves two steps:
 1. Figure out the presence of the cycle.
 2. Find out the starting point of the cycle.
