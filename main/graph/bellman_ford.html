@@ -6659,6 +6659,18 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
     
@@ -6783,6 +6795,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -6855,7 +6871,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 12, 2024 00:11:42 UTC">October 12, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 10, 2025 10:29:18 UTC">September 10, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -7031,7 +7047,7 @@ Consider an arbitrary vertex <span class="arithmatex">$a$</span> to which there 
 <p>Due to the presence of a negative cycle, for <span class="arithmatex">$n$</span> iterations of the algorithm, the distances may go far in the negative range (to negative numbers of the order of <span class="arithmatex">$-n m W$</span>, where <span class="arithmatex">$W$</span> is the maximum absolute value of any weight in the graph). Hence in the code, we adopted additional measures against the integer overflow as follows:</p>
 <div class="highlight"><pre><span></span><code><span class="n">d</span><span class="p">[</span><span class="n">e</span><span class="p">.</span><span class="n">b</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="o">-</span><span class="n">INF</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">e</span><span class="p">.</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">cost</span><span class="p">);</span>
 </code></pre></div>
-<p>The above implementation looks for a negative cycle reachable from some starting vertex <span class="arithmatex">$v$</span>; however, the algorithm can be modified to just looking for any negative cycle in the graph. For this we need to put all the distance <span class="arithmatex">$d[i]$</span> to zero and not infinity — as if we are looking for the shortest path from all vertices simultaneously; the validity of the detection of a negative cycle is not affected.</p>
+<p>The above implementation looks for a negative cycle reachable from some starting vertex <span class="arithmatex">$v$</span>; however, the algorithm can be modified to just look for any negative cycle in the graph. For this we need to put all the distance <span class="arithmatex">$d[i]$</span> to zero and not infinity — as if we are looking for the shortest path from all vertices simultaneously; the validity of the detection of a negative cycle is not affected.</p>
 <p>For more on this topic — see separate article, <a href="finding-negative-cycle-in-graph.html">Finding a negative cycle in the graph</a>.</p>
 <h2 id="shortest-path-faster-algorithm-spfa">Shortest Path Faster Algorithm (SPFA)<a class="headerlink" href="#shortest-path-faster-algorithm-spfa" title="Permanent link">&para;</a></h2>
 <p>SPFA is a improvement of the Bellman-Ford algorithm which takes advantage of the fact that not all attempts at relaxation will work.
@@ -7094,7 +7110,7 @@ Note, also there is no reason to put a vertex in the queue if it is already in.<
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/bimalkant-lauhny" title="bimalkant-lauhny" data-bi-name="contributorprofile" target="_blank">bimalkant-lauhny</a> (53.48%)</li><li><a href="https://github.com/wangwillian0" title="wangwillian0" data-bi-name="contributorprofile" target="_blank">wangwillian0</a> (17.95%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (16.12%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (3.66%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.57%)</li><li><a href="https://github.com/RodionGork" title="RodionGork" data-bi-name="contributorprofile" target="_blank">RodionGork</a> (2.56%)</li><li><a href="https://github.com/Aryamn" title="Aryamn" data-bi-name="contributorprofile" target="_blank">Aryamn</a> (0.73%)</li><li><a href="https://github.com/joaomarcosth9" title="joaomarcosth9" data-bi-name="contributorprofile" target="_blank">joaomarcosth9</a> (0.37%)</li><li><a href="https://github.com/Aman-Codes" title="Aman-Codes" data-bi-name="contributorprofile" target="_blank">Aman-Codes</a> (0.37%)</li><li><a href="https://github.com/orendon" title="orendon" data-bi-name="contributorprofile" target="_blank">orendon</a> (0.37%)</li><li><a href="https://github.com/DiegoHDMGZ" title="DiegoHDMGZ" data-bi-name="contributorprofile" target="_blank">DiegoHDMGZ</a> (0.37%)</li><li><a href="https://github.com/pirateksh" title="pirateksh" data-bi-name="contributorprofile" target="_blank">pirateksh</a> (0.37%)</li><li><a href="https://github.com/sachinpatel9135" title="sachinpatel9135" data-bi-name="contributorprofile" target="_blank">sachinpatel9135</a> (0.37%)</li><li><a href="https://github.com/prprprpony" title="prprprpony" data-bi-name="contributorprofile" target="_blank">prprprpony</a> (0.37%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (0.37%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/bimalkant-lauhny" title="bimalkant-lauhny" data-bi-name="contributorprofile" target="_blank">bimalkant-lauhny</a> (53.11%)</li><li><a href="https://github.com/wangwillian0" title="wangwillian0" data-bi-name="contributorprofile" target="_blank">wangwillian0</a> (17.95%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (16.12%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (3.66%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.57%)</li><li><a href="https://github.com/RodionGork" title="RodionGork" data-bi-name="contributorprofile" target="_blank">RodionGork</a> (2.56%)</li><li><a href="https://github.com/Aryamn" title="Aryamn" data-bi-name="contributorprofile" target="_blank">Aryamn</a> (0.73%)</li><li><a href="https://github.com/aleksmish" title="aleksmish" data-bi-name="contributorprofile" target="_blank">aleksmish</a> (0.37%)</li><li><a href="https://github.com/joaomarcosth9" title="joaomarcosth9" data-bi-name="contributorprofile" target="_blank">joaomarcosth9</a> (0.37%)</li><li><a href="https://github.com/Aman-Codes" title="Aman-Codes" data-bi-name="contributorprofile" target="_blank">Aman-Codes</a> (0.37%)</li><li><a href="https://github.com/orendon" title="orendon" data-bi-name="contributorprofile" target="_blank">orendon</a> (0.37%)</li><li><a href="https://github.com/DiegoHDMGZ" title="DiegoHDMGZ" data-bi-name="contributorprofile" target="_blank">DiegoHDMGZ</a> (0.37%)</li><li><a href="https://github.com/pirateksh" title="pirateksh" data-bi-name="contributorprofile" target="_blank">pirateksh</a> (0.37%)</li><li><a href="https://github.com/sachinpatel9135" title="sachinpatel9135" data-bi-name="contributorprofile" target="_blank">sachinpatel9135</a> (0.37%)</li><li><a href="https://github.com/prprprpony" title="prprprpony" data-bi-name="contributorprofile" target="_blank">prprprpony</a> (0.37%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (0.37%)</li></ul>
 </ul>
                 
               </article>
