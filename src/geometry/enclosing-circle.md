@@ -60,6 +60,7 @@ bool inside(mec const& C, point p) {
 // Choose some good generator of randomness for the shuffle
 mt19937_64 gen(...);
 mec enclosing_circle(vector<point> &p) {
+    int n = p.size();
     ranges::shuffle(p, gen);
     auto C = mec{p[0], p[1]};
     for(int i = 0; i < n; i++) {
@@ -136,7 +137,7 @@ $$
 \angle azb + \angle bca
 $$
 
-In a [cyclic quadrilateral](https://en.wikipedia.org/wiki/Cyclic_quadrilateral), if $c$ and $z$ are from the same side of $ab$, then the angles are equal, and will ad up to $0^\circ$ when summed up signed (i.e. positive if counter-clockwise and negative if clockwise). Correspondingly, if $c$ and $z$ are on the opposite sides, the angles will add up to $180^\circ$.
+In a [cyclic quadrilateral](https://en.wikipedia.org/wiki/Cyclic_quadrilateral), if $c$ and $z$ are from the same side of $ab$, then the angles are equal, and will add up to $0^\circ$ when summed up signed (i.e. positive if counter-clockwise and negative if clockwise). Correspondingly, if $c$ and $z$ are on the opposite sides, the angles will add up to $180^\circ$.
 
 <center>
 <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Opposing_inscribed_angles.svg">
