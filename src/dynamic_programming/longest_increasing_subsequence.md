@@ -145,7 +145,7 @@ This method leads to a slightly longer code, but in return we save some memory.
 In order to obtain a faster solution for the problem, we construct a different dynamic programming solution that runs in $O(n^2)$, and then later improve it to $O(n \log n)$.
 
 We will use the dynamic programming array $d[0 \dots n]$.
-This time $d[l]$ doesn't corresponds to the element $a[i]$ or to a prefix of the array. 
+This time $d[l]$ doesn't correspond to the element $a[i]$ or to a prefix of the array. 
 $d[l]$ will be the smallest element at which an increasing subsequence of length $l$ ends.
 
 Initially we assume $d[0] = -\infty$ and for all other lengths $d[l] = \infty$.
