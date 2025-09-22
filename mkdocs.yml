@@ -80,7 +80,7 @@ plugins:
   - rss
   - redirects:
       redirect_maps:
-        'algebra': 'number_theory'
+        'algebra/all_submasks.md': 'number_theory/all_submasks.md'
 
 extra:
   social:
