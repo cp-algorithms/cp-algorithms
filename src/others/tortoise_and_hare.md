@@ -15,8 +15,8 @@ Here we need to find out the point **C**, i.e the starting point of the cycle.
 
 ## Proposed algorithm
 The algorithm is called **Floyd’s Cycle Algorithm or Tortoise And Hare algorithm**.
-In order to figure out the starting point of the cycle, we need to figure out of the the cycle even exists or not.
-So, it involved two steps:
+In order to figure out the starting point of the cycle, we need to figure out if a cycle even exists.
+This involves two steps:
 1. Figure out the presence of the cycle.
 2. Find out the starting point of the cycle.
 
@@ -26,14 +26,14 @@ So, it involved two steps:
 3. $slow$ will move one step at a time.
 4. $fast$ will move two steps at a time. (twice as speed as $slow$ pointer).
 5. Check if at any point they point to the same node before any one(or both) reach null.
-6. If they point to any same node at any point of their journey, it would indicate that the cycle indeed exists in the linked list.
-7. If we get null, it would indicate that the linked list has no cycle.
+6. If they point to the same node at any point of their journey, it indicates that a cycle indeed exists in the linked list.
+7. If we get null, it indicates that the linked list has no cycle.
 
 <div style="text-align: center;">
   <img src="tortoise_hare_cycle_found.png" alt=""Found cycle"">
 </div>
 
-Now, that we have figured out that there is a cycle present in the linked list, for the next step we need to find out the starting point of cycle, i.e., **C**.
+Now, that we have figured out if there is a cycle present in the linked list, for the next step we need to find out the starting point of cycle, i.e., **C**.
 ### Step 2: Starting point of the cycle
 1. Reset the $slow$ pointer to the **head** of the linked list.
 2. Move both pointers one step at a time.
