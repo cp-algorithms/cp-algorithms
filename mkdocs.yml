@@ -78,6 +78,9 @@ plugins:
       branch: !ENV [MKDOCS_GIT_COMMITERS_BRANCH, main]
   - macros
   - rss
+  - redirects
+      redirect_maps:
+        'algebra': 'number_theory'
 
 extra:
   social:
