@@ -6625,10 +6625,6 @@ Describe the issue of this article in detail.
   
     
   
-
-  
-  
-  
     
   
 
@@ -6663,6 +6659,26 @@ Describe the issue of this article in detail.
   
     
   
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
 
   
   
@@ -6671,6 +6687,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -6699,7 +6719,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 15, 2025 02:32:08 UTC">April 15, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 21, 2025 00:17:26 UTC">September 21, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -6722,8 +6742,8 @@ Describe the issue of this article in detail.
 <p>Here we need to find out the point <strong>C</strong>, i.e the starting point of the cycle.</p>
 <h2 id="proposed-algorithm">Proposed algorithm<a class="headerlink" href="#proposed-algorithm" title="Permanent link">&para;</a></h2>
 <p>The algorithm is called <strong>Floyd’s Cycle Algorithm or Tortoise And Hare algorithm</strong>.
-In order to figure out the starting point of the cycle, we need to figure out of the the cycle even exists or not.
-So, it involved two steps:
+In order to figure out the starting point of the cycle, we need to figure out if a cycle even exists.
+This involves two steps:
 1. Figure out the presence of the cycle.
 2. Find out the starting point of the cycle.</p>
 <h3 id="step-1-presence-of-the-cycle">Step 1: Presence of the cycle<a class="headerlink" href="#step-1-presence-of-the-cycle" title="Permanent link">&para;</a></h3>
@@ -6733,14 +6753,14 @@ So, it involved two steps:
 <li><span class="arithmatex">$slow$</span> will move one step at a time.</li>
 <li><span class="arithmatex">$fast$</span> will move two steps at a time. (twice as speed as <span class="arithmatex">$slow$</span> pointer).</li>
 <li>Check if at any point they point to the same node before any one(or both) reach null.</li>
-<li>If they point to any same node at any point of their journey, it would indicate that the cycle indeed exists in the linked list.</li>
-<li>If we get null, it would indicate that the linked list has no cycle.</li>
+<li>If they point to the same node at any point of their journey, it indicates that a cycle indeed exists in the linked list.</li>
+<li>If we get null, it indicates that the linked list has no cycle.</li>
 </ol>
 <div style="text-align: center;">
   <img src="tortoise_hare_cycle_found.png" alt=""Found cycle"">
 </div>
 
-<p>Now, that we have figured out that there is a cycle present in the linked list, for the next step we need to find out the starting point of cycle, i.e., <strong>C</strong>.</p>
+<p>Now, that we have figured out if there is a cycle present in the linked list, for the next step we need to find out the starting point of cycle, i.e., <strong>C</strong>.</p>
 <h3 id="step-2-starting-point-of-the-cycle">Step 2: Starting point of the cycle<a class="headerlink" href="#step-2-starting-point-of-the-cycle" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Reset the <span class="arithmatex">$slow$</span> pointer to the <strong>head</strong> of the linked list.</li>
@@ -6815,7 +6835,7 @@ And since we let the slow pointer start at the start of the linked list, after <
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/sourav15102" title="sourav15102" data-bi-name="contributorprofile" target="_blank">sourav15102</a> (88.43%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (7.44%)</li><li><a href="https://github.com/kanwaekan" title="kanwaekan" data-bi-name="contributorprofile" target="_blank">kanwaekan</a> (2.48%)</li><li><a href="https://github.com/ericmiranda7" title="ericmiranda7" data-bi-name="contributorprofile" target="_blank">ericmiranda7</a> (0.83%)</li><li><a href="https://github.com/toluwalase104" title="toluwalase104" data-bi-name="contributorprofile" target="_blank">toluwalase104</a> (0.83%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/sourav15102" title="sourav15102" data-bi-name="contributorprofile" target="_blank">sourav15102</a> (84.3%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (7.44%)</li><li><a href="https://github.com/arjunUpatel" title="arjunUpatel" data-bi-name="contributorprofile" target="_blank">arjunUpatel</a> (4.13%)</li><li><a href="https://github.com/kanwaekan" title="kanwaekan" data-bi-name="contributorprofile" target="_blank">kanwaekan</a> (2.48%)</li><li><a href="https://github.com/ericmiranda7" title="ericmiranda7" data-bi-name="contributorprofile" target="_blank">ericmiranda7</a> (0.83%)</li><li><a href="https://github.com/toluwalase104" title="toluwalase104" data-bi-name="contributorprofile" target="_blank">toluwalase104</a> (0.83%)</li></ul>
 </ul>
                 
               </article>
