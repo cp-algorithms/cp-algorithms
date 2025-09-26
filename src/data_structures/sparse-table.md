@@ -173,4 +173,5 @@ Another one would be the [Sqrt Tree](sqrt-tree.md).
 * [Codeforces - Map](http://codeforces.com/contest/15/problem/D)
 * [Codeforces - Awards for Contestants](http://codeforces.com/contest/873/problem/E)
 * [Codeforces - Longest Regular Bracket Sequence](http://codeforces.com/contest/5/problem/C)
+* [CSES - Static Range Minimum Queries](https://cses.fi/problemset/task/1647)
 * [Codeforces - Array Stabilization (GCD version)](http://codeforces.com/problemset/problem/1547/F)
