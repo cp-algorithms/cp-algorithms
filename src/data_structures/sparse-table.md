@@ -153,6 +153,7 @@ One of them is called [Disjoint Sparse Table](https://discuss.codechef.com/quest
 Another one would be the [Sqrt Tree](sqrt-tree.md).
 
 ## Practice Problems
+
 * [SPOJ - RMQSQ](http://www.spoj.com/problems/RMQSQ/)
 * [SPOJ - THRBL](http://www.spoj.com/problems/THRBL/)
 * [Codechef - MSTICK](https://www.codechef.com/problems/MSTICK)
