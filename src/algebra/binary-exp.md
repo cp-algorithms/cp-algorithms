@@ -67,6 +67,7 @@ long long binpow(long long a, long long b) {
         return res * res * a;
     else
         return res * res;
+    return res;
 }
 ```
 
