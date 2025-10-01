@@ -85,6 +85,51 @@ Afterwards the preflow is actually a flow and we return it.
 ## Complexity
 
 It is easy to show, that the maximal label of a vertex is $2|V| - 1$.
+
+$\mathbf{Lemma:}$ Let $f$ be an overflowing vertex $x$, then $\exists$ a simple path from $x$ to $s$ in $G_f$ (the residual graph with edges in $E_f$).
+
+$\mathbf{Proof:}$ For $x$, let $U = \{v : \exists \text{ a simple path from } x \text{ to } v \text{ in } G_f\}$ and say, by contradiction, $s \not\in U$. $\overline{U} = V - U$. [i.e. $V = U \cup \overline{U}$]
+
+$$
+\sum_{u \in U} e(u) = \sum_{u \in U} \left( \sum_{v \in V} f(v,u) - \sum_{v \in V} f(u,v) \right)
+$$
+
+$$
+= \sum_{u \in U} \left( \sum_{v \in U} f(v,u) + \sum_{v \in \overline{U}} f(v,u) \right) - \left( \sum_{v \in U} f(u,v) + \sum_{v \in \overline{U}} f(u,v) \right)
+$$
+
+$$
+= \underbrace{\sum_{u \in U} \sum_{v \in U} f(v,u)}_{O} + \sum_{u \in U} \sum_{v \in \overline{U}} f(v,u) - \underbrace{\sum_{u \in U} \sum_{v \in U} f(u,v)}_{O} - \sum_{u \in U} \sum_{v \in \overline{U}} f(u,v)
+$$
+
+$$
+= \sum_{u \in U} \sum_{v \in \overline{U}} f(v,u) - \sum_{u \in U} \sum_{v \in \overline{U}} f(u,v)
+$$
+
+We know, $\sum_{u \in U} e(u) > 0$ $\because$ $e(x) > 0$, $x \in U$, all vertices other than $s$ have non-negative excess and by assumption, $s \not\in U$ (recall that $e(s)$ can be $< 0$).
+
+$$
+\therefore \sum_{u \in U} \sum_{v \in \overline{U}} f(v,u) - \sum_{u \in U} \sum_{v \in \overline{U}} f(u,v) > 0.
+$$
+
+All edge flows are $\geq 0$. So $\sum_{u \in U} \sum_{v \in \overline{U}} f(v,u) > 0$. Hence, $\exists$ $v' \in U$ and $u' \in \overline{U}$ s.t. $f(v',u') > 0$. But then $(u',v') \in E_f$ and so, $\exists$ simple path from $x \rightsquigarrow u' \to v'$ in $G_f$, which contradicts $v' \in \overline{U}$.
+
+So, $s \in U$.
+
+$\mathbf{Lemma:}$ At any step of the algorithm, $h(u) \leq 2|V|-1$ $\forall$ $u \in V$
+
+$\mathbf{Proof:}$ $h(s) = |V|$, $h(t) = 0$ (fixed) $\leq 2|V|-1$
+
+Let $u \in V - \{s,t\}$. Initially, $h(u) = 0 \leq 2|V|-1$.
+
+When $u$ is relabeled, it is overflowing, and the previous lemma tells us $\exists$ a simple path $p$ from $u$ to $s$ in $G_f$.
+
+Let $p = \langle v_0, v_1, \ldots, v_k \rangle$, where $v_0 = u$, $v_k = s$ and $k \leq |V|-1$ (simple). For $i = 0, 1, \ldots, k-1$, $(v_i, v_{i+1}) \in E_f$, and $\therefore$ $h(v_i) \leq h(v_{i+1}) + 1$.
+
+$$
+\therefore h(u) = h(v_0) \leq h(v_k) + k \leq h(s) + |V|-1 = 2|V|-1
+$$
+
 At this point all remaining excess can and will be pushed back to the source.
 This gives at most $O(V^2)$ relabel operations.
 
