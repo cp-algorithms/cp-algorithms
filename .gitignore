@@ -8,7 +8,6 @@ converted.pdf
 /public
 .firebase/
 firebase-debug.log
-.idea/
 __pycache__/
 
 authors.json
