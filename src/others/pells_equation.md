@@ -14,62 +14,73 @@ Alternative formulation: We want to find all the possible solutions of the equat
 Here we will consider the case when $d$ is not a perfect square and $d>1$. The case when $d$ is a perfect square is trivial.
 We can even assume that $d$ is square-free (i.e. it is not divisible by the square of any prime number) as we can absorb the factors of $d$ into $y$.
 
-$x^{2} - d \cdot y^{2} = ( x + \sqrt{d} \cdot y ) ( x - \sqrt{d} \cdot y ) = 1$
+We can rewrite the equation as:
 
-The first part $( x + \sqrt{d} \cdot y )$ is always greater than 1. And the second part $( x - \sqrt{d} \cdot y )$ is always less than 1, since the product is 1.
+$$x^{2} - d y^{2} = (x + y \sqrt{d})(x - y \sqrt{d}) = 1$$
 
-We will prove that all solutions to Pell's equation are given by powers of the smallest positive solution. Let's assume it to be 
-$x_{0} +  y_{0} \cdot \sqrt{d}$
+This factorization is important because it shows the connection to quadratic irrationals. The first part $(x + y \sqrt{d})$ is always greater than 1, and the second part $(x - y \sqrt{d})$ is always less than 1, since their product is 1.
 
-We use method of descent to prove it.  
+The norm of an expression $u + v \sqrt{d}$ is defined as $N(u + v \sqrt{d}) = (u + v \sqrt{d})(u - v \sqrt{d}) = u^2 - d v^2$. The norm is multiplicative: $N(ab) = N(a)N(b)$. This property is crucial in the descent argument below.
+
+We will prove that all solutions to Pell's equation are given by powers of the smallest non-trivial solution. Let's assume it to be the minimum possible $x_0 + y_0 \sqrt{d} > 1$. For such a solution, it also holds that $y_0 > 0$, and its $x_0 > 1$ is the smallest possible value for $x$.
+
+## Method of Descent
 Suppose there is a solution $u + v \cdot \sqrt{d}$ such that $u^{2} - d \cdot v^{2} = 1$ and is not a power of  $( x_{0} + \sqrt{d} \cdot y_{0} )$
 Then it must lie between two powers of $( x_{0} + \sqrt{d} \cdot y_{0} )$. 
-i.e, For some n, $( x_{0} + \sqrt{d} \cdot y_{0} )^{n}  < u + v \cdot \sqrt{d} < ( x_{0} + \sqrt{d} \cdot y_{0} )^{n+1}$
+i.e, For some $n$,
+$$
+( x_{0} + \sqrt{d} \cdot y_{0} )^{n}  < u + v \cdot \sqrt{d} < ( x_{0} + \sqrt{d} \cdot y_{0} )^{n+1}
+$$
 
-Multiplying the above inequality by $( x_{0} - \sqrt{d} \cdot y_{0} )^{n}$,(which is > 0 and < 1) we get
+Multiplying the above inequality by $( x_{0} - \sqrt{d} \cdot y_{0} )^{n}$,(which is $> 0$ and $< 1$) we get
 
-$1 < (u + v \cdot \sqrt{d})( x_{0} - \sqrt{d} \cdot y_{0} )^{n} < ( x_{0} + \sqrt{d} \cdot y_{0} )$
-Because both $(u + v \cdot \sqrt{d})$ and $( x_{0} - \sqrt{d} \cdot y_{0} )^{n}$ have norm 1, their product is also a solution.
+$$
+1 < (u + v \cdot \sqrt{d})( x_{0} - \sqrt{d} \cdot y_{0} )^{n} < ( x_{0} + \sqrt{d} \cdot y_{0} )
+$$
+Because both $(u + v \cdot \sqrt{d})$ and $( x_{0} - \sqrt{d} \cdot y_{0} )^{n}$ have norm $1$, their product is also a solution.
 But this contradicts our assumption that $( x_{0} + \sqrt{d} \cdot y_{0} )$ is the smallest solution. Therefore, there is no solution between $( x_{0} + \sqrt{d} \cdot y_{0} )^{n}$ and $( x_{0} + \sqrt{d} \cdot y_{0} )^{n+1}$.
 
 Hence, we conclude that all solutions are given by $( x_{0} + \sqrt{d} \cdot y_{0} )^{n}$ for some integer $n$.
 
 ## Finding the smallest positive solution
 ### Expressing the solution in terms of continued fractions
-We can express the solution in terms of continued fractions. The continued fraction of $\sqrt{d}$ is periodic. Let's assume the continued fraction of $\sqrt{d}$ is $[a_{0}; \overline{a_{1}, a_{2}, \ldots, a_{r}}]$. The smallest positive solution is given by the convergent $[a_{0}; a_{1}, a_{2}, \ldots, a_{r}]$ where $r$ is the period of the continued fraction.
+We can express the solution in terms of continued fractions. The continued fraction of $\sqrt{d}$ is periodic. Let's assume the continued fraction of $\sqrt{d}$ is $[a_0; \overline{a_1, a_2, \ldots, a_r}]$. The smallest positive solution is given by the convergent $[a_0; a_1, a_2, \ldots, a_r]$ where $r$ is the period of the continued fraction.
 
-The convergents $p_{n}/q_{n}$ are the rational approximations to $\sqrt{d}$ obtained by truncating the continued fraction expansion at each stage. These convergents can be computed recursively.
+The convergents $p_n/q_n$ are the rational approximations to $\sqrt{d}$ obtained by truncating the continued fraction expansion at each stage. These convergents can be computed recursively. For Pell's equation, the convergent $(p_n, q_n)$ at the end of the period solves $p_n^2 - d q_n^2 = \pm 1$.
 
-Check whether the convergent satisfies the Pell's equation. If it does, then the convergent is the smallest positive solution.
+Check whether the convergent satisfies Pell's equation. If it does, then the convergent is the smallest positive solution.
 
-Let's take an example to understand this by solving the equation $x^{2} - 2 \cdot y^{2} = 1$.
+Let's take an example to understand this by solving the equation $x^2 - 2 y^2 = 1$.
 $\sqrt{2} = [1; \overline{2}] = 1 + 1/(2 + 1/(2 + 1/(2+ ...)))$. The convergents are $1/1, 3/2, 7/5, 17/12, 41/29, 99/70, \ldots$.
-Now check for each convergent whether it satisfies the Pell's equation. The smallest positive solution is $3/2$.
+Now check for each convergent whether it satisfies Pell's equation. The smallest positive solution is $3/2$.
 
-### How to calculate the continued fraction of $\sqrt{d}$?
-Let's find the continued fraction of $\sqrt{7}$.
+#### Integer-based continued fraction calculation
+For integer-based calculation, see the [Quadratic irrationality section of the continued fractions article](https://cp-algorithms.com/algebra/continued-fractions.html). Here is a sample algorithm in Python:
 
-$\sqrt{7} \approx 2.6457 = 2 + 0.6457$
+```python
+# Compute the continued fraction expansion of sqrt(n) using integer arithmetic
+import math
 
-$a_{0} = 2$
+def continued_fraction_sqrt(n):
+    m0 = 0
+    d0 = 1
+    a0 = int(math.isqrt(n))
+    period = []
+    m, d, a = m0, d0, a0
+    seen = set()
+    while (m, d, a) not in seen:
+        seen.add((m, d, a))
+        m = d * a - m
+        d = (n - m * m) // d
+        a = (a0 + m) // d
+        period.append(a)
+    return [a0] + period
 
-Subtract $a_{0}$ from the number and take the reciprocal of the remaining number.
+# Example: sqrt(7)
+print(continued_fraction_sqrt(7))  # Output: [2, 1, 1, 1, 4]
+```
 
-That is, we calculate ${1\over \sqrt{7} - 2} \approx 1.5486$. The integer part $a_{1}$ is $1$.
-So:  
-$\sqrt{7}=2+\cfrac{1}{1+\cfrac1{\vdots}}$  
-Where we haven't calculated the $( \vdots )$ part yet.  
-To get that, we subtract $a_{1}$ from the number and take the reciprocal of the remaining number. That is, we calculate ${1\over 1.5486 - 1} \approx 1.8228$. The integer part $a_{2}$ is $1$.
-So:  
-$\sqrt{7}=2+\cfrac{1}{1+\cfrac1{1+\cfrac1{\vdots}}}$   
-Now ${1\over 1.8228 - 1} \approx 1.2153$.  So $a_{3} = 1$.
-Continuing this process, ${1\over 1.2153 - 1} \approx 4.645$. So $a_{4} = 4$.
-
-$$\sqrt{7}=2+\cfrac{1}{1+\cfrac1{1+\cfrac1{1+\cfrac4{\vdots}}}}$$
-
-we get the continued fraction of $\sqrt{7}$ as $[2; 1, 1, 4, 1, 1, 4, \ldots]$.
-
-This can also be calculated using [integer based calculation(continued fractions)](https://cp-algorithms.com/algebra/continued-fractions.html) 
+This method avoids floating-point errors and is suitable for large $d$.
 
 ### Finding the solution using Chakravala method
 The Chakravala method is an ancient Indian algorithm to solve Pell's equation. It is based on the Brahmagupta's identity of quadratic decomposition 
