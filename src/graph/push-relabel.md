@@ -9,7 +9,7 @@ e_maxx_link: preflow_push
 The push-relabel algorithm (or also known as preflow-push algorithm) is an algorithm for computing the maximum flow of a flow network.
 The exact definition of the problem that we want to solve can be found in the article [Maximum flow - Ford-Fulkerson and Edmonds-Karp](edmonds_karp.md).
 
-In this article we will consider solving the problem by pushing a preflow through the network, which will run in $O(V^4)$, or more precisely in $O(V^2 E)$, time.
+In this article we will consider solving the problem by pushing a preflow through the network, which will run in $O(V^3)$, or more precisely in $O(V^2 E)$, time.
 The algorithm was designed by Andrew Goldberg and Robert Tarjan in 1985.
 
 ## Definitions
