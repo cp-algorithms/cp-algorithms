@@ -62,12 +62,23 @@ For integer-based calculation, see the [Quadratic irrationality section of the c
 import math
 
 def continued_fraction_sqrt(n):
+    # We maintain the "complete quotient" in the integer form:
+    #    (sqrt(n) + m) / d
+    # where m and d are integers. At each step the integer part is
+    #    a = floor((a0 + m) / d)
+    # and the next complete quotient is obtained by the integer  recurrences:
+    #    m' = d*a - m
+    #    d' = (n - m'^2) / d
+    #    a' = floor((a0 + m') / d')
+    # This avoids any floating-point arithmetic.
     m0 = 0
     d0 = 1
     a0 = int(math.isqrt(n))
     period = []
     m, d, a = m0, d0, a0
     seen = set()
+    # store triples (m,d,a) until we see a repeat; the period begins when
+    # a triple repeats. Note: the first entry a0 is the integer part of sqrt(n).
     while (m, d, a) not in seen:
         seen.add((m, d, a))
         m = d * a - m
