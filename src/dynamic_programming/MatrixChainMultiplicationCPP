@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+int helper(int* arr, int i, int j, vector<vector<int>>& v) {
+        if(i == j)
+            return 0;
+        if(v[i][j] != -1){
+            return v[i][j];
+        }
+        int ans = INT_MAX;
+        for(int k=i;k<j;k++) {
+            int rec = arr[i-1]*arr[k]*arr[j] + helper(arr, i, k, v) + helper(arr, k+1, j, v);
+            ans = min(ans, rec);
+        }
+        v[i][j] = ans;
+        return ans;
+}
+int matrixChainMultiplication(int* arr, int n) {
+    // Write your code here
+    if(n == 0 || n == 1)
+        return 0;
+    n=n+1;
+    vector<vector<int>> v(n, vector<int>(n, -1));
+    return helper(arr, 1, n-1, v);
+}
