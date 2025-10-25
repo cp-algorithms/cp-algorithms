@@ -132,7 +132,7 @@ However it is possible to improve the Floyd-Warshall algorithm, so that it caref
 
 This can be done in the following way:
 let us run the usual Floyd-Warshall algorithm for a given graph.
-Then a shortest path between vertices $i$ and $j$ does not exist, if and only if, there is a vertex $t$ that is reachable from $i$ and also from $j$, for which $d[t][t] < 0$.
+Then a shortest path between vertices $i$ and $j$ does not exist, if and only if, there is a vertex $t$ such that, $t$ is reachable from $i$ and $j$ is reachable from $t$, for which $d[t][t] < 0$.
 
 In addition, when using the Floyd-Warshall algorithm for graphs with negative cycles, we should keep in mind that situations may arise in which distances can get exponentially fast into the negative.
 Therefore integer overflow must be handled by limiting the minimal distance by some value (e.g. $-\text{INF}$).
