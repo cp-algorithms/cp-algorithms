@@ -21,7 +21,7 @@ In this article, we consider several classical problems on these equations:
 
 ## The degenerate case
 
-A degenerate case that need to be taken care of is when $a = b = 0$. It is easy to see that we either have no solutions or infinitely many solutions, depending on whether $c = 0$ or not. In the rest of this article, we will ignore this case.
+A degenerate case that needs to be taken care of is when $a = b = 0$. It is easy to see that we either have no solutions or infinitely many solutions, depending on whether $c = 0$ or not. In the rest of this article, we will ignore this case.
 
 ## Analytic solution
 
