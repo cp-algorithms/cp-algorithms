@@ -163,3 +163,5 @@ int main() {
 
 - [CSES : Mail Delivery](https://cses.fi/problemset/task/1691)
 - [CSES : Teleporters Path](https://cses.fi/problemset/task/1693)
+- [Codeforces - Melody](https://codeforces.com/contest/2110/problem/E)
+- [Codeforces - Tanya and Password](https://codeforces.com/contest/508/problem/D)
