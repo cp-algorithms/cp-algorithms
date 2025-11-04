@@ -89,7 +89,7 @@ Proof of correctness supposing a transition point exists, that is $f(0)=0$ and $
 
 ```cpp
 ... // f(i) is a boolean function such that f(0) <= ... <= f(n-1)
-int l = -1, r = n;
+int l = 0, r = n-1;
 while (r - l > 1) {
     int m = (l + r) / 2;
     if (f(m)) {
