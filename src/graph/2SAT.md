@@ -190,3 +190,4 @@ struct TwoSatSolver {
  * [Codeforces : Radio Stations](https://codeforces.com/problemset/problem/1215/F)
  * [CSES : Giant Pizza](https://cses.fi/problemset/task/1684)
  * [Codeforces: +-1](https://codeforces.com/contest/1971/problem/H)
+ * [Gym: (C) Colorful Village](https://codeforces.com/gym/104772/problem/C)
