@@ -215,6 +215,31 @@ bool MillerRabin(u64 n) { // returns true if n is prime, else returns false.
 It's also possible to do the check with only 7 bases: 2, 325, 9375, 28178, 450775, 9780504 and 1795265022.
 However, since these numbers (except 2) are not prime, you need to check additionally if the number you are checking is equal to any prime divisor of those bases: 2, 3, 5, 13, 19, 73, 193, 407521, 299210837.
 
+```cpp
+bool MillerRabin(u64 n) { // returns true if n is prime, else returns false.
+    if (n < 2)
+        return false;
+
+    int r = 0;
+    u64 d = n - 1;
+    while ((d & 1) == 0) {
+        d >>= 1;
+        r++;
+    }
+
+    for (int a : {3, 5, 13, 19, 73, 193, 407521, 299210837}) {
+        if (n == a)
+            return true;
+    }
+
+    for (int a : {2, 325, 9375, 28178, 450775, 9780504, 1795265022}) {
+        if (check_composite(n, a, d, r))
+            return false;
+    }
+    return true;
+}
+```
+
 ## Practice Problems
 
 - [SPOJ - Prime or Not](https://www.spoj.com/problems/PON/)
