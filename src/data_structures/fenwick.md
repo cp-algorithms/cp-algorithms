@@ -432,7 +432,7 @@ Thus we can use $B_2$ for shaving off extra terms when we multiply $B_1[i]\times
 We can find arbitrary range sums by computing the prefix sums for $l-1$ and $r$ and taking the difference of them again.
 
 ```cpp
-void add(std::vector<int> b, int idx, int x) {
+void add(std::vector<int> &b, int idx, int x) {
     while (idx <= n) {
         b[idx] += x;
         idx += idx & -idx;
@@ -446,7 +446,7 @@ void range_add(int l, int r, int x) {
     add(B2, r + 1, -x * r)
 }
 
-int sum(std::vector<int> b, int idx) {
+int sum(std::vector<int> &b, int idx) {
     int total = 0;
     while (idx > 0) {
         total += b[idx];
