@@ -463,7 +463,7 @@ We can find arbitrary range sums by computing the prefix sums for $l-1$ and $r$ 
     int range_sum(int l, int r) {
         return prefix_sum(r) - prefix_sum(l - 1);
     }
-```
+    ```
 === "Python"
     ```py
     def add(b, idx, x):
