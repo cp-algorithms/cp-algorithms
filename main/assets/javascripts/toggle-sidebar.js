@@ -157,7 +157,7 @@ const registerKeyboardEventHandler = () => {
     const createDefaultToggleButton = (toggleNavigation, toggleTOC) => {
         const toggleBtn = document.createElement("div");
         toggleBtn.className = "mkdocs-toggle-sidebar-button";
-        toggleBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>`;
+        toggleBtn.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z\"></path></svg>";
         if (toggleNavigation && toggleTOC) {
             toggleBtn.title = "Toggle Navigation and Table of Contents";
         } else if (toggleNavigation) {
