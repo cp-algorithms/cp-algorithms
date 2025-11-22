@@ -366,24 +366,44 @@ And if $i > r$, then the second update operation will cancel the effect of first
 
 The following implementation uses one-based indexing.
 
-```cpp
-void add(int idx, int val) {
-    for (++idx; idx < n; idx += idx & -idx)
-        bit[idx] += val;
-}
+=== "C++"
+    ```cpp
+    void add(int idx, int val) {
+        for (++idx; idx < n; idx += idx & -idx)
+            bit[idx] += val;
+    }
 
-void range_add(int l, int r, int val) {
-    add(l, val);
-    add(r + 1, -val);
-}
+    void range_add(int l, int r, int val) {
+        add(l, val);
+        add(r + 1, -val);
+    }
 
-int point_query(int idx) {
-    int ret = 0;
-    for (++idx; idx > 0; idx -= idx & -idx)
-        ret += bit[idx];
-    return ret;
-}
-```
+    int point_query(int idx) {
+        int ret = 0;
+        for (++idx; idx > 0; idx -= idx & -idx)
+            ret += bit[idx];
+        return ret;
+    }
+    ```
+=== "Python"
+    ```py
+    def add(idx: int, val: int) -> None:
+        while idx <= n:
+            bit[idx] += val
+            idx += idx & -idx
+        
+    def range_add(l: int, r: int, val: int) -> None:
+        add(l, val)
+        add(r + 1, -val)
+        
+    def point_query(idx: int) -> int:
+        ret = 0
+        while idx > 0:
+            ret += bit[idx]
+            idx -= idx & -idx
+            
+        return ret
+    ```
 
 Note: of course it is also possible to increase a single point $A[i]$ with `range_add(i, i, val)`.
 
