@@ -222,35 +222,66 @@ It is obvious that there is no easy way of finding minimum of range $[l, r]$ usi
 Additionally, each time a value is `update`'d, the new value has to be smaller than the current value.
 Both significant limitations are because the $min$ operation together with the set of integers doesn't form a group, as there are no inverse elements.
 
-```{.cpp file=fenwick_min}
-struct FenwickTreeMin {
-    vector<int> bit;
-    int n;
-    const int INF = (int)1e9;
+=== "C++"
+    ```{.cpp file=fenwick_min}
+    struct FenwickTreeMin {
+        vector<int> bit;
+        int n;
+        const int INF = (int)1e9;
 
-    FenwickTreeMin(int n) {
-        this->n = n;
-        bit.assign(n, INF);
-    }
+        FenwickTreeMin(int n) {
+            this->n = n;
+            bit.assign(n, INF);
+        }
 
-    FenwickTreeMin(vector<int> a) : FenwickTreeMin(a.size()) {
-        for (size_t i = 0; i < a.size(); i++)
-            update(i, a[i]);
-    }
+        FenwickTreeMin(vector<int> a) : FenwickTreeMin(a.size()) {
+            for (size_t i = 0; i < a.size(); i++)
+                update(i, a[i]);
+        }
 
-    int getmin(int r) {
-        int ret = INF;
-        for (; r >= 0; r = (r & (r + 1)) - 1)
-            ret = min(ret, bit[r]);
-        return ret;
-    }
+        int getmin(int r) {
+            int ret = INF;
+            for (; r >= 0; r = (r & (r + 1)) - 1)
+                ret = min(ret, bit[r]);
+            return ret;
+        }
 
-    void update(int idx, int val) {
-        for (; idx < n; idx = idx | (idx + 1))
-            bit[idx] = min(bit[idx], val);
-    }
-};
-```
+        void update(int idx, int val) {
+            for (; idx < n; idx = idx | (idx + 1))
+                bit[idx] = min(bit[idx], val);
+        }
+    };
+    ```
+=== "Python"
+    ```py
+    class FenwickTreeMin:
+    
+        def __init__(self, a: Union[int, List[int]]) -> None:
+            self.INF = 10**9
+
+            if isinstance(a, int):
+                self.n = a
+                self.bit = [self.INF] * a
+            else:
+                self.n = len(a)
+                self.bit = [self.INF] * len(a)
+                for i in range(len(a)):
+                    self.update(i, a[i])
+
+
+        def getmin(self, r: int) -> int:
+            ret = self.INF
+            while r >= 0:
+                ret = min(ret, self.bit[r])
+                r = (r & (r + 1)) - 1
+
+            return ret
+        
+        def update(self, idx: int, val: int) -> None:
+            while idx < self.n:
+                self.bit[idx] = min(self.bit[idx], val)
+                idx = idx | (idx + 1)
+    ```
 
 Note: it is possible to implement a Fenwick tree that can handle arbitrary minimum range queries and arbitrary updates.
 The paper [Efficient Range Minimum Queries using Binary Indexed Trees](http://ioinformatics.org/oi/pdf/v9_2015_39_44.pdf) describes such an approach.
@@ -412,7 +443,7 @@ The following implementation can be used like the other implementations, however
     ```py
     class FenwickTreeOneBasedIndexing:
 	
-        def __init__(self, a: int) -> None:
+        def __init__(self, a: Union[int, List[int]]) -> None:
             if isinstance(a, int):
                 self.n = a + 1
                 self.bit = [0] * (a + 1)
@@ -437,7 +468,7 @@ The following implementation can be used like the other implementations, however
                 self.bit[idx] += delta
                 idx += idx & -idx
     ```
-    
+
 ## Range operations
 
 A Fenwick tree can support the following range operations:
