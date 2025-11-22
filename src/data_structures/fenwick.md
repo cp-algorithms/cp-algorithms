@@ -49,18 +49,38 @@ Both versions are equivalent in terms of time and memory complexity.
 Now we can write some pseudo-code for the two operations mentioned above.
 Below, we get the sum of elements of $A$ in the range $[0, r]$ and update (increase) some element $A_i$:
 
-```python
-def sum(r: int):
-    res = 0
-    while (r >= 0):
-        res += t[r]
-        r = g(r) - 1
-    return res
+=== "C++"
+    ```cpp
+    int sum(int r) {
+        int res = 0;
+        while (r >= 0) {
+            res += t[r];
+            r = g(r) - 1;
+        }
+        return res;
+    }
 
-def increase(i: int, delta: int):
-    for all j with g(j) <= i <= j:
-        t[j] += delta
-```
+    void increase(int i, int delta) {
+        for (int j = 0; j < t.size(); j++) {
+            if (g(j) <= i && i <= j) {
+                t[j] += delta;
+            }
+        }
+    }
+    ```
+=== "Python"
+    ```py
+    def sum(r: int):
+        res = 0
+        while (r >= 0):
+            res += t[r]
+            r = g(r) - 1
+        return res
+
+    def increase(i: int, delta: int):
+        for all j with g(j) <= i <= j:
+            t[j] += delta
+    ```
 
 The function `sum` works as follows:
 
@@ -241,28 +261,58 @@ The implementation is also a lot harder compared to the normal implementation fo
 
 As claimed before, it is very easy to implement Fenwick Tree for multidimensional array.
 
-```cpp
-struct FenwickTree2D {
-    vector<vector<int>> bit;
-    int n, m;
+=== "C++"
+    ```cpp
+    struct FenwickTree2D {
+        vector<vector<int>> bit;
+        int n, m;
 
-    // init(...) { ... }
+        // init(...) { ... }
 
-    int sum(int x, int y) {
-        int ret = 0;
-        for (int i = x; i >= 0; i = (i & (i + 1)) - 1)
-            for (int j = y; j >= 0; j = (j & (j + 1)) - 1)
-                ret += bit[i][j];
-        return ret;
-    }
+        int sum(int x, int y) {
+            int ret = 0;
+            for (int i = x; i >= 0; i = (i & (i + 1)) - 1)
+                for (int j = y; j >= 0; j = (j & (j + 1)) - 1)
+                    ret += bit[i][j];
+            return ret;
+        }
 
-    void add(int x, int y, int delta) {
-        for (int i = x; i < n; i = i | (i + 1))
-            for (int j = y; j < m; j = j | (j + 1))
-                bit[i][j] += delta;
-    }
-};
-```
+        void add(int x, int y, int delta) {
+            for (int i = x; i < n; i = i | (i + 1))
+                for (int j = y; j < m; j = j | (j + 1))
+                    bit[i][j] += delta;
+        }
+    };
+    ```
+=== "Python"
+    ```py
+    class FenwickTree2D:
+	
+        def __init__(self, n: int, m: int) -> None:
+            self.n = n
+            self.m = m
+            self.bit = [[0] * m for _ in range(n)]
+        
+        def sum(self, x: int, y: int) -> int:
+            ret = 0
+            i = x
+            while i >= 0:
+                j = y
+                while j >= 0:
+                    ret += self.bit[i][j]
+                    j = (j & (j + 1)) - 1
+                i = (i & (i + 1)) - 1
+            return ret
+        
+        def add(self, x: int, y: int, delta: int) -> None:
+            i = x
+            while i < self.n:
+                j = y
+                while j < self.m:
+                    self.bit[i][j] += delta
+                    j = j | (j + 1)
+                i = i | (i + 1)
+    ```
 
 ### One-based indexing approach
 
@@ -270,18 +320,38 @@ For this approach we change the requirements and definition for $T[]$ and $g()$ 
 We want $T[i]$ to store the sum of $[g(i)+1; i]$.
 This changes the implementation a little bit, and allows for a similar nice definition for $g(i)$:
 
-```python
-def sum(r: int):
-    res = 0
-    while (r > 0):
-        res += t[r]
-        r = g(r)
-    return res
+=== "C++"
+    ```cpp
+    int sum(int r) {
+        int res = 0;
+        while (r > 0) {
+            res += t[r];
+            r = g(r);
+        }
+        return res;
+    }
 
-def increase(i: int, delta: int):
-    for all j with g(j) < i <= j:
-        t[j] += delta
-```
+    void increase(int i, int delta) {
+        for (int j = 0; j < t.size(); j++) {
+            if (g(j) < i && i <= j) {
+                t[j] += delta;
+            }
+        }
+    }
+    ```
+=== "Python"
+    ```py
+    def sum(r: int) -> int:
+        res = 0
+        while (r > 0):
+            res += t[r]
+            r = g(r)
+        return res
+
+    def increase(i: int, delta: int) -> None:
+        for all j with g(j) < i <= j:
+            t[j] += delta
+    ```
 
 The computation of $g(i)$ is defined as:
 toggling of the last set $1$ bit in the binary representation of $i$.
