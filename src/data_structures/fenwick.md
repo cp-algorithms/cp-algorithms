@@ -70,14 +70,14 @@ Below, we get the sum of elements of $A$ in the range $[0, r]$ and update (incre
     ```
 === "Python"
     ```py
-    def sum(r: int):
+    def sum(r: int) -> int:
         res = 0
         while (r >= 0):
             res += t[r]
             r = g(r) - 1
         return res
 
-    def increase(i: int, delta: int):
+    def increase(i: int, delta: int) -> None:
         for all j with g(j) <= i <= j:
             t[j] += delta
     ```
@@ -165,7 +165,7 @@ Also this implementation supports two constructors.
 You can create a Fenwick tree initialized with zeros, or you can convert an existing array into the Fenwick form.
 
 === "C++"
-    ```{.cpp file=fenwick_sum}
+    ```cpp
     struct FenwickTree {
         vector<int> bit;  // binary indexed tree
         int n;
@@ -253,7 +253,7 @@ Additionally, each time a value is `update`'d, the new value has to be smaller t
 Both significant limitations are because the $min$ operation together with the set of integers doesn't form a group, as there are no inverse elements.
 
 === "C++"
-    ```{.cpp file=fenwick_min}
+    ```cpp
     struct FenwickTreeMin {
         vector<int> bit;
         int n;
@@ -436,7 +436,7 @@ As you can see, the main benefit of this approach is that the binary operations 
 The following implementation can be used like the other implementations, however it uses one-based indexing internally.
 
 === "C++"
-    ```{.cpp file=fenwick_sum_onebased}
+    ```cpp
     struct FenwickTreeOneBasedIndexing {
         vector<int> bit;  // binary indexed tree
         int n;
