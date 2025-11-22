@@ -374,40 +374,70 @@ As you can see, the main benefit of this approach is that the binary operations 
 
 The following implementation can be used like the other implementations, however it uses one-based indexing internally.
 
-```{.cpp file=fenwick_sum_onebased}
-struct FenwickTreeOneBasedIndexing {
-    vector<int> bit;  // binary indexed tree
-    int n;
+=== "C++"
+    ```{.cpp file=fenwick_sum_onebased}
+    struct FenwickTreeOneBasedIndexing {
+        vector<int> bit;  // binary indexed tree
+        int n;
 
-    FenwickTreeOneBasedIndexing(int n) {
-        this->n = n + 1;
-        bit.assign(n + 1, 0);
-    }
+        FenwickTreeOneBasedIndexing(int n) {
+            this->n = n + 1;
+            bit.assign(n + 1, 0);
+        }
 
-    FenwickTreeOneBasedIndexing(vector<int> a)
-        : FenwickTreeOneBasedIndexing(a.size()) {
-        for (size_t i = 0; i < a.size(); i++)
-            add(i, a[i]);
-    }
+        FenwickTreeOneBasedIndexing(vector<int> a)
+            : FenwickTreeOneBasedIndexing(a.size()) {
+            for (size_t i = 0; i < a.size(); i++)
+                add(i, a[i]);
+        }
 
-    int sum(int idx) {
-        int ret = 0;
-        for (++idx; idx > 0; idx -= idx & -idx)
-            ret += bit[idx];
-        return ret;
-    }
+        int sum(int idx) {
+            int ret = 0;
+            for (++idx; idx > 0; idx -= idx & -idx)
+                ret += bit[idx];
+            return ret;
+        }
 
-    int sum(int l, int r) {
-        return sum(r) - sum(l - 1);
-    }
+        int sum(int l, int r) {
+            return sum(r) - sum(l - 1);
+        }
 
-    void add(int idx, int delta) {
-        for (++idx; idx < n; idx += idx & -idx)
-            bit[idx] += delta;
-    }
-};
-```
+        void add(int idx, int delta) {
+            for (++idx; idx < n; idx += idx & -idx)
+                bit[idx] += delta;
+        }
+    };
+    ```
+=== "Python"
+    ```py
+    class FenwickTreeOneBasedIndexing:
+	
+        def __init__(self, a: int) -> None:
+            if isinstance(a, int):
+                self.n = a + 1
+                self.bit = [0] * (a + 1)
+            else:
+                self.n = len(n) + 1
+                self.bit = [0] * (len(a) + 1)
+                for i in range(len(a)):
+                    self.add(i, a[i])
 
+        def sum(self, idx: int) -> int:
+            ret = 0
+            while idx > 0:
+                ret += self.bit[idx]
+                idx -= idx & -idx
+            return ret
+        
+        def range_sum(self, l: int, r: int) -> int:
+            return self.sum(r) - self.sum(l - 1)
+        
+        def add(self, idx: int, delta: int) -> None:
+            while idx <= self.n:
+                self.bit[idx] += delta
+                idx += idx & -idx
+    ```
+    
 ## Range operations
 
 A Fenwick tree can support the following range operations:
