@@ -50,14 +50,14 @@ Now we can write some pseudo-code for the two operations mentioned above.
 Below, we get the sum of elements of $A$ in the range $[0, r]$ and update (increase) some element $A_i$:
 
 ```python
-def sum(int r):
+def sum(r: int):
     res = 0
     while (r >= 0):
         res += t[r]
         r = g(r) - 1
     return res
 
-def increase(int i, int delta):
+def increase(i: int, delta: int):
     for all j with g(j) <= i <= j:
         t[j] += delta
 ```
@@ -271,14 +271,14 @@ We want $T[i]$ to store the sum of $[g(i)+1; i]$.
 This changes the implementation a little bit, and allows for a similar nice definition for $g(i)$:
 
 ```python
-def sum(int r):
+def sum(r: int):
     res = 0
     while (r > 0):
         res += t[r]
         r = g(r)
     return res
 
-def increase(int i, int delta):
+def increase(i: int, delta: int):
     for all j with g(j) < i <= j:
         t[j] += delta
 ```
@@ -415,13 +415,22 @@ Suppose that we want to increment the interval $[l, r]$ by the value $x$.
 Similarly as in the previous method, we perform two point updates on $B_1$: `add(B1, l, x)` and `add(B1, r+1, -x)`.
 And we also update $B_2$. The details will be explained later.
 
-```python
-def range_add(l, r, x):
-    add(B1, l, x)
-    add(B1, r + 1, -x)
-    add(B2, l, x * (l - 1))
-    add(B2, r + 1, -x * r))
-```
+=== "C++"
+    ```cpp
+    void range_add(int l, int r, int x) {
+        add(B1, l, x)
+        add(B1, r + 1, -x)
+        add(B2, l, x * (l - 1))
+        add(B2, r + 1, -x * r)
+    }
+=== "Python"
+    ```py
+    def range_add(l: int, r: int, x: int):
+        add(B1, l, x)
+        add(B1, r + 1, -x)
+        add(B2, l, x * (l - 1))
+        add(B2, r + 1, -x * r)
+    ```
 After the range update $(l, r, x)$ the range sum query should return the following values:
 
 $$
@@ -486,28 +495,28 @@ We can find arbitrary range sums by computing the prefix sums for $l-1$ and $r$ 
     ```
 === "Python"
     ```py
-    def add(b, idx, x):
-    while idx <= N:
-        b[idx] += x
-        idx += idx & -idx
+    def add(b: list, idx: int, x: int):
+        while idx <= N:
+            b[idx] += x
+            idx += idx & -idx
 
-    def range_add(l,r,x):
+    def range_add(l: int, r: int, x: int):
         add(B1, l, x)
         add(B1, r + 1, -x)
         add(B2, l, x * (l - 1))
         add(B2, r + 1, -x * r)
 
-    def sum(b, idx):
+    def sum(b: list, idx: int):
         total = 0
         while idx > 0:
             total += b[idx]
             idx -= idx & -idx
         return total
 
-    def prefix_sum(idx):
+    def prefix_sum(idx: int):
         return sum(B1, idx) * idx -  sum(B2, idx)
 
-    def range_sum(l, r):
+    def range_sum(l: int, r: int):
         return prefix_sum(r) - prefix_sum(l - 1)
     ```
 
