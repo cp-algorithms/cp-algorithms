@@ -659,7 +659,7 @@ But notice, that this uses three times more memory than a normal Merge Sort Tree
 It is straightforward to apply this technique to a problem, that doesn't require any modification queries.
 The two positions are just integers and can easily be computed by counting when merging the two sorted sequences.
 
-It it still possible to also allow modification queries, but that complicates the entire code.
+It is still possible to also allow modification queries, but that complicates the entire code.
 Instead of integers, you need to store the sorted array as `multiset`, and instead of indices you need to store iterators.
 And you need to work very carefully, so that you increment or decrement the correct iterators during a modification query.
 
