@@ -7892,22 +7892,6 @@ Describe the issue of this article in detail.
   
     
   
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
 
   
   
@@ -7952,6 +7936,36 @@ Describe the issue of this article in detail.
   
     
   
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
 
   
   
@@ -7998,6 +8012,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8038,7 +8056,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 26, 2025 20:01:08 UTC">July 26, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 23, 2025 17:50:05 UTC">November 23, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -8147,7 +8165,7 @@ This recurrence is has the solution <span class="arithmatex">$T(n) = O (n \log n
     The cycle will consist of the paths from <span class="arithmatex">$b$</span> to the LCA, from the LCA to <span class="arithmatex">$a$</span> and the edge <span class="arithmatex">$a$</span> to <span class="arithmatex">$b$</span>.</p>
 <p>After finding the cycle we compress all vertices of the detected cycle into one vertex.
 This means that we already have a complexity proportional to the cycle length, which means that we also can use any LCA algorithm proportional to the length, and don't have to use any fast one.</p>
-<p>Since all information about the structure of the tree is available is the ancestor array <code>par[]</code>, the only reasonable LCA algorithm is the following:
+<p>Since all information about the structure of the tree is available in the ancestor array <code>par[]</code>, the only reasonable LCA algorithm is the following:
 mark the vertices <span class="arithmatex">$a$</span> and <span class="arithmatex">$b$</span> as visited, then we go to their ancestors <code>par[a]</code> and <code>par[b]</code> and mark them, then advance to their ancestors and so on, until we reach an already marked vertex.
 This vertex is the LCA that we are looking for, and we can find the vertices on the cycle by traversing the path from <span class="arithmatex">$a$</span> and <span class="arithmatex">$b$</span> to the LCA again.</p>
 <p>It is obvious that the complexity of this algorithm is proportional to the length of the desired cycle.</p>
@@ -8303,7 +8321,7 @@ Otherwise if the vertices <span class="arithmatex">$a$</span> and <span class="a
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (92.78%)</li><li><a href="https://github.com/0utkarsh" title="0utkarsh" data-bi-name="contributorprofile" target="_blank">0utkarsh</a> (2.53%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.17%)</li><li><a href="https://github.com/fffelix-huang" title="fffelix-huang" data-bi-name="contributorprofile" target="_blank">fffelix-huang</a> (0.72%)</li><li><a href="https://github.com/hieplpvip" title="hieplpvip" data-bi-name="contributorprofile" target="_blank">hieplpvip</a> (0.72%)</li><li><a href="https://github.com/abanoubashraf686" title="abanoubashraf686" data-bi-name="contributorprofile" target="_blank">abanoubashraf686</a> (0.36%)</li><li><a href="https://github.com/mrpandey" title="mrpandey" data-bi-name="contributorprofile" target="_blank">mrpandey</a> (0.36%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.36%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (92.42%)</li><li><a href="https://github.com/0utkarsh" title="0utkarsh" data-bi-name="contributorprofile" target="_blank">0utkarsh</a> (2.53%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.17%)</li><li><a href="https://github.com/fffelix-huang" title="fffelix-huang" data-bi-name="contributorprofile" target="_blank">fffelix-huang</a> (0.72%)</li><li><a href="https://github.com/hieplpvip" title="hieplpvip" data-bi-name="contributorprofile" target="_blank">hieplpvip</a> (0.72%)</li><li><a href="https://github.com/Nafyaz" title="Nafyaz" data-bi-name="contributorprofile" target="_blank">Nafyaz</a> (0.36%)</li><li><a href="https://github.com/abanoubashraf686" title="abanoubashraf686" data-bi-name="contributorprofile" target="_blank">abanoubashraf686</a> (0.36%)</li><li><a href="https://github.com/mrpandey" title="mrpandey" data-bi-name="contributorprofile" target="_blank">mrpandey</a> (0.36%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.36%)</li></ul>
 </ul>
                 
               </article>
