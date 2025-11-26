@@ -108,7 +108,7 @@ We will now consistently disassemble every operation that we need to learn to im
     After finding the cycle we compress all vertices of the detected cycle into one vertex.
     This means that we already have a complexity proportional to the cycle length, which means that we also can use any LCA algorithm proportional to the length, and don't have to use any fast one.
   
-    Since all information about the structure of the tree is available is the ancestor array `par[]`, the only reasonable LCA algorithm is the following:
+    Since all information about the structure of the tree is available in the ancestor array `par[]`, the only reasonable LCA algorithm is the following:
     mark the vertices $a$ and $b$ as visited, then we go to their ancestors `par[a]` and `par[b]` and mark them, then advance to their ancestors and so on, until we reach an already marked vertex.
     This vertex is the LCA that we are looking for, and we can find the vertices on the cycle by traversing the path from $a$ and $b$ to the LCA again.
   
