@@ -7975,6 +7975,20 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
     
@@ -8000,64 +8014,6 @@ Describe the issue of this article in detail.
 
   
   
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
   
     
   
@@ -8096,8 +8052,6 @@ Describe the issue of this article in detail.
 
   
   
-  
-    
   
     
   
@@ -8141,6 +8095,60 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
     
@@ -8187,6 +8195,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8279,7 +8291,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 27, 2025 06:10:49 UTC">July 27, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 29, 2025 07:13:18 UTC">November 29, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -8319,7 +8331,7 @@ to other problems which we will discuss below.</p>
 <p>The idea of binary exponentiation is, that we split the work using the binary representation of the exponent.</p>
 <p>Let's write <span class="arithmatex">$n$</span> in base 2, for example:</p>
 <div class="arithmatex">$$3^{13} = 3^{1101_2} = 3^8 \cdot 3^4 \cdot 3^1$$</div>
-<p>Since the number <span class="arithmatex">$n$</span> has exactly <span class="arithmatex">$\lfloor \log_2 n \rfloor + 1$</span> digits in base 2, we only need to perform <span class="arithmatex">$O(\log n)$</span> multiplications, if we know the powers <span class="arithmatex">$a^1, a^2, a^4, a^8, \dots, a^{2^{\lfloor \log n \rfloor}}$</span>.</p>
+<p>Since the number <span class="arithmatex">$n$</span> has exactly <span class="arithmatex">$\lfloor \log_2 n \rfloor + 1$</span> digits in base 2, we only need to perform <span class="arithmatex">$O(\log n)$</span> multiplications, if we know the powers <span class="arithmatex">$a^1, a^2, a^4, a^8, \dots, a^{2^{\lfloor \log_2 n \rfloor}}$</span>.</p>
 <p>So we only need to know a fast way to compute those.
 Luckily this is very easy, since an element in the sequence is just the square of the previous element.</p>
 <div class="arithmatex">$$\begin{align}
@@ -8508,7 +8520,7 @@ That is: <span class="arithmatex">$result_{ij} = \min\limits_{1\ \leq\ k\ \leq\ 
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (41.95%)</li><li><a href="https://github.com/gabrielsimoes" title="gabrielsimoes" data-bi-name="contributorprofile" target="_blank">gabrielsimoes</a> (17.98%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (11.24%)</li><li><a href="https://github.com/back2sqr1" title="back2sqr1" data-bi-name="contributorprofile" target="_blank">back2sqr1</a> (5.99%)</li><li><a href="https://github.com/RodionGork" title="RodionGork" data-bi-name="contributorprofile" target="_blank">RodionGork</a> (5.62%)</li><li><a href="https://github.com/Electron1997" title="Electron1997" data-bi-name="contributorprofile" target="_blank">Electron1997</a> (3.0%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.62%)</li><li><a href="#" title="shark_s" data-bi-name="contributorprofile" target="_blank">shark_s</a> (2.25%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (1.87%)</li><li><a href="https://github.com/turfaa" title="turfaa" data-bi-name="contributorprofile" target="_blank">turfaa</a> (1.87%)</li><li><a href="https://github.com/roundspecs" title="roundspecs" data-bi-name="contributorprofile" target="_blank">roundspecs</a> (1.5%)</li><li><a href="https://github.com/wangwillian0" title="wangwillian0" data-bi-name="contributorprofile" target="_blank">wangwillian0</a> (0.75%)</li><li><a href="https://github.com/arjunUpatel" title="arjunUpatel" data-bi-name="contributorprofile" target="_blank">arjunUpatel</a> (0.37%)</li><li><a href="https://github.com/snymm2" title="snymm2" data-bi-name="contributorprofile" target="_blank">snymm2</a> (0.37%)</li><li><a href="https://github.com/PAndaContron" title="PAndaContron" data-bi-name="contributorprofile" target="_blank">PAndaContron</a> (0.37%)</li><li><a href="https://github.com/rskbansal" title="rskbansal" data-bi-name="contributorprofile" target="_blank">rskbansal</a> (0.37%)</li><li><a href="https://github.com/zhangdavid275" title="zhangdavid275" data-bi-name="contributorprofile" target="_blank">zhangdavid275</a> (0.37%)</li><li><a href="https://github.com/ahmedibrahim404" title="ahmedibrahim404" data-bi-name="contributorprofile" target="_blank">ahmedibrahim404</a> (0.37%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.37%)</li><li><a href="https://github.com/algmyr" title="algmyr" data-bi-name="contributorprofile" target="_blank">algmyr</a> (0.37%)</li><li><a href="https://github.com/vatsalsharma376" title="vatsalsharma376" data-bi-name="contributorprofile" target="_blank">vatsalsharma376</a> (0.37%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (41.95%)</li><li><a href="https://github.com/gabrielsimoes" title="gabrielsimoes" data-bi-name="contributorprofile" target="_blank">gabrielsimoes</a> (17.98%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (11.24%)</li><li><a href="https://github.com/back2sqr1" title="back2sqr1" data-bi-name="contributorprofile" target="_blank">back2sqr1</a> (5.99%)</li><li><a href="https://github.com/RodionGork" title="RodionGork" data-bi-name="contributorprofile" target="_blank">RodionGork</a> (5.62%)</li><li><a href="https://github.com/Electron1997" title="Electron1997" data-bi-name="contributorprofile" target="_blank">Electron1997</a> (3.0%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.25%)</li><li><a href="#" title="shark_s" data-bi-name="contributorprofile" target="_blank">shark_s</a> (2.25%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (1.87%)</li><li><a href="https://github.com/turfaa" title="turfaa" data-bi-name="contributorprofile" target="_blank">turfaa</a> (1.87%)</li><li><a href="https://github.com/roundspecs" title="roundspecs" data-bi-name="contributorprofile" target="_blank">roundspecs</a> (1.5%)</li><li><a href="https://github.com/wangwillian0" title="wangwillian0" data-bi-name="contributorprofile" target="_blank">wangwillian0</a> (0.75%)</li><li><a href="https://github.com/harsh-1806" title="harsh-1806" data-bi-name="contributorprofile" target="_blank">harsh-1806</a> (0.37%)</li><li><a href="https://github.com/arjunUpatel" title="arjunUpatel" data-bi-name="contributorprofile" target="_blank">arjunUpatel</a> (0.37%)</li><li><a href="https://github.com/snymm2" title="snymm2" data-bi-name="contributorprofile" target="_blank">snymm2</a> (0.37%)</li><li><a href="https://github.com/PAndaContron" title="PAndaContron" data-bi-name="contributorprofile" target="_blank">PAndaContron</a> (0.37%)</li><li><a href="https://github.com/rskbansal" title="rskbansal" data-bi-name="contributorprofile" target="_blank">rskbansal</a> (0.37%)</li><li><a href="https://github.com/zhangdavid275" title="zhangdavid275" data-bi-name="contributorprofile" target="_blank">zhangdavid275</a> (0.37%)</li><li><a href="https://github.com/ahmedibrahim404" title="ahmedibrahim404" data-bi-name="contributorprofile" target="_blank">ahmedibrahim404</a> (0.37%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.37%)</li><li><a href="https://github.com/algmyr" title="algmyr" data-bi-name="contributorprofile" target="_blank">algmyr</a> (0.37%)</li><li><a href="https://github.com/vatsalsharma376" title="vatsalsharma376" data-bi-name="contributorprofile" target="_blank">vatsalsharma376</a> (0.37%)</li></ul>
 </ul>
                 
               </article>
