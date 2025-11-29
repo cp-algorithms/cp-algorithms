@@ -8291,7 +8291,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 28, 2025 20:38:19 UTC">November 28, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 29, 2025 07:13:18 UTC">November 29, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -8331,7 +8331,7 @@ to other problems which we will discuss below.</p>
 <p>The idea of binary exponentiation is, that we split the work using the binary representation of the exponent.</p>
 <p>Let's write <span class="arithmatex">$n$</span> in base 2, for example:</p>
 <div class="arithmatex">$$3^{13} = 3^{1101_2} = 3^8 \cdot 3^4 \cdot 3^1$$</div>
-<p>Since the number <span class="arithmatex">$n$</span> has exactly <span class="arithmatex">$\lfloor \log_2 n \rfloor + 1$</span> digits in base 2, we only need to perform <span class="arithmatex">$O(\log n)$</span> multiplications, if we know the powers <span class="arithmatex">$a^1, a^2, a^4, a^8, \dots, a^{\lfloor \log_2 n \rfloor}$</span>.</p>
+<p>Since the number <span class="arithmatex">$n$</span> has exactly <span class="arithmatex">$\lfloor \log_2 n \rfloor + 1$</span> digits in base 2, we only need to perform <span class="arithmatex">$O(\log n)$</span> multiplications, if we know the powers <span class="arithmatex">$a^1, a^2, a^4, a^8, \dots, a^{2^{\lfloor \log_2 n \rfloor}}$</span>.</p>
 <p>So we only need to know a fast way to compute those.
 Luckily this is very easy, since an element in the sequence is just the square of the previous element.</p>
 <div class="arithmatex">$$\begin{align}
