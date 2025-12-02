@@ -122,7 +122,7 @@ void strongly_connected_components(vector<vector<int>> const& adj,
             std::vector<int> component;
             dfs(v, adj_rev, component);
             components.push_back(component);
-            int root = *min_element(begin(component), end(component));
+            int root = *component.begin();
             for (auto u : component)
                 roots[u] = root;
         }
@@ -267,7 +267,8 @@ In the algorithm, the vertex is a a root if there are no edges to unclaimed vert
 So all reachable components were already found, meaning they are introduced in a valid reversed topological ordering of the condensation graph.
 
 ### Implementation
-```c++
+
+```{.cpp file=tarjan_scc}
 vector<int> st;    // - stack holding the unclaimed vertices
 vector<int> roots; // - keeps track of the SCC roots of the vertices
 int timer;         // - dfs timestamp counter
