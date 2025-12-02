@@ -234,8 +234,7 @@ We consider the minimal value of $t_{in}$ of the unclaimed vertices we can reach
 We will call the propagated value $t_{low}$.
 
 More formally, we define $t_{low}[v]$ to be the lowest value of $t_{in}$ a vertex in the subtree of $v$ can reach through a direct edge.
-
-We therefore can detect whether a vertex $v$ is a root or not by checking if $t_{low}[v] < $t_{in}[v]$.
+We therefore can detect whether a vertex $v$ is a root or not by checking if $t_{low}[v] < t_{in}[v]$.
 
 Lastly, to claim the vertices, there are many ways to do it, such as another graph traversal algorithm, but it's also possible to use a simple data structure to keep track of the unclaimed vertices.
 To determine the data structure from first principles, let's go through the methods it must implement, which are only two:
@@ -258,12 +257,12 @@ We can now see that this can be implemented with a stack:
 
 This finally lets us implement the algorithm.
 
-The runtinme complexity of the sequence of `dfs` calls is $O(n + m)$.
+The runtime complexity of the sequence of `dfs` calls is $O(n + m)$.
 Considering the stack, its complexity amortizes to $O(n)$ since each node is only pushed and popped once.
 The total runtime complexity is therefore $O(n + m)$.
 
-As an additional remark, the roots are found in reversed topological ordering.
-In the algorithm, the vertex is a a root if there are no edges to unclaimed vertices outside of its subtree, meaning all other reachable components are either in its subtree (and therefore their roots were already found) or they connect to already claimed vertices outside of the subtree (whose roots were also already found).
+As an additional remark, the roots are found in reversed topological order.
+In the algorithm, the vertex is a root if there are no edges to unclaimed vertices outside of its subtree, meaning all other reachable components are either in its subtree (and therefore their roots were already found) or they connect to already claimed vertices outside of the subtree (whose roots were also already found).
 So all reachable components were already found, meaning they are introduced in a valid reversed topological ordering of the condensation graph.
 
 ### Implementation
@@ -350,7 +349,7 @@ void strongly_connected_components(vector<vector<int>> const &adj,
 }
 ```
 
-The iteration through the adjacency list is not exactly as we described.
+Note that the iteration through the adjacency list is not exactly as we described.
 Currently, the iteration does the following:
 
 ```c++
