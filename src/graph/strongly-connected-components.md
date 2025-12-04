@@ -45,19 +45,25 @@ In the first step of the algorithm, we perform a sequence of depth first searche
 
 First, we define the exit time $t_\text{out}[C]$ of a strongly connected component $C$ as the maximum of the values $t_\text{out}[v]$ for all $v \in C.$ Furthermore, in the proof of the theorem, we will mention the *entry time* $t_{\text{in}}[v]$ for each vertex $v\in G$. The number $t_{\text{in}}[v]$ represents the 'timestamp' at which the recursive function `dfs` is called on vertex $v$ in the first step of the algorithm. For a strongly connected component $C$, we define $t_{\text{in}}[C]$ to be the minimum of the values $t_{\text{in}}[v]$ for all $v \in C$.
 
-**Theorem**. Let $C$ and $C'$ be two different strongly connected components, and let there be an edge from $C$ to $C'$ in the condensation graph. Then, $t_\text{out}[C] > t_\text{out}[C']$.
+!!! info "Theorem"
 
-**Proof.** There are two different cases, depending on which component will first be reached by depth first search:
+    Let $C$ and $C'$ be two different strongly connected components, and let there be an edge from $C$ to $C'$ in the condensation graph. Then, $t_\text{out}[C] > t_\text{out}[C']$.
 
-- Case 1: the component $C$ was reached first (i.e., $t_{\text{in}}[C] < t_{\text{in}}[C']$). In this case, depth first search visits some vertex $v \in C$ at some moment at which all other vertices of the components $C$ and $C'$ are not visited yet. Since there is an edge from $C$ to $C'$ in the condensation graph, not only are all other vertices in $C$ reachable from $v$ in $G$, but all vertices in $C'$ are reachable as well. This means that this `dfs` execution, which is running from vertex $v$, will also visit all other vertices of the components $C$ and $C'$ in the future, so these vertices will be descendants of $v$ in the depth first search tree. This implies that for each vertex $u \in (C \cup C')\setminus \{v\},$ we have that $t_\text{out}[v] > t_\text{out}[u]$. Therefore, $t_\text{out}[C] > t_\text{out}[C']$, which completes this case of the proof.
+??? note "Proof"
 
-- Case 2: the component $C'$ was reached first (i.e., $t_{\text{in}}[C] > t_{\text{in}}[C']$). In this case, depth first search visits some vertex $v \in C'$ at some moment at which all other vertices of the components $C$ and $C'$ are not visited yet. Since there is an edge from $C$ to $C'$ in the condensation graph, $C$ is not reachable from $C'$, by the acyclicity property. Hence, the `dfs` execution that is running from vertex $v$ will not reach any vertices of $C$, but it will visit all vertices of $C'$. The vertices of $C$ will be visited by some `dfs` execution later during this step of the algorithm, so indeed we have $t_\text{out}[C] > t_\text{out}[C']$. This completes the proof.
+    There are two different cases, depending on which component will first be reached by depth first search:
+
+    - Case 1: the component $C$ was reached first (i.e., $t_{\text{in}}[C] < t_{\text{in}}[C']$). In this case, depth first search visits some vertex $v \in C$ at some moment at which all other vertices of the components $C$ and $C'$ are not visited yet. Since there is an edge from $C$ to $C'$ in the condensation graph, not only are all other vertices in $C$ reachable from $v$ in $G$, but all vertices in $C'$ are reachable as well. This means that this `dfs` execution, which is running from vertex $v$, will also visit all other vertices of the components $C$ and $C'$ in the future, so these vertices will be descendants of $v$ in the depth first search tree. This implies that for each vertex $u \in (C \cup C')\setminus \{v\},$ we have that $t_\text{out}[v] > t_\text{out}[u]$. Therefore, $t_\text{out}[C] > t_\text{out}[C']$, which completes this case of the proof.
+
+    - Case 2: the component $C'$ was reached first (i.e., $t_{\text{in}}[C] > t_{\text{in}}[C']$). In this case, depth first search visits some vertex $v \in C'$ at some moment at which all other vertices of the components $C$ and $C'$ are not visited yet. Since there is an edge from $C$ to $C'$ in the condensation graph, $C$ is not reachable from $C'$, by the acyclicity property. Hence, the `dfs` execution that is running from vertex $v$ will not reach any vertices of $C$, but it will visit all vertices of $C'$. The vertices of $C$ will be visited by some `dfs` execution later during this step of the algorithm, so indeed we have $t_\text{out}[C] > t_\text{out}[C']$. This completes the proof.
 
 The proved theorem is very important for finding strongly connected components. It means that any edge in the condensation graph goes from a component with a larger value of $t_\text{out}$ to a component with a smaller value.
 
 If we sort all vertices $v \in V$ in decreasing order of their exit time $t_\text{out}[v]$, then the first vertex $u$ will belong to the "root" strongly connected component, which has no incoming edges in the condensation graph. Now we want to run some type of search from this vertex $u$ so that it will visit all vertices in its strongly connected component, but not other vertices. By repeatedly doing so, we can gradually find all strongly connected components: we remove all vertices belonging to the first found component, then we find the next remaining vertex with the largest value of $t_\text{out}$, and run this search from it, and so on. In the end, we will have found all strongly connected components. In order to find a search method that behaves like we want, we consider the following theorem:
 
-**Theorem.** Let $G^T$ denote the *transpose graph* of $G$, obtained by reversing the edge directions in $G$. Then, $\text{SCC}(G)=\text{SCC}(G^T)$. Furthermore, the condensation graph of $G^T$ is the transpose of the condensation graph of $G$.
+!!! info "Theorem"
+
+    Let $G^T$ denote the *transpose graph* of $G$, obtained by reversing the edge directions in $G$. Then, $\text{SCC}(G)=\text{SCC}(G^T)$. Furthermore, the condensation graph of $G^T$ is the transpose of the condensation graph of $G$.
 
 The proof is omitted (but straightforward). As a consequence of this theorem, there will be no edges from the "root" component to the other components in the condensation graph of $G^T$. Thus, in order to visit the whole "root" strongly connected component, containing vertex $v$, we can just run a depth first search from vertex $v$ in the transpose graph $G^T$! This will visit precisely all vertices of this strongly connected component. As was mentioned before, we can then remove these vertices from the graph. Then, we find the next vertex with a maximal value of $t_\text{out}[v]$, and run the search in the transpose graph starting from that vertex to find the next strongly connected component. Repeating this, we find all strongly connected components.
 
@@ -145,88 +151,102 @@ Note that we use the function `dfs` both in the first and second step of the alg
 ### Description of the algorithm
 
 The described algorithm was first suggested by Tarjan in 1972.
-It is based on performing a sequence of `dfs` calls, using information inherent to its structure to determine the strongly connected components (`SCC`), with a runtime of $O(n+m)$.
+It is based on performing a sequence of DFS calls, using information inherent to its structure to determine the strongly connected components (SCC), with a runtime of $O(n+m)$.
 
-When applying the `dfs` on a vertex, we will traverse its adjacency list, and in case we find a vertex that hasn't been visited, we recursively apply the `dfs` to it.
+When applying the DFS on a vertex, we will traverse its adjacency list, and in case we find a vertex that hasn't been visited, we recursively apply the DFS to it.
 
-Let's consider the tree induced by the sequence of `dfs` calls, which we will call **`dfs` tree**.
-Once we first call a `dfs` on a vertex from an `SCC`, all the vertices of its `SCC` will be visited before this call ends, since they are all reachable from each other.
-In the `dfs` tree, this first vertex will be a common ancestor to all other vertices of the `SCC`; we define this vertex to be the **root of the `SCC`**.
+Let's consider the tree induced by the sequence of DFS calls, which we will call **DFS tree**.
+Once we first call a DFS on a vertex from an SCC, all the vertices of its SCC will be visited before this call ends, since they are all reachable from each other.
+In the DFS tree, this first vertex will be a common ancestor to all other vertices of the SCC; we define this vertex to be the **root of the SCC**.
 
-**Theorem.** All vertices of an `SCC` induce a connected subgraph of the `dfs` tree.
+!!! info "Theorem"
 
-**Proof.** We have determined that all vertices of an `SCC` have a common ancestor, the first vertex to be visited by a `dfs` call.
-Let's consider a vertex $v$ and its root, vertex $r$.
-All the vertices in the path from $r$ to $v$ belong to the same `SCC`. All these vertices are reachable from $r$, and all of them reach $v$, and since by definition $v$ reaches $r$, all these vertices reach each other.
-Since all paths from a root to every other vertex of the `SCC` belong to the same `SCC`, the subgraph formed is connected.
+    All vertices of an SCC induce a connected subgraph of the DFS tree.
 
-Note that the `SCC`s perfectly split the `dfs` tree in connected subgraphs.
+??? note "Proof"
+
+    We have determined that all vertices of an SCC have a common ancestor, the first vertex to be visited by a DFS call.
+    Let's consider a vertex $v$ and its root, vertex $r$.
+    All the vertices in the path from $r$ to $v$ belong to the same SCC. All these vertices are reachable from $r$, and all of them reach $v$, and since by definition $v$ reaches $r$, all these vertices reach each other.
+    Since all paths from a root to every other vertex of the SCC belong to the same SCC, the subgraph formed is connected.
+
+Note that the SCCs perfectly split the DFS tree in connected subgraphs.
 
 The idea of the algorithm is then the following:
 
-- We perform a sequence of `dfs` calls, recursively applying them to vertices of the adjacency lists.
+- We perform a sequence of DFS calls, recursively applying them to vertices of the adjacency lists.
 
 - Once we finish traversing the adjacency list of a vertex, we somehow are able to determine whether it is a root or not.
 This method will be explained later.
 
-- In case the vertex is a root, we will then immediately find and claim all the vertices of its `SCC`.
+- In case the vertex is a root, we will then immediately find and claim all the vertices of its SCC.
 
-When all calls finish, all roots will have been detected and all vertices will have been claimed as part of some `SCC`.
+When all calls finish, all roots will have been detected and all vertices will have been claimed as part of some SCC.
 
-Let's now analyze the properties of the `dfs` when this claiming process is introduced.
+Let's now analyze the properties of the DFS when this claiming process is introduced.
 
-**Theorem.** Let's consider vertex $v$ and let's consider we just finished traversing its adjacency list.
-All unclaimed vertices in its subtree belong to the same `SCC`.
+!!! info "Theorem"
 
-**Proof.** The algorithm will claim the vertices of an `SCC` when its root is found.
-Since the adjacency list of $v$ has been traversed, all `dfs` calls on its subtree have finished, the roots have been detected and the vertices belonging to their `SCC`s have been claimed.
-The root of the remaining unclaimed vertices will be an ancestor whose claiming process has not yet executed, so it's either $v$ or an ancestor of $v$.
-Since $v$ is in the path from all vertices to their root and `SCC`s must induce a connected subgraph of the tree, both $v$ and all the remaining vertices belong to the same `SCC`.
+    Let's consider vertex $v$ and let's consider we just finished traversing its adjacency list.
+    All unclaimed vertices in its subtree belong to the same SCC.
 
-**Theorem.** Let's consider vertex $v$ and let's consider we are traversing it's adjacency list, currently processing edge $(v, u)$.
-If $u$ was already visited by some `dfs` call and remains unclaimed, $v$ and $u$ belong to the same `SCC`.
+??? note "Proof"
 
-**Proof.** There are different cases depending on the kind of edge:
+    The algorithm will claim the vertices of an SCC when its root is found.
+    Since the adjacency list of $v$ has been traversed, all DFS calls on its subtree have finished, the roots have been detected and the vertices belonging to their SCCs have been claimed.
+    The root of the remaining unclaimed vertices will be an ancestor whose claiming process has not yet executed, so it's either $v$ or an ancestor of $v$.
+    Since $v$ is in the path from all vertices to their root and SCCs must induce a connected subgraph of the tree, both $v$ and all the remaining vertices belong to the same SCC.
 
-- Tree-edge: if this is a tree-edge, this is the first time we are finding vertex $u$. This means we must first recursively apply the `dfs` call on $u$ and consider it after its `dfs` call has finished. If vertex $u$ remains unclaimed, its root is either $v$ or an ancestor of $v$, so they must belong to the same `SCC`.
+!!! info "Theorem"
 
-- Back-edge: this is the simpler case, if $u$ is an ancestor of $v$, they are reachable from each other and by definition belong to the same `SCC`.
+    Let's consider vertex $v$ and let's consider we are traversing it's adjacency list, currently processing edge $(v, u)$.
+    If $u$ was already visited by some DFS call and remains unclaimed, $v$ and $u$ belong to the same SCC.
 
-- Forward-edge: before this edge was processed, there was a sequence of `dfs` calls that finished without finding the root of $u$, having returned to $v$ whose `dfs` call proceeded.
-The root of $u$ will then be an ancestor whose claiming process has not yet executed, so it's either $v$ or an ancestor of $v$, so they must belong to the same `SCC`.
+??? note "Proof"
 
-- Cross-edge: similarly, before this edge was processed, there was a sequence of `dfs` calls that finished without finding the root of $u$, having returned to a common ancestor of $u$ and $v$ whose `dfs` call proceeded and initiated a new sequence of `dfs` calls that lead to a call on $v$.
-The root of $u$ will then be an ancestor whose claiming process has not yet executed, and all of the possible candidates are common ancestors with $v$.
-Since the root of $u$ is an ancestor of $v$, it reaches $v$, and since $v$ now reaches $u$, they must belong to the same `SCC`.
+    There are different cases depending on the kind of edge:
+
+    - Tree-edge: if this is a tree-edge, this is the first time we are finding vertex $u$. This means we must first recursively apply the DFS call on $u$ and consider it after its DFS call has finished. If vertex $u$ remains unclaimed, its root is either $v$ or an ancestor of $v$, so they must belong to the same SCC.
+
+    - Back-edge: this is the simpler case, if $u$ is an ancestor of $v$, they are reachable from each other and by definition belong to the same SCC.
+
+    - Forward-edge: before this edge was processed, there was a sequence of DFS calls that finished without finding the root of $u$, having returned to $v$ whose DFS call proceeded.
+    The root of $u$ will then be an ancestor whose claiming process has not yet executed, so it's either $v$ or an ancestor of $v$, so they must belong to the same SCC.
+
+    - Cross-edge: similarly, before this edge was processed, there was a sequence of DFS calls that finished without finding the root of $u$, having returned to a common ancestor of $u$ and $v$ whose DFS call proceeded and initiated a new sequence of DFS calls that lead to a call on $v$.
+    The root of $u$ will then be an ancestor whose claiming process has not yet executed, and all of the possible candidates are common ancestors with $v$.
+    Since the root of $u$ is an ancestor of $v$, it reaches $v$, and since $v$ now reaches $u$, they must belong to the same SCC.
 
 Note, when two vertices belong to the same component, their root must be a common ancestor of both vertices.
 
-**Theorem.** Let $v$ be a vertex. The following statements are equivalent:
+!!! info "Theorem"
 
-1. Some vertex in the subtree of $v$ reaches an unclaimed vertex outside of the subtree.
-2. $v$ is not the root of an `SCC`.
+    Let $v$ be a vertex. The following statements are equivalent:
 
-**Proof.**
+    1. Some vertex in the subtree of $v$ reaches an unclaimed vertex outside of the subtree.
+    2. $v$ is not the root of an SCC.
 
-- $1. \implies 2.$:
-Let's assume some vertex $u$ in the subtree of $v$ reaches an unclaimed vertex $w$ outside of the subtree.
-We have established that $u$ and $w$ belong to the same `SCC` and that their root must be a common ancestor to both of them.
-This common ancestor is necessarily outside of the subtree, and it will also be an ancestor of $v$.
-Since $v$ is in the path from the root to $u$, it must belong to the same `SCC`, the root of which is not $v$.
+??? note "Proof"
 
-- $\neg 1. \implies \neg 2.$:
-Let's assume no vertex in the subtree of $v$ reaches an unclaimed vertex outside of the subtree.
-This must mean that no vertex in the subtree of $v$ reaches an ancestor of $v$.
-The only possible edges to vertices outside of the subtree are cross-edges to vertices that have already been claimed;
-these vertices cannot reach an ancestor of $v$, since if they did, they would belong to the same `SCC` as $v$, which is impossible since their `SCC` has already been determined.
-Since no ancestor of $v$ is reachable from its subtree, the root of $v$ must be $v$ itself.
+    - $1. \implies 2.$:
+    Let's assume some vertex $u$ in the subtree of $v$ reaches an unclaimed vertex $w$ outside of the subtree.
+    We have established that $u$ and $w$ belong to the same SCC and that their root must be a common ancestor to both of them.
+    This common ancestor is necessarily outside of the subtree, and it will also be an ancestor of $v$.
+    Since $v$ is in the path from the root to $u$, it must belong to the same SCC, the root of which is not $v$.
 
-Now, we must find the method that let's us determine if a vertex is a root or not, and the claiming process properties are necessary for its correctness.
-To this end, we define the entry time $t_{in}[v]$ for each vertex $v \in G$ which corresponds to the 'timestamp' at which the `dfs` was called on $v$.
-By definition, the root is the first vertex of an `SCC` to be visited by the `dfs` so it will have the minimal value of $t_{in}$ of its `SCC`.
+    - $\neg 1. \implies \neg 2.$:
+    Let's assume no vertex in the subtree of $v$ reaches an unclaimed vertex outside of the subtree.
+    This must mean that no vertex in the subtree of $v$ reaches an ancestor of $v$.
+    The only possible edges to vertices outside of the subtree are cross-edges to vertices that have already been claimed;
+    these vertices cannot reach an ancestor of $v$, since if they did, they would belong to the same SCC as $v$, which is impossible since their SCC has already been determined.
+    Since no ancestor of $v$ is reachable from its subtree, the root of $v$ must be $v$ itself.
+
+Now, we must find the method that lets us determine if a vertex is a root or not, and the claiming process properties are necessary for its correctness.
+To this end, we define the entry time $t_{in}[v]$ for each vertex $v \in G$ which corresponds to the 'timestamp' at which the DFS was called on $v$.
+By definition, the root is the first vertex of an SCC to be visited by the DFS so it will have the minimal value of $t_{in}$ of its SCC.
 
 Let $v$ be a vertex and let's consider its subtree.
-At the moment we finish traversing its adjacency list, any vertex already visited by a `dfs` outside of the subtree will have a smaller value of $t_{in}$, since the `dfs` was first called on them before it started on $v$.
+At the moment we finish traversing its adjacency list, any vertex already visited by a DFS outside of the subtree will have a smaller value of $t_{in}$, since the DFS was first called on them before it started on $v$.
 
 When considering the claiming process, the value of $t_{in}$ of all unclaimed vertices outside of the subtree of $v$ is smaller than $t_{in}[v]$.
 Now we can see how to use $t_{in}$ to determine the roots.
@@ -257,7 +277,7 @@ We can now see that this can be implemented with a stack:
 
 This finally lets us implement the algorithm.
 
-The runtime complexity of the sequence of `dfs` calls is $O(n + m)$.
+The runtime complexity of the sequence of DFS calls is $O(n + m)$.
 Considering the stack, its complexity amortizes to $O(n)$ since each node is only pushed and popped once.
 The total runtime complexity is therefore $O(n + m)$.
 
@@ -276,25 +296,29 @@ vector<int> t_low; // - keeps track of the lowest t_in of unclaimed vertices
                    // reachable in the subtree
 
 // implements the tarjan algorithm for strongly connected components
-void dfs(int v, vector<vector<int>> const &adj) {
+void dfs(int v, vector<vector<int>> const &adj, vector<vector<int>> &components) {
 
   t_low[v] = t_in[v] = timer++;
   st.push_back(v);
 
   for (auto u : adj[v]) {
-    if (t_in[u] == -1) // vertex is not visited
-      dfs(u, adj);
-    if (roots[u] == -1) // vertex has not been claimed
+    if (t_in[u] == -1) { // tree-edge
+      dfs(u, adj, components);
       t_low[v] = min(t_low[v], t_low[u]);
+    } else if (roots[u] == -1) { // back-edge, cross-edge or forward-edge to an unclaimed vertex
+      t_low[v] = min(t_low[v], t_in[u]);
+    }
   }
 
   if (t_low[v] == t_in[v]) { // vertex is a root
+    components.push_back({v}); // initializes a new component with root v
     while (true) {
       int u = st.back();
       st.pop_back();
       roots[u] = v; // claims the vertex
       if (u == v)
         break;
+      components.back().push_back(u); // adds vertex u to the component of v
     }
   }
 }
@@ -317,26 +341,11 @@ void strongly_connected_components(vector<vector<int>> const &adj,
   t_low.assign(n, -1);
 
   // applies the tarjan algorithm to all the vertices
+  // adds vertices to the components in reverse topological order
   for (int v = 0; v < n; v++) {
     if (t_in[v] == -1) {
-      dfs(v, adj);
+      dfs(v, adj, components);
     }
-  }
-  // after this runs, roots contains the SCC root of every vertex
-
-  // initializes the components with their roots
-  vector<int> comp_id(n, -1);
-  for (int v = 0; v < n; v++) {
-    if (roots[v] == v) {
-      comp_id[v] = components.size();
-      components.push_back({v});
-    }
-  }
-
-  // adds the remaining vertices to the components
-  for (int v = 0; v < n; v++) {
-    if (roots[v] != v)
-      components[comp_id[roots[v]]].push_back(v);
   }
 
   // adds edges to the condensation graph
@@ -349,19 +358,10 @@ void strongly_connected_components(vector<vector<int>> const &adj,
 }
 ```
 
-Note that the iteration through the adjacency list is not exactly as we described.
-Currently, the iteration does the following:
+We have an [accepted submission](https://judge.yosupo.jp/submission/334251) with this code in Library Checker.
 
-```c++
-for (auto u : adj[v]) {
-  if (t_in[u] == -1) // vertex is not visited
-    dfs(u, adj);
-  if (roots[u] == -1) // vertex has not been claimed
-    t_low[v] = min(t_low[v], t_low[u]);
-}
-```
-
-To be as we described, it would have to be:
+As a last remark, there's an alternative way to iterate through the adjacency list.
+Currently, we are doing the following:
 
 ```c++
 for (auto u : adj[v]) {
@@ -374,8 +374,18 @@ for (auto u : adj[v]) {
 }
 ```
 
-Despite this, notice that the algorithm remains correct.
-$t_{low}$ is used to propagate the information to the root, and when we perform `t_low[v] = min(t_low[v], t_in[u])`, we know that $u$ and $v$ belong to the same `SCC`.
+Alternatively, we could do:
+
+```c++
+for (auto u : adj[v]) {
+  if (t_in[u] == -1) // vertex is not visited
+    dfs(u, adj);
+  if (roots[u] == -1) // vertex has not been claimed
+    t_low[v] = min(t_low[v], t_low[u]);
+}
+```
+
+$t_{low}$ is used to propagate the information to the root, and when we perform `t_low[v] = min(t_low[v], t_in[u])`, we know that $u$ and $v$ belong to the same SCC.
 If $t_{low}[u]$ is propagated until the root of $u$, it can also be propagated through $v$ since the root is the same.
 Since $t_{low}[u] \leq t_{in}[u]$, this does not introduce any conflicts, instead only improving the bound on the root of $v$.
 
