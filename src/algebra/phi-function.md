@@ -124,6 +124,56 @@ void phi_1_to_n(int n) {
               phi[j] -= phi[i];
 }
 ```
+### Finding the totient from $L$ to $R$ using the [segmented sieve](sieve-of-eratosthenes.md#segmented-sieve) { data-toc-label="Finding the totient from L to R using the segmented sieve" }
+If we need the totient of all numbers between $L$ and $R$, we can use the [segmented sieve](sieve-of-eratosthenes.md#segmented-sieve) approach.
+This implementation is based on the divisor sum property, but uses the [segmented sieve](sieve-of-eratosthenes.md#segmented-sieve) approach to compute the totient of all numbers between $L$ and $R$ in $O((R - L + 1) \log \log R)$.
+
+```cpp
+const int MAX_RANGE = 1e6 + 6, MAX_R = 1e14;
+vector<int> primes;
+int phi[MAX_RANGE], rem[MAX_RANGE];
+
+vector<int> linear_sieve(int n) { 
+    vector<bool> composite(n + 1, 0);
+    vector<int> prime;
+
+    composite[0] = composite[1] = 1;
+
+    for(int i = 2; i <= n; i++) {
+        if(!composite[i]) prime.push_back(i);
+        for(int j = 0; j < prime.size() && i * prime[j] <= n; j++) {
+            composite[i * prime[j]] = true;
+            if(i % prime[j] == 0) break;
+        }
+    }
+    return prime;
+}
+
+/*
+ * Find the totient of numbers from `L` to `R` with preprocess SQRT(MAX_R)
+ * @note run linear_sieve(sqrt(MAX_R) + 1) at main
+ * @note Complexity : O((R - L + 1) * log(log(R)) + sqrt(R))
+ * @note phi(i) is phi[i - L] where i [L, R]
+*/
+void segmented_phi(int L, int R) { 
+    for(int i = L; i <= R; i++) {
+        rem[i - L] = i;
+        phi[i - L] = i;
+    }
+
+    for(int &i : primes) {
+        for(int j = max(i * i, (L + i - 1) / i * i); j <= R; j += i) {
+            phi[j - L] -= phi[j - L] / i;
+            while(rem[j - L] % i == 0) rem[j - L] /= i;
+        }
+    }
+
+    for(int i = 0; i < R - L + 1; i++) {
+        if(rem[i] > 1) phi[i] -= phi[i] / rem[i];
+    }
+}
+```
+
 
 ## Application in Euler's theorem { #application }
 
