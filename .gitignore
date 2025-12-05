@@ -8,5 +8,6 @@ converted.pdf
 /public
 .firebase/
 firebase-debug.log
-
+node_modules
+package-lock.json
 authors.json

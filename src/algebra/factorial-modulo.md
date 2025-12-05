@@ -4,7 +4,6 @@ tags:
   - Translated
 e_maxx_link: modular_factorial
 ---
-
 # Factorial modulo $p$
 
 In some cases it is necessary to consider complex formulas modulo some prime $p$, containing factorials in both numerator and denominator, like such that you encounter in the formula for Binomial coefficients.
@@ -21,21 +20,26 @@ For instance $7!_{\%p} \equiv 1 \cdot 2 \cdot \underbrace{1}_{3} \cdot 4 \cdot 5
 Learning how to effectively calculate this modified factorial allows us to quickly calculate the value of the various combinatorial formulas (for example, [Binomial coefficients](../combinatorics/binomial-coefficients.md)).
 
 ## Algorithm
+
 Let's write this modified factorial explicitly.
 
-$$\begin{eqnarray}
+$$
+\begin{eqnarray}
 n!_{\%p} &=& 1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot \underbrace{1}_{p} \cdot (p+1) \cdot (p+2) \cdot \ldots \cdot (2p-1) \cdot \underbrace{2}_{2p} \\\
  & &\quad \cdot (2p+1) \cdot \ldots \cdot (p^2-1) \cdot \underbrace{1}_{p^2} \cdot (p^2 +1) \cdot \ldots \cdot n \pmod{p} \\\\
 &=& 1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot \underbrace{1}_{p} \cdot 1 \cdot 2 \cdot \ldots \cdot (p-1) \cdot \underbrace{2}_{2p} \cdot 1 \cdot 2 \\\
 & &\quad \cdot \ldots \cdot (p-1) \cdot \underbrace{1}_{p^2} \cdot 1 \cdot 2 \cdot \ldots \cdot (n \bmod p) \pmod{p}
-\end{eqnarray}$$
+\end{eqnarray}
+$$
 
 It can be clearly seen that factorial is divided into several blocks of same length except for the last one.
 
-$$\begin{eqnarray}
+$$
+\begin{eqnarray}
 n!_{\%p}&=& \underbrace{1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot 1}_{1\text{st}} \cdot \underbrace{1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot 2}_{2\text{nd}} \cdot \ldots \\\\
 & & \cdot \underbrace{1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot 1}_{p\text{th}} \cdot \ldots \cdot \quad \underbrace{1 \cdot 2 \cdot \cdot \ldots \cdot (n \bmod p)}_{\text{tail}} \pmod{p}.
-\end{eqnarray}$$
+\end{eqnarray}
+$$
 
 The main part of the blocks it is easy to count — it's just $(p-1)!\ \mathrm{mod}\ p$.
 We can compute that programmatically or just apply Wilson theorem which states that $(p-1)! \bmod p = -1$ for any prime $p$.
@@ -46,11 +50,12 @@ And instead of a multiplication, we can also just subtract the current result fr
 
 The value of the last partial block can be calculated separately in $O(p)$.
 
-
 This leaves only the last element of each block.
 If we hide the already handled elements, we can see the following pattern:
 
-$$n!_{\%p} = \underbrace{ \ldots \cdot 1 } \cdot \underbrace{ \ldots \cdot 2} \cdot \ldots \cdot \underbrace{ \ldots \cdot (p-1)} \cdot \underbrace{ \ldots \cdot 1 } \cdot \underbrace{ \ldots \cdot 1} \cdot \underbrace{ \ldots \cdot 2} \cdots$$
+$$
+n!_{\%p} = \underbrace{ \ldots \cdot 1 } \cdot \underbrace{ \ldots \cdot 2} \cdot \ldots \cdot \underbrace{ \ldots \cdot (p-1)} \cdot \underbrace{ \ldots \cdot 1 } \cdot \underbrace{ \ldots \cdot 1} \cdot \underbrace{ \ldots \cdot 2} \cdots
+$$
 
 This again is a *modified* factorial, only with a much smaller dimension.
 It's $\lfloor n / p \rfloor !_{\%p}$.
@@ -60,7 +65,6 @@ We have a recursive formula.
 The recursion depth is $O(\log_p n)$, and therefore the complete asymptotic behavior of the algorithm is $O(p \log_p n)$.
 
 Notice, if you precompute the factorials $0!,~ 1!,~ 2!,~ \dots,~ (p-1)!$ modulo $p$, then the complexity will just be $O(\log_p n)$.
-
 
 ## Implementation
 
@@ -88,14 +92,16 @@ int factmod(int n, int p) {
 
 Alternative, if you only have limit memory and can't afford storing all factorials, you can also just remember the factorials that you need, sort them, and then compute them in one sweep by computing the factorials $0!,~ 1!,~ 2!,~ \dots,~ (p-1)!$ in a loop without storing them explicitly.
 
-## Multiplicity of $p$
+## Multiplicity of p
 
 If we want to compute a Binomial coefficient modulo $p$, then we additionally need the multiplicity of the $p$ in $n$, i.e. the number of times $p$ occurs in the prime factorization of $n$, or number of times we erased $p$ during the computation of the *modified* factorial.
 
 [Legendre's formula](https://en.wikipedia.org/wiki/Legendre%27s_formula) gives us a way to compute this in $O(\log_p n)$ time.
 The formula gives the multiplicity $\nu_p$ as:
 
-$$\nu_p(n!) = \sum_{i=1}^{\infty} \left\lfloor \frac{n}{p^i} \right\rfloor$$
+$$
+\nu_p(n!) = \sum_{i=1}^{\infty} \left\lfloor \frac{n}{p^i} \right\rfloor
+$$
 
 Thus we get the implementation:
 
