@@ -129,9 +129,9 @@ If we need the totient of all numbers between $L$ and $R$, we can use the [segme
 This implementation is based on the divisor sum property, but uses the [segmented sieve](sieve-of-eratosthenes.md#segmented-sieve) approach to compute the totient of all numbers between $L$ and $R$ in $O((R - L + 1) \log \log R)$.
 
 ```cpp
-const int MAX_RANGE = 1e6 + 6, MAX_R = 1e14;
-vector<int> primes;
-int phi[MAX_RANGE], rem[MAX_RANGE];
+const long long MAX_RANGE = 1e6 + 6, MAX_R = 1e14;
+vector<long long> primes;
+long long phi[MAX_RANGE], rem[MAX_RANGE];
 
 vector<int> linear_sieve(int n) { 
     vector<bool> composite(n + 1, 0);
@@ -155,20 +155,20 @@ vector<int> linear_sieve(int n) {
  * @note Complexity : O((R - L + 1) * log(log(R)) + sqrt(R))
  * @note phi(i) is phi[i - L] where i [L, R]
 */
-void segmented_phi(int L, int R) { 
-    for(int i = L; i <= R; i++) {
+void segmented_phi(long long L, long long R) { 
+    for(long long i = L; i <= R; i++) {
         rem[i - L] = i;
         phi[i - L] = i;
     }
 
-    for(int &i : primes) {
-        for(int j = max(i * i, (L + i - 1) / i * i); j <= R; j += i) {
+    for(long long &i : primes) {
+        for(long long j = max(i * i, (L + i - 1) / i * i); j <= R; j += i) {
             phi[j - L] -= phi[j - L] / i;
             while(rem[j - L] % i == 0) rem[j - L] /= i;
         }
     }
 
-    for(int i = 0; i < R - L + 1; i++) {
+    for(long long i = 0; i < R - L + 1; i++) {
         if(rem[i] > 1) phi[i] -= phi[i] / rem[i];
     }
 }
