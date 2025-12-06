@@ -8050,11 +8050,11 @@ Describe the issue of this article in detail.
   
     
   
-    
-  
 
   
   
+  
+    
   
     
   
@@ -8328,7 +8328,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 26, 2025 02:34:03 UTC">November 26, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 6, 2025 06:25:10 UTC">December 6, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -8483,9 +8483,11 @@ The nodes of the tree show the ranges they cover.</p>
 This is handled in the <code>sum(int l, int r)</code> method.</p>
 <p>Also this implementation supports two constructors.
 You can create a Fenwick tree initialized with zeros, or you can convert an existing array into the Fenwick form.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">C++</label><label for="__tabbed_2_2">Python</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:1"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">C++</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block">
+<div class="tabbed-block"></div>
+</div>
+</div>
 <div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">FenwickTree</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">bit</span><span class="p">;</span><span class="w">  </span><span class="c1">// binary indexed tree</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
@@ -8517,7 +8519,8 @@ You can create a Fenwick tree initialized with zeros, or you can convert an exis
 <span class="w">    </span><span class="p">}</span>
 <span class="p">};</span>
 </code></pre></div>
-</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:1"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Python</label></div>
+<div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">FenwickTree</span><span class="p">:</span>
 
@@ -8567,7 +8570,7 @@ So by adding the numbers in order, you only have to push the current sum further
 <p>It is obvious that there is no easy way of finding minimum of range <span class="arithmatex">$[l, r]$</span> using Fenwick tree, as Fenwick tree can only answer queries of type <span class="arithmatex">$[0, r]$</span>.
 Additionally, each time a value is <code>update</code>'d, the new value has to be smaller than the current value.
 Both significant limitations are because the <span class="arithmatex">$min$</span> operation together with the set of integers doesn't form a group, as there are no inverse elements.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">C++</label><label for="__tabbed_3_2">Python</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">C++</label><label for="__tabbed_4_2">Python</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">FenwickTreeMin</span><span class="w"> </span><span class="p">{</span>
@@ -8637,7 +8640,7 @@ However with that approach you need to maintain a second binary indexed tree ove
 The implementation is also a lot harder compared to the normal implementation for sums.</p>
 <h3 id="finding-sum-in-two-dimensional-array">Finding sum in two-dimensional array<a class="headerlink" href="#finding-sum-in-two-dimensional-array" title="Permanent link">&para;</a></h3>
 <p>As claimed before, it is very easy to implement Fenwick Tree for multidimensional array.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">C++</label><label for="__tabbed_4_2">Python</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">C++</label><label for="__tabbed_5_2">Python</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">FenwickTree2D</span><span class="w"> </span><span class="p">{</span>
@@ -8697,7 +8700,7 @@ The implementation is also a lot harder compared to the normal implementation fo
 <p>For this approach we change the requirements and definition for <span class="arithmatex">$T[]$</span> and <span class="arithmatex">$g()$</span> a little bit.
 We want <span class="arithmatex">$T[i]$</span> to store the sum of <span class="arithmatex">$[g(i)+1; i]$</span>.
 This changes the implementation a little bit, and allows for a similar nice definition for <span class="arithmatex">$g(i)$</span>:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">C++</label><label for="__tabbed_5_2">Python</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">C++</label><label for="__tabbed_6_2">Python</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -8746,7 +8749,7 @@ g(4) = g(100_2) = 000_2 &amp;= 0 \\\\
 <div class="arithmatex">$$h(i) = i + (i ~\&amp;~ (-i)).$$</div>
 <p>As you can see, the main benefit of this approach is that the binary operations complement each other very nicely.</p>
 <p>The following implementation can be used like the other implementations, however it uses one-based indexing internally.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">C++</label><label for="__tabbed_6_2">Python</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">C++</label><label for="__tabbed_7_2">Python</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">FenwickTreeOneBasedIndexing</span><span class="w"> </span><span class="p">{</span>
@@ -8833,7 +8836,7 @@ If <span class="arithmatex">$i &lt; l$</span>, then the two update operations ha
 If <span class="arithmatex">$i \in [l, r]$</span>, then we get the answer <span class="arithmatex">$x$</span> because of the first update operation.
 And if <span class="arithmatex">$i &gt; r$</span>, then the second update operation will cancel the effect of first one.</p>
 <p>The following implementation uses one-based indexing.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">C++</label><label for="__tabbed_7_2">Python</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">C++</label><label for="__tabbed_8_2">Python</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -8881,7 +8884,7 @@ And if <span class="arithmatex">$i &gt; r$</span>, then the second update operat
 <p>Suppose that we want to increment the interval <span class="arithmatex">$[l, r]$</span> by the value <span class="arithmatex">$x$</span>.
 Similarly as in the previous method, we perform two point updates on <span class="arithmatex">$B_1$</span>: <code>add(B1, l, x)</code> and <code>add(B1, r+1, -x)</code>.
 And we also update <span class="arithmatex">$B_2$</span>. The details will be explained later.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">C++</label><label for="__tabbed_8_2">Python</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">C++</label><label for="__tabbed_9_2">Python</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>```cpp
@@ -8925,7 +8928,7 @@ $$</div>
 <p>The last expression is exactly equal to the required terms.
 Thus we can use <span class="arithmatex">$B_2$</span> for shaving off extra terms when we multiply <span class="arithmatex">$B_1[i]\times i$</span>.</p>
 <p>We can find arbitrary range sums by computing the prefix sums for <span class="arithmatex">$l-1$</span> and <span class="arithmatex">$r$</span> and taking the difference of them again.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">C++</label><label for="__tabbed_9_2">Python</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">C++</label><label for="__tabbed_10_2">Python</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
