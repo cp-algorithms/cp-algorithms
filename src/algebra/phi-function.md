@@ -126,7 +126,16 @@ void phi_1_to_n(int n) {
 ```
 ### Finding the totient from $L$ to $R$ using the [segmented sieve](sieve-of-eratosthenes.md#segmented-sieve) { data-toc-label="Finding the totient from L to R using the segmented sieve" }
 If we need the totient of all numbers between $L$ and $R$, we can use the [segmented sieve](sieve-of-eratosthenes.md#segmented-sieve) approach.
-This implementation is based on the divisor sum property, but uses the [segmented sieve](sieve-of-eratosthenes.md#segmented-sieve) approach to compute the totient of all numbers between $L$ and $R$ in $O((R - L + 1) \log \log R)$.
+
+The algorithm works by first precomputing all primes up to $\sqrt{R}$ using a [linear sieve](prime-sieve-linear.md) in $O(\sqrt{R})$ time and space. Then, for each number in the range $[L, R]$, we apply the standard φ formula $\phi(n) = n \cdot \prod_{p | n} \left(1 - \frac{1}{p}\right)$ by iterating over the precomputed primes. We maintain a `rem` array to track the remaining unfactored part of each number; if `rem[i] > 1` after processing all small primes, then the number has a large prime factor greater than $\sqrt{R}$, which we handle in a final pass.
+
+**Complexity:**
+
+- Preprocessing: $O(\sqrt{R})$ time and space for the linear sieve
+- Query: $O((R - L + 1) \log \log R)$ for computing φ over the range
+
+**Usage:** Call `primes = linear_sieve(sqrt(MAX_R) + 1)` once at startup. Then `phi[i - L]` gives $\phi(i)$ for each $i \in [L, R]$.
+
 
 ```cpp
 const long long MAX_RANGE = 1e6 + 6, MAX_R = 1e14;
@@ -149,12 +158,6 @@ vector<int> linear_sieve(int n) {
     return prime;
 }
 
-/*
- * Find the totient of numbers from `L` to `R` with preprocess SQRT(MAX_R)
- * @note run linear_sieve(sqrt(MAX_R) + 1) at main
- * @note Complexity : O((R - L + 1) * log(log(R)) + sqrt(R))
- * @note phi(i) is phi[i - L] where i [L, R]
-*/
 void segmented_phi(long long L, long long R) { 
     for(long long i = L; i <= R; i++) {
         rem[i - L] = i;
