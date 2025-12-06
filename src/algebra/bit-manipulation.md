@@ -12,14 +12,18 @@ We say that a certain bit is **set**, if it is one, and **cleared** if it is zer
 
 The binary number $(a_k a_{k-1} \dots a_1 a_0)_2$ represents the number:
 
-$$(a_k a_{k-1} \dots a_1 a_0)_2 = a_k \cdot 2^k + a_{k-1} \cdot 2^{k-1} + \dots + a_1 \cdot 2^1 + a_0 \cdot 2^0.$$
+$$
+(a_k a_{k-1} \dots a_1 a_0)_2 = a_k \cdot 2^k + a_{k-1} \cdot 2^{k-1} + \dots + a_1 \cdot 2^1 + a_0 \cdot 2^0.
+$$
 
 For instance the binary number $1101_2$ represents the number $13$:
 
-$$\begin{align}
+$$
+\begin{align}
 1101_2 &= 1 \cdot 2^3 + 1 \cdot 2^2 + 0 \cdot 2^1 + 1 \cdot 2^0 \\
        &= 1\cdot 8 + 1 \cdot 4 + 0 \cdot 2 + 1 \cdot 1 = 13
-\end{align}$$
+\end{align}
+$$
 
 Computers represent integers as binary numbers.
 Positive integers (both signed and unsigned) are just represented with their binary digits, and negative signed numbers (which can be positive and negative) are usually represented with the [Two's complement](https://en.wikipedia.org/wiki/Two%27s_complement).
@@ -45,16 +49,13 @@ All those introduced operators are instant (same speed as an addition) on a CPU 
 
 ### Bitwise operators
 
--   $\&$ : The bitwise AND operator compares each bit of its first operand with the corresponding bit of its second operand. 
-    If both bits are 1, the corresponding result bit is set to 1. Otherwise, the corresponding result bit is set to 0.
- 	
--   $|$ : The bitwise inclusive OR operator compares each bit of its first operand with the corresponding bit of its second operand.
-    If one of the two bits is 1, the corresponding result bit is set to 1. Otherwise, the corresponding result bit is set to 0.
-
--   $\wedge$ : The bitwise exclusive OR (XOR) operator compares each bit of its first operand with the corresponding bit of its second operand.
-    If one bit is 0 and the other bit is 1, the corresponding result bit is set to 1. Otherwise, the corresponding result bit is set to 0.
-
--   $\sim$ : The bitwise complement (NOT) operator flips each bit of a number, if a bit is set the operator will clear it, if it is cleared the operator sets it.
+- $\&$ : The bitwise AND operator compares each bit of its first operand with the corresponding bit of its second operand.
+  If both bits are 1, the corresponding result bit is set to 1. Otherwise, the corresponding result bit is set to 0.
+- $|$ : The bitwise inclusive OR operator compares each bit of its first operand with the corresponding bit of its second operand.
+  If one of the two bits is 1, the corresponding result bit is set to 1. Otherwise, the corresponding result bit is set to 0.
+- $\wedge$ : The bitwise exclusive OR (XOR) operator compares each bit of its first operand with the corresponding bit of its second operand.
+  If one bit is 0 and the other bit is 1, the corresponding result bit is set to 1. Otherwise, the corresponding result bit is set to 0.
+- $\sim$ : The bitwise complement (NOT) operator flips each bit of a number, if a bit is set the operator will clear it, if it is cleared the operator sets it.
 
 Examples:
 
@@ -89,19 +90,17 @@ n         = 01011000
 
 There are two operators for shifting bits.
 
--   $\gg$ Shifts a number to the right by removing the last few binary digits of the number.
-    Each shift by one represents an integer division by 2, so a right shift by $k$ represents an integer division by $2^k$.
+- $\gg$ Shifts a number to the right by removing the last few binary digits of the number.
+  Each shift by one represents an integer division by 2, so a right shift by $k$ represents an integer division by $2^k$.
 
-    E.g. $5 \gg 2 = 101_2 \gg 2 = 1_2 = 1$ which is the same as $\frac{5}{2^2} = \frac{5}{4} = 1$.
-    For a computer though shifting some bits is a lot faster than doing divisions.
+  E.g. $5 \gg 2 = 101_2 \gg 2 = 1_2 = 1$ which is the same as $\frac{5}{2^2} = \frac{5}{4} = 1$.
+  For a computer though shifting some bits is a lot faster than doing divisions.
+- $\ll$ Shifts a number to left by appending zero digits.
+  In similar fashion to a right shift by $k$, a left shift by $k$ represents a multiplication by $2^k$.
 
--   $\ll$ Shifts a number to left by appending zero digits.
-    In similar fashion to a right shift by $k$, a left shift by $k$ represents a multiplication by $2^k$.
+  E.g. $5 \ll 3 = 101_2 \ll 3 = 101000_2 = 40$ which is the same as $5 \cdot 2^3 = 5 \cdot 8 = 40$.
 
-    E.g. $5 \ll 3 = 101_2 \ll 3 = 101000_2 = 40$ which is the same as $5 \cdot 2^3 = 5 \cdot 8 = 40$.
-
-    Notice however that for a fixed-length integer that means dropping the most left digits, and if you shift too much you end up with the number $0$.
-
+  Notice however that for a fixed-length integer that means dropping the most left digits, and if you shift too much you end up with the number $0$.
 
 ## Useful tricks
 
@@ -118,7 +117,7 @@ $1 \ll x$ is a number with only the $x$-th bit set, while $\sim(1 \ll x)$ is a n
 
 The value of the $x$-th bit can be checked by shifting the number $x$ positions to the right, so that the $x$-th bit is at the unit place, after which we can extract it by performing a bitwise & with 1.
 
-``` cpp
+```cpp
 bool is_set(unsigned int number, int x) {
     return (number >> x) & 1;
 }
@@ -129,7 +128,7 @@ bool is_set(unsigned int number, int x) {
 Using the and operation, we can check if a number $n$ is even because $n ~\&~ 1 = 0$ if $n$ is even, and $n ~\&~ 1 = 1$ if $n$ is odd.
 More generally, $n$ is divisible by $2^{k}$ exactly when $n ~\&~ (2^{k} − 1) = 0$.
 
-``` cpp
+```cpp
 bool isDivisibleByPowerOf2(int n, int k) {
     int powerOf2 = 1 << k;
     return (n & (powerOf2 - 1)) == 0;
@@ -146,7 +145,7 @@ A power of two is a number that has only a single bit in it (e.g. $32 = 0010~000
 So the bitwise AND of a number with it's predecessor will always be 0, as they don't have any common digits set.
 You can easily check that this only happens for the the power of twos and for the number $0$ which already has no digit set.
 
-``` cpp
+```cpp
 bool isPowerOfTwo(unsigned int n) {
     return n && !(n & (n - 1));
 }
@@ -173,7 +172,7 @@ We can count the number of bits set with the above expression.
 
 The idea is to consider only the set bits of an integer by turning off its rightmost set bit (after counting it), so the next iteration of the loop considers the Next Rightmost bit.
 
-``` cpp
+```cpp
 int countSetBits(int n)
 {
     int count = 0;
@@ -186,10 +185,12 @@ int countSetBits(int n)
 }
 ```
 
-### Count set bits upto $n$
-To count the number of set bits of all numbers upto the number $n$ (inclusive), we can run the Brian Kernighan's algorithm on all numbers upto $n$. But this will result in a "Time Limit Exceeded" in contest submissions. 
+### Count set bits upto n
+
+To count the number of set bits of all numbers upto the number $n$ (inclusive), we can run the Brian Kernighan's algorithm on all numbers upto $n$. But this will result in a "Time Limit Exceeded" in contest submissions.
 
 We can use the fact that for numbers upto $2^x$ (i.e. from $1$ to $2^x - 1$) there are $x \cdot 2^{x-1}$ set bits. This can be visualised as follows.
+
 ```
 0 ->   0 0 0 0
 1 ->   0 0 0 1
