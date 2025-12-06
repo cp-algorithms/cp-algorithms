@@ -124,6 +124,59 @@ void phi_1_to_n(int n) {
               phi[j] -= phi[i];
 }
 ```
+### Finding the totient from $L$ to $R$ using the [segmented sieve](sieve-of-eratosthenes.md#segmented-sieve) { data-toc-label="Finding the totient from L to R using the segmented sieve" }
+If we need the totient of all numbers between $L$ and $R$, we can use the [segmented sieve](sieve-of-eratosthenes.md#segmented-sieve) approach.
+
+The algorithm works by first precomputing all primes up to $\sqrt{R}$ using a [linear sieve](prime-sieve-linear.md) in $O(\sqrt{R})$ time and space. Then, for each number in the range $[L, R]$, we apply the standard φ formula $\phi(n) = n \cdot \prod_{p | n} \left(1 - \frac{1}{p}\right)$ by iterating over the precomputed primes. We maintain a `rem` array to track the remaining unfactored part of each number; if `rem[i] > 1` after processing all small primes, then the number has a large prime factor greater than $\sqrt{R}$, which we handle in a final pass.
+
+**Complexity:**
+
+- Preprocessing: $O(\sqrt{R})$ time and space for the linear sieve
+- Query: $O((R - L + 1) \log \log R)$ for computing φ over the range
+
+**Usage:** Call `primes = linear_sieve(sqrt(MAX_R) + 1)` once at startup. Then `phi[i - L]` gives $\phi(i)$ for each $i \in [L, R]$.
+
+
+```cpp
+const long long MAX_RANGE = 1e6 + 6, MAX_R = 1e14;
+vector<long long> primes;
+long long phi[MAX_RANGE], rem[MAX_RANGE];
+
+vector<int> linear_sieve(int n) { 
+    vector<bool> composite(n + 1, 0);
+    vector<int> prime;
+
+    composite[0] = composite[1] = 1;
+
+    for(int i = 2; i <= n; i++) {
+        if(!composite[i]) prime.push_back(i);
+        for(int j = 0; j < prime.size() && i * prime[j] <= n; j++) {
+            composite[i * prime[j]] = true;
+            if(i % prime[j] == 0) break;
+        }
+    }
+    return prime;
+}
+
+void segmented_phi(long long L, long long R) { 
+    for(long long i = L; i <= R; i++) {
+        rem[i - L] = i;
+        phi[i - L] = i;
+    }
+
+    for(long long &i : primes) {
+        for(long long j = max(i * i, (L + i - 1) / i * i); j <= R; j += i) {
+            phi[j - L] -= phi[j - L] / i;
+            while(rem[j - L] % i == 0) rem[j - L] /= i;
+        }
+    }
+
+    for(long long i = 0; i < R - L + 1; i++) {
+        if(rem[i] > 1) phi[i] -= phi[i] / rem[i];
+    }
+}
+```
+
 
 ## Application in Euler's theorem { #application }
 
