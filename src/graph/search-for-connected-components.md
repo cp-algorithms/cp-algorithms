@@ -21,7 +21,7 @@ Given an undirected graph $G$ with $n$ nodes and $m$ edges. We are required to f
 ``` cpp
 int n;
 vector<vector<int>> adj;
-vector<bool> used;
+vector<bool> used(n, false);
 vector<int> comp;
 
 void dfs(int v) {
@@ -66,7 +66,7 @@ Since this data structure is allocated on the heap, no stack overflow will occur
 ```cpp
 int n;
 vector<vector<int>> adj;
-vector<bool> used;
+vector<bool> used(n, false);
 vector<int> comp;
 
 void dfs(int v) {
