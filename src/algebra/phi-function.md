@@ -94,7 +94,6 @@ void phi_1_to_n(int n) {
 }
 ```
 
-
 ## Divisor sum property { #divsum}
 
 This interesting property was established by Gauss:
@@ -124,17 +123,12 @@ void phi_1_to_n(int n) {
               phi[j] -= phi[i];
 }
 ```
-### Finding the totient from $L$ to $R$ using the [segmented sieve](sieve-of-eratosthenes.md#segmented-sieve) { data-toc-label="Finding the totient from L to R using the segmented sieve" }
-If we need the totient of all numbers between $L$ and $R$, we can use the [segmented sieve](sieve-of-eratosthenes.md#segmented-sieve) approach.
 
-The algorithm works by first precomputing all primes up to $\sqrt{R}$ using a [linear sieve](prime-sieve-linear.md) in $O(\sqrt{R})$ time and space. Then, for each number in the range $[L, R]$, we apply the standard φ formula $\phi(n) = n \cdot \prod_{p | n} \left(1 - \frac{1}{p}\right)$ by iterating over the precomputed primes. We maintain a `rem` array to track the remaining unfactored part of each number; if `rem[i] > 1` after processing all small primes, then the number has a large prime factor greater than $\sqrt{R}$, which we handle in a final pass.
 
-**Complexity:**
+#### Finding the totient from $L$ to $R$ using the [segmented sieve](sieve-of-eratosthenes.md#segmented-sieve) { data-toc-label="Finding the totient from L to R using the segmented sieve" }
+If we need the totient of all numbers between $L$ and $R$, we can use the [segmented sieve](sieve-of-eratosthenes.md#segmented-sieve) approach. 
 
-- Preprocessing: $O(\sqrt{R})$ time and space for the linear sieve
-- Query: $O((R - L + 1) \log \log R)$ for computing φ over the range
-
-**Usage:** Call `primes = linear_sieve(sqrt(MAX_R) + 1)` once at startup. Then `phi[i - L]` gives $\phi(i)$ for each $i \in [L, R]$.
+The algorithm first precomputes all primes up to $\sqrt{R}$ using a [linear sieve](prime-sieve-linear.md) in $O(\sqrt{R})$ time and space; then for each number in the range $[L, R]$, it applies the standard φ formula $\phi(n) = n \cdot \prod_{p | n} \left(1 - \frac{1}{p}\right)$ by iterating over these primes while maintaining a `rem` array for the unfactored part—if `rem[i] > 1` after processing all small primes, it indicates a large prime factor greater than $\sqrt{R}$ handled in a final pass—so the range computation runs in $O((R - L + 1) \log \log R)$. To use this, call `primes = linear_sieve(sqrt(MAX_R) + 1)` once at startup; then `phi[i - L]` gives $\phi(i)$ for each $i \in [L, R]$.
 
 
 ```cpp
@@ -176,7 +170,6 @@ void segmented_phi(long long L, long long R) {
     }
 }
 ```
-
 
 ## Application in Euler's theorem { #application }
 
