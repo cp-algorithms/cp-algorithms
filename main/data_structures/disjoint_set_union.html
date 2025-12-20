@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -8086,6 +8086,12 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
     
   
     
@@ -8208,6 +8214,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8280,7 +8290,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 12, 2024 10:13:20 UTC">October 12, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 15, 2025 01:10:23 UTC">December 15, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -8538,9 +8548,9 @@ Therefore the complexity will be <span class="arithmatex">$O(\log n)$</span> per
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>There is one optimization:
-We can use <strong>union by rank</strong>, if we store the next unpainted cell in an additional array <code>end[]</code>.
-Then we can merge two sets into one ranked according to their heuristics, and we obtain the solution in <span class="arithmatex">$O(\alpha(n))$</span>.</p>
+<p>There is an optimization:
+We can use union by rank / size, if we store the next unpainted cell in an additional array <code>end[]</code>.
+Then we can merge two sets into one according to their heuristics, and we obtain the solution in <span class="arithmatex">$O(\alpha(n))$</span>.</p>
 <h3 id="support-distances-up-to-representative">Support distances up to representative<a class="headerlink" href="#support-distances-up-to-representative" title="Permanent link">&para;</a></h3>
 <p>Sometimes in specific applications of the DSU you need to maintain the distance between a vertex and the representative of its set (i.e. the path length in the tree from the current node to the root of the tree).</p>
 <p>If we don't use path compression, the distance is just the number of recursive calls.
@@ -8758,7 +8768,7 @@ Later in 1985 he, along with Leeuwen, published multiple complexity analyses for
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (89.36%)</li><li><a href="https://github.com/alex65536" title="alex65536" data-bi-name="contributorprofile" target="_blank">alex65536</a> (3.55%)</li><li><a href="https://github.com/wangwillian0" title="wangwillian0" data-bi-name="contributorprofile" target="_blank">wangwillian0</a> (2.87%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (1.18%)</li><li><a href="https://github.com/Tahanima" title="Tahanima" data-bi-name="contributorprofile" target="_blank">Tahanima</a> (0.84%)</li><li><a href="https://github.com/ankitsangwan1999" title="ankitsangwan1999" data-bi-name="contributorprofile" target="_blank">ankitsangwan1999</a> (0.34%)</li><li><a href="https://github.com/tanmay-sinha" title="tanmay-sinha" data-bi-name="contributorprofile" target="_blank">tanmay-sinha</a> (0.34%)</li><li><a href="https://github.com/gampu" title="gampu" data-bi-name="contributorprofile" target="_blank">gampu</a> (0.34%)</li><li><a href="https://github.com/ShubhamPhapale" title="ShubhamPhapale" data-bi-name="contributorprofile" target="_blank">ShubhamPhapale</a> (0.17%)</li><li><a href="https://github.com/cameroncuster" title="cameroncuster" data-bi-name="contributorprofile" target="_blank">cameroncuster</a> (0.17%)</li><li><a href="https://github.com/ankushkhanna1998" title="ankushkhanna1998" data-bi-name="contributorprofile" target="_blank">ankushkhanna1998</a> (0.17%)</li><li><a href="https://github.com/xUser5000" title="xUser5000" data-bi-name="contributorprofile" target="_blank">xUser5000</a> (0.17%)</li><li><a href="https://github.com/vedantkarandikar" title="vedantkarandikar" data-bi-name="contributorprofile" target="_blank">vedantkarandikar</a> (0.17%)</li><li><a href="https://github.com/platypusperry23" title="platypusperry23" data-bi-name="contributorprofile" target="_blank">platypusperry23</a> (0.17%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.17%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (88.85%)</li><li><a href="https://github.com/alex65536" title="alex65536" data-bi-name="contributorprofile" target="_blank">alex65536</a> (3.55%)</li><li><a href="https://github.com/wangwillian0" title="wangwillian0" data-bi-name="contributorprofile" target="_blank">wangwillian0</a> (2.87%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (1.18%)</li><li><a href="https://github.com/Tahanima" title="Tahanima" data-bi-name="contributorprofile" target="_blank">Tahanima</a> (0.84%)</li><li><a href="https://github.com/turkhuu622" title="turkhuu622" data-bi-name="contributorprofile" target="_blank">turkhuu622</a> (0.51%)</li><li><a href="https://github.com/ankitsangwan1999" title="ankitsangwan1999" data-bi-name="contributorprofile" target="_blank">ankitsangwan1999</a> (0.34%)</li><li><a href="https://github.com/tanmay-sinha" title="tanmay-sinha" data-bi-name="contributorprofile" target="_blank">tanmay-sinha</a> (0.34%)</li><li><a href="https://github.com/gampu" title="gampu" data-bi-name="contributorprofile" target="_blank">gampu</a> (0.34%)</li><li><a href="https://github.com/ShubhamPhapale" title="ShubhamPhapale" data-bi-name="contributorprofile" target="_blank">ShubhamPhapale</a> (0.17%)</li><li><a href="https://github.com/cameroncuster" title="cameroncuster" data-bi-name="contributorprofile" target="_blank">cameroncuster</a> (0.17%)</li><li><a href="https://github.com/ankushkhanna1998" title="ankushkhanna1998" data-bi-name="contributorprofile" target="_blank">ankushkhanna1998</a> (0.17%)</li><li><a href="https://github.com/xUser5000" title="xUser5000" data-bi-name="contributorprofile" target="_blank">xUser5000</a> (0.17%)</li><li><a href="https://github.com/vedantkarandikar" title="vedantkarandikar" data-bi-name="contributorprofile" target="_blank">vedantkarandikar</a> (0.17%)</li><li><a href="https://github.com/platypusperry23" title="platypusperry23" data-bi-name="contributorprofile" target="_blank">platypusperry23</a> (0.17%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.17%)</li></ul>
 </ul>
                 
               </article>
@@ -8838,10 +8848,10 @@ Later in 1985 he, along with Leeuwen, published multiple complexity analyses for
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="../javascript/config.js"></script>
       
