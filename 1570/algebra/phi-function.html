@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1089,7 +1089,8 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Finding the totient from 1 to n using the divisor sum property">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#finding-the-totient-from-l-to-r-using-the-segmented-sieve" class="md-nav__link">
@@ -1099,6 +1100,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -8263,7 +8269,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 6, 2025 18:54:47 UTC">December 6, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 18, 2025 04:11:44 UTC">December 18, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -8383,15 +8389,9 @@ This implementation is a little simpler than the previous implementation based o
 <span class="w">              </span><span class="n">phi</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">phi</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 <span class="p">}</span>
 </code></pre></div>
-<h3 id="finding-the-totient-from-l-to-r-using-the-segmented-sieve">Finding the totient from <span class="arithmatex">$L$</span> to <span class="arithmatex">$R$</span> using the <a href="sieve-of-eratosthenes.html#segmented-sieve">segmented sieve</a><a class="headerlink" href="#finding-the-totient-from-l-to-r-using-the-segmented-sieve" title="Permanent link">&para;</a></h3>
-<p>If we need the totient of all numbers between <span class="arithmatex">$L$</span> and <span class="arithmatex">$R$</span>, we can use the <a href="sieve-of-eratosthenes.html#segmented-sieve">segmented sieve</a> approach.</p>
-<p>The algorithm works by first precomputing all primes up to <span class="arithmatex">$\sqrt{R}$</span> using a <a href="prime-sieve-linear.html">linear sieve</a> in <span class="arithmatex">$O(\sqrt{R})$</span> time and space. Then, for each number in the range <span class="arithmatex">$[L, R]$</span>, we apply the standard φ formula <span class="arithmatex">$\phi(n) = n \cdot \prod_{p | n} \left(1 - \frac{1}{p}\right)$</span> by iterating over the precomputed primes. We maintain a <code>rem</code> array to track the remaining unfactored part of each number; if <code>rem[i] &gt; 1</code> after processing all small primes, then the number has a large prime factor greater than <span class="arithmatex">$\sqrt{R}$</span>, which we handle in a final pass.</p>
-<p><strong>Complexity:</strong></p>
-<ul>
-<li>Preprocessing: <span class="arithmatex">$O(\sqrt{R})$</span> time and space for the linear sieve</li>
-<li>Query: <span class="arithmatex">$O((R - L + 1) \log \log R)$</span> for computing φ over the range</li>
-</ul>
-<p><strong>Usage:</strong> Call <code>primes = linear_sieve(sqrt(MAX_R) + 1)</code> once at startup. Then <code>phi[i - L]</code> gives <span class="arithmatex">$\phi(i)$</span> for each <span class="arithmatex">$i \in [L, R]$</span>.</p>
+<h4 id="finding-the-totient-from-l-to-r-using-the-segmented-sieve">Finding the totient from <span class="arithmatex">$L$</span> to <span class="arithmatex">$R$</span> using the <a href="sieve-of-eratosthenes.html#segmented-sieve">segmented sieve</a><a class="headerlink" href="#finding-the-totient-from-l-to-r-using-the-segmented-sieve" title="Permanent link">&para;</a></h4>
+<p>If we need the totient of all numbers between <span class="arithmatex">$L$</span> and <span class="arithmatex">$R$</span>, we can use the <a href="sieve-of-eratosthenes.html#segmented-sieve">segmented sieve</a> approach. </p>
+<p>The algorithm first precomputes all primes up to <span class="arithmatex">$\sqrt{R}$</span> using a <a href="prime-sieve-linear.html">linear sieve</a> in <span class="arithmatex">$O(\sqrt{R})$</span> time and space; then for each number in the range <span class="arithmatex">$[L, R]$</span>, it applies the standard φ formula <span class="arithmatex">$\phi(n) = n \cdot \prod_{p | n} \left(1 - \frac{1}{p}\right)$</span> by iterating over these primes while maintaining a <code>rem</code> array for the unfactored part—if <code>rem[i] &gt; 1</code> after processing all small primes, it indicates a large prime factor greater than <span class="arithmatex">$\sqrt{R}$</span> handled in a final pass—so the range computation runs in <span class="arithmatex">$O((R - L + 1) \log \log R)$</span>. To use this, call <code>primes = linear_sieve(sqrt(MAX_R) + 1)</code> once at startup; then <code>phi[i - L]</code> gives <span class="arithmatex">$\phi(i)$</span> for each <span class="arithmatex">$i \in [L, R]$</span>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">MAX_RANGE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e6</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="n">MAX_R</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e14</span><span class="p">;</span>
 <span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="n">primes</span><span class="p">;</span>
 <span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">phi</span><span class="p">[</span><span class="n">MAX_RANGE</span><span class="p">],</span><span class="w"> </span><span class="n">rem</span><span class="p">[</span><span class="n">MAX_RANGE</span><span class="p">];</span>
@@ -8494,7 +8494,7 @@ And since <span class="arithmatex">$\phi(m) \ge \log_2 m \ge k$</span>, we can c
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (30.92%)</li><li><a href="https://github.com/Elghrabawy" title="Elghrabawy" data-bi-name="contributorprofile" target="_blank">Elghrabawy</a> (20.23%)</li><li><a href="https://github.com/tanmay-sinha" title="tanmay-sinha" data-bi-name="contributorprofile" target="_blank">tanmay-sinha</a> (18.32%)</li><li><a href="https://github.com/samsidx" title="samsidx" data-bi-name="contributorprofile" target="_blank">samsidx</a> (9.16%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (5.73%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (4.58%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (2.67%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (1.91%)</li><li><a href="https://github.com/RodionGork" title="RodionGork" data-bi-name="contributorprofile" target="_blank">RodionGork</a> (1.91%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.76%)</li><li><a href="https://github.com/algmyr" title="algmyr" data-bi-name="contributorprofile" target="_blank">algmyr</a> (0.76%)</li><li><a href="https://github.com/Harpreet287" title="Harpreet287" data-bi-name="contributorprofile" target="_blank">Harpreet287</a> (0.38%)</li><li><a href="https://github.com/Animmah" title="Animmah" data-bi-name="contributorprofile" target="_blank">Animmah</a> (0.38%)</li><li><a href="https://github.com/SiddharthEEE" title="SiddharthEEE" data-bi-name="contributorprofile" target="_blank">SiddharthEEE</a> (0.38%)</li><li><a href="https://github.com/iAngkur" title="iAngkur" data-bi-name="contributorprofile" target="_blank">iAngkur</a> (0.38%)</li><li><a href="https://github.com/lrvideckis" title="lrvideckis" data-bi-name="contributorprofile" target="_blank">lrvideckis</a> (0.38%)</li><li><a href="https://github.com/rkharsan" title="rkharsan" data-bi-name="contributorprofile" target="_blank">rkharsan</a> (0.38%)</li><li><a href="https://github.com/harshhx17" title="harshhx17" data-bi-name="contributorprofile" target="_blank">harshhx17</a> (0.38%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (0.38%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (31.76%)</li><li><a href="https://github.com/Elghrabawy" title="Elghrabawy" data-bi-name="contributorprofile" target="_blank">Elghrabawy</a> (18.83%)</li><li><a href="https://github.com/tanmay-sinha" title="tanmay-sinha" data-bi-name="contributorprofile" target="_blank">tanmay-sinha</a> (18.04%)</li><li><a href="https://github.com/samsidx" title="samsidx" data-bi-name="contributorprofile" target="_blank">samsidx</a> (9.41%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (5.88%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (4.71%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (2.75%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (1.96%)</li><li><a href="https://github.com/RodionGork" title="RodionGork" data-bi-name="contributorprofile" target="_blank">RodionGork</a> (1.96%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.78%)</li><li><a href="https://github.com/algmyr" title="algmyr" data-bi-name="contributorprofile" target="_blank">algmyr</a> (0.78%)</li><li><a href="https://github.com/Harpreet287" title="Harpreet287" data-bi-name="contributorprofile" target="_blank">Harpreet287</a> (0.39%)</li><li><a href="https://github.com/Animmah" title="Animmah" data-bi-name="contributorprofile" target="_blank">Animmah</a> (0.39%)</li><li><a href="https://github.com/SiddharthEEE" title="SiddharthEEE" data-bi-name="contributorprofile" target="_blank">SiddharthEEE</a> (0.39%)</li><li><a href="https://github.com/iAngkur" title="iAngkur" data-bi-name="contributorprofile" target="_blank">iAngkur</a> (0.39%)</li><li><a href="https://github.com/lrvideckis" title="lrvideckis" data-bi-name="contributorprofile" target="_blank">lrvideckis</a> (0.39%)</li><li><a href="https://github.com/rkharsan" title="rkharsan" data-bi-name="contributorprofile" target="_blank">rkharsan</a> (0.39%)</li><li><a href="https://github.com/harshhx17" title="harshhx17" data-bi-name="contributorprofile" target="_blank">harshhx17</a> (0.39%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (0.39%)</li></ul>
 </ul>
                 
               </article>
@@ -8574,10 +8574,10 @@ And since <span class="arithmatex">$\phi(m) \ge \log_2 m \ge k$</span>, we can c
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="../javascript/config.js"></script>
       
