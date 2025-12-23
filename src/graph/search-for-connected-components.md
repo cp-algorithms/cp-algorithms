@@ -21,7 +21,7 @@ Given an undirected graph $G$ with $n$ nodes and $m$ edges. We are required to f
 ``` cpp
 int n;
 vector<vector<int>> adj;
-vector<bool> used(n, false);
+vector<bool> used;
 vector<int> comp;
 
 void dfs(int v) {
@@ -34,7 +34,7 @@ void dfs(int v) {
 }
 
 void find_comps() {
-    fill(used.begin(), used.end(), 0);
+    used.resize(n, 0);
     for (int v = 0; v < n; ++v) {
         if (!used[v]) {
             comp.clear();
@@ -66,7 +66,7 @@ Since this data structure is allocated on the heap, no stack overflow will occur
 ```cpp
 int n;
 vector<vector<int>> adj;
-vector<bool> used(n, false);
+vector<bool> used;
 vector<int> comp;
 
 void dfs(int v) {
@@ -87,7 +87,7 @@ void dfs(int v) {
 }
 
 void find_comps() {
-    fill(used.begin(), used.end(), 0);
+    used.resize(n, 0);
     for (int v = 0; v < n ; ++v) {
         if (!used[v]) {
             comp.clear();
