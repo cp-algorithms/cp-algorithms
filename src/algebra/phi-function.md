@@ -94,41 +94,11 @@ void phi_1_to_n(int n) {
 }
 ```
 
-## Divisor sum property { #divsum}
+### Finding the totient from $L$ to $R$ using the [segmented sieve](sieve-of-eratosthenes.md#segmented-sieve) { data-toc-label="Finding the totient from L to R using the segmented sieve" }
 
-This interesting property was established by Gauss:
+If we need the totient of all numbers between $L$ and $R$, we can use the [segmented sieve](sieve-of-eratosthenes.md#segmented-sieve) approach.
 
-$$ \sum_{d|n} \phi{(d)} = n$$
-
-Here the sum is over all positive divisors $d$ of $n$.
-
-For instance the divisors of 10 are 1, 2, 5 and 10.
-Hence $\phi{(1)} + \phi{(2)} + \phi{(5)} + \phi{(10)} = 1 + 1 + 4 + 4 = 10$.
-
-### Finding the totient from 1 to $n$ using the divisor sum property { data-toc-label="Finding the totient from 1 to n using the divisor sum property" }
-
-The divisor sum property also allows us to compute the totient of all numbers between 1 and $n$.
-This implementation is a little simpler than the previous implementation based on the Sieve of Eratosthenes, however also has a slightly worse complexity: $O(n \log n)$
-
-```cpp
-void phi_1_to_n(int n) {
-    vector<int> phi(n + 1);
-    phi[0] = 0;
-    phi[1] = 1;
-    for (int i = 2; i <= n; i++)
-        phi[i] = i - 1;
-    
-    for (int i = 2; i <= n; i++)
-        for (int j = 2 * i; j <= n; j += i)
-              phi[j] -= phi[i];
-}
-```
-
-
-#### Finding the totient from $L$ to $R$ using the [segmented sieve](sieve-of-eratosthenes.md#segmented-sieve) { data-toc-label="Finding the totient from L to R using the segmented sieve" }
-If we need the totient of all numbers between $L$ and $R$, we can use the [segmented sieve](sieve-of-eratosthenes.md#segmented-sieve) approach. 
-
-The algorithm first precomputes all primes up to $\sqrt{R}$ using a [linear sieve](prime-sieve-linear.md) in $O(\sqrt{R})$ time and space; then for each number in the range $[L, R]$, it applies the standard φ formula $\phi(n) = n \cdot \prod_{p | n} \left(1 - \frac{1}{p}\right)$ by iterating over these primes while maintaining a `rem` array for the unfactored part—if `rem[i] > 1` after processing all small primes, it indicates a large prime factor greater than $\sqrt{R}$ handled in a final pass—so the range computation runs in $O((R - L + 1) \log \log R)$. To use this, call `primes = linear_sieve(sqrt(MAX_R) + 1)` once at startup; then `phi[i - L]` gives $\phi(i)$ for each $i \in [L, R]$.
+The algorithm first precomputes all primes up to $\sqrt{R}$ using a [linear sieve](prime-sieve-linear.md) in $O(\sqrt{R})$ time and space. For each number in the range $[L, R]$, it then applies the divisor-based $\phi$ formula by iterating over these primes. We maintain a remainder array to track the unfactored part of each number. If a remainder is still greater than 1 after processing all small primes, it indicates a large prime factor greater than $\sqrt{R}$, which is handled in a final pass. The overall complexity for the range computation is $O((R - L + 1) \log \log R)$.
 
 
 ```cpp
@@ -168,6 +138,36 @@ void segmented_phi(long long L, long long R) {
     for(long long i = 0; i < R - L + 1; i++) {
         if(rem[i] > 1) phi[i] -= phi[i] / rem[i];
     }
+}
+```
+
+## Divisor sum property { #divsum}
+
+This interesting property was established by Gauss:
+
+$$ \sum_{d|n} \phi{(d)} = n$$
+
+Here the sum is over all positive divisors $d$ of $n$.
+
+For instance the divisors of 10 are 1, 2, 5 and 10.
+Hence $\phi{(1)} + \phi{(2)} + \phi{(5)} + \phi{(10)} = 1 + 1 + 4 + 4 = 10$.
+
+### Finding the totient from 1 to $n$ using the divisor sum property { data-toc-label="Finding the totient from 1 to n using the divisor sum property" }
+
+The divisor sum property also allows us to compute the totient of all numbers between 1 and $n$.
+This implementation is a little simpler than the previous implementation based on the Sieve of Eratosthenes, however also has a slightly worse complexity: $O(n \log n)$
+
+```cpp
+void phi_1_to_n(int n) {
+    vector<int> phi(n + 1);
+    phi[0] = 0;
+    phi[1] = 1;
+    for (int i = 2; i <= n; i++)
+        phi[i] = i - 1;
+    
+    for (int i = 2; i <= n; i++)
+        for (int j = 2 * i; j <= n; j += i)
+              phi[j] -= phi[i];
 }
 ```
 
