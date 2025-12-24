@@ -584,6 +584,7 @@ And we also update $B_2$. The details will be explained later.
         add(B2, l, x * (l - 1))
         add(B2, r + 1, -x * r)
     }
+    ```
 === "Python"
     ```py
     def range_add(l: int, r: int, x: int):
