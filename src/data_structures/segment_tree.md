@@ -34,7 +34,7 @@ And precomputed prefix sums can compute sum queries in $O(1)$, but updating an a
 
 We can take a divide-and-conquer approach when it comes to array segments. 
 We compute and store the sum of the elements of the whole array, i.e. the sum of the segment $a[0 \dots n-1]$. 
-We then split the array into two halves $a[0 \dots n/2-1]$ and $a[n/2 \dots n-1]$ and compute the sum of each halve and store them. 
+We then split the array into two halves $a[0 \dots (n-1)/2]$ and $a[(n+1)/2 \dots n-1]$ and compute the sum of each halve and store them. 
 Each of these two halves in turn are split in half, and so on until all segments reach size $1$. 
 
 We can view these segments as forming a binary tree: 
