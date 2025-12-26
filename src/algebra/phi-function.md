@@ -98,7 +98,7 @@ void phi_1_to_n(int n) {
 
 If we need the totient of all numbers between $L$ and $R$, we can use the [segmented sieve](sieve-of-eratosthenes.md#segmented-sieve) approach.
 
-The algorithm first precomputes all primes up to $\sqrt{R}$ using a [linear sieve](prime-sieve-linear.md) in $O(\sqrt{R})$ time and space. For each number in the range $[L, R]$, it then applies the divisor-based $\phi$ formula by iterating over these primes. We maintain a remainder array to track the unfactored part of each number. If a remainder is still greater than 1 after processing all small primes, it indicates a large prime factor greater than $\sqrt{R}$, which is handled in a final pass. The overall complexity for the range computation is $O((R - L + 1) \log \log R)$.
+The algorithm first precomputes all primes up to $\sqrt{R}$ using a [linear sieve](prime-sieve-linear.md) in $O(\sqrt{R})$ time and space. For each number in the range $[L, R]$, it then applies the factorization-based $\phi$ formula by iterating over these primes. We maintain a remainder array to track the unfactored part of each number. If a remainder is still greater than 1 after processing all small primes, it indicates a large prime factor greater than $\sqrt{R}$, which is handled in a final pass. The overall complexity for the range computation is $O((R - L + 1) \log \log R) + \sqrt{R}$.
 
 
 ```cpp
