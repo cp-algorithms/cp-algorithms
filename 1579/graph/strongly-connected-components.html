@@ -5654,6 +5654,18 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#kosarajus-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kosaraju's algorithm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kosaraju&#39;s algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#description-of-the-algorithm" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5663,12 +5675,67 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#implementation" class="md-nav__link">
     <span class="md-ellipsis">
       
         Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarjans-strongly-connected-components-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tarjan's strongly connected components algorithm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarjan&#39;s strongly connected components algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description-of-the-algorithm_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Description of the algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-the-condensation-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building the Condensation Graph
       
     </span>
   </a>
@@ -7920,48 +7987,6 @@ Describe the issue of this article in detail.
   
     
   
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
 
   
   
@@ -7983,36 +8008,6 @@ Describe the issue of this article in detail.
     
   
     
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
   
     
   
@@ -8044,6 +8039,90 @@ Describe the issue of this article in detail.
   
     
   
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
 
   
   
@@ -8082,6 +8161,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8146,7 +8229,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 22, 2024 23:31:25 UTC">October 22, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 26, 2025 00:31:37 UTC">December 26, 2025</span>&emsp;
 
 <!-- Tags -->
 
@@ -8195,12 +8278,18 @@ Describe the issue of this article in detail.
 
 <p>The most important property of the condensation graph is that it is <strong>acyclic</strong>. Indeed, there are no 'self-loops' in the condensation graph by definition, and if there were a cycle going through two or more vertices (strongly connected components) in the condensation graph, then due to reachability, the union of these strongly connected components would have to be one strongly connected component itself: contradiction.</p>
 <p>The algorithm described in the next section finds all strongly connected components in a given graph. After that, the condensation graph can be constructed.</p>
-<h2 id="description-of-the-algorithm">Description of the algorithm<a class="headerlink" href="#description-of-the-algorithm" title="Permanent link">&para;</a></h2>
+<h2 id="kosarajus-algorithm">Kosaraju's algorithm<a class="headerlink" href="#kosarajus-algorithm" title="Permanent link">&para;</a></h2>
+<h3 id="description-of-the-algorithm">Description of the algorithm<a class="headerlink" href="#description-of-the-algorithm" title="Permanent link">&para;</a></h3>
 <p>The described algorithm was independently suggested by Kosaraju and Sharir around 1980. It is based on two series of <a href="depth-first-search.html">depth first search</a>, with a runtime of <span class="arithmatex">$O(n + m)$</span>.</p>
 <p>In the first step of the algorithm, we perform a sequence of depth first searches (<code>dfs</code>), visiting the entire graph. That is, as long as there are still unvisited vertices, we take one of them, and initiate a depth first search from that vertex. For each vertex, we keep track of the <em>exit time</em> <span class="arithmatex">$t_\text{out}[v]$</span>. This is the 'timestamp' at which the execution of <code>dfs</code> on vertex <span class="arithmatex">$v$</span> finishes, i.e., the moment at which all vertices reachable from <span class="arithmatex">$v$</span> have been visited and the algorithm is back at <span class="arithmatex">$v$</span>. The timestamp counter should <em>not</em> be reset between consecutive calls to <code>dfs</code>. The exit times play a key role in the algorithm, which will become clear when we discuss the following theorem.</p>
 <p>First, we define the exit time <span class="arithmatex">$t_\text{out}[C]$</span> of a strongly connected component <span class="arithmatex">$C$</span> as the maximum of the values <span class="arithmatex">$t_\text{out}[v]$</span> for all <span class="arithmatex">$v \in C.$</span> Furthermore, in the proof of the theorem, we will mention the <em>entry time</em> <span class="arithmatex">$t_{\text{in}}[v]$</span> for each vertex <span class="arithmatex">$v\in G$</span>. The number <span class="arithmatex">$t_{\text{in}}[v]$</span> represents the 'timestamp' at which the recursive function <code>dfs</code> is called on vertex <span class="arithmatex">$v$</span> in the first step of the algorithm. For a strongly connected component <span class="arithmatex">$C$</span>, we define <span class="arithmatex">$t_{\text{in}}[C]$</span> to be the minimum of the values <span class="arithmatex">$t_{\text{in}}[v]$</span> for all <span class="arithmatex">$v \in C$</span>.</p>
-<p><strong>Theorem</strong>. Let <span class="arithmatex">$C$</span> and <span class="arithmatex">$C'$</span> be two different strongly connected components, and let there be an edge from <span class="arithmatex">$C$</span> to <span class="arithmatex">$C'$</span> in the condensation graph. Then, <span class="arithmatex">$t_\text{out}[C] &gt; t_\text{out}[C']$</span>.</p>
-<p><strong>Proof.</strong> There are two different cases, depending on which component will first be reached by depth first search:</p>
+<div class="admonition info">
+<p class="admonition-title">Theorem</p>
+<p>Let <span class="arithmatex">$C$</span> and <span class="arithmatex">$C'$</span> be two different strongly connected components, and let there be an edge from <span class="arithmatex">$C$</span> to <span class="arithmatex">$C'$</span> in the condensation graph. Then, <span class="arithmatex">$t_\text{out}[C] &gt; t_\text{out}[C']$</span>.</p>
+</div>
+<details class="note">
+<summary>Proof</summary>
+<p>There are two different cases, depending on which component will first be reached by depth first search:</p>
 <ul>
 <li>
 <p>Case 1: the component <span class="arithmatex">$C$</span> was reached first (i.e., <span class="arithmatex">$t_{\text{in}}[C] &lt; t_{\text{in}}[C']$</span>). In this case, depth first search visits some vertex <span class="arithmatex">$v \in C$</span> at some moment at which all other vertices of the components <span class="arithmatex">$C$</span> and <span class="arithmatex">$C'$</span> are not visited yet. Since there is an edge from <span class="arithmatex">$C$</span> to <span class="arithmatex">$C'$</span> in the condensation graph, not only are all other vertices in <span class="arithmatex">$C$</span> reachable from <span class="arithmatex">$v$</span> in <span class="arithmatex">$G$</span>, but all vertices in <span class="arithmatex">$C'$</span> are reachable as well. This means that this <code>dfs</code> execution, which is running from vertex <span class="arithmatex">$v$</span>, will also visit all other vertices of the components <span class="arithmatex">$C$</span> and <span class="arithmatex">$C'$</span> in the future, so these vertices will be descendants of <span class="arithmatex">$v$</span> in the depth first search tree. This implies that for each vertex <span class="arithmatex">$u \in (C \cup C')\setminus \{v\},$</span> we have that <span class="arithmatex">$t_\text{out}[v] &gt; t_\text{out}[u]$</span>. Therefore, <span class="arithmatex">$t_\text{out}[C] &gt; t_\text{out}[C']$</span>, which completes this case of the proof.</p>
@@ -8209,9 +8298,13 @@ Describe the issue of this article in detail.
 <p>Case 2: the component <span class="arithmatex">$C'$</span> was reached first (i.e., <span class="arithmatex">$t_{\text{in}}[C] &gt; t_{\text{in}}[C']$</span>). In this case, depth first search visits some vertex <span class="arithmatex">$v \in C'$</span> at some moment at which all other vertices of the components <span class="arithmatex">$C$</span> and <span class="arithmatex">$C'$</span> are not visited yet. Since there is an edge from <span class="arithmatex">$C$</span> to <span class="arithmatex">$C'$</span> in the condensation graph, <span class="arithmatex">$C$</span> is not reachable from <span class="arithmatex">$C'$</span>, by the acyclicity property. Hence, the <code>dfs</code> execution that is running from vertex <span class="arithmatex">$v$</span> will not reach any vertices of <span class="arithmatex">$C$</span>, but it will visit all vertices of <span class="arithmatex">$C'$</span>. The vertices of <span class="arithmatex">$C$</span> will be visited by some <code>dfs</code> execution later during this step of the algorithm, so indeed we have <span class="arithmatex">$t_\text{out}[C] &gt; t_\text{out}[C']$</span>. This completes the proof.</p>
 </li>
 </ul>
+</details>
 <p>The proved theorem is very important for finding strongly connected components. It means that any edge in the condensation graph goes from a component with a larger value of <span class="arithmatex">$t_\text{out}$</span> to a component with a smaller value.</p>
 <p>If we sort all vertices <span class="arithmatex">$v \in V$</span> in decreasing order of their exit time <span class="arithmatex">$t_\text{out}[v]$</span>, then the first vertex <span class="arithmatex">$u$</span> will belong to the "root" strongly connected component, which has no incoming edges in the condensation graph. Now we want to run some type of search from this vertex <span class="arithmatex">$u$</span> so that it will visit all vertices in its strongly connected component, but not other vertices. By repeatedly doing so, we can gradually find all strongly connected components: we remove all vertices belonging to the first found component, then we find the next remaining vertex with the largest value of <span class="arithmatex">$t_\text{out}$</span>, and run this search from it, and so on. In the end, we will have found all strongly connected components. In order to find a search method that behaves like we want, we consider the following theorem:</p>
-<p><strong>Theorem.</strong> Let <span class="arithmatex">$G^T$</span> denote the <em>transpose graph</em> of <span class="arithmatex">$G$</span>, obtained by reversing the edge directions in <span class="arithmatex">$G$</span>. Then, <span class="arithmatex">$\text{SCC}(G)=\text{SCC}(G^T)$</span>. Furthermore, the condensation graph of <span class="arithmatex">$G^T$</span> is the transpose of the condensation graph of <span class="arithmatex">$G$</span>.</p>
+<div class="admonition info">
+<p class="admonition-title">Theorem</p>
+<p>Let <span class="arithmatex">$G^T$</span> denote the <em>transpose graph</em> of <span class="arithmatex">$G$</span>, obtained by reversing the edge directions in <span class="arithmatex">$G$</span>. Then, <span class="arithmatex">$\text{SCC}(G)=\text{SCC}(G^T)$</span>. Furthermore, the condensation graph of <span class="arithmatex">$G^T$</span> is the transpose of the condensation graph of <span class="arithmatex">$G$</span>.</p>
+</div>
 <p>The proof is omitted (but straightforward). As a consequence of this theorem, there will be no edges from the "root" component to the other components in the condensation graph of <span class="arithmatex">$G^T$</span>. Thus, in order to visit the whole "root" strongly connected component, containing vertex <span class="arithmatex">$v$</span>, we can just run a depth first search from vertex <span class="arithmatex">$v$</span> in the transpose graph <span class="arithmatex">$G^T$</span>! This will visit precisely all vertices of this strongly connected component. As was mentioned before, we can then remove these vertices from the graph. Then, we find the next vertex with a maximal value of <span class="arithmatex">$t_\text{out}[v]$</span>, and run the search in the transpose graph starting from that vertex to find the next strongly connected component. Repeating this, we find all strongly connected components.</p>
 <p>Thus, in summary, we discussed the following algorithm to find strongly connected components:</p>
 <ul>
@@ -8227,7 +8320,7 @@ Describe the issue of this article in detail.
 </ul>
 <p>The runtime complexity of the algorithm is <span class="arithmatex">$O(n + m)$</span>, because depth first search is performed twice. Building the condensation graph is also <span class="arithmatex">$O(n+m).$</span></p>
 <p>Finally, it is appropriate to mention <a href="topological-sort.html">topological sort</a> here. In step 1, we find the vertices in the order of increasing exit time. If <span class="arithmatex">$G$</span> is acyclic, this corresponds to a (reversed) topological sort of <span class="arithmatex">$G$</span>. In step 2, the algorithm finds strongly connected components in decreasing order of their exit times. Thus, it finds components - vertices of the condensation graph - in an order corresponding to a topological sort of the condensation graph.</p>
-<h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
+<h3 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="w"> </span><span class="n">visited</span><span class="p">;</span><span class="w"> </span><span class="c1">// keeps track of which vertices are already visited</span>
 
 <span class="c1">// runs depth first search starting at vertex v.</span>
@@ -8275,7 +8368,7 @@ Describe the issue of this article in detail.
 <span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">component</span><span class="p">;</span>
 <span class="w">            </span><span class="n">dfs</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">adj_rev</span><span class="p">,</span><span class="w"> </span><span class="n">component</span><span class="p">);</span>
 <span class="w">            </span><span class="n">components</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">component</span><span class="p">);</span>
-<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">min_element</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">component</span><span class="p">),</span><span class="w"> </span><span class="n">end</span><span class="p">(</span><span class="n">component</span><span class="p">));</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">component</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
 <span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">component</span><span class="p">)</span>
 <span class="w">                </span><span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">root</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
@@ -8290,12 +8383,252 @@ Describe the issue of this article in detail.
 </code></pre></div>
 <p>The function <code>dfs</code> implements depth first search. It takes as input an adjacency list and a starting vertex. It also takes a reference to the vector <code>output</code>: each visited vertex will be appended to <code>output</code> when <code>dfs</code> leaves that vertex.</p>
 <p>Note that we use the function <code>dfs</code> both in the first and second step of the algorithm. In the first step, we pass in the adjacency list of <span class="arithmatex">$G$</span>, and during consecutive calls to <code>dfs</code>, we keep passing in the same 'output vector' <code>order</code>, so that eventually we obtain a list of vertices in increasing order of exit times. In the second step, we pass in the adjacency list of <span class="arithmatex">$G^T$</span>, and in each call, we pass in an empty 'output vector' <code>component</code>, which will give us one strongly connected component at a time.</p>
+<h2 id="tarjans-strongly-connected-components-algorithm">Tarjan's strongly connected components algorithm<a class="headerlink" href="#tarjans-strongly-connected-components-algorithm" title="Permanent link">&para;</a></h2>
+<h3 id="description-of-the-algorithm_1">Description of the algorithm<a class="headerlink" href="#description-of-the-algorithm_1" title="Permanent link">&para;</a></h3>
+<p>The described algorithm was first suggested by Tarjan in 1972.
+It is based on performing a sequence of DFS calls, using information inherent to its structure to determine the strongly connected components (SCC), with a runtime of <span class="arithmatex">$O(n+m)$</span>.</p>
+<p>When applying the DFS on a vertex, we will traverse its adjacency list, and in case we find a vertex that hasn't been visited, we recursively apply the DFS to it.</p>
+<p>Let's consider the tree induced by the sequence of DFS calls, which we will call <strong>DFS tree</strong>.
+Once we first call a DFS on a vertex from an SCC, all the vertices of its SCC will be visited before this call ends, since they are all reachable from each other.
+In the DFS tree, this first vertex will be a common ancestor to all other vertices of the SCC; we define this vertex to be the <strong>root of the SCC</strong>.</p>
+<div class="admonition info">
+<p class="admonition-title">Theorem</p>
+<p>All vertices of an SCC induce a connected subgraph of the DFS tree.</p>
+</div>
+<details class="note">
+<summary>Proof</summary>
+<p>We have determined that all vertices of an SCC have a common ancestor, the first vertex to be visited by a DFS call.
+Let's consider a vertex <span class="arithmatex">$v$</span> and its root, vertex <span class="arithmatex">$r$</span>.
+All the vertices in the path from <span class="arithmatex">$r$</span> to <span class="arithmatex">$v$</span> belong to the same SCC. All these vertices are reachable from <span class="arithmatex">$r$</span>, and all of them reach <span class="arithmatex">$v$</span>, and since by definition <span class="arithmatex">$v$</span> reaches <span class="arithmatex">$r$</span>, all these vertices reach each other.
+Since all paths from a root to every other vertex of the SCC belong to the same SCC, the subgraph formed is connected.</p>
+</details>
+<p>Note that the SCCs perfectly split the DFS tree in connected subgraphs.</p>
+<p>The idea of the algorithm is then the following:</p>
+<ul>
+<li>
+<p>We perform a sequence of DFS calls, recursively applying them to vertices of the adjacency lists.</p>
+</li>
+<li>
+<p>Once we finish traversing the adjacency list of a vertex, we somehow are able to determine whether it is a root or not.
+This method will be explained later.</p>
+</li>
+<li>
+<p>In case the vertex is a root, we will then immediately find and claim all the vertices of its SCC.</p>
+</li>
+</ul>
+<p>When all calls finish, all roots will have been detected and all vertices will have been claimed as part of some SCC.</p>
+<p>Let's now analyze the properties of the DFS when this claiming process is introduced.</p>
+<div class="admonition info">
+<p class="admonition-title">Theorem</p>
+<p>Let's consider vertex <span class="arithmatex">$v$</span> and let's consider we just finished traversing its adjacency list.
+All unclaimed vertices in its subtree belong to the same SCC.</p>
+</div>
+<details class="note">
+<summary>Proof</summary>
+<p>The algorithm will claim the vertices of an SCC when its root is found.
+Since the adjacency list of <span class="arithmatex">$v$</span> has been traversed, all DFS calls on its subtree have finished, the roots have been detected and the vertices belonging to their SCCs have been claimed.
+The root of the remaining unclaimed vertices will be an ancestor whose claiming process has not yet executed, so it's either <span class="arithmatex">$v$</span> or an ancestor of <span class="arithmatex">$v$</span>.
+Since <span class="arithmatex">$v$</span> is in the path from all vertices to their root and SCCs must induce a connected subgraph of the tree, both <span class="arithmatex">$v$</span> and all the remaining vertices belong to the same SCC.</p>
+</details>
+<div class="admonition info">
+<p class="admonition-title">Theorem</p>
+<p>Let's consider vertex <span class="arithmatex">$v$</span> and let's consider we are traversing it's adjacency list, currently processing edge <span class="arithmatex">$(v, u)$</span>.
+If <span class="arithmatex">$u$</span> was already visited by some DFS call and remains unclaimed, <span class="arithmatex">$v$</span> and <span class="arithmatex">$u$</span> belong to the same SCC.</p>
+</div>
+<details class="note">
+<summary>Proof</summary>
+<p>There are different cases depending on the kind of edge:</p>
+<ul>
+<li>
+<p>Tree-edge: if this is a tree-edge, this is the first time we are finding vertex <span class="arithmatex">$u$</span>. This means we must first recursively apply the DFS call on <span class="arithmatex">$u$</span> and consider it after its DFS call has finished. If vertex <span class="arithmatex">$u$</span> remains unclaimed, its root is either <span class="arithmatex">$v$</span> or an ancestor of <span class="arithmatex">$v$</span>, so they must belong to the same SCC.</p>
+</li>
+<li>
+<p>Back-edge: this is the simpler case, if <span class="arithmatex">$u$</span> is an ancestor of <span class="arithmatex">$v$</span>, they are reachable from each other and by definition belong to the same SCC.</p>
+</li>
+<li>
+<p>Forward-edge: before this edge was processed, there was a sequence of DFS calls that finished without finding the root of <span class="arithmatex">$u$</span>, having returned to <span class="arithmatex">$v$</span> whose DFS call proceeded.
+The root of <span class="arithmatex">$u$</span> will then be an ancestor whose claiming process has not yet executed, so it's either <span class="arithmatex">$v$</span> or an ancestor of <span class="arithmatex">$v$</span>, so they must belong to the same SCC.</p>
+</li>
+<li>
+<p>Cross-edge: similarly, before this edge was processed, there was a sequence of DFS calls that finished without finding the root of <span class="arithmatex">$u$</span>, having returned to a common ancestor of <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span> whose DFS call proceeded and initiated a new sequence of DFS calls that lead to a call on <span class="arithmatex">$v$</span>.
+The root of <span class="arithmatex">$u$</span> will then be an ancestor whose claiming process has not yet executed, and all of the possible candidates are common ancestors with <span class="arithmatex">$v$</span>.
+Since the root of <span class="arithmatex">$u$</span> is an ancestor of <span class="arithmatex">$v$</span>, it reaches <span class="arithmatex">$v$</span>, and since <span class="arithmatex">$v$</span> now reaches <span class="arithmatex">$u$</span>, they must belong to the same SCC.</p>
+</li>
+</ul>
+</details>
+<p>Note, when two vertices belong to the same component, their root must be a common ancestor of both vertices.</p>
+<div class="admonition info">
+<p class="admonition-title">Theorem</p>
+<p>Let <span class="arithmatex">$v$</span> be a vertex. The following statements are equivalent:</p>
+<ol>
+<li>Some vertex in the subtree of <span class="arithmatex">$v$</span> reaches an unclaimed vertex outside of the subtree.</li>
+<li><span class="arithmatex">$v$</span> is not the root of an SCC.</li>
+</ol>
+</div>
+<details class="note">
+<summary>Proof</summary>
+<ul>
+<li>
+<p><span class="arithmatex">$1. \implies 2.$</span>:
+Let's assume some vertex <span class="arithmatex">$u$</span> in the subtree of <span class="arithmatex">$v$</span> reaches an unclaimed vertex <span class="arithmatex">$w$</span> outside of the subtree.
+We have established that <span class="arithmatex">$u$</span> and <span class="arithmatex">$w$</span> belong to the same SCC and that their root must be a common ancestor to both of them.
+This common ancestor is necessarily outside of the subtree, and it will also be an ancestor of <span class="arithmatex">$v$</span>.
+Since <span class="arithmatex">$v$</span> is in the path from the root to <span class="arithmatex">$u$</span>, it must belong to the same SCC, the root of which is not <span class="arithmatex">$v$</span>.</p>
+</li>
+<li>
+<p><span class="arithmatex">$\neg 1. \implies \neg 2.$</span>:
+Let's assume no vertex in the subtree of <span class="arithmatex">$v$</span> reaches an unclaimed vertex outside of the subtree.
+This must mean that no vertex in the subtree of <span class="arithmatex">$v$</span> reaches an ancestor of <span class="arithmatex">$v$</span>.
+The only possible edges to vertices outside of the subtree are cross-edges to vertices that have already been claimed;
+these vertices cannot reach an ancestor of <span class="arithmatex">$v$</span>, since if they did, they would belong to the same SCC as <span class="arithmatex">$v$</span>, which is impossible since their SCC has already been determined.
+Since no ancestor of <span class="arithmatex">$v$</span> is reachable from its subtree, the root of <span class="arithmatex">$v$</span> must be <span class="arithmatex">$v$</span> itself.</p>
+</li>
+</ul>
+</details>
+<p>Now, we must find the method that lets us determine if a vertex is a root or not, and the claiming process properties are necessary for its correctness.
+To this end, we define the entry time <span class="arithmatex">$t_{in}[v]$</span> for each vertex <span class="arithmatex">$v \in G$</span> which corresponds to the 'timestamp' at which the DFS was called on <span class="arithmatex">$v$</span>.
+By definition, the root is the first vertex of an SCC to be visited by the DFS so it will have the minimal value of <span class="arithmatex">$t_{in}$</span> of its SCC.</p>
+<p>Let <span class="arithmatex">$v$</span> be a vertex and let's consider its subtree.
+At the moment we finish traversing its adjacency list, any vertex already visited by a DFS outside of the subtree will have a smaller value of <span class="arithmatex">$t_{in}$</span>, since the DFS was first called on them before it started on <span class="arithmatex">$v$</span>.</p>
+<p>When considering the claiming process, the value of <span class="arithmatex">$t_{in}$</span> of all unclaimed vertices outside of the subtree of <span class="arithmatex">$v$</span> is smaller than <span class="arithmatex">$t_{in}[v]$</span>.
+Now we can see how to use <span class="arithmatex">$t_{in}$</span> to determine the roots.
+We consider the minimal value of <span class="arithmatex">$t_{in}$</span> of the unclaimed vertices we can reach and we propagate this information to the ancestors through tree-edges.
+We will call the propagated value <span class="arithmatex">$t_{low}$</span>.</p>
+<p>More formally, we define <span class="arithmatex">$t_{low}[v]$</span> to be the lowest value of <span class="arithmatex">$t_{in}$</span> a vertex in the subtree of <span class="arithmatex">$v$</span> can reach through a direct edge.
+We therefore can detect whether a vertex <span class="arithmatex">$v$</span> is a root or not by checking if <span class="arithmatex">$t_{low}[v] &lt; t_{in}[v]$</span>.</p>
+<p>Lastly, to claim the vertices, there are many ways to do it, such as another graph traversal algorithm, but it's also possible to use a simple data structure to keep track of the unclaimed vertices.
+To determine the data structure from first principles, let's go through the methods it must implement, which are only two:</p>
+<ul>
+<li>
+<p>When we first visit a vertex, we must simply insert it in the data structure, since this vertex is unclaimed.</p>
+</li>
+<li>
+<p>When we find a root, we must find all the remaining unclaimed vertices in its subtree and remove them from the data structure.</p>
+</li>
+</ul>
+<p>We can find an alternative way to describe the removal operation by noticing that immediately after traversing the adjacency list of a vertex <span class="arithmatex">$v$</span>, all the vertices placed in the data structure after <span class="arithmatex">$v$</span> all belong to its subtree.
+If <span class="arithmatex">$v$</span> is a root, all the vertices remaining that were inserted after <span class="arithmatex">$v$</span> must be removed.
+So the removal operation can instead be described as:</p>
+<ul>
+<li>When we find a root, we must find and remove all the remaining vertices that were inserted after it.</li>
+</ul>
+<p>We can now see that this can be implemented with a stack:</p>
+<ul>
+<li>
+<p>When we first visit a vertex, we push it onto the stack.</p>
+</li>
+<li>
+<p>When we find a root, we pop all the elements until we pop the root itself.</p>
+</li>
+</ul>
+<p>This finally lets us implement the algorithm.</p>
+<p>The runtime complexity of the sequence of DFS calls is <span class="arithmatex">$O(n + m)$</span>.
+Considering the stack, its complexity amortizes to <span class="arithmatex">$O(n)$</span> since each node is only pushed and popped once.
+The total runtime complexity is therefore <span class="arithmatex">$O(n + m)$</span>.</p>
+<p>As an additional remark, the roots are found in reversed topological order.
+In the algorithm, the vertex is a root if there are no edges to unclaimed vertices outside of its subtree, meaning all other reachable components are either in its subtree (and therefore their roots were already found) or they connect to already claimed vertices outside of the subtree (whose roots were also already found).
+So all reachable components were already found, meaning they are introduced in a valid reversed topological ordering of the condensation graph.</p>
+<h3 id="implementation_1">Implementation<a class="headerlink" href="#implementation_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">st</span><span class="p">;</span><span class="w">    </span><span class="c1">// - stack holding the unclaimed vertices</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">roots</span><span class="p">;</span><span class="w"> </span><span class="c1">// - keeps track of the SCC roots of the vertices</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">timer</span><span class="p">;</span><span class="w">         </span><span class="c1">// - dfs timestamp counter</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">t_in</span><span class="p">;</span><span class="w">  </span><span class="c1">// - keeps track of the dfs timestamp of the vertices</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">t_low</span><span class="p">;</span><span class="w"> </span><span class="c1">// - keeps track of the lowest t_in of unclaimed vertices</span>
+<span class="w">                   </span><span class="c1">// reachable in the subtree</span>
+
+<span class="c1">// implements the tarjan algorithm for strongly connected components</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">&amp;</span><span class="n">adj</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">components</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t_in</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">timer</span><span class="o">++</span><span class="p">;</span>
+<span class="w">  </span><span class="n">st</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">t_in</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// tree-edge</span>
+<span class="w">      </span><span class="n">dfs</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">adj</span><span class="p">,</span><span class="w"> </span><span class="n">components</span><span class="p">);</span>
+<span class="w">      </span><span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">],</span><span class="w"> </span><span class="n">t_low</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// back-edge, cross-edge or forward-edge to an unclaimed vertex</span>
+<span class="w">      </span><span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">],</span><span class="w"> </span><span class="n">t_in</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">t_in</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// vertex is a root</span>
+<span class="w">    </span><span class="n">components</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="n">v</span><span class="p">});</span><span class="w"> </span><span class="c1">// initializes a new component with root v</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">st</span><span class="p">.</span><span class="n">back</span><span class="p">();</span>
+<span class="w">      </span><span class="n">st</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+<span class="w">      </span><span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">;</span><span class="w"> </span><span class="c1">// claims the vertex</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">v</span><span class="p">)</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">      </span><span class="n">components</span><span class="p">.</span><span class="n">back</span><span class="p">().</span><span class="n">push_back</span><span class="p">(</span><span class="n">u</span><span class="p">);</span><span class="w"> </span><span class="c1">// adds vertex u to the component of v</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// input: adj -- adjacency list of G</span>
+<span class="c1">// output: components -- the strongy connected components in G</span>
+<span class="c1">// output: adj_cond -- adjacency list of G^SCC (by root vertices)</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">strongly_connected_components</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">&amp;</span><span class="n">adj</span><span class="p">,</span>
+<span class="w">                                   </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">components</span><span class="p">,</span>
+<span class="w">                                   </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">adj_cond</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">components</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+<span class="w">  </span><span class="n">adj_cond</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">adj</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">st</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+<span class="w">  </span><span class="n">roots</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">);</span>
+<span class="w">  </span><span class="n">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="n">t_in</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">);</span>
+<span class="w">  </span><span class="n">t_low</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// applies the tarjan algorithm to all the vertices</span>
+<span class="w">  </span><span class="c1">// adds vertices to the components in reverse topological order</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">v</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">t_in</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">dfs</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">adj</span><span class="p">,</span><span class="w"> </span><span class="n">components</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// adds edges to the condensation graph</span>
+<span class="w">  </span><span class="n">adj_cond</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="p">{});</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">v</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">roots</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">])</span>
+<span class="w">        </span><span class="n">adj_cond</span><span class="p">[</span><span class="n">roots</span><span class="p">[</span><span class="n">v</span><span class="p">]].</span><span class="n">push_back</span><span class="p">(</span><span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>We have an <a href="https://judge.yosupo.jp/submission/334251">accepted submission</a> with this code in Library Checker.</p>
+<p>As a last remark, there's an alternative way to iterate through the adjacency list.
+Currently, we are doing the following:</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">t_in</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// tree-edge</span>
+<span class="w">    </span><span class="n">dfs</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">adj</span><span class="p">);</span>
+<span class="w">    </span><span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">],</span><span class="w"> </span><span class="n">t_low</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// back-edge, cross-edge or forward-edge to an unclaimed vertex</span>
+<span class="w">    </span><span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">],</span><span class="w"> </span><span class="n">t_in</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Alternatively, we could do:</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">t_in</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="c1">// vertex is not visited</span>
+<span class="w">    </span><span class="n">dfs</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">adj</span><span class="p">);</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="c1">// vertex has not been claimed</span>
+<span class="w">    </span><span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">],</span><span class="w"> </span><span class="n">t_low</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><span class="arithmatex">$t_{low}$</span> is used to propagate the information to the root, and when we perform <code>t_low[v] = min(t_low[v], t_in[u])</code>, we know that <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span> belong to the same SCC.
+If <span class="arithmatex">$t_{low}[u]$</span> is propagated until the root of <span class="arithmatex">$u$</span>, it can also be propagated through <span class="arithmatex">$v$</span> since the root is the same.
+Since <span class="arithmatex">$t_{low}[u] \leq t_{in}[u]$</span>, this does not introduce any conflicts, instead only improving the bound on the root of <span class="arithmatex">$v$</span>.</p>
+<h2 id="building-the-condensation-graph">Building the Condensation Graph<a class="headerlink" href="#building-the-condensation-graph" title="Permanent link">&para;</a></h2>
 <p>When building the adjacency list of the condensation graph, we select the <em>root</em> of each component as the first vertex in its list of vertices (this is an arbitrary choice). This root vertex represents its entire SCC. For each vertex <code>v</code>, the value <code>roots[v]</code> indicates the root vertex of the SCC which <code>v</code> belongs to.</p>
 <p>Our condensation graph is now given by the vertices <code>components</code> (one strongly connected component corresponds to one vertex in the condensation graph), and the adjacency list is given by <code>adj_cond</code>, using only the root vertices of the strongly connected components. Notice that we generate one edge from <span class="arithmatex">$C$</span> to <span class="arithmatex">$C'$</span> in <span class="arithmatex">$G^\text{SCC}$</span> for each edge from some <span class="arithmatex">$a\in C$</span> to some <span class="arithmatex">$b\in C'$</span> in <span class="arithmatex">$G$</span> (if <span class="arithmatex">$C\neq C'$</span>). This implies that in our implementation, we can have multiple edges between two components in the condensation graph.</p>
 <h2 id="literature">Literature<a class="headerlink" href="#literature" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Thomas Cormen, Charles Leiserson, Ronald Rivest, Clifford Stein. Introduction to Algorithms [2005].</li>
 <li>M. Sharir. A strong-connectivity algorithm and its applications in data-flow analysis [1979].</li>
+<li>Robert Tarjan. Depth-first search and linear graph algorithms [1972].</li>
 </ul>
 <h2 id="practice-problems">Practice Problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
 <ul>
@@ -8323,7 +8656,7 @@ Describe the issue of this article in detail.
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/el-sambal" title="el-sambal" data-bi-name="contributorprofile" target="_blank">el-sambal</a> (52.05%)</li><li><a href="https://github.com/dd" title="dd" data-bi-name="contributorprofile" target="_blank">dd</a> (15.79%)</li><li><a href="https://github.com/GaurangTandon" title="GaurangTandon" data-bi-name="contributorprofile" target="_blank">GaurangTandon</a> (8.77%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (7.6%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (5.85%)</li><li><a href="https://github.com/aryamanjain-scifin" title="aryamanjain-scifin" data-bi-name="contributorprofile" target="_blank">aryamanjain-scifin</a> (1.75%)</li><li><a href="https://github.com/dufferzafar" title="dufferzafar" data-bi-name="contributorprofile" target="_blank">dufferzafar</a> (1.75%)</li><li><a href="https://github.com/RodionGork" title="RodionGork" data-bi-name="contributorprofile" target="_blank">RodionGork</a> (1.75%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (1.17%)</li><li><a href="https://github.com/mikaelmello" title="mikaelmello" data-bi-name="contributorprofile" target="_blank">mikaelmello</a> (1.17%)</li><li><a href="https://github.com/ujzwt4it" title="ujzwt4it" data-bi-name="contributorprofile" target="_blank">ujzwt4it</a> (1.17%)</li><li><a href="https://github.com/chubakueno" title="chubakueno" data-bi-name="contributorprofile" target="_blank">chubakueno</a> (0.58%)</li><li><a href="https://github.com/tanmay-sinha" title="tanmay-sinha" data-bi-name="contributorprofile" target="_blank">tanmay-sinha</a> (0.58%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/de-sousa" title="de-sousa" data-bi-name="contributorprofile" target="_blank">de-sousa</a> (61.18%)</li><li><a href="https://github.com/el-sambal" title="el-sambal" data-bi-name="contributorprofile" target="_blank">el-sambal</a> (20.24%)</li><li><a href="https://github.com/dd" title="dd" data-bi-name="contributorprofile" target="_blank">dd</a> (5.88%)</li><li><a href="https://github.com/GaurangTandon" title="GaurangTandon" data-bi-name="contributorprofile" target="_blank">GaurangTandon</a> (3.53%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (3.06%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.12%)</li><li><a href="https://github.com/aryamanjain-scifin" title="aryamanjain-scifin" data-bi-name="contributorprofile" target="_blank">aryamanjain-scifin</a> (0.71%)</li><li><a href="https://github.com/dufferzafar" title="dufferzafar" data-bi-name="contributorprofile" target="_blank">dufferzafar</a> (0.71%)</li><li><a href="https://github.com/RodionGork" title="RodionGork" data-bi-name="contributorprofile" target="_blank">RodionGork</a> (0.71%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (0.47%)</li><li><a href="https://github.com/mikaelmello" title="mikaelmello" data-bi-name="contributorprofile" target="_blank">mikaelmello</a> (0.47%)</li><li><a href="https://github.com/ujzwt4it" title="ujzwt4it" data-bi-name="contributorprofile" target="_blank">ujzwt4it</a> (0.47%)</li><li><a href="https://github.com/chubakueno" title="chubakueno" data-bi-name="contributorprofile" target="_blank">chubakueno</a> (0.24%)</li><li><a href="https://github.com/tanmay-sinha" title="tanmay-sinha" data-bi-name="contributorprofile" target="_blank">tanmay-sinha</a> (0.24%)</li></ul>
 </ul>
                 
               </article>
