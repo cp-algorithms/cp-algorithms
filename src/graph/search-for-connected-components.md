@@ -25,7 +25,7 @@ vector<bool> used;
 vector<int> comp;
 
 void dfs(int v) {
-    used[v] = true ;
+    used[v] = true;
     comp.push_back(v);
     for (int u : adj[v]) {
         if (!used[u])
@@ -34,7 +34,7 @@ void dfs(int v) {
 }
 
 void find_comps() {
-    used.resize(n, 0);
+    used.assign(n, false);
     for (int v = 0; v < n; ++v) {
         if (!used[v]) {
             comp.clear();
@@ -87,7 +87,7 @@ void dfs(int v) {
 }
 
 void find_comps() {
-    used.resize(n, 0);
+    used.assign(n, false);
     for (int v = 0; v < n ; ++v) {
         if (!used[v]) {
             comp.clear();
