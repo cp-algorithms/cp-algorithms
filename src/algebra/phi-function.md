@@ -102,7 +102,7 @@ The algorithm first precomputes all primes up to $\sqrt{R}$ using a [linear siev
 
 
 ```cpp
-const long long MAX_RANGE = 1e6 + 6, MAX_R = 1e14;
+const long long MAX_RANGE = 1e6 + 6;
 vector<long long> primes;
 long long phi[MAX_RANGE], rem[MAX_RANGE];
 
@@ -110,6 +110,7 @@ vector<int> linear_sieve(int n) {
     vector<bool> composite(n + 1, 0);
     vector<int> prime;
 
+    // 0 and 1 are not composite (nor prime)
     composite[0] = composite[1] = 1;
 
     for(int i = 2; i <= n; i++) {
@@ -122,13 +123,14 @@ vector<int> linear_sieve(int n) {
     return prime;
 }
 
+// To get the value of phi(x) for L <= x <= R, use phi[x - L].
 void segmented_phi(long long L, long long R) { 
     for(long long i = L; i <= R; i++) {
         rem[i - L] = i;
         phi[i - L] = i;
     }
 
-    for(long long &i : primes) {
+    for(long long i : primes) {
         for(long long j = max(i * i, (L + i - 1) / i * i); j <= R; j += i) {
             phi[j - L] -= phi[j - L] / i;
             while(rem[j - L] % i == 0) rem[j - L] /= i;
