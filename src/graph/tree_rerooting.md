@@ -259,6 +259,8 @@ $$
 ans[x] = \max_{y} dist(x, y).
 $$
 
+**Approach.** Compute the best depth inside each subtree with one DFS, then do a second DFS to propagate the best value from the parent side using the best and second-best child contributions.
+
 A classical reroot solution uses two dynamic programming arrays:
 
 - $f[x]$ = max distance from $x$ to any node in the subtree rooted at $x$,
@@ -296,6 +298,8 @@ Compute for every vertex $v$:
 $$
 ans[v] = \sum_{u=0}^{n-1} dist(v,u).
 $$
+
+**Approach.** First compute `sz[v]` and `sub[v]` with one DFS, then reroot using the formula $ans[c] = ans[p] + n - 2\cdot sz[c]$ to propagate answers to children.
 
 A standard two-step rerooting approach:
 
