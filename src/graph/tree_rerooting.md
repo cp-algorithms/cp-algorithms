@@ -341,6 +341,7 @@ These are the most common reroot patterns:
 3. [Codeforces — 219D “Choosing Capital for Treeland”](https://codeforces.com/problemset/problem/219/D)
 4. [Codeforces — 543D “Road Improvement”](https://codeforces.com/problemset/problem/543/D)
 5. [AtCoder DP Contest — V “Subtree”](https://atcoder.jp/contests/dp/tasks/dp_v?lang=en)
+6. [Library Checker — Tree Path Composite Sum](https://judge.yosupo.jp/problem/tree_path_composite_sum)
 
 ---
 
