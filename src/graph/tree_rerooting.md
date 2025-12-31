@@ -32,6 +32,12 @@ then only the local parent/child relations around the edge $(r, v)$ change.
 So if the dynamic programming transition is “local”, we can update the values when moving the root across one edge and traverse the tree with DFS,
 rolling changes back when returning from recursion.
 
+<figure style="text-align:center">
+  <img src="../graph/tree_rerooting_reroot_step.jpg" alt="Rerooting step" width="520">
+  <figcaption><em>Move the root across edge (p, v): only local parent/child directions change.</em></figcaption>
+</figure>
+
+
 However, we must avoid recomputing transitions by iterating over all children every time we move the root,
 otherwise the complexity can degrade to roughly $O\!\left(\sum_v \binom{d_v}{2}\right)$ in the worst case (close to $O(n^2)$).
 
@@ -94,6 +100,12 @@ For each vertex $v$, define the neighbor contributions toward $v$:
 - From the parent: `up[v]`.
 
 Now we want, for every neighbor $u$ of $v$, the merged value of **all neighbor contributions except the one from $u$**.
+
+<figure style="text-align:center">
+  <img src="../graph/tree_rerooting_excluding_neighbor.gif" alt="Prefix/suffix exclude one neighbor" width="600">
+  <figcaption><em>Prefix/suffix merges let us compute the merge of all neighbors except one.</em></figcaption>
+</figure>
+
 We can compute it in $O(\deg(v))$ using prefix/suffix arrays:
 
 - `pref[i]` = Merge of contributions of neighbors `0..i-1`.
@@ -102,7 +114,7 @@ We can compute it in $O(\deg(v))$ using prefix/suffix arrays:
 Then for neighbor index `i`:
 
 $$
-\text{without\_i} = merge(pref[i],\ suf[i+1]).
+\text{without_i} = merge(pref[i],\ suf[i+1]).
 $$
 
 This gives the value needed to compute `up[child]`.
