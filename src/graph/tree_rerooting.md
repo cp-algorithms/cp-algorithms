@@ -15,68 +15,98 @@ Rerooting appears in problems like:
 
 - Compute a value $ans[v]$ for every vertex $v$ as the root.
 - Compute a value for every directed edge $(v \to p)$ (sometimes called **edge dynamic programming**).
-- Compute “inside-subtree” and “outside-subtree” information for each vertex.
+- Compute "inside-subtree" and "outside-subtree" information for each vertex.
 
-The key operation behind rerooting is:
-for a node $v$ and one neighbor $u$, compute the combined contribution of **all neighbors of $v$ except $u$**.
+The key operation behind rerooting is computing, for a node $v$ and a neighbor $u$, the combined contribution of **all neighbors of $v$ except $u$**.
 Doing this naively can cost $O(\deg(v)^2)$ per vertex, which is too slow on high-degree nodes.
 
 ---
 
 ## Two Views of Rerooting
 
-### View 1: “Move the Root Across an Edge”
+### View 1: Move the Root Across an Edge
 
 Assume we have dynamic programming values for a rooted tree. If we change the root from $r$ to an adjacent vertex $v$,
-then only the local parent/child relations around the edge $(r, v)$ change.
-So if the dynamic programming transition is “local”, we can update the values when moving the root across one edge and traverse the tree with DFS,
-rolling changes back when returning from recursion.
+then only the parent/child relations around that edge change (i.e., the edge reverses direction, making $r$ a child of $v$ instead of the other way around).
+
+So if the dynamic programming transition depends only on the immediate parent and children of a node (rather than the entire tree structure),
+we can update the values when moving the root across one edge and traverse the tree with DFS, rolling changes back when returning from recursion.
 
 <figure style="text-align:center">
   <img src="../graph/tree_rerooting_reroot_step.jpg" alt="Rerooting step" width="520">
-  <figcaption><em>Move the root across edge (p, v): only local parent/child directions change.</em></figcaption>
+  <figcaption><em>Move the root across edge (p, v): only the parent/child direction of this edge changes.</em></figcaption>
 </figure>
 
-
 However, we must avoid recomputing transitions by iterating over all children every time we move the root,
-otherwise the complexity can degrade to roughly $O\!\left(\sum_v \binom{d_v}{2}\right)$ in the worst case (close to $O(n^2)$).
+otherwise the complexity can degrade to roughly
+$O\!\left(\sum_v \binom{\deg(v)}{2}\right)$ in the worst case (close to $O(n^2)$),
+where $\deg(v)$ denotes the **degree** of vertex $v$ (the number of neighbors of $v$).
 
-This is why efficient “exclude one neighbor” computations are central.
+This is why efficient "exclude one neighbor" computations are central.
 
-### View 2: Dynamic Programming on Directed Edges (Recommended)
+### View 2: Dynamic Programming on Directed Edges
 
 A clean and common way to write rerooting is to store dynamic programming values on **directed edges**.
 
-For every directed edge $(v \to p)$ define a value:
+This approach is often preferred because:
 
-- $dp[v \to p]$ = the contribution of the component on the $v$-side when the edge $(v,p)$ is cut,
-  computed “towards” $p$.
+- It is conceptually clean: there is no mutable state to roll back.
+- It is easier to implement correctly since the two passes are naturally separated.
 
-Then the answer for a root $v$ is just the combination of contributions from all neighbors:
+For every directed edge $(v \to p)$ define:
+
+- $dp[v \to p]$ = the contribution of the component on the $v$-side when the edge $(v,p)$ is cut, computed "towards" $p$.
+
+To make this generic, we will use a dynamic programming type `T` and the following operations:
+
+- `merge(a, b)` - associative combination (not necessarily commutative).
+- `ID` - identity element for `merge`.
+- `to_vertex(x, from, to)` - optional edge-dependent transform (often identity).
+- `add_vertex(x, v)` - optional inclusion of vertex $v$ into the result.
+
+Now the key recurrence is:
 
 $$
-ans[v] = \text{AddVertex}\Bigl(\operatorname{Merge}_{u \in adj(v)} \text{ToVertex}(dp[u \to v], u, v),\ v\Bigr).
+dp[v \to p] =
+add\_vertex\Bigl(
+\operatorname{merge}_{u \in adj(v),\,u \neq p}
+to\_vertex(dp[u \to v], u, v),
+\ v
+\Bigr).
 $$
 
-This formulation leads to a standard **two-pass** algorithm:
+And the answer for root $v$ is:
 
-1. Compute $dp[child \to parent]$ in a postorder (downward pass).
-2. Compute $dp[parent \to child]$ in a preorder (upward pass), using prefix/suffix merges (or another “exclusive” method).
+$$
+ans[v] =
+add\_vertex\Bigl(
+\operatorname{merge}_{u \in adj(v)}
+to\_vertex(dp[u \to v], u, v),
+\ v
+\Bigr).
+$$
+
+**Why does this formulation lead to a two-pass algorithm?**
+
+- In the first pass (postorder), we compute all values of the form $dp[child \to parent]$ because they depend only on deeper subtrees.
+- In the second pass (preorder), we compute values of the form $dp[parent \to child]$. For a fixed node $v$, each neighbor $u$ needs the merge of **all neighbors except $u$**, which can be computed in $O(\deg(v))$ using prefix/suffix merges.
 
 ---
 
-## Requirements for the Generic Template
+## Requirements and Limitations
 
-We define a dynamic programming type `T` and the following operations:
-
-- `merge(a, b)` — Associative combination (not necessarily commutative).
-- `ID` — Identity element for `merge`.
-- `to_vertex(x, from, to)` — Optional edge-dependent transform (often identity).
-- `add_vertex(x, v)` — Optional inclusion of vertex $v$ into the result.
-
-This covers most rerooting tasks: sums/products, max/min, counting, etc.
+This template covers most rerooting tasks: sums/products, max/min, counting, etc.
 
 If `merge` is $O(1)$, the rerooting algorithm runs in $O(n)$ time.
+
+### Limitations
+
+This template does **not** cover all rerooting scenarios. Common reasons include:
+
+- **Non-associative operations**: If your combination is not associative, prefix/suffix merges are not valid.
+- **Non-$O(1)$ merge**: If merging costs $O(k)$ (e.g., sets, polynomials), overall complexity becomes $O(n \cdot k)$.
+- **States with cross-child interactions**: If a node's state depends on interactions between multiple children that cannot be expressed as a merge of independent contributions, this template does not apply directly.
+- **Needing subtree structure**: If you need the actual structure (not just an aggregated value), you need a different approach.
 
 ### Notes
 
@@ -90,11 +120,11 @@ If `merge` is $O(1)$, the rerooting algorithm runs in $O(n)$ time.
 
 Fix an arbitrary root (say vertex 0). Let:
 
-- `down[v]` = result of the component “below” $v$ w.r.t. the fixed root (children only),
+- `down[v]` = result of the component "below" $v$ with respect to the fixed root (children only),
 - `up[v]` = contribution coming into $v$ from its parent side,
 - `ans[v]` = result for the whole tree when rooted at $v$.
 
-For each vertex $v$, define the neighbor contributions toward $v$:
+For each vertex $v$, define neighbor contributions toward $v$:
 
 - From a child $u$: `to_vertex(down[u], u, v)`.
 - From the parent: `up[v]`.
@@ -108,8 +138,8 @@ Now we want, for every neighbor $u$ of $v$, the merged value of **all neighbor c
 
 We can compute it in $O(\deg(v))$ using prefix/suffix arrays:
 
-- `pref[i]` = Merge of contributions of neighbors `0..i-1`.
-- `suf[i]`  = Merge of contributions of neighbors `i..deg-1`.
+- `pref[i]` = merge of contributions of neighbors `0..i-1`.
+- `suf[i]`  = merge of contributions of neighbors `i..deg-1`.
 
 Then for neighbor index `i`:
 
@@ -117,7 +147,7 @@ $$
 \text{without_i} = merge(pref[i],\ suf[i+1]).
 $$
 
-This gives the value needed to compute `up[child]`.
+This gives the value needed to compute the contribution sent to that neighbor.
 
 ### Two-Pass Computation
 
@@ -285,14 +315,14 @@ $$
 f[x] = 1 + \max_{c \in children(x)} f[c].
 $$
 
-To compute $g$ efficiently, we need, for each child $c$ of $x$, the best “sibling alternative” (the best subtree of $x$ excluding $c$).
-One way is to store the largest and second largest child depths for every node (or equivalently compute an “exclude-one-child” maximum).
+To compute $g$ efficiently, we need, for each child $c$ of $x$, the best "sibling alternative" (the best subtree of $x$ excluding $c$).
+One way is to store the largest and second largest child depths for every node (or equivalently compute an "exclude-one-child" maximum).
 Then:
 
 - if child $c$ is the one that gave the maximum for $f[x]$, use the second maximum,
 - otherwise use the maximum.
 
-This exactly matches the “two arrays / inside vs outside” technique.
+This exactly matches the "two arrays / inside vs outside" technique.
 
 Implementation idea:
 
@@ -311,9 +341,7 @@ $$
 ans[v] = \sum_{u=0}^{n-1} dist(v,u).
 $$
 
-**Approach.** First compute `sz[v]` and `sub[v]` with one DFS, then reroot using the formula $ans[c] = ans[p] + n - 2\cdot sz[c]$ to propagate answers to children.
-
-A standard two-step rerooting approach:
+**Approach.** First compute `sz[v]` and `sub[v]` with one DFS. Then do a second DFS to reroot from parent to child, updating the answer when moving across an edge.
 
 Root at 0 and compute:
 
@@ -327,20 +355,29 @@ sz[v] = 1 + \sum_{c} sz[c]
 $$
 
 $$
-sub[v] = \sum_{c}\bigl(sub[c] + sz[c]\bigr)
+sub[v] = \sum_{c}\bigl(sub[c] + sz[c]\bigr),
 $$
 
 because every node in child subtree is 1 farther from $v$ than from $c$.
 
-Now reroot:
-If we move root from parent $p$ to child $c$, then distances to nodes in $c$'s subtree decrease by 1,
-and distances to all other nodes increase by 1:
+For the root we already have the full answer:
+
+$$
+ans[0] = sub[0].
+$$
+
+Now reroot. If we move the root from parent $p$ to child $c$, then:
+
+- nodes in $c$'s subtree (there are `sz[c]` of them) get 1 closer,
+- all other nodes (there are $n - sz[c]$ of them) get 1 farther.
+
+So:
 
 $$
 ans[c] = ans[p] - sz[c] + (n - sz[c]) = ans[p] + n - 2 \cdot sz[c].
 $$
 
-Compute `ans[0] = sub[0]` then DFS to propagate.
+Run a DFS from 0 to propagate `ans` using this update.
 
 ---
 
@@ -348,22 +385,22 @@ Compute `ans[0] = sub[0]` then DFS to propagate.
 
 These are the most common reroot patterns:
 
-1. [CSES — Tree Distances II](https://cses.fi/problemset/task/1133)
-2. [Codeforces — 1187E “Tree Painting”](https://codeforces.com/problemset/problem/1187/E)
-3. [Codeforces — 219D “Choosing Capital for Treeland”](https://codeforces.com/problemset/problem/219/D)
-4. [Codeforces — 543D “Road Improvement”](https://codeforces.com/problemset/problem/543/D)
-5. [AtCoder DP Contest — V “Subtree”](https://atcoder.jp/contests/dp/tasks/dp_v?lang=en)
-6. [Library Checker — Tree Path Composite Sum](https://judge.yosupo.jp/problem/tree_path_composite_sum)
+1. [CSES - Tree Distances II](https://cses.fi/problemset/task/1133)
+2. [Codeforces - 1187E "Tree Painting"](https://codeforces.com/problemset/problem/1187/E)
+3. [Codeforces - 219D "Choosing Capital for Treeland"](https://codeforces.com/problemset/problem/219/D)
+4. [Codeforces - 543D "Road Improvement"](https://codeforces.com/problemset/problem/543/D)
+5. [AtCoder DP Contest - V "Subtree"](https://atcoder.jp/contests/dp/tasks/dp_v?lang=en)
+6. [Library Checker - Tree Path Composite Sum](https://judge.yosupo.jp/problem/tree_path_composite_sum)
 
 ---
 
 ## Advanced Note: Queries with Changing Root
 
-Sometimes queries ask for a value “result for $v$ when the tree is rooted at $r$”.
+Sometimes queries ask for a value "result for $v$ when the tree is rooted at $r$".
 A common approach is:
 
 - Precompute rerooting values for each directed edge $(u \to v)$,
-- Combine it with [LCA](lca.md) / [binary lifting](lca_binary_lifting.md) to determine which neighbor of $v$ lies on the path to $r$,
+- Combine it with [LCA](../graph/lca.md) / [binary lifting](../graph/lca_binary_lifting.md) to determine which neighbor of $v$ lies on the path to $r$,
   reducing each query to a constant number of precomputed directed-edge lookups.
 
 (Only needed when the root changes per query.)
