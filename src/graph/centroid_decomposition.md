@@ -114,7 +114,8 @@ For example, in the above image, we have a centroid tree. Each node at each leve
 
 Here's a basic implementation of centroid decomposition:
 
-```cpp
+```{.cpp file=centroid_decomposition}
+const int MAXN = 1e5;
 vector<int> adj[MAXN];
 bool removed[MAXN];
 int subtree_size[MAXN];
