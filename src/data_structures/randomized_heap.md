@@ -36,7 +36,7 @@ struct Tree {
 ```
 
 In the vertex we store a value.
-In addition we have pointers to the left and right children, which are point to null if the corresponding child doesn't exist.
+In addition we have pointers to the left and right children, which point to null if the corresponding child doesn't exist.
 
 ## Operations
 
@@ -57,7 +57,7 @@ So we compare both values, and use the smaller one as the new root.
 Now we have to combine the children of the selected vertex with the remaining heap.
 For this we select one of the children, and merge it with the remaining heap.
 Thus we again have the operation of merging two heaps.
-Sooner of later this process will end (the number of such steps is limited by the sum of the heights of the two heaps)
+Sooner or later this process will end (the number of such steps is limited by the sum of the heights of the two heaps)
 
 To achieve logarithmic complexity on average, we need to specify a method for choosing one of the two children so that the average path length is logarithmic.
 It is not difficult to guess, that we will make this decision **randomly**.
