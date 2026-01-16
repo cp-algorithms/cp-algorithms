@@ -99,7 +99,7 @@ The following shows the induction step:
 
 $$\begin{align}
 \mathbf{E} h(T) &= 1 + \frac{\mathbf{E} h(L) + \mathbf{E} h(R)}{2} 
-\le 1 + \frac{\log(n_L + 1) \log(n_R + 1)}{2} \\\\
+\le 1 + \frac{\log(n_L + 1) + \log(n_R + 1)}{2} \\\\
 &= 1 + \log\sqrt{(n_L + 1)(n_R + 1)} = \log 2\sqrt{(n_L + 1)(n_R + 1)} \\\\
 &\le \log \frac{2\left((n_L + 1) + (n_R + 1)\right)}{2} = \log(n_L + n_R + 2) = \log(n+1)
 \end{align}$$
