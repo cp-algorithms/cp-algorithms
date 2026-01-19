@@ -5,379 +5,382 @@ tags:
 
 # Tree Rerooting (All-Roots Dynamic Programming)
 
-In many tree dynamic programming problems, the answer depends on the choice of the root.
-If we can compute the dynamic programming solution for one fixed root in $O(n)$, we often can compute the solution for **all** roots in $O(n)$ as well.
-This technique is known as **tree rerooting** (or **all-roots dynamic programming**).
+## Introduction
 
-Prerequisites: [Introduction to Dynamic Programming](../dynamic_programming/intro-to-dp.md), [Depth-first search on trees](../graph/depth-first-search.md).
+Many tree problems ask you to compute a value for every node as if it were the root. For example: "What is the sum of distances from node $v$ to all other nodes?" If you solve this naively by running a separate DFS from each node, you get $O(n^2)$ time, which is too slow for large trees.
 
-Rerooting appears in problems like:
+Tree rerooting exploits a key insight: when you "shift" the root from a node to one of its neighbors, only one edge changes direction. Instead of recomputing everything from scratch, you can update your answer in $O(1)$ time by adjusting for what changed. This lets you compute the answer for all $n$ roots in $O(n)$ total time.
 
-- Compute a value $ans[v]$ for every vertex $v$ as the root.
-- Compute a value for every directed edge $(v \to p)$ (sometimes called **edge dynamic programming**).
-- Compute "inside-subtree" and "outside-subtree" information for each vertex.
+**Prerequisites:**
 
-The key operation behind rerooting is computing, for a node $v$ and a neighbor $u$, the combined contribution of **all neighbors of $v$ except $u$**.
-Doing this naively can cost $O(\deg(v)^2)$ per vertex, which is too slow on high-degree nodes.
+- [Introduction to Dynamic Programming](../dynamic_programming/intro-to-dp.md)
+- [Depth-first search on trees](../graph/depth-first-search.md)
 
 ---
 
 ## Two Views of Rerooting
 
-### View 1: Move the Root Across an Edge
+There are two main ways to think about the rerooting technique. Both achieve $O(n)$ time, but they differ in what mathematical properties they require.
 
-Assume we have dynamic programming values for a rooted tree. If we change the root from $r$ to an adjacent vertex $v$,
-then only the parent/child relations around that edge change (i.e., the edge reverses direction, making $r$ a child of $v$ instead of the other way around).
+### View 1: The Inverse Operation Approach
 
-So if the dynamic programming transition depends only on the immediate parent and children of a node (rather than the entire tree structure),
-we can update the values when moving the root across one edge and traverse the tree with DFS, rolling changes back when returning from recursion.
+In this view, you first solve the problem for a fixed root (say, node 0). Then you traverse the tree and "move" the root from parent to child, updating the answer as you go.
+
+When you move the root from node $p$ to its child $c$:
+
+- You **remove** $c$'s contribution from $p$'s answer (this requires an inverse operation, like subtraction).
+- You **add** the contribution from the rest of the tree (now seen from $c$'s perspective).
+
+This view is fast and simple, but it only works when your combining operation has an inverse. Addition has subtraction. Multiplication has division (if no zeros). XOR is its own inverse. But operations like **max** or **gcd** have no inverse, so this view doesn't apply to them.
 
 <figure style="text-align:center">
   <img src="../graph/tree_rerooting_reroot_step.jpg" alt="Rerooting step" width="520">
-  <figcaption><em>Move the root across edge (p, v): only the parent/child direction of this edge changes.</em></figcaption>
+  <figcaption><em>Moving the root from p to c: the edge (p, c) reverses direction.</em></figcaption>
 </figure>
 
-However, we must avoid recomputing transitions by iterating over all children every time we move the root,
-otherwise the complexity can degrade to roughly
-$O\!\left(\sum_v \binom{\deg(v)}{2}\right)$ in the worst case (close to $O(n^2)$),
-where $\deg(v)$ denotes the **degree** of vertex $v$ (the number of neighbors of $v$).
+### View 2: The Prefix/Suffix Approach
 
-This is why efficient "exclude one neighbor" computations are central.
+In this view, you think about computing a result for every **directed edge**. For each directed edge $u \to v$, you compute the answer for the subtree on the $u$-side when that edge is "cut."
 
-### View 2: Dynamic Programming on Directed Edges
+The key challenge: to compute the contribution going from $u$ toward $v$, you need to combine the contributions from **all neighbors of $u$ except $v$**.
 
-A clean and common way to write rerooting is to store dynamic programming values on **directed edges**.
+If you had to do this naively, it would cost $O(\deg(u))$ for each neighbor, leading to $O(\deg(u)^2)$ total for node $u$—too slow for high-degree nodes.
 
-This approach is often preferred because:
+The solution is **prefix and suffix arrays**. For a node with neighbors $[n_0, n_1, \ldots, n_{k-1}]$:
 
-- It is conceptually clean: there is no mutable state to roll back.
-- It is easier to implement correctly since the two passes are naturally separated.
+- `pref[i]` = combined result from neighbors $n_0, n_1, \ldots, n_{i-1}$
+- `suf[i]` = combined result from neighbors $n_i, n_{i+1}, \ldots, n_{k-1}$
 
-For every directed edge $(v \to p)$ define:
+Then "all except $n_i$" = `pref[i]` combined with `suf[i+1]`, computed in $O(1)$.
 
-- $dp[v \to p]$ = the contribution of the component on the $v$-side when the edge $(v,p)$ is cut, computed "towards" $p$.
-
-To make this generic, we will use a dynamic programming type `T` and the following operations:
-
-- `merge(a, b)` - associative combination (not necessarily commutative).
-- `ID` - identity element for `merge`.
-- `to_vertex(x, from, to)` - optional edge-dependent transform (often identity).
-- `add_vertex(x, v)` - optional inclusion of vertex $v$ into the result.
-
-Now the key recurrence is:
-
-$$
-dp[v \to p] =
-add\_vertex\Bigl(
-\operatorname{merge}_{u \in adj(v),\,u \neq p}
-to\_vertex(dp[u \to v], u, v),
-\ v
-\Bigr).
-$$
-
-And the answer for root $v$ is:
-
-$$
-ans[v] =
-add\_vertex\Bigl(
-\operatorname{merge}_{u \in adj(v)}
-to\_vertex(dp[u \to v], u, v),
-\ v
-\Bigr).
-$$
-
-**Why does this formulation lead to a two-pass algorithm?**
-
-- In the first pass (postorder), we compute all values of the form $dp[child \to parent]$ because they depend only on deeper subtrees.
-- In the second pass (preorder), we compute values of the form $dp[parent \to child]$. For a fixed node $v$, each neighbor $u$ needs the merge of **all neighbors except $u$**, which can be computed in $O(\deg(v))$ using prefix/suffix merges.
-
----
-
-## Requirements and Limitations
-
-This template covers most rerooting tasks: sums/products, max/min, counting, etc.
-
-If `merge` is $O(1)$, the rerooting algorithm runs in $O(n)$ time.
-
-### Limitations
-
-This template does **not** cover all rerooting scenarios. Common reasons include:
-
-- **Non-associative operations**: If your combination is not associative, prefix/suffix merges are not valid.
-- **Non-$O(1)$ merge**: If merging costs $O(k)$ (e.g., sets, polynomials), overall complexity becomes $O(n \cdot k)$.
-- **States with cross-child interactions**: If a node's state depends on interactions between multiple children that cannot be expressed as a merge of independent contributions, this template does not apply directly.
-- **Needing subtree structure**: If you need the actual structure (not just an aggregated value), you need a different approach.
-
-### Notes
-
-- The adjacency order is used for prefix/suffix; `merge` only needs to be associative.
-- If you need edge weights, store them and use `to_vertex`.
-- If you need to account for a vertex value, use `add_vertex`.
-
----
-
-## Algorithm Using Prefix/Suffix Merges ($O(n)$)
-
-Fix an arbitrary root (say vertex 0). Let:
-
-- `down[v]` = result of the component "below" $v$ with respect to the fixed root (children only),
-- `up[v]` = contribution coming into $v$ from its parent side,
-- `ans[v]` = result for the whole tree when rooted at $v$.
-
-For each vertex $v$, define neighbor contributions toward $v$:
-
-- From a child $u$: `to_vertex(down[u], u, v)`.
-- From the parent: `up[v]`.
-
-Now we want, for every neighbor $u$ of $v$, the merged value of **all neighbor contributions except the one from $u$**.
+This view works for **any associative operation**, including non-invertible ones like max, min, and gcd.
 
 <figure style="text-align:center">
   <img src="../graph/tree_rerooting_excluding_neighbor.gif" alt="Prefix/suffix exclude one neighbor" width="600">
-  <figcaption><em>Prefix/suffix merges let us compute the merge of all neighbors except one.</em></figcaption>
+  <figcaption><em>Prefix/suffix arrays let us efficiently compute "all neighbors except one."</em></figcaption>
 </figure>
-
-We can compute it in $O(\deg(v))$ using prefix/suffix arrays:
-
-- `pref[i]` = merge of contributions of neighbors `0..i-1`.
-- `suf[i]`  = merge of contributions of neighbors `i..deg-1`.
-
-Then for neighbor index `i`:
-
-$$
-\text{without_i} = merge(pref[i],\ suf[i+1]).
-$$
-
-This gives the value needed to compute the contribution sent to that neighbor.
-
-### Two-Pass Computation
-
-1. Choose an arbitrary root (e.g. 0) and compute `down[v]` in a postorder:
-   for each vertex, merge contributions from children and apply `add_vertex`.
-
-2. Compute `up[v]` and `ans[v]` in a preorder:
-   build `contrib[]` for each neighbor, then use prefix/suffix to get the value excluding each neighbor.
-   This gives the value to propagate to children and also the final `ans[v]`.
 
 ---
 
-## Implementation
+## Concrete Example 1: Sum of Distances
 
-The following implementation is a reusable rerooting template for the model above.
-You provide:
+**Problem:** Given a tree with $n$ nodes, for each node $v$, compute the sum of distances from $v$ to all other nodes.
 
-- `T` (dynamic programming type),
-- `ID`,
-- `merge(a,b)`,
-- `add_vertex(x, v)`,
-- `to_vertex(x, from, to)` (often identity).
+$$
+\text{ans}[v] = \sum_{u=0}^{n-1} \text{dist}(v, u)
+$$
 
-It computes `down`, `up`, and `ans` for all vertices.
+We will solve this problem using both views.
 
-We define the `Rerooting` struct with the graph and DP operations:
+---
+
+### Solution 1: Inverse Operation Approach
+
+**Step 1: Root the tree at node 0.**
+
+Run a DFS to compute:
+
+- `sz[v]` = number of nodes in the subtree rooted at $v$
+- `ans[0]` = sum of distances from node 0 to all other nodes (just sum up depths)
+
+**Step 2: Move the root from parent to child.**
+
+When you move the root from $p$ to its child $c$:
+
+- The `sz[c]` nodes in $c$'s subtree each become **1 step closer** (they were at distance $d$, now at distance $d-1$).
+- The remaining `n - sz[c]` nodes each become **1 step farther**.
+
+So the update formula is:
+
+$$
+\text{ans}[c] = \text{ans}[p] - \text{sz}[c] + (n - \text{sz}[c]) = \text{ans}[p] + n - 2 \cdot \text{sz}[c]
+$$
+
+**Full C++ Code:**
 
 ```cpp
-template <class T, class Merge, class AddVertex, class ToVertex>
-struct Rerooting {
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
     int n;
-    vector<vector<int>> g;
+    cin >> n;
 
-    T ID;
-    Merge merge;
-    AddVertex add_vertex;
-    ToVertex to_vertex;
-
-    vector<int> parent, order;
-    vector<T> down, up, ans;
-
-    Rerooting(int n, T ID, Merge merge, AddVertex add_vertex, ToVertex to_vertex)
-        : n(n), g(n),
-          ID(ID), merge(merge), add_vertex(add_vertex), to_vertex(to_vertex),
-          parent(n, -1), down(n, ID), up(n, ID), ans(n, ID) {}
-
-    void add_edge(int a, int b) {
-        g[a].push_back(b);
-        g[b].push_back(a);
+    vector<vector<int>> adj(n);
+    for (int i = 0; i < n - 1; i++) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
     }
-    // ... build() method below
-};
-```
 
-The `build()` method performs the two-pass computation. First, we build the parent array and traversal order:
+    vector<long long> sz(n), ans(n);
 
-```cpp
-void build(int root = 0) {
-    order.clear();
-    fill(parent.begin(), parent.end(), -1);
-
-    // Build parent[] and traversal order
-    stack<int> st;
-    st.push(root);
-    parent[root] = root;
-    while (!st.empty()) {
-        int v = st.top();
-        st.pop();
-        order.push_back(v);
-        for (int u : g[v]) if (u != parent[v]) {
-            parent[u] = v;
-            st.push(u);
+    // DFS 1: Compute subtree sizes and ans[0]
+    function<void(int, int, int)> dfs1 = [&](int v, int parent, int depth) {
+        sz[v] = 1;
+        ans[0] += depth;
+        for (int u : adj[v]) {
+            if (u != parent) {
+                dfs1(u, v, depth + 1);
+                sz[v] += sz[u];
+            }
         }
+    };
+    dfs1(0, -1, 0);
+
+    // DFS 2: Reroot from parent to child
+    function<void(int, int)> dfs2 = [&](int v, int parent) {
+        for (int u : adj[v]) {
+            if (u != parent) {
+                ans[u] = ans[v] + n - 2 * sz[u];
+                dfs2(u, v);
+            }
+        }
+    };
+    dfs2(0, -1);
+
+    for (int i = 0; i < n; i++) {
+        cout << ans[i] << " \n"[i == n - 1];
     }
-```
 
-Next, we compute `down[v]` in postorder (from leaves to root):
-
-```cpp
-    // Downward pass: compute down[v] from children only
-    for (int i = (int)order.size() - 1; i >= 0; i--) {
-        int v = order[i];
-        T acc = ID;
-        for (int u : g[v]) if (u != parent[v]) {
-            acc = merge(acc, to_vertex(down[u], u, v));
-        }
-        down[v] = add_vertex(acc, v);
-    }
-```
-
-Finally, we reroot using prefix/suffix merges to compute `up[]` and `ans[]`:
-
-```cpp
-    // Reroot: compute up[] and ans[] using prefix/suffix merges
-    up[root] = ID;
-
-    for (int v : order) {
-        int deg = (int)g[v].size();
-        vector<T> contrib(deg);
-
-        for (int i = 0; i < deg; i++) {
-            int u = g[v][i];
-            if (u == parent[v]) contrib[i] = up[v];
-            else                contrib[i] = to_vertex(down[u], u, v);
-        }
-
-        vector<T> pref(deg + 1, ID), suf(deg + 1, ID);
-        for (int i = 0; i < deg; i++) pref[i + 1] = merge(pref[i], contrib[i]);
-        for (int i = deg - 1; i >= 0; i--) suf[i] = merge(contrib[i], suf[i + 1]);
-
-        ans[v] = add_vertex(pref[deg], v);
-
-        for (int i = 0; i < deg; i++) {
-            int u = g[v][i];
-            if (u == parent[v]) continue;
-
-            T without_u = merge(pref[i], suf[i + 1]);
-            T v_towards_u = add_vertex(without_u, v);
-            up[u] = to_vertex(v_towards_u, v, u);
-        }
-    }
+    return 0;
 }
 ```
 
-**Usage example:**
+---
+
+### Solution 2: Prefix/Suffix Approach
+
+For this approach, we track two values per node: the **sum of distances** and the **count of nodes**. When we "lift" a subtree result across an edge (passing it from child to parent), every node in that subtree becomes 1 step farther.
+
+**State:** `pair<long long, int>` where `.first` = sum of distances, `.second` = count of nodes.
+
+**Lifting across an edge:** If a subtree has state `{sum, cnt}`, then from the parent's perspective, all `cnt` nodes are 1 step farther, so the lifted state is `{sum + cnt, cnt}`.
+
+**Algorithm:**
+
+1. Build parent array and traversal order using BFS/DFS from node 0.
+2. **Post-order pass:** For each node (leaves to root), compute `down[v]` = contribution from $v$'s subtree.
+3. **Pre-order pass:** For each node (root to leaves), use prefix/suffix arrays to compute `up[v]` = contribution from the parent side, and `ans[v]` = total.
+
+**Full C++ Code:**
 
 ```cpp
-struct T { /* your DP state */ };
-T ID = /* identity */;
-auto merge = [&](const T& a, const T& b) -> T { /* ... */ };
-auto add_vertex = [&](const T& x, int v) -> T { /* ... */ };
-auto to_vertex = [&](const T& x, int from, int to) -> T { /* ... */ };
+#include <bits/stdc++.h>
+using namespace std;
 
-Rerooting<T, decltype(merge), decltype(add_vertex), decltype(to_vertex)>
-    rr(n, ID, merge, add_vertex, to_vertex);
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-rr.add_edge(a, b);
-rr.build(0);
-// answers are in rr.ans[v]
+    int n;
+    cin >> n;
+
+    vector<vector<int>> adj(n);
+    for (int i = 0; i < n - 1; i++) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    // State: {sum of distances, count of nodes}
+    vector<pair<long long, int>> down(n), up(n);
+    vector<long long> ans(n);
+
+    // Helper: lift a state across an edge (all nodes become 1 farther)
+    auto lift = [](pair<long long, int> s) -> pair<long long, int> {
+        return {s.first + s.second, s.second};
+    };
+
+    // Helper: combine two states
+    auto combine = [](pair<long long, int> a, pair<long long, int> b) -> pair<long long, int> {
+        return {a.first + b.first, a.second + b.second};
+    };
+
+    // DFS 1: Post-order (Compute 'down' values)
+    function<void(int, int)> dfs_down = [&](int v, int p) {
+        down[v] = {0, 1}; // Base: distance 0 to itself, count 1
+        for (int u : adj[v]) {
+            if (u != p) {
+                dfs_down(u, v);
+                down[v] = combine(down[v], lift(down[u]));
+            }
+        }
+    };
+    dfs_down(0, -1);
+
+    // DFS 2: Pre-order (Compute 'up' and 'ans')
+    function<void(int, int)> dfs_up = [&](int v, int p) {
+        // ans[v] includes children (down[v]) and parent (up[v])
+        // Note: down[v] already includes v itself.
+        // We only add the parent contribution if it exists.
+        ans[v] = down[v].first;
+        if (p != -1) {
+            ans[v] += lift(up[v]).first;
+        }
+
+        // Collect all contributions for prefix/suffix
+        // We need contributions from:
+        // 1. All children u (value is lift(down[u]))
+        // 2. The parent p (value is lift(up[v]))
+        vector<pair<long long, int>> contribs;
+        if (p != -1) contribs.push_back(lift(up[v])); // Parent contribution
+        for (int u : adj[v]) {
+            if (u != p) contribs.push_back(lift(down[u])); // Child contributions
+        }
+
+        int m = contribs.size();
+        vector<pair<long long, int>> pref(m + 1, {0, 0});
+        vector<pair<long long, int>> suf(m + 1, {0, 0});
+
+        for (int i = 0; i < m; i++) pref[i + 1] = combine(pref[i], contribs[i]);
+        for (int i = m - 1; i >= 0; i--) suf[i] = combine(contribs[i], suf[i + 1]);
+
+        // Distribute to children
+        int child_idx = (p != -1 ? 1 : 0); // Skip parent index in contribs if it exists
+        for (int u : adj[v]) {
+            if (u != p) {
+                // up[u] needs all neighbors of v EXCEPT u
+                // plus v itself (dist 0, count 1)
+                pair<long long, int> without_u = combine(pref[child_idx], suf[child_idx + 1]);
+                without_u.second += 1; 
+                up[u] = without_u;
+                
+                dfs_up(u, v);
+                child_idx++;
+            }
+        }
+    };
+    dfs_up(0, -1);
+
+    for (int i = 0; i < n; i++) {
+        cout << ans[i] << " \n"[i == n - 1];
+    }
+
+    return 0;
+}
 ```
 
 ---
 
-## Applications
+## Concrete Example 2: Maximum Distance (Tree Eccentricity)
 
-### Maximum Distance to Any Node (Tree Eccentricities)
-
-For each node $x$, we want:
+**Problem:** For each node $v$, find the maximum distance to any other node.
 
 $$
-ans[x] = \max_{y} dist(x, y).
+\text{ans}[v] = \max_{u} \text{dist}(v, u)
 $$
 
-**Approach.** Compute the best depth inside each subtree with one DFS, then do a second DFS to propagate the best value from the parent side using the best and second-best child contributions.
+**Why View 1 Fails:**
+The `max` operation does not have an inverse. If you know that `max(A, B) = 10`, and you want to remove `A=10`, you cannot determine if `B` was 5, 9, or also 10. Therefore, the simple subtraction trick from Solution 1 **cannot be used**. We must use the **Prefix/Suffix** approach.
 
-A classical reroot solution uses two dynamic programming arrays:
+**Algorithm:**
+1. `down[v]`: The maximum height of the subtree rooted at $v$.
+2. `up[v]`: The maximum length of a path starting at $v$ and going upwards through the parent.
+3. `merge(a, b)`: `max(a, b)`.
+4. `lift(x)`: `x + 1` (moving one edge increases length by 1).
 
-- $f[x]$ = max distance from $x$ to any node in the subtree rooted at $x$,
-- $g[x]$ = max distance from $x$ to any node outside that subtree,
-- then $ans[x] = \max(f[x], g[x])$.
+**Code (Maximum Distance):**
 
-We can compute $f$ by a DFS using the transition:
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
 
-$$
-f[x] = 1 + \max_{c \in children(x)} f[c].
-$$
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-To compute $g$ efficiently, we need, for each child $c$ of $x$, the best "sibling alternative" (the best subtree of $x$ excluding $c$).
-One way is to store the largest and second largest child depths for every node (or equivalently compute an "exclude-one-child" maximum).
-Then:
+    int n;
+    cin >> n;
 
-- if child $c$ is the one that gave the maximum for $f[x]$, use the second maximum,
-- otherwise use the maximum.
+    vector<vector<int>> adj(n);
+    for (int i = 0; i < n - 1; i++) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
 
-This exactly matches the "two arrays / inside vs outside" technique.
+    // down[v]: max distance in subtree of v
+    // up[v]: max distance going up through parent
+    // ans[v]: max distance to ANY node
+    vector<int> down(n), up(n), ans(n);
 
-Implementation idea:
+    // DFS 1: Post-order (Compute down)
+    function<void(int, int)> dfs_down = [&](int v, int p) {
+        down[v] = 0; 
+        for (int u : adj[v]) {
+            if (u != p) {
+                dfs_down(u, v);
+                down[v] = max(down[v], down[u] + 1);
+            }
+        }
+    };
+    dfs_down(0, -1);
 
-- first DFS: compute `best1[x]`, `best2[x]` = top two values of `f[child] + 1`,
-- second DFS: compute `g[child] = max(g[x] + 1, best_except_child + 1)`.
+    // DFS 2: Pre-order (Compute up and ans)
+    function<void(int, int)> dfs_up = [&](int v, int p) {
+        ans[v] = max(down[v], up[v]);
 
-(You can also code it with the generic reroot template by letting `merge = max`.)
+        vector<int> contribs;
+        if (p != -1) contribs.push_back(up[v] + 1); // From parent
+        for (int u : adj[v]) {
+            if (u != p) contribs.push_back(down[u] + 1); // From children
+        }
+
+        int m = contribs.size();
+        vector<int> pref(m + 1, -1e9), suf(m + 1, -1e9);
+
+        // Standard max prefix/suffix
+        for (int i = 0; i < m; i++) pref[i + 1] = max(pref[i], contribs[i]);
+        for (int i = m - 1; i >= 0; i--) suf[i] = max(suf[i + 1], contribs[i]);
+
+        int child_idx = (p != -1 ? 1 : 0); 
+        for (int u : adj[v]) {
+            if (u != p) {
+                // up[u] is the max path starting at v going towards ANY neighbor except u
+                // Note: The 'contribs' array already added +1 to all neighbors.
+                // So max(pref, suf) represents the longest path starting at v.
+                // Since up[u] is 'max path starting at u going UP', we don't add +1 here yet.
+                // It gets added when u uses it as a parent contribution in the next recursion.
+                
+                int longest_path_from_v = max(pref[child_idx], suf[child_idx + 1]);
+                
+                // If there were no other neighbors, longest path is 0 (v itself)
+                if (longest_path_from_v < 0) longest_path_from_v = 0;
+                
+                up[u] = longest_path_from_v;
+                
+                dfs_up(u, v);
+                child_idx++;
+            }
+        }
+    };
+    dfs_up(0, -1);
+
+    for (int i = 0; i < n; i++) {
+        cout << ans[i] << " \n"[i == n - 1];
+    }
+
+    return 0;
+}
+
+```
 
 ---
 
-### Sum of Distances from Every Node
+### Other Common Problems
 
-Compute for every vertex $v$:
+Many rerooting problems fit one of these patterns
 
-$$
-ans[v] = \sum_{u=0}^{n-1} dist(v,u).
-$$
-
-**Approach.** First compute `sz[v]` and `sub[v]` with one DFS. Then do a second DFS to reroot from parent to child, updating the answer when moving across an edge.
-
-Root at 0 and compute:
-
-- `sz[v]` = size of subtree of $v$,
-- `sub[v]` = sum of distances from $v$ to nodes in its subtree.
-
-Transitions:
-
-$$
-sz[v] = 1 + \sum_{c} sz[c]
-$$
-
-$$
-sub[v] = \sum_{c}\bigl(sub[c] + sz[c]\bigr),
-$$
-
-because every node in child subtree is 1 farther from $v$ than from $c$.
-
-For the root we already have the full answer:
-
-$$
-ans[0] = sub[0].
-$$
-
-Now reroot. If we move the root from parent $p$ to child $c$, then:
-
-- nodes in $c$'s subtree (there are `sz[c]` of them) get 1 closer,
-- all other nodes (there are $n - sz[c]$ of them) get 1 farther.
-
-So:
-
-$$
-ans[c] = ans[p] - sz[c] + (n - sz[c]) = ans[p] + n - 2 \cdot sz[c].
-$$
-
-Run a DFS from 0 to propagate `ans` using this update.
+- **Sum-based:** Use View 1 (inverse) or View 2.
+- **Max/Min-based:** Must use View 2 (no inverse for max/min).
+- **Counting paths/subtrees:** Often View 1 with modular arithmetic.
 
 ---
 
