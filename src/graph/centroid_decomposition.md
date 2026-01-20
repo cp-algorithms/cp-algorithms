@@ -97,7 +97,7 @@ Recursively finding centroids of a tree and decomposing the tree into its compon
 
 To find a centroid of a tree efficiently:
 
-1. Calculate subtree sizes for all vertices using DFS
+1. Calculate subtree sizes for all vertices using Depth First Search (DFS)
 2. Start from any vertex
 3. Find a child $v$ whose subtree contains more than $\frac{N}{2}$ vertices
 4. Move to $v$ and repeat step 3
