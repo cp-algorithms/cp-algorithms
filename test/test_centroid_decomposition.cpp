@@ -127,6 +127,90 @@ void test_complete_decomposition()
     assert(processed_centroids.size() == n);
 }
 
+void test_path_counting()
+{
+    // Test the specific implementation: counting paths of length K
+    // Create a simple tree: 0-1-2-3
+    int n = 4;
+    for (int i = 0; i < n; i++)
+    {
+        adj[i].clear();
+        removed[i] = false;
+    }
+
+    // Line graph: 0-1-2-3
+    for (int i = 0; i < n - 1; i++)
+    {
+        adj[i].push_back(i + 1);
+        adj[i + 1].push_back(i);
+    }
+
+    K = 2;
+    answer = 0;
+    decompose(0);
+
+    // Paths of length 2: (0,2) and (1,3)
+    assert(answer == 2);
+
+    for (int i = 0; i < n; i++)
+    {
+        removed[i] = false;
+    }
+    K = 1;
+    answer = 0;
+    decompose(0);
+
+    // Paths of length 1: (0,1), (1,2), (2,3)
+    assert(answer == 3);
+
+    for (int i = 0; i < n; i++)
+    {
+        removed[i] = false;
+    }
+    K = 3;
+    answer = 0;
+    decompose(0);
+
+    // Paths of length 3: (0,3)
+    assert(answer == 1);
+}
+
+void test_star_path_counting()
+{
+    // Test path counting on a star graph
+    // Tree: center 0 connected to 1, 2, 3, 4
+    int n = 5;
+    for (int i = 0; i < n; i++)
+    {
+        adj[i].clear();
+        removed[i] = false;
+    }
+
+    for (int i = 1; i < n; i++)
+    {
+        adj[0].push_back(i);
+        adj[i].push_back(0);
+    }
+
+    K = 1;
+    answer = 0;
+    decompose(0);
+
+    // Paths of length 1: (0,1), (0,2), (0,3), (0,4)
+    assert(answer == 4);
+
+    for (int i = 0; i < n; i++)
+    {
+        removed[i] = false;
+    }
+    K = 2;
+    answer = 0;
+    decompose(0);
+
+    // Paths of length 2: (1,2), (1,3), (1,4), (2,3), (2,4), (3,4) = 6 paths
+    assert(answer == 6);
+}
+
 void test_single_vertex()
 {
     int n = 1;
@@ -164,6 +248,8 @@ int main()
     test_complete_decomposition();
     test_single_vertex();
     test_two_vertices();
+    test_path_counting();
+    test_star_path_counting();
 
     return 0;
 }

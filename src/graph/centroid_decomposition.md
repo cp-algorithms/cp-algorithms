@@ -124,13 +124,17 @@ For example, in the above image, we have a centroid tree. Each node at each leve
 
 ## Implementation
 
-Here's a basic implementation of centroid decomposition:
+Here's an implementation of centroid decomposition solving a specific problem: **counting all paths in the tree with length exactly $K$**.
+
+In this problem, we're given a tree with $N$ vertices and need to count how many paths have exactly $K$ edges. A path is defined by two distinct vertices.
 
 ```{.cpp file=centroid_decomposition}
 const int MAXN = 1e5;
 vector<int> adj[MAXN];
 bool removed[MAXN];
 int subtree_size[MAXN];
+int K;  // Target path length
+long long answer = 0;  // Count of paths with length K
 
 int get_subtree_size(int v, int p = -1) {
     subtree_size[v] = 1;
@@ -150,12 +154,55 @@ int get_centroid(int v, int tree_size, int p = -1) {
     return v;
 }
 
+// Collect all distances from the centroid within a subtree
+void get_distances(int v, int p, int dist, vector<int>& distances) {
+    if (dist > K) return;  // Optimization: don't go beyond K
+    distances.push_back(dist);
+    for (int u : adj[v]) {
+        if (u == p || removed[u]) continue;
+        get_distances(u, v, dist + 1, distances);
+    }
+}
+
+void process_centroid(int centroid) {
+    // This function can be adapted to solve different problems using centroid decomposition.
+    // In this specific case, we are solving the problem of counting all paths of length K.
+    //
+    // Strategy: For each centroid, we count paths that pass through it.
+    // A path passing through the centroid consists of:
+    // - A vertex in one subtree at distance d1 from the centroid
+    // - A vertex in another subtree at distance d2 from the centroid
+    // - Such that d1 + d2 = K
+
+    vector<int> all_distances;
+    all_distances.push_back(0);  // The centroid itself (distance 0)
+
+    // Process each subtree of the centroid
+    for (int u : adj[centroid]) {
+        if (removed[u]) continue;
+
+        vector<int> current_distances;
+        get_distances(u, centroid, 1, current_distances);
+
+        // Count paths between current subtree and all previously processed subtrees
+        // For each distance d in current_distances, we need distance K-d in all_distances
+        for (int d : current_distances) {
+            if (K - d >= 0) {
+                // Count how many vertices are at distance K-d in previous subtrees
+                answer += count(all_distances.begin(), all_distances.end(), K - d);
+            }
+        }
+
+        // Add current subtree's distances to all_distances for next iterations
+        all_distances.insert(all_distances.end(), current_distances.begin(), current_distances.end());
+    }
+}
+
 void decompose(int v) {
     int tree_size = get_subtree_size(v);
     int centroid = get_centroid(v, tree_size);
 
-    // Process the centroid
-    // For example: calculate all paths passing through this centroid
+    process_centroid(centroid);
 
     removed[centroid] = true;
 
@@ -170,7 +217,7 @@ void decompose(int v) {
 
 ### Building the Centroid Tree
 
-If you need to build an explicit centroid tree structure:
+If you need to build an explicit centroid tree structure (useful for answering queries):
 
 ```cpp
 int centroid_parent[MAXN];
