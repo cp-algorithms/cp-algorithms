@@ -7175,6 +7175,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#properties-and-definition-of-a-centroid" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8042,7 +8053,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 10, 2026 20:28:53 UTC">January 10, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 20, 2026 13:21:54 UTC">January 20, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8057,6 +8068,13 @@ Describe the issue of this article in detail.
 
 
 <h1 id="centroid-decomposition">Centroid Decomposition<a class="headerlink" href="#centroid-decomposition" title="Permanent link">&para;</a></h1>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>This article requires knowledge of the following topics:</p>
+<ul>
+<li><a href="depth-first-search.html">Depth First Search (DFS)</a> - used for tree traversal and calculating subtree sizes</li>
+<li><a href="https://en.wikipedia.org/wiki/Divide-and-conquer_algorithm">Divide and Conquer</a> - the fundamental paradigm that centroid decomposition is based on</li>
+<li><a href="https://en.wikipedia.org/wiki/Tree_(graph_theory)">Tree Data Structure</a> - fundamental graph theory concepts including trees, vertices, edges, and paths</li>
+</ul>
 <p><strong>Centroid Decomposition</strong> is a divide-and-conquer technique on trees. It is used to solve various problems that involve paths in a tree, such as counting paths with certain properties, finding distances, or answering queries on tree paths.</p>
 <p>The key idea is to recursively decompose a tree by finding its <strong>centroid</strong>. This special vertex when removed splits the tree into components, each containing at most half of the original tree's vertices. This guarantees a logarithmic depth of recursion, leading to efficient algorithms.</p>
 <h2 id="properties-and-definition-of-a-centroid">Properties and Definition of a Centroid<a class="headerlink" href="#properties-and-definition-of-a-centroid" title="Permanent link">&para;</a></h2>
@@ -8069,10 +8087,12 @@ Describe the issue of this article in detail.
 </ol>
 <h3 id="existence-and-uniqueness">Existence and Uniqueness<a class="headerlink" href="#existence-and-uniqueness" title="Permanent link">&para;</a></h3>
 <p><strong>Theorem</strong>: Every tree has at least one centroid, and at most two centroids. If there are two centroids, they must be adjacent.</p>
-<p><strong>Proof</strong>:</p>
+<details class="note">
+<summary>Proof</summary>
 <p><em>Existence</em>: Start from any vertex and keep moving to the child with the largest subtree. Stop when no child has more than <span class="arithmatex">$\frac{N}{2}$</span> vertices. At this point, the current vertex <span class="arithmatex">$v$</span> is a centroid because (1) no child's subtree contains more than <span class="arithmatex">$\frac{N}{2}$</span> vertices (by stopping condition) (2) the "parent side" (all vertices except <span class="arithmatex">$v$</span>'s subtree when <span class="arithmatex">$v$</span> was a child) contains at most <span class="arithmatex">$\frac{N}{2}$</span> vertices (otherwise we wouldn't have moved to <span class="arithmatex">$v$</span> from parent).</p>
 <p>It is easy to see that this process always terminates, proving at least one centroid exists.</p>
 <p><em>Uniqueness</em>: Suppose there are two centroids <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span>. Consider the path between them. When we remove <span class="arithmatex">$u$</span>, vertex <span class="arithmatex">$v$</span> must be in a component with at most <span class="arithmatex">$\frac{N}{2}$</span> vertices. Similarly, when we remove <span class="arithmatex">$v$</span>, vertex <span class="arithmatex">$u$</span> must be in a component with at most <span class="arithmatex">$\frac{N}{2}$</span> vertices. This is only possible if <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span> are adjacent; otherwise, removing either would place the other in a component with more than <span class="arithmatex">$\frac{N}{2}$</span> vertices. Furthermore, if two centroids exist, they must split the tree into two components of exactly <span class="arithmatex">$\frac{N}{2}$</span> vertices each, which is only possible when <span class="arithmatex">$N$</span> is even.</p>
+</details>
 <h3 id="balance">Balance<a class="headerlink" href="#balance" title="Permanent link">&para;</a></h3>
 <p><strong>Theorem</strong>: When a centroid is removed from a tree of <span class="arithmatex">$N$</span> vertices, each resulting connected component contains at most <span class="arithmatex">$\frac{N}{2}$</span> vertices.</p>
 <p>This property follows directly from the definition of a centroid. The intuition is straightforward: if any component had more than <span class="arithmatex">$\frac{N}{2}$</span> vertices after removing the centroid, then that component would contain more than half the tree's vertices, which contradicts the centroid's defining property. This balance property is crucial for the efficiency of centroid decomposition.</p>
@@ -8084,26 +8104,32 @@ Describe the issue of this article in detail.
 </ol>
 <h3 id="decomposition-depth">Decomposition Depth<a class="headerlink" href="#decomposition-depth" title="Permanent link">&para;</a></h3>
 <p><strong>Theorem</strong>: The depth, or number of steps, when using centroid decomposition on any given tree is <span class="arithmatex">$O(\log N)$</span>.</p>
-<p><strong>Proof</strong>: Consider any vertex <span class="arithmatex">$v$</span> in the original tree. We track how many times <span class="arithmatex">$v$</span> can be part of a component during the decomposition process.</p>
+<details class="note">
+<summary>Proof</summary>
+<p>Consider any vertex <span class="arithmatex">$v$</span> in the original tree. We track how many times <span class="arithmatex">$v$</span> can be part of a component during the decomposition process.</p>
 <p>At the first level, <span class="arithmatex">$v$</span> is in a component of size <span class="arithmatex">$N$</span>. When we remove the centroid of this component, <span class="arithmatex">$v$</span> ends up in a component of size at most <span class="arithmatex">$\frac{N}{2}$</span> (by the balance property).</p>
 <p>At the second level, <span class="arithmatex">$v$</span> is in a component of size at most <span class="arithmatex">$\frac{N}{2}$</span>. Removing this component's centroid places <span class="arithmatex">$v$</span> in a component of size at most <span class="arithmatex">$\frac{N}{4}$</span>.</p>
 <p>Continuing this pattern, at the <span class="arithmatex">$k$</span>-th level, <span class="arithmatex">$v$</span> is in a component of size at most <span class="arithmatex">$\frac{N}{2^{k-1}}$</span>.</p>
 <p>The decomposition stops when component sizes reach 1. This happens when <span class="arithmatex">$\frac{N}{2^{k-1}} \leq 1$</span>, which gives us <span class="arithmatex">$k \leq \log_2 N + 1$</span>.</p>
 <p>Therefore, the maximum depth of the centroid decomposition tree is <span class="arithmatex">$O(\log N)$</span>.</p>
+</details>
 <p><strong>Consequence</strong>: Since each vertex participates in at most <span class="arithmatex">$O(\log N)$</span> levels of decomposition, and we process each vertex once at each level, algorithms using centroid decomposition typically have a time complexity factor of <span class="arithmatex">$O(\log N)$</span> multiplied by the work done per vertex per level.</p>
 <h3 id="path-coverage">Path Coverage<a class="headerlink" href="#path-coverage" title="Permanent link">&para;</a></h3>
 <p><strong>Theorem</strong>: Every path in the original tree passes through the centroid of some component in the decomposition.</p>
-<p><strong>Proof</strong>: Consider any path <span class="arithmatex">$P$</span> from vertex <span class="arithmatex">$u$</span> to vertex <span class="arithmatex">$v$</span> in the original tree. We need to show that this path passes through at least one centroid chosen during the decomposition process.</p>
+<details class="note">
+<summary>Proof</summary>
+<p>Consider any path <span class="arithmatex">$P$</span> from vertex <span class="arithmatex">$u$</span> to vertex <span class="arithmatex">$v$</span> in the original tree. We need to show that this path passes through at least one centroid chosen during the decomposition process.</p>
 <p>We prove this by induction on the decomposition process.</p>
 <p><em>Base case</em>: At the first level of decomposition, we select the centroid <span class="arithmatex">$c_1$</span> of the entire tree. If the path <span class="arithmatex">$P$</span> passes through <span class="arithmatex">$c_1$</span>, we are done.</p>
 <p><em>Inductive case</em>: Suppose path <span class="arithmatex">$P$</span> does not pass through <span class="arithmatex">$c_1$</span>. When we remove <span class="arithmatex">$c_1$</span>, the tree splits into multiple components. Since <span class="arithmatex">$P$</span> is a connected path, both <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span> must lie in the same component <span class="arithmatex">$C$</span> after removing <span class="arithmatex">$c_1$</span> (otherwise, <span class="arithmatex">$P$</span> would have to pass through <span class="arithmatex">$c_1$</span> to connect them, which contradicts our assumption).</p>
 <p>Now we recursively decompose component <span class="arithmatex">$C$</span>. By the inductive hypothesis applied to component <span class="arithmatex">$C$</span>, the path <span class="arithmatex">$P$</span> (which is entirely contained in <span class="arithmatex">$C$</span>) must pass through the centroid of some component in the decomposition of <span class="arithmatex">$C$</span>.</p>
 <p>This process continues until we find a centroid through which <span class="arithmatex">$P$</span> passes. The process must terminate because at each level, the component containing <span class="arithmatex">$P$</span> gets strictly smaller (by the balance property), and eventually reduces to a single edge or vertex.</p>
+</details>
 <p><strong>Consequence</strong>: This property is fundamental to the correctness of centroid decomposition algorithms. It ensures that when we process all paths through each centroid, we cover all possible paths in the tree exactly once at some level of the decomposition. This is why centroid decomposition can solve path-related problems efficiently: every path is considered exactly once, at the level where it first encounters a centroid.</p>
 <h2 id="finding-a-centroid">Finding a Centroid<a class="headerlink" href="#finding-a-centroid" title="Permanent link">&para;</a></h2>
 <p>To find a centroid of a tree efficiently:</p>
 <ol>
-<li>Calculate subtree sizes for all vertices using DFS</li>
+<li>Calculate subtree sizes for all vertices using Depth First Search (DFS)</li>
 <li>Start from any vertex</li>
 <li>Find a child <span class="arithmatex">$v$</span> whose subtree contains more than <span class="arithmatex">$\frac{N}{2}$</span> vertices</li>
 <li>Move to <span class="arithmatex">$v$</span> and repeat step 3</li>
@@ -8123,11 +8149,14 @@ Describe the issue of this article in detail.
 <p><img alt="Centroid Tree" src="CentroidTree.png" /></p>
 <p>For example, in the above image, we have a centroid tree. Each node at each level of the tree is a centroid of that component (e.g. the root is the centroid of the entire tree, the left most child of the root is the centroid of the left most subtree of the root, etc.).</p>
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
-<p>Here's a basic implementation of centroid decomposition:</p>
+<p>Here's an implementation of centroid decomposition solving a specific problem: <strong>counting all paths in the tree with length exactly <span class="arithmatex">$K$</span></strong>.</p>
+<p>In this problem, we're given a tree with <span class="arithmatex">$N$</span> vertices and need to count how many paths have exactly <span class="arithmatex">$K$</span> edges. A path is defined by two distinct vertices.</p>
 <div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MAXN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e5</span><span class="p">;</span>
 <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
 <span class="kt">bool</span><span class="w"> </span><span class="n">removed</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
 <span class="kt">int</span><span class="w"> </span><span class="n">subtree_size</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">K</span><span class="p">;</span><span class="w">  </span><span class="c1">// Target path length</span>
+<span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// Count of paths with length K</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">get_subtree_size</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">subtree_size</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
@@ -8147,12 +8176,55 @@ Describe the issue of this article in detail.
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
 <span class="p">}</span>
 
+<span class="c1">// Collect all distances from the centroid within a subtree</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">get_distances</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">dist</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">distances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dist</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">K</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w">  </span><span class="c1">// Optimization: don&#39;t go beyond K</span>
+<span class="w">    </span><span class="n">distances</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">dist</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">removed</span><span class="p">[</span><span class="n">u</span><span class="p">])</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">        </span><span class="n">get_distances</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">distances</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">process_centroid</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">centroid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// This function can be adapted to solve different problems using centroid decomposition.</span>
+<span class="w">    </span><span class="c1">// In this specific case, we are solving the problem of counting all paths of length K.</span>
+<span class="w">    </span><span class="c1">//</span>
+<span class="w">    </span><span class="c1">// Strategy: For each centroid, we count paths that pass through it.</span>
+<span class="w">    </span><span class="c1">// A path passing through the centroid consists of:</span>
+<span class="w">    </span><span class="c1">// - A vertex in one subtree at distance d1 from the centroid</span>
+<span class="w">    </span><span class="c1">// - A vertex in another subtree at distance d2 from the centroid</span>
+<span class="w">    </span><span class="c1">// - Such that d1 + d2 = K</span>
+
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">all_distances</span><span class="p">;</span>
+<span class="w">    </span><span class="n">all_distances</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w">  </span><span class="c1">// The centroid itself (distance 0)</span>
+
+<span class="w">    </span><span class="c1">// Process each subtree of the centroid</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">centroid</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">removed</span><span class="p">[</span><span class="n">u</span><span class="p">])</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span>
+
+<span class="w">        </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">current_distances</span><span class="p">;</span>
+<span class="w">        </span><span class="n">get_distances</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">centroid</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">current_distances</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Count paths between current subtree and all previously processed subtrees</span>
+<span class="w">        </span><span class="c1">// For each distance d in current_distances, we need distance K-d in all_distances</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">current_distances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">K</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// Count how many vertices are at distance K-d in previous subtrees</span>
+<span class="w">                </span><span class="n">answer</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">count</span><span class="p">(</span><span class="n">all_distances</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">all_distances</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">d</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1">// Add current subtree&#39;s distances to all_distances for next iterations</span>
+<span class="w">        </span><span class="n">all_distances</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">all_distances</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">current_distances</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">current_distances</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
 <span class="kt">void</span><span class="w"> </span><span class="nf">decompose</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tree_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_subtree_size</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">centroid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_centroid</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">tree_size</span><span class="p">);</span>
 
-<span class="w">    </span><span class="c1">// Process the centroid</span>
-<span class="w">    </span><span class="c1">// For example: calculate all paths passing through this centroid</span>
+<span class="w">    </span><span class="n">process_centroid</span><span class="p">(</span><span class="n">centroid</span><span class="p">);</span>
 
 <span class="w">    </span><span class="n">removed</span><span class="p">[</span><span class="n">centroid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
 
@@ -8165,7 +8237,7 @@ Describe the issue of this article in detail.
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="building-the-centroid-tree">Building the Centroid Tree<a class="headerlink" href="#building-the-centroid-tree" title="Permanent link">&para;</a></h3>
-<p>If you need to build an explicit centroid tree structure:</p>
+<p>If you need to build an explicit centroid tree structure (useful for answering queries):</p>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">centroid_parent</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">decompose</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
