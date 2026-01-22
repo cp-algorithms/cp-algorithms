@@ -43,6 +43,7 @@ Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorith
 
 ### New articles
 
+- (5 October 2025) [Pell's equation](https://cp-algorithms.com/others/pell_equation.html)
 - (19 August 2025) [Minimum Enclosing Circle](https://cp-algorithms.com/geometry/enclosing-circle.html)
 - (21 May 2025) [Simulated Annealing](https://cp-algorithms.com/num_methods/simulated_annealing.html)
 - (12 July 2024) [Manhattan distance](https://cp-algorithms.com/geometry/manhattan-distance.html)

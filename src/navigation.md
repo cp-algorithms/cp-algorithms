@@ -217,6 +217,7 @@ search:
         - [Scheduling jobs on two machines](schedules/schedule_two_machines.md)
         - [Optimal schedule of jobs given their deadlines and durations](schedules/schedule-with-completion-duration.md)
     - Miscellaneous
+        - [Pell's Equation](others/pells_equation.md)
         - [Tortoise and Hare Algorithm (Linked List cycle detection)](others/tortoise_and_hare.md)
         - [Josephus problem](others/josephus_problem.md)
         - [15 Puzzle Game: Existence Of The Solution](others/15-puzzle.md)
