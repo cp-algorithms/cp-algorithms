@@ -7119,6 +7119,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#two-views-of-rerooting" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7131,10 +7142,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#view-1-move-the-root-across-an-edge" class="md-nav__link">
+  <a href="#view-1-the-inverse-operation-approach" class="md-nav__link">
     <span class="md-ellipsis">
       
-        View 1: Move the Root Across an Edge
+        View 1: The Inverse Operation Approach
       
     </span>
   </a>
@@ -7142,10 +7153,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#view-2-dynamic-programming-on-directed-edges" class="md-nav__link">
+  <a href="#view-2-the-prefixsuffix-approach" class="md-nav__link">
     <span class="md-ellipsis">
       
-        View 2: Dynamic Programming on Directed Edges
+        View 2: The Prefix/Suffix Approach
       
     </span>
   </a>
@@ -7158,22 +7169,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#requirements-and-limitations" class="md-nav__link">
+  <a href="#concrete-example-1-sum-of-distances" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Requirements and Limitations
+        Concrete Example 1: Sum of Distances
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Requirements and Limitations">
+    <nav class="md-nav" aria-label="Concrete Example 1: Sum of Distances">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#limitations" class="md-nav__link">
+  <a href="#solution-1-inverse-operation-approach" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Limitations
+        Solution 1: Inverse Operation Approach
       
     </span>
   </a>
@@ -7181,10 +7192,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#notes" class="md-nav__link">
+  <a href="#solution-2-prefixsuffix-approach" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Notes
+        Solution 2: Prefix/Suffix Approach
       
     </span>
   </a>
@@ -7197,72 +7208,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#algorithm-using-prefixsuffix-merges-on" class="md-nav__link">
+  <a href="#concrete-example-2-maximum-distance-tree-eccentricity" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Algorithm Using Prefix/Suffix Merges ($O(n)$)
+        Concrete Example 2: Maximum Distance (Tree Eccentricity)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Algorithm Using Prefix/Suffix Merges ($O(n)$)">
+    <nav class="md-nav" aria-label="Concrete Example 2: Maximum Distance (Tree Eccentricity)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#two-pass-computation" class="md-nav__link">
+  <a href="#other-common-problems" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Two-Pass Computation
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#implementation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Implementation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#applications" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Applications
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Applications">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#maximum-distance-to-any-node-tree-eccentricities" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Maximum Distance to Any Node (Tree Eccentricities)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sum-of-distances-from-every-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Sum of Distances from Every Node
+        Other Common Problems
       
     </span>
   </a>
@@ -8081,7 +8042,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 2, 2026 17:13:46 UTC">January 2, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 19, 2026 23:11:34 UTC">January 19, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8096,314 +8057,334 @@ Describe the issue of this article in detail.
 
 
 <h1 id="tree-rerooting-all-roots-dynamic-programming">Tree Rerooting (All-Roots Dynamic Programming)<a class="headerlink" href="#tree-rerooting-all-roots-dynamic-programming" title="Permanent link">&para;</a></h1>
-<p>In many tree dynamic programming problems, the answer depends on the choice of the root.
-If we can compute the dynamic programming solution for one fixed root in <span class="arithmatex">$O(n)$</span>, we often can compute the solution for <strong>all</strong> roots in <span class="arithmatex">$O(n)$</span> as well.
-This technique is known as <strong>tree rerooting</strong> (or <strong>all-roots dynamic programming</strong>).</p>
-<p>Prerequisites: <a href="../dynamic_programming/intro-to-dp.html">Introduction to Dynamic Programming</a>, <a href="depth-first-search.html">Depth-first search on trees</a>.</p>
-<p>Rerooting appears in problems like:</p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>Many tree problems ask you to compute a value for every node as if it were the root. For example: "What is the sum of distances from node <span class="arithmatex">$v$</span> to all other nodes?" If you solve this naively by running a separate DFS from each node, you get <span class="arithmatex">$O(n^2)$</span> time, which is too slow for large trees.</p>
+<p>Tree rerooting exploits a key insight: when you "shift" the root from a node to one of its neighbors, only one edge changes direction. Instead of recomputing everything from scratch, you can update your answer in <span class="arithmatex">$O(1)$</span> time by adjusting for what changed. This lets you compute the answer for all <span class="arithmatex">$n$</span> roots in <span class="arithmatex">$O(n)$</span> total time.</p>
+<p><strong>Prerequisites:</strong></p>
 <ul>
-<li>Compute a value <span class="arithmatex">$ans[v]$</span> for every vertex <span class="arithmatex">$v$</span> as the root.</li>
-<li>Compute a value for every directed edge <span class="arithmatex">$(v \to p)$</span> (sometimes called <strong>edge dynamic programming</strong>).</li>
-<li>Compute "inside-subtree" and "outside-subtree" information for each vertex.</li>
+<li><a href="../dynamic_programming/intro-to-dp.html">Introduction to Dynamic Programming</a></li>
+<li><a href="depth-first-search.html">Depth-first search on trees</a></li>
 </ul>
-<p>The key operation behind rerooting is computing, for a node <span class="arithmatex">$v$</span> and a neighbor <span class="arithmatex">$u$</span>, the combined contribution of <strong>all neighbors of <span class="arithmatex">$v$</span> except <span class="arithmatex">$u$</span></strong>.
-Doing this naively can cost <span class="arithmatex">$O(\deg(v)^2)$</span> per vertex, which is too slow on high-degree nodes.</p>
 <hr />
 <h2 id="two-views-of-rerooting">Two Views of Rerooting<a class="headerlink" href="#two-views-of-rerooting" title="Permanent link">&para;</a></h2>
-<h3 id="view-1-move-the-root-across-an-edge">View 1: Move the Root Across an Edge<a class="headerlink" href="#view-1-move-the-root-across-an-edge" title="Permanent link">&para;</a></h3>
-<p>Assume we have dynamic programming values for a rooted tree. If we change the root from <span class="arithmatex">$r$</span> to an adjacent vertex <span class="arithmatex">$v$</span>,
-then only the parent/child relations around that edge change (i.e., the edge reverses direction, making <span class="arithmatex">$r$</span> a child of <span class="arithmatex">$v$</span> instead of the other way around).</p>
-<p>So if the dynamic programming transition depends only on the immediate parent and children of a node (rather than the entire tree structure),
-we can update the values when moving the root across one edge and traverse the tree with DFS, rolling changes back when returning from recursion.</p>
+<p>There are two main ways to think about the rerooting technique. Both achieve <span class="arithmatex">$O(n)$</span> time, but they differ in what mathematical properties they require.</p>
+<h3 id="view-1-the-inverse-operation-approach">View 1: The Inverse Operation Approach<a class="headerlink" href="#view-1-the-inverse-operation-approach" title="Permanent link">&para;</a></h3>
+<p>In this view, you first solve the problem for a fixed root (say, node 0). Then you traverse the tree and "move" the root from parent to child, updating the answer as you go.</p>
+<p>When you move the root from node <span class="arithmatex">$p$</span> to its child <span class="arithmatex">$c$</span>:</p>
+<ul>
+<li>You <strong>remove</strong> <span class="arithmatex">$c$</span>'s contribution from <span class="arithmatex">$p$</span>'s answer (this requires an inverse operation, like subtraction).</li>
+<li>You <strong>add</strong> the contribution from the rest of the tree (now seen from <span class="arithmatex">$c$</span>'s perspective).</li>
+</ul>
+<p>This view is fast and simple, but it only works when your combining operation has an inverse. Addition has subtraction. Multiplication has division (if no zeros). XOR is its own inverse. But operations like <strong>max</strong> or <strong>gcd</strong> have no inverse, so this view doesn't apply to them.</p>
 <figure style="text-align:center">
   <img src="../graph/tree_rerooting_reroot_step.jpg" alt="Rerooting step" width="520">
-  <figcaption><em>Move the root across edge (p, v): only the parent/child direction of this edge changes.</em></figcaption>
+  <figcaption><em>Moving the root from p to c: the edge (p, c) reverses direction.</em></figcaption>
 </figure>
 
-<p>However, we must avoid recomputing transitions by iterating over all children every time we move the root,
-otherwise the complexity can degrade to roughly
-<span class="arithmatex">$O\!\left(\sum_v \binom{\deg(v)}{2}\right)$</span> in the worst case (close to <span class="arithmatex">$O(n^2)$</span>),
-where <span class="arithmatex">$\deg(v)$</span> denotes the <strong>degree</strong> of vertex <span class="arithmatex">$v$</span> (the number of neighbors of <span class="arithmatex">$v$</span>).</p>
-<p>This is why efficient "exclude one neighbor" computations are central.</p>
-<h3 id="view-2-dynamic-programming-on-directed-edges">View 2: Dynamic Programming on Directed Edges<a class="headerlink" href="#view-2-dynamic-programming-on-directed-edges" title="Permanent link">&para;</a></h3>
-<p>A clean and common way to write rerooting is to store dynamic programming values on <strong>directed edges</strong>.</p>
-<p>This approach is often preferred because:</p>
+<h3 id="view-2-the-prefixsuffix-approach">View 2: The Prefix/Suffix Approach<a class="headerlink" href="#view-2-the-prefixsuffix-approach" title="Permanent link">&para;</a></h3>
+<p>In this view, you think about computing a result for every <strong>directed edge</strong>. For each directed edge <span class="arithmatex">$u \to v$</span>, you compute the answer for the subtree on the <span class="arithmatex">$u$</span>-side when that edge is "cut."</p>
+<p>The key challenge: to compute the contribution going from <span class="arithmatex">$u$</span> toward <span class="arithmatex">$v$</span>, you need to combine the contributions from <strong>all neighbors of <span class="arithmatex">$u$</span> except <span class="arithmatex">$v$</span></strong>.</p>
+<p>If you had to do this naively, it would cost <span class="arithmatex">$O(\deg(u))$</span> for each neighbor, leading to <span class="arithmatex">$O(\deg(u)^2)$</span> total for node <span class="arithmatex">$u$</span>—too slow for high-degree nodes.</p>
+<p>The solution is <strong>prefix and suffix arrays</strong>. For a node with neighbors <span class="arithmatex">$[n_0, n_1, \ldots, n_{k-1}]$</span>:</p>
 <ul>
-<li>It is conceptually clean: there is no mutable state to roll back.</li>
-<li>It is easier to implement correctly since the two passes are naturally separated.</li>
+<li><code>pref[i]</code> = combined result from neighbors <span class="arithmatex">$n_0, n_1, \ldots, n_{i-1}$</span></li>
+<li><code>suf[i]</code> = combined result from neighbors <span class="arithmatex">$n_i, n_{i+1}, \ldots, n_{k-1}$</span></li>
 </ul>
-<p>For every directed edge <span class="arithmatex">$(v \to p)$</span> define:</p>
-<ul>
-<li><span class="arithmatex">$dp[v \to p]$</span> = the contribution of the component on the <span class="arithmatex">$v$</span>-side when the edge <span class="arithmatex">$(v,p)$</span> is cut, computed "towards" <span class="arithmatex">$p$</span>.</li>
-</ul>
-<p>To make this generic, we will use a dynamic programming type <code>T</code> and the following operations:</p>
-<ul>
-<li><code>merge(a, b)</code> - associative combination (not necessarily commutative).</li>
-<li><code>ID</code> - identity element for <code>merge</code>.</li>
-<li><code>to_vertex(x, from, to)</code> - optional edge-dependent transform (often identity).</li>
-<li><code>add_vertex(x, v)</code> - optional inclusion of vertex <span class="arithmatex">$v$</span> into the result.</li>
-</ul>
-<p>Now the key recurrence is:</p>
-<div class="arithmatex">$$
-dp[v \to p] =
-add\_vertex\Bigl(
-\operatorname{merge}_{u \in adj(v),\,u \neq p}
-to\_vertex(dp[u \to v], u, v),
-\ v
-\Bigr).
-$$</div>
-<p>And the answer for root <span class="arithmatex">$v$</span> is:</p>
-<div class="arithmatex">$$
-ans[v] =
-add\_vertex\Bigl(
-\operatorname{merge}_{u \in adj(v)}
-to\_vertex(dp[u \to v], u, v),
-\ v
-\Bigr).
-$$</div>
-<p><strong>Why does this formulation lead to a two-pass algorithm?</strong></p>
-<ul>
-<li>In the first pass (postorder), we compute all values of the form <span class="arithmatex">$dp[child \to parent]$</span> because they depend only on deeper subtrees.</li>
-<li>In the second pass (preorder), we compute values of the form <span class="arithmatex">$dp[parent \to child]$</span>. For a fixed node <span class="arithmatex">$v$</span>, each neighbor <span class="arithmatex">$u$</span> needs the merge of <strong>all neighbors except <span class="arithmatex">$u$</span></strong>, which can be computed in <span class="arithmatex">$O(\deg(v))$</span> using prefix/suffix merges.</li>
-</ul>
-<hr />
-<h2 id="requirements-and-limitations">Requirements and Limitations<a class="headerlink" href="#requirements-and-limitations" title="Permanent link">&para;</a></h2>
-<p>This template covers most rerooting tasks: sums/products, max/min, counting, etc.</p>
-<p>If <code>merge</code> is <span class="arithmatex">$O(1)$</span>, the rerooting algorithm runs in <span class="arithmatex">$O(n)$</span> time.</p>
-<h3 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h3>
-<p>This template does <strong>not</strong> cover all rerooting scenarios. Common reasons include:</p>
-<ul>
-<li><strong>Non-associative operations</strong>: If your combination is not associative, prefix/suffix merges are not valid.</li>
-<li><strong>Non-<span class="arithmatex">$O(1)$</span> merge</strong>: If merging costs <span class="arithmatex">$O(k)$</span> (e.g., sets, polynomials), overall complexity becomes <span class="arithmatex">$O(n \cdot k)$</span>.</li>
-<li><strong>States with cross-child interactions</strong>: If a node's state depends on interactions between multiple children that cannot be expressed as a merge of independent contributions, this template does not apply directly.</li>
-<li><strong>Needing subtree structure</strong>: If you need the actual structure (not just an aggregated value), you need a different approach.</li>
-</ul>
-<h3 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h3>
-<ul>
-<li>The adjacency order is used for prefix/suffix; <code>merge</code> only needs to be associative.</li>
-<li>If you need edge weights, store them and use <code>to_vertex</code>.</li>
-<li>If you need to account for a vertex value, use <code>add_vertex</code>.</li>
-</ul>
-<hr />
-<h2 id="algorithm-using-prefixsuffix-merges-on">Algorithm Using Prefix/Suffix Merges (<span class="arithmatex">$O(n)$</span>)<a class="headerlink" href="#algorithm-using-prefixsuffix-merges-on" title="Permanent link">&para;</a></h2>
-<p>Fix an arbitrary root (say vertex 0). Let:</p>
-<ul>
-<li><code>down[v]</code> = result of the component "below" <span class="arithmatex">$v$</span> with respect to the fixed root (children only),</li>
-<li><code>up[v]</code> = contribution coming into <span class="arithmatex">$v$</span> from its parent side,</li>
-<li><code>ans[v]</code> = result for the whole tree when rooted at <span class="arithmatex">$v$</span>.</li>
-</ul>
-<p>For each vertex <span class="arithmatex">$v$</span>, define neighbor contributions toward <span class="arithmatex">$v$</span>:</p>
-<ul>
-<li>From a child <span class="arithmatex">$u$</span>: <code>to_vertex(down[u], u, v)</code>.</li>
-<li>From the parent: <code>up[v]</code>.</li>
-</ul>
-<p>Now we want, for every neighbor <span class="arithmatex">$u$</span> of <span class="arithmatex">$v$</span>, the merged value of <strong>all neighbor contributions except the one from <span class="arithmatex">$u$</span></strong>.</p>
+<p>Then "all except <span class="arithmatex">$n_i$</span>" = <code>pref[i]</code> combined with <code>suf[i+1]</code>, computed in <span class="arithmatex">$O(1)$</span>.</p>
+<p>This view works for <strong>any associative operation</strong>, including non-invertible ones like max, min, and gcd.</p>
 <figure style="text-align:center">
   <img src="../graph/tree_rerooting_excluding_neighbor.gif" alt="Prefix/suffix exclude one neighbor" width="600">
-  <figcaption><em>Prefix/suffix merges let us compute the merge of all neighbors except one.</em></figcaption>
+  <figcaption><em>Prefix/suffix arrays let us efficiently compute "all neighbors except one."</em></figcaption>
 </figure>
 
-<p>We can compute it in <span class="arithmatex">$O(\deg(v))$</span> using prefix/suffix arrays:</p>
-<ul>
-<li><code>pref[i]</code> = merge of contributions of neighbors <code>0..i-1</code>.</li>
-<li><code>suf[i]</code>  = merge of contributions of neighbors <code>i..deg-1</code>.</li>
-</ul>
-<p>Then for neighbor index <code>i</code>:</p>
-<div class="arithmatex">$$
-\text{without_i} = merge(pref[i],\ suf[i+1]).
-$$</div>
-<p>This gives the value needed to compute the contribution sent to that neighbor.</p>
-<h3 id="two-pass-computation">Two-Pass Computation<a class="headerlink" href="#two-pass-computation" title="Permanent link">&para;</a></h3>
-<ol>
-<li>
-<p>Choose an arbitrary root (e.g. 0) and compute <code>down[v]</code> in a postorder:
-   for each vertex, merge contributions from children and apply <code>add_vertex</code>.</p>
-</li>
-<li>
-<p>Compute <code>up[v]</code> and <code>ans[v]</code> in a preorder:
-   build <code>contrib[]</code> for each neighbor, then use prefix/suffix to get the value excluding each neighbor.
-   This gives the value to propagate to children and also the final <code>ans[v]</code>.</p>
-</li>
-</ol>
 <hr />
-<h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
-<p>The following implementation is a reusable rerooting template for the model above.
-You provide:</p>
+<h2 id="concrete-example-1-sum-of-distances">Concrete Example 1: Sum of Distances<a class="headerlink" href="#concrete-example-1-sum-of-distances" title="Permanent link">&para;</a></h2>
+<p><strong>Problem:</strong> Given a tree with <span class="arithmatex">$n$</span> nodes, for each node <span class="arithmatex">$v$</span>, compute the sum of distances from <span class="arithmatex">$v$</span> to all other nodes.</p>
+<div class="arithmatex">$$
+\text{ans}[v] = \sum_{u=0}^{n-1} \text{dist}(v, u)
+$$</div>
+<p>We will solve this problem using both views.</p>
+<hr />
+<h3 id="solution-1-inverse-operation-approach">Solution 1: Inverse Operation Approach<a class="headerlink" href="#solution-1-inverse-operation-approach" title="Permanent link">&para;</a></h3>
+<p><strong>Step 1: Root the tree at node 0.</strong></p>
+<p>Run a DFS to compute:</p>
 <ul>
-<li><code>T</code> (dynamic programming type),</li>
-<li><code>ID</code>,</li>
-<li><code>merge(a,b)</code>,</li>
-<li><code>add_vertex(x, v)</code>,</li>
-<li><code>to_vertex(x, from, to)</code> (often identity).</li>
+<li><code>sz[v]</code> = number of nodes in the subtree rooted at <span class="arithmatex">$v$</span></li>
+<li><code>ans[0]</code> = sum of distances from node 0 to all other nodes (just sum up depths)</li>
 </ul>
-<p>It computes <code>down</code>, <code>up</code>, and <code>ans</code> for all vertices.</p>
-<p>We define the <code>Rerooting</code> struct with the graph and DP operations:</p>
-<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Merge</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">AddVertex</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ToVertex</span><span class="o">&gt;</span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">Rerooting</span><span class="w"> </span><span class="p">{</span>
+<p><strong>Step 2: Move the root from parent to child.</strong></p>
+<p>When you move the root from <span class="arithmatex">$p$</span> to its child <span class="arithmatex">$c$</span>:</p>
+<ul>
+<li>The <code>sz[c]</code> nodes in <span class="arithmatex">$c$</span>'s subtree each become <strong>1 step closer</strong> (they were at distance <span class="arithmatex">$d$</span>, now at distance <span class="arithmatex">$d-1$</span>).</li>
+<li>The remaining <code>n - sz[c]</code> nodes each become <strong>1 step farther</strong>.</li>
+</ul>
+<p>So the update formula is:</p>
+<div class="arithmatex">$$
+\text{ans}[c] = \text{ans}[p] - \text{sz}[c] + (n - \text{sz}[c]) = \text{ans}[p] + n - 2 \cdot \text{sz}[c]
+$$</div>
+<p><strong>Full C++ Code:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bits/stdc++.h&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+<span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="k">nullptr</span><span class="p">);</span>
+
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">g</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
 
-<span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="n">ID</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Merge</span><span class="w"> </span><span class="n">merge</span><span class="p">;</span>
-<span class="w">    </span><span class="n">AddVertex</span><span class="w"> </span><span class="n">add_vertex</span><span class="p">;</span>
-<span class="w">    </span><span class="n">ToVertex</span><span class="w"> </span><span class="n">to_vertex</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">parent</span><span class="p">,</span><span class="w"> </span><span class="n">order</span><span class="p">;</span>
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">down</span><span class="p">,</span><span class="w"> </span><span class="n">up</span><span class="p">,</span><span class="w"> </span><span class="n">ans</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">Rerooting</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">Merge</span><span class="w"> </span><span class="n">merge</span><span class="p">,</span><span class="w"> </span><span class="n">AddVertex</span><span class="w"> </span><span class="n">add_vertex</span><span class="p">,</span><span class="w"> </span><span class="n">ToVertex</span><span class="w"> </span><span class="n">to_vertex</span><span class="p">)</span>
-<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="w"> </span><span class="n">g</span><span class="p">(</span><span class="n">n</span><span class="p">),</span>
-<span class="w">          </span><span class="n">ID</span><span class="p">(</span><span class="n">ID</span><span class="p">),</span><span class="w"> </span><span class="n">merge</span><span class="p">(</span><span class="n">merge</span><span class="p">),</span><span class="w"> </span><span class="n">add_vertex</span><span class="p">(</span><span class="n">add_vertex</span><span class="p">),</span><span class="w"> </span><span class="n">to_vertex</span><span class="p">(</span><span class="n">to_vertex</span><span class="p">),</span>
-<span class="w">          </span><span class="n">parent</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">),</span><span class="w"> </span><span class="n">down</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">ID</span><span class="p">),</span><span class="w"> </span><span class="n">up</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">ID</span><span class="p">),</span><span class="w"> </span><span class="n">ans</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">ID</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
-
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">add_edge</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">g</span><span class="p">[</span><span class="n">a</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
-<span class="w">        </span><span class="n">g</span><span class="p">[</span><span class="n">b</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">adj</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+<span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+<span class="w">        </span><span class="n">adj</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+<span class="w">        </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="c1">// ... build() method below</span>
-<span class="p">};</span>
-</code></pre></div>
-<p>The <code>build()</code> method performs the two-pass computation. First, we build the parent array and traversal order:</p>
-<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">build</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">order</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
-<span class="w">    </span><span class="n">fill</span><span class="p">(</span><span class="n">parent</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">parent</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="mi">-1</span><span class="p">);</span>
 
-<span class="w">    </span><span class="c1">// Build parent[] and traversal order</span>
-<span class="w">    </span><span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">st</span><span class="p">;</span>
-<span class="w">    </span><span class="n">st</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
-<span class="w">    </span><span class="n">parent</span><span class="p">[</span><span class="n">root</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">root</span><span class="p">;</span>
-<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">st</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">st</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
-<span class="w">        </span><span class="n">st</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
-<span class="w">        </span><span class="n">order</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">g</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">parent</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
-<span class="w">            </span><span class="n">st</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sz</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="w"> </span><span class="n">ans</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// DFS 1: Compute subtree sizes and ans[0]</span>
+<span class="w">    </span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dfs1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">parent</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">depth</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">sz</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">ans</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">depth</span><span class="p">;</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">parent</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">dfs1</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">depth</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">                </span><span class="n">sz</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">sz</span><span class="p">[</span><span class="n">u</span><span class="p">];</span>
+<span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="n">dfs1</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// DFS 2: Reroot from parent to child</span>
+<span class="w">    </span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dfs2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">parent</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">parent</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">ans</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ans</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sz</span><span class="p">[</span><span class="n">u</span><span class="p">];</span>
+<span class="w">                </span><span class="n">dfs2</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="n">dfs2</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span>
 <span class="w">    </span><span class="p">}</span>
-</code></pre></div>
-<p>Next, we compute <code>down[v]</code> in postorder (from leaves to root):</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1">// Downward pass: compute down[v] from children only</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">order</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">--</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">order</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-<span class="w">        </span><span class="n">T</span><span class="w"> </span><span class="n">acc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ID</span><span class="p">;</span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">g</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">acc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">merge</span><span class="p">(</span><span class="n">acc</span><span class="p">,</span><span class="w"> </span><span class="n">to_vertex</span><span class="p">(</span><span class="n">down</span><span class="p">[</span><span class="n">u</span><span class="p">],</span><span class="w"> </span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">));</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="n">down</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">add_vertex</span><span class="p">(</span><span class="n">acc</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-</code></pre></div>
-<p>Finally, we reroot using prefix/suffix merges to compute <code>up[]</code> and <code>ans[]</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1">// Reroot: compute up[] and ans[] using prefix/suffix merges</span>
-<span class="w">    </span><span class="n">up</span><span class="p">[</span><span class="n">root</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ID</span><span class="p">;</span>
 
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">order</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">deg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">g</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">size</span><span class="p">();</span>
-<span class="w">        </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">contrib</span><span class="p">(</span><span class="n">deg</span><span class="p">);</span>
-
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">deg</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="n">contrib</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">up</span><span class="p">[</span><span class="n">v</span><span class="p">];</span>
-<span class="w">            </span><span class="k">else</span><span class="w">                </span><span class="n">contrib</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">to_vertex</span><span class="p">(</span><span class="n">down</span><span class="p">[</span><span class="n">u</span><span class="p">],</span><span class="w"> </span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
-
-<span class="w">        </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pref</span><span class="p">(</span><span class="n">deg</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">ID</span><span class="p">),</span><span class="w"> </span><span class="n">suf</span><span class="p">(</span><span class="n">deg</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">ID</span><span class="p">);</span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">deg</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="n">pref</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">merge</span><span class="p">(</span><span class="n">pref</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">contrib</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deg</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">--</span><span class="p">)</span><span class="w"> </span><span class="n">suf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">merge</span><span class="p">(</span><span class="n">contrib</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">suf</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]);</span>
-
-<span class="w">        </span><span class="n">ans</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">add_vertex</span><span class="p">(</span><span class="n">pref</span><span class="p">[</span><span class="n">deg</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">);</span>
-
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">deg</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span>
-
-<span class="w">            </span><span class="n">T</span><span class="w"> </span><span class="n">without_u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">merge</span><span class="p">(</span><span class="n">pref</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">suf</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]);</span>
-<span class="w">            </span><span class="n">T</span><span class="w"> </span><span class="n">v_towards_u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">add_vertex</span><span class="p">(</span><span class="n">without_u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span>
-<span class="w">            </span><span class="n">up</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">to_vertex</span><span class="p">(</span><span class="n">v_towards_u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">u</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><strong>Usage example:</strong></p>
-<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">T</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* your DP state */</span><span class="w"> </span><span class="p">};</span>
-<span class="n">T</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="cm">/* identity */</span><span class="p">;</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">merge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">};</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">add_vertex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">};</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">to_vertex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">from</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">to</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">};</span>
+<hr />
+<h3 id="solution-2-prefixsuffix-approach">Solution 2: Prefix/Suffix Approach<a class="headerlink" href="#solution-2-prefixsuffix-approach" title="Permanent link">&para;</a></h3>
+<p>For this approach, we track two values per node: the <strong>sum of distances</strong> and the <strong>count of nodes</strong>. When we "lift" a subtree result across an edge (passing it from child to parent), every node in that subtree becomes 1 step farther.</p>
+<p><strong>State:</strong> <code>pair&lt;long long, int&gt;</code> where <code>.first</code> = sum of distances, <code>.second</code> = count of nodes.</p>
+<p><strong>Lifting across an edge:</strong> If a subtree has state <code>{sum, cnt}</code>, then from the parent's perspective, all <code>cnt</code> nodes are 1 step farther, so the lifted state is <code>{sum + cnt, cnt}</code>.</p>
+<p><strong>Algorithm:</strong></p>
+<ol>
+<li>Build parent array and traversal order using BFS/DFS from node 0.</li>
+<li><strong>Post-order pass:</strong> For each node (leaves to root), compute <code>down[v]</code> = contribution from <span class="arithmatex">$v$</span>'s subtree.</li>
+<li><strong>Pre-order pass:</strong> For each node (root to leaves), use prefix/suffix arrays to compute <code>up[v]</code> = contribution from the parent side, and <code>ans[v]</code> = total.</li>
+</ol>
+<p><strong>Full C++ Code:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bits/stdc++.h&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
 
-<span class="n">Rerooting</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="k">decltype</span><span class="p">(</span><span class="n">merge</span><span class="p">),</span><span class="w"> </span><span class="k">decltype</span><span class="p">(</span><span class="n">add_vertex</span><span class="p">),</span><span class="w"> </span><span class="k">decltype</span><span class="p">(</span><span class="n">to_vertex</span><span class="p">)</span><span class="o">&gt;</span>
-<span class="w">    </span><span class="n">rr</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">merge</span><span class="p">,</span><span class="w"> </span><span class="n">add_vertex</span><span class="p">,</span><span class="w"> </span><span class="n">to_vertex</span><span class="p">);</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+<span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="k">nullptr</span><span class="p">);</span>
 
-<span class="n">rr</span><span class="p">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
-<span class="n">rr</span><span class="p">.</span><span class="n">build</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<span class="c1">// answers are in rr.ans[v]</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">adj</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+<span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+<span class="w">        </span><span class="n">adj</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+<span class="w">        </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// State: {sum of distances, count of nodes}</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">down</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="w"> </span><span class="n">up</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ans</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Helper: lift a state across an edge (all nodes become 1 farther)</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">lift</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[](</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="n">s</span><span class="p">.</span><span class="n">first</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">second</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">second</span><span class="p">};</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="c1">// Helper: combine two states</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">combine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[](</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="n">a</span><span class="p">.</span><span class="n">first</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">first</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">second</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">second</span><span class="p">};</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="c1">// DFS 1: Post-order (Compute &#39;down&#39; values)</span>
+<span class="w">    </span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dfs_down</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">down</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">};</span><span class="w"> </span><span class="c1">// Base: distance 0 to itself, count 1</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">dfs_down</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span>
+<span class="w">                </span><span class="n">down</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">combine</span><span class="p">(</span><span class="n">down</span><span class="p">[</span><span class="n">v</span><span class="p">],</span><span class="w"> </span><span class="n">lift</span><span class="p">(</span><span class="n">down</span><span class="p">[</span><span class="n">u</span><span class="p">]));</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="n">dfs_down</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// DFS 2: Pre-order (Compute &#39;up&#39; and &#39;ans&#39;)</span>
+<span class="w">    </span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dfs_up</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ans[v] includes children (down[v]) and parent (up[v])</span>
+<span class="w">        </span><span class="c1">// Note: down[v] already includes v itself.</span>
+<span class="w">        </span><span class="c1">// We only add the parent contribution if it exists.</span>
+<span class="w">        </span><span class="n">ans</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">down</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">first</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">ans</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">lift</span><span class="p">(</span><span class="n">up</span><span class="p">[</span><span class="n">v</span><span class="p">]).</span><span class="n">first</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1">// Collect all contributions for prefix/suffix</span>
+<span class="w">        </span><span class="c1">// We need contributions from:</span>
+<span class="w">        </span><span class="c1">// 1. All children u (value is lift(down[u]))</span>
+<span class="w">        </span><span class="c1">// 2. The parent p (value is lift(up[v]))</span>
+<span class="w">        </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">contribs</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="n">contribs</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">lift</span><span class="p">(</span><span class="n">up</span><span class="p">[</span><span class="n">v</span><span class="p">]));</span><span class="w"> </span><span class="c1">// Parent contribution</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="n">contribs</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">lift</span><span class="p">(</span><span class="n">down</span><span class="p">[</span><span class="n">u</span><span class="p">]));</span><span class="w"> </span><span class="c1">// Child contributions</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">contribs</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="w">        </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">pref</span><span class="p">(</span><span class="n">m</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">});</span>
+<span class="w">        </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">suf</span><span class="p">(</span><span class="n">m</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">});</span>
+
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="n">pref</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">combine</span><span class="p">(</span><span class="n">pref</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">contribs</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">--</span><span class="p">)</span><span class="w"> </span><span class="n">suf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">combine</span><span class="p">(</span><span class="n">contribs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">suf</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]);</span>
+
+<span class="w">        </span><span class="c1">// Distribute to children</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">child_idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">-1</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// Skip parent index in contribs if it exists</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// up[u] needs all neighbors of v EXCEPT u</span>
+<span class="w">                </span><span class="c1">// plus v itself (dist 0, count 1)</span>
+<span class="w">                </span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">without_u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">combine</span><span class="p">(</span><span class="n">pref</span><span class="p">[</span><span class="n">child_idx</span><span class="p">],</span><span class="w"> </span><span class="n">suf</span><span class="p">[</span><span class="n">child_idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]);</span>
+<span class="w">                </span><span class="n">without_u</span><span class="p">.</span><span class="n">second</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span>
+<span class="w">                </span><span class="n">up</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">without_u</span><span class="p">;</span>
+
+<span class="w">                </span><span class="n">dfs_up</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span>
+<span class="w">                </span><span class="n">child_idx</span><span class="o">++</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="n">dfs_up</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
 <hr />
-<h2 id="applications">Applications<a class="headerlink" href="#applications" title="Permanent link">&para;</a></h2>
-<h3 id="maximum-distance-to-any-node-tree-eccentricities">Maximum Distance to Any Node (Tree Eccentricities)<a class="headerlink" href="#maximum-distance-to-any-node-tree-eccentricities" title="Permanent link">&para;</a></h3>
-<p>For each node <span class="arithmatex">$x$</span>, we want:</p>
+<h2 id="concrete-example-2-maximum-distance-tree-eccentricity">Concrete Example 2: Maximum Distance (Tree Eccentricity)<a class="headerlink" href="#concrete-example-2-maximum-distance-tree-eccentricity" title="Permanent link">&para;</a></h2>
+<p><strong>Problem:</strong> For each node <span class="arithmatex">$v$</span>, find the maximum distance to any other node.</p>
 <div class="arithmatex">$$
-ans[x] = \max_{y} dist(x, y).
+\text{ans}[v] = \max_{u} \text{dist}(v, u)
 $$</div>
-<p><strong>Approach.</strong> Compute the best depth inside each subtree with one DFS, then do a second DFS to propagate the best value from the parent side using the best and second-best child contributions.</p>
-<p>A classical reroot solution uses two dynamic programming arrays:</p>
-<ul>
-<li><span class="arithmatex">$f[x]$</span> = max distance from <span class="arithmatex">$x$</span> to any node in the subtree rooted at <span class="arithmatex">$x$</span>,</li>
-<li><span class="arithmatex">$g[x]$</span> = max distance from <span class="arithmatex">$x$</span> to any node outside that subtree,</li>
-<li>then <span class="arithmatex">$ans[x] = \max(f[x], g[x])$</span>.</li>
-</ul>
-<p>We can compute <span class="arithmatex">$f$</span> by a DFS using the transition:</p>
-<div class="arithmatex">$$
-f[x] = 1 + \max_{c \in children(x)} f[c].
-$$</div>
-<p>To compute <span class="arithmatex">$g$</span> efficiently, we need, for each child <span class="arithmatex">$c$</span> of <span class="arithmatex">$x$</span>, the best "sibling alternative" (the best subtree of <span class="arithmatex">$x$</span> excluding <span class="arithmatex">$c$</span>).
-One way is to store the largest and second largest child depths for every node (or equivalently compute an "exclude-one-child" maximum).
-Then:</p>
-<ul>
-<li>if child <span class="arithmatex">$c$</span> is the one that gave the maximum for <span class="arithmatex">$f[x]$</span>, use the second maximum,</li>
-<li>otherwise use the maximum.</li>
-</ul>
-<p>This exactly matches the "two arrays / inside vs outside" technique.</p>
-<p>Implementation idea:</p>
-<ul>
-<li>first DFS: compute <code>best1[x]</code>, <code>best2[x]</code> = top two values of <code>f[child] + 1</code>,</li>
-<li>second DFS: compute <code>g[child] = max(g[x] + 1, best_except_child + 1)</code>.</li>
-</ul>
-<p>(You can also code it with the generic reroot template by letting <code>merge = max</code>.)</p>
+<p><strong>Why View 1 Fails:</strong>
+The <code>max</code> operation does not have an inverse. If you know that <code>max(A, B) = 10</code>, and you want to remove <code>A=10</code>, you cannot determine if <code>B</code> was 5, 9, or also 10. Therefore, the simple subtraction trick from Solution 1 <strong>cannot be used</strong>. We must use the <strong>Prefix/Suffix</strong> approach.</p>
+<p><strong>Algorithm:</strong>
+1. <code>down[v]</code>: The maximum height of the subtree rooted at <span class="arithmatex">$v$</span>.
+2. <code>up[v]</code>: The maximum length of a path starting at <span class="arithmatex">$v$</span> and going upwards through the parent.
+3. <code>merge(a, b)</code>: <code>max(a, b)</code>.
+4. <code>lift(x)</code>: <code>x + 1</code> (moving one edge increases length by 1).</p>
+<p><strong>Code (Maximum Distance):</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bits/stdc++.h&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+<span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="k">nullptr</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">adj</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+<span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+<span class="w">        </span><span class="n">adj</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+<span class="w">        </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// down[v]: max distance in subtree of v</span>
+<span class="w">    </span><span class="c1">// up[v]: max distance going up through parent</span>
+<span class="w">    </span><span class="c1">// ans[v]: max distance to ANY node</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">down</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="w"> </span><span class="n">up</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="w"> </span><span class="n">ans</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// DFS 1: Post-order (Compute down)</span>
+<span class="w">    </span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dfs_down</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">down</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">dfs_down</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span>
+<span class="w">                </span><span class="n">down</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">down</span><span class="p">[</span><span class="n">v</span><span class="p">],</span><span class="w"> </span><span class="n">down</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="n">dfs_down</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// DFS 2: Pre-order (Compute up and ans)</span>
+<span class="w">    </span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dfs_up</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ans</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">down</span><span class="p">[</span><span class="n">v</span><span class="p">],</span><span class="w"> </span><span class="n">up</span><span class="p">[</span><span class="n">v</span><span class="p">]);</span>
+
+<span class="w">        </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">contribs</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="n">contribs</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">up</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="c1">// From parent</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="n">contribs</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">down</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="c1">// From children</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">contribs</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="w">        </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pref</span><span class="p">(</span><span class="n">m</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mf">-1e9</span><span class="p">),</span><span class="w"> </span><span class="n">suf</span><span class="p">(</span><span class="n">m</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mf">-1e9</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Standard max prefix/suffix</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="n">pref</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">pref</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">contribs</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">--</span><span class="p">)</span><span class="w"> </span><span class="n">suf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">suf</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">contribs</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">child_idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">-1</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// up[u] is the max path starting at v going towards ANY neighbor except u</span>
+<span class="w">                </span><span class="c1">// Note: The &#39;contribs&#39; array already added +1 to all neighbors.</span>
+<span class="w">                </span><span class="c1">// So max(pref, suf) represents the longest path starting at v.</span>
+<span class="w">                </span><span class="c1">// Since up[u] is &#39;max path starting at u going UP&#39;, we don&#39;t add +1 here yet.</span>
+<span class="w">                </span><span class="c1">// It gets added when u uses it as a parent contribution in the next recursion.</span>
+
+<span class="w">                </span><span class="kt">int</span><span class="w"> </span><span class="n">longest_path_from_v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">pref</span><span class="p">[</span><span class="n">child_idx</span><span class="p">],</span><span class="w"> </span><span class="n">suf</span><span class="p">[</span><span class="n">child_idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]);</span>
+
+<span class="w">                </span><span class="c1">// If there were no other neighbors, longest path is 0 (v itself)</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">longest_path_from_v</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="n">longest_path_from_v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">                </span><span class="n">up</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">longest_path_from_v</span><span class="p">;</span>
+
+<span class="w">                </span><span class="n">dfs_up</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span>
+<span class="w">                </span><span class="n">child_idx</span><span class="o">++</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="n">dfs_up</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
 <hr />
-<h3 id="sum-of-distances-from-every-node">Sum of Distances from Every Node<a class="headerlink" href="#sum-of-distances-from-every-node" title="Permanent link">&para;</a></h3>
-<p>Compute for every vertex <span class="arithmatex">$v$</span>:</p>
-<div class="arithmatex">$$
-ans[v] = \sum_{u=0}^{n-1} dist(v,u).
-$$</div>
-<p><strong>Approach.</strong> First compute <code>sz[v]</code> and <code>sub[v]</code> with one DFS. Then do a second DFS to reroot from parent to child, updating the answer when moving across an edge.</p>
-<p>Root at 0 and compute:</p>
+<h3 id="other-common-problems">Other Common Problems<a class="headerlink" href="#other-common-problems" title="Permanent link">&para;</a></h3>
+<p>Many rerooting problems fit one of these patterns</p>
 <ul>
-<li><code>sz[v]</code> = size of subtree of <span class="arithmatex">$v$</span>,</li>
-<li><code>sub[v]</code> = sum of distances from <span class="arithmatex">$v$</span> to nodes in its subtree.</li>
+<li><strong>Sum-based:</strong> Use View 1 (inverse) or View 2.</li>
+<li><strong>Max/Min-based:</strong> Must use View 2 (no inverse for max/min).</li>
+<li><strong>Counting paths/subtrees:</strong> Often View 1 with modular arithmetic.</li>
 </ul>
-<p>Transitions:</p>
-<div class="arithmatex">$$
-sz[v] = 1 + \sum_{c} sz[c]
-$$</div>
-<div class="arithmatex">$$
-sub[v] = \sum_{c}\bigl(sub[c] + sz[c]\bigr),
-$$</div>
-<p>because every node in child subtree is 1 farther from <span class="arithmatex">$v$</span> than from <span class="arithmatex">$c$</span>.</p>
-<p>For the root we already have the full answer:</p>
-<div class="arithmatex">$$
-ans[0] = sub[0].
-$$</div>
-<p>Now reroot. If we move the root from parent <span class="arithmatex">$p$</span> to child <span class="arithmatex">$c$</span>, then:</p>
-<ul>
-<li>nodes in <span class="arithmatex">$c$</span>'s subtree (there are <code>sz[c]</code> of them) get 1 closer,</li>
-<li>all other nodes (there are <span class="arithmatex">$n - sz[c]$</span> of them) get 1 farther.</li>
-</ul>
-<p>So:</p>
-<div class="arithmatex">$$
-ans[c] = ans[p] - sz[c] + (n - sz[c]) = ans[p] + n - 2 \cdot sz[c].
-$$</div>
-<p>Run a DFS from 0 to propagate <code>ans</code> using this update.</p>
 <hr />
 <h2 id="practice-problems">Practice Problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
 <p>These are the most common reroot patterns:</p>
