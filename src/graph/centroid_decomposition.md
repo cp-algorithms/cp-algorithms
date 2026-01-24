@@ -19,10 +19,7 @@ Let's first understand what a centroid is. A **centroid** of a tree is a vertex 
 
 ![Centroid Definition](./centroid-definition.gif)
 
-For any given tree, there exist these interesting properties:
-
-1. **Uniqueness**: A tree with $N$ vertices has either one or two centroids. If there are two centroids, they must, as well, be adjacent.
-2. **Balance**: Removing a centroid creates components of size at most $\frac{N}{2}$.
+For any given tree with $N$ vertices, either one or two centroids exist. If there are two centroids, they must, as well, be adjacent.
 
 ### Existence and Uniqueness
 
@@ -35,12 +32,6 @@ For any given tree, there exist these interesting properties:
     It is easy to see that this process always terminates, proving at least one centroid exists.
 
     _Uniqueness_: Suppose there are two centroids $u$ and $v$. Consider the path between them. When we remove $u$, vertex $v$ must be in a component with at most $\frac{N}{2}$ vertices. Similarly, when we remove $v$, vertex $u$ must be in a component with at most $\frac{N}{2}$ vertices. This is only possible if $u$ and $v$ are adjacent; otherwise, removing either would place the other in a component with more than $\frac{N}{2}$ vertices. Furthermore, if two centroids exist, they must split the tree into two components of exactly $\frac{N}{2}$ vertices each, which is only possible when $N$ is even.
-
-### Balance
-
-**Theorem**: When a centroid is removed from a tree of $N$ vertices, each resulting connected component contains at most $\frac{N}{2}$ vertices.
-
-This property follows directly from the definition of a centroid. The intuition is straightforward: if any component had more than $\frac{N}{2}$ vertices after removing the centroid, then that component would contain more than half the tree's vertices, which contradicts the centroid's defining property. This balance property is crucial for the efficiency of centroid decomposition.
 
 ## Properties and Definition of Centroid Decomposition
 
