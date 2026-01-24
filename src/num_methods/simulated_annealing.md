@@ -62,11 +62,9 @@ Here, $\mathcal{U}_{[0,1]}$ is a continuous uniform random value on $[0,1]$. Thi
 ```cpp
 bool P(double E,double E_next,double T,mt19937 rng){
     double prob =  exp(-(E_next-E)/T);
-    if(prob > 1) return true;
-    else{
-        bernoulli_distribution d(prob); 
-        return d(rng);
-    }
+    if (prob > 1) return true;
+    bernoulli_distribution d(prob); 
+    return d(rng);
 }
 ```
 ## Code Template
@@ -186,13 +184,10 @@ int main() {
 ```cpp
 bool P(double E, double E_next, double T, mt19937 rng) {
     double e = 2; // set e to any real number greater than 1
-    double prob =  pow(e,-(E_next-E)/T);
-    if (prob > 1)
-        return true;
-    else {
-        bernoulli_distribution d(prob); 
-        return d(rng);
-    }
+    double prob =  pow(e, -(E_next-E)/T);
+    if (prob > 1) return true;
+    bernoulli_distribution d(prob); 
+    return d(rng);
 }
 ```
 
