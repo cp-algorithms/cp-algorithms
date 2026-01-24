@@ -49,18 +49,38 @@ Both versions are equivalent in terms of time and memory complexity.
 Now we can write some pseudo-code for the two operations mentioned above.
 Below, we get the sum of elements of $A$ in the range $[0, r]$ and update (increase) some element $A_i$:
 
-```python
-def sum(int r):
-    res = 0
-    while (r >= 0):
-        res += t[r]
-        r = g(r) - 1
-    return res
+=== "C++"
+    ```cpp
+    int sum(int r) {
+        int res = 0;
+        while (r >= 0) {
+            res += t[r];
+            r = g(r) - 1;
+        }
+        return res;
+    }
 
-def increase(int i, int delta):
-    for all j with g(j) <= i <= j:
-        t[j] += delta
-```
+    void increase(int i, int delta) {
+        for (int j = 0; j < t.size(); j++) {
+            if (g(j) <= i && i <= j) {
+                t[j] += delta;
+            }
+        }
+    }
+    ```
+=== "Python"
+    ```py
+    def sum(r: int) -> int:
+        res = 0
+        while (r >= 0):
+            res += t[r]
+            r = g(r) - 1
+        return res
+
+    def increase(i: int, delta: int) -> None:
+        for all j with g(j) <= i <= j:
+            t[j] += delta
+    ```
 
 The function `sum` works as follows:
 
@@ -144,39 +164,69 @@ This is handled in the `sum(int l, int r)` method.
 Also this implementation supports two constructors.
 You can create a Fenwick tree initialized with zeros, or you can convert an existing array into the Fenwick form.
 
+=== "C++"
+    ```{.cpp file=fenwick_sum}
+        struct FenwickTree {
+            vector<int> bit;  // binary indexed tree
+            int n;
 
-```{.cpp file=fenwick_sum}
-struct FenwickTree {
-    vector<int> bit;  // binary indexed tree
-    int n;
+            FenwickTree(int n) {
+                this->n = n;
+                bit.assign(n, 0);
+            }
 
-    FenwickTree(int n) {
-        this->n = n;
-        bit.assign(n, 0);
-    }
+            FenwickTree(vector<int> const &a) : FenwickTree(a.size()) {
+                for (size_t i = 0; i < a.size(); i++)
+                    add(i, a[i]);
+            }
 
-    FenwickTree(vector<int> const &a) : FenwickTree(a.size()) {
-        for (size_t i = 0; i < a.size(); i++)
-            add(i, a[i]);
-    }
+            int sum(int r) {
+                int ret = 0;
+                for (; r >= 0; r = (r & (r + 1)) - 1)
+                    ret += bit[r];
+                return ret;
+            }
 
-    int sum(int r) {
-        int ret = 0;
-        for (; r >= 0; r = (r & (r + 1)) - 1)
-            ret += bit[r];
-        return ret;
-    }
+            int sum(int l, int r) {
+                return sum(r) - sum(l - 1);
+            }
 
-    int sum(int l, int r) {
-        return sum(r) - sum(l - 1);
-    }
+            void add(int idx, int delta) {
+                for (; idx < n; idx = idx | (idx + 1))
+                    bit[idx] += delta;
+            }
+        };
+    ```
+=== "Python"
+    ```py
+    class FenwickTree:
+    
+        def __init__(self, a: Union[int, List[int]]) -> None:
 
-    void add(int idx, int delta) {
-        for (; idx < n; idx = idx | (idx + 1))
-            bit[idx] += delta;
-    }
-};
-```
+            if isinstance(a, int):
+                self.n = a
+                self.bit = [0] * a
+            else:
+                self.n = len(a)
+                self.bit = [0] * len(a)
+                for i in range(len(a)):
+                    self.add(i, a[i])
+                            
+        def sum(self, r: int) -> int:
+            ret = 0
+            while r >= 0:
+                ret += self.bit[r]
+                r = (r & (r + 1)) - 1
+            return ret
+        
+        def range_sum(self, l: int, r: int) -> int:
+            return self.sum(r) - self.sum(l - 1)
+        
+        def add(self, idx: int, delta: int) -> None:
+            while idx < self.n:
+                self.bit[idx] += delta
+                idx = idx | (idx + 1)
+    ```
 
 ### Linear construction
 
@@ -202,35 +252,66 @@ It is obvious that there is no easy way of finding minimum of range $[l, r]$ usi
 Additionally, each time a value is `update`'d, the new value has to be smaller than the current value.
 Both significant limitations are because the $min$ operation together with the set of integers doesn't form a group, as there are no inverse elements.
 
-```{.cpp file=fenwick_min}
-struct FenwickTreeMin {
-    vector<int> bit;
-    int n;
-    const int INF = (int)1e9;
+=== "C++"
+    ```{.cpp file=fenwick_min}
+        struct FenwickTreeMin {
+            vector<int> bit;
+            int n;
+            const int INF = (int)1e9;
 
-    FenwickTreeMin(int n) {
-        this->n = n;
-        bit.assign(n, INF);
-    }
+            FenwickTreeMin(int n) {
+                this->n = n;
+                bit.assign(n, INF);
+            }
 
-    FenwickTreeMin(vector<int> a) : FenwickTreeMin(a.size()) {
-        for (size_t i = 0; i < a.size(); i++)
-            update(i, a[i]);
-    }
+            FenwickTreeMin(vector<int> a) : FenwickTreeMin(a.size()) {
+                for (size_t i = 0; i < a.size(); i++)
+                    update(i, a[i]);
+            }
 
-    int getmin(int r) {
-        int ret = INF;
-        for (; r >= 0; r = (r & (r + 1)) - 1)
-            ret = min(ret, bit[r]);
-        return ret;
-    }
+            int getmin(int r) {
+                int ret = INF;
+                for (; r >= 0; r = (r & (r + 1)) - 1)
+                    ret = min(ret, bit[r]);
+                return ret;
+            }
 
-    void update(int idx, int val) {
-        for (; idx < n; idx = idx | (idx + 1))
-            bit[idx] = min(bit[idx], val);
-    }
-};
-```
+            void update(int idx, int val) {
+                for (; idx < n; idx = idx | (idx + 1))
+                    bit[idx] = min(bit[idx], val);
+            }
+        };
+    ```
+=== "Python"
+    ```py
+    class FenwickTreeMin:
+    
+        def __init__(self, a: Union[int, List[int]]) -> None:
+            self.INF = 10**9
+
+            if isinstance(a, int):
+                self.n = a
+                self.bit = [self.INF] * a
+            else:
+                self.n = len(a)
+                self.bit = [self.INF] * len(a)
+                for i in range(len(a)):
+                    self.update(i, a[i])
+
+
+        def getmin(self, r: int) -> int:
+            ret = self.INF
+            while r >= 0:
+                ret = min(ret, self.bit[r])
+                r = (r & (r + 1)) - 1
+
+            return ret
+        
+        def update(self, idx: int, val: int) -> None:
+            while idx < self.n:
+                self.bit[idx] = min(self.bit[idx], val)
+                idx = idx | (idx + 1)
+    ```
 
 Note: it is possible to implement a Fenwick tree that can handle arbitrary minimum range queries and arbitrary updates.
 The paper [Efficient Range Minimum Queries using Binary Indexed Trees](http://ioinformatics.org/oi/pdf/v9_2015_39_44.pdf) describes such an approach.
@@ -241,28 +322,58 @@ The implementation is also a lot harder compared to the normal implementation fo
 
 As claimed before, it is very easy to implement Fenwick Tree for multidimensional array.
 
-```cpp
-struct FenwickTree2D {
-    vector<vector<int>> bit;
-    int n, m;
+=== "C++"
+    ```cpp
+    struct FenwickTree2D {
+        vector<vector<int>> bit;
+        int n, m;
 
-    // init(...) { ... }
+        // init(...) { ... }
 
-    int sum(int x, int y) {
-        int ret = 0;
-        for (int i = x; i >= 0; i = (i & (i + 1)) - 1)
-            for (int j = y; j >= 0; j = (j & (j + 1)) - 1)
-                ret += bit[i][j];
-        return ret;
-    }
+        int sum(int x, int y) {
+            int ret = 0;
+            for (int i = x; i >= 0; i = (i & (i + 1)) - 1)
+                for (int j = y; j >= 0; j = (j & (j + 1)) - 1)
+                    ret += bit[i][j];
+            return ret;
+        }
 
-    void add(int x, int y, int delta) {
-        for (int i = x; i < n; i = i | (i + 1))
-            for (int j = y; j < m; j = j | (j + 1))
-                bit[i][j] += delta;
-    }
-};
-```
+        void add(int x, int y, int delta) {
+            for (int i = x; i < n; i = i | (i + 1))
+                for (int j = y; j < m; j = j | (j + 1))
+                    bit[i][j] += delta;
+        }
+    };
+    ```
+=== "Python"
+    ```py
+    class FenwickTree2D:
+    
+        def __init__(self, n: int, m: int) -> None:
+            self.n = n
+            self.m = m
+            self.bit = [[0] * m for _ in range(n)]
+        
+        def sum(self, x: int, y: int) -> int:
+            ret = 0
+            i = x
+            while i >= 0:
+                j = y
+                while j >= 0:
+                    ret += self.bit[i][j]
+                    j = (j & (j + 1)) - 1
+                i = (i & (i + 1)) - 1
+            return ret
+        
+        def add(self, x: int, y: int, delta: int) -> None:
+            i = x
+            while i < self.n:
+                j = y
+                while j < self.m:
+                    self.bit[i][j] += delta
+                    j = j | (j + 1)
+                i = i | (i + 1)
+    ```
 
 ### One-based indexing approach
 
@@ -270,18 +381,38 @@ For this approach we change the requirements and definition for $T[]$ and $g()$ 
 We want $T[i]$ to store the sum of $[g(i)+1; i]$.
 This changes the implementation a little bit, and allows for a similar nice definition for $g(i)$:
 
-```python
-def sum(int r):
-    res = 0
-    while (r > 0):
-        res += t[r]
-        r = g(r)
-    return res
+=== "C++"
+    ```cpp
+    int sum(int r) {
+        int res = 0;
+        while (r > 0) {
+            res += t[r];
+            r = g(r);
+        }
+        return res;
+    }
 
-def increase(int i, int delta):
-    for all j with g(j) < i <= j:
-        t[j] += delta
-```
+    void increase(int i, int delta) {
+        for (int j = 0; j < t.size(); j++) {
+            if (g(j) < i && i <= j) {
+                t[j] += delta;
+            }
+        }
+    }
+    ```
+=== "Python"
+    ```py
+    def sum(r: int) -> int:
+        res = 0
+        while (r > 0):
+            res += t[r]
+            r = g(r)
+        return res
+
+    def increase(i: int, delta: int) -> None:
+        for all j with g(j) < i <= j:
+            t[j] += delta
+    ```
 
 The computation of $g(i)$ is defined as:
 toggling of the last set $1$ bit in the binary representation of $i$.
@@ -304,39 +435,69 @@ As you can see, the main benefit of this approach is that the binary operations 
 
 The following implementation can be used like the other implementations, however it uses one-based indexing internally.
 
-```{.cpp file=fenwick_sum_onebased}
-struct FenwickTreeOneBasedIndexing {
-    vector<int> bit;  // binary indexed tree
-    int n;
+=== "C++"
+    ```{.cpp file=fenwick_sum_onebased}
+    struct FenwickTreeOneBasedIndexing {
+        vector<int> bit;  // binary indexed tree
+        int n;
 
-    FenwickTreeOneBasedIndexing(int n) {
-        this->n = n + 1;
-        bit.assign(n + 1, 0);
-    }
+        FenwickTreeOneBasedIndexing(int n) {
+            this->n = n + 1;
+            bit.assign(n + 1, 0);
+        }
 
-    FenwickTreeOneBasedIndexing(vector<int> a)
-        : FenwickTreeOneBasedIndexing(a.size()) {
-        for (size_t i = 0; i < a.size(); i++)
-            add(i, a[i]);
-    }
+        FenwickTreeOneBasedIndexing(vector<int> a)
+            : FenwickTreeOneBasedIndexing(a.size()) {
+            for (size_t i = 0; i < a.size(); i++)
+                add(i, a[i]);
+        }
 
-    int sum(int idx) {
-        int ret = 0;
-        for (++idx; idx > 0; idx -= idx & -idx)
-            ret += bit[idx];
-        return ret;
-    }
+        int sum(int idx) {
+            int ret = 0;
+            for (++idx; idx > 0; idx -= idx & -idx)
+                ret += bit[idx];
+            return ret;
+        }
 
-    int sum(int l, int r) {
-        return sum(r) - sum(l - 1);
-    }
+        int sum(int l, int r) {
+            return sum(r) - sum(l - 1);
+        }
 
-    void add(int idx, int delta) {
-        for (++idx; idx < n; idx += idx & -idx)
-            bit[idx] += delta;
-    }
-};
-```
+        void add(int idx, int delta) {
+            for (++idx; idx < n; idx += idx & -idx)
+                bit[idx] += delta;
+        }
+    };
+    ```
+=== "Python"
+    ```py
+    class FenwickTreeOneBasedIndexing:
+    
+        def __init__(self, a: Union[int, List[int]]) -> None:
+            if isinstance(a, int):
+                self.n = a + 1
+                self.bit = [0] * (a + 1)
+            else:
+                self.n = len(n) + 1
+                self.bit = [0] * (len(a) + 1)
+                for i in range(len(a)):
+                    self.add(i, a[i])
+
+        def sum(self, idx: int) -> int:
+            ret = 0
+            while idx > 0:
+                ret += self.bit[idx]
+                idx -= idx & -idx
+            return ret
+        
+        def range_sum(self, l: int, r: int) -> int:
+            return self.sum(r) - self.sum(l - 1)
+        
+        def add(self, idx: int, delta: int) -> None:
+            while idx <= self.n:
+                self.bit[idx] += delta
+                idx += idx & -idx
+    ```
 
 ## Range operations
 
@@ -366,24 +527,44 @@ And if $i > r$, then the second update operation will cancel the effect of first
 
 The following implementation uses one-based indexing.
 
-```cpp
-void add(int idx, int val) {
-    for (++idx; idx < n; idx += idx & -idx)
-        bit[idx] += val;
-}
+=== "C++"
+    ```cpp
+    void add(int idx, int val) {
+        for (++idx; idx < n; idx += idx & -idx)
+            bit[idx] += val;
+    }
 
-void range_add(int l, int r, int val) {
-    add(l, val);
-    add(r + 1, -val);
-}
+    void range_add(int l, int r, int val) {
+        add(l, val);
+        add(r + 1, -val);
+    }
 
-int point_query(int idx) {
-    int ret = 0;
-    for (++idx; idx > 0; idx -= idx & -idx)
-        ret += bit[idx];
-    return ret;
-}
-```
+    int point_query(int idx) {
+        int ret = 0;
+        for (++idx; idx > 0; idx -= idx & -idx)
+            ret += bit[idx];
+        return ret;
+    }
+    ```
+=== "Python"
+    ```py
+    def add(idx: int, val: int) -> None:
+        while idx <= n:
+            bit[idx] += val
+            idx += idx & -idx
+        
+    def range_add(l: int, r: int, val: int) -> None:
+        add(l, val)
+        add(r + 1, -val)
+        
+    def point_query(idx: int) -> int:
+        ret = 0
+        while idx > 0:
+            ret += bit[idx]
+            idx -= idx & -idx
+            
+        return ret
+    ```
 
 Note: of course it is also possible to increase a single point $A[i]$ with `range_add(i, i, val)`.
 
@@ -395,13 +576,23 @@ Suppose that we want to increment the interval $[l, r]$ by the value $x$.
 Similarly as in the previous method, we perform two point updates on $B_1$: `add(B1, l, x)` and `add(B1, r+1, -x)`.
 And we also update $B_2$. The details will be explained later.
 
-```python
-def range_add(l, r, x):
-    add(B1, l, x)
-    add(B1, r+1, -x)
-    add(B2, l, x*(l-1))
-    add(B2, r+1, -x*r))
-```
+=== "C++"
+    ```cpp
+    void range_add(int l, int r, int x) {
+        add(B1, l, x)
+        add(B1, r + 1, -x)
+        add(B2, l, x * (l - 1))
+        add(B2, r + 1, -x * r)
+    }
+    ```
+=== "Python"
+    ```py
+    def range_add(l: int, r: int, x: int):
+        add(B1, l, x)
+        add(B1, r + 1, -x)
+        add(B2, l, x * (l - 1))
+        add(B2, r + 1, -x * r)
+    ```
 After the range update $(l, r, x)$ the range sum query should return the following values:
 
 $$
@@ -431,31 +622,65 @@ Thus we can use $B_2$ for shaving off extra terms when we multiply $B_1[i]\times
 
 We can find arbitrary range sums by computing the prefix sums for $l-1$ and $r$ and taking the difference of them again.
 
-```python
-def add(b, idx, x):
-    while idx <= N:
-        b[idx] += x
-        idx += idx & -idx
+=== "C++"
+    ```cpp
+    void add(std::vector<int> &b, int idx, int x) {
+        while (idx <= n) {
+            b[idx] += x;
+            idx += idx & -idx;
+        }
+    }
 
-def range_add(l,r,x):
-    add(B1, l, x)
-    add(B1, r+1, -x)
-    add(B2, l, x*(l-1))
-    add(B2, r+1, -x*r)
+    void range_add(int l, int r, int x) {
+        add(B1, l, x)
+        add(B1, r + 1, -x)
+        add(B2, l, x * (l - 1))
+        add(B2, r + 1, -x * r)
+    }
 
-def sum(b, idx):
-    total = 0
-    while idx > 0:
-        total += b[idx]
-        idx -= idx & -idx
-    return total
+    int sum(std::vector<int> &b, int idx) {
+        int total = 0;
+        while (idx > 0) {
+            total += b[idx];
+            idx -= idx & -idx;
+        }
+        return total;
+    }
 
-def prefix_sum(idx):
-    return sum(B1, idx)*idx -  sum(B2, idx)
+    int prefix_sum(int idx) {
+        return sum(B1, idx) * idx - sum(B2, idx);
+    }
 
-def range_sum(l, r):
-    return prefix_sum(r) - prefix_sum(l-1)
-```
+    int range_sum(int l, int r) {
+        return prefix_sum(r) - prefix_sum(l - 1);
+    }
+    ```
+=== "Python"
+    ```py
+    def add(b: list, idx: int, x: int):
+        while idx <= N:
+            b[idx] += x
+            idx += idx & -idx
+
+    def range_add(l: int, r: int, x: int):
+        add(B1, l, x)
+        add(B1, r + 1, -x)
+        add(B2, l, x * (l - 1))
+        add(B2, r + 1, -x * r)
+
+    def sum(b: list, idx: int):
+        total = 0
+        while idx > 0:
+            total += b[idx]
+            idx -= idx & -idx
+        return total
+
+    def prefix_sum(idx: int):
+        return sum(B1, idx) * idx -  sum(B2, idx)
+
+    def range_sum(l: int, r: int):
+        return prefix_sum(r) - prefix_sum(l - 1)
+    ```
 
 ## Practice Problems
 
