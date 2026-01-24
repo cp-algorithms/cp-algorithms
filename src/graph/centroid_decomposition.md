@@ -241,4 +241,5 @@ int decompose(int v, int p = -1) {
 - [CSES - Fixed-Length Paths II](https://cses.fi/problemset/task/2081) [difficulty: easy]
 - [Codeforces - Xenia and Tree](http://codeforces.com/problemset/problem/342/E) [difficulty: medium]
 - [Codeforces - Digit Tree](http://codeforces.com/contest/716/problem/E) [difficulty: medium]
+- [OJ - Race](https://oj.uz/problem/view/IOI11_race) [difficulty: medium]
 - [SPOJ - QTREE5](http://www.spoj.com/problems/QTREE5/) [difficulty: hard]
