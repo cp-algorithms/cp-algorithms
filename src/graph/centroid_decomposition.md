@@ -5,13 +5,9 @@ tags:
 
 # Centroid Decomposition
 
-## Prerequisites
+Prerequisite knowledge: [Depth First Search (DFS)](./depth-first-search.md), [Divide and Conquer](https://en.wikipedia.org/wiki/Divide-and-conquer_algorithm), [Trees](<https://en.wikipedia.org/wiki/Tree_(graph_theory)>).
 
-This article requires knowledge of the following topics:
-
-- [Depth First Search (DFS)](./depth-first-search.md) - used for tree traversal and calculating subtree sizes
-- [Divide and Conquer](https://en.wikipedia.org/wiki/Divide-and-conquer_algorithm) - the fundamental paradigm that centroid decomposition is based on
-- [Tree Data Structure](<https://en.wikipedia.org/wiki/Tree_(graph_theory)>) - fundamental graph theory concepts including trees, vertices, edges, and paths
+## Introduction
 
 **Centroid Decomposition** is a divide-and-conquer technique on trees. It is used to solve various problems that involve paths in a tree, such as counting paths with certain properties, finding distances, or answering queries on tree paths.
 
