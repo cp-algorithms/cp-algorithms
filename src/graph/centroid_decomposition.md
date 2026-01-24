@@ -17,7 +17,9 @@ The key idea is to recursively decompose a tree by finding its **centroid**. Thi
 
 Let's first understand what a centroid is. A **centroid** of a tree is a vertex whose removal results in no subtree having more than $\frac{N}{2}$ vertices, where $N$ is the total number of vertices in the tree.
 
-![Centroid Definition](./centroid-definition.gif)
+<div align="center">
+    <img src="./centroid-definition.png" alt="Centroid Tree" />
+</div>
 
 For any given tree with $N$ vertices, either one or two centroids exist. If there are two centroids, they must, as well, be adjacent.
 
@@ -105,7 +107,9 @@ When using centroid decomposition, the general flow works as follows:
 
 This creates a **centroid tree**. Each node in this tree represents a centroid from some stage of decomposition. This means that the parent of a centroid (any given node) is the centroid that was found in the larger component containing it. The height of this tree is $O(\log N)$ as proven before.
 
-![Centroid Tree](./CentroidTree.png)
+<div align="center">
+    <img src="./CentroidTree.png" alt="Centroid Tree" />
+</div>
 
 For example, in the above image, we have a centroid tree. Each node at each level of the tree is a centroid of that component (e.g. the root is the centroid of the entire tree, the left most child of the root is the centroid of the left most subtree of the root, etc.).
 
