@@ -7175,10 +7175,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#introduction" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequisites
+        Introduction
       
     </span>
   </a>
@@ -7202,17 +7202,6 @@
     <span class="md-ellipsis">
       
         Existence and Uniqueness
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#balance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Balance
       
     </span>
   </a>
@@ -8053,7 +8042,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 20, 2026 13:21:54 UTC">January 20, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 24, 2026 15:58:25 UTC">January 24, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8068,23 +8057,17 @@ Describe the issue of this article in detail.
 
 
 <h1 id="centroid-decomposition">Centroid Decomposition<a class="headerlink" href="#centroid-decomposition" title="Permanent link">&para;</a></h1>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
-<p>This article requires knowledge of the following topics:</p>
-<ul>
-<li><a href="depth-first-search.html">Depth First Search (DFS)</a> - used for tree traversal and calculating subtree sizes</li>
-<li><a href="https://en.wikipedia.org/wiki/Divide-and-conquer_algorithm">Divide and Conquer</a> - the fundamental paradigm that centroid decomposition is based on</li>
-<li><a href="https://en.wikipedia.org/wiki/Tree_(graph_theory)">Tree Data Structure</a> - fundamental graph theory concepts including trees, vertices, edges, and paths</li>
-</ul>
+<p>Prerequisite knowledge: <a href="depth-first-search.html">Depth First Search (DFS)</a>, <a href="https://en.wikipedia.org/wiki/Divide-and-conquer_algorithm">Divide and Conquer</a>, <a href="https://en.wikipedia.org/wiki/Tree_(graph_theory)">Trees</a>.</p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
 <p><strong>Centroid Decomposition</strong> is a divide-and-conquer technique on trees. It is used to solve various problems that involve paths in a tree, such as counting paths with certain properties, finding distances, or answering queries on tree paths.</p>
 <p>The key idea is to recursively decompose a tree by finding its <strong>centroid</strong>. This special vertex when removed splits the tree into components, each containing at most half of the original tree's vertices. This guarantees a logarithmic depth of recursion, leading to efficient algorithms.</p>
 <h2 id="properties-and-definition-of-a-centroid">Properties and Definition of a Centroid<a class="headerlink" href="#properties-and-definition-of-a-centroid" title="Permanent link">&para;</a></h2>
 <p>Let's first understand what a centroid is. A <strong>centroid</strong> of a tree is a vertex whose removal results in no subtree having more than <span class="arithmatex">$\frac{N}{2}$</span> vertices, where <span class="arithmatex">$N$</span> is the total number of vertices in the tree.</p>
-<p><img alt="Centroid Definition" src="centroid-definition.gif" /></p>
-<p>For any given tree, there exist these interesting properties:</p>
-<ol>
-<li><strong>Uniqueness</strong>: A tree with <span class="arithmatex">$N$</span> vertices has either one or two centroids. If there are two centroids, they must, as well, be adjacent.</li>
-<li><strong>Balance</strong>: Removing a centroid creates components of size at most <span class="arithmatex">$\frac{N}{2}$</span>.</li>
-</ol>
+<div align="center">
+    <img src="./centroid-definition.png" alt="Centroid Tree" />
+</div>
+
+<p>For any given tree with <span class="arithmatex">$N$</span> vertices, either one or two centroids exist. If there are two centroids, they must, as well, be adjacent.</p>
 <h3 id="existence-and-uniqueness">Existence and Uniqueness<a class="headerlink" href="#existence-and-uniqueness" title="Permanent link">&para;</a></h3>
 <p><strong>Theorem</strong>: Every tree has at least one centroid, and at most two centroids. If there are two centroids, they must be adjacent.</p>
 <details class="note">
@@ -8093,9 +8076,6 @@ Describe the issue of this article in detail.
 <p>It is easy to see that this process always terminates, proving at least one centroid exists.</p>
 <p><em>Uniqueness</em>: Suppose there are two centroids <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span>. Consider the path between them. When we remove <span class="arithmatex">$u$</span>, vertex <span class="arithmatex">$v$</span> must be in a component with at most <span class="arithmatex">$\frac{N}{2}$</span> vertices. Similarly, when we remove <span class="arithmatex">$v$</span>, vertex <span class="arithmatex">$u$</span> must be in a component with at most <span class="arithmatex">$\frac{N}{2}$</span> vertices. This is only possible if <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span> are adjacent; otherwise, removing either would place the other in a component with more than <span class="arithmatex">$\frac{N}{2}$</span> vertices. Furthermore, if two centroids exist, they must split the tree into two components of exactly <span class="arithmatex">$\frac{N}{2}$</span> vertices each, which is only possible when <span class="arithmatex">$N$</span> is even.</p>
 </details>
-<h3 id="balance">Balance<a class="headerlink" href="#balance" title="Permanent link">&para;</a></h3>
-<p><strong>Theorem</strong>: When a centroid is removed from a tree of <span class="arithmatex">$N$</span> vertices, each resulting connected component contains at most <span class="arithmatex">$\frac{N}{2}$</span> vertices.</p>
-<p>This property follows directly from the definition of a centroid. The intuition is straightforward: if any component had more than <span class="arithmatex">$\frac{N}{2}$</span> vertices after removing the centroid, then that component would contain more than half the tree's vertices, which contradicts the centroid's defining property. This balance property is crucial for the efficiency of centroid decomposition.</p>
 <h2 id="properties-and-definition-of-centroid-decomposition">Properties and Definition of Centroid Decomposition<a class="headerlink" href="#properties-and-definition-of-centroid-decomposition" title="Permanent link">&para;</a></h2>
 <p>Recursively finding centroids of a tree and decomposing the tree into its components creates a unique set of properties:</p>
 <ol>
@@ -8146,7 +8126,10 @@ Describe the issue of this article in detail.
 <li><strong>Recursively decompose</strong> each resulting subtree</li>
 </ol>
 <p>This creates a <strong>centroid tree</strong>. Each node in this tree represents a centroid from some stage of decomposition. This means that the parent of a centroid (any given node) is the centroid that was found in the larger component containing it. The height of this tree is <span class="arithmatex">$O(\log N)$</span> as proven before.</p>
-<p><img alt="Centroid Tree" src="CentroidTree.png" /></p>
+<div align="center">
+    <img src="./CentroidTree.png" alt="Centroid Tree" />
+</div>
+
 <p>For example, in the above image, we have a centroid tree. Each node at each level of the tree is a centroid of that component (e.g. the root is the centroid of the entire tree, the left most child of the root is the centroid of the left most subtree of the root, etc.).</p>
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
 <p>Here's an implementation of centroid decomposition solving a specific problem: <strong>counting all paths in the tree with length exactly <span class="arithmatex">$K$</span></strong>.</p>
@@ -8262,6 +8245,7 @@ Describe the issue of this article in detail.
 <li><a href="https://cses.fi/problemset/task/2081">CSES - Fixed-Length Paths II</a> [difficulty: easy]</li>
 <li><a href="http://codeforces.com/problemset/problem/342/E">Codeforces - Xenia and Tree</a> [difficulty: medium]</li>
 <li><a href="http://codeforces.com/contest/716/problem/E">Codeforces - Digit Tree</a> [difficulty: medium]</li>
+<li><a href="https://oj.uz/problem/view/IOI11_race">OJ - Race</a> [difficulty: medium]</li>
 <li><a href="http://www.spoj.com/problems/QTREE5/">SPOJ - QTREE5</a> [difficulty: hard]</li>
 </ul>
 

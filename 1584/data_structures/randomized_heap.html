@@ -7963,6 +7963,24 @@ Describe the issue of this article in detail.
   
     
   
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -8001,7 +8019,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 8, 2022 10:46:05 UTC">June 8, 2022</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 16, 2026 19:22:03 UTC">January 16, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8050,7 +8068,7 @@ Thus the minimum of the tree is always in the root vertex.</p>
 <span class="p">};</span>
 </code></pre></div>
 <p>In the vertex we store a value.
-In addition we have pointers to the left and right children, which are point to null if the corresponding child doesn't exist.</p>
+In addition we have pointers to the left and right children, which point to null if the corresponding child doesn't exist.</p>
 <h2 id="operations">Operations<a class="headerlink" href="#operations" title="Permanent link">&para;</a></h2>
 <p>It is not difficult to see, that all operations can be reduced to a single one: <strong>merging</strong> two heaps into one.
 Indeed, adding a new value to the heap is equivalent to merging the heap with a heap consisting of a single vertex with that value. 
@@ -8067,7 +8085,7 @@ So we compare both values, and use the smaller one as the new root.
 Now we have to combine the children of the selected vertex with the remaining heap.
 For this we select one of the children, and merge it with the remaining heap.
 Thus we again have the operation of merging two heaps.
-Sooner of later this process will end (the number of such steps is limited by the sum of the heights of the two heaps)</p>
+Sooner or later this process will end (the number of such steps is limited by the sum of the heights of the two heaps)</p>
 <p>To achieve logarithmic complexity on average, we need to specify a method for choosing one of the two children so that the average path length is logarithmic.
 It is not difficult to guess, that we will make this decision <strong>randomly</strong>.
 Thus the implementation of the merging operation is as follows:</p>
@@ -8097,7 +8115,7 @@ Let <span class="arithmatex">$L$</span> and <span class="arithmatex">$R$</span> 
 <p>The following shows the induction step:</p>
 <div class="arithmatex">$$\begin{align}
 \mathbf{E} h(T) &amp;= 1 + \frac{\mathbf{E} h(L) + \mathbf{E} h(R)}{2} 
-\le 1 + \frac{\log(n_L + 1) \log(n_R + 1)}{2} \\\\
+\le 1 + \frac{\log(n_L + 1) + \log(n_R + 1)}{2} \\\\
 &amp;= 1 + \log\sqrt{(n_L + 1)(n_R + 1)} = \log 2\sqrt{(n_L + 1)(n_R + 1)} \\\\
 &amp;\le \log \frac{2\left((n_L + 1) + (n_R + 1)\right)}{2} = \log(n_L + n_R + 2) = \log(n+1)
 \end{align}$$</div>
@@ -8105,20 +8123,20 @@ Let <span class="arithmatex">$L$</span> and <span class="arithmatex">$R$</span> 
 <p>Of course we are still not happy.
 The expected value of <span class="arithmatex">$h(T)$</span> doesn't say anything about the worst case.
 It is still possible that the paths from the root to the vertices is on average much greater than <span class="arithmatex">$\log(n + 1)$</span> for a specific tree.</p>
-<p>Let us prove that exceeding the expected value is indeed very small:</p>
-<div class="arithmatex">$$P\{h(T) &gt; (c+1) \log n\} &lt; \frac{1}{n^c}$$</div>
+<p>Let us prove that the probability of exceeding the expected value is indeed very small:</p>
+<div class="arithmatex">$${\cal P}(h(T) &gt; (c+1) \log n) &lt; \frac{1}{n^c}$$</div>
 <p>for any positive constant <span class="arithmatex">$c$</span>.</p>
 <p>Here we denote by <span class="arithmatex">$P$</span> the set of paths from the root of the heap to the leaves where the length exceeds <span class="arithmatex">$(c+1) \log n$</span>.
 Note that for any path <span class="arithmatex">$p$</span> of length <span class="arithmatex">$|p|$</span> the probability that it will be chosen as random path is <span class="arithmatex">$2^{-|p|}$</span>.
 Therefore we get:</p>
-<div class="arithmatex">$$P\{h(T) &gt; (c+1) \log n\} = \sum_{p \in P} 2^{-|p|} &lt; \sum_{p \in P} 2^{-(c+1) \log n} = |P| n^{-(c+1)} \le n^{-c}$$</div>
+<div class="arithmatex">$${\cal P}(h(T) &gt; (c+1) \log n) = \sum_{p \in P} 2^{-|p|} &lt; \sum_{p \in P} 2^{-(c+1) \log n} = |P| n^{-(c+1)} \le n^{-c}$$</div>
 <h3 id="complexity-of-the-algorithm">Complexity of the algorithm<a class="headerlink" href="#complexity-of-the-algorithm" title="Permanent link">&para;</a></h3>
 <p>Thus the algorithm <code>merge</code>, and hence all other operations expressed with it, can be performed in <span class="arithmatex">$O(\log n)$</span> on average.</p>
 <p>Moreover for any positive constant <span class="arithmatex">$\epsilon$</span> there is a positive constant <span class="arithmatex">$c$</span>, such that the probability that the operation will require more than <span class="arithmatex">$c \log n$</span> steps is less than <span class="arithmatex">$n^{-\epsilon}$</span> (in some sense this describes the worst case behavior of the algorithm).</p>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (93.8%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (4.65%)</li><li><a href="https://github.com/Kakalinn" title="Kakalinn" data-bi-name="contributorprofile" target="_blank">Kakalinn</a> (1.55%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (90.7%)</li><li><a href="https://github.com/mpodhaisky" title="mpodhaisky" data-bi-name="contributorprofile" target="_blank">mpodhaisky</a> (4.65%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (4.65%)</li></ul>
 </ul>
                 
               </article>
