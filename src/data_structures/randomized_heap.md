@@ -36,7 +36,7 @@ struct Tree {
 ```
 
 In the vertex we store a value.
-In addition we have pointers to the left and right children, which are point to null if the corresponding child doesn't exist.
+In addition we have pointers to the left and right children, which point to null if the corresponding child doesn't exist.
 
 ## Operations
 
@@ -57,7 +57,7 @@ So we compare both values, and use the smaller one as the new root.
 Now we have to combine the children of the selected vertex with the remaining heap.
 For this we select one of the children, and merge it with the remaining heap.
 Thus we again have the operation of merging two heaps.
-Sooner of later this process will end (the number of such steps is limited by the sum of the heights of the two heaps)
+Sooner or later this process will end (the number of such steps is limited by the sum of the heights of the two heaps)
 
 To achieve logarithmic complexity on average, we need to specify a method for choosing one of the two children so that the average path length is logarithmic.
 It is not difficult to guess, that we will make this decision **randomly**.
@@ -99,7 +99,7 @@ The following shows the induction step:
 
 $$\begin{align}
 \mathbf{E} h(T) &= 1 + \frac{\mathbf{E} h(L) + \mathbf{E} h(R)}{2} 
-\le 1 + \frac{\log(n_L + 1) \log(n_R + 1)}{2} \\\\
+\le 1 + \frac{\log(n_L + 1) + \log(n_R + 1)}{2} \\\\
 &= 1 + \log\sqrt{(n_L + 1)(n_R + 1)} = \log 2\sqrt{(n_L + 1)(n_R + 1)} \\\\
 &\le \log \frac{2\left((n_L + 1) + (n_R + 1)\right)}{2} = \log(n_L + n_R + 2) = \log(n+1)
 \end{align}$$
@@ -110,9 +110,9 @@ Of course we are still not happy.
 The expected value of $h(T)$ doesn't say anything about the worst case.
 It is still possible that the paths from the root to the vertices is on average much greater than $\log(n + 1)$ for a specific tree.
 
-Let us prove that exceeding the expected value is indeed very small:
+Let us prove that the probability of exceeding the expected value is indeed very small:
 
-$$P\{h(T) > (c+1) \log n\} < \frac{1}{n^c}$$
+$${\cal P}(h(T) > (c+1) \log n) < \frac{1}{n^c}$$
 
 for any positive constant $c$.
 
@@ -120,7 +120,7 @@ Here we denote by $P$ the set of paths from the root of the heap to the leaves w
 Note that for any path $p$ of length $|p|$ the probability that it will be chosen as random path is $2^{-|p|}$.
 Therefore we get:
 
-$$P\{h(T) > (c+1) \log n\} = \sum_{p \in P} 2^{-|p|} < \sum_{p \in P} 2^{-(c+1) \log n} = |P| n^{-(c+1)} \le n^{-c}$$
+$${\cal P}(h(T) > (c+1) \log n) = \sum_{p \in P} 2^{-|p|} < \sum_{p \in P} 2^{-(c+1) \log n} = |P| n^{-(c+1)} \le n^{-c}$$
 
 ### Complexity of the algorithm
 
