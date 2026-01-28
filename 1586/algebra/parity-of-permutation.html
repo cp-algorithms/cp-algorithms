@@ -26,7 +26,7 @@
     
     
       
-        <title>Parity of a Permutation - Algorithms for Competitive Programming</title>
+        <title>Permutations - Algorithms for Competitive Programming</title>
       
     
     
@@ -89,7 +89,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#parity-of-a-permutation" class="md-skip">
+        <a href="#permutations" class="md-skip">
           Skip to content
         </a>
       
@@ -134,7 +134,7 @@
           <span class="md-ellipsis">
             <a href="#" onclick="scrollToTop()">
               
-                Parity of a Permutation
+                Permutations
               
             </a>
           </span>
@@ -7769,9 +7769,9 @@
                   <script type="text/javascript">
 window.onload = function() {
 	const newIssueURL = "https://github.com/cp-algorithms/cp-algorithms/issues/new";
-  const issueTitle = "Problem on article " + "Parity of a Permutation";
+  const issueTitle = "Problem on article " + "Permutations";
 	const issueBody = `
- **Article:** [`+ "Parity of a Permutation" + `](${window.location.href})
+ **Article:** [`+ "Permutations" + `](${window.location.href})
 
 **Problem:**
 <!--
@@ -7818,7 +7818,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 12, 2026 18:02:47 UTC">January 12, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 27, 2026 15:19:57 UTC">January 27, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -7832,128 +7832,136 @@ Describe the issue of this article in detail.
 </ul>
 
 
-<h1 id="parity-of-a-permutation">Parity of a Permutation<a class="headerlink" href="#parity-of-a-permutation" title="Permanent link">&para;</a></h1>
-<h2 id="permutations">Permutations<a class="headerlink" href="#permutations" title="Permanent link">&para;</a></h2>
-<p>A <strong>permutation</strong> of size <span class="arithmatex">$n$</span> is a sequence containing each integer from <span class="arithmatex">$1$</span> to <span class="arithmatex">$n$</span> exactly once.<br />
+<h1 id="permutations">Permutations<a class="headerlink" href="#permutations" title="Permanent link">&para;</a></h1>
+<p>A <strong>permutation</strong> of size <span class="arithmatex">$n$</span> is a sequence containing each integer from <span class="arithmatex">$1$</span> to <span class="arithmatex">$n$</span> exactly once.
 Example: <span class="arithmatex">$[3,1,2]$</span> is a permutation of size <span class="arithmatex">$3$</span>.</p>
-<p>The <strong>parity</strong> (or sign) of a permutation classifies it as <strong>even</strong> or <strong>odd</strong>.<br />
-Parity is a key invariant in competitive programming, particularly for <strong>sorting problems</strong>, <strong>reachability</strong>, and <strong>puzzle/game states</strong>.</p>
+<p>Permutations are fundamental in competitive programming, appearing in sorting problems, combinatorics, and group theory. This article covers their key properties, including inversions, parity, cycle decomposition, and lexicographical rank.</p>
 <hr />
-<h2 id="definitions">Definitions<a class="headerlink" href="#definitions" title="Permanent link">&para;</a></h2>
-<h3 id="1-inversions">1. Inversions<a class="headerlink" href="#1-inversions" title="Permanent link">&para;</a></h3>
-<p>An <strong>inversion</strong> is a pair <span class="arithmatex">$(i, j)$</span> with <span class="arithmatex">$i &lt; j$</span> and <span class="arithmatex">$p_i &gt; p_j$</span>.<br />
-Let <span class="arithmatex">$K$</span> be the total number of inversions. The <strong>sign</strong> is:</p>
+<h2 id="1-inversions">1. Inversions<a class="headerlink" href="#1-inversions" title="Permanent link">&para;</a></h2>
+<p>An <strong>inversion</strong> is a pair of indices <span class="arithmatex">$(i, j)$</span> such that <span class="arithmatex">$i &lt; j$</span> and <span class="arithmatex">$p_i &gt; p_j$</span>. The number of inversions is a measure of how "unsorted" a permutation is.</p>
+<h3 id="counting-inversions">Counting Inversions<a class="headerlink" href="#counting-inversions" title="Permanent link">&para;</a></h3>
+<p>A naive approach checks all pairs in <span class="arithmatex">$O(n^2)$</span>. However, we can count inversions in <span class="arithmatex">$O(n \log n)$</span> using <strong>Merge Sort</strong> or a <strong>Fenwick Tree (Binary Indexed Tree)</strong>.</p>
+<p>Below is an implementation using <strong>Merge Sort</strong>. The idea is that during the merge step, if we pick an element from the right half, it forms an inversion with all remaining elements in the left half.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+
+<span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">merge_and_count</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">mid</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">left_sub</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">mid</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">right_sub</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">mid</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">inversions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">left_sub</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">right_sub</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">left_sub</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">right_sub</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">p</span><span class="p">[</span><span class="n">k</span><span class="o">++</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left_sub</span><span class="p">[</span><span class="n">i</span><span class="o">++</span><span class="p">];</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// right_sub[j] is smaller than left_sub[i], implying it is also</span>
+<span class="w">            </span><span class="c1">// smaller than all remaining elements in left_sub.</span>
+<span class="w">            </span><span class="n">p</span><span class="p">[</span><span class="n">k</span><span class="o">++</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">right_sub</span><span class="p">[</span><span class="n">j</span><span class="o">++</span><span class="p">];</span>
+<span class="w">            </span><span class="n">inversions</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="p">(</span><span class="n">left_sub</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">left_sub</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">k</span><span class="o">++</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left_sub</span><span class="p">[</span><span class="n">i</span><span class="o">++</span><span class="p">];</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">right_sub</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">k</span><span class="o">++</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">right_sub</span><span class="p">[</span><span class="n">j</span><span class="o">++</span><span class="p">];</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">inversions</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">count_inversions</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">mid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count_inversions</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">mid</span><span class="p">);</span>
+<span class="w">    </span><span class="n">count</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">count_inversions</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">mid</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="p">);</span>
+<span class="w">    </span><span class="n">count</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">merge_and_count</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">mid</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">count</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="2-parity-of-a-permutation">2. Parity of a Permutation<a class="headerlink" href="#2-parity-of-a-permutation" title="Permanent link">&para;</a></h2>
+<p>The <strong>parity</strong> (or sign) of a permutation classifies it as <strong>even</strong> or <strong>odd</strong>. This is a key invariant in puzzles like the 15-puzzle.</p>
+<p>Let <span class="arithmatex">$K$</span> be the total number of inversions. The <strong>sign</strong> is defined as:</p>
 <div class="arithmatex">$$
 \text{sgn}(p) = (-1)^K
 $$</div>
 <ul>
-<li>Even permutation: <span class="arithmatex">$K$</span> even  </li>
-<li>Odd permutation: <span class="arithmatex">$K$</span> odd</li>
+<li><strong>Even Permutation:</strong> <span class="arithmatex">$K$</span> is even.</li>
+<li><strong>Odd Permutation:</strong> <span class="arithmatex">$K$</span> is odd.</li>
 </ul>
-<p><strong>Example:</strong> <span class="arithmatex">$p = [3,1,2]$</span></p>
-<table>
-<thead>
-<tr>
-<th>i</th>
-<th>j</th>
-<th>p_i</th>
-<th>p_j</th>
-<th>Inversion?</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>1</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>1</td>
-<td>3</td>
-<td>3</td>
-<td>2</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>2</td>
-<td>3</td>
-<td>1</td>
-<td>2</td>
-<td>No</td>
-</tr>
-</tbody>
-</table>
-<p><span class="arithmatex">$K=2 \implies$</span> <strong>Even permutation</strong></p>
+<p>For example, <span class="arithmatex">$p = [3,1,2]$</span> has 2 inversions <span class="arithmatex">$( (3,1) \text{ and } (3,2) )$</span>, so it is an <strong>even</strong> permutation.</p>
+<h3 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Single Swap:</strong> A single swap of any two elements changes the parity of the permutation.</li>
+<li><strong>Transpositions:</strong> If a permutation can be sorted using <span class="arithmatex">$k$</span> swaps, then the parity of <span class="arithmatex">$k$</span> is the same as the parity of the inversion count.</li>
+</ol>
 <hr />
-<h3 id="2-transpositions-swaps">2. Transpositions (Swaps)<a class="headerlink" href="#2-transpositions-swaps" title="Permanent link">&para;</a></h3>
-<p>A <strong>transposition</strong> swaps two elements. Any permutation can be sorted using transpositions.<br />
-The parity of the number of swaps is <strong>unique</strong>:</p>
-<ul>
-<li>Even swaps → Even permutation  </li>
-<li>Odd swaps → Odd permutation</li>
-</ul>
-<hr />
-<h2 id="cycle-decomposition-on">Cycle Decomposition (O(n))<a class="headerlink" href="#cycle-decomposition-on" title="Permanent link">&para;</a></h2>
-<p>A permutation can be decomposed into <strong>disjoint cycles</strong>.<br />
-- Cycle of length <span class="arithmatex">$L$</span> → <span class="arithmatex">$L-1$</span> swaps to sort<br />
-- If there are <span class="arithmatex">$m$</span> cycles (including fixed points):</p>
-<div class="arithmatex">$$
-N(\sigma) = n - m
-$$</div>
-<ul>
-<li>Parity = <span class="arithmatex">$(n - m) \bmod 2$</span></li>
-</ul>
-<h3 id="algorithm-cycle-method">Algorithm (Cycle Method)<a class="headerlink" href="#algorithm-cycle-method" title="Permanent link">&para;</a></h3>
-<h2 id="include-vector-returns-0-if-even-1-if-odd-int-get_parityint-n-const-stdvectorint-p-stdvectorbool-visitedn-false-int-cycles-0-for-int-i-0-i-n-i-if-visitedi-cycles-int-current-i-while-visitedcurrent-visitedcurrent-true-current-pcurrent-1-adjust-for-1-based-values-return-n-cycles-2"><div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
-
-<span class="c1">// Returns 0 if even, 1 if odd</span>
-<span class="kt">int</span><span class="w"> </span><span class="nf">get_parity</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="w"> </span><span class="n">visited</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<h2 id="3-cycle-decomposition">3. Cycle Decomposition<a class="headerlink" href="#3-cycle-decomposition" title="Permanent link">&para;</a></h2>
+<p>Any permutation can be decomposed into <strong>disjoint cycles</strong>. This can be visualized as a directed graph where edges go from <span class="arithmatex">$i \to p_i$</span>.</p>
+<p><strong>Example:</strong>
+For <span class="arithmatex">$p = [4, 1, 6, 2, 5, 3]$</span>:
+- <span class="arithmatex">$1 \to 4 \to 2 \to 1$</span> (Cycle 1)
+- <span class="arithmatex">$3 \to 6 \to 3$</span> (Cycle 2)
+- <span class="arithmatex">$5 \to 5$</span> (Fixed point / Cycle 3)</p>
+<p>The permutation consists of 3 disjoint cycles.</p>
+<h3 id="swaps-and-cycles">Swaps and Cycles<a class="headerlink" href="#swaps-and-cycles" title="Permanent link">&para;</a></h3>
+<p>A crucial property of permutations involves how a swap affects the cycle decomposition. Let <span class="arithmatex">$C$</span> be the number of cycles in a permutation. If we swap two elements <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span>:</p>
+<ol>
+<li><strong>If <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span> are in the same cycle:</strong> The cycle splits into two disjoint cycles. (<span class="arithmatex">$C \to C+1$</span>)</li>
+<li><strong>If <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span> are in different cycles:</strong> The two cycles merge into one. (<span class="arithmatex">$C \to C-1$</span>)</li>
+</ol>
+<p>In both cases, the number of cycles changes by exactly 1. This reinforces the parity definition:
+$<span class="arithmatex">$\text{Parity} \equiv (N - C) \pmod 2$</span>$
+Since a swap changes <span class="arithmatex">$C$</span> by <span class="arithmatex">$\pm 1$</span>, it changes <span class="arithmatex">$(N-C)$</span> by <span class="arithmatex">$\pm 1$</span>, flipping the parity.</p>
+<h3 id="cycle-decomposition-code">Cycle Decomposition Code<a class="headerlink" href="#cycle-decomposition-code" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Returns the number of cycles. </span>
+<span class="c1">// Parity is (n - cycles) % 2.</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">count_cycles</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="w"> </span><span class="n">visited</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">cycles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="n">cycles</span><span class="o">++</span><span class="p">;</span>
 <span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">current</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
 <span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">current</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                </span><span class="n">visited</span><span class="p">[</span><span class="n">current</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
-<span class="w">                </span><span class="n">current</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">current</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c1">// Adjust for 1-based values</span>
+<span class="w">                </span><span class="n">current</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">current</span><span class="mi">-1</span><span class="p">];</span><span class="w"> </span><span class="c1">// Assuming 1-based permutation in 0-based vector</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">cycles</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">cycles</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div><a class="headerlink" href="#include-vector-returns-0-if-even-1-if-odd-int-get_parityint-n-const-stdvectorint-p-stdvectorbool-visitedn-false-int-cycles-0-for-int-i-0-i-n-i-if-visitedi-cycles-int-current-i-while-visitedcurrent-visitedcurrent-true-current-pcurrent-1-adjust-for-1-based-values-return-n-cycles-2" title="Permanent link">&para;</a></h2>
-<h2 id="properties-invariants">Properties &amp; Invariants<a class="headerlink" href="#properties-invariants" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Single Swap:</strong> Flips parity  </li>
-<li><strong>3-Cycle:</strong> Preserves parity (equivalent to 2 swaps)  </li>
-<li><strong>Adjacent Swap:</strong> Flips parity (changes inversions by odd number)  </li>
-<li><strong>Pairwise Swaps:</strong> Preserves parity if even total swaps  </li>
-</ul>
-<p><strong>Use:</strong> Check reachability in sorting puzzles, 15-puzzle, and other operations-constrained problems.</p>
-<p>--</p>
+</code></pre></div>
+<h2 id="4-lexicographical-rank">4. Lexicographical Rank<a class="headerlink" href="#4-lexicographical-rank" title="Permanent link">&para;</a></h2>
+<p>The <strong>rank</strong> of a permutation is its position in the lexicographically sorted list of all <span class="arithmatex">$n!$</span> permutations of the same elements.</p>
+<p>For a permutation <span class="arithmatex">$p$</span> of size <span class="arithmatex">$n$</span>, the rank (0-indexed) is given by:
+$<span class="arithmatex">$\text{Rank} = \sum_{i=0}^{n-1} (\text{count of smaller elements to the right}) \times (n - 1 - i)!$</span>$</p>
+<p><strong>Example:</strong> <span class="arithmatex">$p = [2, 1, 3]$</span>
+1.  <strong>Pos 0 (Value 2):</strong> Elements to the right <span class="arithmatex">$\{1, 3\}$</span>. Smaller than 2 is <span class="arithmatex">$\{1\}$</span> (Count: 1).
+    - Add <span class="arithmatex">$1 \times 2! = 2$</span>.
+2.  <strong>Pos 1 (Value 1):</strong> Elements to the right <span class="arithmatex">$\{3\}$</span>. Smaller than 1 is <span class="arithmatex">$\emptyset$</span> (Count: 0).
+    - Add <span class="arithmatex">$0 \times 1! = 0$</span>.
+3.  <strong>Pos 2 (Value 3):</strong> No elements to the right.
+    - Add <span class="arithmatex">$0 \times 0! = 0$</span>.</p>
+<p>Total Rank = <span class="arithmatex">$2 + 0 + 0 = 2$</span>.
+(The permutations are <span class="arithmatex">$[1,2,3], [1,3,2], \mathbf{[2,1,3]}, [2,3,1]...$</span>)</p>
+<p><strong>Implementation Note:</strong>
+To efficiently calculate the "count of smaller elements to the right," we can use a Fenwick Tree (BIT) or Segment Tree in <span class="arithmatex">$O(n \log n)$</span>. For small <span class="arithmatex">$n$</span>, a brute force <span class="arithmatex">$O(n^2)$</span> is sufficient.</p>
+<hr />
 <h2 id="practice-problems">Practice Problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
 <ul>
-<li>
-<p><a href="https://codeforces.com/problemset/problem/1585/D">CF1585D – Yet Another Sorting Problem</a><br />
-<em>Hint:</em> Array is sortable using 3-cycles only if parity matches the sorted array.</p>
-</li>
-<li>
-<p><a href="https://codeforces.com/problemset/problem/2191/B">CF2191B – Quartet Swapping</a><br />
-<em>Hint:</em> Simultaneous swaps → even number of transpositions → parity preserved.</p>
-</li>
-<li>
-<p><a href="https://cses.fi/problemset/task/1070">CSES – Permutations</a></p>
-</li>
+<li><a href="https://codeforces.com/problemset/problem/1585/D">CF 1585D – Yet Another Sorting Problem</a></li>
+<li><a href="https://codeforces.com/problemset/problem/2191/B">CF 2191B – Quartet Swapping</a></li>
+<li><a href="https://cses.fi/problemset/task/1070">CSES – Permutations</a></li>
+<li><a href="https://cses.fi/problemset/task/1715">CSES – Creating Strings II</a> (Related to rank/combinatorics)</li>
 </ul>
 <hr />
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Parity_of_a_permutation">Wikipedia: Parity of a permutation</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Inversion_(discrete_mathematics)">Wikipedia: Inversion (discrete mathematics)</a></li>
 </ul>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
