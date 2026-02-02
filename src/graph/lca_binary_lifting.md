@@ -84,7 +84,8 @@ int lca(int u, int v)
     return up[u][0];
 }
 
-void preprocess(int root) {
+void preprocess(int root)
+{
     tin.resize(n);
     tout.resize(n);
     timer = 0;
@@ -93,6 +94,90 @@ void preprocess(int root) {
     dfs(root, root);
 }
 ```
+
+## Binary Lifting on a dynamic tree
+This is another method of doing LCA, while also accepting adding a leaf of the next number to node `v`.
+
+The earlier method struggles with these updates, since adding a leaf will modify the time of entry and exit for potentially the entire graph.
+
+Lets create an array `d[u]`, containing the distance of node `u` from the root. This can be done with a DFS-traversal of the tree. Similarly to the earlier approach we precompute an array `up[u][j]`.
+
+We handle LCA queries as followed: Let `(u, v)` be the pair that we want to find the answer to. From now on let `d[u] ≥ d[v]` (if `d[v] > d[u]`, we can just swap `u` and `v`). Now lets try and make `d[u] = d[v]`, by moving `u` up to an ancestor.
+The ancestor of `u` that satisfies this requirement is exactly `d[u]-d[v]` nodes higher. So using our `up[u][j]` table and the binary representation of `d[u]-d[v]`, lets change the value of `u` to the specified ancestor.
+
+Now we have another problem: Find the LCA of two vertices `(u, v)`, that have the same depth. First, lets check the trivial case if `u = v`, where the LCA of the two values is `u`. If not, then we find the highest vertex, that isn't a common ancestor of `(u, v)`.
+
+Suppose that `L=ceil(log(N))`, where `N` is the maximum number of vertices the graph will have. Let `i = L`. If `up[u][i]=up[v][i]`, we just decrement `i`. If that is not the case, then we set `u = up[u][i]` and `v = up[v][i]`, then we decrement `i`.
+After all these operations, we two vertices `u` and `v`, that aren't the LCA od the original pair, but `jump[u][0]` and `jump[v][0]` are. We again are using $O(N \log N)$ preprocessing complexity and a $O( \log N)$ query one.
+
+Now why does this work well in this dynamic environment. Well observe during the algorithm we only need to know the `up[u][j]` array for all vertices and the distance of each node from the root, both of which trivally can be obtained from this query.
+
+## Implementation
+
+```cpp
+int n, l;
+vector<vector<int>> adj;
+
+vector<int> d;
+vector<vector<int>> up;
+
+void dfs(int v, int p, int dist)
+{
+    d[v]=dist;
+    up[v][0] = p;
+    for (int i = 1; i <= l; ++i)
+        up[v][i] = up[up[v][i-1]][i-1];
+
+    for (int u : adj[v]) {
+        if (u != p)
+            dfs(u, v, dist+1);
+    }
+}
+
+int lca(int u, int v)
+{
+    if (d[u] < d[v]) swap(u,v);
+    for (int j = l; j >= 0; --j) {
+      if (d[up[u][j]] >= d[v]) {
+            u = up[u][j]
+      }
+    }
+
+    if(u == v) return u;
+
+    for (int i = l; i >= 0; --i) {
+        if (up[u][i] != up[v][i]) {
+            u = up[u][i];
+            v = up[v][i];
+        }
+    }
+    return up[u][0];
+}
+
+void Add_Leaf(int to)
+{
+    adj[to].push_back((int) adj.size() + 1);
+    adj.push_back({to});
+
+    d.push_back(d[to]+1);
+    up.resize((int) up.size() + 1);
+    up[(int) up.size() - 1].resize(l+1);
+    up[(int) up.size() - 1][0] = to;
+    for (int i = 1; i <= l; ++i)
+        up[(int) up.size() - 1][i] = up[up[(int) up.size() - 1 ][i-1]][i-1];
+}
+
+void preprocess(int root)
+{
+    d.resize(n);
+    timer = 0;
+    l = ceil(log2(n));
+    up.assign(n, vector<int>(l + 1));
+    dfs(root, root, 0);
+}
+```
+
+
 ## Practice Problems
 
 * [LeetCode -  Kth Ancestor of a Tree Node](https://leetcode.com/problems/kth-ancestor-of-a-tree-node)
