@@ -96,9 +96,9 @@ void preprocess(int root)
 ```
 
 ## Binary Lifting on a dynamic tree
-This is another method of doing LCA, while also accepting adding a leaf of the next number to node `v`.
+This is another method of doing LCA, that also accepts adding a leaf node  to node `v`.
 
-The earlier method struggles with these updates, since adding a leaf will modify the time of entry and exit for potentially the entire graph.
+The earlier method struggles with these updates, since adding a leaf will potentially modify the time of entry and exit for the entire graph.
 
 Lets create an array `d[u]`, containing the distance of node `u` from the root. This can be done with a DFS-traversal of the tree. Similarly to the earlier approach we precompute an array `up[u][j]`.
 
@@ -110,7 +110,7 @@ Now we have another problem: Find the LCA of two vertices `(u, v)`, that have th
 Suppose that `L=ceil(log(N))`, where `N` is the maximum number of vertices the graph will have. Let `i = L`. If `up[u][i]=up[v][i]`, we just decrement `i`. If that is not the case, then we set `u = up[u][i]` and `v = up[v][i]`, then we decrement `i`.
 After all these operations, we two vertices `u` and `v`, that aren't the LCA od the original pair, but `jump[u][0]` and `jump[v][0]` are. We again are using $O(N \log N)$ preprocessing complexity and a $O( \log N)$ query one.
 
-Now why does this work well in this dynamic environment. Well observe during the algorithm we only need to know the `up[u][j]` array for all vertices and the distance of each node from the root, both of which trivally can be obtained from this query.
+Now, why does this work well in this dynamic environment? Well observe during the algorithm we only need to know the `up[u][j]` array for all vertices and the distance of each node from the root, both of which trivally can be obtained from the add leaf query in $O(\log n)$ time.
 
 ## Implementation
 
