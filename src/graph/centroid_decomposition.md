@@ -145,9 +145,8 @@ int get_centroid(int v, int tree_size, int p = -1) {
     return v;
 }
 
-// Collect all distances from the centroid within a subtree
 void get_distances(int v, int p, int dist, vector<int>& distances) {
-    if (dist > K) return;  // Optimization: don't go beyond K
+    if (dist > K) return;
     distances.push_back(dist);
     for (int u : adj[v]) {
         if (u == p || removed[u]) continue;
@@ -156,35 +155,21 @@ void get_distances(int v, int p, int dist, vector<int>& distances) {
 }
 
 void process_centroid(int centroid) {
-    // This function can be adapted to solve different problems using centroid decomposition.
-    // In this specific case, we are solving the problem of counting all paths of length K.
-    //
-    // Strategy: For each centroid, we count paths that pass through it.
-    // A path passing through the centroid consists of:
-    // - A vertex in one subtree at distance d1 from the centroid
-    // - A vertex in another subtree at distance d2 from the centroid
-    // - Such that d1 + d2 = K
-
     vector<int> all_distances;
-    all_distances.push_back(0);  // The centroid itself (distance 0)
+    all_distances.push_back(0);
 
-    // Process each subtree of the centroid
     for (int u : adj[centroid]) {
         if (removed[u]) continue;
 
         vector<int> current_distances;
         get_distances(u, centroid, 1, current_distances);
 
-        // Count paths between current subtree and all previously processed subtrees
-        // For each distance d in current_distances, we need distance K-d in all_distances
         for (int d : current_distances) {
             if (K - d >= 0) {
-                // Count how many vertices are at distance K-d in previous subtrees
                 answer += count(all_distances.begin(), all_distances.end(), K - d);
             }
         }
 
-        // Add current subtree's distances to all_distances for next iterations
         all_distances.insert(all_distances.end(), current_distances.begin(), current_distances.end());
     }
 }
@@ -197,7 +182,6 @@ void decompose(int v) {
 
     removed[centroid] = true;
 
-    // Recursively decompose each subtree
     for (int u : adj[centroid]) {
         if (!removed[u]) {
             decompose(u);
@@ -205,6 +189,8 @@ void decompose(int v) {
     }
 }
 ```
+
+This template can be adapted to solve different problems using centroid decomposition. In this specific case, it solves the problem of counting all paths of length $K$. The strategy is: for each centroid, count paths passing through it by finding pairs of vertices in different subtrees at distances $d_1$ and $d_2$ their sum is $K$ (i.e. a path passing through the centroid consists of a vertex in one subtree at distance $d_1$ from the centroid and a vertex in another subtree at distance $d_2$ where $d_1 + d_2 = K$). For each distance $d$ in the current subtree, the code counts how many vertices are at distance $K - d$ in previous subtrees. The optimization skips distances beyond $K$ to avoid unnecessary recursion.
 
 ### Building the Centroid Tree
 
