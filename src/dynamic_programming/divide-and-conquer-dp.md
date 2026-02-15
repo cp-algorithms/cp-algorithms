@@ -35,12 +35,24 @@ To minimize the runtime, we apply the idea behind divide and conquer. First,
 compute $opt(i, n / 2)$. Then, compute $opt(i, n / 4)$, knowing that it is less
 than or equal to $opt(i, n / 2)$ and $opt(i, 3 n / 4)$ knowing that it is
 greater than or equal to $opt(i, n / 2)$. By recursively keeping track of the
-lower and upper bounds on $opt$, we reach a $O(m n \log n)$ runtime. Each
-possible value of $opt(i, j)$ only appears in $\log n$ different nodes.
+lower and upper bounds on $opt$, we reach a $O(m n \log n)$ runtime. 
+Refer to the code below for implementation details.
 
-Note that it doesn't matter how "balanced" $opt(i, j)$ is. Across a fixed
-level, each value of $k$ is used at most twice, and there are at most $\log n$
-levels.
+To prove the complexity of the divide and conquer, first note that there 
+are $O(\log{n})$ levels in the recursion. We claim that $O(n)$ steps are being 
+done at each level. Let the total length of the $\text{opt}$ intervals (denoted by 
+$optl$ and $optr$ in the code) in the $l$th level be $S_l$, and observe that any 
+time an interval from level $l$ of length $x$ is split, the resulting interval(s) 
+have total length at most $x + 1$. Furthermore, at level $l$, at most $2^l$ splits
+are performed, so we have that $S_{l + 1} \leq S_l + 2^l$. Applying the bound 
+inductively with $S_0 = n$ gives that for each level $l$,
+
+$$
+S_l < n + 2^l \in O(n).
+$$
+
+Thus, the complexity of each divide and conquer is $O(n\log{n})$, and the complexity
+of the entire DP computation is $O(mn\log{n})$.
 
 ## Generic implementation
 
