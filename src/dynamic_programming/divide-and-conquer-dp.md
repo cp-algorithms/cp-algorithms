@@ -41,14 +41,14 @@ Refer to the code below for implementation details.
 To prove the complexity of the divide and conquer, first note that there 
 are $O(\log{n})$ levels in the recursion. We claim that $O(n)$ steps are being 
 done at each level. Let the total length of the $\text{opt}$ intervals (denoted by 
-$optl$ and $optr$ in the code) in the $l$th level be $S_l$, and observe that any 
-time an interval from level $l$ of length $x$ is split, the resulting interval(s) 
-have total length at most $x + 1$. Furthermore, at level $l$, at most $2^l$ splits
-are performed, so we have that $S_{l + 1} \leq S_l + 2^l$. Applying the bound 
-inductively with $S_0 = n$ gives that for each level $l$,
+$optl$ and $optr$ in the code) in the $k$th level be $S_k$, and observe that any 
+time an interval from level $k$ of length $x$ is split, the resulting interval(s) 
+have total length at most $x + 1$. Furthermore, at level $k$, at most $2^k$ splits
+are performed, so we have that $S_{k + 1} \leq S_k + 2^k$. Applying the bound 
+inductively with $S_0 = n$ gives that for each level $k$,
 
 $$
-S_l < n + 2^l \in O(n).
+S_k < n + 2^k \in O(n).
 $$
 
 Thus, the complexity of each divide and conquer is $O(n\log{n})$, and the complexity
