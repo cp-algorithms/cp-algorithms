@@ -86,6 +86,17 @@ long long binpow(long long a, long long b) {
     return res;
 }
 ```
+### Handling negative exponents
+
+The standard binary exponentiation algorithm assumes that the exponent `b` is non-negative.
+If `b < 0`, the value of `a^b` is defined as:
+
+\[
+a^b = \frac{1}{a^{-b}}
+\]
+
+This is only meaningful for floating-point numbers or modular arithmetic with modular inverses.
+In competitive programming tasks, the exponent is usually guaranteed to be non-negative unless stated otherwise.
 
 ## Applications
 
