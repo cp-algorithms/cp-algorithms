@@ -49,10 +49,13 @@ int gcd (int a, int b) {
 And finally, here is a non-recursive implementation:
 
 ```cpp
-int gcd (int a, int b) {
+// Handling negative inputs safely
+int gcd(int a, int b) {
+    a = std::abs(a);
+    b = std::abs(b);
     while (b) {
         a %= b;
-        swap(a, b);
+        std::swap(a, b);
     }
     return a;
 }
