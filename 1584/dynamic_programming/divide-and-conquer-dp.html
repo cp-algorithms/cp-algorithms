@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
     
     
       
@@ -7948,26 +7948,6 @@ Describe the issue of this article in detail.
   
     
   
-
-  
-  
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
     
   
 
@@ -7987,14 +7967,6 @@ Describe the issue of this article in detail.
   
   
     
-  
-    
-  
-    
-  
-
-  
-  
   
     
   
@@ -8030,6 +8002,42 @@ Describe the issue of this article in detail.
   
     
   
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
 
   
   
@@ -8048,6 +8056,12 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
     
   
     
@@ -8060,6 +8074,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8120,7 +8138,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 5, 2025 13:09:38 UTC">March 5, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 26, 2026 01:27:05 UTC">February 26, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8158,11 +8176,21 @@ splitting points!</p>
 compute <span class="arithmatex">$opt(i, n / 2)$</span>. Then, compute <span class="arithmatex">$opt(i, n / 4)$</span>, knowing that it is less
 than or equal to <span class="arithmatex">$opt(i, n / 2)$</span> and <span class="arithmatex">$opt(i, 3 n / 4)$</span> knowing that it is
 greater than or equal to <span class="arithmatex">$opt(i, n / 2)$</span>. By recursively keeping track of the
-lower and upper bounds on <span class="arithmatex">$opt$</span>, we reach a <span class="arithmatex">$O(m n \log n)$</span> runtime. Each
-possible value of <span class="arithmatex">$opt(i, j)$</span> only appears in <span class="arithmatex">$\log n$</span> different nodes.</p>
-<p>Note that it doesn't matter how "balanced" <span class="arithmatex">$opt(i, j)$</span> is. Across a fixed
-level, each value of <span class="arithmatex">$k$</span> is used at most twice, and there are at most <span class="arithmatex">$\log n$</span>
-levels.</p>
+lower and upper bounds on <span class="arithmatex">$opt$</span>, we reach a <span class="arithmatex">$O(m n \log n)$</span> runtime. 
+Refer to the code below for implementation details.</p>
+<p>To prove the complexity of the divide and conquer, first note that there 
+are <span class="arithmatex">$O(\log{n})$</span> levels in the recursion. We claim that <span class="arithmatex">$O(n)$</span> steps are being 
+done at each level. Let the total length of the <span class="arithmatex">$\text{opt}$</span> intervals (denoted by 
+<span class="arithmatex">$optl$</span> and <span class="arithmatex">$optr$</span> in the code) in the <span class="arithmatex">$k$</span>th level be <span class="arithmatex">$S_k$</span>, and observe that any 
+time an interval from level <span class="arithmatex">$k$</span> of length <span class="arithmatex">$x$</span> is split, the resulting interval(s) 
+have total length at most <span class="arithmatex">$x + 1$</span>. Furthermore, at level <span class="arithmatex">$k$</span>, at most <span class="arithmatex">$2^k$</span> splits
+are performed, so we have that <span class="arithmatex">$S_{k + 1} \leq S_k + 2^k$</span>. Applying the bound 
+inductively with <span class="arithmatex">$S_0 = n$</span> gives that for each level <span class="arithmatex">$k$</span>,</p>
+<div class="arithmatex">$$
+S_k &lt; n + 2^k \in O(n).
+$$</div>
+<p>Thus, the complexity of each divide and conquer is <span class="arithmatex">$O(n\log{n})$</span>, and the complexity
+of the entire DP computation is <span class="arithmatex">$O(mn\log{n})$</span>.</p>
 <h2 id="generic-implementation">Generic implementation<a class="headerlink" href="#generic-implementation" title="Permanent link">&para;</a></h2>
 <p>Even though implementation varies based on problem, here's a fairly generic
 template.
@@ -8241,7 +8269,7 @@ both! </p>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/arknave" title="arknave" data-bi-name="contributorprofile" target="_blank">arknave</a> (45.97%)</li><li><a href="https://github.com/sgtlaugh" title="sgtlaugh" data-bi-name="contributorprofile" target="_blank">sgtlaugh</a> (31.45%)</li><li><a href="https://github.com/dmiao623" title="dmiao623" data-bi-name="contributorprofile" target="_blank">dmiao623</a> (5.65%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (4.03%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (4.03%)</li><li><a href="https://github.com/omkarbajaj073" title="omkarbajaj073" data-bi-name="contributorprofile" target="_blank">omkarbajaj073</a> (4.03%)</li><li><a href="https://github.com/CDTheGod" title="CDTheGod" data-bi-name="contributorprofile" target="_blank">CDTheGod</a> (0.81%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (0.81%)</li><li><a href="https://github.com/simonyanli" title="simonyanli" data-bi-name="contributorprofile" target="_blank">simonyanli</a> (0.81%)</li><li><a href="https://github.com/18o3" title="18o3" data-bi-name="contributorprofile" target="_blank">18o3</a> (0.81%)</li><li><a href="https://github.com/Alpacabla" title="Alpacabla" data-bi-name="contributorprofile" target="_blank">Alpacabla</a> (0.81%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.81%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/arknave" title="arknave" data-bi-name="contributorprofile" target="_blank">arknave</a> (38.24%)</li><li><a href="https://github.com/sgtlaugh" title="sgtlaugh" data-bi-name="contributorprofile" target="_blank">sgtlaugh</a> (28.68%)</li><li><a href="https://github.com/andrewtam123" title="andrewtam123" data-bi-name="contributorprofile" target="_blank">andrewtam123</a> (12.5%)</li><li><a href="https://github.com/dmiao623" title="dmiao623" data-bi-name="contributorprofile" target="_blank">dmiao623</a> (5.15%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (3.68%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.68%)</li><li><a href="https://github.com/omkarbajaj073" title="omkarbajaj073" data-bi-name="contributorprofile" target="_blank">omkarbajaj073</a> (3.68%)</li><li><a href="https://github.com/CDTheGod" title="CDTheGod" data-bi-name="contributorprofile" target="_blank">CDTheGod</a> (0.74%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (0.74%)</li><li><a href="https://github.com/simonyanli" title="simonyanli" data-bi-name="contributorprofile" target="_blank">simonyanli</a> (0.74%)</li><li><a href="https://github.com/18o3" title="18o3" data-bi-name="contributorprofile" target="_blank">18o3</a> (0.74%)</li><li><a href="https://github.com/Alpacabla" title="Alpacabla" data-bi-name="contributorprofile" target="_blank">Alpacabla</a> (0.74%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.74%)</li></ul>
 </ul>
                 
               </article>
