@@ -8165,10 +8165,12 @@ Notice that you still need to sort these jobs by their deadline, if you want to 
 </li>
 <li>
 <p>For each job in order of non-decreasing deadlines:</p>
-</li>
+<ul>
 <li>Add the job's duration to the total scheduled time.</li>
 <li>Insert the job into the set.</li>
 <li>If the total scheduled time exceeds the job's deadline, remove the job with the longest duration from the set (which may be the current job itself), and subtract its duration from the total time.</li>
+</ul>
+</li>
 </ul>
 <p>After processing all jobs, the set contains the maximum number of jobs that can be scheduled without violating any deadlines. The jobs should be executed in the order of their deadlines to ensure they meet their deadlines.</p>
 <p>The running time of this algorithm is also <span class="arithmatex">$O(n \log n)$</span>.</p>
