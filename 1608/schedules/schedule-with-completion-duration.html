@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.4">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
     
     
       
@@ -7621,13 +7621,69 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#solving" class="md-nav__link">
+  <a href="#algorithm" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Solving
+        Algorithm
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#correctness-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Correctness Proof
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Correctness Proof">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lemma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lemma
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lemma">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proof
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proof-of-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proof of Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -7643,10 +7699,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#alternate-approach" class="md-nav__link">
+  <a href="#alternate-algorithm" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Alternate Approach
+        Alternate Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#correctness-proof_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Correctness Proof
       
     </span>
   </a>
@@ -7984,10 +8051,76 @@ Describe the issue of this article in detail.
 
 <h1 id="optimal-schedule-of-jobs-given-their-deadlines-and-durations">Optimal schedule of jobs given their deadlines and durations<a class="headerlink" href="#optimal-schedule-of-jobs-given-their-deadlines-and-durations" title="Permanent link">&para;</a></h1>
 <p>Suppose, we have a set of jobs, and we are aware of every job’s deadline and its duration. The execution of a job cannot be interrupted prior to its ending. It is required to create such a schedule to accomplish the biggest number of jobs.</p>
-<h2 id="solving">Solving<a class="headerlink" href="#solving" title="Permanent link">&para;</a></h2>
+<h2 id="algorithm">Algorithm<a class="headerlink" href="#algorithm" title="Permanent link">&para;</a></h2>
 <p>The algorithm of the solving is <strong>greedy</strong>. Let’s sort all the jobs by their deadlines and look at them in descending order. Also, let’s create a queue <span class="arithmatex">$q$</span>, in which we’ll gradually put the jobs and extract one with the least run-time (for instance, we can use set or priority_queue). Initially, <span class="arithmatex">$q$</span> is empty.</p>
 <p>Suppose, we’re looking at the <span class="arithmatex">$i$</span>-th job. First of all, let’s put it into <span class="arithmatex">$q$</span>. Let’s consider the period of time between the deadline of <span class="arithmatex">$i$</span>-th job and the deadline of <span class="arithmatex">$i-1$</span>-th job. That is the segment of some length <span class="arithmatex">$T$</span>. We will extract jobs from <span class="arithmatex">$q$</span> (in their left duration ascending order) and execute them until the whole segment <span class="arithmatex">$T$</span> is filled. Important: if at any moment of time the extracted job can only be partly executed until segment <span class="arithmatex">$T$</span> is filled, then we execute this job partly just as far as possible, i.e., during the <span class="arithmatex">$T$</span>-time, and we put the remaining part of a job back into <span class="arithmatex">$q$</span>.</p>
 <p>On the algorithm’s completion we’ll choose the optimal solution (or, at least, one of several solutions). The running time of algorithm is <span class="arithmatex">$O(n \log n)$</span>.</p>
+<h2 id="correctness-proof">Correctness Proof<a class="headerlink" href="#correctness-proof" title="Permanent link">&para;</a></h2>
+<h3 id="lemma">Lemma<a class="headerlink" href="#lemma" title="Permanent link">&para;</a></h3>
+<p>Let a list of jobs be sorted by non-decreasing deadlines
+<span class="arithmatex">$J_1, J_2, \dots, J_k$</span> with deadlines
+<span class="arithmatex">$d_1 \le d_2 \le \dots \le d_k$</span> and durations <span class="arithmatex">$t_1, t_2, \dots, t_k$</span>.</p>
+<p>If for every <span class="arithmatex">$i$</span> the following condition holds:</p>
+<div class="arithmatex">$$
+\sum_{j=1}^{i} t_j \le d_i,
+$$</div>
+<p>then executing the jobs sequentially in the order
+<span class="arithmatex">$J_1, J_2, \dots, J_k$</span> produces a feasible <strong>non-preemptive schedule</strong>
+in which every job finishes before its deadline.</p>
+<h4 id="proof">Proof<a class="headerlink" href="#proof" title="Permanent link">&para;</a></h4>
+<p>When executing the jobs in this order, the finishing time of job <span class="arithmatex">$J_i$</span>
+is equal to</p>
+<div class="arithmatex">$$
+\sum_{j=1}^{i} t_j.
+$$</div>
+<p>By assumption,</p>
+<div class="arithmatex">$$
+\sum_{j=1}^{i} t_j \le d_i,
+$$</div>
+<p>therefore job <span class="arithmatex">$J_i$</span> finishes no later than its deadline <span class="arithmatex">$d_i$</span>.
+Since this holds for every <span class="arithmatex">$i$</span>, all jobs complete before their
+deadlines, and the schedule is feasible without interruption.</p>
+<h3 id="proof-of-algorithm">Proof of Algorithm<a class="headerlink" href="#proof-of-algorithm" title="Permanent link">&para;</a></h3>
+<p>Let the jobs be sorted by non-decreasing deadlines and denote them as
+<span class="arithmatex">$J_1, J_2, \dots, J_n$</span> with deadlines <span class="arithmatex">$d_1 \le d_2 \le \dots \le d_n$</span>.
+Define <span class="arithmatex">$d_0 = 0$</span>.</p>
+<p>We process jobs from right to left. For each job <span class="arithmatex">$J_i$</span>, consider the time
+segment</p>
+<div class="arithmatex">$$
+T = d_i - d_{i-1}.
+$$</div>
+<p>At step <span class="arithmatex">$i$</span>, all jobs <span class="arithmatex">$J_i, J_{i+1}, \dots, J_n$</span> are candidates to be
+scheduled before their deadlines. These jobs are stored in a set ordered
+by their remaining durations.</p>
+<p>During the segment of length <span class="arithmatex">$T$</span>, the algorithm repeatedly chooses the job
+with the smallest remaining duration <span class="arithmatex">$t_j$</span> from the set.</p>
+<p>Two cases arise:</p>
+<ul>
+<li>
+<p><strong>If <span class="arithmatex">$T \ge t_j$</span></strong>:<br />
+   The job can be completed entirely within this segment. We execute it,
+   remove it from the set, and decrease <span class="arithmatex">$T$</span> by <span class="arithmatex">$t_j$</span>.</p>
+</li>
+<li>
+<p><strong>If <span class="arithmatex">$T &lt; t_j$</span></strong>:<br />
+   The job cannot be completed within this segment. In this case we execute
+   it for <span class="arithmatex">$T$</span> time units and reduce its remaining duration to <span class="arithmatex">$t_j - T$</span>,
+   inserting the remaining part back into the set.</p>
+</li>
+</ul>
+<p>Choosing the job with the smallest remaining duration is optimal because,
+for a fixed amount of time <span class="arithmatex">$T$</span>, executing shorter jobs first maximizes the
+number of jobs that can be completed within that time segment.</p>
+<p>The greedy algorithm may conceptually execute jobs partially when
+filling the segments <span class="arithmatex">$T = d_i - d_{i-1}$</span>.
+This preemption is only used to determine which jobs can be completed
+within the available time.</p>
+<p>The algorithm ensures that the total duration of the selected jobs
+never exceeds the time available before their deadlines.
+Therefore the chosen set of jobs satisfies the condition of the lemma.</p>
+<p>Consequently, the selected jobs can be executed non-preemptively
+in the order of their deadlines, producing a valid schedule in which
+every job finishes before its deadline.</p>
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
 <p>The following function takes a vector of jobs (consisting of a deadline, a duration, and the job's index) and computes a vector containing all indices of the used jobs in the optimal schedule.
 Notice that you still need to sort these jobs by their deadline, if you want to write down the plan explicitly.</p>
@@ -8022,32 +8155,49 @@ Notice that you still need to sort these jobs by their deadline, if you want to 
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">schedule</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="alternate-approach">Alternate Approach<a class="headerlink" href="#alternate-approach" title="Permanent link">&para;</a></h2>
+<h2 id="alternate-algorithm">Alternate Algorithm<a class="headerlink" href="#alternate-algorithm" title="Permanent link">&para;</a></h2>
 <p>There is a simpler greedy algorithm to solve this problem.</p>
-<p>Sort the jobs by their deadlines in non-decreasing order.
-We will maintain a set of selected jobs, ordered by their durations (using a data structure like a set or priority queue to quickly access the job with the maximum duration).
-Initialize the total scheduled time to 0.</p>
-<p>For each job in order of non-decreasing deadlines:
-- Add the job's duration to the total scheduled time.
-- Insert the job into the set.
-- If the total scheduled time exceeds the job's deadline, remove the job with the longest duration from the set (which may be the current job itself), and subtract its duration from the total time.</p>
+<ul>
+<li>Sort the jobs by their deadlines in non-decreasing order.</li>
+<li>We will maintain a set of selected jobs, ordered by their durations (using a data structure like a set or priority queue to quickly access the job with the maximum duration).</li>
+<li>
+<p>Initialize the total scheduled time to 0.</p>
+</li>
+<li>
+<p>For each job in order of non-decreasing deadlines:</p>
+</li>
+<li>Add the job's duration to the total scheduled time.</li>
+<li>Insert the job into the set.</li>
+<li>If the total scheduled time exceeds the job's deadline, remove the job with the longest duration from the set (which may be the current job itself), and subtract its duration from the total time.</li>
+</ul>
 <p>After processing all jobs, the set contains the maximum number of jobs that can be scheduled without violating any deadlines. The jobs should be executed in the order of their deadlines to ensure they meet their deadlines.</p>
-<p>Formally,</p>
-<div class="arithmatex">$$
-\begin{aligned}
-&amp;\text{Let } J = \{1, 2, \dots, n\} \text{ be the jobs, each with deadline } d_i \text{ and duration } t_i. \\
-&amp;\text{Sort } J \text{ by } d_i \text{ in non-decreasing order.} \\
-&amp;\text{Initialize } S = \phi, \ time = 0. \\
-&amp;\text{For each job } i \text{ in sorted order:} \\
-&amp;\quad time \leftarrow time + t_i \\
-&amp;\quad S \leftarrow S \cup \{i\} \\
-&amp;\quad \text{If } time &gt; d_i \text{ then} \\
-&amp;\quad \quad \text{Let } j = \arg\max_{k \in S} t_k \\
-&amp;\quad \quad S \leftarrow S - \lbrace j \rbrace \\
-&amp;\quad \quad time \leftarrow time - t_j
-\end{aligned}
-$$</div>
 <p>The running time of this algorithm is also <span class="arithmatex">$O(n \log n)$</span>.</p>
+<h2 id="correctness-proof_1">Correctness Proof<a class="headerlink" href="#correctness-proof_1" title="Permanent link">&para;</a></h2>
+<p>Let the jobs be sorted by non-decreasing deadlines
+<span class="arithmatex">$J_1, J_2, \dots, J_n$</span> with deadlines
+<span class="arithmatex">$d_1 \le d_2 \le \dots \le d_n$</span>.Define <span class="arithmatex">$d_0 = 0$</span>.</p>
+<p>The algorithm processes the jobs in this order while maintaining a set
+<span class="arithmatex">$S$</span> of selected jobs and the total scheduled processing time</p>
+<div class="arithmatex">$$
+T = \sum_{J_j \in S} t_j.
+$$</div>
+<p>When considering job <span class="arithmatex">$J_i$</span>, we tentatively add it to the set and update
+<span class="arithmatex">$T := T + t_i$</span>.</p>
+<ul>
+<li>If <span class="arithmatex">$T \le d_i$</span>, the schedule remains feasible and we keep the job.</li>
+<li>If <span class="arithmatex">$T &gt; d_i$</span>, we remove the job with the largest duration from <span class="arithmatex">$S$</span>
+  and decrease <span class="arithmatex">$T$</span> accordingly.</li>
+</ul>
+<p>Removing the job with the largest duration is optimal because it reduces
+the total processing time by the greatest amount while removing only one
+job, thus maximizing the number of remaining jobs.</p>
+<p>After each step the algorithm maintains the invariant</p>
+<div class="arithmatex">$$
+\sum_{J_j \in S} t_j \le d_i.
+$$</div>
+<p>Therefore the selected jobs satisfy the condition of the <a href="#lemma">lemma</a>. Consequently, executing the jobs in <span class="arithmatex">$S$</span> in the order of
+their deadlines produces a feasible non-preemptive schedule in which
+every job finishes before its deadline.</p>
 <h2 id="implementation_1">Implementation<a class="headerlink" href="#implementation_1" title="Permanent link">&para;</a></h2>
 <p>The following function implements the alternate approach, taking a vector of jobs and returning the indices of the scheduled jobs in order of their execution.</p>
 <div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">Job</span><span class="w"> </span><span class="p">{</span>
@@ -8086,7 +8236,7 @@ $$</div>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/Aaryan-Dadu" title="Aaryan-Dadu" data-bi-name="contributorprofile" target="_blank">Aaryan-Dadu</a> (57.03%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (19.53%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (18.75%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (4.69%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/Aaryan-Dadu" title="Aaryan-Dadu" data-bi-name="contributorprofile" target="_blank">Aaryan-Dadu</a> (76.52%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (10.43%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (10.43%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.61%)</li></ul>
 </ul>
                 
               </article>
