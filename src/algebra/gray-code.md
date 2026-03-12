@@ -8,7 +8,7 @@ e_maxx_link: gray_code
 
 Gray code is a binary numeral system where two successive values differ in only one bit. 
 
-For example, the sequence of Gray codes for 3-bit numbers is: 000, 001, 011, 010, 110, 111, 101, 100, so $G(4) = 6$.
+Denote by $G(n)$ the representation of the number $n$ using the Gray code. For example, the sequence of Gray codes for 3-bit numbers is: 000, 001, 011, 010, 110, 111, 101, 100, so $G(4) = (110)_2 = 6$.
 
 This code was invented by Frank Gray in 1953.
 
