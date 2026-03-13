@@ -6,7 +6,7 @@ e_maxx_link: extended_euclid_algorithm
 
 # Extended Euclidean Algorithm
 
-While the [Euclidean algorithm](euclid-algorithm.md) calculates only the greatest common divisor (GCD) of two integers $a$ and $b$, the extended version also finds a way to represent GCD in terms of $a$ and $b$, i.e. coefficients $x$ and $y$ for which:
+While the [Euclidean algorithm](euclid-algorithm.md) calculates only the greatest common divisor (GCD) of two non-negative integers $a$ and $b$, the extended version also finds a way to represent GCD in terms of $a$ and $b$, i.e. coefficients $x$ and $y$ for which:
 
 $$a \cdot x + b \cdot y = \gcd(a, b)$$
 
