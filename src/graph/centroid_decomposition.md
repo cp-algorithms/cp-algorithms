@@ -155,22 +155,27 @@ void get_distances(int v, int p, int dist, vector<int>& distances) {
 }
 
 void process_centroid(int centroid) {
-    vector<int> all_distances;
-    all_distances.push_back(0);
+    unordered_map<int, int> all_distances;
+    all_distances[0] = 1;
 
     for (int u : adj[centroid]) {
-        if (removed[u]) continue;
+        if (removed[u])
+            continue;
 
         vector<int> current_distances;
         get_distances(u, centroid, 1, current_distances);
 
         for (int d : current_distances) {
             if (K - d >= 0) {
-                answer += count(all_distances.begin(), all_distances.end(), K - d);
+                answer += (all_distances[K - d] ? all_distances[K - d] : 0);
             }
         }
 
-        all_distances.insert(all_distances.end(), current_distances.begin(), current_distances.end());
+        for (int d : current_distances) {
+            if (all_distances.find(d) == all_distances.end())
+                all_distances[d] = 0;
+            all_distances[d]++;
+        }
     }
 }
 
