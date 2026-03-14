@@ -33,7 +33,7 @@ For any given tree with $N$ vertices, either one or two centroids exist. If ther
 
     It is easy to see that this process always terminates, proving at least one centroid exists.
 
-    _Uniqueness_: Suppose there are two centroids $u$ and $v$. Consider the path between them. When we remove $u$, vertex $v$ must be in a component with at most $\frac{N}{2}$ vertices. Similarly, when we remove $v$, vertex $u$ must be in a component with at most $\frac{N}{2}$ vertices. This is only possible if $u$ and $v$ are adjacent; otherwise, removing either would place the other in a component with more than $\frac{N}{2}$ vertices. Furthermore, if two centroids exist, they must split the tree into two components of exactly $\frac{N}{2}$ vertices each, which is only possible when $N$ is even.
+    _Uniqueness_: Suppose there are two centroids $u$ and $v$. Consider the path between them. When we remove $u$, vertex $v$ must be in a component with at most $\frac{N}{2}$ vertices. Similarly, when we remove $v$, vertex $u$ must be in a component with at most $\frac{N}{2}$ vertices. This is only possible if $u$ and $v$ are adjacent; otherwise, removing either would place the other in a component with more than $\frac{N}{2}$ vertices. This contradicts our initial statement of both centroids being in a component with at most $\frac{N}{2}$ vertices. Furthermore, if two centroids exist, they must split the tree into two components of exactly $\frac{N}{2}$ vertices each, which is only possible when $N$ is even.
 
 ## Properties and Definition of Centroid Decomposition
 
