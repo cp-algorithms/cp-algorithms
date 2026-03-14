@@ -37,7 +37,7 @@ For any given tree with $N$ vertices, either one or two centroids exist. If ther
 
 ## Properties and Definition of Centroid Decomposition
 
-Recursively finding centroids of a tree and decomposing the tree into its components creates a unique set of properties:
+"Decomposing" the tree then essentially means recursively finding centroids and breaking the tree into subtrees based on the centroid's components. Such a recursive decomposition of the tree into its components creates a unique set of properties:
 
 1. **Decomposition depth**: The depth is $O(\log N)$ because each level at least halves the component size.
 2. **Path coverage**: Every path in the tree passes through the centroid of some component in the decomposition.
