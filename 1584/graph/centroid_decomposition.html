@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -74,6 +74,9 @@
 
     
     
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+
   <script src="../assets/javascripts/toggle-sidebar.js"></script></head>
   
   
@@ -8048,7 +8051,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 10, 2026 18:32:29 UTC">February 10, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 14, 2026 12:03:59 UTC">March 14, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8080,10 +8083,10 @@ Describe the issue of this article in detail.
 <summary>Proof</summary>
 <p><em>Existence</em>: Start from any vertex and keep moving to the child with the largest subtree. Stop when no child has more than <span class="arithmatex">$\frac{N}{2}$</span> vertices. At this point, the current vertex <span class="arithmatex">$v$</span> is a centroid because (1) no child's subtree contains more than <span class="arithmatex">$\frac{N}{2}$</span> vertices (by stopping condition) (2) the "parent side" (all vertices except <span class="arithmatex">$v$</span>'s subtree when <span class="arithmatex">$v$</span> was a child) contains at most <span class="arithmatex">$\frac{N}{2}$</span> vertices (otherwise we wouldn't have moved to <span class="arithmatex">$v$</span> from parent).</p>
 <p>It is easy to see that this process always terminates, proving at least one centroid exists.</p>
-<p><em>Uniqueness</em>: Suppose there are two centroids <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span>. Consider the path between them. When we remove <span class="arithmatex">$u$</span>, vertex <span class="arithmatex">$v$</span> must be in a component with at most <span class="arithmatex">$\frac{N}{2}$</span> vertices. Similarly, when we remove <span class="arithmatex">$v$</span>, vertex <span class="arithmatex">$u$</span> must be in a component with at most <span class="arithmatex">$\frac{N}{2}$</span> vertices. This is only possible if <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span> are adjacent; otherwise, removing either would place the other in a component with more than <span class="arithmatex">$\frac{N}{2}$</span> vertices. Furthermore, if two centroids exist, they must split the tree into two components of exactly <span class="arithmatex">$\frac{N}{2}$</span> vertices each, which is only possible when <span class="arithmatex">$N$</span> is even.</p>
+<p><em>Uniqueness</em>: Suppose there are two centroids <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span>. Consider the path between them. When we remove <span class="arithmatex">$u$</span>, vertex <span class="arithmatex">$v$</span> must be in a component with at most <span class="arithmatex">$\frac{N}{2}$</span> vertices. Similarly, when we remove <span class="arithmatex">$v$</span>, vertex <span class="arithmatex">$u$</span> must be in a component with at most <span class="arithmatex">$\frac{N}{2}$</span> vertices. This is only possible if <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span> are adjacent; otherwise, removing either would place the other in a component with more than <span class="arithmatex">$\frac{N}{2}$</span> vertices. This contradicts our initial statement of both centroids being in a component with at most <span class="arithmatex">$\frac{N}{2}$</span> vertices. Furthermore, if two centroids exist, they must split the tree into two components of exactly <span class="arithmatex">$\frac{N}{2}$</span> vertices each, which is only possible when <span class="arithmatex">$N$</span> is even.</p>
 </details>
 <h2 id="properties-and-definition-of-centroid-decomposition">Properties and Definition of Centroid Decomposition<a class="headerlink" href="#properties-and-definition-of-centroid-decomposition" title="Permanent link">&para;</a></h2>
-<p>Recursively finding centroids of a tree and decomposing the tree into its components creates a unique set of properties:</p>
+<p>"Decomposing" the tree then essentially means recursively finding centroids and breaking the tree into subtrees based on the centroid's components. Such a recursive decomposition of the tree into its components creates a unique set of properties:</p>
 <ol>
 <li><strong>Decomposition depth</strong>: The depth is <span class="arithmatex">$O(\log N)$</span> because each level at least halves the component size.</li>
 <li><strong>Path coverage</strong>: Every path in the tree passes through the centroid of some component in the decomposition.</li>
@@ -8175,22 +8178,27 @@ Describe the issue of this article in detail.
 <span class="p">}</span>
 
 <span class="kt">void</span><span class="w"> </span><span class="nf">process_centroid</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">centroid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">all_distances</span><span class="p">;</span>
-<span class="w">    </span><span class="n">all_distances</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">all_distances</span><span class="p">;</span>
+<span class="w">    </span><span class="n">all_distances</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">centroid</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">removed</span><span class="p">[</span><span class="n">u</span><span class="p">])</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">removed</span><span class="p">[</span><span class="n">u</span><span class="p">])</span>
+<span class="w">            </span><span class="k">continue</span><span class="p">;</span>
 
 <span class="w">        </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">current_distances</span><span class="p">;</span>
 <span class="w">        </span><span class="n">get_distances</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">centroid</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">current_distances</span><span class="p">);</span>
 
 <span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">current_distances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">K</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">answer</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">count</span><span class="p">(</span><span class="n">all_distances</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">all_distances</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">d</span><span class="p">);</span>
+<span class="w">                </span><span class="n">answer</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="p">(</span><span class="n">all_distances</span><span class="p">[</span><span class="n">K</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">d</span><span class="p">]</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">all_distances</span><span class="p">[</span><span class="n">K</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">d</span><span class="p">]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 
-<span class="w">        </span><span class="n">all_distances</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">all_distances</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">current_distances</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">current_distances</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">current_distances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">all_distances</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">all_distances</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+<span class="w">                </span><span class="n">all_distances</span><span class="p">[</span><span class="n">d</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">all_distances</span><span class="p">[</span><span class="n">d</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
