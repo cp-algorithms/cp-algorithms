@@ -201,6 +201,7 @@ search:
         - [Topological Sorting](graph/topological-sort.md)
         - [Edge connectivity / Vertex connectivity](graph/edge_vertex_connectivity.md)
         - [Tree painting](graph/tree_painting.md)
+        - [Tree rerooting (all-roots DP)](graph/tree_rerooting.md)
         - [2-SAT](graph/2SAT.md)
         - [Heavy-light decomposition](graph/hld.md)
 - Miscellaneous
