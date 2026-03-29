@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://cp-algorithms.com/geometry/delaunay.html">
+        <link rel="canonical" href="https://cp-algorithms.com/graph/centroid_decomposition.html">
       
       
-        <link rel="prev" href="nearest_points.html">
+        <link rel="prev" href="hld.html">
       
       
-        <link rel="next" href="vertical_decomposition.html">
+        <link rel="next" href="../sequences/rmq.html">
       
       
         
@@ -30,7 +30,7 @@
     
     
       
-        <title>Delaunay triangulation and Voronoi diagram - Algorithms for Competitive Programming</title>
+        <title>Centroid decomposition - Algorithms for Competitive Programming</title>
       
     
     
@@ -96,7 +96,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#delaunay-triangulation-and-voronoi-diagram" class="md-skip">
+        <a href="#centroid-decomposition" class="md-skip">
           Skip to content
         </a>
       
@@ -141,7 +141,7 @@
           <span class="md-ellipsis">
             <a href="#" onclick="scrollToTop()">
               
-                Delaunay triangulation and Voronoi diagram
+                Centroid decomposition
               
             </a>
           </span>
@@ -4150,20 +4150,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
         
           
           <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
@@ -4184,7 +4182,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
@@ -4249,7 +4247,7 @@
   
   
     <li class="md-nav__item">
-      <a href="basic-geometry.html" class="md-nav__link">
+      <a href="../geometry/basic-geometry.html" class="md-nav__link">
         
   
   
@@ -4277,7 +4275,7 @@
   
   
     <li class="md-nav__item">
-      <a href="segment-to-line.html" class="md-nav__link">
+      <a href="../geometry/segment-to-line.html" class="md-nav__link">
         
   
   
@@ -4305,7 +4303,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lines-intersection.html" class="md-nav__link">
+      <a href="../geometry/lines-intersection.html" class="md-nav__link">
         
   
   
@@ -4333,7 +4331,7 @@
   
   
     <li class="md-nav__item">
-      <a href="check-segments-intersection.html" class="md-nav__link">
+      <a href="../geometry/check-segments-intersection.html" class="md-nav__link">
         
   
   
@@ -4361,7 +4359,7 @@
   
   
     <li class="md-nav__item">
-      <a href="segments-intersection.html" class="md-nav__link">
+      <a href="../geometry/segments-intersection.html" class="md-nav__link">
         
   
   
@@ -4389,7 +4387,7 @@
   
   
     <li class="md-nav__item">
-      <a href="circle-line-intersection.html" class="md-nav__link">
+      <a href="../geometry/circle-line-intersection.html" class="md-nav__link">
         
   
   
@@ -4417,7 +4415,7 @@
   
   
     <li class="md-nav__item">
-      <a href="circle-circle-intersection.html" class="md-nav__link">
+      <a href="../geometry/circle-circle-intersection.html" class="md-nav__link">
         
   
   
@@ -4445,7 +4443,7 @@
   
   
     <li class="md-nav__item">
-      <a href="tangents-to-two-circles.html" class="md-nav__link">
+      <a href="../geometry/tangents-to-two-circles.html" class="md-nav__link">
         
   
   
@@ -4473,7 +4471,7 @@
   
   
     <li class="md-nav__item">
-      <a href="length-of-segments-union.html" class="md-nav__link">
+      <a href="../geometry/length-of-segments-union.html" class="md-nav__link">
         
   
   
@@ -4556,7 +4554,7 @@
   
   
     <li class="md-nav__item">
-      <a href="oriented-triangle-area.html" class="md-nav__link">
+      <a href="../geometry/oriented-triangle-area.html" class="md-nav__link">
         
   
   
@@ -4584,7 +4582,7 @@
   
   
     <li class="md-nav__item">
-      <a href="area-of-simple-polygon.html" class="md-nav__link">
+      <a href="../geometry/area-of-simple-polygon.html" class="md-nav__link">
         
   
   
@@ -4612,7 +4610,7 @@
   
   
     <li class="md-nav__item">
-      <a href="point-in-convex-polygon.html" class="md-nav__link">
+      <a href="../geometry/point-in-convex-polygon.html" class="md-nav__link">
         
   
   
@@ -4640,7 +4638,7 @@
   
   
     <li class="md-nav__item">
-      <a href="minkowski.html" class="md-nav__link">
+      <a href="../geometry/minkowski.html" class="md-nav__link">
         
   
   
@@ -4668,7 +4666,7 @@
   
   
     <li class="md-nav__item">
-      <a href="picks-theorem.html" class="md-nav__link">
+      <a href="../geometry/picks-theorem.html" class="md-nav__link">
         
   
   
@@ -4696,7 +4694,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lattice-points.html" class="md-nav__link">
+      <a href="../geometry/lattice-points.html" class="md-nav__link">
         
   
   
@@ -4779,7 +4777,7 @@
   
   
     <li class="md-nav__item">
-      <a href="convex-hull.html" class="md-nav__link">
+      <a href="../geometry/convex-hull.html" class="md-nav__link">
         
   
   
@@ -4807,7 +4805,7 @@
   
   
     <li class="md-nav__item">
-      <a href="convex_hull_trick.html" class="md-nav__link">
+      <a href="../geometry/convex_hull_trick.html" class="md-nav__link">
         
   
   
@@ -4890,7 +4888,7 @@
   
   
     <li class="md-nav__item">
-      <a href="intersecting_segments.html" class="md-nav__link">
+      <a href="../geometry/intersecting_segments.html" class="md-nav__link">
         
   
   
@@ -4973,7 +4971,7 @@
   
   
     <li class="md-nav__item">
-      <a href="planar.html" class="md-nav__link">
+      <a href="../geometry/planar.html" class="md-nav__link">
         
   
   
@@ -5001,7 +4999,7 @@
   
   
     <li class="md-nav__item">
-      <a href="point-location.html" class="md-nav__link">
+      <a href="../geometry/point-location.html" class="md-nav__link">
         
   
   
@@ -5034,20 +5032,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_6" >
         
           
           <label class="md-nav__link" for="__nav_9_6" id="__nav_9_6_label" tabindex="0">
@@ -5068,7 +5064,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -5086,7 +5082,7 @@
   
   
     <li class="md-nav__item">
-      <a href="nearest_points.html" class="md-nav__link">
+      <a href="../geometry/nearest_points.html" class="md-nav__link">
         
   
   
@@ -5111,37 +5107,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Delaunay triangulation and Voronoi diagram
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="delaunay.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../geometry/delaunay.html" class="md-nav__link">
         
   
   
@@ -5157,103 +5126,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#properties" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Properties
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#duality" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Duality
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#building-delaunay-and-voronoi" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Building Delaunay and Voronoi
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quad-edge-data-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quad-edge data structure
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#algorithm" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Algorithm
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#implementation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Implementation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#problems" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Problems
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -5266,7 +5138,7 @@
   
   
     <li class="md-nav__item">
-      <a href="vertical_decomposition.html" class="md-nav__link">
+      <a href="../geometry/vertical_decomposition.html" class="md-nav__link">
         
   
   
@@ -5294,7 +5166,7 @@
   
   
     <li class="md-nav__item">
-      <a href="halfplane-intersection.html" class="md-nav__link">
+      <a href="../geometry/halfplane-intersection.html" class="md-nav__link">
         
   
   
@@ -5322,7 +5194,7 @@
   
   
     <li class="md-nav__item">
-      <a href="manhattan-distance.html" class="md-nav__link">
+      <a href="../geometry/manhattan-distance.html" class="md-nav__link">
         
   
   
@@ -5350,7 +5222,7 @@
   
   
     <li class="md-nav__item">
-      <a href="enclosing-circle.html" class="md-nav__link">
+      <a href="../geometry/enclosing-circle.html" class="md-nav__link">
         
   
   
@@ -5390,18 +5262,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
         
           
           <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
@@ -5422,7 +5296,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
             
@@ -5487,7 +5361,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/breadth-first-search.html" class="md-nav__link">
+      <a href="breadth-first-search.html" class="md-nav__link">
         
   
   
@@ -5515,7 +5389,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/depth-first-search.html" class="md-nav__link">
+      <a href="depth-first-search.html" class="md-nav__link">
         
   
   
@@ -5598,7 +5472,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/search-for-connected-components.html" class="md-nav__link">
+      <a href="search-for-connected-components.html" class="md-nav__link">
         
   
   
@@ -5626,7 +5500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/bridge-searching.html" class="md-nav__link">
+      <a href="bridge-searching.html" class="md-nav__link">
         
   
   
@@ -5654,7 +5528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/bridge-searching-online.html" class="md-nav__link">
+      <a href="bridge-searching-online.html" class="md-nav__link">
         
   
   
@@ -5682,7 +5556,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/cutpoints.html" class="md-nav__link">
+      <a href="cutpoints.html" class="md-nav__link">
         
   
   
@@ -5710,7 +5584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/strongly-connected-components.html" class="md-nav__link">
+      <a href="strongly-connected-components.html" class="md-nav__link">
         
   
   
@@ -5738,7 +5612,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/strong-orientation.html" class="md-nav__link">
+      <a href="strong-orientation.html" class="md-nav__link">
         
   
   
@@ -5821,7 +5695,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/dijkstra.html" class="md-nav__link">
+      <a href="dijkstra.html" class="md-nav__link">
         
   
   
@@ -5849,7 +5723,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/dijkstra_sparse.html" class="md-nav__link">
+      <a href="dijkstra_sparse.html" class="md-nav__link">
         
   
   
@@ -5877,7 +5751,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/bellman_ford.html" class="md-nav__link">
+      <a href="bellman_ford.html" class="md-nav__link">
         
   
   
@@ -5905,7 +5779,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/01_bfs.html" class="md-nav__link">
+      <a href="01_bfs.html" class="md-nav__link">
         
   
   
@@ -5933,7 +5807,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/desopo_pape.html" class="md-nav__link">
+      <a href="desopo_pape.html" class="md-nav__link">
         
   
   
@@ -6016,7 +5890,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/all-pair-shortest-path-floyd-warshall.html" class="md-nav__link">
+      <a href="all-pair-shortest-path-floyd-warshall.html" class="md-nav__link">
         
   
   
@@ -6044,7 +5918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/fixed_length_paths.html" class="md-nav__link">
+      <a href="fixed_length_paths.html" class="md-nav__link">
         
   
   
@@ -6127,7 +6001,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/mst_prim.html" class="md-nav__link">
+      <a href="mst_prim.html" class="md-nav__link">
         
   
   
@@ -6155,7 +6029,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/mst_kruskal.html" class="md-nav__link">
+      <a href="mst_kruskal.html" class="md-nav__link">
         
   
   
@@ -6183,7 +6057,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/mst_kruskal_with_dsu.html" class="md-nav__link">
+      <a href="mst_kruskal_with_dsu.html" class="md-nav__link">
         
   
   
@@ -6211,7 +6085,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/second_best_mst.html" class="md-nav__link">
+      <a href="second_best_mst.html" class="md-nav__link">
         
   
   
@@ -6239,7 +6113,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/kirchhoff-theorem.html" class="md-nav__link">
+      <a href="kirchhoff-theorem.html" class="md-nav__link">
         
   
   
@@ -6267,7 +6141,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/pruefer_code.html" class="md-nav__link">
+      <a href="pruefer_code.html" class="md-nav__link">
         
   
   
@@ -6350,7 +6224,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/finding-cycle.html" class="md-nav__link">
+      <a href="finding-cycle.html" class="md-nav__link">
         
   
   
@@ -6378,7 +6252,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/finding-negative-cycle-in-graph.html" class="md-nav__link">
+      <a href="finding-negative-cycle-in-graph.html" class="md-nav__link">
         
   
   
@@ -6406,7 +6280,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/euler_path.html" class="md-nav__link">
+      <a href="euler_path.html" class="md-nav__link">
         
   
   
@@ -6489,7 +6363,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/lca.html" class="md-nav__link">
+      <a href="lca.html" class="md-nav__link">
         
   
   
@@ -6517,7 +6391,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/lca_binary_lifting.html" class="md-nav__link">
+      <a href="lca_binary_lifting.html" class="md-nav__link">
         
   
   
@@ -6545,7 +6419,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/lca_farachcoltonbender.html" class="md-nav__link">
+      <a href="lca_farachcoltonbender.html" class="md-nav__link">
         
   
   
@@ -6573,7 +6447,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/rmq_linear.html" class="md-nav__link">
+      <a href="rmq_linear.html" class="md-nav__link">
         
   
   
@@ -6601,7 +6475,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/lca_tarjan.html" class="md-nav__link">
+      <a href="lca_tarjan.html" class="md-nav__link">
         
   
   
@@ -6684,7 +6558,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/edmonds_karp.html" class="md-nav__link">
+      <a href="edmonds_karp.html" class="md-nav__link">
         
   
   
@@ -6712,7 +6586,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/push-relabel.html" class="md-nav__link">
+      <a href="push-relabel.html" class="md-nav__link">
         
   
   
@@ -6740,7 +6614,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/push-relabel-faster.html" class="md-nav__link">
+      <a href="push-relabel-faster.html" class="md-nav__link">
         
   
   
@@ -6768,7 +6642,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/dinic.html" class="md-nav__link">
+      <a href="dinic.html" class="md-nav__link">
         
   
   
@@ -6796,7 +6670,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/mpm.html" class="md-nav__link">
+      <a href="mpm.html" class="md-nav__link">
         
   
   
@@ -6824,7 +6698,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/flow_with_demands.html" class="md-nav__link">
+      <a href="flow_with_demands.html" class="md-nav__link">
         
   
   
@@ -6852,7 +6726,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/min_cost_flow.html" class="md-nav__link">
+      <a href="min_cost_flow.html" class="md-nav__link">
         
   
   
@@ -6880,7 +6754,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/Assignment-problem-min-flow.html" class="md-nav__link">
+      <a href="Assignment-problem-min-flow.html" class="md-nav__link">
         
   
   
@@ -6963,7 +6837,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/bipartite-check.html" class="md-nav__link">
+      <a href="bipartite-check.html" class="md-nav__link">
         
   
   
@@ -6991,7 +6865,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/kuhn_maximum_bipartite_matching.html" class="md-nav__link">
+      <a href="kuhn_maximum_bipartite_matching.html" class="md-nav__link">
         
   
   
@@ -7019,7 +6893,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/hungarian-algorithm.html" class="md-nav__link">
+      <a href="hungarian-algorithm.html" class="md-nav__link">
         
   
   
@@ -7052,18 +6926,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_10" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_10" checked>
         
           
           <label class="md-nav__link" for="__nav_10_10" id="__nav_10_10_label" tabindex="0">
@@ -7084,7 +6960,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_10_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_10_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_10_10">
             <span class="md-nav__icon md-icon"></span>
             
@@ -7102,7 +6978,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/topological-sort.html" class="md-nav__link">
+      <a href="topological-sort.html" class="md-nav__link">
         
   
   
@@ -7130,7 +7006,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/edge_vertex_connectivity.html" class="md-nav__link">
+      <a href="edge_vertex_connectivity.html" class="md-nav__link">
         
   
   
@@ -7158,7 +7034,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/tree_painting.html" class="md-nav__link">
+      <a href="tree_painting.html" class="md-nav__link">
         
   
   
@@ -7186,7 +7062,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/2SAT.html" class="md-nav__link">
+      <a href="2SAT.html" class="md-nav__link">
         
   
   
@@ -7214,7 +7090,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/hld.html" class="md-nav__link">
+      <a href="hld.html" class="md-nav__link">
         
   
   
@@ -7239,10 +7115,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../graph/centroid_decomposition.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Centroid decomposition
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="centroid_decomposition.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -7258,6 +7161,165 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#properties-and-definition-of-a-centroid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties and Definition of a Centroid
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Properties and Definition of a Centroid">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#existence-and-uniqueness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Existence and Uniqueness
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#properties-and-definition-of-centroid-decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties and Definition of Centroid Decomposition
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Properties and Definition of Centroid Decomposition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decomposition-depth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decomposition Depth
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#path-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path Coverage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finding-a-centroid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding a Centroid
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algorithm-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm Description
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#building-the-centroid-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building the Centroid Tree
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practice Problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -7932,9 +7994,9 @@
                   <script type="text/javascript">
 window.onload = function() {
 	const newIssueURL = "https://github.com/cp-algorithms/cp-algorithms/issues/new";
-  const issueTitle = "Problem on article " + "Delaunay triangulation and Voronoi diagram";
+  const issueTitle = "Problem on article " + "Centroid decomposition";
 	const issueBody = `
- **Article:** [`+ "Delaunay triangulation and Voronoi diagram" + `](${window.location.href})
+ **Article:** [`+ "Centroid decomposition" + `](${window.location.href})
 
 **Problem:**
 <!--
@@ -7946,13 +8008,13 @@ Describe the issue of this article in detail.
 }
 </script>
 
-<a href="https://github.com/cp-algorithms/cp-algorithms/edit/main/src/geometry/delaunay.md" title="Edit this page" class="md-content__button md-icon">
+<a href="https://github.com/cp-algorithms/cp-algorithms/edit/main/src/graph/centroid_decomposition.md" title="Edit this page" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
 </a>
 <a id="report_issue_a" href="" title="Report a problem" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14h-2V9h2m0 9h-2v-2h2M1 21h22L12 2z"/></svg>
 </a>
-<a href="https://github.com/cp-algorithms/cp-algorithms/commits/main/src/geometry/delaunay.md" title="Page authors" class="md-content__button md-icon">
+<a href="https://github.com/cp-algorithms/cp-algorithms/commits/main/src/graph/centroid_decomposition.md" title="Page authors" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><rect fill="none" height="24" width="24"/></g><g><g><g><path d="M12,8.5c-0.91,0-2.75,0.46-2.75,1.38v4.62h1.5V19h2.5v-4.5h1.5V9.88C14.75,8.97,12.91,8.5,12,8.5z"/><path d="M12,2C6.47,2,2,6.47,2,12s4.47,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.42,0-8-3.58-8-8s3.58-8,8-8s8,3.58,8,8 S16.42,20,12,20z"/><circle cx="12" cy="6.5" r="1.5"/></g></g></g></svg>
 </a>
 
@@ -7976,55 +8038,7 @@ Describe the issue of this article in detail.
     
   
 
-  
-  
-  
-    
-  
-    
-  
-    
-  
 
-  
-  
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
 
   
   
@@ -8037,325 +8051,206 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 15, 2025 02:32:08 UTC">April 15, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 14, 2026 12:03:59 UTC">March 14, 2026</span>&emsp;
 
 <!-- Tags -->
 
-  
-  
-  
-    
-  
-
 
   
-    <a href="../tags.html#tag:translated" class="md-tag">
-      Translated
-    </a>
-  
-
-  
-    <a href="https://e-maxx.ru/algo/voronoi_diagram_2d_n4" class="md-tag">
-      From: e-maxx.ru
+    <a href="../tags.html#tag:original" class="md-tag">
+      Original
     </a>
   
 
 </ul>
 
 
-<h1 id="delaunay-triangulation-and-voronoi-diagram">Delaunay triangulation and Voronoi diagram<a class="headerlink" href="#delaunay-triangulation-and-voronoi-diagram" title="Permanent link">&para;</a></h1>
-<p>Consider a set <span class="arithmatex">$\{p_i\}$</span> of points on the plane.
-A <strong>Voronoi diagram</strong> <span class="arithmatex">$V(\{p_i\})$</span> of <span class="arithmatex">$\{p_i\}$</span> is a partition of the plane into <span class="arithmatex">$n$</span> regions <span class="arithmatex">$V_i$</span>, where <span class="arithmatex">$V_i = \{p\in\mathbb{R}^2;\ \rho(p, p_i) = \min\ \rho(p, p_k)\}$</span>.
-The cells of the Voronoi diagram are polygons (possibly infinite).
-A <strong>Delaunay triangulation</strong> <span class="arithmatex">$D(\{p_i\})$</span> of <span class="arithmatex">$\{p_i\}$</span> is a triangulation where every point <span class="arithmatex">$p_i$</span> is outside or on the boundary of the circumcircle of each triangle <span class="arithmatex">$T \in D(\{p_i\})$</span>.</p>
-<p>There is a nasty degenerated case when the Voronoi diagram isn't connected and Delaunay triangulation doesn't exist. This case is when all points are collinear.</p>
-<h2 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h2>
-<p>The Delaunay triangulation maximizes the minimum angle among all possible triangulations.</p>
-<p>The Minimum Euclidean spanning tree of a point set is a subset of edges of its' Delaunay triangulation.</p>
-<h2 id="duality">Duality<a class="headerlink" href="#duality" title="Permanent link">&para;</a></h2>
-<p>Suppose that <span class="arithmatex">$\{p_i\}$</span> is not collinear and among <span class="arithmatex">$\{p_i\}$</span> no four points lie on one circle. Then <span class="arithmatex">$V(\{p_i\})$</span> and <span class="arithmatex">$D(\{p_i\})$</span> are dual, so if we obtain one of them, we may obtain the other in <span class="arithmatex">$O(n)$</span>. What to do if it's not the case? The collinear case may be processed easily. Otherwise, <span class="arithmatex">$V$</span> and <span class="arithmatex">$D'$</span> are dual, where <span class="arithmatex">$D'$</span> is obtained from <span class="arithmatex">$D$</span> by removing all the edges such that two triangles on this edge share the circumcircle.</p>
-<h2 id="building-delaunay-and-voronoi">Building Delaunay and Voronoi<a class="headerlink" href="#building-delaunay-and-voronoi" title="Permanent link">&para;</a></h2>
-<p>Because of the duality, we only need a fast algorithm to compute only one of <span class="arithmatex">$V$</span> and <span class="arithmatex">$D$</span>. We will describe how to build <span class="arithmatex">$D(\{p_i\})$</span> in <span class="arithmatex">$O(n\log n)$</span>. The triangulation will be built via divide-and-conquer algorithm due to Guibas and Stolfi.</p>
-<h2 id="quad-edge-data-structure">Quad-edge data structure<a class="headerlink" href="#quad-edge-data-structure" title="Permanent link">&para;</a></h2>
-<p>During the algorithm <span class="arithmatex">$D$</span> will be stored inside the quad-edge data structure. This structure is described in the picture:</p>
-<div style="text-align: center;">
-  <img src="quad-edge.png" alt="Quad-Edge">
+<h1 id="centroid-decomposition">Centroid Decomposition<a class="headerlink" href="#centroid-decomposition" title="Permanent link">&para;</a></h1>
+<p>Prerequisite knowledge: <a href="depth-first-search.html">Depth First Search (DFS)</a>, <a href="https://en.wikipedia.org/wiki/Divide-and-conquer_algorithm">Divide and Conquer</a>, <a href="https://en.wikipedia.org/wiki/Tree_(graph_theory)">Trees</a>.</p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p><strong>Centroid Decomposition</strong> is a divide-and-conquer technique on trees. It is used to solve various problems that involve paths in a tree, such as counting paths with certain properties, finding distances, or answering queries on tree paths.</p>
+<p>The key idea is to recursively decompose a tree by finding its <strong>centroid</strong>. This special vertex when removed splits the tree into components, each containing at most half of the original tree's vertices. This guarantees a logarithmic depth of recursion, leading to efficient algorithms.</p>
+<h2 id="properties-and-definition-of-a-centroid">Properties and Definition of a Centroid<a class="headerlink" href="#properties-and-definition-of-a-centroid" title="Permanent link">&para;</a></h2>
+<p>Let's first understand what a centroid is. A <strong>centroid</strong> of a tree is a vertex whose removal results in no subtree having more than <span class="arithmatex">$\frac{N}{2}$</span> vertices, where <span class="arithmatex">$N$</span> is the total number of vertices in the tree.</p>
+<div align="center">
+    <img src="./centroid-definition.png" alt="Centroid Tree" />
 </div>
 
-<p>In the algorithm we will use the following functions on edges:</p>
+<p>For any given tree with <span class="arithmatex">$N$</span> vertices, either one or two centroids exist. If there are two centroids, they must, as well, be adjacent.</p>
+<h3 id="existence-and-uniqueness">Existence and Uniqueness<a class="headerlink" href="#existence-and-uniqueness" title="Permanent link">&para;</a></h3>
+<p><strong>Theorem</strong>: Every tree has at least one centroid, and at most two centroids. If there are two centroids, they must be adjacent.</p>
+<details class="note">
+<summary>Proof</summary>
+<p><em>Existence</em>: Start from any vertex and keep moving to the child with the largest subtree. Stop when no child has more than <span class="arithmatex">$\frac{N}{2}$</span> vertices. At this point, the current vertex <span class="arithmatex">$v$</span> is a centroid because (1) no child's subtree contains more than <span class="arithmatex">$\frac{N}{2}$</span> vertices (by stopping condition) (2) the "parent side" (all vertices except <span class="arithmatex">$v$</span>'s subtree when <span class="arithmatex">$v$</span> was a child) contains at most <span class="arithmatex">$\frac{N}{2}$</span> vertices (otherwise we wouldn't have moved to <span class="arithmatex">$v$</span> from parent).</p>
+<p>It is easy to see that this process always terminates, proving at least one centroid exists.</p>
+<p><em>Uniqueness</em>: Suppose there are two centroids <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span>. Consider the path between them. When we remove <span class="arithmatex">$u$</span>, vertex <span class="arithmatex">$v$</span> must be in a component with at most <span class="arithmatex">$\frac{N}{2}$</span> vertices. Similarly, when we remove <span class="arithmatex">$v$</span>, vertex <span class="arithmatex">$u$</span> must be in a component with at most <span class="arithmatex">$\frac{N}{2}$</span> vertices. This is only possible if <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span> are adjacent; otherwise, removing either would place the other in a component with more than <span class="arithmatex">$\frac{N}{2}$</span> vertices. This contradicts our initial statement of both centroids being in a component with at most <span class="arithmatex">$\frac{N}{2}$</span> vertices. Furthermore, if two centroids exist, they must split the tree into two components of exactly <span class="arithmatex">$\frac{N}{2}$</span> vertices each, which is only possible when <span class="arithmatex">$N$</span> is even.</p>
+</details>
+<h2 id="properties-and-definition-of-centroid-decomposition">Properties and Definition of Centroid Decomposition<a class="headerlink" href="#properties-and-definition-of-centroid-decomposition" title="Permanent link">&para;</a></h2>
+<p>"Decomposing" the tree then essentially means recursively finding centroids and breaking the tree into subtrees based on the centroid's components. Such a recursive decomposition of the tree into its components creates a unique set of properties:</p>
 <ol>
-<li><code>make_edge(a, b)</code><br>
-    This function creates an isolated edge from point <code>a</code> to point <code>b</code> together with its' reverse edge and both dual edges.</li>
-<li><code>splice(a, b)</code><br>
-    This is a key function of the algorithm. It swaps <code>a-&gt;Onext</code> with <code>b-&gt;Onext</code> and <code>a-&gt;Onext-&gt;Rot-&gt;Onext</code> with <code>b-&gt;Onext-&gt;Rot-&gt;Onext</code>.</li>
-<li><code>delete_edge(e)</code><br>
-    This function deletes e from the triangulation. To delete <code>e</code>, we may simply call <code>splice(e, e-&gt;Oprev)</code> and <code>splice(e-&gt;Rev, e-&gt;Rev-&gt;Oprev)</code>.</li>
-<li><code>connect(a, b)</code><br>
-    This function creates a new edge <code>e</code> from <code>a-&gt;Dest</code> to <code>b-&gt;Org</code> in such a way that <code>a</code>, <code>b</code>, <code>e</code> all have the same left face. To do this, we call <code>e = make_edge(a-&gt;Dest, b-&gt;Org)</code>, <code>splice(e, a-&gt;Lnext)</code> and <code>splice(e-&gt;Rev, b)</code>.</li>
+<li><strong>Decomposition depth</strong>: The depth is <span class="arithmatex">$O(\log N)$</span> because each level at least halves the component size.</li>
+<li><strong>Path coverage</strong>: Every path in the tree passes through the centroid of some component in the decomposition.</li>
 </ol>
-<h2 id="algorithm">Algorithm<a class="headerlink" href="#algorithm" title="Permanent link">&para;</a></h2>
-<p>The algorithm will compute the triangulation and return two quad-edges: the counterclockwise convex hull edge out of the leftmost vertex and the clockwise convex hull edge out of the rightmost vertex.</p>
-<p>Let's sort all points by x, and if <span class="arithmatex">$x_1 = x_2$</span> then by y. Let's solve the problem for some segment <span class="arithmatex">$(l, r)$</span> (initially <span class="arithmatex">$(l, r) = (0, n - 1)$</span>). If <span class="arithmatex">$r - l + 1 = 2$</span>, we will add an edge <span class="arithmatex">$(p[l], p[r])$</span> and return. If <span class="arithmatex">$r - l + 1 = 3$</span>, we will firstly add the edges <span class="arithmatex">$(p[l], p[l + 1])$</span> and <span class="arithmatex">$(p[l + 1], p[r])$</span>. We must also connect them using <code>splice(a-&gt;Rev, b)</code>. Now we must close the triangle. Our next action will depend on the orientation of <span class="arithmatex">$p[l], p[l + 1], p[r]$</span>. If they are collinear, we can't make a triangle, so we simply return <code>(a, b-&gt;Rev)</code>. Otherwise, we create a new edge <code>c</code> by calling <code>connect(b, a)</code>. If the points are oriented counter-clockwise, we return <code>(a, b-&gt;Rev)</code>. Otherwise we return <code>(c-&gt;Rev, c)</code>.</p>
-<p>Now suppose that <span class="arithmatex">$r - l + 1 \ge 4$</span>. Firstly, let's solve <span class="arithmatex">$L = (l, \frac{l + r}{2})$</span> and <span class="arithmatex">$R = (\frac{l + r}{2} + 1, r)$</span> recursively. Now we have to merge these triangulations into one triangulation. Note that our points are sorted, so while merging we will add edges from L to R (so-called <em>cross</em> edges) and remove some edges from L to L and from R to R.
-What is the structure of the cross edges? All these edges must cross a line parallel to the y-axis and placed at the splitting x value. This establishes a linear ordering of the cross edges, so we can talk about successive cross edges, the bottom-most cross edge, etc. The algorithm will add the cross edges in ascending order. Note that any two adjacent cross edges will have a common endpoint, and the third side of the triangle they define goes from L to L or from R to R. Let's call the current cross edge the base. The successor of the base will either go from the left endpoint of the base to one of the R-neighbors of the right endpoint or vice versa.
-Consider the circumcircle of base and the previous cross edge.
-Suppose this circle is transformed into other circles having base as a chord but lying further into the Oy direction.
-Our circle will go up for a while, but unless base is an upper tangent of L and R we will encounter a point belonging either to L or to R giving rise to a new triangle without any points in the circumcircle.
-The new L-R edge of this triangle is the next cross edge added.
-To do this efficiently, we compute two edges <code>lcand</code> and <code>rcand</code> so that <code>lcand</code> points to the first L point encountered in this process, and <code>rcand</code> points to the first R point.
-Then we choose the one that would be encountered first. Initially base points to the lower tangent of L and R.</p>
+<h3 id="decomposition-depth">Decomposition Depth<a class="headerlink" href="#decomposition-depth" title="Permanent link">&para;</a></h3>
+<p><strong>Theorem</strong>: The depth, or number of steps, when using centroid decomposition on any given tree is <span class="arithmatex">$O(\log N)$</span>.</p>
+<details class="note">
+<summary>Proof</summary>
+<p>Consider any vertex <span class="arithmatex">$v$</span> in the original tree. We track how many times <span class="arithmatex">$v$</span> can be part of a component during the decomposition process.</p>
+<p>At the first level, <span class="arithmatex">$v$</span> is in a component of size <span class="arithmatex">$N$</span>. When we remove the centroid of this component, <span class="arithmatex">$v$</span> ends up in a component of size at most <span class="arithmatex">$\frac{N}{2}$</span> (by the balance property).</p>
+<p>At the second level, <span class="arithmatex">$v$</span> is in a component of size at most <span class="arithmatex">$\frac{N}{2}$</span>. Removing this component's centroid places <span class="arithmatex">$v$</span> in a component of size at most <span class="arithmatex">$\frac{N}{4}$</span>.</p>
+<p>Continuing this pattern, at the <span class="arithmatex">$k$</span>-th level, <span class="arithmatex">$v$</span> is in a component of size at most <span class="arithmatex">$\frac{N}{2^{k-1}}$</span>.</p>
+<p>The decomposition stops when component sizes reach 1. This happens when <span class="arithmatex">$\frac{N}{2^{k-1}} \leq 1$</span>, which gives us <span class="arithmatex">$k \leq \log_2 N + 1$</span>.</p>
+<p>Therefore, the maximum depth of the centroid decomposition tree is <span class="arithmatex">$O(\log N)$</span>.</p>
+</details>
+<p><strong>Consequence</strong>: Since each vertex participates in at most <span class="arithmatex">$O(\log N)$</span> levels of decomposition, and we process each vertex once at each level, algorithms using centroid decomposition typically have a time complexity factor of <span class="arithmatex">$O(\log N)$</span> multiplied by the work done per vertex per level.</p>
+<h3 id="path-coverage">Path Coverage<a class="headerlink" href="#path-coverage" title="Permanent link">&para;</a></h3>
+<p><strong>Theorem</strong>: Every path in the original tree passes through the centroid of some component in the decomposition.</p>
+<details class="note">
+<summary>Proof</summary>
+<p>Consider any path <span class="arithmatex">$P$</span> from vertex <span class="arithmatex">$u$</span> to vertex <span class="arithmatex">$v$</span> in the original tree. We need to show that this path passes through at least one centroid chosen during the decomposition process.</p>
+<p>We prove this by induction on the decomposition process.</p>
+<p><em>Base case</em>: At the first level of decomposition, we select the centroid <span class="arithmatex">$c_1$</span> of the entire tree. If the path <span class="arithmatex">$P$</span> passes through <span class="arithmatex">$c_1$</span>, we are done.</p>
+<p><em>Inductive case</em>: Suppose path <span class="arithmatex">$P$</span> does not pass through <span class="arithmatex">$c_1$</span>. When we remove <span class="arithmatex">$c_1$</span>, the tree splits into multiple components. Since <span class="arithmatex">$P$</span> is a connected path, both <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span> must lie in the same component <span class="arithmatex">$C$</span> after removing <span class="arithmatex">$c_1$</span> (otherwise, <span class="arithmatex">$P$</span> would have to pass through <span class="arithmatex">$c_1$</span> to connect them, which contradicts our assumption).</p>
+<p>Now we recursively decompose component <span class="arithmatex">$C$</span>. By the inductive hypothesis applied to component <span class="arithmatex">$C$</span>, the path <span class="arithmatex">$P$</span> (which is entirely contained in <span class="arithmatex">$C$</span>) must pass through the centroid of some component in the decomposition of <span class="arithmatex">$C$</span>.</p>
+<p>This process continues until we find a centroid through which <span class="arithmatex">$P$</span> passes. The process must terminate because at each level, the component containing <span class="arithmatex">$P$</span> gets strictly smaller (by the balance property), and eventually reduces to a single edge or vertex.</p>
+</details>
+<p><strong>Consequence</strong>: This property is fundamental to the correctness of centroid decomposition algorithms. It ensures that when we process all paths through each centroid, we cover all possible paths in the tree exactly once at some level of the decomposition. This is why centroid decomposition can solve path-related problems efficiently: every path is considered exactly once, at the level where it first encounters a centroid.</p>
+<h2 id="finding-a-centroid">Finding a Centroid<a class="headerlink" href="#finding-a-centroid" title="Permanent link">&para;</a></h2>
+<p>To find a centroid of a tree efficiently:</p>
+<ol>
+<li>Calculate subtree sizes for all vertices using Depth First Search (DFS)</li>
+<li>Start from any vertex</li>
+<li>Find a child <span class="arithmatex">$v$</span> whose subtree contains more than <span class="arithmatex">$\frac{N}{2}$</span> vertices</li>
+<li>Move to <span class="arithmatex">$v$</span> and repeat step 3</li>
+<li>If no such child exists, the current vertex is a centroid</li>
+</ol>
+<p>Time complexity: <span class="arithmatex">$O(N)$</span>.</p>
+<p>Space complexity: <span class="arithmatex">$O(N)$</span>.</p>
+<h2 id="algorithm-description">Algorithm Description<a class="headerlink" href="#algorithm-description" title="Permanent link">&para;</a></h2>
+<p>When using centroid decomposition, the general flow works as follows:</p>
+<ol>
+<li><strong>Find the centroid</strong> of the current tree/component</li>
+<li><strong>Process</strong> all paths passing through this centroid and do any desired calculations</li>
+<li><strong>Remove</strong> the centroid (mark it as used)</li>
+<li><strong>Recursively decompose</strong> each resulting subtree</li>
+</ol>
+<p>This creates a <strong>centroid tree</strong>. Each node in this tree represents a centroid from some stage of decomposition. This means that the parent of a centroid (any given node) is the centroid that was found in the larger component containing it. The height of this tree is <span class="arithmatex">$O(\log N)$</span> as proven before.</p>
+<div align="center">
+    <img src="./CentroidTree.png" alt="Centroid Tree" />
+</div>
+
+<p>For example, in the above image, we have a centroid tree. Each node at each level of the tree is a centroid of that component (e.g. the root is the centroid of the entire tree, the left most child of the root is the centroid of the left most subtree of the root, etc.).</p>
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
-<p>Note that the implementation of the in_circle function is GCC-specific.</p>
-<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">ll</span><span class="p">;</span>
+<p>Here's an implementation of centroid decomposition solving a specific problem: <strong>counting all paths in the tree with length exactly <span class="arithmatex">$K$</span></strong>.</p>
+<p>In this problem, we're given a tree with <span class="arithmatex">$N$</span> vertices and need to count how many paths have exactly <span class="arithmatex">$K$</span> edges. A path is defined by two distinct vertices.</p>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MAXN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e5</span><span class="p">;</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">removed</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">subtree_size</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">K</span><span class="p">;</span><span class="w">  </span><span class="c1">// Target path length</span>
+<span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// Count of paths with length K</span>
 
-<span class="kt">bool</span><span class="w"> </span><span class="nf">ge</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ll</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ll</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="kt">bool</span><span class="w"> </span><span class="nf">le</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ll</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ll</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="kt">bool</span><span class="w"> </span><span class="nf">eq</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ll</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ll</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="kt">bool</span><span class="w"> </span><span class="nf">gt</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ll</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ll</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="kt">bool</span><span class="w"> </span><span class="nf">lt</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ll</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ll</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="kt">int</span><span class="w"> </span><span class="nf">sgn</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ll</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-
-<span class="k">struct</span><span class="w"> </span><span class="nc">pt</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">ll</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
-<span class="w">    </span><span class="n">pt</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="n">pt</span><span class="p">(</span><span class="n">ll</span><span class="w"> </span><span class="n">_x</span><span class="p">,</span><span class="w"> </span><span class="n">ll</span><span class="w"> </span><span class="n">_y</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="p">(</span><span class="n">_x</span><span class="p">),</span><span class="w"> </span><span class="n">y</span><span class="p">(</span><span class="n">_y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="n">pt</span><span class="w"> </span><span class="k">operator</span><span class="o">-</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">pt</span><span class="o">&amp;</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">pt</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">get_subtree_size</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">subtree_size</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">removed</span><span class="p">[</span><span class="n">u</span><span class="p">])</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">        </span><span class="n">subtree_size</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">get_subtree_size</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="n">ll</span><span class="w"> </span><span class="n">cross</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">pt</span><span class="o">&amp;</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="n">ll</span><span class="w"> </span><span class="n">cross</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">pt</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">pt</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">).</span><span class="n">cross</span><span class="p">(</span><span class="n">b</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="n">ll</span><span class="w"> </span><span class="n">dot</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">pt</span><span class="o">&amp;</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="n">ll</span><span class="w"> </span><span class="n">dot</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">pt</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">pt</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">).</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="n">ll</span><span class="w"> </span><span class="n">sqrLength</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">dot</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">pt</span><span class="o">&amp;</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">eq</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">eq</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">};</span>
-
-<span class="k">const</span><span class="w"> </span><span class="n">pt</span><span class="w"> </span><span class="n">inf_pt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pt</span><span class="p">(</span><span class="mf">1e18</span><span class="p">,</span><span class="w"> </span><span class="mf">1e18</span><span class="p">);</span>
-
-<span class="k">struct</span><span class="w"> </span><span class="nc">QuadEdge</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">pt</span><span class="w"> </span><span class="n">origin</span><span class="p">;</span>
-<span class="w">    </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">rot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
-<span class="w">    </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">onext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">used</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
-<span class="w">    </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="nf">rev</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">rot</span><span class="o">-&gt;</span><span class="n">rot</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="nf">lnext</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">rot</span><span class="o">-&gt;</span><span class="n">rev</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">onext</span><span class="o">-&gt;</span><span class="n">rot</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="nf">oprev</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">rot</span><span class="o">-&gt;</span><span class="n">onext</span><span class="o">-&gt;</span><span class="n">rot</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="n">pt</span><span class="w"> </span><span class="nf">dest</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">rev</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">};</span>
-
-<span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="nf">make_edge</span><span class="p">(</span><span class="n">pt</span><span class="w"> </span><span class="n">from</span><span class="p">,</span><span class="w"> </span><span class="n">pt</span><span class="w"> </span><span class="n">to</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">e1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">QuadEdge</span><span class="p">;</span>
-<span class="w">    </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">e2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">QuadEdge</span><span class="p">;</span>
-<span class="w">    </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">e3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">QuadEdge</span><span class="p">;</span>
-<span class="w">    </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">e4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">QuadEdge</span><span class="p">;</span>
-<span class="w">    </span><span class="n">e1</span><span class="o">-&gt;</span><span class="n">origin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">from</span><span class="p">;</span>
-<span class="w">    </span><span class="n">e2</span><span class="o">-&gt;</span><span class="n">origin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">to</span><span class="p">;</span>
-<span class="w">    </span><span class="n">e3</span><span class="o">-&gt;</span><span class="n">origin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e4</span><span class="o">-&gt;</span><span class="n">origin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">inf_pt</span><span class="p">;</span>
-<span class="w">    </span><span class="n">e1</span><span class="o">-&gt;</span><span class="n">rot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e3</span><span class="p">;</span>
-<span class="w">    </span><span class="n">e2</span><span class="o">-&gt;</span><span class="n">rot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e4</span><span class="p">;</span>
-<span class="w">    </span><span class="n">e3</span><span class="o">-&gt;</span><span class="n">rot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e2</span><span class="p">;</span>
-<span class="w">    </span><span class="n">e4</span><span class="o">-&gt;</span><span class="n">rot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e1</span><span class="p">;</span>
-<span class="w">    </span><span class="n">e1</span><span class="o">-&gt;</span><span class="n">onext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e1</span><span class="p">;</span>
-<span class="w">    </span><span class="n">e2</span><span class="o">-&gt;</span><span class="n">onext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e2</span><span class="p">;</span>
-<span class="w">    </span><span class="n">e3</span><span class="o">-&gt;</span><span class="n">onext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e4</span><span class="p">;</span>
-<span class="w">    </span><span class="n">e4</span><span class="o">-&gt;</span><span class="n">onext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e3</span><span class="p">;</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">e1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">subtree_size</span><span class="p">[</span><span class="n">v</span><span class="p">];</span>
 <span class="p">}</span>
 
-<span class="kt">void</span><span class="w"> </span><span class="nf">splice</span><span class="p">(</span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="o">-&gt;</span><span class="n">onext</span><span class="o">-&gt;</span><span class="n">rot</span><span class="o">-&gt;</span><span class="n">onext</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="o">-&gt;</span><span class="n">onext</span><span class="o">-&gt;</span><span class="n">rot</span><span class="o">-&gt;</span><span class="n">onext</span><span class="p">);</span>
-<span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="o">-&gt;</span><span class="n">onext</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="o">-&gt;</span><span class="n">onext</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">void</span><span class="w"> </span><span class="nf">delete_edge</span><span class="p">(</span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">splice</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">oprev</span><span class="p">());</span>
-<span class="w">    </span><span class="n">splice</span><span class="p">(</span><span class="n">e</span><span class="o">-&gt;</span><span class="n">rev</span><span class="p">(),</span><span class="w"> </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">rev</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">oprev</span><span class="p">());</span>
-<span class="w">    </span><span class="k">delete</span><span class="w"> </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">rev</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">rot</span><span class="p">;</span>
-<span class="w">    </span><span class="k">delete</span><span class="w"> </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">rev</span><span class="p">();</span>
-<span class="w">    </span><span class="k">delete</span><span class="w"> </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">rot</span><span class="p">;</span>
-<span class="w">    </span><span class="k">delete</span><span class="w"> </span><span class="n">e</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_edge</span><span class="p">(</span><span class="n">a</span><span class="o">-&gt;</span><span class="n">dest</span><span class="p">(),</span><span class="w"> </span><span class="n">b</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">);</span>
-<span class="w">    </span><span class="n">splice</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">-&gt;</span><span class="n">lnext</span><span class="p">());</span>
-<span class="w">    </span><span class="n">splice</span><span class="p">(</span><span class="n">e</span><span class="o">-&gt;</span><span class="n">rev</span><span class="p">(),</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">e</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">bool</span><span class="w"> </span><span class="nf">left_of</span><span class="p">(</span><span class="n">pt</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">gt</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">cross</span><span class="p">(</span><span class="n">e</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">dest</span><span class="p">()),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">bool</span><span class="w"> </span><span class="nf">right_of</span><span class="p">(</span><span class="n">pt</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">lt</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">cross</span><span class="p">(</span><span class="n">e</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">dest</span><span class="p">()),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
-<span class="n">T</span><span class="w"> </span><span class="n">det3</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">a1</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">a2</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">a3</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">b1</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">b2</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">b3</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">c1</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">c2</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">c3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">a1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">b2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">c3</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">c2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b3</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">a2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">b1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">c3</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">c1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b3</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
-<span class="w">           </span><span class="n">a3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">b1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">c2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">c1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b2</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">bool</span><span class="w"> </span><span class="n">in_circle</span><span class="p">(</span><span class="n">pt</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">pt</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">pt</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">pt</span><span class="w"> </span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="c1">// If there is __int128, calculate directly.</span>
-<span class="c1">// Otherwise, calculate angles.</span>
-<span class="cp">#if defined(__LP64__) || defined(_WIN64)</span>
-<span class="w">    </span><span class="kt">__int128</span><span class="w"> </span><span class="n">det</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">det3</span><span class="o">&lt;</span><span class="kt">__int128</span><span class="o">&gt;</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">sqrLength</span><span class="p">(),</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">y</span><span class="p">,</span>
-<span class="w">                                   </span><span class="n">c</span><span class="p">.</span><span class="n">sqrLength</span><span class="p">(),</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">sqrLength</span><span class="p">());</span>
-<span class="w">    </span><span class="n">det</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">det3</span><span class="o">&lt;</span><span class="kt">__int128</span><span class="o">&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">sqrLength</span><span class="p">(),</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">sqrLength</span><span class="p">(),</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">x</span><span class="p">,</span>
-<span class="w">                          </span><span class="n">d</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">sqrLength</span><span class="p">());</span>
-<span class="w">    </span><span class="n">det</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">det3</span><span class="o">&lt;</span><span class="kt">__int128</span><span class="o">&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">sqrLength</span><span class="p">(),</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">sqrLength</span><span class="p">(),</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">x</span><span class="p">,</span>
-<span class="w">                          </span><span class="n">d</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">sqrLength</span><span class="p">());</span>
-<span class="w">    </span><span class="n">det</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">det3</span><span class="o">&lt;</span><span class="kt">__int128</span><span class="o">&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">sqrLength</span><span class="p">(),</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">sqrLength</span><span class="p">(),</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">x</span><span class="p">,</span>
-<span class="w">                          </span><span class="n">c</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">sqrLength</span><span class="p">());</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">det</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="cp">#else</span>
-<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">ang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[](</span><span class="n">pt</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">pt</span><span class="w"> </span><span class="n">mid</span><span class="p">,</span><span class="w"> </span><span class="n">pt</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">ll</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mid</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">);</span>
-<span class="w">        </span><span class="n">ll</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mid</span><span class="p">.</span><span class="n">cross</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">);</span>
-<span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">atan2</span><span class="p">((</span><span class="kt">long</span><span class="w"> </span><span class="kt">double</span><span class="p">)</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">double</span><span class="p">)</span><span class="n">y</span><span class="p">);</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">res</span><span class="p">;</span>
-<span class="w">    </span><span class="p">};</span>
-<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">kek</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ang</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ang</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ang</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ang</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">kek</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">1e-8</span><span class="p">)</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
-<span class="w">    </span><span class="k">else</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
-<span class="cp">#endif</span>
-<span class="p">}</span>
-
-<span class="n">pair</span><span class="o">&lt;</span><span class="n">QuadEdge</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">QuadEdge</span><span class="o">*&gt;</span><span class="w"> </span><span class="n">build_tr</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pt</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_edge</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">l</span><span class="p">],</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">r</span><span class="p">]);</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">make_pair</span><span class="p">(</span><span class="n">res</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="o">-&gt;</span><span class="n">rev</span><span class="p">());</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">get_centroid</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">tree_size</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">removed</span><span class="p">[</span><span class="n">u</span><span class="p">])</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">subtree_size</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">tree_size</span><span class="p">)</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">get_centroid</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">tree_size</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">QuadEdge</span><span class="w"> </span><span class="o">*</span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_edge</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">l</span><span class="p">],</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]),</span><span class="w"> </span><span class="o">*</span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_edge</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">r</span><span class="p">]);</span>
-<span class="w">        </span><span class="n">splice</span><span class="p">(</span><span class="n">a</span><span class="o">-&gt;</span><span class="n">rev</span><span class="p">(),</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">sg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sgn</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">l</span><span class="p">].</span><span class="n">cross</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">r</span><span class="p">]));</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sg</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">make_pair</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="o">-&gt;</span><span class="n">rev</span><span class="p">());</span>
-<span class="w">        </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">connect</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">);</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sg</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">make_pair</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="o">-&gt;</span><span class="n">rev</span><span class="p">());</span>
-<span class="w">        </span><span class="k">else</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">make_pair</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">rev</span><span class="p">(),</span><span class="w"> </span><span class="n">c</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">get_distances</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">dist</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">distances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dist</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">K</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="n">distances</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">dist</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">removed</span><span class="p">[</span><span class="n">u</span><span class="p">])</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">        </span><span class="n">get_distances</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">distances</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">mid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
-<span class="w">    </span><span class="n">QuadEdge</span><span class="w"> </span><span class="o">*</span><span class="n">ldo</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">ldi</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">rdo</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">rdi</span><span class="p">;</span>
-<span class="w">    </span><span class="n">tie</span><span class="p">(</span><span class="n">ldo</span><span class="p">,</span><span class="w"> </span><span class="n">ldi</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">build_tr</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">mid</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">);</span>
-<span class="w">    </span><span class="n">tie</span><span class="p">(</span><span class="n">rdi</span><span class="p">,</span><span class="w"> </span><span class="n">rdo</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">build_tr</span><span class="p">(</span><span class="n">mid</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">);</span>
-<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">left_of</span><span class="p">(</span><span class="n">rdi</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">,</span><span class="w"> </span><span class="n">ldi</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">ldi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ldi</span><span class="o">-&gt;</span><span class="n">lnext</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">process_centroid</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">centroid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">all_distances</span><span class="p">;</span>
+<span class="w">    </span><span class="n">all_distances</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">centroid</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">removed</span><span class="p">[</span><span class="n">u</span><span class="p">])</span>
 <span class="w">            </span><span class="k">continue</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">right_of</span><span class="p">(</span><span class="n">ldi</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">,</span><span class="w"> </span><span class="n">rdi</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">rdi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rdi</span><span class="o">-&gt;</span><span class="n">rev</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">onext</span><span class="p">;</span>
-<span class="w">            </span><span class="k">continue</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="k">break</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">basel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">connect</span><span class="p">(</span><span class="n">rdi</span><span class="o">-&gt;</span><span class="n">rev</span><span class="p">(),</span><span class="w"> </span><span class="n">ldi</span><span class="p">);</span>
-<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="n">basel</span><span class="p">](</span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">right_of</span><span class="p">(</span><span class="n">e</span><span class="o">-&gt;</span><span class="n">dest</span><span class="p">(),</span><span class="w"> </span><span class="n">basel</span><span class="p">);</span><span class="w"> </span><span class="p">};</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ldi</span><span class="o">-&gt;</span><span class="n">origin</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ldo</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">)</span>
-<span class="w">        </span><span class="n">ldo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">basel</span><span class="o">-&gt;</span><span class="n">rev</span><span class="p">();</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rdi</span><span class="o">-&gt;</span><span class="n">origin</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">rdo</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">)</span>
-<span class="w">        </span><span class="n">rdo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">basel</span><span class="p">;</span>
-<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">lcand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">basel</span><span class="o">-&gt;</span><span class="n">rev</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">onext</span><span class="p">;</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">valid</span><span class="p">(</span><span class="n">lcand</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">in_circle</span><span class="p">(</span><span class="n">basel</span><span class="o">-&gt;</span><span class="n">dest</span><span class="p">(),</span><span class="w"> </span><span class="n">basel</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">,</span><span class="w"> </span><span class="n">lcand</span><span class="o">-&gt;</span><span class="n">dest</span><span class="p">(),</span>
-<span class="w">                             </span><span class="n">lcand</span><span class="o">-&gt;</span><span class="n">onext</span><span class="o">-&gt;</span><span class="n">dest</span><span class="p">()))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lcand</span><span class="o">-&gt;</span><span class="n">onext</span><span class="p">;</span>
-<span class="w">                </span><span class="n">delete_edge</span><span class="p">(</span><span class="n">lcand</span><span class="p">);</span>
-<span class="w">                </span><span class="n">lcand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
+
+<span class="w">        </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">current_distances</span><span class="p">;</span>
+<span class="w">        </span><span class="n">get_distances</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">centroid</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">current_distances</span><span class="p">);</span>
+
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">current_distances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">K</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">answer</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="p">(</span><span class="n">all_distances</span><span class="p">[</span><span class="n">K</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">d</span><span class="p">]</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">all_distances</span><span class="p">[</span><span class="n">K</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">d</span><span class="p">]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">rcand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">basel</span><span class="o">-&gt;</span><span class="n">oprev</span><span class="p">();</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">valid</span><span class="p">(</span><span class="n">rcand</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">in_circle</span><span class="p">(</span><span class="n">basel</span><span class="o">-&gt;</span><span class="n">dest</span><span class="p">(),</span><span class="w"> </span><span class="n">basel</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">,</span><span class="w"> </span><span class="n">rcand</span><span class="o">-&gt;</span><span class="n">dest</span><span class="p">(),</span>
-<span class="w">                             </span><span class="n">rcand</span><span class="o">-&gt;</span><span class="n">oprev</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">dest</span><span class="p">()))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rcand</span><span class="o">-&gt;</span><span class="n">oprev</span><span class="p">();</span>
-<span class="w">                </span><span class="n">delete_edge</span><span class="p">(</span><span class="n">rcand</span><span class="p">);</span>
-<span class="w">                </span><span class="n">rcand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
-<span class="w">            </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">current_distances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">all_distances</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">all_distances</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+<span class="w">                </span><span class="n">all_distances</span><span class="p">[</span><span class="n">d</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">all_distances</span><span class="p">[</span><span class="n">d</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">valid</span><span class="p">(</span><span class="n">lcand</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">valid</span><span class="p">(</span><span class="n">rcand</span><span class="p">))</span>
-<span class="w">            </span><span class="k">break</span><span class="p">;</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">valid</span><span class="p">(</span><span class="n">lcand</span><span class="p">)</span><span class="w"> </span><span class="o">||</span>
-<span class="w">            </span><span class="p">(</span><span class="n">valid</span><span class="p">(</span><span class="n">rcand</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in_circle</span><span class="p">(</span><span class="n">lcand</span><span class="o">-&gt;</span><span class="n">dest</span><span class="p">(),</span><span class="w"> </span><span class="n">lcand</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">,</span>
-<span class="w">                                       </span><span class="n">rcand</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">,</span><span class="w"> </span><span class="n">rcand</span><span class="o">-&gt;</span><span class="n">dest</span><span class="p">())))</span>
-<span class="w">            </span><span class="n">basel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">connect</span><span class="p">(</span><span class="n">rcand</span><span class="p">,</span><span class="w"> </span><span class="n">basel</span><span class="o">-&gt;</span><span class="n">rev</span><span class="p">());</span>
-<span class="w">        </span><span class="k">else</span>
-<span class="w">            </span><span class="n">basel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">connect</span><span class="p">(</span><span class="n">basel</span><span class="o">-&gt;</span><span class="n">rev</span><span class="p">(),</span><span class="w"> </span><span class="n">lcand</span><span class="o">-&gt;</span><span class="n">rev</span><span class="p">());</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">make_pair</span><span class="p">(</span><span class="n">ldo</span><span class="p">,</span><span class="w"> </span><span class="n">rdo</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="n">vector</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">pt</span><span class="p">,</span><span class="w"> </span><span class="n">pt</span><span class="p">,</span><span class="w"> </span><span class="n">pt</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">delaunay</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pt</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">sort</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="p">[](</span><span class="k">const</span><span class="w"> </span><span class="n">pt</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">pt</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">lt</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">(</span><span class="n">eq</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">lt</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">y</span><span class="p">));</span>
-<span class="w">    </span><span class="p">});</span>
-<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">build_tr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">p</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">);</span>
-<span class="w">    </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">QuadEdge</span><span class="o">*&gt;</span><span class="w"> </span><span class="n">edges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">e</span><span class="p">};</span>
-<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">lt</span><span class="p">(</span><span class="n">e</span><span class="o">-&gt;</span><span class="n">onext</span><span class="o">-&gt;</span><span class="n">dest</span><span class="p">().</span><span class="n">cross</span><span class="p">(</span><span class="n">e</span><span class="o">-&gt;</span><span class="n">dest</span><span class="p">(),</span><span class="w"> </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span>
-<span class="w">        </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">onext</span><span class="p">;</span>
-<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">edges</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">curr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">;</span>
-<span class="w">        </span><span class="k">do</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">curr</span><span class="o">-&gt;</span><span class="n">used</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
-<span class="w">            </span><span class="n">p</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">curr</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">);</span>
-<span class="w">            </span><span class="n">edges</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">curr</span><span class="o">-&gt;</span><span class="n">rev</span><span class="p">());</span>
-<span class="w">            </span><span class="n">curr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">curr</span><span class="o">-&gt;</span><span class="n">lnext</span><span class="p">();</span>
-<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">curr</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">e</span><span class="p">);</span>
-<span class="w">    </span><span class="p">};</span>
-<span class="w">    </span><span class="n">add</span><span class="p">();</span>
-<span class="w">    </span><span class="n">p</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">kek</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">kek</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">edges</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">edges</span><span class="p">[</span><span class="n">kek</span><span class="o">++</span><span class="p">])</span><span class="o">-&gt;</span><span class="n">used</span><span class="p">)</span>
-<span class="w">            </span><span class="n">add</span><span class="p">();</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">decompose</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tree_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_subtree_size</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">centroid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_centroid</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">tree_size</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">process_centroid</span><span class="p">(</span><span class="n">centroid</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">removed</span><span class="p">[</span><span class="n">centroid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">centroid</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">removed</span><span class="p">[</span><span class="n">u</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">decompose</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">pt</span><span class="p">,</span><span class="w"> </span><span class="n">pt</span><span class="p">,</span><span class="w"> </span><span class="n">pt</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">ans</span><span class="p">;</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">p</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">ans</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">make_tuple</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">]));</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ans</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="problems">Problems<a class="headerlink" href="#problems" title="Permanent link">&para;</a></h2>
+<p>This template can be adapted to solve different problems using centroid decomposition. In this specific case, it solves the problem of counting all paths of length <span class="arithmatex">$K$</span>. The strategy is: for each centroid, count paths passing through it by finding pairs of vertices in different subtrees at distances <span class="arithmatex">$d_1$</span> and <span class="arithmatex">$d_2$</span> their sum is <span class="arithmatex">$K$</span> (i.e. a path passing through the centroid consists of a vertex in one subtree at distance <span class="arithmatex">$d_1$</span> from the centroid and a vertex in another subtree at distance <span class="arithmatex">$d_2$</span> where <span class="arithmatex">$d_1 + d_2 = K$</span>). For each distance <span class="arithmatex">$d$</span> in the current subtree, the code counts how many vertices are at distance <span class="arithmatex">$K - d$</span> in previous subtrees. The optimization skips distances beyond <span class="arithmatex">$K$</span> to avoid unnecessary recursion.</p>
+<h3 id="building-the-centroid-tree">Building the Centroid Tree<a class="headerlink" href="#building-the-centroid-tree" title="Permanent link">&para;</a></h3>
+<p>If you need to build an explicit centroid tree structure (useful for answering queries):</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">centroid_parent</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">decompose</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tree_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_subtree_size</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">centroid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_centroid</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">tree_size</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">centroid_parent</span><span class="p">[</span><span class="n">centroid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">;</span>
+<span class="w">    </span><span class="n">removed</span><span class="p">[</span><span class="n">centroid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">centroid</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">removed</span><span class="p">[</span><span class="n">u</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">decompose</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">centroid</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">centroid</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="practice-problems">Practice Problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="http://acm.timus.ru/problem.aspx?space=1&amp;num=1504">TIMUS 1504 Good Manners</a></li>
-<li><a href="http://acm.timus.ru/problem.aspx?space=1&amp;num=1520">TIMUS 1520 Empire Strikes Back</a></li>
-<li><a href="https://codeforces.com/problemsets/acmsguru/problem/99999/383">SGU 383 Caravans</a></li>
+<li><a href="https://cses.fi/problemset/task/2079">CSES - Finding a Centroid</a> [difficulty: easy]</li>
+<li><a href="https://cses.fi/problemset/task/2081">CSES - Fixed-Length Paths II</a> [difficulty: easy]</li>
+<li><a href="http://codeforces.com/problemset/problem/342/E">Codeforces - Xenia and Tree</a> [difficulty: medium]</li>
+<li><a href="http://codeforces.com/contest/716/problem/E">Codeforces - Digit Tree</a> [difficulty: medium]</li>
+<li><a href="https://oj.uz/problem/view/IOI11_race">OJ - Race</a> [difficulty: medium]</li>
+<li><a href="http://www.spoj.com/problems/QTREE5/">SPOJ - QTREE5</a> [difficulty: hard]</li>
 </ul>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/SYury" title="SYury" data-bi-name="contributorprofile" target="_blank">SYury</a> (94.55%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (1.92%)</li><li><a href="https://github.com/Kakalinn" title="Kakalinn" data-bi-name="contributorprofile" target="_blank">Kakalinn</a> (1.6%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (0.96%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (0.96%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/FamALouiz" title="FamALouiz" data-bi-name="contributorprofile" target="_blank">FamALouiz</a> (100.0%)</li></ul>
 </ul>
                 
               </article>
