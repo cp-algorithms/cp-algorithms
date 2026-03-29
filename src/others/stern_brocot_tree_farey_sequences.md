@@ -35,7 +35,7 @@ Continuing this process to infinity this covers *all* positive fractions. Additi
 Before proving these properties, let us actually show a visualization of the Stern-Brocot tree, rather than the list representation. Every fraction in the tree has two children. Each child is the mediant of the closest ancestor on the left and closest ancestor to the right.
 
 <div style="text-align: center;">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/SternBrocotTree.svg/1024px-SternBrocotTree.svg.png" alt="Stern-Brocot tree">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/3/37/SternBrocotTree.svg" alt="Stern-Brocot tree">
 </div>
 
 ## Proofs
