@@ -7936,6 +7936,24 @@ Describe the issue of this article in detail.
   
     
   
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
 
   
   
@@ -7994,6 +8012,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8030,7 +8052,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 2, 2023 14:13:55 UTC">December 2, 2023</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 26, 2026 19:44:21 UTC">March 26, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8058,7 +8080,8 @@ Describe the issue of this article in detail.
 
 <h1 id="gray-code">Gray code<a class="headerlink" href="#gray-code" title="Permanent link">&para;</a></h1>
 <p>Gray code is a binary numeral system where two successive values differ in only one bit. </p>
-<p>For example, the sequence of Gray codes for 3-bit numbers is: 000, 001, 011, 010, 110, 111, 101, 100, so <span class="arithmatex">$G(4) = 6$</span>.</p>
+<p>Denote by <span class="arithmatex">$G(n)$</span> the representation of the number <span class="arithmatex">$n$</span> using the Gray code. The sequence of Gray codes for 3-bit numbers is: 000, 001, 011, 010, 110, 111, 101, 100, so <span class="arithmatex">$G(4) = (110)_2 = 6$</span>. 
+For example, <span class="arithmatex">$G(3) = (010)_2$</span> and <span class="arithmatex">$G(4) = (110)_2$</span> differ at exactly one bit, the leftmost bit. Similarly, <span class="arithmatex">$G(4) = 110$</span> and <span class="arithmatex">$G(5) = (111)_2$</span> differ at exactly one bit, the rightmost one. This is true for all successive numbers. </p>
 <p>This code was invented by Frank Gray in 1953.</p>
 <h2 id="finding-gray-code">Finding Gray code<a class="headerlink" href="#finding-gray-code" title="Permanent link">&para;</a></h2>
 <p>Let's look at the bits of number <span class="arithmatex">$n$</span> and the bits of number <span class="arithmatex">$G(n)$</span>. Notice that <span class="arithmatex">$i$</span>-th bit of <span class="arithmatex">$G(n)$</span> equals 1 only when <span class="arithmatex">$i$</span>-th bit of <span class="arithmatex">$n$</span> equals 1 and <span class="arithmatex">$i + 1$</span>-th bit equals 0 or the other way around (<span class="arithmatex">$i$</span>-th bit equals 0 and <span class="arithmatex">$i + 1$</span>-th bit equals 1). Thus, <span class="arithmatex">$G(n) = n \oplus (n &gt;&gt; 1)$</span>:  </p>
@@ -8118,7 +8141,7 @@ Describe the issue of this article in detail.
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/pish4" title="pish4" data-bi-name="contributorprofile" target="_blank">pish4</a> (35.14%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (28.38%)</li><li><a href="https://github.com/algmyr" title="algmyr" data-bi-name="contributorprofile" target="_blank">algmyr</a> (20.27%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (8.11%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (5.41%)</li><li><a href="https://github.com/roundspecs" title="roundspecs" data-bi-name="contributorprofile" target="_blank">roundspecs</a> (1.35%)</li><li><a href="https://github.com/traxex2" title="traxex2" data-bi-name="contributorprofile" target="_blank">traxex2</a> (1.35%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/pish4" title="pish4" data-bi-name="contributorprofile" target="_blank">pish4</a> (34.67%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (26.67%)</li><li><a href="https://github.com/algmyr" title="algmyr" data-bi-name="contributorprofile" target="_blank">algmyr</a> (20.0%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (8.0%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (5.33%)</li><li><a href="https://github.com/frordo" title="frordo" data-bi-name="contributorprofile" target="_blank">frordo</a> (2.67%)</li><li><a href="https://github.com/roundspecs" title="roundspecs" data-bi-name="contributorprofile" target="_blank">roundspecs</a> (1.33%)</li><li><a href="https://github.com/traxex2" title="traxex2" data-bi-name="contributorprofile" target="_blank">traxex2</a> (1.33%)</li></ul>
 </ul>
                 
               </article>
