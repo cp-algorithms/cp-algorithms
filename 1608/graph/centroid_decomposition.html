@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://cp-algorithms.com/schedules/schedule-with-completion-duration.html">
+        <link rel="canonical" href="https://cp-algorithms.com/graph/centroid_decomposition.html">
       
       
-        <link rel="prev" href="schedule_two_machines.html">
+        <link rel="prev" href="hld.html">
       
       
-        <link rel="next" href="../others/tortoise_and_hare.html">
+        <link rel="next" href="../sequences/rmq.html">
       
       
         
@@ -30,7 +30,7 @@
     
     
       
-        <title>Optimal schedule of jobs given their deadlines and durations - Algorithms for Competitive Programming</title>
+        <title>Centroid decomposition - Algorithms for Competitive Programming</title>
       
     
     
@@ -96,7 +96,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#optimal-schedule-of-jobs-given-their-deadlines-and-durations" class="md-skip">
+        <a href="#centroid-decomposition" class="md-skip">
           Skip to content
         </a>
       
@@ -141,7 +141,7 @@
           <span class="md-ellipsis">
             <a href="#" onclick="scrollToTop()">
               
-                Optimal schedule of jobs given their deadlines and durations
+                Centroid decomposition
               
             </a>
           </span>
@@ -5262,18 +5262,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
         
           
           <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
@@ -5294,7 +5296,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
             
@@ -5359,7 +5361,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/breadth-first-search.html" class="md-nav__link">
+      <a href="breadth-first-search.html" class="md-nav__link">
         
   
   
@@ -5387,7 +5389,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/depth-first-search.html" class="md-nav__link">
+      <a href="depth-first-search.html" class="md-nav__link">
         
   
   
@@ -5470,7 +5472,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/search-for-connected-components.html" class="md-nav__link">
+      <a href="search-for-connected-components.html" class="md-nav__link">
         
   
   
@@ -5498,7 +5500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/bridge-searching.html" class="md-nav__link">
+      <a href="bridge-searching.html" class="md-nav__link">
         
   
   
@@ -5526,7 +5528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/bridge-searching-online.html" class="md-nav__link">
+      <a href="bridge-searching-online.html" class="md-nav__link">
         
   
   
@@ -5554,7 +5556,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/cutpoints.html" class="md-nav__link">
+      <a href="cutpoints.html" class="md-nav__link">
         
   
   
@@ -5582,7 +5584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/strongly-connected-components.html" class="md-nav__link">
+      <a href="strongly-connected-components.html" class="md-nav__link">
         
   
   
@@ -5610,7 +5612,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/strong-orientation.html" class="md-nav__link">
+      <a href="strong-orientation.html" class="md-nav__link">
         
   
   
@@ -5693,7 +5695,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/dijkstra.html" class="md-nav__link">
+      <a href="dijkstra.html" class="md-nav__link">
         
   
   
@@ -5721,7 +5723,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/dijkstra_sparse.html" class="md-nav__link">
+      <a href="dijkstra_sparse.html" class="md-nav__link">
         
   
   
@@ -5749,7 +5751,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/bellman_ford.html" class="md-nav__link">
+      <a href="bellman_ford.html" class="md-nav__link">
         
   
   
@@ -5777,7 +5779,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/01_bfs.html" class="md-nav__link">
+      <a href="01_bfs.html" class="md-nav__link">
         
   
   
@@ -5805,7 +5807,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/desopo_pape.html" class="md-nav__link">
+      <a href="desopo_pape.html" class="md-nav__link">
         
   
   
@@ -5888,7 +5890,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/all-pair-shortest-path-floyd-warshall.html" class="md-nav__link">
+      <a href="all-pair-shortest-path-floyd-warshall.html" class="md-nav__link">
         
   
   
@@ -5916,7 +5918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/fixed_length_paths.html" class="md-nav__link">
+      <a href="fixed_length_paths.html" class="md-nav__link">
         
   
   
@@ -5999,7 +6001,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/mst_prim.html" class="md-nav__link">
+      <a href="mst_prim.html" class="md-nav__link">
         
   
   
@@ -6027,7 +6029,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/mst_kruskal.html" class="md-nav__link">
+      <a href="mst_kruskal.html" class="md-nav__link">
         
   
   
@@ -6055,7 +6057,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/mst_kruskal_with_dsu.html" class="md-nav__link">
+      <a href="mst_kruskal_with_dsu.html" class="md-nav__link">
         
   
   
@@ -6083,7 +6085,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/second_best_mst.html" class="md-nav__link">
+      <a href="second_best_mst.html" class="md-nav__link">
         
   
   
@@ -6111,7 +6113,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/kirchhoff-theorem.html" class="md-nav__link">
+      <a href="kirchhoff-theorem.html" class="md-nav__link">
         
   
   
@@ -6139,7 +6141,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/pruefer_code.html" class="md-nav__link">
+      <a href="pruefer_code.html" class="md-nav__link">
         
   
   
@@ -6222,7 +6224,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/finding-cycle.html" class="md-nav__link">
+      <a href="finding-cycle.html" class="md-nav__link">
         
   
   
@@ -6250,7 +6252,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/finding-negative-cycle-in-graph.html" class="md-nav__link">
+      <a href="finding-negative-cycle-in-graph.html" class="md-nav__link">
         
   
   
@@ -6278,7 +6280,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/euler_path.html" class="md-nav__link">
+      <a href="euler_path.html" class="md-nav__link">
         
   
   
@@ -6361,7 +6363,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/lca.html" class="md-nav__link">
+      <a href="lca.html" class="md-nav__link">
         
   
   
@@ -6389,7 +6391,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/lca_binary_lifting.html" class="md-nav__link">
+      <a href="lca_binary_lifting.html" class="md-nav__link">
         
   
   
@@ -6417,7 +6419,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/lca_farachcoltonbender.html" class="md-nav__link">
+      <a href="lca_farachcoltonbender.html" class="md-nav__link">
         
   
   
@@ -6445,7 +6447,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/rmq_linear.html" class="md-nav__link">
+      <a href="rmq_linear.html" class="md-nav__link">
         
   
   
@@ -6473,7 +6475,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/lca_tarjan.html" class="md-nav__link">
+      <a href="lca_tarjan.html" class="md-nav__link">
         
   
   
@@ -6556,7 +6558,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/edmonds_karp.html" class="md-nav__link">
+      <a href="edmonds_karp.html" class="md-nav__link">
         
   
   
@@ -6584,7 +6586,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/push-relabel.html" class="md-nav__link">
+      <a href="push-relabel.html" class="md-nav__link">
         
   
   
@@ -6612,7 +6614,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/push-relabel-faster.html" class="md-nav__link">
+      <a href="push-relabel-faster.html" class="md-nav__link">
         
   
   
@@ -6640,7 +6642,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/dinic.html" class="md-nav__link">
+      <a href="dinic.html" class="md-nav__link">
         
   
   
@@ -6668,7 +6670,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/mpm.html" class="md-nav__link">
+      <a href="mpm.html" class="md-nav__link">
         
   
   
@@ -6696,7 +6698,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/flow_with_demands.html" class="md-nav__link">
+      <a href="flow_with_demands.html" class="md-nav__link">
         
   
   
@@ -6724,7 +6726,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/min_cost_flow.html" class="md-nav__link">
+      <a href="min_cost_flow.html" class="md-nav__link">
         
   
   
@@ -6752,7 +6754,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/Assignment-problem-min-flow.html" class="md-nav__link">
+      <a href="Assignment-problem-min-flow.html" class="md-nav__link">
         
   
   
@@ -6835,7 +6837,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/bipartite-check.html" class="md-nav__link">
+      <a href="bipartite-check.html" class="md-nav__link">
         
   
   
@@ -6863,7 +6865,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/kuhn_maximum_bipartite_matching.html" class="md-nav__link">
+      <a href="kuhn_maximum_bipartite_matching.html" class="md-nav__link">
         
   
   
@@ -6891,7 +6893,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/hungarian-algorithm.html" class="md-nav__link">
+      <a href="hungarian-algorithm.html" class="md-nav__link">
         
   
   
@@ -6924,18 +6926,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_10" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_10" checked>
         
           
           <label class="md-nav__link" for="__nav_10_10" id="__nav_10_10_label" tabindex="0">
@@ -6956,7 +6960,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_10_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_10_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_10_10">
             <span class="md-nav__icon md-icon"></span>
             
@@ -6974,7 +6978,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/topological-sort.html" class="md-nav__link">
+      <a href="topological-sort.html" class="md-nav__link">
         
   
   
@@ -7002,7 +7006,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/edge_vertex_connectivity.html" class="md-nav__link">
+      <a href="edge_vertex_connectivity.html" class="md-nav__link">
         
   
   
@@ -7030,7 +7034,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/tree_painting.html" class="md-nav__link">
+      <a href="tree_painting.html" class="md-nav__link">
         
   
   
@@ -7058,7 +7062,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/2SAT.html" class="md-nav__link">
+      <a href="2SAT.html" class="md-nav__link">
         
   
   
@@ -7086,7 +7090,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/hld.html" class="md-nav__link">
+      <a href="hld.html" class="md-nav__link">
         
   
   
@@ -7111,10 +7115,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../graph/centroid_decomposition.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Centroid decomposition
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="centroid_decomposition.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -7130,6 +7161,165 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#properties-and-definition-of-a-centroid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties and Definition of a Centroid
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Properties and Definition of a Centroid">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#existence-and-uniqueness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Existence and Uniqueness
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#properties-and-definition-of-centroid-decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties and Definition of Centroid Decomposition
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Properties and Definition of Centroid Decomposition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decomposition-depth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decomposition Depth
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#path-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path Coverage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finding-a-centroid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding a Centroid
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algorithm-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm Description
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#building-the-centroid-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building the Centroid Tree
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practice Problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -7154,20 +7344,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
         
           
           <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
@@ -7188,7 +7376,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_11">
             <span class="md-nav__icon md-icon"></span>
             
@@ -7481,20 +7669,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_3" >
         
           
           <label class="md-nav__link" for="__nav_11_3" id="__nav_11_3_label" tabindex="0">
@@ -7515,7 +7701,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_11_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -7533,7 +7719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="schedule_one_machine.html" class="md-nav__link">
+      <a href="../schedules/schedule_one_machine.html" class="md-nav__link">
         
   
   
@@ -7561,7 +7747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="schedule_two_machines.html" class="md-nav__link">
+      <a href="../schedules/schedule_two_machines.html" class="md-nav__link">
         
   
   
@@ -7586,37 +7772,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Optimal schedule of jobs given their deadlines and durations
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="schedule-with-completion-duration.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../schedules/schedule-with-completion-duration.html" class="md-nav__link">
         
   
   
@@ -7632,137 +7791,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#algorithm" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Algorithm
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#correctness-proof" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Correctness Proof
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Correctness Proof">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#lemma" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lemma
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lemma">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#proof" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Proof
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#proof-of-algorithm" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Proof of Algorithm
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#implementation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Implementation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#alternate-algorithm" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Alternate Algorithm
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#correctness-proof_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Correctness Proof
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#implementation_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Implementation
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -7966,9 +7994,9 @@
                   <script type="text/javascript">
 window.onload = function() {
 	const newIssueURL = "https://github.com/cp-algorithms/cp-algorithms/issues/new";
-  const issueTitle = "Problem on article " + "Optimal schedule of jobs given their deadlines and durations";
+  const issueTitle = "Problem on article " + "Centroid decomposition";
 	const issueBody = `
- **Article:** [`+ "Optimal schedule of jobs given their deadlines and durations" + `](${window.location.href})
+ **Article:** [`+ "Centroid decomposition" + `](${window.location.href})
 
 **Problem:**
 <!--
@@ -7980,13 +8008,13 @@ Describe the issue of this article in detail.
 }
 </script>
 
-<a href="https://github.com/cp-algorithms/cp-algorithms/edit/main/src/schedules/schedule-with-completion-duration.md" title="Edit this page" class="md-content__button md-icon">
+<a href="https://github.com/cp-algorithms/cp-algorithms/edit/main/src/graph/centroid_decomposition.md" title="Edit this page" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
 </a>
 <a id="report_issue_a" href="" title="Report a problem" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14h-2V9h2m0 9h-2v-2h2M1 21h22L12 2z"/></svg>
 </a>
-<a href="https://github.com/cp-algorithms/cp-algorithms/commits/main/src/schedules/schedule-with-completion-duration.md" title="Page authors" class="md-content__button md-icon">
+<a href="https://github.com/cp-algorithms/cp-algorithms/commits/main/src/graph/centroid_decomposition.md" title="Page authors" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><rect fill="none" height="24" width="24"/></g><g><g><g><path d="M12,8.5c-0.91,0-2.75,0.46-2.75,1.38v4.62h1.5V19h2.5v-4.5h1.5V9.88C14.75,8.97,12.91,8.5,12,8.5z"/><path d="M12,2C6.47,2,2,6.47,2,12s4.47,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.42,0-8-3.58-8-8s3.58-8,8-8s8,3.58,8,8 S16.42,20,12,20z"/><circle cx="12" cy="6.5" r="1.5"/></g></g></g></svg>
 </a>
 
@@ -8007,10 +8035,6 @@ Describe the issue of this article in detail.
   
     
   
-    
-  
-    
-  
 
   
   
@@ -8020,25 +8044,7 @@ Describe the issue of this article in detail.
     
   
 
-  
-  
-  
-    
-  
 
-
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
 
   
   
@@ -8051,222 +8057,206 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 7, 2026 09:16:03 UTC">March 7, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 14, 2026 12:03:59 UTC">March 14, 2026</span>&emsp;
 
 <!-- Tags -->
 
-  
-  
-  
-    
-  
-
 
   
-    <a href="../tags.html#tag:translated" class="md-tag">
-      Translated
-    </a>
-  
-
-  
-    <a href="https://e-maxx.ru/algo/schedule_with_completion_duration" class="md-tag">
-      From: e-maxx.ru
+    <a href="../tags.html#tag:original" class="md-tag">
+      Original
     </a>
   
 
 </ul>
 
 
-<h1 id="optimal-schedule-of-jobs-given-their-deadlines-and-durations">Optimal schedule of jobs given their deadlines and durations<a class="headerlink" href="#optimal-schedule-of-jobs-given-their-deadlines-and-durations" title="Permanent link">&para;</a></h1>
-<p>Suppose, we have a set of jobs, and we are aware of every job’s deadline and its duration. The execution of a job cannot be interrupted prior to its ending. It is required to create such a schedule to accomplish the biggest number of jobs.</p>
-<h2 id="algorithm">Algorithm<a class="headerlink" href="#algorithm" title="Permanent link">&para;</a></h2>
-<p>The algorithm of the solving is <strong>greedy</strong>. Let’s sort all the jobs by their deadlines and look at them in descending order. Also, let’s create a queue <span class="arithmatex">$q$</span>, in which we’ll gradually put the jobs and extract one with the least run-time (for instance, we can use set or priority_queue). Initially, <span class="arithmatex">$q$</span> is empty.</p>
-<p>Suppose, we’re looking at the <span class="arithmatex">$i$</span>-th job. First of all, let’s put it into <span class="arithmatex">$q$</span>. Let’s consider the period of time between the deadline of <span class="arithmatex">$i$</span>-th job and the deadline of <span class="arithmatex">$i-1$</span>-th job. That is the segment of some length <span class="arithmatex">$T$</span>. We will extract jobs from <span class="arithmatex">$q$</span> (in their left duration ascending order) and execute them until the whole segment <span class="arithmatex">$T$</span> is filled. Important: if at any moment of time the extracted job can only be partly executed until segment <span class="arithmatex">$T$</span> is filled, then we execute this job partly just as far as possible, i.e., during the <span class="arithmatex">$T$</span>-time, and we put the remaining part of a job back into <span class="arithmatex">$q$</span>.</p>
-<p>On the algorithm’s completion we’ll choose the optimal solution (or, at least, one of several solutions). The running time of algorithm is <span class="arithmatex">$O(n \log n)$</span>.</p>
-<h2 id="correctness-proof">Correctness Proof<a class="headerlink" href="#correctness-proof" title="Permanent link">&para;</a></h2>
-<h3 id="lemma">Lemma<a class="headerlink" href="#lemma" title="Permanent link">&para;</a></h3>
-<p>Let a list of jobs be sorted by non-decreasing deadlines
-<span class="arithmatex">$J_1, J_2, \dots, J_k$</span> with deadlines
-<span class="arithmatex">$d_1 \le d_2 \le \dots \le d_k$</span> and durations <span class="arithmatex">$t_1, t_2, \dots, t_k$</span>.</p>
-<p>If for every <span class="arithmatex">$i$</span> the following condition holds:</p>
-<div class="arithmatex">$$
-\sum_{j=1}^{i} t_j \le d_i,
-$$</div>
-<p>then executing the jobs sequentially in the order
-<span class="arithmatex">$J_1, J_2, \dots, J_k$</span> produces a feasible <strong>non-preemptive schedule</strong>
-in which every job finishes before its deadline.</p>
-<h4 id="proof">Proof<a class="headerlink" href="#proof" title="Permanent link">&para;</a></h4>
-<p>When executing the jobs in this order, the finishing time of job <span class="arithmatex">$J_i$</span>
-is equal to</p>
-<div class="arithmatex">$$
-\sum_{j=1}^{i} t_j.
-$$</div>
-<p>By assumption,</p>
-<div class="arithmatex">$$
-\sum_{j=1}^{i} t_j \le d_i,
-$$</div>
-<p>therefore job <span class="arithmatex">$J_i$</span> finishes no later than its deadline <span class="arithmatex">$d_i$</span>.
-Since this holds for every <span class="arithmatex">$i$</span>, all jobs complete before their
-deadlines, and the schedule is feasible without interruption.</p>
-<h3 id="proof-of-algorithm">Proof of Algorithm<a class="headerlink" href="#proof-of-algorithm" title="Permanent link">&para;</a></h3>
-<p>Let the jobs be sorted by non-decreasing deadlines and denote them as
-<span class="arithmatex">$J_1, J_2, \dots, J_n$</span> with deadlines <span class="arithmatex">$d_1 \le d_2 \le \dots \le d_n$</span>.
-Define <span class="arithmatex">$d_0 = 0$</span>.</p>
-<p>We process jobs from right to left. For each job <span class="arithmatex">$J_i$</span>, consider the time
-segment</p>
-<div class="arithmatex">$$
-T = d_i - d_{i-1}.
-$$</div>
-<p>At step <span class="arithmatex">$i$</span>, all jobs <span class="arithmatex">$J_i, J_{i+1}, \dots, J_n$</span> are candidates to be
-scheduled before their deadlines. These jobs are stored in a set ordered
-by their remaining durations.</p>
-<p>During the segment of length <span class="arithmatex">$T$</span>, the algorithm repeatedly chooses the job
-with the smallest remaining duration <span class="arithmatex">$t_j$</span> from the set.</p>
-<p>Two cases arise:</p>
-<ul>
-<li>
-<p><strong>If <span class="arithmatex">$T \ge t_j$</span></strong>:<br />
-   The job can be completed entirely within this segment. We execute it,
-   remove it from the set, and decrease <span class="arithmatex">$T$</span> by <span class="arithmatex">$t_j$</span>.</p>
-</li>
-<li>
-<p><strong>If <span class="arithmatex">$T &lt; t_j$</span></strong>:<br />
-   The job cannot be completed within this segment. In this case we execute
-   it for <span class="arithmatex">$T$</span> time units and reduce its remaining duration to <span class="arithmatex">$t_j - T$</span>,
-   inserting the remaining part back into the set.</p>
-</li>
-</ul>
-<p>Choosing the job with the smallest remaining duration is optimal because,
-for a fixed amount of time <span class="arithmatex">$T$</span>, executing shorter jobs first maximizes the
-number of jobs that can be completed within that time segment.</p>
-<p>The greedy algorithm may conceptually execute jobs partially when
-filling the segments <span class="arithmatex">$T = d_i - d_{i-1}$</span>.
-This preemption is only used to determine which jobs can be completed
-within the available time.</p>
-<p>The algorithm ensures that the total duration of the selected jobs
-never exceeds the time available before their deadlines.
-Therefore the chosen set of jobs satisfies the condition of the lemma.</p>
-<p>Consequently, the selected jobs can be executed non-preemptively
-in the order of their deadlines, producing a valid schedule in which
-every job finishes before its deadline.</p>
+<h1 id="centroid-decomposition">Centroid Decomposition<a class="headerlink" href="#centroid-decomposition" title="Permanent link">&para;</a></h1>
+<p>Prerequisite knowledge: <a href="depth-first-search.html">Depth First Search (DFS)</a>, <a href="https://en.wikipedia.org/wiki/Divide-and-conquer_algorithm">Divide and Conquer</a>, <a href="https://en.wikipedia.org/wiki/Tree_(graph_theory)">Trees</a>.</p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p><strong>Centroid Decomposition</strong> is a divide-and-conquer technique on trees. It is used to solve various problems that involve paths in a tree, such as counting paths with certain properties, finding distances, or answering queries on tree paths.</p>
+<p>The key idea is to recursively decompose a tree by finding its <strong>centroid</strong>. This special vertex when removed splits the tree into components, each containing at most half of the original tree's vertices. This guarantees a logarithmic depth of recursion, leading to efficient algorithms.</p>
+<h2 id="properties-and-definition-of-a-centroid">Properties and Definition of a Centroid<a class="headerlink" href="#properties-and-definition-of-a-centroid" title="Permanent link">&para;</a></h2>
+<p>Let's first understand what a centroid is. A <strong>centroid</strong> of a tree is a vertex whose removal results in no subtree having more than <span class="arithmatex">$\frac{N}{2}$</span> vertices, where <span class="arithmatex">$N$</span> is the total number of vertices in the tree.</p>
+<div align="center">
+    <img src="./centroid-definition.png" alt="Centroid Tree" />
+</div>
+
+<p>For any given tree with <span class="arithmatex">$N$</span> vertices, either one or two centroids exist. If there are two centroids, they must, as well, be adjacent.</p>
+<h3 id="existence-and-uniqueness">Existence and Uniqueness<a class="headerlink" href="#existence-and-uniqueness" title="Permanent link">&para;</a></h3>
+<p><strong>Theorem</strong>: Every tree has at least one centroid, and at most two centroids. If there are two centroids, they must be adjacent.</p>
+<details class="note">
+<summary>Proof</summary>
+<p><em>Existence</em>: Start from any vertex and keep moving to the child with the largest subtree. Stop when no child has more than <span class="arithmatex">$\frac{N}{2}$</span> vertices. At this point, the current vertex <span class="arithmatex">$v$</span> is a centroid because (1) no child's subtree contains more than <span class="arithmatex">$\frac{N}{2}$</span> vertices (by stopping condition) (2) the "parent side" (all vertices except <span class="arithmatex">$v$</span>'s subtree when <span class="arithmatex">$v$</span> was a child) contains at most <span class="arithmatex">$\frac{N}{2}$</span> vertices (otherwise we wouldn't have moved to <span class="arithmatex">$v$</span> from parent).</p>
+<p>It is easy to see that this process always terminates, proving at least one centroid exists.</p>
+<p><em>Uniqueness</em>: Suppose there are two centroids <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span>. Consider the path between them. When we remove <span class="arithmatex">$u$</span>, vertex <span class="arithmatex">$v$</span> must be in a component with at most <span class="arithmatex">$\frac{N}{2}$</span> vertices. Similarly, when we remove <span class="arithmatex">$v$</span>, vertex <span class="arithmatex">$u$</span> must be in a component with at most <span class="arithmatex">$\frac{N}{2}$</span> vertices. This is only possible if <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span> are adjacent; otherwise, removing either would place the other in a component with more than <span class="arithmatex">$\frac{N}{2}$</span> vertices. This contradicts our initial statement of both centroids being in a component with at most <span class="arithmatex">$\frac{N}{2}$</span> vertices. Furthermore, if two centroids exist, they must split the tree into two components of exactly <span class="arithmatex">$\frac{N}{2}$</span> vertices each, which is only possible when <span class="arithmatex">$N$</span> is even.</p>
+</details>
+<h2 id="properties-and-definition-of-centroid-decomposition">Properties and Definition of Centroid Decomposition<a class="headerlink" href="#properties-and-definition-of-centroid-decomposition" title="Permanent link">&para;</a></h2>
+<p>"Decomposing" the tree then essentially means recursively finding centroids and breaking the tree into subtrees based on the centroid's components. Such a recursive decomposition of the tree into its components creates a unique set of properties:</p>
+<ol>
+<li><strong>Decomposition depth</strong>: The depth is <span class="arithmatex">$O(\log N)$</span> because each level at least halves the component size.</li>
+<li><strong>Path coverage</strong>: Every path in the tree passes through the centroid of some component in the decomposition.</li>
+</ol>
+<h3 id="decomposition-depth">Decomposition Depth<a class="headerlink" href="#decomposition-depth" title="Permanent link">&para;</a></h3>
+<p><strong>Theorem</strong>: The depth, or number of steps, when using centroid decomposition on any given tree is <span class="arithmatex">$O(\log N)$</span>.</p>
+<details class="note">
+<summary>Proof</summary>
+<p>Consider any vertex <span class="arithmatex">$v$</span> in the original tree. We track how many times <span class="arithmatex">$v$</span> can be part of a component during the decomposition process.</p>
+<p>At the first level, <span class="arithmatex">$v$</span> is in a component of size <span class="arithmatex">$N$</span>. When we remove the centroid of this component, <span class="arithmatex">$v$</span> ends up in a component of size at most <span class="arithmatex">$\frac{N}{2}$</span> (by the balance property).</p>
+<p>At the second level, <span class="arithmatex">$v$</span> is in a component of size at most <span class="arithmatex">$\frac{N}{2}$</span>. Removing this component's centroid places <span class="arithmatex">$v$</span> in a component of size at most <span class="arithmatex">$\frac{N}{4}$</span>.</p>
+<p>Continuing this pattern, at the <span class="arithmatex">$k$</span>-th level, <span class="arithmatex">$v$</span> is in a component of size at most <span class="arithmatex">$\frac{N}{2^{k-1}}$</span>.</p>
+<p>The decomposition stops when component sizes reach 1. This happens when <span class="arithmatex">$\frac{N}{2^{k-1}} \leq 1$</span>, which gives us <span class="arithmatex">$k \leq \log_2 N + 1$</span>.</p>
+<p>Therefore, the maximum depth of the centroid decomposition tree is <span class="arithmatex">$O(\log N)$</span>.</p>
+</details>
+<p><strong>Consequence</strong>: Since each vertex participates in at most <span class="arithmatex">$O(\log N)$</span> levels of decomposition, and we process each vertex once at each level, algorithms using centroid decomposition typically have a time complexity factor of <span class="arithmatex">$O(\log N)$</span> multiplied by the work done per vertex per level.</p>
+<h3 id="path-coverage">Path Coverage<a class="headerlink" href="#path-coverage" title="Permanent link">&para;</a></h3>
+<p><strong>Theorem</strong>: Every path in the original tree passes through the centroid of some component in the decomposition.</p>
+<details class="note">
+<summary>Proof</summary>
+<p>Consider any path <span class="arithmatex">$P$</span> from vertex <span class="arithmatex">$u$</span> to vertex <span class="arithmatex">$v$</span> in the original tree. We need to show that this path passes through at least one centroid chosen during the decomposition process.</p>
+<p>We prove this by induction on the decomposition process.</p>
+<p><em>Base case</em>: At the first level of decomposition, we select the centroid <span class="arithmatex">$c_1$</span> of the entire tree. If the path <span class="arithmatex">$P$</span> passes through <span class="arithmatex">$c_1$</span>, we are done.</p>
+<p><em>Inductive case</em>: Suppose path <span class="arithmatex">$P$</span> does not pass through <span class="arithmatex">$c_1$</span>. When we remove <span class="arithmatex">$c_1$</span>, the tree splits into multiple components. Since <span class="arithmatex">$P$</span> is a connected path, both <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span> must lie in the same component <span class="arithmatex">$C$</span> after removing <span class="arithmatex">$c_1$</span> (otherwise, <span class="arithmatex">$P$</span> would have to pass through <span class="arithmatex">$c_1$</span> to connect them, which contradicts our assumption).</p>
+<p>Now we recursively decompose component <span class="arithmatex">$C$</span>. By the inductive hypothesis applied to component <span class="arithmatex">$C$</span>, the path <span class="arithmatex">$P$</span> (which is entirely contained in <span class="arithmatex">$C$</span>) must pass through the centroid of some component in the decomposition of <span class="arithmatex">$C$</span>.</p>
+<p>This process continues until we find a centroid through which <span class="arithmatex">$P$</span> passes. The process must terminate because at each level, the component containing <span class="arithmatex">$P$</span> gets strictly smaller (by the balance property), and eventually reduces to a single edge or vertex.</p>
+</details>
+<p><strong>Consequence</strong>: This property is fundamental to the correctness of centroid decomposition algorithms. It ensures that when we process all paths through each centroid, we cover all possible paths in the tree exactly once at some level of the decomposition. This is why centroid decomposition can solve path-related problems efficiently: every path is considered exactly once, at the level where it first encounters a centroid.</p>
+<h2 id="finding-a-centroid">Finding a Centroid<a class="headerlink" href="#finding-a-centroid" title="Permanent link">&para;</a></h2>
+<p>To find a centroid of a tree efficiently:</p>
+<ol>
+<li>Calculate subtree sizes for all vertices using Depth First Search (DFS)</li>
+<li>Start from any vertex</li>
+<li>Find a child <span class="arithmatex">$v$</span> whose subtree contains more than <span class="arithmatex">$\frac{N}{2}$</span> vertices</li>
+<li>Move to <span class="arithmatex">$v$</span> and repeat step 3</li>
+<li>If no such child exists, the current vertex is a centroid</li>
+</ol>
+<p>Time complexity: <span class="arithmatex">$O(N)$</span>.</p>
+<p>Space complexity: <span class="arithmatex">$O(N)$</span>.</p>
+<h2 id="algorithm-description">Algorithm Description<a class="headerlink" href="#algorithm-description" title="Permanent link">&para;</a></h2>
+<p>When using centroid decomposition, the general flow works as follows:</p>
+<ol>
+<li><strong>Find the centroid</strong> of the current tree/component</li>
+<li><strong>Process</strong> all paths passing through this centroid and do any desired calculations</li>
+<li><strong>Remove</strong> the centroid (mark it as used)</li>
+<li><strong>Recursively decompose</strong> each resulting subtree</li>
+</ol>
+<p>This creates a <strong>centroid tree</strong>. Each node in this tree represents a centroid from some stage of decomposition. This means that the parent of a centroid (any given node) is the centroid that was found in the larger component containing it. The height of this tree is <span class="arithmatex">$O(\log N)$</span> as proven before.</p>
+<div align="center">
+    <img src="./CentroidTree.png" alt="Centroid Tree" />
+</div>
+
+<p>For example, in the above image, we have a centroid tree. Each node at each level of the tree is a centroid of that component (e.g. the root is the centroid of the entire tree, the left most child of the root is the centroid of the left most subtree of the root, etc.).</p>
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
-<p>The following function takes a vector of jobs (consisting of a deadline, a duration, and the job's index) and computes a vector containing all indices of the used jobs in the optimal schedule.
-Notice that you still need to sort these jobs by their deadline, if you want to write down the plan explicitly.</p>
-<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">Job</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">deadline</span><span class="p">,</span><span class="w"> </span><span class="n">duration</span><span class="p">,</span><span class="w"> </span><span class="n">idx</span><span class="p">;</span>
+<p>Here's an implementation of centroid decomposition solving a specific problem: <strong>counting all paths in the tree with length exactly <span class="arithmatex">$K$</span></strong>.</p>
+<p>In this problem, we're given a tree with <span class="arithmatex">$N$</span> vertices and need to count how many paths have exactly <span class="arithmatex">$K$</span> edges. A path is defined by two distinct vertices.</p>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MAXN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e5</span><span class="p">;</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">removed</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">subtree_size</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">K</span><span class="p">;</span><span class="w">  </span><span class="c1">// Target path length</span>
+<span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// Count of paths with length K</span>
 
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">Job</span><span class="w"> </span><span class="n">o</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">deadline</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">deadline</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">get_subtree_size</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">subtree_size</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">removed</span><span class="p">[</span><span class="n">u</span><span class="p">])</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">        </span><span class="n">subtree_size</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">get_subtree_size</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="p">};</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">subtree_size</span><span class="p">[</span><span class="n">v</span><span class="p">];</span>
+<span class="p">}</span>
 
-<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">compute_schedule</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Job</span><span class="o">&gt;</span><span class="w"> </span><span class="n">jobs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">sort</span><span class="p">(</span><span class="n">jobs</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">jobs</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">get_centroid</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">tree_size</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">removed</span><span class="p">[</span><span class="n">u</span><span class="p">])</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">subtree_size</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">tree_size</span><span class="p">)</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">get_centroid</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">tree_size</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="w">    </span><span class="n">set</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">s</span><span class="p">;</span>
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">schedule</span><span class="p">;</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jobs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="mi">-1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">--</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jobs</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">deadline</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">jobs</span><span class="p">[</span><span class="n">i</span><span class="mi">-1</span><span class="p">].</span><span class="n">deadline</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
-<span class="w">        </span><span class="n">s</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">jobs</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">duration</span><span class="p">,</span><span class="w"> </span><span class="n">jobs</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">idx</span><span class="p">));</span>
-<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">s</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">auto</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">first</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">t</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">it</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">;</span>
-<span class="w">                </span><span class="n">schedule</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">);</span>
-<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">s</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">first</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">));</span>
-<span class="w">                </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">get_distances</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">dist</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">distances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dist</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">K</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="n">distances</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">dist</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">removed</span><span class="p">[</span><span class="n">u</span><span class="p">])</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">        </span><span class="n">get_distances</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">distances</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">process_centroid</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">centroid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">all_distances</span><span class="p">;</span>
+<span class="w">    </span><span class="n">all_distances</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">centroid</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">removed</span><span class="p">[</span><span class="n">u</span><span class="p">])</span>
+<span class="w">            </span><span class="k">continue</span><span class="p">;</span>
+
+<span class="w">        </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">current_distances</span><span class="p">;</span>
+<span class="w">        </span><span class="n">get_distances</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">centroid</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">current_distances</span><span class="p">);</span>
+
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">current_distances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">K</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">answer</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="p">(</span><span class="n">all_distances</span><span class="p">[</span><span class="n">K</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">d</span><span class="p">]</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">all_distances</span><span class="p">[</span><span class="n">K</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">d</span><span class="p">]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
 <span class="w">            </span><span class="p">}</span>
-<span class="w">            </span><span class="n">s</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">it</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">current_distances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">all_distances</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">all_distances</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+<span class="w">                </span><span class="n">all_distances</span><span class="p">[</span><span class="n">d</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">all_distances</span><span class="p">[</span><span class="n">d</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">schedule</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">decompose</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tree_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_subtree_size</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">centroid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_centroid</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">tree_size</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">process_centroid</span><span class="p">(</span><span class="n">centroid</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">removed</span><span class="p">[</span><span class="n">centroid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">centroid</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">removed</span><span class="p">[</span><span class="n">u</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">decompose</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="alternate-algorithm">Alternate Algorithm<a class="headerlink" href="#alternate-algorithm" title="Permanent link">&para;</a></h2>
-<p>There is a simpler greedy algorithm to solve this problem.</p>
-<ul>
-<li>Sort the jobs by their deadlines in non-decreasing order.</li>
-<li>We will maintain a set of selected jobs, ordered by their durations (using a data structure like a set or priority queue to quickly access the job with the maximum duration).</li>
-<li>
-<p>Initialize the total scheduled time to 0.</p>
-</li>
-<li>
-<p>For each job in order of non-decreasing deadlines:</p>
-<ul>
-<li>Add the job's duration to the total scheduled time.</li>
-<li>Insert the job into the set.</li>
-<li>If the total scheduled time exceeds the job's deadline, remove the job with the longest duration from the set (which may be the current job itself), and subtract its duration from the total time.</li>
-</ul>
-</li>
-</ul>
-<p>After processing all jobs, the set contains the maximum number of jobs that can be scheduled without violating any deadlines. The jobs should be executed in the order of their deadlines to ensure they meet their deadlines.</p>
-<p>The running time of this algorithm is also <span class="arithmatex">$O(n \log n)$</span>.</p>
-<h2 id="correctness-proof_1">Correctness Proof<a class="headerlink" href="#correctness-proof_1" title="Permanent link">&para;</a></h2>
-<p>Let the jobs be sorted by non-decreasing deadlines
-<span class="arithmatex">$J_1, J_2, \dots, J_n$</span> with deadlines
-<span class="arithmatex">$d_1 \le d_2 \le \dots \le d_n$</span>.Define <span class="arithmatex">$d_0 = 0$</span>.</p>
-<p>The algorithm processes the jobs in this order while maintaining a set
-<span class="arithmatex">$S$</span> of selected jobs and the total scheduled processing time</p>
-<div class="arithmatex">$$
-T = \sum_{J_j \in S} t_j.
-$$</div>
-<p>When considering job <span class="arithmatex">$J_i$</span>, we tentatively add it to the set and update
-<span class="arithmatex">$T := T + t_i$</span>.</p>
-<ul>
-<li>If <span class="arithmatex">$T \le d_i$</span>, the schedule remains feasible and we keep the job.</li>
-<li>If <span class="arithmatex">$T &gt; d_i$</span>, we remove the job with the largest duration from <span class="arithmatex">$S$</span>
-  and decrease <span class="arithmatex">$T$</span> accordingly.</li>
-</ul>
-<p>Removing the job with the largest duration is optimal because it reduces
-the total processing time by the greatest amount while removing only one
-job, thus maximizing the number of remaining jobs.</p>
-<p>After each step the algorithm maintains the invariant</p>
-<div class="arithmatex">$$
-\sum_{J_j \in S} t_j \le d_i.
-$$</div>
-<p>Therefore the selected jobs satisfy the condition of the <a href="#lemma">lemma</a>. Consequently, executing the jobs in <span class="arithmatex">$S$</span> in the order of
-their deadlines produces a feasible non-preemptive schedule in which
-every job finishes before its deadline.</p>
-<h2 id="implementation_1">Implementation<a class="headerlink" href="#implementation_1" title="Permanent link">&para;</a></h2>
-<p>The following function implements the alternate approach, taking a vector of jobs and returning the indices of the scheduled jobs in order of their execution.</p>
-<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">Job</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">deadline</span><span class="p">,</span><span class="w"> </span><span class="n">duration</span><span class="p">,</span><span class="w"> </span><span class="n">idx</span><span class="p">;</span>
+<p>This template can be adapted to solve different problems using centroid decomposition. In this specific case, it solves the problem of counting all paths of length <span class="arithmatex">$K$</span>. The strategy is: for each centroid, count paths passing through it by finding pairs of vertices in different subtrees at distances <span class="arithmatex">$d_1$</span> and <span class="arithmatex">$d_2$</span> their sum is <span class="arithmatex">$K$</span> (i.e. a path passing through the centroid consists of a vertex in one subtree at distance <span class="arithmatex">$d_1$</span> from the centroid and a vertex in another subtree at distance <span class="arithmatex">$d_2$</span> where <span class="arithmatex">$d_1 + d_2 = K$</span>). For each distance <span class="arithmatex">$d$</span> in the current subtree, the code counts how many vertices are at distance <span class="arithmatex">$K - d$</span> in previous subtrees. The optimization skips distances beyond <span class="arithmatex">$K$</span> to avoid unnecessary recursion.</p>
+<h3 id="building-the-centroid-tree">Building the Centroid Tree<a class="headerlink" href="#building-the-centroid-tree" title="Permanent link">&para;</a></h3>
+<p>If you need to build an explicit centroid tree structure (useful for answering queries):</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">centroid_parent</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
 
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">Job</span><span class="w"> </span><span class="n">o</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">deadline</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">deadline</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">};</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">decompose</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tree_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_subtree_size</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">centroid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_centroid</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">tree_size</span><span class="p">);</span>
 
-<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">compute_schedule</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Job</span><span class="o">&gt;</span><span class="w"> </span><span class="n">jobs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">sort</span><span class="p">(</span><span class="n">jobs</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">jobs</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-<span class="w">    </span><span class="n">set</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">s</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">stime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">jobs</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">ti</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jobs</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">duration</span><span class="p">;</span>
-<span class="w">        </span><span class="n">stime</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">ti</span><span class="p">;</span>
-<span class="w">        </span><span class="n">s</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="n">ti</span><span class="p">,</span><span class="w"> </span><span class="n">jobs</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">idx</span><span class="p">});</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">stime</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">jobs</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">deadline</span><span class="p">){</span>
-<span class="w">            </span><span class="k">auto</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
-<span class="w">            </span><span class="n">it</span><span class="o">--</span><span class="p">;</span>
-<span class="w">            </span><span class="n">stime</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">it</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">;</span>
-<span class="w">            </span><span class="n">s</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">it</span><span class="p">);</span>
+<span class="w">    </span><span class="n">centroid_parent</span><span class="p">[</span><span class="n">centroid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">;</span>
+<span class="w">    </span><span class="n">removed</span><span class="p">[</span><span class="n">centroid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">centroid</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">removed</span><span class="p">[</span><span class="n">u</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">decompose</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">centroid</span><span class="p">);</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">schedule</span><span class="p">;</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">jobs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">find</span><span class="p">({</span><span class="n">job</span><span class="p">.</span><span class="n">duration</span><span class="p">,</span><span class="w"> </span><span class="n">job</span><span class="p">.</span><span class="n">idx</span><span class="p">})</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">end</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">schedule</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">job</span><span class="p">.</span><span class="n">idx</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">schedule</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">centroid</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
+<h2 id="practice-problems">Practice Problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://cses.fi/problemset/task/2079">CSES - Finding a Centroid</a> [difficulty: easy]</li>
+<li><a href="https://cses.fi/problemset/task/2081">CSES - Fixed-Length Paths II</a> [difficulty: easy]</li>
+<li><a href="http://codeforces.com/problemset/problem/342/E">Codeforces - Xenia and Tree</a> [difficulty: medium]</li>
+<li><a href="http://codeforces.com/contest/716/problem/E">Codeforces - Digit Tree</a> [difficulty: medium]</li>
+<li><a href="https://oj.uz/problem/view/IOI11_race">OJ - Race</a> [difficulty: medium]</li>
+<li><a href="http://www.spoj.com/problems/QTREE5/">SPOJ - QTREE5</a> [difficulty: hard]</li>
+</ul>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/Aaryan-Dadu" title="Aaryan-Dadu" data-bi-name="contributorprofile" target="_blank">Aaryan-Dadu</a> (76.52%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (10.43%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (10.43%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.61%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/FamALouiz" title="FamALouiz" data-bi-name="contributorprofile" target="_blank">FamALouiz</a> (100.0%)</li></ul>
 </ul>
                 
               </article>
