@@ -46,6 +46,8 @@ So if we go from a winning vertex to an undefined one, then we increase the coun
 If this is the case, we can mark this vertex as a losing vertex, and continue the DFS from this vertex.
 Otherwise we don't know yet, if this vertex is a winning or losing vertex, and therefore it doesn't make sense to keep continuing the DFS using it.
 
+In case of stack overflow on large graphs, one may use a queue-based BFS (Kahn-style) to propagate winning and losing states in reverse order, which eliminates recursion (saves stack space) and guarantees linear-time processing.
+
 In total we visit every winning and every losing vertex exactly once (undefined vertices are not visited), and we go over each edge also at most one time.
 Hence the complexity is $O(m)$.
 
@@ -74,6 +76,46 @@ void dfs(int v) {
             else
                 continue;
             dfs(u);
+        }
+    }
+}
+```
+
+Implementation using BFS.
+```cpp
+vector<vector<int>> adj_rev;
+vector<int> degree;
+vector<bool> winning, losing;
+
+void bfs(int n) {
+    queue<int> q;
+
+    for(int i=0; i<n; i++) {
+        if (degree[i] == 0) {
+            losing[i] = true;
+            q.push(i);
+        }
+    }
+
+    while(!q.empty()){
+        int v = q.front();
+        q.pop();
+
+        for(int u : adj_rev[v]){
+            if(winning[u] || losing[u])
+                continue;
+
+            if(losing[v]){
+                winning[u] = true;
+                q.push(u);
+            }
+            else{
+                degree[u]--;
+                if(degree[u] == 0){
+                    losing[u] = true;
+                    q.push(u);
+                }
+            }
         }
     }
 }
