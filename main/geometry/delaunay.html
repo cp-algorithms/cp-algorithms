@@ -8146,8 +8146,8 @@ Then we choose the one that would be encountered first. Initially base points to
 
 <span class="k">struct</span><span class="w"> </span><span class="nc">QuadEdge</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">pt</span><span class="w"> </span><span class="n">origin</span><span class="p">;</span>
-<span class="w">    </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">rot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
-<span class="w">    </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">onext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">    </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">rot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span>
+<span class="w">    </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="n">onext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">used</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
 <span class="w">    </span><span class="n">QuadEdge</span><span class="o">*</span><span class="w"> </span><span class="nf">rev</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">rot</span><span class="o">-&gt;</span><span class="n">rot</span><span class="p">;</span>
