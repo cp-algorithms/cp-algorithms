@@ -359,7 +359,7 @@ void union_sets(int a, int b) {
 
 ### Support the parity of the path length / Checking bipartiteness online
 
-In the same way as computing the path length to the leader, it is possible to maintain the parity of the length of the path before him.
+In the same way as computing the path length to the leader, it is possible to maintain the parity of the length of the path before it.
 Why is this application in a separate paragraph?
 
 The unusual requirement of storing the parity of the path comes up in the following task:
