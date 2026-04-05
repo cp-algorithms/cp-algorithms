@@ -53,3 +53,4 @@ cout << (is_bipartite ? "YES" : "NO") << endl;
 - [Codeforces - Graph Without Long Directed Paths](https://codeforces.com/contest/1144/problem/F)
 - [Codeforces - String Coloring (easy version)](https://codeforces.com/contest/1296/problem/E1)
 - [CSES : Building Teams](https://cses.fi/problemset/task/1668)
+- [Codeforces - Alternating Path](https://codeforces.com/contest/2204/problem/D)
