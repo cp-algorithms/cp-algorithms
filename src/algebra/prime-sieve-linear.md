@@ -6,7 +6,7 @@ e_maxx_link: prime_sieve_linear
 
 # Linear Sieve
 
-Given a number $n$, find all prime numbers in a segment $[2;n]$.
+Given a number $n$, find all prime numbers in a segment $[2;n]$ in $O(n)$.
 
 The standard way of solving a task is to use [the sieve of Eratosthenes](sieve-of-eratosthenes.md). This algorithm is very simple, but it has runtime $O(n \log \log n)$.
 
@@ -41,7 +41,7 @@ Let's consider numbers $x_j = i \cdot p_j$, where $p_j$ are all prime numbers le
 
 We'll set a new value $lp [x_j] = p_j$ for all numbers of this form.
 
-The proof of correctness of this algorithm and its runtime can be found after the implementation.
+The algorithm is $O(n)$ by ensuring that every composite number is only marked once. The proof of correctness of this algorithm and its runtime can be found after the implementation.
 
 ## Implementation
 
