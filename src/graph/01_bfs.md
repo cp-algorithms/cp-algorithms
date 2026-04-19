@@ -84,7 +84,6 @@ This extension is called **Dial's algorithm**.
 
 ## Practice problems
 
-- [CodeChef - Chef and Reversing](https://www.codechef.com/problems/REVERSE)
 - [Labyrinth](https://codeforces.com/contest/1063/problem/B)
 - [KATHTHI](http://www.spoj.com/problems/KATHTHI/)
 - [DoNotTurn](https://community.topcoder.com/stat?c=problem_statement&pm=10337)
