@@ -18,7 +18,7 @@ We store in an array $x$ the endpoints of all the segments sorted by their value
 And additionally we store whether it is a left end or a right end of a segment.
 Now we iterate over the array, keeping a counter $c$ of currently opened segments.
 Whenever the current element is a left end, we increase this counter, and otherwise we decrease it.
-To compute the answer, we take the length between the last to $x$ values $x_i - x_{i-1}$, whenever we come to a new coordinate, and there is currently at least one segment is open.
+To compute the answer, we take the length between the last two $x$ values $x_i - x_{i-1}$, whenever we come to a new coordinate, and there is currently at least one segment is open.
 
 ## Implementation
 
