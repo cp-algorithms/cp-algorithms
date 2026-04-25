@@ -8001,6 +8001,12 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
     
   
     
@@ -8030,24 +8036,6 @@ Describe the issue of this article in detail.
   
   
     
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
   
     
   
@@ -8105,6 +8093,24 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
     
@@ -8117,6 +8123,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8181,7 +8191,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 24, 2025 18:58:13 UTC">May 24, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 12, 2026 00:41:41 UTC">April 12, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8286,7 +8296,7 @@ $$</div>
     \ldots \ldots \ldots \ldots \ldots
 }_\text{try moving here}
 $$</div>
-<p>It is shown in the illustration that though the palindrome with center <span class="arithmatex">$j$</span> could be larger and go outside the "outer" palindrome, but with <span class="arithmatex">$i$</span> as the center we can use only the part that entirely fits into the "outer" palindrome. But the answer for the position <span class="arithmatex">$i$</span> (<span class="arithmatex">$d_{odd}[i]$</span>) can be much bigger than this part, so next we'll run our trivial algorithm that will try to grow it outside our "outer" palindrome, i. e. to the region "try moving here".</p>
+<p>It is shown in the illustration that the palindrome with center <span class="arithmatex">$j$</span> could be larger and go outside the "outer" palindrome, but, with <span class="arithmatex">$i$</span> as the center, we can only use the part that entirely fits into the "outer" palindrome. But the answer for the position <span class="arithmatex">$i$</span> (<span class="arithmatex">$d_{odd}[i]$</span>) can be much bigger than this part, so next we'll run our trivial algorithm that will try to grow it outside our "outer" palindrome, i. e. to the region "try moving here".</p>
 </li>
 </ul>
 <p>Again, we should not forget to update the values <span class="arithmatex">$(l, r)$</span> after calculating each <span class="arithmatex">$d_{odd}[i]$</span>.</p>
@@ -8310,7 +8320,9 @@ $$</div>
 <span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">i</span><span class="p">)]);</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">i</span><span class="p">)]);</span>
+<span class="w">        </span><span class="p">}</span>
 <span class="w">        </span><span class="k">while</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
@@ -8353,7 +8365,7 @@ $$</div>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/alex65536" title="alex65536" data-bi-name="contributorprofile" target="_blank">alex65536</a> (45.05%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (27.73%)</li><li><a href="https://github.com/bruisedsamurai" title="bruisedsamurai" data-bi-name="contributorprofile" target="_blank">bruisedsamurai</a> (11.39%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (5.45%)</li><li><a href="https://github.com/gsunit" title="gsunit" data-bi-name="contributorprofile" target="_blank">gsunit</a> (3.47%)</li><li><a href="https://github.com/yuuurchyk" title="yuuurchyk" data-bi-name="contributorprofile" target="_blank">yuuurchyk</a> (1.98%)</li><li><a href="https://github.com/sanct" title="sanct" data-bi-name="contributorprofile" target="_blank">sanct</a> (0.99%)</li><li><a href="https://github.com/Dip707" title="Dip707" data-bi-name="contributorprofile" target="_blank">Dip707</a> (0.99%)</li><li><a href="https://github.com/fcnoronha" title="fcnoronha" data-bi-name="contributorprofile" target="_blank">fcnoronha</a> (0.99%)</li><li><a href="https://github.com/FinalTheory" title="FinalTheory" data-bi-name="contributorprofile" target="_blank">FinalTheory</a> (0.5%)</li><li><a href="https://github.com/navneet-iitbhu" title="navneet-iitbhu" data-bi-name="contributorprofile" target="_blank">navneet-iitbhu</a> (0.5%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.5%)</li><li><a href="https://github.com/algmyr" title="algmyr" data-bi-name="contributorprofile" target="_blank">algmyr</a> (0.5%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/alex65536" title="alex65536" data-bi-name="contributorprofile" target="_blank">alex65536</a> (44.61%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (27.45%)</li><li><a href="https://github.com/bruisedsamurai" title="bruisedsamurai" data-bi-name="contributorprofile" target="_blank">bruisedsamurai</a> (10.78%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (5.39%)</li><li><a href="https://github.com/gsunit" title="gsunit" data-bi-name="contributorprofile" target="_blank">gsunit</a> (3.43%)</li><li><a href="https://github.com/yuuurchyk" title="yuuurchyk" data-bi-name="contributorprofile" target="_blank">yuuurchyk</a> (1.96%)</li><li><a href="https://github.com/haydenji0731" title="haydenji0731" data-bi-name="contributorprofile" target="_blank">haydenji0731</a> (1.47%)</li><li><a href="https://github.com/sanct" title="sanct" data-bi-name="contributorprofile" target="_blank">sanct</a> (0.98%)</li><li><a href="https://github.com/Dip707" title="Dip707" data-bi-name="contributorprofile" target="_blank">Dip707</a> (0.98%)</li><li><a href="https://github.com/fcnoronha" title="fcnoronha" data-bi-name="contributorprofile" target="_blank">fcnoronha</a> (0.98%)</li><li><a href="https://github.com/FinalTheory" title="FinalTheory" data-bi-name="contributorprofile" target="_blank">FinalTheory</a> (0.49%)</li><li><a href="https://github.com/navneet-iitbhu" title="navneet-iitbhu" data-bi-name="contributorprofile" target="_blank">navneet-iitbhu</a> (0.49%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.49%)</li><li><a href="https://github.com/algmyr" title="algmyr" data-bi-name="contributorprofile" target="_blank">algmyr</a> (0.49%)</li></ul>
 </ul>
                 
               </article>
