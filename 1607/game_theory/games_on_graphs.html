@@ -7107,6 +7107,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/centroid_decomposition.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Centroid decomposition
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7895,14 +7923,6 @@ Describe the issue of this article in detail.
   
     
   
-
-  
-  
-  
-    
-  
-    
-  
     
   
 
@@ -7913,6 +7933,16 @@ Describe the issue of this article in detail.
   
     
   
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
 
   
   
@@ -7921,6 +7951,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -7945,7 +7979,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 16, 2026 06:16:28 UTC">March 16, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 5, 2026 01:53:41 UTC">April 5, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8003,7 +8037,7 @@ We can perform this test in <span class="arithmatex">$O(1)$</span> by storing th
 So if we go from a winning vertex to an undefined one, then we increase the counter, and check if this number is equal to the number of outgoing edges.
 If this is the case, we can mark this vertex as a losing vertex, and continue the DFS from this vertex.
 Otherwise we don't know yet, if this vertex is a winning or losing vertex, and therefore it doesn't make sense to keep continuing the DFS using it.</p>
-<p>In case of stack overflow on large graphs, one may use a queue-based BFS (Kahn-style) to propagate winning and losing states in reverse order, which eliminates recursion (saves stack space) and guarantees linear-time processing.</p>
+<p>In case of stack overflow on large graphs, one may use a <a href="../graph/breadth-first-search.html">breadth First Search</a> to propagate winning and losing states in reverse order, which eliminates recursion (saves stack space) and guarantees linear-time processing.</p>
 <p>In total we visit every winning and every losing vertex exactly once (undefined vertices are not visited), and we go over each edge also at most one time.
 Hence the complexity is <span class="arithmatex">$O(m)$</span>.</p>
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>

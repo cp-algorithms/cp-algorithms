@@ -7202,6 +7202,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/centroid_decomposition.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Centroid decomposition
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8165,7 +8193,7 @@ For each query a pair <span class="arithmatex">$(1, i)$</span> is returned if th
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">// perform sweep line algorithm</span>
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Edge</span><span class="o">*&gt;</span><span class="w"> </span><span class="n">ans</span><span class="p">(</span><span class="n">queries</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="k">nullptr</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Edge</span><span class="o">*&gt;</span><span class="w"> </span><span class="n">ans</span><span class="p">(</span><span class="n">queries</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">);</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">cid</span><span class="p">;</span><span class="w"> </span><span class="n">x</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">sort</span><span class="p">(</span><span class="n">events</span><span class="p">[</span><span class="n">x</span><span class="p">].</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">events</span><span class="p">[</span><span class="n">x</span><span class="p">].</span><span class="n">end</span><span class="p">());</span>
 <span class="w">        </span><span class="n">vert</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
@@ -8205,7 +8233,7 @@ For each query a pair <span class="arithmatex">$(1, i)$</span> is returned if th
 <span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">Event</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">events</span><span class="p">[</span><span class="n">x</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">GET</span><span class="p">)</span>
 <span class="w">                </span><span class="k">continue</span><span class="p">;</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="n">event</span><span class="p">.</span><span class="n">pos</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">nullptr</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="n">event</span><span class="p">.</span><span class="n">pos</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">nullptr</span><span class="w"> </span><span class="o">&amp;&amp;</span>
 <span class="w">                </span><span class="n">eq</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="n">event</span><span class="p">.</span><span class="n">pos</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">ans</span><span class="p">[</span><span class="n">event</span><span class="p">.</span><span class="n">pos</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">.</span><span class="n">x</span><span class="p">))</span>
 <span class="w">                </span><span class="k">continue</span><span class="p">;</span>
 
@@ -8214,14 +8242,14 @@ For each query a pair <span class="arithmatex">$(1, i)$</span> is returned if th
 <span class="w">            </span><span class="k">auto</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">upper_bound</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
 <span class="w">            </span><span class="k">delete</span><span class="w"> </span><span class="n">e</span><span class="p">;</span>
 <span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">it</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">begin</span><span class="p">())</span>
-<span class="w">                </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">                </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span>
 <span class="w">            </span><span class="k">else</span>
 <span class="w">                </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="o">--</span><span class="n">it</span><span class="p">);</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="n">event</span><span class="p">.</span><span class="n">pos</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="n">event</span><span class="p">.</span><span class="n">pos</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                </span><span class="n">ans</span><span class="p">[</span><span class="n">event</span><span class="p">.</span><span class="n">pos</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">;</span>
 <span class="w">                </span><span class="k">continue</span><span class="p">;</span>
 <span class="w">            </span><span class="p">}</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">)</span>
 <span class="w">                </span><span class="k">continue</span><span class="p">;</span>
 <span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ans</span><span class="p">[</span><span class="n">event</span><span class="p">.</span><span class="n">pos</span><span class="p">])</span>
 <span class="w">                </span><span class="k">continue</span><span class="p">;</span>
@@ -8241,8 +8269,8 @@ For each query a pair <span class="arithmatex">$(1, i)$</span> is returned if th
 <span class="k">struct</span><span class="w"> </span><span class="nc">DCEL</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">Edge</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">pt</span><span class="w"> </span><span class="n">origin</span><span class="p">;</span>
-<span class="w">        </span><span class="n">Edge</span><span class="o">*</span><span class="w"> </span><span class="n">nxt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
-<span class="w">        </span><span class="n">Edge</span><span class="o">*</span><span class="w"> </span><span class="n">twin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">        </span><span class="n">Edge</span><span class="o">*</span><span class="w"> </span><span class="n">nxt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span>
+<span class="w">        </span><span class="n">Edge</span><span class="o">*</span><span class="w"> </span><span class="n">twin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span>
 <span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">face</span><span class="p">;</span>
 <span class="w">    </span><span class="p">};</span>
 <span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Edge</span><span class="o">*&gt;</span><span class="w"> </span><span class="n">body</span><span class="p">;</span>
@@ -8270,7 +8298,7 @@ For each query a pair <span class="arithmatex">$(1, i)$</span> is returned if th
 <span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sweepline</span><span class="p">(</span><span class="n">planar2</span><span class="p">,</span><span class="w"> </span><span class="n">queries</span><span class="p">);</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">queries</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_pair</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">);</span>
 <span class="w">            </span><span class="k">continue</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
