@@ -33,7 +33,7 @@ $$\phi(p^k) = p^k - p^{k-1}.$$
     
     \[\phi(a b) = \phi(a) \cdot \phi(b).\]
     
-    This relation is not trivial to see. It follows from the [Chinese remainder theorem](chinese-remainder-theorem.md). The Chinese remainder theorem guarantees, that for each $0 \le x < a$ and each $0 \le y < b$, there exists a unique $0 \le z < a b$ with $z \equiv x \pmod{a}$ and $z \equiv y \pmod{b}$. It's not hard to show that $z$ is coprime to $a b$ if and only if $x$ is coprime to $a$ and $y$ is coprime to $b$. Therefore the amount of integers coprime to $a b$ is equal to product of the amounts of $a$ and $b$.
+    This relation is not trivial to see. It follows from the [Chinese remainder theorem](chinese-remainder-theorem.md). The Chinese remainder theorem guarantees, that for each $0 \le x < a$ and each $0 \le y < b$, there exists a unique $0 \le z < a b$ with $z \equiv x \pmod{a}$ and $z \equiv y \pmod{b}$. It's not hard to show that $z$ is coprime to $a b$ if and only if $x$ is coprime to $a$ and $y$ is coprime to $b$. Therefore the amount of integers coprime to $a b$ is equal to product of the amounts of $\phi(a)$ and $\phi(b)$.
 
   - In general, for not coprime $a$ and $b$, the equation
 
