@@ -7672,18 +7672,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#lemma" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lemma
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lemma">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#proof" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7691,11 +7679,6 @@
       
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -8057,7 +8040,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 30, 2026 19:13:54 UTC">March 30, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 30, 2026 02:38:48 UTC">April 30, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8090,8 +8073,10 @@ Describe the issue of this article in detail.
 <p>Suppose, we’re looking at the <span class="arithmatex">$i$</span>-th job. First of all, let’s put it into <span class="arithmatex">$q$</span>. Let’s consider the period of time between the deadline of <span class="arithmatex">$i$</span>-th job and the deadline of <span class="arithmatex">$i-1$</span>-th job. That is the segment of some length <span class="arithmatex">$T$</span>. We will extract jobs from <span class="arithmatex">$q$</span> (in their left duration ascending order) and execute them until the whole segment <span class="arithmatex">$T$</span> is filled. Important: if at any moment of time the extracted job can only be partly executed until segment <span class="arithmatex">$T$</span> is filled, then we execute this job partly just as far as possible, i.e., during the <span class="arithmatex">$T$</span>-time, and we put the remaining part of a job back into <span class="arithmatex">$q$</span>.</p>
 <p>On the algorithm’s completion we’ll choose the optimal solution (or, at least, one of several solutions). The running time of algorithm is <span class="arithmatex">$O(n \log n)$</span>.</p>
 <h2 id="correctness-proof">Correctness Proof<a class="headerlink" href="#correctness-proof" title="Permanent link">&para;</a></h2>
-<h3 id="lemma">Lemma<a class="headerlink" href="#lemma" title="Permanent link">&para;</a></h3>
-<p>Let a list of jobs be sorted by non-decreasing deadlines
+<div class="admonition info">
+<p class="admonition-title">Lemma</p>
+<p><a id="lemma"></a>
+Let a list of jobs be sorted by non-decreasing deadlines
 <span class="arithmatex">$J_1, J_2, \dots, J_k$</span> with deadlines
 <span class="arithmatex">$d_1 \le d_2 \le \dots \le d_k$</span> and durations <span class="arithmatex">$t_1, t_2, \dots, t_k$</span>.</p>
 <p>If for every <span class="arithmatex">$i$</span> the following condition holds:</p>
@@ -8114,6 +8099,7 @@ $$</div>
 <p>therefore job <span class="arithmatex">$J_i$</span> finishes no later than its deadline <span class="arithmatex">$d_i$</span>.
 Since this holds for every <span class="arithmatex">$i$</span>, all jobs complete before their
 deadlines, and the schedule is feasible without interruption.</p>
+</div>
 <h3 id="proof-of-algorithm">Proof of Algorithm<a class="headerlink" href="#proof-of-algorithm" title="Permanent link">&para;</a></h3>
 <p>Let the jobs be sorted by non-decreasing deadlines and denote them as
 <span class="arithmatex">$J_1, J_2, \dots, J_n$</span> with deadlines <span class="arithmatex">$d_1 \le d_2 \le \dots \le d_n$</span>.
