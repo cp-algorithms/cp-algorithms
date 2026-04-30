@@ -18,40 +18,40 @@ On the algorithm’s completion we’ll choose the optimal solution (or, at leas
 
 ## Correctness Proof
 
-### Lemma
+!!! info "Lemma"
+    <a id="lemma"></a>
+    Let a list of jobs be sorted by non-decreasing deadlines
+    $J_1, J_2, \dots, J_k$ with deadlines
+    $d_1 \le d_2 \le \dots \le d_k$ and durations $t_1, t_2, \dots, t_k$.
 
-Let a list of jobs be sorted by non-decreasing deadlines
-$J_1, J_2, \dots, J_k$ with deadlines
-$d_1 \le d_2 \le \dots \le d_k$ and durations $t_1, t_2, \dots, t_k$.
+    If for every $i$ the following condition holds:
 
-If for every $i$ the following condition holds:
+    $$
+    \sum_{j=1}^{i} t_j \le d_i,
+    $$
 
-$$
-\sum_{j=1}^{i} t_j \le d_i,
-$$
+    then executing the jobs sequentially in the order
+    $J_1, J_2, \dots, J_k$ produces a feasible **non-preemptive schedule**
+    in which every job finishes before its deadline.
 
-then executing the jobs sequentially in the order
-$J_1, J_2, \dots, J_k$ produces a feasible **non-preemptive schedule**
-in which every job finishes before its deadline.
+    #### Proof
 
-#### Proof
+    When executing the jobs in this order, the finishing time of job $J_i$
+    is equal to
 
-When executing the jobs in this order, the finishing time of job $J_i$
-is equal to
+    $$
+    \sum_{j=1}^{i} t_j.
+    $$
 
-$$
-\sum_{j=1}^{i} t_j.
-$$
+    By assumption,
 
-By assumption,
+    $$
+    \sum_{j=1}^{i} t_j \le d_i,
+    $$
 
-$$
-\sum_{j=1}^{i} t_j \le d_i,
-$$
-
-therefore job $J_i$ finishes no later than its deadline $d_i$.
-Since this holds for every $i$, all jobs complete before their
-deadlines, and the schedule is feasible without interruption.
+    therefore job $J_i$ finishes no later than its deadline $d_i$.
+    Since this holds for every $i$, all jobs complete before their
+    deadlines, and the schedule is feasible without interruption.
 
 ### Proof of Algorithm
 
