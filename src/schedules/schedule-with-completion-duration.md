@@ -18,7 +18,7 @@ On the algorithm’s completion we’ll choose the optimal solution (or, at leas
 
 ## Correctness Proof
 
-!!! info "Lemma"
+!!! note "Lemma"
     <a id="lemma"></a>
     Let a list of jobs be sorted by non-decreasing deadlines
     $J_1, J_2, \dots, J_k$ with deadlines
@@ -34,7 +34,7 @@ On the algorithm’s completion we’ll choose the optimal solution (or, at leas
     $J_1, J_2, \dots, J_k$ produces a feasible **non-preemptive schedule**
     in which every job finishes before its deadline.
 
-    #### Proof
+??? note "Proof"
 
     When executing the jobs in this order, the finishing time of job $J_i$
     is equal to
@@ -52,8 +52,6 @@ On the algorithm’s completion we’ll choose the optimal solution (or, at leas
     therefore job $J_i$ finishes no later than its deadline $d_i$.
     Since this holds for every $i$, all jobs complete before their
     deadlines, and the schedule is feasible without interruption.
-
-### Proof of Algorithm
 
 Let the jobs be sorted by non-decreasing deadlines and denote them as
 $J_1, J_2, \dots, J_n$ with deadlines $d_1 \le d_2 \le \dots \le d_n$.
