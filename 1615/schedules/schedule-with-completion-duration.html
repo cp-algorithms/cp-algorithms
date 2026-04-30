@@ -7668,34 +7668,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Correctness Proof">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#proof" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Proof
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#proof-of-algorithm" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Proof of Algorithm
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -8040,7 +8012,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 30, 2026 02:38:48 UTC">April 30, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 30, 2026 06:01:17 UTC">April 30, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8073,7 +8045,7 @@ Describe the issue of this article in detail.
 <p>Suppose, we’re looking at the <span class="arithmatex">$i$</span>-th job. First of all, let’s put it into <span class="arithmatex">$q$</span>. Let’s consider the period of time between the deadline of <span class="arithmatex">$i$</span>-th job and the deadline of <span class="arithmatex">$i-1$</span>-th job. That is the segment of some length <span class="arithmatex">$T$</span>. We will extract jobs from <span class="arithmatex">$q$</span> (in their left duration ascending order) and execute them until the whole segment <span class="arithmatex">$T$</span> is filled. Important: if at any moment of time the extracted job can only be partly executed until segment <span class="arithmatex">$T$</span> is filled, then we execute this job partly just as far as possible, i.e., during the <span class="arithmatex">$T$</span>-time, and we put the remaining part of a job back into <span class="arithmatex">$q$</span>.</p>
 <p>On the algorithm’s completion we’ll choose the optimal solution (or, at least, one of several solutions). The running time of algorithm is <span class="arithmatex">$O(n \log n)$</span>.</p>
 <h2 id="correctness-proof">Correctness Proof<a class="headerlink" href="#correctness-proof" title="Permanent link">&para;</a></h2>
-<div class="admonition info">
+<div class="admonition note">
 <p class="admonition-title">Lemma</p>
 <p><a id="lemma"></a>
 Let a list of jobs be sorted by non-decreasing deadlines
@@ -8086,7 +8058,9 @@ $$</div>
 <p>then executing the jobs sequentially in the order
 <span class="arithmatex">$J_1, J_2, \dots, J_k$</span> produces a feasible <strong>non-preemptive schedule</strong>
 in which every job finishes before its deadline.</p>
-<h4 id="proof">Proof<a class="headerlink" href="#proof" title="Permanent link">&para;</a></h4>
+</div>
+<details class="note">
+<summary>Proof</summary>
 <p>When executing the jobs in this order, the finishing time of job <span class="arithmatex">$J_i$</span>
 is equal to</p>
 <div class="arithmatex">$$
@@ -8099,8 +8073,7 @@ $$</div>
 <p>therefore job <span class="arithmatex">$J_i$</span> finishes no later than its deadline <span class="arithmatex">$d_i$</span>.
 Since this holds for every <span class="arithmatex">$i$</span>, all jobs complete before their
 deadlines, and the schedule is feasible without interruption.</p>
-</div>
-<h3 id="proof-of-algorithm">Proof of Algorithm<a class="headerlink" href="#proof-of-algorithm" title="Permanent link">&para;</a></h3>
+</details>
 <p>Let the jobs be sorted by non-decreasing deadlines and denote them as
 <span class="arithmatex">$J_1, J_2, \dots, J_n$</span> with deadlines <span class="arithmatex">$d_1 \le d_2 \le \dots \le d_n$</span>.
 Define <span class="arithmatex">$d_0 = 0$</span>.</p>
@@ -8258,7 +8231,7 @@ every job finishes before its deadline.</p>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/Aaryan-Dadu" title="Aaryan-Dadu" data-bi-name="contributorprofile" target="_blank">Aaryan-Dadu</a> (76.52%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (10.43%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (10.43%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.61%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/Aaryan-Dadu" title="Aaryan-Dadu" data-bi-name="contributorprofile" target="_blank">Aaryan-Dadu</a> (76.32%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (10.53%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (10.53%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.63%)</li></ul>
 </ul>
                 
               </article>
