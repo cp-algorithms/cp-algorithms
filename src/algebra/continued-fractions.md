@@ -20,12 +20,29 @@ Besides that, continued fractions are closely related to Euclidean algorithm whi
     is called the **continued fraction representation** of the rational number $r$ and is denoted shortly as $r=[a_0;a_1,a_2,\dots,a_k]$.
 
 ??? example
-    Let $r = \frac{5}{3}$. There are two ways to represent it as a continued fraction:
+    Let $r = \frac{23}{8} = 2.875$. 
+
+    Its integral part is 2 and so the continued fraction starts as [2, ...].
+
+    2.875 − 2 = 0.875
+
+    Calculate 1/0.875 to get 1.14285714285714. Its integral part is 1.
+    So we now have [2, 1, ...].
+
+    1.14285714285714−1 = 0.14285714285714. 
+
+    Calculate 1/0.14285714285714 to get 7.00000000000014
+    whose integral part is 7.
+
+    The continued fraction is now [2, 1, 7, ...].
+
+    7.00000000000014 − 7 = 0.00000000000014 which is almost 0.
+
+    So, we terminate the algorithm here to get [2, 1, 7]. 
 
     $$
     \begin{align}
-    r = [1;1,1,1] &= 1+\frac{1}{1+\frac{1}{1+\frac{1}{1}}},\\
-    r = [1;1,2] &= 1+\frac{1}{1+\frac{1}{2}}.
+    r = \frac{23}{8} = 2.875 = [2,1,7] &= 2+\frac{1}{1+\frac{1}{7}}.
     \end{align}
     $$
 
