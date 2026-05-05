@@ -8012,7 +8012,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 30, 2026 06:01:17 UTC">April 30, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 5, 2026 12:51:32 UTC">May 5, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8062,14 +8062,8 @@ in which every job finishes before its deadline.</p>
 <details class="note">
 <summary>Proof</summary>
 <p>When executing the jobs in this order, the finishing time of job <span class="arithmatex">$J_i$</span>
-is equal to</p>
-<div class="arithmatex">$$
-\sum_{j=1}^{i} t_j.
-$$</div>
-<p>By assumption,</p>
-<div class="arithmatex">$$
-\sum_{j=1}^{i} t_j \le d_i,
-$$</div>
+is equal to <span class="arithmatex">$\sum_{j=1}^{i} t_j.$</span></p>
+<p>By assumption, <span class="arithmatex">$\sum_{j=1}^{i} t_j \le d_i,$</span></p>
 <p>therefore job <span class="arithmatex">$J_i$</span> finishes no later than its deadline <span class="arithmatex">$d_i$</span>.
 Since this holds for every <span class="arithmatex">$i$</span>, all jobs complete before their
 deadlines, and the schedule is feasible without interruption.</p>
@@ -8078,10 +8072,7 @@ deadlines, and the schedule is feasible without interruption.</p>
 <span class="arithmatex">$J_1, J_2, \dots, J_n$</span> with deadlines <span class="arithmatex">$d_1 \le d_2 \le \dots \le d_n$</span>.
 Define <span class="arithmatex">$d_0 = 0$</span>.</p>
 <p>We process jobs from right to left. For each job <span class="arithmatex">$J_i$</span>, consider the time
-segment</p>
-<div class="arithmatex">$$
-T = d_i - d_{i-1}.
-$$</div>
+segment <span class="arithmatex">$T = d_i - d_{i-1}.$</span></p>
 <p>At step <span class="arithmatex">$i$</span>, all jobs <span class="arithmatex">$J_i, J_{i+1}, \dots, J_n$</span> are candidates to be
 scheduled before their deadlines. These jobs are stored in a set ordered
 by their remaining durations.</p>
@@ -8177,7 +8168,7 @@ Notice that you still need to sort these jobs by their deadline, if you want to 
 T = \sum_{J_j \in S} t_j.
 $$</div>
 <p>When considering job <span class="arithmatex">$J_i$</span>, we tentatively add it to the set and update
-<span class="arithmatex">$T := T + t_i$</span>.</p>
+<span class="arithmatex">$T \leftarrow T + t_i$</span>.</p>
 <ul>
 <li>If <span class="arithmatex">$T \le d_i$</span>, the schedule remains feasible and we keep the job.</li>
 <li>If <span class="arithmatex">$T &gt; d_i$</span>, we remove the job with the largest duration from <span class="arithmatex">$S$</span>
@@ -8186,10 +8177,7 @@ $$</div>
 <p>Removing the job with the largest duration is optimal because it reduces
 the total processing time by the greatest amount while removing only one
 job, thus maximizing the number of remaining jobs.</p>
-<p>After each step the algorithm maintains the invariant</p>
-<div class="arithmatex">$$
-\sum_{J_j \in S} t_j \le d_i.
-$$</div>
+<p>After each step the algorithm maintains the invariant <span class="arithmatex">$\sum_{J_j \in S} t_j \le d_i.$</span></p>
 <p>Therefore the selected jobs satisfy the condition of the <a href="#lemma">lemma</a>. Consequently, executing the jobs in <span class="arithmatex">$S$</span> in the order of
 their deadlines produces a feasible non-preemptive schedule in which
 every job finishes before its deadline.</p>
@@ -8231,7 +8219,7 @@ every job finishes before its deadline.</p>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/Aaryan-Dadu" title="Aaryan-Dadu" data-bi-name="contributorprofile" target="_blank">Aaryan-Dadu</a> (76.32%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (10.53%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (10.53%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.63%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/Aaryan-Dadu" title="Aaryan-Dadu" data-bi-name="contributorprofile" target="_blank">Aaryan-Dadu</a> (74.53%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (11.32%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (11.32%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.83%)</li></ul>
 </ul>
                 
               </article>
