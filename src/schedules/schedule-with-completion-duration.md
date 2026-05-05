@@ -37,17 +37,9 @@ On the algorithm’s completion we’ll choose the optimal solution (or, at leas
 ??? note "Proof"
 
     When executing the jobs in this order, the finishing time of job $J_i$
-    is equal to
+    is equal to $\sum_{j=1}^{i} t_j.$
 
-    $$
-    \sum_{j=1}^{i} t_j.
-    $$
-
-    By assumption,
-
-    $$
-    \sum_{j=1}^{i} t_j \le d_i,
-    $$
+    By assumption, $\sum_{j=1}^{i} t_j \le d_i,$
 
     therefore job $J_i$ finishes no later than its deadline $d_i$.
     Since this holds for every $i$, all jobs complete before their
@@ -58,11 +50,7 @@ $J_1, J_2, \dots, J_n$ with deadlines $d_1 \le d_2 \le \dots \le d_n$.
 Define $d_0 = 0$.
 
 We process jobs from right to left. For each job $J_i$, consider the time
-segment
-
-$$
-T = d_i - d_{i-1}.
-$$
+segment $T = d_i - d_{i-1}.$
 
 At step $i$, all jobs $J_i, J_{i+1}, \dots, J_n$ are candidates to be
 scheduled before their deadlines. These jobs are stored in a set ordered
@@ -168,7 +156,7 @@ T = \sum_{J_j \in S} t_j.
 $$
 
 When considering job $J_i$, we tentatively add it to the set and update
-$T := T + t_i$.
+$T \leftarrow T + t_i$.
 
 - If $T \le d_i$, the schedule remains feasible and we keep the job.
 - If $T > d_i$, we remove the job with the largest duration from $S$
@@ -178,11 +166,7 @@ Removing the job with the largest duration is optimal because it reduces
 the total processing time by the greatest amount while removing only one
 job, thus maximizing the number of remaining jobs.
 
-After each step the algorithm maintains the invariant
-
-$$
-\sum_{J_j \in S} t_j \le d_i.
-$$
+After each step the algorithm maintains the invariant $\sum_{J_j \in S} t_j \le d_i.$
 
 Therefore the selected jobs satisfy the condition of the [lemma](#lemma). Consequently, executing the jobs in $S$ in the order of
 their deadlines produces a feasible non-preemptive schedule in which
