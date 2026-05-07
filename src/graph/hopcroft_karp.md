@@ -39,10 +39,15 @@ In Dinic's algorithm, we construct a level graph using BFS and then find blockin
 ## Implementation
 
 Let the vertices in $U$ be numbered from $1$ to $n_1$ and vertices in $V$ be numbered from $1$ to $n_2$.
-The array `match_u[u]` stores the matched vertex in $V$ for vertex $u \in U$. If $u$ is not matched, `match_u[u] = 0`.
-Similarly, `match_v[v]` stores the matched vertex in $U$ for vertex $v \in V$. If $v$ is not matched, `match_v[v] = 0`.
+- `match_u[u]` stores the matched vertex in $V$ for vertex $u \in U$. If $u$ is not matched, `match_u[u] = 0`.
+- `match_v[v]` stores the matched vertex in $U$ for vertex $v \in V$. If $v$ is not matched, `match_v[v] = 0`.
+- `dist[u]` stores the distance from the set of free vertices in $U$ to the vertex $u \in U$ in the level graph. 
 
-The vertex $0$ is used as a dummy vertex. The distance to $0$ represents the length of the shortest augmenting path found by the BFS.
+The vertex $0$ is used as a dummy vertex. The distance to $0$, i.e., `dist[0]`, represents the length of the shortest augmenting path found by the BFS.
+
+The implementation relies on two main functions:
+- `bfs()`: explores the graph to find the shortest augmenting paths and builds the level graph by populating the `dist` array. It returns `true` if at least one augmenting path was found.
+- `dfs(int u)`: attempts to find an augmenting path starting from vertex `u` using the level graph. It returns `true` if it successfully augmented the matching.
 
 ```cpp
 const int INF = 1e9;
