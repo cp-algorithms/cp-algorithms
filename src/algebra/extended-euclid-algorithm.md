@@ -58,9 +58,9 @@ y = x_1 - y_1 \cdot \left\lfloor \frac{a}{b} \right\rfloor
 ```{.cpp file=extended_gcd}
 int gcd(int a, int b, int& x, int& y) {
     if (b == 0) {
-        x = 1;
+        x = a >= 0 ? 1 : -1;
         y = 0;
-        return a;
+        return a >= 0 ? a : -a;
     }
     int x1, y1;
     int d = gcd(b, a % b, x1, y1);
@@ -72,7 +72,7 @@ int gcd(int a, int b, int& x, int& y) {
 
 The recursive function above returns the GCD and the values of coefficients to `x` and `y` (which are passed by reference to the function).
 
-This implementation of extended Euclidean algorithm produces correct results for negative integers as well.
+This implementation of the extended Euclidean algorithm produces correct results for negative integers as well. When either $a$ or $b$ is negative, the GCD is still returned as a non-negative integer, and the coefficients $x$ and $y$ are adjusted accordingly so that $a \cdot x + b \cdot y = \gcd(a, b)$ holds.
 
 ## Iterative version
 
@@ -89,6 +89,7 @@ int gcd(int a, int b, int& x, int& y) {
         tie(y, y1) = make_tuple(y1, y - q * y1);
         tie(a1, b1) = make_tuple(b1, a1 - q * b1);
     }
+    if (a1 < 0) { x = -x; y = -y; a1 = -a1; }
     return a1;
 }
 ```
