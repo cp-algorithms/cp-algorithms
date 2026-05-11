@@ -8012,7 +8012,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 5, 2026 12:51:32 UTC">May 5, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 11, 2026 15:04:26 UTC">May 11, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8140,24 +8140,9 @@ Notice that you still need to sort these jobs by their deadline, if you want to 
 <span class="p">}</span>
 </code></pre></div>
 <h2 id="alternate-algorithm">Alternate Algorithm<a class="headerlink" href="#alternate-algorithm" title="Permanent link">&para;</a></h2>
-<p>There is a simpler greedy algorithm to solve this problem.</p>
-<ul>
-<li>Sort the jobs by their deadlines in non-decreasing order.</li>
-<li>We will maintain a set of selected jobs, ordered by their durations (using a data structure like a set or priority queue to quickly access the job with the maximum duration).</li>
-<li>
-<p>Initialize the total scheduled time to 0.</p>
-</li>
-<li>
-<p>For each job in order of non-decreasing deadlines:</p>
-<ul>
-<li>Add the job's duration to the total scheduled time.</li>
-<li>Insert the job into the set.</li>
-<li>If the total scheduled time exceeds the job's deadline, remove the job with the longest duration from the set (which may be the current job itself), and subtract its duration from the total time.</li>
-</ul>
-</li>
-</ul>
-<p>After processing all jobs, the set contains the maximum number of jobs that can be scheduled without violating any deadlines. The jobs should be executed in the order of their deadlines to ensure they meet their deadlines.</p>
-<p>The running time of this algorithm is also <span class="arithmatex">$O(n \log n)$</span>.</p>
+<p>There is a simpler greedy algorithm to solve this problem. First, sort the jobs by their deadlines in non-decreasing order. We will maintain a set of selected jobs, ordered by their durations (using a data structure like a set or priority queue to quickly access the job with the maximum duration). Initially, the total scheduled time is set to 0.</p>
+<p>Then, we process each job in order of their non-decreasing deadlines. For each job, we add its duration to the total scheduled time and insert the job into the set. If the total scheduled time exceeds the job's deadline, we remove the job with the longest duration from the set (which may be the current job itself), and subtract its duration from the total time.</p>
+<p>After processing all jobs, the set contains the maximum number of jobs that can be scheduled without violating any deadlines. The jobs should be executed in the order of their deadlines to ensure they meet their deadlines. The running time of this algorithm is also <span class="arithmatex">$O(n \log n)$</span>.</p>
 <h2 id="correctness-proof_1">Correctness Proof<a class="headerlink" href="#correctness-proof_1" title="Permanent link">&para;</a></h2>
 <p>Let the jobs be sorted by non-decreasing deadlines
 <span class="arithmatex">$J_1, J_2, \dots, J_n$</span> with deadlines
@@ -8219,7 +8204,7 @@ every job finishes before its deadline.</p>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/Aaryan-Dadu" title="Aaryan-Dadu" data-bi-name="contributorprofile" target="_blank">Aaryan-Dadu</a> (74.53%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (11.32%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (11.32%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.83%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/Aaryan-Dadu" title="Aaryan-Dadu" data-bi-name="contributorprofile" target="_blank">Aaryan-Dadu</a> (73.4%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (11.82%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (11.82%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.96%)</li></ul>
 </ul>
                 
               </article>
