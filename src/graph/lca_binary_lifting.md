@@ -100,10 +100,10 @@ This is another method of doing LCA, that also accepts adding a leaf node  to no
 
 The earlier method struggles with these updates, since adding a leaf will potentially modify the time of entry and exit for the entire graph.
 
-Lets create an array `d[u]`, containing the distance of node `u` from the root. This can be done with a DFS-traversal of the tree. Similarly to the earlier approach we precompute an array `up[u][j]`.
+Lets create an array `depth[u]`, containing the distance of node `u` from the root. This can be done with a DFS-traversal of the tree. Similarly to the earlier approach we precompute an array `up[u][j]`.
 
-We handle LCA queries as followed: Let `(u, v)` be the pair that we want to find the answer to. From now on let `d[u] ≥ d[v]` (if `d[v] > d[u]`, we can just swap `u` and `v`). Now lets try and make `d[u] = d[v]`, by moving `u` up to an ancestor.
-The ancestor of `u` that satisfies this requirement is exactly `d[u]-d[v]` nodes higher. So using our `up[u][j]` table and the binary representation of `d[u]-d[v]`, lets change the value of `u` to the specified ancestor.
+We handle LCA queries as followed: Let `(u, v)` be the pair that we want to find the answer to. From now on let `depth[u] ≥ depth[v]` (if `depth[v] > depth[u]`, we can just swap `u` and `v`). Now lets try and make `depth[u] = depth[v]`, by moving `u` up to an ancestor.
+The ancestor of `u` that satisfies this requirement is exactly `depth[u]-depth[v]` nodes higher. So using our `up[u][j]` table and the binary representation of `depth[u]-depth[v]`, lets change the value of `u` to the specified ancestor.
 
 Now we have another problem: Find the LCA of two vertices `(u, v)`, that have the same depth. First, lets check the trivial case if `u = v`, where the LCA of the two values is `u`. If not, then we find the highest vertex, that isn't a common ancestor of `(u, v)`.
 
@@ -182,6 +182,87 @@ void preprocess(int root)
     dfs(root, root, 0);
 }
 ```
+
+## LCA with $O(n)$ space and preprocessing time
+
+This method allows us to calculate the LCA while only using $O(n)$ space. It is also possible to extend it so it will work for a dynamic tree. It was first proposed by Harel and Tarjan in 1984.
+
+Create an array `depth[]` which will store the depth of each node in the tree.
+For each node we will define only **small** and **big** jumps. Small jumps will always point to the immediate ancestor (except for the root, which will point to itself). The big jumps have a more complicated definition. Denote `big[v]` as the node that we will be in after we do a big jump from node `v`. Let `big[root] = root`. 
+
+After that we create a recursive definition.
+
+$$\mathtt{big}[u] = \begin{cases} \mathtt{big}[\mathtt{big}[ancestor[u]]] & \text{if the size of the big jump from the parent node is equal to the one of }\mathtt{big}[ancestor[u]] \\
+\mathtt{ancenstor}[u] & \text{otherwise}\end{cases}$$
+
+We can check the size of the jump simply by subtracting `depth[big[u]]` from `depth[u]`. 
+We have to evaluate this array in an order, such that for every node, we have computed the values for all of its ancestors. We can use the preorder ordering here, since it satisfies this property.
+
+
+Now after all of that preprocessing, answering queries is easy. We first balance the nodes to an equal depth and then we try to find the lowest node that isn't a common ancestor. This is very similar to what has been done in the Dynamic LCA algorithm, but now we just check if we can preform a big jump and if not, then we do a small one. The time complexity is logarithmic, as Harel and Tarjan proved in their paper that we will use maximaly $6\lfloor{\log(d+1)}\rfloor-4$ jumps. The space complexity is linear 
+## Implementation
+
+```cpp
+int n, l;
+vector<vector<int>> adj;
+
+vector<int> depth;
+vector<int> small, big;
+
+void dfs(int v, int p, int dist)
+{
+    depth[v] = dist;
+    small[v] = p;
+    
+    if(depth[p] - depth[big[p]] == depth[big[p]] - depth[big[big[p]]]){
+        big[v]= big[big[p]];
+    }
+    else{
+        big[v]=p;
+    }
+
+    for (int u : adj[v]) {
+        if (u != p)
+            dfs(u, v, dist+1);
+    }
+}
+
+int lca(int u, int v)
+{
+    if (depth[u] < depth[v]) swap(u,v);
+    while(depth[u] != depth[v]) {
+        if (depth[big[u]] >= depth[v]) {
+            u = big[u];
+        }
+        else{
+            u = small[u];
+        }
+    }
+
+    while(u != v) {
+        if (big[u] != big[v]) {
+            u = big[u];
+            v = big[v];
+        }
+        else{
+            u = small[u];
+            v = small[v];
+        }
+    }
+    return u;
+}
+
+
+void preprocess(int root)
+{
+    depth.resize(n);
+    small.resize(n);
+    big.resize(n);
+    big[root] = root;
+    dfs(root, root, 0);
+}
+```
+
 
 
 ## Practice Problems
