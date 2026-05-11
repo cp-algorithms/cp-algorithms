@@ -116,14 +116,20 @@ Now, why does this work well in this dynamic environment? Well observe during th
 
 ```cpp
 int n, l;
+
+//Set this to maximum size of graph
+int MAXN;
+
+
+int ups;
 vector<vector<int>> adj;
 
-vector<int> d;
+vector<int> depth;
 vector<vector<int>> up;
 
 void dfs(int v, int p, int dist)
 {
-    d[v]=dist;
+    depth[v]=dist;
     up[v][0] = p;
     for (int i = 1; i <= l; ++i)
         up[v][i] = up[up[v][i-1]][i-1];
@@ -136,11 +142,11 @@ void dfs(int v, int p, int dist)
 
 int lca(int u, int v)
 {
-    if (d[u] < d[v]) swap(u,v);
+    if (depth[u] < depth[v]) swap(u,v);
     for (int j = l; j >= 0; --j) {
-      if (d[up[u][j]] >= d[v]) {
-            u = up[u][j]
-      }
+        if (depth[up[u][j]] >= depth[v]) {
+            u = up[u][j];
+        }
     }
 
     if(u == v) return u;
@@ -154,25 +160,25 @@ int lca(int u, int v)
     return up[u][0];
 }
 
-void Add_Leaf(int to)
+void add_leaf(int to)
 {
     adj[to].push_back((int) adj.size() + 1);
     adj.push_back({to});
-
-    d.push_back(d[to]+1);
-    up.resize((int) up.size() + 1);
-    up[(int) up.size() - 1].resize(l+1);
-    up[(int) up.size() - 1][0] = to;
+    depth.push_back(depth[to]+1);
+    up.resize(ups + 1);
+    ups++;
+    up[ups - 1].resize(l+1);
+    up[ups - 1][0] = to;
     for (int i = 1; i <= l; ++i)
-        up[(int) up.size() - 1][i] = up[up[(int) up.size() - 1 ][i-1]][i-1];
+        up[ups - 1][i] = up[up[ups - 1 ][i-1]][i-1];
 }
 
 void preprocess(int root)
 {
-    d.resize(n);
-    timer = 0;
-    l = ceil(log2(n));
+    depth.resize(n);
+    l = ceil(log2(MAXN));
     up.assign(n, vector<int>(l + 1));
+    ups = n;
     dfs(root, root, 0);
 }
 ```
