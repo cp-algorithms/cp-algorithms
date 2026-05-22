@@ -55,7 +55,7 @@ Namely we will keep the queue in nondecreasing order (i.e. the smallest value wi
 This way the smallest element will always be in the head of the queue.
 Before adding a new element to the queue, it is enough to make a "cut":
 we will remove all trailing elements of the queue that are larger than the new element, and afterwards add the new element to the queue. 
-This way we don't break the order of the queue, and we will also not loose the current element if it is at any subsequent step the minimum. 
+This way we don't break the order of the queue, and we will also not lose the current element if it is at any subsequent step the minimum. 
 All the elements that we removed can never be a minimum itself, so this operation is allowed.
 When we want to extract an element from the head, it actually might not be there (because we removed it previously while adding a smaller element). 
 Therefore when deleting an element from a queue we need to know the value of the element.
