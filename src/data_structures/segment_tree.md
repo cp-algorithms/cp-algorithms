@@ -76,7 +76,7 @@ It is convenient to describe this operation recursively in the other direction, 
 
 We start the construction at the root vertex, and hence, we are able to compute the entire segment tree.
 
-The time complexity of this construction is $O(n)$, assuming that the merge operation is constant time (the merge operation gets called $n$ times, which is equal to the number of internal nodes in the segment tree).
+The time complexity of this construction is $O(n)$, assuming that the merge operation is constant time (the merge operation gets called $n-1$ times, which is equal to the number of internal nodes in the segment tree).
 
 ### Sum queries
 
