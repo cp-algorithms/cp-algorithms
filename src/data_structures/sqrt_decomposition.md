@@ -125,7 +125,7 @@ For this each block would have to store the count of each number in it in some s
 
 The idea is to answer the queries in a special order based on the indices.
 We will first answer all queries which have the left index in block 0, then answer all queries which have left index in block 1 and so on.
-And also we will have to answer the queries of a block is a special order, namely sorted by the right index of the queries.
+And also we will have to answer the queries of a block in a special order, namely sorted by the right index of the queries.
 
 As already said we will use a single data structure.
 This data structure will store information about the range.
