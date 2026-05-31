@@ -14,20 +14,20 @@ There are $n$ distinct items and a knapsack of capacity $W$. Each item has 2 att
 You have to select a subset of items to put into the knapsack such that the total weight does not exceed the capacity $W$ and the total value is maximized.
 
 In the example above, each object has only two possible states (taken or not taken),
-corresponding to binary 0 and 1. Thus, this type of problem is called "0-1 knapsack problem".
+corresponding to binary 0 and 1. Thus, this type of problem is called the "0-1 knapsack problem".
 
 ## 0-1 Knapsack
 
 ### Explanation
 
-In the example above, the input to the problem is the following: the weight of $i^{th}$ item $w_{i}$, the value of $i^{th}$ item $v_{i}$, and the total capacity of the knapsack $W$.
+In the example above, the input to the problem is the following: the weight of the $i^{th}$ item $w_{i}$, the value of the $i^{th}$ item $v_{i}$, and the total capacity of the knapsack $W$.
 
 Let $f_{i, j}$ be the dynamic programming state holding the maximum total value the knapsack can carry with capacity $j$, when only the first $i$ items are considered.
 
 Assuming that all states of the first $i-1$ items have been processed, what are the options for the $i^{th}$ item?
 
-- When it is not put into the knapsack, the remaining capacity remains unchanged and total value does not change. Therefore, the maximum value in this case is $f_{i-1, j}$
-- When it is put into the knapsack, the remaining capacity decreases by $w_{i}$ and the total value increases by $v_{i}$,
+- When it is not put into the knapsack, the remaining capacity remains unchanged, and the total value does not change. Therefore, the maximum value in this case is $f_{i-1, j}$
+- When it is put into the knapsack, the remaining capacity decreases by $w_{i}$, and the total value increases by $v_{i}$,
 so the maximum value in this case is $f_{i-1, j-w_i} + v_i$
 
 From this we can derive the dp transition equation:
@@ -56,7 +56,7 @@ Again, note the order of execution. It should be strictly followed to ensure the
 
 ## Complete Knapsack
 
-The complete knapsack model is similar to the 0-1 knapsack, the only difference from the 0-1 knapsack is that an item can be selected an unlimited number of times instead of only once.
+The complete knapsack model is similar to the 0-1 knapsack; the only difference from the 0-1 knapsack is that an item can be selected an unlimited number of times instead of only once.
 
 We can refer to the idea of 0-1 knapsack to define the state: $f_{i, j}$, the maximum value the knapsack can obtain using the first $i$ items with maximum capacity $j$.
 
@@ -64,11 +64,18 @@ It should be noted that although the state definition is similar to that of a 0-
 
 ### Explanation
 
-The trivial approach is, for the first $i$ items, enumerate how many times each item is to be taken. The time complexity of this is $O(n^2W)$.
+The trivial approach is, for the first $i$ items, to enumerate how many times each item is to be taken. This yields the following transition equation:
 
-This yields the following transition equation:
+$$f_{i, j} = \max\limits_{k=0}^{\left\lfloor \frac{j}{w_i} \right\rfloor}(f_{i-1, j-k\cdot w_i} + k\cdot v_i)$$
 
-$$f_{i, j} = \max\limits_{k=0}^{\infty}(f_{i-1, j-k\cdot w_i} + k\cdot v_i)$$
+The algorithm described can be implemented in $O(nW^2)$ as:
+
+```.c++
+for (int i = 1; i <= n; i++)
+  for (int j = w[i]; j <= W; j++)
+    for (int k = 0; k * w[i] <= j; k++)
+      f[i][j] = max(f[i][j], f[i-1][j - k * w[i]] + k * v[i]);
+```
 
 At the same time, it simplifies into a "flat" equation:
 
@@ -76,7 +83,7 @@ $$f_{i, j} = \max(f_{i-1, j},f_{i, j-w_i} + v_i)$$
 
 The reason this works is that $f_{i, j-w_i}$ has already been updated by $f_{i, j-2\cdot w_i}$ and so on.
 
-Similar to the 0-1 knapsack, we can remove the first dimension to optimize the space complexity. This gives us the same transition rule as 0-1 knapsack.
+Similar to the 0-1 knapsack, we can remove the first dimension to optimize the space complexity. This gives us the same transition rule as the 0-1 knapsack.
 
 $$f_j \gets \max(f_j, f_{j-w_i}+v_i)$$
 
@@ -98,7 +105,7 @@ This is equivalent to being able to put item $i$ into the backpack multiple time
 
 ## Multiple Knapsack
 
-Multiple knapsack is also a variant of 0-1 knapsack. The main difference is that there are $k_i$ of each item instead of just $1$.
+Multiple knapsack is also a variant of the 0-1 knapsack. The main difference is that there are $k_i$ of each item instead of just $1$.
 
 ### Explanation
 
@@ -110,15 +117,15 @@ The time complexity of this process is $O(W\sum\limits_{i=1}^{n}k_i)$
 
 ### Binary Grouping Optimization
 
-We still consider converting the multiple knapsack model into a 0-1 knapsack model for optimization. The time complexity $O(Wn)$ can not be further optimized with the approach above, so we focus on $O(\sum k_i)$ component.
+We still consider converting the multiple knapsack model into a 0-1 knapsack model for optimization. The time complexity $O(Wn)$ can not be further optimized with the approach above, so we focus on the $O(\sum k_i)$ component.
 
-Let $A_{i, j}$ denote the $j^{th}$ item split from the $i^{th}$ item. In the trivial approach discussed above, $A_{i, j}$ represents the same item for all $j \leq k_i$. The main reason for our low efficiency is that we are doing a lot of repetetive work. For example, consider selecting $\{A_{i, 1},A_{i, 2}\}$, and selecting $\{A_{i, 2}, A_{i, 3}\}$. These two situations are completely equivalent. Thus optimizing the splitting method will greatly reduce the time complexity.
+Let $A_{i, j}$ denote the $j^{th}$ item split from the $i^{th}$ item. In the trivial approach discussed above, $A_{i, j}$ represents the same item for all $j \leq k_i$. The main reason for our low efficiency is that we are doing a lot of repetitive work. For example, consider selecting $\{A_{i, 1},A_{i, 2}\}$, and selecting $\{A_{i, 2}, A_{i, 3}\}$. These two situations are completely equivalent. Thus, optimizing the splitting method will greatly reduce the time complexity.
 
 The grouping is made more efficient by using binary grouping.
 
 Specifically, $A_{i, j}$ holds $2^j$ individual items ($j\in[0,\lfloor \log_2(k_i+1)\rfloor-1]$).If $k_i + 1$ is not an integer power of $2$, another bundle of size $k_i-(2^{\lfloor \log_2(k_i+1)\rfloor}-1)$ is used to make up for it.
 
-Through the above splitting method, it is possible to obtain any sum of $\leq k_i$ items by selecting a few $A_{i, j}$'s. After splitting each item in the described way, it is sufficient to use 0-1 knapsack method to solve the new formulation of the problem.
+Through the above splitting method, it is possible to obtain any sum of $\leq k_i$ items by selecting a few $A_{i, j}$'s. After splitting each item in the described way, it is sufficient to use the 0-1 knapsack method to solve the new formulation of the problem.
 
 This optimization gives us a time complexity of $O(W\sum\limits_{i=1}^{n}\log k_i)$.
 
@@ -158,7 +165,7 @@ In this way, the total complexity of the algorithm is reduced to $O(nW)$.
 
 ## Mixed Knapsack
 
-The mixed knapsack problem involves a combination of the three problems described above. That is, some items can only be taken once, some can be taken infinitely, and some can be taken atmost $k$ times.
+The mixed knapsack problem involves a combination of the three problems described above. That is, some items can only be taken once, some can be taken infinitely, and some can be taken at most $k$ times.
 
 The problem may seem daunting, but as long as you understand the core ideas of the previous knapsack problems and combine them together, you can do it. The pseudo code for the solution is as:
 
@@ -167,7 +174,7 @@ for (each item) {
   if (0-1 knapsack)
     Apply 0-1 knapsack code;
   else if (complete knapsack)
-    Apply complete knapsack code;
+    Apply the complete knapsack code;
   else if (multiple knapsack)
     Apply multiple knapsack code;
 }
