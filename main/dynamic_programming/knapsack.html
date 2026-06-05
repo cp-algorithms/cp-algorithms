@@ -8083,6 +8083,28 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
     
   
 
@@ -8099,22 +8121,6 @@ Describe the issue of this article in detail.
   
     
   
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
 
   
   
@@ -8123,6 +8129,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8147,7 +8157,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 31, 2024 17:00:30 UTC">October 31, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 24, 2026 04:18:12 UTC">May 24, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8224,7 +8234,7 @@ This is equivalent to being able to put item <span class="arithmatex">$i$</span>
 <p>The time complexity of this process is <span class="arithmatex">$O(W\sum\limits_{i=1}^{n}k_i)$</span></p>
 <h3 id="binary-grouping-optimization">Binary Grouping Optimization<a class="headerlink" href="#binary-grouping-optimization" title="Permanent link">&para;</a></h3>
 <p>We still consider converting the multiple knapsack model into a 0-1 knapsack model for optimization. The time complexity <span class="arithmatex">$O(Wn)$</span> can not be further optimized with the approach above, so we focus on <span class="arithmatex">$O(\sum k_i)$</span> component.</p>
-<p>Let <span class="arithmatex">$A_{i, j}$</span> denote the <span class="arithmatex">$j^{th}$</span> item split from the <span class="arithmatex">$i^{th}$</span> item. In the trivial approach discussed above, <span class="arithmatex">$A_{i, j}$</span> represents the same item for all <span class="arithmatex">$j \leq k_i$</span>. The main reason for our low efficiency is that we are doing a lot of repetetive work. For example, consider selecting <span class="arithmatex">$\{A_{i, 1},A_{i, 2}\}$</span>, and selecting <span class="arithmatex">$\{A_{i, 2}, A_{i, 3}\}$</span>. These two situations are completely equivalent. Thus optimizing the splitting method will greatly reduce the time complexity.</p>
+<p>Let <span class="arithmatex">$A_{i, j}$</span> denote the <span class="arithmatex">$j^{th}$</span> item split from the <span class="arithmatex">$i^{th}$</span> item. In the trivial approach discussed above, <span class="arithmatex">$A_{i, j}$</span> represents the same item for all <span class="arithmatex">$j \leq k_i$</span>. The main reason for our low efficiency is that we are doing a lot of repetitive work. For example, consider selecting <span class="arithmatex">$\{A_{i, 1},A_{i, 2}\}$</span>, and selecting <span class="arithmatex">$\{A_{i, 2}, A_{i, 3}\}$</span>. These two situations are completely equivalent. Thus optimizing the splitting method will greatly reduce the time complexity.</p>
 <p>The grouping is made more efficient by using binary grouping.</p>
 <p>Specifically, <span class="arithmatex">$A_{i, j}$</span> holds <span class="arithmatex">$2^j$</span> individual items (<span class="arithmatex">$j\in[0,\lfloor \log_2(k_i+1)\rfloor-1]$</span>).If <span class="arithmatex">$k_i + 1$</span> is not an integer power of <span class="arithmatex">$2$</span>, another bundle of size <span class="arithmatex">$k_i-(2^{\lfloor \log_2(k_i+1)\rfloor}-1)$</span> is used to make up for it.</p>
 <p>Through the above splitting method, it is possible to obtain any sum of <span class="arithmatex">$\leq k_i$</span> items by selecting a few <span class="arithmatex">$A_{i, j}$</span>'s. After splitting each item in the described way, it is sufficient to use 0-1 knapsack method to solve the new formulation of the problem.</p>
@@ -8254,7 +8264,7 @@ This is equivalent to being able to put item <span class="arithmatex">$i$</span>
 Therefore, the complexity of finding all <span class="arithmatex">$g_{x, y}$</span> is <span class="arithmatex">$O(\lfloor \frac{W}{w_i} \rfloor) \times O(w_i) = O(W)$</span>.
 In this way, the total complexity of the algorithm is reduced to <span class="arithmatex">$O(nW)$</span>. </p>
 <h2 id="mixed-knapsack">Mixed Knapsack<a class="headerlink" href="#mixed-knapsack" title="Permanent link">&para;</a></h2>
-<p>The mixed knapsack problem involves a combination of the three problems described above. That is, some items can only be taken once, some can be taken infinitely, and some can be taken atmost <span class="arithmatex">$k$</span> times.</p>
+<p>The mixed knapsack problem involves a combination of the three problems described above. That is, some items can only be taken once, some can be taken infinitely, and some can be taken at most <span class="arithmatex">$k$</span> times.</p>
 <p>The problem may seem daunting, but as long as you understand the core ideas of the previous knapsack problems and combine them together, you can do it. The pseudo code for the solution is as:</p>
 <div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">each</span><span class="w"> </span><span class="n">item</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="mi">0-1</span><span class="w"> </span><span class="n">knapsack</span><span class="p">)</span>
@@ -8278,7 +8288,7 @@ In this way, the total complexity of the algorithm is reduced to <span class="ar
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/OverRancid" title="OverRancid" data-bi-name="contributorprofile" target="_blank">OverRancid</a> (97.83%)</li><li><a href="https://github.com/Ahmed-Salah-Marouf" title="Ahmed-Salah-Marouf" data-bi-name="contributorprofile" target="_blank">Ahmed-Salah-Marouf</a> (1.09%)</li><li><a href="https://github.com/virinci" title="virinci" data-bi-name="contributorprofile" target="_blank">virinci</a> (0.54%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (0.54%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/OverRancid" title="OverRancid" data-bi-name="contributorprofile" target="_blank">OverRancid</a> (97.28%)</li><li><a href="https://github.com/Ahmed-Salah-Marouf" title="Ahmed-Salah-Marouf" data-bi-name="contributorprofile" target="_blank">Ahmed-Salah-Marouf</a> (1.09%)</li><li><a href="https://github.com/whyvineet" title="whyvineet" data-bi-name="contributorprofile" target="_blank">whyvineet</a> (0.54%)</li><li><a href="https://github.com/virinci" title="virinci" data-bi-name="contributorprofile" target="_blank">virinci</a> (0.54%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (0.54%)</li></ul>
 </ul>
                 
               </article>
