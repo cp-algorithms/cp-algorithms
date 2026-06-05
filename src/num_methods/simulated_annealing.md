@@ -169,7 +169,7 @@ int main() {
     res = simAnneal();
     double E_best = res.first;
     state best = res.second;
-    cout << "Lenght of shortest path found : " << E_best << "\n";
+    cout << "Length of shortest path found : " << E_best << "\n";
     cout << "Order of points in shortest path : \n";
     for(auto x: best.points) {
         cout << x.first << " " << x.second << "\n";
