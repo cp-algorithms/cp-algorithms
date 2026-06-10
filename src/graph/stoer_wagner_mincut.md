@@ -8,7 +8,7 @@ e_maxx_link: stoer_wagner_mincut
 
 ## Problem statement
 
-Given an undirected weighted graph $G$ with $n$ vertices and $m$ edges. A cut $C$ is a subset of the vertices (effectively, a cut is a partition of the vertices into two sets: the ones belonging to $C$ and all the others). The weight of a cut is the sum of the weights of the edges crossing the cut, i.e. the edges that have exactly one endpoint in $C$:
+Given an undirected weighted graph $G$ with $n$ vertices and $m$ edges. A cut $C$ is a non-empty proper subset of the vertices (effectively, a cut is a partition of the vertices into two non-empty sets: the ones belonging to $C$ and all the others). The weight of a cut is the sum of the weights of the edges crossing the cut, i.e. the edges that have exactly one endpoint in $C$:
 
 $$ w(C) = \sum_{\substack{(v,u) \in E \\ u \in C,\ v \not\in C}} c(v,u), $$
 
