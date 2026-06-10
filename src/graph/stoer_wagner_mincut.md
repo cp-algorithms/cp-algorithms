@@ -98,15 +98,16 @@ Note that the algorithm "spoils" the graph `g` during its work, so if you still 
 
 ```{.cpp file=stoer_wagner_mincut}
 const int MAXN = 500;
-int n, g[MAXN][MAXN];
-int best_cost = 1000000000;
+int n;
+long long g[MAXN][MAXN];
+long long best_cost = (1LL << 62);
 vector<int> best_cut;
 
 void mincut() {
     vector<int> v[MAXN];
     for (int i = 0; i < n; ++i)
         v[i].assign(1, i);
-    int w[MAXN];
+    long long w[MAXN];
     bool exist[MAXN], in_a[MAXN];
     memset(exist, true, sizeof exist);
     for (int ph = 0; ph < n - 1; ++ph) {

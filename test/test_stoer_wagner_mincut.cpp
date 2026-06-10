@@ -13,7 +13,7 @@ void reset_graph(int vertices) {
     n = vertices;
     memset(g, 0, sizeof g);
     memset(saved, 0, sizeof saved);
-    best_cost = 1000000000;
+    best_cost = (1LL << 62);
     best_cut.clear();
 }
 
@@ -23,10 +23,10 @@ void add_edge(int a, int b, int c) {
 }
 
 // computes the weight of the cut found, using the saved copy of the graph
-int cut_weight() {
+long long cut_weight() {
     set<int> cut(best_cut.begin(), best_cut.end());
     assert(!cut.empty() && (int)cut.size() < n);
-    int weight = 0;
+    long long weight = 0;
     for (int i = 0; i < n; ++i)
         for (int j = i + 1; j < n; ++j)
             if (cut.count(i) != cut.count(j))
