@@ -193,6 +193,7 @@ search:
         - [Flows with demands](graph/flow_with_demands.md)
         - [Minimum-cost flow](graph/min_cost_flow.md)
         - [Assignment problem](graph/Assignment-problem-min-flow.md)
+        - [Minimum cut - Stoer-Wagner algorithm](graph/stoer_wagner_mincut.md)
     - Matchings and related problems
         - [Bipartite Graph Check](graph/bipartite-check.md)
         - [Kuhn's Algorithm - Maximum Bipartite Matching](graph/kuhn_maximum_bipartite_matching.md)
