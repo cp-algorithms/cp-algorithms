@@ -44,7 +44,7 @@ Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorith
 ### New articles
 
 - (9 June 2026) [Minimum cut - Stoer-Wagner algorithm](https://cp-algorithms.com/graph/stoer_wagner_mincut.html)
-- (28 March 2026) [Centroid decomposition](graph/centroid_decomposition.md)
+- (28 March 2026) [Centroid decomposition](https://cp-algorithms.com/graph/centroid_decomposition.md)
 - (19 August 2025) [Minimum Enclosing Circle](https://cp-algorithms.com/geometry/enclosing-circle.html)
 - (21 May 2025) [Simulated Annealing](https://cp-algorithms.com/num_methods/simulated_annealing.html)
 - (12 July 2024) [Manhattan distance](https://cp-algorithms.com/geometry/manhattan-distance.html)
@@ -63,5 +63,4 @@ Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorith
 Full list of updates: [Commit History](https://github.com/cp-algorithms/cp-algorithms/commits/main)
 
 Full list of articles: [Navigation](https://cp-algorithms.com/navigation.html)
-
 

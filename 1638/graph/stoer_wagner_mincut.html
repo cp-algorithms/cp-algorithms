@@ -7984,7 +7984,17 @@ Describe the issue of this article in detail.
     
   
 
+  
+  
+  
+    
+  
 
+
+
+  
+  
+  
 
   
   
@@ -7997,7 +8007,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 10, 2026 00:02:14 UTC">June 10, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 10, 2026 01:01:53 UTC">June 10, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8025,7 +8035,7 @@ Describe the issue of this article in detail.
 
 <h1 id="minimum-cut-stoer-wagner-algorithm">Minimum cut - Stoer-Wagner algorithm<a class="headerlink" href="#minimum-cut-stoer-wagner-algorithm" title="Permanent link">&para;</a></h1>
 <h2 id="problem-statement">Problem statement<a class="headerlink" href="#problem-statement" title="Permanent link">&para;</a></h2>
-<p>Given an undirected weighted graph <span class="arithmatex">$G$</span> with <span class="arithmatex">$n$</span> vertices and <span class="arithmatex">$m$</span> edges. A cut <span class="arithmatex">$C$</span> is a subset of the vertices (effectively, a cut is a partition of the vertices into two sets: the ones belonging to <span class="arithmatex">$C$</span> and all the others). The weight of a cut is the sum of the weights of the edges crossing the cut, i.e. the edges that have exactly one endpoint in <span class="arithmatex">$C$</span>:</p>
+<p>Given an undirected weighted graph <span class="arithmatex">$G$</span> with <span class="arithmatex">$n$</span> vertices and <span class="arithmatex">$m$</span> edges. A cut <span class="arithmatex">$C$</span> is a non-empty proper subset of the vertices (effectively, a cut is a partition of the vertices into two non-empty sets: the ones belonging to <span class="arithmatex">$C$</span> and all the others). The weight of a cut is the sum of the weights of the edges crossing the cut, i.e. the edges that have exactly one endpoint in <span class="arithmatex">$C$</span>:</p>
 <div class="arithmatex">$$ w(C) = \sum_{\substack{(v,u) \in E \\ u \in C,\ v \not\in C}} c(v,u), $$</div>
 <p>where <span class="arithmatex">$E$</span> denotes the set of all edges of the graph <span class="arithmatex">$G$</span>, and <span class="arithmatex">$c(v,u)$</span> is the weight of the edge <span class="arithmatex">$(v,u)$</span>.</p>
 <p>The task is to find a <strong>cut of minimum weight</strong>.</p>
@@ -8070,15 +8080,16 @@ Describe the issue of this article in detail.
 <p>The algorithm consists of <span class="arithmatex">$n-1$</span> phases (the loop over the variable <code>ph</code>). In every phase, all vertices are initially outside the set <span class="arithmatex">$A$</span>, so the array <code>in_a</code> is filled with zeros, and the connectivities <span class="arithmatex">$w$</span> of all vertices are zero. In each of the <span class="arithmatex">$n-\mathrm{ph}$</span> iterations, the vertex <code>sel</code> with the largest value of <span class="arithmatex">$w$</span> is found. If this is the last iteration, the answer is updated if necessary, and the second-to-last <code>prev</code> and the last <code>sel</code> selected vertices are merged into one. If the iteration is not the last one, then <code>sel</code> is added to the set <span class="arithmatex">$A$</span>, after which the weights of all the remaining vertices are recalculated.</p>
 <p>Note that the algorithm "spoils" the graph <code>g</code> during its work, so if you still need it later, you have to save a copy of it before calling the function.</p>
 <div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MAXN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">500</span><span class="p">;</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="p">[</span><span class="n">MAXN</span><span class="p">][</span><span class="n">MAXN</span><span class="p">];</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">best_cost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000000000</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">g</span><span class="p">[</span><span class="n">MAXN</span><span class="p">][</span><span class="n">MAXN</span><span class="p">];</span>
+<span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">best_cost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">1L</span><span class="n">L</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">62</span><span class="p">);</span>
 <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">best_cut</span><span class="p">;</span>
 
 <span class="kt">void</span><span class="w"> </span><span class="nf">mincut</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
 <span class="w">        </span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">assign</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">w</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">w</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">exist</span><span class="p">[</span><span class="n">MAXN</span><span class="p">],</span><span class="w"> </span><span class="n">in_a</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
 <span class="w">    </span><span class="n">memset</span><span class="p">(</span><span class="n">exist</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="n">exist</span><span class="p">);</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">ph</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">ph</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">ph</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -8110,13 +8121,13 @@ Describe the issue of this article in detail.
 </code></pre></div>
 <h2 id="literature">Literature<a class="headerlink" href="#literature" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="http://e-maxx.ru/bookz/files/stoer_wagner_mincut.pdf">Mechthild Stoer, Frank Wagner. A Simple Min-Cut Algorithm [1997]</a></li>
-<li><a href="http://e-maxx.ru/bookz/files/mehlhorn_mincut_stoer_wagner.pdf">Kurt Mehlhorn, Christian Uhrig. The minimum cut algorithm of Stoer and Wagner [1995]</a></li>
+<li><a href="https://dl.acm.org/doi/10.1145/263867.263872">Mechthild Stoer, Frank Wagner. A Simple Min-Cut Algorithm. Journal of the ACM, 44(4):585-591, 1997</a></li>
+<li><a href="https://www.researchgate.net/publication/2483703_The_minimum_cut_algorithm_of_Stoer_and_Wagner">Kurt Mehlhorn, Christian Uhrig. The minimum cut algorithm of Stoer and Wagner [1995]</a></li>
 </ul>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/claude" title="claude" data-bi-name="contributorprofile" target="_blank">claude</a> (100.0%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/claude" title="claude" data-bi-name="contributorprofile" target="_blank">claude</a> (96.53%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.47%)</li></ul>
 </ul>
                 
               </article>
