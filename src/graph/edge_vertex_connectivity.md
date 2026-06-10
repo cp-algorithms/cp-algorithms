@@ -80,7 +80,7 @@ Especially the algorithm will run pretty fast for random graphs.
 The task of finding the edge connectivity is equal to the task of finding the **global minimum cut**.
 
 Special algorithms have been developed for this task.
-One of them is the Stoer-Wagner algorithm, which works in $O(V^3)$ or $O(V E)$ time.
+One of them is the [Stoer-Wagner algorithm](stoer_wagner_mincut.md), which works in $O(V^3)$ or $O(V E)$ time.
 
 ### Vertex connectivity
 
