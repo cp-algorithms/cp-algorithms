@@ -6775,6 +6775,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8018,10 +8046,6 @@ Describe the issue of this article in detail.
   
     
   
-
-  
-  
-  
     
   
     
@@ -8040,6 +8064,10 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
     
   
 
@@ -8052,6 +8080,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8072,7 +8104,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 28, 2024 08:11:23 UTC">November 28, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 10, 2026 01:04:02 UTC">June 10, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8151,7 +8183,7 @@ Especially the algorithm will run pretty fast for random graphs.</p>
 <h3 id="special-algorithm-for-edge-connectivity">Special algorithm for edge connectivity<a class="headerlink" href="#special-algorithm-for-edge-connectivity" title="Permanent link">&para;</a></h3>
 <p>The task of finding the edge connectivity is equal to the task of finding the <strong>global minimum cut</strong>.</p>
 <p>Special algorithms have been developed for this task.
-One of them is the Stoer-Wagner algorithm, which works in <span class="arithmatex">$O(V^3)$</span> or <span class="arithmatex">$O(V E)$</span> time.</p>
+One of them is the <a href="stoer_wagner_mincut.html">Stoer-Wagner algorithm</a>, which works in <span class="arithmatex">$O(V^3)$</span> or <span class="arithmatex">$O(V E + V^2 \log V)$</span> time.</p>
 <h3 id="vertex-connectivity_1">Vertex connectivity<a class="headerlink" href="#vertex-connectivity_1" title="Permanent link">&para;</a></h3>
 <p>Again we iterate over all pairs of vertices <span class="arithmatex">$s$</span> and <span class="arithmatex">$t$</span>, and for each pair we find the minimum number of vertices that separates <span class="arithmatex">$s$</span> and <span class="arithmatex">$t$</span>.</p>
 <p>By doing this, we can apply the same maximum flow approach as described in the previous sections.</p>
@@ -8162,7 +8194,7 @@ The by the construction the value of the maximum flow will be equal to the minim
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (89.47%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (8.42%)</li><li><a href="https://github.com/toluwalase104" title="toluwalase104" data-bi-name="contributorprofile" target="_blank">toluwalase104</a> (2.11%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (88.42%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (9.47%)</li><li><a href="https://github.com/toluwalase104" title="toluwalase104" data-bi-name="contributorprofile" target="_blank">toluwalase104</a> (2.11%)</li></ul>
 </ul>
                 
               </article>
