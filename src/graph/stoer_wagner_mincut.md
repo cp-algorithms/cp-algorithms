@@ -140,5 +140,5 @@ void mincut() {
 
 ## Literature
 
-- [Mechthild Stoer, Frank Wagner. A Simple Min-Cut Algorithm [1997]](http://e-maxx.ru/bookz/files/stoer_wagner_mincut.pdf)
-- [Kurt Mehlhorn, Christian Uhrig. The minimum cut algorithm of Stoer and Wagner [1995]](http://e-maxx.ru/bookz/files/mehlhorn_mincut_stoer_wagner.pdf)
+- [Mechthild Stoer, Frank Wagner. A Simple Min-Cut Algorithm [1997]](https://doi.org/10.1145/258533.258594)
+- [Kurt Mehlhorn, Christian Uhrig. The minimum cut algorithm of Stoer and Wagner [1995]](https://domino.mpi-inf.mpg.de/intranet/ag1/ag1publ.nsf/0/a594ac2b8911e869c12564b50067afe1?OpenDocument)
