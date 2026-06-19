@@ -799,7 +799,7 @@ Now the modification query is to add a number to all elements in a range, and th
 So for each vertex of the Segment Tree we have to store the maximum of the corresponding subsegment. 
 The interesting part is how to recompute these values during a modification request.
 
-For this purpose we keep store an additional value for each vertex. 
+For this purpose we store an additional value for each vertex. 
 In this value we store the addends we haven't propagated to the child vertices.
 Before traversing to a child vertex, we call $\text{push}$ and propagate the value to both children.
 We have to do this in both the $\text{update}$ function and the $\text{query}$ function.
