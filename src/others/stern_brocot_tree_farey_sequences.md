@@ -201,11 +201,11 @@ auto find(int p, int q) {
 }
 ```
 
-However, this approach only works if we already know $\frac{p}{q}$ and want to find its place in the Stern-Brocot tree.
+However, this approach only works as is if we already know $\frac{p}{q}$ and want to find its place in the Stern-Brocot tree.
 
 On practice, it is often the case that $\frac{p}{q}$ is not known in advance, but we are able to check for specific $\frac{x}{y}$ whether $\frac{x}{y} < \frac{p}{q}$.
 
-Knowing this, we can emulate the search on Stern-Brocot tree by maintaining the current boundaries $\frac{p_{k-1}}{q_{k-1}}$ and $\frac{p_k}{q_k}$, and finding each $a_k$ via binary search. The algorithm then is a bit more technical and potentially have a complexity of $O(\log^2(x+y))$, unless the problem formulation allows you to find $a_k$ faster (for example, using `floor` of some known expression).
+Knowing this, we can emulate the search on Stern-Brocot tree by maintaining the current boundaries $\frac{p_{k-1}}{q_{k-1}}$ and $\frac{p_k}{q_k}$, and finding each $a_k$ via binary search. The algorithm then is a bit more technical, yet it is still guaranteed to have $O(\log(x+y))$ complexity, as seen [here](https://arxiv.org/abs/2511.12315) (Proposition 1).
 
 ## Farey Sequence
 
