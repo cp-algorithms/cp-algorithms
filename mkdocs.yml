@@ -1,9 +1,11 @@
 site_name: Algorithms for Competitive Programming
 site_url: https://cp-algorithms.com
-site_description: 'The goal of this project is to translate the wonderful resource http://e-maxx.ru/algo which provides descriptions of many algorithms and data structures especially popular in field of competitive programming. Moreover we want to improve the collected knowledge by extending the articles and adding new articles to the collection.'
+site_description: "The goal of this project is to translate the wonderful resource http://e-maxx.ru/algo"
+
 docs_dir: src
 site_dir: public
 use_directory_urls: false
+
 theme:
   name: material
   custom_dir: src/overrides
@@ -13,35 +15,25 @@ theme:
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
-    - scheme: slate 
+    - scheme: slate
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
   logo: favicon.ico
   favicon: favicon.ico
-  icon:
-    repo: fontawesome/brands/github
   features:
     - toc.integrate
     - search.suggest
     - content.code.copy
+
 repo_url: https://github.com/cp-algorithms/cp-algorithms
 repo_name: cp-algorithms/cp-algorithms
-edit_uri: edit/main/src/
-copyright: Text is available under the <a href="https://github.com/cp-algorithms/cp-algorithms/blob/main/LICENSE">Creative Commons Attribution Share Alike 4.0 International</a> License<br/>Copyright &copy; 2014 - 2025 by <a href="https://github.com/cp-algorithms/cp-algorithms/graphs/contributors">cp-algorithms contributors</a>
-extra_javascript:
-  - javascript/config.js
-  - javascript/donation-banner.js
-  - https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6
-  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
-extra_css:
-  - stylesheets/extra.css
 
 markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
-      tex_inline_wrap: ['$', '$']
-      tex_block_wrap: ['$$', '$$']
+      tex_inline_wrap: ["$", "$"]
+      tex_block_wrap: ["$$", "$$"]
   - pymdownx.highlight
   - admonition
   - pymdownx.details
@@ -50,43 +42,23 @@ markdown_extensions:
       alternate_style: true
   - attr_list
   - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji 
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - meta
   - toc:
       permalink: true
 
 plugins:
-  - toggle-sidebar:
-      toggle_button: all
+  - search
+  - macros:
+      module_name: hooks
   - mkdocs-simple-hooks:
       hooks:
-          on_env: "hooks:on_env"
-  - search
-  - tags
-  - literate-nav:
-      nav_file: navigation.md
-  - git-revision-date-localized:
-      enable_creation_date: true
-      enabled: !ENV [MKDOCS_ENABLE_GIT_REVISION_DATE, False]
-  - git-authors
-  - git-committers:
-      repository: cp-algorithms/cp-algorithms
-      docs_path: src/
-      token: !ENV MKDOCS_GIT_COMMITTERS_APIKEY
-      enabled: !ENV [MKDOCS_ENABLE_GIT_COMMITTERS, False]
-      branch: !ENV [MKDOCS_GIT_COMMITERS_BRANCH, main]
-  - macros
-  - rss
+        on_env: "hooks:on_env"
 
-extra:
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/cp-algorithms/cp-algorithms
-    - icon: fontawesome/brands/discord
-      link: https://discord.gg/HZ5AecN3KX
-    - icon: fontawesome/solid/circle-dollar-to-slot
-      link: https://github.com/sponsors/cp-algorithms
-  analytics:
-    provider: google
-    property: G-7FLS2HCYHH
+extra_javascript:
+  - https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+extra_css:
+  - stylesheets/extra.css
