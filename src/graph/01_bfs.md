@@ -74,6 +74,27 @@ while (!q.empty()) {
     }
 }
 ```
+A further [performance improvement](https://medium.com/@ahhz_/why-you-should-stop-using-std-deque-for-0-1-bfs-60b742a96b7f?sharedUserId=ahhz_) can be achieved by using two vectors as buckets for the queue. This avoids pointer chasing and cache misses associated with deque.
+
+```cpp
+vector<int> d(n, INF);
+d[s] = 0;
+vector<int> q0, q1;
+q0.push_front(s);
+while (!(q0.empty())) {
+    int v = q0.back();
+    q0.pop_back();
+    for (auto edge : adj[v]) {
+        int u = edge.first;
+        int w = edge.second;
+        if (d[v] + w < d[u]) {
+            d[u] = d[v] + w;
+            (w == 0 ? q0 : q1).push_back(u);
+        }
+    }
+    if(q0.empty()) swap(q0, q1);
+}
+```
 
 ## Dial's algorithm
 
