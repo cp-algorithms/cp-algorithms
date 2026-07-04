@@ -80,7 +80,7 @@ A further [performance improvement](https://medium.com/@ahhz_/why-you-should-sto
 vector<int> d(n, INF);
 d[s] = 0;
 vector<int> q0, q1;
-q0.push_front(s);
+q0.push_back(s);
 while (!(q0.empty())) {
     int v = q0.back();
     q0.pop_back();
