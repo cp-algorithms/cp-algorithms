@@ -7988,6 +7988,12 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
     
   
     
@@ -8090,6 +8096,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8134,7 +8144,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 26, 2025 00:25:28 UTC">August 26, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 4, 2026 13:31:14 UTC">July 4, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8206,7 +8216,7 @@ These alternative ways of saving state are primarily useful when saving vectors 
 <h2 id="bottom-up-dynamic-programming">Bottom-up Dynamic Programming<a class="headerlink" href="#bottom-up-dynamic-programming" title="Permanent link">&para;</a></h2>
 <p>Until now you've only seen top-down dynamic programming with memoization. However, we can also solve problems with bottom-up dynamic programming. 
 Bottom-up is exactly the opposite of top-down, you start at the bottom (base cases of the recursion), and extend it to more and more values.</p>
-<p>To create a bottom-up approach for fibonacci numbers, we initialize the base cases in an array. Then, we simply use the recursive definition on array:</p>
+<p>To create a bottom-up approach for fibonacci numbers, we initialize the base cases in an array. Then, we simply use the recursive definition on the array:</p>
 <div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MAXN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
 <span class="kt">int</span><span class="w"> </span><span class="n">fib</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
 
@@ -8234,7 +8244,7 @@ Secondly, we only need to use the two previous values to calculate the current e
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">fib</span><span class="p">[</span><span class="n">n</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">MAX_SAVE</span><span class="p">];</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>Note that we've changed the constant from <code>MAXN</code> TO <code>MAX_SAVE</code>. This is because the total number of elements we need to access is only 3. It no longer scales with the size of input and is, by definition, <span class="arithmatex">$O(1)$</span> memory. Additionally, we use a common trick (using the modulo operator) only maintaining the values we need.</p>
+<p>Note that we've changed the constant from <code>MAXN</code> to <code>MAX_SAVE</code>. This is because the total number of elements we need to access is only 3. It no longer scales with the size of input and is, by definition, <span class="arithmatex">$O(1)$</span> memory. Additionally, we use a common trick (using the modulo operator) to only maintain the values we need.</p>
 <p>That's it. That's the basics of dynamic programming: Don't repeat the work you've done before.</p>
 <p>One of the tricks to getting better at dynamic programming is to study some of the classic examples.</p>
 <h2 id="classic-dynamic-programming-problems">Classic Dynamic Programming Problems<a class="headerlink" href="#classic-dynamic-programming-problems" title="Permanent link">&para;</a></h2>
@@ -8276,7 +8286,7 @@ Secondly, we only need to use the two previous values to calculate the current e
 </tr>
 <tr>
 <td>Rod Cutting</td>
-<td>Given a rod of length <span class="arithmatex">$n$</span> units, Given an integer array cuts where cuts[i] denotes a position you should perform a cut at. The cost of one cut is the length of the rod to be cut. What is the minimum total cost of the cuts.</td>
+<td>Given a rod of length <span class="arithmatex">$n$</span> units and an integer array cuts where cuts[i] denotes a position you should perform a cut at. The cost of one cut is the length of the rod to be cut. What is the minimum total cost of the cuts.</td>
 </tr>
 <tr>
 <td>Edit Distance</td>
@@ -8310,7 +8320,7 @@ Secondly, we only need to use the two previous values to calculate the current e
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (80.0%)</li><li><a href="https://github.com/Zyad-Ayad" title="Zyad-Ayad" data-bi-name="contributorprofile" target="_blank">Zyad-Ayad</a> (9.09%)</li><li><a href="https://github.com/clumsy" title="clumsy" data-bi-name="contributorprofile" target="_blank">clumsy</a> (3.64%)</li><li><a href="https://github.com/konstantinosalatzas" title="konstantinosalatzas" data-bi-name="contributorprofile" target="_blank">konstantinosalatzas</a> (1.82%)</li><li><a href="https://github.com/ShubhamPhapale" title="ShubhamPhapale" data-bi-name="contributorprofile" target="_blank">ShubhamPhapale</a> (1.82%)</li><li><a href="https://github.com/Ahmed-Salah-Marouf" title="Ahmed-Salah-Marouf" data-bi-name="contributorprofile" target="_blank">Ahmed-Salah-Marouf</a> (1.21%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (1.21%)</li><li><a href="https://github.com/tj91" title="tj91" data-bi-name="contributorprofile" target="_blank">tj91</a> (0.61%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (0.61%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (80.0%)</li><li><a href="https://github.com/Zyad-Ayad" title="Zyad-Ayad" data-bi-name="contributorprofile" target="_blank">Zyad-Ayad</a> (8.48%)</li><li><a href="https://github.com/clumsy" title="clumsy" data-bi-name="contributorprofile" target="_blank">clumsy</a> (3.03%)</li><li><a href="https://github.com/zakaria-zoulati" title="zakaria-zoulati" data-bi-name="contributorprofile" target="_blank">zakaria-zoulati</a> (1.82%)</li><li><a href="https://github.com/ShubhamPhapale" title="ShubhamPhapale" data-bi-name="contributorprofile" target="_blank">ShubhamPhapale</a> (1.82%)</li><li><a href="https://github.com/konstantinosalatzas" title="konstantinosalatzas" data-bi-name="contributorprofile" target="_blank">konstantinosalatzas</a> (1.21%)</li><li><a href="https://github.com/Ahmed-Salah-Marouf" title="Ahmed-Salah-Marouf" data-bi-name="contributorprofile" target="_blank">Ahmed-Salah-Marouf</a> (1.21%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (1.21%)</li><li><a href="https://github.com/tj91" title="tj91" data-bi-name="contributorprofile" target="_blank">tj91</a> (0.61%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (0.61%)</li></ul>
 </ul>
                 
               </article>
