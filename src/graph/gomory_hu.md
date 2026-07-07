@@ -1,8 +1,13 @@
-# Gomory Hu Tree
+---
+tags:
+    - Original
+---
+
+# Gomory-Hu Tree
 
 ## Definition
 
-The gomory-hu tree of an undirected graph $G$ with capacities consists of a weighted tree that condenses information from all the *s-t cuts* for all s-t vertex pairs in the graph. Naively, one must think that $O(|V|^2)$ flow computations are needed to build this data structure, but actually it can be shown that only $|V| - 1$ flow computations are needed. Once the tree is constructed, we can get the minimum cut between two vertices *s* and *t* by querying the minimum weight edge in the unique *s-t* path.
+The Gomory–Hu tree of an undirected graph $G$ with capacities is a weighted tree such that for any pair of vertices $s$ and $t$, the weight of the minimum edge on the path between $s$ and $t$ is equal to the value of the minimum cut between $s$ and $t$. It can be shown that only $|V| - 1$ flow computations are needed to construct the tree, which is an improvement over the naive $O(|V|^2)$ algorithm of finding maximum flow between each pair of vertices.
 
 ## Gusfield's Simplification Algorithm
 
@@ -20,10 +25,10 @@ It is easy to see that at every iteration, node $i$ and all nodes larger than $i
 
 ## Complexity
 
-The algorithm total complexity is $\mathcal{O}(V*MaxFlow)$, wich means that the overall complexity depends on the algorithm that was choosen to find the maximum flow.
+The algorithm total complexity is $\mathcal{O}(V)$ times the complexity of a single maximum flow call, wich means that the overall complexity depends on the algorithm that was chosen to find the maximum flow.
 
 ### Implementation
-This implementation considers the Gomory-Hu tree as a struct with methods:
+Below, we implement the Gomory-Hu tree as a `struct` with methods:
 
 - The maximum flow algorithm must also be a struct with methods, in the implementation below we utilize Dinic's algorithm to calculate the maximum flow.
 
