@@ -92,7 +92,7 @@ Alternatively, insert can be done by splitting the initial treap on $X$ and doin
 <img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Treap_erase.svg" width="500px"/>
 </center>
 
-Implementation of **Erase ($X$)** is also clear. First we descend in the tree (as in a regular binary search tree by $X$), looking for the element we want to delete. Once the node is found, we call **Merge** on it children and put the return value of the operation in the place of the element we're deleting.
+Implementation of **Erase ($X$)** is also clear. First we descend in the tree (as in a regular binary search tree by $X$), looking for the element we want to delete. Once the node is found, we call **Merge** on its children and put the return value of the operation in the place of the element we're deleting.
 
 Alternatively, we can factor out the subtree holding $X$ with $2$ split operations and merge the remaining treaps (see the picture).
 
@@ -117,7 +117,7 @@ struct item {
 typedef item* pitem;
 ```
 
-This is our item defintion. Note there are two child pointers, and an integer key (for the BST) and an integer priority (for the heap). The priority is assigned using a random number generator.
+This is our item definition. Note there are two child pointers, and an integer key (for the BST) and an integer priority (for the heap). The priority is assigned using a random number generator.
 
 ```cpp
 void split (pitem t, int key, pitem & l, pitem & r) {

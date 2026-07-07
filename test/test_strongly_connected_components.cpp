@@ -30,23 +30,36 @@ int main() {
     vector<vector<int>> components, adj_scc;
     strongly_connected_components(adj, components, adj_scc);
 
-    // sort things to make it easier to verify
-    for (vector<int> &a : components)
+    auto sorted_components = components;
+    for (vector<int> &a : sorted_components)
         sort(a.begin(), a.end());
-    sort(components.begin(), components.end(),
+    sort(sorted_components.begin(), sorted_components.end(),
          [](auto &l, auto &r) { return l[0] < r[0]; });
+
+    vector<int> root(n);
+    for (auto &comp : components) {
+        for (auto v : comp) {
+            root[v] = *comp.begin();
+        }
+    }
+
+    vector<int> minimal_element(n);
+    for (auto &comp : components) {
+        minimal_element[*comp.begin()] = *min_element(comp.begin(), comp.end());
+    }
+
     for (vector<int> &a : adj_scc)
-        sort(a.begin(), a.end());
+        sort(a.begin(), a.end(), [minimal_element](auto &l, auto &r) { return minimal_element[l] < minimal_element[r]; });
 
-    assert(components.size() == 4);
-    assert(components[0] == std::vector<int>({0, 7}));
-    assert(components[1] == std::vector<int>({1, 2, 3, 5, 6}));
-    assert(components[2] == std::vector<int>({4, 9}));
-    assert(components[3] == std::vector<int>({8}));
+    assert(sorted_components.size() == 4);
+    assert(sorted_components[0] == std::vector<int>({0, 7}));
+    assert(sorted_components[1] == std::vector<int>({1, 2, 3, 5, 6}));
+    assert(sorted_components[2] == std::vector<int>({4, 9}));
+    assert(sorted_components[3] == std::vector<int>({8}));
 
-    assert(adj_scc[0] == std::vector<int>({1, 1, 8}));
-    assert(adj_scc[1] == std::vector<int>({4, 4}));
-    assert(adj_scc[8] == std::vector<int>({1, 4}));
+    assert(adj_scc[root[0]] == std::vector<int>({root[1], root[1], root[8]}));
+    assert(adj_scc[root[1]] == std::vector<int>({root[4], root[4]}));
+    assert(adj_scc[root[8]] == std::vector<int>({root[1], root[4]}));
 
     return 0;
 }

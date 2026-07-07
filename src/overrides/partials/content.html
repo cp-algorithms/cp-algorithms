@@ -88,7 +88,7 @@ Describe the issue of this article in detail.
   <span class="contributors-text">Contributors:</span>
   <ul class="contributors" data-bi-name="contributors">
     {%- for user in contribs -%}
-    <li><a href="{{ user.url }}" title="{{ user.name }}" data-bi-name="contributorprofile" target="_blank">{{ user.name }}</a> ({{user.contribution}}%)</li>
+    <li><a href="{{ user.url }}" title="{{ user.name }}" data-bi-name="contributorprofile" target="_blank">{{ user.name }}</a> ({{user.contribution|round(2)}}%)</li>
     {%- endfor -%}
   </ul>
 </ul>

@@ -154,7 +154,7 @@ $$\left\{\begin{align}
     a & \equiv 2 \pmod{6}
 \end{align}\right.$$
 
-It is pretty simple to determine is a system has a solution.
+It is pretty simple to determine if a system has a solution.
 And if it has one, we can use the original algorithm to solve a slightly modified system of congruences.
 
 A single congruence $a \equiv a_i \pmod{m_i}$ is equivalent to the system of congruences $a \equiv a_i \pmod{p_j^{n_j}}$ where $p_1^{n_1} p_2^{n_2}\cdots p_k^{n_k}$ is the prime factorization of $m_i$.

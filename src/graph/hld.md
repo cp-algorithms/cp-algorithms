@@ -190,3 +190,4 @@ int query(int a, int b) {
 - [Codeforces - Tree Queries](https://codeforces.com/contest/1254/problem/D)
 - [Codeforces - Tree or not Tree](https://codeforces.com/contest/117/problem/E)
 - [Codeforces - The Tree](https://codeforces.com/contest/1017/problem/G)
+- [Balkan OI 2018 - Min-max tree](https://oj.uz/problem/view/BOI18_minmaxtree)
