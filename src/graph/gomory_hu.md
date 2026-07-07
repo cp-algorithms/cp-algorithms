@@ -7,19 +7,25 @@ tags:
 
 ## Definition
 
-The Gomory–Hu tree of an undirected graph $G$ with capacities is a weighted tree such that for any pair of vertices $s$ and $t$, the weight of the minimum edge on the path between $s$ and $t$ is equal to the value of the minimum cut between $s$ and $t$. It can be shown that only $|V| - 1$ flow computations are needed to construct the tree, which is an improvement over the naive $O(|V|^2)$ algorithm of finding maximum flow between each pair of vertices.
+For an undirected graph $G$ with non-negative edge capacities, let $\lambda(s, t)$ be the value of the minimum $s$-$t$ cut. The Gomory-Hu tree of $G$ is a weighted tree on the same vertex set such that, for every pair of vertices $s$ and $t$, the minimum edge weight on the path between $s$ and $t$ is exactly $\lambda(s, t)$.
+
+The construction below proves that such a tree always exists: it starts from a star and transforms it into a Gomory-Hu tree after only $|V| - 1$ flow computations. This is an improvement over the naive $O(|V|^2)$ approach of finding a maximum flow between every pair of vertices.
 
 ## Gusfield's Simplification Algorithm
 
-We can say that two cuts $(X, Y)$ and $(U, V)$ *cross* if all four set intersections $X \cap U$, $X \cap V$, $Y \cap U$, $Y \cap V$ are nonempty. Most of the work of the original gomory-hu method is involved in maintaining the noncrossing condition. The following simpler, yet efficient method, proposed by Gusfield uses crossing cuts to produce equivalent flow trees.
+We say that two cuts $(X, V \setminus X)$ and $(Y, V \setminus Y)$ *cross* if all four intersections $X \cap Y$, $X \setminus Y$, $Y \setminus X$, and $V \setminus (X \cup Y)$ are non-empty. A family of cuts with no crossing pairs is called *non-crossing* or *laminar*.
 
-Lets assume the vertices are 0-indexed for the next section
+Non-crossing cuts are useful because they can be represented by a tree: removing one edge from the tree separates its vertices into the two sides of one cut. The original Gomory-Hu algorithm keeps such a non-crossing family explicitly. Gusfield's simplification avoids that bookkeeping. It can compute cuts that cross earlier cuts, but it uses them only to move still-unprocessed leaves. For undirected graphs, minimum cuts satisfy an uncrossing property: when two minimum cuts cross, one can replace one of them by a suitable union or intersection without increasing its capacity. This is the reason those leaf moves remain compatible with some non-crossing family of minimum cuts.
+
+The invariant is that, after vertex $i$ is processed, the edge connecting $i$ to its parent has weight $\lambda(i, p_i)$ and will not be changed again. Future steps may move only unprocessed leaves. When a later path uses this finalized edge as its minimum edge, the cut that produced the edge separates the two endpoints of the path, so the path minimum is an upper bound on their minimum cut. The opposite inequality follows from the fact that for any three vertices $a$, $b$, and $c$, every $a$-$c$ cut separates either $a$ from $b$ or $b$ from $c$, hence $\lambda(a, c) \ge \min(\lambda(a, b), \lambda(b, c))$. Applying this along the path in the final tree gives equality.
+
+Let's assume the vertices are 0-indexed for the next section.
 The algorithm is composed of the following steps:
 
 1. Create a (star) tree $T'$ on $n$ nodes, with node 0 at the center and nodes 1 through $n - 1$ at the leaves.
-2. For $i$ from 1 to $n - 1$ do steps 3 and 4
+2. For $i$ from 1 to $n - 1$ do steps 3 and 4.
 3. Compute the minimum cut $(X, Y)$ in $G$ between (leaf) node $i$ and its (unique) neighbor $t$ in $T'$. Label the edge $(i, t)$ in $T'$ with the capacity of the $(X, Y)$ cut.
-4. For every node $j$ larger than $i$, if $j$ is a neighbor of $t$ and $j$ is on the $i$ side of $(X, Y)$, then modify $T'$ by disconnecting $j$ from $t$ and connecting $j$ to $i$. Note that each node $j$ larger than $i$ remains a leaf in $T'$
+4. For every node $j$ larger than $i$, if $j$ is a neighbor of $t$ and $j$ is on the $i$ side of $(X, Y)$, then modify $T'$ by disconnecting $j$ from $t$ and connecting $j$ to $i$. Note that each node $j$ larger than $i$ remains a leaf in $T'$.
 
 It is easy to see that at every iteration, node $i$ and all nodes larger than $i$ are leaves in $T'$, as required by the algorithm.
 
@@ -36,7 +42,7 @@ Below, we implement the Gomory-Hu tree as a `struct` with methods:
 
 - The method *solve* returns a list that contains for each index $i$ the cost of the edge connecting $i$ and its parent, and the parent number.
 
-- Note that the algorithm doesn't produce a *cut tree*, only an *equivalent flow tree*, so one cannot retrieve the two components of a cut from the tree $T'$.
+- The returned tree stores the values needed for all-pairs minimum cut queries. It does not store the two vertex sets of each represented cut; to recover such a partition, rerun a minimum cut computation for the chosen pair.
 
 ```{.cpp file=gomoryhu}
 struct gomory_hu {
@@ -90,9 +96,9 @@ struct gomory_hu {
 
 Here are some examples of problems related to the Gomory-Hu tree:
 
-- Given a weighted and connected graph, find the minimun s-t cut for all pair of vertices.
+- Given a weighted and connected graph, find the minimum $s$-$t$ cut for all pairs of vertices.
 
-- Given a weighted and connected graph, find the minimum/maximum s-t cut among all pair of vertices.
+- Given a weighted and connected graph, find the minimum or maximum $s$-$t$ cut among all pairs of vertices.
 
 - Find an approximate solution for the [Minimum K-Cut problem](https://en.wikipedia.org/wiki/Minimum_k-cut).
 
