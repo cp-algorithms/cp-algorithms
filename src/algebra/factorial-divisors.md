@@ -47,3 +47,28 @@ int fact_pow (int n, int k) {
 The same idea can't be applied directly. Instead we can factor $k$, representing it as $k = k_1^{p_1} \cdot \ldots \cdot k_m^{p_m}$. For each $k_i$, we find the number of times it is present in $n!$ using the algorithm described above - let's call this value $a_i$. The answer for composite $k$ will be
 
 $$\min_ {i=1 \ldots m} \dfrac{a_i}{p_i}$$
+
+Factoring $k$ by trial division takes $O(\sqrt{k})$; since $k$ has at most $\log_2 k$ distinct prime factors, the calls to `fact_pow` add another $O(\log_2 k \cdot \log_2 n)$. The overall complexity is therefore $O(\sqrt{k} + \log_2 k \cdot \log_2 n)$.
+
+### Implementation
+
+```cpp
+
+int fact_pow_composite (int n, int k) {
+	int ans = INT_MAX;
+	for (int p = 2; p * p <= k; p++) {
+		if (k % p == 0) {
+			int power = 0;
+			while (k % p == 0) {
+				k /= p;
+				power++;
+			}
+			ans = min(ans, fact_pow(n, p) / power);
+		}
+	}
+	if (k > 1)
+		ans = min(ans, fact_pow(n, k));
+	return ans;
+}
+
+```
