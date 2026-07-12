@@ -5,7 +5,6 @@
 [![Closed Pull Requests](https://img.shields.io/github/issues-pr-closed/cp-algorithms/cp-algorithms.svg)](https://github.com/cp-algorithms/cp-algorithms/pulls?q=is%3Apr+is%3Aclosed)
 [![Build](https://img.shields.io/github/actions/workflow/status/cp-algorithms/cp-algorithms/test.yml)](https://github.com/cp-algorithms/cp-algorithms/actions?query=branch%3Amain+workflow%3Atest)
 [![Translation Progress](https://img.shields.io/badge/translation_progress-85.2%25-yellowgreen.svg)](https://github.com/cp-algorithms/cp-algorithms/wiki/Translation-Progress)
-<iframe src="https://github.com/sponsors/cp-algorithms/button" title="Sponsor cp-algorithms" height="32" width="114" style="border: 0; border-radius: 6px;"></iframe>
 
 The goal of this project is to translate the wonderful resource
 [https://e-maxx.ru/algo](https://e-maxx.ru/algo) which provides descriptions of many algorithms
