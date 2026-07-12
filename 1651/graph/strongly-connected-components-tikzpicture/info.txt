@@ -1,0 +1,5 @@
+These are the pictures (graphs) used in the article about Strongly Connected Components and the Condensation graph.
+
+Compile the .tex file with pdflatex, and then use a command line tool like pdf2svg to convert the compiled pdf into an svg file. We want svg because it is scalable, i.e. still looks good when the user zooms in far.
+
+This svg can than be directly included in the markdown.
