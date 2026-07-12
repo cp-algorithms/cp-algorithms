@@ -1,0 +1,111 @@
+[data-md-color-scheme="cpalgo"] {
+  --md-primary-fg-color:        #7777aa;
+  --md-primary-fg-color--light: #7777aa;
+  --md-primary-fg-color--dark:  #333371;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-hue: 210; 
+  --md-typeset-a-color: #c973d9;
+}
+
+[data-md-color-scheme="slate"] img {
+  background-color: lightgray;
+}
+
+/* Move primary sidebar to the right */
+.md-sidebar--primary {
+  order: 100;
+}
+
+/* For proper rendering of contribution meta */
+.metadata{
+  list-style:none;
+  padding:0;
+  margin:0;
+  margin-bottom: 15px;
+  color: #999;
+  font-size:0.85em;
+}
+.metadata.page-metadata .contributors-text{
+  margin-right:5px
+}
+body[dir=rtl] .metadata.page-metadata .contributors-text{
+  margin-right:0;
+  margin-left:5px
+}
+.page-metadata .contributors{
+  display:inline-block;
+  list-style:none;
+  margin:0!important;
+  padding:0!important
+}
+.page-metadata .contributors li{
+  display:inline-block;
+  vertical-align:top;
+  margin:0;
+  padding:0
+}
+
+/* Visually hide latex code */
+.mjx-copytext {
+    font-size: 0;
+}
+
+.arithmatex{
+  overflow-y: hidden !important;
+}
+
+/* Site-wide sponsor line above the article */
+.sponsor-banner {
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 8px;
+  padding: 0.4rem 0.6rem;
+  margin: 0 0 1rem;
+  font-size: 0.7rem;
+}
+
+.sponsor-banner p {
+  margin: 0;
+}
+
+.md-typeset .sponsor-banner a {
+  font-weight: 700;
+  color: #29abe2;
+}
+
+.md-typeset .sponsor-banner a:hover,
+.md-typeset .sponsor-banner a:focus {
+  text-decoration: underline;
+}
+
+.sponsor-banner img {
+  height: 0.8rem;
+  width: auto;
+  vertical-align: -0.2rem;
+  margin-right: 0.15rem;
+}
+
+[data-md-color-scheme="slate"] .sponsor-banner img {
+  background-color: transparent;
+}
+
+/* Sponsor logo on the main page */
+.mainpage-sponsor img {
+  width: 7rem;
+  height: auto;
+}
+
+[data-md-color-scheme="slate"] .mainpage-sponsor img {
+  background-color: transparent;
+}
+
+/* mkdocs-toggle-sidebar-plugin 0.1.0 hides its header button only below 60em,
+   leaving it next to Material's drawer burger between 60em and 76.1875em;
+   hide it whenever the sidebar it toggles is collapsed into the drawer */
+@media screen and (max-width: 76.1875em) {
+  .mkdocs-toggle-sidebar-button {
+    display: none;
+  }
+}
