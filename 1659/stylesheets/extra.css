@@ -100,12 +100,3 @@ body[dir=rtl] .metadata.page-metadata .contributors-text{
 [data-md-color-scheme="slate"] .mainpage-sponsor img {
   background-color: transparent;
 }
-
-/* mkdocs-toggle-sidebar-plugin 0.1.0 hides its header button only below 60em,
-   leaving it next to Material's drawer burger between 60em and 76.1875em;
-   hide it whenever the sidebar it toggles is collapsed into the drawer */
-@media screen and (max-width: 76.1875em) {
-  .mkdocs-toggle-sidebar-button {
-    display: none;
-  }
-}
