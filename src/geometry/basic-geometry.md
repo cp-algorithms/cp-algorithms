@@ -197,7 +197,7 @@ In the same manner a plane can be defined in 3D.
 
 Assume you have three vectors $\mathbf a$, $\mathbf b$ and $\mathbf c$ in 3D space joined in a parallelepiped as in the picture below:
 <div style="text-align: center;">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Parallelepiped_volume.svg/240px-Parallelepiped_volume.svg.png" alt="Three vectors">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Parallelepiped_volume.svg/250px-Parallelepiped_volume.svg.png" alt="Three vectors">
 </div>
 
 How would you calculate its volume?
@@ -235,7 +235,7 @@ we can calculate the cross product of $\mathbf a = (x_1;y_1;z_1)$ and $\mathbf b
 
 $$\mathbf a\times \mathbf b = (x_1 \cdot \mathbf e_x + y_1 \cdot \mathbf e_y + z_1 \cdot \mathbf e_z)\times (x_2 \cdot \mathbf e_x + y_2 \cdot \mathbf e_y + z_2 \cdot \mathbf e_z) =$$
 
-$$(y_1 z_2 - z_1 y_2)\mathbf e_x  + (z_1 x_2 - x_1 z_2)\mathbf e_y + (x_1 y_2 - y_1 x_2)$$
+$$(y_1 z_2 - z_1 y_2)\mathbf e_x  + (z_1 x_2 - x_1 z_2)\mathbf e_y + (x_1 y_2 - y_1 x_2)\mathbf e_z$$
 
 Which also can be written in the more elegant form:
 
@@ -278,7 +278,7 @@ A line can be defined via its direction vector $\mathbf d$ and an initial point 
 It is defined as $(\mathbf r - \mathbf r_0)\times\mathbf d=0$ or as $(\mathbf r - \mathbf a)\times (\mathbf b - \mathbf a) = 0$.
 As for planes, it can be defined by three points $\mathbf a$, $\mathbf b$ and $\mathbf c$ as $(\mathbf r - \mathbf a)\cdot((\mathbf b - \mathbf a)\times (\mathbf c - \mathbf a))=0$ or by initial point $\mathbf r_0$ and two direction vectors lying in this plane $\mathbf d_1$ and $\mathbf d_2$: $(\mathbf r - \mathbf r_0)\cdot(\mathbf d_1\times \mathbf d_2)=0$.
 
-In 2D the pseudo-scalar product also may be used to check the orientation between two vectors because it is positive if the rotation from the first to the second vector is clockwise and negative otherwise.
+In 2D the pseudo-scalar product also may be used to check the orientation between two vectors because it is positive if the rotation from the first to the second vector is counter-clockwise and negative otherwise.
 And, of course, it can be used to calculate areas of polygons, which is described in a different article.
 A triple product can be used for the same purpose in 3D space.
 

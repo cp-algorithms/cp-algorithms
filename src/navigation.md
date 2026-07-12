@@ -63,6 +63,7 @@ search:
 - Dynamic Programming
     - [Introduction to Dynamic Programming](dynamic_programming/intro-to-dp.md)
     - [Knapsack Problem](dynamic_programming/knapsack.md)
+    - [Longest increasing subsequence](dynamic_programming/longest_increasing_subsequence.md)
     - DP optimizations
         - [Divide and Conquer DP](dynamic_programming/divide-and-conquer-dp.md)
         - [Knuth's Optimization](dynamic_programming/knuth-optimization.md)
@@ -192,6 +193,7 @@ search:
         - [Flows with demands](graph/flow_with_demands.md)
         - [Minimum-cost flow](graph/min_cost_flow.md)
         - [Assignment problem](graph/Assignment-problem-min-flow.md)
+        - [Minimum cut - Stoer-Wagner algorithm](graph/stoer_wagner_mincut.md)
     - Matchings and related problems
         - [Bipartite Graph Check](graph/bipartite-check.md)
         - [Kuhn's Algorithm - Maximum Bipartite Matching](graph/kuhn_maximum_bipartite_matching.md)
@@ -202,10 +204,10 @@ search:
         - [Tree painting](graph/tree_painting.md)
         - [2-SAT](graph/2SAT.md)
         - [Heavy-light decomposition](graph/hld.md)
+        - [Centroid decomposition](graph/centroid_decomposition.md)
 - Miscellaneous
     - Sequences
         - [RMQ task (Range Minimum Query - the smallest element in an interval)](sequences/rmq.md)
-        - [Longest increasing subsequence](sequences/longest_increasing_subsequence.md)
         - [Search the subsegment with the maximum/minimum sum](others/maximum_average_segment.md)
         - [K-th order statistic in O(N)](sequences/k-th.md)
         - [MEX task (Minimal Excluded element in an array)](sequences/mex.md)

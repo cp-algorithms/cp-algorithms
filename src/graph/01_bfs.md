@@ -42,7 +42,7 @@ while (!q.empty()) {
 We can notice that the difference between the distances between the source `s` and two other vertices in the queue differs by at most one.
 Especially, we know that $d[v] \le d[u] \le d[v] + 1$ for each $u \in Q$.
 The reason for this is, that we only add vertices with equal distance or with distance plus one to the queue during each iteration.
-Assuming there exists a $u$ in the queue with $d[u] - d[v] > 1$, then $u$ must have been insert in the queue via a different vertex $t$ with $d[t] \ge d[u] - 1 > d[v]$.
+Assuming there exists a $u$ in the queue with $d[u] - d[v] > 1$, then $u$ must have been inserted into the queue via a different vertex $t$ with $d[t] \ge d[u] - 1 > d[v]$.
 However this is impossible, since Dijkstra's algorithm iterates over the vertices in increasing order.
 
 This means, that the order of the queue looks like this:
@@ -84,7 +84,6 @@ This extension is called **Dial's algorithm**.
 
 ## Practice problems
 
-- [CodeChef - Chef and Reversing](https://www.codechef.com/problems/REVERSE)
 - [Labyrinth](https://codeforces.com/contest/1063/problem/B)
 - [KATHTHI](http://www.spoj.com/problems/KATHTHI/)
 - [DoNotTurn](https://community.topcoder.com/stat?c=problem_statement&pm=10337)

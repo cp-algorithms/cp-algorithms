@@ -116,7 +116,7 @@ So, we want to calculate $d_{odd}[i]$ for the next $i$, and all the previous val
     }_\text{try moving here}
     $$
     
-    It is shown in the illustration that though the palindrome with center $j$ could be larger and go outside the "outer" palindrome, but with $i$ as the center we can use only the part that entirely fits into the "outer" palindrome. But the answer for the position $i$ ($d_{odd}[i]$) can be much bigger than this part, so next we'll run our trivial algorithm that will try to grow it outside our "outer" palindrome, i. e. to the region "try moving here".
+    It is shown in the illustration that the palindrome with center $j$ could be larger and go outside the "outer" palindrome, but, with $i$ as the center, we can only use the part that entirely fits into the "outer" palindrome. But the answer for the position $i$ ($d_{odd}[i]$) can be much bigger than this part, so next we'll run our trivial algorithm that will try to grow it outside our "outer" palindrome, i. e. to the region "try moving here".
 
 Again, we should not forget to update the values $(l, r)$ after calculating each $d_{odd}[i]$.
 
@@ -147,7 +147,9 @@ vector<int> manacher_odd(string s) {
     vector<int> p(n + 2);
     int l = 0, r = 1;
     for(int i = 1; i <= n; i++) {
-        p[i] = min(r - i, p[l + (r - i)]);
+        if(i <= r) {
+            p[i] = min(r - i, p[l + (r - i)]);
+        }
         while(s[i - p[i]] == s[i + p[i]]) {
             p[i]++;
         }

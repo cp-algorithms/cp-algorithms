@@ -201,7 +201,7 @@ Due to the presence of a negative cycle, for $n$ iterations of the algorithm, th
 d[e.b] = max(-INF, d[e.a] + e.cost);
 ```
 
-The above implementation looks for a negative cycle reachable from some starting vertex $v$; however, the algorithm can be modified to just looking for any negative cycle in the graph. For this we need to put all the distance $d[i]$ to zero and not infinity — as if we are looking for the shortest path from all vertices simultaneously; the validity of the detection of a negative cycle is not affected.
+The above implementation looks for a negative cycle reachable from some starting vertex $v$; however, the algorithm can be modified to just look for any negative cycle in the graph. For this we need to put all the distance $d[i]$ to zero and not infinity — as if we are looking for the shortest path from all vertices simultaneously; the validity of the detection of a negative cycle is not affected.
 
 For more on this topic — see separate article, [Finding a negative cycle in the graph](finding-negative-cycle-in-graph.md).
 

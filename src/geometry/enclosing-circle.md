@@ -13,19 +13,19 @@ Consider the following problem:
 
     For each $p_i$, find whether it lies on the circumference of the minimum enclosing circle of $\{p_1,\dots,p_n\}$.
 
-Here, by the minimum enclosing circle (MEC) we mean a circle with minimum possible radius that contains all the $n$ p, inside the circle or on its boundary. This problem has a simple randomized solution that, on first glance, looks like it would run in $O(n^3)$, but actually works in $O(n)$ expected time.
+Here, by the minimum enclosing circle (MEC) we mean a circle with minimum possible radius that contains all the $n$ points, inside the circle or on its boundary. This problem has a simple randomized solution that, on first glance, looks like it would run in $O(n^3)$, but actually works in $O(n)$ expected time.
 
 To better understand the reasoning below, we should immediately note that the solution to the problem is unique:
 
 ??? question "Why is the MEC unique?"
 
-    Consider the following setup: Let $r$ be the radius of the MEC. We draw a circle of radius $r$ around each of the p $p_1,\dots,p_n$. Geometrically, the centers of circles that have radius $r$ and cover all the points $p_1,\dots,p_n$ form the intersection of all $n$ circles.
+    Consider the following setup: Let $r$ be the radius of the MEC. We draw a circle of radius $r$ around each of the points $p_1,\dots,p_n$. Geometrically, the centers of circles that have radius $r$ and cover all the points $p_1,\dots,p_n$ form the intersection of all $n$ circles.
 
     Now, if the intersection is just a single point, this already proves that it is unique. Otherwise, the intersection is a shape of non-zero area, so we can reduce $r$ by a tiny bit, and still have non-empty intersection, which contradicts the assumption that $r$ was the minimum possible radius of the enclosing circle.
 
     With a similar logic, we can also show the uniqueness of the MEC if we additionally demand that it passes through a given specific point $p_i$ or two points $p_i$ and $p_j$ (it is also unique because its radius uniquely defines it).
 
-    Alternatively, we can also assume that there are two MECs, and then notice that their intersection (which contains p $p_1,\dots,p_n$ already) must have a smaller diameter than initial circles, and thus can be covered with a smaller circle.
+    Alternatively, we can also assume that there are two MECs, and then notice that their intersection (which contains the points $p_1,\dots,p_n$ already) must have a smaller diameter than initial circles, and thus can be covered with a smaller circle.
 
 ## Welzl's algorithm
 
@@ -60,6 +60,7 @@ bool inside(mec const& C, point p) {
 // Choose some good generator of randomness for the shuffle
 mt19937_64 gen(...);
 mec enclosing_circle(vector<point> &p) {
+    int n = p.size();
     ranges::shuffle(p, gen);
     auto C = mec{p[0], p[1]};
     for(int i = 0; i < n; i++) {
@@ -136,7 +137,7 @@ $$
 \angle azb + \angle bca
 $$
 
-In a [cyclic quadrilateral](https://en.wikipedia.org/wiki/Cyclic_quadrilateral), if $c$ and $z$ are from the same side of $ab$, then the angles are equal, and will ad up to $0^\circ$ when summed up signed (i.e. positive if counter-clockwise and negative if clockwise). Correspondingly, if $c$ and $z$ are on the opposite sides, the angles will add up to $180^\circ$.
+In a [cyclic quadrilateral](https://en.wikipedia.org/wiki/Cyclic_quadrilateral), if $c$ and $z$ are from the same side of $ab$, then the angles are equal, and will add up to $0^\circ$ when summed up signed (i.e. positive if counter-clockwise and negative if clockwise). Correspondingly, if $c$ and $z$ are on the opposite sides, the angles will add up to $180^\circ$.
 
 <center>
 <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Opposing_inscribed_angles.svg">

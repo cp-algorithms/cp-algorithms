@@ -112,7 +112,7 @@ The time complexity of this process is $O(W\sum\limits_{i=1}^{n}k_i)$
 
 We still consider converting the multiple knapsack model into a 0-1 knapsack model for optimization. The time complexity $O(Wn)$ can not be further optimized with the approach above, so we focus on $O(\sum k_i)$ component.
 
-Let $A_{i, j}$ denote the $j^{th}$ item split from the $i^{th}$ item. In the trivial approach discussed above, $A_{i, j}$ represents the same item for all $j \leq k_i$. The main reason for our low efficiency is that we are doing a lot of repetetive work. For example, consider selecting $\{A_{i, 1},A_{i, 2}\}$, and selecting $\{A_{i, 2}, A_{i, 3}\}$. These two situations are completely equivalent. Thus optimizing the splitting method will greatly reduce the time complexity.
+Let $A_{i, j}$ denote the $j^{th}$ item split from the $i^{th}$ item. In the trivial approach discussed above, $A_{i, j}$ represents the same item for all $j \leq k_i$. The main reason for our low efficiency is that we are doing a lot of repetitive work. For example, consider selecting $\{A_{i, 1},A_{i, 2}\}$, and selecting $\{A_{i, 2}, A_{i, 3}\}$. These two situations are completely equivalent. Thus optimizing the splitting method will greatly reduce the time complexity.
 
 The grouping is made more efficient by using binary grouping.
 
@@ -158,7 +158,7 @@ In this way, the total complexity of the algorithm is reduced to $O(nW)$.
 
 ## Mixed Knapsack
 
-The mixed knapsack problem involves a combination of the three problems described above. That is, some items can only be taken once, some can be taken infinitely, and some can be taken atmost $k$ times.
+The mixed knapsack problem involves a combination of the three problems described above. That is, some items can only be taken once, some can be taken infinitely, and some can be taken at most $k$ times.
 
 The problem may seem daunting, but as long as you understand the core ideas of the previous knapsack problems and combine them together, you can do it. The pseudo code for the solution is as:
 
@@ -179,6 +179,7 @@ for (each item) {
 - [Atcoder: Knapsack-2](https://atcoder.jp/contests/dp/tasks/dp_e)
 - [LeetCode - 494. Target Sum](https://leetcode.com/problems/target-sum)
 - [LeetCode - 416. Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum)
+- [LeetCode - 474. Ones and Zeroes](https://leetcode.com/problems/ones-and-zeroes)
 - [CSES: Book Shop II](https://cses.fi/problemset/task/1159)
 - [DMOJ: Knapsack-3](https://dmoj.ca/problem/knapsack)
 - [DMOJ: Knapsack-4](https://dmoj.ca/problem/knapsack4)

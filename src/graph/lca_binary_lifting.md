@@ -15,7 +15,7 @@ The algorithm described in this article will need $O(N \log N)$ for preprocessin
 
 ## Algorithm
 
-For each node we will precompute its ancestor above him, its ancestor two nodes above, its ancestor four above, etc.
+For each node we will precompute its ancestor above it, its ancestor two nodes above, its ancestor four above, etc.
 Let's store them in the array `up`, i.e. `up[i][j]` is the `2^j`-th ancestor above the node `i` with `i=1...N`, `j=0...ceil(log(N))`.
 These information allow us to jump from any node to any ancestor above it in $O(\log N)$ time.
 We can compute this array using a [DFS](depth-first-search.md) traversal of the tree.

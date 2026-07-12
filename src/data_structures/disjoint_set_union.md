@@ -314,9 +314,9 @@ for (int i = m-1; i >= 0; i--) {
 }
 ```
 
-There is one optimization:
-We can use **union by rank**, if we store the next unpainted cell in an additional array `end[]`.
-Then we can merge two sets into one ranked according to their heuristics, and we obtain the solution in $O(\alpha(n))$.
+There is an optimization:
+We can use union by rank / size, if we store the next unpainted cell in an additional array `end[]`.
+Then we can merge two sets into one according to their heuristics, and we obtain the solution in $O(\alpha(n))$.
 
 ### Support distances up to representative
 
@@ -359,7 +359,7 @@ void union_sets(int a, int b) {
 
 ### Support the parity of the path length / Checking bipartiteness online
 
-In the same way as computing the path length to the leader, it is possible to maintain the parity of the length of the path before him.
+In the same way as computing the path length to the leader, it is possible to maintain the parity of the length of the path before it.
 Why is this application in a separate paragraph?
 
 The unusual requirement of storing the parity of the path comes up in the following task:

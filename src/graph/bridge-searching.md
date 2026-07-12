@@ -22,7 +22,7 @@ Pick an arbitrary vertex of the graph $root$ and run [depth first search](depth-
 
 Now we have to learn to check this fact for each vertex efficiently. We'll use "time of entry into node" computed by the depth first search.
 
-So, let $\mathtt{tin}[v]$ denote entry time for node $v$. We introduce an array $\mathtt{low}$ which will let us store the node with earliest entry time found in the DFS search that a node $v$ can reach with a single edge from itself or its descendants. $\mathtt{low}[v]$ is the minimum of $\mathtt{tin}[v]$, the entry times $\mathtt{tin}[p]$ for each node $p$ that is connected to node $v$ via a back-edge $(v, p)$ and the values of $\mathtt{low}[to]$ for each vertex $to$ which is a direct descendant of $v$ in the DFS tree:
+So, let $\mathtt{tin}[v]$ denote entry time for node $v$. We introduce an array $\mathtt{low}$ which will let us store the earliest entry time of the node found in the DFS search that a node $v$ can reach with a single edge from itself or its descendants. $\mathtt{low}[v]$ is the minimum of $\mathtt{tin}[v]$, the entry times $\mathtt{tin}[p]$ for each node $p$ that is connected to node $v$ via a back-edge $(v, p)$ and the values of $\mathtt{low}[to]$ for each vertex $to$ which is a direct descendant of $v$ in the DFS tree:
 
 $$\mathtt{low}[v] = \min \left\{ 
     \begin{array}{l}
