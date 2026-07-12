@@ -233,6 +233,9 @@ When $m$ is not square-free, a [generalization of Lucas's theorem for prime powe
 * [CodeChef - Long Sandwich](https://www.codechef.com/MAY17/problems/SANDWICH/)
 * [Codeforces - Placing Jinas](https://codeforces.com/problemset/problem/1696/E)
 
+{{ get_practice_problems() }}
+
+
 ## References
 * [Blog fishi.devtail.io](https://fishi.devtail.io/weblog/2015/06/25/computing-large-binomial-coefficients-modulo-prime-non-prime/)
 * [Question on Mathematics StackExchange](https://math.stackexchange.com/questions/95491/n-choose-k-bmod-m-using-chinese-remainder-theorem)
