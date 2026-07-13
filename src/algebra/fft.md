@@ -526,6 +526,77 @@ The constants `mod`, `root`, `root_pw` determine the module and the root, and `r
 
 In practice this implementation is slower than the implementation using complex numbers (due to the huge number of modulo operations), but it has some advantages such as less memory usage and no rounding errors.
 
+### Optimized Implementation
+While the standard implementation is great for understanding the algorithm, it recalculates the roots of unity `wlen` and `w`) during every step. For competitive programming, we can heavily optimize the recurring calculation by precomputing these roots.
+
+**Intuition(Optimizing $wlen$)**
+In the standard code, the variable `wlen` is recalculated for every length. Since the length only doubles, there are at most $\log_2(N)$ possible values for `wlen`. We could precompute these specific values in $O(\log(N))$ to save $O(\log^2(N))$ operations.This precompute can be global as well as local to fft.
+We still have to perform the modulo multiplication $w = w \cdot wlen \pmod{mod}$ inside the innermost loop, which runs $O(N \log N)$ times.
+
+**Solution(Optimizing $w$)**
+To eliminate the modulo multiplication entirely, we can precompute all powers of the primitive root up to the maximum possible array length (in this case, $2^{20}$).
+
+Because the mathematical relationship is $w = (\text{root\\_pw} / \text{len}) \times j$, we can generate a global array of all roots once. Then, inside the innermost loop, we can find the exact value of $w$ using a direct array lookup: `roots[step * j]`.
+We are effectively storing all the roots of unity upto $2^{20}$ in the global array. When processing $\text{len} = 8$, we are using the 8th roots of unity.Their exact indices in the array are given by:
+$$\text{index} = \frac{2^{20}}{8} \times j $$
+where $j \in \{0,1,2,3\}$.
+
+**Complexity:** 
+The overall time complexity remains $O(N \log N)$, but the constant factor is drastically reduced. This allows us to call fft multiple times with the O(1) array lookup instead of recurring computation.
+
+```{.cpp file=fft_optimized}
+const int mod = 7340033;
+const int root = 5;
+const int root_1 = 4404020;
+const int root_pw = 1 << 20;
+vector<int> roots, iroots;
+
+void precompute(){
+  if(!roots.empty()) return;
+
+  roots.resize(root_pw+1);
+  iroots.resize(root_pw+1);
+  roots[0] = 1;
+  iroots[0] = 1;
+
+  for(int i =1; i<=root_pw;i++) {
+    roots[i] =  (int)(1LL * roots[i-1] * root % mod);
+    iroots[i] =  (int)(1LL * iroots[i-1] * root_1 %mod);
+  }
+}
+void fft(vector<int> & a, bool invert) {
+    int n = a.size();
+
+    for (int i = 1, j = 0; i < n; i++) {
+        int bit = n >> 1;
+        for (; j & bit; bit >>= 1)
+            j ^= bit;
+        j ^= bit;
+
+        if (i < j)
+            swap(a[i], a[j]);
+    }
+
+    for (int len = 2; len <= n; len <<= 1) {
+        int step = root_pw / len;
+        for (int i = 0; i < n; i += len) {
+            for (int j = 0; j < len / 2; j++) {
+                int w = invert ? iroots[step * j] : roots[step * j];
+                int u = a[i+j], v = (int)(1LL * a[i+j+len/2] * w % mod);
+                a[i+j] = u + v < mod ? u + v : u + v - mod;
+                a[i+j+len/2] = u - v >= 0 ? u - v : u - v + mod;
+            }
+        }
+    }
+
+    if (invert) {
+        int n_1 = inverse(n, mod);
+        for (int & x : a)
+            x = (int)(1LL * x * n_1 % mod);
+    }
+}
+```
+
 ## Multiplication with arbitrary modulus
 
 Here we want to achieve the same goal as in previous section.
