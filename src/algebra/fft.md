@@ -565,8 +565,9 @@ void precompute(){
   }
 }
 void fft(vector<int> & a, bool invert) {
-    int n = a.size();
+    precompute();
 
+    int n = a.size();
     for (int i = 1, j = 0; i < n; i++) {
         int bit = n >> 1;
         for (; j & bit; bit >>= 1)
