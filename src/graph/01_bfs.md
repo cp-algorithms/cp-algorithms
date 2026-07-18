@@ -74,7 +74,7 @@ while (!q.empty()) {
     }
 }
 ```
-A further [performance improvement](https://medium.com/@ahhz_/why-you-should-stop-using-std-deque-for-0-1-bfs-60b742a96b7f?sharedUserId=ahhz_) can be achieved by using two vectors as buckets for the queue. This avoids pointer chasing and cache misses associated with deque.
+A further [performance improvement](https://github.com/ahhz/two_tier_queue) can be achieved by using two vectors as buckets for the queue. This avoids pointer chasing and cache misses associated with deque.
 
 ```cpp
 vector<int> d(n, INF);
@@ -89,10 +89,16 @@ while (!(q0.empty())) {
         int w = edge.second;
         if (d[v] + w < d[u]) {
             d[u] = d[v] + w;
-            (w == 0 ? q0 : q1).push_back(u);
+            if(w == 0) {
+                q0.push_back(u);
+            } else {
+                q1.push_back(u);
+            }
         }
     }
-    if(q0.empty()) swap(q0, q1);
+    if(q0.empty()) {
+        swap(q0, q1);
+    }
 }
 ```
 
