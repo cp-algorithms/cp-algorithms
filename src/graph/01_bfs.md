@@ -74,6 +74,33 @@ while (!q.empty()) {
     }
 }
 ```
+A further [performance improvement](https://github.com/ahhz/two_tier_queue) can be achieved by using two vectors as buckets for the queue. This avoids pointer chasing and cache misses associated with deque.
+
+```cpp
+vector<int> d(n, INF);
+d[s] = 0;
+vector<int> q0, q1;
+q0.push_back(s);
+while (!(q0.empty())) {
+    int v = q0.back();
+    q0.pop_back();
+    for (auto edge : adj[v]) {
+        int u = edge.first;
+        int w = edge.second;
+        if (d[v] + w < d[u]) {
+            d[u] = d[v] + w;
+            if(w == 0) {
+                q0.push_back(u);
+            } else {
+                q1.push_back(u);
+            }
+        }
+    }
+    if(q0.empty()) {
+        swap(q0, q1);
+    }
+}
+```
 
 ## Dial's algorithm
 
