@@ -255,13 +255,40 @@ int lis(vector<int> const& a) {
 ### Restoring the subsequence
 
 It is also possible to restore the subsequence using this approach.
-This time we have to maintain two auxiliary arrays.
-One that tells us the index of the elements in $d[]$.
-And again we have to create an array of "ancestors" $p[i]$.
-$p[i]$ will be the index of the previous element for the optimal subsequence ending in element $i$.
+Traditionally, this requires maintaining two auxiliary arrays: one that tells us the index of the elements in $d[]$, and an array of "ancestors" $p[i]$ that points to the index of the previous element for the optimal subsequence ending in element $i$.
 
-It's easy to maintain these two arrays in the course of iteration over the array $a[]$ alongside the computations of $d[]$.
-And at the end it is not difficult to restore the desired subsequence using these arrays.
+However, we can restore the subsequence in a more memory-efficient way by only maintaining a single auxiliary array $p[i]$, which stores the length of the LIS ending at $a[i]$ (i.e., the index in $d[]$ where $a[i]$ was placed).
+
+Because the array $a$ is processed from left to right, if we know the length of the LIS is $L$, we can iterate backwards through the original array $a[]$. The first element we encounter moving backwards that satisfies $p[i] == L - 1$ is mathematically guaranteed to be strictly smaller than the current element in our restored sequence, making it a valid predecessor.
+
+```{.cpp file=lis_method2_nlogn_restore}
+vector<int> lis(vector<int> const& a) {
+    int n = a.size();
+    if (n == 0) return {};
+
+    vector<int> d, p(n);
+    for (int i = 0; i < n; i++) {
+        auto it = lower_bound(d.begin(), d.end(), a[i]);
+        p[i] = it - d.begin();
+        if (it == d.end())
+            d.push_back(a[i]);
+        else
+            *it = a[i];
+    }
+
+    int l = d.size();
+    vector<int> subseq;
+    l--;
+    for (int i = n - 1; i >= 0; i--) {
+        if (p[i] == l) {
+            subseq.push_back(a[i]);
+            l--;
+        }
+    }
+    reverse(subseq.begin(), subseq.end());
+    return subseq;
+}
+```
 
 ## Solution in $O(n \log n)$ with data structures {data-toc-label="Solution in O(n log n) with data structures"}
 
