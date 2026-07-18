@@ -51,6 +51,7 @@ Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorith
 
 ### New articles
 
+- (7 July 2026) [Gomory-Hu tree](https://cp-algorithms.com/graph/gomory_hu.html)
 - (9 June 2026) [Minimum cut - Stoer-Wagner algorithm](https://cp-algorithms.com/graph/stoer_wagner_mincut.html)
 - (28 March 2026) [Centroid decomposition](https://cp-algorithms.com/graph/centroid_decomposition.html)
 - (19 August 2025) [Minimum Enclosing Circle](https://cp-algorithms.com/geometry/enclosing-circle.html)
