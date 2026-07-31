@@ -41,7 +41,6 @@ long long iterative_answer(long long l, long long r, int k) {
 }
 
 int main() {
-    // Exhaustive check against brute force on small ranges.
     for (int k = 0; k <= 9; k++) {
         for (long long l = 1; l <= 200; l++) {
             for (long long r = l; r <= 200; r += 7) {
