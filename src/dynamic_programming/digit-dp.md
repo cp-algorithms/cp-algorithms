@@ -41,7 +41,7 @@ There is one more detail. A number such as $7$ is written as $0\ldots07$ when pa
 
 The recursive formulation follows the state description directly. At each position we try every digit that is permitted, capped by the current digit of $x$ whenever we are tight:
 
-```cpp
+```{.cpp file=digit_dp_recursive}
 vector<int> digits;
 int limit;
 long long memo[16][11][2];
@@ -109,7 +109,7 @@ Before the first significant digit there is no previous digit at all, and we use
 
 The same recurrence can be filled bottom-up, processing digits from the least significant end. Here `dp[i][j][0]` is the number of ways to build a free (non-tight) suffix of length $i+1$ starting with digit $j$, and `dp[i][j][1]` is the corresponding count for a prefix still tight against $x$:
 
-```cpp
+```{.cpp file=digit_dp_iterative}
 long long dp[16][10][2];
 
 long long count_upto(long long n, int k) {
