@@ -56,37 +56,47 @@ body[dir=rtl] .metadata.page-metadata .contributors-text{
   overflow-y: hidden !important;
 }
 
-/* Donation banner */
-#donation-banner {
-  margin: 0.75rem 0.75rem 0;
-}
-
-.donation-banner {
-  display: flex;
-
-  background: #fff9c4;
-  border: 1px solid #f0e68c;
-  color: #2b2b2b;
-
-  padding: 0.5rem 0.5rem;
+/* Site-wide sponsor line above the article */
+.sponsor-banner {
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
   border-radius: 8px;
-  font-size: 0.75rem;
+  padding: 0.4rem 0.6rem;
+  margin: 0 0 1rem;
+  font-size: 0.7rem;
 }
 
-.donation-text { margin: 0; }
-.donation-link {
-  color: revert;
+.sponsor-banner p {
+  margin: 0;
+}
+
+.md-typeset .sponsor-banner a {
+  font-weight: 700;
+  color: #29abe2;
+}
+
+.md-typeset .sponsor-banner a:hover,
+.md-typeset .sponsor-banner a:focus {
   text-decoration: underline;
 }
 
-.donation-close {
-  margin-left: auto;
-  font-size: 1rem;
-  cursor: pointer;
+.sponsor-banner img {
+  height: 0.8rem;
+  width: auto;
+  vertical-align: -0.2rem;
+  margin-right: 0.15rem;
 }
 
-[data-md-color-scheme="slate"] .donation-banner {
-  background: #3b3200;
-  border-color: #665c1e;
-  color: #fff7b3;
+[data-md-color-scheme="slate"] .sponsor-banner img {
+  background-color: transparent;
+}
+
+/* Sponsor logo on the main page */
+.mainpage-sponsor img {
+  width: 7rem;
+  height: auto;
+}
+
+[data-md-color-scheme="slate"] .mainpage-sponsor img {
+  background-color: transparent;
 }

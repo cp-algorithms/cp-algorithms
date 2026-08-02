@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -7913,7 +7913,16 @@
               
               <article class="md-content__inner md-typeset">
                 
-                  <script type="text/javascript">
+                  <aside class="sponsor-banner">
+  <p>
+    cp-algorithms is supported by
+    <a href="https://link.coddy.tech/bvMS?af_web_dp=https%3A%2F%2Fcoddy.tech&amp;af_sub1=cp-algorithms.com" rel="sponsored noopener" target="_blank">
+      <img src="../img/sponsors/coddy-logo.svg" alt="" width="56" height="64">Coddy</a>
+    &mdash; interactive coding practice
+  </p>
+</aside>
+
+<script type="text/javascript">
 window.onload = function() {
 	const newIssueURL = "https://github.com/cp-algorithms/cp-algorithms/issues/new";
   const issueTitle = "Problem on article " + "0-1 BFS";
@@ -8081,7 +8090,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 4, 2026 07:41:15 UTC">July 4, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 18, 2026 19:42:13 UTC">July 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8154,7 +8163,7 @@ This way the queue still remains sorted at all time.</p>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-A further <a href="https://medium.com/@ahhz_/why-you-should-stop-using-std-deque-for-0-1-bfs-60b742a96b7f?sharedUserId=ahhz_">performance improvement</a> can be achieved by using two vectors as buckets for the queue. This avoids pointer chasing and cache misses associated with deque.</p>
+A further <a href="https://github.com/ahhz/two_tier_queue">performance improvement</a> can be achieved by using two vectors as buckets for the queue. This avoids pointer chasing and cache misses associated with deque.</p>
 <div class="highlight"><pre><span></span><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">d</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">INF</span><span class="p">);</span>
 <span class="n">d</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">q0</span><span class="p">,</span><span class="w"> </span><span class="n">q1</span><span class="p">;</span>
@@ -8167,10 +8176,16 @@ A further <a href="https://medium.com/@ahhz_/why-you-should-stop-using-std-deque
 <span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">edge</span><span class="p">.</span><span class="n">second</span><span class="p">;</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">w</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">u</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="n">d</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">w</span><span class="p">;</span>
-<span class="w">            </span><span class="p">(</span><span class="n">w</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">q0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">q1</span><span class="p">).</span><span class="n">push_back</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">w</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">q0</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">q1</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">q0</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span><span class="w"> </span><span class="n">swap</span><span class="p">(</span><span class="n">q0</span><span class="p">,</span><span class="w"> </span><span class="n">q1</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">q0</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">swap</span><span class="p">(</span><span class="n">q0</span><span class="p">,</span><span class="w"> </span><span class="n">q1</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <h2 id="dials-algorithm">Dial's algorithm<a class="headerlink" href="#dials-algorithm" title="Permanent link">&para;</a></h2>
@@ -8194,7 +8209,7 @@ This extension is called <strong>Dial's algorithm</strong>.</p>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (61.54%)</li><li><a href="https://github.com/ahhz" title="ahhz" data-bi-name="contributorprofile" target="_blank">ahhz</a> (17.95%)</li><li><a href="https://github.com/Salil03" title="Salil03" data-bi-name="contributorprofile" target="_blank">Salil03</a> (7.69%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (4.27%)</li><li><a href="https://github.com/parthokr" title="parthokr" data-bi-name="contributorprofile" target="_blank">parthokr</a> (3.42%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (2.56%)</li><li><a href="https://github.com/aleksmish" title="aleksmish" data-bi-name="contributorprofile" target="_blank">aleksmish</a> (0.85%)</li><li><a href="https://github.com/knotri" title="knotri" data-bi-name="contributorprofile" target="_blank">knotri</a> (0.85%)</li><li><a href="https://github.com/ddivyansh18" title="ddivyansh18" data-bi-name="contributorprofile" target="_blank">ddivyansh18</a> (0.85%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (58.54%)</li><li><a href="https://github.com/ahhz" title="ahhz" data-bi-name="contributorprofile" target="_blank">ahhz</a> (21.95%)</li><li><a href="https://github.com/Salil03" title="Salil03" data-bi-name="contributorprofile" target="_blank">Salil03</a> (7.32%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (4.07%)</li><li><a href="https://github.com/parthokr" title="parthokr" data-bi-name="contributorprofile" target="_blank">parthokr</a> (3.25%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (2.44%)</li><li><a href="https://github.com/aleksmish" title="aleksmish" data-bi-name="contributorprofile" target="_blank">aleksmish</a> (0.81%)</li><li><a href="https://github.com/knotri" title="knotri" data-bi-name="contributorprofile" target="_blank">knotri</a> (0.81%)</li><li><a href="https://github.com/ddivyansh18" title="ddivyansh18" data-bi-name="contributorprofile" target="_blank">ddivyansh18</a> (0.81%)</li></ul>
 </ul>
                 
               </article>
@@ -8277,11 +8292,11 @@ This extension is called <strong>Dial's algorithm</strong>.</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
       
-        <script src="../javascript/donation-banner.js"></script>
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
       
