@@ -12,9 +12,17 @@ and data structures especially popular in field of competitive programming.
 Moreover we want to improve the collected knowledge by extending the articles
 and adding new articles to the collection.
 
-We're an ad-free, volunteer-run website that's free for everyone. Users can contribute articles or help sponsor bounties on articles for greater algorithmic coverage. Your help is greatly appreciated.
+We're a volunteer-run website that's free for everyone. Users can contribute articles or help sponsor bounties on articles for greater algorithmic coverage. Your help is greatly appreciated.
 
 Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorithms.com/).
+
+## Supported by
+
+<div class="mainpage-sponsor">
+  <a href="https://link.coddy.tech/bvMS?af_web_dp=https%3A%2F%2Fcoddy.tech&amp;af_sub1=cp-algorithms.com" rel="sponsored noopener" target="_blank">
+    <img src="https://cp-algorithms.com/img/sponsors/coddy-logo-text.svg" alt="Coddy" width="140">
+  </a>
+</div>
 
 ## Become a Contributor
 
@@ -43,7 +51,8 @@ Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorith
 
 ### New articles
 
-- (28 March 2026) [Centroid decomposition](graph/centroid_decomposition.md)
+- (9 June 2026) [Minimum cut - Stoer-Wagner algorithm](https://cp-algorithms.com/graph/stoer_wagner_mincut.html)
+- (28 March 2026) [Centroid decomposition](https://cp-algorithms.com/graph/centroid_decomposition.html)
 - (19 August 2025) [Minimum Enclosing Circle](https://cp-algorithms.com/geometry/enclosing-circle.html)
 - (21 May 2025) [Simulated Annealing](https://cp-algorithms.com/num_methods/simulated_annealing.html)
 - (12 July 2024) [Manhattan distance](https://cp-algorithms.com/geometry/manhattan-distance.html)
@@ -62,5 +71,4 @@ Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorith
 Full list of updates: [Commit History](https://github.com/cp-algorithms/cp-algorithms/commits/main)
 
 Full list of articles: [Navigation](https://cp-algorithms.com/navigation.html)
-
 

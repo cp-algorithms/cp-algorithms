@@ -132,7 +132,7 @@ x_i^{-1} &= \frac{1}{x_i} = \frac{\overbrace{x_1 \cdot x_2 \cdots x_{i-1}}^{\tex
 \end{align}
 $$
 
-In the code we can just make a prefix product array (exclude itself, start from the identity element), compute the modular inverse for the product of all numbers and than multiply it by the prefix product and suffix product (exclude itself).
+In the code we can just make a prefix product array (exclude itself, start from the identity element), compute the modular inverse for the product of all numbers and then multiply it by the prefix product and suffix product (exclude itself).
 The suffix product is computed by iterating from the back to the front.
 
 ```cpp

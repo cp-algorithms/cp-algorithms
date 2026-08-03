@@ -29,7 +29,7 @@ In the following image you can see one array of length 10 and the corresponding 
 </div>
 
 The range minimum query `[l, r]` is equivalent to the lowest common ancestor query `[l', r']`, where `l'` is the node corresponding to the element `A[l]` and `r'` the node corresponding to the element `A[r]`.
-Indeed the node corresponding to the smallest element in the range has to be an ancestor of all nodes in the range, therefor also from `l'` and `r'`.
+Indeed the node corresponding to the smallest element in the range has to be an ancestor of all nodes in the range, therefore also from `l'` and `r'`.
 This automatically follows from the min-heap property.
 And is also has to be the lowest ancestor, because otherwise `l'` and `r'` would be both in the left or in the right subtree, which generates a contradiction since in such a case the minimum wouldn't even be in the range.
 

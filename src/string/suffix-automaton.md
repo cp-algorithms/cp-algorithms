@@ -416,7 +416,7 @@ The proof is the construction algorithm itself, since initially the automaton co
 
 However we can also **show** this estimation **without knowing the algorithm**.
 Let us recall that the number of states is equal to the number of different sets $endpos$.
-In addition theses sets $endpos$ form a tree (a parent vertex contains all children sets in his set).
+In addition these sets $endpos$ form a tree (a parent vertex contains all children sets in his set).
 Consider this tree and transform it a little bit:
 as long as it has an internal vertex with only one child (which means that the set of the child misses at least one position from the parent set), we create a new child with the set of the missing positions.
 In the end we have a tree in which each inner vertex has a degree greater than one, and the number of leaves does not exceed $n$.

@@ -83,7 +83,7 @@ When the slow pointer has moved $k \cdot L$ steps, and the fast pointer has cove
 
 ### Step 2: Starting point of the cycle
 
-Lets try to calculate the distance covered by both of the pointers till they point they met within the cycle.
+Let's try to calculate the distance covered by both of the pointers till the point they meet within the cycle.
 
 <div style="text-align: center;">
   <img src="tortoise_hare_proof.png" alt=""Proof"">

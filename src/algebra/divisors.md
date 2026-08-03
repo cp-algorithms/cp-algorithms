@@ -39,7 +39,7 @@ p_1^{e_1} & p_1^{e_1} & p_1^{e_1} \cdot p_2 & p_1^{e_1} \cdot p_2^2 & \dots & p_
 
 So the number of divisors is trivially $(e_1 + 1) \cdot (e_2 + 1)$.
 
-* A similar argument can be made if there are more then two distinct prime factors.
+* A similar argument can be made if there are more than two distinct prime factors.
 
 
 ```cpp
