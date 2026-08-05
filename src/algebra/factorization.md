@@ -105,7 +105,7 @@ If we continue exending this method to include even more primes, better percenta
 ### Precomputed primes
 
 Extending the wheel factorization method indefinitely, we will only be left with prime numbers to check. 
-A good way of checking this is to precompute all prime numbers with the [Sieve of Eratosthenes](sieve-of-eratosthenes.md) until $\sqrt{n}$, and test them individually.
+A good way of checking this is to precompute all prime numbers with the [Sieve of Eratosthenes](algebra/sieve-of-eratosthenes.html) until $\sqrt{n}$, and test them individually.
 
 ```{.cpp file=factorization_trial_division4}
 vector<long long> primes;
@@ -125,6 +125,45 @@ vector<long long> trial_division4(long long n) {
     return factorization;
 }
 ```
+
+Complexity: $O(\pi{(\sqrt{n})})$, where $\pi{(\sqrt{n})}$ = the number of primes up to $\sqrt{n}$.
+
+In some cases, for example when $n$ is a large prime, the approach above is not efficient.
+
+### SPF (Smallest Prime Factor)
+
+SPF is often useful when we deal with multi-query integer factorization. We can modify [Sieve of Eratosthenes](algebra/sieve-of-eratosthenes.html) and, instead of marking the prime numbers with 1 and the composite numbers with 0 (or inverse), we can compute the smallest prime factor of every number up to a target.
+
+```{.cpp file=precalculation_spf}
+vector<long long> spf(target+1);
+for(int i = 2; i <= target; i++)   
+{   
+    if(spf[i] == 0)   
+    {    
+        for (int j = i; j <= target; j += i)   
+        {
+            if (spf[j] == 0)
+                spf[j] = i;   
+        }   
+    }   
+}  
+```
+Complexity of the precalculation: $O(\text{target} \log(\log (\text{target})))$.
+
+Now we can factor every integer $n$ in $O(\log{(n}))$ time complexity.
+
+```{.cpp file=factorization_spf}
+
+vector<long long> factorization_spf(long long n, const vector <long long>& spf) {
+    vector<long long> factorization;   
+    while(n > 1){   
+        factorization.push_back(spf[n]);
+        n /= spf[n]; 
+    }     
+    return factorization;
+}
+```
+
 
 ## Fermat's factorization method
 
