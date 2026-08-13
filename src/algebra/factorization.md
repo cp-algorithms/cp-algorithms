@@ -466,3 +466,4 @@ The combination of a trial division for small prime numbers together with Brent'
 - [SPOJ - FACT1](https://www.spoj.com/problems/FACT1/)
 - [SPOJ - FACT2](https://www.spoj.com/problems/FACT2/)
 - [GCPC 15 - Divisions](https://codeforces.com/gym/100753)
+- [JBOI 2022 - Maximum Prime Factor](https://jboi2022.lrmd.ro/document/day1/mpf.pdf)
