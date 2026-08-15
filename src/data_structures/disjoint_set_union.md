@@ -540,10 +540,13 @@ Applying to this task the same idea it is possible to obtain this solution:
 we can implement a [DFS](../graph/depth-first-search.md), which will return a pointer to a set of integers - the list of numbers in that subtree.
 Then to get the answer for the current node (unless of course it is a leaf), we call DFS for all children of that node, and merge all the received sets together.
 The size of the resulting set will be the answer for the current node.
-To efficiently combine multiple sets we just apply the above-described recipe:
-we merge the sets by simply adding smaller ones to larger.
-In the end we get a $O(n \log^2 n)$ solution, because one number will only added to a set at most $O(\log n)$ times.
+To efficiently combine multiple sets, we always merge the smaller set into the larger one.
 
+Note that, unlike in the DSU application above, the sets of distinct numbers obtained from different subtrees do not have to be disjoint. Therefore, the usual argument that the size of the resulting set at least doubles cannot be applied directly to a number.
+
+Nevertheless, every insertion into a larger set can be charged to the smaller set from which it originates. If an element is actually inserted, the size of the destination set is at least as large as the source set, and therefore the number of distinct elements associated with that occurrence at least doubles. Since a set can have size at most $n$, each occurrence can cause at most $O(\log n)$ successful insertions.
+
+Consequently, the total number of successful insertions is $O(n \log n)$. Using a balanced binary search tree for the sets, each insertion takes $O(\log n)$ time, giving a total complexity of $O(n \log^2 n)$.
 ### Storing the DSU by maintaining a clear tree structure / Online bridge finding in $O(\alpha(n))$ on average  {data-toc-label="Storing the DSU by maintaining a clear tree structure / Online bridge finding"}
 
 One of the most powerful applications of DSU is that it allows you to store both as **compressed and uncompressed trees**.
