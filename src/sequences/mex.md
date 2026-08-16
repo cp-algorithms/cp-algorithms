@@ -117,6 +117,50 @@ public:
 };
 ```
 
+## MEX for extremely large values using Intervals
+
+If the values in the array can be extremely large (e.g., up to $10^{18}$), maintaining a frequency array or a set of all missing numbers can consume too much memory. Instead, we can track the **contiguous intervals** of numbers we have already seen.
+
+We can use a `std::set<pair<long long, long long>>` to store disjoint, contiguous intervals `[L, R]`. When a new number $X$ is added, we locate its position and merge it with adjacent intervals if necessary (e.g., merging `[0, 2]` and `[4, 5]` when `3` is inserted). 
+
+```cpp
+set<pair<long long, long long>> intervals;
+
+void add_number(long long x) {
+    long long l = x, r = x;
+    auto it = intervals.lower_bound({x + 1, -1});
+    
+    // Merge with the previous interval if it overlaps or is adjacent
+    if (it != intervals.begin()) {
+        auto prev_it = prev(it);
+        if (prev_it->second >= x - 1) {
+            l = min(l, prev_it->first);
+            r = max(r, prev_it->second);
+            intervals.erase(prev_it);
+        }
+    }
+    
+    // Merge with overlapping or adjacent upcoming intervals
+    it = intervals.lower_bound({l, -1});
+    while (it != intervals.end() && it->first <= r + 1) {
+        r = max(r, it->second);
+        it = intervals.erase(it); 
+    }
+    
+    intervals.insert({l, r});
+}
+
+// The MEX can always be found in O(1) time
+long long get_mex() {
+    // If the set is empty or the lowest interval doesn't start at 0
+    if (intervals.empty() || intervals.begin()->first > 0) {
+        return 0;
+    }
+    // Otherwise, MEX is the number right after our first continuous block
+    return intervals.begin()->second + 1;
+}
+```
+
 ## Practice Problems
 
 - [AtCoder: Neq Min](https://atcoder.jp/contests/hhkb2020/tasks/hhkb2020_c)
