@@ -179,6 +179,7 @@ for (each item) {
 - [Atcoder: Knapsack-2](https://atcoder.jp/contests/dp/tasks/dp_e)
 - [LeetCode - 494. Target Sum](https://leetcode.com/problems/target-sum)
 - [LeetCode - 416. Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum)
+- [LeetCode - 474. Ones and Zeroes](https://leetcode.com/problems/ones-and-zeroes)
 - [CSES: Book Shop II](https://cses.fi/problemset/task/1159)
 - [DMOJ: Knapsack-3](https://dmoj.ca/problem/knapsack)
 - [DMOJ: Knapsack-4](https://dmoj.ca/problem/knapsack4)
