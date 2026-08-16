@@ -257,9 +257,16 @@ int lis(vector<int> const& a) {
 It is also possible to restore the subsequence using this approach.
 Traditionally, this requires maintaining two auxiliary arrays: one that tells us the index of the elements in $d[]$, and an array of "ancestors" $p[i]$ that points to the index of the previous element for the optimal subsequence ending in element $i$.
 
-However, we can restore the subsequence in a more memory-efficient way by only maintaining a single auxiliary array $p[i]$, which stores the length of the LIS ending at $a[i]$ (i.e., the index in $d[]$ where $a[i]$ was placed).
+However, we can restore the subsequence in a more memory-efficient way, using only a single auxiliary array $p[0 \dots n-1]$.
+We let $p[i]$ be the position in $d[]$ at which $a[i]$ was placed, so that the longest increasing subsequence ending in $a[i]$ has length $p[i] + 1$.
 
-Because the array $a$ is processed from left to right, if we know the length of the LIS is $L$, we can iterate backwards through the original array $a[]$. The first element we encounter moving backwards that satisfies $p[i] == L - 1$ is mathematically guaranteed to be strictly smaller than the current element in our restored sequence, making it a valid predecessor.
+Now suppose the length of the LIS is $L$, and let us iterate over $a[]$ backwards, picking the last element with $p[i] = L - 1$, then the last element before it with $p[i] = L - 2$, and so on down to $p[i] = 0$.
+Every element picked this way is a valid predecessor of the previously picked one.
+Indeed, suppose we have already picked $a[j]$ with $p[j] = l + 1$, and let $a[i]$ be the last element before it with $p[i] = l$.
+Since $d[l]$ always holds the most recent element placed at position $l$, it was equal to $a[i]$ at the moment $a[j]$ was processed.
+And the binary search placed $a[j]$ at position $l + 1$ exactly because $d[l] < a[j]$, therefore $a[i] < a[j]$.
+
+Collecting the elements this way and reversing them at the end gives us a longest increasing subsequence.
 
 ```{.cpp file=lis_method2_nlogn_restore}
 vector<int> lis(vector<int> const& a) {
@@ -276,10 +283,9 @@ vector<int> lis(vector<int> const& a) {
             *it = a[i];
     }
 
-    int l = d.size();
+    int l = d.size() - 1;
     vector<int> subseq;
-    l--;
-    for (int i = n - 1; i >= 0; i--) {
+    for (int i = n - 1; i >= 0 && l >= 0; i--) {
         if (p[i] == l) {
             subseq.push_back(a[i]);
             l--;
