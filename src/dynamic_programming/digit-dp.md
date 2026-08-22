@@ -132,19 +132,19 @@ There is one more detail. A number such as $7$ is written as $0\ldots07$ when pa
             dp[0][j][1] = 1;
 
         for (int i = 1; i < len; i++) {
-            // Free digit: no constraint from the bound.
+            // Free state: can use any digit 0-9 (no constraint).
             for (int j = 0; j <= 9; j++)
                 for (int p = 0; p <= 9; p++)
                     if (abs(j - p) <= k)
                         dp[i][j][0] += dp[i - 1][p][0];
 
-            // Bounded digit: place less than bound to become free.
+            // Tight to free: place digit < bound, then remaining digits are unconstrained.
             for (int j = 0; j < digits[i]; j++)
                 for (int p = 0; p <= 9; p++)
                     if (abs(j - p) <= k)
                         dp[i][j][1] += dp[i - 1][p][0];
 
-            // Bounded digit: place exactly the bound to stay bounded.
+            // Tight to tight: place exactly the bound digit, stay tight.
             for (int p = 0; p <= 9; p++)
                 if (abs(digits[i] - p) <= k)
                     dp[i][digits[i]][1] += dp[i - 1][p][1];
