@@ -8021,7 +8021,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 22, 2026 13:19:12 UTC">August 22, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 22, 2026 13:21:11 UTC">August 22, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8039,9 +8039,7 @@ Describe the issue of this article in detail.
 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
 <p>Digit dynamic programming (commonly abbreviated <em>digit DP</em>) is a technique for counting the integers in a range <span class="arithmatex">$[L, R]$</span> that satisfy some property of their decimal representation, without iterating over the range itself.</p>
 <p>Consider a typical question: <em>how many integers between <span class="arithmatex">$1$</span> and <span class="arithmatex">$10^{18}$</span> contain no two consecutive equal digits?</em> The range is far too large to enumerate, but the number of <strong>distinct states</strong> the digits can be in is tiny. Digit DP exploits this by building numbers one digit at a time, from the most significant to the least, and grouping together all prefixes that behave identically from that point on.</p>
-<p>The standard reduction is to define</p>
-<div class="arithmatex">$$f(X) = (\text{count of valid integers in } [0, X])$$</div>
-<p>and answer the original query as <span class="arithmatex">$f(R) - f(L-1)$</span>. This lets us solve a single prefix-counting problem rather than a two-sided one.</p>
+<p>The standard reduction is to define <span class="arithmatex">$f(X)$</span> as the count of valid integers from <span class="arithmatex">$0$</span> to <span class="arithmatex">$X$</span> (inclusive), then answer the original query as <span class="arithmatex">$f(R) - f(L-1)$</span>. This lets us solve a single prefix-counting problem rather than a two-sided one.</p>
 <p>A key constraint in digit DP is the <strong>tight flag</strong>. When counting numbers up to <span class="arithmatex">$X$</span>, we can't build arbitrary digit sequences. We must stay at or below <span class="arithmatex">$X$</span>. We track this with a boolean flag, usually called <em>tight</em>, which records whether the prefix built so far is exactly equal to the corresponding prefix of <span class="arithmatex">$X$</span>. </p>
 <ul>
 <li><strong>While tight=true</strong>: the prefix matches <span class="arithmatex">$X$</span>'s prefix exactly, so the next digit is capped by <span class="arithmatex">$X$</span>'s digit at that position.</li>
