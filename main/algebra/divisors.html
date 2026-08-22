@@ -7980,8 +7980,6 @@ Describe the issue of this article in detail.
   
     
   
-    
-  
 
   
   
@@ -7998,6 +7996,14 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+    
+  
     
   
 
@@ -8008,6 +8014,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8040,7 +8050,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 21, 2026 12:58:09 UTC">June 21, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 22, 2026 09:40:10 UTC">August 22, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8057,11 +8067,11 @@ Describe the issue of this article in detail.
 <h1 id="number-of-divisors-sum-of-divisors">Number of divisors / sum of divisors<a class="headerlink" href="#number-of-divisors-sum-of-divisors" title="Permanent link">&para;</a></h1>
 <p>In this article we discuss how to compute the number of divisors <span class="arithmatex">$d(n)$</span> and the sum of divisors <span class="arithmatex">$\sigma(n)$</span> of a given number <span class="arithmatex">$n$</span>.</p>
 <h2 id="number-of-divisors">Number of divisors<a class="headerlink" href="#number-of-divisors" title="Permanent link">&para;</a></h2>
-<p>It should be obvious that the prime factorization of a divisor <span class="arithmatex">$d$</span> has to be a subset of the prime factorization of <span class="arithmatex">$n$</span>, e.g. <span class="arithmatex">$6 = 2 \cdot 3$</span> is a divisor of <span class="arithmatex">$60 = 2^2 \cdot 3 \cdot 5$</span>.
-So we only need to find all different subsets of the prime factorization of <span class="arithmatex">$n$</span>.</p>
-<p>Usually the number of subsets is <span class="arithmatex">$2^x$</span> for a set with <span class="arithmatex">$x$</span> elements.
-However this is no longer true, if there are repeated elements in the set. In our case some prime factors may appear multiple times in the prime factorization of <span class="arithmatex">$n$</span>.</p>
-<p>If a prime factor <span class="arithmatex">$p$</span> appears <span class="arithmatex">$e$</span> times in the prime factorization of <span class="arithmatex">$n$</span>, then we can use the factor <span class="arithmatex">$p$</span> up to <span class="arithmatex">$e$</span> times in the subset.
+<p>The prime factors of a divisor <span class="arithmatex">$d$</span>, including their multiplicities, have to form a submultiset of the prime factors of <span class="arithmatex">$n$</span>; e.g. <span class="arithmatex">$6 = 2 \cdot 3$</span> is a divisor of <span class="arithmatex">$60 = 2^2 \cdot 3 \cdot 5$</span>.
+So we only need to count all different submultisets of the prime factorization of <span class="arithmatex">$n$</span>.</p>
+<p>A set with <span class="arithmatex">$x$</span> distinct elements has <span class="arithmatex">$2^x$</span> subsets.
+In our case, however, some prime factors may appear multiple times in the prime factorization of <span class="arithmatex">$n$</span>, so we are choosing from a multiset rather than a set.</p>
+<p>If a prime factor <span class="arithmatex">$p$</span> appears <span class="arithmatex">$e$</span> times in the prime factorization of <span class="arithmatex">$n$</span>, then we can use the factor <span class="arithmatex">$p$</span> up to <span class="arithmatex">$e$</span> times in the submultiset.
 Which means we have <span class="arithmatex">$e+1$</span> choices.</p>
 <p>Therefore if the prime factorization of <span class="arithmatex">$n$</span> is <span class="arithmatex">$p_1^{e_1} \cdot p_2^{e_2} \cdots p_k^{e_k}$</span>, where <span class="arithmatex">$p_i$</span> are distinct prime numbers, then the number of divisors is:</p>
 <div class="arithmatex">$$d(n) = (e_1 + 1) \cdot (e_2 + 1) \cdots (e_k + 1)$$</div>
@@ -8112,7 +8122,7 @@ p_1^{e_1} &amp; p_1^{e_1} &amp; p_1^{e_1} \cdot p_2 &amp; p_1^{e_1} \cdot p_2^2 
 <div class="arithmatex">$$1 + p_1 + p_1^2 + \dots + p_1^{e_1} = \frac{p_1^{e_1 + 1} - 1}{p_1 - 1}$$</div>
 <ul>
 <li>If there are two distinct prime divisors <span class="arithmatex">$n = p_1^{e_1} \cdot p_2^{e_2}$</span>, then we can make the same table as before.
-  The only difference is that now we now want to compute the sum instead of counting the elements.
+  The only difference is that now we want to compute the sum instead of counting the elements.
   It is easy to see, that the sum of each combination can be expressed as:</li>
 </ul>
 <div class="arithmatex">$$\left(1 + p_1 + p_1^2 + \dots + p_1^{e_1}\right) \cdot \left(1 + p_2 + p_2^2 + \dots + p_2^{e_2}\right)$$</div>
@@ -8162,7 +8172,7 @@ For instance the Dirichlet convolution of two multiplicative functions is also m
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (55.04%)</li><li><a href="https://github.com/md-shamim-ahmad" title="md-shamim-ahmad" data-bi-name="contributorprofile" target="_blank">md-shamim-ahmad</a> (37.99%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (5.43%)</li><li><a href="https://github.com/zakaria-zoulati" title="zakaria-zoulati" data-bi-name="contributorprofile" target="_blank">zakaria-zoulati</a> (0.78%)</li><li><a href="https://github.com/Siddharths8212376" title="Siddharths8212376" data-bi-name="contributorprofile" target="_blank">Siddharths8212376</a> (0.78%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (50.39%)</li><li><a href="https://github.com/md-shamim-ahmad" title="md-shamim-ahmad" data-bi-name="contributorprofile" target="_blank">md-shamim-ahmad</a> (37.99%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (5.43%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (4.65%)</li><li><a href="https://github.com/zakaria-zoulati" title="zakaria-zoulati" data-bi-name="contributorprofile" target="_blank">zakaria-zoulati</a> (0.78%)</li><li><a href="https://github.com/Siddharths8212376" title="Siddharths8212376" data-bi-name="contributorprofile" target="_blank">Siddharths8212376</a> (0.78%)</li></ul>
 </ul>
                 
               </article>
