@@ -28,7 +28,7 @@ We also note that by analogy with the search for a **minimum** solution, one can
 
 The algorithm was developed and published by Harold **Kuhn** in 1955. Kuhn himself gave it the name "Hungarian" because it was based on the earlier work by Hungarian mathematicians Dénes Kőnig and Jenő Egerváry.<br>
 In 1957, James **Munkres** showed that this algorithm runs in (strictly) polynomial time, independently from the cost.<br>
-Therefore, in literature, this algorithm is known not only as the "Hungarian", but also as the "Kuhn-Mankres algorithm" or "Mankres algorithm".<br>
+Therefore, in literature, this algorithm is known not only as the "Hungarian", but also as the "Kuhn-Munkres algorithm" or "Munkres algorithm".<br>
 However, it was recently discovered in 2006 that the same algorithm was invented **a century before Kuhn** by the German mathematician Carl Gustav **Jacobi**. His work, _About the research of the order of a system of arbitrary ordinary differential equations_, which was published posthumously in 1890, contained, among other findings, a polynomial algorithm for solving the assignment problem. Unfortunately, since the publication was in Latin, it went unnoticed among mathematicians.
 
 It is also worth noting that Kuhn's original algorithm had an asymptotic complexity of $\mathcal{O}(n^4)$, and only later Jack **Edmonds** and Richard **Karp** (and independently **Tomizawa**) showed how to improve it to an asymptotic complexity of $\mathcal{O}(n^3)$.
@@ -75,7 +75,7 @@ All edges of the matching $M$ are oriented in the direction from the right part 
 Recall (from the terminology of searching for matchings) that a vertex is called saturated if an edge of the current matching is adjacent to it. A vertex that is not adjacent to any edge of the current matching is called unsaturated. A path of odd length, in which the first edge does not belong to the matching, and for all subsequent edges there is an alternating belonging to the matching (belongs/does not belong) - is called an augmenting path.
 From all unsaturated vertices in the left part, a [depth-first](depth-first-search.md) or [breadth-first](breadth-first-search.md) traversal is started. If, as a result of the search, it was possible to reach an unsaturated vertex of the right part, we have found an augmenting path from the left part to the right one. If we include odd edges of the path and remove the even ones in the matching (i.e. include the first edge in the matching, exclude the second, include the third, etc.), then we will increase the matching cardinality by one.
 
-If there was no augmenting path, then the current matching $M$ is maximal in the graph $H$.
+If there was no augmenting path, then the current matching $M$ is maximum in the graph $H$.
 
 **Step 3.** If at the current step, it is not possible to increase the cardinality of the current matching, then a recalculation of the potential is performed in such a way that, at the next steps, there will be more opportunities to increase the matching.
 
@@ -241,9 +241,9 @@ int cost = -v[0];
 
 The Hungarian algorithm can be seen as the [Successive Shortest Path Algorithm](min_cost_flow.md), adapted for the assignment problem. Without going into the details, let's provide an intuition regarding the connection between them.
 
-The Successive Path algorithm uses a modified version of Johnson's algorithm as reweighting technique. This one is divided into four steps:
+The Successive Shortest Path algorithm uses a modified version of Johnson's algorithm as reweighting technique. This one is divided into four steps:
 
-- Use the [Bellman-Ford](bellman_ford.md) algorithm, starting from the sink $s$ and, for each node, find the minimum weight $h(v)$ of a path from $s$ to $v$.
+- Use the [Bellman-Ford](bellman_ford.md) algorithm, starting from the source $s$ and, for each node, find the minimum weight $h(v)$ of a path from $s$ to $v$.
 
 For every step of the main algorithm:
 
