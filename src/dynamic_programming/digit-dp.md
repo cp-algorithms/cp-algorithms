@@ -253,37 +253,45 @@ This example shows how digit DP applies to a different property: instead of trac
 
     ```{.cpp file=digit_dp_count_ones_iterative}
     long long count_ones(long long n) {
-        if (n < 0)
+        if (n == 0)
             return 0;
+        if (n < 10)
+            return 1;
 
         vector<int> digits;
         while (n > 0) {
             digits.push_back(n % 10);
             n /= 10;
         }
-        reverse(digits.begin(), digits.end());
         int len = digits.size();
 
-        long long result = 0;
-        long long power = 1;  // Power of 10 for remaining positions.
+        vector<vector<long long>> dp(len, vector<long long>(2, 0));
+        dp[0][0] = 1;
+        if (digits[0] >= 1)
+            dp[0][1] = 1;
 
-        for (int i = 0; i < len; i++) {
-            // Count 1s from previous positions (fully free).
-            result += (n / power / 10) * power;
-
-            // Count 1s at current position (bound constraint).
-            if (digits[i] >= 1) {
-                result += min((long long)digits[i], 1LL) * power + (n % power) + 1;
+        long long prev = 10;
+        long long suff = digits[0];
+        long long pow = 10;
+        for (int i = 1; i < len; ++i) {
+            dp[i][0] = dp[i-1][0] * 10 + prev;
+            if (digits[i] == 0) {
+                dp[i][1] = dp[i-1][1];
+            } else if (digits[i] == 1) {
+                dp[i][1] = dp[i-1][0] + dp[i-1][1] + suff + 1;
+            } else {
+                dp[i][1] = (digits[i]) * dp[i-1][0] + prev + dp[i-1][1];
             }
-
-            power *= 10;
+            prev *= 10;
+            suff += digits[i] * pow;
+            pow *= 10;
         }
 
-        return result;
+        return (long long)dp[len-1][1];
     }
     ```
 
-    The iterative version directly computes the contribution of 1s at each digit position without explicit recursion. For each position, we count: (1) how many complete groups of 1s from lower positions, and (2) partial 1s at the current position up to the bound.
+    The iterative version computes the count by tracking: `dp[i][0]` = count of 1s in all numbers with `i+1` digits (free positions), `dp[i][1]` = count of 1s in numbers up to the bound. At each position, we handle three cases: digit is 0 (no 1s), digit is 1 (partial 1s), or digit > 1 (all 1s at this position).
 
 ### Complexity
 
