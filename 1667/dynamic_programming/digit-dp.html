@@ -8032,7 +8032,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 22, 2026 18:44:01 UTC">August 22, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 22, 2026 18:53:02 UTC">August 22, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8053,8 +8053,8 @@ Describe the issue of this article in detail.
 <p>The standard reduction is to define <span class="arithmatex">$f(X)$</span> as the count of valid integers from <span class="arithmatex">$0$</span> to <span class="arithmatex">$X$</span> (inclusive), then answer the original query as <span class="arithmatex">$f(R) - f(L-1)$</span>. This lets us solve a single prefix-counting problem rather than a two-sided one.</p>
 <p>A key constraint in digit DP is the <strong>tight flag</strong>. We use it to distinguish two types of prefixes:</p>
 <ul>
-<li><strong>tight=true</strong> (<code>dp[i][1]</code>): valid prefixes where the current prefix <span class="arithmatex">$\le X[0:i]$</span> (constrained by the bound).</li>
-<li><strong>tight=false</strong> (<code>dp[i][0]</code>): all possible prefixes of length <span class="arithmatex">$i$</span> (no constraint from bound, any digit 0-9).</li>
+<li><strong>tight=true</strong> (<code>dp[i][1]</code>): valid prefixes where <code>digits[0]...digits[i]</code> (constrained by the bound <span class="arithmatex">$X$</span>).</li>
+<li><strong>tight=false</strong> (<code>dp[i][0]</code>): all possible prefixes of length <span class="arithmatex">$i+1$</span> (no constraint, any digits 0-9).</li>
 </ul>
 <p>A digit DP state consists of the current position, the <em>tight</em> flag, and whatever additional information the specific problem requires: the previous digit, a running digit sum, a remainder modulo <span class="arithmatex">$m$</span>, or a bitmask of digits already used. Since position ranges over <span class="arithmatex">$O(\log X)$</span> digits and the extra components are typically small, the resulting state space is exponentially smaller than the original range.</p>
 <h2 id="example-counting-numbers-with-close-adjacent-digits">Example: counting numbers with close adjacent digits<a class="headerlink" href="#example-counting-numbers-with-close-adjacent-digits" title="Permanent link">&para;</a></h2>
