@@ -400,7 +400,7 @@ def range_add(l, r, x):
     add(B1, l, x)
     add(B1, r+1, -x)
     add(B2, l, x*(l-1))
-    add(B2, r+1, -x*r))
+    add(B2, r+1, -x*r)
 ```
 After the range update $(l, r, x)$ the range sum query should return the following values:
 
