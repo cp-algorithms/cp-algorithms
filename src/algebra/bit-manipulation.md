@@ -51,7 +51,7 @@ All those introduced operators are instant (same speed as an addition) on a CPU 
 -   $|$ : The bitwise inclusive OR operator compares each bit of its first operand with the corresponding bit of its second operand.
     If one of the two bits is 1, the corresponding result bit is set to 1. Otherwise, the corresponding result bit is set to 0.
 
--   $\wedge$ : The bitwise exclusive OR (XOR) operator compares each bit of its first operand with the corresponding bit of its second operand.
+-   $\oplus$ : The bitwise exclusive OR (XOR) operator compares each bit of its first operand with the corresponding bit of its second operand.
     If one bit is 0 and the other bit is 1, the corresponding result bit is set to 1. Otherwise, the corresponding result bit is set to 0.
 
 -   $\sim$ : The bitwise complement (NOT) operator flips each bit of a number, if a bit is set the operator will clear it, if it is cleared the operator sets it.
@@ -111,7 +111,7 @@ Using bitwise shifts and some basic bitwise operations we can easily set, flip o
 $1 \ll x$ is a number with only the $x$-th bit set, while $\sim(1 \ll x)$ is a number with all bits set except the $x$-th bit.
 
 - $n ~|~ (1 \ll x)$ sets the $x$-th bit in the number $n$
-- $n ~\wedge~ (1 \ll x)$ flips the $x$-th bit in the number $n$
+- $n ~\oplus~ (1 \ll x)$ flips the $x$-th bit in the number $n$
 - $n ~\&~ \sim(1 \ll x)$ clears the $x$-th bit in the number $n$
 
 ### Check if a bit is set
@@ -206,7 +206,7 @@ We can see that the all the columns except the leftmost have $4$ (i.e. $2^2$) se
 
 With the new knowledge in hand we can come up with the following algorithm:
 
-- Find the highest power of $2$ that is lesser than or equal to the given number. Let this number be $x$.
+- Find the largest exponent $x$ such that $2^x$ is lesser than or equal to the given number.
 - Calculate the number of set bits from $1$ to $2^x - 1$ by using the formula $x \cdot 2^{x-1}$.
 - Count the no. of set bits in the most significant bit from $2^x$ to $n$ and add it.
 - Subtract $2^x$ from $n$ and repeat the above steps using the new $n$.
@@ -216,7 +216,8 @@ int countSetBits(int n) {
         int count = 0;
         while (n > 0) {
             int x = std::bit_width(n) - 1;
-            count += x << (x - 1);
+            if (x > 0)
+                count += x << (x - 1);
             n -= 1 << x;
             count += n + 1;
         }
