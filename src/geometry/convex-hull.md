@@ -35,9 +35,8 @@ the algorithm is done and we return the stack containing all the points of the
 convex hull in clockwise order.
 
 If you need to include the collinear points while doing a Graham scan, you need
-another step after sorting. You need to get the points that have the biggest
-polar distance from $P_0$ (these should be at the end of the sorted vector) and are collinear.
-The points in this line should be reversed so that we can output all the
+another step after sorting. You need to get the points with the largest polar angle from $P_0$ (these should be at the end of the sorted vector) that are collinear.
+The points on this ray should be reversed so that we can output all the
 collinear points, otherwise the algorithm would get the nearest point in this
 line and bail. This step shouldn't be included in the non-collinear version
 of the algorithm, otherwise you wouldn't get the smallest convex hull.
@@ -99,8 +98,7 @@ void convex_hull(vector<pt>& a, bool include_collinear = false) {
 ## Monotone chain Algorithm
 The algorithm first finds the leftmost and rightmost points A and B. In the event multiple such points exist,
 the lowest among the left (lowest Y-coordinate) is taken as A, and the highest among the right (highest Y-coordinate)
-is taken as B. Clearly, A and B must both belong to the convex hull as they are the farthest away and they cannot be contained
-by any line formed by a pair among the given points.
+is taken as B. Clearly, A and B must both belong to the convex hull because no point lies farther left than A or farther right than B.
 
 Now, draw a line through AB. This divides all the other points into two sets, S1 and S2, where S1 contains all the points
 above the line connecting A and B, and S2 contains all the points below the line joining A and B. The points that lie on
