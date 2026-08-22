@@ -43,40 +43,45 @@ There is one more detail. A number such as $7$ is written as $0\ldots07$ when pa
     The recursive formulation follows the state description directly. At each position we try every digit that is permitted, capped by the current digit of $x$ whenever we are tight:
 
     ```{.cpp file=digit_dp_recursive}
-    vector<int> digits;
-    int limit;
-    long long memo[16][11][2];
-    bool seen[16][11][2];
+    vector<int> digits;     // digits of the bound X
+    int limit;              // k: max difference between adjacent digits
+    long long memo[16][11][2][2];
+    bool computed[16][11][2][2];
 
+    // Count valid numbers from position pos to the end.
+    // pos: current digit position (0 = most significant)
+    // last: previous digit placed (or -1 if none yet)
+    // started: have we placed a non-zero digit?
+    // tight: is prefix still equal to the bound?
     long long go(int pos, int last, bool started, bool tight) {
+        // Finished all digits. Count only if we built a real number.
         if (pos == (int)digits.size())
             return started ? 1 : 0;
 
-        // Skip leading zeros: they don't count as real digits.
-        if (!tight && seen[pos][last + 1][started])
-            return memo[pos][last + 1][started];
+        // Return cached result if already computed.
+        if (computed[pos][last + 1][started][tight])
+            return memo[pos][last + 1][started][tight];
 
-        int hi = tight ? digits[pos] : 9;
+        // If tight, next digit capped by bound; else any digit 0-9.
+        int max_d = tight ? digits[pos] : 9;
         long long res = 0;
 
-        for (int d = 0; d <= hi; d++) {
+        for (int d = 0; d <= max_d; d++) {
+            // Tight propagates: stays true only if we place the bound digit.
+            bool new_tight = tight && (d == digits[pos]);
+
             if (!started && d == 0) {
-                // Still a leading zero, keep going.
-                res += go(pos + 1, -1, false, tight && d == hi);
-                continue;
+                // Leading zero: skip it, stay "not started".
+                res += go(pos + 1, -1, false, new_tight);
+            } else if (!started || abs(d - last) <= limit) {
+                // Either first real digit, or adjacent digits differ by at most k.
+                res += go(pos + 1, d, true, new_tight);
             }
-            if (started && abs(d - last) > limit)
-                continue;
-            // Update tight: stays true only if we matched the bound.
-            res += go(pos + 1, d, true, tight && d == hi);
         }
 
-        if (!tight) {
-            // Cache the result (tight states are not reusable).
-            seen[pos][last + 1][started] = true;
-            memo[pos][last + 1][started] = res;
-        }
-        return res;
+        // Cache the result.
+        computed[pos][last + 1][started][tight] = true;
+        return memo[pos][last + 1][started][tight] = res;
     }
 
     long long count_upto(long long n) {
@@ -173,6 +178,122 @@ There is one more detail. A number such as $7$ is written as $0\ldots07$ when pa
 A number below $10^{15}$ has at most $16$ digits. For each digit position we store one state per previous digit, and each state tries $10$ new digits.
 
 That is $16 \cdot 10 \cdot 10$ operations, a few thousand instead of the $10^{15}$ of a naive loop.
+
+## Example: counting digit ones
+
+> Given an integer $n$, count the total number of digit 1 appearing in all non-negative integers less than or equal to $n$.
+
+For example, with $n = 13$, the numbers are $0, 1, 2, ..., 13$. The digit 1 appears in: $1$ (once), $10$ (once), $11$ (twice), $12$ (once), $13$ (once), for a total of $6$ times.
+
+This example shows how digit DP applies to a different property: instead of tracking the previous digit, we track **how many ones we've counted so far**. The state becomes `(pos, count, tight)` rather than `(pos, last, tight)`.
+
+### Implementation
+
+=== "Recursive"
+
+    ```{.cpp file=digit_dp_count_ones_recursive}
+    vector<int> digits;
+    long long memo[11][2];
+    bool computed[11][2];
+
+    // Count occurrences of digit 1 from position pos to the end.
+    // pos: current digit position
+    // tight: is prefix still equal to the bound?
+    long long go(int pos, bool tight) {
+        // Finished all digits.
+        if (pos == (int)digits.size())
+            return 0;
+
+        // Return cached result if already computed.
+        if (computed[pos][tight])
+            return memo[pos][tight];
+
+        // If tight, next digit capped by bound; else any digit 0-9.
+        int max_d = tight ? digits[pos] : 9;
+        long long res = 0;
+
+        for (int d = 0; d <= max_d; d++) {
+            // If we place a 1 at this position, count it.
+            if (d == 1) {
+                // 1 appears at this position in (10^(remaining_positions)) numbers.
+                long long power = 1;
+                for (int i = pos + 1; i < (int)digits.size(); i++)
+                    power *= 10;
+                res += power;
+            }
+            // Tight propagates: stays true only if we place the bound digit.
+            bool new_tight = tight && (d == digits[pos]);
+            res += go(pos + 1, new_tight);
+        }
+
+        // Cache the result.
+        computed[pos][tight] = true;
+        return memo[pos][tight] = res;
+    }
+
+    long long count_ones(long long n) {
+        if (n < 0)
+            return 0;
+
+        digits.clear();
+        while (n > 0) {
+            digits.push_back(n % 10);
+            n /= 10;
+        }
+        reverse(digits.begin(), digits.end());
+
+        memset(computed, 0, sizeof computed);
+        return go(0, true);
+    }
+    ```
+
+    Notice the difference: we don't track `last` (previous digit) or `started` (leading zeros). We only need `pos` and `tight`. When we place a 1, we count how many times it appears at that position.
+
+=== "Iterative"
+
+    ```{.cpp file=digit_dp_count_ones_iterative}
+    long long count_ones(long long n) {
+        if (n < 0)
+            return 0;
+
+        vector<int> digits;
+        while (n > 0) {
+            digits.push_back(n % 10);
+            n /= 10;
+        }
+        reverse(digits.begin(), digits.end());
+        int len = digits.size();
+
+        long long result = 0;
+        long long power = 1;  // Power of 10 for remaining positions.
+
+        for (int i = 0; i < len; i++) {
+            // Count 1s from previous positions (fully free).
+            result += (n / power / 10) * power;
+
+            // Count 1s at current position (bound constraint).
+            if (digits[i] >= 1) {
+                result += min((long long)digits[i], 1LL) * power + (n % power) + 1;
+            }
+
+            power *= 10;
+        }
+
+        return result;
+    }
+    ```
+
+    The iterative version directly computes the contribution of 1s at each digit position without explicit recursion. For each position, we count: (1) how many complete groups of 1s from lower positions, and (2) partial 1s at the current position up to the bound.
+
+### Complexity
+
+A number below $10^{11}$ has at most $11$ digits. For each digit position we compute the contribution of 1s at that position.
+
+The recursive version: at most $11 \cdot 2 = 22$ states (position and tight flag), each doing $O(10)$ work. Total: $O(11 \cdot 2 \cdot 10) = O(220)$ operations.
+
+The iterative version: simply iterates through each digit position, computing the count directly. Total: $O(11)$ operations.
+
+Both are exponentially faster than checking each number individually.
 
 ## Practice Problems
 
