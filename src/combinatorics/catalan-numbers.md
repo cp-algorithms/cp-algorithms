@@ -5,7 +5,7 @@ e_maxx_link: catalan_numbers
 ---
 
 # Catalan Numbers
-Catalan numbers is a number sequence, which is found useful in a number of combinatorial problems, often involving recursively-defined objects.
+Catalan numbers form a number sequence which is useful in a number of combinatorial problems, often involving recursively-defined objects.
 
 This sequence was named after the Belgian mathematician [Catalan](https://en.wikipedia.org/wiki/Eug%C3%A8ne_Charles_Catalan), who lived in the 19th century. (In fact it was known before to Euler, who lived a century before Catalan).
 
@@ -41,11 +41,9 @@ $$C_n = \sum_{k = 0}^{n-1} C_k C_{n-1-k} , {n} \geq 2$$
 
 The recurrence formula can be easily deduced from the problem of the correct bracket sequence.
 
-The leftmost opening parenthesis $l$ corresponds to certain closing bracket $r$, which divides the sequence into 2 parts which in turn should be a correct sequence of brackets. Thus formula is also divided into 2 parts. If we denote $k = {r - l - 1}$, then for fixed $r$, there will be exactly $C_k C_{n-1-k}$ such bracket sequences. Summing this over all admissible $k's$, we get the recurrence relation on $C_n$.
+The leftmost opening parenthesis $l$ corresponds to some closing parenthesis $r$. Suppose that there are $k$ pairs of parentheses between $l$ and $r$. The substring between them can be any correct bracket sequence with $k$ pairs, and the suffix after $r$ can be any correct bracket sequence with $n-1-k$ pairs. Thus, for a fixed $k$, there are exactly $C_k C_{n-1-k}$ such bracket sequences. Summing over all $k=0,1,\ldots,n-1$ gives the recurrence for $C_n$.
 
-You can also think it in this manner. By definition, $C_n$ denotes number of correct bracket sequences. Now, the sequence may be divided into 2 parts of length $k$ and ${n - k}$, each of which should be a correct bracket sequence. Example :
-
-$( ) ( ( ) )$ can be divided into $( )$ and $( ( ) )$, but cannot be divided into $( ) ($ and $( ) )$. Again summing over all admissible $k's$, we get the recurrence relation on $C_n$.
+Equivalently, every nonempty correct bracket sequence can be decomposed uniquely as $(A)B$, where $A$ and $B$ are correct bracket sequences. If $A$ contains $k$ pairs, then $B$ contains $n-1-k$ pairs, which gives the same recurrence.
 
 #### C++ implementation 
 
@@ -53,7 +51,7 @@ $( ) ( ( ) )$ can be divided into $( )$ and $( ( ) )$, but cannot be divided int
 const int MOD = ....
 const int MAX = ....
 int catalan[MAX];
-void init() {
+void init(int n) {
     catalan[0] = catalan[1] = 1;
     for (int i=2; i<=n; i++) {
         catalan[i] = 0;
