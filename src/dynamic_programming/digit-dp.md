@@ -187,119 +187,49 @@ For example, with $n = 13$, the numbers are $0, 1, 2, ..., 13$. The digit 1 appe
 
 This example shows how digit DP applies to a different property: instead of tracking the previous digit, we track **how many ones we've counted so far**. The state becomes `(pos, count, tight)` rather than `(pos, last, tight)`.
 
-### Implementation
+For this problem, a direct mathematical approach works best: iterate through each digit position and count how many 1s appear at that position.
 
-=== "Recursive"
+```{.cpp file=digit_dp_count_ones}
+long long count_ones(long long n) {
+    if (n == 0)
+        return 0;
+    if (n < 10)
+        return 1;
 
-    ```{.cpp file=digit_dp_count_ones_recursive}
     vector<int> digits;
-    long long memo[11][2];
-    bool computed[11][2];
-    long long pow_table[11];
+    while (n > 0) {
+        digits.push_back(n % 10);
+        n /= 10;
+    }
+    int len = digits.size();
 
-    // Count occurrences of 1s from position pos to the end.
-    // pos: current digit position
-    // tight: is prefix still equal to the bound?
-    long long go(int pos, bool tight) {
-        if (pos == (int)digits.size())
-            return 0;
+    vector<vector<long long>> dp(len, vector<long long>(2, 0));
+    dp[0][0] = 1;
+    if (digits[0] >= 1)
+        dp[0][1] = 1;
 
-        if (computed[pos][tight])
-            return memo[pos][tight];
-
-        int max_d = tight ? digits[pos] : 9;
-        long long res = 0;
-
-        for (int d = 0; d <= max_d; d++) {
-            if (d == 1) {
-                // If we place a 1 at position pos, count all combinations in remaining positions.
-                res += pow_table[digits.size() - pos - 1];
-            }
-            bool new_tight = tight && (d == digits[pos]);
-            res += go(pos + 1, new_tight);
+    long long prev = 10;
+    long long suff = digits[0];
+    long long pow = 10;
+    for (int i = 1; i < len; ++i) {
+        dp[i][0] = dp[i-1][0] * 10 + prev;
+        if (digits[i] == 0) {
+            dp[i][1] = dp[i-1][1];
+        } else if (digits[i] == 1) {
+            dp[i][1] = dp[i-1][0] + dp[i-1][1] + suff + 1;
+        } else {
+            dp[i][1] = (digits[i]) * dp[i-1][0] + prev + dp[i-1][1];
         }
-
-        computed[pos][tight] = true;
-        return memo[pos][tight] = res;
+        prev *= 10;
+        suff += digits[i] * pow;
+        pow *= 10;
     }
 
-    long long count_ones(long long n) {
-        if (n == 0)
-            return 0;
-        if (n < 10)
-            return 1;
+    return (long long)dp[len-1][1];
+}
+```
 
-        digits.clear();
-        while (n > 0) {
-            digits.push_back(n % 10);
-            n /= 10;
-        }
-        reverse(digits.begin(), digits.end());
-
-        pow_table[0] = 1;
-        for (int i = 1; i < 11; i++)
-            pow_table[i] = pow_table[i-1] * 10;
-
-        memset(computed, 0, sizeof computed);
-        return go(0, true);
-    }
-    ```
-
-    We track `pos` and `tight` only. When placing a 1 at position `pos`, it appears in all $10^{\text{remaining positions}}$ numbers from that point. We recursively count 1s in the remaining positions.
-
-=== "Iterative"
-
-    ```{.cpp file=digit_dp_count_ones_iterative}
-    long long count_ones(long long n) {
-        if (n == 0)
-            return 0;
-        if (n < 10)
-            return 1;
-
-        vector<int> digits;
-        while (n > 0) {
-            digits.push_back(n % 10);
-            n /= 10;
-        }
-        int len = digits.size();
-
-        vector<vector<long long>> dp(len, vector<long long>(2, 0));
-        dp[0][0] = 1;
-        if (digits[0] >= 1)
-            dp[0][1] = 1;
-
-        long long prev = 10;
-        long long suff = digits[0];
-        long long pow = 10;
-        for (int i = 1; i < len; ++i) {
-            dp[i][0] = dp[i-1][0] * 10 + prev;
-            if (digits[i] == 0) {
-                dp[i][1] = dp[i-1][1];
-            } else if (digits[i] == 1) {
-                dp[i][1] = dp[i-1][0] + dp[i-1][1] + suff + 1;
-            } else {
-                dp[i][1] = (digits[i]) * dp[i-1][0] + prev + dp[i-1][1];
-            }
-            prev *= 10;
-            suff += digits[i] * pow;
-            pow *= 10;
-        }
-
-        return (long long)dp[len-1][1];
-    }
-    ```
-
-    The iterative version computes the count by tracking: `dp[i][0]` = count of 1s in all numbers with `i+1` digits (free positions), `dp[i][1]` = count of 1s in numbers up to the bound. At each position, we handle three cases: digit is 0 (no 1s), digit is 1 (partial 1s), or digit > 1 (all 1s at this position).
-
-### Complexity
-
-A number below $10^{11}$ has at most $11$ digits. For each digit position we compute the contribution of 1s at that position.
-
-The recursive version: at most $11 \cdot 2 = 22$ states (position and tight flag), each doing $O(10)$ work. Total: $O(11 \cdot 2 \cdot 10) = O(220)$ operations.
-
-The iterative version: simply iterates through each digit position, computing the count directly. Total: $O(11)$ operations.
-
-Both are exponentially faster than checking each number individually.
+`dp[i][0]` counts 1s in all `i+1`-digit numbers. `dp[i][1]` counts 1s in numbers up to $n$. At each digit position, we handle three cases: digit is 0 (no new 1s), digit is 1 (partial 1s), or digit > 1 (all 1s at this position).
 
 ## Practice Problems
 
