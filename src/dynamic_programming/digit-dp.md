@@ -26,9 +26,9 @@ A digit DP state consists of the current position, the *tight* flag, and whateve
 
 For instance with $k = 1$, the number $2321$ is good, because $|2-3| = 1$, $|3-2| = 1$ and $|2-1| = 1$. The number $2521$ is not, because $|2-5| = 3$.
 
-Following the reduction from the introduction, we write the answer as $f(r) - f(l-1)$, where $f(x)$ counts the good integers in $[0, x]$. It remains to compute $f$.
+Following the reduction from the introduction, we write the answer as $f(r) - f(l-1)$, where $f(x)$ counts the valid integers from $0$ to $x$ (inclusive). It remains to compute $f$.
 
-To decide whether the next digit is allowed we only need to know the **previous digit**, so that is our extra state. Together with the position and the tight flag, a state is:
+For this problem, to decide whether the next digit is allowed, we only need to know the **previous digit**. So our DP state consists of the position, the tight flag, and the previous digit. Here's the full state:
 
 - `pos`: the index of the digit we are about to place, counting from the most significant;
 - `last`: the digit placed at `pos - 1`;
