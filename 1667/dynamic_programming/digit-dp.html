@@ -2429,6 +2429,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#example-counting-digit-ones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: counting digit ones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example: counting digit ones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complexity_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complexity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#practice-problems" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8021,7 +8060,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 22, 2026 13:35:17 UTC">August 22, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 22, 2026 14:28:16 UTC">August 22, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8064,40 +8103,45 @@ Describe the issue of this article in detail.
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The recursive formulation follows the state description directly. At each position we try every digit that is permitted, capped by the current digit of <span class="arithmatex">$x$</span> whenever we are tight:</p>
-<div class="highlight"><pre><span></span><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">digits</span><span class="p">;</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">limit</span><span class="p">;</span>
-<span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">memo</span><span class="p">[</span><span class="mi">16</span><span class="p">][</span><span class="mi">11</span><span class="p">][</span><span class="mi">2</span><span class="p">];</span>
-<span class="kt">bool</span><span class="w"> </span><span class="n">seen</span><span class="p">[</span><span class="mi">16</span><span class="p">][</span><span class="mi">11</span><span class="p">][</span><span class="mi">2</span><span class="p">];</span>
+<div class="highlight"><pre><span></span><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">digits</span><span class="p">;</span><span class="w">     </span><span class="c1">// digits of the bound X</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">limit</span><span class="p">;</span><span class="w">              </span><span class="c1">// k: max difference between adjacent digits</span>
+<span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">memo</span><span class="p">[</span><span class="mi">16</span><span class="p">][</span><span class="mi">11</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">];</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">computed</span><span class="p">[</span><span class="mi">16</span><span class="p">][</span><span class="mi">11</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">];</span>
 
+<span class="c1">// Count valid numbers from position pos to the end.</span>
+<span class="c1">// pos: current digit position (0 = most significant)</span>
+<span class="c1">// last: previous digit placed (or -1 if none yet)</span>
+<span class="c1">// started: have we placed a non-zero digit?</span>
+<span class="c1">// tight: is prefix still equal to the bound?</span>
 <span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">go</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">pos</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">last</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">started</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">tight</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Finished all digits. Count only if we built a real number.</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pos</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">digits</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">started</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 
-<span class="w">    </span><span class="c1">// Skip leading zeros: they don't count as real digits.</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">tight</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">seen</span><span class="p">[</span><span class="n">pos</span><span class="p">][</span><span class="n">last</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">][</span><span class="n">started</span><span class="p">])</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">memo</span><span class="p">[</span><span class="n">pos</span><span class="p">][</span><span class="n">last</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">][</span><span class="n">started</span><span class="p">];</span>
+<span class="w">    </span><span class="c1">// Return cached result if already computed.</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">computed</span><span class="p">[</span><span class="n">pos</span><span class="p">][</span><span class="n">last</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">][</span><span class="n">started</span><span class="p">][</span><span class="n">tight</span><span class="p">])</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">memo</span><span class="p">[</span><span class="n">pos</span><span class="p">][</span><span class="n">last</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">][</span><span class="n">started</span><span class="p">][</span><span class="n">tight</span><span class="p">];</span>
 
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">hi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tight</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">digits</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">9</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// If tight, next digit capped by bound; else any digit 0-9.</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">max_d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tight</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">digits</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">9</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">hi</span><span class="p">;</span><span class="w"> </span><span class="n">d</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">max_d</span><span class="p">;</span><span class="w"> </span><span class="n">d</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Tight propagates: stays true only if we place the bound digit.</span>
+<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">new_tight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tight</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">digits</span><span class="p">[</span><span class="n">pos</span><span class="p">]);</span>
+
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">started</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="c1">// Still a leading zero, keep going.</span>
-<span class="w">            </span><span class="n">res</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">go</span><span class="p">(</span><span class="n">pos</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="n">tight</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">hi</span><span class="p">);</span>
-<span class="w">            </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">            </span><span class="c1">// Leading zero: skip it, stay "not started".</span>
+<span class="w">            </span><span class="n">res</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">go</span><span class="p">(</span><span class="n">pos</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="n">new_tight</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">started</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">abs</span><span class="p">(</span><span class="n">d</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">last</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">limit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// Either first real digit, or adjacent digits differ by at most k.</span>
+<span class="w">            </span><span class="n">res</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">go</span><span class="p">(</span><span class="n">pos</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="n">new_tight</span><span class="p">);</span>
 <span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">started</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">abs</span><span class="p">(</span><span class="n">d</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">last</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">limit</span><span class="p">)</span>
-<span class="w">            </span><span class="k">continue</span><span class="p">;</span>
-<span class="w">        </span><span class="c1">// Update tight: stays true only if we matched the bound.</span>
-<span class="w">        </span><span class="n">res</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">go</span><span class="p">(</span><span class="n">pos</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="n">tight</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">hi</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">tight</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">// Cache the result (tight states are not reusable).</span>
-<span class="w">        </span><span class="n">seen</span><span class="p">[</span><span class="n">pos</span><span class="p">][</span><span class="n">last</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">][</span><span class="n">started</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
-<span class="w">        </span><span class="n">memo</span><span class="p">[</span><span class="n">pos</span><span class="p">][</span><span class="n">last</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">][</span><span class="n">started</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">res</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Cache the result.</span>
+<span class="w">    </span><span class="n">computed</span><span class="p">[</span><span class="n">pos</span><span class="p">][</span><span class="n">last</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">][</span><span class="n">started</span><span class="p">][</span><span class="n">tight</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">memo</span><span class="p">[</span><span class="n">pos</span><span class="p">][</span><span class="n">last</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">][</span><span class="n">started</span><span class="p">][</span><span class="n">tight</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">count_upto</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -8188,6 +8232,112 @@ Describe the issue of this article in detail.
 <h3 id="complexity">Complexity<a class="headerlink" href="#complexity" title="Permanent link">&para;</a></h3>
 <p>A number below <span class="arithmatex">$10^{15}$</span> has at most <span class="arithmatex">$16$</span> digits. For each digit position we store one state per previous digit, and each state tries <span class="arithmatex">$10$</span> new digits.</p>
 <p>That is <span class="arithmatex">$16 \cdot 10 \cdot 10$</span> operations, a few thousand instead of the <span class="arithmatex">$10^{15}$</span> of a naive loop.</p>
+<h2 id="example-counting-digit-ones">Example: counting digit ones<a class="headerlink" href="#example-counting-digit-ones" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Given an integer <span class="arithmatex">$n$</span>, count the total number of digit 1 appearing in all non-negative integers less than or equal to <span class="arithmatex">$n$</span>.</p>
+</blockquote>
+<p>For example, with <span class="arithmatex">$n = 13$</span>, the numbers are <span class="arithmatex">$0, 1, 2, ..., 13$</span>. The digit 1 appears in: <span class="arithmatex">$1$</span> (once), <span class="arithmatex">$10$</span> (once), <span class="arithmatex">$11$</span> (twice), <span class="arithmatex">$12$</span> (once), <span class="arithmatex">$13$</span> (once), for a total of <span class="arithmatex">$6$</span> times.</p>
+<p>This example shows how digit DP applies to a different property: instead of tracking the previous digit, we track <strong>how many ones we've counted so far</strong>. The state becomes <code>(pos, count, tight)</code> rather than <code>(pos, last, tight)</code>.</p>
+<h3 id="implementation_1">Implementation<a class="headerlink" href="#implementation_1" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Recursive</label><label for="__tabbed_2_2">Iterative</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">digits</span><span class="p">;</span>
+<span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">memo</span><span class="p">[</span><span class="mi">11</span><span class="p">][</span><span class="mi">2</span><span class="p">];</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">computed</span><span class="p">[</span><span class="mi">11</span><span class="p">][</span><span class="mi">2</span><span class="p">];</span>
+
+<span class="c1">// Count occurrences of digit 1 from position pos to the end.</span>
+<span class="c1">// pos: current digit position</span>
+<span class="c1">// tight: is prefix still equal to the bound?</span>
+<span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">go</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">pos</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">tight</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Finished all digits.</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pos</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">digits</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Return cached result if already computed.</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">computed</span><span class="p">[</span><span class="n">pos</span><span class="p">][</span><span class="n">tight</span><span class="p">])</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">memo</span><span class="p">[</span><span class="n">pos</span><span class="p">][</span><span class="n">tight</span><span class="p">];</span>
+
+<span class="w">    </span><span class="c1">// If tight, next digit capped by bound; else any digit 0-9.</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">max_d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tight</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">digits</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">9</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">max_d</span><span class="p">;</span><span class="w"> </span><span class="n">d</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// If we place a 1 at this position, count it.</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// 1 appears at this position in (10^(remaining_positions)) numbers.</span>
+<span class="w">            </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">power</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">digits</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">                </span><span class="n">power</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">            </span><span class="n">res</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">power</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="c1">// Tight propagates: stays true only if we place the bound digit.</span>
+<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">new_tight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tight</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">digits</span><span class="p">[</span><span class="n">pos</span><span class="p">]);</span>
+<span class="w">        </span><span class="n">res</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">go</span><span class="p">(</span><span class="n">pos</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">new_tight</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Cache the result.</span>
+<span class="w">    </span><span class="n">computed</span><span class="p">[</span><span class="n">pos</span><span class="p">][</span><span class="n">tight</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">memo</span><span class="p">[</span><span class="n">pos</span><span class="p">][</span><span class="n">tight</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">count_ones</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">digits</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">digits</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+<span class="w">        </span><span class="n">n</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">reverse</span><span class="p">(</span><span class="n">digits</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">digits</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+
+<span class="w">    </span><span class="n">memset</span><span class="p">(</span><span class="n">computed</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="n">computed</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">go</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Notice the difference: we don't track <code>last</code> (previous digit) or <code>started</code> (leading zeros). We only need <code>pos</code> and <code>tight</code>. When we place a 1, we count how many times it appears at that position.</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">count_ones</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">digits</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">digits</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+<span class="w">        </span><span class="n">n</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">reverse</span><span class="p">(</span><span class="n">digits</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">digits</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">digits</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">power</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">  </span><span class="c1">// Power of 10 for remaining positions.</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">len</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Count 1s from previous positions (fully free).</span>
+<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">power</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">power</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// Count 1s at current position (bound constraint).</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">digits</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">min</span><span class="p">((</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="n">digits</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="mf">1L</span><span class="n">L</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">power</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">power</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">power</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The iterative version directly computes the contribution of 1s at each digit position without explicit recursion. For each position, we count: (1) how many complete groups of 1s from lower positions, and (2) partial 1s at the current position up to the bound.</p>
+</div>
+</div>
+</div>
+<h3 id="complexity_1">Complexity<a class="headerlink" href="#complexity_1" title="Permanent link">&para;</a></h3>
+<p>A number below <span class="arithmatex">$10^{11}$</span> has at most <span class="arithmatex">$11$</span> digits. For each digit position we compute the contribution of 1s at that position.</p>
+<p>The recursive version: at most <span class="arithmatex">$11 \cdot 2 = 22$</span> states (position and tight flag), each doing <span class="arithmatex">$O(10)$</span> work. Total: <span class="arithmatex">$O(11 \cdot 2 \cdot 10) = O(220)$</span> operations.</p>
+<p>The iterative version: simply iterates through each digit position, computing the count directly. Total: <span class="arithmatex">$O(11)$</span> operations.</p>
+<p>Both are exponentially faster than checking each number individually.</p>
 <h2 id="practice-problems">Practice Problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://leetcode.com/problems/count-of-integers/">Leetcode: Count of Integers</a></li>
