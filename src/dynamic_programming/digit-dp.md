@@ -9,7 +9,7 @@ tags:
 
 Digit dynamic programming (commonly abbreviated *digit DP*) is a technique for counting the integers in a range $[L, R]$ that satisfy some property of their decimal representation, without iterating over the range itself.
 
-Consider a typical question: *how many integers between $1$ and $10^{18}$ contain no two consecutive equal digits?* The range is far too large to enumerate, but the number of **distinct states** the digits can be in is tiny. Digit DP exploits this by building numbers one digit at a time, from the most significant to the least, and grouping together all prefixes that behave identically from that point on.
+Consider a typical question: *how many integers between $1$ and $10^{18}$ contain no two consecutive equal digits?* The range is far too large to enumerate, but the number of **distinct states** the digits can be in is tiny. Digit DP exploits this by building numbers digit by digit, from the most significant to the least (a common approach), and grouping together all prefixes that behave identically from that point on.
 
 The standard reduction is to define $f(X)$ as the count of valid integers from $0$ to $X$ (inclusive), then answer the original query as $f(R) - f(L-1)$. This lets us solve a single prefix-counting problem rather than a two-sided one.
 
