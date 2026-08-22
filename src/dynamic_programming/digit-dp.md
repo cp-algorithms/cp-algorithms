@@ -17,9 +17,12 @@ $$f(X) = (\text{count of valid integers in } [0, X])$$
 
 and answer the original query as $f(R) - f(L-1)$. This lets us solve a single prefix-counting problem rather than a two-sided one.
 
-The central difficulty is that we may not build an arbitrary sequence of digits: the result must not exceed $X$. This is handled by carrying a boolean flag, usually called *tight*, which records whether the prefix built so far is exactly equal to the corresponding prefix of $X$. While tight, the next digit is capped by the matching digit of $X$; once we place anything smaller, every remaining position is free and the flag stays off for the rest of the construction.
+A key constraint in digit DP is the **tight flag**. When counting numbers up to $X$, we can't build arbitrary digit sequences. We must stay at or below $X$. We track this with a boolean flag, usually called *tight*, which records whether the prefix built so far is exactly equal to the corresponding prefix of $X$. 
 
-A digit DP state therefore consists of the current position, the *tight* flag, and whatever additional information the property being counted requires: the previous digit, a running digit sum, a remainder modulo $m$, or a bitmask of digits already used. Since the position ranges over the $O(\log X)$ digits of $X$ and the remaining components are typically small, the resulting state space is exponentially smaller than the range being counted.
+- **While tight=true**: the prefix matches $X$'s prefix exactly, so the next digit is capped by $X$'s digit at that position.
+- **Once tight=false**: we've placed a digit smaller than $X$'s, so all remaining positions are unconstrained.
+
+A digit DP state consists of the current position, the *tight* flag, and whatever additional information the specific problem requires: the previous digit, a running digit sum, a remainder modulo $m$, or a bitmask of digits already used. Since position ranges over $O(\log X)$ digits and the extra components are typically small, the resulting state space is exponentially smaller than the original range.
 
 ## Example: counting numbers with close adjacent digits
 
