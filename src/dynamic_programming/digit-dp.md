@@ -37,130 +37,137 @@ To decide whether the next digit is allowed we only need to know the **previous 
 
 There is one more detail. A number such as $7$ is written as $0\ldots07$ when padded to the length of $x$, and those padding zeros are not really adjacent digits. If we treated them as such, the leading zeros would be tested against the first significant digit and we would reject valid numbers. We therefore carry a fourth component, `started`, which tells us whether a significant digit has been placed yet. While it is false we are still inside the padding, no adjacency check applies, and the number being built is really a shorter one.
 
-### Recursive implementation
+### Implementation
 
-The recursive formulation follows the state description directly. At each position we try every digit that is permitted, capped by the current digit of $x$ whenever we are tight:
+=== "Recursive"
 
-```{.cpp file=digit_dp_recursive}
-vector<int> digits;
-int limit;
-long long memo[16][11][2];
-bool seen[16][11][2];
+    The recursive formulation follows the state description directly. At each position we try every digit that is permitted, capped by the current digit of $x$ whenever we are tight:
 
-long long go(int pos, int last, bool started, bool tight) {
-    if (pos == (int)digits.size())
-        return started ? 1 : 0;
+    ```{.cpp file=digit_dp_recursive}
+    vector<int> digits;
+    int limit;
+    long long memo[16][11][2];
+    bool seen[16][11][2];
 
-    if (!tight && seen[pos][last + 1][started])
-        return memo[pos][last + 1][started];
+    long long go(int pos, int last, bool started, bool tight) {
+        if (pos == (int)digits.size())
+            return started ? 1 : 0;
 
-    int hi = tight ? digits[pos] : 9;
-    long long res = 0;
+        // Skip leading zeros: they don't count as real digits.
+        if (!tight && seen[pos][last + 1][started])
+            return memo[pos][last + 1][started];
 
-    for (int d = 0; d <= hi; d++) {
-        if (!started && d == 0) {
-            res += go(pos + 1, -1, false, tight && d == hi);
-            continue;
+        int hi = tight ? digits[pos] : 9;
+        long long res = 0;
+
+        for (int d = 0; d <= hi; d++) {
+            if (!started && d == 0) {
+                // Still a leading zero, keep going.
+                res += go(pos + 1, -1, false, tight && d == hi);
+                continue;
+            }
+            if (started && abs(d - last) > limit)
+                continue;
+            // Update tight: stays true only if we matched the bound.
+            res += go(pos + 1, d, true, tight && d == hi);
         }
-        if (started && abs(d - last) > limit)
-            continue;
-        res += go(pos + 1, d, true, tight && d == hi);
+
+        if (!tight) {
+            // Cache the result (tight states are not reusable).
+            seen[pos][last + 1][started] = true;
+            memo[pos][last + 1][started] = res;
+        }
+        return res;
     }
 
-    if (!tight) {
-        seen[pos][last + 1][started] = true;
-        memo[pos][last + 1][started] = res;
+    long long count_upto(long long n) {
+        if (n < 0)
+            return 0;
+
+        digits.clear();
+        if (n == 0) {
+            digits.push_back(0);
+        } else {
+            while (n > 0) {
+                digits.push_back(n % 10);
+                n /= 10;
+            }
+            reverse(digits.begin(), digits.end());
+        }
+
+        memset(seen, 0, sizeof seen);
+        return go(0, -1, false, true);
     }
-    return res;
-}
 
-long long count_upto(long long n) {
-    if (n < 0)
-        return 0;
+    long long good_integers(long long l, long long r, int k) {
+        limit = k;
+        return count_upto(r) - count_upto(l - 1);
+    }
+    ```
 
-    digits.clear();
-    if (n == 0) {
-        digits.push_back(0);
-    } else {
+    The base case returns $1$ only when `started` is true. A build that never places a significant digit represents the number $0$, which we do not want to count.
+
+=== "Iterative"
+
+    The same recurrence can be filled bottom-up, processing digits from the least significant end. Here `dp[i][j][0]` is the number of ways to build a free (non-tight) suffix of length $i+1$ starting with digit $j$, and `dp[i][j][1]` is the corresponding count for a prefix still tight against $x$:
+
+    ```{.cpp file=digit_dp_iterative}
+    long long dp[16][10][2];
+
+    long long count_upto(long long n, int k) {
+        if (n <= 0)
+            return 0;
+
+        memset(dp, 0, sizeof dp);
+
+        vector<int> digits;
         while (n > 0) {
             digits.push_back(n % 10);
             n /= 10;
         }
-        reverse(digits.begin(), digits.end());
-    }
+        int len = digits.size();
 
-    memset(seen, 0, sizeof seen);
-    return go(0, -1, false, true);
-}
-
-long long good_integers(long long l, long long r, int k) {
-    limit = k;
-    return count_upto(r) - count_upto(l - 1);
-}
-```
-
-The base case returns $1$ only when `started` is true. A build that never places a significant digit represents the number $0$, which we do not want to count.
-
-Memoisation is applied **only to non-tight states**. A tight state depends on the actual bound $x$, so its value is not reusable between the calls for $r$ and for $l-1$. This costs us nothing: at most one tight state exists per position, so there is nothing to gain by caching them.
-
-Before the first significant digit there is no previous digit at all, and we use the value $-1$ to represent that. Since an array cannot be indexed with $-1$, every access adds one to it, which is why the table is written as `memo[pos][last + 1][started]` and its second dimension has size $11$: ten digits plus one slot for the "no previous digit" case.
-
-### Iterative implementation
-
-The same recurrence can be filled bottom-up, processing digits from the least significant end. Here `dp[i][j][0]` is the number of ways to build a free (non-tight) suffix of length $i+1$ starting with digit $j$, and `dp[i][j][1]` is the corresponding count for a prefix still tight against $x$:
-
-```{.cpp file=digit_dp_iterative}
-long long dp[16][10][2];
-
-long long count_upto(long long n, int k) {
-    if (n <= 0)
-        return 0;
-
-    memset(dp, 0, sizeof dp);
-
-    vector<int> digits;
-    while (n > 0) {
-        digits.push_back(n % 10);
-        n /= 10;
-    }
-    int len = digits.size();
-
-    for (int j = 0; j <= 9; j++)
-        dp[0][j][0] = 1;
-    for (int j = 0; j <= digits[0]; j++)
-        dp[0][j][1] = 1;
-
-    for (int i = 1; i < len; i++) {
         for (int j = 0; j <= 9; j++)
+            dp[0][j][0] = 1;
+        for (int j = 0; j <= digits[0]; j++)
+            dp[0][j][1] = 1;
+
+        for (int i = 1; i < len; i++) {
+            // Free digit: no constraint from the bound.
+            for (int j = 0; j <= 9; j++)
+                for (int p = 0; p <= 9; p++)
+                    if (abs(j - p) <= k)
+                        dp[i][j][0] += dp[i - 1][p][0];
+
+            // Bounded digit: place less than bound to become free.
+            for (int j = 0; j < digits[i]; j++)
+                for (int p = 0; p <= 9; p++)
+                    if (abs(j - p) <= k)
+                        dp[i][j][1] += dp[i - 1][p][0];
+
+            // Bounded digit: place exactly the bound to stay bounded.
             for (int p = 0; p <= 9; p++)
-                if (abs(j - p) <= k)
-                    dp[i][j][0] += dp[i - 1][p][0];
+                if (abs(digits[i] - p) <= k)
+                    dp[i][digits[i]][1] += dp[i - 1][p][1];
+        }
 
-        for (int j = 0; j < digits[i]; j++)
-            for (int p = 0; p <= 9; p++)
-                if (abs(j - p) <= k)
-                    dp[i][j][1] += dp[i - 1][p][0];
-
-        for (int p = 0; p <= 9; p++)
-            if (abs(digits[i] - p) <= k)
-                dp[i][digits[i]][1] += dp[i - 1][p][1];
-    }
-
-    long long ans = 0;
-    for (int j = 1; j <= 9; j++)
-        ans += dp[len - 1][j][1];
-
-    for (int i = 0; i < len - 1; i++)
+        long long ans = 0;
+        // Count numbers with all digits (full length).
         for (int j = 1; j <= 9; j++)
-            ans += dp[i][j][0];
+            ans += dp[len - 1][j][1];
 
-    return ans;
-}
-```
+        // Count numbers with fewer digits (no leading zero, no bound constraint).
+        for (int i = 0; i < len - 1; i++)
+            for (int j = 1; j <= 9; j++)
+                ans += dp[i][j][0];
 
-The three inner blocks are exactly the three transitions of the tight flag. A free suffix may be extended by any digit; a tight prefix becomes free as soon as we place a digit strictly below the bound; and it stays tight only by placing the bound digit itself.
+        return ans;
+    }
+    ```
 
-Leading zeros are handled differently here. Instead of a `started` flag, both final loops start at $j = 1$, so the leading digit is never zero: the first sums over numbers of full length, and the second adds the numbers with fewer digits, which are unconstrained by the bound.
+    The three inner blocks are exactly the three transitions of the tight flag. A free suffix may be extended by any digit; a tight prefix becomes free as soon as we place a digit strictly below the bound; and it stays tight only by placing the bound digit itself.
+
+    Leading zeros are handled differently here. Instead of a `started` flag, both final loops start at $j = 1$, so the leading digit is never zero: the first sums over numbers of full length, and the second adds the numbers with fewer digits, which are unconstrained by the bound.
 
 ### Complexity
 
