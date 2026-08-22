@@ -191,8 +191,8 @@ After processing all the elements of $a[]$ the length of the desired subsequence
 ```{.cpp file=lis_method2_n2}
 int lis(vector<int> const& a) {
     int n = a.size();
-    const int INF = 1e9;
-    vector<int> d(n+1, INF);
+    const long long INF = (1LL << 60);
+    vector<long long> d(n+1, INF);
     d[0] = -INF;
 
     for (int i = 0; i < n; i++) {
@@ -214,7 +214,7 @@ int lis(vector<int> const& a) {
 We now make two important observations.
 
 1.  The array $d$ will always be sorted: 
-    $d[l-1] < d[l]$ for all $i = 1 \dots n$.
+    $d[l-1] < d[l]$ for all $l = 1 \dots n$.
 
     This is trivial, as you can just remove the last element from the increasing subsequence of length $l$, and you get a increasing subsequence of length $l-1$ with a smaller ending number.
 
@@ -233,8 +233,8 @@ This gives us the improved $O(n \log n)$ implementation:
 ```{.cpp file=lis_method2_nlogn}
 int lis(vector<int> const& a) {
     int n = a.size();
-    const int INF = 1e9;
-    vector<int> d(n+1, INF);
+    const long long INF = (1LL << 60);
+    vector<long long> d(n+1, INF);
     d[0] = -INF;
 
     for (int i = 0; i < n; i++) {
