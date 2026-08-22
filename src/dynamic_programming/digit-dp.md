@@ -11,11 +11,7 @@ Digit dynamic programming (commonly abbreviated *digit DP*) is a technique for c
 
 Consider a typical question: *how many integers between $1$ and $10^{18}$ contain no two consecutive equal digits?* The range is far too large to enumerate, but the number of **distinct states** the digits can be in is tiny. Digit DP exploits this by building numbers one digit at a time, from the most significant to the least, and grouping together all prefixes that behave identically from that point on.
 
-The standard reduction is to define
-
-$$f(X) = (\text{count of valid integers in } [0, X])$$
-
-and answer the original query as $f(R) - f(L-1)$. This lets us solve a single prefix-counting problem rather than a two-sided one.
+The standard reduction is to define $f(X)$ as the count of valid integers from $0$ to $X$ (inclusive), then answer the original query as $f(R) - f(L-1)$. This lets us solve a single prefix-counting problem rather than a two-sided one.
 
 A key constraint in digit DP is the **tight flag**. When counting numbers up to $X$, we can't build arbitrary digit sequences. We must stay at or below $X$. We track this with a boolean flag, usually called *tight*, which records whether the prefix built so far is exactly equal to the corresponding prefix of $X$. 
 
