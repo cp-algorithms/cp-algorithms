@@ -195,45 +195,39 @@ This example shows how digit DP applies to a different property: instead of trac
     vector<int> digits;
     long long memo[11][2];
     bool computed[11][2];
+    long long pow_table[11];
 
-    // Count occurrences of digit 1 from position pos to the end.
+    // Count occurrences of 1s from position pos to the end.
     // pos: current digit position
     // tight: is prefix still equal to the bound?
     long long go(int pos, bool tight) {
-        // Finished all digits.
         if (pos == (int)digits.size())
             return 0;
 
-        // Return cached result if already computed.
         if (computed[pos][tight])
             return memo[pos][tight];
 
-        // If tight, next digit capped by bound; else any digit 0-9.
         int max_d = tight ? digits[pos] : 9;
         long long res = 0;
 
         for (int d = 0; d <= max_d; d++) {
-            // If we place a 1 at this position, count it.
             if (d == 1) {
-                // 1 appears at this position in (10^(remaining_positions)) numbers.
-                long long power = 1;
-                for (int i = pos + 1; i < (int)digits.size(); i++)
-                    power *= 10;
-                res += power;
+                // If we place a 1 at position pos, count all combinations in remaining positions.
+                res += pow_table[digits.size() - pos - 1];
             }
-            // Tight propagates: stays true only if we place the bound digit.
             bool new_tight = tight && (d == digits[pos]);
             res += go(pos + 1, new_tight);
         }
 
-        // Cache the result.
         computed[pos][tight] = true;
         return memo[pos][tight] = res;
     }
 
     long long count_ones(long long n) {
-        if (n < 0)
+        if (n == 0)
             return 0;
+        if (n < 10)
+            return 1;
 
         digits.clear();
         while (n > 0) {
@@ -242,12 +236,16 @@ This example shows how digit DP applies to a different property: instead of trac
         }
         reverse(digits.begin(), digits.end());
 
+        pow_table[0] = 1;
+        for (int i = 1; i < 11; i++)
+            pow_table[i] = pow_table[i-1] * 10;
+
         memset(computed, 0, sizeof computed);
         return go(0, true);
     }
     ```
 
-    Notice the difference: we don't track `last` (previous digit) or `started` (leading zeros). We only need `pos` and `tight`. When we place a 1, we count how many times it appears at that position.
+    We track `pos` and `tight` only. When placing a 1 at position `pos`, it appears in all $10^{\text{remaining positions}}$ numbers from that point. We recursively count 1s in the remaining positions.
 
 === "Iterative"
 
