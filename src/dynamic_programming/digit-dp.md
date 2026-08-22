@@ -99,7 +99,7 @@ There is one more detail. A number such as $7$ is written as $0\ldots07$ when pa
             reverse(digits.begin(), digits.end());
         }
 
-        memset(seen, 0, sizeof seen);
+        memset(computed, 0, sizeof computed);
         return go(0, -1, false, true);
     }
 
