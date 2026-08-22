@@ -196,6 +196,7 @@ long long count_ones(long long n) {
     if (n < 10)
         return 1;
 
+    // Extract digits from most significant to least.
     vector<int> digits;
     while (n > 0) {
         digits.push_back(n % 10);
@@ -203,21 +204,28 @@ long long count_ones(long long n) {
     }
     int len = digits.size();
 
+    // dp[i][0] = count of 1s in all i-digit numbers (free positions).
+    // dp[i][1] = count of 1s in numbers up to n (bounded by digits[i]).
     vector<vector<long long>> dp(len, vector<long long>(2, 0));
     dp[0][0] = 1;
     if (digits[0] >= 1)
         dp[0][1] = 1;
 
-    long long prev = 10;
-    long long suff = digits[0];
-    long long pow = 10;
+    long long prev = 10;        // 10^i: count of numbers with 1 at position i.
+    long long suff = digits[0]; // Suffix: prefix value built so far.
+    long long pow = 10;         // 10^i: power of 10.
     for (int i = 1; i < len; ++i) {
+        // Free digits: any digit 0-9 is allowed.
         dp[i][0] = dp[i-1][0] * 10 + prev;
+        
         if (digits[i] == 0) {
+            // Current digit is 0: no 1s at this position.
             dp[i][1] = dp[i-1][1];
         } else if (digits[i] == 1) {
+            // Current digit is 1: count 1s from free numbers + bounded + partial.
             dp[i][1] = dp[i-1][0] + dp[i-1][1] + suff + 1;
         } else {
+            // Current digit > 1: all 1s at this position are included.
             dp[i][1] = (digits[i]) * dp[i-1][0] + prev + dp[i-1][1];
         }
         prev *= 10;
