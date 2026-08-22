@@ -13,10 +13,10 @@ Consider a typical question: *how many integers between $1$ and $10^{18}$ contai
 
 The standard reduction is to define $f(X)$ as the count of valid integers from $0$ to $X$ (inclusive), then answer the original query as $f(R) - f(L-1)$. This lets us solve a single prefix-counting problem rather than a two-sided one.
 
-A key constraint in digit DP is the **tight flag**. When counting numbers up to $X$, we can't build arbitrary digit sequences. We must stay at or below $X$. We track this with a boolean flag, usually called *tight*, which records whether the prefix built so far is exactly equal to the corresponding prefix of $X$. 
+A key constraint in digit DP is the **tight flag**. We use it to distinguish two types of prefixes:
 
-- **While tight=true**: the prefix matches $X$'s prefix exactly, so the next digit is capped by $X$'s digit at that position.
-- **Once tight=false**: we've placed a digit smaller than $X$'s, so all remaining positions are unconstrained.
+- **tight=true** (`dp[i][1]`): valid prefixes where the current prefix $\le X[0:i]$ (constrained by the bound).
+- **tight=false** (`dp[i][0]`): all possible prefixes of length $i$ (no constraint from bound, any digit 0-9).
 
 A digit DP state consists of the current position, the *tight* flag, and whatever additional information the specific problem requires: the previous digit, a running digit sum, a remainder modulo $m$, or a bitmask of digits already used. Since position ranges over $O(\log X)$ digits and the extra components are typically small, the resulting state space is exponentially smaller than the original range.
 
