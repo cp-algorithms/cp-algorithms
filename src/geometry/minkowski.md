@@ -47,8 +47,8 @@ Here is a nice visualization, which may help you understand what is going on.
 
 ## Distance between two polygons
 One of the most common applications of Minkowski sum is computing the distance between two convex polygons (or simply checking whether they intersect).
-The distance between two convex polygons $P$ and $Q$ is defined as $\min\limits_{a \in P, b \in Q} ||a - b||$. One can note that
-the distance is always attained between two vertices or a vertex and an edge, so we can easily find the distance in $O(|P||Q|)$. However,
+The distance between two convex polygons $P$ and $Q$ is defined as $\min\limits_{a \in P, b \in Q} ||a - b||$. If the polygons intersect, this distance is $0$.
+Otherwise, the minimum distance is attained between two vertices or between a vertex and an edge, so a straightforward pairwise check takes $O(|P||Q|)$ time. However,
 with clever usage of Minkowski sum we can reduce the complexity to $O(|P| + |Q|)$.
 
 If we reflect $Q$ through the point $(0, 0)$ obtaining polygon $-Q$, the problem boils down to finding the smallest distance between a point in
