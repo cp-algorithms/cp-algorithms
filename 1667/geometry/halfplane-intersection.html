@@ -8141,16 +8141,7 @@
               
               <article class="md-content__inner md-typeset">
                 
-                  <aside class="sponsor-banner">
-  <p>
-    cp-algorithms is supported by
-    <a href="https://link.coddy.tech/bvMS?af_web_dp=https%3A%2F%2Fcoddy.tech&amp;af_sub1=cp-algorithms.com" rel="sponsored noopener" target="_blank">
-      <img src="../img/sponsors/coddy-logo.svg" alt="" width="56" height="64">Coddy</a>
-    &mdash; interactive coding practice
-  </p>
-</aside>
-
-<script type="text/javascript">
+                  <script type="text/javascript">
 window.onload = function() {
 	const newIssueURL = "https://github.com/cp-algorithms/cp-algorithms/issues/new";
   const issueTitle = "Problem on article " + "Half-plane intersection - S\u0026I Algorithm in O(N log N)";
@@ -8371,7 +8362,7 @@ To sum up, the full algorithm will roughly look as follows:</p>
 <span class="c1">// Basic half-plane struct.</span>
 <span class="k">struct</span><span class="w"> </span><span class="nc">Halfplane</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
 
-<span class="w">    </span><span class="c1">// &#39;p&#39; is a passing point of the line and &#39;pq&#39; is the direction vector of the line.</span>
+<span class="w">    </span><span class="c1">// 'p' is a passing point of the line and 'pq' is the direction vector of the line.</span>
 <span class="w">    </span><span class="n">Point</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">pq</span><span class="p">;</span><span class="w"> </span>
 <span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">angle</span><span class="p">;</span>
 
@@ -8380,7 +8371,7 @@ To sum up, the full algorithm will roughly look as follows:</p>
 <span class="w">        </span><span class="n">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">atan2l</span><span class="p">(</span><span class="n">pq</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">pq</span><span class="p">.</span><span class="n">x</span><span class="p">);</span><span class="w">    </span>
 <span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="c1">// Check if point &#39;r&#39; is outside this half-plane. </span>
+<span class="w">    </span><span class="c1">// Check if point 'r' is outside this half-plane. </span>
 <span class="w">    </span><span class="c1">// Every half-plane allows the region to the LEFT of its line.</span>
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">out</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Point</span><span class="o">&amp;</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">cross</span><span class="p">(</span><span class="n">pq</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="o">-</span><span class="n">eps</span><span class="p">;</span><span class="w"> </span>
@@ -8391,7 +8382,7 @@ To sum up, the full algorithm will roughly look as follows:</p>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">angle</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span><span class="w"> </span>
 
-<span class="w">    </span><span class="c1">// Intersection point of the lines of two half-planes. It is assumed they&#39;re never parallel.</span>
+<span class="w">    </span><span class="c1">// Intersection point of the lines of two half-planes. It is assumed they're never parallel.</span>
 <span class="w">    </span><span class="k">friend</span><span class="w"> </span><span class="n">Point</span><span class="w"> </span><span class="n">inter</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Halfplane</span><span class="o">&amp;</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Halfplane</span><span class="o">&amp;</span><span class="w"> </span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cross</span><span class="p">((</span><span class="n">t</span><span class="p">.</span><span class="n">p</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">p</span><span class="p">),</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">pq</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">cross</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">pq</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">pq</span><span class="p">);</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">pq</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">alpha</span><span class="p">);</span>
@@ -8628,6 +8619,8 @@ Given a set <span class="arithmatex">$p$</span> of points <span class="arithmate
         <script src="../javascript/config.js"></script>
       
         <script src="../javascript/sidebar-toggle-sync.js"></script>
+      
+        <script src="../javascript/donation-banner.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
       

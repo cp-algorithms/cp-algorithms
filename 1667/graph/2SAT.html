@@ -7941,16 +7941,7 @@
               
               <article class="md-content__inner md-typeset">
                 
-                  <aside class="sponsor-banner">
-  <p>
-    cp-algorithms is supported by
-    <a href="https://link.coddy.tech/bvMS?af_web_dp=https%3A%2F%2Fcoddy.tech&amp;af_sub1=cp-algorithms.com" rel="sponsored noopener" target="_blank">
-      <img src="../img/sponsors/coddy-logo.svg" alt="" width="56" height="64">Coddy</a>
-    &mdash; interactive coding practice
-  </p>
-</aside>
-
-<script type="text/javascript">
+                  <script type="text/javascript">
 window.onload = function() {
 	const newIssueURL = "https://github.com/cp-algorithms/cp-algorithms/issues/new";
   const issueTitle = "Problem on article " + "2-SAT";
@@ -7982,6 +7973,20 @@ Describe the issue of this article in detail.
 
 
 
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
 
   
   
@@ -8202,7 +8207,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 6, 2025 12:07:11 UTC">November 6, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 22, 2026 09:11:13 UTC">August 22, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8236,7 +8241,7 @@ Here is an example of such a 2-SAT problem.
 Find an assignment of <span class="arithmatex">$a, b, c$</span> such that the following formula is true:</p>
 <div class="arithmatex">$$(a \lor \lnot b) \land (\lnot a \lor b) \land (\lnot a \lor \lnot b) \land (a \lor \lnot c)$$</div>
 <p>SAT is NP-complete, there is no known efficient solution for it.
-However 2SAT can be solved efficiently in <span class="arithmatex">$O(n + m)$</span> where <span class="arithmatex">$n$</span> is the number of variables and <span class="arithmatex">$m$</span> is the number of clauses.</p>
+However 2-SAT can be solved efficiently in <span class="arithmatex">$O(n + m)$</span> where <span class="arithmatex">$n$</span> is the number of variables and <span class="arithmatex">$m$</span> is the number of clauses.</p>
 <h2 id="algorithm">Algorithm:<a class="headerlink" href="#algorithm" title="Permanent link">&para;</a></h2>
 <p>First we need to convert the problem to a different form, the so-called implicative normal form.
 Note that the expression <span class="arithmatex">$a \lor b$</span> is equivalent to <span class="arithmatex">$\lnot a \Rightarrow b \land \lnot b \Rightarrow a$</span> (if one of the two variables is false, then the other one must be true).</p>
@@ -8252,24 +8257,24 @@ b \Rightarrow a &amp; \lnot b \Rightarrow \lnot a &amp; b \Rightarrow \lnot a &a
 \end{array}$$</div>
 <p>You can see the implication graph in the following image:</p>
 <div style="text-align: center;">
-  <img src="2SAT.png" alt=""Implication Graph of 2-SAT example"">
+  <img src="2SAT.png" alt="Implication Graph of 2-SAT example">
 </div>
 
 <p>It is worth paying attention to the property of the implication graph:
 if there is an edge <span class="arithmatex">$a \Rightarrow b$</span>, then there also is an edge <span class="arithmatex">$\lnot b \Rightarrow \lnot a$</span>. </p>
 <p>Also note, that if <span class="arithmatex">$x$</span> is reachable from <span class="arithmatex">$\lnot x$</span>, and <span class="arithmatex">$\lnot x$</span> is reachable from <span class="arithmatex">$x$</span>, then the problem has no solution.
-Whatever value we choose for the variable <span class="arithmatex">$x$</span>, it will always end in a contradiction - if <span class="arithmatex">$x$</span> will be assigned <span class="arithmatex">$\text{true}$</span> then the implication tells us that <span class="arithmatex">$\lnot x$</span> should also be <span class="arithmatex">$\text{true}$</span> and visa versa.
+Whatever value we choose for the variable <span class="arithmatex">$x$</span>, it will always end in a contradiction - if <span class="arithmatex">$x$</span> will be assigned <span class="arithmatex">$\text{true}$</span> then the implication tells us that <span class="arithmatex">$\lnot x$</span> should also be <span class="arithmatex">$\text{true}$</span> and vice versa.
 It turns out, that this condition is not only necessary, but also sufficient.
 We will prove this in a few paragraphs below.
 First recall, if a vertex is reachable from a second one, and the second one is reachable from the first one, then these two vertices are in the same strongly connected component.
 Therefore we can formulate the criterion for the existence of a solution as follows:</p>
-<p>In order for this 2-SAT problem to have a solution, it is necessary and sufficient that for any variable <span class="arithmatex">$x$</span> the vertices <span class="arithmatex">$x$</span> and <span class="arithmatex">$\lnot x$</span> are in different strongly connected components of the strong connection of the implication graph.</p>
+<p>In order for this 2-SAT problem to have a solution, it is necessary and sufficient that for any variable <span class="arithmatex">$x$</span> the vertices <span class="arithmatex">$x$</span> and <span class="arithmatex">$\lnot x$</span> are in different strongly connected components of the implication graph.</p>
 <p>This criterion can be verified in <span class="arithmatex">$O(n + m)$</span> time by finding all strongly connected components.</p>
 <p>The following image shows all strongly connected components for the example.
 As we can check easily, neither of the four components contain a vertex <span class="arithmatex">$x$</span> and its negation <span class="arithmatex">$\lnot x$</span>, therefore the example has a solution.
 We will learn in the next paragraphs how to compute a valid assignment, but just for demonstration purposes the solution <span class="arithmatex">$a = \text{false}$</span>, <span class="arithmatex">$b = \text{false}$</span>, <span class="arithmatex">$c = \text{false}$</span> is given.</p>
 <div style="text-align: center;">
-  <img src="2SAT_SCC.png" alt=""Strongly Connected Components of the 2-SAT example"">
+  <img src="2SAT_SCC.png" alt="Strongly Connected Components of the 2-SAT example">
 </div>
 
 <p>Now we construct the algorithm for finding the solution of the 2-SAT problem on the assumption that the solution exists.</p>
@@ -8283,7 +8288,7 @@ Suppose <span class="arithmatex">$x$</span> is assigned with <span class="arithm
 The other case can be proven in a similar way.</p>
 <p>First we prove that the vertex <span class="arithmatex">$x$</span> cannot reach the vertex <span class="arithmatex">$\lnot x$</span>.
 Because we assigned <span class="arithmatex">$\text{true}$</span> it has to hold that the index of strongly connected component of <span class="arithmatex">$x$</span> is greater than the index of the component of <span class="arithmatex">$\lnot x$</span>.
-This means that <span class="arithmatex">$\lnot x$</span> is located on the left of the component containing <span class="arithmatex">$x$</span>, and the later vertex cannot reach the first.</p>
+This means that <span class="arithmatex">$\lnot x$</span> is located on the left of the component containing <span class="arithmatex">$x$</span>, and the latter vertex cannot reach the first.</p>
 <p>Secondly we prove that there doesn't exist a variable <span class="arithmatex">$y$</span>, such that the vertices <span class="arithmatex">$y$</span> and <span class="arithmatex">$\lnot y$</span> are both reachable from <span class="arithmatex">$x$</span> in the implication graph.
 This would cause a contradiction, because <span class="arithmatex">$x = \text{true}$</span> implies that <span class="arithmatex">$y = \text{true}$</span> and <span class="arithmatex">$\lnot y = \text{true}$</span>.
 Let us prove this by contradiction.
@@ -8391,7 +8396,7 @@ In the graph the vertices with indices <span class="arithmatex">$2k$</span> and 
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (71.13%)</li><li><a href="https://github.com/dpaleka" title="dpaleka" data-bi-name="contributorprofile" target="_blank">dpaleka</a> (12.89%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (3.09%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.09%)</li><li><a href="https://github.com/jatin-code777" title="jatin-code777" data-bi-name="contributorprofile" target="_blank">jatin-code777</a> (3.09%)</li><li><a href="https://github.com/Hostek" title="Hostek" data-bi-name="contributorprofile" target="_blank">Hostek</a> (1.03%)</li><li><a href="https://github.com/matbensch" title="matbensch" data-bi-name="contributorprofile" target="_blank">matbensch</a> (1.03%)</li><li><a href="https://github.com/vatsalsharma376" title="vatsalsharma376" data-bi-name="contributorprofile" target="_blank">vatsalsharma376</a> (1.03%)</li><li><a href="https://github.com/aleksmish" title="aleksmish" data-bi-name="contributorprofile" target="_blank">aleksmish</a> (0.52%)</li><li><a href="https://github.com/Sarthak3204" title="Sarthak3204" data-bi-name="contributorprofile" target="_blank">Sarthak3204</a> (0.52%)</li><li><a href="https://github.com/sumitrawat10" title="sumitrawat10" data-bi-name="contributorprofile" target="_blank">sumitrawat10</a> (0.52%)</li><li><a href="https://github.com/aiifabbf" title="aiifabbf" data-bi-name="contributorprofile" target="_blank">aiifabbf</a> (0.52%)</li><li><a href="https://github.com/aryamanjain-scifin" title="aryamanjain-scifin" data-bi-name="contributorprofile" target="_blank">aryamanjain-scifin</a> (0.52%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.52%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.52%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (69.59%)</li><li><a href="https://github.com/dpaleka" title="dpaleka" data-bi-name="contributorprofile" target="_blank">dpaleka</a> (12.89%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (3.09%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.09%)</li><li><a href="https://github.com/jatin-code777" title="jatin-code777" data-bi-name="contributorprofile" target="_blank">jatin-code777</a> (3.09%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (2.06%)</li><li><a href="https://github.com/Hostek" title="Hostek" data-bi-name="contributorprofile" target="_blank">Hostek</a> (1.03%)</li><li><a href="https://github.com/matbensch" title="matbensch" data-bi-name="contributorprofile" target="_blank">matbensch</a> (1.03%)</li><li><a href="https://github.com/vatsalsharma376" title="vatsalsharma376" data-bi-name="contributorprofile" target="_blank">vatsalsharma376</a> (1.03%)</li><li><a href="https://github.com/Sarthak3204" title="Sarthak3204" data-bi-name="contributorprofile" target="_blank">Sarthak3204</a> (0.52%)</li><li><a href="https://github.com/sumitrawat10" title="sumitrawat10" data-bi-name="contributorprofile" target="_blank">sumitrawat10</a> (0.52%)</li><li><a href="https://github.com/aiifabbf" title="aiifabbf" data-bi-name="contributorprofile" target="_blank">aiifabbf</a> (0.52%)</li><li><a href="https://github.com/aryamanjain-scifin" title="aryamanjain-scifin" data-bi-name="contributorprofile" target="_blank">aryamanjain-scifin</a> (0.52%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.52%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.52%)</li></ul>
 </ul>
                 
               </article>
@@ -8479,6 +8484,8 @@ In the graph the vertices with indices <span class="arithmatex">$2k$</span> and 
         <script src="../javascript/config.js"></script>
       
         <script src="../javascript/sidebar-toggle-sync.js"></script>
+      
+        <script src="../javascript/donation-banner.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
       

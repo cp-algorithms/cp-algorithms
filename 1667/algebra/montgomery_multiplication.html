@@ -7963,16 +7963,7 @@
               
               <article class="md-content__inner md-typeset">
                 
-                  <aside class="sponsor-banner">
-  <p>
-    cp-algorithms is supported by
-    <a href="https://link.coddy.tech/bvMS?af_web_dp=https%3A%2F%2Fcoddy.tech&amp;af_sub1=cp-algorithms.com" rel="sponsored noopener" target="_blank">
-      <img src="../img/sponsors/coddy-logo.svg" alt="" width="56" height="64">Coddy</a>
-    &mdash; interactive coding practice
-  </p>
-</aside>
-
-<script type="text/javascript">
+                  <script type="text/javascript">
 window.onload = function() {
 	const newIssueURL = "https://github.com/cp-algorithms/cp-algorithms/issues/new";
   const issueTitle = "Problem on article " + "Montgomery Multiplication";
@@ -8126,7 +8117,7 @@ x \cdot r^{-1} &amp;= x \cdot r \cdot r^{-1} / r = x \cdot (-n \cdot n^{\prime} 
 This means, that we can add or subtract an arbitrary multiple of <span class="arithmatex">$r$</span> to <span class="arithmatex">$x \cdot n^{\prime}$</span>, or in other words, we can compute <span class="arithmatex">$q := x \cdot n^{\prime}$</span> modulo <span class="arithmatex">$r$</span>.</p>
 <p>This gives us the following algorithm to compute <span class="arithmatex">$x \cdot r^{-1} \bmod n$</span>:</p>
 <div class="highlight"><pre><span></span><code>function reduce(x):
-    q = (x mod r) * n&#39; mod r
+    q = (x mod r) * n' mod r
     a = (x - q * n) / r
     if a &lt; 0:
         a += n
@@ -8332,6 +8323,8 @@ If we square it <span class="arithmatex">$5$</span> times, we get <span class="a
         <script src="../javascript/config.js"></script>
       
         <script src="../javascript/sidebar-toggle-sync.js"></script>
+      
+        <script src="../javascript/donation-banner.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
       

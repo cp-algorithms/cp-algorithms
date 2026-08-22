@@ -8013,16 +8013,7 @@
               
               <article class="md-content__inner md-typeset">
                 
-                  <aside class="sponsor-banner">
-  <p>
-    cp-algorithms is supported by
-    <a href="https://link.coddy.tech/bvMS?af_web_dp=https%3A%2F%2Fcoddy.tech&amp;af_sub1=cp-algorithms.com" rel="sponsored noopener" target="_blank">
-      <img src="../img/sponsors/coddy-logo.svg" alt="" width="56" height="64">Coddy</a>
-    &mdash; interactive coding practice
-  </p>
-</aside>
-
-<script type="text/javascript">
+                  <script type="text/javascript">
 window.onload = function() {
 	const newIssueURL = "https://github.com/cp-algorithms/cp-algorithms/issues/new";
   const issueTitle = "Problem on article " + "Fibonacci Numbers";
@@ -8060,35 +8051,11 @@ Describe the issue of this article in detail.
   
     
   
-
-  
-  
-  
-    
-  
     
   
 
   
   
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
   
     
   
@@ -8109,6 +8076,10 @@ Describe the issue of this article in detail.
 
   
   
+  
+    
+  
+    
   
     
   
@@ -8138,6 +8109,40 @@ Describe the issue of this article in detail.
   
     
   
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
 
   
   
@@ -8180,6 +8185,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8252,7 +8261,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 22, 2025 01:11:00 UTC">April 22, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 22, 2026 09:40:10 UTC">August 22, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8305,7 +8314,7 @@ Describe the issue of this article in detail.
 <p>From this we can prove by induction that for any positive integer <span class="arithmatex">$k$</span>,  <span class="arithmatex">$F_{nk}$</span> is multiple of <span class="arithmatex">$F_n$</span>.</p>
 </li>
 <li>
-<p>The inverse is also true: if <span class="arithmatex">$F_m$</span> is multiple of <span class="arithmatex">$F_n$</span>, then <span class="arithmatex">$m$</span> is multiple of <span class="arithmatex">$n$</span>.</p>
+<p>For <span class="arithmatex">$n \ge 3$</span>, the inverse is also true: if <span class="arithmatex">$F_m$</span> is multiple of <span class="arithmatex">$F_n$</span>, then <span class="arithmatex">$m$</span> is multiple of <span class="arithmatex">$n$</span>.</p>
 </li>
 <li>
 <p>GCD identity:</p>
@@ -8358,7 +8367,7 @@ Notice that this is the only occurrence where two consecutive 1-bits appear.</p>
 <p>As these two formulas would require very high accuracy when working with fractional numbers, they are of little use in practical calculations.</p>
 <h3 id="fibonacci-in-linear-time">Fibonacci in linear time<a class="headerlink" href="#fibonacci-in-linear-time" title="Permanent link">&para;</a></h3>
 <p>The <span class="arithmatex">$n$</span>-th Fibonacci number can be easily found in <span class="arithmatex">$O(n)$</span> by computing the numbers one by one up to <span class="arithmatex">$n$</span>. However, there are also faster ways, as we will see.</p>
-<p>We can start from an iterative approach, to take advantage of the use of the formula <span class="arithmatex">$F_n = F_{n-1} + F_{n-2}$</span>, therefore, we will simply precalculate those values in an array. Taking into account the base cases for <span class="arithmatex">$F_0$</span> and <span class="arithmatex">$F_1$</span>.</p>
+<p>We can start from an iterative approach using the formula <span class="arithmatex">$F_n = F_{n-1} + F_{n-2}$</span>. The implementation only needs to keep the two most recent values, starting from the base cases <span class="arithmatex">$F_0$</span> and <span class="arithmatex">$F_1$</span>.</p>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">fib</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
@@ -8370,7 +8379,7 @@ Notice that this is the only occurrence where two consecutive 1-bits appear.</p>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>In this way, we obtain a linear solution, <span class="arithmatex">$O(n)$</span> time, saving all the values prior to <span class="arithmatex">$n$</span> in the sequence.</p>
+<p>In this way, we obtain a linear solution with <span class="arithmatex">$O(n)$</span> time and <span class="arithmatex">$O(1)$</span> additional memory.</p>
 <h3 id="matrix-form">Matrix form<a class="headerlink" href="#matrix-form" title="Permanent link">&para;</a></h3>
 <p>To go from <span class="arithmatex">$(F_n, F_{n-1})$</span> to <span class="arithmatex">$(F_{n+1}, F_n)$</span>, we can express the linear recurrence as a 2x2 matrix multiplication:</p>
 <div class="arithmatex">$$
@@ -8524,7 +8533,7 @@ The above code returns <span class="arithmatex">$F_n$</span> and <span class="ar
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/gabrielsimoes" title="gabrielsimoes" data-bi-name="contributorprofile" target="_blank">gabrielsimoes</a> (23.55%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (20.48%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (18.77%)</li><li><a href="#" title="Carlos Javier Blanco" data-bi-name="contributorprofile" target="_blank">Carlos Javier Blanco</a> (15.7%)</li><li><a href="https://github.com/madhur4127" title="madhur4127" data-bi-name="contributorprofile" target="_blank">madhur4127</a> (6.14%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (5.12%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.73%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (2.05%)</li><li><a href="https://github.com/md-shamim-ahmad" title="md-shamim-ahmad" data-bi-name="contributorprofile" target="_blank">md-shamim-ahmad</a> (1.71%)</li><li><a href="https://github.com/boxlesscat" title="boxlesscat" data-bi-name="contributorprofile" target="_blank">boxlesscat</a> (1.02%)</li><li><a href="https://github.com/yeetholmes619" title="yeetholmes619" data-bi-name="contributorprofile" target="_blank">yeetholmes619</a> (1.02%)</li><li><a href="https://github.com/pasthec" title="pasthec" data-bi-name="contributorprofile" target="_blank">pasthec</a> (0.68%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (0.34%)</li><li><a href="https://github.com/conlacda" title="conlacda" data-bi-name="contributorprofile" target="_blank">conlacda</a> (0.34%)</li><li><a href="https://github.com/ankit-kumar-dwivedi" title="ankit-kumar-dwivedi" data-bi-name="contributorprofile" target="_blank">ankit-kumar-dwivedi</a> (0.34%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/gabrielsimoes" title="gabrielsimoes" data-bi-name="contributorprofile" target="_blank">gabrielsimoes</a> (23.21%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (20.48%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (18.77%)</li><li><a href="#" title="Carlos Javier Blanco" data-bi-name="contributorprofile" target="_blank">Carlos Javier Blanco</a> (15.02%)</li><li><a href="https://github.com/madhur4127" title="madhur4127" data-bi-name="contributorprofile" target="_blank">madhur4127</a> (6.14%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (5.12%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.73%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (2.05%)</li><li><a href="https://github.com/md-shamim-ahmad" title="md-shamim-ahmad" data-bi-name="contributorprofile" target="_blank">md-shamim-ahmad</a> (1.71%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (1.02%)</li><li><a href="https://github.com/boxlesscat" title="boxlesscat" data-bi-name="contributorprofile" target="_blank">boxlesscat</a> (1.02%)</li><li><a href="https://github.com/yeetholmes619" title="yeetholmes619" data-bi-name="contributorprofile" target="_blank">yeetholmes619</a> (1.02%)</li><li><a href="https://github.com/pasthec" title="pasthec" data-bi-name="contributorprofile" target="_blank">pasthec</a> (0.68%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (0.34%)</li><li><a href="https://github.com/conlacda" title="conlacda" data-bi-name="contributorprofile" target="_blank">conlacda</a> (0.34%)</li><li><a href="https://github.com/ankit-kumar-dwivedi" title="ankit-kumar-dwivedi" data-bi-name="contributorprofile" target="_blank">ankit-kumar-dwivedi</a> (0.34%)</li></ul>
 </ul>
                 
               </article>
@@ -8612,6 +8621,8 @@ The above code returns <span class="arithmatex">$F_n$</span> and <span class="ar
         <script src="../javascript/config.js"></script>
       
         <script src="../javascript/sidebar-toggle-sync.js"></script>
+      
+        <script src="../javascript/donation-banner.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
       
