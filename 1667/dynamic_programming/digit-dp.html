@@ -8021,7 +8021,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 22, 2026 12:44:19 UTC">August 22, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 22, 2026 13:19:12 UTC">August 22, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8042,8 +8042,12 @@ Describe the issue of this article in detail.
 <p>The standard reduction is to define</p>
 <div class="arithmatex">$$f(X) = (\text{count of valid integers in } [0, X])$$</div>
 <p>and answer the original query as <span class="arithmatex">$f(R) - f(L-1)$</span>. This lets us solve a single prefix-counting problem rather than a two-sided one.</p>
-<p>The central difficulty is that we may not build an arbitrary sequence of digits: the result must not exceed <span class="arithmatex">$X$</span>. This is handled by carrying a boolean flag, usually called <em>tight</em>, which records whether the prefix built so far is exactly equal to the corresponding prefix of <span class="arithmatex">$X$</span>. While tight, the next digit is capped by the matching digit of <span class="arithmatex">$X$</span>; once we place anything smaller, every remaining position is free and the flag stays off for the rest of the construction.</p>
-<p>A digit DP state therefore consists of the current position, the <em>tight</em> flag, and whatever additional information the property being counted requires: the previous digit, a running digit sum, a remainder modulo <span class="arithmatex">$m$</span>, or a bitmask of digits already used. Since the position ranges over the <span class="arithmatex">$O(\log X)$</span> digits of <span class="arithmatex">$X$</span> and the remaining components are typically small, the resulting state space is exponentially smaller than the range being counted.</p>
+<p>A key constraint in digit DP is the <strong>tight flag</strong>. When counting numbers up to <span class="arithmatex">$X$</span>, we can't build arbitrary digit sequences. We must stay at or below <span class="arithmatex">$X$</span>. We track this with a boolean flag, usually called <em>tight</em>, which records whether the prefix built so far is exactly equal to the corresponding prefix of <span class="arithmatex">$X$</span>. </p>
+<ul>
+<li><strong>While tight=true</strong>: the prefix matches <span class="arithmatex">$X$</span>'s prefix exactly, so the next digit is capped by <span class="arithmatex">$X$</span>'s digit at that position.</li>
+<li><strong>Once tight=false</strong>: we've placed a digit smaller than <span class="arithmatex">$X$</span>'s, so all remaining positions are unconstrained.</li>
+</ul>
+<p>A digit DP state consists of the current position, the <em>tight</em> flag, and whatever additional information the specific problem requires: the previous digit, a running digit sum, a remainder modulo <span class="arithmatex">$m$</span>, or a bitmask of digits already used. Since position ranges over <span class="arithmatex">$O(\log X)$</span> digits and the extra components are typically small, the resulting state space is exponentially smaller than the original range.</p>
 <h2 id="example-counting-numbers-with-close-adjacent-digits">Example: counting numbers with close adjacent digits<a class="headerlink" href="#example-counting-numbers-with-close-adjacent-digits" title="Permanent link">&para;</a></h2>
 <blockquote>
 <p>Given <span class="arithmatex">$l$</span>, <span class="arithmatex">$r$</span> and <span class="arithmatex">$k$</span>, count the integers in <span class="arithmatex">$[l, r]$</span> such that every pair of adjacent digits differs by at most <span class="arithmatex">$k$</span>, with <span class="arithmatex">$10 \le l \le r \le 10^{15}$</span> and <span class="arithmatex">$0 \le k \le 9$</span>.</p>
