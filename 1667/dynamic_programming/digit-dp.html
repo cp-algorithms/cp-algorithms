@@ -8021,7 +8021,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 22, 2026 13:21:11 UTC">August 22, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 22, 2026 13:22:44 UTC">August 22, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8051,8 +8051,8 @@ Describe the issue of this article in detail.
 <p>Given <span class="arithmatex">$l$</span>, <span class="arithmatex">$r$</span> and <span class="arithmatex">$k$</span>, count the integers in <span class="arithmatex">$[l, r]$</span> such that every pair of adjacent digits differs by at most <span class="arithmatex">$k$</span>, with <span class="arithmatex">$10 \le l \le r \le 10^{15}$</span> and <span class="arithmatex">$0 \le k \le 9$</span>.</p>
 </blockquote>
 <p>For instance with <span class="arithmatex">$k = 1$</span>, the number <span class="arithmatex">$2321$</span> is good, because <span class="arithmatex">$|2-3| = 1$</span>, <span class="arithmatex">$|3-2| = 1$</span> and <span class="arithmatex">$|2-1| = 1$</span>. The number <span class="arithmatex">$2521$</span> is not, because <span class="arithmatex">$|2-5| = 3$</span>.</p>
-<p>Following the reduction from the introduction, we write the answer as <span class="arithmatex">$f(r) - f(l-1)$</span>, where <span class="arithmatex">$f(x)$</span> counts the good integers in <span class="arithmatex">$[0, x]$</span>. It remains to compute <span class="arithmatex">$f$</span>.</p>
-<p>To decide whether the next digit is allowed we only need to know the <strong>previous digit</strong>, so that is our extra state. Together with the position and the tight flag, a state is:</p>
+<p>Following the reduction from the introduction, we write the answer as <span class="arithmatex">$f(r) - f(l-1)$</span>, where <span class="arithmatex">$f(x)$</span> counts the valid integers from <span class="arithmatex">$0$</span> to <span class="arithmatex">$x$</span> (inclusive). It remains to compute <span class="arithmatex">$f$</span>.</p>
+<p>For this problem, to decide whether the next digit is allowed, we only need to know the <strong>previous digit</strong>. So our DP state consists of the position, the tight flag, and the previous digit. Here's the full state:</p>
 <ul>
 <li><code>pos</code>: the index of the digit we are about to place, counting from the most significant;</li>
 <li><code>last</code>: the digit placed at <code>pos - 1</code>;</li>
