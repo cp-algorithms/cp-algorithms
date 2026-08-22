@@ -43,6 +43,35 @@
         customDynamicStyle.innerHTML = setCombinedVisibility(newNavigation, newTOC);
     }
 
+    const shouldKeyEventBeIgnored = (event) => { 
+        if (event.defaultPrevented) {
+            // Someone else explicitely handled the event
+            return true;
+        }
+        if (event.target instanceof Element) {
+            // Check if it is an editable text component, if so skip this event
+            if (event.target.matches("input, textarea, select") || event.target.isContentEditable) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    const registerNativeHtmlKeyboardEventHandler = () => {
+        document.addEventListener("keydown", (event => {
+            if (shouldKeyEventBeIgnored(event)) {
+                // do nothing
+            } else {
+                if (coreEventListenerLogic(event.key)) {
+                    // event handled, stop propagation
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+            }
+        }));
+    }
+
+
     // START OF INCLUDE
     // This gets replaced with the definitions of: 
     // - setCombinedVisibility(showNavigation: bool, showTOC: bool) -> string (dynamic CSS)
@@ -116,6 +145,7 @@ const registerKeyboardEventHandler = () => {
     // Custom key handlers: SEE https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/?h=key+bind#docsjavascriptsshortcutsjs
     keyboard$.subscribe(key => {
         if (key.mode === "global") {
+            // shouldKeyEventBeIgnored() not needed, as this is explicitely for key bindings
             if (coreEventListenerLogic(key.type)) {
                 // event handled, stop propagation
                 key.claim();
@@ -143,8 +173,6 @@ const registerKeyboardEventHandler = () => {
     }
 
     const onPageLoadedAction = () => {
-        console.log("The mkdocs-toggle-sidebar-plugin is installed. It adds the following key bindings:\n T -> toggle table of contents sidebar\n M -> toggle navigation menu sidebar\n B -> toggle both sidebars (TOC and navigation)");
-
         const toggle_button = "all";
         if (toggle_button == "none") {
             // do nothing
@@ -158,7 +186,7 @@ const registerKeyboardEventHandler = () => {
             console.error(`[mkdocs-toggle-sidebar-plugin] Unknown value for toggle_button: '${toggleButtonType}'`);
         }
 
-        registerKeyboardEventHandler();
+        registerKeyboardEventHandler(); console.log("The mkdocs-toggle-sidebar-plugin is installed. It adds the following key bindings:\n T -> toggle table of contents sidebar\n M -> toggle navigation menu sidebar\n B -> toggle both sidebars (TOC and navigation)");
     }
 
     const createDefaultToggleButton = (toggleNavigation, toggleTOC) => {

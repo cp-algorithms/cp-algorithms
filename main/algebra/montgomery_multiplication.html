@@ -8089,7 +8089,7 @@ x \cdot r^{-1} &amp;= x \cdot r \cdot r^{-1} / r = x \cdot (-n \cdot n^{\prime} 
 This means, that we can add or subtract an arbitrary multiple of <span class="arithmatex">$r$</span> to <span class="arithmatex">$x \cdot n^{\prime}$</span>, or in other words, we can compute <span class="arithmatex">$q := x \cdot n^{\prime}$</span> modulo <span class="arithmatex">$r$</span>.</p>
 <p>This gives us the following algorithm to compute <span class="arithmatex">$x \cdot r^{-1} \bmod n$</span>:</p>
 <div class="highlight"><pre><span></span><code>function reduce(x):
-    q = (x mod r) * n&#39; mod r
+    q = (x mod r) * n' mod r
     a = (x - q * n) / r
     if a &lt; 0:
         a += n

@@ -8403,7 +8403,7 @@ Describe the issue of this article in detail.
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">adj</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
 <span class="w">    </span><span class="n">components</span><span class="p">.</span><span class="n">clear</span><span class="p">(),</span><span class="w"> </span><span class="n">adj_cond</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
 
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">order</span><span class="p">;</span><span class="w"> </span><span class="c1">// will be a sorted list of G&#39;s vertices by exit time</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">order</span><span class="p">;</span><span class="w"> </span><span class="c1">// will be a sorted list of G's vertices by exit time</span>
 
 <span class="w">    </span><span class="n">visited</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
 
@@ -8421,7 +8421,7 @@ Describe the issue of this article in detail.
 <span class="w">    </span><span class="n">visited</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
 <span class="w">    </span><span class="n">reverse</span><span class="p">(</span><span class="n">order</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">order</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
 
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">roots</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// gives the root vertex of a vertex&#39;s SCC</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">roots</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// gives the root vertex of a vertex's SCC</span>
 
 <span class="w">    </span><span class="c1">// second series of depth first searches</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">order</span><span class="p">)</span>
