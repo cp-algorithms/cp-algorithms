@@ -140,18 +140,25 @@ This paradigm is widely used in tasks around trees, such as finding lowest commo
 
 ## Practice Problems
 
-* [LeetCode -  Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
-* [LeetCode -  Search Insert Position](https://leetcode.com/problems/search-insert-position/)
-* [LeetCode -  First Bad Version](https://leetcode.com/problems/first-bad-version/)
-* [LeetCode -  Valid Perfect Square](https://leetcode.com/problems/valid-perfect-square/)
-* [LeetCode -  Find Peak Element](https://leetcode.com/problems/find-peak-element/)
-* [LeetCode -  Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
-* [LeetCode -  Find Right Interval](https://leetcode.com/problems/find-right-interval/)
-* [Codeforces - Interesting Drink](https://codeforces.com/problemset/problem/706/B/)
-* [Codeforces - Magic Powder - 1](https://codeforces.com/problemset/problem/670/D1)
-* [Codeforces - Another Problem on Strings](https://codeforces.com/problemset/problem/165/C)
-* [Codeforces - Frodo and pillows](https://codeforces.com/problemset/problem/760/B)
-* [Codeforces - GukiZ hates Boxes](https://codeforces.com/problemset/problem/551/C)
-* [Codeforces - Enduring Exodus](https://codeforces.com/problemset/problem/645/C)
-* [Codeforces - Chip 'n Dale Rescue Rangers](https://codeforces.com/problemset/problem/590/B)
-* [Codeforces - Points on Line](https://codeforces.com/problemset/problem/251/A)
+### Binary Search
+
+- [LeetCode - Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
+- [LeetCode - Search Insert Position](https://leetcode.com/problems/search-insert-position/)
+- [LeetCode - First Bad Version](https://leetcode.com/problems/first-bad-version/)
+- [LeetCode - Valid Perfect Square](https://leetcode.com/problems/valid-perfect-square/)
+- [LeetCode - Find Peak Element](https://leetcode.com/problems/find-peak-element/)
+- [LeetCode - Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
+- [LeetCode - Find Right Interval](https://leetcode.com/problems/find-right-interval/)
+- [Codeforces - Interesting Drink](https://codeforces.com/problemset/problem/706/B/)
+- [Codeforces - Magic Powder - 1](https://codeforces.com/problemset/problem/670/D1)
+- [Codeforces - Another Problem on Strings](https://codeforces.com/problemset/problem/165/C)
+- [Codeforces - Frodo and pillows](https://codeforces.com/problemset/problem/760/B)
+- [Codeforces - GukiZ hates Boxes](https://codeforces.com/problemset/problem/551/C)
+- [Codeforces - Enduring Exodus](https://codeforces.com/problemset/problem/645/C)
+- [Codeforces - Chip 'n Dale Rescue Rangers](https://codeforces.com/problemset/problem/590/B)
+- [Codeforces - Points on Line](https://codeforces.com/problemset/problem/251/A)
+
+### Parallel Binary Search
+
+- [Szkopul - Meteors](https://szkopul.edu.pl/problemset/problem/7JrCYZ7LhEK4nBR5zbAXpcmM/site/?key=statement)
+- [AtCoder - Stamp Rally](https://atcoder.jp/contests/agc002/tasks/agc002_d)
