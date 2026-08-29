@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="500" height="220" viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+    <marker id="arrowhead-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2196F3"/>
+    </marker>
+    <style>
+      .vertex { fill: #e0e0e0; stroke: #333; stroke-width: 2; }
+      .vertex-label { font-family: sans-serif; font-size: 16px; font-weight: bold; fill: #333; text-anchor: middle; dominant-baseline: middle; }
+      .level-label { font-family: sans-serif; font-size: 13px; fill: #2196F3; font-weight: bold; text-anchor: middle; dominant-baseline: middle; }
+      .edge { fill: none; stroke: #333; stroke-width: 1.5; marker-end: url(#arrowhead); opacity: 0.4; }
+      .edge-level { fill: none; stroke: #2196F3; stroke-width: 2.5; marker-end: url(#arrowhead-blue); }
+      .edge-label { font-family: sans-serif; font-size: 12px; fill: #333; text-anchor: middle; dominant-baseline: middle; }
+      .edge-label-level { font-family: sans-serif; font-size: 12px; fill: #2196F3; font-weight: bold; text-anchor: middle; dominant-baseline: middle; }
+      .edge-label-bg { fill: white; fill-opacity: 0.9; }
+    </style>
+  </defs>
+  
+  <!-- All edges (faded) -->
+  <path class="edge" d="M 110 90 Q 145 70 180 60"/>
+  <text class="edge-label" x="145" y="55">0/3</text>
+  <path class="edge" d="M 110 110 Q 145 130 180 140"/>
+  <text class="edge-label" x="145" y="148">0/2</text>
+  <path class="edge" d="M 210 80 L 210 120"/>
+  <text class="edge-label" x="225" y="100">0/1</text>
+  <path class="edge" d="M 240 60 Q 295 70 350 90"/>
+  <text class="edge-label" x="295" y="63">0/2</text>
+  <path class="edge" d="M 240 140 Q 295 130 350 110"/>
+  <text class="edge-label" x="295" y="138">0/3</text>
+  
+  <!-- Level graph edges (highlighted) -->
+  <!-- s->A -->
+  <path class="edge-level" d="M 110 90 Q 145 70 180 60"/>
+  <text class="edge-label-level" x="145" y="55">0/3</text>
+  <!-- s->B -->
+  <path class="edge-level" d="M 110 110 Q 145 130 180 140"/>
+  <text class="edge-label-level" x="145" y="148">0/2</text>
+  <!-- A->t -->
+  <path class="edge-level" d="M 240 60 Q 295 70 350 90"/>
+  <text class="edge-label-level" x="295" y="63">0/2</text>
+  <!-- B->t -->
+  <path class="edge-level" d="M 240 140 Q 295 130 350 110"/>
+  <text class="edge-label-level" x="295" y="138">0/3</text>
+  
+  <!-- Vertices with level labels -->
+  <circle class="vertex" cx="80" cy="100" r="25"/>
+  <text class="vertex-label" x="80" y="100">s</text>
+  <text class="level-label" x="80" y="140">level 0</text>
+  
+  <circle class="vertex" cx="210" cy="50" r="25"/>
+  <text class="vertex-label" x="210" y="50">A</text>
+  <text class="level-label" x="210" y="90">level 1</text>
+  
+  <circle class="vertex" cx="210" cy="150" r="25"/>
+  <text class="vertex-label" x="210" y="150">B</text>
+  <text class="level-label" x="210" y="190">level 1</text>
+  
+  <circle class="vertex" cx="380" cy="100" r="25"/>
+  <text class="vertex-label" x="380" y="100">t</text>
+  <text class="level-label" x="380" y="140">level 2</text>
+</svg>
