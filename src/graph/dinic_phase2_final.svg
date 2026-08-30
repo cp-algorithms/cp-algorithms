@@ -11,18 +11,14 @@
       .vertex { fill: #e0e0e0; stroke: #333; stroke-width: 2; }
       .vertex-label { font-family: sans-serif; font-size: 16px; font-weight: bold; fill: #333; text-anchor: middle; dominant-baseline: middle; }
       .level-label { font-family: sans-serif; font-size: 13px; fill: #2196F3; font-weight: bold; text-anchor: middle; dominant-baseline: middle; }
-      .edge { fill: none; stroke: #333; stroke-width: 1.5; marker-end: url(#arrowhead); opacity: 0.4; }
-      .edge-saturated { fill: none; stroke: #333; stroke-width: 1.5; stroke-dasharray: 6,4; marker-end: url(#arrowhead); opacity: 0.4; }
+      .edge-saturated { fill: none; stroke: #999; stroke-width: 1.5; stroke-dasharray: 6,4; marker-end: url(#arrowhead); }
       .edge-level { fill: none; stroke: #2196F3; stroke-width: 2.5; marker-end: url(#arrowhead-blue); }
-      .edge-flow { fill: none; stroke: #2196F3; stroke-width: 3; marker-end: url(#arrowhead-blue); }
-      .edge-label { font-family: sans-serif; font-size: 12px; fill: #333; text-anchor: middle; dominant-baseline: middle; opacity: 0.6; }
-      .edge-label-sat { font-family: sans-serif; font-size: 12px; fill: #333; text-anchor: middle; dominant-baseline: middle; opacity: 0.6; }
-      .edge-label-flow { font-family: sans-serif; font-size: 12px; fill: #2196F3; font-weight: bold; text-anchor: middle; dominant-baseline: middle; }
+      .edge-label-sat { font-family: sans-serif; font-size: 12px; fill: #999; text-anchor: middle; dominant-baseline: middle; }
       .edge-label-level { font-family: sans-serif; font-size: 12px; fill: #2196F3; font-weight: bold; text-anchor: middle; dominant-baseline: middle; }
     </style>
   </defs>
   
-  <!-- All edges (faded) -->
+  <!-- Saturated edges (dashed gray) -->
   <!-- s->A: 3/3 saturated -->
   <path class="edge-saturated" d="M 110 90 Q 145 70 180 60"/>
   <text class="edge-label-sat" x="145" y="55">3/3</text>
@@ -30,10 +26,6 @@
   <!-- s->B: 2/2 saturated -->
   <path class="edge-saturated" d="M 110 110 Q 145 130 180 140"/>
   <text class="edge-label-sat" x="145" y="148">2/2</text>
-  
-  <!-- A->B: 1/1 (now in level graph, saturated) -->
-  <path class="edge-level" d="M 210 80 L 210 120"/>
-  <text class="edge-label-level" x="225" y="100">1/1</text>
   
   <!-- A->t: 2/2 saturated -->
   <path class="edge-saturated" d="M 240 60 Q 295 70 350 90"/>
@@ -43,13 +35,9 @@
   <path class="edge-saturated" d="M 240 140 Q 295 130 350 110"/>
   <text class="edge-label-sat" x="295" y="138">3/3</text>
   
-  <!-- Highlight the augmenting path s->A->B->t in phase 2 -->
-  <!-- s->A residual was 1, now saturated -->
-  <path class="edge-flow" d="M 110 90 Q 145 70 180 60" stroke-dasharray="none" opacity="0.5"/>
-  <!-- A->B was 0/1, now 1/1 -->
-  <path class="edge-flow" d="M 210 80 L 210 120" stroke-dasharray="none" opacity="0.5"/>
-  <!-- B->t residual was 1, now saturated -->
-  <path class="edge-flow" d="M 240 140 Q 295 130 350 110" stroke-dasharray="none" opacity="0.5"/>
+  <!-- Phase 2 level graph edge (solid blue) - A->B now in level graph -->
+  <path class="edge-level" d="M 210 80 L 210 120"/>
+  <text class="edge-label-level" x="225" y="100">1/1</text>
   
   <!-- Vertices with level labels -->
   <circle class="vertex" cx="80" cy="100" r="25"/>

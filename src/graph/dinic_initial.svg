@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="500" height="200" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
-  <!-- Styles -->
   <defs>
     <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
       <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
@@ -10,7 +9,6 @@
       .vertex-label { font-family: sans-serif; font-size: 16px; font-weight: bold; fill: #333; text-anchor: middle; dominant-baseline: middle; }
       .edge { fill: none; stroke: #333; stroke-width: 2; marker-end: url(#arrowhead); }
       .edge-label { font-family: sans-serif; font-size: 13px; fill: #333; text-anchor: middle; dominant-baseline: middle; }
-      .edge-label-bg { fill: white; fill-opacity: 0.9; }
     </style>
   </defs>
   

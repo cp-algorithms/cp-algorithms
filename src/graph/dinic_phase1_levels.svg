@@ -11,27 +11,19 @@
       .vertex { fill: #e0e0e0; stroke: #333; stroke-width: 2; }
       .vertex-label { font-family: sans-serif; font-size: 16px; font-weight: bold; fill: #333; text-anchor: middle; dominant-baseline: middle; }
       .level-label { font-family: sans-serif; font-size: 13px; fill: #2196F3; font-weight: bold; text-anchor: middle; dominant-baseline: middle; }
-      .edge { fill: none; stroke: #333; stroke-width: 1.5; marker-end: url(#arrowhead); opacity: 0.4; }
+      .edge-residual { fill: none; stroke: #999; stroke-width: 1.5; marker-end: url(#arrowhead); stroke-dasharray: 4,4; }
       .edge-level { fill: none; stroke: #2196F3; stroke-width: 2.5; marker-end: url(#arrowhead-blue); }
-      .edge-label { font-family: sans-serif; font-size: 12px; fill: #333; text-anchor: middle; dominant-baseline: middle; }
+      .edge-label-residual { font-family: sans-serif; font-size: 12px; fill: #999; text-anchor: middle; dominant-baseline: middle; }
       .edge-label-level { font-family: sans-serif; font-size: 12px; fill: #2196F3; font-weight: bold; text-anchor: middle; dominant-baseline: middle; }
-      .edge-label-bg { fill: white; fill-opacity: 0.9; }
     </style>
   </defs>
   
-  <!-- All edges (faded) -->
-  <path class="edge" d="M 110 90 Q 145 70 180 60"/>
-  <text class="edge-label" x="145" y="55">0/3</text>
-  <path class="edge" d="M 110 110 Q 145 130 180 140"/>
-  <text class="edge-label" x="145" y="148">0/2</text>
-  <path class="edge" d="M 210 80 L 210 120"/>
-  <text class="edge-label" x="225" y="100">0/1</text>
-  <path class="edge" d="M 240 60 Q 295 70 350 90"/>
-  <text class="edge-label" x="295" y="63">0/2</text>
-  <path class="edge" d="M 240 140 Q 295 130 350 110"/>
-  <text class="edge-label" x="295" y="138">0/3</text>
+  <!-- Residual edges NOT in level graph (dashed gray) -->
+  <!-- A->B: not in level graph -->
+  <path class="edge-residual" d="M 210 80 L 210 120"/>
+  <text class="edge-label-residual" x="225" y="100">0/1</text>
   
-  <!-- Level graph edges (highlighted) -->
+  <!-- Level graph edges (solid blue) -->
   <!-- s->A -->
   <path class="edge-level" d="M 110 90 Q 145 70 180 60"/>
   <text class="edge-label-level" x="145" y="55">0/3</text>
