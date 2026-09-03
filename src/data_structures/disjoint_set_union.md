@@ -178,7 +178,7 @@ It turns out, that the final amortized time complexity is $O(\alpha(n))$, where 
 In fact it grows so slowly, that it doesn't exceed $4$ for all reasonable $n$ (approximately $n < 10^{600}$).
 
 Amortized complexity is the total time per operation, evaluated over a sequence of multiple operations.
-The idea is to guarantee the total time of the entire sequence, while allowing single operations to be much slower then the amortized time.
+The idea is to guarantee the total time of the entire sequence, while allowing single operations to be much slower than the amortized time.
 E.g. in our case a single call might take $O(\log n)$ in the worst case, but if we do $m$ such calls back to back we will end up with an average time of $O(\alpha(n))$.
 
 We will also not present a proof for this time complexity, since it is quite long and complicated.
