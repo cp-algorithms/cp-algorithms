@@ -188,7 +188,7 @@ Also, it's worth mentioning that DSU with union by size / rank, but without path
 ### Linking by index / coin-flip linking
 
 Both union by rank and union by size require that you store additional data for each set, and maintain these values during each union operation.
-There exist also a randomized algorithm, that simplifies the union operation a little bit: linking by index.
+There exists also a randomized algorithm, that simplifies the union operation a little bit: linking by index.
 
 We assign each set a random value called the index, and we attach the set with the smaller index to the one with the larger one.
 It is likely that a bigger set will have a bigger index than the smaller set, therefore this operation is closely related to union by size.
