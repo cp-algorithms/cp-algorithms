@@ -78,7 +78,7 @@ One approach would be take the frequency of each number from $0$ to $N$, and bui
 E.g. a segment tree or a treap.
 Each node represents a range of numbers, and together to total frequency in the range, you additionally store the amount of distinct numbers in that range.
 It's possible to update this data structure in $O(\log N)$ time, and also find the MEX in $O(\log N)$ time, by doing a binary search for the MEX.
-If the node representing the range $[0, \lfloor N/2 \rfloor)$ doesn't contain $\lfloor N/2 \rfloor$ many distinct numbers, then one is missing and the MEX is smaller than $\lfloor N/2 \rfloor$, and you can recurse in the left branch of the tree. Otherwise it is at least $\lfloor N/2 \rfloor$, and you can recurse in the right branch of the tree.
+If the node representing the range $[0, \lfloor N/2 \rfloor)$ doesn't contain $\lfloor N/2 \rfloor$ many distinct numbers, then one is missing and the MEX is smaller than $\lfloor N/2 \rfloor$, and we recurse further.
 
 It's also possible to use the standard library data structures `map` and `set` (based on an approach explained [here](https://codeforces.com/blog/entry/81287?#comment-677837)).
 With a `map` we will remember the frequency of each number, and with the `set` we represent the numbers that are currently missing from the array.
@@ -127,8 +127,17 @@ We can use a `std::set<pair<long long, long long>>` to store disjoint, contiguou
 set<pair<long long, long long>> intervals;
 
 void add_number(long long x) {
-    long long l = x, r = x;
     auto it = intervals.lower_bound({x + 1, -1});
+    
+    // Early exit if x is already fully covered by an existing interval
+    if (it != intervals.begin()) {
+        auto prev_it = prev(it);
+        if (prev_it->first <= x && x <= prev_it->second) {
+            return;  // x is already in the set, no need to do anything
+        }
+    }
+    
+    long long l = x, r = x;
     
     // Merge with the previous interval if it overlaps or is adjacent
     if (it != intervals.begin()) {
@@ -150,6 +159,29 @@ void add_number(long long x) {
     intervals.insert({l, r});
 }
 
+void remove_number(long long x) {
+    // Find the first interval that starts strictly after x
+    auto it = intervals.lower_bound({x + 1, -1});
+    
+    if (it == intervals.begin()) return;  // x is not in any interval
+    auto prev_it = prev(it);
+    
+    // Check if x is actually inside this interval
+    if (prev_it->first <= x && x <= prev_it->second) {
+        long long l = prev_it->first;
+        long long r = prev_it->second;
+        
+        // Remove the old interval
+        intervals.erase(prev_it);
+        
+        // Insert the left half if it's valid (l <= x-1)
+        if (l <= x - 1) intervals.insert({l, x - 1});
+        
+        // Insert the right half if it's valid (x+1 <= r)
+        if (x + 1 <= r) intervals.insert({x + 1, r});
+    }
+}
+
 // The MEX can always be found in O(1) time
 long long get_mex() {
     // If the set is empty or the lowest interval doesn't start at 0
@@ -160,6 +192,10 @@ long long get_mex() {
     return intervals.begin()->second + 1;
 }
 ```
+
+**Time Complexity:** Both `add_number()` and `remove_number()` operate in $O(\log K)$ time, where $K$ is the number of disjoint intervals. In the worst case, $K = O(N)$ where $N$ is the number of distinct values added.
+
+**Note on Multiset Semantics:** This interval-based approach treats the data structure as a mathematical set (boolean presence/absence). If your problem requires tracking the *frequency* of elements (e.g., adding 5 twice and removing it once means 5 is still present), you would need to pair this interval set with a frequency map. For strict presence/absence semantics, this splitting logic handles all operations efficiently.
 
 ## Practice Problems
 
