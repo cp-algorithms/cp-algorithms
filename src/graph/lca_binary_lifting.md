@@ -17,7 +17,7 @@ The algorithm described in this article will need $O(N \log N)$ for preprocessin
 
 For each node we will precompute its ancestor above it, its ancestor two nodes above, its ancestor four above, etc.
 Let's store them in the array `up`, i.e. `up[i][j]` is the `2^j`-th ancestor above the node `i` with `i=1...N`, `j=0...ceil(log(N))`.
-These information allow us to jump from any node to any ancestor above it in $O(\log N)$ time.
+This information allows us to jump from any node to any ancestor above it in $O(\log N)$ time.
 We can compute this array using a [DFS](depth-first-search.md) traversal of the tree.
 
 For each node we will also remember the time of the first visit of this node (i.e. the time when the DFS discovers the node), and the time when we left it (i.e. after we visited all children and exit the DFS function).
@@ -38,7 +38,7 @@ Clearly after doing this for all non-negative `i` the node `u` will be the desir
 
 Now, obviously, the answer to LCA will be `up[u][0]` - i.e., the smallest node among the ancestors of the node `u`, which is also an ancestor of `v`.
 
-So answering a LCA query will iterate `i` from `ceil(log(N))` to `0` and checks in each iteration if one node is the ancestor of the other.
+So answering a LCA query will iterate `i` from `ceil(log(N))` to `0` and check in each iteration if one node is the ancestor of the other.
 Consequently each query can be answered in $O(\log N)$.
 
 ## Implementation

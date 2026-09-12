@@ -117,7 +117,7 @@ struct item {
 typedef item* pitem;
 ```
 
-This is our item defintion. Note there are two child pointers, and an integer key (for the BST) and an integer priority (for the heap). The priority is assigned using a random number generator.
+This is our item definition. Note there are two child pointers, and an integer key (for the BST) and an integer priority (for the heap). The priority is assigned using a random number generator.
 
 ```cpp
 void split (pitem t, int key, pitem & l, pitem & r) {

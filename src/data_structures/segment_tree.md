@@ -799,7 +799,7 @@ Now the modification query is to add a number to all elements in a range, and th
 So for each vertex of the Segment Tree we have to store the maximum of the corresponding subsegment. 
 The interesting part is how to recompute these values during a modification request.
 
-For this purpose we keep store an additional value for each vertex. 
+For this purpose we store an additional value for each vertex. 
 In this value we store the addends we haven't propagated to the child vertices.
 Before traversing to a child vertex, we call $\text{push}$ and propagate the value to both children.
 We have to do this in both the $\text{update}$ function and the $\text{query}$ function.
@@ -1133,7 +1133,7 @@ Also known as _implicit segment tree_ or _sparse segment tree_.)
 
 Previously, we considered cases when we have the ability to build the original segment tree. But what to do if the original size is filled with some default element, but its size does not allow you to completely build up to it in advance?
 
-We can solve this problem by creating a segment tree lazily (incrementally). Initially, we will create only the root, and we will create the other vertexes only when we need them.
+We can solve this problem by creating a segment tree lazily (incrementally). Initially, we will create only the root, and we will create the other vertices only when we need them.
 In this case, we will use the implementation on pointers(before going to the vertex children, check whether they are created, and if not, create them).
 Each query has still only the complexity $O(\log n)$, which is small enough for most use-cases (e.g. $\log_2 10^9 \approx 30$).
 
@@ -1189,6 +1189,7 @@ Obviously this idea can be extended in lots of different ways. E.g. by adding su
 * [Codeforces - Xenia and Bit Operations](https://codeforces.com/problemset/problem/339/D)
 * [UVA 11402 - Ahoy, Pirates!](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2397)
 * [SPOJ - GSS3](http://www.spoj.com/problems/GSS3/)
+* [Codeforces - Sereja And Brackets](https://codeforces.com/contest/380/problem/C)
 * [Codeforces - Distinct Characters Queries](https://codeforces.com/problemset/problem/1234/D)
 * [Codeforces - Knight Tournament](https://codeforces.com/contest/356/problem/A) [For beginners]
 * [Codeforces - Ant colony](https://codeforces.com/contest/474/problem/F)

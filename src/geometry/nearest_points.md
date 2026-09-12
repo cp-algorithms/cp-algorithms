@@ -343,7 +343,7 @@ Now we introduce a different randomized algorithm which is less practical but ve
 	- else, store $p_i$ in the corresponding square
 - output $\delta$
 
-The correctness follows from the fact that at any moment we already have some pair with distance $\delta$, so we try to find only new pairs with distance smaller than $\delta$. Since each square has side $\delta/2$, a candidate pair can be at most at a distance of $2$ squares, so for a given point we check candidates in the surrounding $25$ squares. Any point in a square further away will always give a distace larger than $\delta$.
+The correctness follows from the fact that at any moment we already have some pair with distance $\delta$, so we try to find only new pairs with distance smaller than $\delta$. Since each square has side $\delta/2$, a candidate pair can be at most at a distance of $2$ squares, so for a given point we check candidates in the surrounding $25$ squares. Any point in a square further away will always give a distance larger than $\delta$.
 
 While this algorithm may look slow, because of recomputing everything multiple times, we can show the total expected cost is linear. 
 

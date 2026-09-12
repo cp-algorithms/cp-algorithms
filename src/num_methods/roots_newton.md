@@ -32,7 +32,7 @@ First, we calculate the slope $f'(x)$, derivative of $f(x)$, and then determine 
 
 $$ y - f(x_i) = f'(x_i)(x - x_i) $$ 
 
-The tangent intersects with the x-axis at cordinate, $y = 0$ and $x = x_{i+1}$,
+The tangent intersects with the x-axis at coordinate, $y = 0$ and $x = x_{i+1}$,
 
 $$ - f(x_i) = f'(x_i)(x_{i+1} - x_i) $$ 
 

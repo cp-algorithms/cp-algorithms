@@ -108,8 +108,8 @@ $\mathcal{O}(\log n)$ per path for $\mathcal{O}(\log n)$ paths leads to a comple
 
 Certain parts of the above discussed approach can be modified to make implementation easier without losing efficiency.
 
-* The definition of **heavy edge** can be changed to **the edge leading to the child with largest subtree**, with ties broken arbitrarily. This may result is some light edges being converted to heavy, which means some heavy paths will combine to form a single path, but all heavy paths will remain disjoint. It is also still guaranteed that going down a light edge reduces subtree size to half or less.
-* Instead of a building segment tree over every heavy path, a single segment tree can be used with disjoint segments allocated to each heavy path.
+* The definition of **heavy edge** can be changed to **the edge leading to the child with largest subtree**, with ties broken arbitrarily. This may result in some light edges being converted to heavy, which means some heavy paths will combine to form a single path, but all heavy paths will remain disjoint. It is also still guaranteed that going down a light edge reduces subtree size to half or less.
+* Instead of building a segment tree over every heavy path, a single segment tree can be used with disjoint segments allocated to each heavy path.
 * It has been mentioned that answering queries requires calculation of the LCA. While LCA can be calculated separately, it is also possible to integrate LCA calculation in the process of answering queries.
 
 To perform heavy-light decomposition:
@@ -167,7 +167,7 @@ To answer queries on paths, for example the maximum query discussed, we can do s
 
 ```cpp
 int query(int a, int b) {
-    int res = 0;
+    int res = segment_tree_query(pos[a], pos[a]);
     for (; head[a] != head[b]; b = parent[head[b]]) {
         if (depth[head[a]] > depth[head[b]])
             swap(a, b);

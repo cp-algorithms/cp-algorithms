@@ -20,8 +20,8 @@ This article will discuss few important facts associated with minimum spanning t
 
 * A minimum spanning tree of a graph is unique, if the weight of all the edges are distinct. Otherwise, there may be multiple minimum spanning trees.
   (Specific algorithms typically output one of the possible minimum spanning trees).
-* Minimum spanning tree is also the tree with minimum product of weights of edges.
-  (It can be easily proved by replacing the weights of all edges with their logarithms)
+* If all edge weights are positive, a minimum spanning tree is also a tree with minimum product of edge weights.
+  (It can be proved by replacing every edge weight with its logarithm; this preserves the ordering of edge weights.)
 * In a minimum spanning tree of a graph, the maximum weight of an edge is the minimum possible from all possible spanning trees of that graph.
   (This follows from the validity of Kruskal's algorithm).
 * The maximum spanning tree (spanning tree with the sum of weights of edges being maximum) of a graph can be obtained similarly to that of the minimum spanning tree, by changing the signs of the weights of all the edges to their opposite and then applying any of the minimum spanning tree algorithm.
@@ -30,7 +30,7 @@ This article will discuss few important facts associated with minimum spanning t
 
 This algorithm was described by Joseph Bernard Kruskal, Jr. in 1956.
 
-Kruskal's algorithm initially places all the nodes of the original graph isolated from each other, to form a forest of single node trees, and then gradually merges these trees, combining at each iteration any two of all the trees with some edge of the original graph. Before the execution of the algorithm, all edges are sorted by weight (in non-decreasing order). Then begins the process of unification: pick all edges from the first to the last (in sorted order), and if the ends of the currently picked edge belong to different subtrees, these subtrees are combined, and the edge is added to the answer. After iterating through all the edges, all the vertices will belong to the same sub-tree, and we will get the answer.
+Kruskal's algorithm initially places all the nodes of the original graph isolated from each other, to form a forest of single node trees, and then gradually merges these trees, combining at each iteration any two of all the trees with some edge of the original graph. Before the execution of the algorithm, all edges are sorted by weight (in non-decreasing order). Then begins the process of unification: pick all edges from the first to the last (in sorted order), and if the ends of the currently picked edge belong to different subtrees, these subtrees are combined, and the edge is added to the answer. If the graph is connected, after iterating through all the edges all vertices will belong to the same subtree and we obtain a minimum spanning tree. If the graph is disconnected, the same procedure produces a minimum spanning forest instead.
 
 ## The simplest implementation
 
