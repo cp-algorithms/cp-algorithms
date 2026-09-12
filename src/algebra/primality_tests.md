@@ -214,6 +214,16 @@ bool MillerRabin(u64 n) { // returns true if n is prime, else returns false.
 
 It's also possible to do the check with only 7 bases: 2, 325, 9375, 28178, 450775, 9780504 and 1795265022.
 However, since these numbers (except 2) are not prime, you need to check additionally if the number you are checking is equal to any prime divisor of those bases: 2, 3, 5, 13, 19, 73, 193, 407521, 299210837.
+### Further reading: Hashed deterministic Miller–Rabin bases
+
+Additional research on reducing the number of Miller–Rabin bases for 32–64 bit
+primality testing has been done by Steven Berg. His work uses hashing to map
+numbers into small “base buckets,” allowing deterministic checks with fewer
+bases while guaranteeing correctness.
+
+Details and precomputed hashed base sets can be found here:  
+https://www.techneon.com/
+
 
 ## Practice Problems
 
