@@ -8145,6 +8145,18 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
     
@@ -8169,12 +8181,6 @@ Describe the issue of this article in detail.
   
     
   
-
-  
-  
-  
-    
-  
     
   
     
@@ -8184,56 +8190,6 @@ Describe the issue of this article in detail.
   
   
     
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
   
     
   
@@ -8269,6 +8225,56 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
 
@@ -8297,6 +8303,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8377,7 +8387,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 29, 2026 22:17:21 UTC">March 29, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 3, 2026 02:33:59 UTC">September 3, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8535,13 +8545,13 @@ Both optimizations are equivalent in terms of time and space complexity. So in p
 It turns out, that the final amortized time complexity is <span class="arithmatex">$O(\alpha(n))$</span>, where <span class="arithmatex">$\alpha(n)$</span> is the inverse Ackermann function, which grows very slowly.
 In fact it grows so slowly, that it doesn't exceed <span class="arithmatex">$4$</span> for all reasonable <span class="arithmatex">$n$</span> (approximately <span class="arithmatex">$n &lt; 10^{600}$</span>).</p>
 <p>Amortized complexity is the total time per operation, evaluated over a sequence of multiple operations.
-The idea is to guarantee the total time of the entire sequence, while allowing single operations to be much slower then the amortized time.
+The idea is to guarantee the total time of the entire sequence, while allowing single operations to be much slower than the amortized time.
 E.g. in our case a single call might take <span class="arithmatex">$O(\log n)$</span> in the worst case, but if we do <span class="arithmatex">$m$</span> such calls back to back we will end up with an average time of <span class="arithmatex">$O(\alpha(n))$</span>.</p>
 <p>We will also not present a proof for this time complexity, since it is quite long and complicated.</p>
 <p>Also, it's worth mentioning that DSU with union by size / rank, but without path compression works in <span class="arithmatex">$O(\log n)$</span> time per query.</p>
 <h3 id="linking-by-index-coin-flip-linking">Linking by index / coin-flip linking<a class="headerlink" href="#linking-by-index-coin-flip-linking" title="Permanent link">&para;</a></h3>
 <p>Both union by rank and union by size require that you store additional data for each set, and maintain these values during each union operation.
-There exist also a randomized algorithm, that simplifies the union operation a little bit: linking by index.</p>
+There exists also a randomized algorithm, that simplifies the union operation a little bit: linking by index.</p>
 <p>We assign each set a random value called the index, and we attach the set with the smaller index to the one with the larger one.
 It is likely that a bigger set will have a bigger index than the smaller set, therefore this operation is closely related to union by size.
 In fact it can be proven, that this operation has the same time complexity as union by size.
@@ -8855,7 +8865,7 @@ Later in 1985 he, along with Leeuwen, published multiple complexity analyses for
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (88.68%)</li><li><a href="https://github.com/alex65536" title="alex65536" data-bi-name="contributorprofile" target="_blank">alex65536</a> (3.55%)</li><li><a href="https://github.com/wangwillian0" title="wangwillian0" data-bi-name="contributorprofile" target="_blank">wangwillian0</a> (2.87%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (1.18%)</li><li><a href="https://github.com/Tahanima" title="Tahanima" data-bi-name="contributorprofile" target="_blank">Tahanima</a> (0.84%)</li><li><a href="https://github.com/turkhuu622" title="turkhuu622" data-bi-name="contributorprofile" target="_blank">turkhuu622</a> (0.51%)</li><li><a href="https://github.com/ankitsangwan1999" title="ankitsangwan1999" data-bi-name="contributorprofile" target="_blank">ankitsangwan1999</a> (0.34%)</li><li><a href="https://github.com/tanmay-sinha" title="tanmay-sinha" data-bi-name="contributorprofile" target="_blank">tanmay-sinha</a> (0.34%)</li><li><a href="https://github.com/gampu" title="gampu" data-bi-name="contributorprofile" target="_blank">gampu</a> (0.34%)</li><li><a href="https://github.com/nkasica" title="nkasica" data-bi-name="contributorprofile" target="_blank">nkasica</a> (0.17%)</li><li><a href="https://github.com/ShubhamPhapale" title="ShubhamPhapale" data-bi-name="contributorprofile" target="_blank">ShubhamPhapale</a> (0.17%)</li><li><a href="https://github.com/cameroncuster" title="cameroncuster" data-bi-name="contributorprofile" target="_blank">cameroncuster</a> (0.17%)</li><li><a href="https://github.com/ankushkhanna1998" title="ankushkhanna1998" data-bi-name="contributorprofile" target="_blank">ankushkhanna1998</a> (0.17%)</li><li><a href="https://github.com/xUser5000" title="xUser5000" data-bi-name="contributorprofile" target="_blank">xUser5000</a> (0.17%)</li><li><a href="https://github.com/vedantkarandikar" title="vedantkarandikar" data-bi-name="contributorprofile" target="_blank">vedantkarandikar</a> (0.17%)</li><li><a href="https://github.com/platypusperry23" title="platypusperry23" data-bi-name="contributorprofile" target="_blank">platypusperry23</a> (0.17%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.17%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (88.34%)</li><li><a href="https://github.com/alex65536" title="alex65536" data-bi-name="contributorprofile" target="_blank">alex65536</a> (3.55%)</li><li><a href="https://github.com/wangwillian0" title="wangwillian0" data-bi-name="contributorprofile" target="_blank">wangwillian0</a> (2.87%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (1.18%)</li><li><a href="https://github.com/Tahanima" title="Tahanima" data-bi-name="contributorprofile" target="_blank">Tahanima</a> (0.84%)</li><li><a href="https://github.com/turkhuu622" title="turkhuu622" data-bi-name="contributorprofile" target="_blank">turkhuu622</a> (0.51%)</li><li><a href="https://github.com/the-ethan-wang" title="the-ethan-wang" data-bi-name="contributorprofile" target="_blank">the-ethan-wang</a> (0.34%)</li><li><a href="https://github.com/ankitsangwan1999" title="ankitsangwan1999" data-bi-name="contributorprofile" target="_blank">ankitsangwan1999</a> (0.34%)</li><li><a href="https://github.com/tanmay-sinha" title="tanmay-sinha" data-bi-name="contributorprofile" target="_blank">tanmay-sinha</a> (0.34%)</li><li><a href="https://github.com/gampu" title="gampu" data-bi-name="contributorprofile" target="_blank">gampu</a> (0.34%)</li><li><a href="https://github.com/nkasica" title="nkasica" data-bi-name="contributorprofile" target="_blank">nkasica</a> (0.17%)</li><li><a href="https://github.com/ShubhamPhapale" title="ShubhamPhapale" data-bi-name="contributorprofile" target="_blank">ShubhamPhapale</a> (0.17%)</li><li><a href="https://github.com/cameroncuster" title="cameroncuster" data-bi-name="contributorprofile" target="_blank">cameroncuster</a> (0.17%)</li><li><a href="https://github.com/ankushkhanna1998" title="ankushkhanna1998" data-bi-name="contributorprofile" target="_blank">ankushkhanna1998</a> (0.17%)</li><li><a href="https://github.com/xUser5000" title="xUser5000" data-bi-name="contributorprofile" target="_blank">xUser5000</a> (0.17%)</li><li><a href="https://github.com/vedantkarandikar" title="vedantkarandikar" data-bi-name="contributorprofile" target="_blank">vedantkarandikar</a> (0.17%)</li><li><a href="https://github.com/platypusperry23" title="platypusperry23" data-bi-name="contributorprofile" target="_blank">platypusperry23</a> (0.17%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.17%)</li></ul>
 </ul>
                 
               </article>
