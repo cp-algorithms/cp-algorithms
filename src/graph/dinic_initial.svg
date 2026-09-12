@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="500" height="200" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+    <style>
+      .vertex { fill: #e0e0e0; stroke: #333; stroke-width: 2; }
+      .vertex-label { font-family: sans-serif; font-size: 16px; font-weight: bold; fill: #333; text-anchor: middle; dominant-baseline: middle; }
+      .edge { fill: none; stroke: #333; stroke-width: 2; marker-end: url(#arrowhead); }
+      .edge-label { font-family: sans-serif; font-size: 13px; fill: #333; text-anchor: middle; dominant-baseline: middle; }
+    </style>
+  </defs>
+  
+  <!-- Vertices: s(80,100), A(210,50), B(210,150), t(380,100) -->
+  <!-- Edges -->
+  <!-- s->A -->
+  <path class="edge" d="M 110 90 Q 145 70 180 60"/>
+  <text class="edge-label" x="145" y="55">0/3</text>
+  <!-- s->B -->
+  <path class="edge" d="M 110 110 Q 145 130 180 140"/>
+  <text class="edge-label" x="145" y="148">0/2</text>
+  <!-- A->B -->
+  <path class="edge" d="M 210 80 L 210 120"/>
+  <text class="edge-label" x="225" y="100">0/1</text>
+  <!-- A->t -->
+  <path class="edge" d="M 240 60 Q 295 70 350 90"/>
+  <text class="edge-label" x="295" y="63">0/2</text>
+  <!-- B->t -->
+  <path class="edge" d="M 240 140 Q 295 130 350 110"/>
+  <text class="edge-label" x="295" y="138">0/3</text>
+  
+  <!-- Vertices -->
+  <circle class="vertex" cx="80" cy="100" r="25"/>
+  <text class="vertex-label" x="80" y="100">s</text>
+  
+  <circle class="vertex" cx="210" cy="50" r="25"/>
+  <text class="vertex-label" x="210" y="50">A</text>
+  
+  <circle class="vertex" cx="210" cy="150" r="25"/>
+  <text class="vertex-label" x="210" y="150">B</text>
+  
+  <circle class="vertex" cx="380" cy="100" r="25"/>
+  <text class="vertex-label" x="380" y="100">t</text>
+</svg>

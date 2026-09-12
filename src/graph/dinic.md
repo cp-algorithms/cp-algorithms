@@ -49,6 +49,98 @@ In order to find the blocking flow on each iteration, we may simply try pushing 
 
 A single DFS run takes $O(k+V)$ time, where $k$ is the number of pointer advances on this run. Summed up over all runs, number of pointer advances can not exceed $E$. On the other hand, total number of runs won't exceed $E$, as every run saturates at least one edge. In this way, total running time of finding a blocking flow is $O(VE)$.
 
+## Example
+
+To illustrate how Dinic's algorithm works, we walk through a complete execution on a small network.
+
+### Initial network
+
+The network has four vertices: source $s$, intermediate vertices $A$ and $B$, and sink $t$. The directed edges and their capacities are:
+
+| Edge | Capacity |
+|------|----------|
+| $s \to A$ | 3 |
+| $s \to B$ | 2 |
+| $A \to B$ | 1 |
+| $A \to t$ | 2 |
+| $B \to t$ | 3 |
+
+All initial flows are zero.
+
+<div style="text-align: center;">
+  <img src="dinic_initial.svg" alt="Initial residual network for Dinic example">
+</div>
+
+### First phase
+
+**BFS — level construction.**  
+We run BFS from $s$ in the residual network (all edges have positive residual capacity initially). The shortest unweighted distances are:
+
+| Vertex | $s$ | $A$ | $B$ | $t$ |
+|--------|-----|-----|-----|-----|
+| $level$ | 0 | 1 | 1 | 2 |
+
+**Level graph.**  
+An edge $(u,v)$ belongs to the level graph iff $level[u] + 1 = level[v]$.  
+Edges in the level graph: $s \to A$, $s \to B$, $A \to t$, $B \to t$.  
+The edge $A \to B$ is **excluded** because $level[A] = 1$ and $level[B] = 1$, so $1 + 1 \ne 1$.
+
+<div style="text-align: center;">
+  <img src="dinic_phase1_levels.svg" alt="Phase 1 level graph with levels shown">
+</div>
+
+**Blocking flow (DFS).**  
+We repeatedly push flow from $s$ to $t$ along paths in the level graph:
+
+1. Path $s \to A \to t$: bottleneck = $\min(3, 2) = 2$. Push 2 units.  
+   $s \to A$ becomes $2/3$, $A \to t$ becomes $2/2$ (saturated).
+2. Path $s \to B \to t$: bottleneck = $\min(2, 3) = 2$. Push 2 units.  
+   $s \to B$ becomes $2/2$ (saturated), $B \to t$ becomes $2/3$.
+
+Total flow after phase 1: $2 + 2 = 4$.
+
+The level graph now has no $s \to t$ path (both $A \to t$ and $B \to t$ are saturated, and $A \to B$ is not in the level graph). Hence this is a blocking flow.
+
+<div style="text-align: center;">
+  <img src="dinic_phase1_blocking.svg" alt="Network after phase 1 blocking flow">
+</div>
+
+### Second phase
+
+**Residual network after phase 1.**  
+Forward residual capacities:  
+$s \to A$: 1, $A \to B$: 1, $B \to t$: 1.  
+Edges $s \to B$ and $A \to t$ have zero forward residual capacity (saturated).
+
+**BFS — new level construction.**  
+Running BFS again on the residual network gives:
+
+| Vertex | $s$ | $A$ | $B$ | $t$ |
+|--------|-----|-----|-----|-----|
+| $level$ | 0 | 1 | 2 | 3 |
+
+Now $A$ and $B$ are on different levels, so $A \to B$ enters the level graph. The new level-graph path is $s \to A \to B \to t$.
+
+<div style="text-align: center;">
+  <img src="dinic_phase2_final.svg" alt="Phase 2 level graph and final maximum flow">
+</div>
+
+**Blocking flow (DFS).**  
+Path $s \to A \to B \to t$: bottleneck = $\min(1, 1, 1) = 1$. Push 1 unit.
+
+Final edge flows:
+- $s \to A = 3/3$ (saturated)
+- $s \to B = 2/2$ (saturated)
+- $A \to B = 1/1$ (saturated)
+- $A \to t = 2/2$ (saturated)
+- $B \to t = 3/3$ (saturated)
+
+Total flow: $4 + 1 = 5$.
+
+### Result
+
+The flow value is 5. All edges leaving $s$ are saturated, so no larger flow is possible. The residual network contains no path from $s$ to $t$, and Dinic's algorithm terminates. The maximum flow equals 5.
+
 ## Complexity
 
 There are less than $V$ phases, so the total complexity is $O(V^2E)$.
