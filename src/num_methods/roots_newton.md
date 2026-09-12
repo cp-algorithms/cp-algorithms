@@ -66,14 +66,16 @@ double sqrt_newton(double n) {
 }
 ```
 
-Another common variant of the problem is when we need to calculate the integer root (for the given $n$ find the largest $x$ such that $x^2 \le n$). Here it is necessary to slightly change the termination condition of the algorithm, since it may happen that $x$ will start to "jump" near the answer. Therefore, we add a condition that if the value $x$ has decreased in the previous step, and it tries to increase at the current step, then the algorithm must be stopped.
+Another common variant of the problem is when we need to calculate the integer root (for the given non-negative $n$ find the largest $x$ such that $x^2 \le n$). Here it is necessary to slightly change the termination condition of the algorithm, since it may happen that $x$ will start to "jump" near the answer. Therefore, we add a condition that if the value $x$ has decreased in the previous step, and it tries to increase at the current step, then the algorithm must be stopped.
 
 ```cpp
 int isqrt_newton(int n) {
+	if (n == 0)
+		return 0;
 	int x = 1;
 	bool decreased = false;
 	for (;;) {
-		int nx = (x + n / x) >> 1;
+		int nx = (x + 1LL * n / x) >> 1;
 		if (x == nx || nx > x && decreased)
 			break;
 		decreased = nx < x;
@@ -87,6 +89,8 @@ Finally, we are given the third variant - for the case of bignum arithmetic. Sin
 
 ```java
 public static BigInteger isqrtNewton(BigInteger n) {
+	if (n.signum() == 0)
+		return BigInteger.ZERO;
 	BigInteger a = BigInteger.ONE.shiftLeft(n.bitLength() / 2);
 	boolean p_dec = false;
 	for (;;) {
