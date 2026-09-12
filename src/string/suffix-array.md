@@ -217,6 +217,183 @@ vector<int> suffix_array_construction(string s) {
 }
 ```
 
+### $O(n)$ Approach {data-toc-label="O(n) approach"}
+
+In this approach, we are using the **SA-IS algorithm**, a linear-time algorithm for constructing suffix arrays. SA-IS (Suffix Array Induced Sorting) is a highly efficient algorithm that builds suffix arrays by sorting induced substrings, enabling \(O(n)\) time complexity for suffix array construction. Developed by Nong, Zhang, and Chan in 2009, it is widely regarded for its simplicity and performance.
+
+### Brief Explanation of the SA-IS Algorithm:
+
+1. **L-Type and S-Type Suffixes**:
+   - The SA-IS algorithm classifies suffixes into two types: **L-type** (where the current suffix is lexicographically greater than the next one) and **S-type** (where the current suffix is smaller than the next one). This classification helps the algorithm sort and rank the suffixes efficiently.
+
+2. **Identifying LMS Substrings**:
+   - SA-IS identifies LMS (Leftmost S-type) positions, which are boundaries between L-type and S-type suffixes. LMS substrings are critical as they serve as anchor points for the sorting process.
+
+3. **Induced Sorting**:
+   - The algorithm first sorts LMS substrings recursively, then induces the order of the remaining suffixes. Sorting the LMS substrings is the key part of the algorithm, and once sorted, the remaining suffixes are arranged by their lexicographical order relative to LMS substrings.
+
+4. **Recursive Call for LMS Substrings**:
+   - If necessary, the algorithm further processes the LMS substrings recursively. After this, it merges the sorted LMS substrings with the other suffixes to construct the final suffix array.
+
+
+
+The SA-IS algorithm is highly efficient for handling large datasets, making it suitable for applications where memory and time efficiency are essential.
+
+### Understanding L-Type and S-Type Suffixes
+
+In the SA-IS algorithm, suffixes are classified as:
+- **L-type (Left)**: A suffix is L-type if it is lexicographically greater than the suffix immediately following it.
+- **S-type (Right)**: A suffix is S-type if it is lexicographically smaller than or equal to the suffix immediately following it.
+
+For the string `banana$`, let's classify each suffix:
+1. Starting from the end, `$` is considered S-type by definition.
+2. Moving leftward, the suffixes ending in `a`, `n`, etc., are classified as follows:
+
+| Position | Suffix  | Type |
+|----------|---------|------|
+| 6        | `$`     | S    |
+| 5        | `a$`    | S    |
+| 4        | `na$`   | L    |
+| 3        | `ana$`  | S    |
+| 2        | `nana$` | L    |
+| 1        | `anana$`| S    |
+| 0        | `banana$`| S    |
+
+The `L` and `S` types provide crucial information for sorting suffixes using induced sorting.
+### Example:
+For the string `s = "banana"`, The steps were :
+1. The algorithm first classifies suffixes into L-type and S-type.
+2. It identifies LMS positions based on the L and S classifications.
+3. It sorts the LMS substrings and uses them to induce the order of remaining suffixes.
+4. The final suffix array is constructed after all suffixes are sorted.
+
+### C++ Implementation of the SA-IS Algorithm
+
+Let's focus on the Implementation of the algorithm. 
+
+### 1. **Suffix Array Initialization and Base Cases**
+   ```cpp
+   std::vector<int> sa_is(const std::vector<int>& s, int upper) {
+       int n = s.size();
+       if (n == 0) return {};
+       if (n == 1) return {0};
+       if (n == 2) return (s[0] < s[1]) ? std::vector<int>{0, 1} : std::vector<int>{1, 0};
+   ```
+   This part initializes the `sa_is` function, which constructs the suffix array for a given input vector `s`. It first handles edge cases:
+   - If the string is empty (`n == 0`), it returns an empty array.
+   - For one character (`n == 1`), it returns `{0}` since only one suffix exists.
+   - For two characters (`n == 2`), it returns `{0, 1}` or `{1, 0}` depending on the lexicographic order.
+
+### 2. **Classifying Suffix Types and Calculating Buckets**
+   ```cpp
+       std::vector<int> sa(n, -1), ls(n);
+       for (int i = n - 2; i >= 0; i--) {
+           ls[i] = (s[i] < s[i + 1]) || (s[i] == s[i + 1] && ls[i + 1]);
+       }
+
+       std::vector<int> sum_l(upper + 1), sum_s(upper + 1);
+       for (int i = 0; i < n; i++) {
+           if (!ls[i]) sum_s[s[i]]++;
+           else sum_l[s[i] + 1]++;
+       }
+       for (int i = 0; i <= upper; i++) {
+           sum_s[i] += sum_l[i];
+           if (i < upper) sum_l[i + 1] += sum_s[i];
+       }
+   ```
+   This part:
+   - Initializes the `sa` array to store suffix positions and the `ls` array to classify each suffix as S-type or L-type.
+   - Classifies each suffix by comparing the current character with the next one.
+   - Fills `sum_s` and `sum_l`, which hold counts of S-type and L-type suffixes respectively, to help with induced sorting later.
+
+### 3. **Induced Sorting with LMS Suffixes**
+   ```cpp
+       auto induce = [&](const std::vector<int>& lms) {
+           std::fill(sa.begin(), sa.end(), -1);
+           std::vector<int> buf = sum_s;
+           for (int d : lms) {
+               if (d == n) continue;
+               sa[buf[s[d]]++] = d;
+           }
+           buf = sum_l;
+           sa[buf[s[n - 1]]++] = n - 1;
+           for (int i = 0; i < n; i++) {
+               int v = sa[i];
+               if (v >= 1 && !ls[v - 1]) sa[buf[s[v - 1]]++] = v - 1;
+           }
+           buf = sum_l;
+           for (int i = n - 1; i >= 0; i--) {
+               int v = sa[i];
+               if (v >= 1 && ls[v - 1]) sa[--buf[s[v - 1] + 1]] = v - 1;
+           }
+       };
+   ```
+   Here, the `induce` function sorts suffixes by first placing LMS (leftmost S-type) suffixes in the correct order, and then inducing the order for L-type and S-type suffixes based on LMS positions. The buffers `sum_l` and `sum_s` are used for efficiently placing suffixes within their buckets.
+
+### 4. **Recursive Sorting of LMS Substring and Final Output**
+   ```cpp
+       std::vector<int> lms_map(n + 1, -1), lms;
+       int m = 0;
+       for (int i = 1; i < n; i++) {
+           if (!ls[i - 1] && ls[i]) {
+               lms_map[i] = m++;
+               lms.push_back(i);
+           }
+       }
+       induce(lms);
+
+       if (m) {
+           std::vector<int> sorted_lms, rec_s(m), rec_sa;
+           for (int i : sa) if (lms_map[i] != -1) sorted_lms.push_back(i);
+           int rec_upper = 0;
+           rec_s[lms_map[sorted_lms[0]]] = 0;
+           for (int i = 1; i < m; i++) {
+               int l = sorted_lms[i - 1], r = sorted_lms[i];
+               int end_l = (lms_map[l] + 1 < m) ? lms[lms_map[l] + 1] : n;
+               int end_r = (lms_map[r] + 1 < m) ? lms[lms_map[r] + 1] : n;
+               bool same = (end_l - l == end_r - r);
+               for (int j = 0; same && j < end_l - l; j++) {
+                   if (s[l + j] != s[r + j]) same = false;
+               }
+               if (!same) rec_upper++;
+               rec_s[lms_map[sorted_lms[i]]] = rec_upper;
+           }
+           rec_sa = sa_is(rec_s, rec_upper);
+
+           for (int i = 0; i < m; i++) sorted_lms[i] = lms[rec_sa[i]];
+           induce(sorted_lms);
+       }
+       return sa;
+   }
+   ```
+   - Constructs the suffix array of LMS substrings recursively.
+   - Sorts LMS suffixes by generating `rec_s`, a reduced string representation, and calls `sa_is` recursively on it.
+   - After sorting LMS substrings, the `induce` function finalizes the order for all suffixes.
+Here's an addition to the breakdown, covering the missing part:
+
+### 5. **Wrapper for Suffix Array and Main Function**
+   ```cpp
+   std::vector<int> suffix_array(const std::string& s) {
+       std::vector<int> s_vec(s.size() + 1);
+       for (size_t i = 0; i < s.size(); i++) s_vec[i] = s[i];
+       s_vec[s.size()] = 0;
+       return sa_is(s_vec, 255);
+   }
+
+   int main() {
+       std::string text;
+       std::cin >> text;
+       auto suffix_arr = suffix_array(text);
+       for (size_t i = 1; i < suffix_arr.size(); i++) {
+           std::cout << suffix_arr[i] << (i + 1 < suffix_arr.size() ? " " : "\n");
+       }
+       return 0;
+   }
+   ```
+   - **`suffix_array` Function**: This wrapper function prepares the input string `s` by converting it into a vector of integers (`s_vec`), where each character is represented as an integer. An additional `0` is appended to mark the end of the string. The function then calls `sa_is` to construct and return the suffix array.
+   - **`main` Function**: The main function reads a string `text` from standard input, computes its suffix array using the `suffix_array` function, and then outputs the suffix array (starting from index 1) in a space-separated format. This provides the lexicographically sorted order of suffixes for the input text.
+
+
 ## Applications
 
 ### Finding the smallest cyclic shift
