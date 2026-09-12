@@ -74,7 +74,7 @@ So, we want to calculate $d_{odd}[i]$ for the next $i$, and all the previous val
 
 * If $i$ is outside the current sub-palindrome, i. e. $i \geq r$, we'll just launch the trivial algorithm.
     
-    So we'll increase $d_{odd}[i]$ consecutively and check each time if the current rightmost substring $[i - d_{odd}[i]\dots i + d_{odd}[i]]$ is a palindrome. When we find the first mismatch or meet the boundaries of $s$, we'll stop. In this case we've finally calculated $d_{odd}[i]$. After this, we must not forget to update $(l, r)$. $r$ should be updated in such a way that it represents the last index of the current rightmost sub-palindrome.
+    So we'll increase $d_{odd}[i]$ consecutively and check each time if the current rightmost substring $[i - d_{odd}[i]\dots i + d_{odd}[i]]$ is a palindrome. When we find the first mismatch or meet the boundaries of $s$, we'll stop. In this case we've finally calculated $d_{odd}[i]$. After this, we must not forget to update $(l, r)$. $r$ should be updated so that it represents the exclusive right border of the current rightmost sub-palindrome (therefore its last index is $r - 1$).
 
 * Now consider the case when $i \le r$. We'll try to extract some information from the already calculated values in $d_{odd}[]$. So, let's find the "mirror" position of $i$ in the sub-palindrome $(l, r)$, i.e. we'll get the position $j = l + (r - i)$, and we check the value of $d_{odd}[j]$. Because $j$ is the position symmetrical to $i$ with respect to $(l+r)/2$, we can **almost always** assign $d_{odd}[i] = d_{odd}[j]$. Illustration of this (palindrome around $j$ is actually "copied" into the palindrome around $i$):
     
