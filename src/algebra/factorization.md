@@ -126,6 +126,45 @@ vector<long long> trial_division4(long long n) {
 }
 ```
 
+Complexity: $O(\pi{(\sqrt{n})})$, where $\pi{(\sqrt{n})}$ = the number of primes up to $\sqrt{n}$.
+
+In some cases, for example when $n$ is a large prime, the approach above is not efficient.
+
+### SPF (Smallest Prime Factor)
+
+SPF is often useful when we deal with multi-query integer factorization. We can modify [Sieve of Eratosthenes](algebra/sieve-of-eratosthenes.html) and, instead of marking the prime numbers with 1 and the composite numbers with 0 (or inverse), we can compute the smallest prime factor of every number up to a target.
+
+```{.cpp file=precalculation_spf}
+vector<long long> spf(target+1);
+for(int i = 2; i <= target; i++)   
+{   
+    if(spf[i] == 0)   
+    {    
+        for (int j = i; j <= target; j += i)   
+        {
+            if (spf[j] == 0)
+                spf[j] = i;   
+        }   
+    }   
+}  
+```
+Complexity of the precalculation: $O(\text{target} \log(\log (\text{target})))$.
+
+Now we can factor every integer $n$ in $O(\log{(n}))$ time complexity.
+
+```{.cpp file=factorization_spf}
+
+vector<long long> factorization_spf(long long n, const vector <long long>& spf) {
+    vector<long long> factorization;   
+    while(n > 1){   
+        factorization.push_back(spf[n]);
+        n /= spf[n]; 
+    }     
+    return factorization;
+}
+```
+
+
 ## Fermat's factorization method
 
 We can write an odd composite number $n = p \cdot q$ as the difference of two squares $n = a^2 - b^2$:
@@ -427,3 +466,4 @@ The combination of a trial division for small prime numbers together with Brent'
 - [SPOJ - FACT1](https://www.spoj.com/problems/FACT1/)
 - [SPOJ - FACT2](https://www.spoj.com/problems/FACT2/)
 - [GCPC 15 - Divisions](https://codeforces.com/gym/100753)
+- [JBOI 2022 - Maximum Prime Factor](https://jboi2022.lrmd.ro/document/day1/mpf.pdf)
