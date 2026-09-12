@@ -2,6 +2,8 @@ target
 *.swp
 *.sublime-project
 *.sublime-workspace
+.vscode/
+__pycache__/
 converted.html
 converted.pdf
 /output
