@@ -8041,6 +8041,12 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
     
   
     
@@ -8070,24 +8076,6 @@ Describe the issue of this article in detail.
   
   
     
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
   
     
   
@@ -8145,6 +8133,24 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
     
@@ -8157,6 +8163,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8225,7 +8235,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 12, 2026 00:41:41 UTC">April 12, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 7, 2026 13:13:52 UTC">August 7, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8293,7 +8303,7 @@ Describe the issue of this article in detail.
 <ul>
 <li>
 <p>If <span class="arithmatex">$i$</span> is outside the current sub-palindrome, i. e. <span class="arithmatex">$i \geq r$</span>, we'll just launch the trivial algorithm.</p>
-<p>So we'll increase <span class="arithmatex">$d_{odd}[i]$</span> consecutively and check each time if the current rightmost substring <span class="arithmatex">$[i - d_{odd}[i]\dots i + d_{odd}[i]]$</span> is a palindrome. When we find the first mismatch or meet the boundaries of <span class="arithmatex">$s$</span>, we'll stop. In this case we've finally calculated <span class="arithmatex">$d_{odd}[i]$</span>. After this, we must not forget to update <span class="arithmatex">$(l, r)$</span>. <span class="arithmatex">$r$</span> should be updated in such a way that it represents the last index of the current rightmost sub-palindrome.</p>
+<p>So we'll increase <span class="arithmatex">$d_{odd}[i]$</span> consecutively and check each time if the current rightmost substring <span class="arithmatex">$[i - d_{odd}[i]\dots i + d_{odd}[i]]$</span> is a palindrome. When we find the first mismatch or meet the boundaries of <span class="arithmatex">$s$</span>, we'll stop. In this case we've finally calculated <span class="arithmatex">$d_{odd}[i]$</span>. After this, we must not forget to update <span class="arithmatex">$(l, r)$</span>. <span class="arithmatex">$r$</span> should be updated so that it represents the exclusive right border of the current rightmost sub-palindrome (therefore its last index is <span class="arithmatex">$r - 1$</span>).</p>
 </li>
 <li>
 <p>Now consider the case when <span class="arithmatex">$i \le r$</span>. We'll try to extract some information from the already calculated values in <span class="arithmatex">$d_{odd}[]$</span>. So, let's find the "mirror" position of <span class="arithmatex">$i$</span> in the sub-palindrome <span class="arithmatex">$(l, r)$</span>, i.e. we'll get the position <span class="arithmatex">$j = l + (r - i)$</span>, and we check the value of <span class="arithmatex">$d_{odd}[j]$</span>. Because <span class="arithmatex">$j$</span> is the position symmetrical to <span class="arithmatex">$i$</span> with respect to <span class="arithmatex">$(l+r)/2$</span>, we can <strong>almost always</strong> assign <span class="arithmatex">$d_{odd}[i] = d_{odd}[j]$</span>. Illustration of this (palindrome around <span class="arithmatex">$j$</span> is actually "copied" into the palindrome around <span class="arithmatex">$i$</span>):</p>
@@ -8399,7 +8409,7 @@ $$</div>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/alex65536" title="alex65536" data-bi-name="contributorprofile" target="_blank">alex65536</a> (44.61%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (27.45%)</li><li><a href="https://github.com/bruisedsamurai" title="bruisedsamurai" data-bi-name="contributorprofile" target="_blank">bruisedsamurai</a> (10.78%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (5.39%)</li><li><a href="https://github.com/gsunit" title="gsunit" data-bi-name="contributorprofile" target="_blank">gsunit</a> (3.43%)</li><li><a href="https://github.com/yuuurchyk" title="yuuurchyk" data-bi-name="contributorprofile" target="_blank">yuuurchyk</a> (1.96%)</li><li><a href="https://github.com/haydenji0731" title="haydenji0731" data-bi-name="contributorprofile" target="_blank">haydenji0731</a> (1.47%)</li><li><a href="https://github.com/ex0jv" title="ex0jv" data-bi-name="contributorprofile" target="_blank">ex0jv</a> (0.98%)</li><li><a href="https://github.com/Dip707" title="Dip707" data-bi-name="contributorprofile" target="_blank">Dip707</a> (0.98%)</li><li><a href="https://github.com/fcnoronha" title="fcnoronha" data-bi-name="contributorprofile" target="_blank">fcnoronha</a> (0.98%)</li><li><a href="https://github.com/FinalTheory" title="FinalTheory" data-bi-name="contributorprofile" target="_blank">FinalTheory</a> (0.49%)</li><li><a href="https://github.com/navneet-iitbhu" title="navneet-iitbhu" data-bi-name="contributorprofile" target="_blank">navneet-iitbhu</a> (0.49%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.49%)</li><li><a href="https://github.com/algmyr" title="algmyr" data-bi-name="contributorprofile" target="_blank">algmyr</a> (0.49%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/alex65536" title="alex65536" data-bi-name="contributorprofile" target="_blank">alex65536</a> (44.61%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (27.45%)</li><li><a href="https://github.com/bruisedsamurai" title="bruisedsamurai" data-bi-name="contributorprofile" target="_blank">bruisedsamurai</a> (10.29%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (5.39%)</li><li><a href="https://github.com/gsunit" title="gsunit" data-bi-name="contributorprofile" target="_blank">gsunit</a> (3.43%)</li><li><a href="https://github.com/yuuurchyk" title="yuuurchyk" data-bi-name="contributorprofile" target="_blank">yuuurchyk</a> (1.96%)</li><li><a href="https://github.com/haydenji0731" title="haydenji0731" data-bi-name="contributorprofile" target="_blank">haydenji0731</a> (1.47%)</li><li><a href="https://github.com/ex0jv" title="ex0jv" data-bi-name="contributorprofile" target="_blank">ex0jv</a> (0.98%)</li><li><a href="https://github.com/Dip707" title="Dip707" data-bi-name="contributorprofile" target="_blank">Dip707</a> (0.98%)</li><li><a href="https://github.com/fcnoronha" title="fcnoronha" data-bi-name="contributorprofile" target="_blank">fcnoronha</a> (0.98%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (0.49%)</li><li><a href="https://github.com/FinalTheory" title="FinalTheory" data-bi-name="contributorprofile" target="_blank">FinalTheory</a> (0.49%)</li><li><a href="https://github.com/navneet-iitbhu" title="navneet-iitbhu" data-bi-name="contributorprofile" target="_blank">navneet-iitbhu</a> (0.49%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.49%)</li><li><a href="https://github.com/algmyr" title="algmyr" data-bi-name="contributorprofile" target="_blank">algmyr</a> (0.49%)</li></ul>
 </ul>
                 
               </article>
