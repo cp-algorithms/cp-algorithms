@@ -7946,22 +7946,6 @@ Describe the issue of this article in detail.
   
     
   
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
 
   
   
@@ -7984,6 +7968,28 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
     
   
 
@@ -8014,6 +8020,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8042,7 +8052,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 15, 2025 02:32:08 UTC">April 15, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 7, 2026 16:09:28 UTC">August 7, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8079,7 +8089,7 @@ It is asymptotically optimal.</p>
 <p>We use the classical reduction of the LCA problem to the RMQ problem.
 We traverse all nodes of the tree with <a href="depth-first-search.html">DFS</a> and keep an array with all visited nodes and the heights of these nodes. 
 The LCA of two nodes <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span> is the node between the occurrences of <span class="arithmatex">$u$</span> and <span class="arithmatex">$v$</span> in the tour, that has the smallest height.</p>
-<p>In the following picture you can see a possible Euler-Tour of a graph and in the list below you can see the visited nodes and their heights.</p>
+<p>In the following picture you can see a possible Euler-Tour of a tree and in the list below you can see the visited nodes and their heights.</p>
 <div style="text-align: center;">
   <img src="LCA_Euler.png" alt="LCA_Euler_Tour">
 </div>
@@ -8103,7 +8113,7 @@ Obviously <span class="arithmatex">$0 \leq j \leq \lceil \log N \rceil$</span>, 
 You can build the table easily in <span class="arithmatex">$O(N \log N)$</span> by noting that <span class="arithmatex">$T[i][j] = \min(T[i][j-1], T[i+2^{j-1}][j-1])$</span>.</p>
 <p>How can we answer a query RMQ in <span class="arithmatex">$O(1)$</span> using this data structure?
 Let the received query be <span class="arithmatex">$[l, r]$</span>, then the answer is <span class="arithmatex">$\min(T[l][\text{sz}], T[r-2^{\text{sz}}+1][\text{sz}])$</span>, where <span class="arithmatex">$\text{sz}$</span> is the biggest exponent such that <span class="arithmatex">$2^{\text{sz}}$</span> is not bigger than the range length <span class="arithmatex">$r-l+1$</span>. 
-Indeed we can take the range <span class="arithmatex">$[l, r]$</span> and cover it two segments of length <span class="arithmatex">$2^{\text{sz}}$</span> - one starting in <span class="arithmatex">$l$</span> and the other ending in <span class="arithmatex">$r$</span>.
+Indeed we can take the range <span class="arithmatex">$[l, r]$</span> and cover it with two segments of length <span class="arithmatex">$2^{\text{sz}}$</span> - one starting in <span class="arithmatex">$l$</span> and the other ending in <span class="arithmatex">$r$</span>.
 These segments overlap, but this doesn't interfere with our computation.
 To really achieve the time complexity of <span class="arithmatex">$O(1)$</span> per query, we need to know the values of <span class="arithmatex">$\text{sz}$</span> for all possible lengths from <span class="arithmatex">$1$</span> to <span class="arithmatex">$N$</span>.
 But this can be easily precomputed.</p>
@@ -8252,7 +8262,7 @@ With these precomputations we can answer each query in <span class="arithmatex">
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (93.81%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.86%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (1.43%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (1.43%)</li><li><a href="https://github.com/hieplpvip" title="hieplpvip" data-bi-name="contributorprofile" target="_blank">hieplpvip</a> (0.48%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (92.86%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.86%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (1.43%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (1.43%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (0.95%)</li><li><a href="https://github.com/hieplpvip" title="hieplpvip" data-bi-name="contributorprofile" target="_blank">hieplpvip</a> (0.48%)</li></ul>
 </ul>
                 
               </article>

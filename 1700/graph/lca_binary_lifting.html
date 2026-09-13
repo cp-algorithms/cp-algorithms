@@ -7957,6 +7957,18 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
     
@@ -8013,6 +8025,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8045,7 +8061,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 29, 2026 22:17:21 UTC">March 29, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 7, 2026 15:57:30 UTC">August 7, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8080,7 +8096,7 @@ In particular if <code>u</code> is an ancestor of <code>v</code>, then <code>u</
 <h2 id="algorithm">Algorithm<a class="headerlink" href="#algorithm" title="Permanent link">&para;</a></h2>
 <p>For each node we will precompute its ancestor above it, its ancestor two nodes above, its ancestor four above, etc.
 Let's store them in the array <code>up</code>, i.e. <code>up[i][j]</code> is the <code>2^j</code>-th ancestor above the node <code>i</code> with <code>i=1...N</code>, <code>j=0...ceil(log(N))</code>.
-These information allow us to jump from any node to any ancestor above it in <span class="arithmatex">$O(\log N)$</span> time.
+This information allows us to jump from any node to any ancestor above it in <span class="arithmatex">$O(\log N)$</span> time.
 We can compute this array using a <a href="depth-first-search.html">DFS</a> traversal of the tree.</p>
 <p>For each node we will also remember the time of the first visit of this node (i.e. the time when the DFS discovers the node), and the time when we left it (i.e. after we visited all children and exit the DFS function).
 We can use this information to determine in constant time if a node is an ancestor of another node.</p>
@@ -8096,7 +8112,7 @@ If <code>up[u][i]</code> is not an ancestor of <code>v</code>, then we can assig
 If <code>up[u][i]</code> is an ancestor, then we just decrement <code>i</code>.
 Clearly after doing this for all non-negative <code>i</code> the node <code>u</code> will be the desired node - i.e. <code>u</code> is still not an ancestor of <code>v</code>, but <code>up[u][0]</code> is.</p>
 <p>Now, obviously, the answer to LCA will be <code>up[u][0]</code> - i.e., the smallest node among the ancestors of the node <code>u</code>, which is also an ancestor of <code>v</code>.</p>
-<p>So answering a LCA query will iterate <code>i</code> from <code>ceil(log(N))</code> to <code>0</code> and checks in each iteration if one node is the ancestor of the other.
+<p>So answering a LCA query will iterate <code>i</code> from <code>ceil(log(N))</code> to <code>0</code> and check in each iteration if one node is the ancestor of the other.
 Consequently each query can be answered in <span class="arithmatex">$O(\log N)$</span>.</p>
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">;</span>
@@ -8157,7 +8173,7 @@ Consequently each query can be answered in <span class="arithmatex">$O(\log N)$<
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (85.0%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (6.0%)</li><li><a href="https://github.com/HosseinYousefi" title="HosseinYousefi" data-bi-name="contributorprofile" target="_blank">HosseinYousefi</a> (4.0%)</li><li><a href="https://github.com/SanthoshAnguluri" title="SanthoshAnguluri" data-bi-name="contributorprofile" target="_blank">SanthoshAnguluri</a> (3.0%)</li><li><a href="https://github.com/nkasica" title="nkasica" data-bi-name="contributorprofile" target="_blank">nkasica</a> (1.0%)</li><li><a href="https://github.com/ASHISHKUMAR2411" title="ASHISHKUMAR2411" data-bi-name="contributorprofile" target="_blank">ASHISHKUMAR2411</a> (1.0%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (83.0%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (6.0%)</li><li><a href="https://github.com/HosseinYousefi" title="HosseinYousefi" data-bi-name="contributorprofile" target="_blank">HosseinYousefi</a> (4.0%)</li><li><a href="https://github.com/SanthoshAnguluri" title="SanthoshAnguluri" data-bi-name="contributorprofile" target="_blank">SanthoshAnguluri</a> (3.0%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (2.0%)</li><li><a href="https://github.com/nkasica" title="nkasica" data-bi-name="contributorprofile" target="_blank">nkasica</a> (1.0%)</li><li><a href="https://github.com/ASHISHKUMAR2411" title="ASHISHKUMAR2411" data-bi-name="contributorprofile" target="_blank">ASHISHKUMAR2411</a> (1.0%)</li></ul>
 </ul>
                 
               </article>
