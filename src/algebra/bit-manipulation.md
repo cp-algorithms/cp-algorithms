@@ -204,7 +204,7 @@ We can use the fact that for numbers upto $2^x$ (i.e. from $1$ to $2^x - 1$) the
 
 We can see that the all the columns except the leftmost have $4$ (i.e. $2^2$) set bits each, i.e. upto the number $2^3 - 1$, the number of set bits is $3 \cdot 2^{3-1}$.
 
-With the new knowledge in hand we can come up with the following algorithm, which computes the *sum* of the set-bit counts of every number from $1$ to $n$, not the set-bit count of $n$ itself:
+With the new knowledge in hand we can come up with the following algorithm:
 
 - Find the largest exponent $x$ such that $2^x$ is lesser than or equal to the given number.
 - Calculate the number of set bits from $1$ to $2^x - 1$ by using the formula $x \cdot 2^{x-1}$.
