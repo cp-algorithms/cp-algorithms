@@ -178,7 +178,7 @@ It turns out, that the final amortized time complexity is $O(\alpha(n))$, where 
 In fact it grows so slowly, that it doesn't exceed $4$ for all reasonable $n$ (approximately $n < 10^{600}$).
 
 Amortized complexity is the total time per operation, evaluated over a sequence of multiple operations.
-The idea is to guarantee the total time of the entire sequence, while allowing single operations to be much slower then the amortized time.
+The idea is to guarantee the total time of the entire sequence, while allowing single operations to be much slower than the amortized time.
 E.g. in our case a single call might take $O(\log n)$ in the worst case, but if we do $m$ such calls back to back we will end up with an average time of $O(\alpha(n))$.
 
 We will also not present a proof for this time complexity, since it is quite long and complicated.
@@ -188,7 +188,7 @@ Also, it's worth mentioning that DSU with union by size / rank, but without path
 ### Linking by index / coin-flip linking
 
 Both union by rank and union by size require that you store additional data for each set, and maintain these values during each union operation.
-There exist also a randomized algorithm, that simplifies the union operation a little bit: linking by index.
+There exists also a randomized algorithm, that simplifies the union operation a little bit: linking by index.
 
 We assign each set a random value called the index, and we attach the set with the smaller index to the one with the larger one.
 It is likely that a bigger set will have a bigger index than the smaller set, therefore this operation is closely related to union by size.
