@@ -162,7 +162,7 @@ int lca(int u, int v)
 
 void add_leaf(int to)
 {
-    adj[to].push_back((int) adj.size() + 1);
+    adj[to].push_back((int) adj.size());
     adj.push_back({to});
     depth.push_back(depth[to]+1);
     up.resize(ups + 1);
