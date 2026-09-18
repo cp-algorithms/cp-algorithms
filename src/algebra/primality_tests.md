@@ -120,10 +120,14 @@ In that case the base $a$ is called a *strong liar*.
 If a base $a$ satisfies the equations (one of them), $n$ is only *strong probable prime*.
 However, there are no numbers like the Carmichael numbers, where all non-trivial bases lie.
 In fact it is possible to show, that at most $\frac{1}{4}$ of the bases can be strong liars.
-If $n$ is composite, we have a probability of $\ge 75\%$ that a random base will tell us that it is composite.
-By doing multiple iterations, choosing different random bases, we can tell with very high probability if the number is truly prime or if it is composite.
+If $n$ is composite, we have a probability of $\ge 75\%$ that a random base will tell us that it is composite, so repeating the test with random bases makes the error probability as small as we like.
 
-Here is an implementation for 64 bit integer.
+Over a bounded range we can avoid randomness altogether: a small set of fixed bases, found by exhaustive search, decides every number in that range outright.
+Miller showed that checking every base $\le O((\ln n)^2)$ makes the test deterministic, and Bach gave the concrete bound $a \le 2\ln(n)^2$.
+That is still a lot of bases, so considerable computation has gone into finding smaller sets.
+For 64 bit integers seven bases suffice: 2, 325, 9375, 28178, 450775, 9780504 and 1795265022.
+
+Here is an implementation for 64 bit integers.
 
 ```cpp
 using u64 = uint64_t;
@@ -143,7 +147,7 @@ u64 binpower(u64 base, u64 e, u64 mod) {
 
 bool check_composite(u64 n, u64 a, u64 d, int s) {
     u64 x = binpower(a, d, n);
-    if (x == 1 || x == n - 1)
+    if (x == 0 || x == 1 || x == n - 1) // x == 0 when n divides a, which proves nothing
         return false;
     for (int r = 1; r < s; r++) {
         x = (u128)x * x % n;
@@ -153,9 +157,9 @@ bool check_composite(u64 n, u64 a, u64 d, int s) {
     return true;
 };
 
-bool MillerRabin(u64 n, int iter=5) { // returns true if n is probably prime, else returns false.
-    if (n < 4)
-        return n == 2 || n == 3;
+bool MillerRabin(u64 n) { // returns true if n is prime, else returns false.
+    if (n < 2 || n % 2 == 0)
+        return n == 2;
 
     int s = 0;
     u64 d = n - 1;
@@ -164,56 +168,18 @@ bool MillerRabin(u64 n, int iter=5) { // returns true if n is probably prime, el
         s++;
     }
 
-    for (int i = 0; i < iter; i++) {
-        int a = 2 + rand() % (n - 3);
+    for (u64 a : {2, 325, 9375, 28178, 450775, 9780504, 1795265022})
         if (check_composite(n, a, d, s))
             return false;
-    }
     return true;
 }
 ```
 
-Before the Miller-Rabin test you can test additionally if one of the first few prime numbers is a divisor.
-This can speed up the test by a lot, since most composite numbers have very small prime divisors.
-E.g. $88\%$ of all numbers have a prime factor smaller than $100$.
+None of the seven bases is prime, so some of them are divisible by small primes such as $5$ or $13$.
+For those $n$ the corresponding base reduces to $0$, which is why `check_composite` treats $0$ as carrying no information rather than as evidence of compositeness; the remaining bases still decide the number.
+The guard on even $n$ is needed for the same reason: for $n = 4$ every base reduces to $0$ or passes.
 
-### Deterministic version
-
-Miller showed that it is possible to make the algorithm deterministic by only checking all bases $\le O((\ln n)^2)$.
-Bach later gave a concrete bound, it is only necessary to test all bases $a \le 2 \ln(n)^2$.
-
-This is still a pretty large number of bases.
-So people have invested quite a lot of computation power into finding lower bounds.
-It turns out that for 64 bit integers it is enough to test only seven bases: 2, 325, 9375, 28178, 450775, 9780504 and 1795265022.
-These are not themselves prime, so the test also has to accept $n$ outright when it equals one of their prime divisors: 2, 3, 5, 13, 19, 73, 193, 407521 and 299210837.
-Otherwise a base divisible by $n$ would reduce to $0$ and wrongly report $n$ as composite.
-
-This results in the following deterministic implementation:
-
-```cpp
-bool MillerRabin(u64 n) { // returns true if n is prime, else returns false.
-    if (n < 2)
-        return false;
-
-    int r = 0;
-    u64 d = n - 1;
-    while ((d & 1) == 0) {
-        d >>= 1;
-        r++;
-    }
-
-    for (u64 p : {2, 3, 5, 13, 19, 73, 193, 407521, 299210837})
-        if (n == p)
-            return true;
-
-    for (u64 a : {2, 325, 9375, 28178, 450775, 9780504, 1795265022})
-        if (check_composite(n, a, d, r))
-            return false;
-    return true;
-}
-```
-
-Using the first 12 prime numbers as bases, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31 and 37, also works for 64 bit integers and avoids the second list, at the cost of five extra rounds.
+Using the first 12 prime numbers as bases, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31 and 37, also works for 64 bit integers, at the cost of five extra rounds.
 For 32 bit integers the first four prime bases 2, 3, 5 and 7 suffice; the smallest composite number that passes them is $3\,215\,031\,751 = 151 \cdot 751 \cdot 28351$.
 
 The number of rounds can be brought down further by picking the bases from a small table indexed by a hash of $n$, which brings any 64 bit number down to three tests.
