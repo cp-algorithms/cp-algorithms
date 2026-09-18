@@ -195,6 +195,8 @@ We have to evaluate this array in an order, such that for every node, we have co
 
 Now after all of that preprocessing, answering queries is easy. We first balance the nodes to an equal depth and then we try to find the lowest node that isn't a common ancestor. This is very similar to what has been done in the Dynamic LCA algorithm, but now we just check if we can perform a big jump and if not, then we do a small one. The time complexity is logarithmic, as Harel and Tarjan proved in their paper that we will use maximally $6\lfloor{\log(d+1)}\rfloor-4$ jumps. The space complexity is linear.
 
+Adding a leaf is cheaper here than in the previous section. Both pointers of a new vertex are determined by its parent alone, and no existing vertex changes, so an insertion is $O(1)$ and there is no table to extend.
+
 ### Implementation
 
 ```cpp
@@ -247,6 +249,21 @@ int lca(int u, int v)
     return u;
 }
 
+void add_leaf(int to)
+{
+    int v = adj.size();
+    adj[to].push_back(v);
+    adj.push_back({to});
+    depth.push_back(depth[to] + 1);
+    small.push_back(to);
+
+    if(depth[to] - depth[big[to]] == depth[big[to]] - depth[big[big[to]]]){
+        big.push_back(big[big[to]]);
+    }
+    else{
+        big.push_back(to);
+    }
+}
 
 void preprocess(int root)
 {
