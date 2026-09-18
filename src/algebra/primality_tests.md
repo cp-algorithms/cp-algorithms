@@ -146,8 +146,11 @@ u64 binpower(u64 base, u64 e, u64 mod) {
 }
 
 bool check_composite(u64 n, u64 a, u64 d, int s) {
+    a %= n;
+    if (a == 0) // n divides the base, so this base can say nothing about n
+        return false;
     u64 x = binpower(a, d, n);
-    if (x == 0 || x == 1 || x == n - 1) // x == 0 when n divides a, which proves nothing
+    if (x == 1 || x == n - 1)
         return false;
     for (int r = 1; r < s; r++) {
         x = (u128)x * x % n;
@@ -158,8 +161,8 @@ bool check_composite(u64 n, u64 a, u64 d, int s) {
 };
 
 bool MillerRabin(u64 n) { // returns true if n is prime, else returns false.
-    if (n < 2 || n % 2 == 0)
-        return n == 2;
+    if (n < 2)
+        return false;
 
     int s = 0;
     u64 d = n - 1;
@@ -175,9 +178,13 @@ bool MillerRabin(u64 n) { // returns true if n is prime, else returns false.
 }
 ```
 
-None of the seven bases is prime, so some of them are divisible by small primes such as $5$ or $13$.
-For those $n$ the corresponding base reduces to $0$, which is why `check_composite` treats $0$ as carrying no information rather than as evidence of compositeness; the remaining bases still decide the number.
-The guard on even $n$ is needed for the same reason: for $n = 4$ every base reduces to $0$ or passes.
+Apart from $2$, none of the seven bases is prime, so a base can be a multiple of the very $n$ we are testing, for instance $5$ divides $9375$ and $13$ divides $325$.
+Such a base reduces to $0$ and cannot say anything about $n$, so `check_composite` skips it and lets the remaining bases decide.
+
+This is narrower than skipping every zero residue, and deliberately so.
+If $n$ does not divide $a$ but does divide $a^d$, then $n$ cannot be prime, since a prime dividing $a^d$ must divide $a$.
+In that case the zero is a proof of compositeness rather than a missing answer, and the function reports it as such.
+Only the first branch discards information, which is also why the same `check_composite` stays correct if you feed it random bases instead of this fixed set.
 
 Using the first 12 prime numbers as bases, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31 and 37, also works for 64 bit integers, at the cost of five extra rounds.
 For 32 bit integers the first four prime bases 2, 3, 5 and 7 suffice; the smallest composite number that passes them is $3\,215\,031\,751 = 151 \cdot 751 \cdot 28351$.
