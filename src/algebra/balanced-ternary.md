@@ -53,7 +53,7 @@ $$ 64_{10} = 02101_{3} $$
 
 Let us process it from the least significant (rightmost) digit:
 
-- `1`,`0` and `1` are skipped as it is.( Because `0` and `1` are allowed in balanced ternary )
+- `1`, `0` and `1` are skipped as they are. (Because `0` and `1` are allowed in balanced ternary)
 - `2` is turned into `Z` increasing the digit to its left, so we get `1Z101`.
 
 The final result is `1Z101`.
@@ -68,10 +68,10 @@ $$ 237_{10} = 22210_{3} $$
 
 Let us process it from the least significant (rightmost) digit:
 
-- `0` and `1` are skipped as it is.( Because `0` and `1` are allowed in balanced ternary )
+- `0` and `1` are skipped as they are. (Because `0` and `1` are allowed in balanced ternary)
 - `2` is turned into `Z` increasing the digit to its left, so we get `23Z10`.
 - `3` is turned into `0` increasing the digit to its left, so we get `30Z10`.
-- `3` is turned into `0` increasing the digit to its left( which is by default `0` ), and so we get `100Z10`.
+- `3` is turned into `0` increasing the digit to its left (which is by default `0`), and so we get `100Z10`.
 
 The final result is `100Z10`.
 

@@ -258,17 +258,17 @@ If we sum up on all $ans(X)$, we will get the final answer:
 
 $$ ans = \sum_{X ~ : ~ |X| = k} ans(X) $$
 
-However, asymptotics of this solution is $O(3^k \cdot k)$. To improve it, notice that different $ans(X)$ computations very often share $Y$ sets.
+There are $\binom{n}{k}$ choices for $X$, and each one has $2^{n-k}$ supersets. If processing a set costs $O(n)$, this direct approach takes $O\left(\binom{n}{k} 2^{n-k} n\right)$ time. To improve it, notice that different $ans(X)$ computations very often share $Y$ sets.
 
 We will reverse the formula of inclusion-exclusion and sum in terms of $Y$ sets. Now it becomes clear that the same set $Y$ would be taken into account in the computation of $ans(X)$ of $\binom{|Y|}{k}$ sets with the same sign $(-1)^{|Y| - k}$.
 
 $$ ans = \sum_{Y ~ : ~ |Y| \ge k} (-1)^{|Y|-k} \cdot \binom{|Y|}{k} \cdot f(Y) $$
 
-Now our solution has asymptotics $O(2^k \cdot k)$.
+Now our solution has asymptotics $O(2^n \cdot n)$.
 
 We will now solve the second version of the problem: find the number of strings that match **at least** $k$ of the patterns.
 
-Of course, we can just use the solution to the first version of the problem and add the answers for sets with size greater than $k$. However, you may notice that in this problem, a set |Y| is considered in the formula for all sets with size $\ge k$ which are contained in $Y$. That said, we can write the part of the expression that is being multiplied by $f(Y)$ as:
+Of course, we can just use the solution to the first version of the problem and add the answers for sets with size greater than $k$. However, you may notice that in this problem, a set $Y$ of size $|Y|$ is considered in the formula for all sets with size $\ge k$ which are contained in $Y$. That said, we can write the part of the expression that is being multiplied by $f(Y)$ as:
 
 
 $$ (-1)^{|Y|-k} \cdot \binom{|Y|}{k} + (-1)^{|Y|-k-1} \cdot \binom{|Y|}{k+1} + (-1)^{|Y|-k-2} \cdot \binom{|Y|}{k+2} + \cdots + (-1)^{|Y|-|Y|} \cdot \binom{|Y|}{|Y|} $$
@@ -281,7 +281,7 @@ Applying it here, we find that the entire sum of binomial coefficients is minimi
 
 $$ (-1)^{|Y|-k} \cdot \binom{|Y|-1}{|Y|-k} $$
 
-Thus, for this task, we also obtained a solution with the asymptotics $O(2^k \cdot k)$:
+Thus, for this task, we also obtained a solution with the asymptotics $O(2^n \cdot n)$:
 
 $$ ans = \sum_{Y ~ : ~ |Y| \ge k} (-1)^{|Y|-k} \cdot \binom{|Y|-1}{|Y|-k} \cdot f(Y) $$
 
@@ -305,7 +305,7 @@ However, this will again be non-polynomial in complexity $O(2^k \cdot k)$.
 
 Here goes a polynomial solution:
 
-We will use dynamic programming. For convenience, push (1,1) to the beginning and (n,m) at the end of the obstacles array. Let's compute the numbers $d[i]$ — the number of ways to get from the starting point ($0-th$) to $i-th$, without stepping on any other obstacle (except for $i$, of course). We will compute this number for all the obstacle cells, and also for the ending one.
+We will use dynamic programming. For convenience, push (1,1) to the beginning and (n,m) at the end of the obstacles array. Let's compute the numbers $d[i]$ — the number of ways to get from the starting point (index $0$) to index $i$, without stepping on any other obstacle (except for $i$, of course). We will compute this number for all the obstacle cells, and also for the ending one.
 
 Let's forget for a second the obstacles and just count the number of paths from cell $0$ to $i$. We need to consider some "bad" paths, the ones that pass through the obstacles, and subtract them from the total number of ways of going from $0$ to $i$.
 
@@ -319,11 +319,11 @@ You're given $n$ numbers: $a_1, a_2, \ldots, a_n$. You are required to count the
 
 We will solve the inverse problem — compute the number of "bad" quadruples, i.e. quadruples in which all numbers are divisible by a number $d > 1$.
 
-We will use the inclusion-exclusion principle while summing over all possible groups of four numbers divisible by a divisor $d$.
+We will use the inclusion-exclusion principle while summing over square-free divisors $d > 1$, i.e. products of distinct primes. Non-square-free divisors do not correspond to new intersections of the prime-divisibility conditions and must not be included separately.
 
-$$ans = \sum_{d \ge 2} (-1)^{deg(d)-1} \cdot f(d)$$
+$$ans = \sum_{\substack{d \ge 2 \\ d\text{ square-free}}} (-1)^{deg(d)-1} \cdot f(d)$$
 
-where $deg(d)$ is the number of primes in the factorization of the number $d$ and $f(d)$ the number of quadruples divisible by $d$.
+where $deg(d)$ is the number of distinct primes in the factorization of the number $d$ and $f(d)$ the number of quadruples divisible by $d$.
 
 To calculate the function $f(d)$, you just have to count the number of multiples of $d$ (as mentioned on a previous task) and use [binomial coefficients](binomial-coefficients.md) to count the number of ways to choose four of them.
 
@@ -359,7 +359,7 @@ A faster solution is possible with such modification of the sieve of Eratosthene
 
 2. Second, we need to calculate the answer for all $i$ from $2$ to $n$, i.e., the array $cnt[]$ — the number of integers not coprime with $i$.
     * To do this, remember how the formula of inclusion-exclusion works — actually here we implement the same concept, but with inverted logic: we iterate over a component (a product of primes from the factorization) and add or subtract its term on the formula of inclusion-exclusion of each of its multiples.
-    * So, let's say we are processing a number $i$ such that $good[i] = true$, i.e., it is involved in the formula of inclusion-exclusion. Iterate through all numbers that are multiples of $i$, and either add or subtract $\lfloor N/i \rfloor$ from their $cnt[]$ (the signal depends on $deg[i]$: if $deg[i]$ is odd, then we must add, otherwise subtract).
+    * So, let's say we are processing a number $i$ such that $good[i] = true$, i.e., it is involved in the formula of inclusion-exclusion. Iterate through all numbers that are multiples of $i$, and either add or subtract $\lfloor n/i \rfloor$ from their $cnt[]$ (the signal depends on $deg[i]$: if $deg[i]$ is odd, then we must add, otherwise subtract).
 
 Here's a C++ implementation:
 
@@ -434,7 +434,7 @@ $$ n! \left( 1 - \frac{1}{1!} + \frac{1}{2!} - \frac{1}{3!} + \cdots \pm \frac{1
 
 (because the sum in brackets are the first $n+1$ terms of the expansion in Taylor series $e^{-1}$)
 
-It is worth noting that a similar problem can be solved this way: when you need the fixed points were not among the $m$ first elements of permutations (and not among all, as we just solved). The formula obtained is as the given above accurate formula, but it will go up to the sum of $k$, instead of $n$.
+It is worth noting that a similar problem can be solved this way: when you need the fixed points were not among the $m$ first elements of permutations (and not among all, as we just solved). The formula obtained is as the given above accurate formula, but it will go up to the sum of $m$, instead of $n$.
 
 ## Practice Problems
 

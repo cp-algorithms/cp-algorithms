@@ -111,7 +111,7 @@ assuming the given conditions are satisfied.
     1. $b = c$  
     The inequality reduces to $dp(a, b) + dp(b, d) \leq dp(a, d)$ (This assumes that $dp(i, i) = 0$ for all $i$, which is the case for all problems using this optimization). Let $opt(a,d) = z$. 
 
-        - If $z < j$,  
+        - If $z < b$,  
         Note that
         
             $$
@@ -126,7 +126,7 @@ assuming the given conditions are satisfied.
 
             From the induction hypothesis, $dp(z+1, b) + dp(b, d) \leq dp(z+1, d)$. Also, it is given that $C(a, b) \leq C(a, d)$. Combining these 2 facts with above inequality yields the desired result.
 
-        - If $z \geq j$, the proof of this case is symmetric to the previous case.
+        - If $z \geq b$, the proof of this case is symmetric to the previous case.
 
     2. $b < c$  
     Let $opt(b, c) = z$ and $opt(a, d) = y$. 

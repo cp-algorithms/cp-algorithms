@@ -46,7 +46,7 @@ that should be executed in the **decreasing** order of $j$ (so that $f_{j-w_i}$ 
 
 The algorithm described can be implemented in $O(nW)$ as:
 
-```.c++
+```cpp
 for (int i = 1; i <= n; i++)
   for (int j = W; j >= w[i]; j--)
     f[j] = max(f[j], f[j - w[i]] + v[i]);
@@ -70,9 +70,9 @@ $$f_{i, j} = \max\limits_{k=0}^{\left\lfloor \frac{j}{w_i} \right\rfloor}(f_{i-1
 
 The algorithm described can be implemented in $O(nW^2)$ as:
 
-```.c++
+```cpp
 for (int i = 1; i <= n; i++)
-  for (int j = w[i]; j <= W; j++)
+  for (int j = 0; j <= W; j++)
     for (int k = 0; k * w[i] <= j; k++)
       f[i][j] = max(f[i][j], f[i-1][j - k * w[i]] + k * v[i]);
 ```
@@ -91,9 +91,9 @@ $$f_j \gets \max(f_j, f_{j-w_i}+v_i)$$
 
 The algorithm described can be implemented in $O(nW)$ as:
 
-```.c++
+```cpp
 for (int i = 1; i <= n; i++)
-  for (int j = w[i]; j <= W; j++)
+  for (int j = 0; j <= W; j++)
     f[j] = max(f[j], f[j - w[i]] + v[i]);
 ```
 
@@ -186,6 +186,7 @@ for (each item) {
 - [Atcoder: Knapsack-2](https://atcoder.jp/contests/dp/tasks/dp_e)
 - [LeetCode - 494. Target Sum](https://leetcode.com/problems/target-sum)
 - [LeetCode - 416. Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum)
+- [LeetCode - 474. Ones and Zeroes](https://leetcode.com/problems/ones-and-zeroes)
 - [CSES: Book Shop II](https://cses.fi/problemset/task/1159)
 - [DMOJ: Knapsack-3](https://dmoj.ca/problem/knapsack)
 - [DMOJ: Knapsack-4](https://dmoj.ca/problem/knapsack4)

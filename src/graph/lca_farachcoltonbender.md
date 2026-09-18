@@ -20,7 +20,7 @@ We use the classical reduction of the LCA problem to the RMQ problem.
 We traverse all nodes of the tree with [DFS](depth-first-search.md) and keep an array with all visited nodes and the heights of these nodes. 
 The LCA of two nodes $u$ and $v$ is the node between the occurrences of $u$ and $v$ in the tour, that has the smallest height.
 
-In the following picture you can see a possible Euler-Tour of a graph and in the list below you can see the visited nodes and their heights.
+In the following picture you can see a possible Euler-Tour of a tree and in the list below you can see the visited nodes and their heights.
 
 <div style="text-align: center;">
   <img src="LCA_Euler.png" alt="LCA_Euler_Tour">
@@ -50,7 +50,7 @@ You can build the table easily in $O(N \log N)$ by noting that $T[i][j] = \min(T
 
 How can we answer a query RMQ in $O(1)$ using this data structure?
 Let the received query be $[l, r]$, then the answer is $\min(T[l][\text{sz}], T[r-2^{\text{sz}}+1][\text{sz}])$, where $\text{sz}$ is the biggest exponent such that $2^{\text{sz}}$ is not bigger than the range length $r-l+1$. 
-Indeed we can take the range $[l, r]$ and cover it two segments of length $2^{\text{sz}}$ - one starting in $l$ and the other ending in $r$.
+Indeed we can take the range $[l, r]$ and cover it with two segments of length $2^{\text{sz}}$ - one starting in $l$ and the other ending in $r$.
 These segments overlap, but this doesn't interfere with our computation.
 To really achieve the time complexity of $O(1)$ per query, we need to know the values of $\text{sz}$ for all possible lengths from $1$ to $N$.
 But this can be easily precomputed.
