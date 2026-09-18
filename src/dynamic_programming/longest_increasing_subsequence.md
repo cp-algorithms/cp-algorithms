@@ -255,9 +255,9 @@ int lis(vector<int> const& a) {
 ### Restoring the subsequence
 
 It is also possible to restore the subsequence using this approach.
-Traditionally, this requires maintaining two auxiliary arrays: one that tells us the index of the elements in $d[]$, and an array of "ancestors" $p[i]$ that points to the index of the previous element for the optimal subsequence ending in element $i$.
+A straightforward way is to maintain two auxiliary arrays: one mapping each position of $d[]$ back to its index in $a[]$, and an array of "ancestors" $p[i]$ holding the index of the previous element of the optimal subsequence ending in $a[i]$.
 
-However, we can restore the subsequence in a more memory-efficient way, using only a single auxiliary array $p[0 \dots n-1]$.
+However, we can restore the subsequence in a more memory-efficient way, using only a single auxiliary array $p[0 \dots n-1]$, recorded as a by-product of the binary search that the algorithm already performs.
 We let $p[i]$ be the position in $d[]$ at which $a[i]$ was placed, so that the longest increasing subsequence ending in $a[i]$ has length $p[i] + 1$.
 
 Now suppose the length of the LIS is $L$, and let us iterate over $a[]$ backwards, picking the last element with $p[i] = L - 1$, then the last element before it with $p[i] = L - 2$, and so on down to $p[i] = 0$.
