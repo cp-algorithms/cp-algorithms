@@ -8123,6 +8123,12 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
     
   
 
@@ -8195,7 +8201,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 9, 2026 17:21:36 UTC">July 9, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 21:33:04 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8217,15 +8223,15 @@ Describe the issue of this article in detail.
 <p>There are <span class="arithmatex">$n$</span> distinct items and a knapsack of capacity <span class="arithmatex">$W$</span>. Each item has 2 attributes, weight (<span class="arithmatex">$w_{i}$</span>) and value (<span class="arithmatex">$v_{i}$</span>). 
 You have to select a subset of items to put into the knapsack such that the total weight does not exceed the capacity <span class="arithmatex">$W$</span> and the total value is maximized.</p>
 <p>In the example above, each object has only two possible states (taken or not taken),
-corresponding to binary 0 and 1. Thus, this type of problem is called "0-1 knapsack problem".</p>
+corresponding to binary 0 and 1. Thus, this type of problem is called the "0-1 knapsack problem".</p>
 <h2 id="0-1-knapsack">0-1 Knapsack<a class="headerlink" href="#0-1-knapsack" title="Permanent link">&para;</a></h2>
 <h3 id="explanation">Explanation<a class="headerlink" href="#explanation" title="Permanent link">&para;</a></h3>
-<p>In the example above, the input to the problem is the following: the weight of <span class="arithmatex">$i^{th}$</span> item <span class="arithmatex">$w_{i}$</span>, the value of <span class="arithmatex">$i^{th}$</span> item <span class="arithmatex">$v_{i}$</span>, and the total capacity of the knapsack <span class="arithmatex">$W$</span>.</p>
+<p>In the example above, the input to the problem is the following: the weight of the <span class="arithmatex">$i^{th}$</span> item <span class="arithmatex">$w_{i}$</span>, the value of the <span class="arithmatex">$i^{th}$</span> item <span class="arithmatex">$v_{i}$</span>, and the total capacity of the knapsack <span class="arithmatex">$W$</span>.</p>
 <p>Let <span class="arithmatex">$f_{i, j}$</span> be the dynamic programming state holding the maximum total value the knapsack can carry with capacity <span class="arithmatex">$j$</span>, when only the first <span class="arithmatex">$i$</span> items are considered.</p>
 <p>Assuming that all states of the first <span class="arithmatex">$i-1$</span> items have been processed, what are the options for the <span class="arithmatex">$i^{th}$</span> item?</p>
 <ul>
-<li>When it is not put into the knapsack, the remaining capacity remains unchanged and total value does not change. Therefore, the maximum value in this case is <span class="arithmatex">$f_{i-1, j}$</span></li>
-<li>When it is put into the knapsack, the remaining capacity decreases by <span class="arithmatex">$w_{i}$</span> and the total value increases by <span class="arithmatex">$v_{i}$</span>,
+<li>When it is not put into the knapsack, the remaining capacity remains unchanged, and the total value does not change. Therefore, the maximum value in this case is <span class="arithmatex">$f_{i-1, j}$</span></li>
+<li>When it is put into the knapsack, the remaining capacity decreases by <span class="arithmatex">$w_{i}$</span>, and the total value increases by <span class="arithmatex">$v_{i}$</span>,
 so the maximum value in this case is <span class="arithmatex">$f_{i-1, j-w_i} + v_i$</span></li>
 </ul>
 <p>From this we can derive the dp transition equation:</p>
@@ -8242,22 +8248,27 @@ so the maximum value in this case is <span class="arithmatex">$f_{i-1, j-w_i} + 
 </code></pre></div>
 <p>Again, note the order of execution. It should be strictly followed to ensure the following invariant: Right before the pair <span class="arithmatex">$(i, j)$</span> is processed, <span class="arithmatex">$f_k$</span> corresponds to <span class="arithmatex">$f_{i,k}$</span> for <span class="arithmatex">$k &gt; j$</span>, but to <span class="arithmatex">$f_{i-1,k}$</span> for <span class="arithmatex">$k &lt; j$</span>. This ensures that <span class="arithmatex">$f_{j-w_i}$</span> is taken from the <span class="arithmatex">$(i-1)$</span>-th step, rather than from the <span class="arithmatex">$i$</span>-th one.</p>
 <h2 id="complete-knapsack">Complete Knapsack<a class="headerlink" href="#complete-knapsack" title="Permanent link">&para;</a></h2>
-<p>The complete knapsack model is similar to the 0-1 knapsack, the only difference from the 0-1 knapsack is that an item can be selected an unlimited number of times instead of only once.</p>
+<p>The complete knapsack model is similar to the 0-1 knapsack; the only difference from the 0-1 knapsack is that an item can be selected an unlimited number of times instead of only once.</p>
 <p>We can refer to the idea of 0-1 knapsack to define the state: <span class="arithmatex">$f_{i, j}$</span>, the maximum value the knapsack can obtain using the first <span class="arithmatex">$i$</span> items with maximum capacity <span class="arithmatex">$j$</span>.</p>
 <p>It should be noted that although the state definition is similar to that of a 0-1 knapsack, its transition rule is different from that of a 0-1 knapsack.</p>
 <h3 id="explanation_1">Explanation<a class="headerlink" href="#explanation_1" title="Permanent link">&para;</a></h3>
-<p>The trivial approach is, for the first <span class="arithmatex">$i$</span> items, enumerate how many times each item is to be taken. The time complexity of this is <span class="arithmatex">$O(n^2W)$</span>.</p>
-<p>This yields the following transition equation:</p>
-<div class="arithmatex">$$f_{i, j} = \max\limits_{k=0}^{\infty}(f_{i-1, j-k\cdot w_i} + k\cdot v_i)$$</div>
+<p>The trivial approach is, for the first <span class="arithmatex">$i$</span> items, to enumerate how many times each item is to be taken. This yields the following transition equation:</p>
+<div class="arithmatex">$$f_{i, j} = \max\limits_{k=0}^{\left\lfloor \frac{j}{w_i} \right\rfloor}(f_{i-1, j-k\cdot w_i} + k\cdot v_i)$$</div>
+<p>The algorithm described can be implemented in <span class="arithmatex">$O(nW^2)$</span> as:</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">W</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">j</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="o">++</span><span class="p">)</span>
+<span class="w">      </span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span><span class="w"> </span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="mi">-1</span><span class="p">][</span><span class="n">j</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</code></pre></div>
 <p>At the same time, it simplifies into a "flat" equation:</p>
 <div class="arithmatex">$$f_{i, j} = \max(f_{i-1, j},f_{i, j-w_i} + v_i)$$</div>
 <p>The reason this works is that <span class="arithmatex">$f_{i, j-w_i}$</span> has already been updated by <span class="arithmatex">$f_{i, j-2\cdot w_i}$</span> and so on.</p>
-<p>Similar to the 0-1 knapsack, we can remove the first dimension to optimize the space complexity. This gives us the same transition rule as 0-1 knapsack.</p>
+<p>Similar to the 0-1 knapsack, we can remove the first dimension to optimize the space complexity. This gives us the same transition rule as the 0-1 knapsack.</p>
 <div class="arithmatex">$$f_j \gets \max(f_j, f_{j-w_i}+v_i)$$</div>
 <h3 id="implementation_1">Implementation<a class="headerlink" href="#implementation_1" title="Permanent link">&para;</a></h3>
 <p>The algorithm described can be implemented in <span class="arithmatex">$O(nW)$</span> as:</p>
 <div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">W</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">W</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
 <span class="w">    </span><span class="n">f</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">j</span><span class="p">],</span><span class="w"> </span><span class="n">f</span><span class="p">[</span><span class="n">j</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 </code></pre></div>
 <p>Despite having the same transition rule, the code above is incorrect for 0-1 knapsack.</p>
@@ -8265,17 +8276,17 @@ so the maximum value in this case is <span class="arithmatex">$f_{i-1, j-w_i} + 
 when <span class="arithmatex">$j\geqslant w_{i}$</span>, <span class="arithmatex">$f_{i,j}$</span> will be affected by <span class="arithmatex">$f_{i,j-w_{i}}$</span>. 
 This is equivalent to being able to put item <span class="arithmatex">$i$</span> into the backpack multiple times, which is consistent with the complete knapsack problem and not the 0-1 knapsack problem.</p>
 <h2 id="multiple-knapsack">Multiple Knapsack<a class="headerlink" href="#multiple-knapsack" title="Permanent link">&para;</a></h2>
-<p>Multiple knapsack is also a variant of 0-1 knapsack. The main difference is that there are <span class="arithmatex">$k_i$</span> of each item instead of just <span class="arithmatex">$1$</span>.</p>
+<p>Multiple knapsack is also a variant of the 0-1 knapsack. The main difference is that there are <span class="arithmatex">$k_i$</span> of each item instead of just <span class="arithmatex">$1$</span>.</p>
 <h3 id="explanation_2">Explanation<a class="headerlink" href="#explanation_2" title="Permanent link">&para;</a></h3>
 <p>A very simple idea is: "choose each item <span class="arithmatex">$k_i$</span> times" is equivalent to "<span class="arithmatex">$k_i$</span> of the same item is selected one by one". Thus converting it to a 0-1 knapsack model, which can be described by the transition function:</p>
 <div class="arithmatex">$$f_{i, j} = \max_{k=0}^{k_i}(f_{i-1,j-k\cdot w_i} + k\cdot v_i)$$</div>
 <p>The time complexity of this process is <span class="arithmatex">$O(W\sum\limits_{i=1}^{n}k_i)$</span></p>
 <h3 id="binary-grouping-optimization">Binary Grouping Optimization<a class="headerlink" href="#binary-grouping-optimization" title="Permanent link">&para;</a></h3>
-<p>We still consider converting the multiple knapsack model into a 0-1 knapsack model for optimization. The time complexity <span class="arithmatex">$O(Wn)$</span> can not be further optimized with the approach above, so we focus on <span class="arithmatex">$O(\sum k_i)$</span> component.</p>
-<p>Let <span class="arithmatex">$A_{i, j}$</span> denote the <span class="arithmatex">$j^{th}$</span> item split from the <span class="arithmatex">$i^{th}$</span> item. In the trivial approach discussed above, <span class="arithmatex">$A_{i, j}$</span> represents the same item for all <span class="arithmatex">$j \leq k_i$</span>. The main reason for our low efficiency is that we are doing a lot of repetitive work. For example, consider selecting <span class="arithmatex">$\{A_{i, 1},A_{i, 2}\}$</span>, and selecting <span class="arithmatex">$\{A_{i, 2}, A_{i, 3}\}$</span>. These two situations are completely equivalent. Thus optimizing the splitting method will greatly reduce the time complexity.</p>
+<p>We still consider converting the multiple knapsack model into a 0-1 knapsack model for optimization. The time complexity <span class="arithmatex">$O(Wn)$</span> can not be further optimized with the approach above, so we focus on the <span class="arithmatex">$O(\sum k_i)$</span> component.</p>
+<p>Let <span class="arithmatex">$A_{i, j}$</span> denote the <span class="arithmatex">$j^{th}$</span> item split from the <span class="arithmatex">$i^{th}$</span> item. In the trivial approach discussed above, <span class="arithmatex">$A_{i, j}$</span> represents the same item for all <span class="arithmatex">$j \leq k_i$</span>. The main reason for our low efficiency is that we are doing a lot of repetitive work. For example, consider selecting <span class="arithmatex">$\{A_{i, 1},A_{i, 2}\}$</span>, and selecting <span class="arithmatex">$\{A_{i, 2}, A_{i, 3}\}$</span>. These two situations are completely equivalent. Thus, optimizing the splitting method will greatly reduce the time complexity.</p>
 <p>The grouping is made more efficient by using binary grouping.</p>
 <p>Specifically, <span class="arithmatex">$A_{i, j}$</span> holds <span class="arithmatex">$2^j$</span> individual items (<span class="arithmatex">$j\in[0,\lfloor \log_2(k_i+1)\rfloor-1]$</span>).If <span class="arithmatex">$k_i + 1$</span> is not an integer power of <span class="arithmatex">$2$</span>, another bundle of size <span class="arithmatex">$k_i-(2^{\lfloor \log_2(k_i+1)\rfloor}-1)$</span> is used to make up for it.</p>
-<p>Through the above splitting method, it is possible to obtain any sum of <span class="arithmatex">$\leq k_i$</span> items by selecting a few <span class="arithmatex">$A_{i, j}$</span>'s. After splitting each item in the described way, it is sufficient to use 0-1 knapsack method to solve the new formulation of the problem.</p>
+<p>Through the above splitting method, it is possible to obtain any sum of <span class="arithmatex">$\leq k_i$</span> items by selecting a few <span class="arithmatex">$A_{i, j}$</span>'s. After splitting each item in the described way, it is sufficient to use the 0-1 knapsack method to solve the new formulation of the problem.</p>
 <p>This optimization gives us a time complexity of <span class="arithmatex">$O(W\sum\limits_{i=1}^{n}\log k_i)$</span>.</p>
 <h3 id="implementation_2">Implementation<a class="headerlink" href="#implementation_2" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
@@ -8308,7 +8319,7 @@ In this way, the total complexity of the algorithm is reduced to <span class="ar
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="mi">0-1</span><span class="w"> </span><span class="n">knapsack</span><span class="p">)</span>
 <span class="w">    </span><span class="n">Apply</span><span class="w"> </span><span class="mi">0-1</span><span class="w"> </span><span class="n">knapsack</span><span class="w"> </span><span class="n">code</span><span class="p">;</span>
 <span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">complete</span><span class="w"> </span><span class="n">knapsack</span><span class="p">)</span>
-<span class="w">    </span><span class="n">Apply</span><span class="w"> </span><span class="n">complete</span><span class="w"> </span><span class="n">knapsack</span><span class="w"> </span><span class="n">code</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Apply</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">complete</span><span class="w"> </span><span class="n">knapsack</span><span class="w"> </span><span class="n">code</span><span class="p">;</span>
 <span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">multiple</span><span class="w"> </span><span class="n">knapsack</span><span class="p">)</span>
 <span class="w">    </span><span class="n">Apply</span><span class="w"> </span><span class="n">multiple</span><span class="w"> </span><span class="n">knapsack</span><span class="w"> </span><span class="n">code</span><span class="p">;</span>
 <span class="p">}</span>
@@ -8327,7 +8338,7 @@ In this way, the total complexity of the algorithm is reduced to <span class="ar
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/OverRancid" title="OverRancid" data-bi-name="contributorprofile" target="_blank">OverRancid</a> (96.76%)</li><li><a href="https://github.com/Ahmed-Salah-Marouf" title="Ahmed-Salah-Marouf" data-bi-name="contributorprofile" target="_blank">Ahmed-Salah-Marouf</a> (1.08%)</li><li><a href="https://github.com/tmvalijib24" title="tmvalijib24" data-bi-name="contributorprofile" target="_blank">tmvalijib24</a> (0.54%)</li><li><a href="https://github.com/whyvineet" title="whyvineet" data-bi-name="contributorprofile" target="_blank">whyvineet</a> (0.54%)</li><li><a href="https://github.com/virinci" title="virinci" data-bi-name="contributorprofile" target="_blank">virinci</a> (0.54%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (0.54%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/OverRancid" title="OverRancid" data-bi-name="contributorprofile" target="_blank">OverRancid</a> (84.9%)</li><li><a href="https://github.com/rickyssj2" title="rickyssj2" data-bi-name="contributorprofile" target="_blank">rickyssj2</a> (12.5%)</li><li><a href="https://github.com/Ahmed-Salah-Marouf" title="Ahmed-Salah-Marouf" data-bi-name="contributorprofile" target="_blank">Ahmed-Salah-Marouf</a> (1.04%)</li><li><a href="https://github.com/tmvalijib24" title="tmvalijib24" data-bi-name="contributorprofile" target="_blank">tmvalijib24</a> (0.52%)</li><li><a href="https://github.com/virinci" title="virinci" data-bi-name="contributorprofile" target="_blank">virinci</a> (0.52%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (0.52%)</li></ul>
 </ul>
                 
               </article>
