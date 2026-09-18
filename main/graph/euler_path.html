@@ -7968,6 +7968,12 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
     
   
     
@@ -8144,7 +8150,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 22, 2026 07:16:02 UTC">July 22, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 14:05:16 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8171,13 +8177,13 @@ Describe the issue of this article in detail.
 
 
 <h1 id="finding-the-eulerian-path-in-om">Finding the Eulerian path in <span class="arithmatex">$O(M)$</span><a class="headerlink" href="#finding-the-eulerian-path-in-om" title="Permanent link">&para;</a></h1>
-<p>A Eulerian path is a path in a graph that passes through all of its edges exactly once.
-A Eulerian cycle is a Eulerian path that is a cycle.</p>
+<p>An Eulerian path is a path in a graph that passes through all of its edges exactly once.
+An Eulerian cycle is an Eulerian path that is a cycle.</p>
 <p>The problem is to find the Eulerian path in an <strong>undirected multigraph with loops</strong>.</p>
 <h2 id="algorithm">Algorithm<a class="headerlink" href="#algorithm" title="Permanent link">&para;</a></h2>
 <p>First we can check if there is an Eulerian path.
 We can use the following theorem. An Eulerian cycle exists if and only if the degrees of all vertices are even.
-And an Eulerian path exists if and only if the number of vertices with odd degrees is two (or zero, in the case of the existence of a Eulerian cycle).
+And an Eulerian path exists if and only if the number of vertices with odd degrees is two (or zero, in the case of the existence of an Eulerian cycle).
 In addition, of course, the graph must be sufficiently connected (i.e., if you remove all isolated vertices from it, you should get a connected graph).</p>
 <p>To find the Eulerian path / Eulerian cycle we can use the following strategy:
 We find all simple cycles and combine them into one - this will be the Eulerian cycle.
@@ -8206,10 +8212,10 @@ until St is empty
 <p>It is easy to check the equivalence of these two forms of the algorithm. However, the second form is obviously faster, and the code will be much more efficient.</p>
 <h2 id="the-domino-problem">The Domino problem<a class="headerlink" href="#the-domino-problem" title="Permanent link">&para;</a></h2>
 <p>We give here a classical Eulerian cycle problem - the Domino problem.</p>
-<p>There are <span class="arithmatex">$N$</span> dominoes, as it is known, on both ends of the Domino one number is written (usually from 1 to 6, but in our case it is not important). You want to put all the dominoes in a row so that the numbers on any two adjacent dominoes, written on their common side, coincide. Dominoes are allowed to turn.</p>
-<p>Reformulate the problem. Let the numbers written on the bottoms be the vertices of the graph, and the dominoes be the edges of this graph (each Domino with numbers <span class="arithmatex">$(a,b)$</span> are the edges <span class="arithmatex">$(a,b)$</span> and <span class="arithmatex">$(b, a)$</span>). Then our problem is reduced to the problem of finding the Eulerian path in this graph.</p>
+<p>There are <span class="arithmatex">$N$</span> dominoes, as it is known, on both ends of the domino one number is written (usually from 1 to 6, but in our case it is not important). You want to put all the dominoes in a row so that the numbers on any two adjacent dominoes, written on their common side, coincide. Dominoes are allowed to turn.</p>
+<p>Reformulate the problem. Let the numbers written on the bottoms be the vertices of the graph, and the dominoes be the edges of this graph (each domino with numbers <span class="arithmatex">$(a,b)$</span> are the edges <span class="arithmatex">$(a,b)$</span> and <span class="arithmatex">$(b,a)$</span>). Then our problem is reduced to the problem of finding the Eulerian path in this graph.</p>
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
-<p>The program below searches for and outputs a Eulerian loop or path in a graph, or outputs <span class="arithmatex">$-1$</span> if it does not exist.</p>
+<p>The program below searches for and outputs an Eulerian cycle or path in a graph, or outputs <span class="arithmatex">$-1$</span> if it does not exist.</p>
 <p>First, the program checks the degree of vertices: if there are no vertices with an odd degree, then the graph has an Euler cycle, if there are <span class="arithmatex">$2$</span> vertices with an odd degree, then in the graph there is only an Euler path (but no Euler cycle), if there are more than <span class="arithmatex">$2$</span> such vertices, then in the graph there is no Euler cycle or Euler path.
 To find the Euler path (not a cycle), let's do this: if <span class="arithmatex">$V1$</span> and <span class="arithmatex">$V2$</span> are two vertices of odd degree, then just add an edge <span class="arithmatex">$(V1, V2)$</span>, in the resulting graph we find the Euler cycle (it will obviously exist), and then remove the "fictitious" edge <span class="arithmatex">$(V1, V2)$</span> from the answer.
 We will look for the Euler cycle exactly as described above (non-recursive version), and at the same time at the end of this algorithm we will check whether the graph was connected or not (if the graph was not connected, then at the end of the algorithm some edges will remain in the graph, and in this case we need to print <span class="arithmatex">$-1$</span>).
@@ -8217,9 +8223,10 @@ Finally, the program takes into account that there can be isolated vertices in t
 <p>Notice that we use an adjacency matrix in this problem.
 Also this implementation handles finding the next with brute-force, which requires to iterate over the complete row in the matrix over and over.
 A better way would be to store the graph as an adjacency list, and remove edges in <span class="arithmatex">$O(1)$</span> and mark the reversed edges in separate list.
-This way we can achieve an <span class="arithmatex">$O(N)$</span> algorithm.</p>
+This way we can achieve an <span class="arithmatex">$O(M)$</span> algorithm.</p>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
 <span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">g</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">));</span>
 <span class="w">    </span><span class="c1">// reading the graph in the adjacency matrix</span>
 
@@ -8312,7 +8319,7 @@ This way we can achieve an <span class="arithmatex">$O(N)$</span> algorithm.</p>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/singamandeep" title="singamandeep" data-bi-name="contributorprofile" target="_blank">singamandeep</a> (87.43%)</li><li><a href="https://github.com/anishagg17" title="anishagg17" data-bi-name="contributorprofile" target="_blank">anishagg17</a> (2.99%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (1.8%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (1.8%)</li><li><a href="https://github.com/aryamanjain-scifin" title="aryamanjain-scifin" data-bi-name="contributorprofile" target="_blank">aryamanjain-scifin</a> (1.8%)</li><li><a href="https://github.com/Hostek" title="Hostek" data-bi-name="contributorprofile" target="_blank">Hostek</a> (1.2%)</li><li><a href="https://github.com/double-fault" title="double-fault" data-bi-name="contributorprofile" target="_blank">double-fault</a> (0.6%)</li><li><a href="https://github.com/sohaibuddinsyed" title="sohaibuddinsyed" data-bi-name="contributorprofile" target="_blank">sohaibuddinsyed</a> (0.6%)</li><li><a href="https://github.com/apupneja" title="apupneja" data-bi-name="contributorprofile" target="_blank">apupneja</a> (0.6%)</li><li><a href="https://github.com/svaderia" title="svaderia" data-bi-name="contributorprofile" target="_blank">svaderia</a> (0.6%)</li><li><a href="https://github.com/algmyr" title="algmyr" data-bi-name="contributorprofile" target="_blank">algmyr</a> (0.6%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/singamandeep" title="singamandeep" data-bi-name="contributorprofile" target="_blank">singamandeep</a> (83.33%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (4.76%)</li><li><a href="https://github.com/anishagg17" title="anishagg17" data-bi-name="contributorprofile" target="_blank">anishagg17</a> (2.98%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (1.79%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (1.79%)</li><li><a href="https://github.com/aryamanjain-scifin" title="aryamanjain-scifin" data-bi-name="contributorprofile" target="_blank">aryamanjain-scifin</a> (1.79%)</li><li><a href="https://github.com/Hostek" title="Hostek" data-bi-name="contributorprofile" target="_blank">Hostek</a> (1.19%)</li><li><a href="https://github.com/sohaibuddinsyed" title="sohaibuddinsyed" data-bi-name="contributorprofile" target="_blank">sohaibuddinsyed</a> (0.6%)</li><li><a href="https://github.com/apupneja" title="apupneja" data-bi-name="contributorprofile" target="_blank">apupneja</a> (0.6%)</li><li><a href="https://github.com/svaderia" title="svaderia" data-bi-name="contributorprofile" target="_blank">svaderia</a> (0.6%)</li><li><a href="https://github.com/algmyr" title="algmyr" data-bi-name="contributorprofile" target="_blank">algmyr</a> (0.6%)</li></ul>
 </ul>
                 
               </article>
