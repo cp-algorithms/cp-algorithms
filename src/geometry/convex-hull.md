@@ -35,7 +35,7 @@ the algorithm is done and we return the stack containing all the points of the
 convex hull in clockwise order.
 
 If you need to include the collinear points while doing a Graham scan, you need
-another step after sorting. You need to get the points with the largest polar angle from $P_0$ (these should be at the end of the sorted vector) that are collinear.
+another step after sorting. You need to get the last group of the sorted vector, that is the points collinear with $P_0$ and the final point.
 The points on this ray should be reversed so that we can output all the
 collinear points, otherwise the algorithm would get the nearest point in this
 line and bail. This step shouldn't be included in the non-collinear version
