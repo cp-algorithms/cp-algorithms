@@ -7968,6 +7968,12 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
     
   
     
@@ -8018,6 +8024,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8054,7 +8064,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2024 23:38:15 UTC">October 13, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 17:30:18 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8089,20 +8099,20 @@ Describe the issue of this article in detail.
 <div class="arithmatex">$$x_i = a + i h, ~~ i = 0 \ldots 2n,$$</div>
 <div class="arithmatex">$$h = \frac {b-a} {2n}.$$</div>
 <p>Now we calculate the integral separately on each of the segments <span class="arithmatex">$[x_ {2i-2}, x_ {2i}]$</span>, <span class="arithmatex">$i = 1 \ldots n$</span>, and then add all the values.</p>
-<p>So, suppose we consider the next segment <span class="arithmatex">$[x_ {2i-2}, x_ {2i}],  i = 1 \ldots n$</span>. Replace the function <span class="arithmatex">$f(x)$</span> on it with a parabola <span class="arithmatex">$P(x)$</span> passing through 3 points <span class="arithmatex">$(x_ {2i-2}, x_ {2i-1}, x_ {2i})$</span>. Such a parabola always exists and is unique; it can be found analytically.
+<p>So, suppose we consider the next segment <span class="arithmatex">$[x_ {2i-2}, x_ {2i}],  i = 1 \ldots n$</span>. Replace the function <span class="arithmatex">$f(x)$</span> on it with a parabola <span class="arithmatex">$P(x)$</span> passing through the three graph points <span class="arithmatex">$(x_{2i-2}, f(x_{2i-2}))$</span>, <span class="arithmatex">$(x_{2i-1}, f(x_{2i-1}))$</span>, and <span class="arithmatex">$(x_{2i}, f(x_{2i}))$</span>. Such a parabola always exists and is unique; it can be found analytically.
 For instance we could construct it using the Lagrange polynomial interpolation.
 The only remaining thing left to do is to integrate this polynomial.
 If you do this for a general function <span class="arithmatex">$f$</span>, you receive a remarkably simple expression:</p>
-<div class="arithmatex">$$\int_{x_ {2i-2}} ^ {x_ {2i}} f (x) ~dx \approx \int_{x_ {2i-2}} ^ {x_ {2i}} P (x) ~dx = \left(f(x_{2i-2}) + 4f(x_{2i-1})+(f(x_{2i})\right)\frac {h} {3} $$</div>
+<div class="arithmatex">$$\int_{x_ {2i-2}} ^ {x_ {2i}} f (x) ~dx \approx \int_{x_ {2i-2}} ^ {x_ {2i}} P (x) ~dx = \left(f(x_{2i-2}) + 4f(x_{2i-1}) + f(x_{2i})\right)\frac {h} {3} $$</div>
 <p>Adding these values over all segments, we obtain the final <strong>Simpson's formula</strong>:</p>
-<div class="arithmatex">$$\int_a ^ b f (x) dx \approx \left(f (x_0) + 4 f (x_1) + 2 f (x_2) + 4f(x_3) + 2 f(x_4) + \ldots + 4 f(x_{2N-1}) + f(x_{2N}) \right)\frac {h} {3} $$</div>
+<div class="arithmatex">$$\int_a ^ b f (x) dx \approx \left(f (x_0) + 4 f (x_1) + 2 f (x_2) + 4f(x_3) + 2 f(x_4) + \ldots + 4 f(x_{2n-1}) + f(x_{2n}) \right)\frac {h} {3} $$</div>
 <h2 id="error">Error<a class="headerlink" href="#error" title="Permanent link">&para;</a></h2>
-<p>The error in approximating an integral by Simpson's formula is</p>
+<p>For one Simpson panel spanning an interval <span class="arithmatex">$[a,b]$</span>, the error is</p>
 <div class="arithmatex">$$ -\tfrac{1}{90} \left(\tfrac{b-a}{2}\right)^5 f^{(4)}(\xi)$$</div>
 <p>where <span class="arithmatex">$\xi$</span> is some number between <span class="arithmatex">$a$</span> and <span class="arithmatex">$b$</span>.</p>
-<p>The error is asymptotically proportional to <span class="arithmatex">$(b-a)^5$</span>. However, the above derivations suggest an error proportional to <span class="arithmatex">$(b-a)^4$</span>. Simpson's rule gains an extra order because the points at which the integrand is evaluated are distributed symmetrically in the interval <span class="arithmatex">$[a, b]$</span>.</p>
+<p>Thus the single-panel error is fifth-order in the panel width. In the composite rule above, the interval is split into panels of width <span class="arithmatex">$2h$</span>. Assuming the fourth derivative remains bounded, summing the panel errors gives a global error of order <span class="arithmatex">$O((b-a)h^4)$</span>. Simpson's rule gains an extra order compared with a naive interpolation-error estimate because the points at which the integrand is evaluated are distributed symmetrically in each panel.</p>
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
-<p>Here, <span class="arithmatex">$f(x)$</span> is some user-defined function.</p>
+<p>Here, <span class="arithmatex">$f(x)$</span> is some user-defined function. The number of steps <span class="arithmatex">$N$</span> must be even.</p>
 <div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"> </span><span class="c1">// number of steps (already multiplied by 2)</span>
 
 <span class="kt">double</span><span class="w"> </span><span class="nf">simpson_integration</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="p">){</span>
@@ -8123,7 +8133,7 @@ If you do this for a general function <span class="arithmatex">$f$</span>, you r
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/Daili01" title="Daili01" data-bi-name="contributorprofile" target="_blank">Daili01</a> (73.13%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (8.96%)</li><li><a href="https://github.com/AbhijeetKrishnan" title="AbhijeetKrishnan" data-bi-name="contributorprofile" target="_blank">AbhijeetKrishnan</a> (4.48%)</li><li><a href="https://github.com/pin3da" title="pin3da" data-bi-name="contributorprofile" target="_blank">pin3da</a> (4.48%)</li><li><a href="https://github.com/gampu" title="gampu" data-bi-name="contributorprofile" target="_blank">gampu</a> (4.48%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (2.99%)</li><li><a href="https://github.com/ppassinho" title="ppassinho" data-bi-name="contributorprofile" target="_blank">ppassinho</a> (1.49%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/Daili01" title="Daili01" data-bi-name="contributorprofile" target="_blank">Daili01</a> (65.67%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (8.96%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (8.96%)</li><li><a href="https://github.com/pin3da" title="pin3da" data-bi-name="contributorprofile" target="_blank">pin3da</a> (4.48%)</li><li><a href="https://github.com/gampu" title="gampu" data-bi-name="contributorprofile" target="_blank">gampu</a> (4.48%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (2.99%)</li><li><a href="https://github.com/AbhijeetKrishnan" title="AbhijeetKrishnan" data-bi-name="contributorprofile" target="_blank">AbhijeetKrishnan</a> (2.99%)</li><li><a href="https://github.com/ppassinho" title="ppassinho" data-bi-name="contributorprofile" target="_blank">ppassinho</a> (1.49%)</li></ul>
 </ul>
                 
               </article>
