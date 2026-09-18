@@ -188,33 +188,30 @@ So we only update if $a[i] < d[l]$.
 
 After processing all the elements of $a[]$ the length of the desired subsequence is the largest $l$ with $d[l] < \infty$.
 
+The $\pm\infty$ padding is only a convenience for stating the recurrence; it never has to be stored.
+In the implementations below we keep just the entries for lengths that have actually been achieved.
+Then $d[]$ grows by at most one element per step, reaching a position past its end is what $d[l] = \infty$ stood for, and the answer is simply its size.
+
 ```{.cpp file=lis_method2_n2}
 int lis(vector<int> const& a) {
-    int n = a.size();
-    const int INF = 1e9;
-    vector<int> d(n+1, INF);
-    d[0] = -INF;
-
-    for (int i = 0; i < n; i++) {
-        for (int l = 1; l <= n; l++) {
-            if (d[l-1] < a[i] && a[i] < d[l])
-                d[l] = a[i];
-        }
+    vector<int> d;
+    for (int x : a) {
+        size_t l = 0;
+        while (l < d.size() && d[l] < x)
+            l++;
+        if (l == d.size())
+            d.push_back(x);
+        else
+            d[l] = x;
     }
-
-    int ans = 0;
-    for (int l = 0; l <= n; l++) {
-        if (d[l] < INF)
-            ans = l;
-    }
-    return ans;
+    return d.size();
 }
 ```
 
 We now make two important observations.
 
 1.  The array $d$ will always be sorted: 
-    $d[l-1] < d[l]$ for all $i = 1 \dots n$.
+    $d[l-1] < d[l]$ for all $l = 1 \dots n$.
 
     This is trivial, as you can just remove the last element from the increasing subsequence of length $l$, and you get a increasing subsequence of length $l-1$ with a smaller ending number.
 
@@ -228,27 +225,19 @@ In fact we can simply look in the array $d[]$ for the first number that is stric
 
 ### Implementation
 
-This gives us the improved $O(n \log n)$ implementation:
+This gives us the improved $O(n \log n)$ implementation, which differs from the one above only in how the position is found:
 
 ```{.cpp file=lis_method2_nlogn}
 int lis(vector<int> const& a) {
-    int n = a.size();
-    const int INF = 1e9;
-    vector<int> d(n+1, INF);
-    d[0] = -INF;
-
-    for (int i = 0; i < n; i++) {
-        int l = upper_bound(d.begin(), d.end(), a[i]) - d.begin();
-        if (d[l-1] < a[i] && a[i] < d[l])
-            d[l] = a[i];
+    vector<int> d;
+    for (int x : a) {
+        auto it = lower_bound(d.begin(), d.end(), x);
+        if (it == d.end())
+            d.push_back(x);
+        else
+            *it = x;
     }
-
-    int ans = 0;
-    for (int l = 0; l <= n; l++) {
-        if (d[l] < INF)
-            ans = l;
-    }
-    return ans;
+    return d.size();
 }
 ```
 
@@ -258,10 +247,9 @@ It is also possible to restore the subsequence using this approach.
 A straightforward way is to maintain two auxiliary arrays: one mapping each position of $d[]$ back to its index in $a[]$, and an array of "ancestors" $p[i]$ holding the index of the previous element of the optimal subsequence ending in $a[i]$.
 
 However, we can restore the subsequence in a more memory-efficient way, using only a single auxiliary array $p[0 \dots n-1]$, recorded as a by-product of the binary search that the algorithm already performs.
-We let $p[i]$ be the position in $d[]$ at which $a[i]$ ends up, so that the longest increasing subsequence ending in $a[i]$ has length $p[i]$.
-Note that when $a[i]$ is equal to $d[l-1]$ the algorithm above updates nothing, and in that case $a[i]$ ends a subsequence of length $l-1$ rather than $l$.
+We let $p[i]$ be the position in $d[]$ at which $a[i]$ ends up, so that the longest increasing subsequence ending in $a[i]$ has length $p[i] + 1$.
 
-Now suppose the length of the LIS is $L$, and let us iterate over $a[]$ backwards, picking the last element with $p[i] = L$, then the last element before it with $p[i] = L - 1$, and so on down to $p[i] = 1$.
+Now suppose the length of the LIS is $L$, and let us iterate over $a[]$ backwards, picking the last element with $p[i] = L - 1$, then the last element before it with $p[i] = L - 2$, and so on down to $p[i] = 0$.
 Every element picked this way is a valid predecessor of the previously picked one.
 Indeed, suppose we have already picked $a[j]$ with $p[j] = l + 1$, and let $a[i]$ be the last element before it with $p[i] = l$.
 Since $d[l]$ always holds the most recent element placed at position $l$, it was equal to $a[i]$ at the moment $a[j]$ was processed.
@@ -272,30 +260,23 @@ Collecting the elements this way and reversing them at the end gives us a longes
 ```{.cpp file=lis_method2_nlogn_restore}
 vector<int> lis(vector<int> const& a) {
     int n = a.size();
-    const int INF = 1e9;
-    vector<int> d(n+1, INF), p(n);
-    d[0] = -INF;
+    vector<int> d, p(n);
 
     for (int i = 0; i < n; i++) {
-        int l = upper_bound(d.begin(), d.end(), a[i]) - d.begin();
-        if (d[l-1] < a[i] && a[i] < d[l])
-            d[l] = a[i];
+        auto it = lower_bound(d.begin(), d.end(), a[i]);
+        p[i] = it - d.begin();
+        if (it == d.end())
+            d.push_back(a[i]);
         else
-            l--; // a[i] equals d[l-1], so it ends a subsequence of length l-1
-        p[i] = l;
+            *it = a[i];
     }
 
-    int L = 0;
-    for (int l = 0; l <= n; l++) {
-        if (d[l] < INF)
-            L = l;
-    }
-
+    int l = d.size() - 1;
     vector<int> subseq;
-    for (int i = n - 1; i >= 0 && L > 0; i--) {
-        if (p[i] == L) {
+    for (int i = n - 1; i >= 0 && l >= 0; i--) {
+        if (p[i] == l) {
             subseq.push_back(a[i]);
-            L--;
+            l--;
         }
     }
     reverse(subseq.begin(), subseq.end());
