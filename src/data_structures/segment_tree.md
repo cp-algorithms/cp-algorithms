@@ -7,8 +7,8 @@ e_maxx_link: segment_tree
 # Segment Tree
 
 A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modification of the array.
-This includes finding the sum of consecutive array elements $a[l \dots r]$, or finding the minimum element in a such a range in $O(\log n)$ time. 
-Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements $a[l \dots r]$ to any value, or adding a value to all element in the subsegment). 
+This includes finding the sum of consecutive array elements $a[l \dots r)$, or finding the minimum element in a such a range in $O(\log n)$ time. 
+Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements $a[l \dots r)$ to any value, or adding a value to all element in the subsegment). 
 
 In general, a Segment Tree is a very flexible data structure, and a huge number of problems can be solved with it. 
 Additionally, it is also possible to apply more complex operations and answer more complex queries (see [Advanced versions of Segment Trees](segment_tree.md#advanced-versions-of-segment-trees)).
@@ -80,14 +80,14 @@ The time complexity of this construction is $O(n)$, assuming that the merge oper
 
 ### Sum queries
 
-For now we are going to answer sum queries. As an input we receive two integers $l$ and $r$, and we have to compute the sum of the segment $a[l \dots r]$ in $O(\log n)$ time. 
+For now we are going to answer sum queries. As an input we receive two integers $l$ and $r$, and we have to compute the sum of the segment $a[l \dots r)$ in $O(\log n)$ time. 
 
 To do this, we will traverse the Segment Tree and use the precomputed sums of the segments.
-Let's assume that we are currently at the vertex that covers the segment $a[tl \dots tr]$.
+Let's assume that we are currently at the vertex that covers the segment $a[tl \dots tr)$.
 There are three possible cases:
-1. $[tl \dots tr]$ is completely contained in $[l \dots r]$ : In this case, we know that the sum of this segment will surely be a part of the final answer, so we return this sum.
-2. $[tl \dots tr]$ partially covers $[l \dots r]$ : In this case, we cannot include this vertex's sum and we must explore both the left and right children. First we go to the left child($[tl \dots tm]$), compute a partial answer for this vertex (i.e. the sum of values of the intersection between the segment of the query and the segment of the left child), then go to the right child($[tm + 1 \dots tr]$, compute the partial answer using that vertex, and then combine the answers by adding them.
-3. There is no intersection between $[tl \dots tr]$ and $[l \dots r]$ : This segment does not contribute to the sum, so we return zero.
+1. $[tl \dots tr)$ is completely contained in $[l \dots r)$ : In this case, we know that the sum of this segment will surely be a part of the final answer, so we return this sum.
+2. $[tl \dots tr)$ partially covers $[l \dots r)$ : In this case, we cannot include this vertex's sum and we must explore both the left and right children. First we go to the left child($[tl \dots tm)$), compute a partial answer for this vertex (i.e. the sum of values of the intersection between the segment of the query and the segment of the left child), then go to the right child($[tm \dots tr)$, compute the partial answer using that vertex, and then combine the answers by adding them.
+3. There is no intersection between $[tl \dots tr)$ and $[l \dots r)$ : This segment does not contribute to the sum, so we return zero.
 
 So, processing a sum query is a function that recursively calls itself with left and right children until it finds a complete or no overlap between ranges.
 
@@ -172,16 +172,16 @@ int n, t[4*MAXN];
 
 The procedure for constructing the Segment Tree from a given array $a[]$ looks like this: 
 it is a recursive function with the parameters $a[]$ (the input array), $v$ (the index of the current vertex), and the boundaries $tl$ and $tr$ of the current segment. 
-In the main program this function will be called with the parameters of the root vertex: $v = 1$, $tl = 0$, and $tr = n - 1$. 
+In the main program this function will be called with the parameters of the root vertex: $v = 1$, $tl = 0$, and $tr = n$. 
 
 ```{.cpp file=segment_tree_implementation_build}
 void build(int a[], int v, int tl, int tr) {
-    if (tl == tr) {
+    if (tr - tl == 1) {
         t[v] = a[tl];
     } else {
         int tm = (tl + tr) / 2;
         build(a, v*2, tl, tm);
-        build(a, v*2+1, tm+1, tr);
+        build(a, v*2+1, tm, tr);
         t[v] = t[v*2] + t[v*2+1];
     }
 }
@@ -192,13 +192,13 @@ In order to simplify the code, this function always does two recursive calls, ev
 
 ```{.cpp file=segment_tree_implementation_sum}
 int sum(int v, int tl, int tr, int l, int r) {
-    if (tr < l || tl > r) return 0;  // no overlap
+    if (r <= tl || tr <= l) return 0;  // no overlap
     if (l <= tl && tr <= r) return t[v];  // nested segment
 
     int tm = (tl + tr) / 2;
     // partial overlap
     return sum(v * 2, tl, tm, l, r)
-            + sum(v * 2 + 1, tm + 1, tr, l, r);
+            + sum(v * 2 + 1, tm, tr, l, r);
 }
 ```
 
@@ -206,14 +206,14 @@ Finally the update query. The function will also receive information about the c
 
 ```{.cpp file=segment_tree_implementation_update}
 void update(int v, int tl, int tr, int pos, int new_val) {
-    if (tl == tr) {
+    if (tr - tl == 1) {
         t[v] = new_val;
     } else {
         int tm = (tl + tr) / 2;
-        if (pos <= tm)
+        if (pos < tm)
             update(v*2, tl, tm, pos, new_val);
         else
-            update(v*2+1, tm+1, tr, pos, new_val);
+            update(v*2+1, tm, tr, pos, new_val);
         t[v] = t[v*2] + t[v*2+1];
     }
 }
@@ -280,35 +280,35 @@ pair<int, int> combine(pair<int, int> a, pair<int, int> b) {
 }
 
 void build(int a[], int v, int tl, int tr) {
-    if (tl == tr) {
+    if (tr - tl == 1) {
         t[v] = make_pair(a[tl], 1);
     } else {
         int tm = (tl + tr) / 2;
         build(a, v*2, tl, tm);
-        build(a, v*2+1, tm+1, tr);
+        build(a, v*2+1, tm, tr);
         t[v] = combine(t[v*2], t[v*2+1]);
     }
 }
 
 pair<int, int> get_max(int v, int tl, int tr, int l, int r) {
-    if (l > r)
+    if (r <= tl || tr <= l)
         return make_pair(-INF, 0);
-    if (l == tl && r == tr)
+    if (l <= tl && tr <= r)
         return t[v];
     int tm = (tl + tr) / 2;
-    return combine(get_max(v*2, tl, tm, l, min(r, tm)), 
-                   get_max(v*2+1, tm+1, tr, max(l, tm+1), r));
+    return combine(get_max(v*2, tl, tm, l, r), 
+                   get_max(v*2+1, tm, tr, l, r));
 }
 
 void update(int v, int tl, int tr, int pos, int new_val) {
-    if (tl == tr) {
+    if (tr - tl == 1) {
         t[v] = make_pair(new_val, 1);
     } else {
         int tm = (tl + tr) / 2;
-        if (pos <= tm)
+        if (pos < tm)
             update(v*2, tl, tm, pos, new_val);
         else
-            update(v*2+1, tm+1, tr, pos, new_val);
+            update(v*2+1, tm, tr, pos, new_val);
         t[v] = combine(t[v*2], t[v*2+1]);
     }
 }
@@ -342,13 +342,13 @@ In the implementation we can handle the special case, $a[]$ containing less than
 int find_kth(int v, int tl, int tr, int k) {
     if (k > t[v])
         return -1;
-    if (tl == tr)
+    if (tr - tl == 1)
         return tl;
     int tm = (tl + tr) / 2;
     if (t[v*2] >= k)
         return find_kth(v*2, tl, tm, k);
     else 
-        return find_kth(v*2+1, tm+1, tr, k - t[v*2]);
+        return find_kth(v*2+1, tm, tr, k - t[v*2]);
 }
 ```
 
@@ -367,7 +367,7 @@ Thus finding the answer in $O(\log n)$ time.
 #### Searching for the first element greater than a given amount
 
 The task is as follows: 
-for a given value $x$ and a range $a[l \dots r]$ find the smallest $i$  in the range $a[l \dots r]$, such that $a[i]$ is greater than $x$.
+for a given value $x$ and a range $a[l \dots r)$ find the smallest $i$  in the range $a[l \dots r)$, such that $a[i]$ is greater than $x$.
 
 This task can be solved using binary search over max prefix queries with the Segment Tree.
 However, this will lead to a $O(\log^2 n)$ solution.
@@ -378,21 +378,21 @@ Thus finding the answer in $O(\log n)$ time.
 
 ```{.cpp file=segment_tree_first_greater}
 int get_first(int v, int tl, int tr, int l, int r, int x) {
-    if(tl > r || tr < l) return -1;
+    if (r <= tl || tr <= l) return -1;
     if(t[v] <= x) return -1;
     
-    if (tl== tr) return tl;
+    if (tr - tl == 1) return tl;
     
     int tm = tl + (tr-tl)/2;
     int left = get_first(2*v, tl, tm, l, r, x);
     if(left != -1) return left;
-    return get_first(2*v+1, tm+1, tr, l ,r, x);
+    return get_first(2*v+1, tm, tr, l ,r, x);
 }
 ```
 
 #### Finding subsegments with the maximal sum
 
-Here again we receive a range $a[l \dots r]$ for each query, this time we have to find a subsegment $a[l^\prime \dots r^\prime]$ such that $l \le l^\prime$ and $r^\prime \le r$ and the sum of the elements of this segment is maximal. 
+Here again we receive a range $a[l \dots r)$ for each query, this time we have to find a subsegment $a[l^\prime \dots r^\prime)$ such that $l \le l^\prime$ and $r^\prime \le r$ and the sum of the elements of this segment is maximal. 
 As before we also want to be able to modify individual elements of the array. 
 The elements of the array can be negative, and the optimal subsegment can be empty (e.g. if all elements are negative).
 
@@ -442,25 +442,25 @@ data make_data(int val) {
 }
 
 void build(int a[], int v, int tl, int tr) {
-    if (tl == tr) {
+    if (tr - tl == 1) {
         t[v] = make_data(a[tl]);
     } else {
         int tm = (tl + tr) / 2;
         build(a, v*2, tl, tm);
-        build(a, v*2+1, tm+1, tr);
+        build(a, v*2+1, tm, tr);
         t[v] = combine(t[v*2], t[v*2+1]);
     }
 }
  
 void update(int v, int tl, int tr, int pos, int new_val) {
-    if (tl == tr) {
+    if (tr - tl == 1) {
         t[v] = make_data(new_val);
     } else {
         int tm = (tl + tr) / 2;
-        if (pos <= tm)
+        if (pos < tm)
             update(v*2, tl, tm, pos, new_val);
         else
-            update(v*2+1, tm+1, tr, pos, new_val);
+            update(v*2+1, tm, tr, pos, new_val);
         t[v] = combine(t[v*2], t[v*2+1]);
     }
 }
@@ -472,13 +472,13 @@ Then it should be clear, that the work is exactly the same as in the simple Segm
 
 ```{.cpp file=segment_tree_maximal_sum_subsegments3}
 data query(int v, int tl, int tr, int l, int r) {
-    if (l > r) 
+    if (r <= tl || tr <= l) 
         return make_data(0);
-    if (l == tl && r == tr) 
+    if (l <= tl && tr <= r) 
         return t[v];
     int tm = (tl + tr) / 2;
-    return combine(query(v*2, tl, tm, l, min(r, tm)), 
-                   query(v*2+1, tm+1, tr, max(l, tm+1), r));
+    return combine(query(v*2, tl, tm, l, r), 
+                   query(v*2+1, tm, tr, l, r));
 }
 ```
 
@@ -504,7 +504,7 @@ It is worth noting the similarity of these Segment Trees with 2D data structures
 #### Find the smallest number greater or equal to a specified number. No modification queries.
 
 We want to answer queries of the following form: 
-for three given numbers $(l, r, x)$ we have to find the minimal number in the segment $a[l \dots r]$ which is greater than or equal to $x$.
+for three given numbers $(l, r, x)$ we have to find the minimal number in the segment $a[l \dots r)$ which is greater than or equal to $x$.
 
 We construct a Segment Tree. 
 In each vertex we store a sorted list of all numbers occurring in the corresponding segment, like described above. 
@@ -520,12 +520,12 @@ Because this structure of the Segment Tree and the similarities to the merge sor
 vector<int> t[4*MAXN];
 
 void build(int a[], int v, int tl, int tr) {
-    if (tl == tr) {
+    if (tr - tl == 1) {
         t[v] = vector<int>(1, a[tl]);
     } else { 
         int tm = (tl + tr) / 2;
         build(a, v*2, tl, tm);
-        build(a, v*2+1, tm+1, tr);
+        build(a, v*2+1, tm, tr);
         merge(t[v*2].begin(), t[v*2].end(), t[v*2+1].begin(), t[v*2+1].end(),
               back_inserter(t[v]));
     }
@@ -536,7 +536,7 @@ We already know that the Segment Tree constructed in this way will require $O(n 
 And thanks to this implementation its construction also takes $O(n \log n)$ time, after all each list is constructed in linear time in respect to its size. 
 
 Now consider the answer to the query. 
-We will go down the tree, like in the regular Segment Tree, breaking our segment $a[l \dots r]$ into several subsegments (into at most $O(\log n)$ pieces). 
+We will go down the tree, like in the regular Segment Tree, breaking our segment $a[l \dots r)$ into several subsegments (into at most $O(\log n)$ pieces). 
 It is clear that the answer of the whole answer is the minimum of each of the subqueries.
 So now we only need to understand, how to respond to a query on one such subsegment that corresponds with some vertex of the tree.
 
@@ -547,17 +547,17 @@ Thus the answer to the query in one segment of the tree takes $O(\log n)$ time, 
 
 ```{.cpp file=segment_tree_smallest_number_greater2}
 int query(int v, int tl, int tr, int l, int r, int x) {
-    if (l > r)
+    if (r <= tl || tr <= l)
         return INF;
-    if (l == tl && r == tr) {
+    if (l <= tl && tr <= r) {
         vector<int>::iterator pos = lower_bound(t[v].begin(), t[v].end(), x);
         if (pos != t[v].end())
             return *pos;
         return INF;
     }
     int tm = (tl + tr) / 2;
-    return min(query(v*2, tl, tm, l, min(r, tm), x), 
-               query(v*2+1, tm+1, tr, max(l, tm+1), r, x));
+    return min(query(v*2, tl, tm, l, r, x), 
+               query(v*2+1, tm, tr, l, r, x));
 }
 ```
 
@@ -589,10 +589,10 @@ void update(int v, int tl, int tr, int pos, int new_val) {
     t[v].insert(new_val);
     if (tl != tr) {
         int tm = (tl + tr) / 2;
-        if (pos <= tm)
+        if (pos < tm)
             update(v*2, tl, tm, pos, new_val);
         else
-            update(v*2+1, tm+1, tr, pos, new_val);
+            update(v*2+1, tm, tr, pos, new_val);
     } else {
         a[pos] = new_val;
     }
@@ -665,7 +665,7 @@ However the Segment Tree allows applying modification queries to an entire segme
 
 #### Addition on segments
 
-We begin by considering problems of the simplest form: the modification query should add a number $x$ to all numbers in the segment $a[l \dots r]$.
+We begin by considering problems of the simplest form: the modification query should add a number $x$ to all numbers in the segment $a[l \dots r)$.
 The second query, that we are supposed to answer, asked simply for the value of $a[i]$.
 
 To make the addition query efficient, we store at each vertex in the Segment Tree how many we should add to all numbers in the corresponding segment. 
@@ -677,42 +677,42 @@ If now there comes a query that asks the current value of a particular array ent
 
 ```cpp
 void build(int a[], int v, int tl, int tr) {
-    if (tl == tr) {
+    if (tr - tl == 1) {
         t[v] = a[tl];
     } else {
         int tm = (tl + tr) / 2;
         build(a, v*2, tl, tm);
-        build(a, v*2+1, tm+1, tr);
+        build(a, v*2+1, tm, tr);
         t[v] = 0;
     }
 }
 
 void update(int v, int tl, int tr, int l, int r, int add) {
-    if (l > r)
+    if (r <= tl || tr <= l)
         return;
-    if (l == tl && r == tr) {
+    if (l <= tl && tr <= r) {
         t[v] += add;
     } else {
         int tm = (tl + tr) / 2;
-        update(v*2, tl, tm, l, min(r, tm), add);
-        update(v*2+1, tm+1, tr, max(l, tm+1), r, add);
+        update(v*2, tl, tm, l, r, add);
+        update(v*2+1, tm, tr, l, r, add);
     }
 }
 
 int get(int v, int tl, int tr, int pos) {
-    if (tl == tr)
+    if (tr - tl == 1)
         return t[v];
     int tm = (tl + tr) / 2;
-    if (pos <= tm)
+    if (pos < tm)
         return t[v] + get(v*2, tl, tm, pos);
     else
-        return t[v] + get(v*2+1, tm+1, tr, pos);
+        return t[v] + get(v*2+1, tm, tr, pos);
 }
 ```
 
 #### Assignment on segments
 
-Suppose now that the modification query asks to assign each element of a certain segment $a[l \dots r]$ to some value $p$.
+Suppose now that the modification query asks to assign each element of a certain segment $a[l \dots r)$ to some value $p$.
 As a second query we will again consider reading the value of the array $a[i]$.
 
 To perform this modification query on a whole segment, you have to store at each vertex of the Segment Tree whether the corresponding segment is covered entirely with the same value or not.
@@ -752,29 +752,29 @@ void push(int v) {
 }
 
 void update(int v, int tl, int tr, int l, int r, int new_val) {
-    if (l > r) 
+    if (r <= tl || tr <= l) 
         return;
-    if (l == tl && tr == r) {
+    if (l <= tl && tr <= r) {
         t[v] = new_val;
         marked[v] = true;
     } else {
         push(v);
         int tm = (tl + tr) / 2;
-        update(v*2, tl, tm, l, min(r, tm), new_val);
-        update(v*2+1, tm+1, tr, max(l, tm+1), r, new_val);
+        update(v*2, tl, tm, l, r, new_val);
+        update(v*2+1, tm, tr, l, r, new_val);
     }
 }
 
 int get(int v, int tl, int tr, int pos) {
-    if (tl == tr) {
+    if (tr - tl == 1) {
         return t[v];
     }
     push(v);
     int tm = (tl + tr) / 2;
-    if (pos <= tm) 
+    if (pos < tm) 
         return get(v*2, tl, tm, pos);
     else
-        return get(v*2+1, tm+1, tr, pos);
+        return get(v*2+1, tm, tr, pos);
 }
 ```
 
@@ -795,12 +795,12 @@ We have to do this in both the $\text{update}$ function and the $\text{query}$ f
 
 ```cpp
 void build(int a[], int v, int tl, int tr) {
-    if (tl == tr) {
+    if (tr - tl == 1) {
         t[v] = a[tl];
     } else {
         int tm = (tl + tr) / 2;
         build(a, v*2, tl, tm);
-        build(a, v*2+1, tm+1, tr);
+        build(a, v*2+1, tm, tr);
         t[v] = max(t[v*2], t[v*2 + 1]);
     }
 }
@@ -814,29 +814,29 @@ void push(int v) {
 }
 
 void update(int v, int tl, int tr, int l, int r, int addend) {
-    if (l > r) 
+    if (r <= tl || tr <= l) 
         return;
-    if (l == tl && tr == r) {
+    if (l <= tl && tr <= r) {
         t[v] += addend;
         lazy[v] += addend;
     } else {
         push(v);
         int tm = (tl + tr) / 2;
-        update(v*2, tl, tm, l, min(r, tm), addend);
-        update(v*2+1, tm+1, tr, max(l, tm+1), r, addend);
+        update(v*2, tl, tm, l, r, addend);
+        update(v*2+1, tm, tr, l, r, addend);
         t[v] = max(t[v*2], t[v*2+1]);
     }
 }
 
 int query(int v, int tl, int tr, int l, int r) {
-    if (l > r)
+    if (r <= tl || tr <= l)
         return -INF;
-    if (l == tl && tr == r)
+    if (l <= tl && tr <= r)
         return t[v];
     push(v);
     int tm = (tl + tr) / 2;
-    return max(query(v*2, tl, tm, l, min(r, tm)), 
-               query(v*2+1, tm+1, tr, max(l, tm+1), r));
+    return max(query(v*2, tl, tm, l, r), 
+               query(v*2+1, tm, tr, l, r));
 }
 ```
 
@@ -854,7 +854,7 @@ So we build a 2D Segment Tree: first the Segment Tree using the first coordinate
 To make the construction process more understandable, you can forget for a while that the matrix is two-dimensional, and only leave the first coordinate.
 We will construct an ordinary one-dimensional Segment Tree using only the first coordinate.
 But instead of storing a number in a segment, we store an entire Segment Tree: 
-i.e. at this moment we remember that we also have a second coordinate; but because at this moment the first coordinate is already fixed to some interval $[l \dots r]$, we actually work with such a strip $a[l \dots r, 0 \dots m-1]$ and for it we build a Segment Tree.
+i.e. at this moment we remember that we also have a second coordinate; but because at this moment the first coordinate is already fixed to some interval $[l \dots r)$, we actually work with such a strip $a[l \dots r, 0 \dots m-1]$ and for it we build a Segment Tree.
 
 Here is the implementation of the construction of a 2D Segment Tree.
 It actually represents two separate blocks: 
@@ -864,26 +864,26 @@ when the current segment of the first coordinate $[tlx \dots trx]$ has length 1,
 
 ```cpp
 void build_y(int vx, int lx, int rx, int vy, int ly, int ry) {
-    if (ly == ry) {
-        if (lx == rx)
+    if (ry - ly == 1) {
+        if (rx - lx == 1)
             t[vx][vy] = a[lx][ly];
         else
             t[vx][vy] = t[vx*2][vy] + t[vx*2+1][vy];
     } else {
         int my = (ly + ry) / 2;
         build_y(vx, lx, rx, vy*2, ly, my);
-        build_y(vx, lx, rx, vy*2+1, my+1, ry);
+        build_y(vx, lx, rx, vy*2+1, my, ry);
         t[vx][vy] = t[vx][vy*2] + t[vx][vy*2+1];
     }
 }
 
 void build_x(int vx, int lx, int rx) {
-    if (lx != rx) {
+    if (rx - lx > 1) {
         int mx = (lx + rx) / 2;
         build_x(vx*2, lx, mx);
-        build_x(vx*2+1, mx+1, rx);
+        build_x(vx*2+1, mx, rx);
     }
-    build_y(vx, lx, rx, 1, 0, m-1);
+    build_y(vx, lx, rx, 1, 0, m);
 }
 ```
 
@@ -895,23 +895,23 @@ first break the query on the first coordinate, and then for every reached vertex
 
 ```cpp
 int sum_y(int vx, int vy, int tly, int try_, int ly, int ry) {
-    if (ly > ry) 
+    if (ry <= tly || try_ <= ly) 
         return 0;
-    if (ly == tly && try_ == ry)
+    if (ly <= tly && try_ <= ry)
         return t[vx][vy];
     int tmy = (tly + try_) / 2;
-    return sum_y(vx, vy*2, tly, tmy, ly, min(ry, tmy))
-         + sum_y(vx, vy*2+1, tmy+1, try_, max(ly, tmy+1), ry);
+    return sum_y(vx, vy*2, tly, tmy, ly, ry)
+         + sum_y(vx, vy*2+1, tmy, try_, ly, ry);
 }
 
 int sum_x(int vx, int tlx, int trx, int lx, int rx, int ly, int ry) {
-    if (lx > rx)
+    if (rx <= tlx || trx <= lx)
         return 0;
-    if (lx == tlx && trx == rx)
-        return sum_y(vx, 1, 0, m-1, ly, ry);
+    if (lx <= tlx && trx <= rx)
+        return sum_y(vx, 1, 0, m, ly, ry);
     int tmx = (tlx + trx) / 2;
-    return sum_x(vx*2, tlx, tmx, lx, min(rx, tmx), ly, ry)
-         + sum_x(vx*2+1, tmx+1, trx, max(lx, tmx+1), rx, ly, ry);
+    return sum_x(vx*2, tlx, tmx, lx, rx, ly, ry)
+         + sum_x(vx*2+1, tmx, trx, lx, rx, ly, ry);
 }
 ```
 
@@ -924,8 +924,8 @@ Therefore the implementation will be not very different form the one-dimensional
 
 ```cpp
 void update_y(int vx, int lx, int rx, int vy, int ly, int ry, int x, int y, int new_val) {
-    if (ly == ry) {
-        if (lx == rx)
+    if (ry - ly == 1) {
+        if (rx - lx == 1)
             t[vx][vy] = new_val;
         else
             t[vx][vy] = t[vx*2][vy] + t[vx*2+1][vy];
@@ -934,20 +934,20 @@ void update_y(int vx, int lx, int rx, int vy, int ly, int ry, int x, int y, int 
         if (y <= my)
             update_y(vx, lx, rx, vy*2, ly, my, x, y, new_val);
         else
-            update_y(vx, lx, rx, vy*2+1, my+1, ry, x, y, new_val);
+            update_y(vx, lx, rx, vy*2+1, my, ry, x, y, new_val);
         t[vx][vy] = t[vx][vy*2] + t[vx][vy*2+1];
     }
 }
 
 void update_x(int vx, int lx, int rx, int x, int y, int new_val) {
-    if (lx != rx) {
+    if (rx - lx > 1) {
         int mx = (lx + rx) / 2;
         if (x <= mx)
             update_x(vx*2, lx, mx, x, y, new_val);
         else
-            update_x(vx*2+1, mx+1, rx, x, y, new_val);
+            update_x(vx*2+1, mx, rx, x, y, new_val);
     }
-    update_y(vx, lx, rx, 1, 0, m-1, x, y, new_val);
+    update_y(vx, lx, rx, 1, 0, m, x, y, new_val);
 }
 ```
 
@@ -1000,30 +1000,30 @@ struct Vertex {
 };
 
 Vertex* build(int a[], int tl, int tr) {
-    if (tl == tr)
+    if (tr - tl == 1)
         return new Vertex(a[tl]);
     int tm = (tl + tr) / 2;
-    return new Vertex(build(a, tl, tm), build(a, tm+1, tr));
+    return new Vertex(build(a, tl, tm), build(a, tm, tr));
 }
 
 int get_sum(Vertex* v, int tl, int tr, int l, int r) {
-    if (l > r)
+    if (r <= tl || tr <= l)
         return 0;
-    if (l == tl && tr == r)
+    if (l <= tl && tr <= r)
         return v->sum;
     int tm = (tl + tr) / 2;
-    return get_sum(v->l, tl, tm, l, min(r, tm))
-         + get_sum(v->r, tm+1, tr, max(l, tm+1), r);
+    return get_sum(v->l, tl, tm, l, r)
+         + get_sum(v->r, tm, tr, l, r);
 }
 
 Vertex* update(Vertex* v, int tl, int tr, int pos, int new_val) {
-    if (tl == tr)
+    if (tr - tl == 1)
         return new Vertex(new_val);
     int tm = (tl + tr) / 2;
-    if (pos <= tm)
+    if (pos < tm)
         return new Vertex(update(v->l, tl, tm, pos, new_val), v->r);
     else
-        return new Vertex(v->l, update(v->r, tm+1, tr, pos, new_val));
+        return new Vertex(v->l, update(v->r, tm, tr, pos, new_val));
 }
 ```
 
@@ -1035,7 +1035,7 @@ With the approach described above almost any Segment Tree can be turned into a p
 
 #### Finding the $k$-th smallest number in a range {data-toc-label="Finding the k-th smallest number in a range"}
 
-This time we have to answer queries of the form "What is the $k$-th smallest element in the range $a[l \dots r]$. 
+This time we have to answer queries of the form "What is the $k$-th smallest element in the range $a[l \dots r)$. 
 This query can be answered using a binary search and a Merge Sort Tree, but the time complexity for a single query would be $O(\log^3 n)$.
 We will accomplish the same task using a persistent Segment Tree in $O(\log n)$.
 
@@ -1057,9 +1057,9 @@ Using this Segment Tree we can find in $O(\log n)$ time the position of the $k$-
 Now to the not-restricted version of the problem.
 
 First for the restriction on the queries: 
-Instead of only performing these queries over a prefix of $a$, we want to use any arbitrary segments $a[l \dots r]$.
-Here we need a Segment Tree that represents the histogram of the elements in the range $a[l \dots r]$. 
-It is easy to see that such a Segment Tree is just the difference between the Segment Tree rooted at $root_{r}$ and the Segment Tree rooted at $root_{l-1}$, i.e. every vertex in the $[l \dots r]$ Segment Tree can be computed with the vertex of the $root_{r}$ tree minus the vertex of the $root_{l-1}$ tree.
+Instead of only performing these queries over a prefix of $a$, we want to use any arbitrary segments $a[l \dots r)$.
+Here we need a Segment Tree that represents the histogram of the elements in the range $a[l \dots r)$. 
+It is easy to see that such a Segment Tree is just the difference between the Segment Tree rooted at $root_{r}$ and the Segment Tree rooted at $root_{l-1}$, i.e. every vertex in the $[l \dots r)$ Segment Tree can be computed with the vertex of the $root_{r}$ tree minus the vertex of the $root_{l-1}$ tree.
 
 In the implementation of the $\text{find_kth}$ function this can be handled by passing two vertex pointer and computing the count/sum of the current segment as difference of the two counts/sums of the vertices.
 
@@ -1067,29 +1067,29 @@ Here are the modified $\text{build}$, $\text{update}$  and $\text{find_kth}$ fun
 
 ```{.cpp file=kth_smallest_persistent_segment_tree}
 Vertex* build(int tl, int tr) {
-    if (tl == tr)
+    if (tr - tl == 1)
         return new Vertex(0);
     int tm = (tl + tr) / 2;
-    return new Vertex(build(tl, tm), build(tm+1, tr));
+    return new Vertex(build(tl, tm), build(tm, tr));
 }
 
 Vertex* update(Vertex* v, int tl, int tr, int pos) {
-    if (tl == tr)
+    if (tr - tl == 1)
         return new Vertex(v->sum+1);
     int tm = (tl + tr) / 2;
-    if (pos <= tm)
+    if (pos < tm)
         return new Vertex(update(v->l, tl, tm, pos), v->r);
     else
-        return new Vertex(v->l, update(v->r, tm+1, tr, pos));
+        return new Vertex(v->l, update(v->r, tm, tr, pos));
 }
 
 int find_kth(Vertex* vl, Vertex *vr, int tl, int tr, int k) {
-    if (tl == tr)
+    if (tr - tl == 1)
     	return tl;
     int tm = (tl + tr) / 2, left_count = vr->l->sum - vl->l->sum;
     if (left_count >= k)
     	return find_kth(vl->l, vr->l, tl, tm, k);
-    return find_kth(vl->r, vr->r, tm+1, tr, k-left_count);
+    return find_kth(vl->r, vr->r, tm, tr, k-left_count);
 }
 ```
 
