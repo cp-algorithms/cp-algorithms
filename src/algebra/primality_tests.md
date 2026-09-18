@@ -184,9 +184,9 @@ Bach later gave a concrete bound, it is only necessary to test all bases $a \le 
 
 This is still a pretty large number of bases.
 So people have invested quite a lot of computation power into finding lower bounds.
-It turns out, for testing a 32 bit integer it is only necessary to check the first 4 prime bases: 2, 3, 5 and 7.
-The smallest composite number that fails this test is $3,215,031,751 = 151 \cdot 751 \cdot 28351$.
-And for testing 64 bit integer it is enough to check the first 12 prime bases: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, and 37.
+It turns out that for 64 bit integers it is enough to test only seven bases: 2, 325, 9375, 28178, 450775, 9780504 and 1795265022.
+These are not themselves prime, so the test also has to accept $n$ outright when it equals one of their prime divisors: 2, 3, 5, 13, 19, 73, 193, 407521 and 299210837.
+Otherwise a base divisible by $n$ would reduce to $0$ and wrongly report $n$ as composite.
 
 This results in the following deterministic implementation:
 
@@ -202,43 +202,23 @@ bool MillerRabin(u64 n) { // returns true if n is prime, else returns false.
         r++;
     }
 
-    for (int a : {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37}) {
-        if (n == a)
+    for (u64 p : {2, 3, 5, 13, 19, 73, 193, 407521, 299210837})
+        if (n == p)
             return true;
+
+    for (u64 a : {2, 325, 9375, 28178, 450775, 9780504, 1795265022})
         if (check_composite(n, a, d, r))
             return false;
-    }
     return true;
 }
 ```
 
-It's also possible to do the check with only 7 bases: 2, 325, 9375, 28178, 450775, 9780504 and 1795265022.
-However, since these numbers (except 2) are not prime, you need to check additionally if the number you are checking is equal to any prime divisor of those bases: 2, 3, 5, 13, 19, 73, 193, 407521, 299210837.
+Using the first 12 prime numbers as bases, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31 and 37, also works for 64 bit integers and avoids the second list, at the cost of five extra rounds.
+For 32 bit integers the first four prime bases 2, 3, 5 and 7 suffice; the smallest composite number that passes them is $3\,215\,031\,751 = 151 \cdot 751 \cdot 28351$.
 
-```cpp
-bool MillerRabin(u64 n) { // returns true if n is prime, else returns false.
-    if (n < 2)
-        return false;
-
-    int r = 0;
-    u64 d = n - 1;
-    while ((d & 1) == 0) {
-        d >>= 1;
-        r++;
-    }
-
-    for (int a : {2, 3, 5, 13, 19, 73, 193, 407521, 299210837}) {
-        if (n == a)
-            return true;
-    }
-
-    for (int a : {2, 325, 9375, 28178, 450775, 9780504, 1795265022}) {
-        if (check_composite(n, a, d, r))
-            return false;
-    }
-    return true;
-}
-```
+The number of rounds can be brought down further by picking the bases from a small table indexed by a hash of $n$, which brings any 64 bit number down to three tests.
+See [`cp-algo/number_theory/primality.hpp`](https://github.com/cp-algorithms/cp-algorithms-aux/blob/main/cp-algo/number_theory/primality.hpp), which uses the seven bases above by default and switches to the hashed tables when they are available, falling back to the classic 2, 7 and 61 below $2^{32}$.
+The tables themselves come from [Bradley Berg](https://www.techneon.com/), extending an earlier 32 bit test by Steve Worley.
 
 ## Practice Problems
 
