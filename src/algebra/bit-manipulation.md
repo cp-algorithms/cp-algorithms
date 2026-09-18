@@ -214,14 +214,13 @@ With the new knowledge in hand we can come up with the following algorithm:
 ```cpp
 long long popcount_sum(unsigned n) {
     long long count = 0;
-    while (n > 0) {
+    while (n > 1) {
         int x = std::bit_width(n) - 1;
-        if (x > 0)
-            count += (long long)x << (x - 1); // set bits below 2^x
+        count += (long long)x << (x - 1); // set bits below 2^x
         n -= 1u << x;
         count += n + 1;                   // leading bits of 2^x..n
     }
-    return count;
+    return count + n;
 }
 ```
 
