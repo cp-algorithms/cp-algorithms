@@ -87,6 +87,9 @@ Similar to the 0-1 knapsack, we can remove the first dimension to optimize the s
 
 $$f_j \gets \max(f_j, f_{j-w_i}+v_i)$$
 
+The rule is identical, but it must now be executed in the **increasing** order of $j$, which is the only difference between the two problems in this form.
+Going upwards, $f_{j-w_i}$ has already been updated for item $i$, so it corresponds to $f_{i,j-w_i}$ and the item may be taken again; going downwards it would still correspond to $f_{i-1,j-w_i}$ and each item could be taken at most once.
+
 ### Implementation
 
 The algorithm described can be implemented in $O(nW)$ as:
