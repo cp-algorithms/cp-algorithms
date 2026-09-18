@@ -1,14 +1,14 @@
 ---
-title: Checking a graph for acyclicity and finding a cycle in O(N+M)
+title: Checking a graph for acyclicity and finding a cycle in O(M)
 tags:
   - Translated
 e_maxx_link: finding_cycle
 ---
-# Checking a graph for acyclicity and finding a cycle in $O(N+M)$
+# Checking a graph for acyclicity and finding a cycle in $O(M)$
 
 Consider a directed or undirected graph without loops and multiple edges. We have to check whether it is acyclic, and if it is not, then find any cycle.
 
-We can solve this problem by using [Depth First Search](depth-first-search.md) in $O(N+M)$, where $N$ is the number of vertices and $M$ is the number of edges.
+We can solve this problem by using [Depth First Search](depth-first-search.md) in $O(M)$, where $M$ is the number of edges. An isolated vertex can never lie on a cycle, so it is enough to start the search from the at most $2M$ vertices that are incident to an edge. The implementation below simply iterates over all vertices, which adds an $O(N)$ term that the algorithm itself does not require.
 
 ## Algorithm
 
