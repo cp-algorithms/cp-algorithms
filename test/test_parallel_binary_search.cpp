@@ -12,6 +12,13 @@ void test_parallel_binary_search()
     vector<int> expected = {3, 5, 1, 2};
 
     assert(parallel_binary_search(a, x) == expected);
+
+    // N is a power of two here, which needs one more halving step than
+    // ceil(log2(N)) provides; the queries below sit at the end of the array.
+    vector<int> edge_x = {15, 14, 0};
+    vector<int> edge_expected = {7, 6, -1};
+
+    assert(parallel_binary_search(a, edge_x) == edge_expected);
 }
 
 int main()

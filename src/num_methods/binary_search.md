@@ -155,7 +155,7 @@ This "offline" processing of queries, where we collect all queries and answer th
 
 ### Implementation
 
-Imagine that we want to answer $Z$ queries about the index of the largest value less than or equal to some $X_i$ (for $i=1,2,\ldots,Z$) in a sorted 0-indexed array $A$. Naturally, each query can be answered using binary search. Expand commentComment on line R157Resolved
+Imagine that we want to answer $Z$ queries about the index of the largest value less than or equal to some $X_i$ (for $i=1,2,\ldots,Z$) in a sorted 0-indexed array $A$. Naturally, each query can be answered using binary search.
 
 Specifically, let us consider the following array $A = [1,3,5,7,9,9,13,15]$
 with queries: $X = [8,11,4,5]$. We can use binary search for each query sequentially.
@@ -176,7 +176,7 @@ vector<int> parallel_binary_search(vector<int>& A, vector<int>& X) {
     int Z = X.size();
     vector<int> l(Z, -1), r(Z, N);
 
-    for (int step = 1; step <= ceil(log2(N)); ++step) {
+    for (int step = 1; step <= ceil(log2(N + 1)); ++step) {
         // A vector of vectors to store indices of queries for each middle point.
         vector<vector<int>> m_to_queries(N);
 
@@ -206,7 +206,7 @@ vector<int> parallel_binary_search(vector<int>& A, vector<int>& X) {
 }
 ```
 
-??? note "Example Solution: Meteros
+??? note "Example Solution: Meteors"
 
     A pretty well known problem using this method is called "Meteors", and is listed in the practice problems. We are given $N$ countries, and for each country, a target number of meteors to collect. We are also given a sequence of $K$ meteor showers, each affecting a range of countries. The goal is to find, for each country, the earliest time (i.e., which meteor shower) they reach their target.
 
