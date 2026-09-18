@@ -93,7 +93,7 @@ The algorithm described can be implemented in $O(nW)$ as:
 
 ```cpp
 for (int i = 1; i <= n; i++)
-  for (int j = 0; j <= W; j++)
+  for (int j = w[i]; j <= W; j++)
     f[j] = max(f[j], f[j - w[i]] + v[i]);
 ```
 
@@ -131,7 +131,7 @@ This optimization gives us a time complexity of $O(W\sum\limits_{i=1}^{n}\log k_
 
 ### Implementation
 
-```c++
+```cpp
 index = 0;
 for (int i = 1; i <= n; i++) {
   int c = 1, p, h, k;
@@ -169,7 +169,7 @@ The mixed knapsack problem involves a combination of the three problems describe
 
 The problem may seem daunting, but as long as you understand the core ideas of the previous knapsack problems and combine them together, you can do it. The pseudo code for the solution is as:
 
-```c++
+```cpp
 for (each item) {
   if (0-1 knapsack)
     Apply 0-1 knapsack code;
