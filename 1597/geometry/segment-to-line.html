@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -6868,6 +6868,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7934,6 +7962,18 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
     
@@ -7954,6 +7994,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -7974,7 +8018,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 8, 2022 11:09:55 UTC">June 8, 2022</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 13:29:32 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8019,8 +8063,8 @@ C &amp;= - A P_x - B P_y.
 <h3 id="integer-case">Integer case<a class="headerlink" href="#integer-case" title="Permanent link">&para;</a></h3>
 <p>An important advantage of this method of constructing a straight line is that if the coordinates of the ends were integer, then the coefficients obtained will also be <strong>integer</strong> . In some cases, this allows one to perform geometric operations without resorting to real numbers at all.</p>
 <p>However, there is a small drawback: for the same straight line different triples of coefficients can be obtained.
-To avoid this, but do not go away from the integer coefficients, you can apply the following technique, often called <strong>rationing</strong>. Find the <a href="../algebra/euclid-algorithm.html">greatest common divisor</a> of numbers <span class="arithmatex">$| A | , | B | , | C |$</span> , we divide all three coefficients by it, and then we make the normalization of the sign: if <span class="arithmatex">$A &lt;0$</span> or <span class="arithmatex">$A = 0, B &lt;0$</span> then multiply all three coefficients by <span class="arithmatex">$-1$</span> .
-As a result, we will come to the conclusion that for identical straight lines, identical triples of coefficients will be obtained, which makes it easy to check straight lines for equality.</p>
+To avoid this while retaining integer coefficients, normalize the coefficients as follows. Find the <a href="../algebra/euclid-algorithm.html">greatest common divisor</a> of numbers <span class="arithmatex">$| A | , | B | , | C |$</span> , divide all three coefficients by it, and then normalize the sign: if <span class="arithmatex">$A &lt;0$</span> or <span class="arithmatex">$A = 0, B &lt;0$</span> then multiply all three coefficients by <span class="arithmatex">$-1$</span> .
+As a result, identical straight lines will produce identical triples of coefficients, which makes it easy to check straight lines for equality.</p>
 <h3 id="real-case">Real case<a class="headerlink" href="#real-case" title="Permanent link">&para;</a></h3>
 <p>When working with real numbers, you should always be aware of errors.</p>
 <p>The coefficients <span class="arithmatex">$A$</span> and <span class="arithmatex">$B$</span> will have the order of the original coordinates, the coefficient <span class="arithmatex">$C$</span> is of the order of the square of them. This may already be quite large numbers, and, for example, when we <a href="lines-intersection.html">intersect straight lines</a>, they will become even larger, which can lead to large rounding errors already when the coordinates of the end points are of order <span class="arithmatex">$10^3$</span>.</p>
@@ -8034,12 +8078,12 @@ Accordingly, if we make an additional normalization taking into account the sign
 <p>Already in the three-dimensional case there is <strong>no simple equation</strong> describing a straight line (it can be defined as the intersection of two planes, that is, a system of two equations, but this is an inconvenient method).</p>
 <p>Consequently, in the three-dimensional and multidimensional cases we must use the <strong>parametric method of defining a straight line</strong> , i.e. as a point <span class="arithmatex">$p$</span> and a vector <span class="arithmatex">$v$</span> :</p>
 <div class="arithmatex">$$p + v t, ~~~ t \in \mathbb{R}.$$</div>
-<p>Those. a straight line is all points that can be obtained from a point <span class="arithmatex">$p$</span> adding a vector <span class="arithmatex">$v$</span> with an arbitrary coefficient.</p>
+<p>That is, a straight line is the set of all points that can be obtained from a point <span class="arithmatex">$p$</span> by adding a vector <span class="arithmatex">$v$</span> multiplied by an arbitrary coefficient.</p>
 <p>The <strong>construction</strong> of a straight line in a parametric form along the coordinates of the ends of a segment is trivial, we just take one end of the segment for the point <span class="arithmatex">$p$</span>, and the vector from the first to the second end — for the vector <span class="arithmatex">$v$</span>.</p>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/cbdavide" title="cbdavide" data-bi-name="contributorprofile" target="_blank">cbdavide</a> (80.88%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (10.29%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (8.82%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/cbdavide" title="cbdavide" data-bi-name="contributorprofile" target="_blank">cbdavide</a> (77.94%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (8.82%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (8.82%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (4.41%)</li></ul>
 </ul>
                 
               </article>
@@ -8122,9 +8166,11 @@ Accordingly, if we make an additional normalization taking into account the sign
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
+      
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
       
         <script src="../javascript/donation-banner.js"></script>
       

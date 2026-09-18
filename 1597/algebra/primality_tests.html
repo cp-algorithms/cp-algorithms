@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -957,23 +957,6 @@
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Miller-Rabin primality test">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#deterministic-version" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Deterministic version
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -6885,6 +6868,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7951,6 +7962,18 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
     
@@ -8015,6 +8038,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8055,7 +8082,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 16, 2024 21:24:37 UTC">April 16, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 21:24:31 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8153,9 +8180,12 @@ In that case the base <span class="arithmatex">$a$</span> is called a <em>strong
 If a base <span class="arithmatex">$a$</span> satisfies the equations (one of them), <span class="arithmatex">$n$</span> is only <em>strong probable prime</em>.
 However, there are no numbers like the Carmichael numbers, where all non-trivial bases lie.
 In fact it is possible to show, that at most <span class="arithmatex">$\frac{1}{4}$</span> of the bases can be strong liars.
-If <span class="arithmatex">$n$</span> is composite, we have a probability of <span class="arithmatex">$\ge 75\%$</span> that a random base will tell us that it is composite.
-By doing multiple iterations, choosing different random bases, we can tell with very high probability if the number is truly prime or if it is composite.</p>
-<p>Here is an implementation for 64 bit integer.</p>
+If <span class="arithmatex">$n$</span> is composite, we have a probability of <span class="arithmatex">$\ge 75\%$</span> that a random base will tell us that it is composite, so repeating the test with random bases makes the error probability as small as we like.</p>
+<p>Over a bounded range we can avoid randomness altogether: a small set of fixed bases, found by exhaustive search, decides every number in that range outright.
+Miller showed that checking every base <span class="arithmatex">$\le O((\ln n)^2)$</span> makes the test deterministic, and Bach gave the concrete bound <span class="arithmatex">$a \le 2\ln(n)^2$</span>.
+That is still a lot of bases, so considerable computation has gone into finding smaller sets.
+For 64 bit integers seven bases suffice: 2, 325, 9375, 28178, 450775, 9780504 and 1795265022.</p>
+<p>Here is an implementation for 64 bit integers.</p>
 <div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">u64</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">uint64_t</span><span class="p">;</span>
 <span class="k">using</span><span class="w"> </span><span class="n">u128</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">__uint128_t</span><span class="p">;</span>
 
@@ -8172,6 +8202,9 @@ By doing multiple iterations, choosing different random bases, we can tell with 
 <span class="p">}</span>
 
 <span class="kt">bool</span><span class="w"> </span><span class="nf">check_composite</span><span class="p">(</span><span class="n">u64</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">u64</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">u64</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">a</span><span class="w"> </span><span class="o">%=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="c1">// n divides the base, so this base can say nothing about n</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
 <span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">binpower</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
@@ -8183,9 +8216,9 @@ By doing multiple iterations, choosing different random bases, we can tell with 
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="kt">bool</span><span class="w"> </span><span class="nf">MillerRabin</span><span class="p">(</span><span class="n">u64</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">iter</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// returns true if n is probably prime, else returns false.</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">MillerRabin</span><span class="p">(</span><span class="n">u64</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// returns true if n is prime, else returns false.</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
 
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
@@ -8194,48 +8227,23 @@ By doing multiple iterations, choosing different random bases, we can tell with 
 <span class="w">        </span><span class="n">s</span><span class="o">++</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">iter</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rand</span><span class="p">()</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">u64</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">325</span><span class="p">,</span><span class="w"> </span><span class="mi">9375</span><span class="p">,</span><span class="w"> </span><span class="mi">28178</span><span class="p">,</span><span class="w"> </span><span class="mi">450775</span><span class="p">,</span><span class="w"> </span><span class="mi">9780504</span><span class="p">,</span><span class="w"> </span><span class="mi">1795265022</span><span class="p">})</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">check_composite</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">))</span>
 <span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>Before the Miller-Rabin test you can test additionally if one of the first few prime numbers is a divisor.
-This can speed up the test by a lot, since most composite numbers have very small prime divisors.
-E.g. <span class="arithmatex">$88\%$</span> of all numbers have a prime factor smaller than <span class="arithmatex">$100$</span>.</p>
-<h3 id="deterministic-version">Deterministic version<a class="headerlink" href="#deterministic-version" title="Permanent link">&para;</a></h3>
-<p>Miller showed that it is possible to make the algorithm deterministic by only checking all bases <span class="arithmatex">$\le O((\ln n)^2)$</span>.
-Bach later gave a concrete bound, it is only necessary to test all bases <span class="arithmatex">$a \le 2 \ln(n)^2$</span>.</p>
-<p>This is still a pretty large number of bases.
-So people have invested quite a lot of computation power into finding lower bounds.
-It turns out, for testing a 32 bit integer it is only necessary to check the first 4 prime bases: 2, 3, 5 and 7.
-The smallest composite number that fails this test is <span class="arithmatex">$3,215,031,751 = 151 \cdot 751 \cdot 28351$</span>.
-And for testing 64 bit integer it is enough to check the first 12 prime bases: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, and 37.</p>
-<p>This results in the following deterministic implementation:</p>
-<div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="nf">MillerRabin</span><span class="p">(</span><span class="n">u64</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// returns true if n is prime, else returns false.</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
-
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">((</span><span class="n">d</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">d</span><span class="w"> </span><span class="o">&gt;&gt;=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="w">        </span><span class="n">r</span><span class="o">++</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w"> </span><span class="mi">19</span><span class="p">,</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span><span class="w"> </span><span class="mi">29</span><span class="p">,</span><span class="w"> </span><span class="mi">31</span><span class="p">,</span><span class="w"> </span><span class="mi">37</span><span class="p">})</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">a</span><span class="p">)</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">check_composite</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">))</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>It's also possible to do the check with only 7 bases: 2, 325, 9375, 28178, 450775, 9780504 and 1795265022.
-However, since these numbers (except 2) are not prime, you need to check additionally if the number you are checking is equal to any prime divisor of those bases: 2, 3, 5, 13, 19, 73, 193, 407521, 299210837.</p>
+<p>Apart from <span class="arithmatex">$2$</span>, none of the seven bases is prime, so a base can be a multiple of the very <span class="arithmatex">$n$</span> we are testing, for instance <span class="arithmatex">$5$</span> divides <span class="arithmatex">$9375$</span> and <span class="arithmatex">$13$</span> divides <span class="arithmatex">$325$</span>.
+Such a base reduces to <span class="arithmatex">$0$</span> and cannot say anything about <span class="arithmatex">$n$</span>, so <code>check_composite</code> skips it and lets the remaining bases decide.</p>
+<p>This is narrower than skipping every zero residue, and deliberately so.
+If <span class="arithmatex">$n$</span> does not divide <span class="arithmatex">$a$</span> but does divide <span class="arithmatex">$a^d$</span>, then <span class="arithmatex">$n$</span> cannot be prime, since a prime dividing <span class="arithmatex">$a^d$</span> must divide <span class="arithmatex">$a$</span>.
+In that case the zero is a proof of compositeness rather than a missing answer, and the function reports it as such.
+Only the first branch discards information, which is also why the same <code>check_composite</code> stays correct if you feed it random bases instead of this fixed set.</p>
+<p>Using the first 12 prime numbers as bases, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31 and 37, also works for 64 bit integers, at the cost of five extra rounds.
+For 32 bit integers the first four prime bases 2, 3, 5 and 7 suffice; the smallest composite number that passes them is <span class="arithmatex">$3\,215\,031\,751 = 151 \cdot 751 \cdot 28351$</span>.</p>
+<p>The number of rounds can be brought down further by picking the bases from a small table indexed by a hash of <span class="arithmatex">$n$</span>, which brings any 64 bit number down to three tests.
+See <a href="https://lib.cp-algorithms.com/cp-algo/number_theory/primality.hpp.html"><code>cp-algo/number_theory/primality.hpp</code></a>, which uses the seven bases above by default and switches to the hashed tables when they are available, falling back to the classic 2, 7 and 61 below <span class="arithmatex">$2^{32}$</span>.
+The tables themselves come from <a href="https://www.techneon.com/">Bradley Berg</a>, extending an earlier 32 bit test by Steve Worley.</p>
 <h2 id="practice-problems">Practice Problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://www.spoj.com/problems/PON/">SPOJ - Prime or Not</a></li>
@@ -8244,7 +8252,7 @@ However, since these numbers (except 2) are not prime, you need to check additio
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (91.41%)</li><li><a href="https://github.com/gampu" title="gampu" data-bi-name="contributorprofile" target="_blank">gampu</a> (3.17%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.71%)</li><li><a href="https://github.com/boxlesscat" title="boxlesscat" data-bi-name="contributorprofile" target="_blank">boxlesscat</a> (1.36%)</li><li><a href="https://github.com/pokorj54" title="pokorj54" data-bi-name="contributorprofile" target="_blank">pokorj54</a> (0.45%)</li><li><a href="https://github.com/siddharthabhi30" title="siddharthabhi30" data-bi-name="contributorprofile" target="_blank">siddharthabhi30</a> (0.45%)</li><li><a href="https://github.com/HKalbasi" title="HKalbasi" data-bi-name="contributorprofile" target="_blank">HKalbasi</a> (0.45%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (79.4%)</li><li><a href="https://github.com/Artoria2e5" title="Artoria2e5" data-bi-name="contributorprofile" target="_blank">Artoria2e5</a> (12.56%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.02%)</li><li><a href="https://github.com/gampu" title="gampu" data-bi-name="contributorprofile" target="_blank">gampu</a> (2.51%)</li><li><a href="https://github.com/boxlesscat" title="boxlesscat" data-bi-name="contributorprofile" target="_blank">boxlesscat</a> (1.01%)</li><li><a href="https://github.com/pokorj54" title="pokorj54" data-bi-name="contributorprofile" target="_blank">pokorj54</a> (0.5%)</li><li><a href="https://github.com/siddharthabhi30" title="siddharthabhi30" data-bi-name="contributorprofile" target="_blank">siddharthabhi30</a> (0.5%)</li><li><a href="https://github.com/hkalbasi" title="hkalbasi" data-bi-name="contributorprofile" target="_blank">hkalbasi</a> (0.5%)</li></ul>
 </ul>
                 
               </article>
@@ -8327,9 +8335,11 @@ However, since these numbers (except 2) are not prime, you need to check additio
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
+      
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
       
         <script src="../javascript/donation-banner.js"></script>
       

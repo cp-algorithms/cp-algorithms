@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -6775,6 +6775,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8026,19 +8054,11 @@ Describe the issue of this article in detail.
   
     
   
-
-  
-  
-  
     
   
 
   
   
-  
-    
-  
-    
   
     
   
@@ -8051,7 +8071,25 @@ Describe the issue of this article in detail.
     
   
 
+  
+  
+  
+    
+  
 
+  
+  
+  
+    
+  
+    
+  
+
+
+
+  
+  
+  
 
   
   
@@ -8072,7 +8110,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 28, 2024 08:11:23 UTC">November 28, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 10, 2026 01:04:02 UTC">June 10, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8151,7 +8189,7 @@ Especially the algorithm will run pretty fast for random graphs.</p>
 <h3 id="special-algorithm-for-edge-connectivity">Special algorithm for edge connectivity<a class="headerlink" href="#special-algorithm-for-edge-connectivity" title="Permanent link">&para;</a></h3>
 <p>The task of finding the edge connectivity is equal to the task of finding the <strong>global minimum cut</strong>.</p>
 <p>Special algorithms have been developed for this task.
-One of them is the Stoer-Wagner algorithm, which works in <span class="arithmatex">$O(V^3)$</span> or <span class="arithmatex">$O(V E)$</span> time.</p>
+One of them is the <a href="stoer_wagner_mincut.html">Stoer-Wagner algorithm</a>, which works in <span class="arithmatex">$O(V^3)$</span> or <span class="arithmatex">$O(V E + V^2 \log V)$</span> time.</p>
 <h3 id="vertex-connectivity_1">Vertex connectivity<a class="headerlink" href="#vertex-connectivity_1" title="Permanent link">&para;</a></h3>
 <p>Again we iterate over all pairs of vertices <span class="arithmatex">$s$</span> and <span class="arithmatex">$t$</span>, and for each pair we find the minimum number of vertices that separates <span class="arithmatex">$s$</span> and <span class="arithmatex">$t$</span>.</p>
 <p>By doing this, we can apply the same maximum flow approach as described in the previous sections.</p>
@@ -8162,7 +8200,7 @@ The by the construction the value of the maximum flow will be equal to the minim
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (89.47%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (8.42%)</li><li><a href="https://github.com/toluwalase104" title="toluwalase104" data-bi-name="contributorprofile" target="_blank">toluwalase104</a> (2.11%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (88.42%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (9.47%)</li><li><a href="https://github.com/toluwalase104" title="toluwalase104" data-bi-name="contributorprofile" target="_blank">toluwalase104</a> (2.11%)</li></ul>
 </ul>
                 
               </article>
@@ -8245,9 +8283,11 @@ The by the construction the value of the maximum flow will be equal to the minim
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
+      
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
       
         <script src="../javascript/donation-banner.js"></script>
       

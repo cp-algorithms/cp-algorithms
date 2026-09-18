@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -6857,6 +6857,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7941,6 +7969,18 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
     
@@ -8003,6 +8043,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8043,7 +8087,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 19, 2026 06:04:57 UTC">April 19, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 20:45:33 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8094,28 +8138,36 @@ However this is impossible, since Dijkstra's algorithm iterates over the vertice
 <p>This means, that the order of the queue looks like this:</p>
 <div class="arithmatex">$$Q = \underbrace{v}_{d[v]}, \dots, \underbrace{u}_{d[v]}, \underbrace{m}_{d[v]+1} \dots \underbrace{n}_{d[v]+1}$$</div>
 <p>This structure is so simple, that we don't need an actual priority queue, i.e. using a balanced binary tree would be an overkill.
-We can simply use a normal queue, and append new vertices at the beginning if the corresponding edge has weight <span class="arithmatex">$0$</span>, i.e. if <span class="arithmatex">$d[u] = d[v]$</span>, or at the end if the edge has weight <span class="arithmatex">$1$</span>, i.e. if <span class="arithmatex">$d[u] = d[v] + 1$</span>.
-This way the queue still remains sorted at all time.</p>
+Since the queue only ever holds two distinct distances, we can keep them in two separate vectors: <span class="arithmatex">$q_0$</span> for the vertices at distance <span class="arithmatex">$d[v]$</span>, and <span class="arithmatex">$q_1$</span> for those at distance <span class="arithmatex">$d[v] + 1$</span>.
+An edge of weight <span class="arithmatex">$0$</span> appends to <span class="arithmatex">$q_0$</span>, an edge of weight <span class="arithmatex">$1$</span> to <span class="arithmatex">$q_1$</span>.
+Once <span class="arithmatex">$q_0$</span> runs out, every vertex at the current distance has been processed, so we swap the two vectors and the current distance increases by one.</p>
 <div class="highlight"><pre><span></span><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">d</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">INF</span><span class="p">);</span>
 <span class="n">d</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">q</span><span class="p">;</span>
-<span class="n">q</span><span class="p">.</span><span class="n">push_front</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
-<span class="w">    </span><span class="n">q</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">q0</span><span class="p">,</span><span class="w"> </span><span class="n">q1</span><span class="p">;</span>
+<span class="n">q0</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">q0</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q0</span><span class="p">.</span><span class="n">back</span><span class="p">();</span>
+<span class="w">    </span><span class="n">q0</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">edge</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
 <span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">edge</span><span class="p">.</span><span class="n">second</span><span class="p">;</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">w</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">u</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="n">d</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">w</span><span class="p">;</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">w</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
-<span class="w">                </span><span class="n">q</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">w</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">                </span><span class="n">q0</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
 <span class="w">            </span><span class="k">else</span>
-<span class="w">                </span><span class="n">q</span><span class="p">.</span><span class="n">push_front</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+<span class="w">                </span><span class="n">q1</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">q0</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+<span class="w">        </span><span class="n">swap</span><span class="p">(</span><span class="n">q0</span><span class="p">,</span><span class="w"> </span><span class="n">q1</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
+<p>Written this way the two levels are explicit: <span class="arithmatex">$q_0$</span> is exactly the set of vertices at the current distance and <span class="arithmatex">$q_1$</span> exactly those one step further, so the structure of <span class="arithmatex">$Q$</span> shown above holds by construction instead of being a property we have to maintain.
+Note that <span class="arithmatex">$q_0$</span> is used as a stack rather than a queue, which is harmless: all of its vertices share the same distance, so the order in which they are processed does not matter.</p>
+<p>The same algorithm is more commonly written with a single <code>deque</code>, pushing to the front for weight <span class="arithmatex">$0$</span> and to the back for weight <span class="arithmatex">$1$</span>, so that <code>push_front</code> and <code>push_back</code> play the roles of <span class="arithmatex">$q_0$</span> and <span class="arithmatex">$q_1$</span>.
+Two vectors are preferable in practice because they avoid the deque's chunked storage: on graphs small enough to stay in cache this measures about <span class="arithmatex">$1.15$</span> times faster, falling to roughly <span class="arithmatex">$1.06$</span> times on graphs of millions of vertices, where memory latency dominates and the choice of container matters much less (see this <a href="https://github.com/ahhz/zero-one-bfs-queue">benchmark</a>).</p>
+<p>If no edge has weight <span class="arithmatex">$0$</span>, the algorithm degenerates into an ordinary BFS, and in that case a plain <a href="breadth-first-search.html">BFS</a> is both simpler and slightly faster.</p>
 <h2 id="dials-algorithm">Dial's algorithm<a class="headerlink" href="#dials-algorithm" title="Permanent link">&para;</a></h2>
 <p>We can extend this even further if we allow the weights of the edges to be even bigger.
 If every edge in the graph has a weight <span class="arithmatex">$\le k$</span>, then the distances of vertices in the queue will differ by at most <span class="arithmatex">$k$</span> from the distance of <span class="arithmatex">$v$</span> to the source.
@@ -8137,7 +8189,7 @@ This extension is called <strong>Dial's algorithm</strong>.</p>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (75.0%)</li><li><a href="https://github.com/Salil03" title="Salil03" data-bi-name="contributorprofile" target="_blank">Salil03</a> (9.38%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (5.21%)</li><li><a href="https://github.com/parthokr" title="parthokr" data-bi-name="contributorprofile" target="_blank">parthokr</a> (4.17%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (3.12%)</li><li><a href="https://github.com/aleksmish" title="aleksmish" data-bi-name="contributorprofile" target="_blank">aleksmish</a> (1.04%)</li><li><a href="https://github.com/knotri" title="knotri" data-bi-name="contributorprofile" target="_blank">knotri</a> (1.04%)</li><li><a href="https://github.com/ddivyansh18" title="ddivyansh18" data-bi-name="contributorprofile" target="_blank">ddivyansh18</a> (1.04%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (57.94%)</li><li><a href="https://github.com/ahhz" title="ahhz" data-bi-name="contributorprofile" target="_blank">ahhz</a> (19.63%)</li><li><a href="https://github.com/Salil03" title="Salil03" data-bi-name="contributorprofile" target="_blank">Salil03</a> (8.41%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (4.67%)</li><li><a href="https://github.com/parthokr" title="parthokr" data-bi-name="contributorprofile" target="_blank">parthokr</a> (3.74%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (2.8%)</li><li><a href="https://github.com/aleksmish" title="aleksmish" data-bi-name="contributorprofile" target="_blank">aleksmish</a> (0.93%)</li><li><a href="https://github.com/knotri" title="knotri" data-bi-name="contributorprofile" target="_blank">knotri</a> (0.93%)</li><li><a href="https://github.com/ddivyansh18" title="ddivyansh18" data-bi-name="contributorprofile" target="_blank">ddivyansh18</a> (0.93%)</li></ul>
 </ul>
                 
               </article>
@@ -8220,9 +8272,11 @@ This extension is called <strong>Dial's algorithm</strong>.</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
+      
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
       
         <script src="../javascript/donation-banner.js"></script>
       

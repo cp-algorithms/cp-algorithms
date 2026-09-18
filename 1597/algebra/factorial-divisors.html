@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -6863,6 +6863,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7941,6 +7969,18 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
 
@@ -7973,6 +8013,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8001,7 +8045,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 29, 2025 17:12:09 UTC">December 29, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 18:03:40 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8051,11 +8095,11 @@ The sum is of course finite, since only approximately the first <span class="ari
 </code></pre></div>
 <h2 id="composite-k">Composite <span class="arithmatex">$k$</span><a class="headerlink" href="#composite-k" title="Permanent link">&para;</a></h2>
 <p>The same idea can't be applied directly. Instead we can factor <span class="arithmatex">$k$</span>, representing it as <span class="arithmatex">$k = k_1^{p_1} \cdot \ldots \cdot k_m^{p_m}$</span>. For each <span class="arithmatex">$k_i$</span>, we find the number of times it is present in <span class="arithmatex">$n!$</span> using the algorithm described above - let's call this value <span class="arithmatex">$a_i$</span>. The answer for composite <span class="arithmatex">$k$</span> will be</p>
-<div class="arithmatex">$$\min_ {i=1 \ldots m} \dfrac{a_i}{p_i}$$</div>
+<div class="arithmatex">$$\min_ {i=1 \ldots m} \left\lfloor \dfrac{a_i}{p_i} \right\rfloor$$</div>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (63.27%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (28.57%)</li><li><a href="https://github.com/KunalSin9h" title="KunalSin9h" data-bi-name="contributorprofile" target="_blank">KunalSin9h</a> (4.08%)</li><li><a href="https://github.com/jerryvchen" title="jerryvchen" data-bi-name="contributorprofile" target="_blank">jerryvchen</a> (2.04%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (2.04%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (61.22%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (28.57%)</li><li><a href="https://github.com/KunalSin9h" title="KunalSin9h" data-bi-name="contributorprofile" target="_blank">KunalSin9h</a> (4.08%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (2.04%)</li><li><a href="https://github.com/jerryvchen" title="jerryvchen" data-bi-name="contributorprofile" target="_blank">jerryvchen</a> (2.04%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (2.04%)</li></ul>
 </ul>
                 
               </article>
@@ -8138,9 +8182,11 @@ The sum is of course finite, since only approximately the first <span class="ari
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
+      
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
       
         <script src="../javascript/donation-banner.js"></script>
       

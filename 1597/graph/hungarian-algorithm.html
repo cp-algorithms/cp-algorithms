@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -6775,6 +6775,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8006,6 +8034,18 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
 
@@ -8032,6 +8072,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8048,7 +8092,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 13, 2023 13:07:36 UTC">December 13, 2023</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 13:30:57 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8097,7 +8141,7 @@ Describe the issue of this article in detail.
 <h3 id="historical-reference">Historical reference<a class="headerlink" href="#historical-reference" title="Permanent link">&para;</a></h3>
 <p>The algorithm was developed and published by Harold <strong>Kuhn</strong> in 1955. Kuhn himself gave it the name "Hungarian" because it was based on the earlier work by Hungarian mathematicians Dénes Kőnig and Jenő Egerváry.<br>
 In 1957, James <strong>Munkres</strong> showed that this algorithm runs in (strictly) polynomial time, independently from the cost.<br>
-Therefore, in literature, this algorithm is known not only as the "Hungarian", but also as the "Kuhn-Mankres algorithm" or "Mankres algorithm".<br>
+Therefore, in literature, this algorithm is known not only as the "Hungarian", but also as the "Kuhn-Munkres algorithm" or "Munkres algorithm".<br>
 However, it was recently discovered in 2006 that the same algorithm was invented <strong>a century before Kuhn</strong> by the German mathematician Carl Gustav <strong>Jacobi</strong>. His work, <em>About the research of the order of a system of arbitrary ordinary differential equations</em>, which was published posthumously in 1890, contained, among other findings, a polynomial algorithm for solving the assignment problem. Unfortunately, since the publication was in Latin, it went unnoticed among mathematicians.</p>
 <p>It is also worth noting that Kuhn's original algorithm had an asymptotic complexity of <span class="arithmatex">$\mathcal{O}(n^4)$</span>, and only later Jack <strong>Edmonds</strong> and Richard <strong>Karp</strong> (and independently <strong>Tomizawa</strong>) showed how to improve it to an asymptotic complexity of <span class="arithmatex">$\mathcal{O}(n^3)$</span>.</p>
 <h3 id="the-mathcalon4-algorithm">The <span class="arithmatex">$\mathcal{O}(n^4)$</span> algorithm<a class="headerlink" href="#the-mathcalon4-algorithm" title="Permanent link">&para;</a></h3>
@@ -8125,7 +8169,7 @@ However, it was recently discovered in 2006 that the same algorithm was invented
 All edges of the matching <span class="arithmatex">$M$</span> are oriented in the direction from the right part to the left one, and all other edges of the graph <span class="arithmatex">$H$</span> are oriented in the opposite direction.</p>
 <p>Recall (from the terminology of searching for matchings) that a vertex is called saturated if an edge of the current matching is adjacent to it. A vertex that is not adjacent to any edge of the current matching is called unsaturated. A path of odd length, in which the first edge does not belong to the matching, and for all subsequent edges there is an alternating belonging to the matching (belongs/does not belong) - is called an augmenting path.
 From all unsaturated vertices in the left part, a <a href="depth-first-search.html">depth-first</a> or <a href="breadth-first-search.html">breadth-first</a> traversal is started. If, as a result of the search, it was possible to reach an unsaturated vertex of the right part, we have found an augmenting path from the left part to the right one. If we include odd edges of the path and remove the even ones in the matching (i.e. include the first edge in the matching, exclude the second, include the third, etc.), then we will increase the matching cardinality by one.</p>
-<p>If there was no augmenting path, then the current matching <span class="arithmatex">$M$</span> is maximal in the graph <span class="arithmatex">$H$</span>.</p>
+<p>If there was no augmenting path, then the current matching <span class="arithmatex">$M$</span> is maximum in the graph <span class="arithmatex">$H$</span>.</p>
 <p><strong>Step 3.</strong> If at the current step, it is not possible to increase the cardinality of the current matching, then a recalculation of the potential is performed in such a way that, at the next steps, there will be more opportunities to increase the matching.</p>
 <p>Denote by <span class="arithmatex">$Z_1$</span> the set of vertices of the left part that were visited during the last traversal of Kuhn's algorithm, and through <span class="arithmatex">$Z_2$</span> the set of visited vertices of the right part.</p>
 <p>Let's calculate the value <span class="arithmatex">$\Delta$</span>:</p>
@@ -8265,9 +8309,9 @@ If we talk about the complexity of the algorithm, then it is <span class="arithm
 </code></pre></div>
 <h2 id="connection-to-the-successive-shortest-path-algorithm">Connection to the Successive Shortest Path Algorithm<a class="headerlink" href="#connection-to-the-successive-shortest-path-algorithm" title="Permanent link">&para;</a></h2>
 <p>The Hungarian algorithm can be seen as the <a href="min_cost_flow.html">Successive Shortest Path Algorithm</a>, adapted for the assignment problem. Without going into the details, let's provide an intuition regarding the connection between them.</p>
-<p>The Successive Path algorithm uses a modified version of Johnson's algorithm as reweighting technique. This one is divided into four steps:</p>
+<p>The Successive Shortest Path algorithm uses a modified version of Johnson's algorithm as reweighting technique. This one is divided into four steps:</p>
 <ul>
-<li>Use the <a href="bellman_ford.html">Bellman-Ford</a> algorithm, starting from the sink <span class="arithmatex">$s$</span> and, for each node, find the minimum weight <span class="arithmatex">$h(v)$</span> of a path from <span class="arithmatex">$s$</span> to <span class="arithmatex">$v$</span>.</li>
+<li>Use the <a href="bellman_ford.html">Bellman-Ford</a> algorithm, starting from the source <span class="arithmatex">$s$</span> and, for each node, find the minimum weight <span class="arithmatex">$h(v)$</span> of a path from <span class="arithmatex">$s$</span> to <span class="arithmatex">$v$</span>.</li>
 </ul>
 <p>For every step of the main algorithm:</p>
 <ul>
@@ -8355,7 +8399,7 @@ If we talk about the complexity of the algorithm, then it is <span class="arithm
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/alemini18" title="alemini18" data-bi-name="contributorprofile" target="_blank">alemini18</a> (93.29%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (6.71%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/alemini18" title="alemini18" data-bi-name="contributorprofile" target="_blank">alemini18</a> (92.01%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (6.71%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (1.28%)</li></ul>
 </ul>
                 
               </article>
@@ -8438,9 +8482,11 @@ If we talk about the complexity of the algorithm, then it is <span class="arithm
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
+      
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
       
         <script src="../javascript/donation-banner.js"></script>
       

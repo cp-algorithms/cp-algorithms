@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -6846,6 +6846,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7912,6 +7940,18 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
     
@@ -7948,6 +7988,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -7972,7 +8016,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 8, 2022 11:09:55 UTC">June 8, 2022</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 13:29:32 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8014,7 +8058,7 @@ a_2 x + b_2 y + c_2 = 0
 <div class="arithmatex">$$\begin{vmatrix}a_1 &amp; b_1 \cr a_2 &amp; b_2\end{vmatrix} = a_1 b_2 - a_2 b_1 = 0 $$</div>
 <p>then either the system has no solutions (the lines are parallel and distinct) or there are infinitely many solutions (the lines overlap).
 If we need to distinguish these two cases, we have to check if coefficients <span class="arithmatex">$c$</span> are proportional with the same ratio as the coefficients <span class="arithmatex">$a$</span> and <span class="arithmatex">$b$</span>.
-To do that we only have calculate the following determinants, and if they both equal <span class="arithmatex">$0$</span>, the lines overlap:</p>
+To do that we only have to calculate the following determinants, and if they both equal <span class="arithmatex">$0$</span>, the lines overlap:</p>
 <div class="arithmatex">$$\begin{vmatrix}a_1 &amp; c_1 \cr a_2 &amp; c_2\end{vmatrix}, \begin{vmatrix}b_1 &amp; c_1 \cr b_2 &amp; c_2\end{vmatrix} $$</div>
 <p>Notice, a different approach for computing the intersection point is explained in the article <a href="basic-geometry.html">Basic Geometry</a>.</p>
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
@@ -8054,7 +8098,7 @@ To do that we only have calculate the following determinants, and if they both e
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/s9v" title="s9v" data-bi-name="contributorprofile" target="_blank">s9v</a> (64.86%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (25.68%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (8.11%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (1.35%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/s9v" title="s9v" data-bi-name="contributorprofile" target="_blank">s9v</a> (64.86%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (24.32%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (8.11%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (1.35%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (1.35%)</li></ul>
 </ul>
                 
               </article>
@@ -8137,9 +8181,11 @@ To do that we only have calculate the following determinants, and if they both e
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
+      
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
       
         <script src="../javascript/donation-banner.js"></script>
       

@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -7001,6 +7001,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8073,8 +8101,6 @@ Describe the issue of this article in detail.
   
     
   
-    
-  
 
   
   
@@ -8095,22 +8121,6 @@ Describe the issue of this article in detail.
   
     
   
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
 
   
   
@@ -8122,6 +8132,10 @@ Describe the issue of this article in detail.
 
   
   
+  
+    
+  
+    
   
     
   
@@ -8164,7 +8178,37 @@ Describe the issue of this article in detail.
     
   
 
+  
+  
+  
+    
+  
+    
+  
 
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+
+
+  
+  
+  
 
   
   
@@ -8209,7 +8253,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 20, 2024 21:09:03 UTC">December 20, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 19:35:15 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8243,7 +8287,7 @@ Positive integers (both signed and unsigned) are just represented with their bin
 <span class="n">assert</span><span class="p">(</span><span class="n">positive_signed_number</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mb">0b1101</span><span class="p">);</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="n">negative_signed_number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-13</span><span class="p">;</span>
-<span class="n">assert</span><span class="p">(</span><span class="n">negative_signed_number</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mb">0b1111&#39;1111&#39;1111&#39;1111&#39;1111&#39;1111&#39;1111&#39;0011</span><span class="p">);</span>
+<span class="n">assert</span><span class="p">(</span><span class="n">negative_signed_number</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mb">0b1111'1111'1111'1111'1111'1111'1111'0011</span><span class="p">);</span>
 </code></pre></div>
 <p>CPUs are very fast manipulating those bits with specific operations.
 For some problems we can take these binary number representations to our advantage, and speed up the execution time.
@@ -8261,7 +8305,7 @@ And for some problems (typically in combinatorics or dynamic programming) where 
     If one of the two bits is 1, the corresponding result bit is set to 1. Otherwise, the corresponding result bit is set to 0.</p>
 </li>
 <li>
-<p><span class="arithmatex">$\wedge$</span> : The bitwise exclusive OR (XOR) operator compares each bit of its first operand with the corresponding bit of its second operand.
+<p><span class="arithmatex">$\oplus$</span> : The bitwise exclusive OR (XOR) operator compares each bit of its first operand with the corresponding bit of its second operand.
     If one bit is 0 and the other bit is 1, the corresponding result bit is set to 1. Otherwise, the corresponding result bit is set to 0.</p>
 </li>
 <li>
@@ -8310,7 +8354,7 @@ For a computer though shifting some bits is a lot faster than doing divisions.</
 <span class="arithmatex">$1 \ll x$</span> is a number with only the <span class="arithmatex">$x$</span>-th bit set, while <span class="arithmatex">$\sim(1 \ll x)$</span> is a number with all bits set except the <span class="arithmatex">$x$</span>-th bit.</p>
 <ul>
 <li><span class="arithmatex">$n ~|~ (1 \ll x)$</span> sets the <span class="arithmatex">$x$</span>-th bit in the number <span class="arithmatex">$n$</span></li>
-<li><span class="arithmatex">$n ~\wedge~ (1 \ll x)$</span> flips the <span class="arithmatex">$x$</span>-th bit in the number <span class="arithmatex">$n$</span></li>
+<li><span class="arithmatex">$n ~\oplus~ (1 \ll x)$</span> flips the <span class="arithmatex">$x$</span>-th bit in the number <span class="arithmatex">$n$</span></li>
 <li><span class="arithmatex">$n ~\&amp;~ \sim(1 \ll x)$</span> clears the <span class="arithmatex">$x$</span>-th bit in the number <span class="arithmatex">$n$</span></li>
 </ul>
 <h3 id="check-if-a-bit-is-set">Check if a bit is set<a class="headerlink" href="#check-if-a-bit-is-set" title="Permanent link">&para;</a></h3>
@@ -8378,20 +8422,20 @@ n &amp; (n-1) = 00110000
 <p>We can see that the all the columns except the leftmost have <span class="arithmatex">$4$</span> (i.e. <span class="arithmatex">$2^2$</span>) set bits each, i.e. upto the number <span class="arithmatex">$2^3 - 1$</span>, the number of set bits is <span class="arithmatex">$3 \cdot 2^{3-1}$</span>.</p>
 <p>With the new knowledge in hand we can come up with the following algorithm:</p>
 <ul>
-<li>Find the highest power of <span class="arithmatex">$2$</span> that is lesser than or equal to the given number. Let this number be <span class="arithmatex">$x$</span>.</li>
+<li>Find the largest exponent <span class="arithmatex">$x$</span> such that <span class="arithmatex">$2^x$</span> is lesser than or equal to the given number.</li>
 <li>Calculate the number of set bits from <span class="arithmatex">$1$</span> to <span class="arithmatex">$2^x - 1$</span> by using the formula <span class="arithmatex">$x \cdot 2^{x-1}$</span>.</li>
 <li>Count the no. of set bits in the most significant bit from <span class="arithmatex">$2^x$</span> to <span class="arithmatex">$n$</span> and add it.</li>
 <li>Subtract <span class="arithmatex">$2^x$</span> from <span class="arithmatex">$n$</span> and repeat the above steps using the new <span class="arithmatex">$n$</span>.</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">countSetBits</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">bit_width</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="w">            </span><span class="n">count</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
-<span class="w">            </span><span class="n">n</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
-<span class="w">            </span><span class="n">count</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">count</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">popcount_sum</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">bit_width</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">count</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="c1">// set bits below 2^x</span>
+<span class="w">        </span><span class="n">n</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">1u</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="w">        </span><span class="n">count</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">                   </span><span class="c1">// leading bits of 2^x..n</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="additional-tricks">Additional tricks<a class="headerlink" href="#additional-tricks" title="Permanent link">&para;</a></h3>
@@ -8429,7 +8473,7 @@ E.g. GCC defines a list at <a href="https://gcc.gnu.org/onlinedocs/gcc/Other-Bui
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (44.62%)</li><li><a href="#" title="Carlos Javier Blanco" data-bi-name="contributorprofile" target="_blank">Carlos Javier Blanco</a> (35.38%)</li><li><a href="https://github.com/ganeshvarbalaji" title="ganeshvarbalaji" data-bi-name="contributorprofile" target="_blank">ganeshvarbalaji</a> (14.23%)</li><li><a href="https://github.com/Harshdev098" title="Harshdev098" data-bi-name="contributorprofile" target="_blank">Harshdev098</a> (3.85%)</li><li><a href="https://github.com/konstantinosalatzas" title="konstantinosalatzas" data-bi-name="contributorprofile" target="_blank">konstantinosalatzas</a> (0.38%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (0.38%)</li><li><a href="https://github.com/FinalTheory" title="FinalTheory" data-bi-name="contributorprofile" target="_blank">FinalTheory</a> (0.38%)</li><li><a href="https://github.com/aknayar" title="aknayar" data-bi-name="contributorprofile" target="_blank">aknayar</a> (0.38%)</li><li><a href="https://github.com/hieplpvip" title="hieplpvip" data-bi-name="contributorprofile" target="_blank">hieplpvip</a> (0.38%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (43.85%)</li><li><a href="#" title="Carlos Javier Blanco" data-bi-name="contributorprofile" target="_blank">Carlos Javier Blanco</a> (35.38%)</li><li><a href="https://github.com/ganeshvarbalaji" title="ganeshvarbalaji" data-bi-name="contributorprofile" target="_blank">ganeshvarbalaji</a> (11.15%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (3.85%)</li><li><a href="https://github.com/Harshdev098" title="Harshdev098" data-bi-name="contributorprofile" target="_blank">Harshdev098</a> (3.85%)</li><li><a href="https://github.com/konstantinosalatzas" title="konstantinosalatzas" data-bi-name="contributorprofile" target="_blank">konstantinosalatzas</a> (0.38%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (0.38%)</li><li><a href="https://github.com/FinalTheory" title="FinalTheory" data-bi-name="contributorprofile" target="_blank">FinalTheory</a> (0.38%)</li><li><a href="https://github.com/aknayar" title="aknayar" data-bi-name="contributorprofile" target="_blank">aknayar</a> (0.38%)</li><li><a href="https://github.com/hieplpvip" title="hieplpvip" data-bi-name="contributorprofile" target="_blank">hieplpvip</a> (0.38%)</li></ul>
 </ul>
                 
               </article>
@@ -8512,9 +8556,11 @@ E.g. GCC defines a list at <a href="https://gcc.gnu.org/onlinedocs/gcc/Other-Bui
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
+      
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
       
         <script src="../javascript/donation-banner.js"></script>
       

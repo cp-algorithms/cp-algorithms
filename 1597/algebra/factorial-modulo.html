@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -6857,6 +6857,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7929,6 +7957,18 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
     
@@ -7967,6 +8007,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -7995,7 +8039,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 25, 2024 09:11:12 UTC">August 25, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 18:03:40 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8035,14 +8079,14 @@ For instance <span class="arithmatex">$7!_{\%p} \equiv 1 \cdot 2 \cdot \underbra
 <h2 id="algorithm">Algorithm<a class="headerlink" href="#algorithm" title="Permanent link">&para;</a></h2>
 <p>Let's write this modified factorial explicitly.</p>
 <div class="arithmatex">$$\begin{eqnarray}
-n!_{\%p} &amp;=&amp; 1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot \underbrace{1}_{p} \cdot (p+1) \cdot (p+2) \cdot \ldots \cdot (2p-1) \cdot \underbrace{2}_{2p} \\\
- &amp; &amp;\quad \cdot (2p+1) \cdot \ldots \cdot (p^2-1) \cdot \underbrace{1}_{p^2} \cdot (p^2 +1) \cdot \ldots \cdot n \pmod{p} \\\\
-&amp;=&amp; 1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot \underbrace{1}_{p} \cdot 1 \cdot 2 \cdot \ldots \cdot (p-1) \cdot \underbrace{2}_{2p} \cdot 1 \cdot 2 \\\
+n!_{\%p} &amp;=&amp; 1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot \underbrace{1}_{p} \cdot (p+1) \cdot (p+2) \cdot \ldots \cdot (2p-1) \cdot \underbrace{2}_{2p} \\
+ &amp; &amp;\quad \cdot (2p+1) \cdot \ldots \cdot (p^2-1) \cdot \underbrace{1}_{p^2} \cdot (p^2 +1) \cdot \ldots \cdot n \pmod{p} \\\
+&amp;=&amp; 1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot \underbrace{1}_{p} \cdot 1 \cdot 2 \cdot \ldots \cdot (p-1) \cdot \underbrace{2}_{2p} \cdot 1 \cdot 2 \\
 &amp; &amp;\quad \cdot \ldots \cdot (p-1) \cdot \underbrace{1}_{p^2} \cdot 1 \cdot 2 \cdot \ldots \cdot (n \bmod p) \pmod{p}
 \end{eqnarray}$$</div>
 <p>It can be clearly seen that factorial is divided into several blocks of same length except for the last one.</p>
 <div class="arithmatex">$$\begin{eqnarray}
-n!_{\%p}&amp;=&amp; \underbrace{1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot 1}_{1\text{st}} \cdot \underbrace{1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot 2}_{2\text{nd}} \cdot \ldots \\\\
+n!_{\%p}&amp;=&amp; \underbrace{1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot 1}_{1\text{st}} \cdot \underbrace{1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot 2}_{2\text{nd}} \cdot \ldots \\\
 &amp; &amp; \cdot \underbrace{1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot 1}_{p\text{th}} \cdot \ldots \cdot \quad \underbrace{1 \cdot 2 \cdot \cdot \ldots \cdot (n \bmod p)}_{\text{tail}} \pmod{p}.
 \end{eqnarray}$$</div>
 <p>The main part of the blocks it is easy to count — it's just <span class="arithmatex">$(p-1)!\ \mathrm{mod}\ p$</span>.
@@ -8056,7 +8100,7 @@ If we hide the already handled elements, we can see the following pattern:</p>
 <div class="arithmatex">$$n!_{\%p} = \underbrace{ \ldots \cdot 1 } \cdot \underbrace{ \ldots \cdot 2} \cdot \ldots \cdot \underbrace{ \ldots \cdot (p-1)} \cdot \underbrace{ \ldots \cdot 1 } \cdot \underbrace{ \ldots \cdot 1} \cdot \underbrace{ \ldots \cdot 2} \cdots$$</div>
 <p>This again is a <em>modified</em> factorial, only with a much smaller dimension.
 It's <span class="arithmatex">$\lfloor n / p \rfloor !_{\%p}$</span>.</p>
-<p>Thus, during the calculation of the <em>modified</em> factorial <span class="arithmatex">$n\!_{\%p}$</span> we did <span class="arithmatex">$O(p)$</span> operations and are left with the calculation of <span class="arithmatex">$\lfloor n / p \rfloor !_{\%p}$</span>.
+<p>Thus, during the calculation of the <em>modified</em> factorial <span class="arithmatex">$n!_{\%p}$</span> we did <span class="arithmatex">$O(p)$</span> operations and are left with the calculation of <span class="arithmatex">$\lfloor n / p \rfloor !_{\%p}$</span>.
 We have a recursive formula.
 The recursion depth is <span class="arithmatex">$O(\log_p n)$</span>, and therefore the complete asymptotic behavior of the algorithm is <span class="arithmatex">$O(p \log_p n)$</span>.</p>
 <p>Notice, if you precompute the factorials <span class="arithmatex">$0!,~ 1!,~ 2!,~ \dots,~ (p-1)!$</span> modulo <span class="arithmatex">$p$</span>, then the complexity will just be <span class="arithmatex">$O(\log_p n)$</span>.</p>
@@ -8082,7 +8126,7 @@ If you need to call the function multiple times, then you can do the precomputat
 </code></pre></div>
 <p>Alternative, if you only have limit memory and can't afford storing all factorials, you can also just remember the factorials that you need, sort them, and then compute them in one sweep by computing the factorials <span class="arithmatex">$0!,~ 1!,~ 2!,~ \dots,~ (p-1)!$</span> in a loop without storing them explicitly.</p>
 <h2 id="multiplicity-of-p">Multiplicity of <span class="arithmatex">$p$</span><a class="headerlink" href="#multiplicity-of-p" title="Permanent link">&para;</a></h2>
-<p>If we want to compute a Binomial coefficient modulo <span class="arithmatex">$p$</span>, then we additionally need the multiplicity of the <span class="arithmatex">$p$</span> in <span class="arithmatex">$n$</span>, i.e. the number of times <span class="arithmatex">$p$</span> occurs in the prime factorization of <span class="arithmatex">$n$</span>, or number of times we erased <span class="arithmatex">$p$</span> during the computation of the <em>modified</em> factorial.</p>
+<p>If we want to compute a Binomial coefficient modulo <span class="arithmatex">$p$</span>, then we additionally need the multiplicity of <span class="arithmatex">$p$</span> in <span class="arithmatex">$n!$</span>, i.e. the number of times <span class="arithmatex">$p$</span> occurs in the prime factorization of <span class="arithmatex">$n!$</span>, or the number of times we erased <span class="arithmatex">$p$</span> during the computation of the <em>modified</em> factorial.</p>
 <p><a href="https://en.wikipedia.org/wiki/Legendre%27s_formula">Legendre's formula</a> gives us a way to compute this in <span class="arithmatex">$O(\log_p n)$</span> time.
 The formula gives the multiplicity <span class="arithmatex">$\nu_p$</span> as:</p>
 <div class="arithmatex">$$\nu_p(n!) = \sum_{i=1}^{\infty} \left\lfloor \frac{n}{p^i} \right\rfloor$$</div>
@@ -8103,7 +8147,7 @@ If we remove the factor <span class="arithmatex">$p$</span> from each of them, w
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (65.52%)</li><li><a href="https://github.com/madhur4127" title="madhur4127" data-bi-name="contributorprofile" target="_blank">madhur4127</a> (26.72%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (6.03%)</li><li><a href="https://github.com/amkumarh" title="amkumarh" data-bi-name="contributorprofile" target="_blank">amkumarh</a> (0.86%)</li><li><a href="https://github.com/rexagod" title="rexagod" data-bi-name="contributorprofile" target="_blank">rexagod</a> (0.86%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (60.34%)</li><li><a href="https://github.com/madhur4127" title="madhur4127" data-bi-name="contributorprofile" target="_blank">madhur4127</a> (26.72%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (6.03%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (5.17%)</li><li><a href="https://github.com/amkumarh" title="amkumarh" data-bi-name="contributorprofile" target="_blank">amkumarh</a> (0.86%)</li><li><a href="https://github.com/rexagod" title="rexagod" data-bi-name="contributorprofile" target="_blank">rexagod</a> (0.86%)</li></ul>
 </ul>
                 
               </article>
@@ -8186,9 +8230,11 @@ If we remove the factor <span class="arithmatex">$p$</span> from each of them, w
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
+      
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
       
         <script src="../javascript/donation-banner.js"></script>
       

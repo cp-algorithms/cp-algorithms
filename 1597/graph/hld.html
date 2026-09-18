@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -6775,6 +6775,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8013,6 +8041,18 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
 
@@ -8028,26 +8068,6 @@ Describe the issue of this article in detail.
     
   
     
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
   
     
   
@@ -8077,8 +8097,32 @@ Describe the issue of this article in detail.
   
     
   
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
 
 
+
+  
+  
+  
 
   
   
@@ -8123,7 +8167,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 19, 2025 12:44:51 UTC">November 19, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 7, 2026 15:58:45 UTC">August 7, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8203,8 +8247,8 @@ Hence, one query <span class="arithmatex">$(a, b)$</span> takes <span class="ari
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
 <p>Certain parts of the above discussed approach can be modified to make implementation easier without losing efficiency.</p>
 <ul>
-<li>The definition of <strong>heavy edge</strong> can be changed to <strong>the edge leading to the child with largest subtree</strong>, with ties broken arbitrarily. This may result is some light edges being converted to heavy, which means some heavy paths will combine to form a single path, but all heavy paths will remain disjoint. It is also still guaranteed that going down a light edge reduces subtree size to half or less.</li>
-<li>Instead of a building segment tree over every heavy path, a single segment tree can be used with disjoint segments allocated to each heavy path.</li>
+<li>The definition of <strong>heavy edge</strong> can be changed to <strong>the edge leading to the child with largest subtree</strong>, with ties broken arbitrarily. This may result in some light edges being converted to heavy, which means some heavy paths will combine to form a single path, but all heavy paths will remain disjoint. It is also still guaranteed that going down a light edge reduces subtree size to half or less.</li>
+<li>Instead of building a segment tree over every heavy path, a single segment tree can be used with disjoint segments allocated to each heavy path.</li>
 <li>It has been mentioned that answering queries requires calculation of the LCA. While LCA can be calculated separately, it is also possible to integrate LCA calculation in the process of answering queries.</li>
 </ul>
 <p>To perform heavy-light decomposition:</p>
@@ -8254,7 +8298,7 @@ Hence, one query <span class="arithmatex">$(a, b)$</span> takes <span class="ari
 <p>The <code>decompose</code> function assigns for each vertex <code>v</code> the values <code>head[v]</code> and <code>pos[v]</code>, which are respectively the head of the heavy path <code>v</code> belongs to and the position of <code>v</code> on the single segment tree that covers all vertices.</p>
 <p>To answer queries on paths, for example the maximum query discussed, we can do something like this:</p>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">query</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">segment_tree_query</span><span class="p">(</span><span class="n">pos</span><span class="p">[</span><span class="n">a</span><span class="p">],</span><span class="w"> </span><span class="n">pos</span><span class="p">[</span><span class="n">a</span><span class="p">]);</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(;</span><span class="w"> </span><span class="n">head</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">head</span><span class="p">[</span><span class="n">b</span><span class="p">];</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">b</span><span class="p">]])</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">depth</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">a</span><span class="p">]]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">depth</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">b</span><span class="p">]])</span>
 <span class="w">            </span><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
@@ -8281,7 +8325,7 @@ Hence, one query <span class="arithmatex">$(a, b)$</span> takes <span class="ari
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/meooow25" title="meooow25" data-bi-name="contributorprofile" target="_blank">meooow25</a> (86.53%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.11%)</li><li><a href="https://github.com/Electron1997" title="Electron1997" data-bi-name="contributorprofile" target="_blank">Electron1997</a> (2.59%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (2.59%)</li><li><a href="https://github.com/ankitsangwan1999" title="ankitsangwan1999" data-bi-name="contributorprofile" target="_blank">ankitsangwan1999</a> (2.07%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (1.55%)</li><li><a href="https://github.com/Hostek" title="Hostek" data-bi-name="contributorprofile" target="_blank">Hostek</a> (0.52%)</li><li><a href="https://github.com/mjh316" title="mjh316" data-bi-name="contributorprofile" target="_blank">mjh316</a> (0.52%)</li><li><a href="https://github.com/tanmay-sinha" title="tanmay-sinha" data-bi-name="contributorprofile" target="_blank">tanmay-sinha</a> (0.52%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/meooow25" title="meooow25" data-bi-name="contributorprofile" target="_blank">meooow25</a> (84.97%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.11%)</li><li><a href="https://github.com/Electron1997" title="Electron1997" data-bi-name="contributorprofile" target="_blank">Electron1997</a> (2.59%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (2.59%)</li><li><a href="https://github.com/ankitsangwan1999" title="ankitsangwan1999" data-bi-name="contributorprofile" target="_blank">ankitsangwan1999</a> (2.07%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (1.55%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (1.55%)</li><li><a href="https://github.com/Hostek" title="Hostek" data-bi-name="contributorprofile" target="_blank">Hostek</a> (0.52%)</li><li><a href="https://github.com/mjh316" title="mjh316" data-bi-name="contributorprofile" target="_blank">mjh316</a> (0.52%)</li><li><a href="https://github.com/tanmay-sinha" title="tanmay-sinha" data-bi-name="contributorprofile" target="_blank">tanmay-sinha</a> (0.52%)</li></ul>
 </ul>
                 
               </article>
@@ -8364,9 +8408,11 @@ Hence, one query <span class="arithmatex">$(a, b)$</span> takes <span class="ari
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
+      
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
       
         <script src="../javascript/donation-banner.js"></script>
       

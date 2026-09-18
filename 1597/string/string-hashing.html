@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -6924,6 +6924,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7996,6 +8024,18 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
     
@@ -8150,6 +8190,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8222,7 +8266,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 4, 2024 04:53:30 UTC">July 4, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 25, 2026 09:38:19 UTC">June 25, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8301,7 +8345,7 @@ Converting <span class="arithmatex">$a \rightarrow 0$</span> is not a good idea,
 <span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">hash_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">p_pow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">hash_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">hash_value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">p_pow</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">m</span><span class="p">;</span>
+<span class="w">        </span><span class="n">hash_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">hash_value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="sc">'a'</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">p_pow</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">m</span><span class="p">;</span>
 <span class="w">        </span><span class="n">p_pow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">p_pow</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">m</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">hash_value</span><span class="p">;</span>
@@ -8375,7 +8419,7 @@ This number is added to the final answer.</p>
 
 <span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="n">h</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
-<span class="w">        </span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">p_pow</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">m</span><span class="p">;</span>
+<span class="w">        </span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="sc">'a'</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">p_pow</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">m</span><span class="p">;</span>
 
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">l</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -8402,7 +8446,7 @@ The probability that at least one collision happens is now <span class="arithmat
 And if we want to compare <span class="arithmatex">$10^6$</span> different strings with each other (e.g. by counting how many unique strings exists), then the probability of at least one collision happening is already <span class="arithmatex">$\approx 1$</span>.
 It is pretty much guaranteed that this task will end with a collision and returns the wrong result.</p>
 <p>There is a really easy trick to get better probabilities.
-We can just compute two different hashes for each string (by using two different <span class="arithmatex">$p$</span>, and/or different <span class="arithmatex">$m$</span>, and compare these pairs instead.
+We can just compute two different hashes for each string (by using two different <span class="arithmatex">$p$</span>, and/or different <span class="arithmatex">$m$</span>), and compare these pairs instead.
 If <span class="arithmatex">$m$</span> is about <span class="arithmatex">$10^9$</span> for each of the two hash functions than this is more or less equivalent as having one hash function with <span class="arithmatex">$m \approx 10^{18}$</span>.
 When comparing <span class="arithmatex">$10^6$</span> strings with each other, the probability that at least one collision happens is now reduced to <span class="arithmatex">$\approx 10^{-6}$</span>.</p>
 <h2 id="practice-problems">Practice Problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
@@ -8430,7 +8474,7 @@ When comparing <span class="arithmatex">$10^6$</span> strings with each other, t
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (54.82%)</li><li><a href="https://github.com/paramsingh" title="paramsingh" data-bi-name="contributorprofile" target="_blank">paramsingh</a> (19.74%)</li><li><a href="https://github.com/gaurav-singh1998" title="gaurav-singh1998" data-bi-name="contributorprofile" target="_blank">gaurav-singh1998</a> (8.33%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (5.7%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.95%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (1.32%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (1.32%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (0.88%)</li><li><a href="https://github.com/minhazmiraz" title="minhazmiraz" data-bi-name="contributorprofile" target="_blank">minhazmiraz</a> (0.88%)</li><li><a href="https://github.com/MayankPratap" title="MayankPratap" data-bi-name="contributorprofile" target="_blank">MayankPratap</a> (0.88%)</li><li><a href="https://github.com/vedant-z" title="vedant-z" data-bi-name="contributorprofile" target="_blank">vedant-z</a> (0.44%)</li><li><a href="https://github.com/Tagl" title="Tagl" data-bi-name="contributorprofile" target="_blank">Tagl</a> (0.44%)</li><li><a href="https://github.com/hanzala-sohrab" title="hanzala-sohrab" data-bi-name="contributorprofile" target="_blank">hanzala-sohrab</a> (0.44%)</li><li><a href="https://github.com/Tahanima" title="Tahanima" data-bi-name="contributorprofile" target="_blank">Tahanima</a> (0.44%)</li><li><a href="https://github.com/Siddharths8212376" title="Siddharths8212376" data-bi-name="contributorprofile" target="_blank">Siddharths8212376</a> (0.44%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (54.39%)</li><li><a href="https://github.com/paramsingh" title="paramsingh" data-bi-name="contributorprofile" target="_blank">paramsingh</a> (19.74%)</li><li><a href="https://github.com/gaurav-singh1998" title="gaurav-singh1998" data-bi-name="contributorprofile" target="_blank">gaurav-singh1998</a> (8.33%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (5.7%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.95%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (1.32%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (1.32%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (0.88%)</li><li><a href="https://github.com/minhazmiraz" title="minhazmiraz" data-bi-name="contributorprofile" target="_blank">minhazmiraz</a> (0.88%)</li><li><a href="https://github.com/MayankPratap" title="MayankPratap" data-bi-name="contributorprofile" target="_blank">MayankPratap</a> (0.88%)</li><li><a href="https://github.com/shubhamtomar95" title="shubhamtomar95" data-bi-name="contributorprofile" target="_blank">shubhamtomar95</a> (0.44%)</li><li><a href="https://github.com/vedant-z" title="vedant-z" data-bi-name="contributorprofile" target="_blank">vedant-z</a> (0.44%)</li><li><a href="https://github.com/Tagl" title="Tagl" data-bi-name="contributorprofile" target="_blank">Tagl</a> (0.44%)</li><li><a href="https://github.com/hanzala-sohrab" title="hanzala-sohrab" data-bi-name="contributorprofile" target="_blank">hanzala-sohrab</a> (0.44%)</li><li><a href="https://github.com/Tahanima" title="Tahanima" data-bi-name="contributorprofile" target="_blank">Tahanima</a> (0.44%)</li><li><a href="https://github.com/Siddharths8212376" title="Siddharths8212376" data-bi-name="contributorprofile" target="_blank">Siddharths8212376</a> (0.44%)</li></ul>
 </ul>
                 
               </article>
@@ -8513,9 +8557,11 @@ When comparing <span class="arithmatex">$10^6$</span> strings with each other, t
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
+      
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
       
         <script src="../javascript/donation-banner.js"></script>
       

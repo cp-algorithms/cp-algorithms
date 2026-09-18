@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -6946,6 +6946,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8018,6 +8046,18 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
     
@@ -8057,42 +8097,6 @@ Describe the issue of this article in detail.
   
   
     
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
   
     
   
@@ -8144,6 +8148,42 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
     
@@ -8166,6 +8206,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8242,7 +8286,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 10, 2025 10:29:18 UTC">September 10, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 18:36:06 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8350,16 +8394,16 @@ Describe the issue of this article in detail.
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">INF</span><span class="p">)</span>
-<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;No path from &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; to &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;.&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"No path from "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" to "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"."</span><span class="p">;</span>
 <span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">path</span><span class="p">;</span>
 <span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">cur</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">;</span><span class="w"> </span><span class="n">cur</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"> </span><span class="n">cur</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">cur</span><span class="p">])</span>
 <span class="w">            </span><span class="n">path</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">cur</span><span class="p">);</span>
 <span class="w">        </span><span class="n">reverse</span><span class="p">(</span><span class="n">path</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">path</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
 
-<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Path from &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; to &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;: &quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Path from "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" to "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">": "</span><span class="p">;</span>
 <span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">path</span><span class="p">)</span>
-<span class="w">            </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39; &#39;</span><span class="p">;</span>
+<span class="w">            </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">' '</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -8395,7 +8439,7 @@ Consider an arbitrary vertex <span class="arithmatex">$a$</span> to which there 
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span>
-<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;No negative cycle from &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"No negative cycle from "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
 <span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
 <span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
@@ -8409,9 +8453,9 @@ Consider an arbitrary vertex <span class="arithmatex">$a$</span> to which there 
 <span class="w">        </span><span class="p">}</span>
 <span class="w">        </span><span class="n">reverse</span><span class="p">(</span><span class="n">path</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">path</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
 
-<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Negative cycle: &quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Negative cycle: "</span><span class="p">;</span>
 <span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">path</span><span class="p">)</span>
-<span class="w">            </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39; &#39;</span><span class="p">;</span>
+<span class="w">            </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">' '</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -8456,7 +8500,7 @@ Note, also there is no reason to put a vertex in the queue if it is already in.<
 <span class="w">                    </span><span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">to</span><span class="p">);</span>
 <span class="w">                    </span><span class="n">inqueue</span><span class="p">[</span><span class="n">to</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
 <span class="w">                    </span><span class="n">cnt</span><span class="p">[</span><span class="n">to</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
-<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cnt</span><span class="p">[</span><span class="n">to</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span>
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cnt</span><span class="p">[</span><span class="n">to</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">n</span><span class="p">)</span>
 <span class="w">                        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w">  </span><span class="c1">// negative cycle</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">}</span>
@@ -8481,7 +8525,7 @@ Note, also there is no reason to put a vertex in the queue if it is already in.<
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/bimalkant-lauhny" title="bimalkant-lauhny" data-bi-name="contributorprofile" target="_blank">bimalkant-lauhny</a> (53.11%)</li><li><a href="https://github.com/wangwillian0" title="wangwillian0" data-bi-name="contributorprofile" target="_blank">wangwillian0</a> (17.95%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (16.12%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (3.66%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.57%)</li><li><a href="https://github.com/RodionGork" title="RodionGork" data-bi-name="contributorprofile" target="_blank">RodionGork</a> (2.56%)</li><li><a href="https://github.com/aryamanjain-scifin" title="aryamanjain-scifin" data-bi-name="contributorprofile" target="_blank">aryamanjain-scifin</a> (0.73%)</li><li><a href="https://github.com/aleksmish" title="aleksmish" data-bi-name="contributorprofile" target="_blank">aleksmish</a> (0.37%)</li><li><a href="https://github.com/joaomarcosth9" title="joaomarcosth9" data-bi-name="contributorprofile" target="_blank">joaomarcosth9</a> (0.37%)</li><li><a href="https://github.com/Aman-Codes" title="Aman-Codes" data-bi-name="contributorprofile" target="_blank">Aman-Codes</a> (0.37%)</li><li><a href="https://github.com/orendon" title="orendon" data-bi-name="contributorprofile" target="_blank">orendon</a> (0.37%)</li><li><a href="https://github.com/DiegoHDMGZ" title="DiegoHDMGZ" data-bi-name="contributorprofile" target="_blank">DiegoHDMGZ</a> (0.37%)</li><li><a href="https://github.com/pirateksh" title="pirateksh" data-bi-name="contributorprofile" target="_blank">pirateksh</a> (0.37%)</li><li><a href="https://github.com/sachinpatel9135" title="sachinpatel9135" data-bi-name="contributorprofile" target="_blank">sachinpatel9135</a> (0.37%)</li><li><a href="https://github.com/prprprpony" title="prprprpony" data-bi-name="contributorprofile" target="_blank">prprprpony</a> (0.37%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (0.37%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/bimalkant-lauhny" title="bimalkant-lauhny" data-bi-name="contributorprofile" target="_blank">bimalkant-lauhny</a> (53.11%)</li><li><a href="https://github.com/wangwillian0" title="wangwillian0" data-bi-name="contributorprofile" target="_blank">wangwillian0</a> (17.58%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (16.12%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (3.66%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.57%)</li><li><a href="https://github.com/RodionGork" title="RodionGork" data-bi-name="contributorprofile" target="_blank">RodionGork</a> (2.56%)</li><li><a href="https://github.com/aryamanjain-scifin" title="aryamanjain-scifin" data-bi-name="contributorprofile" target="_blank">aryamanjain-scifin</a> (0.73%)</li><li><a href="https://github.com/BhagyeshKothalkar" title="BhagyeshKothalkar" data-bi-name="contributorprofile" target="_blank">BhagyeshKothalkar</a> (0.37%)</li><li><a href="https://github.com/aleksmish" title="aleksmish" data-bi-name="contributorprofile" target="_blank">aleksmish</a> (0.37%)</li><li><a href="https://github.com/joaomarcosth9" title="joaomarcosth9" data-bi-name="contributorprofile" target="_blank">joaomarcosth9</a> (0.37%)</li><li><a href="https://github.com/Aman-Codes" title="Aman-Codes" data-bi-name="contributorprofile" target="_blank">Aman-Codes</a> (0.37%)</li><li><a href="https://github.com/orendon" title="orendon" data-bi-name="contributorprofile" target="_blank">orendon</a> (0.37%)</li><li><a href="https://github.com/DiegoHDMGZ" title="DiegoHDMGZ" data-bi-name="contributorprofile" target="_blank">DiegoHDMGZ</a> (0.37%)</li><li><a href="https://github.com/pirateksh" title="pirateksh" data-bi-name="contributorprofile" target="_blank">pirateksh</a> (0.37%)</li><li><a href="https://github.com/sachinpatel9135" title="sachinpatel9135" data-bi-name="contributorprofile" target="_blank">sachinpatel9135</a> (0.37%)</li><li><a href="https://github.com/pr3pony" title="pr3pony" data-bi-name="contributorprofile" target="_blank">pr3pony</a> (0.37%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (0.37%)</li></ul>
 </ul>
                 
               </article>
@@ -8564,9 +8608,11 @@ Note, also there is no reason to put a vertex in the queue if it is already in.<
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
+      
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
       
         <script src="../javascript/donation-banner.js"></script>
       

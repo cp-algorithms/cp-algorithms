@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -6483,9 +6483,10 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="Binary Lifting on a dynamic tree">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#implementation_1" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6493,6 +6494,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -6505,9 +6511,10 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="LCA with $O(n)$ space and preprocessing time">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#implementation_2" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6515,6 +6522,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -6888,6 +6900,34 @@
     
   
     Assignment problem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
   
 
     
@@ -7973,21 +8013,13 @@ Describe the issue of this article in detail.
   
     
   
+    
+  
+    
+  
 
   
   
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-    
   
     
   
@@ -8011,18 +8043,6 @@ Describe the issue of this article in detail.
   
     
   
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
     
   
     
@@ -8040,7 +8060,41 @@ Describe the issue of this article in detail.
     
   
 
+  
+  
+  
+    
+  
+    
+  
 
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+
+
+  
+  
+  
+
+  
+  
+  
 
   
   
@@ -8077,7 +8131,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 11, 2026 21:06:06 UTC">May 11, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 22:20:03 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8112,7 +8166,7 @@ In particular if <code>u</code> is an ancestor of <code>v</code>, then <code>u</
 <h2 id="algorithm">Algorithm<a class="headerlink" href="#algorithm" title="Permanent link">&para;</a></h2>
 <p>For each node we will precompute its ancestor above it, its ancestor two nodes above, its ancestor four above, etc.
 Let's store them in the array <code>up</code>, i.e. <code>up[i][j]</code> is the <code>2^j</code>-th ancestor above the node <code>i</code> with <code>i=1...N</code>, <code>j=0...ceil(log(N))</code>.
-These information allow us to jump from any node to any ancestor above it in <span class="arithmatex">$O(\log N)$</span> time.
+This information allows us to jump from any node to any ancestor above it in <span class="arithmatex">$O(\log N)$</span> time.
 We can compute this array using a <a href="depth-first-search.html">DFS</a> traversal of the tree.</p>
 <p>For each node we will also remember the time of the first visit of this node (i.e. the time when the DFS discovers the node), and the time when we left it (i.e. after we visited all children and exit the DFS function).
 We can use this information to determine in constant time if a node is an ancestor of another node.</p>
@@ -8128,7 +8182,7 @@ If <code>up[u][i]</code> is not an ancestor of <code>v</code>, then we can assig
 If <code>up[u][i]</code> is an ancestor, then we just decrement <code>i</code>.
 Clearly after doing this for all non-negative <code>i</code> the node <code>u</code> will be the desired node - i.e. <code>u</code> is still not an ancestor of <code>v</code>, but <code>up[u][0]</code> is.</p>
 <p>Now, obviously, the answer to LCA will be <code>up[u][0]</code> - i.e., the smallest node among the ancestors of the node <code>u</code>, which is also an ancestor of <code>v</code>.</p>
-<p>So answering a LCA query will iterate <code>i</code> from <code>ceil(log(N))</code> to <code>0</code> and checks in each iteration if one node is the ancestor of the other.
+<p>So answering a LCA query will iterate <code>i</code> from <code>ceil(log(N))</code> to <code>0</code> and check in each iteration if one node is the ancestor of the other.
 Consequently each query can be answered in <span class="arithmatex">$O(\log N)$</span>.</p>
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">;</span>
@@ -8171,8 +8225,7 @@ Consequently each query can be answered in <span class="arithmatex">$O(\log N)$<
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">up</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
 <span class="p">}</span>
 
-<span class="kt">void</span><span class="w"> </span><span class="nf">preprocess</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">root</span><span class="p">)</span>
-<span class="p">{</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">preprocess</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">root</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">tin</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
 <span class="w">    </span><span class="n">tout</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
 <span class="w">    </span><span class="n">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
@@ -8182,23 +8235,18 @@ Consequently each query can be answered in <span class="arithmatex">$O(\log N)$<
 <span class="p">}</span>
 </code></pre></div>
 <h2 id="binary-lifting-on-a-dynamic-tree">Binary Lifting on a dynamic tree<a class="headerlink" href="#binary-lifting-on-a-dynamic-tree" title="Permanent link">&para;</a></h2>
-<p>This is another method of doing LCA, that also accepts adding a leaf node  to node <code>v</code>.</p>
+<p>This is another method of doing LCA, that also accepts adding a leaf node to node <code>v</code>.</p>
 <p>The earlier method struggles with these updates, since adding a leaf will potentially modify the time of entry and exit for the entire graph.</p>
-<p>Lets create an array <code>depth[u]</code>, containing the distance of node <code>u</code> from the root. This can be done with a DFS-traversal of the tree. Similarly to the earlier approach we precompute an array <code>up[u][j]</code>.</p>
-<p>We handle LCA queries as followed: Let <code>(u, v)</code> be the pair that we want to find the answer to. From now on let <code>depth[u] ≥ depth[v]</code> (if <code>depth[v] &gt; depth[u]</code>, we can just swap <code>u</code> and <code>v</code>). Now lets try and make <code>depth[u] = depth[v]</code>, by moving <code>u</code> up to an ancestor.
-The ancestor of <code>u</code> that satisfies this requirement is exactly <code>depth[u]-depth[v]</code> nodes higher. So using our <code>up[u][j]</code> table and the binary representation of <code>depth[u]-depth[v]</code>, lets change the value of <code>u</code> to the specified ancestor.</p>
-<p>Now we have another problem: Find the LCA of two vertices <code>(u, v)</code>, that have the same depth. First, lets check the trivial case if <code>u = v</code>, where the LCA of the two values is <code>u</code>. If not, then we find the highest vertex, that isn't a common ancestor of <code>(u, v)</code>.</p>
+<p>Let's create an array <code>depth[u]</code>, containing the distance of node <code>u</code> from the root. This can be done with a DFS-traversal of the tree. Similarly to the earlier approach we precompute an array <code>up[u][j]</code>.</p>
+<p>We handle LCA queries as follows: Let <code>(u, v)</code> be the pair that we want to find the answer to. From now on let <code>depth[u] ≥ depth[v]</code> (if <code>depth[v] &gt; depth[u]</code>, we can just swap <code>u</code> and <code>v</code>). Now let's try and make <code>depth[u] = depth[v]</code>, by moving <code>u</code> up to an ancestor.
+The ancestor of <code>u</code> that satisfies this requirement is exactly <code>depth[u]-depth[v]</code> nodes higher. So using our <code>up[u][j]</code> table and the binary representation of <code>depth[u]-depth[v]</code>, let's change the value of <code>u</code> to the specified ancestor.</p>
+<p>Now we have another problem: Find the LCA of two vertices <code>(u, v)</code>, that have the same depth. First, let's check the trivial case if <code>u = v</code>, where the LCA of the two values is <code>u</code>. If not, then we find the highest vertex, that isn't a common ancestor of <code>(u, v)</code>.</p>
 <p>Suppose that <code>L=ceil(log(N))</code>, where <code>N</code> is the maximum number of vertices the graph will have. Let <code>i = L</code>. If <code>up[u][i]=up[v][i]</code>, we just decrement <code>i</code>. If that is not the case, then we set <code>u = up[u][i]</code> and <code>v = up[v][i]</code>, then we decrement <code>i</code>.
-After all these operations, we two vertices <code>u</code> and <code>v</code>, that aren't the LCA od the original pair, but <code>jump[u][0]</code> and <code>jump[v][0]</code> are. We again are using <span class="arithmatex">$O(N \log N)$</span> preprocessing complexity and a <span class="arithmatex">$O( \log N)$</span> query one.</p>
-<p>Now, why does this work well in this dynamic environment? Well observe during the algorithm we only need to know the <code>up[u][j]</code> array for all vertices and the distance of each node from the root, both of which trivally can be obtained from the add leaf query in <span class="arithmatex">$O(\log n)$</span> time.</p>
-<h2 id="implementation_1">Implementation<a class="headerlink" href="#implementation_1" title="Permanent link">&para;</a></h2>
+After all these operations, we have two vertices <code>u</code> and <code>v</code>, that aren't the LCA of the original pair, but <code>up[u][0]</code> and <code>up[v][0]</code> are. We again are using <span class="arithmatex">$O(N \log N)$</span> preprocessing complexity and a <span class="arithmatex">$O( \log N)$</span> query one.</p>
+<p>Now, why does this work well in this dynamic environment? Well observe during the algorithm we only need to know the <code>up[u][j]</code> array for all vertices and the distance of each node from the root, both of which trivially can be obtained from the add leaf query in <span class="arithmatex">$O(\log n)$</span> time.</p>
+<p>The trade-off is query speed. The earlier method settles a query in a single descending loop, because its ancestor test covers the depth difference and the split at the same time. This one needs two loops, and the second climbs both vertices, so it reads <code>up</code> roughly three times as often: on a tree of <span class="arithmatex">$10^6$</span> vertices, 64 reads per query against 22.</p>
+<h3 id="implementation_1">Implementation<a class="headerlink" href="#implementation_1" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">;</span>
-
-<span class="c1">//Set this to maximum size of graph</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">MAXN</span><span class="p">;</span>
-
-
-<span class="kt">int</span><span class="w"> </span><span class="n">ups</span><span class="p">;</span>
 <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">adj</span><span class="p">;</span>
 
 <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">depth</span><span class="p">;</span>
@@ -8239,23 +8287,22 @@ After all these operations, we two vertices <code>u</code> and <code>v</code>, t
 
 <span class="kt">void</span><span class="w"> </span><span class="nf">add_leaf</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">to</span><span class="p">)</span>
 <span class="p">{</span>
-<span class="w">    </span><span class="n">adj</span><span class="p">[</span><span class="n">to</span><span class="p">].</span><span class="n">push_back</span><span class="p">((</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="n">adj</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">adj</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="w">    </span><span class="n">adj</span><span class="p">[</span><span class="n">to</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
 <span class="w">    </span><span class="n">adj</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="n">to</span><span class="p">});</span>
 <span class="w">    </span><span class="n">depth</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">depth</span><span class="p">[</span><span class="n">to</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
-<span class="w">    </span><span class="n">up</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">ups</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
-<span class="w">    </span><span class="n">ups</span><span class="o">++</span><span class="p">;</span>
-<span class="w">    </span><span class="n">up</span><span class="p">[</span><span class="n">ups</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">].</span><span class="n">resize</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
-<span class="w">    </span><span class="n">up</span><span class="p">[</span><span class="n">ups</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">to</span><span class="p">;</span>
+<span class="w">    </span><span class="n">up</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span>
+<span class="w">    </span><span class="n">up</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">to</span><span class="p">;</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">l</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
-<span class="w">        </span><span class="n">up</span><span class="p">[</span><span class="n">ups</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">up</span><span class="p">[</span><span class="n">up</span><span class="p">[</span><span class="n">ups</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">][</span><span class="n">i</span><span class="mi">-1</span><span class="p">]][</span><span class="n">i</span><span class="mi">-1</span><span class="p">];</span>
+<span class="w">        </span><span class="n">up</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">up</span><span class="p">[</span><span class="n">up</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">i</span><span class="mi">-1</span><span class="p">]][</span><span class="n">i</span><span class="mi">-1</span><span class="p">];</span>
 <span class="p">}</span>
 
-<span class="kt">void</span><span class="w"> </span><span class="nf">preprocess</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">root</span><span class="p">)</span>
+<span class="c1">//Set max_nodes to the maximum size of the graph</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">preprocess</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">root</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">max_nodes</span><span class="p">)</span>
 <span class="p">{</span>
 <span class="w">    </span><span class="n">depth</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
-<span class="w">    </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ceil</span><span class="p">(</span><span class="n">log2</span><span class="p">(</span><span class="n">MAXN</span><span class="p">));</span>
+<span class="w">    </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ceil</span><span class="p">(</span><span class="n">log2</span><span class="p">(</span><span class="n">max_nodes</span><span class="p">));</span>
 <span class="w">    </span><span class="n">up</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span>
-<span class="w">    </span><span class="n">ups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
 <span class="w">    </span><span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="w"> </span><span class="n">root</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -8265,11 +8312,11 @@ After all these operations, we two vertices <code>u</code> and <code>v</code>, t
 For each node we will define only <strong>small</strong> and <strong>big</strong> jumps. Small jumps will always point to the immediate ancestor (except for the root, which will point to itself). The big jumps have a more complicated definition. Denote <code>big[v]</code> as the node that we will be in after we do a big jump from node <code>v</code>. Let <code>big[root] = root</code>. </p>
 <p>After that we create a recursive definition.</p>
 <div class="arithmatex">$$\mathtt{big}[u] = \begin{cases} \mathtt{big}[\mathtt{big}[ancestor[u]]] &amp; \text{if the size of the big jump from the parent node is equal to the one of }\mathtt{big}[ancestor[u]] \\
-\mathtt{ancenstor}[u] &amp; \text{otherwise}\end{cases}$$</div>
+\mathtt{ancestor}[u] &amp; \text{otherwise}\end{cases}$$</div>
 <p>We can check the size of the jump simply by subtracting <code>depth[big[u]]</code> from <code>depth[u]</code>. 
 We have to evaluate this array in an order, such that for every node, we have computed the values for all of its ancestors. We can use the preorder ordering here, since it satisfies this property.</p>
-<p>Now after all of that preprocessing, answering queries is easy. We first balance the nodes to an equal depth and then we try to find the lowest node that isn't a common ancestor. This is very similar to what has been done in the Dynamic LCA algorithm, but now we just check if we can preform a big jump and if not, then we do a small one. The time complexity is logarithmic, as Harel and Tarjan proved in their paper that we will use maximaly <span class="arithmatex">$6\lfloor{\log(d+1)}\rfloor-4$</span> jumps. The space complexity is linear </p>
-<h2 id="implementation_2">Implementation<a class="headerlink" href="#implementation_2" title="Permanent link">&para;</a></h2>
+<p>Now after all of that preprocessing, answering queries is easy. We first balance the nodes to an equal depth and then we try to find the lowest node that isn't a common ancestor. This is very similar to what has been done in the Dynamic LCA algorithm, but now we just check if we can perform a big jump and if not, then we do a small one. The time complexity is logarithmic, as Harel and Tarjan proved in their paper that we will use maximally <span class="arithmatex">$6\lfloor{\log(d+1)}\rfloor-4$</span> jumps. The space complexity is linear.</p>
+<h3 id="implementation_2">Implementation<a class="headerlink" href="#implementation_2" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">;</span>
 <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">adj</span><span class="p">;</span>
 
@@ -8338,7 +8385,7 @@ We have to evaluate this array in an order, such that for every node, we have co
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/Nagerhide" title="Nagerhide" data-bi-name="contributorprofile" target="_blank">Nagerhide</a> (63.6%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (30.88%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.21%)</li><li><a href="https://github.com/HosseinYousefi" title="HosseinYousefi" data-bi-name="contributorprofile" target="_blank">HosseinYousefi</a> (1.47%)</li><li><a href="https://github.com/SanthoshAnguluri" title="SanthoshAnguluri" data-bi-name="contributorprofile" target="_blank">SanthoshAnguluri</a> (1.1%)</li><li><a href="https://github.com/nkasica" title="nkasica" data-bi-name="contributorprofile" target="_blank">nkasica</a> (0.37%)</li><li><a href="https://github.com/ASHISHKUMAR2411" title="ASHISHKUMAR2411" data-bi-name="contributorprofile" target="_blank">ASHISHKUMAR2411</a> (0.37%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/Nagerhide" title="Nagerhide" data-bi-name="contributorprofile" target="_blank">Nagerhide</a> (54.68%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (30.71%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (10.49%)</li><li><a href="https://github.com/HosseinYousefi" title="HosseinYousefi" data-bi-name="contributorprofile" target="_blank">HosseinYousefi</a> (1.5%)</li><li><a href="https://github.com/SanthoshAnguluri" title="SanthoshAnguluri" data-bi-name="contributorprofile" target="_blank">SanthoshAnguluri</a> (1.12%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (0.75%)</li><li><a href="https://github.com/nkasica" title="nkasica" data-bi-name="contributorprofile" target="_blank">nkasica</a> (0.37%)</li><li><a href="https://github.com/ASHISHKUMAR2411" title="ASHISHKUMAR2411" data-bi-name="contributorprofile" target="_blank">ASHISHKUMAR2411</a> (0.37%)</li></ul>
 </ul>
                 
               </article>
@@ -8421,9 +8468,11 @@ We have to evaluate this array in an order, such that for every node, we have co
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
+      
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
       
         <script src="../javascript/donation-banner.js"></script>
       

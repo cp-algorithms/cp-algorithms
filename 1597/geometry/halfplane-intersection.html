@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -7057,6 +7057,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8123,6 +8151,24 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
     
@@ -8163,6 +8209,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8191,7 +8241,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 8, 2022 11:09:55 UTC">June 8, 2022</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 24, 2026 04:18:12 UTC">May 24, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8264,7 +8314,7 @@ To sum up, the full algorithm will roughly look as follows:</p>
 <span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
 <span class="w">    </span><span class="k">explicit</span><span class="w"> </span><span class="n">Point</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="w"> </span><span class="n">y</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
 
-<span class="w">    </span><span class="c1">// Addition, substraction, multiply by constant, dot product, cross product.</span>
+<span class="w">    </span><span class="c1">// Addition, subtraction, multiply by constant, dot product, cross product.</span>
 
 <span class="w">    </span><span class="k">friend</span><span class="w"> </span><span class="n">Point</span><span class="w"> </span><span class="k">operator</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Point</span><span class="o">&amp;</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Point</span><span class="o">&amp;</span><span class="w"> </span><span class="n">q</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Point</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">y</span><span class="p">);</span><span class="w"> </span>
@@ -8290,7 +8340,7 @@ To sum up, the full algorithm will roughly look as follows:</p>
 <span class="c1">// Basic half-plane struct.</span>
 <span class="k">struct</span><span class="w"> </span><span class="nc">Halfplane</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
 
-<span class="w">    </span><span class="c1">// &#39;p&#39; is a passing point of the line and &#39;pq&#39; is the direction vector of the line.</span>
+<span class="w">    </span><span class="c1">// 'p' is a passing point of the line and 'pq' is the direction vector of the line.</span>
 <span class="w">    </span><span class="n">Point</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">pq</span><span class="p">;</span><span class="w"> </span>
 <span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">angle</span><span class="p">;</span>
 
@@ -8299,7 +8349,7 @@ To sum up, the full algorithm will roughly look as follows:</p>
 <span class="w">        </span><span class="n">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">atan2l</span><span class="p">(</span><span class="n">pq</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">pq</span><span class="p">.</span><span class="n">x</span><span class="p">);</span><span class="w">    </span>
 <span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="c1">// Check if point &#39;r&#39; is outside this half-plane. </span>
+<span class="w">    </span><span class="c1">// Check if point 'r' is outside this half-plane. </span>
 <span class="w">    </span><span class="c1">// Every half-plane allows the region to the LEFT of its line.</span>
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">out</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Point</span><span class="o">&amp;</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">cross</span><span class="p">(</span><span class="n">pq</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="o">-</span><span class="n">eps</span><span class="p">;</span><span class="w"> </span>
@@ -8310,7 +8360,7 @@ To sum up, the full algorithm will roughly look as follows:</p>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">angle</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span><span class="w"> </span>
 
-<span class="w">    </span><span class="c1">// Intersection point of the lines of two half-planes. It is assumed they&#39;re never parallel.</span>
+<span class="w">    </span><span class="c1">// Intersection point of the lines of two half-planes. It is assumed they're never parallel.</span>
 <span class="w">    </span><span class="k">friend</span><span class="w"> </span><span class="n">Point</span><span class="w"> </span><span class="n">inter</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Halfplane</span><span class="o">&amp;</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Halfplane</span><span class="o">&amp;</span><span class="w"> </span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cross</span><span class="p">((</span><span class="n">t</span><span class="p">.</span><span class="n">p</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">p</span><span class="p">),</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">pq</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">cross</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">pq</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">pq</span><span class="p">);</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">pq</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">alpha</span><span class="p">);</span>
@@ -8459,7 +8509,7 @@ Given a set <span class="arithmatex">$p$</span> of points <span class="arithmate
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/oscarburga" title="oscarburga" data-bi-name="contributorprofile" target="_blank">oscarburga</a> (95.15%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (2.27%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (1.62%)</li><li><a href="https://github.com/Kakalinn" title="Kakalinn" data-bi-name="contributorprofile" target="_blank">Kakalinn</a> (0.65%)</li><li><a href="https://github.com/LUTLJS" title="LUTLJS" data-bi-name="contributorprofile" target="_blank">LUTLJS</a> (0.32%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/oscarburga" title="oscarburga" data-bi-name="contributorprofile" target="_blank">oscarburga</a> (94.82%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (2.27%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (1.62%)</li><li><a href="https://github.com/Kakalinn" title="Kakalinn" data-bi-name="contributorprofile" target="_blank">Kakalinn</a> (0.65%)</li><li><a href="https://github.com/whyvineet" title="whyvineet" data-bi-name="contributorprofile" target="_blank">whyvineet</a> (0.32%)</li><li><a href="https://github.com/LUTLJS" title="LUTLJS" data-bi-name="contributorprofile" target="_blank">LUTLJS</a> (0.32%)</li></ul>
 </ul>
                 
               </article>
@@ -8542,9 +8592,11 @@ Given a set <span class="arithmatex">$p$</span> of points <span class="arithmate
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
+      
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
       
         <script src="../javascript/donation-banner.js"></script>
       

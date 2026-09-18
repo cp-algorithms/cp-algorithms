@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="feed_rss_updated.xml">
       
       <link rel="icon" href="favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
@@ -6983,6 +6983,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="graph/stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8196,13 +8224,13 @@ Describe the issue of this article in detail.
 </code></pre></div>
 <h3 id="handling-redirects">Handling Redirects<a class="headerlink" href="#handling-redirects" title="Permanent link">&para;</a></h3>
 <p>If you move or rename an article, make sure to set up a redirect. A redirect file should look like this:</p>
-<div class="highlight"><pre><span></span><code>&lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; url=../new-section/new-article.html&quot;&gt;
+<div class="highlight"><pre><span></span><code>&lt;meta http-equiv="refresh" content="0; url=../new-section/new-article.html"&gt;
 <span class="gh"># Article Name</span>
 This article has been moved to a [<span class="nt">new location</span>](<span class="na">new-section/new-article.md</span>).
 </code></pre></div>
 <h3 id="maintaining-anchor-links">Maintaining Anchor Links<a class="headerlink" href="#maintaining-anchor-links" title="Permanent link">&para;</a></h3>
 <p>If you rename a section, the link to that section (<code>/article.html#old-section-title</code>) might break. To avoid this, add an anchor manually:</p>
-<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;old-section-title&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">"old-section-title"</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </code></pre></div>
 <p>This will allow existing links to continue working even after the section title is changed.</p>
 <h3 id="article-tags">Article Tags<a class="headerlink" href="#article-tags" title="Permanent link">&para;</a></h3>
@@ -8371,9 +8399,11 @@ Running test_burnside_tori.cpp - Passed in 378 ms
       <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="javascript/config.js"></script>
+      
+        <script src="javascript/sidebar-toggle-sync.js"></script>
       
         <script src="javascript/donation-banner.js"></script>
       

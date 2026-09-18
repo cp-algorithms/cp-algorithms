@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -6879,6 +6879,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8061,7 +8089,7 @@ x \cdot r^{-1} &amp;= x \cdot r \cdot r^{-1} / r = x \cdot (-n \cdot n^{\prime} 
 This means, that we can add or subtract an arbitrary multiple of <span class="arithmatex">$r$</span> to <span class="arithmatex">$x \cdot n^{\prime}$</span>, or in other words, we can compute <span class="arithmatex">$q := x \cdot n^{\prime}$</span> modulo <span class="arithmatex">$r$</span>.</p>
 <p>This gives us the following algorithm to compute <span class="arithmatex">$x \cdot r^{-1} \bmod n$</span>:</p>
 <div class="highlight"><pre><span></span><code>function reduce(x):
-    q = (x mod r) * n&#39; mod r
+    q = (x mod r) * n' mod r
     a = (x - q * n) / r
     if a &lt; 0:
         a += n
@@ -8262,9 +8290,11 @@ If we square it <span class="arithmatex">$5$</span> times, we get <span class="a
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
+      
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
       
         <script src="../javascript/donation-banner.js"></script>
       

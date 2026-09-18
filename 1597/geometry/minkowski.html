@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -6890,6 +6890,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7962,6 +7990,18 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
 
@@ -8016,6 +8056,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8052,7 +8096,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 15, 2025 02:32:08 UTC">April 15, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 13:33:27 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8106,8 +8150,8 @@ We repeat the following steps while <span class="arithmatex">$i &lt; |P|$</span>
 
 <h2 id="distance-between-two-polygons">Distance between two polygons<a class="headerlink" href="#distance-between-two-polygons" title="Permanent link">&para;</a></h2>
 <p>One of the most common applications of Minkowski sum is computing the distance between two convex polygons (or simply checking whether they intersect).
-The distance between two convex polygons <span class="arithmatex">$P$</span> and <span class="arithmatex">$Q$</span> is defined as <span class="arithmatex">$\min\limits_{a \in P, b \in Q} ||a - b||$</span>. One can note that
-the distance is always attained between two vertices or a vertex and an edge, so we can easily find the distance in <span class="arithmatex">$O(|P||Q|)$</span>. However,
+The distance between two convex polygons <span class="arithmatex">$P$</span> and <span class="arithmatex">$Q$</span> is defined as <span class="arithmatex">$\min\limits_{a \in P, b \in Q} ||a - b||$</span>. If the polygons intersect, this distance is <span class="arithmatex">$0$</span>.
+Otherwise, the minimum distance is attained between two vertices or between a vertex and an edge, so a straightforward pairwise check takes <span class="arithmatex">$O(|P||Q|)$</span> time. However,
 with clever usage of Minkowski sum we can reduce the complexity to <span class="arithmatex">$O(|P| + |Q|)$</span>.</p>
 <p>If we reflect <span class="arithmatex">$Q$</span> through the point <span class="arithmatex">$(0, 0)$</span> obtaining polygon <span class="arithmatex">$-Q$</span>, the problem boils down to finding the smallest distance between a point in
 <span class="arithmatex">$P + (-Q)$</span> and <span class="arithmatex">$(0, 0)$</span>. We can find that distance in linear time using the following idea.
@@ -8171,7 +8215,7 @@ instead of computing polar angles and directly comparing them we can look at the
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/SYury" title="SYury" data-bi-name="contributorprofile" target="_blank">SYury</a> (86.96%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (4.35%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (2.61%)</li><li><a href="https://github.com/Kakalinn" title="Kakalinn" data-bi-name="contributorprofile" target="_blank">Kakalinn</a> (2.61%)</li><li><a href="https://github.com/Mychecksdead" title="Mychecksdead" data-bi-name="contributorprofile" target="_blank">Mychecksdead</a> (1.74%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (0.87%)</li><li><a href="https://github.com/Sama-004" title="Sama-004" data-bi-name="contributorprofile" target="_blank">Sama-004</a> (0.87%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/SYury" title="SYury" data-bi-name="contributorprofile" target="_blank">SYury</a> (85.22%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (4.35%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (2.61%)</li><li><a href="https://github.com/Kakalinn" title="Kakalinn" data-bi-name="contributorprofile" target="_blank">Kakalinn</a> (2.61%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (1.74%)</li><li><a href="https://github.com/Mychecksdead" title="Mychecksdead" data-bi-name="contributorprofile" target="_blank">Mychecksdead</a> (1.74%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (0.87%)</li><li><a href="https://github.com/Sama-004" title="Sama-004" data-bi-name="contributorprofile" target="_blank">Sama-004</a> (0.87%)</li></ul>
 </ul>
                 
               </article>
@@ -8254,9 +8298,11 @@ instead of computing polar angles and directly comparing them we can look at the
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
+      
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
       
         <script src="../javascript/donation-banner.js"></script>
       

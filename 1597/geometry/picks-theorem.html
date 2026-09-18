@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -6868,6 +6868,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7934,6 +7962,18 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
     
@@ -8002,7 +8042,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 8, 2022 11:09:55 UTC">June 8, 2022</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 13:33:27 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8029,10 +8069,10 @@ Describe the issue of this article in detail.
 
 
 <h1 id="picks-theorem">Pick's Theorem<a class="headerlink" href="#picks-theorem" title="Permanent link">&para;</a></h1>
-<p>A polygon without self-intersections is called lattice if all its vertices have integer coordinates in some 2D grid. Pick's theorem provides a way to compute the area of this polygon through the number of vertices that are lying on the boundary and the number of vertices that lie strictly inside the polygon.</p>
+<p>A polygon without self-intersections is called a lattice polygon if all its vertices have integer coordinates in some 2D grid. Pick's theorem provides a way to compute the area of this polygon through the number of lattice points that are lying on the boundary and the number of lattice points that lie strictly inside the polygon.</p>
 <h2 id="formula">Formula<a class="headerlink" href="#formula" title="Permanent link">&para;</a></h2>
 <p>Given a certain lattice polygon with non-zero area.</p>
-<p>We denote its area by <span class="arithmatex">$S$</span>, the number of points with integer coordinates lying strictly inside the polygon by <span class="arithmatex">$I$</span> and the number of points lying on polygon sides by <span class="arithmatex">$B$</span>.</p>
+<p>We denote its area by <span class="arithmatex">$S$</span>, the number of points with integer coordinates lying strictly inside the polygon by <span class="arithmatex">$I$</span> and the number of lattice points lying on polygon sides by <span class="arithmatex">$B$</span>.</p>
 <p>Then, the <strong>Pick's formula</strong> states:</p>
 <div class="arithmatex">$$S=I+\frac{B}{2}-1$$</div>
 <p>In particular, if the values of <span class="arithmatex">$I$</span> and <span class="arithmatex">$B$</span> for a polygon are given, the area can be calculated in <span class="arithmatex">$O(1)$</span> without even knowing the vertices.</p>
@@ -8041,19 +8081,19 @@ Describe the issue of this article in detail.
 <p>The proof is carried out in many stages: from simple polygons to arbitrary ones:</p>
 <ul>
 <li>
-<p>A single square: <span class="arithmatex">$S=1, I=0, B=4$</span>, which satisfies the formula.</p>
+<p>A unit square: <span class="arithmatex">$S=1, I=0, B=4$</span>, which satisfies the formula.</p>
 </li>
 <li>
-<p>An arbitrary non-degenerate rectangle with sides parallel to coordinate axes: Assume <span class="arithmatex">$a$</span> and <span class="arithmatex">$b$</span> be the length of the sides of rectangle. Then, <span class="arithmatex">$S=ab, I=(a-1)(b-1), B=2(a+b)$</span>. On substituting, we see that formula is true.</p>
+<p>An arbitrary non-degenerate rectangle with sides parallel to coordinate axes: Let <span class="arithmatex">$a$</span> and <span class="arithmatex">$b$</span> be the lengths of the sides of the rectangle. Then, <span class="arithmatex">$S=ab, I=(a-1)(b-1), B=2(a+b)$</span>. On substituting, we see that the formula is true.</p>
 </li>
 <li>
-<p>A right angle with legs parallel to the axes: To prove this, note that any such triangle can be obtained by cutting off a rectangle by a diagonal. Denoting the number of integral points lying on diagonal by <span class="arithmatex">$c$</span>, it can be shown that Pick's formula holds for this triangle regardless of <span class="arithmatex">$c$</span>.</p>
+<p>A right triangle with legs parallel to the axes: To prove this, note that any such triangle can be obtained by cutting a rectangle by a diagonal. Denoting the number of integral points lying on the diagonal by <span class="arithmatex">$c$</span>, it can be shown that Pick's formula holds for this triangle regardless of <span class="arithmatex">$c$</span>.</p>
 </li>
 <li>
-<p>An arbitrary triangle: Note that any such triangle can be turned into a rectangle by attaching it to sides of right-angled triangles with legs parallel to the axes (you will not need more than 3 such triangles). From here, we can get correct formula for any triangle.</p>
+<p>An arbitrary triangle: Note that any such triangle can be turned into a rectangle by attaching it to sides of right-angled triangles with legs parallel to the axes (you will not need more than 3 such triangles). From here, we can get the correct formula for any triangle.</p>
 </li>
 <li>
-<p>An arbitrary polygon: To prove this, triangulate it, ie, divide into triangles with integral coordinates. Further, it is possible to prove that Pick's theorem retains its validity when a polygon is added to a triangle. Thus, we have proven Pick's formula for arbitrary polygon.</p>
+<p>An arbitrary polygon: To prove this, triangulate it, i.e., divide it into triangles whose vertices have integer coordinates. Further, it is possible to prove that Pick's theorem retains its validity when a triangle is attached to a polygon along a shared edge. Thus, we have proven Pick's formula for an arbitrary polygon.</p>
 </li>
 </ul>
 <h2 id="generalization-to-higher-dimensions">Generalization to higher dimensions<a class="headerlink" href="#generalization-to-higher-dimensions" title="Permanent link">&para;</a></h2>
@@ -8063,14 +8103,14 @@ Describe the issue of this article in detail.
 B=(1,0,0),
 C=(0,1,0),
 D=(1,1,k),$$</div>
-<p>where <span class="arithmatex">$k$</span> can be any natural number. Then for any <span class="arithmatex">$k$</span>, the tetrahedron <span class="arithmatex">$ABCD$</span> does not contain integer point inside it and has only <span class="arithmatex">$4$</span> points on its borders, <span class="arithmatex">$A, B, C, D$</span>. Thus, the volume and surface area may vary in spite of unchanged number of points within and on boundary. Therefore, Pick's theorem doesn't allow generalizations.</p>
-<p>However, higher dimensions still has a generalization using <strong>Ehrhart polynomials</strong> but they are quite complex and depends not only on points inside but also on the boundary of polytype.</p>
+<p>where <span class="arithmatex">$k$</span> can be any natural number. Then for any <span class="arithmatex">$k$</span>, the tetrahedron <span class="arithmatex">$ABCD$</span> does not contain an integer point inside it and has only <span class="arithmatex">$4$</span> points on its boundary, <span class="arithmatex">$A, B, C, D$</span>. Thus, the volume and surface area may vary in spite of an unchanged number of points within and on the boundary. Therefore, Pick's theorem doesn't allow this kind of direct generalization.</p>
+<p>There is, however, a higher-dimensional generalization using <strong>Ehrhart polynomials</strong>, but it is more complex and depends not only on points inside but also on the boundary of the polytope.</p>
 <h2 id="extra-resources">Extra Resources<a class="headerlink" href="#extra-resources" title="Permanent link">&para;</a></h2>
 <p>A few simple examples and a simple proof of Pick's theorem can be found <a href="http://www.geometer.org/mathcircles/pick.pdf">here</a>.</p>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/praran26" title="praran26" data-bi-name="contributorprofile" target="_blank">praran26</a> (81.82%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (10.91%)</li><li><a href="https://github.com/Horlawhumy-dev" title="Horlawhumy-dev" data-bi-name="contributorprofile" target="_blank">Horlawhumy-dev</a> (5.45%)</li><li><a href="https://github.com/princezna" title="princezna" data-bi-name="contributorprofile" target="_blank">princezna</a> (1.82%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/praran26" title="praran26" data-bi-name="contributorprofile" target="_blank">praran26</a> (67.27%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (16.36%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (10.91%)</li><li><a href="https://github.com/Horlawhumy-dev" title="Horlawhumy-dev" data-bi-name="contributorprofile" target="_blank">Horlawhumy-dev</a> (5.45%)</li></ul>
 </ul>
                 
               </article>
@@ -8153,9 +8193,11 @@ D=(1,1,k),$$</div>
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
+      
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
       
         <script src="../javascript/donation-banner.js"></script>
       

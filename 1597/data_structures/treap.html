@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -6995,6 +6995,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -8073,26 +8101,6 @@ Describe the issue of this article in detail.
   
     
   
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
 
   
   
@@ -8111,11 +8119,21 @@ Describe the issue of this article in detail.
   
     
   
+    
+  
+    
+  
 
   
   
   
     
+  
+    
+  
+
+  
+  
   
     
   
@@ -8145,8 +8163,44 @@ Describe the issue of this article in detail.
   
     
   
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
 
 
+
+  
+  
+  
+
+  
+  
+  
 
   
   
@@ -8203,7 +8257,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 3, 2025 15:57:46 UTC">July 3, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 14:13:56 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8312,7 +8366,7 @@ If some node of the tree contains values <span class="arithmatex">$(X_0, Y_0)$</
 <span class="p">};</span>
 <span class="k">typedef</span><span class="w"> </span><span class="n">item</span><span class="o">*</span><span class="w"> </span><span class="n">pitem</span><span class="p">;</span>
 </code></pre></div>
-<p>This is our item defintion. Note there are two child pointers, and an integer key (for the BST) and an integer priority (for the heap). The priority is assigned using a random number generator.</p>
+<p>This is our item definition. Note there are two child pointers, and an integer key (for the BST) and an integer priority (for the heap). The priority is assigned using a random number generator.</p>
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">split</span><span class="w"> </span><span class="p">(</span><span class="n">pitem</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="n">pitem</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">pitem</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">t</span><span class="p">)</span>
 <span class="w">        </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
@@ -8322,11 +8376,9 @@ If some node of the tree contains values <span class="arithmatex">$(X_0, Y_0)$</
 <span class="w">        </span><span class="n">split</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">),</span><span class="w">  </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><code>t</code> is the treap to split, and <code>key</code> is the BST value by which to split. Note that we do not <code>return</code> the result values anywhere, instead, we just use them like so:</p>
+<p><code>t</code> is the treap to split, and <code>key</code> is the BST value by which to split. Note that we do not <code>return</code> the result values anywhere; instead, the output treaps are written through <code>l</code> and <code>r</code>, for example:</p>
 <div class="highlight"><pre><span></span><code><span class="n">pitem</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span>
 <span class="n">split</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">);</span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="w"> </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Left subtree size: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Right subtree size: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
 </code></pre></div>
 <p>This <code>split</code> function can be tricky to understand, as it has both pointers (<code>pitem</code>) as well as reference to those pointers (<code>pitem &amp;l</code>). Let us understand in words what the function call <code>split(t, k, l, r)</code> intends: "split treap <code>t</code> by value <code>k</code> into two treaps, and store the left treaps in <code>l</code> and right treap in <code>r</code>". Great! Now, let us apply this definition to the two recursive calls, using the case work we analyzed in the previous section: (The first if condition is a trivial base case for an empty treap)</p>
 <ol>
@@ -8407,7 +8459,7 @@ If some node of the tree contains values <span class="arithmatex">$(X_0, Y_0)$</
 <span class="w">    </span><span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">mid</span><span class="p">);</span>
 <span class="w">    </span><span class="n">t</span><span class="o">-&gt;</span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">mid</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">mid</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
 <span class="w">    </span><span class="n">heapify</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
-<span class="w">    </span><span class="n">upd_cnt</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="w">    </span><span class="n">upd_cnt</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -8419,7 +8471,8 @@ If some node of the tree contains values <span class="arithmatex">$(X_0, Y_0)$</
 </div>
 <p>Note that in this problem priorities are not random, hence just inserting vertices one by one could provide a quadratic solution.</p>
 <p>One of possible solutions here is to find for each element the closest elements to the left and to the right which have a smaller priority than this element. Among these two elements, the one with the larger priority must be the parent of the current element.</p>
-<p>This problem is solvable with a <a href="stack_queue_modification.html">minimum stack</a> modification in linear time:</p>
+<p>This problem is solvable with a <a href="stack_queue_modification.html">minimum stack</a> modification in linear time.
+The construction below uses the min-heap convention for priorities, unlike the max-heap convention used by the regular treap implementation above, and assumes that <code>item</code> is extended with a parent pointer <code>p</code> initialized to <code>nullptr</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">from</span><span class="p">,</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">to</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pitem</span><span class="o">&gt;</span><span class="w"> </span><span class="n">st</span><span class="p">;</span>
 <span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">it</span><span class="o">:</span><span class="w"> </span><span class="n">ranges</span><span class="o">::</span><span class="n">subrange</span><span class="p">(</span><span class="n">from</span><span class="p">,</span><span class="w"> </span><span class="n">to</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
@@ -8503,7 +8556,7 @@ More specifically, the <strong>implicit key</strong> for some node T is the numb
 <li><strong>Addition / painting</strong> on the interval.<br />
  We act similarly to the previous paragraph, but instead of the field F we will store a field <code>add</code> which will contain the added value for the subtree (or the value to which the subtree is painted). Before performing any operation we have to "push" this value correctly - i.e. change <span class="arithmatex">$T \rightarrow L \rightarrow add$</span> and <span class="arithmatex">$T \rightarrow R \rightarrow add$</span>, and to clean up <code>add</code> in the parent node. This way after any changes to the tree the information will not be lost.</li>
 <li><strong>Reverse</strong> on the interval.<br />
- This is again similar to the previous operation: we have to add boolean flag <code>rev</code> and set it to true when the subtree of the current node has to be reversed. "Pushing" this value is a bit complicated - we swap children of this node and set this flag to true for them.</li>
+ This is again similar to the previous operation: we have to add boolean flag <code>rev</code> and toggle it whenever the subtree of the current node has to be reversed. "Pushing" this value is a bit complicated - we swap children of this node and toggle this flag for them.</li>
 </ul>
 <p>Here is an example implementation of the implicit treap with reverse on the interval. For each node we store field called <code>value</code> which is the actual value of the array element at current position. We also provide implementation of the function <code>output()</code>, which outputs an array that corresponds to the current state of the implicit treap.</p>
 <div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">item</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pitem</span><span class="p">;</span>
@@ -8568,7 +8621,7 @@ More specifically, the <strong>implicit key</strong> for some node T is the numb
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">t</span><span class="p">)</span><span class="w">  </span><span class="k">return</span><span class="p">;</span>
 <span class="w">    </span><span class="n">push</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
 <span class="w">    </span><span class="n">output</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">);</span>
-<span class="w">    </span><span class="n">printf</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;%d &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="w"> </span><span class="p">(</span><span class="s">"%d "</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span>
 <span class="w">    </span><span class="n">output</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -8597,7 +8650,7 @@ More specifically, the <strong>implicit key</strong> for some node T is the numb
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/Leefrost" title="Leefrost" data-bi-name="contributorprofile" target="_blank">Leefrost</a> (41.84%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (28.05%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (8.97%)</li><li><a href="https://github.com/GaurangTandon" title="GaurangTandon" data-bi-name="contributorprofile" target="_blank">GaurangTandon</a> (7.36%)</li><li><a href="https://github.com/meooow25" title="meooow25" data-bi-name="contributorprofile" target="_blank">meooow25</a> (6.44%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (3.22%)</li><li><a href="https://github.com/Dalgerok" title="Dalgerok" data-bi-name="contributorprofile" target="_blank">Dalgerok</a> (1.38%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (0.92%)</li><li><a href="https://github.com/algmyr" title="algmyr" data-bi-name="contributorprofile" target="_blank">algmyr</a> (0.92%)</li><li><a href="https://github.com/princezna" title="princezna" data-bi-name="contributorprofile" target="_blank">princezna</a> (0.46%)</li><li><a href="https://github.com/yousvf" title="yousvf" data-bi-name="contributorprofile" target="_blank">yousvf</a> (0.23%)</li><li><a href="https://github.com/kroist" title="kroist" data-bi-name="contributorprofile" target="_blank">kroist</a> (0.23%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/Leefrost" title="Leefrost" data-bi-name="contributorprofile" target="_blank">Leefrost</a> (41.94%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (27.65%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (8.99%)</li><li><a href="https://github.com/GaurangTandon" title="GaurangTandon" data-bi-name="contributorprofile" target="_blank">GaurangTandon</a> (6.45%)</li><li><a href="https://github.com/meooow25" title="meooow25" data-bi-name="contributorprofile" target="_blank">meooow25</a> (6.45%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (3.23%)</li><li><a href="https://github.com/andriiorap" title="andriiorap" data-bi-name="contributorprofile" target="_blank">andriiorap</a> (1.38%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (1.15%)</li><li><a href="https://github.com/algmyr" title="algmyr" data-bi-name="contributorprofile" target="_blank">algmyr</a> (0.92%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (0.69%)</li><li><a href="https://github.com/princezna" title="princezna" data-bi-name="contributorprofile" target="_blank">princezna</a> (0.46%)</li><li><a href="https://github.com/whyvineet" title="whyvineet" data-bi-name="contributorprofile" target="_blank">whyvineet</a> (0.23%)</li><li><a href="https://github.com/yousvf" title="yousvf" data-bi-name="contributorprofile" target="_blank">yousvf</a> (0.23%)</li><li><a href="https://github.com/kroist" title="kroist" data-bi-name="contributorprofile" target="_blank">kroist</a> (0.23%)</li></ul>
 </ul>
                 
               </article>
@@ -8680,9 +8733,11 @@ More specifically, the <strong>implicit key</strong> for some node T is the numb
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
+      
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
       
         <script src="../javascript/donation-banner.js"></script>
       

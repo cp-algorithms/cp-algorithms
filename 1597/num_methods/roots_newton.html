@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -34,7 +34,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -6857,6 +6857,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7929,6 +7957,30 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
 
@@ -7967,6 +8019,14 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
+
+  
+  
+  
 
   
   
@@ -7995,7 +8055,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 14, 2023 18:12:11 UTC">July 14, 2023</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 17:30:18 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8037,7 +8097,7 @@ Describe the issue of this article in detail.
 <div class="arithmatex">$$ x_{i+1} = x_i - \frac{f(x_i)}{f^\prime(x_i)} $$</div>
 <p>First, we calculate the slope <span class="arithmatex">$f'(x)$</span>, derivative of <span class="arithmatex">$f(x)$</span>, and then determine the equation of the tangent which is,</p>
 <div class="arithmatex">$$ y - f(x_i) = f'(x_i)(x - x_i) $$</div>
-<p>The tangent intersects with the x-axis at cordinate, <span class="arithmatex">$y = 0$</span> and <span class="arithmatex">$x = x_{i+1}$</span>,</p>
+<p>The tangent intersects with the x-axis at coordinate, <span class="arithmatex">$y = 0$</span> and <span class="arithmatex">$x = x_{i+1}$</span>,</p>
 <div class="arithmatex">$$ - f(x_i) = f'(x_i)(x_{i+1} - x_i) $$</div>
 <p>Now, solving the equation we get the value of <span class="arithmatex">$x_{i+1}$</span>.</p>
 <p>It is intuitively clear that if the function <span class="arithmatex">$f(x)$</span> is "good" (smooth), and <span class="arithmatex">$x_i$</span> is close enough to the root, then <span class="arithmatex">$x_{i+1}$</span> will be even closer to the desired root.</p>
@@ -8059,12 +8119,14 @@ Describe the issue of this article in detail.
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>Another common variant of the problem is when we need to calculate the integer root (for the given <span class="arithmatex">$n$</span> find the largest <span class="arithmatex">$x$</span> such that <span class="arithmatex">$x^2 \le n$</span>). Here it is necessary to slightly change the termination condition of the algorithm, since it may happen that <span class="arithmatex">$x$</span> will start to "jump" near the answer. Therefore, we add a condition that if the value <span class="arithmatex">$x$</span> has decreased in the previous step, and it tries to increase at the current step, then the algorithm must be stopped.</p>
+<p>Another common variant of the problem is when we need to calculate the integer root (for the given non-negative <span class="arithmatex">$n$</span> find the largest <span class="arithmatex">$x$</span> such that <span class="arithmatex">$x^2 \le n$</span>). Here it is necessary to slightly change the termination condition of the algorithm, since it may happen that <span class="arithmatex">$x$</span> will start to "jump" near the answer. Therefore, we add a condition that if the value <span class="arithmatex">$x$</span> has decreased in the previous step, and it tries to increase at the current step, then the algorithm must be stopped.</p>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">isqrt_newton</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">decreased</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(;;)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">nx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">nx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1L</span><span class="n">L</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">nx</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">nx</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">decreased</span><span class="p">)</span>
 <span class="w">            </span><span class="k">break</span><span class="p">;</span>
 <span class="w">        </span><span class="n">decreased</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
@@ -8075,6 +8137,8 @@ Describe the issue of this article in detail.
 </code></pre></div>
 <p>Finally, we are given the third variant - for the case of bignum arithmetic. Since the number <span class="arithmatex">$n$</span> can be large enough, it makes sense to pay attention to the initial approximation. Obviously, the closer it is to the root, the faster the result will be achieved. It is simple enough and effective to take the initial approximation as the number <span class="arithmatex">$2^{\textrm{bits}/2}$</span>, where <span class="arithmatex">$\textrm{bits}$</span> is the number of bits in the number <span class="arithmatex">$n$</span>. Here is the Java code that demonstrates this variant:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">BigInteger</span><span class="w"> </span><span class="nf">isqrtNewton</span><span class="p">(</span><span class="n">BigInteger</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="p">.</span><span class="na">signum</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">BigInteger</span><span class="p">.</span><span class="na">ZERO</span><span class="p">;</span>
 <span class="w">    </span><span class="n">BigInteger</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BigInteger</span><span class="p">.</span><span class="na">ONE</span><span class="p">.</span><span class="na">shiftLeft</span><span class="p">(</span><span class="n">n</span><span class="p">.</span><span class="na">bitLength</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
 <span class="w">    </span><span class="kt">boolean</span><span class="w"> </span><span class="n">p_dec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(;;)</span><span class="w"> </span><span class="p">{</span>
@@ -8095,7 +8159,7 @@ Describe the issue of this article in detail.
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/prprprpony" title="prprprpony" data-bi-name="contributorprofile" target="_blank">prprprpony</a> (77.36%)</li><li><a href="https://github.com/twfksh" title="twfksh" data-bi-name="contributorprofile" target="_blank">twfksh</a> (14.15%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (5.66%)</li><li><a href="https://github.com/AbhijeetKrishnan" title="AbhijeetKrishnan" data-bi-name="contributorprofile" target="_blank">AbhijeetKrishnan</a> (1.89%)</li><li><a href="https://github.com/chuan" title="chuan" data-bi-name="contributorprofile" target="_blank">chuan</a> (0.94%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/pr3pony" title="pr3pony" data-bi-name="contributorprofile" target="_blank">pr3pony</a> (72.73%)</li><li><a href="https://github.com/twfksh" title="twfksh" data-bi-name="contributorprofile" target="_blank">twfksh</a> (12.73%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (5.45%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (5.45%)</li><li><a href="https://github.com/AbhijeetKrishnan" title="AbhijeetKrishnan" data-bi-name="contributorprofile" target="_blank">AbhijeetKrishnan</a> (1.82%)</li><li><a href="https://github.com/whyvineet" title="whyvineet" data-bi-name="contributorprofile" target="_blank">whyvineet</a> (0.91%)</li><li><a href="https://github.com/chuan" title="chuan" data-bi-name="contributorprofile" target="_blank">chuan</a> (0.91%)</li></ul>
 </ul>
                 
               </article>
@@ -8178,9 +8242,11 @@ Describe the issue of this article in detail.
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
+      
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
       
         <script src="../javascript/donation-banner.js"></script>
       
