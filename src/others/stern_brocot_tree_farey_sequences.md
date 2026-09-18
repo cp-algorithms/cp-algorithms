@@ -211,8 +211,6 @@ To get this bound, each $a_k$ must be found by first doubling a candidate value 
 
 The total is then $O\left(\sum_k \left(1 + \log a_k\right)\right)$, and both parts are $O(\log (p+q))$. The number of terms is $O(\log (p+q))$, because $p_k$ and $q_k$ grow at least as fast as Fibonacci numbers, which is the slowest growth, attained when every $a_k$ equals $1$. And adding the two recurrences above gives $p_{k+1} + q_{k+1} = (p_{k-1} + q_{k-1}) + a_k (p_k + q_k) \geq a_k (p_k + q_k)$, so $p + q \geq \prod_k a_k$ and therefore $\sum_k \log a_k \leq \log (p+q)$.
 
-Both ingredients also appear in [Hagedorn et al.](https://arxiv.org/abs/2511.12315), in a setting with membership queries rather than a strict comparison oracle: Proposition 1 bounds $\sum_k \log a_k$ by the encoding size, and Theorem 4 gives the $O(\log a_k)$ exponential-then-binary search for a single run.
-
 ## Farey Sequence
 
 The Farey sequence of order $n$ is the sorted sequence of fractions between $0$ and $1$ whose denominators do not exceed $n$.
