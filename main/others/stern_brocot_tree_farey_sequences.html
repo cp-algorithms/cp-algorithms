@@ -8022,6 +8022,12 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
     
   
     
@@ -8084,6 +8090,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8120,7 +8130,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 19, 2026 12:44:12 UTC">March 19, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 14:00:36 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8280,9 +8290,11 @@ $$</div>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">res</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>However, this approach only works if we already know <span class="arithmatex">$\frac{p}{q}$</span> and want to find its place in the Stern-Brocot tree.</p>
+<p>However, this approach only works as is if we already know <span class="arithmatex">$\frac{p}{q}$</span> and want to find its place in the Stern-Brocot tree.</p>
 <p>On practice, it is often the case that <span class="arithmatex">$\frac{p}{q}$</span> is not known in advance, but we are able to check for specific <span class="arithmatex">$\frac{x}{y}$</span> whether <span class="arithmatex">$\frac{x}{y} &lt; \frac{p}{q}$</span>.</p>
-<p>Knowing this, we can emulate the search on Stern-Brocot tree by maintaining the current boundaries <span class="arithmatex">$\frac{p_{k-1}}{q_{k-1}}$</span> and <span class="arithmatex">$\frac{p_k}{q_k}$</span>, and finding each <span class="arithmatex">$a_k$</span> via binary search. The algorithm then is a bit more technical and potentially have a complexity of <span class="arithmatex">$O(\log^2(x+y))$</span>, unless the problem formulation allows you to find <span class="arithmatex">$a_k$</span> faster (for example, using <code>floor</code> of some known expression).</p>
+<p>Knowing this, we can emulate the search on Stern-Brocot tree by maintaining the current boundaries <span class="arithmatex">$\frac{p_{k-1}}{q_{k-1}}$</span> and <span class="arithmatex">$\frac{p_k}{q_k}$</span>, and finding each <span class="arithmatex">$a_k$</span> via binary search. The algorithm then is a bit more technical, yet it is still guaranteed to have <span class="arithmatex">$O(\log (p+q))$</span> complexity. This cannot be improved in general, as the number of terms alone is already <span class="arithmatex">$\Theta(\log (p+q))$</span> in the worst case.</p>
+<p>To get this bound, each <span class="arithmatex">$a_k$</span> must be found by first doubling a candidate value until it overshoots, and only then binary searching inside the last interval. This costs <span class="arithmatex">$O(\log a_k)$</span> comparisons. Binary searching each <span class="arithmatex">$a_k$</span> over a fixed range instead would cost <span class="arithmatex">$O(\log (p+q))$</span> per term, leading to a weaker <span class="arithmatex">$O(\log^2 (p+q))$</span> bound overall.</p>
+<p>The total is then <span class="arithmatex">$O\left(\sum_k \left(1 + \log a_k\right)\right)$</span>, and both parts are <span class="arithmatex">$O(\log (p+q))$</span>. The number of terms is <span class="arithmatex">$O(\log (p+q))$</span>, because <span class="arithmatex">$p_k$</span> and <span class="arithmatex">$q_k$</span> grow at least as fast as Fibonacci numbers, which is the slowest growth, attained when every <span class="arithmatex">$a_k$</span> equals <span class="arithmatex">$1$</span>. And adding the two recurrences above gives <span class="arithmatex">$p_{k+1} + q_{k+1} = (p_{k-1} + q_{k-1}) + a_k (p_k + q_k) \geq a_k (p_k + q_k)$</span>, so <span class="arithmatex">$p + q \geq \prod_k a_k$</span> and therefore <span class="arithmatex">$\sum_k \log a_k \leq \log (p+q)$</span>.</p>
 <h2 id="farey-sequence">Farey Sequence<a class="headerlink" href="#farey-sequence" title="Permanent link">&para;</a></h2>
 <p>The Farey sequence of order <span class="arithmatex">$n$</span> is the sorted sequence of fractions between <span class="arithmatex">$0$</span> and <span class="arithmatex">$1$</span> whose denominators do not exceed <span class="arithmatex">$n$</span>.</p>
 <p>The sequences are named after English geologist John Farey, who in 1816 conjectured that any fraction in a Farey sequence is the mediant of its neighbors. This was proven some time later by Cauchy, but independent of both of them, the mathematician Haros had come to almost the same conclusion in 1802.</p>
@@ -8300,7 +8312,7 @@ $$</div>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/algmyr" title="algmyr" data-bi-name="contributorprofile" target="_blank">algmyr</a> (50.86%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (29.74%)</li><li><a href="https://github.com/AbhijeetKrishnan" title="AbhijeetKrishnan" data-bi-name="contributorprofile" target="_blank">AbhijeetKrishnan</a> (16.38%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (1.72%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (0.86%)</li><li><a href="https://github.com/gampu" title="gampu" data-bi-name="contributorprofile" target="_blank">gampu</a> (0.43%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/algmyr" title="algmyr" data-bi-name="contributorprofile" target="_blank">algmyr</a> (50.0%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (28.39%)</li><li><a href="https://github.com/AbhijeetKrishnan" title="AbhijeetKrishnan" data-bi-name="contributorprofile" target="_blank">AbhijeetKrishnan</a> (16.1%)</li><li><a href="https://github.com/mmunos" title="mmunos" data-bi-name="contributorprofile" target="_blank">mmunos</a> (2.54%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (1.69%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (0.85%)</li><li><a href="https://github.com/gampu" title="gampu" data-bi-name="contributorprofile" target="_blank">gampu</a> (0.42%)</li></ul>
 </ul>
                 
               </article>
