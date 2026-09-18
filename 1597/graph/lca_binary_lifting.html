@@ -8131,7 +8131,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 22:20:03 UTC">September 18, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 22:37:06 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8316,6 +8316,7 @@ For each node we will define only <strong>small</strong> and <strong>big</strong
 <p>We can check the size of the jump simply by subtracting <code>depth[big[u]]</code> from <code>depth[u]</code>. 
 We have to evaluate this array in an order, such that for every node, we have computed the values for all of its ancestors. We can use the preorder ordering here, since it satisfies this property.</p>
 <p>Now after all of that preprocessing, answering queries is easy. We first balance the nodes to an equal depth and then we try to find the lowest node that isn't a common ancestor. This is very similar to what has been done in the Dynamic LCA algorithm, but now we just check if we can perform a big jump and if not, then we do a small one. The time complexity is logarithmic, as Harel and Tarjan proved in their paper that we will use maximally <span class="arithmatex">$6\lfloor{\log(d+1)}\rfloor-4$</span> jumps. The space complexity is linear.</p>
+<p>Adding a leaf is cheaper here than in the previous section. Both pointers of a new vertex are determined by its parent alone, and no existing vertex changes, so an insertion is <span class="arithmatex">$O(1)$</span> and there is no table to extend.</p>
 <h3 id="implementation_2">Implementation<a class="headerlink" href="#implementation_2" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">;</span>
 <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">adj</span><span class="p">;</span>
@@ -8366,6 +8367,21 @@ We have to evaluate this array in an order, such that for every node, we have co
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">u</span><span class="p">;</span>
 <span class="p">}</span>
 
+<span class="kt">void</span><span class="w"> </span><span class="nf">add_leaf</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">to</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">adj</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="w">    </span><span class="n">adj</span><span class="p">[</span><span class="n">to</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+<span class="w">    </span><span class="n">adj</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="n">to</span><span class="p">});</span>
+<span class="w">    </span><span class="n">depth</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">depth</span><span class="p">[</span><span class="n">to</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">small</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">to</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">depth</span><span class="p">[</span><span class="n">to</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">depth</span><span class="p">[</span><span class="n">big</span><span class="p">[</span><span class="n">to</span><span class="p">]]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">depth</span><span class="p">[</span><span class="n">big</span><span class="p">[</span><span class="n">to</span><span class="p">]]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">depth</span><span class="p">[</span><span class="n">big</span><span class="p">[</span><span class="n">big</span><span class="p">[</span><span class="n">to</span><span class="p">]]]){</span>
+<span class="w">        </span><span class="n">big</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">big</span><span class="p">[</span><span class="n">big</span><span class="p">[</span><span class="n">to</span><span class="p">]]);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span><span class="p">{</span>
+<span class="w">        </span><span class="n">big</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">to</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
 <span class="kt">void</span><span class="w"> </span><span class="nf">preprocess</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">root</span><span class="p">)</span>
 <span class="p">{</span>
@@ -8385,7 +8401,7 @@ We have to evaluate this array in an order, such that for every node, we have co
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/Nagerhide" title="Nagerhide" data-bi-name="contributorprofile" target="_blank">Nagerhide</a> (54.68%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (30.71%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (10.49%)</li><li><a href="https://github.com/HosseinYousefi" title="HosseinYousefi" data-bi-name="contributorprofile" target="_blank">HosseinYousefi</a> (1.5%)</li><li><a href="https://github.com/SanthoshAnguluri" title="SanthoshAnguluri" data-bi-name="contributorprofile" target="_blank">SanthoshAnguluri</a> (1.12%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (0.75%)</li><li><a href="https://github.com/nkasica" title="nkasica" data-bi-name="contributorprofile" target="_blank">nkasica</a> (0.37%)</li><li><a href="https://github.com/ASHISHKUMAR2411" title="ASHISHKUMAR2411" data-bi-name="contributorprofile" target="_blank">ASHISHKUMAR2411</a> (0.37%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/Nagerhide" title="Nagerhide" data-bi-name="contributorprofile" target="_blank">Nagerhide</a> (51.41%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (28.87%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (15.84%)</li><li><a href="https://github.com/HosseinYousefi" title="HosseinYousefi" data-bi-name="contributorprofile" target="_blank">HosseinYousefi</a> (1.41%)</li><li><a href="https://github.com/SanthoshAnguluri" title="SanthoshAnguluri" data-bi-name="contributorprofile" target="_blank">SanthoshAnguluri</a> (1.06%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (0.7%)</li><li><a href="https://github.com/nkasica" title="nkasica" data-bi-name="contributorprofile" target="_blank">nkasica</a> (0.35%)</li><li><a href="https://github.com/ASHISHKUMAR2411" title="ASHISHKUMAR2411" data-bi-name="contributorprofile" target="_blank">ASHISHKUMAR2411</a> (0.35%)</li></ul>
 </ul>
                 
               </article>
