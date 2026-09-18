@@ -246,7 +246,7 @@ bool spfa(int s, vector<int>& d) {
                     q.push(to);
                     inqueue[to] = true;
                     cnt[to]++;
-                    if (cnt[to] > n)
+                    if (cnt[to] >= n)
                         return false;  // negative cycle
                 }
             }
