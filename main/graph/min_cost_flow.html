@@ -7990,6 +7990,12 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
     
   
     
@@ -8042,6 +8048,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8078,7 +8088,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 24, 2024 18:20:48 UTC">February 24, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 13:27:08 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8111,7 +8121,7 @@ Also the source <span class="arithmatex">$s$</span> and the sink <span class="ar
 <p>For a given value <span class="arithmatex">$K$</span>, we have to find a flow of this quantity, and among all flows of this quantity we have to choose the flow with the lowest cost.
 This task is called <strong>minimum-cost flow problem</strong>.</p>
 <p>Sometimes the task is given a little differently:
-you want to find the maximum flow, and among all maximal flows we want to find the one with the least cost.
+you want to find the maximum flow, and among all maximum flows we want to find the one with the least cost.
 This is called the <strong>minimum-cost maximum-flow problem</strong>.</p>
 <p>Both these problems can be solved effectively with the algorithm of successive shortest paths.</p>
 <h2 id="algorithm">Algorithm<a class="headerlink" href="#algorithm" title="Permanent link">&para;</a></h2>
@@ -8126,12 +8136,12 @@ Initially all flow values are zero.</p>
 for each edge <span class="arithmatex">$(i, j)$</span> we add the <strong>reverse edge</strong> <span class="arithmatex">$(j, i)$</span> to the network with the capacity <span class="arithmatex">$U_{j i} = 0$</span> and the cost <span class="arithmatex">$C_{j i} = -C_{i j}$</span>.
 Since, according to our restrictions, the edge <span class="arithmatex">$(j, i)$</span> was not in the network before, we still have a network that is not a multigraph (graph with multiple edges).
 In addition we will always keep the condition <span class="arithmatex">$F_{j i} = -F_{i j}$</span> true during the steps of the algorithm.</p>
-<p>We define the <strong>residual network</strong> for some fixed flow <span class="arithmatex">$F$</span> as follow (just like in the Ford-Fulkerson algorithm):
+<p>We define the <strong>residual network</strong> for some fixed flow <span class="arithmatex">$F$</span> as follows (just like in the Ford-Fulkerson algorithm):
 the residual network contains only unsaturated edges (i.e. edges in which <span class="arithmatex">$F_{i j} &lt; U_{i j}$</span>), and the residual capacity of each such edge is <span class="arithmatex">$R_{i j} = U_{i j} - F_{i j}$</span>.</p>
-<p>Now we can talk about the <strong>algorithms</strong> to compute the minimum-cost flow.
+<p>Now we can talk about the <strong>algorithm</strong> to compute the minimum-cost flow.
 At each iteration of the algorithm we find the shortest path in the residual graph from <span class="arithmatex">$s$</span> to <span class="arithmatex">$t$</span>.
 In contrast to Edmonds-Karp, we look for the shortest path in terms of the cost of the path instead of the number of edges.
-If there doesn't exists a path anymore, then the algorithm terminates, and the stream <span class="arithmatex">$F$</span> is the desired one.
+If no such path exists anymore, then the algorithm terminates. If the current flow has not yet reached <span class="arithmatex">$K$</span>, then no flow of value <span class="arithmatex">$K$</span> exists; otherwise <span class="arithmatex">$F$</span> is the desired flow.
 If a path was found, we increase the flow along it as much as possible (i.e. we find the minimal residual capacity <span class="arithmatex">$R$</span> of the path, and increase the flow by it, and reduce the back edges by the same amount).
 If at some point the flow reaches the value <span class="arithmatex">$K$</span>, then we stop the algorithm (note that in the last iteration of the algorithm it is necessary to increase the flow by only such an amount so that the final flow value doesn't surpass <span class="arithmatex">$K$</span>).</p>
 <p>It is not difficult to see, that if we set <span class="arithmatex">$K$</span> to infinity, then the algorithm will find the minimum-cost maximum-flow.
@@ -8140,7 +8150,7 @@ So both variations of the problem can be solved by the same algorithm.</p>
 <p>The case of an undirected graph or a multigraph doesn't differ conceptually from the algorithm above.
 The algorithm will also work on these graphs.
 However it becomes a little more difficult to implement it.</p>
-<p>An <strong>undirected edge</strong> <span class="arithmatex">$(i, j)$</span> is actually the same as two oriented edges <span class="arithmatex">$(i, j)$</span> and <span class="arithmatex">$(j, i)$</span> with the same capacity and values.
+<p>An <strong>undirected edge</strong> <span class="arithmatex">$(i, j)$</span> is actually the same as two oriented edges <span class="arithmatex">$(i, j)$</span> and <span class="arithmatex">$(j, i)$</span> with the same capacity and cost.
 Since the above-described minimum-cost flow algorithm generates a back edge for each directed edge, so it splits the undirected edge into <span class="arithmatex">$4$</span> directed edges, and we actually get a <strong>multigraph</strong>.</p>
 <p>How do we deal with <strong>multiple edges</strong>?
 First the flow for each of the multiple edges must be kept separately.
@@ -8243,7 +8253,7 @@ Since we have multiple edges, we have to store the edge number for the reversed 
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (85.12%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (5.96%)</li><li><a href="https://github.com/pr3pony" title="pr3pony" data-bi-name="contributorprofile" target="_blank">pr3pony</a> (4.76%)</li><li><a href="https://github.com/fffelix-huang" title="fffelix-huang" data-bi-name="contributorprofile" target="_blank">fffelix-huang</a> (2.98%)</li><li><a href="https://github.com/maiquang04" title="maiquang04" data-bi-name="contributorprofile" target="_blank">maiquang04</a> (0.6%)</li><li><a href="https://github.com/hieplpvip" title="hieplpvip" data-bi-name="contributorprofile" target="_blank">hieplpvip</a> (0.6%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (82.14%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (5.96%)</li><li><a href="https://github.com/pr3pony" title="pr3pony" data-bi-name="contributorprofile" target="_blank">pr3pony</a> (4.76%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (2.98%)</li><li><a href="https://github.com/fffelix-huang" title="fffelix-huang" data-bi-name="contributorprofile" target="_blank">fffelix-huang</a> (2.98%)</li><li><a href="https://github.com/maiquang04" title="maiquang04" data-bi-name="contributorprofile" target="_blank">maiquang04</a> (0.6%)</li><li><a href="https://github.com/hieplpvip" title="hieplpvip" data-bi-name="contributorprofile" target="_blank">hieplpvip</a> (0.6%)</li></ul>
 </ul>
                 
               </article>
