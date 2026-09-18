@@ -224,10 +224,8 @@ vector<char> segmented_sieve(long long L, long long R) {
     for (long long i : primes)
         for (long long j = max(i, (L + i - 1) / i) * i; j <= R; j += i)
             isPrime[j - L] = false;
-    if (L == 0)
-        isPrime[L] = false;
-    if (L <= 1)
-        isPrime[min(1 - L, R - L)] = false;
+    for (long long x = L; x <= min(R, 1LL); x++)
+        isPrime[x - L] = false;
     return isPrime;
 }
 ```
@@ -242,10 +240,8 @@ vector<char> segmented_sieve_no_pre_gen(long long L, long long R) {
     for (long long i = 2; i <= lim; ++i)
         for (long long j = max(i, (L + i - 1) / i) * i; j <= R; j += i)
             isPrime[j - L] = false;
-    if (L == 0)
-        isPrime[L] = false;
-    if (L <= 1)
-        isPrime[min(1 - L, R - L)] = false;
+    for (long long x = L; x <= min(R, 1LL); x++)
+        isPrime[x - L] = false;
     return isPrime;
 }
 ```
