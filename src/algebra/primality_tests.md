@@ -190,7 +190,7 @@ Using the first 12 prime numbers as bases, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 3
 For 32 bit integers the first four prime bases 2, 3, 5 and 7 suffice; the smallest composite number that passes them is $3\,215\,031\,751 = 151 \cdot 751 \cdot 28351$.
 
 The number of rounds can be brought down further by picking the bases from a small table indexed by a hash of $n$, which brings any 64 bit number down to three tests.
-See [`cp-algo/number_theory/primality.hpp`](https://github.com/cp-algorithms/cp-algorithms-aux/blob/main/cp-algo/number_theory/primality.hpp), which uses the seven bases above by default and switches to the hashed tables when they are available, falling back to the classic 2, 7 and 61 below $2^{32}$.
+See [`cp-algo/number_theory/primality.hpp`](https://lib.cp-algorithms.com/cp-algo/number_theory/primality.hpp.html), which uses the seven bases above by default and switches to the hashed tables when they are available, falling back to the classic 2, 7 and 61 below $2^{32}$.
 The tables themselves come from [Bradley Berg](https://www.techneon.com/), extending an earlier 32 bit test by Steve Worley.
 
 ## Practice Problems
