@@ -9,13 +9,13 @@ In this article we discuss how to compute the number of divisors $d(n)$ and the 
 
 ## Number of divisors
 
-It should be obvious that the prime factorization of a divisor $d$ has to be a subset of the prime factorization of $n$, e.g. $6 = 2 \cdot 3$ is a divisor of $60 = 2^2 \cdot 3 \cdot 5$.
-So we only need to find all different subsets of the prime factorization of $n$.
+The prime factors of a divisor $d$, including their multiplicities, have to form a submultiset of the prime factors of $n$; e.g. $6 = 2 \cdot 3$ is a divisor of $60 = 2^2 \cdot 3 \cdot 5$.
+So we only need to count all different submultisets of the prime factorization of $n$.
 
-Usually the number of subsets is $2^x$ for a set with $x$ elements.
-However this is no longer true, if there are repeated elements in the set. In our case some prime factors may appear multiple times in the prime factorization of $n$.
+A set with $x$ distinct elements has $2^x$ subsets.
+In our case, however, some prime factors may appear multiple times in the prime factorization of $n$, so we are choosing from a multiset rather than a set.
 
-If a prime factor $p$ appears $e$ times in the prime factorization of $n$, then we can use the factor $p$ up to $e$ times in the subset.
+If a prime factor $p$ appears $e$ times in the prime factorization of $n$, then we can use the factor $p$ up to $e$ times in the submultiset.
 Which means we have $e+1$ choices.
 
 Therefore if the prime factorization of $n$ is $p_1^{e_1} \cdot p_2^{e_2} \cdots p_k^{e_k}$, where $p_i$ are distinct prime numbers, then the number of divisors is:
@@ -71,7 +71,7 @@ We can use the same argument of the previous section.
 $$1 + p_1 + p_1^2 + \dots + p_1^{e_1} = \frac{p_1^{e_1 + 1} - 1}{p_1 - 1}$$
 
 * If there are two distinct prime divisors $n = p_1^{e_1} \cdot p_2^{e_2}$, then we can make the same table as before.
-  The only difference is that now we now want to compute the sum instead of counting the elements.
+  The only difference is that now we want to compute the sum instead of counting the elements.
   It is easy to see, that the sum of each combination can be expressed as:
 
 $$\left(1 + p_1 + p_1^2 + \dots + p_1^{e_1}\right) \cdot \left(1 + p_2 + p_2^2 + \dots + p_2^{e_2}\right)$$
