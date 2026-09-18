@@ -325,7 +325,7 @@ int main() {
 
     // DFS 2: Pre-order (Compute up and ans)
     function<void(int, int)> dfs_up = [&](int v, int p) {
-        ans[v] = max(down[v], up[v]);
+        ans[v] = max(down[v], p == -1 ? 0 : up[v] + 1);
 
         vector<int> contribs;
         if (p != -1) contribs.push_back(up[v] + 1); // From parent
