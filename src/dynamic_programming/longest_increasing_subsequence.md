@@ -258,9 +258,10 @@ It is also possible to restore the subsequence using this approach.
 A straightforward way is to maintain two auxiliary arrays: one mapping each position of $d[]$ back to its index in $a[]$, and an array of "ancestors" $p[i]$ holding the index of the previous element of the optimal subsequence ending in $a[i]$.
 
 However, we can restore the subsequence in a more memory-efficient way, using only a single auxiliary array $p[0 \dots n-1]$, recorded as a by-product of the binary search that the algorithm already performs.
-We let $p[i]$ be the position in $d[]$ at which $a[i]$ was placed, so that the longest increasing subsequence ending in $a[i]$ has length $p[i] + 1$.
+We let $p[i]$ be the position in $d[]$ at which $a[i]$ ends up, so that the longest increasing subsequence ending in $a[i]$ has length $p[i]$.
+Note that when $a[i]$ is equal to $d[l-1]$ the algorithm above updates nothing, and in that case $a[i]$ ends a subsequence of length $l-1$ rather than $l$.
 
-Now suppose the length of the LIS is $L$, and let us iterate over $a[]$ backwards, picking the last element with $p[i] = L - 1$, then the last element before it with $p[i] = L - 2$, and so on down to $p[i] = 0$.
+Now suppose the length of the LIS is $L$, and let us iterate over $a[]$ backwards, picking the last element with $p[i] = L$, then the last element before it with $p[i] = L - 1$, and so on down to $p[i] = 1$.
 Every element picked this way is a valid predecessor of the previously picked one.
 Indeed, suppose we have already picked $a[j]$ with $p[j] = l + 1$, and let $a[i]$ be the last element before it with $p[i] = l$.
 Since $d[l]$ always holds the most recent element placed at position $l$, it was equal to $a[i]$ at the moment $a[j]$ was processed.
@@ -271,24 +272,30 @@ Collecting the elements this way and reversing them at the end gives us a longes
 ```{.cpp file=lis_method2_nlogn_restore}
 vector<int> lis(vector<int> const& a) {
     int n = a.size();
-    if (n == 0) return {};
+    const int INF = 1e9;
+    vector<int> d(n+1, INF), p(n);
+    d[0] = -INF;
 
-    vector<int> d, p(n);
     for (int i = 0; i < n; i++) {
-        auto it = lower_bound(d.begin(), d.end(), a[i]);
-        p[i] = it - d.begin();
-        if (it == d.end())
-            d.push_back(a[i]);
+        int l = upper_bound(d.begin(), d.end(), a[i]) - d.begin();
+        if (d[l-1] < a[i] && a[i] < d[l])
+            d[l] = a[i];
         else
-            *it = a[i];
+            l--; // a[i] equals d[l-1], so it ends a subsequence of length l-1
+        p[i] = l;
     }
 
-    int l = d.size() - 1;
+    int L = 0;
+    for (int l = 0; l <= n; l++) {
+        if (d[l] < INF)
+            L = l;
+    }
+
     vector<int> subseq;
-    for (int i = n - 1; i >= 0 && l >= 0; i--) {
-        if (p[i] == l) {
+    for (int i = n - 1; i >= 0 && L > 0; i--) {
+        if (p[i] == L) {
             subseq.push_back(a[i]);
-            l--;
+            L--;
         }
     }
     reverse(subseq.begin(), subseq.end());
