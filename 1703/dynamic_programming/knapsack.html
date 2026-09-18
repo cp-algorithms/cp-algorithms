@@ -8201,7 +8201,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 21:37:43 UTC">September 18, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 21:42:59 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8265,6 +8265,8 @@ so the maximum value in this case is <span class="arithmatex">$f_{i-1, j-w_i} + 
 <p>The reason this works is that <span class="arithmatex">$f_{i, j-w_i}$</span> has already been updated by <span class="arithmatex">$f_{i, j-2\cdot w_i}$</span> and so on.</p>
 <p>Similar to the 0-1 knapsack, we can remove the first dimension to optimize the space complexity. This gives us the same transition rule as the 0-1 knapsack.</p>
 <div class="arithmatex">$$f_j \gets \max(f_j, f_{j-w_i}+v_i)$$</div>
+<p>The rule is identical, but it must now be executed in the <strong>increasing</strong> order of <span class="arithmatex">$j$</span>, which is the only difference between the two problems in this form.
+Going upwards, <span class="arithmatex">$f_{j-w_i}$</span> has already been updated for item <span class="arithmatex">$i$</span>, so it corresponds to <span class="arithmatex">$f_{i,j-w_i}$</span> and the item may be taken again; going downwards it would still correspond to <span class="arithmatex">$f_{i-1,j-w_i}$</span> and each item could be taken at most once.</p>
 <h3 id="implementation_1">Implementation<a class="headerlink" href="#implementation_1" title="Permanent link">&para;</a></h3>
 <p>The algorithm described can be implemented in <span class="arithmatex">$O(nW)$</span> as:</p>
 <div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
@@ -8338,7 +8340,7 @@ In this way, the total complexity of the algorithm is reduced to <span class="ar
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/OverRancid" title="OverRancid" data-bi-name="contributorprofile" target="_blank">OverRancid</a> (83.85%)</li><li><a href="https://github.com/rickyssj2" title="rickyssj2" data-bi-name="contributorprofile" target="_blank">rickyssj2</a> (11.98%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.08%)</li><li><a href="https://github.com/Ahmed-Salah-Marouf" title="Ahmed-Salah-Marouf" data-bi-name="contributorprofile" target="_blank">Ahmed-Salah-Marouf</a> (1.04%)</li><li><a href="https://github.com/tmvalijib24" title="tmvalijib24" data-bi-name="contributorprofile" target="_blank">tmvalijib24</a> (0.52%)</li><li><a href="https://github.com/virinci" title="virinci" data-bi-name="contributorprofile" target="_blank">virinci</a> (0.52%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/OverRancid" title="OverRancid" data-bi-name="contributorprofile" target="_blank">OverRancid</a> (82.56%)</li><li><a href="https://github.com/rickyssj2" title="rickyssj2" data-bi-name="contributorprofile" target="_blank">rickyssj2</a> (11.79%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.59%)</li><li><a href="https://github.com/Ahmed-Salah-Marouf" title="Ahmed-Salah-Marouf" data-bi-name="contributorprofile" target="_blank">Ahmed-Salah-Marouf</a> (1.03%)</li><li><a href="https://github.com/tmvalijib24" title="tmvalijib24" data-bi-name="contributorprofile" target="_blank">tmvalijib24</a> (0.51%)</li><li><a href="https://github.com/virinci" title="virinci" data-bi-name="contributorprofile" target="_blank">virinci</a> (0.51%)</li></ul>
 </ul>
                 
               </article>
