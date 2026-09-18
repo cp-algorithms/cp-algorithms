@@ -132,34 +132,33 @@ In some cases, for example when $n$ is a large prime, the approach above is not 
 
 ### SPF (Smallest Prime Factor)
 
-SPF is often useful when we deal with multi-query integer factorization. We can modify [Sieve of Eratosthenes](algebra/sieve-of-eratosthenes.html) and, instead of marking the prime numbers with 1 and the composite numbers with 0 (or inverse), we can compute the smallest prime factor of every number up to a target.
+SPF is often useful when we deal with multi-query integer factorization. We can modify [Sieve of Eratosthenes](sieve-of-eratosthenes.md) and, instead of marking the prime numbers with 1 and the composite numbers with 0 (or inverse), we can compute the smallest prime factor of every number up to a target.
 
 ```{.cpp file=precalculation_spf}
-vector<long long> spf(target+1);
-for(int i = 2; i <= target; i++)   
-{   
-    if(spf[i] == 0)   
-    {    
-        for (int j = i; j <= target; j += i)   
-        {
-            if (spf[j] == 0)
-                spf[j] = i;   
-        }   
-    }   
-}  
+vector<long long> smallest_prime_factors(long long target) {
+    vector<long long> spf(target + 1);
+    for (long long i = 2; i <= target; i++) {
+        if (spf[i] == 0) {
+            for (long long j = i; j <= target; j += i) {
+                if (spf[j] == 0)
+                    spf[j] = i;
+            }
+        }
+    }
+    return spf;
+}
 ```
 Complexity of the precalculation: $O(\text{target} \log(\log (\text{target})))$.
 
-Now we can factor every integer $n$ in $O(\log{(n}))$ time complexity.
+Now we can factor every integer $n \le \text{target}$ in $O(\log n)$ time complexity.
 
 ```{.cpp file=factorization_spf}
-
-vector<long long> factorization_spf(long long n, const vector <long long>& spf) {
-    vector<long long> factorization;   
-    while(n > 1){   
+vector<long long> factorization_spf(long long n, const vector<long long>& spf) {
+    vector<long long> factorization;
+    while (n > 1) {
         factorization.push_back(spf[n]);
-        n /= spf[n]; 
-    }     
+        n /= spf[n];
+    }
     return factorization;
 }
 ```
