@@ -227,7 +227,7 @@ bool MillerRabin(u64 n) { // returns true if n is prime, else returns false.
         r++;
     }
 
-    for (int a : {3, 5, 13, 19, 73, 193, 407521, 299210837}) {
+    for (int a : {2, 3, 5, 13, 19, 73, 193, 407521, 299210837}) {
         if (n == a)
             return true;
     }
