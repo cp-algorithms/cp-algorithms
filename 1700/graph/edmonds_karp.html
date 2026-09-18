@@ -8001,16 +8001,6 @@ Describe the issue of this article in detail.
   
     
   
-
-  
-  
-  
-    
-  
-    
-  
-    
-  
     
   
 
@@ -8032,26 +8022,6 @@ Describe the issue of this article in detail.
     
   
     
-  
-
-  
-  
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
   
     
   
@@ -8080,6 +8050,10 @@ Describe the issue of this article in detail.
 
   
   
+  
+    
+  
+    
   
     
   
@@ -8115,10 +8089,6 @@ Describe the issue of this article in detail.
   
     
   
-
-  
-  
-  
     
   
 
@@ -8147,6 +8117,50 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
 
@@ -8169,6 +8183,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8245,7 +8263,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 21, 2026 07:42:17 UTC">January 21, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 13:27:08 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8272,7 +8290,7 @@ Describe the issue of this article in detail.
 
 
 <h1 id="maximum-flow-ford-fulkerson-and-edmonds-karp">Maximum flow - Ford-Fulkerson and Edmonds-Karp<a class="headerlink" href="#maximum-flow-ford-fulkerson-and-edmonds-karp" title="Permanent link">&para;</a></h1>
-<p>The Edmonds-Karp algorithm is an implementation of the Ford-Fulkerson method for computing a maximal flow in a flow network.</p>
+<p>The Edmonds-Karp algorithm is an implementation of the Ford-Fulkerson method for computing a maximum flow in a flow network.</p>
 <h2 id="flow-network">Flow network<a class="headerlink" href="#flow-network" title="Permanent link">&para;</a></h2>
 <p>First let's define what a <strong>flow network</strong>, a <strong>flow</strong>, and a <strong>maximum flow</strong> is.</p>
 <p>A <strong>network</strong> is a directed graph <span class="arithmatex">$G$</span> with vertices <span class="arithmatex">$V$</span> and edges <span class="arithmatex">$E$</span> combined with a function <span class="arithmatex">$c$</span>, which assigns each edge <span class="arithmatex">$e \in E$</span> a non-negative integer value, the <strong>capacity</strong> of <span class="arithmatex">$e$</span>.
@@ -8287,7 +8305,7 @@ The function has to fulfill the following two conditions:</p>
 <p>It is easy to see that the following equation holds:</p>
 <div class="arithmatex">$$\sum_{(s, u) \in E} f((s, u)) = \sum_{(u, t) \in E} f((u, t))$$</div>
 <p>A good analogy for a flow network is the following visualization:
-We represent edges as water pipes, the capacity of an edge is the maximal amount of water that can flow through the pipe per second, and the flow of an edge is the amount of water that currently flows through the pipe per second.
+We represent edges as water pipes, the capacity of an edge is the maximum amount of water that can flow through the pipe per second, and the flow of an edge is the amount of water that currently flows through the pipe per second.
 This motivates the first flow condition. There cannot flow more water through a pipe than its capacity.
 The vertices act as junctions, where water comes out of some pipes, and then, these vertices distribute the water in some way to other pipes.
 This also motivates the second flow condition.
@@ -8301,13 +8319,13 @@ The first value of each edge represents the flow, which is initially 0, and the 
 </div>
 
 <p>The value of the flow of a network is the sum of all the flows that get produced in the source <span class="arithmatex">$s$</span>, or equivalently to the sum of all the flows that are consumed by the sink <span class="arithmatex">$t$</span>.
-A <strong>maximal flow</strong> is a flow with the maximal possible value.
-Finding this maximal flow of a flow network is the problem that we want to solve.</p>
+A <strong>maximum flow</strong> is a flow with the maximum possible value.
+Finding this maximum flow of a flow network is the problem that we want to solve.</p>
 <p>In the visualization with water pipes, the problem can be formulated in the following way:
 how much water can we push through the pipes from the source to the sink?</p>
-<p>The following image shows the maximal flow in the flow network.</p>
+<p>The following image shows the maximum flow in the flow network.</p>
 <div style="text-align: center;">
-  <img src="Flow9.png" alt="Maximal flow">
+  <img src="Flow9.png" alt="Maximum flow">
 </div>
 
 <h2 id="ford-fulkerson-method">Ford-Fulkerson method<a class="headerlink" href="#ford-fulkerson-method" title="Permanent link">&para;</a></h2>
@@ -8322,7 +8340,7 @@ Then we look for an <strong>augmenting path</strong> from <span class="arithmate
 An augmenting path is a simple path in the residual graph where residual capacity is positive for all the edges along that path.
 If such a path is found, then we can increase the flow along these edges.
 We keep on searching for augmenting paths and increasing the flow.
-Once an augmenting path doesn't exist anymore, the flow is maximal.</p>
+Once an augmenting path doesn't exist anymore, the flow is maximum.</p>
 <p>Let us specify in more detail, what increasing the flow along an augmenting path means.
 Let <span class="arithmatex">$C$</span> be the smallest residual capacity of the edges in the path.
 Then we increase the flow in the following way:
@@ -8368,25 +8386,25 @@ Instead of sending a flow of 3 from <span class="arithmatex">$D$</span> to <span
   <img src="Flow9.png" alt="Network after fourth path">
 </div>
 
-<p>Now, it is impossible to find an augmenting path between <span class="arithmatex">$s$</span> and <span class="arithmatex">$t$</span>, therefore this flow of <span class="arithmatex">$10$</span> is the maximal possible.
-We have found the maximal flow.</p>
+<p>Now, it is impossible to find an augmenting path between <span class="arithmatex">$s$</span> and <span class="arithmatex">$t$</span>, therefore this flow of <span class="arithmatex">$10$</span> is the maximum possible.
+We have found the maximum flow.</p>
 <p>It should be noted, that the Ford-Fulkerson method doesn't specify a method of finding the augmenting path.
 Possible approaches are using <a href="depth-first-search.html">DFS</a> or <a href="breadth-first-search.html">BFS</a> which both work in <span class="arithmatex">$O(E)$</span>.
 If all the capacities of the network are integers, then for each augmenting path the flow of the network increases by at least 1 (for more details see <a href="#integral-theorem">Integral flow theorem</a>).
-Therefore, the complexity of Ford-Fulkerson is <span class="arithmatex">$O(E F)$</span>, where <span class="arithmatex">$F$</span> is the maximal flow of the network.
+Therefore, the complexity of Ford-Fulkerson is <span class="arithmatex">$O(E F)$</span>, where <span class="arithmatex">$F$</span> is the maximum flow of the network.
 In the case of rational capacities, the algorithm will also terminate, but the complexity is not bounded.
-In the case of irrational capacities, the algorithm might never terminate, and might not even converge to the maximal flow.</p>
+In the case of irrational capacities, the algorithm might never terminate, and might not even converge to the maximum flow.</p>
 <h2 id="edmonds-karp-algorithm">Edmonds-Karp algorithm<a class="headerlink" href="#edmonds-karp-algorithm" title="Permanent link">&para;</a></h2>
 <p>Edmonds-Karp algorithm is just an implementation of the Ford-Fulkerson method that uses <a href="breadth-first-search.html">BFS</a> for finding augmenting paths.
 The algorithm was first published by Yefim Dinitz in 1970, and later independently published by Jack Edmonds and Richard Karp in 1972.</p>
-<p>The complexity can be given independently of the maximal flow.
+<p>The complexity can be given independently of the maximum flow.
 The algorithm runs in <span class="arithmatex">$O(V E^2)$</span> time, even for irrational capacities.
 The intuition is, that every time we find an augmenting path one of the edges becomes saturated, and the distance from the edge to <span class="arithmatex">$s$</span> will be longer if it appears later again in an augmenting path.
 The length of the simple paths is bounded by <span class="arithmatex">$V$</span>.</p>
 <h3 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h3>
 <p>The matrix <code>capacity</code> stores the capacity for every pair of vertices.
 <code>adj</code> is the adjacency list of the <strong>undirected graph</strong>, since we also have to use the reversed of directed edges when we are looking for augmenting paths.</p>
-<p>The function <code>maxflow</code> will return the value of the maximal flow.
+<p>The function <code>maxflow</code> will return the value of the maximum flow.
 During the algorithm, the matrix <code>capacity</code> will actually store the residual capacity of the network.
 The value of the flow in each edge will actually not be stored, but it is easy to extend the implementation - by using an additional matrix - to also store the flow and return it.</p>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
@@ -8469,7 +8487,7 @@ This partition can be easily found using <a href="depth-first-search.html">DFS</
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (65.25%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (11.86%)</li><li><a href="https://github.com/DamianArado" title="DamianArado" data-bi-name="contributorprofile" target="_blank">DamianArado</a> (11.44%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.96%)</li><li><a href="https://github.com/infalmo" title="infalmo" data-bi-name="contributorprofile" target="_blank">infalmo</a> (1.69%)</li><li><a href="https://github.com/LUTLJS" title="LUTLJS" data-bi-name="contributorprofile" target="_blank">LUTLJS</a> (1.27%)</li><li><a href="https://github.com/aryamanjain-scifin" title="aryamanjain-scifin" data-bi-name="contributorprofile" target="_blank">aryamanjain-scifin</a> (1.27%)</li><li><a href="https://github.com/Kakalinn" title="Kakalinn" data-bi-name="contributorprofile" target="_blank">Kakalinn</a> (0.85%)</li><li><a href="https://github.com/DonutMaster" title="DonutMaster" data-bi-name="contributorprofile" target="_blank">DonutMaster</a> (0.42%)</li><li><a href="https://github.com/kd1729" title="kd1729" data-bi-name="contributorprofile" target="_blank">kd1729</a> (0.42%)</li><li><a href="https://github.com/obiwac" title="obiwac" data-bi-name="contributorprofile" target="_blank">obiwac</a> (0.42%)</li><li><a href="https://github.com/shivensinha4" title="shivensinha4" data-bi-name="contributorprofile" target="_blank">shivensinha4</a> (0.42%)</li><li><a href="https://github.com/lm10-piyush" title="lm10-piyush" data-bi-name="contributorprofile" target="_blank">lm10-piyush</a> (0.42%)</li><li><a href="https://github.com/ShayekhBinIslam" title="ShayekhBinIslam" data-bi-name="contributorprofile" target="_blank">ShayekhBinIslam</a> (0.42%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.42%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.42%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (62.71%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (11.44%)</li><li><a href="https://github.com/DamianArado" title="DamianArado" data-bi-name="contributorprofile" target="_blank">DamianArado</a> (9.75%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (5.51%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.96%)</li><li><a href="https://github.com/infalmo" title="infalmo" data-bi-name="contributorprofile" target="_blank">infalmo</a> (1.69%)</li><li><a href="https://github.com/aryamanjain-scifin" title="aryamanjain-scifin" data-bi-name="contributorprofile" target="_blank">aryamanjain-scifin</a> (1.27%)</li><li><a href="https://github.com/Kakalinn" title="Kakalinn" data-bi-name="contributorprofile" target="_blank">Kakalinn</a> (0.85%)</li><li><a href="https://github.com/DonutMaster" title="DonutMaster" data-bi-name="contributorprofile" target="_blank">DonutMaster</a> (0.42%)</li><li><a href="https://github.com/kd1729" title="kd1729" data-bi-name="contributorprofile" target="_blank">kd1729</a> (0.42%)</li><li><a href="https://github.com/obiwac" title="obiwac" data-bi-name="contributorprofile" target="_blank">obiwac</a> (0.42%)</li><li><a href="https://github.com/shivensinha4" title="shivensinha4" data-bi-name="contributorprofile" target="_blank">shivensinha4</a> (0.42%)</li><li><a href="https://github.com/lm10-piyush" title="lm10-piyush" data-bi-name="contributorprofile" target="_blank">lm10-piyush</a> (0.42%)</li><li><a href="https://github.com/LUTLJS" title="LUTLJS" data-bi-name="contributorprofile" target="_blank">LUTLJS</a> (0.42%)</li><li><a href="https://github.com/ShayekhBinIslam" title="ShayekhBinIslam" data-bi-name="contributorprofile" target="_blank">ShayekhBinIslam</a> (0.42%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.42%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.42%)</li></ul>
 </ul>
                 
               </article>

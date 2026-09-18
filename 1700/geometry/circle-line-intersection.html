@@ -7953,6 +7953,20 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
     
   
 
@@ -8029,6 +8043,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8069,7 +8087,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 8, 2022 11:09:55 UTC">June 8, 2022</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 13:29:32 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8100,7 +8118,7 @@ Describe the issue of this article in detail.
 <h2 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h2>
 <p>Instead of solving the system of two equations, we will approach the problem geometrically. This way we get a more accurate solution from the point of view of numerical stability.</p>
 <p>We assume without loss of generality that the circle is centered at the origin. If it's not, we translate it there and correct the <span class="arithmatex">$C$</span> constant in the line equation. So we have a circle centered at <span class="arithmatex">$(0,0)$</span> of radius <span class="arithmatex">$r$</span> and a line with equation <span class="arithmatex">$Ax+By+C=0$</span>.</p>
-<p>Let's start by find the point on the line which is closest to the origin <span class="arithmatex">$(x_0, y_0)$</span>. First, it has to be at a distance</p>
+<p>Let's start by finding the point on the line which is closest to the origin <span class="arithmatex">$(x_0, y_0)$</span>. First, it has to be at a distance</p>
 <div class="arithmatex">$$ d_0 = \frac{|C|}{\sqrt{A^2+B^2}} $$</div>
 <p>Second, since the vector <span class="arithmatex">$(A, B)$</span> is perpendicular to the line, the coordinates of the point must be proportional to the coordinates of this vector. Since we know the distance of the point to the origin, we just need to scale the vector <span class="arithmatex">$(A, B)$</span> to this length, and we'll get:</p>
 <div class="arithmatex">$$\begin{align}
@@ -8111,14 +8129,14 @@ y_0 &amp;= - \frac{BC}{A^2 + B^2}
 <p>At this stage we can determine the number of intersection points, and even find the solution when there is one or zero points. Indeed, if the distance from <span class="arithmatex">$(x_0, y_0)$</span> to the origin <span class="arithmatex">$d_0$</span> is greater than the radius <span class="arithmatex">$r$</span>, the answer is <strong>zero points</strong>. If <span class="arithmatex">$d_0=r$</span>, the answer is <strong>one point</strong> <span class="arithmatex">$(x_0, y_0)$</span>. If <span class="arithmatex">$d_0&lt;r$</span>, there are two points of intersection, and now we have to find their coordinates.</p>
 <p>So, we know that the point <span class="arithmatex">$(x_0, y_0)$</span> is inside the circle. The two points of intersection, <span class="arithmatex">$(a_x, a_y)$</span> and <span class="arithmatex">$(b_x, b_y)$</span>, must belong to the line <span class="arithmatex">$Ax+By+C=0$</span> and must be at the same distance <span class="arithmatex">$d$</span> from <span class="arithmatex">$(x_0, y_0)$</span>, and this distance is easy to find:</p>
 <div class="arithmatex">$$ d = \sqrt{r^2 - \frac{C^2}{A^2 + B^2}} $$</div>
-<p>Note that the vector <span class="arithmatex">$(-B, A)$</span> is collinear to the line, and thus we can find the points in question by adding and subtracting  vector <span class="arithmatex">$(-B,A)$</span>, scaled to the length <span class="arithmatex">$d$</span>, to the point <span class="arithmatex">$(x_0, y_0)$</span>. </p>
+<p>Note that the vector <span class="arithmatex">$(-B, A)$</span> is collinear to the line, and thus we can find the points in question by adding and subtracting the vector <span class="arithmatex">$(-B,A)$</span>, scaled to the length <span class="arithmatex">$d$</span>, to the point <span class="arithmatex">$(x_0, y_0)$</span>. </p>
 <p>Finally, the equations of the two points of intersection are:</p>
 <div class="arithmatex">$$\begin{align}
 m &amp;= \sqrt{\frac{d^2}{A^2 + B^2}} \\
 a_x &amp;= x_0 + B \cdot m, a_y = y_0 - A \cdot m \\
 b_x &amp;= x_0 - B \cdot m, b_y = y_0 + A \cdot m
 \end{align}$$</div>
-<p>Had we solved the original system of equations using algebraic methods, we would likely get an answer in a different form with a larger error. The geometric method described here is more graphic and more accurate.</p>
+<p>Had we solved the original system of equations using algebraic methods, we would likely get an answer in a different form with a larger error. The geometric method described here is more intuitive and more accurate.</p>
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
 <p>As indicated at the outset, we assume that the circle is centered at the origin, and therefore the input to the program is the radius <span class="arithmatex">$r$</span> of the circle and the parameters <span class="arithmatex">$A$</span>, <span class="arithmatex">$B$</span> and <span class="arithmatex">$C$</span> of the equation of the line.</p>
 <div class="highlight"><pre><span></span><code><span class="kt">double</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">;</span><span class="w"> </span><span class="c1">// given as input</span>
@@ -8148,7 +8166,7 @@ b_x &amp;= x_0 - B \cdot m, b_y = y_0 + A \cdot m
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/ehlemur-zz" title="ehlemur-zz" data-bi-name="contributorprofile" target="_blank">ehlemur-zz</a> (40.79%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (28.95%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (11.84%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (7.89%)</li><li><a href="#" title="shark_s" data-bi-name="contributorprofile" target="_blank">shark_s</a> (3.95%)</li><li><a href="https://github.com/RodionGork" title="RodionGork" data-bi-name="contributorprofile" target="_blank">RodionGork</a> (2.63%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (2.63%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (1.32%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/ehlemur-zz" title="ehlemur-zz" data-bi-name="contributorprofile" target="_blank">ehlemur-zz</a> (40.79%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (25.0%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (11.84%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (7.89%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (3.95%)</li><li><a href="#" title="shark_s" data-bi-name="contributorprofile" target="_blank">shark_s</a> (3.95%)</li><li><a href="https://github.com/RodionGork" title="RodionGork" data-bi-name="contributorprofile" target="_blank">RodionGork</a> (2.63%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (2.63%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (1.32%)</li></ul>
 </ul>
                 
               </article>

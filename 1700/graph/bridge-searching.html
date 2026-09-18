@@ -7951,6 +7951,20 @@ Describe the issue of this article in detail.
   
     
   
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
 
   
   
@@ -8123,7 +8137,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 25, 2025 17:30:05 UTC">August 25, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 17:14:07 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8220,7 +8234,7 @@ Describe the issue of this article in detail.
 </code></pre></div>
 <p>Main function is <code>find_bridges</code>; it performs necessary initialization and starts depth first search in each connected component of the graph.</p>
 <p>Function <code>IS_BRIDGE(a, b)</code> is some function that will process the fact that edge <span class="arithmatex">$(a, b)$</span> is a bridge, for example, print it.</p>
-<p>Note that this implementation malfunctions if the graph has multiple edges, since it ignores them. Of course, multiple edges will never be a part of the answer, so <code>IS_BRIDGE</code> can check additionally that the reported bridge is not a multiple edge. Alternatively it's possible to pass to <code>dfs</code> the index of the edge used to enter the vertex instead of the parent vertex (and store the indices of all vertices).</p>
+<p>The <code>parent_skipped</code> flag makes this implementation handle multiple edges between a vertex and its parent: it skips only the DFS tree edge used to enter the vertex, while an additional parallel edge is processed as a back edge. Alternatively, it's possible to pass to <code>dfs</code> the index of the edge used to enter the vertex instead of the parent vertex (and store the indices of all edges).</p>
 <h2 id="practice-problems">Practice Problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=737">UVA #796 "Critical Links"</a> [difficulty: low]</li>
@@ -8238,7 +8252,7 @@ Describe the issue of this article in detail.
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="#" title="Nalin Bhardwaj" data-bi-name="contributorprofile" target="_blank">Nalin Bhardwaj</a> (31.82%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (18.18%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (12.73%)</li><li><a href="https://github.com/pr4-kp" title="pr4-kp" data-bi-name="contributorprofile" target="_blank">pr4-kp</a> (10.91%)</li><li><a href="https://github.com/NaimSS" title="NaimSS" data-bi-name="contributorprofile" target="_blank">NaimSS</a> (8.18%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (5.45%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (5.45%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.73%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (1.82%)</li><li><a href="https://github.com/nikhil-kumar-tomar" title="nikhil-kumar-tomar" data-bi-name="contributorprofile" target="_blank">nikhil-kumar-tomar</a> (0.91%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.91%)</li><li><a href="https://github.com/vatsalsharma376" title="vatsalsharma376" data-bi-name="contributorprofile" target="_blank">vatsalsharma376</a> (0.91%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="#" title="Nalin Bhardwaj" data-bi-name="contributorprofile" target="_blank">Nalin Bhardwaj</a> (31.82%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (18.18%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (12.73%)</li><li><a href="https://github.com/pr4-kp" title="pr4-kp" data-bi-name="contributorprofile" target="_blank">pr4-kp</a> (10.91%)</li><li><a href="https://github.com/NaimSS" title="NaimSS" data-bi-name="contributorprofile" target="_blank">NaimSS</a> (8.18%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (5.45%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (5.45%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.73%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (1.82%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (0.91%)</li><li><a href="https://github.com/nikhil-kumar-tomar" title="nikhil-kumar-tomar" data-bi-name="contributorprofile" target="_blank">nikhil-kumar-tomar</a> (0.91%)</li><li><a href="https://github.com/vatsalsharma376" title="vatsalsharma376" data-bi-name="contributorprofile" target="_blank">vatsalsharma376</a> (0.91%)</li></ul>
 </ul>
                 
               </article>

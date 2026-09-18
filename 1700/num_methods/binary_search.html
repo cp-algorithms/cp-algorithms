@@ -8082,6 +8082,10 @@ Describe the issue of this article in detail.
   
     
   
+    
+  
+    
+  
 
   
   
@@ -8091,10 +8095,6 @@ Describe the issue of this article in detail.
 
   
   
-  
-    
-  
-    
   
     
   
@@ -8228,7 +8228,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 26, 2026 16:33:02 UTC">August 26, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 20:48:59 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8342,7 +8342,7 @@ $$</div>
 </ol>
 <p>This "offline" processing of queries, where we collect all queries and answer them together in a way that is convenient for our data structures, is the core idea behind parallel binary search.</p>
 <h3 id="implementation_1">Implementation<a class="headerlink" href="#implementation_1" title="Permanent link">&para;</a></h3>
-<p>Imagine that we want to answer <span class="arithmatex">$Z$</span> queries about the index of the largest value less than or equal to some <span class="arithmatex">$X_i$</span> (for <span class="arithmatex">$i=1,2,\ldots,Z$</span>) in a sorted 0-indexed array <span class="arithmatex">$A$</span>. Naturally, each query can be answered using binary search. Expand commentComment on line R157Resolved</p>
+<p>Imagine that we want to answer <span class="arithmatex">$Z$</span> queries about the index of the largest value less than or equal to some <span class="arithmatex">$X_i$</span> (for <span class="arithmatex">$i=1,2,\ldots,Z$</span>) in a sorted 0-indexed array <span class="arithmatex">$A$</span>. Naturally, each query can be answered using binary search.</p>
 <p>Specifically, let us consider the following array <span class="arithmatex">$A = [1,3,5,7,9,9,13,15]$</span>
 with queries: <span class="arithmatex">$X = [8,11,4,5]$</span>. We can use binary search for each query sequentially.</p>
 <table>
@@ -8393,7 +8393,7 @@ with queries: <span class="arithmatex">$X = [8,11,4,5]$</span>. We can use binar
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">Z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">X</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
 <span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">l</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">),</span><span class="w"> </span><span class="n">r</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">);</span>
 
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">ceil</span><span class="p">(</span><span class="n">log2</span><span class="p">(</span><span class="n">N</span><span class="p">));</span><span class="w"> </span><span class="o">++</span><span class="n">step</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">ceil</span><span class="p">(</span><span class="n">log2</span><span class="p">(</span><span class="n">N</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span><span class="w"> </span><span class="o">++</span><span class="n">step</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="c1">// A vector of vectors to store indices of queries for each middle point.</span>
 <span class="w">        </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">m_to_queries</span><span class="p">(</span><span class="n">N</span><span class="p">);</span>
 
@@ -8422,13 +8422,12 @@ with queries: <span class="arithmatex">$X = [8,11,4,5]$</span>. We can use binar
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">l</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>??? note "Example Solution: Meteros</p>
-<div class="highlight"><pre><span></span><code>A pretty well known problem using this method is called "Meteors", and is listed in the practice problems. We are given $N$ countries, and for each country, a target number of meteors to collect. We are also given a sequence of $K$ meteor showers, each affecting a range of countries. The goal is to find, for each country, the earliest time (i.e., which meteor shower) they reach their target.
-
-For a single country, we could binary search for the answer from $1$ to $K$. The check for a given time $t$ would involve summing up the meteors from the first $t$ showers for that country. A naive check takes $O(t)$ time, leading to an overall complexity of $O(K \log K)$ for one country, and $O(N \cdot K \log K)$ for all, which is too slow.
-
-With parallel binary search, we search for the answer for all $N$ countries at once. In each of the $O(\log K)$ steps, we have a set of check values $t_i$ for the countries. We can process these $t_i$ in increasing order. To perform the check for time $t$, we can use a data structure like a Fenwick tree or a segment tree to maintain the meteor counts for all countries. When moving from checking time $t_i$ to $t_{i+1}$, we only need to add the effects of showers from $t_i+1$ to $t_{i+1}$ to our data structure. This "update" approach is much faster than recomputing from scratch. The total complexity becomes $O((N+K)\log N \log K)$.
-</code></pre></div>
+<details class="note">
+<summary>Example Solution: Meteors</summary>
+<p>A pretty well known problem using this method is called "Meteors", and is listed in the practice problems. We are given <span class="arithmatex">$N$</span> countries, and for each country, a target number of meteors to collect. We are also given a sequence of <span class="arithmatex">$K$</span> meteor showers, each affecting a range of countries. The goal is to find, for each country, the earliest time (i.e., which meteor shower) they reach their target.</p>
+<p>For a single country, we could binary search for the answer from <span class="arithmatex">$1$</span> to <span class="arithmatex">$K$</span>. The check for a given time <span class="arithmatex">$t$</span> would involve summing up the meteors from the first <span class="arithmatex">$t$</span> showers for that country. A naive check takes <span class="arithmatex">$O(t)$</span> time, leading to an overall complexity of <span class="arithmatex">$O(K \log K)$</span> for one country, and <span class="arithmatex">$O(N \cdot K \log K)$</span> for all, which is too slow.</p>
+<p>With parallel binary search, we search for the answer for all <span class="arithmatex">$N$</span> countries at once. In each of the <span class="arithmatex">$O(\log K)$</span> steps, we have a set of check values <span class="arithmatex">$t_i$</span> for the countries. We can process these <span class="arithmatex">$t_i$</span> in increasing order. To perform the check for time <span class="arithmatex">$t$</span>, we can use a data structure like a Fenwick tree or a segment tree to maintain the meteor counts for all countries. When moving from checking time <span class="arithmatex">$t_i$</span> to <span class="arithmatex">$t_{i+1}$</span>, we only need to add the effects of showers from <span class="arithmatex">$t_i+1$</span> to <span class="arithmatex">$t_{i+1}$</span> to our data structure. This "update" approach is much faster than recomputing from scratch. The total complexity becomes <span class="arithmatex">$O((N+K)\log N \log K)$</span>.</p>
+</details>
 <h2 id="practice-problems">Practice Problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
 <h3 id="binary-search_1">Binary Search<a class="headerlink" href="#binary-search_1" title="Permanent link">&para;</a></h3>
 <ul>
@@ -8456,7 +8455,7 @@ With parallel binary search, we search for the answer for all $N$ countries at o
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (53.75%)</li><li><a href="https://github.com/FamALouiz" title="FamALouiz" data-bi-name="contributorprofile" target="_blank">FamALouiz</a> (40.83%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (1.25%)</li><li><a href="https://github.com/iAngkur" title="iAngkur" data-bi-name="contributorprofile" target="_blank">iAngkur</a> (1.25%)</li><li><a href="https://github.com/konstantinosalatzas" title="konstantinosalatzas" data-bi-name="contributorprofile" target="_blank">konstantinosalatzas</a> (0.83%)</li><li><a href="https://github.com/Draac0" title="Draac0" data-bi-name="contributorprofile" target="_blank">Draac0</a> (0.42%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (0.42%)</li><li><a href="https://github.com/RomanSteinberg" title="RomanSteinberg" data-bi-name="contributorprofile" target="_blank">RomanSteinberg</a> (0.42%)</li><li><a href="https://github.com/mbordia-eightfold" title="mbordia-eightfold" data-bi-name="contributorprofile" target="_blank">mbordia-eightfold</a> (0.42%)</li><li><a href="https://github.com/twfksh" title="twfksh" data-bi-name="contributorprofile" target="_blank">twfksh</a> (0.42%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (55.0%)</li><li><a href="https://github.com/FamALouiz" title="FamALouiz" data-bi-name="contributorprofile" target="_blank">FamALouiz</a> (39.58%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (1.25%)</li><li><a href="https://github.com/iAngkur" title="iAngkur" data-bi-name="contributorprofile" target="_blank">iAngkur</a> (1.25%)</li><li><a href="https://github.com/konstantinosalatzas" title="konstantinosalatzas" data-bi-name="contributorprofile" target="_blank">konstantinosalatzas</a> (0.83%)</li><li><a href="https://github.com/Draac0" title="Draac0" data-bi-name="contributorprofile" target="_blank">Draac0</a> (0.42%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (0.42%)</li><li><a href="https://github.com/RomanSteinberg" title="RomanSteinberg" data-bi-name="contributorprofile" target="_blank">RomanSteinberg</a> (0.42%)</li><li><a href="https://github.com/mbordia-eightfold" title="mbordia-eightfold" data-bi-name="contributorprofile" target="_blank">mbordia-eightfold</a> (0.42%)</li><li><a href="https://github.com/twfksh" title="twfksh" data-bi-name="contributorprofile" target="_blank">twfksh</a> (0.42%)</li></ul>
 </ul>
                 
               </article>

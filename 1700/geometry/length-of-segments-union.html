@@ -7940,6 +7940,20 @@ Describe the issue of this article in detail.
   
     
   
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
 
   
   
@@ -8042,7 +8056,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 9, 2026 22:54:02 UTC">April 9, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 13:29:32 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8072,13 +8086,13 @@ Describe the issue of this article in detail.
 <p>Given <span class="arithmatex">$n$</span> segments on a line, each described by a pair of coordinates <span class="arithmatex">$(a_{i1}, a_{i2})$</span>.
 We have to find the length of their union.</p>
 <p>The following algorithm was proposed by Klee in 1977.
-It works in <span class="arithmatex">$O(n\log n)$</span> and has been proven to be the asymptotically optimal.</p>
+It works in <span class="arithmatex">$O(n\log n)$</span> and has been proven asymptotically optimal.</p>
 <h2 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h2>
 <p>We store in an array <span class="arithmatex">$x$</span> the endpoints of all the segments sorted by their values.
 And additionally we store whether it is a left end or a right end of a segment.
 Now we iterate over the array, keeping a counter <span class="arithmatex">$c$</span> of currently opened segments.
 Whenever the current element is a left end, we increase this counter, and otherwise we decrease it.
-To compute the answer, we take the length between the last two <span class="arithmatex">$x$</span> values <span class="arithmatex">$x_i - x_{i-1}$</span>, whenever we come to a new coordinate, and there is currently at least one segment is open.</p>
+To compute the answer, we take the length between the last two <span class="arithmatex">$x$</span> values <span class="arithmatex">$x_i - x_{i-1}$</span> whenever we come to a new coordinate and at least one segment is currently open.</p>
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">length_union</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
@@ -8106,7 +8120,7 @@ To compute the answer, we take the length between the last two <span class="arit
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (41.67%)</li><li><a href="https://github.com/ehlemur-zz" title="ehlemur-zz" data-bi-name="contributorprofile" target="_blank">ehlemur-zz</a> (35.42%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (12.5%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (6.25%)</li><li><a href="https://github.com/YKoustubhRao" title="YKoustubhRao" data-bi-name="contributorprofile" target="_blank">YKoustubhRao</a> (2.08%)</li><li><a href="https://github.com/eulerkochy" title="eulerkochy" data-bi-name="contributorprofile" target="_blank">eulerkochy</a> (2.08%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (39.58%)</li><li><a href="https://github.com/ehlemur-zz" title="ehlemur-zz" data-bi-name="contributorprofile" target="_blank">ehlemur-zz</a> (35.42%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (12.5%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (6.25%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (4.17%)</li><li><a href="https://github.com/eulerkochy" title="eulerkochy" data-bi-name="contributorprofile" target="_blank">eulerkochy</a> (2.08%)</li></ul>
 </ul>
                 
               </article>

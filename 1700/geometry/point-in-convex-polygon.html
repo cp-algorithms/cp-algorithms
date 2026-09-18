@@ -7951,45 +7951,11 @@ Describe the issue of this article in detail.
   
     
   
-
-  
-  
-  
     
   
 
   
   
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
   
     
   
@@ -8012,7 +7978,59 @@ Describe the issue of this article in detail.
     
   
 
+  
+  
+  
+    
+  
+    
+  
 
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+
+
+  
+  
+  
 
   
   
@@ -8045,7 +8063,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 25, 2025 17:16:53 UTC">August 25, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 18:17:04 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8080,14 +8098,14 @@ Suppose the polygon is ordered counter-clockwise. We will answer each query in <
 Now all other points <span class="arithmatex">$p_1,\dots,p_n$</span> of the polygon are ordered by their polar angle from the chosen point (because the polygon is ordered counter-clockwise).</p>
 <p>If the point belongs to the polygon, it belongs to some triangle <span class="arithmatex">$p_0, p_i, p_{i + 1}$</span> (maybe more than one if it lies on the boundary of triangles).
 Consider the triangle <span class="arithmatex">$p_0, p_i, p_{i + 1}$</span> such that <span class="arithmatex">$p$</span> belongs to this triangle and <span class="arithmatex">$i$</span> is maximum among all such triangles.</p>
-<p>There is one special case. <span class="arithmatex">$p$</span> lies on the segment <span class="arithmatex">$(p_0, p_n)$</span>. This case we will check separately.
+<p>There is one special case. <span class="arithmatex">$p$</span> lies on the segment <span class="arithmatex">$(p_0, p_1)$</span>. This case we will check separately.
 Otherwise all points <span class="arithmatex">$p_j$</span> with <span class="arithmatex">$j \le i$</span> are counter-clockwise from <span class="arithmatex">$p$</span> with respect to <span class="arithmatex">$p_0$</span>, and all other points are not counter-clockwise from <span class="arithmatex">$p$</span>.
 This means that we can apply binary search for the point <span class="arithmatex">$p_i$</span>, such that <span class="arithmatex">$p_i$</span> is not counter-clockwise from <span class="arithmatex">$p$</span> with respect to <span class="arithmatex">$p_0$</span>, and <span class="arithmatex">$i$</span> is maximum among all such points.
-And afterwards we check if the points is actually in the determined triangle.</p>
+And afterwards we check if the point is actually in the determined triangle.</p>
 <p>The sign of <span class="arithmatex">$(a - c) \times (b - c)$</span> will tell us, if the point <span class="arithmatex">$a$</span> is clockwise or counter-clockwise from the point <span class="arithmatex">$b$</span> with respect to the point <span class="arithmatex">$c$</span>.
 If <span class="arithmatex">$(a - c) \times (b - c) &gt; 0$</span>, then the point <span class="arithmatex">$a$</span> is to the right of the vector going from <span class="arithmatex">$c$</span> to <span class="arithmatex">$b$</span>, which means clockwise from <span class="arithmatex">$b$</span> with respect to <span class="arithmatex">$c$</span>.
 And if <span class="arithmatex">$(a - c) \times (b - c) &lt; 0$</span>, then the point is to the left, or counter clockwise.
-And it is exactly on the line between the points <span class="arithmatex">$b$</span> and <span class="arithmatex">$c$</span>.</p>
+If it is zero, then the point <span class="arithmatex">$a$</span> lies exactly on the line through the points <span class="arithmatex">$b$</span> and <span class="arithmatex">$c$</span>.</p>
 <p>Back to the algorithm:
 Consider a query point <span class="arithmatex">$p$</span>.
 Firstly, we must check if the point lies between <span class="arithmatex">$p_1$</span> and <span class="arithmatex">$p_n$</span>.
@@ -8097,13 +8115,13 @@ Then we handle the special case in which <span class="arithmatex">$p$</span> is 
 And then we can binary search the last point from <span class="arithmatex">$p_1,\dots p_n$</span> which is not counter-clockwise from <span class="arithmatex">$p$</span> with respect to <span class="arithmatex">$p_0$</span>.
 For a single point <span class="arithmatex">$p_i$</span> this condition can be checked by checking that <span class="arithmatex">$(p_i - p_0)\times(p - p_0) \le 0$</span>. After we found such a point <span class="arithmatex">$p_i$</span>, we must test if <span class="arithmatex">$p$</span> lies inside the triangle <span class="arithmatex">$p_0, p_i, p_{i + 1}$</span>.
 To test if it belongs to the triangle, we may simply check that <span class="arithmatex">$|(p_i - p_0)\times(p_{i + 1} - p_0)| = |(p_0 - p)\times(p_i - p)| + |(p_i - p)\times(p_{i + 1} - p)| + |(p_{i + 1} - p)\times(p_0 - p)|$</span>.
-This checks if the area of the triangle <span class="arithmatex">$p_0, p_i, p_{i+1}$</span> has to exact same size as the sum of the sizes of the triangle <span class="arithmatex">$p_0, p_i, p$</span>, the triangle <span class="arithmatex">$p_0, p, p_{i+1}$</span> and the triangle <span class="arithmatex">$p_i, p_{i+1}, p$</span>.
-If <span class="arithmatex">$p$</span> is outside, then the sum of those three triangle will be bigger than the size of the triangle.
+This checks if the area of the triangle <span class="arithmatex">$p_0, p_i, p_{i+1}$</span> has exactly the same size as the sum of the sizes of the triangle <span class="arithmatex">$p_0, p_i, p$</span>, the triangle <span class="arithmatex">$p_0, p, p_{i+1}$</span> and the triangle <span class="arithmatex">$p_i, p_{i+1}, p$</span>.
+If <span class="arithmatex">$p$</span> is outside, then the sum of those three triangles will be bigger than the size of the triangle.
 If it is inside, then it will be equal.</p>
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
-<p>The function <code>prepare</code> will make sure that the lexicographical smallest point (smallest x value, and in ties smallest y value) will be <span class="arithmatex">$p_0$</span>, and computes the vectors <span class="arithmatex">$p_i - p_0$</span>.
+<p>The function <code>prepare</code> will make sure that the lexicographically smallest point (smallest x value, and in ties smallest y value) will be <span class="arithmatex">$p_0$</span>, and computes the vectors <span class="arithmatex">$p_i - p_0$</span>.
 Afterwards the function <code>pointInConvexPolygon</code> computes the result of a query.
-We additionally remember the point <span class="arithmatex">$p_0$</span> and translate all queried points with it in order compute the correct distance, as vectors don't have an initial point.
+We additionally remember the point <span class="arithmatex">$p_0$</span> and translate all queried points relative to it in order to compute the correct distance, as vectors don't have an initial point.
 By translating the query points we can assume that all vectors start at the origin <span class="arithmatex">$(0, 0)$</span>, and simplify the computations for distances and lengths.</p>
 <div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">pt</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
@@ -8184,7 +8202,7 @@ By translating the query points we can assume that all vectors start at the orig
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/SYury" title="SYury" data-bi-name="contributorprofile" target="_blank">SYury</a> (79.2%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (11.2%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (4.8%)</li><li><a href="https://github.com/ayushkrtiwari" title="ayushkrtiwari" data-bi-name="contributorprofile" target="_blank">ayushkrtiwari</a> (2.4%)</li><li><a href="https://github.com/dallasyan" title="dallasyan" data-bi-name="contributorprofile" target="_blank">dallasyan</a> (1.6%)</li><li><a href="https://github.com/fcnoronha" title="fcnoronha" data-bi-name="contributorprofile" target="_blank">fcnoronha</a> (0.8%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/SYury" title="SYury" data-bi-name="contributorprofile" target="_blank">SYury</a> (75.2%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (10.4%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (5.6%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (4.8%)</li><li><a href="https://github.com/ayushkrtiwari" title="ayushkrtiwari" data-bi-name="contributorprofile" target="_blank">ayushkrtiwari</a> (2.4%)</li><li><a href="https://github.com/dallasyan" title="dallasyan" data-bi-name="contributorprofile" target="_blank">dallasyan</a> (0.8%)</li><li><a href="https://github.com/fcnoronha" title="fcnoronha" data-bi-name="contributorprofile" target="_blank">fcnoronha</a> (0.8%)</li></ul>
 </ul>
                 
               </article>

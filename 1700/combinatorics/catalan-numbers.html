@@ -8007,60 +8007,6 @@ Describe the issue of this article in detail.
   
     
   
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
     
   
 
@@ -8095,6 +8041,74 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
     
   
     
@@ -8129,6 +8143,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8189,7 +8207,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 27, 2026 06:48:11 UTC">June 27, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 17:59:44 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8216,7 +8234,7 @@ Describe the issue of this article in detail.
 
 
 <h1 id="catalan-numbers">Catalan Numbers<a class="headerlink" href="#catalan-numbers" title="Permanent link">&para;</a></h1>
-<p>Catalan numbers is a number sequence, which is found useful in a number of combinatorial problems, often involving recursively-defined objects.</p>
+<p>Catalan numbers form a number sequence which is useful in a number of combinatorial problems, often involving recursively-defined objects.</p>
 <p>This sequence was named after the Belgian mathematician <a href="https://en.wikipedia.org/wiki/Eug%C3%A8ne_Charles_Catalan">Catalan</a>, who lived in the 19th century. (In fact it was known before to Euler, who lived a century before Catalan).</p>
 <p>The first few Catalan numbers <span class="arithmatex">$C_n$</span> (starting from zero):</p>
 <p><span class="arithmatex">$1, 1, 2, 5, 14, 42, 132, 429, 1430, \ldots$</span></p>
@@ -8240,14 +8258,13 @@ Describe the issue of this article in detail.
 <div class="arithmatex">$$C_0 = C_1 = 1$$</div>
 <div class="arithmatex">$$C_n = \sum_{k = 0}^{n-1} C_k C_{n-1-k} , {n} \geq 2$$</div>
 <p>The recurrence formula can be easily deduced from the problem of the correct bracket sequence.</p>
-<p>The leftmost opening parenthesis <span class="arithmatex">$l$</span> corresponds to certain closing bracket <span class="arithmatex">$r$</span>, which divides the sequence into 2 parts which in turn should be a correct sequence of brackets. Thus formula is also divided into 2 parts. If we denote <span class="arithmatex">$k = {r - l - 1}$</span>, then for fixed <span class="arithmatex">$r$</span>, there will be exactly <span class="arithmatex">$C_k C_{n-1-k}$</span> such bracket sequences. Summing this over all admissible <span class="arithmatex">$k's$</span>, we get the recurrence relation on <span class="arithmatex">$C_n$</span>.</p>
-<p>You can also think it in this manner. By definition, <span class="arithmatex">$C_n$</span> denotes number of correct bracket sequences. Now, the sequence may be divided into 2 parts of length <span class="arithmatex">$k$</span> and <span class="arithmatex">${n - k}$</span>, each of which should be a correct bracket sequence. Example :</p>
-<p><span class="arithmatex">$( ) ( ( ) )$</span> can be divided into <span class="arithmatex">$( )$</span> and <span class="arithmatex">$( ( ) )$</span>, but cannot be divided into <span class="arithmatex">$( ) ($</span> and <span class="arithmatex">$( ) )$</span>. Again summing over all admissible <span class="arithmatex">$k's$</span>, we get the recurrence relation on <span class="arithmatex">$C_n$</span>.</p>
+<p>The leftmost opening parenthesis <span class="arithmatex">$l$</span> corresponds to some closing parenthesis <span class="arithmatex">$r$</span>. Suppose that there are <span class="arithmatex">$k$</span> pairs of parentheses between <span class="arithmatex">$l$</span> and <span class="arithmatex">$r$</span>. The substring between them can be any correct bracket sequence with <span class="arithmatex">$k$</span> pairs, and the suffix after <span class="arithmatex">$r$</span> can be any correct bracket sequence with <span class="arithmatex">$n-1-k$</span> pairs. Thus, for a fixed <span class="arithmatex">$k$</span>, there are exactly <span class="arithmatex">$C_k C_{n-1-k}$</span> such bracket sequences. Summing over all <span class="arithmatex">$k=0,1,\ldots,n-1$</span> gives the recurrence for <span class="arithmatex">$C_n$</span>.</p>
+<p>Equivalently, every nonempty correct bracket sequence can be decomposed uniquely as <span class="arithmatex">$(A)B$</span>, where <span class="arithmatex">$A$</span> and <span class="arithmatex">$B$</span> are correct bracket sequences. If <span class="arithmatex">$A$</span> contains <span class="arithmatex">$k$</span> pairs, then <span class="arithmatex">$B$</span> contains <span class="arithmatex">$n-1-k$</span> pairs, which gives the same recurrence.</p>
 <h4 id="c-implementation">C++ implementation<a class="headerlink" href="#c-implementation" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MOD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">....</span>
 <span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MAX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">....</span>
 <span class="kt">int</span><span class="w"> </span><span class="n">catalan</span><span class="p">[</span><span class="n">MAX</span><span class="p">];</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">catalan</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">catalan</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">catalan</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
@@ -8285,7 +8302,7 @@ Describe the issue of this article in detail.
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (67.71%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (7.29%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (7.29%)</li><li><a href="https://github.com/madhur4127" title="madhur4127" data-bi-name="contributorprofile" target="_blank">madhur4127</a> (4.17%)</li><li><a href="https://github.com/gabrielsimoes" title="gabrielsimoes" data-bi-name="contributorprofile" target="_blank">gabrielsimoes</a> (4.17%)</li><li><a href="https://github.com/deji725" title="deji725" data-bi-name="contributorprofile" target="_blank">deji725</a> (2.08%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (2.08%)</li><li><a href="https://github.com/turfaa" title="turfaa" data-bi-name="contributorprofile" target="_blank">turfaa</a> (2.08%)</li><li><a href="https://github.com/DN-30" title="DN-30" data-bi-name="contributorprofile" target="_blank">DN-30</a> (1.04%)</li><li><a href="https://github.com/sureyeaah" title="sureyeaah" data-bi-name="contributorprofile" target="_blank">sureyeaah</a> (1.04%)</li><li><a href="https://github.com/pulkit-singhal" title="pulkit-singhal" data-bi-name="contributorprofile" target="_blank">pulkit-singhal</a> (1.04%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (62.77%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (7.45%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (7.44%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (4.26%)</li><li><a href="https://github.com/madhur4127" title="madhur4127" data-bi-name="contributorprofile" target="_blank">madhur4127</a> (4.26%)</li><li><a href="https://github.com/gabrielsimoes" title="gabrielsimoes" data-bi-name="contributorprofile" target="_blank">gabrielsimoes</a> (4.26%)</li><li><a href="https://github.com/deji725" title="deji725" data-bi-name="contributorprofile" target="_blank">deji725</a> (2.13%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (2.13%)</li><li><a href="https://github.com/turfaa" title="turfaa" data-bi-name="contributorprofile" target="_blank">turfaa</a> (2.13%)</li><li><a href="https://github.com/DN-30" title="DN-30" data-bi-name="contributorprofile" target="_blank">DN-30</a> (1.06%)</li><li><a href="https://github.com/sureyeaah" title="sureyeaah" data-bi-name="contributorprofile" target="_blank">sureyeaah</a> (1.06%)</li><li><a href="https://github.com/pulkit-singhal" title="pulkit-singhal" data-bi-name="contributorprofile" target="_blank">pulkit-singhal</a> (1.06%)</li></ul>
 </ul>
                 
               </article>

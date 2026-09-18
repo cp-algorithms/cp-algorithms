@@ -7962,52 +7962,6 @@ Describe the issue of this article in detail.
   
     
   
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
     
   
 
@@ -8035,20 +7989,6 @@ Describe the issue of this article in detail.
     
   
     
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
   
     
   
@@ -8085,7 +8025,85 @@ Describe the issue of this article in detail.
     
   
 
+  
+  
+  
+    
+  
 
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+
+
+  
+  
+  
 
   
   
@@ -8150,7 +8168,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 21, 2026 12:58:09 UTC">June 21, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 14:11:36 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8313,7 +8331,7 @@ From all such cycles (at most one from each BFS) choose the shortest.</p>
 To do this, run two breadth first searches:
 one from <span class="arithmatex">$a$</span> and one from <span class="arithmatex">$b$</span>.
 Let <span class="arithmatex">$d_a []$</span> be the array containing shortest distances obtained from the first BFS (from <span class="arithmatex">$a$</span>) and <span class="arithmatex">$d_b []$</span> be the array containing shortest distances obtained from the second BFS from <span class="arithmatex">$b$</span>.
-Now for every edge <span class="arithmatex">$(u, v)$</span> it is easy to check whether that edge lies on any shortest path between <span class="arithmatex">$a$</span> and <span class="arithmatex">$b$</span>:
+Now for every edge <span class="arithmatex">$(u, v)$</span> it is easy to check whether that edge lies on any shortest path between <span class="arithmatex">$a$</span> and <span class="arithmatex">$b$</span>, assuming that <span class="arithmatex">$d_a [u] &lt; d_a [v]$</span> i.e. <span class="arithmatex">$u$</span> comes before <span class="arithmatex">$v$</span> when going from <span class="arithmatex">$a$</span> to <span class="arithmatex">$b$</span>:
 the criterion is the condition <span class="arithmatex">$d_a [u] + 1 + d_b [v] = d_a [b]$</span>.</p>
 </li>
 <li>
@@ -8362,7 +8380,7 @@ After that we run a BFS to find the shortest walk from the starting vertex <span
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/paramsingh" title="paramsingh" data-bi-name="contributorprofile" target="_blank">paramsingh</a> (29.57%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (28.49%)</li><li><a href="https://github.com/back2sqr1" title="back2sqr1" data-bi-name="contributorprofile" target="_blank">back2sqr1</a> (23.66%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (7.53%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.77%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (2.15%)</li><li><a href="https://github.com/aryamanjain-scifin" title="aryamanjain-scifin" data-bi-name="contributorprofile" target="_blank">aryamanjain-scifin</a> (1.08%)</li><li><a href="https://github.com/PAVBAN95" title="PAVBAN95" data-bi-name="contributorprofile" target="_blank">PAVBAN95</a> (1.08%)</li><li><a href="https://github.com/zakaria-zoulati" title="zakaria-zoulati" data-bi-name="contributorprofile" target="_blank">zakaria-zoulati</a> (0.54%)</li><li><a href="https://github.com/danilopereira10" title="danilopereira10" data-bi-name="contributorprofile" target="_blank">danilopereira10</a> (0.54%)</li><li><a href="https://github.com/BemwaMalak" title="BemwaMalak" data-bi-name="contributorprofile" target="_blank">BemwaMalak</a> (0.54%)</li><li><a href="https://github.com/wttc-nitr" title="wttc-nitr" data-bi-name="contributorprofile" target="_blank">wttc-nitr</a> (0.54%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (0.54%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/paramsingh" title="paramsingh" data-bi-name="contributorprofile" target="_blank">paramsingh</a> (29.57%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (27.96%)</li><li><a href="https://github.com/back2sqr1" title="back2sqr1" data-bi-name="contributorprofile" target="_blank">back2sqr1</a> (23.66%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (7.53%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (3.77%)</li><li><a href="https://github.com/likecs" title="likecs" data-bi-name="contributorprofile" target="_blank">likecs</a> (2.15%)</li><li><a href="https://github.com/aryamanjain-scifin" title="aryamanjain-scifin" data-bi-name="contributorprofile" target="_blank">aryamanjain-scifin</a> (1.08%)</li><li><a href="https://github.com/PAVBAN95" title="PAVBAN95" data-bi-name="contributorprofile" target="_blank">PAVBAN95</a> (1.08%)</li><li><a href="https://github.com/gitSouvik" title="gitSouvik" data-bi-name="contributorprofile" target="_blank">gitSouvik</a> (0.54%)</li><li><a href="https://github.com/zakaria-zoulati" title="zakaria-zoulati" data-bi-name="contributorprofile" target="_blank">zakaria-zoulati</a> (0.54%)</li><li><a href="https://github.com/danilopereira10" title="danilopereira10" data-bi-name="contributorprofile" target="_blank">danilopereira10</a> (0.54%)</li><li><a href="https://github.com/BemwaMalak" title="BemwaMalak" data-bi-name="contributorprofile" target="_blank">BemwaMalak</a> (0.54%)</li><li><a href="https://github.com/wttc-nitr" title="wttc-nitr" data-bi-name="contributorprofile" target="_blank">wttc-nitr</a> (0.54%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (0.54%)</li></ul>
 </ul>
                 
               </article>

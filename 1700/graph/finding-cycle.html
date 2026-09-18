@@ -7965,6 +7965,20 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
     
   
     
@@ -8027,6 +8041,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8067,7 +8085,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 10, 2024 07:23:09 UTC">June 10, 2024</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 14:05:16 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8095,7 +8113,7 @@ Describe the issue of this article in detail.
 
 <h1 id="checking-a-graph-for-acyclicity-and-finding-a-cycle-in-om">Checking a graph for acyclicity and finding a cycle in <span class="arithmatex">$O(M)$</span><a class="headerlink" href="#checking-a-graph-for-acyclicity-and-finding-a-cycle-in-om" title="Permanent link">&para;</a></h1>
 <p>Consider a directed or undirected graph without loops and multiple edges. We have to check whether it is acyclic, and if it is not, then find any cycle.</p>
-<p>We can solve this problem by using <a href="depth-first-search.html">Depth First Search</a> in <span class="arithmatex">$O(M)$</span> where <span class="arithmatex">$M$</span> is number of edges.</p>
+<p>We can solve this problem by using <a href="depth-first-search.html">Depth First Search</a> in <span class="arithmatex">$O(M)$</span>, where <span class="arithmatex">$M$</span> is the number of edges. An isolated vertex can never lie on a cycle, so it is enough to start the search from the at most <span class="arithmatex">$2M$</span> vertices that are incident to an edge. The implementation below simply iterates over all vertices, which adds an <span class="arithmatex">$O(N)$</span> term that the algorithm itself does not require.</p>
 <h2 id="algorithm">Algorithm<a class="headerlink" href="#algorithm" title="Permanent link">&para;</a></h2>
 <p>We will run a series of DFS in the graph. Initially all vertices are colored white (0). From each unvisited (white) vertex, start the DFS, mark it gray (1) while entering and mark it black (2) on exit. If DFS moves to a gray vertex, then we have found a cycle (if the graph is undirected, the edge to parent is not considered).
 The cycle itself can be reconstructed using parent array.</p>
@@ -8214,7 +8232,7 @@ Thus we can turn the char vector <code>color</code> into a boolean vector <code>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/ankitsangwan1999" title="ankitsangwan1999" data-bi-name="contributorprofile" target="_blank">ankitsangwan1999</a> (32.84%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (25.37%)</li><li><a href="https://github.com/praran26" title="praran26" data-bi-name="contributorprofile" target="_blank">praran26</a> (24.63%)</li><li><a href="https://github.com/mtan429" title="mtan429" data-bi-name="contributorprofile" target="_blank">mtan429</a> (9.7%)</li><li><a href="https://github.com/aryamanjain-scifin" title="aryamanjain-scifin" data-bi-name="contributorprofile" target="_blank">aryamanjain-scifin</a> (2.99%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.24%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (1.49%)</li><li><a href="https://github.com/ladamalina" title="ladamalina" data-bi-name="contributorprofile" target="_blank">ladamalina</a> (0.75%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/ankitsangwan1999" title="ankitsangwan1999" data-bi-name="contributorprofile" target="_blank">ankitsangwan1999</a> (32.84%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (24.63%)</li><li><a href="https://github.com/praran26" title="praran26" data-bi-name="contributorprofile" target="_blank">praran26</a> (24.63%)</li><li><a href="https://github.com/mtan429" title="mtan429" data-bi-name="contributorprofile" target="_blank">mtan429</a> (9.7%)</li><li><a href="https://github.com/aryamanjain-scifin" title="aryamanjain-scifin" data-bi-name="contributorprofile" target="_blank">aryamanjain-scifin</a> (2.99%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.24%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (1.49%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (0.75%)</li><li><a href="https://github.com/ladamalina" title="ladamalina" data-bi-name="contributorprofile" target="_blank">ladamalina</a> (0.75%)</li></ul>
 </ul>
                 
               </article>
