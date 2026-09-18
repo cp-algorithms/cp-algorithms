@@ -130,13 +130,11 @@ void split (pitem t, int key, pitem & l, pitem & r) {
 }
 ```
 
-`t` is the treap to split, and `key` is the BST value by which to split. Note that we do not `return` the result values anywhere, instead, we just use them like so:
+`t` is the treap to split, and `key` is the BST value by which to split. Note that we do not `return` the result values anywhere; instead, the output treaps are written through `l` and `r`, for example:
 
 ```cpp
 pitem l = nullptr, r = nullptr;
 split(t, 5, l, r);
-if (l) cout << "Left subtree size: " << (l->size) << endl;
-if (r) cout << "Right subtree size: " << (r->size) << endl;
 ```
 
 This `split` function can be tricky to understand, as it has both pointers (`pitem`) as well as reference to those pointers (`pitem &l`). Let us understand in words what the function call `split(t, k, l, r)` intends: "split treap `t` by value `k` into two treaps, and store the left treaps in `l` and right treap in `r`". Great! Now, let us apply this definition to the two recursive calls, using the case work we analyzed in the previous section: (The first if condition is a trivial base case for an empty treap)
@@ -229,7 +227,7 @@ pitem build (int * a, int n) {
 	t->l = build (a, mid);
 	t->r = build (a + mid + 1, n - mid - 1);
 	heapify (t);
-	upd_cnt(t)
+	upd_cnt(t);
 	return t;
 }
 ```
@@ -245,7 +243,8 @@ Note that in this problem priorities are not random, hence just inserting vertic
 
 One of possible solutions here is to find for each element the closest elements to the left and to the right which have a smaller priority than this element. Among these two elements, the one with the larger priority must be the parent of the current element.
 
-This problem is solvable with a [minimum stack](./stack_queue_modification.md) modification in linear time:
+This problem is solvable with a [minimum stack](./stack_queue_modification.md) modification in linear time.
+The construction below uses the min-heap convention for priorities, unlike the max-heap convention used by the regular treap implementation above, and assumes that `item` is extended with a parent pointer `p` initialized to `nullptr`:
 
 ```cpp
 void connect(auto from, auto to) {
@@ -340,7 +339,7 @@ Now let's consider the implementation of various operations on implicit treaps:
 - **Addition / painting** on the interval.  
  We act similarly to the previous paragraph, but instead of the field F we will store a field `add` which will contain the added value for the subtree (or the value to which the subtree is painted). Before performing any operation we have to "push" this value correctly - i.e. change $T \rightarrow L \rightarrow add$ and $T \rightarrow R \rightarrow add$, and to clean up `add` in the parent node. This way after any changes to the tree the information will not be lost.
 - **Reverse** on the interval.  
- This is again similar to the previous operation: we have to add boolean flag `rev` and set it to true when the subtree of the current node has to be reversed. "Pushing" this value is a bit complicated - we swap children of this node and set this flag to true for them.
+ This is again similar to the previous operation: we have to add boolean flag `rev` and toggle it whenever the subtree of the current node has to be reversed. "Pushing" this value is a bit complicated - we swap children of this node and toggle this flag for them.
 
 Here is an example implementation of the implicit treap with reverse on the interval. For each node we store field called `value` which is the actual value of the array element at current position. We also provide implementation of the function `output()`, which outputs an array that corresponds to the current state of the implicit treap.
 
