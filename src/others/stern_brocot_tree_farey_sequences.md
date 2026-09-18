@@ -35,7 +35,7 @@ Continuing this process to infinity this covers *all* positive fractions. Additi
 Before proving these properties, let us actually show a visualization of the Stern-Brocot tree, rather than the list representation. Every fraction in the tree has two children. Each child is the mediant of the closest ancestor on the left and closest ancestor to the right.
 
 <div style="text-align: center;">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/SternBrocotTree.svg/1024px-SternBrocotTree.svg.png" alt="Stern-Brocot tree">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/3/37/SternBrocotTree.svg" alt="Stern-Brocot tree">
 </div>
 
 ## Proofs
@@ -201,11 +201,15 @@ auto find(int p, int q) {
 }
 ```
 
-However, this approach only works if we already know $\frac{p}{q}$ and want to find its place in the Stern-Brocot tree.
+However, this approach only works as is if we already know $\frac{p}{q}$ and want to find its place in the Stern-Brocot tree.
 
 On practice, it is often the case that $\frac{p}{q}$ is not known in advance, but we are able to check for specific $\frac{x}{y}$ whether $\frac{x}{y} < \frac{p}{q}$.
 
-Knowing this, we can emulate the search on Stern-Brocot tree by maintaining the current boundaries $\frac{p_{k-1}}{q_{k-1}}$ and $\frac{p_k}{q_k}$, and finding each $a_k$ via binary search. The algorithm then is a bit more technical and potentially have a complexity of $O(\log^2(x+y))$, unless the problem formulation allows you to find $a_k$ faster (for example, using `floor` of some known expression).
+Knowing this, we can emulate the search on Stern-Brocot tree by maintaining the current boundaries $\frac{p_{k-1}}{q_{k-1}}$ and $\frac{p_k}{q_k}$, and finding each $a_k$ via binary search. The algorithm then is a bit more technical, yet it is still guaranteed to have $O(\log (p+q))$ complexity. This cannot be improved in general, as the number of terms alone is already $\Theta(\log (p+q))$ in the worst case.
+
+To get this bound, each $a_k$ must be found by first doubling a candidate value until it overshoots, and only then binary searching inside the last interval. This costs $O(\log a_k)$ comparisons. Binary searching each $a_k$ over a fixed range instead would cost $O(\log (p+q))$ per term, leading to a weaker $O(\log^2 (p+q))$ bound overall.
+
+The total is then $O\left(\sum_k \left(1 + \log a_k\right)\right)$, and both parts are $O(\log (p+q))$. The number of terms is $O(\log (p+q))$, because $p_k$ and $q_k$ grow at least as fast as Fibonacci numbers, which is the slowest growth, attained when every $a_k$ equals $1$. And adding the two recurrences above gives $p_{k+1} + q_{k+1} = (p_{k-1} + q_{k-1}) + a_k (p_k + q_k) \geq a_k (p_k + q_k)$, so $p + q \geq \prod_k a_k$ and therefore $\sum_k \log a_k \leq \log (p+q)$.
 
 ## Farey Sequence
 
