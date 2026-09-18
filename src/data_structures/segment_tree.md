@@ -85,9 +85,9 @@ For now we are going to answer sum queries. As an input we receive two integers 
 To do this, we will traverse the Segment Tree and use the precomputed sums of the segments.
 Let's assume that we are currently at the vertex that covers the segment $a[tl \dots tr)$.
 There are three possible cases:
-1. $[tl \dots tr)$ is completely contained in $[l \dots r)$ : In this case, we know that the sum of this segment will surely be a part of the final answer, so we return this sum.
-2. $[tl \dots tr)$ partially covers $[l \dots r)$ : In this case, we cannot include this vertex's sum and we must explore both the left and right children. First we go to the left child($[tl \dots tm)$), compute a partial answer for this vertex (i.e. the sum of values of the intersection between the segment of the query and the segment of the left child), then go to the right child($[tm \dots tr)$, compute the partial answer using that vertex, and then combine the answers by adding them.
-3. There is no intersection between $[tl \dots tr)$ and $[l \dots r)$ : This segment does not contribute to the sum, so we return zero.
+1. $[tl \dots tr)$ is completely contained in $[l \dots r)$: In this case, we know that the sum of this segment will surely be a part of the final answer, so we return this sum.
+2. $[tl \dots tr)$ partially covers $[l \dots r)$: In this case, we cannot include this vertex's sum and we must explore both the left and right children. First we go to the left child ($[tl \dots tm)$), compute a partial answer for this vertex (i.e. the sum of values of the intersection between the segment of the query and the segment of the left child), then go to the right child ($[tm \dots tr)$), compute the partial answer using that vertex, and then combine the answers by adding them.
+3. There is no intersection between $[tl \dots tr)$ and $[l \dots r)$: This segment does not contribute to the sum, so we return zero.
 
 So, processing a sum query is a function that recursively calls itself with left and right children until it finds a complete or no overlap between ranges.
 
