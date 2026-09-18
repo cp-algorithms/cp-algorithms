@@ -205,7 +205,7 @@ However, this approach only works as is if we already know $\frac{p}{q}$ and wan
 
 On practice, it is often the case that $\frac{p}{q}$ is not known in advance, but we are able to check for specific $\frac{x}{y}$ whether $\frac{x}{y} < \frac{p}{q}$.
 
-Knowing this, we can emulate the search on Stern-Brocot tree by maintaining the current boundaries $\frac{p_{k-1}}{q_{k-1}}$ and $\frac{p_k}{q_k}$, and finding each $a_k$ via binary search. The algorithm then is a bit more technical, yet it is still guaranteed to have $O(\log (p+q))$ complexity. This cannot be improved in general, as the number of terms alone is already $\Theta(\log (p+q))$ in the worst case. If the problem formulation lets you find some $a_k$ directly, for example as the `floor` of a known expression, that saves queries in practice but does not change the bound.
+Knowing this, we can emulate the search on Stern-Brocot tree by maintaining the current boundaries $\frac{p_{k-1}}{q_{k-1}}$ and $\frac{p_k}{q_k}$, and finding each $a_k$ via binary search. The algorithm then is a bit more technical, yet it is still guaranteed to have $O(\log (p+q))$ complexity. This cannot be improved in general, as the number of terms alone is already $\Theta(\log (p+q))$ in the worst case.
 
 To get this bound, each $a_k$ must be found by first doubling a candidate value until it overshoots, and only then binary searching inside the last interval. This costs $O(\log a_k)$ comparisons. Binary searching each $a_k$ over a fixed range instead would cost $O(\log (p+q))$ per term, leading to a weaker $O(\log^2 (p+q))$ bound overall.
 
