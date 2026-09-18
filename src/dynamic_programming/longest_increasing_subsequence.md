@@ -188,26 +188,23 @@ So we only update if $a[i] < d[l]$.
 
 After processing all the elements of $a[]$ the length of the desired subsequence is the largest $l$ with $d[l] < \infty$.
 
+The $\pm\infty$ padding is only a convenience for stating the recurrence; it never has to be stored.
+In the implementations below we keep just the entries for lengths that have actually been achieved.
+Then $d[]$ grows by at most one element per step, reaching a position past its end is what $d[l] = \infty$ stood for, and the answer is simply its size.
+
 ```{.cpp file=lis_method2_n2}
 int lis(vector<int> const& a) {
-    int n = a.size();
-    const long long INF = (1LL << 60);
-    vector<long long> d(n+1, INF);
-    d[0] = -INF;
-
-    for (int i = 0; i < n; i++) {
-        for (int l = 1; l <= n; l++) {
-            if (d[l-1] < a[i] && a[i] < d[l])
-                d[l] = a[i];
-        }
+    vector<int> d;
+    for (int x : a) {
+        size_t l = 0;
+        while (l < d.size() && d[l] < x)
+            l++;
+        if (l == d.size())
+            d.push_back(x);
+        else
+            d[l] = x;
     }
-
-    int ans = 0;
-    for (int l = 0; l <= n; l++) {
-        if (d[l] < INF)
-            ans = l;
-    }
-    return ans;
+    return d.size();
 }
 ```
 
@@ -228,10 +225,7 @@ In fact we can simply look in the array $d[]$ for the first number that is stric
 
 ### Implementation
 
-The $\pm\infty$ padding is only a convenience for stating the recurrence.
-In the implementation we keep just the meaningful prefix of $d[]$, which grows by at most one entry per step, so no sentinel value is needed and the length of the answer is simply the size of that prefix.
-
-This gives us the improved $O(n \log n)$ implementation:
+This gives us the improved $O(n \log n)$ implementation, which differs from the one above only in how the position is found:
 
 ```{.cpp file=lis_method2_nlogn}
 int lis(vector<int> const& a) {
