@@ -50,30 +50,41 @@ This means, that the order of the queue looks like this:
 $$Q = \underbrace{v}_{d[v]}, \dots, \underbrace{u}_{d[v]}, \underbrace{m}_{d[v]+1} \dots \underbrace{n}_{d[v]+1}$$
 
 This structure is so simple, that we don't need an actual priority queue, i.e. using a balanced binary tree would be an overkill.
-We can simply use a normal queue, and append new vertices at the beginning if the corresponding edge has weight $0$, i.e. if $d[u] = d[v]$, or at the end if the edge has weight $1$, i.e. if $d[u] = d[v] + 1$.
-This way the queue still remains sorted at all time.
+Since the queue only ever holds two distinct distances, we can keep them in two separate vectors: $q_0$ for the vertices at distance $d[v]$, and $q_1$ for those at distance $d[v] + 1$.
+An edge of weight $0$ appends to $q_0$, an edge of weight $1$ to $q_1$.
+Once $q_0$ runs out, every vertex at the current distance has been processed, so we swap the two vectors and the current distance increases by one.
 
 ```cpp
 vector<int> d(n, INF);
 d[s] = 0;
-deque<int> q;
-q.push_front(s);
-while (!q.empty()) {
-    int v = q.front();
-    q.pop_front();
+vector<int> q0, q1;
+q0.push_back(s);
+while (!q0.empty()) {
+    int v = q0.back();
+    q0.pop_back();
     for (auto edge : adj[v]) {
         int u = edge.first;
         int w = edge.second;
         if (d[v] + w < d[u]) {
             d[u] = d[v] + w;
-            if (w == 1)
-                q.push_back(u);
+            if (w == 0)
+                q0.push_back(u);
             else
-                q.push_front(u);
+                q1.push_back(u);
         }
     }
+    if (q0.empty())
+        swap(q0, q1);
 }
 ```
+
+Written this way the two levels are explicit: $q_0$ is exactly the set of vertices at the current distance and $q_1$ exactly those one step further, so the structure of $Q$ shown above holds by construction instead of being a property we have to maintain.
+Note that $q_0$ is used as a stack rather than a queue, which is harmless: all of its vertices share the same distance, so the order in which they are processed does not matter.
+
+The same algorithm is more commonly written with a single `deque`, pushing to the front for weight $0$ and to the back for weight $1$, so that `push_front` and `push_back` play the roles of $q_0$ and $q_1$.
+Two vectors are preferable in practice because they avoid the deque's chunked storage: on graphs small enough to stay in cache this measures about $1.15$ times faster, falling to roughly $1.06$ times on graphs of millions of vertices, where memory latency dominates and the choice of container matters much less (see this [benchmark](https://github.com/ahhz/zero-one-bfs-queue)).
+
+If no edge has weight $0$, the algorithm degenerates into an ordinary BFS, and in that case a plain [BFS](breadth-first-search.md) is both simpler and slightly faster.
 
 ## Dial's algorithm
 
