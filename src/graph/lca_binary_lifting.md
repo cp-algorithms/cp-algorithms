@@ -84,8 +84,7 @@ int lca(int u, int v)
     return up[u][0];
 }
 
-void preprocess(int root)
-{
+void preprocess(int root) {
     tin.resize(n);
     tout.resize(n);
     timer = 0;
@@ -96,32 +95,28 @@ void preprocess(int root)
 ```
 
 ## Binary Lifting on a dynamic tree
-This is another method of doing LCA, that also accepts adding a leaf node  to node `v`.
+This is another method of doing LCA, that also accepts adding a leaf node to node `v`.
 
 The earlier method struggles with these updates, since adding a leaf will potentially modify the time of entry and exit for the entire graph.
 
-Lets create an array `depth[u]`, containing the distance of node `u` from the root. This can be done with a DFS-traversal of the tree. Similarly to the earlier approach we precompute an array `up[u][j]`.
+Let's create an array `depth[u]`, containing the distance of node `u` from the root. This can be done with a DFS-traversal of the tree. Similarly to the earlier approach we precompute an array `up[u][j]`.
 
-We handle LCA queries as followed: Let `(u, v)` be the pair that we want to find the answer to. From now on let `depth[u] ≥ depth[v]` (if `depth[v] > depth[u]`, we can just swap `u` and `v`). Now lets try and make `depth[u] = depth[v]`, by moving `u` up to an ancestor.
-The ancestor of `u` that satisfies this requirement is exactly `depth[u]-depth[v]` nodes higher. So using our `up[u][j]` table and the binary representation of `depth[u]-depth[v]`, lets change the value of `u` to the specified ancestor.
+We handle LCA queries as follows: Let `(u, v)` be the pair that we want to find the answer to. From now on let `depth[u] ≥ depth[v]` (if `depth[v] > depth[u]`, we can just swap `u` and `v`). Now let's try and make `depth[u] = depth[v]`, by moving `u` up to an ancestor.
+The ancestor of `u` that satisfies this requirement is exactly `depth[u]-depth[v]` nodes higher. So using our `up[u][j]` table and the binary representation of `depth[u]-depth[v]`, let's change the value of `u` to the specified ancestor.
 
-Now we have another problem: Find the LCA of two vertices `(u, v)`, that have the same depth. First, lets check the trivial case if `u = v`, where the LCA of the two values is `u`. If not, then we find the highest vertex, that isn't a common ancestor of `(u, v)`.
+Now we have another problem: Find the LCA of two vertices `(u, v)`, that have the same depth. First, let's check the trivial case if `u = v`, where the LCA of the two values is `u`. If not, then we find the highest vertex, that isn't a common ancestor of `(u, v)`.
 
 Suppose that `L=ceil(log(N))`, where `N` is the maximum number of vertices the graph will have. Let `i = L`. If `up[u][i]=up[v][i]`, we just decrement `i`. If that is not the case, then we set `u = up[u][i]` and `v = up[v][i]`, then we decrement `i`.
-After all these operations, we two vertices `u` and `v`, that aren't the LCA od the original pair, but `jump[u][0]` and `jump[v][0]` are. We again are using $O(N \log N)$ preprocessing complexity and a $O( \log N)$ query one.
+After all these operations, we have two vertices `u` and `v`, that aren't the LCA of the original pair, but `up[u][0]` and `up[v][0]` are. We again are using $O(N \log N)$ preprocessing complexity and a $O( \log N)$ query one.
 
-Now, why does this work well in this dynamic environment? Well observe during the algorithm we only need to know the `up[u][j]` array for all vertices and the distance of each node from the root, both of which trivally can be obtained from the add leaf query in $O(\log n)$ time.
+Now, why does this work well in this dynamic environment? Well observe during the algorithm we only need to know the `up[u][j]` array for all vertices and the distance of each node from the root, both of which trivially can be obtained from the add leaf query in $O(\log n)$ time.
 
-## Implementation
+The trade-off is query speed. The earlier method settles a query in a single descending loop, because its ancestor test covers the depth difference and the split at the same time. This one needs two loops, and the second climbs both vertices, so it reads `up` roughly three times as often: on a tree of $10^6$ vertices, 64 reads per query against 22.
+
+### Implementation
 
 ```cpp
 int n, l;
-
-//Set this to maximum size of graph
-int MAXN;
-
-
-int ups;
 vector<vector<int>> adj;
 
 vector<int> depth;
@@ -162,23 +157,22 @@ int lca(int u, int v)
 
 void add_leaf(int to)
 {
-    adj[to].push_back((int) adj.size());
+    int v = adj.size();
+    adj[to].push_back(v);
     adj.push_back({to});
     depth.push_back(depth[to]+1);
-    up.resize(ups + 1);
-    ups++;
-    up[ups - 1].resize(l+1);
-    up[ups - 1][0] = to;
+    up.push_back(vector<int>(l + 1));
+    up[v][0] = to;
     for (int i = 1; i <= l; ++i)
-        up[ups - 1][i] = up[up[ups - 1 ][i-1]][i-1];
+        up[v][i] = up[up[v][i-1]][i-1];
 }
 
-void preprocess(int root)
+//Set max_nodes to the maximum size of the graph
+void preprocess(int root, int max_nodes)
 {
     depth.resize(n);
-    l = ceil(log2(MAXN));
+    l = ceil(log2(max_nodes));
     up.assign(n, vector<int>(l + 1));
-    ups = n;
     dfs(root, root, 0);
 }
 ```
@@ -193,14 +187,15 @@ For each node we will define only **small** and **big** jumps. Small jumps will 
 After that we create a recursive definition.
 
 $$\mathtt{big}[u] = \begin{cases} \mathtt{big}[\mathtt{big}[ancestor[u]]] & \text{if the size of the big jump from the parent node is equal to the one of }\mathtt{big}[ancestor[u]] \\
-\mathtt{ancenstor}[u] & \text{otherwise}\end{cases}$$
+\mathtt{ancestor}[u] & \text{otherwise}\end{cases}$$
 
 We can check the size of the jump simply by subtracting `depth[big[u]]` from `depth[u]`. 
 We have to evaluate this array in an order, such that for every node, we have computed the values for all of its ancestors. We can use the preorder ordering here, since it satisfies this property.
 
 
-Now after all of that preprocessing, answering queries is easy. We first balance the nodes to an equal depth and then we try to find the lowest node that isn't a common ancestor. This is very similar to what has been done in the Dynamic LCA algorithm, but now we just check if we can preform a big jump and if not, then we do a small one. The time complexity is logarithmic, as Harel and Tarjan proved in their paper that we will use maximaly $6\lfloor{\log(d+1)}\rfloor-4$ jumps. The space complexity is linear 
-## Implementation
+Now after all of that preprocessing, answering queries is easy. We first balance the nodes to an equal depth and then we try to find the lowest node that isn't a common ancestor. This is very similar to what has been done in the Dynamic LCA algorithm, but now we just check if we can perform a big jump and if not, then we do a small one. The time complexity is logarithmic, as Harel and Tarjan proved in their paper that we will use maximally $6\lfloor{\log(d+1)}\rfloor-4$ jumps. The space complexity is linear.
+
+### Implementation
 
 ```cpp
 int n, l;
