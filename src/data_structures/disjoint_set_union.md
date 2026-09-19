@@ -542,7 +542,12 @@ Then to get the answer for the current node (unless of course it is a leaf), we 
 The size of the resulting set will be the answer for the current node.
 To efficiently combine multiple sets we just apply the above-described recipe:
 we merge the sets by simply adding smaller ones to larger.
-In the end we get a $O(n \log^2 n)$ solution, because one number will only added to a set at most $O(\log n)$ times.
+In the end we get a $O(n \log^2 n)$ solution, though the usual justification needs care here.
+It is tempting to say that a number is added to a set only $O(\log n)$ times because the set holding it doubles on every move, but that is not true when the sets hold **distinct** numbers: merging a set of size $k$ into a larger one can leave the result no bigger than it already was, so nothing doubles.
+What we can count instead is the number of insertion *attempts*, since a duplicate still costs a lookup.
+A subtree's set has at most as many elements as the subtree has vertices, and merging into the child with the most distinct numbers costs no more than merging into the child with the largest subtree.
+For that rule the doubling argument does hold, applied to vertices rather than to values: a vertex lies in the smaller subtree at most $O(\log n)$ times, because the combined subtree is at least twice the smaller one.
+That gives $O(n \log n)$ insertions, each costing $O(\log n)$ in a `set`.
 
 ### Storing the DSU by maintaining a clear tree structure / Online bridge finding in $O(\alpha(n))$ on average  {data-toc-label="Storing the DSU by maintaining a clear tree structure / Online bridge finding"}
 
