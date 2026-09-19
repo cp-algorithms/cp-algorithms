@@ -63,6 +63,7 @@ search:
 - Dynamic Programming
     - [Introduction to Dynamic Programming](dynamic_programming/intro-to-dp.md)
     - [Knapsack Problem](dynamic_programming/knapsack.md)
+    - [Digit DP](dynamic_programming/digit-dp.md)
     - [Longest increasing subsequence](dynamic_programming/longest_increasing_subsequence.md)
     - DP optimizations
         - [Divide and Conquer DP](dynamic_programming/divide-and-conquer-dp.md)
