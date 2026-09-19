@@ -200,7 +200,7 @@ And if we want to compare $10^6$ different strings with each other (e.g. by coun
 It is pretty much guaranteed that this task will end with a collision and returns the wrong result.
 
 There is a really easy trick to get better probabilities.
-We can just compute two different hashes for each string (by using two different $p$, and/or different $m$, and compare these pairs instead.
+We can just compute two different hashes for each string (by using two different $p$, and/or different $m$), and compare these pairs instead.
 If $m$ is about $10^9$ for each of the two hash functions than this is more or less equivalent as having one hash function with $m \approx 10^{18}$.
 When comparing $10^6$ strings with each other, the probability that at least one collision happens is now reduced to $\approx 10^{-6}$.
 

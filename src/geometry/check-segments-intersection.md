@@ -49,3 +49,6 @@ bool check_inter(const pt& a, const pt& b, const pt& c, const pt& d) {
            sgn(c.cross(d, a)) != sgn(c.cross(d, b));
 }
 ```
+## Practice Problems
+
+* [CSES - Line Segment Intersection](https://cses.fi/problemset/task/2190)

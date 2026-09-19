@@ -42,7 +42,7 @@ Strictly speaking, the method described below should be called "Gauss-Jordan", o
 
 The algorithm is a `sequential elimination` of the variables in each equation, until each equation will have only one remaining variable. If $n = m$, you can think of it as transforming the matrix $A$ to identity matrix, and solve the equation in this obvious case, where solution is unique and is equal to coefficient $b_i$.
 
-Gaussian elimination is based on two simple transformation:   
+Gaussian elimination is based on two simple transformations:   
 
 * It is possible to exchange two equations
 * Any equation can be replaced by a linear combination of that row (with non-zero coefficient), and some other rows (with arbitrary coefficients).
@@ -159,7 +159,7 @@ Reverse phase only takes $O(nm)$, which is much faster than forward phase. In fo
 
 ## Solving modular SLAE
 
-For solving SLAE in some module, we can still use the described algorithm. However, in case the module is equal to two, we can perform Gauss-Jordan elimination much more effectively using bitwise operations and C++ bitset data types:
+For solving SLAE in some modulus, we can still use the described algorithm. However, in case the modulus is equal to 2, we can perform Gauss-Jordan elimination much more effectively using bitwise operations and C++ bitset data types:
 
 ```cpp
 int gauss (vector < bitset<N> > a, int n, int m, bitset<N> & ans) {

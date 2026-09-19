@@ -90,7 +90,7 @@ struct Point {
     long double x, y;
     explicit Point(long double x = 0, long double y = 0) : x(x), y(y) {}
 
-    // Addition, substraction, multiply by constant, dot product, cross product.
+    // Addition, subtraction, multiply by constant, dot product, cross product.
 
     friend Point operator + (const Point& p, const Point& q) {
         return Point(p.x + q.x, p.y + q.y); 

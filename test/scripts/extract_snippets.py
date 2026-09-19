@@ -28,7 +28,7 @@ def extract_snippets(filepath: os.PathLike) -> List[Snippet]:
 
     snippets = []
 
-    snippet_start = re.compile(r"^```\{.cpp\s+file=(\S+)\}$")
+    snippet_start = re.compile(r"^\s*```\{.cpp\s+file=(\S+)\}$")
     snippet_end = re.compile(r"^```$")
 
     snippet_start_line: Optional[int] = None
