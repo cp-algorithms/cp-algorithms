@@ -8131,7 +8131,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 19, 2026 10:11:39 UTC">September 19, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 19, 2026 10:22:33 UTC">September 19, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8314,18 +8314,17 @@ For each node we will define only <strong>small</strong> and <strong>big</strong
 <div class="arithmatex">$$\mathtt{big}[u] = \begin{cases} \mathtt{big}[\mathtt{big}[p]] &amp; \text{if } \ell(p) = \ell(\mathtt{big}[p]) \\
 p &amp; \text{otherwise}\end{cases}$$</div>
 <figure style="margin:1.2em auto">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 26 700 158" width="700" height="158" style="max-width:100%;height:auto" font-family="Georgia,'Times New Roman',serif" role="img" aria-label="Two equal big jumps, one from p and one from big of p, combine into a single jump of size two ell plus one for u">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 26 700 134" width="700" height="134" style="max-width:100%;height:auto" font-family="Georgia,'Times New Roman',serif" role="img" aria-label="Two equal big jumps, one from p and one from big of p, combine into a single jump of size two ell plus one for u">
   <defs>
     <marker id="lcaA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#9575cd"/></marker>
     <marker id="lcaB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#ec407a"/></marker>
   </defs>
   <g stroke="currentColor" fill="currentColor">
-    <line x1="60" y1="100" x2="660" y2="100" stroke-width="2" opacity=".5"/>
-    <g opacity=".4" stroke="none"><circle cx="140" cy="100" r="4"/><circle cx="260" cy="100" r="4"/><circle cx="320" cy="100" r="4"/><circle cx="440" cy="100" r="4"/><circle cx="500" cy="100" r="4"/></g>
+    <line x1="60" y1="100" x2="660" y2="100" stroke-width="2" opacity=".4"/>
+    <g stroke="none" opacity=".62"><circle cx="140" cy="100" r="4"/><circle cx="260" cy="100" r="4"/><circle cx="320" cy="100" r="4"/><circle cx="440" cy="100" r="4"/><circle cx="500" cy="100" r="4"/></g>
     <g stroke="none"><circle cx="200" cy="100" r="6.5"/><circle cx="380" cy="100" r="6.5"/><circle cx="560" cy="100" r="6.5"/><circle cx="620" cy="100" r="6.5"/></g>
-    <text x="46" y="105" font-size="16" text-anchor="end" stroke="none" opacity=".6">root</text>
     <g font-size="16" text-anchor="middle" stroke="none" font-family="ui-monospace,'DejaVu Sans Mono',monospace">
-      <text x="200" y="174">big[big[p]]</text><text x="380" y="174">big[p]</text><text x="560" y="174">p</text><text x="620" y="174">u</text>
+      <text x="200" y="152">big[big[p]]</text><text x="380" y="152">big[p]</text><text x="560" y="152">p</text><text x="620" y="152">u</text>
     </g>
   </g>
   <g fill="none" stroke-width="2.2">
@@ -8338,17 +8337,16 @@ p &amp; \text{otherwise}\end{cases}$$</div>
     <text x="410" y="46" fill="#ec407a">2&#8467; + 1</text>
   </g>
 </svg>
-<figcaption>Two big jumps of equal size combine into one, so a big jump always skips one less than a power of two.</figcaption>
+<figcaption>Two equal jumps merge, so every jump skips one less than a power of two.</figcaption>
 </figure>
 
 <p>We have to evaluate this array in an order, such that for every node, we have computed the values for all of its ancestors. We can use the preorder ordering here, since it satisfies this property.</p>
 <p>Now after all of that preprocessing, answering queries is easy. We first balance the nodes to an equal depth and then we try to find the lowest node that isn't a common ancestor. This is very similar to what has been done in the Dynamic LCA algorithm, but now we just check if we can perform a big jump and if not, then we do a small one. The time complexity is logarithmic, as Harel and Tarjan proved in their paper that we will use maximally <span class="arithmatex">$6\lfloor{\log(d+1)}\rfloor-4$</span> jumps. The space complexity is linear.</p>
 <figure style="margin:1.2em auto">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 12 700 214" width="700" height="214" style="max-width:100%;height:auto" font-family="Georgia,'Times New Roman',serif" role="img" aria-label="The big jump of every vertex on a path of 17 vertices; sizes 1, 3, 7 and 15 alternate above and below the path">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 12 700 200" width="700" height="200" style="max-width:100%;height:auto" font-family="Georgia,'Times New Roman',serif" role="img" aria-label="The big jump of every vertex on a path of 17 vertices; sizes 1, 3, 7 and 15 alternate above and below the path">
   <g stroke="currentColor" fill="currentColor">
-    <line x1="46" y1="134" x2="654" y2="134" stroke-width="2" opacity=".5"/>
+    <line x1="46" y1="134" x2="654" y2="134" stroke-width="2" opacity=".4"/>
     <g stroke="none"><circle cx="46" cy="134" r="4.5"/><circle cx="84" cy="134" r="4.5"/><circle cx="122" cy="134" r="4.5"/><circle cx="160" cy="134" r="4.5"/><circle cx="198" cy="134" r="4.5"/><circle cx="236" cy="134" r="4.5"/><circle cx="274" cy="134" r="4.5"/><circle cx="312" cy="134" r="4.5"/><circle cx="350" cy="134" r="4.5"/><circle cx="388" cy="134" r="4.5"/><circle cx="426" cy="134" r="4.5"/><circle cx="464" cy="134" r="4.5"/><circle cx="502" cy="134" r="4.5"/><circle cx="540" cy="134" r="4.5"/><circle cx="578" cy="134" r="4.5"/><circle cx="616" cy="134" r="4.5"/><circle cx="654" cy="134" r="4.5"/></g>
-    <g stroke="none" font-size="13" text-anchor="middle" opacity=".65"><text x="46" y="218">0</text><text x="84" y="218">1</text><text x="122" y="218">2</text><text x="160" y="218">3</text><text x="198" y="218">4</text><text x="236" y="218">5</text><text x="274" y="218">6</text><text x="312" y="218">7</text><text x="350" y="218">8</text><text x="388" y="218">9</text><text x="426" y="218">10</text><text x="464" y="218">11</text><text x="502" y="218">12</text><text x="540" y="218">13</text><text x="578" y="218">14</text><text x="616" y="218">15</text><text x="654" y="218">16</text></g>
   </g>
   <g fill="none" stroke="#9575cd" stroke-width="1.8">
     <path d="M46 141 A19 14 0 0 0 84 141"/>
@@ -8370,7 +8368,7 @@ p &amp; \text{otherwise}\end{cases}$$</div>
   </g>
   <g fill="#9575cd" font-size="15" font-style="italic" text-anchor="middle"><text x="179" y="205">7</text><text x="483" y="85">3</text><text x="331" y="27">15</text><text x="635" y="173">1</text></g>
 </svg>
-<figcaption>The big jump of every vertex of a path on 17 vertices, with the sizes alternating above and below. Sizes nest, so a handful of jumps reaches the root from anywhere.</figcaption>
+<figcaption>Every big jump on a path. The sizes nest, so a few jumps reach the root from anywhere.</figcaption>
 </figure>
 
 <p>Adding a leaf is cheaper here than in the previous section. Both pointers of a new vertex are determined by its parent alone, and no existing vertex changes, so an insertion is <span class="arithmatex">$O(1)$</span> and there is no table to extend.</p>
@@ -8458,7 +8456,7 @@ p &amp; \text{otherwise}\end{cases}$$</div>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/Nagerhide" title="Nagerhide" data-bi-name="contributorprofile" target="_blank">Nagerhide</a> (41.64%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (31.09%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (24.05%)</li><li><a href="https://github.com/HosseinYousefi" title="HosseinYousefi" data-bi-name="contributorprofile" target="_blank">HosseinYousefi</a> (1.17%)</li><li><a href="https://github.com/SanthoshAnguluri" title="SanthoshAnguluri" data-bi-name="contributorprofile" target="_blank">SanthoshAnguluri</a> (0.88%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (0.59%)</li><li><a href="https://github.com/nkasica" title="nkasica" data-bi-name="contributorprofile" target="_blank">nkasica</a> (0.29%)</li><li><a href="https://github.com/ASHISHKUMAR2411" title="ASHISHKUMAR2411" data-bi-name="contributorprofile" target="_blank">ASHISHKUMAR2411</a> (0.29%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/Nagerhide" title="Nagerhide" data-bi-name="contributorprofile" target="_blank">Nagerhide</a> (41.89%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (30.68%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (24.19%)</li><li><a href="https://github.com/HosseinYousefi" title="HosseinYousefi" data-bi-name="contributorprofile" target="_blank">HosseinYousefi</a> (1.18%)</li><li><a href="https://github.com/SanthoshAnguluri" title="SanthoshAnguluri" data-bi-name="contributorprofile" target="_blank">SanthoshAnguluri</a> (0.88%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (0.59%)</li><li><a href="https://github.com/nkasica" title="nkasica" data-bi-name="contributorprofile" target="_blank">nkasica</a> (0.29%)</li><li><a href="https://github.com/ASHISHKUMAR2411" title="ASHISHKUMAR2411" data-bi-name="contributorprofile" target="_blank">ASHISHKUMAR2411</a> (0.29%)</li></ul>
 </ul>
                 
               </article>
