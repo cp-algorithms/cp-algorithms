@@ -193,6 +193,7 @@ search:
         - [Flows with demands](graph/flow_with_demands.md)
         - [Minimum-cost flow](graph/min_cost_flow.md)
         - [Assignment problem](graph/Assignment-problem-min-flow.md)
+        - [Minimum cut - Stoer-Wagner algorithm](graph/stoer_wagner_mincut.md)
     - Matchings and related problems
         - [Bipartite Graph Check](graph/bipartite-check.md)
         - [Kuhn's Algorithm - Maximum Bipartite Matching](graph/kuhn_maximum_bipartite_matching.md)
@@ -203,6 +204,7 @@ search:
         - [Tree painting](graph/tree_painting.md)
         - [2-SAT](graph/2SAT.md)
         - [Heavy-light decomposition](graph/hld.md)
+        - [Centroid decomposition](graph/centroid_decomposition.md)
 - Miscellaneous
     - Sequences
         - [RMQ task (Range Minimum Query - the smallest element in an interval)](sequences/rmq.md)

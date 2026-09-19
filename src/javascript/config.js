@@ -61,5 +61,23 @@ MathJax = {
 }
 
 document$.subscribe(() => {
-  MathJax.typesetPromise()
+  MathJax.startup.promise.then(() => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const sidebar = document.querySelector('.md-sidebar--primary')
+        if (sidebar) {
+          const tocLinks = sidebar.querySelectorAll('a.md-nav__link[href^="#"]')
+          tocLinks.forEach((a) => {
+            a.classList.add('arithmatex')
+            const ellipsis = a.querySelector('.md-ellipsis')
+            if (ellipsis) {
+              ellipsis.classList.add('arithmatex')
+            }
+          })
+        }
+        MathJax.typesetPromise()
+      })
+    })
+  })
 })
+

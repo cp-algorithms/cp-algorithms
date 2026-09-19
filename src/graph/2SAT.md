@@ -15,7 +15,7 @@ Find an assignment of $a, b, c$ such that the following formula is true:
 $$(a \lor \lnot b) \land (\lnot a \lor b) \land (\lnot a \lor \lnot b) \land (a \lor \lnot c)$$
 
 SAT is NP-complete, there is no known efficient solution for it.
-However 2SAT can be solved efficiently in $O(n + m)$ where $n$ is the number of variables and $m$ is the number of clauses.
+However 2-SAT can be solved efficiently in $O(n + m)$ where $n$ is the number of variables and $m$ is the number of clauses.
 
 ## Algorithm:
 
@@ -40,20 +40,20 @@ b \Rightarrow a & \lnot b \Rightarrow \lnot a & b \Rightarrow \lnot a & c \Right
 You can see the implication graph in the following image:
 
 <div style="text-align: center;">
-  <img src="2SAT.png" alt=""Implication Graph of 2-SAT example"">
+  <img src="2SAT.png" alt="Implication Graph of 2-SAT example">
 </div>
 
 It is worth paying attention to the property of the implication graph:
 if there is an edge $a \Rightarrow b$, then there also is an edge $\lnot b \Rightarrow \lnot a$. 
 
 Also note, that if $x$ is reachable from $\lnot x$, and $\lnot x$ is reachable from $x$, then the problem has no solution.
-Whatever value we choose for the variable $x$, it will always end in a contradiction - if $x$ will be assigned $\text{true}$ then the implication tells us that $\lnot x$ should also be $\text{true}$ and visa versa.
+Whatever value we choose for the variable $x$, it will always end in a contradiction - if $x$ will be assigned $\text{true}$ then the implication tells us that $\lnot x$ should also be $\text{true}$ and vice versa.
 It turns out, that this condition is not only necessary, but also sufficient.
 We will prove this in a few paragraphs below.
 First recall, if a vertex is reachable from a second one, and the second one is reachable from the first one, then these two vertices are in the same strongly connected component.
 Therefore we can formulate the criterion for the existence of a solution as follows:
 
-In order for this 2-SAT problem to have a solution, it is necessary and sufficient that for any variable $x$ the vertices $x$ and $\lnot x$ are in different strongly connected components of the strong connection of the implication graph.
+In order for this 2-SAT problem to have a solution, it is necessary and sufficient that for any variable $x$ the vertices $x$ and $\lnot x$ are in different strongly connected components of the implication graph.
 
 This criterion can be verified in $O(n + m)$ time by finding all strongly connected components.
 
@@ -62,7 +62,7 @@ As we can check easily, neither of the four components contain a vertex $x$ and 
 We will learn in the next paragraphs how to compute a valid assignment, but just for demonstration purposes the solution $a = \text{false}$, $b = \text{false}$, $c = \text{false}$ is given.
 
 <div style="text-align: center;">
-  <img src="2SAT_SCC.png" alt=""Strongly Connected Components of the 2-SAT example"">
+  <img src="2SAT_SCC.png" alt="Strongly Connected Components of the 2-SAT example">
 </div>
 
 Now we construct the algorithm for finding the solution of the 2-SAT problem on the assumption that the solution exists.
@@ -80,7 +80,7 @@ The other case can be proven in a similar way.
 
 First we prove that the vertex $x$ cannot reach the vertex $\lnot x$.
 Because we assigned $\text{true}$ it has to hold that the index of strongly connected component of $x$ is greater than the index of the component of $\lnot x$.
-This means that $\lnot x$ is located on the left of the component containing $x$, and the later vertex cannot reach the first.
+This means that $\lnot x$ is located on the left of the component containing $x$, and the latter vertex cannot reach the first.
 
 Secondly we prove that there doesn't exist a variable $y$, such that the vertices $y$ and $\lnot y$ are both reachable from $x$ in the implication graph.
 This would cause a contradiction, because $x = \text{true}$ implies that $y = \text{true}$ and $\lnot y = \text{true}$.

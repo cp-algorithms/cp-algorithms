@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#include "strongly_connected_components.h"
+#include "tarjan_scc.h"
 
 int main() {
     // we only have a single test case for now
@@ -63,3 +63,4 @@ int main() {
 
     return 0;
 }
+
