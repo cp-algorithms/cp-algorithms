@@ -349,3 +349,4 @@ public:
 ## Problems
 
 [CodeChef - SEGPROD](https://www.codechef.com/NOV17/problems/SEGPROD)
+{{ get_practice_problems() }}
