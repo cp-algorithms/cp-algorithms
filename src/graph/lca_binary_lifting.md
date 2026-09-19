@@ -219,7 +219,7 @@ p & \text{otherwise}\end{cases}$$
 We have to evaluate this array in an order, such that for every node, we have computed the values for all of its ancestors. We can use the preorder ordering here, since it satisfies this property.
 
 
-Now after all of that preprocessing, answering queries is easy. We first balance the nodes to an equal depth and then we try to find the lowest node that isn't a common ancestor. This is very similar to what has been done in the Dynamic LCA algorithm, but now we just check if we can perform a big jump and if not, then we do a small one. The time complexity is logarithmic, as Harel and Tarjan proved in their paper that we will use maximally $6\lfloor{\log(d+1)}\rfloor-4$ jumps. The space complexity is linear.
+Now after all of that preprocessing, answering queries is easy. We first balance the nodes to an equal depth and then we try to find the lowest node that isn't a common ancestor. This is very similar to what has been done in the Dynamic LCA algorithm, but now we just check if we can perform a big jump and if not, then we do a small one. The time complexity is logarithmic, as Harel and Tarjan proved in their paper that we will use at most $6\lfloor{\log(d+1)}\rfloor-4$ jumps. The space complexity is linear.
 
 <figure style="margin:1.2em auto">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 12 700 200" width="700" height="200" style="max-width:100%;height:auto" font-family="Georgia,'Times New Roman',serif" role="img" aria-label="The big jump of every vertex on a path of 17 vertices; sizes 1, 3, 7 and 15 alternate above and below the path">
