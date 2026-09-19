@@ -1,6 +1,7 @@
 (function() {
     const customDynamicStyle = document.createElement("style");
-    document.head.appendChild(customDynamicStyle);
+    // We must put it outside of the head and body, since they are replaced by the instant navigation feature in the Material theme
+    document.documentElement.appendChild(customDynamicStyle);
 
     const TOGGLE_BUTTON_REFERENCE_ELEMENT_NOT_FOUND_WARNING = "[mkdocs-toggle-sidebar-plugin] Reference element for inserting 'toggle_button' not found. This version of the plugin may not be compatible with this version of the theme. Try updating both to the latest version. If that fails, you can open an GitHub issue.";
 
@@ -42,14 +43,50 @@
         customDynamicStyle.innerHTML = setCombinedVisibility(newNavigation, newTOC);
     }
 
+    const shouldKeyEventBeIgnored = (event) => { 
+        if (event.defaultPrevented) {
+            // Someone else explicitely handled the event
+            return true;
+        }
+        if (event.target instanceof Element) {
+            // Check if it is an editable text component, if so skip this event
+            if (event.target.matches("input, textarea, select") || event.target.isContentEditable) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    const registerNativeHtmlKeyboardEventHandler = () => {
+        document.addEventListener("keydown", (event => {
+            if (shouldKeyEventBeIgnored(event)) {
+                // do nothing
+            } else {
+                if (coreEventListenerLogic(event.key)) {
+                    // event handled, stop propagation
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+            }
+        }));
+    }
+
+
     // START OF INCLUDE
     // This gets replaced with the definitions of: 
     // - setCombinedVisibility(showNavigation: bool, showTOC: bool) -> string (dynamic CSS)
     // - registerKeyboardEventHandler() -> void
     const setCombinedVisibility = (showNavigation, showTOC) => {
-    // Hide the button when on mobile (and menu us shown as hamburger menu anyways).
-    // The exact max-width is taken from the styling of the 'body > header > nav > a' element
-    
+    // Hide the button when everything it toggles is hidden anyways (and the menu is shown as hamburger menu).
+    // The navigation sidebar collapses into the drawer (with the theme's own hamburger button) below 76.1875em.
+    // The TOC column stays visible down to the 60em threshold (also used for hiding the search bar,
+    // repo info (name + stars), etc), unless the theme's 'toc.integrate' feature moves the TOC inside
+    // the navigation sidebar - then it collapses together with the navigation at 76.1875em.
+    const toggleButtonMode = "all";
+    const tocIsIntegrated = true;
+    const canToggleTocColumn = (toggleButtonMode == "toc" || toggleButtonMode == "all") && !tocIsIntegrated;
+    const buttonHideBreakpoint = canToggleTocColumn ? "60em" : "76.1875em";
+
     let style = `
 .mkdocs-toggle-sidebar-button {
     cursor: pointer;
@@ -57,7 +94,7 @@
     margin-left: 1rem;
 }
 
-@media screen and (max-width: 76.1875em) {
+@media screen and (max-width: ${buttonHideBreakpoint}) {
     .mkdocs-toggle-sidebar-button {
         display: none;
     }
@@ -77,10 +114,12 @@ if (!showTOC) {
         }
         
     // We always have to show the navigation in mobile view, otherwise the hamburger menu is broken
+    // In material for mkdocs's blog mode, navigation's class is '.md-sidebar--post', see #9
+    // The exact width (76.1875em) is taken from the styling of the 'body > header > nav > a' element, I think
     if (!showNavigation) {
         style += `
 @media screen and (min-width: 76.1875em) {
-    div.md-sidebar.md-sidebar--primary {
+    div.md-sidebar.md-sidebar--primary, div.md-sidebar.md-sidebar--post {
         display: none;
     }
 }
@@ -106,6 +145,7 @@ const registerKeyboardEventHandler = () => {
     // Custom key handlers: SEE https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/?h=key+bind#docsjavascriptsshortcutsjs
     keyboard$.subscribe(key => {
         if (key.mode === "global") {
+            // shouldKeyEventBeIgnored() not needed, as this is explicitely for key bindings
             if (coreEventListenerLogic(key.type)) {
                 // event handled, stop propagation
                 key.claim();
@@ -132,9 +172,7 @@ const registerKeyboardEventHandler = () => {
         }
     }
 
-    window.addEventListener("load", () => {
-        console.log("The mkdocs-toggle-sidebar-plugin is installed. It adds the following key bindings:\n T -> toggle table of contents sidebar\n M -> toggle navigation menu sidebar\n B -> toggle both sidebars (TOC and navigation)");
-
+    const onPageLoadedAction = () => {
         const toggle_button = "all";
         if (toggle_button == "none") {
             // do nothing
@@ -148,14 +186,13 @@ const registerKeyboardEventHandler = () => {
             console.error(`[mkdocs-toggle-sidebar-plugin] Unknown value for toggle_button: '${toggleButtonType}'`);
         }
 
-        registerKeyboardEventHandler();
-        customDynamicStyle.innerHTML = setCombinedVisibility(loadNavigationState(), loadTocState());
-    });
+        registerKeyboardEventHandler(); console.log("The mkdocs-toggle-sidebar-plugin is installed. It adds the following key bindings:\n T -> toggle table of contents sidebar\n M -> toggle navigation menu sidebar\n B -> toggle both sidebars (TOC and navigation)");
+    }
 
     const createDefaultToggleButton = (toggleNavigation, toggleTOC) => {
         const toggleBtn = document.createElement("div");
         toggleBtn.className = "mkdocs-toggle-sidebar-button";
-        toggleBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>`;
+        toggleBtn.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z\"></path></svg>";
         if (toggleNavigation && toggleTOC) {
             toggleBtn.title = "Toggle Navigation and Table of Contents";
         } else if (toggleNavigation) {
@@ -186,4 +223,17 @@ const registerKeyboardEventHandler = () => {
         toggleTocVisibility: () => toggleVisibility(false, true),
         toggleAllVisibility: () => toggleVisibility(true, true)
     };
+
+    // Run this immediately instead of waiting for page.onload to prevent page flicker
+    customDynamicStyle.innerHTML = setCombinedVisibility(loadNavigationState(), loadTocState());
+    // console.log("Debug: hide sidebar completed");
+
+    // SEE https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event#checking_whether_loading_is_already_complete
+    if (document.readyState === "loading") {
+        // console.debug("Registering DOMContentLoaded event listener");
+        document.addEventListener("DOMContentLoaded", onPageLoadedAction);
+    } else {
+        // console.debug("DOMContentLoaded has already fired");
+        onPageLoadedAction();
+    }
 }());
