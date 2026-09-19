@@ -6,7 +6,7 @@ e_maxx_link: binary_pow
 
 # Binary Exponentiation
 
-Binary exponentiation (also known as exponentiation by squaring) is a trick which allows to calculate $a^n$ using only $O(\log n)$ multiplications (instead of $O(n)$ multiplications required by the naive approach).
+Binary exponentiation (also known as exponentiation by squaring) is a trick which allows to calculate $a^n$, where $n$ is a non-negative integer, using only $O(\log n)$ multiplications (instead of $O(n)$ multiplications required by the naive approach).
 
 It also has important applications in many tasks unrelated to arithmetic, since it
 can be used with any operations that have the property of **associativity**:
