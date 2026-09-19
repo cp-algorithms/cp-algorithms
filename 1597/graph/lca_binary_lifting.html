@@ -8131,7 +8131,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 22:37:06 UTC">September 18, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 19, 2026 10:11:39 UTC">September 19, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8243,7 +8243,7 @@ The ancestor of <code>u</code> that satisfies this requirement is exactly <code>
 <p>Now we have another problem: Find the LCA of two vertices <code>(u, v)</code>, that have the same depth. First, let's check the trivial case if <code>u = v</code>, where the LCA of the two values is <code>u</code>. If not, then we find the highest vertex, that isn't a common ancestor of <code>(u, v)</code>.</p>
 <p>Suppose that <code>L=ceil(log(N))</code>, where <code>N</code> is the maximum number of vertices the graph will have. Let <code>i = L</code>. If <code>up[u][i]=up[v][i]</code>, we just decrement <code>i</code>. If that is not the case, then we set <code>u = up[u][i]</code> and <code>v = up[v][i]</code>, then we decrement <code>i</code>.
 After all these operations, we have two vertices <code>u</code> and <code>v</code>, that aren't the LCA of the original pair, but <code>up[u][0]</code> and <code>up[v][0]</code> are. We again are using <span class="arithmatex">$O(N \log N)$</span> preprocessing complexity and a <span class="arithmatex">$O( \log N)$</span> query one.</p>
-<p>Now, why does this work well in this dynamic environment? Well observe during the algorithm we only need to know the <code>up[u][j]</code> array for all vertices and the distance of each node from the root, both of which trivially can be obtained from the add leaf query in <span class="arithmatex">$O(\log n)$</span> time.</p>
+<p>Why does this work well in this dynamic environment? During the algorithm we only need to know the <code>up[u][j]</code> array for all vertices and the distance of each node from the root, both of which can be trivially obtained from the add leaf query in <span class="arithmatex">$O(\log n)$</span> time.</p>
 <p>The trade-off is query speed. The earlier method settles a query in a single descending loop, because its ancestor test covers the depth difference and the split at the same time. This one needs two loops, and the second climbs both vertices, so it reads <code>up</code> roughly three times as often: on a tree of <span class="arithmatex">$10^6$</span> vertices, 64 reads per query against 22.</p>
 <h3 id="implementation_1">Implementation<a class="headerlink" href="#implementation_1" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">;</span>
@@ -8310,12 +8310,69 @@ After all these operations, we have two vertices <code>u</code> and <code>v</cod
 <p>This method allows us to calculate the LCA while only using <span class="arithmatex">$O(n)$</span> space. It is also possible to extend it so it will work for a dynamic tree. It was first proposed by Harel and Tarjan in 1984.</p>
 <p>Create an array <code>depth[]</code> which will store the depth of each node in the tree.
 For each node we will define only <strong>small</strong> and <strong>big</strong> jumps. Small jumps will always point to the immediate ancestor (except for the root, which will point to itself). The big jumps have a more complicated definition. Denote <code>big[v]</code> as the node that we will be in after we do a big jump from node <code>v</code>. Let <code>big[root] = root</code>. </p>
-<p>After that we create a recursive definition.</p>
-<div class="arithmatex">$$\mathtt{big}[u] = \begin{cases} \mathtt{big}[\mathtt{big}[ancestor[u]]] &amp; \text{if the size of the big jump from the parent node is equal to the one of }\mathtt{big}[ancestor[u]] \\
-\mathtt{ancestor}[u] &amp; \text{otherwise}\end{cases}$$</div>
-<p>We can check the size of the jump simply by subtracting <code>depth[big[u]]</code> from <code>depth[u]</code>. 
-We have to evaluate this array in an order, such that for every node, we have computed the values for all of its ancestors. We can use the preorder ordering here, since it satisfies this property.</p>
+<p>After that we create a recursive definition. Write <span class="arithmatex">$\ell(v) = \mathtt{depth}[v] - \mathtt{depth}[\mathtt{big}[v]]$</span> for the size of the big jump from <span class="arithmatex">$v$</span>, and let <span class="arithmatex">$p$</span> be the parent of <span class="arithmatex">$u$</span>.</p>
+<div class="arithmatex">$$\mathtt{big}[u] = \begin{cases} \mathtt{big}[\mathtt{big}[p]] &amp; \text{if } \ell(p) = \ell(\mathtt{big}[p]) \\
+p &amp; \text{otherwise}\end{cases}$$</div>
+<figure style="margin:1.2em auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 26 700 158" width="700" height="158" style="max-width:100%;height:auto" font-family="Georgia,'Times New Roman',serif" role="img" aria-label="Two equal big jumps, one from p and one from big of p, combine into a single jump of size two ell plus one for u">
+  <defs>
+    <marker id="lcaA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#9575cd"/></marker>
+    <marker id="lcaB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#ec407a"/></marker>
+  </defs>
+  <g stroke="currentColor" fill="currentColor">
+    <line x1="60" y1="100" x2="660" y2="100" stroke-width="2" opacity=".5"/>
+    <g opacity=".4" stroke="none"><circle cx="140" cy="100" r="4"/><circle cx="260" cy="100" r="4"/><circle cx="320" cy="100" r="4"/><circle cx="440" cy="100" r="4"/><circle cx="500" cy="100" r="4"/></g>
+    <g stroke="none"><circle cx="200" cy="100" r="6.5"/><circle cx="380" cy="100" r="6.5"/><circle cx="560" cy="100" r="6.5"/><circle cx="620" cy="100" r="6.5"/></g>
+    <text x="46" y="105" font-size="16" text-anchor="end" stroke="none" opacity=".6">root</text>
+    <g font-size="16" text-anchor="middle" stroke="none" font-family="ui-monospace,'DejaVu Sans Mono',monospace">
+      <text x="200" y="174">big[big[p]]</text><text x="380" y="174">big[p]</text><text x="560" y="174">p</text><text x="620" y="174">u</text>
+    </g>
+  </g>
+  <g fill="none" stroke-width="2.2">
+    <path d="M556 110 Q470 162 388 110" stroke="#9575cd" marker-end="url(#lcaA)"/>
+    <path d="M376 110 Q290 162 208 110" stroke="#9575cd" marker-end="url(#lcaA)"/>
+    <path d="M618 90 Q410 22 206 90" stroke="#ec407a" marker-end="url(#lcaB)"/>
+  </g>
+  <g font-size="17" font-style="italic" text-anchor="middle">
+    <text x="470" y="127" fill="#9575cd">&#8467;</text><text x="290" y="127" fill="#9575cd">&#8467;</text>
+    <text x="410" y="46" fill="#ec407a">2&#8467; + 1</text>
+  </g>
+</svg>
+<figcaption>Two big jumps of equal size combine into one, so a big jump always skips one less than a power of two.</figcaption>
+</figure>
+
+<p>We have to evaluate this array in an order, such that for every node, we have computed the values for all of its ancestors. We can use the preorder ordering here, since it satisfies this property.</p>
 <p>Now after all of that preprocessing, answering queries is easy. We first balance the nodes to an equal depth and then we try to find the lowest node that isn't a common ancestor. This is very similar to what has been done in the Dynamic LCA algorithm, but now we just check if we can perform a big jump and if not, then we do a small one. The time complexity is logarithmic, as Harel and Tarjan proved in their paper that we will use maximally <span class="arithmatex">$6\lfloor{\log(d+1)}\rfloor-4$</span> jumps. The space complexity is linear.</p>
+<figure style="margin:1.2em auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 12 700 214" width="700" height="214" style="max-width:100%;height:auto" font-family="Georgia,'Times New Roman',serif" role="img" aria-label="The big jump of every vertex on a path of 17 vertices; sizes 1, 3, 7 and 15 alternate above and below the path">
+  <g stroke="currentColor" fill="currentColor">
+    <line x1="46" y1="134" x2="654" y2="134" stroke-width="2" opacity=".5"/>
+    <g stroke="none"><circle cx="46" cy="134" r="4.5"/><circle cx="84" cy="134" r="4.5"/><circle cx="122" cy="134" r="4.5"/><circle cx="160" cy="134" r="4.5"/><circle cx="198" cy="134" r="4.5"/><circle cx="236" cy="134" r="4.5"/><circle cx="274" cy="134" r="4.5"/><circle cx="312" cy="134" r="4.5"/><circle cx="350" cy="134" r="4.5"/><circle cx="388" cy="134" r="4.5"/><circle cx="426" cy="134" r="4.5"/><circle cx="464" cy="134" r="4.5"/><circle cx="502" cy="134" r="4.5"/><circle cx="540" cy="134" r="4.5"/><circle cx="578" cy="134" r="4.5"/><circle cx="616" cy="134" r="4.5"/><circle cx="654" cy="134" r="4.5"/></g>
+    <g stroke="none" font-size="13" text-anchor="middle" opacity=".65"><text x="46" y="218">0</text><text x="84" y="218">1</text><text x="122" y="218">2</text><text x="160" y="218">3</text><text x="198" y="218">4</text><text x="236" y="218">5</text><text x="274" y="218">6</text><text x="312" y="218">7</text><text x="350" y="218">8</text><text x="388" y="218">9</text><text x="426" y="218">10</text><text x="464" y="218">11</text><text x="502" y="218">12</text><text x="540" y="218">13</text><text x="578" y="218">14</text><text x="616" y="218">15</text><text x="654" y="218">16</text></g>
+  </g>
+  <g fill="none" stroke="#9575cd" stroke-width="1.8">
+    <path d="M46 141 A19 14 0 0 0 84 141"/>
+    <path d="M84 141 A19 14 0 0 0 122 141"/>
+    <path d="M46 127 A57 34 0 0 1 160 127"/>
+    <path d="M160 141 A19 14 0 0 0 198 141"/>
+    <path d="M198 141 A19 14 0 0 0 236 141"/>
+    <path d="M160 127 A57 34 0 0 1 274 127"/>
+    <path d="M46 141 A133 46 0 0 0 312 141"/>
+    <path d="M312 141 A19 14 0 0 0 350 141"/>
+    <path d="M350 141 A19 14 0 0 0 388 141"/>
+    <path d="M312 127 A57 34 0 0 1 426 127"/>
+    <path d="M426 141 A19 14 0 0 0 464 141"/>
+    <path d="M464 141 A19 14 0 0 0 502 141"/>
+    <path d="M426 127 A57 34 0 0 1 540 127"/>
+    <path d="M312 141 A133 46 0 0 0 578 141"/>
+    <path d="M46 127 A285 92 0 0 1 616 127"/>
+    <path d="M616 141 A19 14 0 0 0 654 141"/>
+  </g>
+  <g fill="#9575cd" font-size="15" font-style="italic" text-anchor="middle"><text x="179" y="205">7</text><text x="483" y="85">3</text><text x="331" y="27">15</text><text x="635" y="173">1</text></g>
+</svg>
+<figcaption>The big jump of every vertex of a path on 17 vertices, with the sizes alternating above and below. Sizes nest, so a handful of jumps reaches the root from anywhere.</figcaption>
+</figure>
+
 <p>Adding a leaf is cheaper here than in the previous section. Both pointers of a new vertex are determined by its parent alone, and no existing vertex changes, so an insertion is <span class="arithmatex">$O(1)$</span> and there is no table to extend.</p>
 <h3 id="implementation_2">Implementation<a class="headerlink" href="#implementation_2" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">;</span>
@@ -8401,7 +8458,7 @@ We have to evaluate this array in an order, such that for every node, we have co
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/Nagerhide" title="Nagerhide" data-bi-name="contributorprofile" target="_blank">Nagerhide</a> (51.41%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (28.87%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (15.84%)</li><li><a href="https://github.com/HosseinYousefi" title="HosseinYousefi" data-bi-name="contributorprofile" target="_blank">HosseinYousefi</a> (1.41%)</li><li><a href="https://github.com/SanthoshAnguluri" title="SanthoshAnguluri" data-bi-name="contributorprofile" target="_blank">SanthoshAnguluri</a> (1.06%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (0.7%)</li><li><a href="https://github.com/nkasica" title="nkasica" data-bi-name="contributorprofile" target="_blank">nkasica</a> (0.35%)</li><li><a href="https://github.com/ASHISHKUMAR2411" title="ASHISHKUMAR2411" data-bi-name="contributorprofile" target="_blank">ASHISHKUMAR2411</a> (0.35%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/Nagerhide" title="Nagerhide" data-bi-name="contributorprofile" target="_blank">Nagerhide</a> (41.64%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (31.09%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (24.05%)</li><li><a href="https://github.com/HosseinYousefi" title="HosseinYousefi" data-bi-name="contributorprofile" target="_blank">HosseinYousefi</a> (1.17%)</li><li><a href="https://github.com/SanthoshAnguluri" title="SanthoshAnguluri" data-bi-name="contributorprofile" target="_blank">SanthoshAnguluri</a> (0.88%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (0.59%)</li><li><a href="https://github.com/nkasica" title="nkasica" data-bi-name="contributorprofile" target="_blank">nkasica</a> (0.29%)</li><li><a href="https://github.com/ASHISHKUMAR2411" title="ASHISHKUMAR2411" data-bi-name="contributorprofile" target="_blank">ASHISHKUMAR2411</a> (0.29%)</li></ul>
 </ul>
                 
               </article>
