@@ -16,9 +16,8 @@ We can represent the number $a$ in the **mixed radix** representation:
 $$a = x_1 + x_2 p_1 + x_3 p_1 p_2 + \ldots + x_k p_1 \cdots p_{k-1} \text{ with }x_i \in [0, p_i)$$
 
 A mixed radix representation is a positional numeral system, that's a generalization of the typical number systems, like the binary numeral system or the decimal numeral system.
-For instance the decimal numeral system is a positional numeral system with the radix (or base) 10.
-Every a number is represented as a string of digits $d_1 d_2 d_3 \dots d_n$ between $0$ and $9$, and 
-E.g. the string $415$ represents the number $4 \cdot 10^2 + 1 \cdot 10^1 + 5 \cdot 10^0$.
+For instance, the decimal numeral system is a positional numeral system with the radix (or base) 10.
+Every number is represented as a string of digits $d_1 d_2 d_3 \dots d_n$ between $0$ and $9$. For example, the string $415$ represents the number $4 \cdot 10^2 + 1 \cdot 10^1 + 5 \cdot 10^0$.
 In general the string of digits $d_1 d_2 d_3 \dots d_n$ represents the number $d_1 b^{n-1} + d_2 b^{n-2} + \cdots + d_n b^0$ in the positional numeral system with radix $b$.
 
 In a mixed radix system, we don't have one radix any more. The base varies from position to position.

@@ -49,7 +49,7 @@ Such an algorithm is slow, it can calculate the answer only in $O(n^2)$.
 The implementation of the trivial algorithm is:
 
 ```cpp
-vector<int> manacher_odd(string s) {
+vector<int> manacher_odd_trivial(string s) {
     int n = s.size();
     s = "$" + s + "^";
     vector<int> p(n + 2);
@@ -68,13 +68,13 @@ Terminal characters `$` and `^` were used to avoid dealing with ends of the stri
 
 We describe the algorithm to find all the sub-palindromes with odd length, i. e. to calculate $d_{odd}[]$.
 
-For fast calculation we'll maintain the **borders $(l, r)$** of the rightmost found (sub-)palindrome (i. e. the current rightmost (sub-)palindrome is $s[l+1] s[l+2] \dots s[r-1]$). Initially we set $l = 0, r = 1$, which corresponds to the empty string.
+For fast calculation we'll maintain the **exclusive borders $(l, r)$** of the rightmost found (sub-)palindrome (i. e. the current rightmost (sub-)palindrome is $s[l+1] s[l+2] \dots s[r-1]$). Initially we set $l = 0, r = 1$, which corresponds to the empty string.
 
 So, we want to calculate $d_{odd}[i]$ for the next $i$, and all the previous values in $d_{odd}[]$ have been already calculated. We do the following:
 
 * If $i$ is outside the current sub-palindrome, i. e. $i \geq r$, we'll just launch the trivial algorithm.
     
-    So we'll increase $d_{odd}[i]$ consecutively and check each time if the current rightmost substring $[i - d_{odd}[i]\dots i + d_{odd}[i]]$ is a palindrome. When we find the first mismatch or meet the boundaries of $s$, we'll stop. In this case we've finally calculated $d_{odd}[i]$. After this, we must not forget to update $(l, r)$. $r$ should be updated in such a way that it represents the last index of the current rightmost sub-palindrome.
+    So we'll increase $d_{odd}[i]$ consecutively and check each time if the current rightmost substring $[i - d_{odd}[i]\dots i + d_{odd}[i]]$ is a palindrome. When we find the first mismatch or meet the boundaries of $s$, we'll stop. In this case we've finally calculated $d_{odd}[i]$. After this, we must not forget to update $(l, r)$. $r$ should be updated so that it represents the exclusive right border of the current rightmost sub-palindrome (therefore its last index is $r - 1$).
 
 * Now consider the case when $i \le r$. We'll try to extract some information from the already calculated values in $d_{odd}[]$. So, let's find the "mirror" position of $i$ in the sub-palindrome $(l, r)$, i.e. we'll get the position $j = l + (r - i)$, and we check the value of $d_{odd}[j]$. Because $j$ is the position symmetrical to $i$ with respect to $(l+r)/2$, we can **almost always** assign $d_{odd}[i] = d_{odd}[j]$. Illustration of this (palindrome around $j$ is actually "copied" into the palindrome around $i$):
     
@@ -116,7 +116,7 @@ So, we want to calculate $d_{odd}[i]$ for the next $i$, and all the previous val
     }_\text{try moving here}
     $$
     
-    It is shown in the illustration that though the palindrome with center $j$ could be larger and go outside the "outer" palindrome, but with $i$ as the center we can use only the part that entirely fits into the "outer" palindrome. But the answer for the position $i$ ($d_{odd}[i]$) can be much bigger than this part, so next we'll run our trivial algorithm that will try to grow it outside our "outer" palindrome, i. e. to the region "try moving here".
+    It is shown in the illustration that the palindrome with center $j$ could be larger and go outside the "outer" palindrome, but, with $i$ as the center, we can only use the part that entirely fits into the "outer" palindrome. But the answer for the position $i$ ($d_{odd}[i]$) can be much bigger than this part, so next we'll run our trivial algorithm that will try to grow it outside our "outer" palindrome, i. e. to the region "try moving here".
 
 Again, we should not forget to update the values $(l, r)$ after calculating each $d_{odd}[i]$.
 
@@ -140,14 +140,16 @@ For calculating $d_{odd}[]$, we get the following code. Things to note:
  - The while loop denotes the trivial algorithm. We launch it irrespective of the value of $k$.
  - If the size of palindrome centered at $i$ is $x$, then $d_{odd}[i]$ stores $\frac{x+1}{2}$.
 
-```cpp
+```{.cpp file=manacher_odd}
 vector<int> manacher_odd(string s) {
     int n = s.size();
     s = "$" + s + "^";
     vector<int> p(n + 2);
-    int l = 1, r = 1;
+    int l = 0, r = 1;
     for(int i = 1; i <= n; i++) {
-        p[i] = max(0, min(r - i, p[l + (r - i)]));
+        if(i <= r) {
+            p[i] = min(r - i, p[l + (r - i)]);
+        }
         while(s[i - p[i]] == s[i + p[i]]) {
             p[i]++;
         }

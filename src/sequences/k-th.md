@@ -68,7 +68,7 @@ T order_statistics (std::vector<T> a, unsigned n, unsigned k)
 
 ## Notes
 * The randomized algorithm above is named [quickselect](https://en.wikipedia.org/wiki/Quickselect). You should do random shuffle on $A$ before calling it or use a random element as a barrier for it to run properly. There are also deterministic algorithms that solve the specified problem in linear time, such as [median of medians](https://en.wikipedia.org/wiki/Median_of_medians).
-* A deterministic linear solution is implemented in C++ standard library as [std::nth_element](https://en.cppreference.com/w/cpp/algorithm/nth_element).
+* [std::nth_element](https://en.cppreference.com/w/cpp/algorithm/nth_element) solves this in C++ but gcc's implementation runs in worst case $O(n \log n )$ time.
 * Finding $K$ smallest elements can be reduced to finding $K$-th element with a linear overhead, as they're exactly the elements that are smaller than $K$-th.
 
 ## Practice Problems

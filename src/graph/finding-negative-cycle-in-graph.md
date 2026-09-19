@@ -19,7 +19,7 @@ Bellman-Ford algorithm allows you to check whether there exists a cycle of negat
 The details of the algorithm are described in the article on the [Bellman-Ford](bellman_ford.md) algorithm.
 Here we'll describe only its application to this problem.
 
-The standard implementation of Bellman-Ford looks for a negative cycle reachable from some starting vertex $v$ ; however, the algorithm can be modified to just looking for any negative cycle in the graph. 
+The standard implementation of Bellman-Ford looks for a negative cycle reachable from some starting vertex $v$ ; however, the algorithm can be modified to just look for any negative cycle in the graph. 
 For this we need to put all the distance  $d[i]$  to zero and not infinity — as if we are looking for the shortest path from all vertices simultaneously; the validity of the detection of a negative cycle is not affected.
 
 Do $N$ iterations of Bellman-Ford algorithm. If there were no changes on the last iteration, there is no cycle of negative weight in the graph. Otherwise take a vertex the distance to which has changed, and go from it via its ancestors until a cycle is found. This cycle will be the desired cycle of negative weight.
@@ -30,35 +30,33 @@ Do $N$ iterations of Bellman-Ford algorithm. If there were no changes on the las
 struct Edge {
     int a, b, cost;
 };
-
-int n, m;
+ 
+int n;
 vector<Edge> edges;
 const int INF = 1000000000;
-
+ 
 void solve() {
-    vector<int> d(n, INF);
+    vector<int> d(n, 0);
     vector<int> p(n, -1);
     int x;
-    
-    d[0] = 0;
-
+ 
     for (int i = 0; i < n; ++i) {
         x = -1;
         for (Edge e : edges) {
-            if (d[e.a] < INF && d[e.a] + e.cost < d[e.b]) {
+            if (d[e.a] + e.cost < d[e.b]) {
                 d[e.b] = max(-INF, d[e.a] + e.cost);
                 p[e.b] = e.a;
                 x = e.b;
             }
         }
     }
-
+ 
     if (x == -1) {
         cout << "No negative cycle found.";
     } else {
         for (int i = 0; i < n; ++i)
             x = p[x];
-
+ 
         vector<int> cycle;
         for (int v = x;; v = p[v]) {
             cycle.push_back(v);
@@ -66,14 +64,13 @@ void solve() {
                 break;
         }
         reverse(cycle.begin(), cycle.end());
-
+ 
         cout << "Negative cycle: ";
         for (int v : cycle)
             cout << v << ' ';
         cout << endl;
     }
 }
-
 ```
 
 ## Using Floyd-Warshall algorithm

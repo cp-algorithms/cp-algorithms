@@ -22,6 +22,8 @@ Fibonacci numbers possess a lot of interesting properties. Here are a few of the
   
 $$F_{n-1} F_{n+1} - F_n^2 = (-1)^n$$
 
+>This can be proved by induction. A one-line proof by Knuth comes from taking the determinant of the 2x2 matrix form below.
+
 * The "addition" rule:
   
 $$F_{n+k} = F_k F_{n+1} + F_{k-1} F_n$$
@@ -32,7 +34,7 @@ $$F_{2n} = F_n (F_{n+1} + F_{n-1})$$
 
 * From this we can prove by induction that for any positive integer $k$,  $F_{nk}$ is multiple of $F_n$.
 
-* The inverse is also true: if $F_m$ is multiple of $F_n$, then $m$ is multiple of $n$.
+* For $n \ge 3$, the inverse is also true: if $F_m$ is multiple of $F_n$, then $m$ is multiple of $n$.
 
 * GCD identity:
   
@@ -97,7 +99,7 @@ As these two formulas would require very high accuracy when working with fractio
 
 The $n$-th Fibonacci number can be easily found in $O(n)$ by computing the numbers one by one up to $n$. However, there are also faster ways, as we will see.
 
-We can start from an iterative approach, to take advantage of the use of the formula $F_n = F_{n-1} + F_{n-2}$, therefore, we will simply precalculate those values in an array. Taking into account the base cases for $F_0$ and $F_1$.
+We can start from an iterative approach using the formula $F_n = F_{n-1} + F_{n-2}$. The implementation only needs to keep the two most recent values, starting from the base cases $F_0$ and $F_1$.
 
 ```{.cpp file=fibonacci_linear}
 int fib(int n) {
@@ -112,15 +114,67 @@ int fib(int n) {
 }
 ```
 
-In this way, we obtain a linear solution, $O(n)$ time, saving all the values prior to $n$ in the sequence.
+In this way, we obtain a linear solution with $O(n)$ time and $O(1)$ additional memory.
 
 ### Matrix form
 
-It is easy to prove the following relation:
+To go from $(F_n, F_{n-1})$ to $(F_{n+1}, F_n)$, we can express the linear recurrence as a 2x2 matrix multiplication:
 
-$$\begin{pmatrix} 1 & 1 \cr 1 & 0 \cr\end{pmatrix} ^ n = \begin{pmatrix} F_{n+1} & F_{n} \cr F_{n} & F_{n-1} \cr\end{pmatrix}$$
+$$
+\begin{pmatrix}
+1 & 1 \\
+1 & 0
+\end{pmatrix}
+\begin{pmatrix}
+F_n \\
+F_{n-1}
+\end{pmatrix}
+=
+\begin{pmatrix}
+F_n + F_{n-1}  \\
+F_{n}
+\end{pmatrix}
+=
+\begin{pmatrix}
+F_{n+1}  \\
+F_{n}
+\end{pmatrix}
+$$
 
-Thus, in order to find $F_n$ in $O(log  n)$ time, we must raise the matrix to n. (See [Binary exponentiation](binary-exp.md))
+This lets us treat iterating the recurrence as repeated matrix multiplication, which has nice properties. In particular,
+
+$$
+\begin{pmatrix}
+1 & 1 \\
+1 & 0
+\end{pmatrix}^n
+\begin{pmatrix}
+F_1 \\
+F_0
+\end{pmatrix}
+=
+\begin{pmatrix}
+F_{n+1}  \\
+F_{n}
+\end{pmatrix}
+$$
+
+where $F_1 = 1, F_0 = 0$. 
+In fact, since 
+
+$$
+\begin{pmatrix} 1 & 1 \\ 1 & 0 \end{pmatrix}
+= \begin{pmatrix} F_2 & F_1 \\ F_1 & F_0 \end{pmatrix}
+$$
+
+we can use the matrix directly:
+
+$$
+\begin{pmatrix} 1 & 1 \\ 1 & 0 \end{pmatrix}^n
+= \begin{pmatrix} F_{n+1} & F_n \\ F_n & F_{n-1} \end{pmatrix}
+$$
+
+Thus, in order to find $F_n$ in $O(\log  n)$ time, we must raise the matrix to n. (See [Binary exponentiation](binary-exp.md))
 
 ```{.cpp file=fibonacci_matrix}
 struct matrix {

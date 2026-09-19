@@ -8,7 +8,8 @@ e_maxx_link: gray_code
 
 Gray code is a binary numeral system where two successive values differ in only one bit. 
 
-For example, the sequence of Gray codes for 3-bit numbers is: 000, 001, 011, 010, 110, 111, 101, 100, so $G(4) = 6$.
+Denote by $G(n)$ the representation of the number $n$ using the Gray code. The sequence of Gray codes for 3-bit numbers is: 000, 001, 011, 010, 110, 111, 101, 100, so $G(4) = (110)_2 = 6$. 
+For example, $G(3) = (010)_2$ and $G(4) = (110)_2$ differ at exactly one bit, the leftmost bit. Similarly, $G(4) = 110$ and $G(5) = (111)_2$ differ at exactly one bit, the rightmost one. This is true for all successive numbers. 
 
 This code was invented by Frank Gray in 1953.
 
@@ -57,13 +58,13 @@ Gray codes have some useful applications, sometimes quite unexpected:
 *   Gray code can be used to solve the Towers of Hanoi problem.
     Let $n$ denote number of disks. Start with Gray code of length $n$ which
     consists of all zeroes ($G(0)$) and move between consecutive Gray codes (from $G(i)$ to $G(i+1)$).
-    Let $i$-th bit of current Gray code represent $n$-th disk 
+    Let $i$-th bit of current Gray code represent $i$-th disk 
     (the least significant bit corresponds to the smallest disk and the most significant bit to the biggest disk). 
     Since exactly one bit changes on each step, we can treat changing $i$-th bit as moving $i$-th disk.
     Notice that there is exactly one move option for each disk (except the smallest one) on each step (except start and finish positions).
     There are always two move options for the smallest disk but there is a strategy which will always lead to answer:
     if $n$ is odd then sequence of the smallest disk moves looks like $f \to t \to r \to f \to t \to r \to ...$
-    where $f$ is the initial rod, $t$ is the terminal rod and $r$ is the remaining rod), and 
+    where $f$ is the initial rod, $t$ is the terminal rod and $r$ is the remaining rod, and 
     if $n$ is even: $f \to r \to t \to f \to r \to t \to ...$.
 
 *   Gray codes are also used in genetic algorithms theory.

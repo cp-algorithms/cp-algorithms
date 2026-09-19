@@ -57,6 +57,20 @@ If $f(x)$ takes integer parameter, the interval $[l, r]$ becomes discrete. Since
 
 The difference occurs in the stopping criterion of the algorithm. Ternary search will have to stop when $(r - l) < 3$, because in that case we can no longer select $m_1$ and $m_2$ to be different from each other as well as from $l$ and $r$, and this can cause an infinite loop. Once $(r - l) < 3$, the remaining pool of candidate points $(l, l + 1, \ldots, r)$ needs to be checked to find the point which produces the maximum value $f(x)$.
 
+### Golden section search
+
+In some cases computing $f(x)$ may be quite slow, but reducing the number of iterations is infeasible due to precision issues. Fortunately, it is possible to compute $f(x)$ only once at each iteration (except the first one).
+
+To see how to do this, let's revisit the selection method for $m_1$ and $m_2$. Suppose that we select $m_1$ and $m_2$ on $[l, r]$ in such a way that $\frac{r - l}{r - m_1} = \frac{r - l}{m_2 - l} = \varphi$ where $\varphi$ is some constant. In order to reduce the amount of computations, we want to select such $\varphi$ that on the next iteration one of the new evaluation points $m_1'$, $m_2'$ will coincide with either $m_1$ or $m_2$, so that we can reuse the already computed function value.
+
+Now suppose that after the current iteration we set $l = m_1$. Then the point $m_1'$ will satisfy $\frac{r - m_1}{r - m_1'} = \varphi$. We want this point to coincide with $m_2$, meaning that $\frac{r - m_1}{r - m_2} = \varphi$.
+
+Multiplying both sides of $\frac{r - m_1}{r - m_2} = \varphi$ by $\frac{r - m_2}{r - l}$ we obtain $\frac{r - m_1}{r - l} = \varphi\frac{r - m_2}{r - l}$. Note that $\frac{r - m_1}{r - l} = \frac{1}{\varphi}$ and $\frac{r - m_2}{r - l} = \frac{r - l + l - m_2}{r - l} = 1 - \frac{1}{\varphi}$. Substituting that and multiplying by $\varphi$, we obtain the following equation:
+
+$\varphi^2 - \varphi - 1 = 0$
+
+This is a well-known golden section equation. Solving it yields $\frac{1 \pm \sqrt{5}}{2}$. Since $\varphi$ must be positive, we obtain $\varphi = \frac{1 + \sqrt{5}}{2}$. By applying the same logic to the case when we set $r = m_2$ and want $m_2'$ to coincide with $m_1$, we obtain the same value of $\varphi$ as well. So, if we choose $m_1 = l + \frac{r - l}{1 + \varphi}$ and $m_2 = r - \frac{r - l}{1 + \varphi}$, on each iteration we can re-use one of the values $f(x)$ computed on the previous iteration.
+
 ## Implementation
 
 ```cpp
@@ -81,6 +95,7 @@ Here `eps` is in fact the absolute error (not taking into account errors due to 
 Instead of the criterion `r - l > eps`, we can select a constant number of iterations as a stopping criterion. The number of iterations should be chosen to ensure the required accuracy. Typically, in most programming challenges the error limit is ${10}^{-6}$ and thus 200 - 300 iterations are sufficient. Also, the number of iterations doesn't depend on the values of $l$ and $r$, so the number of iterations corresponds to the required relative error.
 
 ## Practice Problems
+
 - [Codeforces - New Bakery](https://codeforces.com/problemset/problem/1978/B)
 - [Codechef - Race time](https://www.codechef.com/problems/AMCS03)
 - [Hackerearth - Rescuer](https://www.hackerearth.com/problem/algorithm/rescuer-2d2495cb/)
@@ -95,5 +110,8 @@ Instead of the criterion `r - l > eps`, we can select a constant number of itera
 * [Codeforces - Devu and his Brother](https://codeforces.com/problemset/problem/439/D)
 * [Codechef - Is This JEE ](https://www.codechef.com/problems/ICM2003)
 * [Codeforces - Restorer Distance](https://codeforces.com/contest/1355/problem/E)
+* [TIMUS 1058 Chocolate](https://acm.timus.ru/problem.aspx?space=1&num=1058)
+* [TIMUS 1436 Billboard](https://acm.timus.ru/problem.aspx?space=1&num=1436)
+* [TIMUS 1451 Beerhouse Tale](https://acm.timus.ru/problem.aspx?space=1&num=1451)
 * [TIMUS 1719 Kill the Shaitan-Boss](https://acm.timus.ru/problem.aspx?space=1&num=1719)
 * [TIMUS 1913 Titan Ruins: Alignment of Forces](https://acm.timus.ru/problem.aspx?space=1&num=1913)

@@ -14,7 +14,7 @@ Instead of solving the system of two equations, we will approach the problem geo
 
 We assume without loss of generality that the circle is centered at the origin. If it's not, we translate it there and correct the $C$ constant in the line equation. So we have a circle centered at $(0,0)$ of radius $r$ and a line with equation $Ax+By+C=0$.
 
-Let's start by find the point on the line which is closest to the origin $(x_0, y_0)$. First, it has to be at a distance
+Let's start by finding the point on the line which is closest to the origin $(x_0, y_0)$. First, it has to be at a distance
 
 $$ d_0 = \frac{|C|}{\sqrt{A^2+B^2}} $$
 
@@ -33,7 +33,7 @@ So, we know that the point $(x_0, y_0)$ is inside the circle. The two points of 
 
 $$ d = \sqrt{r^2 - \frac{C^2}{A^2 + B^2}} $$
 
-Note that the vector $(-B, A)$ is collinear to the line, and thus we can find the points in question by adding and subtracting  vector $(-B,A)$, scaled to the length $d$, to the point $(x_0, y_0)$. 
+Note that the vector $(-B, A)$ is collinear to the line, and thus we can find the points in question by adding and subtracting the vector $(-B,A)$, scaled to the length $d$, to the point $(x_0, y_0)$. 
 
 Finally, the equations of the two points of intersection are:
 
@@ -43,7 +43,7 @@ a_x &= x_0 + B \cdot m, a_y = y_0 - A \cdot m \\
 b_x &= x_0 - B \cdot m, b_y = y_0 + A \cdot m
 \end{align}$$
 
-Had we solved the original system of equations using algebraic methods, we would likely get an answer in a different form with a larger error. The geometric method described here is more graphic and more accurate.
+Had we solved the original system of equations using algebraic methods, we would likely get an answer in a different form with a larger error. The geometric method described here is more intuitive and more accurate.
 
 ## Implementation
 

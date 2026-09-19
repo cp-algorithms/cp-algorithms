@@ -30,7 +30,7 @@ To improve performance we'll use $10^9$ as the base, so that each "digit" of the
 const int base = 1000*1000*1000;
 ```
 
-Digits will be stored in order from least to most significant. All operations will be implemented so that after each of them the result doesn't have any leading zeros, as long as operands didn't have any leading zeros either. All operations which might result in a number with leading zeros should be followed by code which removes them. Note that in this representation there are two valid notations for number zero: and empty vector, and a vector with a single zero digit.
+Digits will be stored in order from least to most significant. All operations will be implemented so that after each of them the result doesn't have any leading zeros, as long as operands didn't have any leading zeros either. All operations which might result in a number with leading zeros should be followed by code which removes them. Note that in this representation there are two valid notations for number zero: an empty vector, and a vector with a single zero digit.
 
 ### Output
 
