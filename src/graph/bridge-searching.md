@@ -22,7 +22,7 @@ Pick an arbitrary vertex of the graph $root$ and run [depth first search](depth-
 
 Now we have to learn to check this fact for each vertex efficiently. We'll use "time of entry into node" computed by the depth first search.
 
-So, let $\mathtt{tin}[v]$ denote entry time for node $v$. We introduce an array $\mathtt{low}$ which will let us store the node with earliest entry time found in the DFS search that a node $v$ can reach with a single edge from itself or its descendants. $\mathtt{low}[v]$ is the minimum of $\mathtt{tin}[v]$, the entry times $\mathtt{tin}[p]$ for each node $p$ that is connected to node $v$ via a back-edge $(v, p)$ and the values of $\mathtt{low}[to]$ for each vertex $to$ which is a direct descendant of $v$ in the DFS tree:
+So, let $\mathtt{tin}[v]$ denote entry time for node $v$. We introduce an array $\mathtt{low}$ which will let us store the earliest entry time of the node found in the DFS search that a node $v$ can reach with a single edge from itself or its descendants. $\mathtt{low}[v]$ is the minimum of $\mathtt{tin}[v]$, the entry times $\mathtt{tin}[p]$ for each node $p$ that is connected to node $v$ via a back-edge $(v, p)$ and the values of $\mathtt{low}[to]$ for each vertex $to$ which is a direct descendant of $v$ in the DFS tree:
 
 $$\mathtt{low}[v] = \min \left\{ 
     \begin{array}{l}
@@ -93,7 +93,7 @@ Main function is `find_bridges`; it performs necessary initialization and starts
 
 Function `IS_BRIDGE(a, b)` is some function that will process the fact that edge $(a, b)$ is a bridge, for example, print it.
 
-Note that this implementation malfunctions if the graph has multiple edges, since it ignores them. Of course, multiple edges will never be a part of the answer, so `IS_BRIDGE` can check additionally that the reported bridge is not a multiple edge. Alternatively it's possible to pass to `dfs` the index of the edge used to enter the vertex instead of the parent vertex (and store the indices of all vertices).
+The `parent_skipped` flag makes this implementation handle multiple edges between a vertex and its parent: it skips only the DFS tree edge used to enter the vertex, while an additional parallel edge is processed as a back edge. Alternatively, it's possible to pass to `dfs` the index of the edge used to enter the vertex instead of the parent vertex (and store the indices of all edges).
 
 ## Practice Problems
 

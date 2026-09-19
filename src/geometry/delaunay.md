@@ -30,7 +30,9 @@ Because of the duality, we only need a fast algorithm to compute only one of $V$
 ## Quad-edge data structure
 
 During the algorithm $D$ will be stored inside the quad-edge data structure. This structure is described in the picture:
-<center>![Quad-Edge](quad-edge.png)</center>
+<div style="text-align: center;">
+  <img src="quad-edge.png" alt="Quad-Edge">
+</div>
 
 In the algorithm we will use the following functions on edges:
 

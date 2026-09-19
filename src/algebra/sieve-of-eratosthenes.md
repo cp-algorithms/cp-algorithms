@@ -19,7 +19,9 @@ And we continue this procedure until we have processed all numbers in the row.
 
 In the following image you can see a visualization of the algorithm for computing all prime numbers in the range $[1; 16]$. It can be seen, that quite often we mark numbers as composite multiple times.
 
-<center>![Sieve of Eratosthenes](sieve_eratosthenes.png)</center>
+<div style="text-align: center;">
+  <img src="sieve_eratosthenes.png" alt="Sieve of Eratosthenes">
+</div>
 
 The idea behind is this:
 A number is prime, if none of the smaller prime numbers divides it.
@@ -205,7 +207,7 @@ To solve such a problem, we can use the idea of the Segmented sieve.
 We pre-generate all prime numbers up to $\sqrt R$, and use those primes to mark all composite numbers in the segment $[L, R]$.
 
 ```cpp
-vector<char> segmentedSieve(long long L, long long R) {
+vector<char> segmented_sieve(long long L, long long R) {
     // generate all primes up to sqrt(R)
     long long lim = sqrt(R);
     vector<char> mark(lim + 1, false);
@@ -220,10 +222,10 @@ vector<char> segmentedSieve(long long L, long long R) {
 
     vector<char> isPrime(R - L + 1, true);
     for (long long i : primes)
-        for (long long j = max(i * i, (L + i - 1) / i * i); j <= R; j += i)
+        for (long long j = max(i, (L + i - 1) / i) * i; j <= R; j += i)
             isPrime[j - L] = false;
-    if (L == 1)
-        isPrime[0] = false;
+    for (long long x = L; x <= min(R, 1LL); x++)
+        isPrime[x - L] = false;
     return isPrime;
 }
 ```
@@ -232,14 +234,14 @@ Time complexity of this approach is $O((R - L + 1) \log \log (R) + \sqrt R \log 
 It's also possible that we don't pre-generate all prime numbers:
 
 ```cpp
-vector<char> segmentedSieveNoPreGen(long long L, long long R) {
+vector<char> segmented_sieve_no_pre_gen(long long L, long long R) {
     vector<char> isPrime(R - L + 1, true);
     long long lim = sqrt(R);
     for (long long i = 2; i <= lim; ++i)
-        for (long long j = max(i * i, (L + i - 1) / i * i); j <= R; j += i)
+        for (long long j = max(i, (L + i - 1) / i) * i; j <= R; j += i)
             isPrime[j - L] = false;
-    if (L == 1)
-        isPrime[0] = false;
+    for (long long x = L; x <= min(R, 1LL); x++)
+        isPrime[x - L] = false;
     return isPrime;
 }
 ```
@@ -256,6 +258,7 @@ However, this algorithm also has its own weaknesses.
 
 * [Leetcode - Four Divisors](https://leetcode.com/problems/four-divisors/)
 * [Leetcode - Count Primes](https://leetcode.com/problems/count-primes/)
+* [Leetcode - Closest Prime Numbers in Range](https://leetcode.com/problems/closest-prime-numbers-in-range/)
 * [SPOJ - Printing Some Primes](http://www.spoj.com/problems/TDPRIMES/)
 * [SPOJ - A Conjecture of Paul Erdos](http://www.spoj.com/problems/HS08PAUL/)
 * [SPOJ - Primal Fear](http://www.spoj.com/problems/VECTAR8/)

@@ -13,7 +13,7 @@ The Speedup is applied for transitions of the form
 
 $$dp(i, j) = \min_{i \leq k < j} [ dp(i, k) + dp(k+1, j) + C(i, j) ].$$
 
-Similar to [divide and conquer DP](./divide-and-conquer-dp.md), let $opt(i, j)$ be the value of $k$ that minimizes the expression in the transition ($opt$ is referred to as the "optimal splitting point" further in this article). The optimization requires that the following holds:
+Similar to [divide and conquer DP](./divide-and-conquer-dp.md), let $opt(i, j)$ be the maximum value of $k$ that minimizes the expression in the transition ($opt$ is referred to as the "optimal splitting point" further in this article). The optimization requires that the following holds:
 
 $$opt(i, j-1) \leq opt(i, j) \leq opt(i+1, j).$$
 
@@ -77,7 +77,7 @@ $$
 \sum\limits_{i=1}^N \sum\limits_{j=i}^{N-1} [opt(i+1,j+1)-opt(i,j)].
 $$
 
-As you see, most of the terms in this expression cancel each other out, except for positive terms with $j=N$ and negative terms with $i=1$. Thus, the whole sum can be estimated as
+As you see, most of the terms in this expression cancel each other out, except for positive terms with $j=N-1$ and negative terms with $i=1$. Thus, the whole sum can be estimated as
 
 $$
 \sum\limits_{k=1}^N[opt(k,N)-opt(1,k)] = O(n^2),
@@ -111,7 +111,7 @@ assuming the given conditions are satisfied.
     1. $b = c$  
     The inequality reduces to $dp(a, b) + dp(b, d) \leq dp(a, d)$ (This assumes that $dp(i, i) = 0$ for all $i$, which is the case for all problems using this optimization). Let $opt(a,d) = z$. 
 
-        - If $z < j$,  
+        - If $z < b$,  
         Note that
         
             $$
@@ -126,7 +126,7 @@ assuming the given conditions are satisfied.
 
             From the induction hypothesis, $dp(z+1, b) + dp(b, d) \leq dp(z+1, d)$. Also, it is given that $C(a, b) \leq C(a, d)$. Combining these 2 facts with above inequality yields the desired result.
 
-        - If $z \geq j$, the proof of this case is symmetric to the previous case.
+        - If $z \geq b$, the proof of this case is symmetric to the previous case.
 
     2. $b < c$  
     Let $opt(b, c) = z$ and $opt(a, d) = y$. 

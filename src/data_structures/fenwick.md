@@ -128,7 +128,9 @@ where $|$ is the bitwise OR operator.
 The following image shows a possible interpretation of the Fenwick tree as tree.
 The nodes of the tree show the ranges they cover.
 
-<center>![Binary Indexed Tree](binary_indexed_tree.png)</center>
+<div style="text-align: center;">
+  <img src="binary_indexed_tree.png" alt="Binary Indexed Tree">
+</div>
 
 ## Implementation
 
@@ -398,7 +400,7 @@ def range_add(l, r, x):
     add(B1, l, x)
     add(B1, r+1, -x)
     add(B2, l, x*(l-1))
-    add(B2, r+1, -x*r))
+    add(B2, r+1, -x*r)
 ```
 After the range update $(l, r, x)$ the range sum query should return the following values:
 

@@ -16,7 +16,7 @@ The most typical problem that leads to the binary search is as follows. You're g
 <br>
 <i>Binary search of the value $7$ in an array</i>.
 <br>
-<i>The <a href="https://commons.wikimedia.org/wiki/File:Binary_Search_Depiction.svg">image</a> by [AlwaysAngry](https://commons.wikimedia.org/wiki/User:AlwaysAngry) is distributed under <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC BY-SA 4.0</a></i> license.
+<i>The <a href="https://commons.wikimedia.org/wiki/File:Binary_Search_Depiction.svg">image</a> by <a href="https://commons.wikimedia.org/wiki/User:AlwaysAngry">AlwaysAngry</a> is distributed under <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC BY-SA 4.0</a></i> license.
 </center>
 
 Now assume that we know two indices $L < R$ such that $A_L \leq k \leq A_R$. Because the array is sorted, we can deduce that $k$ either occurs among $A_L, A_{L+1}, \dots, A_R$ or doesn't occur in the array at all. If we pick an arbitrary index $M$ such that $L < M < R$ and check whether $k$ is less or greater than $A_M$. We have two possible cases:
@@ -82,10 +82,10 @@ f(0) \leq f(1) \leq \dots \leq f(n-1).
 $$
 
 The binary search, the way it is described above, finds the partition of the array by the predicate $f(M)$, holding the boolean value of $k < A_M$ expression.
-It is possible to use arbitrary monotonous predicate instead of $k < A_M$. It is particularly useful when the computation of $f(k)$ is requires too much time to actually compute it for every possible value.
+It is possible to use arbitrary monotonous predicate instead of $k < A_M$. It is particularly useful when the computation of $f(k)$ requires too much time to actually compute it for every possible value.
 In other words, binary search finds the unique index $L$ such that $f(L) = 0$ and $f(R)=f(L+1)=1$ if such a _transition point_ exists, or gives us $L = n-1$ if $f(0) = \dots = f(n-1) = 0$ or $L = -1$ if $f(0) = \dots = f(n-1) = 1$.
 
-Proof of correctness supposing a transition point exists, that is $f(0)=0$ and $f(n-1)=1$: The implementation maintaints the _loop invariant_ $f(l)=0, f(r)=1$. When $r - l > 1$, the choice of $m$ means $r-l$ will always decrease. The loop terminates when $r - l = 1$, giving us our desired transition point.
+Proof of correctness supposing a transition point exists, that is $f(0)=0$ and $f(n-1)=1$: The implementation maintains the _loop invariant_ $f(l)=0, f(r)=1$. When $r - l > 1$, the choice of $m$ means $r-l$ will always decrease. The loop terminates when $r - l = 1$, giving us our desired transition point.
 
 ```cpp
 ... // f(i) is a boolean function such that f(0) <= ... <= f(n-1)
@@ -154,3 +154,4 @@ This paradigm is widely used in tasks around trees, such as finding lowest commo
 * [Codeforces - GukiZ hates Boxes](https://codeforces.com/problemset/problem/551/C)
 * [Codeforces - Enduring Exodus](https://codeforces.com/problemset/problem/645/C)
 * [Codeforces - Chip 'n Dale Rescue Rangers](https://codeforces.com/problemset/problem/590/B)
+* [Codeforces - Points on Line](https://codeforces.com/problemset/problem/251/A)

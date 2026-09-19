@@ -30,7 +30,9 @@ So the $\text{LCA}(v_1, v_2)$ can be uniquely determined by finding the vertex w
 
 Let's illustrate this idea.
 Consider the following graph and the Euler tour with the corresponding heights:
-<center>![LCA_Euler_Tour](LCA_Euler.png)</center>
+<div style="text-align: center;">
+  <img src="LCA_Euler.png" alt="LCA_Euler_Tour">
+</div>
 
 $$\begin{array}{|l|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
@@ -137,7 +139,7 @@ struct LCA {
  * [Codechef - So close yet So Far](https://www.codechef.com/problems/CLOSEFAR)
  * [Codeforces - Drivers Dissatisfaction](http://codeforces.com/contest/733/problem/F)
  * [UVA 11354 - Bond](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2339)
- * [SPOJ - Querry on a tree II](http://www.spoj.com/problems/QTREE2/)
+ * [SPOJ - Query on a tree II](http://www.spoj.com/problems/QTREE2/)
  * [Codeforces - Best Edge Weight](http://codeforces.com/contest/828/problem/F)
  * [Codeforces - Misha, Grisha and Underground](http://codeforces.com/contest/832/problem/D)
  * [SPOJ - Nlogonian Tickets](http://www.spoj.com/problems/NTICKETS/)

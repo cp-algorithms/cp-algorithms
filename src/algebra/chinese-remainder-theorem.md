@@ -101,7 +101,7 @@ then you can compute $b_3 := a \pmod{m_1 m_2 m_3}$ using the congruences $a \equ
 
 A direct construction similar to Lagrange interpolation is possible.
 
-Let $M_i := \prod_{i \neq j} m_j$, the product of all moduli but $m_i$, and $N_i$ the modular inverses $N_i := M_i^{-1} \bmod{m_i}$.
+Let $M_i := \prod_{j \neq i} m_j$, the product of all moduli but $m_i$, and $N_i$ the modular inverses $N_i := M_i^{-1} \bmod{m_i}$.
 Then a solution to the system of congruences is:
 
 $$a \equiv \sum_{i=1}^k a_i M_i N_i \pmod{m_1 m_2 \cdots m_k}$$
@@ -154,7 +154,7 @@ $$\left\{\begin{align}
     a & \equiv 2 \pmod{6}
 \end{align}\right.$$
 
-It is pretty simple to determine is a system has a solution.
+It is pretty simple to determine if a system has a solution.
 And if it has one, we can use the original algorithm to solve a slightly modified system of congruences.
 
 A single congruence $a \equiv a_i \pmod{m_i}$ is equivalent to the system of congruences $a \equiv a_i \pmod{p_j^{n_j}}$ where $p_1^{n_1} p_2^{n_2}\cdots p_k^{n_k}$ is the prime factorization of $m_i$.

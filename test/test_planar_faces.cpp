@@ -93,8 +93,34 @@ void test_cycle_with_chain() {
     assert(equal_cycles(faces[1], {2, 5, 4, 5, 2, 1, 0, 3}));
 }
 
+void test_ccw_angle() {
+    std::vector<Point> p = {
+        Point(0, 2),
+        Point(1, 3),
+        Point(0, 1),
+        Point(1, 0),
+        Point(-1, 0),
+        Point(-1, 3)
+    };
+
+    std::vector<std::vector<size_t>> adj = {
+        {1, 5},
+        {0, 2},
+        {1, 3},
+        {2, 4},
+        {3, 5},
+        {0, 4}
+    };
+
+    auto faces = find_faces(p, adj);
+    assert(faces.size() == 2u);
+    assert(equal_cycles(faces[0], {0, 1, 2, 3, 4, 5}));
+    assert(equal_cycles(faces[1], {5, 4, 3, 2, 1, 0}));
+}
+
 int main() {
     test_simple();
     test_degenerate();
     test_cycle_with_chain();
+    test_ccw_angle();
 }

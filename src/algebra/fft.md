@@ -97,7 +97,7 @@ It is easy to see that
 
 $$A(x) = A_0(x^2) + x A_1(x^2).$$
 
-The polynomials $A_0$ and $A_1$ are only half as much coefficients as the polynomial $A$.
+The polynomials $A_0$ and $A_1$ have only half as many coefficients as the polynomial $A$.
 If we can compute the $\text{DFT}(A)$ in linear time using $\text{DFT}(A_0)$ and $\text{DFT}(A_1)$, then we get the recurrence $T_{\text{DFT}}(n) = 2 T_{\text{DFT}}\left(\frac{n}{2}\right) + O(n)$ for the time complexity, which results in $T_{\text{DFT}}(n) = O(n \log n)$ by the **master theorem**.
 
 Let's learn how we can accomplish that.
