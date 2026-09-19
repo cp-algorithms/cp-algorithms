@@ -19,7 +19,7 @@ Bellman-Ford algorithm allows you to check whether there exists a cycle of negat
 The details of the algorithm are described in the article on the [Bellman-Ford](bellman_ford.md) algorithm.
 Here we'll describe only its application to this problem.
 
-The standard implementation of Bellman-Ford looks for a negative cycle reachable from some starting vertex $v$ ; however, the algorithm can be modified to just looking for any negative cycle in the graph. 
+The standard implementation of Bellman-Ford looks for a negative cycle reachable from some starting vertex $v$ ; however, the algorithm can be modified to just look for any negative cycle in the graph. 
 For this we need to put all the distance  $d[i]$  to zero and not infinity — as if we are looking for the shortest path from all vertices simultaneously; the validity of the detection of a negative cycle is not affected.
 
 Do $N$ iterations of Bellman-Ford algorithm. If there were no changes on the last iteration, there is no cycle of negative weight in the graph. Otherwise take a vertex the distance to which has changed, and go from it via its ancestors until a cycle is found. This cycle will be the desired cycle of negative weight.

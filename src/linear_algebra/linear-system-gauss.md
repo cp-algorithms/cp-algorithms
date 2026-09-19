@@ -159,7 +159,7 @@ Reverse phase only takes $O(nm)$, which is much faster than forward phase. In fo
 
 ## Solving modular SLAE
 
-For solving SLAE in some module, we can still use the described algorithm. However, in case the module is equal to two, we can perform Gauss-Jordan elimination much more effectively using bitwise operations and C++ bitset data types:
+For solving SLAE in some modulus, we can still use the described algorithm. However, in case the modulus is equal to 2, we can perform Gauss-Jordan elimination much more effectively using bitwise operations and C++ bitset data types:
 
 ```cpp
 int gauss (vector < bitset<N> > a, int n, int m, bitset<N> & ans) {

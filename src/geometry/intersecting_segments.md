@@ -14,7 +14,7 @@ The naive solution algorithm is to iterate over all pairs of segments in $O(n^2)
 ## Algorithm
 
 Let's draw a vertical line $x = -\infty$ mentally and start moving this line to the right.
-In the course of its movement, this line will meet with segments, and at each time a segment intersect with our line it intersects in exactly one point (we will assume that there are no vertical segments).
+In the course of its movement, this line will meet with segments, and at each time a segment intersects with our line it intersects in exactly one point (we will assume that there are no vertical segments).
 
 <div style="text-align: center;">
   <img src="sweep_line_1.png" alt="sweep line and line segment intersection">

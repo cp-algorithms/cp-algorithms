@@ -14,7 +14,7 @@ For a given value $K$, we have to find a flow of this quantity, and among all fl
 This task is called **minimum-cost flow problem**.
 
 Sometimes the task is given a little differently:
-you want to find the maximum flow, and among all maximal flows we want to find the one with the least cost.
+you want to find the maximum flow, and among all maximum flows we want to find the one with the least cost.
 This is called the **minimum-cost maximum-flow problem**.
 
 Both these problems can be solved effectively with the algorithm of successive shortest paths.
@@ -37,13 +37,13 @@ for each edge $(i, j)$ we add the **reverse edge** $(j, i)$ to the network with 
 Since, according to our restrictions, the edge $(j, i)$ was not in the network before, we still have a network that is not a multigraph (graph with multiple edges).
 In addition we will always keep the condition $F_{j i} = -F_{i j}$ true during the steps of the algorithm.
 
-We define the **residual network** for some fixed flow $F$ as follow (just like in the Ford-Fulkerson algorithm):
+We define the **residual network** for some fixed flow $F$ as follows (just like in the Ford-Fulkerson algorithm):
 the residual network contains only unsaturated edges (i.e. edges in which $F_{i j} < U_{i j}$), and the residual capacity of each such edge is $R_{i j} = U_{i j} - F_{i j}$.
 
-Now we can talk about the **algorithms** to compute the minimum-cost flow.
+Now we can talk about the **algorithm** to compute the minimum-cost flow.
 At each iteration of the algorithm we find the shortest path in the residual graph from $s$ to $t$.
 In contrast to Edmonds-Karp, we look for the shortest path in terms of the cost of the path instead of the number of edges.
-If there doesn't exists a path anymore, then the algorithm terminates, and the stream $F$ is the desired one.
+If no such path exists anymore, then the algorithm terminates. If the current flow has not yet reached $K$, then no flow of value $K$ exists; otherwise $F$ is the desired flow.
 If a path was found, we increase the flow along it as much as possible (i.e. we find the minimal residual capacity $R$ of the path, and increase the flow by it, and reduce the back edges by the same amount).
 If at some point the flow reaches the value $K$, then we stop the algorithm (note that in the last iteration of the algorithm it is necessary to increase the flow by only such an amount so that the final flow value doesn't surpass $K$).
 
@@ -56,7 +56,7 @@ The case of an undirected graph or a multigraph doesn't differ conceptually from
 The algorithm will also work on these graphs.
 However it becomes a little more difficult to implement it.
 
-An **undirected edge** $(i, j)$ is actually the same as two oriented edges $(i, j)$ and $(j, i)$ with the same capacity and values.
+An **undirected edge** $(i, j)$ is actually the same as two oriented edges $(i, j)$ and $(j, i)$ with the same capacity and cost.
 Since the above-described minimum-cost flow algorithm generates a back edge for each directed edge, so it splits the undirected edge into $4$ directed edges, and we actually get a **multigraph**.
 
 How do we deal with **multiple edges**?
