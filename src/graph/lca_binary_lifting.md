@@ -190,10 +190,10 @@ $$\mathtt{big}[u] = \begin{cases} \mathtt{big}[\mathtt{big}[p]] & \text{if } \el
 p & \text{otherwise}\end{cases}$$
 
 <figure style="margin:1.2em auto">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 8 700 174" width="700" height="174" style="max-width:100%;height:auto" font-family="Georgia,'Times New Roman',serif" role="img" aria-label="Two equal big jumps, one from p and one from big of p, combine into a single jump of size two ell plus one for u">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 26 700 158" width="700" height="158" style="max-width:100%;height:auto" font-family="Georgia,'Times New Roman',serif" role="img" aria-label="Two equal big jumps, one from p and one from big of p, combine into a single jump of size two ell plus one for u">
   <defs>
-    <marker id="lcaA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9575cd"/></marker>
-    <marker id="lcaB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#ec407a"/></marker>
+    <marker id="lcaA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#9575cd"/></marker>
+    <marker id="lcaB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#ec407a"/></marker>
   </defs>
   <g stroke="currentColor" fill="currentColor">
     <line x1="60" y1="100" x2="660" y2="100" stroke-width="2" opacity=".5"/>
@@ -201,17 +201,17 @@ p & \text{otherwise}\end{cases}$$
     <g stroke="none"><circle cx="200" cy="100" r="6.5"/><circle cx="380" cy="100" r="6.5"/><circle cx="560" cy="100" r="6.5"/><circle cx="620" cy="100" r="6.5"/></g>
     <text x="46" y="105" font-size="16" text-anchor="end" stroke="none" opacity=".6">root</text>
     <g font-size="16" text-anchor="middle" stroke="none" font-family="ui-monospace,'DejaVu Sans Mono',monospace">
-      <text x="200" y="172">big[big[p]]</text><text x="380" y="172">big[p]</text><text x="560" y="172">p</text><text x="620" y="172">u</text>
+      <text x="200" y="174">big[big[p]]</text><text x="380" y="174">big[p]</text><text x="560" y="174">p</text><text x="620" y="174">u</text>
     </g>
   </g>
   <g fill="none" stroke-width="2.2">
-    <path d="M560 100 A90 38 0 0 1 380 100" stroke="#9575cd" marker-end="url(#lcaA)"/>
-    <path d="M380 100 A90 38 0 0 1 200 100" stroke="#9575cd" marker-end="url(#lcaA)"/>
-    <path d="M620 100 A210 62 0 0 0 200 100" stroke="#ec407a" marker-end="url(#lcaB)"/>
+    <path d="M556 110 Q470 162 388 110" stroke="#9575cd" marker-end="url(#lcaA)"/>
+    <path d="M376 110 Q290 162 208 110" stroke="#9575cd" marker-end="url(#lcaA)"/>
+    <path d="M618 90 Q410 22 206 90" stroke="#ec407a" marker-end="url(#lcaB)"/>
   </g>
   <g font-size="17" font-style="italic" text-anchor="middle">
-    <text x="470" y="128" fill="#9575cd">&#8467;</text><text x="290" y="128" fill="#9575cd">&#8467;</text>
-    <text x="410" y="28" fill="#ec407a">2&#8467; + 1</text>
+    <text x="470" y="127" fill="#9575cd">&#8467;</text><text x="290" y="127" fill="#9575cd">&#8467;</text>
+    <text x="410" y="46" fill="#ec407a">2&#8467; + 1</text>
   </g>
 </svg>
 <figcaption>Two big jumps of equal size combine into one, so a big jump always skips one less than a power of two.</figcaption>
@@ -223,31 +223,31 @@ We have to evaluate this array in an order, such that for every node, we have co
 Now after all of that preprocessing, answering queries is easy. We first balance the nodes to an equal depth and then we try to find the lowest node that isn't a common ancestor. This is very similar to what has been done in the Dynamic LCA algorithm, but now we just check if we can perform a big jump and if not, then we do a small one. The time complexity is logarithmic, as Harel and Tarjan proved in their paper that we will use maximally $6\lfloor{\log(d+1)}\rfloor-4$ jumps. The space complexity is linear.
 
 <figure style="margin:1.2em auto">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 8 700 218" width="700" height="218" style="max-width:100%;height:auto" font-family="Georgia,'Times New Roman',serif" role="img" aria-label="The big jump of every vertex on a path of 17 vertices; sizes 1, 3, 7 and 15 alternate above and below the path">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 12 700 214" width="700" height="214" style="max-width:100%;height:auto" font-family="Georgia,'Times New Roman',serif" role="img" aria-label="The big jump of every vertex on a path of 17 vertices; sizes 1, 3, 7 and 15 alternate above and below the path">
   <g stroke="currentColor" fill="currentColor">
     <line x1="46" y1="134" x2="654" y2="134" stroke-width="2" opacity=".5"/>
     <g stroke="none"><circle cx="46" cy="134" r="4.5"/><circle cx="84" cy="134" r="4.5"/><circle cx="122" cy="134" r="4.5"/><circle cx="160" cy="134" r="4.5"/><circle cx="198" cy="134" r="4.5"/><circle cx="236" cy="134" r="4.5"/><circle cx="274" cy="134" r="4.5"/><circle cx="312" cy="134" r="4.5"/><circle cx="350" cy="134" r="4.5"/><circle cx="388" cy="134" r="4.5"/><circle cx="426" cy="134" r="4.5"/><circle cx="464" cy="134" r="4.5"/><circle cx="502" cy="134" r="4.5"/><circle cx="540" cy="134" r="4.5"/><circle cx="578" cy="134" r="4.5"/><circle cx="616" cy="134" r="4.5"/><circle cx="654" cy="134" r="4.5"/></g>
     <g stroke="none" font-size="13" text-anchor="middle" opacity=".65"><text x="46" y="218">0</text><text x="84" y="218">1</text><text x="122" y="218">2</text><text x="160" y="218">3</text><text x="198" y="218">4</text><text x="236" y="218">5</text><text x="274" y="218">6</text><text x="312" y="218">7</text><text x="350" y="218">8</text><text x="388" y="218">9</text><text x="426" y="218">10</text><text x="464" y="218">11</text><text x="502" y="218">12</text><text x="540" y="218">13</text><text x="578" y="218">14</text><text x="616" y="218">15</text><text x="654" y="218">16</text></g>
   </g>
   <g fill="none" stroke="#9575cd" stroke-width="1.8">
-    <path d="M46 134 A19 14 0 0 0 84 134"/>
-    <path d="M84 134 A19 14 0 0 0 122 134"/>
-    <path d="M46 134 A57 34 0 0 1 160 134"/>
-    <path d="M160 134 A19 14 0 0 0 198 134"/>
-    <path d="M198 134 A19 14 0 0 0 236 134"/>
-    <path d="M160 134 A57 34 0 0 1 274 134"/>
-    <path d="M46 134 A133 46 0 0 0 312 134"/>
-    <path d="M312 134 A19 14 0 0 0 350 134"/>
-    <path d="M350 134 A19 14 0 0 0 388 134"/>
-    <path d="M312 134 A57 34 0 0 1 426 134"/>
-    <path d="M426 134 A19 14 0 0 0 464 134"/>
-    <path d="M464 134 A19 14 0 0 0 502 134"/>
-    <path d="M426 134 A57 34 0 0 1 540 134"/>
-    <path d="M312 134 A133 46 0 0 0 578 134"/>
-    <path d="M46 134 A285 92 0 0 1 616 134"/>
-    <path d="M616 134 A19 14 0 0 0 654 134"/>
+    <path d="M46 141 A19 14 0 0 0 84 141"/>
+    <path d="M84 141 A19 14 0 0 0 122 141"/>
+    <path d="M46 127 A57 34 0 0 1 160 127"/>
+    <path d="M160 141 A19 14 0 0 0 198 141"/>
+    <path d="M198 141 A19 14 0 0 0 236 141"/>
+    <path d="M160 127 A57 34 0 0 1 274 127"/>
+    <path d="M46 141 A133 46 0 0 0 312 141"/>
+    <path d="M312 141 A19 14 0 0 0 350 141"/>
+    <path d="M350 141 A19 14 0 0 0 388 141"/>
+    <path d="M312 127 A57 34 0 0 1 426 127"/>
+    <path d="M426 141 A19 14 0 0 0 464 141"/>
+    <path d="M464 141 A19 14 0 0 0 502 141"/>
+    <path d="M426 127 A57 34 0 0 1 540 127"/>
+    <path d="M312 141 A133 46 0 0 0 578 141"/>
+    <path d="M46 127 A285 92 0 0 1 616 127"/>
+    <path d="M616 141 A19 14 0 0 0 654 141"/>
   </g>
-  <g fill="#9575cd" font-size="15" font-style="italic" text-anchor="middle"><text x="179" y="202">7</text><text x="483" y="88">3</text><text x="331" y="30">15</text><text x="635" y="166">1</text></g>
+  <g fill="#9575cd" font-size="15" font-style="italic" text-anchor="middle"><text x="179" y="205">7</text><text x="483" y="85">3</text><text x="331" y="27">15</text><text x="635" y="173">1</text></g>
 </svg>
 <figcaption>The big jump of every vertex of a path on 17 vertices, with the sizes alternating above and below. Sizes nest, so a handful of jumps reaches the root from anywhere.</figcaption>
 </figure>
