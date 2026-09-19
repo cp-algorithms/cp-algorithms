@@ -130,7 +130,7 @@ Thus, we perform normal BFS from each of the vertices, but do not reset the arra
 * Finding a solution to a problem or a game with the least number of moves, if each state of the game can be represented by a vertex of the graph, and the transitions from one state to the other are the edges of the graph.
 
 * Finding the shortest path in a graph with weights 0 or 1:
-This requires just a little modification to normal breadth-first search: Instead of maintaining array $used[]$, we will now check if the distance to vertex is shorter than current found distance, then if the current edge is of zero weight, we add it to the front of the queue else we add it to the back of the queue.This modification is explained in more detail in the article [0-1 BFS](01_bfs.md).
+This requires just a little modification to normal breadth-first search: Instead of maintaining array $used[]$, we will now check if the distance to vertex is shorter than current found distance, then if the current edge is of zero weight, we add it to the front of the queue else we add it to the back of the queue. This modification is explained in more detail in the article [0-1 BFS](01_bfs.md).
 
 * Finding the shortest cycle in a directed unweighted graph:
 Start a breadth-first search from each vertex.
@@ -142,7 +142,7 @@ From all such cycles (at most one from each BFS) choose the shortest.
 To do this, run two breadth first searches:
 one from $a$ and one from $b$.
 Let $d_a []$ be the array containing shortest distances obtained from the first BFS (from $a$) and $d_b []$ be the array containing shortest distances obtained from the second BFS from $b$.
-Now for every edge $(u, v)$ it is easy to check whether that edge lies on any shortest path between $a$ and $b$:
+Now for every edge $(u, v)$ it is easy to check whether that edge lies on any shortest path between $a$ and $b$, assuming that $d_a [u] < d_a [v]$ i.e. $u$ comes before $v$ when going from $a$ to $b$:
 the criterion is the condition $d_a [u] + 1 + d_b [v] = d_a [b]$.
 
 * Find all the vertices on any shortest path between a given pair of vertices $(a, b)$.
@@ -183,3 +183,4 @@ After that we run a BFS to find the shortest walk from the starting vertex $(s, 
 * [CSES - Labyrinth](https://cses.fi/problemset/task/1193)
 * [CSES - Message Route](https://cses.fi/problemset/task/1667/)
 * [CSES - Monsters](https://cses.fi/problemset/task/1194)
+* [UVA 704 - Colour Hash](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=9&page=show_problem&problem=645) (bidirectional BFS)
