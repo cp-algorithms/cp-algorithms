@@ -109,7 +109,7 @@ Now we have another problem: Find the LCA of two vertices `(u, v)`, that have th
 Suppose that `L=ceil(log(N))`, where `N` is the maximum number of vertices the graph will have. Let `i = L`. If `up[u][i]=up[v][i]`, we just decrement `i`. If that is not the case, then we set `u = up[u][i]` and `v = up[v][i]`, then we decrement `i`.
 After all these operations, we have two vertices `u` and `v`, that aren't the LCA of the original pair, but `up[u][0]` and `up[v][0]` are. We again are using $O(N \log N)$ preprocessing complexity and a $O( \log N)$ query one.
 
-Now, why does this work well in this dynamic environment? Well observe during the algorithm we only need to know the `up[u][j]` array for all vertices and the distance of each node from the root, both of which trivially can be obtained from the add leaf query in $O(\log n)$ time.
+Why does this work well in this dynamic environment? During the algorithm we only need to know the `up[u][j]` array for all vertices and the distance of each node from the root, both of which can be trivially obtained from the add leaf query in $O(\log n)$ time.
 
 The trade-off is query speed. The earlier method settles a query in a single descending loop, because its ancestor test covers the depth difference and the split at the same time. This one needs two loops, and the second climbs both vertices, so it reads `up` roughly three times as often: on a tree of $10^6$ vertices, 64 reads per query against 22.
 
