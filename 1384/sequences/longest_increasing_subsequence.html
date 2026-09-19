@@ -13,17 +13,16 @@
         <link rel="canonical" href="https://cp-algorithms.com/sequences/longest_increasing_subsequence.html">
       
       
-        <link rel="prev" href="rmq.html">
       
       
-        <link rel="next" href="../others/maximum_average_segment.html">
+        
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../feed_rss_created.xml">
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,10 +30,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -71,210 +70,10 @@
 
     
     
-    
-  <script>(function() {
-    const customDynamicStyle = document.createElement("style");
-    // We must put it outside of the head and body, since they are replaced by the instant navigation feature in the Material theme
-    document.documentElement.appendChild(customDynamicStyle);
-
-    const TOGGLE_BUTTON_REFERENCE_ELEMENT_NOT_FOUND_WARNING = "[mkdocs-toggle-sidebar-plugin] Reference element for inserting 'toggle_button' not found. This version of the plugin may not be compatible with this version of the theme. Try updating both to the latest version. If that fails, you can open an GitHub issue.";
-
-    const loadBool = (name, default_value) => {
-        const value = localStorage.getItem(`TOGGLE_SIDEBAR_${name}`);
-        if (value == null) {
-            return default_value;
-        } else {
-            return value == "1";
-        }
-    }
-
-    const loadNavigationState = () => loadBool("NAVIGATION", true);
-    const loadTocState = () => loadBool("TOC", true);
-
-    const saveBool = (name, value) => {
-        localStorage.setItem(`TOGGLE_SIDEBAR_${name}`, value ? "1" : "0");
-    }
-
-    const toggleVisibility = (toggleNavigation, toggleTOC) => {
-        let newNavigation = loadNavigationState();
-        let newTOC = loadTocState();
-        
-        if (toggleNavigation) {
-            newNavigation = !newNavigation;
-            saveBool("NAVIGATION", newNavigation);
-        }
-        if (toggleTOC) {
-            newTOC = !newTOC;
-            saveBool("TOC", newTOC);
-        }
-        
-        _setVisibility(newNavigation, newTOC);
-    }
-
-    const _setVisibility = (newNavigation, newTOC) => {
-        console.debug(`Setting new visibility: navigation=${newNavigation}, TOC=${newTOC}`);
-        // combine this into one operation, so that it is more efficient (for toggling both) and easier to code with dynamic CSS generation
-        customDynamicStyle.innerHTML = setCombinedVisibility(newNavigation, newTOC);
-    }
-
-    // START OF INCLUDE
-    // This gets replaced with the definitions of: 
-    // - setCombinedVisibility(showNavigation: bool, showTOC: bool) -> string (dynamic CSS)
-    // - registerKeyboardEventHandler() -> void
-    const setCombinedVisibility = (showNavigation, showTOC) => {
-    // Hide the button when on mobile (and menu us shown as hamburger menu anyways).
-    // The exact max-width is taken from the styling of the 'body > header > nav > a' element
-    
-    let style = `
-.mkdocs-toggle-sidebar-button {
-    cursor: pointer;
-    margin-right: 5px;
-    margin-left: 1rem;
-}
-
-@media screen and (max-width: 76.1875em) {
-    .mkdocs-toggle-sidebar-button {
-        display: none;
-    }
-}
-`;
-// The TOC has a different break point than the navigation.
-// It can be seen on the nav.md-nav--secondary:nth-child(1) element (60em)
-// If the screen is smaller, it is shown in the navigation section if you click the nested hamburger menu
-if (!showTOC) {
-    style += `
-@media screen and (min-width: 60em) {
-    div.md-sidebar.md-sidebar--secondary {
-        display: none;
-    }
-}
-`;
-        }
-        
-    // We always have to show the navigation in mobile view, otherwise the hamburger menu is broken
-    if (!showNavigation) {
-        style += `
-@media screen and (min-width: 76.1875em) {
-    div.md-sidebar.md-sidebar--primary {
-        display: none;
-    }
-}
-`;
-    }
-
-    return style;
-}
-
-const addToggleButton = (toggleNavigation, toggleTOC) => {
-    const toggleBtn = createDefaultToggleButton(toggleNavigation, toggleTOC);
-    toggleBtn.classList.add("md-icon");
   
-    const titleElement = document.querySelector(".md-header__title");
-    if (titleElement) {
-        titleElement.parentNode.insertBefore(toggleBtn, titleElement.nextSibling);  
-    } else {
-        console.warn(TOGGLE_BUTTON_REFERENCE_ELEMENT_NOT_FOUND_WARNING);
-    }
-}
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 
-const registerKeyboardEventHandler = () => {
-    // Custom key handlers: SEE https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/?h=key+bind#docsjavascriptsshortcutsjs
-    keyboard$.subscribe(key => {
-        if (key.mode === "global") {
-            if (coreEventListenerLogic(key.type)) {
-                // event handled, stop propagation
-                key.claim();
-            }
-        }
-    });
-}
-
-    // END OF INCLUDE
-
-    // argument: string, returns true if the key was handled and the event should be marked as already handled
-    const coreEventListenerLogic = (keyChar) => {
-        if (keyChar === "t") {
-            toggleVisibility(false, true);
-            return true;
-        } else if (keyChar === "m") {
-            toggleVisibility(true, false);
-            return true;
-        } else if (keyChar === "b") {
-            toggleVisibility(true, true);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    const onPageLoadedAction = () => {
-        console.log("The mkdocs-toggle-sidebar-plugin is installed. It adds the following key bindings:\n T -> toggle table of contents sidebar\n M -> toggle navigation menu sidebar\n B -> toggle both sidebars (TOC and navigation)");
-
-        const toggle_button = "all";
-        if (toggle_button == "none") {
-            // do nothing
-        } else if (toggle_button == "navigation") {
-            addToggleButton(true, false);
-        } else if (toggle_button == "toc") {
-            addToggleButton(false, true);
-        } else if (toggle_button == "all") {
-            addToggleButton(true, true);
-        } else {
-            console.error(`[mkdocs-toggle-sidebar-plugin] Unknown value for toggle_button: '${toggleButtonType}'`);
-        }
-
-        registerKeyboardEventHandler();
-    }
-
-    const createDefaultToggleButton = (toggleNavigation, toggleTOC) => {
-        const toggleBtn = document.createElement("div");
-        toggleBtn.className = "mkdocs-toggle-sidebar-button";
-        toggleBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>`;
-        if (toggleNavigation && toggleTOC) {
-            toggleBtn.title = "Toggle Navigation and Table of Contents";
-        } else if (toggleNavigation) {
-            toggleBtn.title = "Toggle Navigation";
-        } else if (toggleTOC) {
-            toggleBtn.title = "Toggle Table of Contents";
-        }
-        toggleBtn.addEventListener("click", () => toggleVisibility(toggleNavigation, toggleTOC));
-        return toggleBtn;
-    };
-
-    // Export functions that the user can call to modify the state
-    window.MkdocsToggleSidebarPlugin = {
-        setNavigationVisibility: (show) => {
-            saveBool("NAVIGATION", show);
-            _setVisibility(show, loadTocState());
-        },
-        setTocVisibility: (show) => {
-            saveBool("TOC", show);
-            _setVisibility(loadNavigationState(), show);
-        },
-        setAllVisibility: (showNavigation, showTOC) => {
-            saveBool("NAVIGATION", showNavigation);
-            saveBool("TOC", showTOC);
-            _setVisibility(showNavigation, showTOC);
-        },
-        toggleNavigationVisibility: () => toggleVisibility(true, false),
-        toggleTocVisibility: () => toggleVisibility(false, true),
-        toggleAllVisibility: () => toggleVisibility(true, true)
-    };
-
-    // Run this immediately instead of waiting for page.onload to prevent page flicker
-    customDynamicStyle.innerHTML = setCombinedVisibility(loadNavigationState(), loadTocState());
-    // console.log("Debug: hide sidebar completed");
-
-    // SEE https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event#checking_whether_loading_is_already_complete
-    if (document.readyState === "loading") {
-        // console.debug("Registering DOMContentLoaded event listener");
-        document.addEventListener("DOMContentLoaded", onPageLoadedAction);
-    } else {
-        // console.debug("DOMContentLoaded has already fired");
-        onPageLoadedAction();
-    }
-}());
-</script></head>
+  <script src="../assets/javascripts/toggle-sidebar.js"></script></head>
   
   
     
@@ -413,7 +212,7 @@ const registerKeyboardEventHandler = () => {
         <a href="https://github.com/cp-algorithms/cp-algorithms" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
     cp-algorithms/cp-algorithms
@@ -423,13 +222,19 @@ const registerKeyboardEventHandler = () => {
     
     <div class="md-header__option">
       <a href="https://cp-algorithms.com/feed_rss_created.xml" title="RSS" class="md-header__button md-icon" aria-label="RSS">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M0 64c0-17.7 14.3-32 32-32 229.8 0 416 186.2 416 416 0 17.7-14.3 32-32 32s-32-14.3-32-32C384 253.6 226.4 96 32 96 14.3 96 0 81.7 0 64m0 352a64 64 0 1 1 128 0 64 64 0 1 1-128 0m32-256c159.1 0 288 128.9 288 288 0 17.7-14.3 32-32 32s-32-14.3-32-32c0-123.7-100.3-224-224-224-17.7 0-32-14.3-32-32s14.3-32 32-32"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M0 64c0-17.7 14.3-32 32-32 229.8 0 416 186.2 416 416 0 17.7-14.3 32-32 32s-32-14.3-32-32C384 253.6 226.4 96 32 96 14.3 96 0 81.7 0 64m0 352a64 64 0 1 1 128 0 64 64 0 1 1-128 0m32-256c159.1 0 288 128.9 288 288 0 17.7-14.3 32-32 32s-32-14.3-32-32c0-123.7-100.3-224-224-224-17.7 0-32-14.3-32-32s14.3-32 32-32"/></svg>
       </a>
     </div>
 
     <div class="md-header__option">
       <a href="https://discord.gg/HZ5AecN3KX" title="Discord" class="md-header__button md-icon" aria-label="Discord">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+      </a>
+    </div>
+
+    <div class="md-header__option">
+      <a href="https://github.com/sponsors/cp-algorithms" title="GitHub Sponsors" class="md-header__button md-icon" aria-label="GitHub Sponsors">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M96 224a192 192 0 1 1 384 0 192 192 0 1 1-384 0m176-92v4c-28.8.3-52 23.7-52 52.5 0 25.7 18.5 47.6 43.9 51.8l41.7 7c6 1 10.4 6.2 10.4 12.3 0 6.9-5.6 12.5-12.5 12.5L248 272c-11 0-20 9-20 20s9 20 20 20h24v4c0 11 9 20 20 20s20-9 20-20v-4.7c25-4.1 44-25.7 44-51.8 0-25.7-18.5-47.6-43.9-51.8l-41.7-7c-6-1-10.4-6.2-10.4-12.3 0-6.9 5.6-12.5 12.5-12.5H320c11 0 20-9 20-20s-9-20-20-20h-8v-4c0-11-9-20-20-20s-20 9-20 20zM48 344v104c0 8.8 7.2 16 16 16h448c8.8 0 16-7.2 16-16V344c0-13.3 10.7-24 24-24s24 10.7 24 24v104c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V344c0-13.3 10.7-24 24-24s24 10.7 24 24"/></svg>
       </a>
     </div>
   </nav>
@@ -471,7 +276,7 @@ const registerKeyboardEventHandler = () => {
       <a href="https://github.com/cp-algorithms/cp-algorithms" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
     cp-algorithms/cp-algorithms
@@ -504,9 +309,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Home
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -515,7 +325,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_1">
             <span class="md-nav__icon md-icon"></span>
-            Home
+            
+  
+    Home
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -531,9 +345,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Main Page
+  
+
     
   </span>
+  
   
 
       </a>
@@ -554,9 +373,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Navigation
+  
+
     
   </span>
+  
   
 
       </a>
@@ -577,9 +401,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Tag index
+  
+
     
   </span>
+  
   
 
       </a>
@@ -600,9 +429,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     How to Contribute
+  
+
     
   </span>
+  
   
 
       </a>
@@ -623,9 +457,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Code of conduct
+  
+
     
   </span>
+  
   
 
       </a>
@@ -646,9 +485,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Preview
+  
+
     
   </span>
+  
   
 
       </a>
@@ -687,9 +531,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Algebra
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -698,7 +547,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
-            Algebra
+            
+  
+    Algebra
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -725,9 +578,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Fundamentals
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -736,7 +594,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_1">
             <span class="md-nav__icon md-icon"></span>
-            Fundamentals
+            
+  
+    Fundamentals
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -752,9 +614,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Binary Exponentiation
+  
+
     
   </span>
+  
   
 
       </a>
@@ -775,9 +642,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Euclidean algorithm for computing the greatest common divisor
+  
+
     
   </span>
+  
   
 
       </a>
@@ -798,9 +670,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Extended Euclidean Algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -821,9 +698,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Linear Diophantine Equations
+  
+
     
   </span>
+  
   
 
       </a>
@@ -844,9 +726,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Fibonacci Numbers
+  
+
     
   </span>
+  
   
 
       </a>
@@ -886,9 +773,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Prime numbers
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -897,7 +789,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
-            Prime numbers
+            
+  
+    Prime numbers
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -913,9 +809,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Sieve of Eratosthenes
+  
+
     
   </span>
+  
   
 
       </a>
@@ -936,9 +837,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Linear Sieve
+  
+
     
   </span>
+  
   
 
       </a>
@@ -959,9 +865,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Primality tests
+  
+
     
   </span>
+  
   
 
       </a>
@@ -982,9 +893,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Integer factorization
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1024,9 +940,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Number-theoretic functions
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1035,7 +956,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_3">
             <span class="md-nav__icon md-icon"></span>
-            Number-theoretic functions
+            
+  
+    Number-theoretic functions
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1051,9 +976,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Euler's totient function
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1074,9 +1004,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Number of divisors / sum of divisors
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1116,9 +1051,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Modular arithmetic
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1127,7 +1067,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_4">
             <span class="md-nav__icon md-icon"></span>
-            Modular arithmetic
+            
+  
+    Modular arithmetic
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1143,9 +1087,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Modular Inverse
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1166,9 +1115,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Linear Congruence Equation
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1189,9 +1143,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Chinese Remainder Theorem
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1212,9 +1171,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Garner's Algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1235,9 +1199,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Factorial modulo p
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1258,9 +1227,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Discrete Log
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1281,9 +1255,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Primitive Root
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1304,9 +1283,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Discrete Root
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1327,9 +1311,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Montgomery Multiplication
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1369,9 +1358,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Number systems
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1380,7 +1374,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_5">
             <span class="md-nav__icon md-icon"></span>
-            Number systems
+            
+  
+    Number systems
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1396,9 +1394,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Balanced Ternary
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1419,9 +1422,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Gray code
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1461,9 +1469,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Miscellaneous
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1472,7 +1485,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_6">
             <span class="md-nav__icon md-icon"></span>
-            Miscellaneous
+            
+  
+    Miscellaneous
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1488,9 +1505,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Bit manipulation
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1511,9 +1533,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Enumerating submasks of a bitmask
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1534,9 +1561,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Arbitrary-Precision Arithmetic
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1557,9 +1589,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Fast Fourier transform
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1580,9 +1617,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Operations on polynomials and series
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1603,9 +1645,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Continued fractions
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1626,9 +1673,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Factoring Exponentiation
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1675,9 +1727,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Data Structures
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1686,7 +1743,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
-            Data Structures
+            
+  
+    Data Structures
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1713,9 +1774,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Fundamentals
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1724,7 +1790,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_1">
             <span class="md-nav__icon md-icon"></span>
-            Fundamentals
+            
+  
+    Fundamentals
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1740,9 +1810,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Minimum Stack / Minimum Queue
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1763,9 +1838,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Sparse Table
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1805,9 +1885,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Trees
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1816,7 +1901,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_2">
             <span class="md-nav__icon md-icon"></span>
-            Trees
+            
+  
+    Trees
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1832,9 +1921,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Disjoint Set Union
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1855,9 +1949,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Fenwick Tree
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1878,9 +1977,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Sqrt Decomposition
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1901,9 +2005,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Segment Tree
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1924,9 +2033,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Treap
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1947,9 +2061,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Sqrt Tree
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1970,9 +2089,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Randomized Heap
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2012,9 +2136,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Advanced
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -2023,7 +2152,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_3">
             <span class="md-nav__icon md-icon"></span>
-            Advanced
+            
+  
+    Advanced
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2039,9 +2172,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Deleting from a data structure in O(T(n) log n)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2088,9 +2226,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Dynamic Programming
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -2099,7 +2242,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            Dynamic Programming
+            
+  
+    Dynamic Programming
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2115,9 +2262,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Introduction to Dynamic Programming
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2138,9 +2290,42 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Knapsack Problem
+  
+
     
   </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dynamic_programming/longest_increasing_subsequence.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Longest increasing subsequence
+  
+
+    
+  </span>
+  
   
 
       </a>
@@ -2164,26 +2349,35 @@ const registerKeyboardEventHandler = () => {
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
         
           
-          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
+    
+  
     DP optimizations
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
             <span class="md-nav__icon md-icon"></span>
-            DP optimizations
+            
+  
+    DP optimizations
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2199,9 +2393,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Divide and Conquer DP
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2222,9 +2421,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Knuth's Optimization
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2256,26 +2460,35 @@ const registerKeyboardEventHandler = () => {
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
         
           
-          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
+    
+  
     Tasks
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
             <span class="md-nav__icon md-icon"></span>
-            Tasks
+            
+  
+    Tasks
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2291,9 +2504,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Dynamic Programming on Broken Profile. Problem "Parquet"
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2314,9 +2532,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding the largest zero submatrix
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2363,9 +2586,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     String Processing
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -2374,7 +2602,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
-            String Processing
+            
+  
+    String Processing
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2401,9 +2633,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Fundamentals
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -2412,7 +2649,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_1">
             <span class="md-nav__icon md-icon"></span>
-            Fundamentals
+            
+  
+    Fundamentals
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2428,9 +2669,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     String Hashing
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2451,9 +2697,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Rabin-Karp for String Matching
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2474,9 +2725,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Prefix function - Knuth-Morris-Pratt
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2497,9 +2753,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Z-function
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2520,9 +2781,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Suffix Array
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2543,9 +2809,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Aho-Corasick algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2585,9 +2856,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Advanced
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -2596,7 +2872,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_2">
             <span class="md-nav__icon md-icon"></span>
-            Advanced
+            
+  
+    Advanced
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2612,9 +2892,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Suffix Tree
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2635,9 +2920,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Suffix Automaton
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2658,9 +2948,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Lyndon factorization
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2700,9 +2995,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Tasks
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -2711,7 +3011,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_3">
             <span class="md-nav__icon md-icon"></span>
-            Tasks
+            
+  
+    Tasks
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2727,9 +3031,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Expression parsing
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2750,9 +3059,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Manacher's Algorithm - Finding all sub-palindromes in O(N)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2773,9 +3087,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding repetitions
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2822,9 +3141,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Linear Algebra
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -2833,7 +3157,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
-            Linear Algebra
+            
+  
+    Linear Algebra
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2860,9 +3188,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Matrices
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -2871,7 +3204,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6_1">
             <span class="md-nav__icon md-icon"></span>
-            Matrices
+            
+  
+    Matrices
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2887,9 +3224,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Gauss & System of Linear Equations
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2910,9 +3252,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Gauss & Determinant
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2933,9 +3280,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Kraut & Determinant
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2956,9 +3308,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Rank of a matrix
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3005,9 +3362,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Combinatorics
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3016,7 +3378,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
-            Combinatorics
+            
+  
+    Combinatorics
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3043,9 +3409,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Fundamentals
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3054,7 +3425,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7_1">
             <span class="md-nav__icon md-icon"></span>
-            Fundamentals
+            
+  
+    Fundamentals
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3070,9 +3445,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding Power of Factorial Divisor
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3093,9 +3473,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Binomial Coefficients
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3116,9 +3501,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Catalan Numbers
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3158,9 +3548,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Techniques
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3169,7 +3564,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7_2">
             <span class="md-nav__icon md-icon"></span>
-            Techniques
+            
+  
+    Techniques
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3185,9 +3584,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     The Inclusion-Exclusion Principle
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3208,9 +3612,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Burnside's lemma / Pólya enumeration theorem
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3231,9 +3640,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Stars and bars
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3254,9 +3668,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Generating all K-combinations
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3296,9 +3715,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Tasks
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3307,7 +3731,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7_3">
             <span class="md-nav__icon md-icon"></span>
-            Tasks
+            
+  
+    Tasks
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3323,9 +3751,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Placing Bishops on a Chessboard
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3346,9 +3779,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Balanced bracket sequences
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3369,9 +3807,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Counting labeled graphs
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3418,9 +3861,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Numerical Methods
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3429,7 +3877,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
-            Numerical Methods
+            
+  
+    Numerical Methods
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3456,9 +3908,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Search
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3467,7 +3924,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8_1">
             <span class="md-nav__icon md-icon"></span>
-            Search
+            
+  
+    Search
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3483,9 +3944,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Binary Search
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3506,9 +3972,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Ternary Search
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3529,9 +4000,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Newton's method for finding roots
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3552,9 +4028,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Simulated Annealing
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3594,9 +4075,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Integration
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3605,7 +4091,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8_2">
             <span class="md-nav__icon md-icon"></span>
-            Integration
+            
+  
+    Integration
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3621,9 +4111,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Integration by Simpson's formula
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3670,9 +4165,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Geometry
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3681,7 +4181,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
-            Geometry
+            
+  
+    Geometry
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3708,9 +4212,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Elementary operations
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3719,7 +4228,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9_1">
             <span class="md-nav__icon md-icon"></span>
-            Elementary operations
+            
+  
+    Elementary operations
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3735,9 +4248,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Basic Geometry
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3758,9 +4276,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding the equation of a line for a segment
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3781,9 +4304,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Intersection Point of Lines
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3804,9 +4332,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Check if two segments intersect
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3827,9 +4360,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Intersection of Segments
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3850,9 +4388,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Circle-Line Intersection
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3873,9 +4416,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Circle-Circle Intersection
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3896,9 +4444,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Common tangents to two circles
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3919,9 +4472,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Length of the union of segments
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3961,9 +4519,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Polygons
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3972,7 +4535,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9_2">
             <span class="md-nav__icon md-icon"></span>
-            Polygons
+            
+  
+    Polygons
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3988,9 +4555,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Oriented area of a triangle
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4011,9 +4583,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Area of simple polygon
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4034,9 +4611,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Check if points belong to the convex polygon in O(log N)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4057,9 +4639,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Minkowski sum of convex polygons
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4080,9 +4667,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Pick's Theorem - area of lattice polygons
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4103,9 +4695,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Lattice points of non-lattice polygon
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4145,9 +4742,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Convex hull
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -4156,7 +4758,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9_3">
             <span class="md-nav__icon md-icon"></span>
-            Convex hull
+            
+  
+    Convex hull
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -4172,9 +4778,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Convex hull construction
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4195,9 +4806,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Convex hull trick and Li Chao tree
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4237,9 +4853,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Sweep-line
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -4248,7 +4869,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9_4">
             <span class="md-nav__icon md-icon"></span>
-            Sweep-line
+            
+  
+    Sweep-line
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -4264,9 +4889,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Search for a pair of intersecting segments
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4306,9 +4936,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Planar graphs
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -4317,7 +4952,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9_5">
             <span class="md-nav__icon md-icon"></span>
-            Planar graphs
+            
+  
+    Planar graphs
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -4333,9 +4972,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding faces of a planar graph
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4356,9 +5000,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Point location in O(log N)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4398,9 +5047,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Miscellaneous
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -4409,7 +5063,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9_6">
             <span class="md-nav__icon md-icon"></span>
-            Miscellaneous
+            
+  
+    Miscellaneous
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -4425,9 +5083,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding the nearest pair of points
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4448,9 +5111,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Delaunay triangulation and Voronoi diagram
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4471,9 +5139,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Vertical decomposition
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4494,9 +5167,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Half-plane intersection - S&I Algorithm in O(N log N)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4517,9 +5195,42 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Manhattan Distance
+  
+
     
   </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/enclosing-circle.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum Enclosing Circle
+  
+
+    
+  </span>
+  
   
 
       </a>
@@ -4566,9 +5277,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Graphs
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -4577,7 +5293,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
-            Graphs
+            
+  
+    Graphs
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -4604,9 +5324,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Graph traversal
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -4615,7 +5340,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10_1">
             <span class="md-nav__icon md-icon"></span>
-            Graph traversal
+            
+  
+    Graph traversal
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -4631,9 +5360,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Breadth First Search
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4654,9 +5388,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Depth First Search
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4696,9 +5435,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Connected components, bridges, articulations points
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -4707,7 +5451,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10_2">
             <span class="md-nav__icon md-icon"></span>
-            Connected components, bridges, articulations points
+            
+  
+    Connected components, bridges, articulations points
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -4723,9 +5471,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding Connected Components
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4746,9 +5499,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding Bridges in O(N+M)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4769,9 +5527,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding Bridges Online
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4792,9 +5555,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding Articulation Points in O(N+M)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4815,9 +5583,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Strongly Connected Components and Condensation Graph
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4838,9 +5611,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Strong Orientation
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4880,9 +5658,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Single-source shortest paths
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -4891,7 +5674,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10_3">
             <span class="md-nav__icon md-icon"></span>
-            Single-source shortest paths
+            
+  
+    Single-source shortest paths
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -4907,9 +5694,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Dijkstra - finding shortest paths from given vertex
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4930,9 +5722,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Dijkstra on sparse graphs
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4953,9 +5750,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Bellman-Ford - finding shortest paths with negative weights
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4976,9 +5778,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     0-1 BFS
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4999,9 +5806,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     D´Esopo-Pape algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5041,9 +5853,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     All-pairs shortest paths
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -5052,7 +5869,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10_4">
             <span class="md-nav__icon md-icon"></span>
-            All-pairs shortest paths
+            
+  
+    All-pairs shortest paths
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -5068,9 +5889,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Floyd-Warshall - finding all shortest paths
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5091,9 +5917,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Number of paths of fixed length / Shortest paths of fixed length
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5133,9 +5964,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Spanning trees
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -5144,7 +5980,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10_5">
             <span class="md-nav__icon md-icon"></span>
-            Spanning trees
+            
+  
+    Spanning trees
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -5160,9 +6000,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Minimum Spanning Tree - Prim's Algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5183,9 +6028,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Minimum Spanning Tree - Kruskal
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5206,9 +6056,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Minimum Spanning Tree - Kruskal with Disjoint Set Union
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5229,9 +6084,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Second best Minimum Spanning Tree - Using Kruskal and Lowest Common Ancestor
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5252,9 +6112,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Kirchhoff Theorem
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5275,9 +6140,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Prüfer code
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5317,9 +6187,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Cycles
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -5328,7 +6203,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10_6">
             <span class="md-nav__icon md-icon"></span>
-            Cycles
+            
+  
+    Cycles
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -5344,9 +6223,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Checking a graph for acyclicity and finding a cycle in O(M)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5367,9 +6251,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding a Negative Cycle in the Graph
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5390,9 +6279,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Eulerian Path
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5432,9 +6326,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Lowest common ancestor
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -5443,7 +6342,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10_7">
             <span class="md-nav__icon md-icon"></span>
-            Lowest common ancestor
+            
+  
+    Lowest common ancestor
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -5459,9 +6362,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Lowest Common Ancestor
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5482,9 +6390,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Lowest Common Ancestor - Binary Lifting
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5505,9 +6418,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Lowest Common Ancestor - Farach-Colton and Bender algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5528,9 +6446,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Solve RMQ by finding LCA
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5551,9 +6474,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Lowest Common Ancestor - Tarjan's off-line algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5593,9 +6521,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Flows and related problems
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -5604,7 +6537,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10_8">
             <span class="md-nav__icon md-icon"></span>
-            Flows and related problems
+            
+  
+    Flows and related problems
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -5620,9 +6557,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Maximum flow - Ford-Fulkerson and Edmonds-Karp
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5643,9 +6585,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Maximum flow - Push-relabel algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5666,9 +6613,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Maximum flow - Push-relabel algorithm improved
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5689,9 +6641,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Maximum flow - Dinic's algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5712,9 +6669,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Maximum flow - MPM algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5735,9 +6697,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Flows with demands
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5758,9 +6725,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Minimum-cost flow
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5781,9 +6753,42 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Assignment problem
+  
+
     
   </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
   
 
       </a>
@@ -5823,9 +6828,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Matchings and related problems
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -5834,7 +6844,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10_9">
             <span class="md-nav__icon md-icon"></span>
-            Matchings and related problems
+            
+  
+    Matchings and related problems
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -5850,9 +6864,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Bipartite Graph Check
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5873,9 +6892,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Kuhn's Algorithm - Maximum Bipartite Matching
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5896,9 +6920,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Hungarian Algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5938,9 +6967,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Miscellaneous
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -5949,7 +6983,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_10_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10_10">
             <span class="md-nav__icon md-icon"></span>
-            Miscellaneous
+            
+  
+    Miscellaneous
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -5965,9 +7003,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Topological Sorting
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5988,9 +7031,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Edge connectivity / Vertex connectivity
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6011,9 +7059,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Tree painting
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6034,9 +7087,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     2-SAT
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6057,9 +7115,42 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Heavy-light decomposition
+  
+
     
   </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/centroid_decomposition.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Centroid decomposition
+  
+
+    
+  </span>
+  
   
 
       </a>
@@ -6087,20 +7178,18 @@ const registerKeyboardEventHandler = () => {
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
         
           
           <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
@@ -6108,18 +7197,27 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Miscellaneous
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_11">
             <span class="md-nav__icon md-icon"></span>
-            Miscellaneous
+            
+  
+    Miscellaneous
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -6127,20 +7225,18 @@ const registerKeyboardEventHandler = () => {
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_1" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_1" >
         
           
           <label class="md-nav__link" for="__nav_11_1" id="__nav_11_1_label" tabindex="0">
@@ -6148,18 +7244,27 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Sequences
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_1_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_11_1">
             <span class="md-nav__icon md-icon"></span>
-            Sequences
+            
+  
+    Sequences
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -6175,230 +7280,17 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     RMQ task (Range Minimum Query - the smallest element in an interval)
+  
+
     
   </span>
+  
   
 
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Longest increasing subsequence
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="longest_increasing_subsequence.html" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    Longest increasing subsequence
-    
-  </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#solution-in-on2-with-dynamic-programming" class="md-nav__link">
-    <span class="md-ellipsis">
-      Solution in O(n^2) with dynamic programming
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Solution in O(n^2) with dynamic programming">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#finding-the-length" class="md-nav__link">
-    <span class="md-ellipsis">
-      Finding the length
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#implementation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Implementation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#restoring-the-subsequence" class="md-nav__link">
-    <span class="md-ellipsis">
-      Restoring the subsequence
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#implementation-of-restoring" class="md-nav__link">
-    <span class="md-ellipsis">
-      Implementation of restoring
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#alternative-way-of-restoring-the-subsequence" class="md-nav__link">
-    <span class="md-ellipsis">
-      Alternative way of restoring the subsequence
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#solution-in-on-log-n-with-dynamic-programming-and-binary-search" class="md-nav__link">
-    <span class="md-ellipsis">
-      Solution in O(n log n) with dynamic programming and binary search
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Solution in O(n log n) with dynamic programming and binary search">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#implementation_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      Implementation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#restoring-the-subsequence_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      Restoring the subsequence
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#solution-in-on-log-n-with-data-structures" class="md-nav__link">
-    <span class="md-ellipsis">
-      Solution in O(n log n) with data structures
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-tasks" class="md-nav__link">
-    <span class="md-ellipsis">
-      Related tasks
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Related tasks">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#longest-non-decreasing-subsequence" class="md-nav__link">
-    <span class="md-ellipsis">
-      Longest non-decreasing subsequence
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#number-of-longest-increasing-subsequences" class="md-nav__link">
-    <span class="md-ellipsis">
-      Number of longest increasing subsequences
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#smallest-number-of-non-increasing-subsequences-covering-a-sequence" class="md-nav__link">
-    <span class="md-ellipsis">
-      Smallest number of non-increasing subsequences covering a sequence
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#practice-problems" class="md-nav__link">
-    <span class="md-ellipsis">
-      Practice Problems
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -6416,9 +7308,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Search the subsegment with the maximum/minimum sum
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6439,9 +7336,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     K-th order statistic in O(N)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6462,9 +7364,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     MEX task (Minimal Excluded element in an array)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6504,9 +7411,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Game Theory
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -6515,7 +7427,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_11_2">
             <span class="md-nav__icon md-icon"></span>
-            Game Theory
+            
+  
+    Game Theory
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -6531,9 +7447,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Games on arbitrary graphs
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6554,9 +7475,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Sprague-Grundy theorem. Nim
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6596,9 +7522,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Schedules
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -6607,7 +7538,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_11_3">
             <span class="md-nav__icon md-icon"></span>
-            Schedules
+            
+  
+    Schedules
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -6623,9 +7558,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Scheduling jobs on one machine
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6646,9 +7586,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Scheduling jobs on two machines
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6669,9 +7614,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Optimal schedule of jobs given their deadlines and durations
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6711,9 +7661,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Miscellaneous
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -6722,7 +7677,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_11_4">
             <span class="md-nav__icon md-icon"></span>
-            Miscellaneous
+            
+  
+    Miscellaneous
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -6738,9 +7697,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Tortoise and Hare Algorithm (Linked List cycle detection)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6761,9 +7725,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Josephus problem
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6784,9 +7753,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     15 Puzzle Game: Existence Of The Solution
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6807,9 +7781,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     The Stern-Brocot Tree and Farey Sequences
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6843,6 +7822,7 @@ const registerKeyboardEventHandler = () => {
           
           
             <div class="md-content" data-md-component="content">
+              
               <article class="md-content__inner md-typeset">
                 
                   <script type="text/javascript">
@@ -6883,12 +7863,6 @@ Describe the issue of this article in detail.
   
     
   
-
-  
-  
-  
-    
-  
     
   
     
@@ -6896,20 +7870,6 @@ Describe the issue of this article in detail.
 
   
   
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
   
     
   
@@ -6971,6 +7931,26 @@ Describe the issue of this article in detail.
   
     
   
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
 
   
   
@@ -6979,38 +7959,6 @@ Describe the issue of this article in detail.
   
 
 
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
 
   
   
@@ -7027,312 +7975,21 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 21, 2025 09:00:17 UTC">May 21, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 25, 2025 06:45:10 UTC">August 25, 2025</span>&emsp;
 
 <!-- Tags -->
 
-  
-  
-  
-    
-  
-
-
-  
-    <a href="../tags.html#tag:translated" class="md-tag">
-      Translated
-    </a>
-  
-
-  
-    <a href="https://e-maxx.ru/algo/longest_increasing_subseq_log" class="md-tag">
-      From: e-maxx.ru
-    </a>
-  
 
 </ul>
 
 
+<p><meta http-equiv="refresh" content="0; url=../dynamic_programming/longest_increasing_subsequence.html"></p>
 <h1 id="longest-increasing-subsequence">Longest increasing subsequence<a class="headerlink" href="#longest-increasing-subsequence" title="Permanent link">&para;</a></h1>
-<p>We are given an array with <span class="arithmatex">$n$</span> numbers: <span class="arithmatex">$a[0 \dots n-1]$</span>.
-The task is to find the longest, strictly increasing, subsequence in <span class="arithmatex">$a$</span>.</p>
-<p>Formally we look for the longest sequence of indices <span class="arithmatex">$i_1, \dots i_k$</span> such that</p>
-<div class="arithmatex">$$i_1 &lt; i_2 &lt; \dots &lt; i_k,\quad
-a[i_1] &lt; a[i_2] &lt; \dots &lt; a[i_k]$$</div>
-<p>In this article we discuss multiple algorithms for solving this task.
-Also we will discuss some other problems, that can be reduced to this problem.</p>
-<h2 id="solution-in-on2-with-dynamic-programming">Solution in <span class="arithmatex">$O(n^2)$</span> with dynamic programming<a class="headerlink" href="#solution-in-on2-with-dynamic-programming" title="Permanent link">&para;</a></h2>
-<p>Dynamic programming is a very general technique that allows to solve a huge class of problems.
-Here we apply the technique for our specific task.</p>
-<p>First we will search only for the <strong>length</strong> of the longest increasing subsequence, and only later learn how to restore the subsequence itself.</p>
-<h3 id="finding-the-length">Finding the length<a class="headerlink" href="#finding-the-length" title="Permanent link">&para;</a></h3>
-<p>To accomplish this task, we define an array <span class="arithmatex">$d[0 \dots n-1]$</span>, where <span class="arithmatex">$d[i]$</span> is the length of the longest increasing subsequence that ends in the element at index <span class="arithmatex">$i$</span>.</p>
-<div class="admonition example">
-<p class="admonition-title">Example</p>
-<div class="arithmatex">$$\begin{array}{ll}
-a &amp;= \{8, 3, 4, 6, 5, 2, 0, 7, 9, 1\} \\
-d &amp;= \{1, 1, 2, 3, 3, 1, 1, 4, 5, 2\}
-\end{array}$$</div>
-<p>The longest increasing subsequence that ends at index 4 is <span class="arithmatex">$\{3, 4, 5\}$</span> with a length of 3, the longest ending at index 8 is either <span class="arithmatex">$\{3, 4, 5, 7, 9\}$</span> or <span class="arithmatex">$\{3, 4, 6, 7, 9\}$</span>, both having length 5, and the longest ending at index 9 is <span class="arithmatex">$\{0, 1\}$</span> having length 2.</p>
-</div>
-<p>We will compute this array gradually: first <span class="arithmatex">$d[0]$</span>, then <span class="arithmatex">$d[1]$</span>, and so on.
-After this array is computed, the answer to the problem will be the maximum value in the array <span class="arithmatex">$d[]$</span>.</p>
-<p>So let the current index be <span class="arithmatex">$i$</span>.
-I.e. we want to compute the value <span class="arithmatex">$d[i]$</span> and all previous values <span class="arithmatex">$d[0], \dots, d[i-1]$</span> are already known.
-Then there are two options:</p>
-<ul>
-<li>
-<p><span class="arithmatex">$d[i] = 1$</span>: the required subsequence consists only of the element <span class="arithmatex">$a[i]$</span>.</p>
-</li>
-<li>
-<p><span class="arithmatex">$d[i] &gt; 1$</span>: The subsequence will end at <span class="arithmatex">$a[i]$</span>, and right before it will be some number <span class="arithmatex">$a[j]$</span> with <span class="arithmatex">$j &lt; i$</span> and <span class="arithmatex">$a[j] &lt; a[i]$</span>.</p>
-<p>It's easy to see, that the subsequence ending in <span class="arithmatex">$a[j]$</span> will itself be one of the longest increasing subsequences that ends in <span class="arithmatex">$a[j]$</span>.
-The number <span class="arithmatex">$a[i]$</span> just extends that longest increasing subsequence by one number.</p>
-<p>Therefore, we can just iterate over all <span class="arithmatex">$j &lt; i$</span> with <span class="arithmatex">$a[j] &lt; a[i]$</span>, and take the longest sequence that we get by appending <span class="arithmatex">$a[i]$</span> to the longest increasing subsequence ending in <span class="arithmatex">$a[j]$</span>.
-The longest increasing subsequence ending in <span class="arithmatex">$a[j]$</span> has length <span class="arithmatex">$d[j]$</span>, extending it by one gives the length <span class="arithmatex">$d[j] + 1$</span>.</p>
-<div class="arithmatex">$$d[i] = \max_{\substack{j &lt; i \\\\ a[j] &lt; a[i]}} \left(d[j] + 1\right)$$</div>
-</li>
-</ul>
-<p>If we combine these two cases we get the final answer for <span class="arithmatex">$d[i]$</span>:</p>
-<div class="arithmatex">$$d[i] = \max\left(1, \max_{\substack{j &lt; i \\\\ a[j] &lt; a[i]}} \left(d[j] + 1\right)\right)$$</div>
-<h3 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h3>
-<p>Here is an implementation of the algorithm described above, which computes the length of the longest increasing subsequence.</p>
-<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">lis</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">d</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-<span class="w">                </span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ans</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="restoring-the-subsequence">Restoring the subsequence<a class="headerlink" href="#restoring-the-subsequence" title="Permanent link">&para;</a></h3>
-<p>So far we only learned how to find the length of the subsequence, but not how to find the subsequence itself.</p>
-<p>To be able to restore the subsequence we generate an additional auxiliary array <span class="arithmatex">$p[0 \dots n-1]$</span> that we will compute alongside the array <span class="arithmatex">$d[]$</span>.
-<span class="arithmatex">$p[i]$</span> will be the index <span class="arithmatex">$j$</span> of the second last element in the longest increasing subsequence ending in <span class="arithmatex">$i$</span>.
-In other words the index <span class="arithmatex">$p[i]$</span> is the same index <span class="arithmatex">$j$</span> at which the highest value <span class="arithmatex">$d[i]$</span> was obtained.
-This auxiliary array <span class="arithmatex">$p[]$</span> points in some sense to the ancestors.</p>
-<p>Then to derive the subsequence, we just start at the index <span class="arithmatex">$i$</span> with the maximal <span class="arithmatex">$d[i]$</span>, and follow the ancestors until we deduced the entire subsequence, i.e. until we reach the element with <span class="arithmatex">$d[i] = 1$</span>.</p>
-<h3 id="implementation-of-restoring">Implementation of restoring<a class="headerlink" href="#implementation-of-restoring" title="Permanent link">&para;</a></h3>
-<p>We will change the code from the previous sections a little bit.
-We will compute the array <span class="arithmatex">$p[]$</span> alongside <span class="arithmatex">$d[]$</span>, and afterwards compute the subsequence.</p>
-<p>For convenience we originally assign the ancestors with <span class="arithmatex">$p[i] = -1$</span>.
-For elements with <span class="arithmatex">$d[i] = 1$</span>, the ancestors value will remain <span class="arithmatex">$-1$</span>, which will be slightly more convenient for restoring the subsequence.</p>
-<div class="highlight"><pre><span></span><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lis</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">d</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">);</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="w">                </span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="p">;</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">ans</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-<span class="w">            </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">subseq</span><span class="p">;</span>
-<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">pos</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">subseq</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">pos</span><span class="p">]);</span>
-<span class="w">        </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">pos</span><span class="p">];</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="n">reverse</span><span class="p">(</span><span class="n">subseq</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">subseq</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">subseq</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="alternative-way-of-restoring-the-subsequence">Alternative way of restoring the subsequence<a class="headerlink" href="#alternative-way-of-restoring-the-subsequence" title="Permanent link">&para;</a></h3>
-<p>It is also possible to restore the subsequence without the auxiliary array <span class="arithmatex">$p[]$</span>.
-We can simply recalculate the current value of <span class="arithmatex">$d[i]$</span> and also see how the maximum was reached.</p>
-<p>This method leads to a slightly longer code, but in return we save some memory.</p>
-<h2 id="solution-in-on-log-n-with-dynamic-programming-and-binary-search">Solution in <span class="arithmatex">$O(n \log n)$</span> with dynamic programming and binary search<a class="headerlink" href="#solution-in-on-log-n-with-dynamic-programming-and-binary-search" title="Permanent link">&para;</a></h2>
-<p>In order to obtain a faster solution for the problem, we construct a different dynamic programming solution that runs in <span class="arithmatex">$O(n^2)$</span>, and then later improve it to <span class="arithmatex">$O(n \log n)$</span>.</p>
-<p>We will use the dynamic programming array <span class="arithmatex">$d[0 \dots n]$</span>.
-This time <span class="arithmatex">$d[l]$</span> doesn't corresponds to the element <span class="arithmatex">$a[i]$</span> or to an prefix of the array. 
-<span class="arithmatex">$d[l]$</span> will be the smallest element at which an increasing subsequence of length <span class="arithmatex">$l$</span> ends.</p>
-<p>Initially we assume <span class="arithmatex">$d[0] = -\infty$</span> and for all other lengths <span class="arithmatex">$d[l] = \infty$</span>.</p>
-<p>We will again gradually process the numbers, first <span class="arithmatex">$a[0]$</span>, then <span class="arithmatex">$a[1]$</span>, etc, and in each step maintain the array <span class="arithmatex">$d[]$</span> so that it is up to date.</p>
-<div class="admonition example">
-<p class="admonition-title">Example</p>
-<p>Given the array <span class="arithmatex">$a = \{8, 3, 4, 6, 5, 2, 0, 7, 9, 1\}$</span>, here are all their prefixes and their dynamic programming array.
-Notice, that the values of the array don't always change at the end.</p>
-<div class="arithmatex">$$
-\begin{array}{ll}
-\text{prefix} = \{\} &amp;\quad d = \{-\infty, \infty, \dots\}\\
-\text{prefix} = \{8\} &amp;\quad d = \{-\infty, 8, \infty, \dots\}\\
-\text{prefix} = \{8, 3\} &amp;\quad d = \{-\infty, 3, \infty, \dots\}\\
-\text{prefix} = \{8, 3, 4\} &amp;\quad d = \{-\infty, 3, 4, \infty, \dots\}\\
-\text{prefix} = \{8, 3, 4, 6\} &amp;\quad d = \{-\infty, 3, 4, 6, \infty, \dots\}\\
-\text{prefix} = \{8, 3, 4, 6, 5\} &amp;\quad d = \{-\infty, 3, 4, 5, \infty, \dots\}\\
-\text{prefix} = \{8, 3, 4, 6, 5, 2\} &amp;\quad d = \{-\infty, 2, 4, 5, \infty, \dots \}\\
-\text{prefix} = \{8, 3, 4, 6, 5, 2, 0\} &amp;\quad d = \{-\infty, 0, 4, 5, \infty, \dots \}\\
-\text{prefix} = \{8, 3, 4, 6, 5, 2, 0, 7\} &amp;\quad d = \{-\infty, 0, 4, 5, 7, \infty, \dots \}\\
-\text{prefix} = \{8, 3, 4, 6, 5, 2, 0, 7, 9\} &amp;\quad d = \{-\infty, 0, 4, 5, 7, 9, \infty, \dots \}\\
-\text{prefix} = \{8, 3, 4, 6, 5, 2, 0, 7, 9, 1\} &amp;\quad d = \{-\infty, 0, 1, 5, 7, 9, \infty, \dots \}\\
-\end{array}
-$$</div>
-</div>
-<p>When we process <span class="arithmatex">$a[i]$</span>, we can ask ourselves.
-Under what conditions should we write the current number <span class="arithmatex">$a[i]$</span> into the <span class="arithmatex">$d[0 \dots n]$</span> array?</p>
-<p>We set <span class="arithmatex">$d[l] = a[i]$</span>, if there is a longest increasing sequence of length <span class="arithmatex">$l$</span> that ends in <span class="arithmatex">$a[i]$</span>, and there is no longest increasing sequence of length <span class="arithmatex">$l$</span> that ends in a smaller number.
-Similar to the previous approach, if we remove the number <span class="arithmatex">$a[i]$</span> from the longest increasing sequence of length <span class="arithmatex">$l$</span>, we get another longest increasing sequence of length <span class="arithmatex">$l -1$</span>.
-So we want to extend a longest increasing sequence of length <span class="arithmatex">$l - 1$</span> by the number <span class="arithmatex">$a[i]$</span>, and obviously the longest increasing sequence of length <span class="arithmatex">$l - 1$</span> that ends with the smallest element will work the best, in other words the sequence of length <span class="arithmatex">$l-1$</span> that ends in element <span class="arithmatex">$d[l-1]$</span>.</p>
-<p>There is a longest increasing sequence of length <span class="arithmatex">$l - 1$</span> that we can extend with the number <span class="arithmatex">$a[i]$</span>, exactly if <span class="arithmatex">$d[l-1] &lt; a[i]$</span>.
-So we can just iterate over each length <span class="arithmatex">$l$</span>, and check if we can extend a longest increasing sequence of length <span class="arithmatex">$l - 1$</span> by checking the criteria.</p>
-<p>Additionally we also need to check, if we maybe have already found a longest increasing sequence of length <span class="arithmatex">$l$</span> with a smaller number at the end.
-So we only update if <span class="arithmatex">$a[i] &lt; d[l]$</span>.</p>
-<p>After processing all the elements of <span class="arithmatex">$a[]$</span> the length of the desired subsequence is the largest <span class="arithmatex">$l$</span> with <span class="arithmatex">$d[l] &lt; \infty$</span>.</p>
-<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">lis</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e9</span><span class="p">;</span>
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">d</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">INF</span><span class="p">);</span>
-<span class="w">    </span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">INF</span><span class="p">;</span>
-
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">l</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">l</span><span class="mi">-1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">l</span><span class="p">])</span>
-<span class="w">                </span><span class="n">d</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">l</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">INF</span><span class="p">)</span>
-<span class="w">            </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ans</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>We now make two important observations.</p>
-<ol>
-<li>
-<p>The array <span class="arithmatex">$d$</span> will always be sorted: 
-    <span class="arithmatex">$d[l-1] &lt; d[l]$</span> for all <span class="arithmatex">$i = 1 \dots n$</span>.</p>
-<p>This is trivial, as you can just remove the last element from the increasing subsequence of length <span class="arithmatex">$l$</span>, and you get a increasing subsequence of length <span class="arithmatex">$l-1$</span> with a smaller ending number.</p>
-</li>
-<li>
-<p>The element <span class="arithmatex">$a[i]$</span> will only update at most one value <span class="arithmatex">$d[l]$</span>.</p>
-<p>This follows immediately from the above implementation.
-There can only be one place in the array with <span class="arithmatex">$d[l-1] &lt; a[i] &lt; d[l]$</span>.</p>
-</li>
-</ol>
-<p>Thus we can find this element in the array <span class="arithmatex">$d[]$</span> using <a href="../num_methods/binary_search.html">binary search</a> in <span class="arithmatex">$O(\log n)$</span>.
-In fact we can simply look in the array <span class="arithmatex">$d[]$</span> for the first number that is strictly greater than <span class="arithmatex">$a[i]$</span>, and we try to update this element in the same way as the above implementation.</p>
-<h3 id="implementation_1">Implementation<a class="headerlink" href="#implementation_1" title="Permanent link">&para;</a></h3>
-<p>This gives us the improved <span class="arithmatex">$O(n \log n)$</span> implementation:</p>
-<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">lis</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">INF</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e9</span><span class="p">;</span>
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">d</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">INF</span><span class="p">);</span>
-<span class="w">    </span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">INF</span><span class="p">;</span>
-
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">upper_bound</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">l</span><span class="mi">-1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="n">l</span><span class="p">])</span>
-<span class="w">            </span><span class="n">d</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">l</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">INF</span><span class="p">)</span>
-<span class="w">            </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ans</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="restoring-the-subsequence_1">Restoring the subsequence<a class="headerlink" href="#restoring-the-subsequence_1" title="Permanent link">&para;</a></h3>
-<p>It is also possible to restore the subsequence using this approach.
-This time we have to maintain two auxiliary arrays.
-One that tells us the index of the elements in <span class="arithmatex">$d[]$</span>.
-And again we have to create an array of "ancestors" <span class="arithmatex">$p[i]$</span>.
-<span class="arithmatex">$p[i]$</span> will be the index of the previous element for the optimal subsequence ending in element <span class="arithmatex">$i$</span>.</p>
-<p>It's easy to maintain these two arrays in the course of iteration over the array <span class="arithmatex">$a[]$</span> alongside the computations of <span class="arithmatex">$d[]$</span>.
-And at the end it is not difficult to restore the desired subsequence using these arrays.</p>
-<h2 id="solution-in-on-log-n-with-data-structures">Solution in <span class="arithmatex">$O(n \log n)$</span> with data structures<a class="headerlink" href="#solution-in-on-log-n-with-data-structures" title="Permanent link">&para;</a></h2>
-<p>Instead of the above method for computing the longest increasing subsequence in <span class="arithmatex">$O(n \log n)$</span> we can also solve the problem in a different way: using some simple data structures.</p>
-<p>Let's go back to the first method.
-Remember that <span class="arithmatex">$d[i]$</span> is the value <span class="arithmatex">$d[j] + 1$</span> with <span class="arithmatex">$j &lt; i$</span> and <span class="arithmatex">$a[j] &lt; a[i]$</span>.</p>
-<p>Thus if we define an additional array <span class="arithmatex">$t[]$</span> such that</p>
-<div class="arithmatex">$$t[a[i]] = d[i],$$</div>
-<p>then the problem of computing the value <span class="arithmatex">$d[i]$</span> is equivalent to finding the <strong>maximum value in a prefix</strong> of the array <span class="arithmatex">$t[]$</span>:</p>
-<div class="arithmatex">$$d[i] = \max\left(t[0 \dots a[i] - 1] + 1\right)$$</div>
-<p>The problem of finding the maximum of a prefix of an array (which changes) is a standard problem that can be solved by many different data structures. 
-For instance we can use a <a href="../data_structures/segment_tree.html">Segment tree</a> or a <a href="../data_structures/fenwick.html">Fenwick tree</a>.</p>
-<p>This method has obviously some <strong>shortcomings</strong>:
-in terms of length and complexity of the implementation this approach will be worse than the method using binary search.
-In addition if the input numbers <span class="arithmatex">$a[i]$</span> are especially large, then we would have to use some tricks, like compressing the numbers (i.e. renumber them from <span class="arithmatex">$0$</span> to <span class="arithmatex">$n-1$</span>), or use a dynamic segment tree (only generate the branches of the tree that are important).
-Otherwise the memory consumption will be too high.</p>
-<p>On the other hand this method has also some <strong>advantages</strong>:
-with this method you don't have to think about any tricky properties in the dynamic programming solution.
-And this approach allows us to generalize the problem very easily (see below).</p>
-<h2 id="related-tasks">Related tasks<a class="headerlink" href="#related-tasks" title="Permanent link">&para;</a></h2>
-<p>Here are several problems that are closely related to the problem of finding the longest increasing subsequence.</p>
-<h3 id="longest-non-decreasing-subsequence">Longest non-decreasing subsequence<a class="headerlink" href="#longest-non-decreasing-subsequence" title="Permanent link">&para;</a></h3>
-<p>This is in fact nearly the same problem.
-Only now it is allowed to use identical numbers in the subsequence.</p>
-<p>The solution is essentially also nearly the same.
-We just have to change the inequality signs, and make a slight modification to the binary search.</p>
-<h3 id="number-of-longest-increasing-subsequences">Number of longest increasing subsequences<a class="headerlink" href="#number-of-longest-increasing-subsequences" title="Permanent link">&para;</a></h3>
-<p>We can use the first discussed method, either the <span class="arithmatex">$O(n^2)$</span> version or the version using data structures.
-We only have to additionally store in how many ways we can obtain longest increasing subsequences ending in the values <span class="arithmatex">$d[i]$</span>.</p>
-<p>The number of ways to form a longest increasing subsequences ending in <span class="arithmatex">$a[i]$</span> is the sum of all ways for all longest increasing subsequences ending in <span class="arithmatex">$j$</span> where <span class="arithmatex">$d[j]$</span> is maximal.
-There can be multiple such <span class="arithmatex">$j$</span>, so we need to sum all of them.</p>
-<p>Using a Segment tree this approach can also be implemented in <span class="arithmatex">$O(n \log n)$</span>.</p>
-<p>It is not possible to use the binary search approach for this task.</p>
-<h3 id="smallest-number-of-non-increasing-subsequences-covering-a-sequence">Smallest number of non-increasing subsequences covering a sequence<a class="headerlink" href="#smallest-number-of-non-increasing-subsequences-covering-a-sequence" title="Permanent link">&para;</a></h3>
-<p>For a given array with <span class="arithmatex">$n$</span> numbers <span class="arithmatex">$a[0 \dots n - 1]$</span> we have to colorize the numbers in the smallest number of colors, so that each color forms a non-increasing subsequence.</p>
-<p>To solve this, we notice that the minimum number of required colors is equal to the length of the longest increasing subsequence.</p>
-<p><strong>Proof</strong>:
-We need to prove the <strong>duality</strong> of these two problems.</p>
-<p>Let's denote by <span class="arithmatex">$x$</span> the length of the longest increasing subsequence and by <span class="arithmatex">$y$</span> the least number of non-increasing subsequences that form a cover.
-We need to prove that <span class="arithmatex">$x = y$</span>.</p>
-<p>It is clear that <span class="arithmatex">$y &lt; x$</span> is not possible, because if we have <span class="arithmatex">$x$</span> strictly increasing elements, than no two can be part of the same non-increasing subsequence.
-Therefore we have <span class="arithmatex">$y \ge x$</span>.</p>
-<p>We now show that <span class="arithmatex">$y &gt; x$</span> is not possible by contradiction.
-Suppose that <span class="arithmatex">$y &gt; x$</span>.
-Then we consider any optimal set of <span class="arithmatex">$y$</span> non-increasing subsequences.
-We transform this in set in the following way:
-as long as there are two such subsequences such that the first begins before the second subsequence, and the first sequence start with a number greater than or equal to the second, then we unhook this starting number and attach it to the beginning of second.
-After a finite number of steps we have <span class="arithmatex">$y$</span> subsequences, and their starting numbers will form an increasing subsequence of length <span class="arithmatex">$y$</span>.
-Since we assumed that <span class="arithmatex">$y &gt; x$</span> we reached a contradiction.</p>
-<p>Thus it follows that <span class="arithmatex">$y = x$</span>.</p>
-<p><strong>Restoring the sequences</strong>:
-The desired partition of the sequence into subsequences can be done greedily.
-I.e. go from left to right and assign the current number or that subsequence ending with the minimal number which is greater than or equal to the current one.</p>
-<h2 id="practice-problems">Practice Problems<a class="headerlink" href="#practice-problems" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="http://codeforces.com/problemsets/acmsguru/problem/99999/521">ACMSGURU - "North-East"</a></li>
-<li><a href="http://codeforces.com/problemset/problem/10/D">Codeforces - LCIS</a></li>
-<li><a href="http://codeforces.com/contest/76/problem/F">Codeforces - Tourist</a></li>
-<li><a href="https://www.spoj.com/problems/DOSA/">SPOJ - DOSA</a></li>
-<li><a href="https://www.spoj.com/problems/HMLIS/">SPOJ - HMLIS</a></li>
-<li><a href="https://www.spoj.com/problems/ONEXLIS/">SPOJ - ONEXLIS</a></li>
-<li><a href="http://www.spoj.com/problems/SUPPER/">SPOJ - SUPPER</a></li>
-<li><a href="https://community.topcoder.com/stat?c=problem_statement&amp;pm=3937&amp;rd=6532">Topcoder - AutoMarket</a></li>
-<li><a href="https://community.topcoder.com/stat?c=problem_statement&amp;pm=2967&amp;rd=5881">Topcoder - BridgeArrangement</a></li>
-<li><a href="https://community.topcoder.com/stat?c=problem_statement&amp;pm=5922&amp;rd=8075">Topcoder - IntegerSequence</a></li>
-<li><a href="https://onlinejudge.org/external/127/12747.pdf">UVA - Back To Edit Distance</a></li>
-<li><a href="https://onlinejudge.org/external/120/12002.pdf">UVA - Happy Birthday</a></li>
-<li><a href="https://onlinejudge.org/external/11/1196.pdf">UVA - Tiling Up Blocks</a></li>
-</ul>
+<p>This article has been moved to a <a href="../dynamic_programming/longest_increasing_subsequence.html">Longest increasing subsequence</a>.</p>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (91.67%)</li><li><a href="https://github.com/sgtlaugh" title="sgtlaugh" data-bi-name="contributorprofile" target="_blank">sgtlaugh</a> (3.33%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (1.67%)</li><li><a href="https://github.com/Sergey-A-Dovgal" title="Sergey-A-Dovgal" data-bi-name="contributorprofile" target="_blank">Sergey-A-Dovgal</a> (1.67%)</li><li><a href="https://github.com/100daysummer" title="100daysummer" data-bi-name="contributorprofile" target="_blank">100daysummer</a> (0.28%)</li><li><a href="https://github.com/RED1ioi" title="RED1ioi" data-bi-name="contributorprofile" target="_blank">RED1ioi</a> (0.28%)</li><li><a href="https://github.com/JustAnAverageGuy" title="JustAnAverageGuy" data-bi-name="contributorprofile" target="_blank">JustAnAverageGuy</a> (0.28%)</li><li><a href="https://github.com/Nil-Cipher" title="Nil-Cipher" data-bi-name="contributorprofile" target="_blank">Nil-Cipher</a> (0.28%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.28%)</li><li><a href="https://github.com/karan221" title="karan221" data-bi-name="contributorprofile" target="_blank">karan221</a> (0.28%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (66.67%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (33.33%)</li></ul>
 </ul>
                 
               </article>
@@ -7362,7 +8019,8 @@ I.e. go from left to right and assign the current number or that subsequence end
         
         
       </div>
-      <div class="md-social">
+      
+<div class="md-social">
   
     
     
@@ -7372,7 +8030,7 @@ I.e. go from left to right and assign the current number or that subsequence end
       
     
     <a href="https://github.com/cp-algorithms/cp-algorithms" target="_blank" rel="noopener" title="github.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
     </a>
   
     
@@ -7383,7 +8041,18 @@ I.e. go from left to right and assign the current number or that subsequence end
       
     
     <a href="https://discord.gg/HZ5AecN3KX" target="_blank" rel="noopener" title="discord.gg" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/sponsors/cp-algorithms" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M96 224a192 192 0 1 1 384 0 192 192 0 1 1-384 0m176-92v4c-28.8.3-52 23.7-52 52.5 0 25.7 18.5 47.6 43.9 51.8l41.7 7c6 1 10.4 6.2 10.4 12.3 0 6.9-5.6 12.5-12.5 12.5L248 272c-11 0-20 9-20 20s9 20 20 20h24v4c0 11 9 20 20 20s20-9 20-20v-4.7c25-4.1 44-25.7 44-51.8 0-25.7-18.5-47.6-43.9-51.8l-41.7-7c-6-1-10.4-6.2-10.4-12.3 0-6.9 5.6-12.5 12.5-12.5H320c11 0 20-9 20-20s-9-20-20-20h-8v-4c0-11-9-20-20-20s-20 9-20 20zM48 344v104c0 8.8 7.2 16 16 16h448c8.8 0 16-7.2 16-16V344c0-13.3 10.7-24 24-24s24 10.7 24 24v104c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V344c0-13.3 10.7-24 24-24s24 10.7 24 24"/></svg>
     </a>
   
 </div>
@@ -7399,12 +8068,17 @@ I.e. go from left to right and assign the current number or that subsequence end
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
+      
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
+      
+        <script src="../javascript/donation-banner.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
       

@@ -19,11 +19,14 @@
         <link rel="next" href="prime-sieve-linear.html">
       
       
+        
+      
+      
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../feed_rss_created.xml">
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,10 +34,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -71,210 +74,10 @@
 
     
     
-    
-  <script>(function() {
-    const customDynamicStyle = document.createElement("style");
-    // We must put it outside of the head and body, since they are replaced by the instant navigation feature in the Material theme
-    document.documentElement.appendChild(customDynamicStyle);
-
-    const TOGGLE_BUTTON_REFERENCE_ELEMENT_NOT_FOUND_WARNING = "[mkdocs-toggle-sidebar-plugin] Reference element for inserting 'toggle_button' not found. This version of the plugin may not be compatible with this version of the theme. Try updating both to the latest version. If that fails, you can open an GitHub issue.";
-
-    const loadBool = (name, default_value) => {
-        const value = localStorage.getItem(`TOGGLE_SIDEBAR_${name}`);
-        if (value == null) {
-            return default_value;
-        } else {
-            return value == "1";
-        }
-    }
-
-    const loadNavigationState = () => loadBool("NAVIGATION", true);
-    const loadTocState = () => loadBool("TOC", true);
-
-    const saveBool = (name, value) => {
-        localStorage.setItem(`TOGGLE_SIDEBAR_${name}`, value ? "1" : "0");
-    }
-
-    const toggleVisibility = (toggleNavigation, toggleTOC) => {
-        let newNavigation = loadNavigationState();
-        let newTOC = loadTocState();
-        
-        if (toggleNavigation) {
-            newNavigation = !newNavigation;
-            saveBool("NAVIGATION", newNavigation);
-        }
-        if (toggleTOC) {
-            newTOC = !newTOC;
-            saveBool("TOC", newTOC);
-        }
-        
-        _setVisibility(newNavigation, newTOC);
-    }
-
-    const _setVisibility = (newNavigation, newTOC) => {
-        console.debug(`Setting new visibility: navigation=${newNavigation}, TOC=${newTOC}`);
-        // combine this into one operation, so that it is more efficient (for toggling both) and easier to code with dynamic CSS generation
-        customDynamicStyle.innerHTML = setCombinedVisibility(newNavigation, newTOC);
-    }
-
-    // START OF INCLUDE
-    // This gets replaced with the definitions of: 
-    // - setCombinedVisibility(showNavigation: bool, showTOC: bool) -> string (dynamic CSS)
-    // - registerKeyboardEventHandler() -> void
-    const setCombinedVisibility = (showNavigation, showTOC) => {
-    // Hide the button when on mobile (and menu us shown as hamburger menu anyways).
-    // The exact max-width is taken from the styling of the 'body > header > nav > a' element
-    
-    let style = `
-.mkdocs-toggle-sidebar-button {
-    cursor: pointer;
-    margin-right: 5px;
-    margin-left: 1rem;
-}
-
-@media screen and (max-width: 76.1875em) {
-    .mkdocs-toggle-sidebar-button {
-        display: none;
-    }
-}
-`;
-// The TOC has a different break point than the navigation.
-// It can be seen on the nav.md-nav--secondary:nth-child(1) element (60em)
-// If the screen is smaller, it is shown in the navigation section if you click the nested hamburger menu
-if (!showTOC) {
-    style += `
-@media screen and (min-width: 60em) {
-    div.md-sidebar.md-sidebar--secondary {
-        display: none;
-    }
-}
-`;
-        }
-        
-    // We always have to show the navigation in mobile view, otherwise the hamburger menu is broken
-    if (!showNavigation) {
-        style += `
-@media screen and (min-width: 76.1875em) {
-    div.md-sidebar.md-sidebar--primary {
-        display: none;
-    }
-}
-`;
-    }
-
-    return style;
-}
-
-const addToggleButton = (toggleNavigation, toggleTOC) => {
-    const toggleBtn = createDefaultToggleButton(toggleNavigation, toggleTOC);
-    toggleBtn.classList.add("md-icon");
   
-    const titleElement = document.querySelector(".md-header__title");
-    if (titleElement) {
-        titleElement.parentNode.insertBefore(toggleBtn, titleElement.nextSibling);  
-    } else {
-        console.warn(TOGGLE_BUTTON_REFERENCE_ELEMENT_NOT_FOUND_WARNING);
-    }
-}
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 
-const registerKeyboardEventHandler = () => {
-    // Custom key handlers: SEE https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/?h=key+bind#docsjavascriptsshortcutsjs
-    keyboard$.subscribe(key => {
-        if (key.mode === "global") {
-            if (coreEventListenerLogic(key.type)) {
-                // event handled, stop propagation
-                key.claim();
-            }
-        }
-    });
-}
-
-    // END OF INCLUDE
-
-    // argument: string, returns true if the key was handled and the event should be marked as already handled
-    const coreEventListenerLogic = (keyChar) => {
-        if (keyChar === "t") {
-            toggleVisibility(false, true);
-            return true;
-        } else if (keyChar === "m") {
-            toggleVisibility(true, false);
-            return true;
-        } else if (keyChar === "b") {
-            toggleVisibility(true, true);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    const onPageLoadedAction = () => {
-        console.log("The mkdocs-toggle-sidebar-plugin is installed. It adds the following key bindings:\n T -> toggle table of contents sidebar\n M -> toggle navigation menu sidebar\n B -> toggle both sidebars (TOC and navigation)");
-
-        const toggle_button = "all";
-        if (toggle_button == "none") {
-            // do nothing
-        } else if (toggle_button == "navigation") {
-            addToggleButton(true, false);
-        } else if (toggle_button == "toc") {
-            addToggleButton(false, true);
-        } else if (toggle_button == "all") {
-            addToggleButton(true, true);
-        } else {
-            console.error(`[mkdocs-toggle-sidebar-plugin] Unknown value for toggle_button: '${toggleButtonType}'`);
-        }
-
-        registerKeyboardEventHandler();
-    }
-
-    const createDefaultToggleButton = (toggleNavigation, toggleTOC) => {
-        const toggleBtn = document.createElement("div");
-        toggleBtn.className = "mkdocs-toggle-sidebar-button";
-        toggleBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>`;
-        if (toggleNavigation && toggleTOC) {
-            toggleBtn.title = "Toggle Navigation and Table of Contents";
-        } else if (toggleNavigation) {
-            toggleBtn.title = "Toggle Navigation";
-        } else if (toggleTOC) {
-            toggleBtn.title = "Toggle Table of Contents";
-        }
-        toggleBtn.addEventListener("click", () => toggleVisibility(toggleNavigation, toggleTOC));
-        return toggleBtn;
-    };
-
-    // Export functions that the user can call to modify the state
-    window.MkdocsToggleSidebarPlugin = {
-        setNavigationVisibility: (show) => {
-            saveBool("NAVIGATION", show);
-            _setVisibility(show, loadTocState());
-        },
-        setTocVisibility: (show) => {
-            saveBool("TOC", show);
-            _setVisibility(loadNavigationState(), show);
-        },
-        setAllVisibility: (showNavigation, showTOC) => {
-            saveBool("NAVIGATION", showNavigation);
-            saveBool("TOC", showTOC);
-            _setVisibility(showNavigation, showTOC);
-        },
-        toggleNavigationVisibility: () => toggleVisibility(true, false),
-        toggleTocVisibility: () => toggleVisibility(false, true),
-        toggleAllVisibility: () => toggleVisibility(true, true)
-    };
-
-    // Run this immediately instead of waiting for page.onload to prevent page flicker
-    customDynamicStyle.innerHTML = setCombinedVisibility(loadNavigationState(), loadTocState());
-    // console.log("Debug: hide sidebar completed");
-
-    // SEE https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event#checking_whether_loading_is_already_complete
-    if (document.readyState === "loading") {
-        // console.debug("Registering DOMContentLoaded event listener");
-        document.addEventListener("DOMContentLoaded", onPageLoadedAction);
-    } else {
-        // console.debug("DOMContentLoaded has already fired");
-        onPageLoadedAction();
-    }
-}());
-</script></head>
+  <script src="../assets/javascripts/toggle-sidebar.js"></script></head>
   
   
     
@@ -413,7 +216,7 @@ const registerKeyboardEventHandler = () => {
         <a href="https://github.com/cp-algorithms/cp-algorithms" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
     cp-algorithms/cp-algorithms
@@ -423,13 +226,19 @@ const registerKeyboardEventHandler = () => {
     
     <div class="md-header__option">
       <a href="https://cp-algorithms.com/feed_rss_created.xml" title="RSS" class="md-header__button md-icon" aria-label="RSS">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M0 64c0-17.7 14.3-32 32-32 229.8 0 416 186.2 416 416 0 17.7-14.3 32-32 32s-32-14.3-32-32C384 253.6 226.4 96 32 96 14.3 96 0 81.7 0 64m0 352a64 64 0 1 1 128 0 64 64 0 1 1-128 0m32-256c159.1 0 288 128.9 288 288 0 17.7-14.3 32-32 32s-32-14.3-32-32c0-123.7-100.3-224-224-224-17.7 0-32-14.3-32-32s14.3-32 32-32"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M0 64c0-17.7 14.3-32 32-32 229.8 0 416 186.2 416 416 0 17.7-14.3 32-32 32s-32-14.3-32-32C384 253.6 226.4 96 32 96 14.3 96 0 81.7 0 64m0 352a64 64 0 1 1 128 0 64 64 0 1 1-128 0m32-256c159.1 0 288 128.9 288 288 0 17.7-14.3 32-32 32s-32-14.3-32-32c0-123.7-100.3-224-224-224-17.7 0-32-14.3-32-32s14.3-32 32-32"/></svg>
       </a>
     </div>
 
     <div class="md-header__option">
       <a href="https://discord.gg/HZ5AecN3KX" title="Discord" class="md-header__button md-icon" aria-label="Discord">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+      </a>
+    </div>
+
+    <div class="md-header__option">
+      <a href="https://github.com/sponsors/cp-algorithms" title="GitHub Sponsors" class="md-header__button md-icon" aria-label="GitHub Sponsors">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M96 224a192 192 0 1 1 384 0 192 192 0 1 1-384 0m176-92v4c-28.8.3-52 23.7-52 52.5 0 25.7 18.5 47.6 43.9 51.8l41.7 7c6 1 10.4 6.2 10.4 12.3 0 6.9-5.6 12.5-12.5 12.5L248 272c-11 0-20 9-20 20s9 20 20 20h24v4c0 11 9 20 20 20s20-9 20-20v-4.7c25-4.1 44-25.7 44-51.8 0-25.7-18.5-47.6-43.9-51.8l-41.7-7c-6-1-10.4-6.2-10.4-12.3 0-6.9 5.6-12.5 12.5-12.5H320c11 0 20-9 20-20s-9-20-20-20h-8v-4c0-11-9-20-20-20s-20 9-20 20zM48 344v104c0 8.8 7.2 16 16 16h448c8.8 0 16-7.2 16-16V344c0-13.3 10.7-24 24-24s24 10.7 24 24v104c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V344c0-13.3 10.7-24 24-24s24 10.7 24 24"/></svg>
       </a>
     </div>
   </nav>
@@ -471,7 +280,7 @@ const registerKeyboardEventHandler = () => {
       <a href="https://github.com/cp-algorithms/cp-algorithms" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
     cp-algorithms/cp-algorithms
@@ -504,9 +313,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Home
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -515,7 +329,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_1">
             <span class="md-nav__icon md-icon"></span>
-            Home
+            
+  
+    Home
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -531,9 +349,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Main Page
+  
+
     
   </span>
+  
   
 
       </a>
@@ -554,9 +377,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Navigation
+  
+
     
   </span>
+  
   
 
       </a>
@@ -577,9 +405,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Tag index
+  
+
     
   </span>
+  
   
 
       </a>
@@ -600,9 +433,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     How to Contribute
+  
+
     
   </span>
+  
   
 
       </a>
@@ -623,9 +461,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Code of conduct
+  
+
     
   </span>
+  
   
 
       </a>
@@ -646,9 +489,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Preview
+  
+
     
   </span>
+  
   
 
       </a>
@@ -689,9 +537,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Algebra
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -700,7 +553,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
-            Algebra
+            
+  
+    Algebra
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -727,9 +584,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Fundamentals
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -738,7 +600,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_1">
             <span class="md-nav__icon md-icon"></span>
-            Fundamentals
+            
+  
+    Fundamentals
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -754,9 +620,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Binary Exponentiation
+  
+
     
   </span>
+  
   
 
       </a>
@@ -777,9 +648,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Euclidean algorithm for computing the greatest common divisor
+  
+
     
   </span>
+  
   
 
       </a>
@@ -800,9 +676,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Extended Euclidean Algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -823,9 +704,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Linear Diophantine Equations
+  
+
     
   </span>
+  
   
 
       </a>
@@ -846,9 +732,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Fibonacci Numbers
+  
+
     
   </span>
+  
   
 
       </a>
@@ -890,9 +781,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Prime numbers
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -901,7 +797,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
-            Prime numbers
+            
+  
+    Prime numbers
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -926,9 +826,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Sieve of Eratosthenes
+  
+
     
   </span>
+  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -939,9 +844,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Sieve of Eratosthenes
+  
+
     
   </span>
+  
   
 
       </a>
@@ -964,7 +874,9 @@ const registerKeyboardEventHandler = () => {
         <li class="md-nav__item">
   <a href="#implementation" class="md-nav__link">
     <span class="md-ellipsis">
-      Implementation
+      
+        Implementation
+      
     </span>
   </a>
   
@@ -973,7 +885,9 @@ const registerKeyboardEventHandler = () => {
         <li class="md-nav__item">
   <a href="#asymptotic-analysis" class="md-nav__link">
     <span class="md-ellipsis">
-      Asymptotic analysis
+      
+        Asymptotic analysis
+      
     </span>
   </a>
   
@@ -982,7 +896,9 @@ const registerKeyboardEventHandler = () => {
         <li class="md-nav__item">
   <a href="#different-optimizations-of-the-sieve-of-eratosthenes" class="md-nav__link">
     <span class="md-ellipsis">
-      Different optimizations of the Sieve of Eratosthenes
+      
+        Different optimizations of the Sieve of Eratosthenes
+      
     </span>
   </a>
   
@@ -992,7 +908,9 @@ const registerKeyboardEventHandler = () => {
           <li class="md-nav__item">
   <a href="#sieving-till-root" class="md-nav__link">
     <span class="md-ellipsis">
-      Sieving till root
+      
+        Sieving till root
+      
     </span>
   </a>
   
@@ -1001,7 +919,9 @@ const registerKeyboardEventHandler = () => {
           <li class="md-nav__item">
   <a href="#sieving-by-the-odd-numbers-only" class="md-nav__link">
     <span class="md-ellipsis">
-      Sieving by the odd numbers only
+      
+        Sieving by the odd numbers only
+      
     </span>
   </a>
   
@@ -1010,7 +930,9 @@ const registerKeyboardEventHandler = () => {
           <li class="md-nav__item">
   <a href="#memory-consumption-and-speed-of-operations" class="md-nav__link">
     <span class="md-ellipsis">
-      Memory consumption and speed of operations
+      
+        Memory consumption and speed of operations
+      
     </span>
   </a>
   
@@ -1019,7 +941,9 @@ const registerKeyboardEventHandler = () => {
           <li class="md-nav__item">
   <a href="#segmented-sieve" class="md-nav__link">
     <span class="md-ellipsis">
-      Segmented Sieve
+      
+        Segmented Sieve
+      
     </span>
   </a>
   
@@ -1033,7 +957,9 @@ const registerKeyboardEventHandler = () => {
         <li class="md-nav__item">
   <a href="#find-primes-in-range" class="md-nav__link">
     <span class="md-ellipsis">
-      Find primes in range
+      
+        Find primes in range
+      
     </span>
   </a>
   
@@ -1042,7 +968,9 @@ const registerKeyboardEventHandler = () => {
         <li class="md-nav__item">
   <a href="#linear-time-modification" class="md-nav__link">
     <span class="md-ellipsis">
-      Linear time modification
+      
+        Linear time modification
+      
     </span>
   </a>
   
@@ -1051,7 +979,9 @@ const registerKeyboardEventHandler = () => {
         <li class="md-nav__item">
   <a href="#practice-problems" class="md-nav__link">
     <span class="md-ellipsis">
-      Practice Problems
+      
+        Practice Problems
+      
     </span>
   </a>
   
@@ -1078,9 +1008,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Linear Sieve
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1101,9 +1036,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Primality tests
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1124,9 +1064,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Integer factorization
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1166,9 +1111,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Number-theoretic functions
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1177,7 +1127,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_3">
             <span class="md-nav__icon md-icon"></span>
-            Number-theoretic functions
+            
+  
+    Number-theoretic functions
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1193,9 +1147,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Euler's totient function
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1216,9 +1175,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Number of divisors / sum of divisors
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1258,9 +1222,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Modular arithmetic
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1269,7 +1238,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_4">
             <span class="md-nav__icon md-icon"></span>
-            Modular arithmetic
+            
+  
+    Modular arithmetic
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1285,9 +1258,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Modular Inverse
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1308,9 +1286,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Linear Congruence Equation
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1331,9 +1314,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Chinese Remainder Theorem
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1354,9 +1342,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Garner's Algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1377,9 +1370,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Factorial modulo p
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1400,9 +1398,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Discrete Log
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1423,9 +1426,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Primitive Root
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1446,9 +1454,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Discrete Root
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1469,9 +1482,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Montgomery Multiplication
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1511,9 +1529,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Number systems
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1522,7 +1545,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_5">
             <span class="md-nav__icon md-icon"></span>
-            Number systems
+            
+  
+    Number systems
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1538,9 +1565,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Balanced Ternary
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1561,9 +1593,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Gray code
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1603,9 +1640,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Miscellaneous
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1614,7 +1656,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_6">
             <span class="md-nav__icon md-icon"></span>
-            Miscellaneous
+            
+  
+    Miscellaneous
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1630,9 +1676,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Bit manipulation
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1653,9 +1704,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Enumerating submasks of a bitmask
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1676,9 +1732,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Arbitrary-Precision Arithmetic
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1699,9 +1760,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Fast Fourier transform
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1722,9 +1788,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Operations on polynomials and series
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1745,9 +1816,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Continued fractions
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1768,9 +1844,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Factoring Exponentiation
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1817,9 +1898,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Data Structures
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1828,7 +1914,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
-            Data Structures
+            
+  
+    Data Structures
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1855,9 +1945,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Fundamentals
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1866,7 +1961,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_1">
             <span class="md-nav__icon md-icon"></span>
-            Fundamentals
+            
+  
+    Fundamentals
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1882,9 +1981,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Minimum Stack / Minimum Queue
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1905,9 +2009,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Sparse Table
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1947,9 +2056,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Trees
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1958,7 +2072,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_2">
             <span class="md-nav__icon md-icon"></span>
-            Trees
+            
+  
+    Trees
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1974,9 +2092,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Disjoint Set Union
+  
+
     
   </span>
+  
   
 
       </a>
@@ -1997,9 +2120,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Fenwick Tree
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2020,9 +2148,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Sqrt Decomposition
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2043,9 +2176,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Segment Tree
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2066,9 +2204,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Treap
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2089,9 +2232,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Sqrt Tree
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2112,9 +2260,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Randomized Heap
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2154,9 +2307,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Advanced
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -2165,7 +2323,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_3">
             <span class="md-nav__icon md-icon"></span>
-            Advanced
+            
+  
+    Advanced
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2181,9 +2343,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Deleting from a data structure in O(T(n) log n)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2230,9 +2397,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Dynamic Programming
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -2241,7 +2413,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            Dynamic Programming
+            
+  
+    Dynamic Programming
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2257,9 +2433,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Introduction to Dynamic Programming
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2280,9 +2461,42 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Knapsack Problem
+  
+
     
   </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dynamic_programming/longest_increasing_subsequence.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Longest increasing subsequence
+  
+
+    
+  </span>
+  
   
 
       </a>
@@ -2306,26 +2520,35 @@ const registerKeyboardEventHandler = () => {
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
         
           
-          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
+    
+  
     DP optimizations
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
             <span class="md-nav__icon md-icon"></span>
-            DP optimizations
+            
+  
+    DP optimizations
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2341,9 +2564,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Divide and Conquer DP
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2364,9 +2592,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Knuth's Optimization
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2398,26 +2631,35 @@ const registerKeyboardEventHandler = () => {
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
         
           
-          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
+    
+  
     Tasks
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
             <span class="md-nav__icon md-icon"></span>
-            Tasks
+            
+  
+    Tasks
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2433,9 +2675,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Dynamic Programming on Broken Profile. Problem "Parquet"
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2456,9 +2703,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding the largest zero submatrix
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2505,9 +2757,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     String Processing
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -2516,7 +2773,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
-            String Processing
+            
+  
+    String Processing
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2543,9 +2804,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Fundamentals
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -2554,7 +2820,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_1">
             <span class="md-nav__icon md-icon"></span>
-            Fundamentals
+            
+  
+    Fundamentals
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2570,9 +2840,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     String Hashing
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2593,9 +2868,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Rabin-Karp for String Matching
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2616,9 +2896,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Prefix function - Knuth-Morris-Pratt
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2639,9 +2924,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Z-function
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2662,9 +2952,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Suffix Array
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2685,9 +2980,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Aho-Corasick algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2727,9 +3027,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Advanced
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -2738,7 +3043,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_2">
             <span class="md-nav__icon md-icon"></span>
-            Advanced
+            
+  
+    Advanced
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2754,9 +3063,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Suffix Tree
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2777,9 +3091,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Suffix Automaton
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2800,9 +3119,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Lyndon factorization
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2842,9 +3166,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Tasks
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -2853,7 +3182,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_3">
             <span class="md-nav__icon md-icon"></span>
-            Tasks
+            
+  
+    Tasks
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2869,9 +3202,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Expression parsing
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2892,9 +3230,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Manacher's Algorithm - Finding all sub-palindromes in O(N)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2915,9 +3258,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding repetitions
+  
+
     
   </span>
+  
   
 
       </a>
@@ -2964,9 +3312,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Linear Algebra
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -2975,7 +3328,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
-            Linear Algebra
+            
+  
+    Linear Algebra
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3002,9 +3359,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Matrices
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3013,7 +3375,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6_1">
             <span class="md-nav__icon md-icon"></span>
-            Matrices
+            
+  
+    Matrices
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3029,9 +3395,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Gauss & System of Linear Equations
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3052,9 +3423,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Gauss & Determinant
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3075,9 +3451,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Kraut & Determinant
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3098,9 +3479,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Rank of a matrix
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3147,9 +3533,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Combinatorics
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3158,7 +3549,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
-            Combinatorics
+            
+  
+    Combinatorics
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3185,9 +3580,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Fundamentals
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3196,7 +3596,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7_1">
             <span class="md-nav__icon md-icon"></span>
-            Fundamentals
+            
+  
+    Fundamentals
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3212,9 +3616,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding Power of Factorial Divisor
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3235,9 +3644,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Binomial Coefficients
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3258,9 +3672,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Catalan Numbers
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3300,9 +3719,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Techniques
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3311,7 +3735,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7_2">
             <span class="md-nav__icon md-icon"></span>
-            Techniques
+            
+  
+    Techniques
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3327,9 +3755,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     The Inclusion-Exclusion Principle
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3350,9 +3783,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Burnside's lemma / Pólya enumeration theorem
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3373,9 +3811,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Stars and bars
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3396,9 +3839,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Generating all K-combinations
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3438,9 +3886,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Tasks
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3449,7 +3902,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7_3">
             <span class="md-nav__icon md-icon"></span>
-            Tasks
+            
+  
+    Tasks
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3465,9 +3922,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Placing Bishops on a Chessboard
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3488,9 +3950,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Balanced bracket sequences
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3511,9 +3978,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Counting labeled graphs
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3560,9 +4032,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Numerical Methods
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3571,7 +4048,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
-            Numerical Methods
+            
+  
+    Numerical Methods
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3598,9 +4079,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Search
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3609,7 +4095,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8_1">
             <span class="md-nav__icon md-icon"></span>
-            Search
+            
+  
+    Search
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3625,9 +4115,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Binary Search
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3648,9 +4143,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Ternary Search
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3671,9 +4171,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Newton's method for finding roots
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3694,9 +4199,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Simulated Annealing
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3736,9 +4246,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Integration
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3747,7 +4262,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8_2">
             <span class="md-nav__icon md-icon"></span>
-            Integration
+            
+  
+    Integration
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3763,9 +4282,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Integration by Simpson's formula
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3812,9 +4336,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Geometry
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3823,7 +4352,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
-            Geometry
+            
+  
+    Geometry
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3850,9 +4383,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Elementary operations
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3861,7 +4399,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9_1">
             <span class="md-nav__icon md-icon"></span>
-            Elementary operations
+            
+  
+    Elementary operations
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3877,9 +4419,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Basic Geometry
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3900,9 +4447,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding the equation of a line for a segment
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3923,9 +4475,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Intersection Point of Lines
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3946,9 +4503,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Check if two segments intersect
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3969,9 +4531,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Intersection of Segments
+  
+
     
   </span>
+  
   
 
       </a>
@@ -3992,9 +4559,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Circle-Line Intersection
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4015,9 +4587,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Circle-Circle Intersection
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4038,9 +4615,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Common tangents to two circles
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4061,9 +4643,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Length of the union of segments
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4103,9 +4690,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Polygons
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -4114,7 +4706,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9_2">
             <span class="md-nav__icon md-icon"></span>
-            Polygons
+            
+  
+    Polygons
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -4130,9 +4726,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Oriented area of a triangle
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4153,9 +4754,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Area of simple polygon
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4176,9 +4782,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Check if points belong to the convex polygon in O(log N)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4199,9 +4810,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Minkowski sum of convex polygons
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4222,9 +4838,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Pick's Theorem - area of lattice polygons
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4245,9 +4866,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Lattice points of non-lattice polygon
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4287,9 +4913,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Convex hull
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -4298,7 +4929,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9_3">
             <span class="md-nav__icon md-icon"></span>
-            Convex hull
+            
+  
+    Convex hull
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -4314,9 +4949,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Convex hull construction
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4337,9 +4977,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Convex hull trick and Li Chao tree
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4379,9 +5024,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Sweep-line
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -4390,7 +5040,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9_4">
             <span class="md-nav__icon md-icon"></span>
-            Sweep-line
+            
+  
+    Sweep-line
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -4406,9 +5060,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Search for a pair of intersecting segments
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4448,9 +5107,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Planar graphs
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -4459,7 +5123,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9_5">
             <span class="md-nav__icon md-icon"></span>
-            Planar graphs
+            
+  
+    Planar graphs
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -4475,9 +5143,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding faces of a planar graph
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4498,9 +5171,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Point location in O(log N)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4540,9 +5218,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Miscellaneous
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -4551,7 +5234,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9_6">
             <span class="md-nav__icon md-icon"></span>
-            Miscellaneous
+            
+  
+    Miscellaneous
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -4567,9 +5254,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding the nearest pair of points
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4590,9 +5282,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Delaunay triangulation and Voronoi diagram
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4613,9 +5310,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Vertical decomposition
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4636,9 +5338,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Half-plane intersection - S&I Algorithm in O(N log N)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4659,9 +5366,42 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Manhattan Distance
+  
+
     
   </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/enclosing-circle.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum Enclosing Circle
+  
+
+    
+  </span>
+  
   
 
       </a>
@@ -4708,9 +5448,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Graphs
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -4719,7 +5464,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
-            Graphs
+            
+  
+    Graphs
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -4746,9 +5495,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Graph traversal
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -4757,7 +5511,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10_1">
             <span class="md-nav__icon md-icon"></span>
-            Graph traversal
+            
+  
+    Graph traversal
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -4773,9 +5531,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Breadth First Search
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4796,9 +5559,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Depth First Search
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4838,9 +5606,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Connected components, bridges, articulations points
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -4849,7 +5622,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10_2">
             <span class="md-nav__icon md-icon"></span>
-            Connected components, bridges, articulations points
+            
+  
+    Connected components, bridges, articulations points
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -4865,9 +5642,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding Connected Components
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4888,9 +5670,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding Bridges in O(N+M)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4911,9 +5698,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding Bridges Online
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4934,9 +5726,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding Articulation Points in O(N+M)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4957,9 +5754,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Strongly Connected Components and Condensation Graph
+  
+
     
   </span>
+  
   
 
       </a>
@@ -4980,9 +5782,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Strong Orientation
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5022,9 +5829,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Single-source shortest paths
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -5033,7 +5845,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10_3">
             <span class="md-nav__icon md-icon"></span>
-            Single-source shortest paths
+            
+  
+    Single-source shortest paths
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -5049,9 +5865,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Dijkstra - finding shortest paths from given vertex
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5072,9 +5893,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Dijkstra on sparse graphs
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5095,9 +5921,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Bellman-Ford - finding shortest paths with negative weights
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5118,9 +5949,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     0-1 BFS
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5141,9 +5977,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     D´Esopo-Pape algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5183,9 +6024,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     All-pairs shortest paths
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -5194,7 +6040,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10_4">
             <span class="md-nav__icon md-icon"></span>
-            All-pairs shortest paths
+            
+  
+    All-pairs shortest paths
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -5210,9 +6060,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Floyd-Warshall - finding all shortest paths
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5233,9 +6088,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Number of paths of fixed length / Shortest paths of fixed length
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5275,9 +6135,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Spanning trees
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -5286,7 +6151,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10_5">
             <span class="md-nav__icon md-icon"></span>
-            Spanning trees
+            
+  
+    Spanning trees
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -5302,9 +6171,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Minimum Spanning Tree - Prim's Algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5325,9 +6199,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Minimum Spanning Tree - Kruskal
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5348,9 +6227,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Minimum Spanning Tree - Kruskal with Disjoint Set Union
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5371,9 +6255,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Second best Minimum Spanning Tree - Using Kruskal and Lowest Common Ancestor
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5394,9 +6283,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Kirchhoff Theorem
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5417,9 +6311,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Prüfer code
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5459,9 +6358,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Cycles
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -5470,7 +6374,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10_6">
             <span class="md-nav__icon md-icon"></span>
-            Cycles
+            
+  
+    Cycles
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -5486,9 +6394,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Checking a graph for acyclicity and finding a cycle in O(M)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5509,9 +6422,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Finding a Negative Cycle in the Graph
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5532,9 +6450,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Eulerian Path
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5574,9 +6497,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Lowest common ancestor
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -5585,7 +6513,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10_7">
             <span class="md-nav__icon md-icon"></span>
-            Lowest common ancestor
+            
+  
+    Lowest common ancestor
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -5601,9 +6533,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Lowest Common Ancestor
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5624,9 +6561,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Lowest Common Ancestor - Binary Lifting
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5647,9 +6589,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Lowest Common Ancestor - Farach-Colton and Bender algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5670,9 +6617,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Solve RMQ by finding LCA
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5693,9 +6645,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Lowest Common Ancestor - Tarjan's off-line algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5735,9 +6692,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Flows and related problems
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -5746,7 +6708,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10_8">
             <span class="md-nav__icon md-icon"></span>
-            Flows and related problems
+            
+  
+    Flows and related problems
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -5762,9 +6728,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Maximum flow - Ford-Fulkerson and Edmonds-Karp
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5785,9 +6756,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Maximum flow - Push-relabel algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5808,9 +6784,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Maximum flow - Push-relabel algorithm improved
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5831,9 +6812,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Maximum flow - Dinic's algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5854,9 +6840,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Maximum flow - MPM algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5877,9 +6868,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Flows with demands
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5900,9 +6896,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Minimum-cost flow
+  
+
     
   </span>
+  
   
 
       </a>
@@ -5923,9 +6924,42 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Assignment problem
+  
+
     
   </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/stoer_wagner_mincut.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum cut - Stoer-Wagner algorithm
+  
+
+    
+  </span>
+  
   
 
       </a>
@@ -5965,9 +6999,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Matchings and related problems
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -5976,7 +7015,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10_9">
             <span class="md-nav__icon md-icon"></span>
-            Matchings and related problems
+            
+  
+    Matchings and related problems
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -5992,9 +7035,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Bipartite Graph Check
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6015,9 +7063,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Kuhn's Algorithm - Maximum Bipartite Matching
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6038,9 +7091,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Hungarian Algorithm
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6080,9 +7138,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Miscellaneous
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -6091,7 +7154,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_10_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10_10">
             <span class="md-nav__icon md-icon"></span>
-            Miscellaneous
+            
+  
+    Miscellaneous
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -6107,9 +7174,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Topological Sorting
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6130,9 +7202,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Edge connectivity / Vertex connectivity
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6153,9 +7230,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Tree painting
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6176,9 +7258,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     2-SAT
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6199,9 +7286,42 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Heavy-light decomposition
+  
+
     
   </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/centroid_decomposition.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Centroid decomposition
+  
+
+    
+  </span>
+  
   
 
       </a>
@@ -6248,9 +7368,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Miscellaneous
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -6259,7 +7384,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_11">
             <span class="md-nav__icon md-icon"></span>
-            Miscellaneous
+            
+  
+    Miscellaneous
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -6286,9 +7415,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Sequences
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -6297,7 +7431,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_11_1">
             <span class="md-nav__icon md-icon"></span>
-            Sequences
+            
+  
+    Sequences
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -6313,32 +7451,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     RMQ task (Range Minimum Query - the smallest element in an interval)
+  
+
     
   </span>
   
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../sequences/longest_increasing_subsequence.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Longest increasing subsequence
-    
-  </span>
   
 
       </a>
@@ -6359,9 +7479,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Search the subsegment with the maximum/minimum sum
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6382,9 +7507,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     K-th order statistic in O(N)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6405,9 +7535,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     MEX task (Minimal Excluded element in an array)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6447,9 +7582,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Game Theory
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -6458,7 +7598,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_11_2">
             <span class="md-nav__icon md-icon"></span>
-            Game Theory
+            
+  
+    Game Theory
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -6474,9 +7618,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Games on arbitrary graphs
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6497,9 +7646,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Sprague-Grundy theorem. Nim
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6539,9 +7693,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Schedules
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -6550,7 +7709,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_11_3">
             <span class="md-nav__icon md-icon"></span>
-            Schedules
+            
+  
+    Schedules
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -6566,9 +7729,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Scheduling jobs on one machine
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6589,9 +7757,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Scheduling jobs on two machines
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6612,9 +7785,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Optimal schedule of jobs given their deadlines and durations
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6654,9 +7832,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Miscellaneous
+  
+
     
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -6665,7 +7848,11 @@ const registerKeyboardEventHandler = () => {
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_11_4">
             <span class="md-nav__icon md-icon"></span>
-            Miscellaneous
+            
+  
+    Miscellaneous
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -6681,9 +7868,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Tortoise and Hare Algorithm (Linked List cycle detection)
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6704,9 +7896,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     Josephus problem
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6727,9 +7924,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     15 Puzzle Game: Existence Of The Solution
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6750,9 +7952,14 @@ const registerKeyboardEventHandler = () => {
   
   
   <span class="md-ellipsis">
+    
+  
     The Stern-Brocot Tree and Farey Sequences
+  
+
     
   </span>
+  
   
 
       </a>
@@ -6786,6 +7993,7 @@ const registerKeyboardEventHandler = () => {
           
           
             <div class="md-content" data-md-component="content">
+              
               <article class="md-content__inner md-typeset">
                 
                   <script type="text/javascript">
@@ -6828,20 +8036,6 @@ Describe the issue of this article in detail.
   
     
   
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
     
   
 
@@ -6856,17 +8050,11 @@ Describe the issue of this article in detail.
   
     
   
-    
-  
 
   
   
   
     
-  
-
-  
-  
   
     
   
@@ -6908,6 +8096,32 @@ Describe the issue of this article in detail.
   
     
   
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
 
   
   
@@ -6962,6 +8176,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -7026,7 +8244,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 15, 2025 02:32:08 UTC">April 15, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 18:10:07 UTC">September 18, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -7201,7 +8419,7 @@ We achieved the best results for block sizes between <span class="arithmatex">$1
 <p>Sometimes we need to find all prime numbers in a range <span class="arithmatex">$[L,R]$</span> of small size (e.g. <span class="arithmatex">$R - L + 1 \approx 1e7$</span>), where <span class="arithmatex">$R$</span> can be very large (e.g. <span class="arithmatex">$1e12$</span>).</p>
 <p>To solve such a problem, we can use the idea of the Segmented sieve.
 We pre-generate all prime numbers up to <span class="arithmatex">$\sqrt R$</span>, and use those primes to mark all composite numbers in the segment <span class="arithmatex">$[L, R]$</span>.</p>
-<p><div class="highlight"><pre><span></span><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="w"> </span><span class="n">segmentedSieve</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">L</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">R</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<p><div class="highlight"><pre><span></span><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="w"> </span><span class="n">segmented_sieve</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">L</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">R</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// generate all primes up to sqrt(R)</span>
 <span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">lim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="n">R</span><span class="p">);</span>
 <span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mark</span><span class="p">(</span><span class="n">lim</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
@@ -7216,23 +8434,23 @@ We pre-generate all prime numbers up to <span class="arithmatex">$\sqrt R$</span
 
 <span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="w"> </span><span class="n">isPrime</span><span class="p">(</span><span class="n">R</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">L</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">primes</span><span class="p">)</span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">L</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">R</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">i</span><span class="p">)</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">L</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">R</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">i</span><span class="p">)</span>
 <span class="w">            </span><span class="n">isPrime</span><span class="p">[</span><span class="n">j</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">L</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">L</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
-<span class="w">        </span><span class="n">isPrime</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">L</span><span class="p">;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">R</span><span class="p">,</span><span class="w"> </span><span class="mf">1L</span><span class="n">L</span><span class="p">);</span><span class="w"> </span><span class="n">x</span><span class="o">++</span><span class="p">)</span>
+<span class="w">        </span><span class="n">isPrime</span><span class="p">[</span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">L</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">isPrime</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 Time complexity of this approach is <span class="arithmatex">$O((R - L + 1) \log \log (R) + \sqrt R \log \log \sqrt R)$</span>.</p>
 <p>It's also possible that we don't pre-generate all prime numbers:</p>
-<div class="highlight"><pre><span></span><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="w"> </span><span class="n">segmentedSieveNoPreGen</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">L</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">R</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="w"> </span><span class="n">segmented_sieve_no_pre_gen</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">L</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">R</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="w"> </span><span class="n">isPrime</span><span class="p">(</span><span class="n">R</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">L</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
 <span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">lim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="n">R</span><span class="p">);</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">lim</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">L</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">R</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">i</span><span class="p">)</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">L</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">R</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">i</span><span class="p">)</span>
 <span class="w">            </span><span class="n">isPrime</span><span class="p">[</span><span class="n">j</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">L</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">L</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
-<span class="w">        </span><span class="n">isPrime</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">L</span><span class="p">;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">R</span><span class="p">,</span><span class="w"> </span><span class="mf">1L</span><span class="n">L</span><span class="p">);</span><span class="w"> </span><span class="n">x</span><span class="o">++</span><span class="p">)</span>
+<span class="w">        </span><span class="n">isPrime</span><span class="p">[</span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">L</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">isPrime</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -7245,6 +8463,7 @@ However, this algorithm also has its own weaknesses.</p>
 <ul>
 <li><a href="https://leetcode.com/problems/four-divisors/">Leetcode - Four Divisors</a></li>
 <li><a href="https://leetcode.com/problems/count-primes/">Leetcode - Count Primes</a></li>
+<li><a href="https://leetcode.com/problems/closest-prime-numbers-in-range/">Leetcode - Closest Prime Numbers in Range</a></li>
 <li><a href="http://www.spoj.com/problems/TDPRIMES/">SPOJ - Printing Some Primes</a></li>
 <li><a href="http://www.spoj.com/problems/HS08PAUL/">SPOJ - A Conjecture of Paul Erdos</a></li>
 <li><a href="http://www.spoj.com/problems/VECTAR8/">SPOJ - Primal Fear</a></li>
@@ -7265,7 +8484,7 @@ However, this algorithm also has its own weaknesses.</p>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (42.03%)</li><li><a href="https://github.com/ellen-interpret" title="ellen-interpret" data-bi-name="contributorprofile" target="_blank">ellen-interpret</a> (23.19%)</li><li><a href="https://github.com/hieplpvip" title="hieplpvip" data-bi-name="contributorprofile" target="_blank">hieplpvip</a> (16.67%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (5.43%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (3.62%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.17%)</li><li><a href="https://github.com/boxlesscat" title="boxlesscat" data-bi-name="contributorprofile" target="_blank">boxlesscat</a> (2.17%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (1.09%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (1.09%)</li><li><a href="https://github.com/TrietMinh799" title="TrietMinh799" data-bi-name="contributorprofile" target="_blank">TrietMinh799</a> (0.72%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (0.72%)</li><li><a href="https://github.com/zdr256" title="zdr256" data-bi-name="contributorprofile" target="_blank">zdr256</a> (0.36%)</li><li><a href="https://github.com/infiniteasp8" title="infiniteasp8" data-bi-name="contributorprofile" target="_blank">infiniteasp8</a> (0.36%)</li><li><a href="https://github.com/joaquingx" title="joaquingx" data-bi-name="contributorprofile" target="_blank">joaquingx</a> (0.36%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (41.16%)</li><li><a href="https://github.com/ellen-interpret" title="ellen-interpret" data-bi-name="contributorprofile" target="_blank">ellen-interpret</a> (23.1%)</li><li><a href="https://github.com/hieplpvip" title="hieplpvip" data-bi-name="contributorprofile" target="_blank">hieplpvip</a> (14.44%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (5.42%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (3.61%)</li><li><a href="https://github.com/nartherion" title="nartherion" data-bi-name="contributorprofile" target="_blank">nartherion</a> (3.25%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.17%)</li><li><a href="https://github.com/boxlesscat" title="boxlesscat" data-bi-name="contributorprofile" target="_blank">boxlesscat</a> (2.17%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (1.08%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (1.08%)</li><li><a href="https://github.com/TrietMinh799" title="TrietMinh799" data-bi-name="contributorprofile" target="_blank">TrietMinh799</a> (0.72%)</li><li><a href="https://github.com/jxu" title="jxu" data-bi-name="contributorprofile" target="_blank">jxu</a> (0.72%)</li><li><a href="https://github.com/zdr256" title="zdr256" data-bi-name="contributorprofile" target="_blank">zdr256</a> (0.36%)</li><li><a href="https://github.com/infiniteasp8" title="infiniteasp8" data-bi-name="contributorprofile" target="_blank">infiniteasp8</a> (0.36%)</li><li><a href="https://github.com/joaquingx" title="joaquingx" data-bi-name="contributorprofile" target="_blank">joaquingx</a> (0.36%)</li></ul>
 </ul>
                 
               </article>
@@ -7295,7 +8514,8 @@ However, this algorithm also has its own weaknesses.</p>
         
         
       </div>
-      <div class="md-social">
+      
+<div class="md-social">
   
     
     
@@ -7305,7 +8525,7 @@ However, this algorithm also has its own weaknesses.</p>
       
     
     <a href="https://github.com/cp-algorithms/cp-algorithms" target="_blank" rel="noopener" title="github.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
     </a>
   
     
@@ -7316,7 +8536,18 @@ However, this algorithm also has its own weaknesses.</p>
       
     
     <a href="https://discord.gg/HZ5AecN3KX" target="_blank" rel="noopener" title="discord.gg" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/sponsors/cp-algorithms" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M96 224a192 192 0 1 1 384 0 192 192 0 1 1-384 0m176-92v4c-28.8.3-52 23.7-52 52.5 0 25.7 18.5 47.6 43.9 51.8l41.7 7c6 1 10.4 6.2 10.4 12.3 0 6.9-5.6 12.5-12.5 12.5L248 272c-11 0-20 9-20 20s9 20 20 20h24v4c0 11 9 20 20 20s20-9 20-20v-4.7c25-4.1 44-25.7 44-51.8 0-25.7-18.5-47.6-43.9-51.8l-41.7-7c-6-1-10.4-6.2-10.4-12.3 0-6.9 5.6-12.5 12.5-12.5H320c11 0 20-9 20-20s-9-20-20-20h-8v-4c0-11-9-20-20-20s-20 9-20 20zM48 344v104c0 8.8 7.2 16 16 16h448c8.8 0 16-7.2 16-16V344c0-13.3 10.7-24 24-24s24 10.7 24 24v104c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V344c0-13.3 10.7-24 24-24s24 10.7 24 24"/></svg>
     </a>
   
 </div>
@@ -7332,12 +8563,17 @@ However, this algorithm also has its own weaknesses.</p>
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascript/config.js"></script>
+      
+        <script src="../javascript/sidebar-toggle-sync.js"></script>
+      
+        <script src="../javascript/donation-banner.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
       
