@@ -154,3 +154,4 @@ This paradigm is widely used in tasks around trees, such as finding lowest commo
 * [Codeforces - GukiZ hates Boxes](https://codeforces.com/problemset/problem/551/C)
 * [Codeforces - Enduring Exodus](https://codeforces.com/problemset/problem/645/C)
 * [Codeforces - Chip 'n Dale Rescue Rangers](https://codeforces.com/problemset/problem/590/B)
+* [Codeforces - Points on Line](https://codeforces.com/problemset/problem/251/A)

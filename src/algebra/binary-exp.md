@@ -6,7 +6,7 @@ e_maxx_link: binary_pow
 
 # Binary Exponentiation
 
-Binary exponentiation (also known as exponentiation by squaring) is a trick which allows to calculate $a^n$ using only $O(\log n)$ multiplications (instead of $O(n)$ multiplications required by the naive approach).
+Binary exponentiation (also known as exponentiation by squaring) is a trick which allows to calculate $a^n$, where $n$ is a non-negative integer, using only $O(\log n)$ multiplications (instead of $O(n)$ multiplications required by the naive approach).
 
 It also has important applications in many tasks unrelated to arithmetic, since it
 can be used with any operations that have the property of **associativity**:
@@ -114,7 +114,7 @@ long long binpow(long long a, long long b, long long m) {
 
 **Note:**
 It's possible to speed this algorithm for large $b >> m$.
-If $m$ is a prime number $x^n \equiv x^{n \bmod (m-1)} \pmod{m}$ for prime $m$, and $x^n \equiv x^{n \bmod{\phi(m)}} \pmod{m}$ for composite $m$.
+If $m$ is a positive number and $\gcd(x, m) = 1$, then  $x^n \equiv x^{n \bmod (m-1)} \pmod{m}$ for prime $m$, and $x^n \equiv x^{n \bmod{\phi(m)}} \pmod{m}$ for composite $m$.
 This follows directly from Fermat's little theorem and Euler's theorem, see the article about [Modular Inverses](module-inverse.md#fermat-euler) for more details.
 
 ### Effective computation of Fibonacci numbers

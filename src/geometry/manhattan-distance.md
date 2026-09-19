@@ -13,7 +13,7 @@ $$d(p,q) = |x_p - x_q| + |y_p - y_q|$$
 Defined this way, the distance corresponds to the so-called [Manhattan (taxicab) geometry](https://en.wikipedia.org/wiki/Taxicab_geometry), in which the points are considered intersections in a well designed city, like Manhattan, where you can only move on the streets horizontally or vertically, as shown in the image below:
 
 <div style="text-align: center;">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Manhattan_distance.svg/220px-Manhattan_distance.svg.png" alt="Manhattan Distance">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Manhattan_distance.svg" alt="Manhattan Distance">
 </div>
 
 This images show some of the smallest paths from one black point to the other, all of them with length $12$.
