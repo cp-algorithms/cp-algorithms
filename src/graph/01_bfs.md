@@ -15,29 +15,44 @@ In this article we demonstrate how we can use BFS to solve the SSSP (single-sour
 ## Algorithm
 
 We can develop the algorithm by closely studying Dijkstra's algorithm and thinking about the consequences that our special graph implies.
-The general form of Dijkstra's algorithm is (here a `set` is used for the priority queue):
+The general form of Dijkstra's algorithm is:
 
-```cpp
-d.assign(n, INF);
-d[s] = 0;
-set<pair<int, int>> q;
-q.insert({0, s});
-while (!q.empty()) {
-    int v = q.begin()->second;
-    q.erase(q.begin());
-
-    for (auto edge : adj[v]) {
-        int u = edge.first;
-        int w = edge.second;
-
-        if (d[v] + w < d[u]) {
-            q.erase({d[u], u});
-            d[u] = d[v] + w;
-            q.insert({d[u], u});
+=== "C++"
+    ```cpp
+    int n = adj.size();
+    d.assign(n, INF);
+    d[s] = 0;
+    priority_queue<pair<int, int>,vector<pair<int,int>>, greater<pair<int,int>> > q;
+    q.push({0,s});
+    while (!q.empty()) {
+        auto [dv, v] = q.top();
+        q.pop();
+        if (dv == d[v]) {
+            for (auto [u, w] : adj[v]) {
+                if (d[v] + w < d[u]) {
+                    d[u] = d[v] + w;
+                    q.push({d[u], u});
+                }
+            }
         }
     }
-}
-```
+    ```
+=== "Python"
+    ```py
+    from heapq import heappop, heappush
+
+
+    d = [float("inf")] * n
+    d[s] = 0
+    q = [(0, s)]
+    while q:
+        dv, v = heappop(q)
+        if dv == d[v]:
+            for u, w in adj[v]:
+                if d[v] + w < d[u]:
+                    d[u] = d[v] + w
+                    heappush(q, (d[u], u))
+    ```
 
 We can notice that the difference between the distances between the source `s` and two other vertices in the queue differs by at most one.
 Especially, we know that $d[v] \le d[u] \le d[v] + 1$ for each $u \in Q$.
@@ -54,29 +69,47 @@ Since the queue only ever holds two distinct distances, we can keep them in two 
 An edge of weight $0$ appends to $q_0$, an edge of weight $1$ to $q_1$.
 Once $q_0$ runs out, every vertex at the current distance has been processed, so we swap the two vectors and the current distance increases by one.
 
-```cpp
-vector<int> d(n, INF);
-d[s] = 0;
-vector<int> q0, q1;
-q0.push_back(s);
-while (!q0.empty()) {
-    int v = q0.back();
-    q0.pop_back();
-    for (auto edge : adj[v]) {
-        int u = edge.first;
-        int w = edge.second;
-        if (d[v] + w < d[u]) {
-            d[u] = d[v] + w;
-            if (w == 0)
-                q0.push_back(u);
-            else
-                q1.push_back(u);
+=== "C++"
+    ```cpp
+    vector<int> d(n, INF);
+    d[s] = 0;
+    vector<int> q0, q1;
+    q0.push_back(s);
+    while (!q0.empty()) {
+        int v = q0.back();
+        q0.pop_back();
+        for (auto edge : adj[v]) {
+            int u = edge.first;
+            int w = edge.second;
+            if (d[v] + w < d[u]) {
+                d[u] = d[v] + w;
+                if (w == 0)
+                    q0.push_back(u);
+                else
+                    q1.push_back(u);
+            }
         }
+        if (q0.empty())
+            swap(q0, q1);
     }
-    if (q0.empty())
-        swap(q0, q1);
-}
-```
+    ```
+=== "Python"
+    ```py
+    d = [INF] * n
+    d[s] = 0
+    q0, q1 = [s], []
+    while q0:
+        v = q0.pop()
+        for u, w in adj[v]:
+            if d[v] + w < d[u]:
+                d[u] = d[v] + w
+                if w == 0:
+                    q0.append(u)
+                else:
+                    q1.append(u)
+        if not q0:
+            q0, q1 = q1, q0
+    ```
 
 Written this way the two levels are explicit: a vertex is appended to $q_0$ when it is reached at the current distance and to $q_1$ when it is reached one step further, so the structure of $Q$ shown above is built into the code rather than maintained by hand.
 A vertex that was appended to $q_1$ and is then improved to the current distance leaves its old copy behind, but the stale copy is harmless: when it is finally popped, the test `d[v] + w < d[u]` finds nothing left to improve.
