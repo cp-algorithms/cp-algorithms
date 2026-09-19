@@ -108,7 +108,87 @@ Another class of problems appears when we need to **update array elements on int
 
 For example, let's say we can do two types of operations on an array: add a given value $\delta$ to all array elements on interval $[l, r]$ or query the value of element $a[i]$. Let's store the value which has to be added to all elements of block $k$ in $b[k]$ (initially all $b[k] = 0$). During each "add" operation we need to add $\delta$ to $b[k]$ for all blocks which belong to interval $[l, r]$ and to add $\delta$ to $a[i]$ for all elements which belong to the "tails" of the interval. The answer to query $i$ is simply $a[i] + b[i/s]$. This way "add" operation has $O(\sqrt{n})$ complexity, and answering a query has $O(1)$ complexity.
 
-Finally, those two classes of problems can be combined if the task requires doing **both** element updates on an interval and queries on an interval. Both operations can be done with $O(\sqrt{n})$ complexity. This will require two block arrays $b$ and $c$: one to keep track of element updates and another to keep track of answers to the query.
+Finally, those two classes of problems can be combined if the task requires doing **both** element updates on an interval and queries on an interval. Both operations can be done with $O(\sqrt{n})$ complexity. This will require two block arrays $b$ and $c$: one to keep track of element updates and another to keep track of answers to the query. An example of how to do this is shown below.
+
+```cpp
+class SqrtDecomp {
+    vector<int> a, b, c;
+    int len, block_count;
+
+public:
+    SqrtDecomp(vector<int>& input) {
+        len = sqrt(input.size());
+        this->a = input;
+        this->a.resize(input.size() + len, 0);
+        block_count = (input.size() / len) + 1;
+        b.resize(block_count, 0);
+        c.resize(block_count, 0);  // an additional c[block] is added when querying elements in block
+        for (int i = 0; i < block_count; ++i) {  // compute block sums
+            b[i] = accumulate(a.begin() + i * len, a.begin() + (i + 1) * len, 0);
+        }
+    }
+    void update(int l, int r, int diff) {
+        int c_l = (l / len) + 1;
+        int c_r = (r / len) - 1;
+        if (c_l > c_r) {  // doesn't cover any blocks
+            for (int i = l; i <= r; ++i) {
+                a[i] += diff;
+                b[i / len] += diff;
+            }
+            return;
+        }
+
+        for (int i = c_l; i <= c_r; ++i) {  // update blocks
+            c[i] += diff;
+            b[i] += diff * len;
+        }
+        for (int i = l; i < c_l * len; ++i) {  // update individual cells
+            a[i] += diff;
+            b[c_l - 1] += diff;
+        }
+        for (int i = (c_r + 1) * len; i <= r; ++i) {
+            a[i] += diff;
+            b[c_r + 1] += diff;
+        }
+    }
+
+    int query(int l, int r) {
+        int c_l = (l / len) + 1;
+        int c_r = (r / len) - 1;
+        int sum = 0;
+
+        if (c_l > c_r) {  // doesn't cover any blocks
+            for (int i = l; i <= r; ++i) {
+                sum += a[i] + c[i / len];
+            }
+            return sum;
+        }
+
+        for (int i = c_l; i <= c_r; ++i) {  // add value from blocks
+            sum += b[i];
+        }
+        for (int i = l; i < c_l * len; ++i) {  // add value from individual cells
+            sum += a[i] + c[c_l - 1];
+        }
+        for (int i = (c_r + 1) * len; i <= r; ++i) {
+            sum += a[i] + c[c_r + 1];
+        }
+        return sum;
+    }
+};
+```
+
+We can now perform updates and queries on an interval.
+```cpp
+vector<int> a(N);
+// create a from input
+
+SqrtDecomp sq(a);
+int l, r, x;
+// read input data for the next query
+sq.update(l, r, x);  // add x to every element on the interval [l, r]
+cout << sq.query(l, r) << "\n";  // query the sum of elements in the interval [l, r]
+```
 
 There exist other problems which can be solved using sqrt decomposition, for example, a problem about maintaining a set of numbers which would allow adding/deleting numbers, checking whether a number belongs to the set and finding $k$-th largest number. To solve it one has to store numbers in increasing order, split into several blocks with $\sqrt{n}$ numbers in each. Every time a number is added/deleted, the blocks have to be rebalanced by moving numbers between beginnings and ends of adjacent blocks.
 
