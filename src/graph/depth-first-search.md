@@ -44,7 +44,7 @@ For more details check out the implementation.
     The required topological ordering will be the vertices sorted in descending order of exit time.
   
   
-  * Check whether a given graph is acyclic and find cycles in a graph. (As mentioned above by counting back edges in every connected components).
+  * Check whether a given graph is acyclic and find cycles in a graph. (As mentioned below by counting back edges in every connected components).
   
   * Find strongly connected components in a directed graph:
   
@@ -154,7 +154,7 @@ void dfs(int v) {
 * [Codeforces - Road Improvement](http://codeforces.com/contest/638/problem/C)
 * [Codeforces - Garland](http://codeforces.com/contest/767/problem/C)
 * [Codeforces - Labeling Cities](http://codeforces.com/contest/794/problem/D)
-* [Codeforces - Send the Fool Futher!](http://codeforces.com/contest/802/problem/K)
+* [Codeforces - Send the Fool Further!](http://codeforces.com/contest/802/problem/J1)
 * [Codeforces - The tag Game](http://codeforces.com/contest/813/problem/C)
 * [Codeforces - Leha and Another game about graphs](http://codeforces.com/contest/841/problem/D)
 * [Codeforces - Shortest path problem](http://codeforces.com/contest/845/problem/G)

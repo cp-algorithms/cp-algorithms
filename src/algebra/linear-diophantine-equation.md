@@ -21,7 +21,7 @@ In this article, we consider several classical problems on these equations:
 
 ## The degenerate case
 
-A degenerate case that need to be taken care of is when $a = b = 0$. It is easy to see that we either have no solutions or infinitely many solutions, depending on whether $c = 0$ or not. In the rest of this article, we will ignore this case.
+A degenerate case that needs to be taken care of is when $a = b = 0$. It is easy to see that we either have no solutions or infinitely many solutions, depending on whether $c = 0$ or not. In the rest of this article, we will ignore this case.
 
 ## Analytic solution
 
@@ -63,7 +63,7 @@ $$a x_g + b y_g = g$$
 
 If $c$ is divisible by $g = \gcd(a, b)$, then the given Diophantine equation has a solution, otherwise it does not have any solution. The proof is straight-forward: a linear combination of two numbers is divisible by their common divisor.
 
-Now supposed that $c$ is divisible by $g$, then we have:
+Now suppose that $c$ is divisible by $g$, then we have:
 
 $$a \cdot x_g \cdot \frac{c}{g} + b \cdot y_g \cdot \frac{c}{g} = c$$
 

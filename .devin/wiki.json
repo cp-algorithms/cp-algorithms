@@ -1,0 +1,27 @@
+{
+  "repo_notes": [
+    {
+      "content": "This configuration intentionally limits DeepWiki generation to a minimal set of high-level pages."
+    }
+  ],
+  "pages": [
+    {
+      "title": "Repository Overview",
+      "purpose": "Provide a short high-level overview of the repository, its goals, and its structure.",
+      "page_notes": [
+        {
+          "content": "Keep this page general and non-technical, refer to the site's existing pages."
+        }
+      ]
+    },
+    {
+      "title": "Contributing and Supporting",
+      "purpose": "Offer guidance to contributors and describe ways to support the project.",
+      "page_notes": [
+        {
+          "content": "This is the only actionable page; keep the content simple, refer to the site's existing pages."
+        }
+      ]
+    }
+  ]
+}

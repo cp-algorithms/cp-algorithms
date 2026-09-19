@@ -204,6 +204,7 @@ The proof for this fact is the same as the solution which uses the [prefix funct
 
 ## Practice Problems
 
+* [CSES - Finding Borders](https://cses.fi/problemset/task/1732)
 * [eolymp - Blocks of string](https://www.eolymp.com/en/problems/1309)
 * [Codeforces - Password [Difficulty: Easy]](http://codeforces.com/problemset/problem/126/B)
 * [UVA # 455 "Periodic Strings" [Difficulty: Medium]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=396)
@@ -212,3 +213,4 @@ The proof for this fact is the same as the solution which uses the [prefix funct
 * [LA 6439 - Pasti Pas!](https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&Itemid=8&category=588&page=show_problem&problem=4450)
 * [Codechef - Chef and Strings](https://www.codechef.com/problems/CHSTR)
 * [Codeforces - Prefixes and Suffixes](http://codeforces.com/problemset/problem/432/D)
+* [Codeforces - "a" String Problem](https://codeforces.com/problemset/problem/1984/D)
