@@ -7991,6 +7991,12 @@ Describe the issue of this article in detail.
   
     
   
+
+  
+  
+  
+    
+  
     
   
     
@@ -8077,6 +8083,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -8129,7 +8139,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 26, 2025 10:25:54 UTC">December 26, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 19, 2026 10:34:59 UTC">September 19, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8178,9 +8188,8 @@ nature can be done by checking the <a href="oriented-triangle-area.html">orienta
 the algorithm is done and we return the stack containing all the points of the
 convex hull in clockwise order.</p>
 <p>If you need to include the collinear points while doing a Graham scan, you need
-another step after sorting. You need to get the points that have the biggest
-polar distance from <span class="arithmatex">$P_0$</span> (these should be at the end of the sorted vector) and are collinear.
-The points in this line should be reversed so that we can output all the
+another step after sorting. You need to get the last group of the sorted vector, that is the points collinear with <span class="arithmatex">$P_0$</span> and the final point.
+The points on this ray should be reversed so that we can output all the
 collinear points, otherwise the algorithm would get the nearest point in this
 line and bail. This step shouldn't be included in the non-collinear version
 of the algorithm, otherwise you wouldn't get the smallest convex hull.</p>
@@ -8238,8 +8247,7 @@ of the algorithm, otherwise you wouldn't get the smallest convex hull.</p>
 <h2 id="monotone-chain-algorithm">Monotone chain Algorithm<a class="headerlink" href="#monotone-chain-algorithm" title="Permanent link">&para;</a></h2>
 <p>The algorithm first finds the leftmost and rightmost points A and B. In the event multiple such points exist,
 the lowest among the left (lowest Y-coordinate) is taken as A, and the highest among the right (highest Y-coordinate)
-is taken as B. Clearly, A and B must both belong to the convex hull as they are the farthest away and they cannot be contained
-by any line formed by a pair among the given points.</p>
+is taken as B. Clearly, A and B must both belong to the convex hull because no point lies farther left than A or farther right than B.</p>
 <p>Now, draw a line through AB. This divides all the other points into two sets, S1 and S2, where S1 contains all the points
 above the line connecting A and B, and S2 contains all the points below the line joining A and B. The points that lie on
 the line joining A and B may belong to either set. The points A and B belong to both sets. Now the algorithm
@@ -8330,7 +8338,7 @@ is what Graham's implementation would return in this case.</p>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/ferk6a" title="ferk6a" data-bi-name="contributorprofile" target="_blank">ferk6a</a> (53.0%)</li><li><a href="https://github.com/RameshAditya" title="RameshAditya" data-bi-name="contributorprofile" target="_blank">RameshAditya</a> (30.5%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (5.5%)</li><li><a href="https://github.com/neko-nyaa" title="neko-nyaa" data-bi-name="contributorprofile" target="_blank">neko-nyaa</a> (3.5%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (2.5%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (2.0%)</li><li><a href="https://github.com/AbdeltwabMF" title="AbdeltwabMF" data-bi-name="contributorprofile" target="_blank">AbdeltwabMF</a> (1.5%)</li><li><a href="https://github.com/Hostek" title="Hostek" data-bi-name="contributorprofile" target="_blank">Hostek</a> (0.5%)</li><li><a href="https://github.com/ppassinho" title="ppassinho" data-bi-name="contributorprofile" target="_blank">ppassinho</a> (0.5%)</li><li><a href="https://github.com/Spheniscine" title="Spheniscine" data-bi-name="contributorprofile" target="_blank">Spheniscine</a> (0.5%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/ferk6a" title="ferk6a" data-bi-name="contributorprofile" target="_blank">ferk6a</a> (52.02%)</li><li><a href="https://github.com/RameshAditya" title="RameshAditya" data-bi-name="contributorprofile" target="_blank">RameshAditya</a> (29.8%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (5.56%)</li><li><a href="https://github.com/neko-nyaa" title="neko-nyaa" data-bi-name="contributorprofile" target="_blank">neko-nyaa</a> (3.54%)</li><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (2.53%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (2.02%)</li><li><a href="https://github.com/ntanthedev" title="ntanthedev" data-bi-name="contributorprofile" target="_blank">ntanthedev</a> (1.52%)</li><li><a href="https://github.com/AbdeltwabMF" title="AbdeltwabMF" data-bi-name="contributorprofile" target="_blank">AbdeltwabMF</a> (1.52%)</li><li><a href="https://github.com/Hostek" title="Hostek" data-bi-name="contributorprofile" target="_blank">Hostek</a> (0.51%)</li><li><a href="https://github.com/ppassinho" title="ppassinho" data-bi-name="contributorprofile" target="_blank">ppassinho</a> (0.51%)</li><li><a href="https://github.com/Spheniscine" title="Spheniscine" data-bi-name="contributorprofile" target="_blank">Spheniscine</a> (0.51%)</li></ul>
 </ul>
                 
               </article>
