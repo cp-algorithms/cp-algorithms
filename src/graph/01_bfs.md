@@ -78,7 +78,8 @@ while (!q0.empty()) {
 }
 ```
 
-Written this way the two levels are explicit: $q_0$ is exactly the set of vertices at the current distance and $q_1$ exactly those one step further, so the structure of $Q$ shown above holds by construction instead of being a property we have to maintain.
+Written this way the two levels are explicit: a vertex is appended to $q_0$ when it is reached at the current distance and to $q_1$ when it is reached one step further, so the structure of $Q$ shown above is built into the code rather than maintained by hand.
+A vertex that was appended to $q_1$ and is then improved to the current distance leaves its old copy behind, but the stale copy is harmless: when it is finally popped, the test `d[v] + w < d[u]` finds nothing left to improve.
 Note that $q_0$ is used as a stack rather than a queue, which is harmless: all of its vertices share the same distance, so the order in which they are processed does not matter.
 
 The same algorithm is more commonly written with a single `deque`, pushing to the front for weight $0$ and to the back for weight $1$, so that `push_front` and `push_back` play the roles of $q_0$ and $q_1$.
