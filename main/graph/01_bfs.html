@@ -7951,62 +7951,6 @@ Describe the issue of this article in detail.
   
     
   
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
     
   
     
@@ -8036,7 +7980,67 @@ Describe the issue of this article in detail.
     
   
 
+  
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
 
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+
+
+  
+  
+  
 
   
   
@@ -8081,7 +8085,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 18, 2026 20:45:33 UTC">September 18, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 19, 2026 11:15:44 UTC">September 19, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8157,7 +8161,8 @@ Once <span class="arithmatex">$q_0$</span> runs out, every vertex at the current
 <span class="w">        </span><span class="n">swap</span><span class="p">(</span><span class="n">q0</span><span class="p">,</span><span class="w"> </span><span class="n">q1</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>Written this way the two levels are explicit: <span class="arithmatex">$q_0$</span> is exactly the set of vertices at the current distance and <span class="arithmatex">$q_1$</span> exactly those one step further, so the structure of <span class="arithmatex">$Q$</span> shown above holds by construction instead of being a property we have to maintain.
+<p>Written this way the two levels are explicit: a vertex is appended to <span class="arithmatex">$q_0$</span> when it is reached at the current distance and to <span class="arithmatex">$q_1$</span> when it is reached one step further, so the structure of <span class="arithmatex">$Q$</span> shown above is built into the code rather than maintained by hand.
+A vertex that was appended to <span class="arithmatex">$q_1$</span> and is then improved to the current distance leaves its old copy behind, but the stale copy is harmless: when it is finally popped, the test <code>d[v] + w &lt; d[u]</code> finds nothing left to improve.
 Note that <span class="arithmatex">$q_0$</span> is used as a stack rather than a queue, which is harmless: all of its vertices share the same distance, so the order in which they are processed does not matter.</p>
 <p>The same algorithm is more commonly written with a single <code>deque</code>, pushing to the front for weight <span class="arithmatex">$0$</span> and to the back for weight <span class="arithmatex">$1$</span>, so that <code>push_front</code> and <code>push_back</code> play the roles of <span class="arithmatex">$q_0$</span> and <span class="arithmatex">$q_1$</span>.
 Two vectors are preferable in practice because they avoid the deque's chunked storage: on graphs small enough to stay in cache this measures about <span class="arithmatex">$1.15$</span> times faster, falling to roughly <span class="arithmatex">$1.06$</span> times on graphs of millions of vertices, where memory latency dominates and the choice of container matters much less (see this <a href="https://github.com/ahhz/zero-one-bfs-queue">benchmark</a>).</p>
@@ -8183,7 +8188,7 @@ This extension is called <strong>Dial's algorithm</strong>.</p>
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (57.94%)</li><li><a href="https://github.com/ahhz" title="ahhz" data-bi-name="contributorprofile" target="_blank">ahhz</a> (19.63%)</li><li><a href="https://github.com/Salil03" title="Salil03" data-bi-name="contributorprofile" target="_blank">Salil03</a> (8.41%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (4.67%)</li><li><a href="https://github.com/parthokr" title="parthokr" data-bi-name="contributorprofile" target="_blank">parthokr</a> (3.74%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (2.8%)</li><li><a href="https://github.com/aleksmish" title="aleksmish" data-bi-name="contributorprofile" target="_blank">aleksmish</a> (0.93%)</li><li><a href="https://github.com/knotri" title="knotri" data-bi-name="contributorprofile" target="_blank">knotri</a> (0.93%)</li><li><a href="https://github.com/ddivyansh18" title="ddivyansh18" data-bi-name="contributorprofile" target="_blank">ddivyansh18</a> (0.93%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (57.41%)</li><li><a href="https://github.com/ahhz" title="ahhz" data-bi-name="contributorprofile" target="_blank">ahhz</a> (18.52%)</li><li><a href="https://github.com/Salil03" title="Salil03" data-bi-name="contributorprofile" target="_blank">Salil03</a> (8.33%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (6.48%)</li><li><a href="https://github.com/parthokr" title="parthokr" data-bi-name="contributorprofile" target="_blank">parthokr</a> (3.7%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (2.78%)</li><li><a href="https://github.com/aleksmish" title="aleksmish" data-bi-name="contributorprofile" target="_blank">aleksmish</a> (0.93%)</li><li><a href="https://github.com/knotri" title="knotri" data-bi-name="contributorprofile" target="_blank">knotri</a> (0.93%)</li><li><a href="https://github.com/ddivyansh18" title="ddivyansh18" data-bi-name="contributorprofile" target="_blank">ddivyansh18</a> (0.93%)</li></ul>
 </ul>
                 
               </article>
