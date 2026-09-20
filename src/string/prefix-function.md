@@ -17,6 +17,9 @@ Mathematically the definition of the prefix function can be written as follows:
 
 $$\pi[i] = \max_ {k = 0 \dots i} \{k : s[0 \dots k-1] = s[i-(k-1) \dots i] \}$$
 
+Equivalently, $\pi[i]$ is the length of the longest substring ending at position $i$ that coincides with a prefix of $s$, not counting the trivial case of the whole substring $s[0 \dots i]$ itself.
+This is the formulation that most of the applications below build on.
+
 For example, prefix function of string "abcabcd" is $[0, 0, 0, 1, 2, 3, 0]$, and prefix function of string "aabaaab" is $[0, 1, 0, 1, 2, 2, 3]$.
 
 ## Trivial Algorithm
@@ -139,7 +142,7 @@ For convenience we denote with $n$ the length of the string s and with $m$ the l
 We generate the string $s + \# + t$, where $\#$ is a separator that appears neither in $s$ nor in $t$.
 Let us calculate the prefix function for this string.
 Now think about the meaning of the values of the prefix function, except for the first $n + 1$ entries (which belong to the string $s$ and the separator).
-By definition the value $\pi[i]$ shows the longest length of a substring ending in position $i$ that coincides with the prefix.
+As stated in the definition, the value $\pi[i]$ shows the longest length of a substring ending in position $i$ that coincides with the prefix.
 But in our case this is nothing more than the largest block that coincides with $s$ and ends at position $i$.
 This length cannot be bigger than $n$ due to the separator.
 But if equality $\pi[i] = n$ is achieved, then it means that the string $s$ appears completely in at this position, i.e. it ends at position $i$.
