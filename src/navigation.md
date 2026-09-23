@@ -6,6 +6,7 @@ search:
 - Home
     - [Main Page](index.md)
     - [Navigation](navigation.md)
+    - [Practice Problems](practice-problems.md)
     - [Tag index](tags.md)
     - [How to Contribute](contrib.md)
     - [Code of conduct](code_of_conduct.md)
