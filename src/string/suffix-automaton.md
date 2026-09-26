@@ -14,7 +14,7 @@ Both tasks can be solved in linear time with the help of a suffix automaton.
 Intuitively a suffix automaton can be understood as a compressed form of **all substrings** of a given string.
 An impressive fact is, that the suffix automaton contains all this information in a highly compressed form.
 For a string of length $n$ it only requires $O(n)$ memory.
-Moreover, it can also be built in $O(n)$ time (if we consider the size $k$ of the alphabet as a constant), otherwise both the memory and the time complexity will be $O(n \log k)$.
+Moreover, it can also be built in $O(n)$ time (if we consider the size $k$ of the alphabet as a constant), otherwise the time complexity will be $O(n \log k)$ while the memory complexity remains $O(n)$.
 
 The linearity of the size of the suffix automaton was first discovered in 1983 by Blumer et al., and in 1985 the first linear algorithms for the construction was presented by Crochemore and Blumer.
 
@@ -363,10 +363,11 @@ We give a function that initializes a suffix automaton (creating a suffix automa
 
 ```{.cpp file=suffix_automaton_init}
 void sa_init() {
+    sz = 1;
+    last = 0;
     st[0].len = 0;
     st[0].link = -1;
-    sz++;
-    last = 0;
+    st[0].next.clear();
 }
 ```
 
@@ -376,6 +377,7 @@ And finally we give the implementation of the main function - which adds the nex
 void sa_extend(char c) {
     int cur = sz++;
     st[cur].len = st[last].len + 1;
+    st[cur].next.clear();
     int p = last;
     while (p != -1 && !st[p].next.count(c)) {
         st[p].next[c] = cur;
@@ -657,7 +659,7 @@ First, we walk down the automaton for each character in the pattern to find our 
 
 We only must take into account that two different states can have the same $firstpos$ value.
 This happens if one state was obtained by cloning another.
-However, this doesn't ruin the complexity, since each state can only have at most one clone.
+However, this doesn't ruin the complexity. Since every non-cloned state corresponds to exactly one unique first occurrence end-position, and the cloned states in any subtree of the suffix link tree are bounded by the number of non-cloned states, the total number of nodes visited in the DFS is $O(answer(P))$.
 
 Moreover, we can also get rid of the duplicate positions, if we don't output the positions from the cloned states.
 In fact a state, that a cloned state can reach, is also reachable from the original state.
@@ -667,7 +669,8 @@ Here are some implementation sketches:
 
 ```cpp
 struct state {
-    ...
+    int len, link;
+    map<char, int> next;
     bool is_clone;
     int first_pos;
     vector<int> inv_link;
@@ -772,8 +775,8 @@ Now we need to find a string in the machine, which is contained in all the strin
 Note that if a substring is included in some string $S_j$, then in the suffix automaton exists a path starting from this substring containing the character $D_j$ and not containing the other characters $D_1, \dots, D_{j-1}, D_{j+1}, \dots, D_k$.
 
 Thus we need to calculate the attainability, which tells us for each state of the machine and each symbol $D_i$ if there exists such a path.
-This can easily be computed by DFS or BFS and dynamic programming.
-After that, the answer to the problem will be the string $longest(v)$ for the state $v$, from which the paths were exists for all special characters.
+This can easily be computed by dynamic programming on the DAG. For each state $v$ and symbol $D_i$, $D_i$ is attainable from $v$ if there is a direct transition from $v$ with character $D_i$, or if there is a transition from $v$ with a regular character to a state $w$ from which $D_i$ is attainable.
+After computing this for all states, the answer to the problem will be the string $longest(v)$ for the state $v$ that has paths to all special characters $D_1, \dots, D_k$.
 
 ## Practice Problems
 
