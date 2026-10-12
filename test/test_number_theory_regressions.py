@@ -46,6 +46,23 @@ class NumberTheoryRegressions(unittest.TestCase):
                     cases.append((f'{p} {k} {a}\n', str(len(roots)) + ('\n' + ' '.join(map(str, roots)) if roots else '')))
         self.cpp(code, cases)
 
+    def test_factorial_modulo_products(self):
+        code = snippet('algebra/factorial-modulo.md', 'int factmod')
+        self.cpp(code + r"""
+int main() {
+    assert(factmod(50000, 100003) == 100001);
+    for (int p : {2,3,5,7,17,101}) {
+        long long expected = 1;
+        for (int n = 1; n <= 1000; ++n) {
+            int x = n;
+            while (x % p == 0) x /= p;
+            expected = expected * x % p;
+            assert(factmod(n,p) == expected);
+        }
+    }
+}
+""")
+
 
 if __name__ == '__main__':
     unittest.main()
