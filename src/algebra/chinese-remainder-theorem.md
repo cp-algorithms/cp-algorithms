@@ -134,7 +134,7 @@ long long chinese_remainder_theorem(vector<Congruence> const& congruences) {
         long long a_i = congruence.a;
         long long M_i = M / congruence.m;
         long long N_i = mod_inv(M_i, congruence.m);
-        solution = (solution + a_i * M_i % M * N_i) % M;
+        solution = (solution + (__int128)a_i * M_i % M * N_i) % M;
     }
     return solution;
 }

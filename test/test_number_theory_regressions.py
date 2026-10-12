@@ -63,6 +63,17 @@ int main() {
 }
 """)
 
+    def test_crt_wide_products(self):
+        code = r"""
+long long mod_inv(long long a,long long m){long long b=m,u=1,v=0;while(b){long long q=a/b;tie(a,b)=make_pair(b,a-q*b);tie(u,v)=make_pair(v,u-q*v);}return (u%m+m)%m;}
+""" + snippet('algebra/chinese-remainder-theorem.md', 'struct Congruence')
+        self.cpp(code + r"""
+int main(){mt19937_64 rng(15);long long p=1000000007,q=1000000009,M=p*q;
+assert(chinese_remainder_theorem({{123456789,p},{123456789,q}})==123456789);
+for(int i=0;i<1000;i++){long long want=rng()%M;assert(chinese_remainder_theorem({{want%p,p},{want%q,q}})==want);}
+for(int a=0;a<7;a++)for(int b=0;b<11;b++){long long got=chinese_remainder_theorem({{a,7},{b,11}});assert(got>=0&&got<77&&got%7==a&&got%11==b);}}
+""")
+
 
 if __name__ == '__main__':
     unittest.main()
