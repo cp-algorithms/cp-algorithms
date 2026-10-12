@@ -68,6 +68,14 @@ auto got=lcs(a,b);int best=0;for(int i=0;i<(int)a.size();i++)for(int j=i;j<(int)
 assert((int)got.size()==best);assert(a.find(got)!=string::npos&&b.find(got)!=string::npos);}}
 """)
 
+    def test_ternary_search_progress(self):
+        code = 'double peak; int calls; double f(double x){assert(++calls<10000);return -(x-peak)*(x-peak);}'
+        code += snippet('num_methods/ternary_search.md', 'double ternary_search')
+        self.cpp(code + r"""
+int main(){for(double offset:{-1e9,0.,1e9})for(double width:{1.,10.,1000.})for(double fraction:{0.,.25,.75,1.}){
+peak=offset+width*fraction;calls=0;double got=ternary_search(offset,offset+width);assert(isfinite(got));assert(got>-1e-10);}}
+""")
+
 
 if __name__ == '__main__':
     unittest.main()
