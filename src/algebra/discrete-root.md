@@ -75,6 +75,7 @@ int powmod(int a, int b, int p) {
  
 // Finds the primitive root modulo p
 int generator(int p) {
+	if (p == 2) return 1;
 	vector<int> fact;
 	int phi = p-1, n = phi;
 	for (int i = 2; 1LL * i * i <= n; ++i) {

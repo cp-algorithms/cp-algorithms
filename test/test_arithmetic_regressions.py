@@ -112,6 +112,14 @@ for(int i=0;i<1000;i++){long long want=rng()%M;assert(chinese_remainder_theorem(
 for(int a=0;a<7;a++)for(int b=0;b<11;b++){long long got=chinese_remainder_theorem({{a,7},{b,11}});assert(got>=0&&got<77&&got%7==a&&got%11==b);}}
 """)
 
+    def test_primitive_root_modulo_two(self):
+        code = snippet('algebra/primitive-root.md', 'int generator')
+        self.cpp(code + r"""
+int main(){assert(generator(2)==1);for(int p:{2,3,5,7,17,31,101,1009}){int g=generator(p),r=1;set<int>s;
+for(int i=0;i<p-1;i++){s.insert(r);r=1LL*r*g%p;}assert(r==1&&(int)s.size()==p-1);}}
+""")
+        self.cpp(snippet('algebra/discrete-root.md', 'int generator'), [('2 1 1\n', '1\n1'), ('2 7 1\n', '1\n1')])
+
 
 if __name__ == '__main__':
     unittest.main()
