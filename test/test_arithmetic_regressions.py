@@ -71,6 +71,18 @@ int main(){init(100);long long expected=1;assert(catalan[22]==482563003);
 for(int n=1;n<=100;n++){expected=expected*(4*n-2)%MOD*power(n+1,MOD-2)%MOD;assert(catalan[n]==expected);}}
 """)
 
+    def test_zero_bishops(self):
+        path = 'combinatorics/bishops-on-chessboard.md'
+        code = snippet(path, 'int squares') + snippet(path, 'int bishop_placements')
+        self.cpp(code + r"""
+int main(){for(int n=1;n<=4;n++){vector<int> counts(2*n+1);
+for(int mask=0;mask<(1<<(n*n));mask++){bool ok=true;int k=__builtin_popcount((unsigned)mask);
+for(int a=0;a<n*n;a++)if(mask>>a&1)for(int b=a+1;b<n*n;b++)if(mask>>b&1)
+if(abs(a/n-b/n)==abs(a%n-b%n))ok=false;
+if(ok)counts[k]++;}
+for(int k=0;k<=2*n;k++)assert(bishop_placements(n,k)==counts[k]);}}
+""")
+
 
 if __name__ == '__main__':
     unittest.main()
