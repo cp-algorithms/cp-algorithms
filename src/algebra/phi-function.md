@@ -58,7 +58,7 @@ Here is an implementation using factorization in $O(\sqrt{n})$:
 ```cpp
 int phi(int n) {
     int result = n;
-    for (int i = 2; i * i <= n; i++) {
+    for (int i = 2; 1LL * i * i <= n; i++) {
         if (n % i == 0) {
             while (n % i == 0)
                 n /= i;

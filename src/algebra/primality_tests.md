@@ -20,7 +20,7 @@ If it is a divisor, then $n$ is definitely not prime, otherwise it is.
 
 ```cpp
 bool isPrime(int x) {
-    for (int d = 2; d * d <= x; d++) {
+    for (int d = 2; 1LL * d * d <= x; d++) {
         if (x % d == 0)
             return false;
     }

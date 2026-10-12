@@ -127,6 +127,14 @@ int main(){assert(fermat(300009)==3);for(int n=1;n<=2001;n+=2){int d=fermat(n);a
 int expected=(int)sqrt(n);while(n%expected)expected--;assert(d==expected);}}
 """)
 
+    def test_trial_division_integer_limit(self):
+        code = snippet('algebra/primality_tests.md', 'bool isPrime(int') + snippet('algebra/phi-function.md', 'int phi(int')
+        self.cpp(code + r"""
+int main(){assert(isPrime(INT_MAX));assert(phi(INT_MAX)==INT_MAX-1);assert(!isPrime(INT_MAX-1));
+vector<bool>p(10001,true);p[0]=p[1]=false;for(int i=2;i<=10000;i++)if(p[i])for(int j=2*i;j<=10000;j+=i)p[j]=false;
+for(int i=0;i<=10000;i++)assert(isPrime(i)==p[i]);for(int n=1;n<=500;n++){int expected=0;for(int i=1;i<=n;i++)expected+=gcd(i,n)==1;assert(phi(n)==expected);}}
+""")
+
 
 if __name__ == '__main__':
     unittest.main()
