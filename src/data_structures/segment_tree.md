@@ -583,11 +583,11 @@ Finally the modification request.
 To process it, we must go down the tree, and modify all $\text{multiset}$ from the corresponding segments that contain the affected element.
 We simply delete the old value of this element (but only one occurrence), and insert the new value.
 
-```cpp
+```{.cpp file=segment_tree_multiset_update}
 void update(int v, int tl, int tr, int pos, int new_val) {
     t[v].erase(t[v].find(a[pos]));
     t[v].insert(new_val);
-    if (tl != tr) {
+    if (tr - tl > 1) {
         int tm = (tl + tr) / 2;
         if (pos < tm)
             update(v*2, tl, tm, pos, new_val);
