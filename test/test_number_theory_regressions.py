@@ -113,6 +113,18 @@ for(int i=0;i<=10000;i++)assert(isPrime(i)==p[i]);for(int n=1;n<=500;n++){int ex
                     x, y = dio(a, b, c)
                     self.assertEqual(a*x + b*y, c)
 
+    def test_diophantine_scaled_coefficients(self):
+        path = 'algebra/linear-diophantine-equation.md'
+        code = snippet(path, 'bool find_any_solution') + snippet(path, 'void shift_solution')
+        self.cpp(code + r"""
+int main(){assert(find_all_solutions(46368,28657,200599,0,10,0,10)==1);mt19937 rng(22);
+for(int z=0;z<20000;z++){int a=int(rng()%200001)-100000,b=int(rng()%200001)-100000;if(!a||!b)continue;
+int x=int(rng()%21)-10,y=int(rng()%21)-10,c=a*x+b*y;int expected=0;
+for(int i=-10;i<=10;i++)for(int j=-10;j<=10;j++)expected+=a*i+b*j==c;
+assert(find_all_solutions(a,b,c,-10,10,-10,10)==expected);long long xx,yy,g;
+assert(find_any_solution(a,b,c,xx,yy,g));assert(a*xx+b*yy==c);}}
+""")
+
 
 if __name__ == '__main__':
     unittest.main()
