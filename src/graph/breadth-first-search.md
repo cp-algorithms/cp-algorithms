@@ -73,15 +73,15 @@ We write code for the described algorithm in C++ and Java.
     int d[] = new int[n];
     int p[] = new int[n];
 
-    q.push(s);
+    q.offerLast(s);
     used[s] = true;
     p[s] = -1;
     while (!q.isEmpty()) {
-        int v = q.pop();
+        int v = q.pollFirst();
         for (int u : adj.get(v)) {
             if (!used[u]) {
                 used[u] = true;
-                q.push(u);
+                q.offerLast(u);
                 d[u] = d[v] + 1;
                 p[u] = v;
             }
