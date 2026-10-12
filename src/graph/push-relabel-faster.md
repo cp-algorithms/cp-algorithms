@@ -27,11 +27,12 @@ const int inf = 1000000000;
 
 int n;
 vector<vector<int>> capacity, flow;
-vector<int> height, excess;
+vector<int> height;
+vector<long long> excess;
 
 void push(int u, int v)
 {
-    int d = min(excess[u], capacity[u][v] - flow[u][v]);
+    int d = min<long long>(excess[u], capacity[u][v] - flow[u][v]);
     flow[u][v] += d;
     flow[v][u] -= d;
     excess[u] -= d;
@@ -68,10 +69,11 @@ int max_flow(int s, int t)
     height[s] = n;
     flow.assign(n, vector<int>(n, 0));
     excess.assign(n, 0);
-    excess[s] = inf;
     for (int i = 0; i < n; i++) {
-        if (i != s)
+        if (i != s) {
+            excess[s] += capacity[s][i];
             push(s, i);
+        }
     }
 
     vector<int> current;
