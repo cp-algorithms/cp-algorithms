@@ -554,6 +554,8 @@ $$|r-r_k| = |r_k-r_{k+1}|-|r-r_{k+1}| \leq |r_k - r_{k+1}|.$$
         # return (x, y) such that Ax+By=C
         # assumes that such (x, y) exists
         def dio(A, B, C):
+            if A == 0:
+                return 0, C // B
             p, q = convergents(fraction(A, B))
             C //= A // p[-1] # divide by gcd(A, B)
             t = (-1) if len(p) % 2 else 1

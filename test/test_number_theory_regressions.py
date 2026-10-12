@@ -97,6 +97,22 @@ vector<bool>p(10001,true);p[0]=p[1]=false;for(int i=2;i<=10000;i++)if(p[i])for(i
 for(int i=0;i<=10000;i++)assert(isPrime(i)==p[i]);for(int n=1;n<=500;n++){int expected=0;for(int i=1;i<=n;i++)expected+=gcd(i,n)==1;assert(phi(n)==expected);}}
 """)
 
+    def test_zero_diophantine_coefficient(self):
+        path = 'algebra/continued-fractions.md'
+        namespace = {}
+        for token in ['def fraction', 'def convergents', 'def dio']:
+            exec(snippet(path, token, 'py'), namespace)
+        dio = namespace['dio']
+        self.assertEqual(dio(0, 2, 4), (0, 2))
+        for a in range(-12, 13):
+            for b in range(-12, 13):
+                if a == b == 0:
+                    continue
+                for x0, y0 in [(-3, 2), (0, 0), (5, -7)]:
+                    c = a*x0 + b*y0
+                    x, y = dio(a, b, c)
+                    self.assertEqual(a*x + b*y, c)
+
 
 if __name__ == '__main__':
     unittest.main()
