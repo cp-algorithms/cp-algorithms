@@ -76,6 +76,20 @@ int main(){for(double offset:{-1e9,0.,1e9})for(double width:{1.,10.,1000.})for(d
 peak=offset+width*fraction;calls=0;double got=ternary_search(offset,offset+width);assert(isfinite(got));assert(got>-1e-10);}}
 """)
 
+    def test_kraut_negative_rows(self):
+        code = snippet('linear_algebra/determinant-kraut.md', 'static BigInteger det', 'java')
+        main = r"""
+static long exact(int[][] a,int row,boolean[] used){if(row==a.length)return 1;long ans=0;int pos=0;for(int j=0;j<a.length;j++)if(!used[j]){used[j]=true;ans+=(pos%2==0?1:-1)*a[row][j]*exact(a,row+1,used);used[j]=false;pos++;}return ans;}
+static void check(int[][] a){int n=a.length;BigDecimal[][] b=new BigDecimal[n][n];for(int i=0;i<n;i++)for(int j=0;j<n;j++)b[i][j]=BigDecimal.valueOf(a[i][j]);
+BigInteger want=BigInteger.valueOf(exact(a,0,new boolean[n]));if(!det(b,n).equals(want))throw new AssertionError(want);}
+public static void main(String[] args){check(new int[][]{{-1}});java.util.Random r=new java.util.Random(18);for(int z=0;z<2000;z++){int n=1+r.nextInt(4);int[][] a=new int[n][n];for(int i=0;i<n;i++)for(int j=0;j<n;j++)a[i][j]=r.nextInt(7)-3;check(a);}}
+"""
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / 'KrautRegression.java'
+            source.write_text('import java.math.*; public class KrautRegression {\n' + code + main + '}')
+            subprocess.run([os.environ.get('JAVAC', 'javac'), str(source)], check=True, capture_output=True, text=True)
+            subprocess.run([os.environ.get('JAVA', 'java'), '-cp', directory, 'KrautRegression'], check=True, capture_output=True, text=True, timeout=30)
+
 
 if __name__ == '__main__':
     unittest.main()
