@@ -74,6 +74,7 @@ int powmod (int a, int b, int p) {
 }
  
 int generator (int p) {
+	if (p == 2) return 1;
 	vector<int> fact;
 	int phi = p-1,  n = phi;
 	for (int i=2; i*i<=n; ++i)
