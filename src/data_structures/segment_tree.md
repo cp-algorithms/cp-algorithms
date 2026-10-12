@@ -862,7 +862,7 @@ the construction of a Segment Tree along the $x$ coordinate ($\text{build}_x$), 
 For the leaf nodes in $\text{build}_y$ we have to separate two cases: 
 when the current segment of the first coordinate $[tlx \dots trx]$ has length 1, and when it has a length greater than one. In the first case, we just take the corresponding value from the matrix, and in the second case we can combine the values of two Segment Trees from the left and the right son in the coordinate $x$.
 
-```cpp
+```{.cpp file=segment_tree_2d_build}
 void build_y(int vx, int lx, int rx, int vy, int ly, int ry) {
     if (ry - ly == 1) {
         if (rx - lx == 1)
@@ -893,7 +893,7 @@ It is clear that the described procedure $\text{build}_x$ also works in linear t
 Now we turn to processing of queries. We will answer to the two-dimensional query using the same principle: 
 first break the query on the first coordinate, and then for every reached vertex, we call the corresponding Segment Tree of the second coordinate.
 
-```cpp
+```{.cpp file=segment_tree_2d_sum}
 int sum_y(int vx, int vy, int tly, int try_, int ly, int ry) {
     if (ry <= tly || try_ <= ly) 
         return 0;
@@ -922,7 +922,7 @@ We want to learn how to modify the Segment Tree in accordance with the change in
 It is clear, that the changes will occur only in those vertices of the first Segment Tree that cover the coordinate $x$ (and such will be $O(\log n)$), and for Segment Trees corresponding to them the changes will only occurs at those vertices that covers the coordinate $y$ (and such will be $O(\log m)$).
 Therefore the implementation will be not very different form the one-dimensional case, only now we first descend the first coordinate, and then the second.
 
-```cpp
+```{.cpp file=segment_tree_2d_update}
 void update_y(int vx, int lx, int rx, int vy, int ly, int ry, int x, int y, int new_val) {
     if (ry - ly == 1) {
         if (rx - lx == 1)
@@ -931,7 +931,7 @@ void update_y(int vx, int lx, int rx, int vy, int ly, int ry, int x, int y, int 
             t[vx][vy] = t[vx*2][vy] + t[vx*2+1][vy];
     } else {
         int my = (ly + ry) / 2;
-        if (y <= my)
+        if (y < my)
             update_y(vx, lx, rx, vy*2, ly, my, x, y, new_val);
         else
             update_y(vx, lx, rx, vy*2+1, my, ry, x, y, new_val);
@@ -942,7 +942,7 @@ void update_y(int vx, int lx, int rx, int vy, int ly, int ry, int x, int y, int 
 void update_x(int vx, int lx, int rx, int x, int y, int new_val) {
     if (rx - lx > 1) {
         int mx = (lx + rx) / 2;
-        if (x <= mx)
+        if (x < mx)
             update_x(vx*2, lx, mx, x, y, new_val);
         else
             update_x(vx*2+1, mx, rx, x, y, new_val);
