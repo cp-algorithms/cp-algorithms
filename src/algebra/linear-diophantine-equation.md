@@ -78,20 +78,20 @@ The above idea still works when $a$ or $b$ or both of them are negative. We only
 Finally, we can implement this idea as follows (note that this code does not consider the case $a = b = 0$):
 
 ```{.cpp file=linear_diophantine_any}
-int gcd(int a, int b, int& x, int& y) {
+long long gcd(long long a, long long b, long long& x, long long& y) {
     if (b == 0) {
         x = 1;
         y = 0;
         return a;
     }
-    int x1, y1;
-    int d = gcd(b, a % b, x1, y1);
+    long long x1, y1;
+    long long d = gcd(b, a % b, x1, y1);
     x = y1;
     y = x1 - y1 * (a / b);
     return d;
 }
 
-bool find_any_solution(int a, int b, int c, int &x0, int &y0, int &g) {
+bool find_any_solution(long long a, long long b, long long c, long long &x0, long long &y0, long long &g) {
     g = gcd(abs(a), abs(b), x0, y0);
     if (c % g) {
         return false;
@@ -149,49 +149,49 @@ Notice that we divide $a$ and $b$ at the beginning by $g$.
 Since the equation $a x + b y = c$ is equivalent to the equation $\frac{a}{g} x + \frac{b}{g} y = \frac{c}{g}$, we can use this one instead and have $\gcd(\frac{a}{g}, \frac{b}{g}) = 1$, which simplifies the formulas.
 
 ```{.cpp file=linear_diophantine_all}
-void shift_solution(int & x, int & y, int a, int b, int cnt) {
+void shift_solution(long long & x, long long & y, long long a, long long b, long long cnt) {
     x += cnt * b;
     y -= cnt * a;
 }
 
-int find_all_solutions(int a, int b, int c, int minx, int maxx, int miny, int maxy) {
-    int x, y, g;
+long long find_all_solutions(long long a, long long b, long long c, long long minx, long long maxx, long long miny, long long maxy) {
+    long long x, y, g;
     if (!find_any_solution(a, b, c, x, y, g))
         return 0;
     a /= g;
     b /= g;
 
-    int sign_a = a > 0 ? +1 : -1;
-    int sign_b = b > 0 ? +1 : -1;
+    long long sign_a = a > 0 ? +1 : -1;
+    long long sign_b = b > 0 ? +1 : -1;
 
     shift_solution(x, y, a, b, (minx - x) / b);
     if (x < minx)
         shift_solution(x, y, a, b, sign_b);
     if (x > maxx)
         return 0;
-    int lx1 = x;
+    long long lx1 = x;
 
     shift_solution(x, y, a, b, (maxx - x) / b);
     if (x > maxx)
         shift_solution(x, y, a, b, -sign_b);
-    int rx1 = x;
+    long long rx1 = x;
 
     shift_solution(x, y, a, b, -(miny - y) / a);
     if (y < miny)
         shift_solution(x, y, a, b, -sign_a);
     if (y > maxy)
         return 0;
-    int lx2 = x;
+    long long lx2 = x;
 
     shift_solution(x, y, a, b, -(maxy - y) / a);
     if (y > maxy)
         shift_solution(x, y, a, b, sign_a);
-    int rx2 = x;
+    long long rx2 = x;
 
     if (lx2 > rx2)
         swap(lx2, rx2);
-    int lx = max(lx1, lx2);
-    int rx = min(rx1, rx2);
+    long long lx = max(lx1, lx2);
+    long long rx = min(rx1, rx2);
 
     if (lx > rx)
         return 0;
