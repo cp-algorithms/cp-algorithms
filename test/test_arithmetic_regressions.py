@@ -83,6 +83,16 @@ if(ok)counts[k]++;}
 for(int k=0;k<=2*n;k++)assert(bishop_placements(n,k)==counts[k]);}}
 """)
 
+    def test_repeated_suffix_automaton_builds(self):
+        path = 'string/suffix-automaton.md'
+        code = ''.join(snippet(path, token) for token in ['struct state', 'state st[', 'void sa_init', 'void sa_extend', 'string lcs'])
+        self.cpp(code + r"""
+int main(){assert(lcs("a","a")=="a");assert(lcs("b","a")=="");mt19937 rng(13);
+for(int z=0;z<3000;z++){string a(1+rng()%30,'a'),b(1+rng()%30,'a');for(char&c:a)c+=rng()%3;for(char&c:b)c+=rng()%3;
+auto got=lcs(a,b);int best=0;for(int i=0;i<(int)a.size();i++)for(int j=i;j<(int)a.size();j++)if(b.find(a.substr(i,j-i+1))!=string::npos)best=max(best,j-i+1);
+assert((int)got.size()==best);assert(a.find(got)!=string::npos&&b.find(got)!=string::npos);}}
+""")
+
 
 if __name__ == '__main__':
     unittest.main()
