@@ -61,6 +61,16 @@ int main() {
 }
 """)
 
+    def test_catalan_products(self):
+        code = snippet('combinatorics/catalan-numbers.md', 'void init')
+        code = code.replace('const int MOD = ....', 'const int MOD = 1000000007;')
+        code = code.replace('const int MAX = ....', 'const int MAX = 101;')
+        self.cpp(code + r"""
+long long power(long long a,int n){long long r=1;for(;n;n>>=1,a=a*a%MOD)if(n&1)r=r*a%MOD;return r;}
+int main(){init(100);long long expected=1;assert(catalan[22]==482563003);
+for(int n=1;n<=100;n++){expected=expected*(4*n-2)%MOD*power(n+1,MOD-2)%MOD;assert(catalan[n]==expected);}}
+""")
+
 
 if __name__ == '__main__':
     unittest.main()
