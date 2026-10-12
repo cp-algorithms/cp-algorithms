@@ -76,7 +76,7 @@ After doing this also with all other edges that are not part of the initial MST,
 Choosing the edge with weight 14 will increase the weight of the tree by 7, choosing the edge with weight 27 increases it by 14, choosing the edge with weight 28 increases it by 21, and choosing the edge with weight 39 will increase the tree by 5.
 
 ## Implementation
-```cpp
+```{.cpp file=second_best_mst}
 struct edge {
     int s, e, w, id;
     bool operator<(const struct edge& other) { return w < other.w; }
@@ -84,17 +84,21 @@ struct edge {
 typedef struct edge Edge;
 
 const int N = 2e5 + 5;
+const long long no_edge = numeric_limits<long long>::lowest();
 long long res = 0, ans = 1e18;
 int n, m, a, b, w, id, l = 21;
 vector<Edge> edges;
 vector<int> h(N, 0), parent(N, -1), size(N, 0), present(N, 0);
-vector<vector<pair<int, int>>> adj(N), dp(N, vector<pair<int, int>>(l));
+vector<vector<pair<int, int>>> adj(N);
+vector<vector<pair<long long, long long>>> dp(
+    N, vector<pair<long long, long long>>(l, {no_edge, no_edge}));
 vector<vector<int>> up(N, vector<int>(l, -1));
 
-pair<int, int> combine(pair<int, int> a, pair<int, int> b) {
-    vector<int> v = {a.first, a.second, b.first, b.second};
-    int topTwo = -3, topOne = -2;
-    for (int c : v) {
+pair<long long, long long> combine(pair<long long, long long> a,
+                                   pair<long long, long long> b) {
+    vector<long long> v = {a.first, a.second, b.first, b.second};
+    long long topTwo = no_edge, topOne = no_edge;
+    for (long long c : v) {
         if (c > topOne) {
             topTwo = topOne;
             topOne = c;
@@ -105,10 +109,10 @@ pair<int, int> combine(pair<int, int> a, pair<int, int> b) {
     return {topOne, topTwo};
 }
 
-void dfs(int u, int par, int d) {
+void dfs(int u, int par, long long d) {
     h[u] = 1 + h[par];
     up[u][0] = par;
-    dp[u][0] = {d, -1};
+    dp[u][0] = {d, no_edge};
     for (auto v : adj[u]) {
         if (v.first != par) {
             dfs(v.first, u, v.second);
@@ -116,8 +120,8 @@ void dfs(int u, int par, int d) {
     }
 }
 
-pair<int, int> lca(int u, int v) {
-    pair<int, int> ans = {-2, -3};
+pair<long long, long long> lca(int u, int v) {
+    pair<long long, long long> ans = {no_edge, no_edge};
     if (h[u] < h[v]) {
         swap(u, v);
     }
@@ -164,7 +168,7 @@ int main(void) {
             res += w;
         }
     }
-    dfs(1, 0, 0);
+    dfs(1, 0, no_edge);
     for (int i = 1; i <= l - 1; i++) {
         for (int j = 1; j <= n; ++j) {
             if (up[j][i - 1] != -1) {
@@ -183,7 +187,7 @@ int main(void) {
                 if (ans > res + w - rem.first) {
                     ans = res + w - rem.first;
                 }
-            } else if (rem.second != -1) {
+            } else if (rem.second != no_edge) {
                 if (ans > res + w - rem.second) {
                     ans = res + w - rem.second;
                 }
