@@ -138,11 +138,11 @@ If it is, then we have found the factors $a - b$ and $a + b$ of $n$.
 ```cpp
 int fermat(int n) {
     int a = ceil(sqrt(n));
-    int b2 = a*a - n;
+    long long b2 = 1LL * a * a - n;
     int b = round(sqrt(b2));
-    while (b * b != b2) {
+    while (1LL * b * b != b2) {
         a = a + 1;
-        b2 = a*a - n;
+        b2 = 1LL * a * a - n;
         b = round(sqrt(b2));
     }
     return a - b;
