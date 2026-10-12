@@ -120,6 +120,13 @@ for(int i=0;i<p-1;i++){s.insert(r);r=1LL*r*g%p;}assert(r==1&&(int)s.size()==p-1)
 """)
         self.cpp(snippet('algebra/discrete-root.md', 'int generator'), [('2 1 1\n', '1\n1'), ('2 7 1\n', '1\n1')])
 
+    def test_fermat_square_products(self):
+        code = snippet('algebra/factorization.md', 'int fermat')
+        self.cpp(code + r"""
+int main(){assert(fermat(300009)==3);for(int n=1;n<=2001;n+=2){int d=fermat(n);assert(d>0&&n%d==0);
+int expected=(int)sqrt(n);while(n%expected)expected--;assert(d==expected);}}
+""")
+
 
 if __name__ == '__main__':
     unittest.main()
