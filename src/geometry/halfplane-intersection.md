@@ -80,7 +80,7 @@ Here is a sample, direct implementation of the algorithm, with comments explaini
 
 Simple point/vector and half-plane structs:
 
-```cpp
+```{.cpp file=halfplane_primitives}
 // Redefine epsilon and infinity as necessary. Be mindful of precision errors.
 const long double eps = 1e-9, inf = 1e9; 
 
@@ -146,7 +146,7 @@ struct Halfplane {
 
 Algorithm: 
 
-```cpp
+```{.cpp file=halfplane_intersection}
 // Actual algorithm
 vector<Point> hp_intersect(vector<Halfplane>& H) { 
 
@@ -212,6 +212,11 @@ vector<Point> hp_intersect(vector<Halfplane>& H) {
 
     // Report empty intersection if necessary
     if (len < 3) return vector<Point>();
+    // A gap of at least pi cannot bound a nonempty region, even a point or segment.
+    for (int i = 0; i < len; ++i) {
+        if (cross(dq[i].pq, dq[(i + 1) % len].pq) <= eps)
+            return vector<Point>();
+    }
 
     // Reconstruct the convex polygon from the remaining half-planes.
     vector<Point> ret(len);
