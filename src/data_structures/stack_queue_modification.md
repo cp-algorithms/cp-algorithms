@@ -145,10 +145,13 @@ stack<pair<int, int>> s1, s2;
 
 * Finding the minimum:
 ```cpp
-if (s1.empty() || s2.empty()) 
-    minimum = s1.empty() ? s2.top().second : s1.top().second;
-else
+int minimum;
+if (!s1.empty() && !s2.empty())
     minimum = min(s1.top().second, s2.top().second);
+else if (!s1.empty())
+    minimum = s1.top().second;
+else if (!s2.empty())
+    minimum = s2.top().second;
 ```
 
 * Add element:
