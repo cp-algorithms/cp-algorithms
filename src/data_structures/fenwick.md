@@ -459,42 +459,8 @@ def range_sum(l, r):
 
 ## Practice Problems
 
-* [UVA 12086 - Potentiometers](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3238)
-* [LOJ 1112 - Curious Robin Hood](http://www.lightoj.com/volume_showproblem.php?problem=1112)
-* [LOJ 1266 - Points in Rectangle](http://www.lightoj.com/volume_showproblem.php?problem=1266 "2D Fenwick Tree")
-* [Codechef - SPREAD](http://www.codechef.com/problems/SPREAD)
-* [SPOJ - CTRICK](http://www.spoj.com/problems/CTRICK/)
-* [SPOJ - MATSUM](http://www.spoj.com/problems/MATSUM/)
-* [SPOJ - DQUERY](http://www.spoj.com/problems/DQUERY/)
-* [SPOJ - NKTEAM](http://www.spoj.com/problems/NKTEAM/)
-* [SPOJ - YODANESS](http://www.spoj.com/problems/YODANESS/)
-* [SRM 310 - FloatingMedian](https://community.topcoder.com/stat?c=problem_statement&pm=6551&rd=9990)
-* [SPOJ - Ada and Behives](http://www.spoj.com/problems/ADABEHIVE/)
-* [Hackerearth - Counting in Byteland](https://www.hackerearth.com/practice/data-structures/advanced-data-structures/fenwick-binary-indexed-trees/practice-problems/algorithm/counting-in-byteland/)
-* [DevSkill - Shan and String (archived)](http://web.archive.org/web/20210322010617/https://devskill.com/CodingProblems/ViewProblem/300)
-* [Codeforces - Little Artem and Time Machine](http://codeforces.com/contest/669/problem/E)
-* [Codeforces - Hanoi Factory](http://codeforces.com/contest/777/problem/E)
-* [SPOJ - Tulip and Numbers](http://www.spoj.com/problems/TULIPNUM/)
-* [SPOJ - SUMSUM](http://www.spoj.com/problems/SUMSUM/)
-* [SPOJ - Sabir and Gifts](http://www.spoj.com/problems/SGIFT/)
-* [SPOJ - The Permutation Game Again](http://www.spoj.com/problems/TPGA/)
-* [SPOJ - Zig when you Zag](http://www.spoj.com/problems/ZIGZAG2/)
-* [SPOJ - Cryon](http://www.spoj.com/problems/CRAYON/)
-* [SPOJ - Weird Points](http://www.spoj.com/problems/DCEPC705/)
-* [SPOJ - Its a Murder](http://www.spoj.com/problems/DCEPC206/)
-* [SPOJ - Bored of Suffixes and Prefixes](http://www.spoj.com/problems/KOPC12G/)
-* [SPOJ - Mega Inversions](http://www.spoj.com/problems/TRIPINV/)
-* [Codeforces - Subsequences](http://codeforces.com/contest/597/problem/C)
-* [Codeforces - Ball](http://codeforces.com/contest/12/problem/D)
-* [GYM - The Kamphaeng Phet's Chedis](http://codeforces.com/gym/101047/problem/J)
-* [Codeforces - Garlands](http://codeforces.com/contest/707/problem/E)
-* [Codeforces - Inversions after Shuffle](http://codeforces.com/contest/749/problem/E)
-* [GYM - Cairo Market](http://codeforces.com/problemset/gymProblem/101055/D)
-* [Codeforces - Goodbye Souvenir](http://codeforces.com/contest/849/problem/E)
-* [SPOJ - Ada and Species](http://www.spoj.com/problems/ADACABAA/)
-* [Codeforces - Thor](https://codeforces.com/problemset/problem/704/A)
-* [CSES - Forest Queries II](https://cses.fi/problemset/task/1739/)
-* [Latin American Regionals 2017 - Fundraising](http://matcomgrader.com/problem/9346/fundraising/)
+
+
 
 ## Other sources
 
