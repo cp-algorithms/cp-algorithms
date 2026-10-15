@@ -1,4 +1,5 @@
 #include <cassert>
+#include <algorithm>
 #include <cmath>
 using namespace std;
 
@@ -26,4 +27,6 @@ int main() {
     point2d pyt(3, 4);
     assert(norm(pyt) == 25);
     assert(abs(pyt) == 5);
+    assert(angle(point2d(1, 5), point2d(1, 5)) == 0);
+    assert(abs(angle(point2d(1, 5), point2d(-1, -5)) - acos(-1.0)) < 1e-12);
 }

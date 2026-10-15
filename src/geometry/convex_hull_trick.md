@@ -36,7 +36,7 @@ That is, rebuild convex hull from scratch each $\sqrt n$ new lines.
 
 To implement this approach one should begin with some geometric utility functions, here we suggest to use the C++ complex number type.
 
-```cpp
+```{.cpp file=convex_hull_trick_point}
 typedef int ftype;
 typedef complex<ftype> point;
 #define x real
@@ -57,7 +57,7 @@ When we add a new point, we have to look at the angle formed between last edge i
 This angle has to be directed counter-clockwise, that is the dot product of the last normal vector in the hull (directed inside hull) and the vector from the last point to the new one has to be non-negative.
 As long as this isn't true, we should erase the last point in the convex hull alongside with the corresponding edge.
 
-```cpp
+```{.cpp file=convex_hull_trick_add}
 vector<point> hull, vecs;
  
 void add_line(ftype k, ftype b) {
@@ -67,14 +67,14 @@ void add_line(ftype k, ftype b) {
         vecs.pop_back();
     }
     if(!hull.empty()) {
-        vecs.push_back(1i * (nw - hull.back()));
+        vecs.push_back(point(0, 1) * (nw - hull.back()));
     }
     hull.push_back(nw);
 }
  
 ```
 Now to get the minimum value in some point we will find the first normal vector in the convex hull that is directed counter-clockwise from $(x;1)$. The left endpoint of such edge will be the answer. To check if vector $a$ is not directed counter-clockwise of vector $b$, we should check if their cross product $[a,b]$ is positive.
-```cpp
+```{.cpp file=convex_hull_trick_get}
 int get(ftype x) {
     point query = {x, 1};
     auto it = lower_bound(vecs.begin(), vecs.end(), query, [](point a, point b) {
