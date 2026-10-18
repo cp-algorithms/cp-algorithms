@@ -23,7 +23,7 @@ This course is designed to teach C++ from the ground up, with a focus on competi
 ## Course Index
 
 1. [Introduction to C++](introduction.md)
-2. [I/O and Data Types](io-and-data-types.md)
+2. [Input/Output and Data Types](io-and-data-types.md)
 3. [Conditionals and Loops](conditionals-and-loops.md)
 4. [Arrays and Vectors](arrays-and-vectors.md)
 5. [Functions and Recursion](functions-and-recursion.md)
