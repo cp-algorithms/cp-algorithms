@@ -8,7 +8,7 @@
 - C++ Course
     - [Index](cpp-course/index.md)
     - [Introduction](cpp-course/introduction.md)
-    - [I/O and Data Types](cpp-course/io-and-data-types.md)
+    - [Input/Output and Data Types](cpp-course/io-and-data-types.md)
     - [Conditionals and Loops](cpp-course/conditionals-and-loops.md)
     - [Arrays and Vectors](cpp-course/arrays-and-vectors.md)
     - [Functions and Recursion](cpp-course/functions-and-recursion.md)
