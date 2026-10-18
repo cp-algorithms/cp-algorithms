@@ -112,7 +112,7 @@ for (int i=2; i <= N; ++i) {
 }
 ```
 
-This needs only $n$ bits, like the classic sieve of Eratosthenes.
+The marker array takes only $n$ bits, like in the classic sieve of Eratosthenes, and $pr []$ still adds about $\frac n {\ln n}$ integers on top of that.
 Despite the division in the inner loop, it is usually not slower than the version with $lp []$, as the much smaller array is friendlier to the cache.
 
 ## References
