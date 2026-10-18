@@ -126,7 +126,7 @@ int binary_search_convex(const vector<int>& v) {
     int index = v.size() - 1;
     while(l <= r){
         int m = (l + r) / 2;
-        if (v[m] - v[m + 1] > 0)
+        if (v[m] > v[m + 1])
             l = m + 1;
         else {
             index = m;
