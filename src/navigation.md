@@ -1,11 +1,23 @@
----
-search:
-  exclude: true
----
-
 - Home
     - [Main Page](index.md)
     - [Navigation](navigation.md)
+    - [Tag index](tags.md)
+    - [How to Contribute](contrib.md)
+    - [Code of conduct](code_of_conduct.md)
+    - [Preview](preview.md)
+- C++ Course
+    - [Index](cpp-course/index.md)
+    - [Introduction](cpp-course/introduction.md)
+    - [I/O and Data Types](cpp-course/io-and-data-types.md)
+    - [Conditionals and Loops](cpp-course/conditionals-and-loops.md)
+    - [Arrays and Vectors](cpp-course/arrays-and-vectors.md)
+    - [Functions and Recursion](cpp-course/functions-and-recursion.md)
+    - [STL Basics](cpp-course/stl-basics.md)
+    - [Algorithmic Complexity](cpp-course/algorithmic-complexity.md)
+    - [Practice and Problems](cpp-course/practice-and-problems.md)
+- Algebra
+    - Fundamentals
+        - [Binary Exponentiation](algebra/binary-exp.md)
     - [Tag index](tags.md)
     - [How to Contribute](contrib.md)
     - [Code of conduct](code_of_conduct.md)
