@@ -79,6 +79,8 @@ double ternary_search(double l, double r) {
 	while (r - l > eps) {
 		double m1 = l + (r - l) / 3;
 		double m2 = r - (r - l) / 3;
+		if (m1 <= l || m2 >= r)
+			break;
 		double f1 = f(m1);		//evaluates the function at m1
 		double f2 = f(m2);		//evaluates the function at m2
 		if (f1 < f2)
