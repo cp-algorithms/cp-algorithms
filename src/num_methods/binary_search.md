@@ -101,7 +101,7 @@ while (r - l > 1) {
 ```
 ### Search on a discrete strictly convex function
 
-Another useful use case of binary search is finding the (global) minimum of a discrete strictly convex (or concave) function.
+Another useful use case of binary search is finding the (global) minimum of a discrete strictly convex function.
 
 <center>
 <img src="https://i.postimg.cc/15DTdyxH/desmos-graph.png" width="300px">
@@ -110,9 +110,9 @@ Another useful use case of binary search is finding the (global) minimum of a di
 <br>
 </center>
 
-Let $f : \{x_1, \dots, x_n\} \to \mathbb{R}$ be that function. We define $(x_{\min}, f(x_{\min}))$ to be the global minimum of the function, "the left part" to be all points $(x_i, f(x_i))$, $x_i < x_{\min}$, and "the right part" to be all points $(x_i, f(x_i))$, $x_i \ge x_{\min}$.
+Let $f : \{x_1, \dots, x_n\} \to \mathbb{R}$, $x_1 < x_2 < \dots < x_n$ be that function. We define $(x_{\min}, f(x_{\min}))$ to be the leftmost global minimum of the function, "the left part" to be all points $(x_i, f(x_i))$, $x_i < x_{\min}$, and "the right part" to be all points $(x_i, f(x_i))$, $x_i \ge x_{\min}$.
 
-We can observe that, on the left part, pairs of consecutive points $((x_i, f(x_i)), (x_{i+1}, f(x_{i+1})))$ have $f(x_i) - f(x_{i+1}) > 0$ and, on the right part, pairs of consecutive points $((x_i, f(x_i)), (x_{i+1}, f(x_{i+1})))$ have $f(x_i) - f(x_{i+1}) < 0$. Thus, we can make the following transformation $f \to g$, $g \colon \{x_1, \dots, x_{n-1}\} \to \{-1, 1\}$, such that $g(x_i) = \text{sgn}(f(x_i) - f(x_{i+1}))$. $g$ is monotonously decreasing, and that means we can binary search to find the global minimum. Complexity $\mathcal{O}(\log n)$.
+We can observe that, on the left part, pairs of consecutive points $((x_i, f(x_i)), (x_{i+1}, f(x_{i+1})))$ have $f(x_i) - f(x_{i+1}) > 0$ and, on the right part, pairs of consecutive points $((x_i, f(x_i)), (x_{i+1}, f(x_{i+1})))$ have $f(x_i) - f(x_{i+1}) \le 0$. Thus, we can make the following transformation $f \to g$, $g \colon \{x_1, \dots, x_{n-1}\} \to \{-1, 0, 1\}$, such that $g(x_i) = \text{sgn}(f(x_i) - f(x_{i+1}))$. $g$ is monotonously decreasing, and that means we can binary search to find the global minimum. Complexity $\mathcal{O}(\log n)$.
 
 Conceptual code
 ```cpp
@@ -137,6 +137,8 @@ int binary_search_convex(const vector<int>& v) {
 }
 
 ```
+
+This approach can be similarly used for finding the (global) maximum of a discrete strictly concave function.
 
 ### Binary search on the answer
 
