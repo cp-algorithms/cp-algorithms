@@ -1175,6 +1175,7 @@ Obviously this idea can be extended in lots of different ways. E.g. by adding su
 ## Practice Problems
 
 * [SPOJ - KQUERY](http://www.spoj.com/problems/KQUERY/) [Persistent segment tree / Merge sort tree]
+* [Codeforces - The Brega Game](https://codeforces.com/gym/106667/problem/J)
 * [Codeforces - Xenia and Bit Operations](https://codeforces.com/problemset/problem/339/D)
 * [UVA 11402 - Ahoy, Pirates!](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2397)
 * [SPOJ - GSS3](http://www.spoj.com/problems/GSS3/)
