@@ -127,6 +127,7 @@ We can use a `std::set<pair<long long, long long>>` to store disjoint, contiguou
 set<pair<long long, long long>> intervals;
 
 void add_number(long long x) {
+    if (x < 0) return;  // Negative values do not affect the MEX.
     auto it = intervals.lower_bound({x + 1, -1});
     
     // Early exit if x is already fully covered by an existing interval
