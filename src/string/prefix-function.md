@@ -142,8 +142,7 @@ For convenience we denote with $n$ the length of the string s and with $m$ the l
 We generate the string $s + \# + t$, where $\#$ is a separator that appears neither in $s$ nor in $t$.
 Let us calculate the prefix function for this string.
 Now think about the meaning of the values of the prefix function, except for the first $n + 1$ entries (which belong to the string $s$ and the separator).
-As stated in the definition, the value $\pi[i]$ shows the longest length of a substring ending in position $i$ that coincides with the prefix.
-But in our case this is nothing more than the largest block that coincides with $s$ and ends at position $i$.
+As noted in the definition, $\pi[i]$ is the length of the largest block that coincides with a prefix of $s$ and ends at position $i$.
 This length cannot be bigger than $n$ due to the separator.
 But if equality $\pi[i] = n$ is achieved, then it means that the string $s$ appears completely in at this position, i.e. it ends at position $i$.
 Just do not forget that the positions are indexed in the string $s + \# + t$.
