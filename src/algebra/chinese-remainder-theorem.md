@@ -101,7 +101,7 @@ then you can compute $b_3 := a \pmod{m_1 m_2 m_3}$ using the congruences $a \equ
 
 A direct construction similar to Lagrange interpolation is possible.
 
-Let $M_i := \prod_{i \neq j} m_j$, the product of all moduli but $m_i$, and $N_i$ the modular inverses $N_i := M_i^{-1} \bmod{m_i}$.
+Let $M_i := \prod_{j \neq i} m_j$, the product of all moduli but $m_i$, and $N_i$ the modular inverses $N_i := M_i^{-1} \bmod{m_i}$.
 Then a solution to the system of congruences is:
 
 $$a \equiv \sum_{i=1}^k a_i M_i N_i \pmod{m_1 m_2 \cdots m_k}$$

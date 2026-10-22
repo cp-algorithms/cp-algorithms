@@ -363,7 +363,7 @@ The difference being that instead of advancing the pointers by one and two place
 As soon as $2^i$ is greater than $\lambda$ and $\mu$, we will find the cycle.
 
 ```text
-function floyd(f, x0):
+function brent(f, x0):
     tortoise = x0
     hare = f(x0)
     l = 1

@@ -22,30 +22,30 @@ $$h = \frac {b-a} {2n}.$$
 
 Now we calculate the integral separately on each of the segments $[x_ {2i-2}, x_ {2i}]$, $i = 1 \ldots n$, and then add all the values.
 
-So, suppose we consider the next segment $[x_ {2i-2}, x_ {2i}],  i = 1 \ldots n$. Replace the function $f(x)$ on it with a parabola $P(x)$ passing through 3 points $(x_ {2i-2}, x_ {2i-1}, x_ {2i})$. Such a parabola always exists and is unique; it can be found analytically.
+So, suppose we consider the next segment $[x_ {2i-2}, x_ {2i}],  i = 1 \ldots n$. Replace the function $f(x)$ on it with a parabola $P(x)$ passing through the three graph points $(x_{2i-2}, f(x_{2i-2}))$, $(x_{2i-1}, f(x_{2i-1}))$, and $(x_{2i}, f(x_{2i}))$. Such a parabola always exists and is unique; it can be found analytically.
 For instance we could construct it using the Lagrange polynomial interpolation.
 The only remaining thing left to do is to integrate this polynomial.
 If you do this for a general function $f$, you receive a remarkably simple expression:
 
-$$\int_{x_ {2i-2}} ^ {x_ {2i}} f (x) ~dx \approx \int_{x_ {2i-2}} ^ {x_ {2i}} P (x) ~dx = \left(f(x_{2i-2}) + 4f(x_{2i-1})+(f(x_{2i})\right)\frac {h} {3} $$
+$$\int_{x_ {2i-2}} ^ {x_ {2i}} f (x) ~dx \approx \int_{x_ {2i-2}} ^ {x_ {2i}} P (x) ~dx = \left(f(x_{2i-2}) + 4f(x_{2i-1}) + f(x_{2i})\right)\frac {h} {3} $$
 
 Adding these values over all segments, we obtain the final **Simpson's formula**:
 
-$$\int_a ^ b f (x) dx \approx \left(f (x_0) + 4 f (x_1) + 2 f (x_2) + 4f(x_3) + 2 f(x_4) + \ldots + 4 f(x_{2N-1}) + f(x_{2N}) \right)\frac {h} {3} $$
+$$\int_a ^ b f (x) dx \approx \left(f (x_0) + 4 f (x_1) + 2 f (x_2) + 4f(x_3) + 2 f(x_4) + \ldots + 4 f(x_{2n-1}) + f(x_{2n}) \right)\frac {h} {3} $$
 
 ## Error
 
-The error in approximating an integral by Simpson's formula is
+For one Simpson panel spanning an interval $[a,b]$, the error is
 
 $$ -\tfrac{1}{90} \left(\tfrac{b-a}{2}\right)^5 f^{(4)}(\xi)$$
 
 where $\xi$ is some number between $a$ and $b$.
 
-The error is asymptotically proportional to $(b-a)^5$. However, the above derivations suggest an error proportional to $(b-a)^4$. Simpson's rule gains an extra order because the points at which the integrand is evaluated are distributed symmetrically in the interval $[a, b]$.
+Thus the single-panel error is fifth-order in the panel width. In the composite rule above, the interval is split into panels of width $2h$. Assuming the fourth derivative remains bounded, summing the panel errors gives a global error of order $O((b-a)h^4)$. Simpson's rule gains an extra order compared with a naive interpolation-error estimate because the points at which the integrand is evaluated are distributed symmetrically in each panel.
 
 ## Implementation
 
-Here, $f(x)$ is some user-defined function.
+Here, $f(x)$ is some user-defined function. The number of steps $N$ must be even.
 
 ```cpp
 const int N = 1000 * 1000; // number of steps (already multiplied by 2)
