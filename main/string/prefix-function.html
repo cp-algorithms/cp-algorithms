@@ -2788,6 +2788,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motivation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#prefix-function-definition" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8090,27 +8101,9 @@ Describe the issue of this article in detail.
   
     
   
-    
-  
 
   
   
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
   
     
   
@@ -8138,9 +8131,13 @@ Describe the issue of this article in detail.
   
     
   
+    
+  
 
   
   
+  
+    
   
     
   
@@ -8153,6 +8150,8 @@ Describe the issue of this article in detail.
 
   
   
+  
+    
   
     
   
@@ -8181,7 +8180,29 @@ Describe the issue of this article in detail.
     
   
 
+  
+  
+  
+    
+  
 
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+
+
+  
+  
+  
 
   
   
@@ -8230,7 +8251,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 20, 2023 18:20:34 UTC">August 20, 2023</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 25, 2026 19:00:30 UTC">October 25, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8257,10 +8278,20 @@ Describe the issue of this article in detail.
 
 
 <h1 id="prefix-function-knuthmorrispratt-algorithm">Prefix function. Knuth–Morris–Pratt algorithm<a class="headerlink" href="#prefix-function-knuthmorrispratt-algorithm" title="Permanent link">&para;</a></h1>
+<h2 id="motivation">Motivation<a class="headerlink" href="#motivation" title="Permanent link">&para;</a></h2>
+<p>Suppose we want to find all occurrences of a non-empty string <span class="arithmatex">$s$</span> in a text <span class="arithmatex">$t$</span>.
+Starting at position <span class="arithmatex">$0$</span>, we compare <span class="arithmatex">$s[0]$</span> with <span class="arithmatex">$t[0]$</span>, <span class="arithmatex">$s[1]$</span> with <span class="arithmatex">$t[1]$</span>, and so on, until we find a mismatch or match all of <span class="arithmatex">$s$</span>.
+When moving to the next candidate position, we would like to reuse as much of this work as possible.</p>
+<p>Suppose the current candidate starts at <span class="arithmatex">$i$</span> and we have matched through position <span class="arithmatex">$j$</span>, so <span class="arithmatex">$t[i \dots j] = s[0 \dots j-i]$</span>.
+After a mismatch, or after reporting a full match, a later start within this block is still possible only if the overlapping suffix of <span class="arithmatex">$t[i \dots j]$</span> is a prefix of <span class="arithmatex">$s$</span>.
+The longest such suffix shorter than the whole block gives the earliest start not ruled out by the matched characters; if it is empty, that start is <span class="arithmatex">$j+1$</span>.
+The next comparison uses <span class="arithmatex">$t[j+1]$</span> and the character of <span class="arithmatex">$s$</span> following this prefix, without rechecking the overlap.
+Since the matched block equals a prefix of <span class="arithmatex">$s$</span>, the possible overlaps depend only on <span class="arithmatex">$s$</span>, not on <span class="arithmatex">$t$</span>.
+The prefix function records the longest such overlap for each prefix of <span class="arithmatex">$s$</span>.</p>
 <h2 id="prefix-function-definition">Prefix function definition<a class="headerlink" href="#prefix-function-definition" title="Permanent link">&para;</a></h2>
 <p>You are given a string <span class="arithmatex">$s$</span> of length <span class="arithmatex">$n$</span>.
-The <strong>prefix function</strong> for this string is defined as an array <span class="arithmatex">$\pi$</span> of length <span class="arithmatex">$n$</span>, where <span class="arithmatex">$\pi[i]$</span> is the length of the longest proper prefix of the substring <span class="arithmatex">$s[0 \dots i]$</span> which is also a suffix of this substring.
-A proper prefix of a string is a prefix that is not equal to the string itself.
+The <strong>prefix function</strong> for this string is an array <span class="arithmatex">$\pi$</span> of length <span class="arithmatex">$n$</span>, where <span class="arithmatex">$\pi[i]$</span> is the length of the longest prefix of <span class="arithmatex">$s$</span> that matches a substring ending at position <span class="arithmatex">$i$</span>, excluding the whole substring <span class="arithmatex">$s[0 \dots i]$</span> itself.
+The matched string is a <strong>proper prefix</strong> of <span class="arithmatex">$s[0 \dots i]$</span> (a prefix shorter than the whole substring) that is also its suffix.
 By definition, <span class="arithmatex">$\pi[0] = 0$</span>.</p>
 <p>Mathematically the definition of the prefix function can be written as follows:</p>
 <div class="arithmatex">$$\pi[i] = \max_ {k = 0 \dots i} \{k : s[0 \dots k-1] = s[i-(k-1) \dots i] \}$$</div>
@@ -8344,17 +8375,13 @@ If they are equal then we assign <span class="arithmatex">$\pi[i] = j + 1$</span
 The algorithm still requires storing the string itself and the previously calculated values of prefix function, but if we know beforehand the maximum value <span class="arithmatex">$M$</span> the prefix function can take on the string, we can store only <span class="arithmatex">$M+1$</span> first characters of the string and the same number of values of the prefix function.</p>
 <h2 id="applications">Applications<a class="headerlink" href="#applications" title="Permanent link">&para;</a></h2>
 <h3 id="search-for-a-substring-in-a-string-the-knuth-morris-pratt-algorithm">Search for a substring in a string. The Knuth-Morris-Pratt algorithm<a class="headerlink" href="#search-for-a-substring-in-a-string-the-knuth-morris-pratt-algorithm" title="Permanent link">&para;</a></h3>
-<p>The task is the classical application of the prefix function.</p>
-<p>Given a text <span class="arithmatex">$t$</span> and a string <span class="arithmatex">$s$</span>, we want to find and display the positions of all occurrences of the string <span class="arithmatex">$s$</span> in the text <span class="arithmatex">$t$</span>.</p>
-<p>For convenience we denote with <span class="arithmatex">$n$</span> the length of the string s and with <span class="arithmatex">$m$</span> the length of the text <span class="arithmatex">$t$</span>.</p>
+<p>We now solve the substring-search problem from the motivation using the prefix function.
+Let <span class="arithmatex">$n = |s|$</span> and <span class="arithmatex">$m = |t|$</span>.</p>
 <p>We generate the string <span class="arithmatex">$s + \# + t$</span>, where <span class="arithmatex">$\#$</span> is a separator that appears neither in <span class="arithmatex">$s$</span> nor in <span class="arithmatex">$t$</span>.
 Let us calculate the prefix function for this string.
-Now think about the meaning of the values of the prefix function, except for the first <span class="arithmatex">$n + 1$</span> entries (which belong to the string <span class="arithmatex">$s$</span> and the separator).
-By definition the value <span class="arithmatex">$\pi[i]$</span> shows the longest length of a substring ending in position <span class="arithmatex">$i$</span> that coincides with the prefix.
-But in our case this is nothing more than the largest block that coincides with <span class="arithmatex">$s$</span> and ends at position <span class="arithmatex">$i$</span>.
-This length cannot be bigger than <span class="arithmatex">$n$</span> due to the separator.
-But if equality <span class="arithmatex">$\pi[i] = n$</span> is achieved, then it means that the string <span class="arithmatex">$s$</span> appears completely in at this position, i.e. it ends at position <span class="arithmatex">$i$</span>.
-Just do not forget that the positions are indexed in the string <span class="arithmatex">$s + \# + t$</span>.</p>
+For a position <span class="arithmatex">$i$</span> in the text part, the separator ensures that <span class="arithmatex">$\pi[i] \le n$</span>.
+By the definition, <span class="arithmatex">$\pi[i] = n$</span> means that a full occurrence of <span class="arithmatex">$s$</span> ends there.
+The positions here are indexed in the combined string <span class="arithmatex">$s + \# + t$</span>.</p>
 <p>Thus if at some position <span class="arithmatex">$i$</span> we have <span class="arithmatex">$\pi[i] = n$</span>, then at the position <span class="arithmatex">$i - (n + 1) - n + 1 = i - 2n$</span> in the string <span class="arithmatex">$t$</span> the string <span class="arithmatex">$s$</span> appears.</p>
 <p>As already mentioned in the description of the prefix function computation, if we know that the prefix values never exceed a certain value, then we do not need to store the entire string and the entire function, but only its beginning.
 In our case this means that we only need to store the string <span class="arithmatex">$s + \#$</span> and the values of the prefix function for it.
@@ -8542,7 +8569,7 @@ t_4 &amp;= t_2^{10} + t_3^{100}
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (80.62%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (14.21%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.07%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (1.29%)</li><li><a href="https://github.com/joaquingx" title="joaquingx" data-bi-name="contributorprofile" target="_blank">joaquingx</a> (0.52%)</li><li><a href="https://github.com/harshit-jain52" title="harshit-jain52" data-bi-name="contributorprofile" target="_blank">harshit-jain52</a> (0.26%)</li><li><a href="https://github.com/Kakalinn" title="Kakalinn" data-bi-name="contributorprofile" target="_blank">Kakalinn</a> (0.26%)</li><li><a href="https://github.com/GaurangTandon" title="GaurangTandon" data-bi-name="contributorprofile" target="_blank">GaurangTandon</a> (0.26%)</li><li><a href="https://github.com/shaan1337" title="shaan1337" data-bi-name="contributorprofile" target="_blank">shaan1337</a> (0.26%)</li><li><a href="https://github.com/ashutosh1598" title="ashutosh1598" data-bi-name="contributorprofile" target="_blank">ashutosh1598</a> (0.26%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (76.14%)</li><li><a href="https://github.com/tcNickolas" title="tcNickolas" data-bi-name="contributorprofile" target="_blank">tcNickolas</a> (13.96%)</li><li><a href="https://github.com/imRP21" title="imRP21" data-bi-name="contributorprofile" target="_blank">imRP21</a> (5.08%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (2.03%)</li><li><a href="https://github.com/Morass" title="Morass" data-bi-name="contributorprofile" target="_blank">Morass</a> (1.27%)</li><li><a href="https://github.com/harshit-jain52" title="harshit-jain52" data-bi-name="contributorprofile" target="_blank">harshit-jain52</a> (0.25%)</li><li><a href="https://github.com/Kakalinn" title="Kakalinn" data-bi-name="contributorprofile" target="_blank">Kakalinn</a> (0.25%)</li><li><a href="https://github.com/GaurangTandon" title="GaurangTandon" data-bi-name="contributorprofile" target="_blank">GaurangTandon</a> (0.25%)</li><li><a href="https://github.com/shaan1337" title="shaan1337" data-bi-name="contributorprofile" target="_blank">shaan1337</a> (0.25%)</li><li><a href="https://github.com/ashutosh1598" title="ashutosh1598" data-bi-name="contributorprofile" target="_blank">ashutosh1598</a> (0.25%)</li><li><a href="https://github.com/joaquingx" title="joaquingx" data-bi-name="contributorprofile" target="_blank">joaquingx</a> (0.25%)</li></ul>
 </ul>
                 
               </article>
