@@ -21,3 +21,19 @@
   padding: .2rem .5rem;
 }
 .article-preview select:focus-visible { outline: 2px solid var(--md-accent-fg-color, #536dfe); outline-offset: 2px; }
+
+.preview-index {
+  color-scheme: light dark;
+  background: Canvas;
+  color: CanvasText;
+  max-width: 64rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font: 1rem/1.6 system-ui, sans-serif;
+}
+.preview-index table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+.preview-index th, .preview-index td { text-align: left; padding: .5rem; border-bottom: 1px solid #8886; }
+.preview-index th[scope="row"] { overflow-wrap: anywhere; font-weight: normal; }
+.preview-index code { overflow-wrap: anywhere; }
+.preview-index td { white-space: nowrap; }
+.preview-index summary { cursor: pointer; }

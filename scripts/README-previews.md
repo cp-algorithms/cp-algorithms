@@ -5,13 +5,20 @@ stay on `gh-pages`. This prototype keeps the existing domain, the `main/` mirror
 and production `.html` URLs.
 
 An article such as `algebra/binary-exp.html` is previewed at
-`algebra/binary-exp/preview/123/`. A small `/preview/123/` index links to the
-articles in that PR. Only preview pages have the version selector and `noindex`.
+`algebra/binary-exp/preview/123/`. The deployment check's **Details** link and
+the deployment job summary lead to `/preview/123/`. This review page shows
+the built commit and lists changed articles first, with **Preview** and **Main**
+links. Articles without a main version are marked **New page**. A **Review pages**
+link on each preview returns to this index.
+Only preview pages have the version selector and `noindex`.
 The selector lists other published PRs that contain the same article.
 
 The build still validates the whole site. Publication selects the changed
 Markdown articles; deleted articles have no preview page. Navigation, template,
 build configuration, and shared source-asset changes select all rendered pages.
+There is no article-count threshold: independent article edits do not require
+copies of unchanged pages. For shared changes, the review page explains why
+all pages are included and keeps the other pages in an expandable list.
 PRs without rendered article changes get only the small index page.
 
 Links to other selected articles stay in that PR. Other links and search use

@@ -88,23 +88,75 @@ def remove(site, number):
         shutil.rmtree(legacy)
 
 
-def selected_articles(changed, files):
-    global_change = any(
+def shared_changes(changed):
+    return sorted(
+        name for name in changed if
         name in GLOBAL_INPUTS
         or name.startswith("plugins/")
         or (name.startswith("src/") and not name.endswith(".md"))
-        for name in changed
     )
-    if global_change:
-        return sorted(name for name in files if name.endswith(".html") and name != "404.html")
+
+
+def changed_articles(changed, files):
     articles = set()
     for name in changed:
         if name == "CONTRIBUTING.md":
             articles.add("contrib.html")
-        elif name.startswith("src/") and name.endswith(".md"):
+        elif name.startswith("src/") and name.endswith(".md") and name not in GLOBAL_INPUTS:
             articles.add(name[4:-3] + ".html")
     # Deleted articles have no rendered page.
     return sorted(articles & files.keys())
+
+
+def selected_articles(changed, files):
+    if shared_changes(changed):
+        return sorted(name for name in files if name.endswith(".html") and name != "404.html")
+    return changed_articles(changed, files)
+
+
+def review_index(number, pages, changed, shared, main_pages, main_prefix, revision):
+    """Give reviewers one entry point, with directly edited pages first."""
+    pr_url = f"https://github.com/cp-algorithms/cp-algorithms/pull/{number}"
+    scope = (
+        f"All {len(pages)} pages are previewed because navigation or shared site files changed."
+        if shared else f"This preview contains {len(pages)} changed article{'s' if len(pages) != 1 else ''}."
+    ) if pages else "There are no changed articles with rendered preview pages."
+
+    def table(articles):
+        rows = []
+        for article in articles:
+            main = f'<a href="{main_prefix}{quote(article, safe="/")}">Main</a>' if article in main_pages else "New page"
+            rows.append(
+                f'<tr><th scope="row"><code>{html.escape(article)}</code></th>'
+                f'<td><a href="{pages[article]}">Preview</a></td><td>{main}</td></tr>'
+            )
+        return '<table><thead><tr><th>Article</th><th>PR version</th><th>Main version</th></tr></thead><tbody>' + "".join(rows) + '</tbody></table>'
+
+    content = f'<h1>Preview for PR #{number}</h1><p><a href="{pr_url}">View pull request</a></p>'
+    if revision:
+        content += f'<p>Built from <a href="https://github.com/cp-algorithms/cp-algorithms/commit/{revision}"><code>{revision[:7]}</code></a>.</p>'
+    content += f'<p>{scope}</p>'
+    if shared:
+        content += '<p>Shared changes: ' + ", ".join(f'<code>{html.escape(name)}</code>' for name in shared) + '.</p>'
+    if changed:
+        content += '<h2>Changed articles</h2>' + table(changed)
+    remaining = sorted(pages.keys() - set(changed))
+    if remaining:
+        if "index.html" in pages:
+            content += f'<p><a href="{pages["index.html"]}">Browse the site preview</a></p>'
+        content += f'<details><summary>All other page previews ({len(remaining)})</summary>{table(remaining)}</details>'
+    if pages:
+        content += '<p>Links to articles without a preview and search results open the main mirror.</p>'
+    document = (
+        '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+        '<meta name="robots" content="noindex"><meta name="viewport" content="width=device-width, initial-scale=1">'
+        f'<title>Preview for PR #{number}</title><link rel="stylesheet" href="/preview/selector.css">'
+        f'</head><body class="preview-index"><main>{content}</main></body></html>\n'
+    )
+    summary = f"### Article previews\n\n[Review PR #{number} previews](https://gh.cp-algorithms.com/preview/{number}/)\n\n{scope}\n"
+    if revision:
+        summary += f"\nBuilt from `{revision[:7]}`.\n"
+    return document, summary
 
 
 def asset_files(files):
@@ -188,6 +240,7 @@ def rewrite_page(source, article, pages, assets, bundle, number, main_prefix, ha
     toolbar = BeautifulSoup(
         '<aside class="article-preview" aria-label="Article preview">'
         f'<a href="https://github.com/cp-algorithms/cp-algorithms/pull/{number}">PR #{number}</a>'
+        f'<a href="/preview/{number}/">Review pages</a>'
         '<label>Version <select aria-label="Article version" '
         f'data-article="{html.escape(article, quote=True)}" data-pr="{number}">'
         + main_option +
@@ -200,13 +253,15 @@ def rewrite_page(source, article, pages, assets, bundle, number, main_prefix, ha
     return str(soup)
 
 
-def publish(build, site, number, changed, main_prefix="/main/"):
+def publish(build, site, number, changed, main_prefix="/main/", revision=""):
     build, site = build.resolve(), site.resolve()
     if build == site or build in site.parents or site in build.parents:
         raise ValueError("Build and publication directories must not overlap")
     if not main_prefix.startswith("/") or main_prefix.startswith("//") or "?" in main_prefix or "#" in main_prefix:
         raise ValueError("Main prefix must be a local absolute URL path")
     main_prefix = main_prefix.rstrip("/") + "/"
+    if revision and not re.fullmatch(r"[0-9a-f]{40}", revision):
+        raise ValueError("Revision must be a full Git commit SHA")
     paths = list(build.rglob("*"))
     if any(path.is_symlink() for path in paths):
         raise ValueError("Build artifacts must not contain symlinks")
@@ -216,13 +271,17 @@ def publish(build, site, number, changed, main_prefix="/main/"):
     }
     selected = selected_articles(changed, files)
     pages = {article: preview_url(article, number) for article in selected}
+    main_pages = {article for article in selected if (site / main_prefix.lstrip("/") / article).is_file()}
+    review, summary = review_index(
+        number, pages, changed_articles(changed, files), shared_changes(changed), main_pages, main_prefix, revision,
+    )
     assets = asset_files(files) if pages else {}
     bundle = asset_digest(assets) if assets else None
     # Parse and rewrite all pages before replacing an earlier preview.
     rendered = {
         article: rewrite_page(
             files[article].read_text(), article, pages, assets, bundle, number, main_prefix,
-            (site / main_prefix.lstrip("/") / article).is_file(),
+            article in main_pages,
         )
         for article in selected
     }
@@ -244,21 +303,15 @@ def publish(build, site, number, changed, main_prefix="/main/"):
     write_registry(site, entries)
     for extension in ("js", "css"):
         shutil.copyfile(Path(__file__).with_name(f"preview-selector.{extension}"), site / "preview" / f"selector.{extension}")
-    links = "".join(f'<li><a href="{target}">{html.escape(article)}</a></li>' for article, target in pages.items())
     hub = site / "preview" / str(number) / "index.html"
     hub.parent.mkdir(parents=True, exist_ok=True)
-    hub.write_text(
-        '<!doctype html><html lang="en"><head><meta charset="utf-8">'
-        '<meta name="robots" content="noindex"><meta name="viewport" content="width=device-width">'
-        f'<title>PR #{number} previews</title></head><body><h1>PR #{number}</h1>'
-        + (f'<ul>{links}</ul>' if pages else '<p>This PR has no changed article pages.</p>')
-        + '</body></html>\n'
-    )
+    hub.write_text(review)
     legacy = site / str(number)
     if legacy.exists():
         shutil.rmtree(legacy)
     collect_assets(site, entries)
     print(f"Published {len(pages)} article previews at /preview/{number}/")
+    return summary
 
 
 def main():
@@ -269,6 +322,8 @@ def main():
     parser.add_argument("--build", type=Path)
     parser.add_argument("--files", type=Path, help="JSON array of GitHub PR-file API pages (gh --paginate --slurp)")
     parser.add_argument("--main-prefix", default="/main/")
+    parser.add_argument("--revision", default="", help="Full source commit SHA shown on the review page")
+    parser.add_argument("--summary", type=Path, help="Write a Markdown review link for the deployment job summary")
     args = parser.parse_args()
     if args.pr <= 0:
         parser.error("PR number must be positive")
@@ -278,7 +333,9 @@ def main():
         if args.build is None or args.files is None:
             parser.error("publish requires --build and --files")
         changed = [item["filename"] for page in json.loads(args.files.read_text()) for item in page]
-        publish(args.build, args.site, args.pr, changed, args.main_prefix)
+        summary = publish(args.build, args.site, args.pr, changed, args.main_prefix, args.revision)
+        if args.summary:
+            args.summary.write_text(summary)
 
 
 if __name__ == "__main__":

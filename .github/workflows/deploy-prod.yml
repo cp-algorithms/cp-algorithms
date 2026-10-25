@@ -122,6 +122,7 @@ jobs:
           python-version: '3.11'
 
       - name: Publish article previews
+        id: article-previews
         if: steps.get-pr-number.outputs.deploy == 'true' && steps.get-pr-number.outputs.pr_number != 'main'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -132,7 +133,8 @@ jobs:
           gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/files" > "$RUNNER_TEMP/preview-files.json"
           python3 scripts/article_previews.py publish \
             --build "public/$PR_NUMBER" --site published --pr "$PR_NUMBER" \
-            --files "$RUNNER_TEMP/preview-files.json"
+            --files "$RUNNER_TEMP/preview-files.json" --revision "$BUILD_SHA" \
+            --summary "$RUNNER_TEMP/preview-summary.md"
           git -C published config user.name "github-actions[bot]"
           git -C published config user.email "github-actions[bot]@users.noreply.github.com"
           git -C published add --all
@@ -140,9 +142,13 @@ jobs:
             git -C published commit -m "Preview for #$PR_NUMBER ($BUILD_SHA) at https://gh.cp-algorithms.com/preview/$PR_NUMBER/"
             git -C published push origin HEAD:gh-pages
           fi
+          cat "$RUNNER_TEMP/preview-summary.md" >> "$GITHUB_STEP_SUMMARY"
+          printf 'url=https://gh.cp-algorithms.com/preview/%s/\n' "$PR_NUMBER" >> "$GITHUB_OUTPUT"
 
       - name: Set final commit status
         uses: ./.github/actions/set-commit-status
         if: always()
         with:
           sha: ${{ github.event.workflow_run.head_sha }}
+          target-url: ${{ job.status == 'success' && steps.article-previews.outputs.url || format('{0}/{1}/actions/runs/{2}', github.server_url, github.repository, github.run_id) }}
+          description: ${{ job.status == 'success' && steps.article-previews.outputs.url && 'Review article previews' || job.status }}

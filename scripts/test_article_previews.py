@@ -99,6 +99,38 @@ class ArticlePreviewsTest(unittest.TestCase):
         self.publish(changed=["src/navigation.md"])
         pages = previews.registry(self.site)["123"]["pages"]
         self.assertEqual(set(pages), {"index.html", "algebra/a.html", "algebra/b.html", "graph/c.html"})
+        soup = BeautifulSoup((self.site / "preview/123/index.html").read_text(), "html.parser")
+        self.assertIn("All 4 pages", soup.get_text())
+        self.assertIn("src/navigation.md", soup.get_text())
+        self.assertEqual(soup.find("a", string="Browse the site preview")["href"], "/index/preview/123/")
+
+    def test_review_index_links_changed_pages_main_and_source_revision(self):
+        revision = "a" * 40
+        summary = previews.publish(
+            self.build, self.site, 123, ["src/algebra/a.md", "src/algebra/b.md"], revision=revision,
+        )
+        soup = BeautifulSoup((self.site / "preview/123/index.html").read_text(), "html.parser")
+        rows = soup.select("tbody tr")
+        self.assertEqual([row.code.get_text() for row in rows], ["algebra/a.html", "algebra/b.html"])
+        self.assertEqual([a["href"] for a in rows[0].find_all("a")], ["/algebra/a/preview/123/", "/main/algebra/a.html"])
+        self.assertIn("New page", rows[1].get_text())
+        self.assertNotIn("/main/algebra/b.html", str(rows[1]))
+        self.assertIsNone(soup.details)
+        self.assertIsNotNone(soup.find("a", href=f"https://github.com/cp-algorithms/cp-algorithms/commit/{revision}"))
+        self.assertIn("https://gh.cp-algorithms.com/preview/123/", summary)
+        self.assertIn("This preview contains 2 changed articles.", summary)
+        article = BeautifulSoup((self.site / previews.preview_path("algebra/a.html", 123)).read_text(), "html.parser")
+        self.assertEqual(article.find("a", string="Review pages")["href"], "/preview/123/")
+
+    def test_shared_change_keeps_directly_edited_articles_first(self):
+        (self.build / "navigation.html").write_text(PAGE)
+        self.publish(changed=["src/navigation.md", "src/algebra/b.md"])
+        soup = BeautifulSoup((self.site / "preview/123/index.html").read_text(), "html.parser")
+        self.assertEqual(soup.table.code.get_text(), "algebra/b.html")
+        self.assertEqual(
+            {code.get_text() for code in soup.details.select("tbody code")},
+            {"index.html", "navigation.html", "algebra/a.html", "graph/c.html"},
+        )
 
     def test_contributing_symlink_maps_to_rendered_contrib_page(self):
         (self.build / "contrib.html").write_text(PAGE)
@@ -112,6 +144,8 @@ class ArticlePreviewsTest(unittest.TestCase):
         self.assertFalse((self.site / previews.ASSETS).exists())
         soup = BeautifulSoup((self.site / "preview/123/index.html").read_text(), "html.parser")
         self.assertEqual(soup.find("meta", attrs={"name": "robots"})["content"], "noindex")
+        self.assertIn("no changed articles with rendered preview pages", soup.get_text())
+        self.assertIsNone(soup.table)
 
     def test_new_article_does_not_offer_a_missing_main_page(self):
         self.publish(changed=["src/algebra/b.md"])
