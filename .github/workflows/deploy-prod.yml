@@ -49,6 +49,8 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           projectId: cp-algorithms
           channelId: live
+          # Temporary pin until the deploy account has serviceusage.services.get.
+          firebaseToolsVersion: "15.34.0"
 
       - name: Set final commit status
         uses: ./.github/actions/set-commit-status
