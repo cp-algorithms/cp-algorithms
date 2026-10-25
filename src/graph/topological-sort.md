@@ -164,7 +164,7 @@ We compute the indegrees, process the vertices using a queue, and return the top
 
 If the graph contains a cycle, the returned vector will be empty.
 
-```cpp
+```{.cpp file=topological_sort_kahn}
 vector<int> topological_sort(int n, const vector<vector<int>>& adj) {
     vector<int> indeg(n, 0);
     for (int i = 0; i < n; ++i) {
