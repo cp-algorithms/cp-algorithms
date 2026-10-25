@@ -371,6 +371,8 @@ void sa_init() {
 }
 ```
 
+> **Note:** Resetting `sz = 1` reuses the state slots in the `st` array across runs. If you extend `state` with custom fields in problem-specific extensions (such as `inv_link` or occurrence counts), remember to clear or reinitialize those fields whenever a slot is initialized in `sa_init()` or reused in `sa_extend()`.
+
 And finally we give the implementation of the main function - which adds the next character to the end of the current line, rebuilding the machine accordingly.
 
 ```{.cpp file=suffix_automaton_extend}
@@ -663,7 +665,9 @@ However, this doesn't ruin the complexity. Since every non-cloned state correspo
 
 Moreover, we can also get rid of the duplicate positions, if we don't output the positions from the cloned states.
 In fact a state, that a cloned state can reach, is also reachable from the original state.
-Thus if we remember the flag `is_cloned` for each state, we can simply ignore the cloned states and only output $firstpos$ for all other states.
+Thus if we remember the flag `is_clone` for each state, we can simply ignore the cloned states and only output $firstpos$ for all other states.
+
+Because resetting `sz = 1` in `sa_init()` reuses state slots when constructing automata across multiple texts, any extension-specific fields (such as `inv_link` and `is_clone`) must be reset whenever a slot is initialized in `sa_init()` or allocated in `sa_extend()`. Additionally, all `inv_link` vectors for $0 \le v < sz$ should be cleared before populating the inverse links. Otherwise, reused state slots retain stale links from previous runs and may traverse dead states from earlier texts.
 
 Here are some implementation sketches:
 
@@ -676,7 +680,25 @@ struct state {
     vector<int> inv_link;
 };
 
-// after constructing the automaton
+// In sa_init():
+//     st[0].is_clone = false;
+//     st[0].first_pos = -1;
+//     st[0].inv_link.clear();
+
+// In sa_extend():
+//   for cur:
+//     st[cur].is_clone = false;
+//     st[cur].first_pos = st[cur].len - 1;
+//     st[cur].inv_link.clear();
+//   for clone:
+//     st[clone].is_clone = true;
+//     st[clone].first_pos = st[q].first_pos;
+//     st[clone].inv_link.clear();
+
+// after constructing the automaton, build inverse suffix links:
+for (int v = 0; v < sz; v++) {
+    st[v].inv_link.clear();
+}
 for (int v = 1; v < sz; v++) {
     st[st[v].link].inv_link.push_back(v);
 }
