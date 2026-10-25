@@ -49,6 +49,8 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           projectId: cp-algorithms
           channelId: live
+          # Temporary pin until the deploy account has serviceusage.services.get.
+          firebaseToolsVersion: "15.34.0"
 
       - name: Set final commit status
         uses: ./.github/actions/set-commit-status
@@ -59,6 +61,10 @@ jobs:
   deploy_github_pages:
     runs-on: ubuntu-latest
     if: github.event.workflow_run.conclusion == 'success'
+    concurrency:
+      group: gh-pages
+      queue: max
+      cancel-in-progress: false
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -76,11 +82,23 @@ jobs:
           github-token: ${{ github.token }}
           path: public
 
-      - name: Get PR number from artifact
+      - name: Check preview target
         id: get-pr-number
-        run: echo "pr_number=$(ls public)" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BUILD_EVENT: ${{ github.event.workflow_run.event }}
+        run: |
+          target=$(ls public)
+          if [ "$BUILD_EVENT" = push ] && [ "$target" = main ]; then
+            deploy=true
+          else
+            [[ "$BUILD_EVENT" = pull_request && "$target" =~ ^[1-9][0-9]*$ ]] || exit 1
+            deploy=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$target" --jq '.state == "open"')
+          fi
+          printf 'pr_number=%s\ndeploy=%s\n' "$target" "$deploy" >> "$GITHUB_OUTPUT"
 
       - name: Deploy to gh-pages
+        if: steps.get-pr-number.outputs.deploy == 'true'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ github.token }}
