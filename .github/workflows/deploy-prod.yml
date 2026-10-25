@@ -97,8 +97,8 @@ jobs:
           fi
           printf 'pr_number=%s\ndeploy=%s\n' "$target" "$deploy" >> "$GITHUB_OUTPUT"
 
-      - name: Deploy to gh-pages
-        if: steps.get-pr-number.outputs.deploy == 'true'
+      - name: Deploy main mirror to gh-pages
+        if: steps.get-pr-number.outputs.deploy == 'true' && steps.get-pr-number.outputs.pr_number == 'main'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ github.token }}
@@ -107,6 +107,39 @@ jobs:
           publish_dir: public/${{ steps.get-pr-number.outputs.pr_number }}
           destination_dir: ${{ steps.get-pr-number.outputs.pr_number }}
           full_commit_message: "Preview for ${{ steps.get-pr-number.outputs.pr_number != 'main' && '#' || '' }}${{ steps.get-pr-number.outputs.pr_number }} (${{ github.event.workflow_run.head_sha }}) at https://gh.cp-algorithms.com/${{ steps.get-pr-number.outputs.pr_number }}/"
+
+      - name: Checkout published previews
+        if: steps.get-pr-number.outputs.deploy == 'true' && steps.get-pr-number.outputs.pr_number != 'main'
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: published
+
+      - name: Set up Python for previews
+        if: steps.get-pr-number.outputs.deploy == 'true' && steps.get-pr-number.outputs.pr_number != 'main'
+        uses: actions/setup-python@v5.2.0
+        with:
+          python-version: '3.11'
+
+      - name: Publish article previews
+        if: steps.get-pr-number.outputs.deploy == 'true' && steps.get-pr-number.outputs.pr_number != 'main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ steps.get-pr-number.outputs.pr_number }}
+          BUILD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          python3 -m pip install -r scripts/preview-requirements.txt
+          gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/files" > "$RUNNER_TEMP/preview-files.json"
+          python3 scripts/article_previews.py publish \
+            --build "public/$PR_NUMBER" --site published --pr "$PR_NUMBER" \
+            --files "$RUNNER_TEMP/preview-files.json"
+          git -C published config user.name "github-actions[bot]"
+          git -C published config user.email "github-actions[bot]@users.noreply.github.com"
+          git -C published add --all
+          if ! git -C published diff --cached --quiet; then
+            git -C published commit -m "Preview for #$PR_NUMBER ($BUILD_SHA) at https://gh.cp-algorithms.com/preview/$PR_NUMBER/"
+            git -C published push origin HEAD:gh-pages
+          fi
 
       - name: Set final commit status
         uses: ./.github/actions/set-commit-status
