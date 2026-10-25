@@ -26,7 +26,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -34,10 +34,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -8455,7 +8455,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 26, 2026 08:45:31 UTC">September 26, 2026</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 25, 2026 19:25:24 UTC">October 25, 2026</span>&emsp;
 
 <!-- Tags -->
 
@@ -8768,6 +8768,9 @@ We store the current size <span class="arithmatex">$sz$</span> and also the vari
 <span class="w">    </span><span class="n">st</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">next</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div>
+<blockquote>
+<p><strong>Note:</strong> Resetting <code>sz = 1</code> reuses the state slots in the <code>st</code> array across runs. If you extend <code>state</code> with custom fields in problem-specific extensions (such as <code>inv_link</code> or occurrence counts), remember to clear or reinitialize those fields whenever a slot is initialized in <code>sa_init()</code> or reused in <code>sa_extend()</code>.</p>
+</blockquote>
 <p>And finally we give the implementation of the main function - which adds the next character to the end of the current line, rebuilding the machine accordingly.</p>
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">sa_extend</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">cur</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sz</span><span class="o">++</span><span class="p">;</span>
@@ -8968,7 +8971,8 @@ This happens if one state was obtained by cloning another.
 However, this doesn't ruin the complexity. Since every non-cloned state corresponds to exactly one unique first occurrence end-position, and the cloned states in any subtree of the suffix link tree are bounded by the number of non-cloned states, the total number of nodes visited in the DFS is <span class="arithmatex">$O(answer(P))$</span>.</p>
 <p>Moreover, we can also get rid of the duplicate positions, if we don't output the positions from the cloned states.
 In fact a state, that a cloned state can reach, is also reachable from the original state.
-Thus if we remember the flag <code>is_cloned</code> for each state, we can simply ignore the cloned states and only output <span class="arithmatex">$firstpos$</span> for all other states.</p>
+Thus if we remember the flag <code>is_clone</code> for each state, we can simply ignore the cloned states and only output <span class="arithmatex">$firstpos$</span> for all other states.</p>
+<p>Because resetting <code>sz = 1</code> in <code>sa_init()</code> reuses state slots when constructing automata across multiple texts, any extension-specific fields (such as <code>inv_link</code> and <code>is_clone</code>) must be reset whenever a slot is initialized in <code>sa_init()</code> or allocated in <code>sa_extend()</code>. Additionally, all <code>inv_link</code> vectors for <span class="arithmatex">$0 \le v &lt; sz$</span> should be cleared before populating the inverse links. Otherwise, reused state slots retain stale links from previous runs and may traverse dead states from earlier texts.</p>
 <p>Here are some implementation sketches:</p>
 <div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">state</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="p">,</span><span class="w"> </span><span class="n">link</span><span class="p">;</span>
@@ -8978,7 +8982,25 @@ Thus if we remember the flag <code>is_cloned</code> for each state, we can simpl
 <span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">inv_link</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="c1">// after constructing the automaton</span>
+<span class="c1">// In sa_init():</span>
+<span class="c1">//     st[0].is_clone = false;</span>
+<span class="c1">//     st[0].first_pos = -1;</span>
+<span class="c1">//     st[0].inv_link.clear();</span>
+
+<span class="c1">// In sa_extend():</span>
+<span class="c1">//   for cur:</span>
+<span class="c1">//     st[cur].is_clone = false;</span>
+<span class="c1">//     st[cur].first_pos = st[cur].len - 1;</span>
+<span class="c1">//     st[cur].inv_link.clear();</span>
+<span class="c1">//   for clone:</span>
+<span class="c1">//     st[clone].is_clone = true;</span>
+<span class="c1">//     st[clone].first_pos = st[q].first_pos;</span>
+<span class="c1">//     st[clone].inv_link.clear();</span>
+
+<span class="c1">// after constructing the automaton, build inverse suffix links:</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">sz</span><span class="p">;</span><span class="w"> </span><span class="n">v</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">st</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">inv_link</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+<span class="p">}</span>
 <span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">sz</span><span class="p">;</span><span class="w"> </span><span class="n">v</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">st</span><span class="p">[</span><span class="n">st</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">link</span><span class="p">].</span><span class="n">inv_link</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
 <span class="p">}</span>
@@ -9072,7 +9094,7 @@ After computing this for all states, the answer to the problem will be the strin
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (87.89%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (4.79%)</li><li><a href="https://github.com/AtharvaThorve" title="AtharvaThorve" data-bi-name="contributorprofile" target="_blank">AtharvaThorve</a> (1.89%)</li><li><a href="https://github.com/AbhayMahalle" title="AbhayMahalle" data-bi-name="contributorprofile" target="_blank">AbhayMahalle</a> (1.26%)</li><li><a href="https://github.com/iagorrr" title="iagorrr" data-bi-name="contributorprofile" target="_blank">iagorrr</a> (0.88%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (0.88%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.76%)</li><li><a href="https://github.com/wilsjame" title="wilsjame" data-bi-name="contributorprofile" target="_blank">wilsjame</a> (0.5%)</li><li><a href="https://github.com/Ir1d" title="Ir1d" data-bi-name="contributorprofile" target="_blank">Ir1d</a> (0.25%)</li><li><a href="https://github.com/whyvineet" title="whyvineet" data-bi-name="contributorprofile" target="_blank">whyvineet</a> (0.13%)</li><li><a href="https://github.com/abeaumont" title="abeaumont" data-bi-name="contributorprofile" target="_blank">abeaumont</a> (0.13%)</li><li><a href="https://github.com/rohaquinlop" title="rohaquinlop" data-bi-name="contributorprofile" target="_blank">rohaquinlop</a> (0.13%)</li><li><a href="https://github.com/Kakalinn" title="Kakalinn" data-bi-name="contributorprofile" target="_blank">Kakalinn</a> (0.13%)</li><li><a href="https://github.com/hieplpvip" title="hieplpvip" data-bi-name="contributorprofile" target="_blank">hieplpvip</a> (0.13%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.13%)</li><li><a href="https://github.com/NAbdulla1" title="NAbdulla1" data-bi-name="contributorprofile" target="_blank">NAbdulla1</a> (0.13%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (85.28%)</li><li><a href="https://github.com/mhayter" title="mhayter" data-bi-name="contributorprofile" target="_blank">mhayter</a> (4.66%)</li><li><a href="https://github.com/AbhayMahalle" title="AbhayMahalle" data-bi-name="contributorprofile" target="_blank">AbhayMahalle</a> (4.17%)</li><li><a href="https://github.com/AtharvaThorve" title="AtharvaThorve" data-bi-name="contributorprofile" target="_blank">AtharvaThorve</a> (1.84%)</li><li><a href="https://github.com/iagorrr" title="iagorrr" data-bi-name="contributorprofile" target="_blank">iagorrr</a> (0.86%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (0.86%)</li><li><a href="https://github.com/roll-no-1" title="roll-no-1" data-bi-name="contributorprofile" target="_blank">roll-no-1</a> (0.74%)</li><li><a href="https://github.com/wilsjame" title="wilsjame" data-bi-name="contributorprofile" target="_blank">wilsjame</a> (0.49%)</li><li><a href="https://github.com/Ir1d" title="Ir1d" data-bi-name="contributorprofile" target="_blank">Ir1d</a> (0.25%)</li><li><a href="https://github.com/whyvineet" title="whyvineet" data-bi-name="contributorprofile" target="_blank">whyvineet</a> (0.12%)</li><li><a href="https://github.com/abeaumont" title="abeaumont" data-bi-name="contributorprofile" target="_blank">abeaumont</a> (0.12%)</li><li><a href="https://github.com/rohaquinlop" title="rohaquinlop" data-bi-name="contributorprofile" target="_blank">rohaquinlop</a> (0.12%)</li><li><a href="https://github.com/Kakalinn" title="Kakalinn" data-bi-name="contributorprofile" target="_blank">Kakalinn</a> (0.12%)</li><li><a href="https://github.com/hieplpvip" title="hieplpvip" data-bi-name="contributorprofile" target="_blank">hieplpvip</a> (0.12%)</li><li><a href="https://github.com/wikku" title="wikku" data-bi-name="contributorprofile" target="_blank">wikku</a> (0.12%)</li><li><a href="https://github.com/NAbdulla1" title="NAbdulla1" data-bi-name="contributorprofile" target="_blank">NAbdulla1</a> (0.12%)</li></ul>
 </ul>
                 
               </article>
@@ -9152,10 +9174,10 @@ After computing this for all states, the answer to the problem will be the strin
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
       
         <script src="../javascript/config.js"></script>
       
