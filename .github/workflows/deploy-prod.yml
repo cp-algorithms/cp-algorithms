@@ -65,11 +65,6 @@ jobs:
       group: gh-pages
       queue: max
       cancel-in-progress: false
-    permissions:
-      actions: read
-      contents: write
-      pull-requests: read
-      statuses: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -96,17 +91,9 @@ jobs:
           target=$(ls public)
           if [ "$BUILD_EVENT" = push ] && [ "$target" = main ]; then
             deploy=true
-          elif [ "$BUILD_EVENT" = pull_request ] && [[ "$target" =~ ^[1-9][0-9]*$ ]]; then
-            state=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$target" --jq .state)
-            deploy=false
-            if [ "$state" = open ]; then
-              deploy=true
-            else
-              echo "Skipping preview for closed PR #$target."
-            fi
           else
-            echo "Unexpected preview target: $target"
-            exit 1
+            [[ "$BUILD_EVENT" = pull_request && "$target" =~ ^[1-9][0-9]*$ ]] || exit 1
+            deploy=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$target" --jq '.state == "open"')
           fi
           printf 'pr_number=%s\ndeploy=%s\n' "$target" "$deploy" >> "$GITHUB_OUTPUT"
 
