@@ -69,7 +69,7 @@ Thus, $x = u \cdot b^\prime$ is a solution. Reducing it modulo $n^\prime = \frac
 
 ### Implementation
 
-```cpp
+```{.cpp file=solve_linear_congruence}
 long long extgcd(long long a, long long b, long long &u, long long &v) {
     if (b == 0) {
         u = 1;
