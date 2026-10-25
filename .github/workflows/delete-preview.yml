@@ -3,10 +3,24 @@ name: Delete PR Preview
 on:
   pull_request_target:
     types: [closed]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: List stale previews without deleting them
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: read
 
 jobs:
   delete_pr_preview:
     runs-on: ubuntu-latest
+    concurrency:
+      group: gh-pages
+      queue: max
+      cancel-in-progress: false
     steps:
       - name: Checkout gh-pages branch
         uses: actions/checkout@v4
@@ -18,13 +32,42 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Delete PR directory
+      - name: Remove closed PR previews
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          DRY_RUN: ${{ inputs.dry_run }}
         run: |
-          PR_DIR="${{ github.event.pull_request.number }}"
-          if [ ! -d "${PR_DIR}" ]; then
-            echo "No preview directory for #${PR_DIR}; nothing to delete."
+          targets=()
+          if [ "$GITHUB_EVENT_NAME" = pull_request_target ]; then
+            targets=("$PR_NUMBER")
+          else
+            for directory in */; do
+              directory=${directory%/}
+              if [[ "$directory" =~ ^[1-9][0-9]*$ ]]; then
+                targets+=("$directory")
+              fi
+            done
+          fi
+
+          stale=()
+          for number in "${targets[@]}"; do
+            [[ "$number" =~ ^[1-9][0-9]*$ ]] || exit 1
+            [ -d "$number" ] || continue
+            state=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$number" --jq .state)
+            if [ "$state" = closed ]; then
+              stale+=("$number")
+            fi
+          done
+
+          if [ "${#stale[@]}" -eq 0 ]; then
+            echo "No closed PR previews to remove."
             exit 0
           fi
-          git rm -r --quiet "${PR_DIR}"
-          git commit -m "Delete preview for #${PR_DIR}"
-          git push origin gh-pages
+          printf 'Closed PR preview: %s\n' "${stale[@]}"
+          if [ "$DRY_RUN" = true ]; then
+            exit 0
+          fi
+          git rm -r --quiet -- "${stale[@]}"
+          git commit -m "Remove closed PR previews: ${stale[*]}"
+          git push origin HEAD:gh-pages
