@@ -95,14 +95,39 @@ class ArticlePreviewsTest(unittest.TestCase):
         entries = previews.registry(self.site)
         self.assertNotEqual(entries["123"]["assets"], entries["124"]["assets"])
 
-    def test_navigation_change_previews_all_pages(self):
+    def test_navigation_only_change_previews_just_the_home_page(self):
+        (self.build / "navigation.html").write_text(PAGE)
         self.publish(changed=["src/navigation.md"])
         pages = previews.registry(self.site)["123"]["pages"]
-        self.assertEqual(set(pages), {"index.html", "algebra/a.html", "algebra/b.html", "graph/c.html"})
+        self.assertEqual(set(pages), {"index.html"})
         soup = BeautifulSoup((self.site / "preview/123/index.html").read_text(), "html.parser")
-        self.assertIn("All 4 pages", soup.get_text())
-        self.assertIn("src/navigation.md", soup.get_text())
-        self.assertEqual(soup.find("a", string="Browse the site preview")["href"], "/index/preview/123/")
+        self.assertIn("updated sidebar", soup.get_text())
+        self.assertEqual(soup.find("a", string="Preview navigation on the home page")["href"], "/index/preview/123/")
+        self.assertIsNone(soup.details)
+
+    def test_new_article_with_navigation_stays_small_and_readme_adds_only_home(self):
+        navigation = '<nav><a href="new.html">New article</a><a href="a.html">Existing article</a></nav>'
+        (self.build / "algebra/new.html").write_text(PAGE.replace('<article>', navigation + '<article>'))
+        (self.build / "navigation.html").write_text(PAGE)
+        self.publish(changed=["src/algebra/new.md", "src/navigation.md"])
+        self.assertEqual(set(previews.registry(self.site)["123"]["pages"]), {"algebra/new.html"})
+        soup = BeautifulSoup((self.site / previews.preview_path("algebra/new.html", 123)).read_text(), "html.parser")
+        links = {a.get_text(): a["href"] for a in soup.nav.find_all("a")}
+        self.assertEqual(links["New article"], "/algebra/new/preview/123/")
+        self.assertEqual(links["Existing article"], "/main/algebra/a.html")
+        self.assertEqual([option.get_text() for option in soup.select(".article-preview option")], ["PR #123"])
+        self.publish(changed=["src/algebra/new.md", "src/navigation.md", "README.md"])
+        self.assertEqual(set(previews.registry(self.site)["123"]["pages"]), {"algebra/new.html", "index.html"})
+
+    def test_readme_links_to_new_articles_stay_in_the_preview(self):
+        (self.build / "index.html").write_text(PAGE.replace(
+            '<article>', '<article><a href="https://cp-algorithms.com/algebra/b.html#proof">New article</a>',
+        ))
+        self.publish(changed=["README.md", "src/algebra/b.md"])
+        self.assertEqual(set(previews.registry(self.site)["123"]["pages"]), {"index.html", "algebra/b.html"})
+        soup = BeautifulSoup((self.site / previews.preview_path("index.html", 123)).read_text(), "html.parser")
+        self.assertEqual(soup.find("a", string="New article")["href"], "/algebra/b/preview/123/#proof")
+        self.assertEqual(soup.find("link", rel="canonical")["href"], "https://cp-algorithms.com/algebra/a.html")
 
     def test_review_index_links_changed_pages_main_and_source_revision(self):
         revision = "a" * 40
@@ -118,13 +143,13 @@ class ArticlePreviewsTest(unittest.TestCase):
         self.assertIsNone(soup.details)
         self.assertIsNotNone(soup.find("a", href=f"https://github.com/cp-algorithms/cp-algorithms/commit/{revision}"))
         self.assertIn("https://gh.cp-algorithms.com/preview/123/", summary)
-        self.assertIn("This preview contains 2 changed articles.", summary)
+        self.assertIn("This preview contains 2 changed pages.", summary)
         article = BeautifulSoup((self.site / previews.preview_path("algebra/a.html", 123)).read_text(), "html.parser")
         self.assertEqual(article.find("a", string="Review pages")["href"], "/preview/123/")
 
     def test_shared_change_keeps_directly_edited_articles_first(self):
         (self.build / "navigation.html").write_text(PAGE)
-        self.publish(changed=["src/navigation.md", "src/algebra/b.md"])
+        self.publish(changed=["src/stylesheets/extra.css", "src/navigation.md", "src/algebra/b.md"])
         soup = BeautifulSoup((self.site / "preview/123/index.html").read_text(), "html.parser")
         self.assertEqual(soup.table.code.get_text(), "algebra/b.html")
         self.assertEqual(

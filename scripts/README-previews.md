@@ -7,15 +7,19 @@ and production `.html` URLs.
 An article such as `algebra/binary-exp.html` is previewed at
 `algebra/binary-exp/preview/123/`. The deployment check's **Details** link and
 the deployment job summary lead to `/preview/123/`. This review page shows
-the built commit and lists changed articles first, with **Preview** and **Main**
+the built commit and lists changed pages first, with **Preview** and **Main**
 links. Articles without a main version are marked **New page**. A **Review pages**
 link on each preview returns to this index.
 Only preview pages have the version selector and `noindex`.
 The selector lists other published PRs that contain the same article.
 
 The build still validates the whole site. Publication selects the changed
-Markdown articles; deleted articles have no preview page. Navigation, template,
-build configuration, and shared source-asset changes select all rendered pages.
+Markdown articles; deleted articles have no preview page. Navigation changes
+do not expand that selection: each selected article already has the updated
+sidebar. A navigation-only PR previews just the home page to show that sidebar.
+Changes to `README.md` also preview the home page, which includes its content.
+Template, build configuration, and shared source-asset changes select all
+rendered pages.
 There is no article-count threshold: independent article edits do not require
 copies of unchanged pages. For shared changes, the review page explains why
 all pages are included and keeps the other pages in an expandable list.

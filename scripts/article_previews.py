@@ -15,7 +15,7 @@ from urllib.parse import quote, unquote, urlsplit, urlunsplit
 REGISTRY = Path("preview/index.json")
 ASSETS = Path("preview/assets")
 GLOBAL_INPUTS = {
-    "src/navigation.md", "mkdocs.yml", "hooks.py", "scripts/install-mkdocs.sh",
+    "mkdocs.yml", "hooks.py", "scripts/install-mkdocs.sh",
     ".github/workflows/build.yml",
 }
 
@@ -100,9 +100,11 @@ def shared_changes(changed):
 def changed_articles(changed, files):
     articles = set()
     for name in changed:
-        if name == "CONTRIBUTING.md":
+        if name == "README.md":
+            articles.add("index.html")
+        elif name == "CONTRIBUTING.md":
             articles.add("contrib.html")
-        elif name.startswith("src/") and name.endswith(".md") and name not in GLOBAL_INPUTS:
+        elif name.startswith("src/") and name.endswith(".md") and name != "src/navigation.md":
             articles.add(name[4:-3] + ".html")
     # Deleted articles have no rendered page.
     return sorted(articles & files.keys())
@@ -111,16 +113,24 @@ def changed_articles(changed, files):
 def selected_articles(changed, files):
     if shared_changes(changed):
         return sorted(name for name in files if name.endswith(".html") and name != "404.html")
-    return changed_articles(changed, files)
+    articles = changed_articles(changed, files)
+    # Selected articles already contain the updated sidebar. Navigation-only
+    # changes need just one representative page to review it.
+    if not articles and "src/navigation.md" in changed and "index.html" in files:
+        return ["index.html"]
+    return articles
 
 
 def review_index(number, pages, changed, shared, main_pages, main_prefix, revision):
     """Give reviewers one entry point, with directly edited pages first."""
     pr_url = f"https://github.com/cp-algorithms/cp-algorithms/pull/{number}"
+    navigation_only = set(pages) == {"index.html"} and not changed and not shared
     scope = (
-        f"All {len(pages)} pages are previewed because navigation or shared site files changed."
-        if shared else f"This preview contains {len(pages)} changed article{'s' if len(pages) != 1 else ''}."
+        f"All {len(pages)} pages are previewed because shared site files changed."
+        if shared else f"This preview contains {len(pages)} changed page{'s' if len(pages) != 1 else ''}."
     ) if pages else "There are no changed articles with rendered preview pages."
+    if navigation_only:
+        scope = "Navigation changed; the home page is previewed so you can review the updated sidebar."
 
     def table(articles):
         rows = []
@@ -130,7 +140,7 @@ def review_index(number, pages, changed, shared, main_pages, main_prefix, revisi
                 f'<tr><th scope="row"><code>{html.escape(article)}</code></th>'
                 f'<td><a href="{pages[article]}">Preview</a></td><td>{main}</td></tr>'
             )
-        return '<table><thead><tr><th>Article</th><th>PR version</th><th>Main version</th></tr></thead><tbody>' + "".join(rows) + '</tbody></table>'
+        return '<table><thead><tr><th>Page</th><th>PR version</th><th>Main version</th></tr></thead><tbody>' + "".join(rows) + '</tbody></table>'
 
     content = f'<h1>Preview for PR #{number}</h1><p><a href="{pr_url}">View pull request</a></p>'
     if revision:
@@ -139,12 +149,14 @@ def review_index(number, pages, changed, shared, main_pages, main_prefix, revisi
     if shared:
         content += '<p>Shared changes: ' + ", ".join(f'<code>{html.escape(name)}</code>' for name in shared) + '.</p>'
     if changed:
-        content += '<h2>Changed articles</h2>' + table(changed)
+        content += '<h2>Changed pages</h2>' + table(changed)
     remaining = sorted(pages.keys() - set(changed))
     if remaining:
         if "index.html" in pages:
-            content += f'<p><a href="{pages["index.html"]}">Browse the site preview</a></p>'
-        content += f'<details><summary>All other page previews ({len(remaining)})</summary>{table(remaining)}</details>'
+            label = "Preview navigation on the home page" if navigation_only else "Browse the site preview"
+            content += f'<p><a href="{pages["index.html"]}">{label}</a></p>'
+        if not navigation_only:
+            content += f'<details><summary>All other page previews ({len(remaining)})</summary>{table(remaining)}</details>'
     if pages:
         content += '<p>Links to articles without a preview and search results open the main mirror.</p>'
     document = (
@@ -183,8 +195,12 @@ def rewrite_page(source, article, pages, assets, bundle, number, main_prefix, ha
 
     soup = BeautifulSoup(source, "html.parser")
 
-    def rewrite(value):
+    def rewrite(value, site_link=False):
         parts = urlsplit(value)
+        # README uses absolute article links and is included in the home page.
+        # Rewrite those anchors too, while preserving canonical metadata.
+        if site_link and parts.scheme in ("", "http", "https") and parts.netloc == "cp-algorithms.com":
+            parts = parts._replace(scheme="", netloc="")
         if parts.scheme or parts.netloc or not parts.path:
             return value
         path = posixpath.normpath(posixpath.join("/", posixpath.dirname(article), unquote(parts.path))).lstrip("/")
@@ -203,7 +219,7 @@ def rewrite_page(source, article, pages, assets, bundle, number, main_prefix, ha
     for tag in soup.find_all(True):
         for attribute in ("href", "src", "poster", "action", "data-src", "xlink:href"):
             if tag.has_attr(attribute):
-                tag[attribute] = rewrite(tag[attribute])
+                tag[attribute] = rewrite(tag[attribute], site_link=tag.name == "a" and attribute == "href")
         if tag.has_attr("srcset") and "data:" not in tag["srcset"]:
             candidates = []
             for candidate in tag["srcset"].split(","):
