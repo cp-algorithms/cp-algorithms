@@ -7,6 +7,10 @@ on:
 jobs:
   delete_pr_preview:
     runs-on: ubuntu-latest
+    concurrency:
+      group: gh-pages
+      queue: max
+      cancel-in-progress: false
     steps:
       - name: Checkout gh-pages branch
         uses: actions/checkout@v4
