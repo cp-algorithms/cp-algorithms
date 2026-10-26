@@ -147,6 +147,8 @@ jobs:
         uses: actions/setup-python@v5.2.0
         with:
           python-version: '3.11'
+          cache: pip
+          cache-dependency-path: scripts/preview-requirements.txt
 
       - name: Publish article previews
         id: article-previews
