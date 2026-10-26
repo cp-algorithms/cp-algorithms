@@ -7,58 +7,6 @@ on:
       - completed
 
 jobs:
-  # Keep Firebase publishing during the DNS cutover so it remains a current rollback target.
-  deploy_live_website:
-    runs-on: ubuntu-latest
-    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Attach run to the commit
-        uses: ./.github/actions/set-commit-status
-        with:
-          sha: ${{ github.event.workflow_run.head_sha }}
-          status: pending
-
-      - name: Download pages
-        uses: actions/download-artifact@v4
-        with:
-          run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ github.token }}
-          merge-multiple: true
-          path: public
-
-      - name: change URLs for large files
-        shell: bash
-        run: sed -i 's|search/search_index.json|https://storage.googleapis.com/cp-algorithms/search_index.json|g' public/assets/javascripts/*.js
-
-      - id: auth
-        uses: google-github-actions/auth@v2.1.6
-        with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
-
-      - uses: google-github-actions/upload-cloud-storage@v2.2.0
-        with:
-          path: public/search/search_index.json
-          destination: cp-algorithms
-
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        id: firebase-deploy
-        with:
-          repoToken: ${{ github.token }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          projectId: cp-algorithms
-          channelId: live
-          # Temporary pin until the deploy account has serviceusage.services.get.
-          firebaseToolsVersion: "15.34.0"
-
-      - name: Set final commit status
-        uses: ./.github/actions/set-commit-status
-        if: always()
-        with:
-          sha: ${{ github.event.workflow_run.head_sha }}
-
   deploy_github_pages:
     runs-on: ubuntu-latest
     if: github.event.workflow_run.conclusion == 'success' && (github.event.workflow_run.event == 'pull_request' || github.event.workflow_run.head_branch == 'main')
