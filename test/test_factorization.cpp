@@ -26,6 +26,8 @@ long long gcd(long long a, long long b) {
 #include "../test/factorization_trial_division2.h"
 #include "../test/factorization_trial_division3.h"
 #include "../test/factorization_trial_division4.h"
+#include "../test/precalculation_spf.h"
+#include "../test/factorization_spf.h"
 #include "../test/factorization_p_minus_1.h"
 #include "../test/pollard_rho.h"
 #include "../test/pollard_rho_brent.h"
@@ -38,6 +40,21 @@ int main() {
     };
     primes = {2, 3, 5, 7, 1303, 3607};
 
+    long long target = 123456789;
+
+    vector<long long> spf(target+1);
+    for(int i = 2; i <= target; i++)   
+    {   
+        if(spf[i] == 0)   
+        {    
+            for (int j = i; j <= target; j += i)   
+            {
+                if (spf[j] == 0)
+                    spf[j] = i;   
+            }   
+        }   
+    }  
+
     for (auto n_expected : test_data) {
         auto n = n_expected.first;
         auto expected = n_expected.second;
@@ -46,6 +63,7 @@ int main() {
         assert(trial_division2(n) == expected);
         assert(trial_division3(n) == expected);
         assert(trial_division4(n) == expected);
+        assert(factorization_spf(n, spf) == expected);
 
         long long g = pollards_p_minus_1(n);
         assert(g > 1 && g < n && n % g == 0);
