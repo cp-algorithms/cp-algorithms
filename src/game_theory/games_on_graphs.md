@@ -46,8 +46,6 @@ So if we go from a winning vertex to an undefined one, then we increase the coun
 If this is the case, we can mark this vertex as a losing vertex, and continue the DFS from this vertex.
 Otherwise we don't know yet, if this vertex is a winning or losing vertex, and therefore it doesn't make sense to keep continuing the DFS using it.
 
-In case of stack overflow on large graphs, one may use a [breadth First Search](../graph/breadth-first-search.md) to propagate winning and losing states in reverse order, which eliminates recursion (saves stack space) and guarantees linear-time processing.
-
 In total we visit every winning and every losing vertex exactly once (undefined vertices are not visited), and we go over each edge also at most one time.
 Hence the complexity is $O(m)$.
 
@@ -81,41 +79,46 @@ void dfs(int v) {
 }
 ```
 
-Implementation using BFS.
-```cpp
+The same propagation can also be done with a [breadth-first search](../graph/breadth-first-search.md) instead of a DFS.
+We put all vertices, for which we initially know if they are winning or losing states, into a queue.
+Then we repeatedly take a vertex $v$ from the queue and look at all undefined vertices $u$ with an edge $(u, v)$, i.e. we again move back over the reversed edges.
+If $v$ is a losing vertex, then $u$ becomes a winning vertex.
+If $v$ is a winning vertex, then we decrease the number of outgoing edges of $u$ that do not yet lead to a winning vertex, and if it becomes zero, $u$ becomes a losing vertex.
+Every vertex that becomes defined is added to the queue, so that its own predecessors get processed later.
+The rules applied are exactly the same as in the DFS, only the order in which vertices are processed is different.
+Since a vertex is added to the queue only once, at the moment it becomes defined, every reversed edge is again inspected at most once, and the complexity is still $O(n + m)$.
+The vertices that are still undefined when the queue becomes empty are exactly the draw vertices.
+
+As for the DFS, we assume that `degree` contains the outgoing degrees, and that `winning` and `losing` are already set for all vertices which are known in advance.
+
+```{.cpp file=games_on_graphs_bfs}
 vector<vector<int>> adj_rev;
+
+vector<bool> winning;
+vector<bool> losing;
 vector<int> degree;
-vector<bool> winning, losing;
 
-void bfs(int n) {
+void bfs() {
+    int n = adj_rev.size();
     queue<int> q;
-
-    for(int i=0; i<n; i++) {
-        if (degree[i] == 0) {
-            losing[i] = true;
-            q.push(i);
-        }
+    for (int v = 0; v < n; v++) {
+        if (winning[v] || losing[v])
+            q.push(v);
     }
 
-    while(!q.empty()){
+    while (!q.empty()) {
         int v = q.front();
         q.pop();
-
-        for(int u : adj_rev[v]){
-            if(winning[u] || losing[u])
+        for (int u : adj_rev[v]) {
+            if (winning[u] || losing[u])
                 continue;
-
-            if(losing[v]){
+            if (losing[v])
                 winning[u] = true;
-                q.push(u);
-            }
-            else{
-                degree[u]--;
-                if(degree[u] == 0){
-                    losing[u] = true;
-                    q.push(u);
-                }
-            }
+            else if (--degree[u] == 0)
+                losing[u] = true;
+            else
+                continue;
+            q.push(u);
         }
     }
 }
