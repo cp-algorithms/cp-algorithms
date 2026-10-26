@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 0
           submodules: recursive
       - name: Set up Python
-        uses: actions/setup-python@v5.2.0
+        uses: actions/setup-python@v5.6.0
         with:
           python-version: '3.11'
           cache: pip
@@ -38,9 +38,13 @@ jobs:
           path: authors.json
           # PRs can restore main's cache; each run saves newly discovered users.
           key: github-users-v1-${{ github.run_id }}-${{ github.run_attempt }}
-          restore-keys: |
-            github-users-v1-
-            test-push-github-users-v0.1
+          restore-keys: github-users-v1-
+      - name: Restore the legacy main cache if needed
+        if: hashFiles('authors.json') == ''
+        uses: actions/cache/restore@v4
+        with:
+          path: authors.json
+          key: test-push-github-users-v0.1
       - name: Test article preview publishing
         run: |
           python -m pip install -r scripts/preview-requirements.txt

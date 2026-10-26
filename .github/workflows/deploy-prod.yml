@@ -144,7 +144,7 @@ jobs:
 
       - name: Set up Python for previews
         if: steps.get-pr-number.outputs.deploy == 'true'
-        uses: actions/setup-python@v5.2.0
+        uses: actions/setup-python@v5.6.0
         with:
           python-version: '3.11'
           cache: pip
