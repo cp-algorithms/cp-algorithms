@@ -81,6 +81,9 @@
       <label class="md-header__button md-icon" for="__search">
         {% include ".icons/material/magnify.svg" %}
       </label>
+      {% if page and nav and page.url == nav.homepage.url %}
+        <span class="kbd-hint" aria-hidden="true">/</span>
+      {% endif %}
       {% include "partials/search.html" %}
     {% endif %}
     {% if config.repo_url %}
