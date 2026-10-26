@@ -79,7 +79,7 @@ void dfs(int v) {
 }
 ```
 
-The same propagation can also be done with a [breadth-first search](../graph/breadth-first-search.md) instead of a DFS.
+The same propagation can also be done with a [breadth-first search](../graph/breadth-first-search.md) instead of a DFS. This avoids recursion and can be useful on deep graphs where recursive DFS may overflow the stack.
 We put all vertices, for which we initially know if they are winning or losing states, into a queue.
 Then we repeatedly take a vertex $v$ from the queue and look at all undefined vertices $u$ with an edge $(u, v)$, i.e. we again move back over the reversed edges.
 If $v$ is a losing vertex, then $u$ becomes a winning vertex.
