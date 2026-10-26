@@ -10,6 +10,12 @@ conventions. These instructions apply to agent-assisted contributions.
 - Read the whole affected section, its prerequisites, extracted snippets, and
   tests. Read the linked issue and all existing PR review threads before editing
   or replying. Check for an existing fix or overlapping PR.
+- Decide whether an addition belongs before polishing it or requesting more
+  work. Correctness alone does not justify inclusion: compare its educational
+  benefit with the current article and related coverage. Consider a compact
+  addition, replacement, short note or link, or declining the addition.
+  Respect prior maintainer decisions about scope; if the benefit is unclear,
+  raise that decision before expanding the implementation.
 - State the concrete problem and the smallest change that solves it. Keep
   unrelated cleanup, new APIs, alternative implementations, and infrastructure
   changes out of the PR unless they are necessary to the same change.
@@ -32,8 +38,10 @@ conventions. These instructions apply to agent-assisted contributions.
 - Keep the explanation, examples, and implementation consistent. Distinguish
   properties of the general technique from choices specific to an example.
   Work through examples, including equality and boundary cases where relevant.
-- Prefer one implementation per idea. Add another language or algorithm only
-  when it provides a concrete benefit worth the extra explanation and upkeep.
+- Prefer one implementation per idea. Keep multiple approaches or languages
+  only when each offers a meaningful idea or use case worth the explanation
+  and upkeep; explain when to choose each. If a new approach is better at the
+  same job, consider replacing the existing one instead of keeping both.
   Reuse existing articles and library routines where that makes the result
   easier to follow. Avoid unnecessary input/output scaffolding and generic APIs.
 - State meaningful numeric and resource bounds. Check intermediate arithmetic,
@@ -68,9 +76,18 @@ conventions. These instructions apply to agent-assisted contributions.
 - Add new articles to `src/navigation.md` and the new-article list in `README.md`;
   include the appropriate Original/Translated front matter and source credit.
   Preserve old anchors and provide redirects for moved pages.
-- Before adding a practice problem, read its statement and identify how the
-  article's algorithm helps solve it. Check the link, avoid duplicate entries,
-  and place it by difficulty where practical.
+- Before adding a practice problem, read its statement and, when needed, the
+  editorial. Check that the article's technique is a natural, useful part of
+  the solution. Compare what it teaches with the closest existing problems,
+  including examples in the article body; check repeated learning goals as
+  well as duplicate links. Do not infer these from problem titles alone.
+- Keep practice lists compact. Beyond roughly ten problems, look for a
+  compelling benefit such as a new application, difficulty gap, or better
+  replacement. This is a guideline, not a hard cap or a reason to prune blindly.
+  A useful judge link for an existing worked example can still add value.
+  If the benefit is unclear, ask for a brief rationale, not a full solution.
+- Check problem links, prefer a judge where readers can submit, and place
+  problems by difficulty where practical.
 - Do not commit extracted headers, binaries, caches, local editor settings, or
   generated site output as ordinary source changes. Changes to the extractor or
   test framework must keep tests connected to the maintained article snippets.
