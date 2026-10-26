@@ -65,6 +65,10 @@ Then we choose the one that would be encountered first. Initially base points to
 Note that the implementation of the in_circle function is GCC-specific.
 
 ```{.cpp file=delaunay}
+#if !defined(__SIZEOF_INT128__)
+#include <boost/multiprecision/cpp_int.hpp>
+#endif
+
 typedef long long ll;
 
 bool ge(const ll& a, const ll& b) { return a >= b; }
@@ -177,31 +181,20 @@ T det3(T a1, T a2, T a3, T b1, T b2, T b3, T c1, T c2, T c3) {
 }
 
 bool in_circle(pt a, pt b, pt c, pt d) {
-// If there is __int128, calculate directly.
-// Otherwise, calculate angles.
-#if defined(__LP64__) || defined(_WIN64)
-    __int128 det = -det3<__int128>(b.x, b.y, b.sqrLength(), c.x, c.y,
+#if defined(__SIZEOF_INT128__)
+    using wide_int = __int128;
+#else
+    using wide_int = boost::multiprecision::cpp_int;
+#endif
+    wide_int det = -det3<wide_int>(b.x, b.y, b.sqrLength(), c.x, c.y,
                                    c.sqrLength(), d.x, d.y, d.sqrLength());
-    det += det3<__int128>(a.x, a.y, a.sqrLength(), c.x, c.y, c.sqrLength(), d.x,
+    det += det3<wide_int>(a.x, a.y, a.sqrLength(), c.x, c.y, c.sqrLength(), d.x,
                           d.y, d.sqrLength());
-    det -= det3<__int128>(a.x, a.y, a.sqrLength(), b.x, b.y, b.sqrLength(), d.x,
+    det -= det3<wide_int>(a.x, a.y, a.sqrLength(), b.x, b.y, b.sqrLength(), d.x,
                           d.y, d.sqrLength());
-    det += det3<__int128>(a.x, a.y, a.sqrLength(), b.x, b.y, b.sqrLength(), c.x,
+    det += det3<wide_int>(a.x, a.y, a.sqrLength(), b.x, b.y, b.sqrLength(), c.x,
                           c.y, c.sqrLength());
     return det > 0;
-#else
-    auto ang = [](pt l, pt mid, pt r) {
-        ll x = mid.dot(l, r);
-        ll y = mid.cross(l, r);
-        long double res = atan2((long double)x, (long double)y);
-        return res;
-    };
-    long double kek = ang(a, b, c) + ang(c, d, a) - ang(b, c, d) - ang(d, a, b);
-    if (kek > 1e-8)
-        return true;
-    else
-        return false;
-#endif
 }
 
 pair<QuadEdge*, QuadEdge*> build_tr(int l, int r, vector<pt>& p) {

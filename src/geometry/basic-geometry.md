@@ -175,7 +175,7 @@ double proj(point2d a, point2d b) {
     return dot(a, b) / abs(b);
 }
 double angle(point2d a, point2d b) {
-    return acos(dot(a, b) / abs(a) / abs(b));
+    return acos(clamp(dot(a, b) / abs(a) / abs(b), -1.0, 1.0));
 }
 ```
 
