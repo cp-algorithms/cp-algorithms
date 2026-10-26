@@ -87,13 +87,15 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           BUILD_EVENT: ${{ github.event.workflow_run.event }}
+          BUILD_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
           target=$(ls public)
           if [ "$BUILD_EVENT" = push ] && [ "$target" = main ]; then
             deploy=true
           else
             [[ "$BUILD_EVENT" = pull_request && "$target" =~ ^[1-9][0-9]*$ ]] || exit 1
-            deploy=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$target" --jq '.state == "open"')
+            deploy=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$target" |
+              jq -r --arg sha "$BUILD_SHA" '.state == "open" and .head.sha == $sha')
           fi
           printf 'pr_number=%s\ndeploy=%s\n' "$target" "$deploy" >> "$GITHUB_OUTPUT"
 
@@ -131,6 +133,12 @@ jobs:
         run: |
           python3 -m pip install -r scripts/preview-requirements.txt
           gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/files" > "$RUNNER_TEMP/preview-files.json"
+          deploy=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER" |
+            jq -r --arg sha "$BUILD_SHA" '.state == "open" and .head.sha == $sha')
+          if [ "$deploy" != true ]; then
+            printf 'Preview skipped: the PR closed or its head changed while fetching the file list.\n' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
           python3 scripts/article_previews.py publish \
             --build "public/$PR_NUMBER" --site published --pr "$PR_NUMBER" \
             --files "$RUNNER_TEMP/preview-files.json" --revision "$BUILD_SHA" \

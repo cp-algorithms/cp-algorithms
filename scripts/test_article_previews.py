@@ -96,6 +96,9 @@ class ArticlePreviewsTest(unittest.TestCase):
         self.assertNotEqual(entries["123"]["assets"], entries["124"]["assets"])
 
     def test_navigation_only_change_previews_just_the_home_page(self):
+        (self.build / "index.html").write_text(PAGE.replace(
+            '<article>', '<nav><a href="algebra/a.html">Updated navigation entry</a></nav><article>',
+        ))
         (self.build / "navigation.html").write_text(PAGE)
         self.publish(changed=["src/navigation.md"])
         pages = previews.registry(self.site)["123"]["pages"]
@@ -104,6 +107,9 @@ class ArticlePreviewsTest(unittest.TestCase):
         self.assertIn("updated sidebar", soup.get_text())
         self.assertEqual(soup.find("a", string="Preview navigation on the home page")["href"], "/index/preview/123/")
         self.assertIsNone(soup.details)
+        home = BeautifulSoup((self.site / "index/preview/123/index.html").read_text(), "html.parser")
+        self.assertEqual(home.nav.a.get_text(), "Updated navigation entry")
+        self.assertEqual(home.nav.a["href"], "/main/algebra/a.html")
 
     def test_new_article_with_navigation_stays_small_and_readme_adds_only_home(self):
         navigation = '<nav><a href="new.html">New article</a><a href="a.html">Existing article</a></nav>'
