@@ -635,10 +635,10 @@ We can find arbitrary range sums by computing the prefix sums for $l-1$ and $r$ 
     }
 
     void range_add(int l, int r, int x) {
-        add(B1, l, x)
-        add(B1, r + 1, -x)
-        add(B2, l, x * (l - 1))
-        add(B2, r + 1, -x * r)
+        add(B1, l, x);
+        add(B1, r + 1, -x);
+        add(B2, l, x * (l - 1));
+        add(B2, r + 1, -x * r);
     }
 
     int sum(std::vector<int> &b, int idx) {
