@@ -44,6 +44,7 @@ class ArticlePreviewsTest(unittest.TestCase):
             "images/example.svg": "<svg></svg>", "favicon.ico": "icon",
             "search/search_index.json": '{"docs": []}',
             "sitemap.xml": "timestamp", "feed_rss_created.xml": "timestamp",
+            "feed_json_created.json": '{"date_modified":"old timestamp"}',
         }.items():
             path = self.build / name
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -84,6 +85,7 @@ class ArticlePreviewsTest(unittest.TestCase):
     def test_asset_bundle_is_shared_and_ignores_feed_timestamps(self):
         self.publish()
         (self.build / "feed_rss_created.xml").write_text("new timestamp")
+        (self.build / "feed_json_created.json").write_text('{"date_modified":"new timestamp"}')
         (self.build / "search/search_index.json").write_text('{"docs": ["changed"]}')
         self.publish(124, ["src/algebra/b.md"])
         entries = previews.registry(self.site)

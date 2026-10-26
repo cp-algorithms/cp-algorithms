@@ -193,13 +193,13 @@ def review_index(number, pages, changed, shared, main_pages, main_prefix, revisi
 
 
 def asset_files(files):
-    # Search uses the existing main mirror. Feeds and sitemaps are not assets:
+    # Search uses the Main preview. Feeds and sitemaps are not assets:
     # their timestamps would otherwise invalidate a bundle on every build.
     return {
         name: path for name, path in files.items()
         if not name.endswith(".html")
         and not name.startswith("search/")
-        and not name.startswith(("sitemap.", "feed_rss_"))
+        and not name.startswith(("sitemap.", "feed_rss_", "feed_json_"))
     }
 
 
