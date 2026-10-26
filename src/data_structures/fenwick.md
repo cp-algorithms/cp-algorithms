@@ -485,16 +485,18 @@ The following implementation can be used like the other implementations, however
 
         def sum(self, idx: int) -> int:
             ret = 0
+            idx += 1
             while idx > 0:
                 ret += self.bit[idx]
                 idx -= idx & -idx
             return ret
-        
+
         def range_sum(self, l: int, r: int) -> int:
             return self.sum(r) - self.sum(l - 1)
-        
+    
         def add(self, idx: int, delta: int) -> None:
-            while idx <= self.n:
+            idx += 1
+            while idx < self.n:
                 self.bit[idx] += delta
                 idx += idx & -idx
     ```
