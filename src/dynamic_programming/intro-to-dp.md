@@ -144,7 +144,7 @@ One of the tricks to getting better at dynamic programming is to study some of t
 
 ## Related Topics
 * [Bitmask Dynamic Programming](../dynamic_programming/profile-dynamics.md)
-* Digit Dynamic Programming
+* [Digit Dynamic Programming](../dynamic_programming/digit-dp.md)
 * Dynamic Programming on Trees
 
 Of course, the most important trick is to practice.
