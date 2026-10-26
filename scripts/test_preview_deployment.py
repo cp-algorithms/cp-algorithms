@@ -30,7 +30,9 @@ if endpoint.endswith('/files'):
     name = 'src/new.md' if state['head']['sha'] != 'a' * 40 else 'src/old.md'
     print(json.dumps([[{'filename': name}]]))
 else:
-    if endpoint.endswith('/pages'):
+    if endpoint.endswith('/git/ref/heads/main'):
+        state = {'object': {'sha': state['head']['sha']}}
+    elif endpoint.endswith('/pages'):
         base = 'https://previews.example/project/'
         if os.environ['SCENARIO'] == 'same-origin':
             base = 'https://gh.cp-algorithms.com/previews/'
@@ -38,8 +40,6 @@ else:
             base = 'https://cp-algorithms.com/previews/'
         branch = 'main' if os.environ['SCENARIO'] == 'wrong-pages-branch' else 'gh-pages'
         state = {'html_url':base,'source':{'branch':branch,'path':'/'}}
-    elif '/git/trees/' in endpoint:
-        state = {'truncated':os.environ['SCENARIO'] == 'truncated-inventory','tree':[{'type':'blob','path':'main/old.html'}]}
     query = sys.argv[sys.argv.index('--jq')+1] if '--jq' in sys.argv else '.'
     sys.exit(subprocess.run(['jq','-r',query],input=json.dumps(state),text=True).returncode)
 '''
@@ -60,21 +60,30 @@ os.execv(sys.executable, [sys.executable, *sys.argv[1:]])
 class PreviewDeploymentTest(unittest.TestCase):
     def test_publication_guards(self):
         for scenario in ('current', 'already-stale', 'advance-during-files', 'already-closed', 'close-during-files',
-                         'missing-token', 'same-repo', 'same-origin', 'production-origin', 'wrong-pages-branch', 'truncated-inventory'):
+                         'missing-token', 'same-repo', 'same-origin', 'production-origin', 'wrong-pages-branch', 'missing-main',
+                         'current-main', 'stale-main'):
             with self.subTest(scenario=scenario), tempfile.TemporaryDirectory(prefix='cp-deploy-check-') as temp:
                 root = Path(temp)
                 for folder in ('bin','public/123','published','temp'):
                     (root/folder).mkdir(parents=True)
+                if scenario != 'missing-main':
+                    (root/'published/preview').mkdir()
+                    (root/'published/preview/index.json').write_text(json.dumps({'main':{'pages':{'old.html':'/project/main/old.html'},'assets':None}}))
                 (root/'scripts').symlink_to(repo/'scripts',target_is_directory=True)
                 (root/'public/123/old.html').write_text('<html><head></head><body><article>Old build</article></body></html>')
-                state = {'state':'closed' if scenario == 'already-closed' else 'open', 'head':{'sha':'b'*40 if scenario == 'already-stale' else sha}}
+                is_main = scenario in ('current-main', 'stale-main')
+                if is_main:
+                    (root/'public/123').rename(root/'public/main')
+                    (root/'public/main/search').mkdir()
+                    (root/'public/main/search/search_index.json').write_text('{"docs":[]}')
+                state = {'state':'closed' if scenario == 'already-closed' else 'open', 'head':{'sha':'b'*40 if scenario in ('already-stale','stale-main') else sha}}
                 (root/'state.json').write_text(json.dumps(state))
                 for name, code in (('gh',fake_gh),('git',fake_git),('python3',fake_python)):
                     path = root/'bin'/name
                     path.write_text(code.replace('#!/usr/bin/python3', '#!' + sys.executable))
                     path.chmod(0o755)
                 env = dict(os.environ,PATH=str(root/'bin')+':'+os.environ['PATH'],FIXTURE_ROOT=str(root),SCENARIO=scenario,
-                           BUILD_EVENT='pull_request',BUILD_SHA=sha,PR_NUMBER='123',GITHUB_REPOSITORY='test/site',
+                           BUILD_EVENT='push' if is_main else 'pull_request',BUILD_SHA=sha,PR_NUMBER='main' if is_main else '123',GITHUB_REPOSITORY='test/site',
                            GH_TOKEN='' if scenario == 'missing-token' else 'local-stub',
                            PREVIEW_REPOSITORY='TEST/SITE' if scenario == 'same-repo' else 'test/previews',
                            RUNNER_TEMP=str(root/'temp'),GITHUB_OUTPUT=str(root/'output'),GITHUB_STEP_SUMMARY=str(root/'summary'),
@@ -85,17 +94,19 @@ class PreviewDeploymentTest(unittest.TestCase):
                     if result.returncode == 0:
                         env['PREVIEW_SITE_URL'] = next(line[4:] for line in (root/'output').read_text().splitlines() if line.startswith('url='))
                         result = subprocess.run(['bash','-eo','pipefail','-c',publish],cwd=root,env=env,capture_output=True,text=True)
-                    if result.returncode and scenario in ('current','advance-during-files','close-during-files'):
+                    if result.returncode and scenario in ('current','advance-during-files','close-during-files','current-main'):
                         raise RuntimeError(result.stdout+result.stderr)
-                    if scenario in ('missing-token','same-repo','same-origin','production-origin','wrong-pages-branch','truncated-inventory'):
+                    if scenario in ('missing-token','same-repo','same-origin','production-origin','wrong-pages-branch','missing-main'):
                         self.assertNotEqual(result.returncode, 0, 'Invalid configuration did not fail closed')
                 pushed = (root/'pushed').exists()
-                expected = scenario == 'current'
+                expected = scenario in ('current','current-main')
                 self.assertEqual(pushed, expected)
                 if pushed:
                     registry = json.loads((root/'published/preview/index.json').read_text())
-                    self.assertEqual(registry['123']['pages'], {'old.html':'/project/old/preview/123/'})
-                    self.assertIn('url=https://previews.example/project/preview/123/', (root/'output').read_text())
+                    version = 'main' if is_main else '123'
+                    self.assertEqual(registry[version]['pages'], {'old.html':f'/project/{version}/old.html'})
+                    landing = 'main' if is_main else 'preview/123'
+                    self.assertIn(f'url=https://previews.example/project/{landing}/', (root/'output').read_text())
 
 
 if __name__ == "__main__":

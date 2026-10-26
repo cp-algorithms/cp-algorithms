@@ -1,113 +1,105 @@
 # Article previews
 
-Source stays on `main`. The main mirror stays on this repository's `gh-pages`.
-Untrusted PR pages, their registry, and shared assets go to a dedicated preview
-repository's `gh-pages`, on a different origin. Production `.html` URLs and
-the current production domain are unchanged.
+Production is published from this repository's `gh-pages` root at
+`https://cp-algorithms.com/`. Sources stay on `main`. A separate repository,
+`cp-algorithms/cp-algorithms-previews`, publishes previews from its `gh-pages`
+branch at `https://preview.cp-algorithms.com/`.
 
-An article such as `algebra/binary-exp.html` is previewed at
-`algebra/binary-exp/preview/123/` under the preview site's base URL. Project-site
-prefixes such as `/cp-algorithms-previews/` are supported. The deployment check's
-**Details** link and job summary lead to `preview/123/` on that site. It shows
-the built commit and lists changed pages first, with **Preview** and **Main**
-links. Articles without a main version are marked **New page**. A **Review pages**
-link on each preview returns to this index.
-Only preview pages have the version selector and `noindex`.
-The selector lists other published PRs that contain the same article.
+For `algebra/binary-exp.html`, the Main preview is at
+`/main/algebra/binary-exp.html`; PR #123 uses `/123/algebra/binary-exp.html`.
+All preview pages, including Main, have `noindex` and a version selector.
+Production pages have neither. The selector lists published versions containing
+the current article. Production `.html` URLs are unchanged.
 
-The build still validates the whole site. Publication selects the changed
-Markdown articles; deleted articles have no preview page. Navigation changes
-do not expand that selection: each selected article already has the updated
-sidebar. A navigation-only PR previews just the home page to show that sidebar.
-Changes to `README.md` also preview the home page, which includes its content.
-Template, build configuration, and shared source-asset changes select all
-rendered pages.
-There is no article-count threshold: independent article edits do not require
-copies of unchanged pages. For shared changes, the review page explains why
-all pages are included and keeps the other pages in an expandable list.
-PRs without rendered article changes get only the small index page.
+The deployment check's **Details** link and job summary lead to `/preview/123/`.
+That review page identifies the built commit and lists directly changed pages
+first, with **Preview** and **Main** links. New articles are marked **New page**.
+Each PR article links back through **Review pages**.
 
-Links to other selected articles stay in that PR. Other links and search use
-the existing `https://gh.cp-algorithms.com/main/` mirror. This is an article-review
-view, not a complete snapshot of every site feature. The publisher reads the
-main mirror's file inventory to distinguish existing pages from new articles.
+## What gets published
 
-Non-HTML resources are stored in bundles under `preview/assets/<sha256>/`, with
-their internal paths preserved so CSS and JavaScript dependencies still work.
-Matching bundles are reused. Search indexes, sitemaps, and timestamped feeds do
-not invalidate the bundles. Closing a PR removes its pages, index, and legacy
-numeric directory, then removes bundles no remaining preview references.
+The build validates the whole site, but article-only PRs publish only their
+changed Markdown pages. Deleted pages have no preview. Navigation changes do
+not expand this selection: each selected page already contains the new sidebar.
+Navigation-only PRs preview the home page; changing `README.md` also includes
+that page. Shared templates, assets, or build configuration changes preview all
+pages. The review page explains this and folds the additional pages into a list.
+There is no article-count threshold. PRs without rendered changes get just a
+review page.
 
-The publisher runs from trusted workflow source and reads built PR artifacts
-as data. It does not push refs; the serialized publication workflows commit the
-result. A PR must still be open at the built head before and after fetching its
-file list; superseded builds are skipped.
+Links between selected pages stay in the PR. Other article links and search
+results open the Main preview on the same preview host. Main is refreshed after
+each successful main-branch build. This is an article-review view, not a complete
+snapshot of every site feature.
 
-## Preview isolation and setup
+Assets live in bundles under `/preview/assets/<sha256>/`. Matching bundles are
+shared between Main and PRs. Search indexes, sitemaps, and timestamped feeds are
+excluded from these bundles; one search index accompanies Main. Closing a PR
+removes its pages and review index, then collects bundles no version references.
+Main and its assets remain available.
 
-Rendered PR HTML and assets can contain contributor JavaScript, including SVG
-scripts. They are deliberately not sanitized: reviewers need to test those
-changes too. Path prefixes and `noindex` do not isolate browser state. Reserve
-the preview origin for untrusted content; do not host production or authenticated
-applications on it.
+## Isolation and setup
 
-Before merging this workflow:
+Rendered PR HTML, JavaScript, and SVG can execute contributor code. They are
+not sanitized, since reviewers need to test those changes. Keep the preview
+origin separate from production and authenticated applications; paths and
+`noindex` do not isolate browser state. Main's copy on this host is also a
+preview, not a trusted application.
 
-1. Create a dedicated public preview repository, for example
-   `cp-algorithms/cp-algorithms-previews`. Initialize its `gh-pages` branch with
-   `.nojekyll` and a small `noindex` landing page.
-2. Enable GitHub Pages from `gh-pages`, at `/`. Its default `github.io` project
-   URL needs no DNS change. Do not reuse the production or main-mirror domain.
-3. Set the source repository's Actions variable `PREVIEW_REPOSITORY` to that
-   repository's `owner/name`.
-4. Set `PREVIEW_DEPLOY_TOKEN` to a fine-grained token restricted to the preview
-   repository, with **Contents: read/write** and **Pages: read**. The source
-   repository's normal `GITHUB_TOKEN` cannot push to another repository.
+Before enabling publication:
 
-The workflow obtains the real site URL from the destination's Pages API and
-rejects the source repository, a wrong Pages source branch, or an origin shared
-with production or the main mirror. Missing configuration fails publication;
-there is no fallback to the trusted host. Search reads the public main-mirror
-index, whose Pages response permits cross-origin requests.
+1. Initialize the preview repository's `gh-pages` branch and enable Pages from
+   its root. Configure `preview.cp-algorithms.com` in Pages before adding its
+   DNS CNAME to `cp-algorithms.github.io`. Default GitHub project URLs are also
+   supported.
+2. Set the source repository's Actions variable `PREVIEW_REPOSITORY` to
+   `cp-algorithms/cp-algorithms-previews`.
+3. Create a fine-grained token restricted to that preview repository, with
+   **Contents: read/write** and **Pages: read**. Store it in the source
+   repository as an **Actions secret** named `PREVIEW_DEPLOY_TOKEN`.
+   Never put the token in an Actions variable. The source repository's normal
+   `GITHUB_TOKEN` cannot push to another repository.
+4. Seed Main from a successful build of the current main branch using the
+   publisher below with `--pr main` and without `--files`.
+5. Before moving production to Pages, review the root publication and retire
+   all legacy PR previews on that origin. Preserve a Git ref for rollback,
+   review the deletion diff, and change the Pages custom domain and DNS only
+   after the prepared site has been checked. Keep Firebase available during
+   the transition. The Markdown preview editor still uses its existing Cloud
+   Function; switching static hosting does not replace that service.
 
-Existing previews on the old host also need retirement. After the new publisher
-is enabled, enumerate the old PR directories and registry entries, then use
-`article_previews.py remove --site OLD_CHECKOUT --pr NUMBER` for each reviewed
-PR number. Review and commit the deletion diff before pushing; reverting that
-commit is the rollback. Keep `main/`, `CNAME`, and unrelated root files. Until
-this migration is complete, old previews retain the existing same-origin risk.
-Close-event cleanup handles both repositories during this transition.
+The workflow reads the actual destination URL from the Pages API and rejects
+production origins, the source repository, and an unexpected Pages branch.
+Missing configuration fails publication. PRs must be open at the built head
+both before and after fetching their file list. Stale Main builds are also
+skipped. The trusted publisher treats build artifacts as data and never
+executes their scripts. Git writes and cleanup share one publication queue.
 
-## Local prototype
+## Local preview
 
-After building with `mkdocs build --strict`, prepare a local preview. The sample
-PR number is only a local identifier. Use separate ports to test origin isolation:
+After `mkdocs build --strict`, use a new directory on a separate port:
 
 ```sh
 python3 -m pip install -r scripts/preview-requirements.txt
 preview_dir=$(mktemp -d)
-printf '[[{"filename":"src/algebra/binary-exp.md"}]]\n' > "$preview_dir/changed.json"
-python3 -c 'import json,pathlib; print(json.dumps([p.relative_to("public").as_posix() for p in pathlib.Path("public").rglob("*.html")]))' > "$preview_dir/main-files.json"
 python3 scripts/article_previews.py publish --build public --site "$preview_dir" \
-  --pr 123 --files "$preview_dir/changed.json" --main-files "$preview_dir/main-files.json" \
-  --site-url http://127.0.0.1:8001 --main-prefix http://127.0.0.1:8000/
+  --pr main --site-url http://127.0.0.1:8001/
+printf '[[{"filename":"src/algebra/binary-exp.md"}]]\n' > "$preview_dir/changed.json"
+python3 scripts/article_previews.py publish --build public --site "$preview_dir" \
+  --pr 123 --files "$preview_dir/changed.json" --site-url http://127.0.0.1:8001/
 python3 -m http.server 8001 --bind 127.0.0.1 --directory "$preview_dir"
 ```
 
-In another terminal, serve the main build with
-`python3 -m http.server 8000 --bind 127.0.0.1 --directory public`.
-Open `http://127.0.0.1:8001/algebra/binary-exp/preview/123/`.
-Publish another local PR number to try switching versions. Main pages have no
-selector. Check links, math, images, and both themes. The simple local server
-does not enable CORS, so use the live main-mirror URL when testing search.
+Open `http://127.0.0.1:8001/123/algebra/binary-exp.html`. Check the selector,
+links, math, images, search, and both themes. To compare production, serve the
+original build on port 8000; it has no preview controls.
 
-Run the publisher tests with:
+Run the publisher and deployment-guard tests with:
 
 ```sh
 python3 -m unittest discover -s scripts -p 'test_*preview*.py'
 ```
 
-CI runs these tests before the strict site build. They cover URL rewriting,
-shared and changed bundles, cleanup, input failures, and preservation of main.
-The workflow test runs the deployment shell with local API/Git stubs, checking
-stale builds, closed PRs, missing credentials, and unsafe destination settings.
+CI runs them before the strict site build. They cover publication, URL rewriting,
+bundle sharing, cleanup, invalid inputs, preservation of Main, and deployment
+with stale builds or unsafe destination settings.

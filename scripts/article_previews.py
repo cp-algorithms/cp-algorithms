@@ -28,10 +28,9 @@ def article_path(value):
 
 
 def preview_path(article, number):
-    stem = Path(article_path(article)).with_suffix("")
-    if stem.parts[0] == "main" or stem.parts[0].isdigit() or (stem.parts[0] == "preview" and len(stem.parts) > 1):
-        raise ValueError(f"Article overlaps a publication directory: {article}")
-    return stem / "preview" / str(number) / "index.html"
+    if str(number) != "main" and not re.fullmatch(r"[1-9][0-9]*", str(number)):
+        raise ValueError("Version must be main or a positive PR number")
+    return Path(str(number)) / article_path(article)
 
 
 def url(path, prefix="/"):
@@ -39,7 +38,7 @@ def url(path, prefix="/"):
 
 
 def preview_url(article, number, prefix="/"):
-    return url(preview_path(article, number).parent, prefix) + "/"
+    return url(preview_path(article, number), prefix)
 
 
 def preview_prefix(site_url, main_url):
@@ -95,6 +94,8 @@ def collect_assets(site, entries):
 
 
 def remove(site, number):
+    if not re.fullmatch(r"[1-9][0-9]*", str(number)):
+        raise ValueError("Only PR versions can be removed")
     entries = registry(site)
     entry = entries.pop(str(number), None)
     if entry is not None:
@@ -131,7 +132,7 @@ def changed_articles(changed, files):
 
 def selected_articles(changed, files):
     if shared_changes(changed):
-        return sorted(name for name in files if name.endswith(".html") and name != "404.html")
+        return sorted(name for name in files if name.endswith(".html") and name != "404.html" and not name.startswith("overrides/"))
     articles = changed_articles(changed, files)
     # Selected articles already contain the updated sidebar. Navigation-only
     # changes need just one representative page to review it.
@@ -177,7 +178,7 @@ def review_index(number, pages, changed, shared, main_pages, main_prefix, revisi
         if not navigation_only:
             content += f'<details><summary>All other page previews ({len(remaining)})</summary>{table(remaining)}</details>'
     if pages:
-        content += '<p>Links to articles without a preview and search results open the main mirror.</p>'
+        content += '<p>Links to unchanged articles and search results open the Main preview.</p>'
     document = (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         '<meta name="robots" content="noindex"><meta name="viewport" content="width=device-width, initial-scale=1">'
@@ -214,6 +215,11 @@ def rewrite_page(source, article, pages, assets, bundle, number, main_prefix, ha
     from bs4 import BeautifulSoup
 
     soup = BeautifulSoup(source, "html.parser")
+    # Preview feeds are not published or advertised for indexing.
+    for feed in soup.find_all("link", type="application/rss+xml"):
+        feed.decompose()
+    for feed in soup.find_all("a", href=re.compile(r"(^|/)feed_rss_[^/]+\.xml$")):
+        feed.decompose()
 
     def rewrite(value, site_link=False):
         parts = urlsplit(value)
@@ -272,16 +278,22 @@ def rewrite_page(source, article, pages, assets, bundle, number, main_prefix, ha
     soup.head.append(soup.new_tag("meta", attrs={"name": "robots", "content": "noindex"}))
     soup.head.append(soup.new_tag("link", rel="stylesheet", href=url("preview/selector.css", prefix)))
     soup.head.append(soup.new_tag("script", src=url("preview/selector.js", prefix), defer=""))
-    main_option = f'<option value="{main_prefix}{quote(article, safe="/")}">Main</option>' if has_main else ""
+    is_main = str(number) == "main"
+    main_option = f'<option value="{main_prefix}{quote(article, safe="/")}">Main</option>' if has_main and not is_main else ""
+    source_link = (
+        '<a href="https://github.com/cp-algorithms/cp-algorithms/tree/main">Main</a>' if is_main else
+        f'<a href="https://github.com/cp-algorithms/cp-algorithms/pull/{number}">PR #{number}</a>'
+    )
+    review_link = "" if is_main else f'<a href="{url(f"preview/{number}", prefix)}/">Review pages</a>'
+    version_label = "Main" if is_main else f"PR #{number}"
     toolbar = BeautifulSoup(
         '<aside class="article-preview" aria-label="Article preview">'
-        f'<a href="https://github.com/cp-algorithms/cp-algorithms/pull/{number}">PR #{number}</a>'
-        f'<a href="{url(f"preview/{number}/", prefix)}/">Review pages</a>'
+        + source_link + review_link +
         '<label>Version <select aria-label="Article version" '
         f'data-article="{html.escape(article, quote=True)}" data-pr="{number}" '
         f'data-index="{url(REGISTRY, prefix)}">'
         + main_option +
-        f'<option value="{pages[article]}" selected>PR #{number}</option>'
+        f'<option value="{pages[article]}" selected>{version_label}</option>'
         '</select></label></aside>', "html.parser",
     ).aside
     content = soup.find("article") or soup.body
@@ -290,16 +302,17 @@ def rewrite_page(source, article, pages, assets, bundle, number, main_prefix, ha
     return str(soup)
 
 
-def publish(build, site, number, changed, main_prefix="/main/", revision="", site_url="", main_files=None):
+def publish(build, site, number, changed, revision="", site_url="", production_url="https://cp-algorithms.com/"):
     build, site = build.resolve(), site.resolve()
     if build == site or build in site.parents or site in build.parents:
         raise ValueError("Build and publication directories must not overlap")
-    prefix = preview_prefix(site_url, main_prefix) if site_url else "/"
-    if not site_url and (not main_prefix.startswith("/") or main_prefix.startswith("//") or "?" in main_prefix or "#" in main_prefix):
-        raise ValueError("A remote main mirror requires an isolated preview site URL")
-    if site_url and main_files is None:
-        raise ValueError("An isolated preview requires the main mirror's file inventory")
-    main_prefix = main_prefix.rstrip("/") + "/"
+    prefix = preview_prefix(site_url, production_url) if site_url else "/"
+    preview_path("index.html", number)  # Validate before changing any files.
+    is_main = str(number) == "main"
+    entries = registry(site)
+    if site_url and not is_main and "main" not in entries:
+        raise ValueError("Publish the Main preview before publishing PRs")
+    main_prefix = prefix + "main/"
     if revision and not re.fullmatch(r"[0-9a-f]{40}", revision):
         raise ValueError("Revision must be a full Git commit SHA")
     paths = list(build.rglob("*"))
@@ -309,11 +322,11 @@ def publish(build, site, number, changed, main_prefix="/main/", revision="", sit
         path.relative_to(build).as_posix(): path for path in paths
         if path.is_file() and not any(part.startswith(".") for part in path.relative_to(build).parts)
     }
-    selected = selected_articles(changed, files)
+    selected = selected_articles(["mkdocs.yml"] if is_main else changed, files)
     pages = {article: preview_url(article, number, prefix) for article in selected}
     main_pages = (
-        set(selected) & set(main_files) if main_files is not None else
-        {article for article in selected if (site / main_prefix.lstrip("/") / article).is_file()}
+        set(entries["main"]["pages"]) if "main" in entries else
+        {article for article in selected if (site / "main" / article).is_file()}
     )
     review, summary = review_index(
         number, pages, changed_articles(changed, files), shared_changes(changed), main_pages, main_prefix, revision, site_url, prefix,
@@ -328,7 +341,7 @@ def publish(build, site, number, changed, main_prefix="/main/", revision="", sit
         )
         for article in selected
     }
-    entries = registry(site)
+    search_index = (build / "search/search_index.json").read_bytes() if is_main else None
     if str(number) in entries:
         remove_pages(site, entries[str(number)], number)
     if bundle:
@@ -347,14 +360,26 @@ def publish(build, site, number, changed, main_prefix="/main/", revision="", sit
     (site / ".nojekyll").touch()
     for extension in ("js", "css"):
         shutil.copyfile(Path(__file__).with_name(f"preview-selector.{extension}"), site / "preview" / f"selector.{extension}")
-    hub = site / "preview" / str(number) / "index.html"
-    hub.parent.mkdir(parents=True, exist_ok=True)
-    hub.write_text(review)
-    legacy = site / str(number)
-    if legacy.exists():
-        shutil.rmtree(legacy)
+    if is_main:
+        # Material search resolves result locations relative to this Main copy.
+        search = site / "main/search/search_index.json"
+        search.parent.mkdir(parents=True, exist_ok=True)
+        search.write_bytes(search_index)
+        (site / "index.html").write_text(
+            '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+            '<meta name="robots" content="noindex">'
+            f'<meta http-equiv="refresh" content="0; url={main_prefix}">'
+            '<title>CP-Algorithms previews</title></head><body>'
+            f'<a href="{main_prefix}">Browse previews</a></body></html>\n'
+        )
+        summary = f"[Browse Main preview]({site_url.rstrip('/')}/main/)\n"
+    else:
+        hub = site / "preview" / str(number) / "index.html"
+        hub.parent.mkdir(parents=True, exist_ok=True)
+        hub.write_text(review)
     collect_assets(site, entries)
-    print(f"Published {len(pages)} article previews at {prefix}preview/{number}/")
+    landing = "main" if is_main else f"preview/{number}"
+    print(f"Published {len(pages)} article previews at {prefix}{landing}/")
     return summary
 
 
@@ -362,27 +387,25 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("operation", choices=("publish", "remove"))
     parser.add_argument("--site", type=Path, required=True)
-    parser.add_argument("--pr", type=int, required=True)
+    parser.add_argument("--pr", required=True, help="Positive PR number, or main to publish the Main preview")
     parser.add_argument("--build", type=Path)
     parser.add_argument("--files", type=Path, help="JSON array of GitHub PR-file API pages (gh --paginate --slurp)")
-    parser.add_argument("--main-prefix", default="https://gh.cp-algorithms.com/main/")
+    parser.add_argument("--production-url", default="https://cp-algorithms.com/")
     parser.add_argument("--site-url", default="", help="Isolated preview site's URL, including its project path")
-    parser.add_argument("--main-files", type=Path, help="JSON list of paths in the trusted main mirror")
     parser.add_argument("--revision", default="", help="Full source commit SHA shown on the review page")
     parser.add_argument("--summary", type=Path, help="Write a Markdown review link for the deployment job summary")
     args = parser.parse_args()
-    if args.pr <= 0:
-        parser.error("PR number must be positive")
+    if args.pr != "main" and not re.fullmatch(r"[1-9][0-9]*", args.pr):
+        parser.error("Version must be main or a positive PR number")
     if args.operation == "remove":
+        if args.pr == "main":
+            parser.error("Main cannot be removed by PR cleanup")
         remove(args.site.resolve(), args.pr)
     else:
-        if args.build is None or args.files is None or not args.site_url or args.main_files is None:
-            parser.error("publish requires --build, --files, --site-url, and --main-files")
-        changed = [item["filename"] for page in json.loads(args.files.read_text()) for item in page]
-        main_files = json.loads(args.main_files.read_text()) if args.main_files else None
-        if main_files is not None and (not isinstance(main_files, list) or any(not isinstance(path, str) for path in main_files)):
-            parser.error("--main-files must contain a JSON list of paths")
-        summary = publish(args.build, args.site, args.pr, changed, args.main_prefix, args.revision, args.site_url, main_files)
+        if args.build is None or not args.site_url or (args.pr != "main" and args.files is None):
+            parser.error("publish requires --build, --site-url, and --files for PR versions")
+        changed = [item["filename"] for page in json.loads(args.files.read_text()) for item in page] if args.files else []
+        summary = publish(args.build, args.site, args.pr, changed, args.revision, args.site_url, args.production_url)
         if args.summary:
             args.summary.write_text(summary)
 

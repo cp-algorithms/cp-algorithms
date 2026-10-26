@@ -12,6 +12,7 @@ import article_previews as previews
 PAGE = '''<!doctype html><html><head>
 <link rel="canonical" href="https://cp-algorithms.com/algebra/a.html">
 <link rel="stylesheet" href="../assets/theme.css">
+<link rel="alternate" type="application/rss+xml" href="../feed_rss_created.xml">
 <meta name="robots" content="index">
 </head><body><article><h1>Article</h1><span class="arithmatex">$x^2$</span>
 <a href="#proof">Proof</a><a href="b.html?q=1#proof">B</a>
@@ -58,14 +59,15 @@ class ArticlePreviewsTest(unittest.TestCase):
 
     def test_changed_articles_links_assets_and_noindex(self):
         self.publish(changed=["src/algebra/a.md", "src/algebra/b.md"])
-        target = self.site / "algebra/a/preview/123/index.html"
+        target = self.site / "123/algebra/a.html"
         self.assertTrue(target.is_file())
-        self.assertFalse((self.site / "graph/c/preview/123/index.html").exists())
+        self.assertFalse((self.site / "123/graph/c.html").exists())
         soup = BeautifulSoup(target.read_text(), "html.parser")
         self.assertEqual(soup.find("meta", attrs={"name": "robots"})["content"], "noindex")
+        self.assertIsNone(soup.find("link", type="application/rss+xml"))
         links = {a.get_text(): a["href"] for a in soup.find_all("a")}
         self.assertEqual(links["Proof"], "#proof")
-        self.assertEqual(links["B"], "/algebra/b/preview/123/?q=1#proof")
+        self.assertEqual(links["B"], "/123/algebra/b.html?q=1#proof")
         self.assertEqual(links["C"], "/main/graph/c.html")
         bundle = previews.registry(self.site)["123"]["assets"]
         self.assertEqual(soup.img["src"], f"/preview/assets/{bundle}/images/example.svg")
@@ -95,23 +97,23 @@ class ArticlePreviewsTest(unittest.TestCase):
         entries = previews.registry(self.site)
         self.assertNotEqual(entries["123"]["assets"], entries["124"]["assets"])
 
-    def test_isolated_project_site_keeps_assets_local_and_main_links_external(self):
+    def test_project_site_keeps_main_and_pr_links_on_preview_host(self):
+        previews.write_registry(self.site, {"main": {"pages": {"algebra/a.html": "/project/main/algebra/a.html"}, "assets": None}})
         summary = previews.publish(
             self.build, self.site, 123, ["src/algebra/a.md", "src/algebra/b.md"],
-            main_prefix="https://main.example/main/", site_url="https://previews.example/project/",
-            main_files=["algebra/a.html"],
+            site_url="https://previews.example/project/",
         )
         pages = previews.registry(self.site)["123"]["pages"]
-        self.assertEqual(pages["algebra/a.html"], "/project/algebra/a/preview/123/")
+        self.assertEqual(pages["algebra/a.html"], "/project/123/algebra/a.html")
         soup = BeautifulSoup((self.site / previews.preview_path("algebra/a.html", 123)).read_text(), "html.parser")
         links = {a.get_text(): a["href"] for a in soup.find_all("a")}
-        self.assertEqual(links["B"], "/project/algebra/b/preview/123/?q=1#proof")
-        self.assertEqual(links["C"], "https://main.example/main/graph/c.html")
+        self.assertEqual(links["B"], "/project/123/algebra/b.html?q=1#proof")
+        self.assertEqual(links["C"], "/project/main/graph/c.html")
         self.assertEqual(links["Review pages"], "/project/preview/123/")
         self.assertEqual(soup.select_one(".article-preview select")["data-index"], "/project/preview/index.json")
-        self.assertEqual(soup.find("option", string="Main")["value"], "https://main.example/main/algebra/a.html")
+        self.assertEqual(soup.find("option", string="Main")["value"], "/project/main/algebra/a.html")
         self.assertTrue(soup.img["src"].startswith("/project/preview/assets/"))
-        self.assertEqual(json.loads(soup.find("script", id="__config").string)["base"], "https://main.example/main/")
+        self.assertEqual(json.loads(soup.find("script", id="__config").string)["base"], "/project/main/")
         hub = BeautifulSoup((self.site / "preview/123/index.html").read_text(), "html.parser")
         self.assertEqual(hub.find("link", rel="stylesheet")["href"], "/project/preview/selector.css")
         self.assertIn("https://previews.example/project/preview/123/", summary)
@@ -125,8 +127,8 @@ class ArticlePreviewsTest(unittest.TestCase):
             with self.subTest(site_url=site_url):
                 with self.assertRaises(ValueError):
                     previews.publish(
-                        self.build, self.site, 123, ["src/algebra/a.md"], main_prefix="https://main.example/main/",
-                        site_url=site_url, main_files=["algebra/a.html"],
+                        self.build, self.site, 123, ["src/algebra/a.md"], production_url="https://main.example/",
+                        site_url=site_url,
                     )
                 self.assertEqual(snapshot(self.site), self.production)
 
@@ -140,9 +142,9 @@ class ArticlePreviewsTest(unittest.TestCase):
         self.assertEqual(set(pages), {"index.html"})
         soup = BeautifulSoup((self.site / "preview/123/index.html").read_text(), "html.parser")
         self.assertIn("updated sidebar", soup.get_text())
-        self.assertEqual(soup.find("a", string="Preview navigation on the home page")["href"], "/index/preview/123/")
+        self.assertEqual(soup.find("a", string="Preview navigation on the home page")["href"], "/123/index.html")
         self.assertIsNone(soup.details)
-        home = BeautifulSoup((self.site / "index/preview/123/index.html").read_text(), "html.parser")
+        home = BeautifulSoup((self.site / "123/index.html").read_text(), "html.parser")
         self.assertEqual(home.nav.a.get_text(), "Updated navigation entry")
         self.assertEqual(home.nav.a["href"], "/main/algebra/a.html")
 
@@ -154,7 +156,7 @@ class ArticlePreviewsTest(unittest.TestCase):
         self.assertEqual(set(previews.registry(self.site)["123"]["pages"]), {"algebra/new.html"})
         soup = BeautifulSoup((self.site / previews.preview_path("algebra/new.html", 123)).read_text(), "html.parser")
         links = {a.get_text(): a["href"] for a in soup.nav.find_all("a")}
-        self.assertEqual(links["New article"], "/algebra/new/preview/123/")
+        self.assertEqual(links["New article"], "/123/algebra/new.html")
         self.assertEqual(links["Existing article"], "/main/algebra/a.html")
         self.assertEqual([option.get_text() for option in soup.select(".article-preview option")], ["PR #123"])
         self.publish(changed=["src/algebra/new.md", "src/navigation.md", "README.md"])
@@ -167,7 +169,7 @@ class ArticlePreviewsTest(unittest.TestCase):
         self.publish(changed=["README.md", "src/algebra/b.md"])
         self.assertEqual(set(previews.registry(self.site)["123"]["pages"]), {"index.html", "algebra/b.html"})
         soup = BeautifulSoup((self.site / previews.preview_path("index.html", 123)).read_text(), "html.parser")
-        self.assertEqual(soup.find("a", string="New article")["href"], "/algebra/b/preview/123/#proof")
+        self.assertEqual(soup.find("a", string="New article")["href"], "/123/algebra/b.html#proof")
         self.assertEqual(soup.find("link", rel="canonical")["href"], "https://cp-algorithms.com/algebra/a.html")
 
     def test_review_index_links_changed_pages_main_and_source_revision(self):
@@ -178,7 +180,7 @@ class ArticlePreviewsTest(unittest.TestCase):
         soup = BeautifulSoup((self.site / "preview/123/index.html").read_text(), "html.parser")
         rows = soup.select("tbody tr")
         self.assertEqual([row.code.get_text() for row in rows], ["algebra/a.html", "algebra/b.html"])
-        self.assertEqual([a["href"] for a in rows[0].find_all("a")], ["/algebra/a/preview/123/", "/main/algebra/a.html"])
+        self.assertEqual([a["href"] for a in rows[0].find_all("a")], ["/123/algebra/a.html", "/main/algebra/a.html"])
         self.assertIn("New page", rows[1].get_text())
         self.assertNotIn("/main/algebra/b.html", str(rows[1]))
         self.assertIsNone(soup.details)
@@ -223,9 +225,9 @@ class ArticlePreviewsTest(unittest.TestCase):
         self.publish(changed=["src/algebra/a.md", "src/algebra/b.md"])
         self.publish(124)
         self.publish(changed=["src/algebra/b.md"])
-        self.assertFalse((self.site / "algebra/a/preview/123/index.html").exists())
+        self.assertFalse((self.site / "123/algebra/a.html").exists())
         previews.remove(self.site, 123)
-        self.assertTrue((self.site / "algebra/a/preview/124/index.html").exists())
+        self.assertTrue((self.site / "124/algebra/a.html").exists())
         self.assertEqual(len(list((self.site / previews.ASSETS).iterdir())), 1)
         previews.remove(self.site, 124)
         self.assertEqual(list((self.site / previews.ASSETS).iterdir()), [])
@@ -234,6 +236,35 @@ class ArticlePreviewsTest(unittest.TestCase):
         self.assertEqual(snapshot(self.site), before)
         for name, digest in self.production.items():
             self.assertEqual(snapshot(self.site)[name], digest)
+
+    def test_main_preview_shares_assets_and_survives_pr_cleanup(self):
+        templates = self.build / "overrides/main.html"
+        templates.parent.mkdir()
+        templates.write_text("{% extends 'base.html' %}")
+        production = snapshot(self.build)
+        previews.publish(self.build, self.site, "main", [], site_url="https://preview.example/")
+        self.assertNotIn("overrides/main.html", previews.registry(self.site)["main"]["pages"])
+        main = snapshot(self.site / "main")
+        soup = BeautifulSoup((self.site / "main/algebra/a.html").read_text(), "html.parser")
+        self.assertEqual(soup.select_one(".article-preview select")["data-pr"], "main")
+        self.assertEqual([option.get_text() for option in soup.select(".article-preview option")], ["Main"])
+        self.assertEqual(soup.find("a", string="B")["href"], "/main/algebra/b.html?q=1#proof")
+        self.assertEqual(soup.find("meta", attrs={"name": "robots"})["content"], "noindex")
+        self.assertEqual((self.site / "main/search/search_index.json").read_bytes(), (self.build / "search/search_index.json").read_bytes())
+        self.publish()
+        entries = previews.registry(self.site)
+        self.assertEqual(entries["main"]["assets"], entries["123"]["assets"])
+        previews.remove(self.site, 123)
+        self.assertEqual(snapshot(self.site / "main"), main)
+        self.assertEqual(len(list((self.site / previews.ASSETS).iterdir())), 1)
+        with self.assertRaises(ValueError):
+            previews.remove(self.site, "main")
+        self.assertEqual(snapshot(self.build), production)
+
+    def test_remote_pr_requires_main_preview(self):
+        with self.assertRaisesRegex(ValueError, "Publish the Main preview"):
+            previews.publish(self.build, self.site, 123, [], site_url="https://preview.example/")
+        self.assertEqual(snapshot(self.site), self.production)
 
     def test_cleanup_removes_legacy_preview(self):
         path = self.site / "123/index.html"
@@ -256,7 +287,7 @@ class ArticlePreviewsTest(unittest.TestCase):
             self.publish()
         with self.assertRaises(ValueError):
             previews.publish(self.site, self.site, 123, [])
-        for article in ("../main/index.html", "/main/index.html", "a.md", "main.html", "123/a.html", "preview/assets/a.html"):
+        for article in ("../main/index.html", "/main/index.html", "a.md"):
             with self.assertRaises(ValueError):
                 previews.preview_path(article, 123)
 
