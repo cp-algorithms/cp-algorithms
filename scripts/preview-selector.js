@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (!select) return;
   select.addEventListener("change", () => location.assign(select.value));
   try {
-    const response = await fetch("/preview/index.json", {cache: "no-cache"});
+    const response = await fetch(select.dataset.index, {cache: "no-cache"});
     if (!response.ok) return;
     const previews = await response.json();
     for (const number of Object.keys(previews).sort((a, b) => Number(a) - Number(b))) {

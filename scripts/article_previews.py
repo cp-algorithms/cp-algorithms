@@ -34,12 +34,31 @@ def preview_path(article, number):
     return stem / "preview" / str(number) / "index.html"
 
 
-def url(path):
-    return "/" + quote(PurePosixPath(path).as_posix(), safe="/")
+def url(path, prefix="/"):
+    return prefix + quote(PurePosixPath(path).as_posix(), safe="/")
 
 
-def preview_url(article, number):
-    return url(preview_path(article, number).parent) + "/"
+def preview_url(article, number, prefix="/"):
+    return url(preview_path(article, number).parent, prefix) + "/"
+
+
+def preview_prefix(site_url, main_url):
+    """Reject deployments that would put untrusted previews on a trusted origin."""
+    def origin(value):
+        parts = urlsplit(value)
+        local = parts.hostname in ("localhost", "127.0.0.1", "::1")
+        if (parts.scheme != "https" and not (local and parts.scheme == "http")) or not parts.hostname:
+            raise ValueError("Publication URLs must use HTTPS (HTTP is allowed for localhost tests)")
+        if parts.username or parts.password or parts.query or parts.fragment or any(c.isspace() for c in value):
+            raise ValueError("Publication URLs must not contain credentials, queries, or fragments")
+        if unquote(parts.path).startswith("//") or "\\" in unquote(parts.path) or ".." in PurePosixPath(unquote(parts.path)).parts:
+            raise ValueError("Publication URLs must not contain path traversal")
+        return parts.scheme, parts.hostname, parts.port or (443 if parts.scheme == "https" else 80)
+
+    preview_origin, main_origin = origin(site_url), origin(main_url)
+    if preview_origin == main_origin or preview_origin[1] in ("cp-algorithms.com", "www.cp-algorithms.com", "gh.cp-algorithms.com"):
+        raise ValueError("Previews must use a different origin from production and the main mirror")
+    return quote(unquote(urlsplit(site_url).path.rstrip("/")), safe="/") + "/"
 
 
 def registry(site):
@@ -121,7 +140,7 @@ def selected_articles(changed, files):
     return articles
 
 
-def review_index(number, pages, changed, shared, main_pages, main_prefix, revision):
+def review_index(number, pages, changed, shared, main_pages, main_prefix, revision, site_url="", prefix="/"):
     """Give reviewers one entry point, with directly edited pages first."""
     pr_url = f"https://github.com/cp-algorithms/cp-algorithms/pull/{number}"
     navigation_only = set(pages) == {"index.html"} and not changed and not shared
@@ -162,10 +181,11 @@ def review_index(number, pages, changed, shared, main_pages, main_prefix, revisi
     document = (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         '<meta name="robots" content="noindex"><meta name="viewport" content="width=device-width, initial-scale=1">'
-        f'<title>Preview for PR #{number}</title><link rel="stylesheet" href="/preview/selector.css">'
+        f'<title>Preview for PR #{number}</title><link rel="stylesheet" href="{url("preview/selector.css", prefix)}">'
         f'</head><body class="preview-index"><main>{content}</main></body></html>\n'
     )
-    summary = f"### Article previews\n\n[Review PR #{number} previews](https://gh.cp-algorithms.com/preview/{number}/)\n\n{scope}\n"
+    review_url = site_url.rstrip("/") + f"/preview/{number}/" if site_url else f"/preview/{number}/"
+    summary = f"### Article previews\n\n[Review PR #{number} previews]({review_url})\n\n{scope}\n"
     if revision:
         summary += f"\nBuilt from `{revision[:7]}`.\n"
     return document, summary
@@ -190,7 +210,7 @@ def asset_digest(assets):
     return digest.hexdigest()
 
 
-def rewrite_page(source, article, pages, assets, bundle, number, main_prefix, has_main):
+def rewrite_page(source, article, pages, assets, bundle, number, main_prefix, has_main, prefix="/"):
     from bs4 import BeautifulSoup
 
     soup = BeautifulSoup(source, "html.parser")
@@ -211,7 +231,7 @@ def rewrite_page(source, article, pages, assets, bundle, number, main_prefix, ha
         if path in pages:
             target = pages[path]
         elif path in assets:
-            target = url(ASSETS / bundle / path)
+            target = url(ASSETS / bundle / path, prefix)
         else:
             target = main_prefix + quote(path, safe="/")
         return urlunsplit(("", "", target, parts.query, parts.fragment))
@@ -250,15 +270,16 @@ def rewrite_page(source, article, pages, assets, bundle, number, main_prefix, ha
     for tag in soup.head.find_all("meta", attrs={"name": re.compile(r"^(robots|googlebot)$", re.I)}):
         tag.decompose()
     soup.head.append(soup.new_tag("meta", attrs={"name": "robots", "content": "noindex"}))
-    soup.head.append(soup.new_tag("link", rel="stylesheet", href="/preview/selector.css"))
-    soup.head.append(soup.new_tag("script", src="/preview/selector.js", defer=""))
+    soup.head.append(soup.new_tag("link", rel="stylesheet", href=url("preview/selector.css", prefix)))
+    soup.head.append(soup.new_tag("script", src=url("preview/selector.js", prefix), defer=""))
     main_option = f'<option value="{main_prefix}{quote(article, safe="/")}">Main</option>' if has_main else ""
     toolbar = BeautifulSoup(
         '<aside class="article-preview" aria-label="Article preview">'
         f'<a href="https://github.com/cp-algorithms/cp-algorithms/pull/{number}">PR #{number}</a>'
-        f'<a href="/preview/{number}/">Review pages</a>'
+        f'<a href="{url(f"preview/{number}/", prefix)}/">Review pages</a>'
         '<label>Version <select aria-label="Article version" '
-        f'data-article="{html.escape(article, quote=True)}" data-pr="{number}">'
+        f'data-article="{html.escape(article, quote=True)}" data-pr="{number}" '
+        f'data-index="{url(REGISTRY, prefix)}">'
         + main_option +
         f'<option value="{pages[article]}" selected>PR #{number}</option>'
         '</select></label></aside>', "html.parser",
@@ -269,12 +290,15 @@ def rewrite_page(source, article, pages, assets, bundle, number, main_prefix, ha
     return str(soup)
 
 
-def publish(build, site, number, changed, main_prefix="/main/", revision=""):
+def publish(build, site, number, changed, main_prefix="/main/", revision="", site_url="", main_files=None):
     build, site = build.resolve(), site.resolve()
     if build == site or build in site.parents or site in build.parents:
         raise ValueError("Build and publication directories must not overlap")
-    if not main_prefix.startswith("/") or main_prefix.startswith("//") or "?" in main_prefix or "#" in main_prefix:
-        raise ValueError("Main prefix must be a local absolute URL path")
+    prefix = preview_prefix(site_url, main_prefix) if site_url else "/"
+    if not site_url and (not main_prefix.startswith("/") or main_prefix.startswith("//") or "?" in main_prefix or "#" in main_prefix):
+        raise ValueError("A remote main mirror requires an isolated preview site URL")
+    if site_url and main_files is None:
+        raise ValueError("An isolated preview requires the main mirror's file inventory")
     main_prefix = main_prefix.rstrip("/") + "/"
     if revision and not re.fullmatch(r"[0-9a-f]{40}", revision):
         raise ValueError("Revision must be a full Git commit SHA")
@@ -286,10 +310,13 @@ def publish(build, site, number, changed, main_prefix="/main/", revision=""):
         if path.is_file() and not any(part.startswith(".") for part in path.relative_to(build).parts)
     }
     selected = selected_articles(changed, files)
-    pages = {article: preview_url(article, number) for article in selected}
-    main_pages = {article for article in selected if (site / main_prefix.lstrip("/") / article).is_file()}
+    pages = {article: preview_url(article, number, prefix) for article in selected}
+    main_pages = (
+        set(selected) & set(main_files) if main_files is not None else
+        {article for article in selected if (site / main_prefix.lstrip("/") / article).is_file()}
+    )
     review, summary = review_index(
-        number, pages, changed_articles(changed, files), shared_changes(changed), main_pages, main_prefix, revision,
+        number, pages, changed_articles(changed, files), shared_changes(changed), main_pages, main_prefix, revision, site_url, prefix,
     )
     assets = asset_files(files) if pages else {}
     bundle = asset_digest(assets) if assets else None
@@ -297,7 +324,7 @@ def publish(build, site, number, changed, main_prefix="/main/", revision=""):
     rendered = {
         article: rewrite_page(
             files[article].read_text(), article, pages, assets, bundle, number, main_prefix,
-            article in main_pages,
+            article in main_pages, prefix,
         )
         for article in selected
     }
@@ -317,6 +344,7 @@ def publish(build, site, number, changed, main_prefix="/main/", revision=""):
         target.write_text(content)
     entries[str(number)] = {"pages": pages, "assets": bundle}
     write_registry(site, entries)
+    (site / ".nojekyll").touch()
     for extension in ("js", "css"):
         shutil.copyfile(Path(__file__).with_name(f"preview-selector.{extension}"), site / "preview" / f"selector.{extension}")
     hub = site / "preview" / str(number) / "index.html"
@@ -326,7 +354,7 @@ def publish(build, site, number, changed, main_prefix="/main/", revision=""):
     if legacy.exists():
         shutil.rmtree(legacy)
     collect_assets(site, entries)
-    print(f"Published {len(pages)} article previews at /preview/{number}/")
+    print(f"Published {len(pages)} article previews at {prefix}preview/{number}/")
     return summary
 
 
@@ -337,7 +365,9 @@ def main():
     parser.add_argument("--pr", type=int, required=True)
     parser.add_argument("--build", type=Path)
     parser.add_argument("--files", type=Path, help="JSON array of GitHub PR-file API pages (gh --paginate --slurp)")
-    parser.add_argument("--main-prefix", default="/main/")
+    parser.add_argument("--main-prefix", default="https://gh.cp-algorithms.com/main/")
+    parser.add_argument("--site-url", default="", help="Isolated preview site's URL, including its project path")
+    parser.add_argument("--main-files", type=Path, help="JSON list of paths in the trusted main mirror")
     parser.add_argument("--revision", default="", help="Full source commit SHA shown on the review page")
     parser.add_argument("--summary", type=Path, help="Write a Markdown review link for the deployment job summary")
     args = parser.parse_args()
@@ -346,10 +376,13 @@ def main():
     if args.operation == "remove":
         remove(args.site.resolve(), args.pr)
     else:
-        if args.build is None or args.files is None:
-            parser.error("publish requires --build and --files")
+        if args.build is None or args.files is None or not args.site_url or args.main_files is None:
+            parser.error("publish requires --build, --files, --site-url, and --main-files")
         changed = [item["filename"] for page in json.loads(args.files.read_text()) for item in page]
-        summary = publish(args.build, args.site, args.pr, changed, args.main_prefix, args.revision)
+        main_files = json.loads(args.main_files.read_text()) if args.main_files else None
+        if main_files is not None and (not isinstance(main_files, list) or any(not isinstance(path, str) for path in main_files)):
+            parser.error("--main-files must contain a JSON list of paths")
+        summary = publish(args.build, args.site, args.pr, changed, args.main_prefix, args.revision, args.site_url, main_files)
         if args.summary:
             args.summary.write_text(summary)
 

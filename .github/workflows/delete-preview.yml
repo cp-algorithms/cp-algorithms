@@ -7,6 +7,10 @@ on:
 jobs:
   delete_pr_preview:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [legacy, isolated]
     concurrency:
       group: gh-pages
       queue: max
@@ -16,9 +20,18 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: source
+      - name: Check isolated repository
+        if: matrix.target == 'isolated'
+        env:
+          PREVIEW_REPOSITORY: ${{ vars.PREVIEW_REPOSITORY }}
+        run: |
+          [[ "$PREVIEW_REPOSITORY" =~ ^[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+$ ]]
+          [[ "${PREVIEW_REPOSITORY,,}" != "${GITHUB_REPOSITORY,,}" ]]
       - name: Checkout gh-pages branch
         uses: actions/checkout@v4
         with:
+          repository: ${{ matrix.target == 'legacy' && github.repository || vars.PREVIEW_REPOSITORY }}
+          token: ${{ matrix.target == 'legacy' && github.token || secrets.PREVIEW_DEPLOY_TOKEN }}
           ref: gh-pages
           path: published
 

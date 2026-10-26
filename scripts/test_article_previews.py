@@ -95,6 +95,41 @@ class ArticlePreviewsTest(unittest.TestCase):
         entries = previews.registry(self.site)
         self.assertNotEqual(entries["123"]["assets"], entries["124"]["assets"])
 
+    def test_isolated_project_site_keeps_assets_local_and_main_links_external(self):
+        summary = previews.publish(
+            self.build, self.site, 123, ["src/algebra/a.md", "src/algebra/b.md"],
+            main_prefix="https://main.example/main/", site_url="https://previews.example/project/",
+            main_files=["algebra/a.html"],
+        )
+        pages = previews.registry(self.site)["123"]["pages"]
+        self.assertEqual(pages["algebra/a.html"], "/project/algebra/a/preview/123/")
+        soup = BeautifulSoup((self.site / previews.preview_path("algebra/a.html", 123)).read_text(), "html.parser")
+        links = {a.get_text(): a["href"] for a in soup.find_all("a")}
+        self.assertEqual(links["B"], "/project/algebra/b/preview/123/?q=1#proof")
+        self.assertEqual(links["C"], "https://main.example/main/graph/c.html")
+        self.assertEqual(links["Review pages"], "/project/preview/123/")
+        self.assertEqual(soup.select_one(".article-preview select")["data-index"], "/project/preview/index.json")
+        self.assertEqual(soup.find("option", string="Main")["value"], "https://main.example/main/algebra/a.html")
+        self.assertTrue(soup.img["src"].startswith("/project/preview/assets/"))
+        self.assertEqual(json.loads(soup.find("script", id="__config").string)["base"], "https://main.example/main/")
+        hub = BeautifulSoup((self.site / "preview/123/index.html").read_text(), "html.parser")
+        self.assertEqual(hub.find("link", rel="stylesheet")["href"], "/project/preview/selector.css")
+        self.assertIn("https://previews.example/project/preview/123/", summary)
+
+    def test_rejects_trusted_origins_before_changing_publication(self):
+        for site_url in (
+            "https://main.example/another-path/", "https://main.example:443/project/",
+            "https://cp-algorithms.com/preview/", "https://gh.cp-algorithms.com/previews/",
+            "http://previews.example/project/", "https://previews.example/../main/",
+        ):
+            with self.subTest(site_url=site_url):
+                with self.assertRaises(ValueError):
+                    previews.publish(
+                        self.build, self.site, 123, ["src/algebra/a.md"], main_prefix="https://main.example/main/",
+                        site_url=site_url, main_files=["algebra/a.html"],
+                    )
+                self.assertEqual(snapshot(self.site), self.production)
+
     def test_navigation_only_change_previews_just_the_home_page(self):
         (self.build / "index.html").write_text(PAGE.replace(
             '<article>', '<nav><a href="algebra/a.html">Updated navigation entry</a></nav><article>',
@@ -148,7 +183,7 @@ class ArticlePreviewsTest(unittest.TestCase):
         self.assertNotIn("/main/algebra/b.html", str(rows[1]))
         self.assertIsNone(soup.details)
         self.assertIsNotNone(soup.find("a", href=f"https://github.com/cp-algorithms/cp-algorithms/commit/{revision}"))
-        self.assertIn("https://gh.cp-algorithms.com/preview/123/", summary)
+        self.assertIn("/preview/123/", summary)
         self.assertIn("This preview contains 2 changed pages.", summary)
         article = BeautifulSoup((self.site / previews.preview_path("algebra/a.html", 123)).read_text(), "html.parser")
         self.assertEqual(article.find("a", string="Review pages")["href"], "/preview/123/")

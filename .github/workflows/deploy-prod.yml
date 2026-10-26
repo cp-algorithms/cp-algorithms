@@ -99,6 +99,26 @@ jobs:
           fi
           printf 'pr_number=%s\ndeploy=%s\n' "$target" "$deploy" >> "$GITHUB_OUTPUT"
 
+      - name: Validate isolated preview destination
+        id: preview-site
+        if: steps.get-pr-number.outputs.deploy == 'true' && steps.get-pr-number.outputs.pr_number != 'main'
+        env:
+          GH_TOKEN: ${{ secrets.PREVIEW_DEPLOY_TOKEN }}
+          PREVIEW_REPOSITORY: ${{ vars.PREVIEW_REPOSITORY }}
+        run: |
+          : "${GH_TOKEN:?Configure PREVIEW_DEPLOY_TOKEN for the preview repository}"
+          [[ "$PREVIEW_REPOSITORY" =~ ^[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+$ ]]
+          [[ "${PREVIEW_REPOSITORY,,}" != "${GITHUB_REPOSITORY,,}" ]]
+          site_url=$(gh api "repos/$PREVIEW_REPOSITORY/pages" --jq '
+            if .source.branch == "gh-pages" and .source.path == "/" then .html_url
+            else error("Configure the preview repository to publish gh-pages from its root") end')
+          PREVIEW_SITE_URL="$site_url" python3 - <<'PY'
+          import os
+          from scripts.article_previews import preview_prefix
+          preview_prefix(os.environ["PREVIEW_SITE_URL"], "https://gh.cp-algorithms.com/main/")
+          PY
+          printf 'url=%s\n' "${site_url%/}" >> "$GITHUB_OUTPUT"
+
       - name: Deploy main mirror to gh-pages
         if: steps.get-pr-number.outputs.deploy == 'true' && steps.get-pr-number.outputs.pr_number == 'main'
         uses: peaceiris/actions-gh-pages@v4
@@ -114,6 +134,8 @@ jobs:
         if: steps.get-pr-number.outputs.deploy == 'true' && steps.get-pr-number.outputs.pr_number != 'main'
         uses: actions/checkout@v4
         with:
+          repository: ${{ vars.PREVIEW_REPOSITORY }}
+          token: ${{ secrets.PREVIEW_DEPLOY_TOKEN }}
           ref: gh-pages
           path: published
 
@@ -130,6 +152,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ steps.get-pr-number.outputs.pr_number }}
           BUILD_SHA: ${{ github.event.workflow_run.head_sha }}
+          PREVIEW_SITE_URL: ${{ steps.preview-site.outputs.url }}
         run: |
           python3 -m pip install -r scripts/preview-requirements.txt
           gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/files" > "$RUNNER_TEMP/preview-files.json"
@@ -139,19 +162,25 @@ jobs:
             printf 'Preview skipped: the PR closed or its head changed while fetching the file list.\n' >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
+          gh api "repos/$GITHUB_REPOSITORY/git/trees/gh-pages?recursive=1" |
+            jq -e 'if .truncated then error("Main mirror file inventory is truncated") else
+              [.tree[] | select(.type == "blob") | .path | select(startswith("main/")) | ltrimstr("main/")]
+              end' > "$RUNNER_TEMP/main-files.json"
           python3 scripts/article_previews.py publish \
             --build "public/$PR_NUMBER" --site published --pr "$PR_NUMBER" \
             --files "$RUNNER_TEMP/preview-files.json" --revision "$BUILD_SHA" \
+            --site-url "$PREVIEW_SITE_URL" --main-prefix "https://gh.cp-algorithms.com/main/" \
+            --main-files "$RUNNER_TEMP/main-files.json" \
             --summary "$RUNNER_TEMP/preview-summary.md"
           git -C published config user.name "github-actions[bot]"
           git -C published config user.email "github-actions[bot]@users.noreply.github.com"
           git -C published add --all
           if ! git -C published diff --cached --quiet; then
-            git -C published commit -m "Preview for #$PR_NUMBER ($BUILD_SHA) at https://gh.cp-algorithms.com/preview/$PR_NUMBER/"
+            git -C published commit -m "Preview for #$PR_NUMBER ($BUILD_SHA) at $PREVIEW_SITE_URL/preview/$PR_NUMBER/"
             git -C published push origin HEAD:gh-pages
           fi
           cat "$RUNNER_TEMP/preview-summary.md" >> "$GITHUB_STEP_SUMMARY"
-          printf 'url=https://gh.cp-algorithms.com/preview/%s/\n' "$PR_NUMBER" >> "$GITHUB_OUTPUT"
+          printf 'url=%s/preview/%s/\n' "$PREVIEW_SITE_URL" "$PR_NUMBER" >> "$GITHUB_OUTPUT"
 
       - name: Set final commit status
         uses: ./.github/actions/set-commit-status
