@@ -85,7 +85,7 @@ long long extgcd(long long a, long long b, long long &u, long long &v) {
 
 // Finds all solutions to a * x = b (mod n) in the interval [0, n - 1].
 // Precondition: n > 0.
-// Complexity: O(log n + g) time and O(g) space, where g = gcd(a, n).
+// Complexity: O(log n + g) time, O(log n) auxiliary space and O(g) output space, where g = gcd(a, n).
 vector<long long> solve_linear_congruence(long long a, long long b, long long n) {
     if (n <= 0) {
         return {};
