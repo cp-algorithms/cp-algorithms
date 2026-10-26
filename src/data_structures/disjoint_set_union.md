@@ -178,7 +178,7 @@ It turns out, that the final amortized time complexity is $O(\alpha(n))$, where 
 In fact it grows so slowly, that it doesn't exceed $4$ for all reasonable $n$ (approximately $n < 10^{600}$).
 
 Amortized complexity is the total time per operation, evaluated over a sequence of multiple operations.
-The idea is to guarantee the total time of the entire sequence, while allowing single operations to be much slower then the amortized time.
+The idea is to guarantee the total time of the entire sequence, while allowing single operations to be much slower than the amortized time.
 E.g. in our case a single call might take $O(\log n)$ in the worst case, but if we do $m$ such calls back to back we will end up with an average time of $O(\alpha(n))$.
 
 We will also not present a proof for this time complexity, since it is quite long and complicated.
@@ -188,7 +188,7 @@ Also, it's worth mentioning that DSU with union by size / rank, but without path
 ### Linking by index / coin-flip linking
 
 Both union by rank and union by size require that you store additional data for each set, and maintain these values during each union operation.
-There exist also a randomized algorithm, that simplifies the union operation a little bit: linking by index.
+There exists also a randomized algorithm, that simplifies the union operation a little bit: linking by index.
 
 We assign each set a random value called the index, and we attach the set with the smaller index to the one with the larger one.
 It is likely that a bigger set will have a bigger index than the smaller set, therefore this operation is closely related to union by size.
@@ -542,7 +542,12 @@ Then to get the answer for the current node (unless of course it is a leaf), we 
 The size of the resulting set will be the answer for the current node.
 To efficiently combine multiple sets we just apply the above-described recipe:
 we merge the sets by simply adding smaller ones to larger.
-In the end we get a $O(n \log^2 n)$ solution, because one number will only added to a set at most $O(\log n)$ times.
+In the end we get a $O(n \log^2 n)$ solution, though the usual justification needs care here.
+It is tempting to say that a number is added to a set only $O(\log n)$ times because the set holding it doubles on every move, but that is not true when the sets hold **distinct** numbers: merging a set of size $k$ into a larger one can leave the result no bigger than it already was, so nothing doubles.
+What we can count instead is the number of insertion *attempts*, since a duplicate still costs a lookup.
+A subtree's set has at most as many elements as the subtree has vertices, and merging into the child with the most distinct numbers costs no more than merging into the child with the largest subtree.
+For that rule the doubling argument does hold, applied to vertices rather than to values: a vertex lies in the smaller subtree at most $O(\log n)$ times, because the combined subtree is at least twice the smaller one.
+That gives $O(n \log n)$ insertions, each costing $O(\log n)$ in a `set`.
 
 ### Storing the DSU by maintaining a clear tree structure / Online bridge finding in $O(\alpha(n))$ on average  {data-toc-label="Storing the DSU by maintaining a clear tree structure / Online bridge finding"}
 

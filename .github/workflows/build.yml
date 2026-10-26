@@ -6,6 +6,10 @@ on:
       - main
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,17 +21,34 @@ jobs:
           fetch-depth: 0
           submodules: recursive
       - name: Set up Python
-        uses: actions/setup-python@v5.2.0
+        uses: actions/setup-python@v5.6.0
         with:
           python-version: '3.11'
+          cache: pip
+          cache-dependency-path: |
+            scripts/install-mkdocs.sh
+            scripts/preview-requirements.txt
+            plugins/mkdocs-git-committers-plugin-2/setup.py
       - name: Install mkdocs-material
         run: |
           scripts/install-mkdocs.sh
-      - name: Cache Github Users
-        uses: actions/cache@v3
+      - name: Cache GitHub users
+        uses: actions/cache@v4
         with:
           path: authors.json
-          key: test-${{ github.event_name }}-github-users-v0.1
+          # PRs can restore main's cache; each run saves newly discovered users.
+          key: github-users-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: github-users-v1-
+      - name: Restore the legacy main cache if needed
+        if: hashFiles('authors.json') == ''
+        uses: actions/cache/restore@v4
+        with:
+          path: authors.json
+          key: test-push-github-users-v0.1
+      - name: Test article preview publishing
+        run: |
+          python -m pip install -r scripts/preview-requirements.txt
+          python -m unittest discover -s scripts -p 'test_*preview*.py'
       - name: Build pages
         env:
           MKDOCS_GIT_COMMITTERS_BRANCH: ${{ github.ref_name }}

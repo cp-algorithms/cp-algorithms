@@ -35,8 +35,8 @@ C &= - A P_x - B P_y.
 An important advantage of this method of constructing a straight line is that if the coordinates of the ends were integer, then the coefficients obtained will also be **integer** . In some cases, this allows one to perform geometric operations without resorting to real numbers at all.
 
 However, there is a small drawback: for the same straight line different triples of coefficients can be obtained.
-To avoid this, but do not go away from the integer coefficients, you can apply the following technique, often called **rationing**. Find the [greatest common divisor](../algebra/euclid-algorithm.md) of numbers $| A | , | B | , | C |$ , we divide all three coefficients by it, and then we make the normalization of the sign: if $A <0$ or $A = 0, B <0$ then multiply all three coefficients by $-1$ .
-As a result, we will come to the conclusion that for identical straight lines, identical triples of coefficients will be obtained, which makes it easy to check straight lines for equality.
+To avoid this while retaining integer coefficients, normalize the coefficients as follows. Find the [greatest common divisor](../algebra/euclid-algorithm.md) of numbers $| A | , | B | , | C |$ , divide all three coefficients by it, and then normalize the sign: if $A <0$ or $A = 0, B <0$ then multiply all three coefficients by $-1$ .
+As a result, identical straight lines will produce identical triples of coefficients, which makes it easy to check straight lines for equality.
 
 ### Real case
 
@@ -63,6 +63,6 @@ Consequently, in the three-dimensional and multidimensional cases we must use th
 
 $$p + v t, ~~~ t \in \mathbb{R}.$$
 
-Those. a straight line is all points that can be obtained from a point $p$ adding a vector $v$ with an arbitrary coefficient.
+That is, a straight line is the set of all points that can be obtained from a point $p$ by adding a vector $v$ multiplied by an arbitrary coefficient.
 
 The **construction** of a straight line in a parametric form along the coordinates of the ends of a segment is trivial, we just take one end of the segment for the point $p$, and the vector from the first to the second end — for the vector $v$.

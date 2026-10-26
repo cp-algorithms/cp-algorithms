@@ -7,20 +7,50 @@ on:
 jobs:
   delete_pr_preview:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [legacy, isolated]
+    concurrency:
+      group: gh-pages
+      queue: max
+      cancel-in-progress: false
     steps:
+      - name: Checkout publisher
+        uses: actions/checkout@v4
+        with:
+          path: source
+      - name: Check isolated repository
+        if: matrix.target == 'isolated'
+        env:
+          PREVIEW_REPOSITORY: ${{ vars.PREVIEW_REPOSITORY }}
+        run: |
+          [[ "$PREVIEW_REPOSITORY" =~ ^[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+$ ]]
+          [[ "${PREVIEW_REPOSITORY,,}" != "${GITHUB_REPOSITORY,,}" ]]
       - name: Checkout gh-pages branch
         uses: actions/checkout@v4
         with:
+          repository: ${{ matrix.target == 'legacy' && github.repository || vars.PREVIEW_REPOSITORY }}
+          token: ${{ matrix.target == 'legacy' && github.token || secrets.PREVIEW_DEPLOY_TOKEN }}
           ref: gh-pages
+          path: published
 
       - name: Configure Git identity
+        working-directory: published
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Delete PR directory
+      - name: Delete PR previews and unused assets
+        working-directory: published
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          PR_DIR=${{ github.event.pull_request.number }}
-          git rm -r --ignore-unmatch "${PR_DIR}/" || echo "Directory not found"
-          git commit -m "Delete preview for #${{ github.event.pull_request.number }}"
+          python3 ../source/scripts/article_previews.py remove --site . --pr "$PR_NUMBER"
+          git add --all
+          if git diff --cached --quiet; then
+            echo "No preview for #$PR_NUMBER; nothing to delete."
+            exit 0
+          fi
+          git commit -m "Delete preview for #$PR_NUMBER"
           git push origin gh-pages
