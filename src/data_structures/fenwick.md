@@ -551,6 +551,7 @@ The following implementation uses one-based indexing.
 === "Python"
     ```py
     def add(idx: int, val: int) -> None:
+        idx += 1
         while idx <= n:
             bit[idx] += val
             idx += idx & -idx
