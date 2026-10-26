@@ -478,7 +478,7 @@ The following implementation can be used like the other implementations, however
                 self.n = a + 1
                 self.bit = [0] * (a + 1)
             else:
-                self.n = len(n) + 1
+                self.n = len(a) + 1
                 self.bit = [0] * (len(a) + 1)
                 for i in range(len(a)):
                     self.add(i, a[i])
