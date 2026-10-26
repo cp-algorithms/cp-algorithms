@@ -197,6 +197,7 @@ search:
     - Matchings and related problems
         - [Bipartite Graph Check](graph/bipartite-check.md)
         - [Kuhn's Algorithm - Maximum Bipartite Matching](graph/kuhn_maximum_bipartite_matching.md)
+        - [Edmonds' Blossom Algorithm - Maximum Matching in General Graphs](graph/matching_edmonds.md)
         - [Hungarian Algorithm](graph/hungarian-algorithm.md)
     - Miscellaneous
         - [Topological Sorting](graph/topological-sort.md)
