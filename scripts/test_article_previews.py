@@ -123,7 +123,7 @@ class ArticlePreviewsTest(unittest.TestCase):
     def test_rejects_trusted_origins_before_changing_publication(self):
         for site_url in (
             "https://main.example/another-path/", "https://main.example:443/project/",
-            "https://cp-algorithms.com/preview/", "https://gh.cp-algorithms.com/previews/",
+            "https://cp-algorithms.com/preview/", "https://www.cp-algorithms.com/previews/",
             "http://previews.example/project/", "https://previews.example/../main/",
         ):
             with self.subTest(site_url=site_url):
@@ -267,6 +267,15 @@ class ArticlePreviewsTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Publish the Main preview"):
             previews.publish(self.build, self.site, 123, [], site_url="https://preview.example/")
         self.assertEqual(snapshot(self.site), self.production)
+
+    def test_legacy_pr_landing_links_to_review_pages(self):
+        previews.publish(self.build, self.site, "main", [], site_url="https://gh.cp-algorithms.com/")
+        previews.publish(self.build, self.site, 123, ["src/algebra/a.md"], site_url="https://gh.cp-algorithms.com/")
+        landing = BeautifulSoup((self.site / "123/index.html").read_text(), "html.parser")
+        self.assertEqual(landing.a["href"], "/preview/123/")
+        self.assertEqual(landing.find("meta", attrs={"name":"robots"})["content"], "noindex")
+        self.publish(changed=["README.md"])
+        self.assertIsNotNone(BeautifulSoup((self.site / "123/index.html").read_text(), "html.parser").article)
 
     def test_cleanup_removes_legacy_preview(self):
         path = self.site / "123/index.html"

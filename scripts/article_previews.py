@@ -55,8 +55,8 @@ def preview_prefix(site_url, main_url):
         return parts.scheme, parts.hostname, parts.port or (443 if parts.scheme == "https" else 80)
 
     preview_origin, main_origin = origin(site_url), origin(main_url)
-    if preview_origin == main_origin or preview_origin[1] in ("cp-algorithms.com", "www.cp-algorithms.com", "gh.cp-algorithms.com"):
-        raise ValueError("Previews must use a different origin from production and the main mirror")
+    if preview_origin == main_origin or preview_origin[1] in ("cp-algorithms.com", "www.cp-algorithms.com"):
+        raise ValueError("Previews must use a different origin from production")
     return quote(unquote(urlsplit(site_url).path.rstrip("/")), safe="/") + "/"
 
 
@@ -377,6 +377,18 @@ def publish(build, site, number, changed, revision="", site_url="", production_u
         hub = site / "preview" / str(number) / "index.html"
         hub.parent.mkdir(parents=True, exist_ok=True)
         hub.write_text(review)
+        if "index.html" not in pages:
+            # Keep existing deployment links to /PR/ useful for article-only PRs.
+            landing = site / str(number) / "index.html"
+            landing.parent.mkdir(parents=True, exist_ok=True)
+            review_url = url(f"preview/{number}", prefix) + "/"
+            landing.write_text(
+                '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+                '<meta name="robots" content="noindex">'
+                f'<meta http-equiv="refresh" content="0; url={review_url}">'
+                f'<title>PR #{number} preview</title></head><body>'
+                f'<a href="{review_url}">Review changed pages</a></body></html>\n'
+            )
     collect_assets(site, entries)
     landing = "main" if is_main else f"preview/{number}"
     print(f"Published {len(pages)} article previews at {prefix}{landing}/")

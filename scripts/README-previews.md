@@ -3,7 +3,7 @@
 Production is published from this repository's `gh-pages` root at
 `https://cp-algorithms.com/`. Sources stay on `main`. A separate repository,
 `cp-algorithms/cp-algorithms-previews`, publishes previews from its `gh-pages`
-branch at `https://preview.cp-algorithms.com/`.
+branch at `https://gh.cp-algorithms.com/`.
 
 For `algebra/binary-exp.html`, the Main preview is at
 `/main/algebra/binary-exp.html`; PR #123 uses `/123/algebra/binary-exp.html`.
@@ -14,7 +14,8 @@ the current article. Production `.html` URLs are unchanged.
 The deployment check's **Details** link and job summary lead to `/preview/123/`.
 That review page identifies the built commit and lists directly changed pages
 first, with **Preview** and **Main** links. New articles are marked **New page**.
-Each PR article links back through **Review pages**.
+Each PR article links back through **Review pages**. Existing `/<PR>/` links
+open this review page when the PR does not include a home-page preview.
 
 ## What gets published
 
@@ -49,9 +50,10 @@ preview, not a trusted application.
 Before enabling publication:
 
 1. Initialize the preview repository's `gh-pages` branch and enable Pages from
-   its root. Configure `preview.cp-algorithms.com` in Pages before adding its
-   DNS CNAME to `cp-algorithms.github.io`. Default GitHub project URLs are also
-   supported.
+   its root. Configure `gh.cp-algorithms.com` in Pages before adding its
+   DNS CNAME to `cp-algorithms.github.io`. For the migration, move this custom
+   domain from the source repository after production moves to its apex domain.
+   Default GitHub project URLs are also supported for staging.
 2. Set the source repository's Actions variable `PREVIEW_REPOSITORY` to
    `cp-algorithms/cp-algorithms-previews`.
 3. Create a fine-grained token restricted to that preview repository, with

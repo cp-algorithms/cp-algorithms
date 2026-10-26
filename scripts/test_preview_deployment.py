@@ -35,7 +35,7 @@ else:
     elif endpoint.endswith('/pages'):
         base = 'https://previews.example/project/'
         if os.environ['SCENARIO'] == 'same-origin':
-            base = 'https://gh.cp-algorithms.com/previews/'
+            base = 'https://cp-algorithms.com:443/previews/'
         if os.environ['SCENARIO'] == 'production-origin':
             base = 'https://cp-algorithms.com/previews/'
         branch = 'main' if os.environ['SCENARIO'] == 'wrong-pages-branch' else 'gh-pages'
