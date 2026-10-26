@@ -39,7 +39,7 @@ else:
         if os.environ['SCENARIO'] == 'production-origin':
             base = 'https://cp-algorithms.com/previews/'
         branch = 'main' if os.environ['SCENARIO'] == 'wrong-pages-branch' else 'gh-pages'
-        state = {'html_url':base,'source':{'branch':branch,'path':'/'}}
+        state = {'public':os.environ['SCENARIO'] != 'private-site','html_url':base,'source':{'branch':branch,'path':'/'}}
     query = sys.argv[sys.argv.index('--jq')+1] if '--jq' in sys.argv else '.'
     sys.exit(subprocess.run(['jq','-r',query],input=json.dumps(state),text=True).returncode)
 '''
@@ -61,7 +61,7 @@ class PreviewDeploymentTest(unittest.TestCase):
     def test_publication_guards(self):
         for scenario in ('current', 'already-stale', 'advance-during-files', 'already-closed', 'close-during-files',
                          'missing-token', 'same-repo', 'same-origin', 'production-origin', 'wrong-pages-branch', 'missing-main',
-                         'current-main', 'stale-main'):
+                         'current-main', 'stale-main', 'private-site'):
             with self.subTest(scenario=scenario), tempfile.TemporaryDirectory(prefix='cp-deploy-check-') as temp:
                 root = Path(temp)
                 for folder in ('bin','public/123','published','temp'):
@@ -96,7 +96,7 @@ class PreviewDeploymentTest(unittest.TestCase):
                         result = subprocess.run(['bash','-eo','pipefail','-c',publish],cwd=root,env=env,capture_output=True,text=True)
                     if result.returncode and scenario in ('current','advance-during-files','close-during-files','current-main'):
                         raise RuntimeError(result.stdout+result.stderr)
-                    if scenario in ('missing-token','same-repo','same-origin','production-origin','wrong-pages-branch','missing-main'):
+                    if scenario in ('missing-token','same-repo','same-origin','production-origin','wrong-pages-branch','missing-main','private-site'):
                         self.assertNotEqual(result.returncode, 0, 'Invalid configuration did not fail closed')
                 pushed = (root/'pushed').exists()
                 expected = scenario in ('current','current-main')

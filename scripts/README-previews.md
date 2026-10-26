@@ -1,6 +1,6 @@
 # Article previews
 
-Production is published from this repository's `gh-pages` root at
+After the hosting cutover, production is published from this repository's `gh-pages` root at
 `https://cp-algorithms.com/`. Sources stay on `main`. A separate repository,
 `cp-algorithms/cp-algorithms-previews`, publishes previews from its `gh-pages`
 branch at `https://gh.cp-algorithms.com/`.
@@ -49,8 +49,8 @@ preview, not a trusted application.
 
 Before enabling publication:
 
-1. Initialize the preview repository's `gh-pages` branch and enable Pages from
-   its root. Configure `gh.cp-algorithms.com` in Pages before adding its
+1. Initialize a public preview repository's `gh-pages` branch and enable public
+   Pages from its root. Configure `gh.cp-algorithms.com` in Pages before adding its
    DNS CNAME to `cp-algorithms.github.io`. For the migration, move this custom
    domain from the source repository after production moves to its apex domain.
    Default GitHub project URLs are also supported for staging.
@@ -62,12 +62,15 @@ Before enabling publication:
    Never put the token in an Actions variable. The source repository's normal
    `GITHUB_TOKEN` cannot push to another repository.
 4. Seed Main from a successful build of the current main branch using the
-   publisher below with `--pr main` and without `--files`.
+   publisher against a checkout of the preview repository's `gh-pages` branch
+   with `--pr main` and without `--files`. Commit and push that checkout; the
+   local example below alone does not seed the remote repository.
 5. Before moving production to Pages, review the root publication and retire
    all legacy PR previews on that origin. Preserve a Git ref for rollback,
    review the deletion diff, and change the Pages custom domain and DNS only
    after the prepared site has been checked. Keep Firebase available during
-   the transition. The Markdown preview editor still uses its existing Cloud
+   the transition; the workflow continues updating it for rollback. Remove the
+   Firebase deployment job after the Pages cutover is verified. The Markdown preview editor still uses its existing Cloud
    Function; switching static hosting does not replace that service.
 
 The workflow reads the actual destination URL from the Pages API and rejects
