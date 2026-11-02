@@ -16,7 +16,10 @@
           $("#previewArea").html(data + "\n" + refresh_script);
           $("#previewBtn").html("Preview (Ctrl + Enter)");
         },
-        error: function() {$("#previewArea").html("Internal error!")}
+        error: function() {
+          $("#previewArea").html('The preview service did not respond. Wait 1 minute and try again. If it still fails, <a href="https://github.com/cp-algorithms/cp-algorithms/issues">open an issue</a>.');
+          $("#previewBtn").html("Preview (Ctrl + Enter)");
+        }
       });
     });
 
@@ -29,7 +32,7 @@
 </script>
 # Article Preview
 
-<a href="contrib.html">Information for contributors</a>
+<a href="contrib.html">How to Contribute</a>
 <center>
 <form>
   <textarea style="width:100%;height:300px;" id="markdownInput">

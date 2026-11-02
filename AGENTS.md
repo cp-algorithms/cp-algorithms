@@ -14,14 +14,14 @@ conventions. These instructions apply to agent-assisted contributions.
   work. Correctness alone does not justify inclusion: compare its educational
   benefit with the current article and related coverage. Consider a compact
   addition, replacement, short note or link, or declining the addition.
-  Respect prior maintainer decisions about scope; if the benefit is unclear,
+  Respect prior maintainer decisions about scope. If the benefit is unclear,
   raise that decision before expanding the implementation.
 - State the concrete problem and the smallest change that solves it. Keep
   unrelated cleanup, new APIs, alternative implementations, and infrastructure
   changes out of the PR unless they are necessary to the same change.
 - For a claimed bug, identify the supported input contract and violated
   invariant. Reproduce it on the current base before fixing it. A failing test
-  on an unsupported input does not establish a bug; equally, do not invent a
+  on an unsupported input does not establish a bug. Equally, do not invent a
   restriction to excuse an ordinary supported case.
 - Preserve contributors' attribution and concurrent work. Prefer additional
   commits to rewriting someone else's published branch. A request to prepare
@@ -34,13 +34,13 @@ conventions. These instructions apply to agent-assisted contributions.
   Link relevant prerequisites instead of repeating their explanations.
 - Explain why the algorithm works, not just what each line does. Identify the
   invariant and justify its preservation and the final result. For an optimum,
-  prove optimality as well as feasibility; justify the stated complexity.
+  prove optimality as well as feasibility. Justify the stated complexity.
 - Keep the explanation, examples, and implementation consistent. Distinguish
   properties of the general technique from choices specific to an example.
   Work through examples, including equality and boundary cases where relevant.
 - Prefer one implementation per idea. Keep multiple approaches or languages
   only when each offers a meaningful idea or use case worth the explanation
-  and upkeep; explain when to choose each. If a new approach is better at the
+  and upkeep. Explain when to choose each. If a new approach is better at the
   same job, consider replacing the existing one instead of keeping both.
   Reuse existing articles and library routines where that makes the result
   easier to follow. Avoid unnecessary input/output scaffolding and generic APIs.
@@ -73,13 +73,13 @@ conventions. These instructions apply to agent-assisted contributions.
   in the actual MkDocs/site preview. GitHub's Markdown preview is insufficient.
   Check math, lists, tabs, admonitions, images, and links. For UI changes, check
   relevant widths, themes, keyboard behavior, and focused/nonempty states.
-- Add new articles to `src/navigation.md` and the new-article list in `README.md`;
-  include the appropriate Original/Translated front matter and source credit.
+- Add new articles to `src/navigation.md` and the new-article list in `README.md`.
+  Include the appropriate Original/Translated front matter and source credit.
   Preserve old anchors and provide redirects for moved pages.
 - Before adding a practice problem, read its statement and, when needed, the
   editorial. Check that the article's technique is a natural, useful part of
   the solution. Compare what it teaches with the closest existing problems,
-  including examples in the article body; check repeated learning goals as
+  including examples in the article body. Check repeated learning goals as
   well as duplicate links. Do not infer these from problem titles alone.
 - Keep practice lists compact. Beyond roughly ten problems, look for a
   compelling benefit such as a new application, difficulty gap, or better
@@ -95,15 +95,39 @@ conventions. These instructions apply to agent-assisted contributions.
   or test result. Report missing, pending, or blocked checks accurately. Verify
   automated findings against the code and its contract before acting on them.
 
+## Writing
+
+These rules apply to contributor-facing text: `README.md`, `CONTRIBUTING.md`,
+this file, site pages outside the articles, error messages, commit messages,
+PR descriptions and review replies. Article prose may keep longer sentences and
+semicolons where they help the explanation.
+
+- Write one idea per sentence. Do not use semicolons, em dashes between
+  clauses, or more than one colon in a sentence.
+- Aim for 20 words per sentence. Split any sentence over 30 words.
+- Start with the outcome or the action the reader must take. An error message
+  says what happened, why, and what to do next.
+- Say who acts. Use "we" only where the page has said who "we" is.
+- Write numbers as digits. Use "may" for permission, not for possibility.
+- Keep a paragraph to 5 sentences or fewer. Make three or more parallel items a
+  list, and start each item with its key word.
+- Write headings as statements that name the topic.
+- Put what most readers need first. Move rare setup and background to a later
+  section or a link.
+- Make link text name the destination. Never use "here" as link text.
+- Use one name for each thing. Match labels on the site and on GitHub exactly.
+- Keep every count, path, command and workflow name in the text in sync with
+  the repository.
+
 ## Communicating with maintainers
 
 - Lead with the concrete problem and resulting change. Assume the reader has
   not seen your local work. A routine description usually needs one or two
-  short paragraphs; aim for at most 100–200 words unless the change needs more.
+  short paragraphs. Aim for at most 100–200 words unless the change needs more.
 - Include a minimal reproducer or before/after example for a bug, important
   assumptions, source attribution, and any material compatibility or performance
-  tradeoff. Mention manual checks and limitations that matter to the decision;
-  do not repeat passing CI, test counts, or routine validation checklists.
+  tradeoff. Mention manual checks and limitations that matter to the decision.
+  Do not repeat passing CI, test counts, or routine validation checklists.
 - Use simple, natural language. Omit generic praise, repeated summaries,
   implementation inventories, internal task history, and bulky logs. Keep
   explanatory detail in the article or linked supporting material.
