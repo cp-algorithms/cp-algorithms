@@ -162,7 +162,7 @@ Each new or changed code snippet needs a test in the `test` directory.
 ````
 2. Run `extract_snippets.py` from the `test` directory. It extracts the named snippets into header files.
 3. Create a test file that includes these headers and checks their behavior.
-4. Run all tests with the `test.sh` script:
+4. Run the C++ tests with the `test.sh` script:
     ```console
     cd test
     ./test.sh
