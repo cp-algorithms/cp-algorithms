@@ -14,6 +14,11 @@ inputs:
   token:
     description: 'GitHub token'
     default: ${{ github.token }}
+  target-url:
+    description: 'Where the Details link should take the reviewer'
+    default: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+  description:
+    description: 'Short status message (defaults to the status)'
 runs:
   using: 'composite'
   steps:
@@ -24,4 +29,5 @@ runs:
         token: ${{ inputs.token }}
         status: ${{ inputs.status }}
         context: ${{ inputs.context }}
-        description: ${{ inputs.status }}
+        description: ${{ inputs.description || inputs.status }}
+        targetUrl: ${{ inputs.target-url }}

@@ -50,6 +50,7 @@ cout << (is_bipartite ? "YES" : "NO") << endl;
 ### Practice problems:
 
 - [SPOJ - BUGLIFE](http://www.spoj.com/problems/BUGLIFE/)
+- [Codeforces - Beautiful Graph](https://codeforces.com/contest/1093/problem/D)
 - [Codeforces - Graph Without Long Directed Paths](https://codeforces.com/contest/1144/problem/F)
 - [Codeforces - String Coloring (easy version)](https://codeforces.com/contest/1296/problem/E1)
 - [CSES : Building Teams](https://cses.fi/problemset/task/1668)
