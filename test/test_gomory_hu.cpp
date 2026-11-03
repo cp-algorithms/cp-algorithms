@@ -94,7 +94,7 @@ struct Dinic {
 
 #include "gomoryhu.h"
 
-ll brute_force_mincut(int n, const vector<tuple<int, int, int>> &edges, int s, int t) {
+ll brute_force_mincut(int n, const vector<tuple<int, int, ll>> &edges, int s, int t) {
     ll best = LLONG_MAX;
     for (int mask = 0; mask < (1 << n); mask++) {
         if (((mask >> s) & 1) == ((mask >> t) & 1))
@@ -145,12 +145,14 @@ ll tree_mincut(const vector<pair<ll, int>> &tree, int s, int t) {
     return -1;
 }
 
-void check_graph(int n, const vector<tuple<int, int, int>> &edges) {
+void check_graph(int n, const vector<tuple<int, int, ll>> &edges) {
     gomory_hu solver;
     for (auto [u, v, cap] : edges)
         solver.add_edge(u, v, cap);
 
     auto tree = solver.solve(n);
+    assert(tree.size() == (size_t)n);
+    assert(solver.solve(n) == tree);
 
     for (int s = 0; s < n; s++)
         for (int t = s + 1; t < n; t++)
@@ -158,6 +160,34 @@ void check_graph(int n, const vector<tuple<int, int, int>> &edges) {
 }
 
 int main() {
+    check_graph(1, {});
+
+    check_graph(2, {
+        {0, 1, 0},
+    });
+
+    // A single capacity must not be narrowed to int before max flow.
+    check_graph(2, {
+        {0, 1, 3000000000LL},
+    });
+
+    // The cut sum can exceed INT_MAX even when each edge capacity fits.
+    check_graph(2, {
+        {0, 1, 1500000000LL},
+        {0, 1, 1500000000LL},
+    });
+
+    check_graph(2, {
+        {0, 1, LLONG_MAX / 2},
+    });
+
+    // Tied path minima can come from cuts containing both query endpoints.
+    check_graph(4, {
+        {0, 3, 1},
+        {1, 3, 1},
+        {2, 3, 2},
+    });
+
     check_graph(2, {
         {0, 1, 5},
     });
