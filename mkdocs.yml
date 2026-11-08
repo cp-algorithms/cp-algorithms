@@ -31,7 +31,7 @@ edit_uri: edit/main/src/
 copyright: Text is available under the <a href="https://github.com/cp-algorithms/cp-algorithms/blob/main/LICENSE">Creative Commons Attribution Share Alike 4.0 International</a> License<br/>Copyright &copy; 2014 - 2025 by <a href="https://github.com/cp-algorithms/cp-algorithms/graphs/contributors">cp-algorithms contributors</a>
 extra_javascript:
   - javascript/config.js
-  - javascript/sidebar-toggle-sync.js
+  - javascript/sidebar-toggle.js
   - javascript/donation-banner.js
   - https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
@@ -58,28 +58,14 @@ markdown_extensions:
       permalink: true
 
 plugins:
-  - toggle-sidebar:
-      toggle_button: all
-  - mkdocs-simple-hooks:
-      hooks:
-          on_env: "hooks:on_env"
-          on_config: "hooks:on_config"
   - search
   - tags
   - literate-nav:
       nav_file: navigation.md
-  - git-revision-date-localized:
-      enable_creation_date: true
-      enabled: !ENV [MKDOCS_ENABLE_GIT_REVISION_DATE, False]
-  - git-authors
-  - git-committers:
-      repository: cp-algorithms/cp-algorithms
-      docs_path: src/
-      token: !ENV MKDOCS_GIT_COMMITTERS_APIKEY
-      enabled: !ENV [MKDOCS_ENABLE_GIT_COMMITTERS, False]
-      branch: !ENV [MKDOCS_GIT_COMMITERS_BRANCH, main]
   - macros
-  - rss
+  # scripts/page_meta.py re-dates the feeds and keeps the newest 20.
+  - rss:
+      length: 1000
 
 extra:
   social:

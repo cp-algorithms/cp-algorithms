@@ -28,15 +28,18 @@ pages. The review page explains this and folds the additional pages into a list.
 There is no article-count threshold. PRs without rendered changes get just a
 review page.
 
-Links between selected pages stay in the PR. Other article links and search
-results open the Main preview on the same preview host. Main is refreshed after
+Links between selected pages stay in the PR. Other article links open the Main
+preview on the same preview host. When a PR changes the search index, the PR
+gets its own copy at `/<PR>/search.json`. Its search then finds the PR's text,
+and results for unchanged pages open the Main preview. Otherwise the PR's pages
+search the Main preview's index. Main is refreshed after
 each successful main-branch build. This is an article-review view, not a complete
 snapshot of every site feature.
 
 Assets live in bundles under `/preview/assets/<sha256>/`. Matching bundles are
 shared between Main and PRs. Search indexes, sitemaps, and timestamped feeds are
-excluded from these bundles; one search index accompanies Main. Closing a PR
-removes its pages and review index, then collects bundles no version references.
+excluded from these bundles. Closing a PR removes its pages, search index and
+review index, then collects bundles no version references.
 Main and its assets remain available.
 
 ## Isolation and setup
@@ -82,7 +85,7 @@ executes their scripts. Git writes and cleanup share one publication queue.
 
 ## Local preview
 
-After `mkdocs build --strict`, use a new directory on a separate port:
+After `zensical build --strict`, use a new directory on a separate port:
 
 ```sh
 python3 -m pip install -r scripts/preview-requirements.txt
