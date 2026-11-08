@@ -134,8 +134,16 @@ class Logins:
             for email in author.get("emails", [])
         }
         self.changed = False
+        # Emails whose lookup failed in this run. They are not cached,
+        # so a later build tries again.
+        self.failed = set()
 
     def query(self, sha):
+        """Return the GitHub user of a commit's author, or None.
+
+        Raises LookupError when GitHub answers with errors, so that a
+        temporary problem is not mistaken for "no account".
+        """
         owner, name = self.repository.split("/")
         query = (
             '{ repository(owner: "%s", name: "%s") { object(oid: "%s") '
@@ -148,6 +156,8 @@ class Logins:
         )
         with urllib.request.urlopen(request, timeout=30) as response:
             data = json.load(response)
+        if data.get("errors"):
+            raise LookupError(data["errors"])
         obj = ((data.get("data") or {}).get("repository") or {}).get("object")
         return ((obj or {}).get("author") or {}).get("user")
 
@@ -155,14 +165,16 @@ class Logins:
         if email in self.by_email:
             author = self.by_email[email]
             return author["login"], author["url"]
-        if self.token:
+        if self.token and email not in self.failed:
             try:
                 user = self.query(sha)
-            except OSError as error:
+            except (OSError, LookupError, ValueError) as error:
                 print(f"page-meta: GitHub lookup failed for {sha}: {error}",
                       file=sys.stderr)
-                user = None
-            # Unknown emails are cached too, so each one is looked up once.
+                self.failed.add(email)
+                return name, "#"
+            # Emails without an account are cached too, so each one is
+            # looked up once.
             author = {"login": name, "name": name, "url": "#", "emails": []}
             if user:
                 author = self.authors.get(user["login"], {**user, "emails": []})
