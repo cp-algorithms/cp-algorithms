@@ -82,7 +82,7 @@ executes their scripts. Git writes and cleanup share one publication queue.
 
 ## Local preview
 
-After `mkdocs build --strict`, use a new directory on a separate port:
+After `zensical build --strict`, use a new directory on a separate port:
 
 ```sh
 python3 -m pip install -r scripts/preview-requirements.txt

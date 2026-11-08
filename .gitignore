@@ -12,3 +12,5 @@ converted.pdf
 firebase-debug.log
 
 authors.json
+# Zensical build cache
+.cache/

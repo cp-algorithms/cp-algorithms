@@ -19,19 +19,17 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          submodules: recursive
       - name: Set up Python
         uses: actions/setup-python@v5.6.0
         with:
           python-version: '3.11'
           cache: pip
           cache-dependency-path: |
-            scripts/install-mkdocs.sh
+            scripts/install-zensical.sh
             scripts/preview-requirements.txt
-            plugins/mkdocs-git-committers-plugin-2/setup.py
-      - name: Install mkdocs-material
+      - name: Install Zensical
         run: |
-          scripts/install-mkdocs.sh
+          scripts/install-zensical.sh
       - name: Cache GitHub users
         uses: actions/cache@v4
         with:
@@ -51,12 +49,10 @@ jobs:
           python -m unittest discover -s scripts -p 'test_*preview*.py'
       - name: Build pages
         env:
-          MKDOCS_GIT_COMMITTERS_BRANCH: ${{ github.ref_name }}
-          MKDOCS_GIT_COMMITTERS_APIKEY: ${{ github.token }}
-          MKDOCS_ENABLE_GIT_REVISION_DATE: ${{ github.token && 'True' || 'False' }}
-          MKDOCS_ENABLE_GIT_COMMITTERS: ${{ github.token && 'True' || 'False' }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
-          mkdocs build --strict
+          zensical build --strict
+          python scripts/page_meta.py public
       - name: Upload pages as an artifact
         uses: actions/upload-artifact@v4
         with:

@@ -74,8 +74,7 @@ class PreviewDeploymentTest(unittest.TestCase):
                 is_main = scenario in ('current-main', 'stale-main')
                 if is_main:
                     (root/'public/123').rename(root/'public/main')
-                    (root/'public/main/search').mkdir()
-                    (root/'public/main/search/search_index.json').write_text('{"docs":[]}')
+                    (root/'public/main/search.json').write_text('{"docs":[]}')
                 state = {'state':'closed' if scenario == 'already-closed' else 'open', 'head':{'sha':'b'*40 if scenario in ('already-stale','stale-main') else sha}}
                 (root/'state.json').write_text(json.dumps(state))
                 for name, code in (('gh',fake_gh),('git',fake_git),('python3',fake_python)):

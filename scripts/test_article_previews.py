@@ -42,7 +42,7 @@ class ArticlePreviewsTest(unittest.TestCase):
             "assets/theme.css": 'body {background: url("../images/example.svg")}',
             "assets/app.js": "// app", "assets/worker.js": "// worker",
             "images/example.svg": "<svg></svg>", "favicon.ico": "icon",
-            "search/search_index.json": '{"docs": []}',
+            "search.json": '{"docs": []}',
             "sitemap.xml": "timestamp", "feed_rss_created.xml": "timestamp",
             "feed_json_created.json": '{"date_modified":"old timestamp"}',
         }.items():
@@ -86,7 +86,7 @@ class ArticlePreviewsTest(unittest.TestCase):
         self.publish()
         (self.build / "feed_rss_created.xml").write_text("new timestamp")
         (self.build / "feed_json_created.json").write_text('{"date_modified":"new timestamp"}')
-        (self.build / "search/search_index.json").write_text('{"docs": ["changed"]}')
+        (self.build / "search.json").write_text('{"docs": ["changed"]}')
         self.publish(124, ["src/algebra/b.md"])
         entries = previews.registry(self.site)
         self.assertEqual(entries["123"]["assets"], entries["124"]["assets"])
@@ -252,7 +252,7 @@ class ArticlePreviewsTest(unittest.TestCase):
         self.assertEqual([option.get_text() for option in soup.select(".article-preview option")], ["Main"])
         self.assertEqual(soup.find("a", string="B")["href"], "/main/algebra/b.html?q=1#proof")
         self.assertEqual(soup.find("meta", attrs={"name": "robots"})["content"], "noindex")
-        self.assertEqual((self.site / "main/search/search_index.json").read_bytes(), (self.build / "search/search_index.json").read_bytes())
+        self.assertEqual((self.site / "main/search.json").read_bytes(), (self.build / "search.json").read_bytes())
         self.publish()
         entries = previews.registry(self.site)
         self.assertEqual(entries["main"]["assets"], entries["123"]["assets"])

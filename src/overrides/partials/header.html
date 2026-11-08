@@ -1,10 +1,13 @@
-<!-- overwrite:
-- scroll to top when clicking title
-- go to main page when clicking the site title
+<!-- Based on the Zensical header. Changes:
+- scroll to top when clicking the page title
+- go to the main page when clicking the site title
+- RSS, Discord and GitHub Sponsors buttons
 -->
 {% set class = "md-header" %}
 {% if "navigation.tabs.sticky" in features %}
-  {% set class = class ~ " md-header--lifted" %}
+  {% set class = class ~ " md-header--shadow md-header--lifted" %}
+{% elif "navigation.tabs" not in features %}
+  {% set class = class ~ " md-header--shadow" %}
 {% endif %}
 <header class="{{ class }}" data-md-component="header">
   <script>
@@ -13,12 +16,14 @@
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     }
   </script>
-  <nav class="md-header__inner md-grid" aria-label="{{ lang.t('header.title') }}">
+  <nav class="md-header__inner md-grid" aria-label="{{ lang.t('header') }}">
     <a href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}" title="{{ config.site_name | e }}" class="md-header__button md-logo" aria-label="{{ config.site_name }}" data-md-component="logo">
       {% include "partials/logo.html" %}
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      {% include ".icons/material/menu" ~ ".svg" %}
+      {% set icon = config.theme.icon.menu or "material/menu" %}
+      {% include ".icons/" ~ icon ~ ".svg" %}
+      <span class="md-visually-hidden">{{ lang.t('nav') }}</span>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -42,52 +47,33 @@
         </div>
       </div>
     </div>
+    {% if config.theme.palette %}
+      {% if not config.theme.palette is mapping %}
+        {% include "partials/palette.html" %}
+      {% endif %}
+    {% endif %}
     {% if not config.theme.palette is mapping %}
-      <form class="md-header__option" data-md-component="palette">
-        {% for option in config.theme.palette %}
-          {% set primary = option.primary | replace(" ", "-") | lower %}
-          {% set accent  = option.accent  | replace(" ", "-") | lower %}
-          <input class="md-option" data-md-color-media="{{ option.media }}" data-md-color-scheme="{{ option.scheme }}" data-md-color-primary="{{ primary }}" data-md-color-accent="{{ accent }}" {% if option.toggle %} aria-label="{{ option.toggle.name }}" {% else %} aria-hidden="true" {% endif %} type="radio" name="__palette" id="__palette_{{ loop.index }}">
-          {% if option.toggle %}
-            <label class="md-header__button md-icon" title="{{ option.toggle.name }}" for="__palette_{{ loop.index0 or loop.length }}" hidden>
-              {% include ".icons/" ~ option.toggle.icon ~ ".svg" %}
-            </label>
-          {% endif %}
-        {% endfor %}
-      </form>
+      {% include "partials/javascripts/palette.html" %}
     {% endif %}
     {% if config.extra.alternate %}
-      <div class="md-header__option">
-        <div class="md-select">
-          {% set icon = config.theme.icon.alternate or "material/translate" %}
-          <button class="md-header__button md-icon" aria-label="{{ lang.t('select.language.title') }}">
-            {% include ".icons/" ~ icon ~ ".svg" %}
-          </button>
-          <div class="md-select__inner">
-            <ul class="md-select__list">
-              {% for alt in config.extra.alternate %}
-                <li class="md-select__item">
-                  <a href="{{ alt.link | url }}" hreflang="{{ alt.lang }}" class="md-select__link">
-                    {{ alt.name }}
-                  </a>
-                </li>
-                {% endfor %}
-            </ul>
-          </div>
-        </div>
-      </div>
+      {% include "partials/alternate.html" %}
     {% endif %}
-    {% if "material/search" in config["plugins"] %}
-      <label class="md-header__button md-icon" for="__search">
-        {% include ".icons/material/magnify.svg" %}
-      </label>
-      {% include "partials/search.html" %}
+    {% if "search" in config.plugins %}
+      {% set search = config.plugins["search"] | attr("config") %}
+      {% if search.enabled %}
+        <label class="md-header__button md-icon" for="__search">
+          {% set icon = config.theme.icon.search or "material/magnify" %}
+          {% include ".icons/" ~ icon ~ ".svg" %}
+          <span class="md-visually-hidden">{{ lang.t('search') }}</span>
+        </label>
+        {% include "partials/search.html" %}
+      {% endif %}
     {% endif %}
-    {% if config.repo_url %}
-      <div class="md-header__source">
+    <div class="md-header__source">
+      {% if config.repo_url %}
         {% include "partials/source.html" %}
-      </div>
-    {% endif %}
+      {% endif %}
+    </div>
     <div class="md-header__option">
       <a href="https://cp-algorithms.com/feed_rss_created.xml" title="RSS" class="md-header__button md-icon" aria-label="RSS">
         {% include ".icons/fontawesome/solid/rss.svg" %}

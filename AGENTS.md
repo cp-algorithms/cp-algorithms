@@ -69,8 +69,8 @@ conventions. These instructions apply to agent-assisted contributions.
   UBSan. A standalone Python/Java test is not run by this runner: explicitly
   integrate and execute it if the PR relies on it. Do not require algorithm
   tests for a wording-only or link-only change.
-- Build site changes with `mkdocs build --strict` and inspect the affected page
-  in the actual MkDocs/site preview. GitHub's Markdown preview is insufficient.
+- Build site changes with `zensical build --strict` and inspect the affected page
+  in the actual Zensical/site preview. GitHub's Markdown preview is insufficient.
   Check math, lists, tabs, admonitions, images, and links. For UI changes, check
   relevant widths, themes, keyboard behavior, and focused/nonempty states.
 - Add new articles to `src/navigation.md` and the new-article list in `README.md`;

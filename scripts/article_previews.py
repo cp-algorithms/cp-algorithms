@@ -14,8 +14,9 @@ from urllib.parse import quote, unquote, urlsplit, urlunsplit
 
 REGISTRY = Path("preview/index.json")
 ASSETS = Path("preview/assets")
+SEARCH_INDEX = "search.json"
 GLOBAL_INPUTS = {
-    "mkdocs.yml", "hooks.py", "scripts/install-mkdocs.sh",
+    "mkdocs.yml", "scripts/install-zensical.sh", "scripts/page_meta.py",
     ".github/workflows/build.yml",
 }
 
@@ -198,7 +199,7 @@ def asset_files(files):
     return {
         name: path for name, path in files.items()
         if not name.endswith(".html")
-        and not name.startswith("search/")
+        and name != SEARCH_INDEX
         and not name.startswith(("sitemap.", "feed_rss_", "feed_json_"))
     }
 
@@ -341,7 +342,7 @@ def publish(build, site, number, changed, revision="", site_url="", production_u
         )
         for article in selected
     }
-    search_index = (build / "search/search_index.json").read_bytes() if is_main else None
+    search_index = (build / SEARCH_INDEX).read_bytes() if is_main else None
     if str(number) in entries:
         remove_pages(site, entries[str(number)], number)
     if bundle:
@@ -361,8 +362,8 @@ def publish(build, site, number, changed, revision="", site_url="", production_u
     for extension in ("js", "css"):
         shutil.copyfile(Path(__file__).with_name(f"preview-selector.{extension}"), site / "preview" / f"selector.{extension}")
     if is_main:
-        # Material search resolves result locations relative to this Main copy.
-        search = site / "main/search/search_index.json"
+        # Search resolves result locations relative to this Main copy.
+        search = site / "main" / SEARCH_INDEX
         search.parent.mkdir(parents=True, exist_ok=True)
         search.write_bytes(search_index)
         (site / "index.html").write_text(

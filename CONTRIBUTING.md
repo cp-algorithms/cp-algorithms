@@ -121,34 +121,27 @@ You can preview changes locally before pushing them to GitHub. To do this:
 1. Clone the repository:
 
     ```console
-    git clone --recursive https://github.com/cp-algorithms/cp-algorithms.git && cd cp-algorithms
+    git clone https://github.com/cp-algorithms/cp-algorithms.git && cd cp-algorithms
     ```
 
 2. Install dependencies and serve the site:
 
     ```console
-    scripts/install-mkdocs.sh # requires pip
-    mkdocs serve
+    scripts/install-zensical.sh # requires pip
+    zensical serve
     ```
 
-   This will run the site locally so you can preview your changes. Note that some features are disabled in local builds.
+   This will run the site locally so you can preview your changes.
 
-### Optional Plugins
+### Page dates and contributors
 
-- **Git Revision Date Plugin**: Disabled by default, as it produces errors when you have uncommited changes in the working tree. Can be enabled with:
+The build adds each article's "Last update" and "Created" dates and its contributor list after Zensical has rendered the site. The same step dates the RSS feeds. To see them locally, run this after `zensical build`:
 
-    ```console
-    export MKDOCS_ENABLE_GIT_REVISION_DATE=True
-    ```
+```console
+python3 scripts/page_meta.py public
+```
 
-- **Git Committers Plugin**: Disabled by default, as it requires a GitHub personal access token. Enable it like this:
-
-    ```console
-    export MKDOCS_ENABLE_GIT_COMMITTERS=True
-    export MKDOCS_GIT_COMMITTERS_APIKEY=your_token_here
-    ```
-
-   You can generate your token [here](https://github.com/settings/tokens). Only public access permissions are needed.
+Set `GITHUB_TOKEN` to show GitHub accounts for authors who are not yet in `authors.json`. Without it, those authors are shown by their git name.
 
 ## Testing Code Snippets
 
