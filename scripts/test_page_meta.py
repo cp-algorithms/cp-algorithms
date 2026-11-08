@@ -1,3 +1,4 @@
+import http.client
 import json
 import os
 from pathlib import Path
@@ -35,7 +36,8 @@ class LoginCacheTest(unittest.TestCase):
         self.before = self.cache.read_text()
 
     def test_failed_lookup_is_not_cached(self):
-        for error in (OSError("timeout"), LookupError("RATE_LIMITED"), ValueError("bad JSON")):
+        for error in (OSError("timeout"), http.client.IncompleteRead(b"{"),
+                      LookupError("RATE_LIMITED"), ValueError("bad JSON")):
             with self.subTest(error=type(error).__name__):
                 logins = FakeLogins(self.cache, error)
                 self.assertEqual(logins.resolve("new@example.com", "New Person", "a" * 40),

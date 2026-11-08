@@ -22,6 +22,7 @@ import argparse
 import datetime
 import email.utils
 import html
+import http.client
 import json
 import os
 import re
@@ -171,7 +172,7 @@ class Logins:
         if self.token and email not in self.failed:
             try:
                 user = self.query(sha)
-            except (OSError, LookupError, ValueError) as error:
+            except (OSError, http.client.HTTPException, LookupError, ValueError) as error:
                 print(f"page-meta: GitHub lookup failed for {sha}: {error}",
                       file=sys.stderr)
                 self.failed.add(email)
