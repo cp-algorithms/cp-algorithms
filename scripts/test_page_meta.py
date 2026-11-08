@@ -1,5 +1,7 @@
 import json
+import os
 from pathlib import Path
+import subprocess
 import tempfile
 import unittest
 
@@ -70,6 +72,48 @@ class LoginCacheTest(unittest.TestCase):
         self.assertEqual(logins.resolve("known@example.com", "Known", "a" * 40),
                          ("known", "https://github.com/known"))
         self.assertEqual(logins.calls, 0)
+
+
+class CreationDatesTest(unittest.TestCase):
+    """creation_dates() on a small repository with dated commits."""
+
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        self.cwd = os.getcwd()
+        os.chdir(self.root)
+        self.addCleanup(os.chdir, self.cwd)
+        self.git("init", "-q")
+        self.git("config", "user.email", "test@example.com")
+        self.git("config", "user.name", "Test")
+
+    def git(self, *args, date=None):
+        env = dict(os.environ)
+        if date:
+            env["GIT_AUTHOR_DATE"] = env["GIT_COMMITTER_DATE"] = f"@{date} +0000"
+        subprocess.run(["git", *args], check=True, env=env, capture_output=True)
+
+    def commit(self, date, message):
+        self.git("add", "-A")
+        self.git("commit", "-q", "-m", message, date=date)
+
+    def test_copy_and_rename_keep_the_original_date(self):
+        text = "".join(f"line {i} of an article about Fenwick trees\n" for i in range(40))
+        Path("a.md").write_text(text)
+        self.commit(1000000000, "add a")
+        Path("other.md").write_text("unrelated\n")
+        self.commit(1100000000, "add other")
+        # Copy a.md while a.md itself stays unchanged in this commit.
+        Path("b.md").write_text(text)
+        self.commit(1200000000, "copy a to b")
+        Path("b.md").rename("c.md")
+        self.commit(1300000000, "rename b to c")
+        created = page_meta.creation_dates()
+        self.assertEqual(created["a.md"], 1000000000)
+        self.assertEqual(created["b.md"], 1000000000)
+        self.assertEqual(created["c.md"], 1000000000)
+        self.assertEqual(created["other.md"], 1100000000)
 
 
 if __name__ == "__main__":

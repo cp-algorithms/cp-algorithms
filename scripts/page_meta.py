@@ -67,8 +67,11 @@ def creation_dates():
     def note(path, stamp):
         created[path] = min(created.get(path, stamp), stamp)
 
-    tokens = iter(git("log", "-z", "--reverse", "-C", "--name-status",
-                      "--diff-filter=ACR", "--format=commit %at").split("\0"))
+    # --find-copies-harder also finds copies whose source did not change in
+    # the same commit. It costs well under a second on this repository.
+    tokens = iter(git("log", "-z", "--reverse", "-C", "--find-copies-harder",
+                      "--name-status", "--diff-filter=ACR",
+                      "--format=commit %at").split("\0"))
     stamp = None
     for token in tokens:
         token = token.strip("\n")
