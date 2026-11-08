@@ -26,52 +26,10 @@ Describe the issue of this article in detail.
 </a>
 {% endif %}
 
-<!-- Construct the dict of author's contribution percentage -->
-{% set contribs = {} %}
-{% set id_for_email = {} %}
-
-{% for author in committers %}
-  {% do contribs.setdefault(author.login, {}) %}
-  {% do contribs[author.login].update({
-    'name':author.login,
-    'url':author.url
-  }) %}
-  {% for email in author.emails %}
-    {% do id_for_email.__setitem__(email, author.login) %}
-  {% endfor %}
-{% endfor %}
-
-{% for author in git_info.page_authors %}
-  {% set id = id_for_email[author.email] if id_for_email[author.email] else author.name %}
-  {% do contribs.setdefault(id, {'name':id, 'url':'#'}) %}
-  {% do contribs[id].__setitem__(
-    'contribution',
-    contribs[id].get('contribution', 0) + author.contribution[:-1]|float
-  ) %}
-{% endfor %}
-
-{% set contribs = contribs.values() |
-  selectattr('contribution') |
-  sort(attribute='contribution',reverse=true) %}
-
 <!-- Dates of last and first commit -->
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
-{% if page.meta.git_revision_date_localized %}
-  {{ lang.t("source.file.date.updated") }}:
-  {{ page.meta.git_revision_date_localized }}&emsp;
-{% endif %}
-{% if page.meta.git_creation_date_localized %}
-  {{ lang.t("source.file.date.created") }}:
-  {{ page.meta.git_creation_date_localized }}&emsp;
-{% endif %}
+<!-- page-meta:dates -->
 <!-- Tags -->
-{% if page and page.meta and page.meta.e_maxx_link %}
-  {% set links = page.meta.e_maxx_link %}
-  {% set links = [links] if links is string else links %}
-  {% for link in links %}
-    {% do tags.append({'name':'From: e-maxx.ru', 'url': 'https://e-maxx.ru/algo/' + link}) %}
-  {% endfor %}
-{% endif %}
 {% for tag in tags %}
   {% if tag.url %}
     <a href="{{ tag.url | url }}" class="md-tag">
@@ -81,6 +39,14 @@ Describe the issue of this article in detail.
     <span class="md-tag">{{ tag.name }}</span>
   {% endif %}
 {% endfor %}
+{% if page and page.meta and page.meta.e_maxx_link %}
+  {% set links = page.meta.e_maxx_link %}
+  {% for link in ([links] if links is string else links) %}
+    <a href="https://e-maxx.ru/algo/{{ link }}" class="md-tag">
+      From: e-maxx.ru
+    </a>
+  {% endfor %}
+{% endif %}
 </ul>
 
 {% if not "\x3ch1" in page.content %}
@@ -88,11 +54,4 @@ Describe the issue of this article in detail.
 {% endif %}
 {{ page.content }}
 
-<ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
-  <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors">
-    {%- for user in contribs -%}
-    <li><a href="{{ user.url }}" title="{{ user.name }}" data-bi-name="contributorprofile" target="_blank">{{ user.name }}</a> ({{user.contribution|round(2)}}%)</li>
-    {%- endfor -%}
-  </ul>
-</ul>
+<!-- page-meta:contributors -->

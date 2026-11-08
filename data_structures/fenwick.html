@@ -6,27 +6,25 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The goal of this project is to translate the wonderful resource http://e-maxx.ru/algo which provides descriptions of many algorithms and data structures especially popular in field of competitive programming. Moreover we want to improve the collected knowledge by extending the articles and adding new articles to the collection.">
+        <meta name="description" content="The goal of this project is to translate the wonderful resource http:&#x2f;&#x2f;e-maxx.ru&#x2f;algo which provides descriptions of many algorithms and data structures especially popular in field of competitive programming. Moreover we want to improve the collected knowledge by extending the articles and adding new articles to the collection.">
       
       
       
         <link rel="canonical" href="https://cp-algorithms.com/data_structures/fenwick.html">
       
       
-        <link rel="prev" href="disjoint_set_union.html">
+      
+        <link rel="prev" href="./disjoint_set_union.html">
       
       
-        <link rel="next" href="sqrt_decomposition.html">
+        <link rel="next" href="./sqrt_decomposition.html">
       
       
         
       
       
-        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../feed_rss_created.xml">
-        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
-      
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+      <meta name="generator" content="zensical-0.1.0">
     
     
       
@@ -34,10 +32,15 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ab2de0c.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.b60ce83d.min.css">
       
       
 
@@ -51,14 +54,14 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
       
     
     
       <link rel="stylesheet" href="../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
     
       
   
@@ -77,7 +80,7 @@
   
   <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 
-  <script src="../assets/javascripts/toggle-sidebar.js"></script></head>
+  </head>
   
   
     
@@ -92,47 +95,49 @@
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer"></label>
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
     <div data-md-component="skip">
-      
-        
-        <a href="#fenwick-tree" class="md-skip">
-          Skip to content
-        </a>
-      
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
     </div>
     <div data-md-component="announce">
       
     </div>
     
     
-      <!-- overwrite:
-- scroll to top when clicking title
-- go to main page when clicking the site title
+      <!-- Based on the Zensical header. Changes:
+- scroll to top when clicking the page title
+- go to the main page when clicking the site title
+- RSS, Discord and GitHub Sponsors buttons
 -->
 
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
   <script>
     function scrollToTop() {
       document.body.scrollTop = 0; // For Safari
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     }
   </script>
-  <nav class="md-header__inner md-grid" aria-label="header.title">
-    <a href=".." title="Algorithms for Competitive Programming" class="md-header__button md-logo" aria-label="Algorithms for Competitive Programming" data-md-component="logo">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Algorithms for Competitive Programming" class="md-header__button md-logo" aria-label="Algorithms for Competitive Programming" data-md-component="logo">
       
-  <img src="../favicon.ico" alt="logo">
+  <img src="../favicon.ico" alt="Algorithms for Competitive Programming">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            <a href=".." title="Algorithms for Competitive Programming" aria-label="Algorithms for Competitive Programming" data-md-component="logo">
+            <a href="./.." title="Algorithms for Competitive Programming" aria-label="Algorithms for Competitive Programming" data-md-component="logo">
               Algorithms for Competitive Programming
             </a>
           </span>
@@ -149,96 +154,79 @@
       </div>
     </div>
     
-      <form class="md-header__option" data-md-component="palette">
-        
-          
-          
-          <input class="md-option" data-md-color-media="" data-md-color-scheme="cpalgo" data-md-color-primary="deep-purple" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
-          
-            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
-            </label>
-          
-        
-          
-          
-          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
-          
-            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
-            </label>
-          
-        
-      </form>
-    
-    
-    
-      <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
-      </nav>
       
-        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="cpalgo" data-md-color-primary="deep-purple" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
       
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
 </div>
+      
     
-    
-      <div class="md-header__source">
+    <div class="md-header__source">
+      
         <a href="https://github.com/cp-algorithms/cp-algorithms" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
   </div>
   <div class="md-source__repository">
     cp-algorithms/cp-algorithms
   </div>
 </a>
-      </div>
-    
+      
+    </div>
     <div class="md-header__option">
       <a href="https://cp-algorithms.com/feed_rss_created.xml" title="RSS" class="md-header__button md-icon" aria-label="RSS">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M0 64c0-17.7 14.3-32 32-32 229.8 0 416 186.2 416 416 0 17.7-14.3 32-32 32s-32-14.3-32-32C384 253.6 226.4 96 32 96 14.3 96 0 81.7 0 64m0 352a64 64 0 1 1 128 0 64 64 0 1 1-128 0m32-256c159.1 0 288 128.9 288 288 0 17.7-14.3 32-32 32s-32-14.3-32-32c0-123.7-100.3-224-224-224-17.7 0-32-14.3-32-32s14.3-32 32-32"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M0 64c0-17.7 14.3-32 32-32 229.8 0 416 186.2 416 416 0 17.7-14.3 32-32 32s-32-14.3-32-32C384 253.6 226.4 96 32 96 14.3 96 0 81.7 0 64m0 352a64 64 0 1 1 128 0 64 64 0 1 1-128 0m32-256c159.1 0 288 128.9 288 288 0 17.7-14.3 32-32 32s-32-14.3-32-32c0-123.7-100.3-224-224-224-17.7 0-32-14.3-32-32s14.3-32 32-32"/></svg>
       </a>
     </div>
 
     <div class="md-header__option">
       <a href="https://discord.gg/HZ5AecN3KX" title="Discord" class="md-header__button md-icon" aria-label="Discord">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
       </a>
     </div>
 
     <div class="md-header__option">
       <a href="https://github.com/sponsors/cp-algorithms" title="GitHub Sponsors" class="md-header__button md-icon" aria-label="GitHub Sponsors">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M96 224a192 192 0 1 1 384 0 192 192 0 1 1-384 0m176-92v4c-28.8.3-52 23.7-52 52.5 0 25.7 18.5 47.6 43.9 51.8l41.7 7c6 1 10.4 6.2 10.4 12.3 0 6.9-5.6 12.5-12.5 12.5L248 272c-11 0-20 9-20 20s9 20 20 20h24v4c0 11 9 20 20 20s20-9 20-20v-4.7c25-4.1 44-25.7 44-51.8 0-25.7-18.5-47.6-43.9-51.8l-41.7-7c-6-1-10.4-6.2-10.4-12.3 0-6.9 5.6-12.5 12.5-12.5H320c11 0 20-9 20-20s-9-20-20-20h-8v-4c0-11-9-20-20-20s-20 9-20 20zM48 344v104c0 8.8 7.2 16 16 16h448c8.8 0 16-7.2 16-16V344c0-13.3 10.7-24 24-24s24 10.7 24 24v104c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V344c0-13.3 10.7-24 24-24s24 10.7 24 24"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M96 224a192 192 0 1 1 384 0 192 192 0 1 1-384 0m176-92v4c-28.8.3-52 23.7-52 52.5 0 25.7 18.5 47.6 43.9 51.8l41.7 7c6 1 10.4 6.2 10.4 12.3 0 6.9-5.6 12.5-12.5 12.5L248 272c-11 0-20 9-20 20s9 20 20 20h24v4c0 11 9 20 20 20s20-9 20-20v-4.7c25-4.1 44-25.7 44-51.8 0-25.7-18.5-47.6-43.9-51.8l-41.7-7c-6-1-10.4-6.2-10.4-12.3 0-6.9 5.6-12.5 12.5-12.5H320c11 0 20-9 20-20s-9-20-20-20h-8v-4c0-11-9-20-20-20s-20 9-20 20zM48 344v104c0 8.8 7.2 16 16 16h448c8.8 0 16-7.2 16-16V344c0-13.3 10.7-24 24-24s24 10.7 24 24v104c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V344c0-13.3 10.7-24 24-24s24 10.7 24 24"/></svg>
       </a>
     </div>
   </nav>
@@ -268,9 +256,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Algorithms for Competitive Programming" class="md-nav__button md-logo" aria-label="Algorithms for Competitive Programming" data-md-component="logo">
+    <a href="./.." title="Algorithms for Competitive Programming" class="md-nav__button md-logo" aria-label="Algorithms for Competitive Programming" data-md-component="logo">
       
-  <img src="../favicon.ico" alt="logo">
+  <img src="../favicon.ico" alt="Algorithms for Competitive Programming">
 
     </a>
     Algorithms for Competitive Programming
@@ -280,7 +268,7 @@
       <a href="https://github.com/cp-algorithms/cp-algorithms" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
   </div>
   <div class="md-source__repository">
     cp-algorithms/cp-algorithms
@@ -315,8 +303,7 @@
   <span class="md-ellipsis">
     
   
-    Home
-  
+  Home
 
     
   </span>
@@ -326,19 +313,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_1">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_1">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Home
-  
+  Home
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -351,8 +338,7 @@
   <span class="md-ellipsis">
     
   
-    Main Page
-  
+  Main Page
 
     
   </span>
@@ -363,10 +349,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -379,8 +365,7 @@
   <span class="md-ellipsis">
     
   
-    Navigation
-  
+  Navigation
 
     
   </span>
@@ -391,10 +376,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -407,8 +392,7 @@
   <span class="md-ellipsis">
     
   
-    Tag index
-  
+  Tag index
 
     
   </span>
@@ -419,10 +403,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -435,8 +419,7 @@
   <span class="md-ellipsis">
     
   
-    How to Contribute
-  
+  How to Contribute
 
     
   </span>
@@ -447,10 +430,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -463,8 +446,7 @@
   <span class="md-ellipsis">
     
   
-    Code of conduct
-  
+  Code of conduct
 
     
   </span>
@@ -475,10 +457,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -491,8 +473,7 @@
   <span class="md-ellipsis">
     
   
-    Preview
-  
+  Preview
 
     
   </span>
@@ -503,10 +484,11 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
@@ -537,8 +519,7 @@
   <span class="md-ellipsis">
     
   
-    Algebra
-  
+  Algebra
 
     
   </span>
@@ -548,19 +529,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Algebra
-  
+  Algebra
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -584,8 +565,7 @@
   <span class="md-ellipsis">
     
   
-    Fundamentals
-  
+  Fundamentals
 
     
   </span>
@@ -595,19 +575,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_1">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2_1">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Fundamentals
-  
+  Fundamentals
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -620,8 +600,7 @@
   <span class="md-ellipsis">
     
   
-    Binary Exponentiation
-  
+  Binary Exponentiation
 
     
   </span>
@@ -632,10 +611,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -648,8 +627,7 @@
   <span class="md-ellipsis">
     
   
-    Euclidean algorithm for computing the greatest common divisor
-  
+  Euclidean algorithm for computing the greatest common divisor
 
     
   </span>
@@ -660,10 +638,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -676,8 +654,7 @@
   <span class="md-ellipsis">
     
   
-    Extended Euclidean Algorithm
-  
+  Extended Euclidean Algorithm
 
     
   </span>
@@ -688,10 +665,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -704,8 +681,7 @@
   <span class="md-ellipsis">
     
   
-    Linear Diophantine Equations
-  
+  Linear Diophantine Equations
 
     
   </span>
@@ -716,10 +692,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -732,8 +708,7 @@
   <span class="md-ellipsis">
     
   
-    Fibonacci Numbers
-  
+  Fibonacci Numbers
 
     
   </span>
@@ -744,18 +719,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -779,8 +755,7 @@
   <span class="md-ellipsis">
     
   
-    Prime numbers
-  
+  Prime numbers
 
     
   </span>
@@ -790,19 +765,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_2">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2_2">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Prime numbers
-  
+  Prime numbers
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -815,8 +790,7 @@
   <span class="md-ellipsis">
     
   
-    Sieve of Eratosthenes
-  
+  Sieve of Eratosthenes
 
     
   </span>
@@ -827,10 +801,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -843,8 +817,7 @@
   <span class="md-ellipsis">
     
   
-    Linear Sieve
-  
+  Linear Sieve
 
     
   </span>
@@ -855,10 +828,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -871,8 +844,7 @@
   <span class="md-ellipsis">
     
   
-    Primality tests
-  
+  Primality tests
 
     
   </span>
@@ -883,10 +855,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -899,8 +871,7 @@
   <span class="md-ellipsis">
     
   
-    Integer factorization
-  
+  Integer factorization
 
     
   </span>
@@ -911,18 +882,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -946,8 +918,7 @@
   <span class="md-ellipsis">
     
   
-    Number-theoretic functions
-  
+  Number-theoretic functions
 
     
   </span>
@@ -957,19 +928,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_3">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2_3">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Number-theoretic functions
-  
+  Number-theoretic functions
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -982,8 +953,7 @@
   <span class="md-ellipsis">
     
   
-    Euler's totient function
-  
+  Euler's totient function
 
     
   </span>
@@ -994,10 +964,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -1010,8 +980,7 @@
   <span class="md-ellipsis">
     
   
-    Number of divisors / sum of divisors
-  
+  Number of divisors / sum of divisors
 
     
   </span>
@@ -1022,18 +991,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -1057,8 +1027,7 @@
   <span class="md-ellipsis">
     
   
-    Modular arithmetic
-  
+  Modular arithmetic
 
     
   </span>
@@ -1068,19 +1037,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2_4">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Modular arithmetic
-  
+  Modular arithmetic
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -1093,8 +1062,7 @@
   <span class="md-ellipsis">
     
   
-    Modular Inverse
-  
+  Modular Inverse
 
     
   </span>
@@ -1105,10 +1073,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -1121,8 +1089,7 @@
   <span class="md-ellipsis">
     
   
-    Linear Congruence Equation
-  
+  Linear Congruence Equation
 
     
   </span>
@@ -1133,10 +1100,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -1149,8 +1116,7 @@
   <span class="md-ellipsis">
     
   
-    Chinese Remainder Theorem
-  
+  Chinese Remainder Theorem
 
     
   </span>
@@ -1161,10 +1127,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -1177,8 +1143,7 @@
   <span class="md-ellipsis">
     
   
-    Garner's Algorithm
-  
+  Garner's Algorithm
 
     
   </span>
@@ -1189,10 +1154,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -1205,8 +1170,7 @@
   <span class="md-ellipsis">
     
   
-    Factorial modulo p
-  
+  Factorial modulo p
 
     
   </span>
@@ -1217,10 +1181,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -1233,8 +1197,7 @@
   <span class="md-ellipsis">
     
   
-    Discrete Log
-  
+  Discrete Log
 
     
   </span>
@@ -1245,10 +1208,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -1261,8 +1224,7 @@
   <span class="md-ellipsis">
     
   
-    Primitive Root
-  
+  Primitive Root
 
     
   </span>
@@ -1273,10 +1235,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -1289,8 +1251,7 @@
   <span class="md-ellipsis">
     
   
-    Discrete Root
-  
+  Discrete Root
 
     
   </span>
@@ -1301,10 +1262,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -1317,8 +1278,7 @@
   <span class="md-ellipsis">
     
   
-    Montgomery Multiplication
-  
+  Montgomery Multiplication
 
     
   </span>
@@ -1329,18 +1289,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -1364,8 +1325,7 @@
   <span class="md-ellipsis">
     
   
-    Number systems
-  
+  Number systems
 
     
   </span>
@@ -1375,19 +1335,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_5">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2_5">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Number systems
-  
+  Number systems
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -1400,8 +1360,7 @@
   <span class="md-ellipsis">
     
   
-    Balanced Ternary
-  
+  Balanced Ternary
 
     
   </span>
@@ -1412,10 +1371,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -1428,8 +1387,7 @@
   <span class="md-ellipsis">
     
   
-    Gray code
-  
+  Gray code
 
     
   </span>
@@ -1440,18 +1398,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -1475,8 +1434,7 @@
   <span class="md-ellipsis">
     
   
-    Miscellaneous
-  
+  Miscellaneous
 
     
   </span>
@@ -1486,19 +1444,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_6">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2_6">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Miscellaneous
-  
+  Miscellaneous
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -1511,8 +1469,7 @@
   <span class="md-ellipsis">
     
   
-    Bit manipulation
-  
+  Bit manipulation
 
     
   </span>
@@ -1523,10 +1480,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -1539,8 +1496,7 @@
   <span class="md-ellipsis">
     
   
-    Enumerating submasks of a bitmask
-  
+  Enumerating submasks of a bitmask
 
     
   </span>
@@ -1551,10 +1507,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -1567,8 +1523,7 @@
   <span class="md-ellipsis">
     
   
-    Arbitrary-Precision Arithmetic
-  
+  Arbitrary-Precision Arithmetic
 
     
   </span>
@@ -1579,10 +1534,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -1595,8 +1550,7 @@
   <span class="md-ellipsis">
     
   
-    Fast Fourier transform
-  
+  Fast Fourier transform
 
     
   </span>
@@ -1607,10 +1561,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -1623,8 +1577,7 @@
   <span class="md-ellipsis">
     
   
-    Operations on polynomials and series
-  
+  Operations on polynomials and series
 
     
   </span>
@@ -1635,10 +1588,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -1651,8 +1604,7 @@
   <span class="md-ellipsis">
     
   
-    Continued fractions
-  
+  Continued fractions
 
     
   </span>
@@ -1663,10 +1615,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -1679,8 +1631,7 @@
   <span class="md-ellipsis">
     
   
-    Factoring Exponentiation
-  
+  Factoring Exponentiation
 
     
   </span>
@@ -1691,18 +1642,20 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
@@ -1735,8 +1688,7 @@
   <span class="md-ellipsis">
     
   
-    Data Structures
-  
+  Data Structures
 
     
   </span>
@@ -1746,19 +1698,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Data Structures
-  
+  Data Structures
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -1782,8 +1734,7 @@
   <span class="md-ellipsis">
     
   
-    Fundamentals
-  
+  Fundamentals
 
     
   </span>
@@ -1793,33 +1744,32 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_1">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_1">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Fundamentals
-  
+  Fundamentals
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
   
     <li class="md-nav__item">
-      <a href="stack_queue_modification.html" class="md-nav__link">
+      <a href="./stack_queue_modification.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Minimum Stack / Minimum Queue
-  
+  Minimum Stack / Minimum Queue
 
     
   </span>
@@ -1830,24 +1780,23 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
   
     <li class="md-nav__item">
-      <a href="sparse-table.html" class="md-nav__link">
+      <a href="./sparse-table.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Sparse Table
-  
+  Sparse Table
 
     
   </span>
@@ -1858,18 +1807,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
     
@@ -1895,8 +1845,7 @@
   <span class="md-ellipsis">
     
   
-    Trees
-  
+  Trees
 
     
   </span>
@@ -1906,33 +1855,32 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3_2">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_3_2">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Trees
-  
+  Trees
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
   
     <li class="md-nav__item">
-      <a href="disjoint_set_union.html" class="md-nav__link">
+      <a href="./disjoint_set_union.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Disjoint Set Union
-  
+  Disjoint Set Union
 
     
   </span>
@@ -1943,10 +1891,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
     
@@ -1955,7 +1903,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
       
       
         
@@ -1968,8 +1916,7 @@
   <span class="md-ellipsis">
     
   
-    Fenwick Tree
-  
+  Fenwick Tree
 
     
   </span>
@@ -1986,8 +1933,7 @@
   <span class="md-ellipsis">
     
   
-    Fenwick Tree
-  
+  Fenwick Tree
 
     
   </span>
@@ -1998,7 +1944,8 @@
       
         
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
   
   
   
@@ -2007,16 +1954,16 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#description" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Description
-      
+      </span>
     </span>
   </a>
   
@@ -2026,9 +1973,9 @@
           <li class="md-nav__item">
   <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Overview
-      
+      </span>
     </span>
   </a>
   
@@ -2037,9 +1984,9 @@
           <li class="md-nav__item">
   <a href="#definition-of-gi" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Definition of g(i)
-      
+      <span class="md-typeset">
+        Definition of <script type="math/tex">g(i)</script>
+      </span>
     </span>
   </a>
   
@@ -2053,9 +2000,9 @@
         <li class="md-nav__item">
   <a href="#implementation" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Implementation
-      
+      </span>
     </span>
   </a>
   
@@ -2065,9 +2012,9 @@
           <li class="md-nav__item">
   <a href="#finding-sum-in-one-dimensional-array" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Finding sum in one-dimensional array
-      
+      </span>
     </span>
   </a>
   
@@ -2076,9 +2023,9 @@
           <li class="md-nav__item">
   <a href="#linear-construction" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Linear construction
-      
+      </span>
     </span>
   </a>
   
@@ -2087,9 +2034,9 @@
           <li class="md-nav__item">
   <a href="#finding-minimum-of-0-r-in-one-dimensional-array" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Finding minimum of [0, r] in one-dimensional array
-      
+      <span class="md-typeset">
+        Finding minimum of <script type="math/tex">[0, r]</script> in one-dimensional array
+      </span>
     </span>
   </a>
   
@@ -2098,9 +2045,9 @@
           <li class="md-nav__item">
   <a href="#finding-sum-in-two-dimensional-array" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Finding sum in two-dimensional array
-      
+      </span>
     </span>
   </a>
   
@@ -2109,9 +2056,9 @@
           <li class="md-nav__item">
   <a href="#one-based-indexing-approach" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         One-based indexing approach
-      
+      </span>
     </span>
   </a>
   
@@ -2125,9 +2072,9 @@
         <li class="md-nav__item">
   <a href="#range-operations" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Range operations
-      
+      </span>
     </span>
   </a>
   
@@ -2137,9 +2084,9 @@
           <li class="md-nav__item">
   <a href="#1-point-update-and-range-query" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         1. Point Update and Range Query
-      
+      </span>
     </span>
   </a>
   
@@ -2148,9 +2095,9 @@
           <li class="md-nav__item">
   <a href="#2-range-update-and-point-query" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         2. Range Update and Point Query
-      
+      </span>
     </span>
   </a>
   
@@ -2159,9 +2106,9 @@
           <li class="md-nav__item">
   <a href="#3-range-update-and-range-query" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         3. Range Update and Range Query
-      
+      </span>
     </span>
   </a>
   
@@ -2175,9 +2122,9 @@
         <li class="md-nav__item">
   <a href="#practice-problems" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Practice Problems
-      
+      </span>
     </span>
   </a>
   
@@ -2186,9 +2133,9 @@
         <li class="md-nav__item">
   <a href="#other-sources" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Other sources
-      
+      </span>
     </span>
   </a>
   
@@ -2201,24 +2148,23 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
   
     <li class="md-nav__item">
-      <a href="sqrt_decomposition.html" class="md-nav__link">
+      <a href="./sqrt_decomposition.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Sqrt Decomposition
-  
+  Sqrt Decomposition
 
     
   </span>
@@ -2229,24 +2175,23 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
   
     <li class="md-nav__item">
-      <a href="segment_tree.html" class="md-nav__link">
+      <a href="./segment_tree.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Segment Tree
-  
+  Segment Tree
 
     
   </span>
@@ -2257,24 +2202,23 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
   
     <li class="md-nav__item">
-      <a href="treap.html" class="md-nav__link">
+      <a href="./treap.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Treap
-  
+  Treap
 
     
   </span>
@@ -2285,24 +2229,23 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
   
     <li class="md-nav__item">
-      <a href="sqrt-tree.html" class="md-nav__link">
+      <a href="./sqrt-tree.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Sqrt Tree
-  
+  Sqrt Tree
 
     
   </span>
@@ -2313,24 +2256,23 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
   
     <li class="md-nav__item">
-      <a href="randomized_heap.html" class="md-nav__link">
+      <a href="./randomized_heap.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Randomized Heap
-  
+  Randomized Heap
 
     
   </span>
@@ -2341,18 +2283,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -2376,8 +2319,7 @@
   <span class="md-ellipsis">
     
   
-    Advanced
-  
+  Advanced
 
     
   </span>
@@ -2387,33 +2329,32 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_3">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_3">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Advanced
-  
+  Advanced
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
   
     <li class="md-nav__item">
-      <a href="deleting_in_log_n.html" class="md-nav__link">
+      <a href="./deleting_in_log_n.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Deleting from a data structure in O(T(n) log n)
-  
+  Deleting from a data structure in O(T(n) log n)
 
     
   </span>
@@ -2424,18 +2365,20 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
@@ -2466,8 +2409,7 @@
   <span class="md-ellipsis">
     
   
-    Dynamic Programming
-  
+  Dynamic Programming
 
     
   </span>
@@ -2477,19 +2419,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Dynamic Programming
-  
+  Dynamic Programming
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -2502,8 +2444,7 @@
   <span class="md-ellipsis">
     
   
-    Introduction to Dynamic Programming
-  
+  Introduction to Dynamic Programming
 
     
   </span>
@@ -2514,10 +2455,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -2530,8 +2471,7 @@
   <span class="md-ellipsis">
     
   
-    Knapsack Problem
-  
+  Knapsack Problem
 
     
   </span>
@@ -2542,10 +2482,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -2558,8 +2498,7 @@
   <span class="md-ellipsis">
     
   
-    Longest increasing subsequence
-  
+  Longest increasing subsequence
 
     
   </span>
@@ -2570,10 +2509,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -2597,8 +2536,7 @@
   <span class="md-ellipsis">
     
   
-    DP optimizations
-  
+  DP optimizations
 
     
   </span>
@@ -2608,19 +2546,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_4">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_4_4">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    DP optimizations
-  
+  DP optimizations
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -2633,8 +2571,7 @@
   <span class="md-ellipsis">
     
   
-    Divide and Conquer DP
-  
+  Divide and Conquer DP
 
     
   </span>
@@ -2645,10 +2582,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -2661,8 +2598,7 @@
   <span class="md-ellipsis">
     
   
-    Knuth's Optimization
-  
+  Knuth's Optimization
 
     
   </span>
@@ -2673,18 +2609,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -2708,8 +2645,7 @@
   <span class="md-ellipsis">
     
   
-    Tasks
-  
+  Tasks
 
     
   </span>
@@ -2719,19 +2655,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_5">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_4_5">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Tasks
-  
+  Tasks
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -2744,8 +2680,7 @@
   <span class="md-ellipsis">
     
   
-    Dynamic Programming on Broken Profile. Problem "Parquet"
-  
+  Dynamic Programming on Broken Profile. Problem "Parquet"
 
     
   </span>
@@ -2756,10 +2691,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -2772,8 +2707,7 @@
   <span class="md-ellipsis">
     
   
-    Finding the largest zero submatrix
-  
+  Finding the largest zero submatrix
 
     
   </span>
@@ -2784,18 +2718,20 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
@@ -2826,8 +2762,7 @@
   <span class="md-ellipsis">
     
   
-    String Processing
-  
+  String Processing
 
     
   </span>
@@ -2837,19 +2772,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    String Processing
-  
+  String Processing
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -2873,8 +2808,7 @@
   <span class="md-ellipsis">
     
   
-    Fundamentals
-  
+  Fundamentals
 
     
   </span>
@@ -2884,19 +2818,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_1">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5_1">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Fundamentals
-  
+  Fundamentals
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -2909,8 +2843,7 @@
   <span class="md-ellipsis">
     
   
-    String Hashing
-  
+  String Hashing
 
     
   </span>
@@ -2921,10 +2854,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -2937,8 +2870,7 @@
   <span class="md-ellipsis">
     
   
-    Rabin-Karp for String Matching
-  
+  Rabin-Karp for String Matching
 
     
   </span>
@@ -2949,10 +2881,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -2965,8 +2897,7 @@
   <span class="md-ellipsis">
     
   
-    Prefix function - Knuth-Morris-Pratt
-  
+  Prefix function - Knuth-Morris-Pratt
 
     
   </span>
@@ -2977,10 +2908,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -2993,8 +2924,7 @@
   <span class="md-ellipsis">
     
   
-    Z-function
-  
+  Z-function
 
     
   </span>
@@ -3005,10 +2935,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -3021,8 +2951,7 @@
   <span class="md-ellipsis">
     
   
-    Suffix Array
-  
+  Suffix Array
 
     
   </span>
@@ -3033,10 +2962,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -3049,8 +2978,7 @@
   <span class="md-ellipsis">
     
   
-    Aho-Corasick algorithm
-  
+  Aho-Corasick algorithm
 
     
   </span>
@@ -3061,18 +2989,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -3096,8 +3025,7 @@
   <span class="md-ellipsis">
     
   
-    Advanced
-  
+  Advanced
 
     
   </span>
@@ -3107,19 +3035,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_2">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5_2">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Advanced
-  
+  Advanced
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -3132,8 +3060,7 @@
   <span class="md-ellipsis">
     
   
-    Suffix Tree
-  
+  Suffix Tree
 
     
   </span>
@@ -3144,10 +3071,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -3160,8 +3087,7 @@
   <span class="md-ellipsis">
     
   
-    Suffix Automaton
-  
+  Suffix Automaton
 
     
   </span>
@@ -3172,10 +3098,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -3188,8 +3114,7 @@
   <span class="md-ellipsis">
     
   
-    Lyndon factorization
-  
+  Lyndon factorization
 
     
   </span>
@@ -3200,18 +3125,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -3235,8 +3161,7 @@
   <span class="md-ellipsis">
     
   
-    Tasks
-  
+  Tasks
 
     
   </span>
@@ -3246,19 +3171,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_3">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5_3">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Tasks
-  
+  Tasks
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -3271,8 +3196,7 @@
   <span class="md-ellipsis">
     
   
-    Expression parsing
-  
+  Expression parsing
 
     
   </span>
@@ -3283,10 +3207,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -3299,8 +3223,7 @@
   <span class="md-ellipsis">
     
   
-    Manacher's Algorithm - Finding all sub-palindromes in O(N)
-  
+  Manacher's Algorithm - Finding all sub-palindromes in O(N)
 
     
   </span>
@@ -3311,10 +3234,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -3327,8 +3250,7 @@
   <span class="md-ellipsis">
     
   
-    Finding repetitions
-  
+  Finding repetitions
 
     
   </span>
@@ -3339,18 +3261,20 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
@@ -3381,8 +3305,7 @@
   <span class="md-ellipsis">
     
   
-    Linear Algebra
-  
+  Linear Algebra
 
     
   </span>
@@ -3392,19 +3315,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Linear Algebra
-  
+  Linear Algebra
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -3428,8 +3351,7 @@
   <span class="md-ellipsis">
     
   
-    Matrices
-  
+  Matrices
 
     
   </span>
@@ -3439,19 +3361,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_1">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6_1">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Matrices
-  
+  Matrices
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -3464,8 +3386,7 @@
   <span class="md-ellipsis">
     
   
-    Gauss & System of Linear Equations
-  
+  Gauss & System of Linear Equations
 
     
   </span>
@@ -3476,10 +3397,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -3492,8 +3413,7 @@
   <span class="md-ellipsis">
     
   
-    Gauss & Determinant
-  
+  Gauss & Determinant
 
     
   </span>
@@ -3504,10 +3424,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -3520,8 +3440,7 @@
   <span class="md-ellipsis">
     
   
-    Kraut & Determinant
-  
+  Kraut & Determinant
 
     
   </span>
@@ -3532,10 +3451,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -3548,8 +3467,7 @@
   <span class="md-ellipsis">
     
   
-    Rank of a matrix
-  
+  Rank of a matrix
 
     
   </span>
@@ -3560,18 +3478,20 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
@@ -3602,8 +3522,7 @@
   <span class="md-ellipsis">
     
   
-    Combinatorics
-  
+  Combinatorics
 
     
   </span>
@@ -3613,19 +3532,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_7">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Combinatorics
-  
+  Combinatorics
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -3649,8 +3568,7 @@
   <span class="md-ellipsis">
     
   
-    Fundamentals
-  
+  Fundamentals
 
     
   </span>
@@ -3660,19 +3578,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7_1">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_1_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_7_1">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Fundamentals
-  
+  Fundamentals
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -3685,8 +3603,7 @@
   <span class="md-ellipsis">
     
   
-    Finding Power of Factorial Divisor
-  
+  Finding Power of Factorial Divisor
 
     
   </span>
@@ -3697,10 +3614,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -3713,8 +3630,7 @@
   <span class="md-ellipsis">
     
   
-    Binomial Coefficients
-  
+  Binomial Coefficients
 
     
   </span>
@@ -3725,10 +3641,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -3741,8 +3657,7 @@
   <span class="md-ellipsis">
     
   
-    Catalan Numbers
-  
+  Catalan Numbers
 
     
   </span>
@@ -3753,18 +3668,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -3788,8 +3704,7 @@
   <span class="md-ellipsis">
     
   
-    Techniques
-  
+  Techniques
 
     
   </span>
@@ -3799,19 +3714,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7_2">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_7_2">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Techniques
-  
+  Techniques
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -3824,8 +3739,7 @@
   <span class="md-ellipsis">
     
   
-    The Inclusion-Exclusion Principle
-  
+  The Inclusion-Exclusion Principle
 
     
   </span>
@@ -3836,10 +3750,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -3852,8 +3766,7 @@
   <span class="md-ellipsis">
     
   
-    Burnside's lemma / Pólya enumeration theorem
-  
+  Burnside's lemma / Pólya enumeration theorem
 
     
   </span>
@@ -3864,10 +3777,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -3880,8 +3793,7 @@
   <span class="md-ellipsis">
     
   
-    Stars and bars
-  
+  Stars and bars
 
     
   </span>
@@ -3892,10 +3804,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -3908,8 +3820,7 @@
   <span class="md-ellipsis">
     
   
-    Generating all K-combinations
-  
+  Generating all K-combinations
 
     
   </span>
@@ -3920,18 +3831,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -3955,8 +3867,7 @@
   <span class="md-ellipsis">
     
   
-    Tasks
-  
+  Tasks
 
     
   </span>
@@ -3966,19 +3877,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7_3">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_7_3">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Tasks
-  
+  Tasks
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -3991,8 +3902,7 @@
   <span class="md-ellipsis">
     
   
-    Placing Bishops on a Chessboard
-  
+  Placing Bishops on a Chessboard
 
     
   </span>
@@ -4003,10 +3913,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -4019,8 +3929,7 @@
   <span class="md-ellipsis">
     
   
-    Balanced bracket sequences
-  
+  Balanced bracket sequences
 
     
   </span>
@@ -4031,10 +3940,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -4047,8 +3956,7 @@
   <span class="md-ellipsis">
     
   
-    Counting labeled graphs
-  
+  Counting labeled graphs
 
     
   </span>
@@ -4059,18 +3967,20 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
@@ -4101,8 +4011,7 @@
   <span class="md-ellipsis">
     
   
-    Numerical Methods
-  
+  Numerical Methods
 
     
   </span>
@@ -4112,19 +4021,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_8">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_8">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Numerical Methods
-  
+  Numerical Methods
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -4148,8 +4057,7 @@
   <span class="md-ellipsis">
     
   
-    Search
-  
+  Search
 
     
   </span>
@@ -4159,19 +4067,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_8_1">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_1_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_8_1">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Search
-  
+  Search
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -4184,8 +4092,7 @@
   <span class="md-ellipsis">
     
   
-    Binary Search
-  
+  Binary Search
 
     
   </span>
@@ -4196,10 +4103,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -4212,8 +4119,7 @@
   <span class="md-ellipsis">
     
   
-    Ternary Search
-  
+  Ternary Search
 
     
   </span>
@@ -4224,10 +4130,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -4240,8 +4146,7 @@
   <span class="md-ellipsis">
     
   
-    Newton's method for finding roots
-  
+  Newton's method for finding roots
 
     
   </span>
@@ -4252,10 +4157,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -4268,8 +4173,7 @@
   <span class="md-ellipsis">
     
   
-    Simulated Annealing
-  
+  Simulated Annealing
 
     
   </span>
@@ -4280,18 +4184,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -4315,8 +4220,7 @@
   <span class="md-ellipsis">
     
   
-    Integration
-  
+  Integration
 
     
   </span>
@@ -4326,19 +4230,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_8_2">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_8_2">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Integration
-  
+  Integration
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -4351,8 +4255,7 @@
   <span class="md-ellipsis">
     
   
-    Integration by Simpson's formula
-  
+  Integration by Simpson's formula
 
     
   </span>
@@ -4363,18 +4266,20 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
@@ -4405,8 +4310,7 @@
   <span class="md-ellipsis">
     
   
-    Geometry
-  
+  Geometry
 
     
   </span>
@@ -4416,19 +4320,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_9">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Geometry
-  
+  Geometry
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -4452,8 +4356,7 @@
   <span class="md-ellipsis">
     
   
-    Elementary operations
-  
+  Elementary operations
 
     
   </span>
@@ -4463,19 +4366,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_1">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_1_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_9_1">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Elementary operations
-  
+  Elementary operations
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -4488,8 +4391,7 @@
   <span class="md-ellipsis">
     
   
-    Basic Geometry
-  
+  Basic Geometry
 
     
   </span>
@@ -4500,10 +4402,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -4516,8 +4418,7 @@
   <span class="md-ellipsis">
     
   
-    Finding the equation of a line for a segment
-  
+  Finding the equation of a line for a segment
 
     
   </span>
@@ -4528,10 +4429,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -4544,8 +4445,7 @@
   <span class="md-ellipsis">
     
   
-    Intersection Point of Lines
-  
+  Intersection Point of Lines
 
     
   </span>
@@ -4556,10 +4456,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -4572,8 +4472,7 @@
   <span class="md-ellipsis">
     
   
-    Check if two segments intersect
-  
+  Check if two segments intersect
 
     
   </span>
@@ -4584,10 +4483,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -4600,8 +4499,7 @@
   <span class="md-ellipsis">
     
   
-    Intersection of Segments
-  
+  Intersection of Segments
 
     
   </span>
@@ -4612,10 +4510,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -4628,8 +4526,7 @@
   <span class="md-ellipsis">
     
   
-    Circle-Line Intersection
-  
+  Circle-Line Intersection
 
     
   </span>
@@ -4640,10 +4537,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -4656,8 +4553,7 @@
   <span class="md-ellipsis">
     
   
-    Circle-Circle Intersection
-  
+  Circle-Circle Intersection
 
     
   </span>
@@ -4668,10 +4564,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -4684,8 +4580,7 @@
   <span class="md-ellipsis">
     
   
-    Common tangents to two circles
-  
+  Common tangents to two circles
 
     
   </span>
@@ -4696,10 +4591,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -4712,8 +4607,7 @@
   <span class="md-ellipsis">
     
   
-    Length of the union of segments
-  
+  Length of the union of segments
 
     
   </span>
@@ -4724,18 +4618,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -4759,8 +4654,7 @@
   <span class="md-ellipsis">
     
   
-    Polygons
-  
+  Polygons
 
     
   </span>
@@ -4770,19 +4664,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_2">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_9_2">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Polygons
-  
+  Polygons
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -4795,8 +4689,7 @@
   <span class="md-ellipsis">
     
   
-    Oriented area of a triangle
-  
+  Oriented area of a triangle
 
     
   </span>
@@ -4807,10 +4700,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -4823,8 +4716,7 @@
   <span class="md-ellipsis">
     
   
-    Area of simple polygon
-  
+  Area of simple polygon
 
     
   </span>
@@ -4835,10 +4727,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -4851,8 +4743,7 @@
   <span class="md-ellipsis">
     
   
-    Check if points belong to the convex polygon in O(log N)
-  
+  Check if points belong to the convex polygon in O(log N)
 
     
   </span>
@@ -4863,10 +4754,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -4879,8 +4770,7 @@
   <span class="md-ellipsis">
     
   
-    Minkowski sum of convex polygons
-  
+  Minkowski sum of convex polygons
 
     
   </span>
@@ -4891,10 +4781,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -4907,8 +4797,7 @@
   <span class="md-ellipsis">
     
   
-    Pick's Theorem - area of lattice polygons
-  
+  Pick's Theorem - area of lattice polygons
 
     
   </span>
@@ -4919,10 +4808,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -4935,8 +4824,7 @@
   <span class="md-ellipsis">
     
   
-    Lattice points of non-lattice polygon
-  
+  Lattice points of non-lattice polygon
 
     
   </span>
@@ -4947,18 +4835,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -4982,8 +4871,7 @@
   <span class="md-ellipsis">
     
   
-    Convex hull
-  
+  Convex hull
 
     
   </span>
@@ -4993,19 +4881,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_3">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_9_3">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Convex hull
-  
+  Convex hull
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -5018,8 +4906,7 @@
   <span class="md-ellipsis">
     
   
-    Convex hull construction
-  
+  Convex hull construction
 
     
   </span>
@@ -5030,10 +4917,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -5046,8 +4933,7 @@
   <span class="md-ellipsis">
     
   
-    Convex hull trick and Li Chao tree
-  
+  Convex hull trick and Li Chao tree
 
     
   </span>
@@ -5058,18 +4944,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -5093,8 +4980,7 @@
   <span class="md-ellipsis">
     
   
-    Sweep-line
-  
+  Sweep-line
 
     
   </span>
@@ -5104,19 +4990,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_4">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_9_4">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Sweep-line
-  
+  Sweep-line
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -5129,8 +5015,7 @@
   <span class="md-ellipsis">
     
   
-    Search for a pair of intersecting segments
-  
+  Search for a pair of intersecting segments
 
     
   </span>
@@ -5141,18 +5026,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -5176,8 +5062,7 @@
   <span class="md-ellipsis">
     
   
-    Planar graphs
-  
+  Planar graphs
 
     
   </span>
@@ -5187,19 +5072,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_5">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_9_5">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Planar graphs
-  
+  Planar graphs
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -5212,8 +5097,7 @@
   <span class="md-ellipsis">
     
   
-    Finding faces of a planar graph
-  
+  Finding faces of a planar graph
 
     
   </span>
@@ -5224,10 +5108,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -5240,8 +5124,7 @@
   <span class="md-ellipsis">
     
   
-    Point location in O(log N)
-  
+  Point location in O(log N)
 
     
   </span>
@@ -5252,18 +5135,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -5287,8 +5171,7 @@
   <span class="md-ellipsis">
     
   
-    Miscellaneous
-  
+  Miscellaneous
 
     
   </span>
@@ -5298,19 +5181,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_6">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_9_6">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Miscellaneous
-  
+  Miscellaneous
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -5323,8 +5206,7 @@
   <span class="md-ellipsis">
     
   
-    Finding the nearest pair of points
-  
+  Finding the nearest pair of points
 
     
   </span>
@@ -5335,10 +5217,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -5351,8 +5233,7 @@
   <span class="md-ellipsis">
     
   
-    Delaunay triangulation and Voronoi diagram
-  
+  Delaunay triangulation and Voronoi diagram
 
     
   </span>
@@ -5363,10 +5244,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -5379,8 +5260,7 @@
   <span class="md-ellipsis">
     
   
-    Vertical decomposition
-  
+  Vertical decomposition
 
     
   </span>
@@ -5391,10 +5271,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -5407,8 +5287,7 @@
   <span class="md-ellipsis">
     
   
-    Half-plane intersection - S&I Algorithm in O(N log N)
-  
+  Half-plane intersection - S&I Algorithm in O(N log N)
 
     
   </span>
@@ -5419,10 +5298,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -5435,8 +5314,7 @@
   <span class="md-ellipsis">
     
   
-    Manhattan Distance
-  
+  Manhattan Distance
 
     
   </span>
@@ -5447,10 +5325,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -5463,8 +5341,7 @@
   <span class="md-ellipsis">
     
   
-    Minimum Enclosing Circle
-  
+  Minimum Enclosing Circle
 
     
   </span>
@@ -5475,18 +5352,20 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
@@ -5517,8 +5396,7 @@
   <span class="md-ellipsis">
     
   
-    Graphs
-  
+  Graphs
 
     
   </span>
@@ -5528,19 +5406,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_10">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_10">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Graphs
-  
+  Graphs
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -5564,8 +5442,7 @@
   <span class="md-ellipsis">
     
   
-    Graph traversal
-  
+  Graph traversal
 
     
   </span>
@@ -5575,19 +5452,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_10_1">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_1_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_10_1">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Graph traversal
-  
+  Graph traversal
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -5600,8 +5477,7 @@
   <span class="md-ellipsis">
     
   
-    Breadth First Search
-  
+  Breadth First Search
 
     
   </span>
@@ -5612,10 +5488,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -5628,8 +5504,7 @@
   <span class="md-ellipsis">
     
   
-    Depth First Search
-  
+  Depth First Search
 
     
   </span>
@@ -5640,18 +5515,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -5675,8 +5551,7 @@
   <span class="md-ellipsis">
     
   
-    Connected components, bridges, articulations points
-  
+  Connected components, bridges, articulations points
 
     
   </span>
@@ -5686,19 +5561,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_10_2">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_10_2">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Connected components, bridges, articulations points
-  
+  Connected components, bridges, articulations points
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -5711,8 +5586,7 @@
   <span class="md-ellipsis">
     
   
-    Finding Connected Components
-  
+  Finding Connected Components
 
     
   </span>
@@ -5723,10 +5597,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -5739,8 +5613,7 @@
   <span class="md-ellipsis">
     
   
-    Finding Bridges in O(N+M)
-  
+  Finding Bridges in O(N+M)
 
     
   </span>
@@ -5751,10 +5624,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -5767,8 +5640,7 @@
   <span class="md-ellipsis">
     
   
-    Finding Bridges Online
-  
+  Finding Bridges Online
 
     
   </span>
@@ -5779,10 +5651,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -5795,8 +5667,7 @@
   <span class="md-ellipsis">
     
   
-    Finding Articulation Points in O(N+M)
-  
+  Finding Articulation Points in O(N+M)
 
     
   </span>
@@ -5807,10 +5678,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -5823,8 +5694,7 @@
   <span class="md-ellipsis">
     
   
-    Strongly Connected Components and Condensation Graph
-  
+  Strongly Connected Components and Condensation Graph
 
     
   </span>
@@ -5835,10 +5705,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -5851,8 +5721,7 @@
   <span class="md-ellipsis">
     
   
-    Strong Orientation
-  
+  Strong Orientation
 
     
   </span>
@@ -5863,18 +5732,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -5898,8 +5768,7 @@
   <span class="md-ellipsis">
     
   
-    Single-source shortest paths
-  
+  Single-source shortest paths
 
     
   </span>
@@ -5909,19 +5778,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_10_3">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_10_3">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Single-source shortest paths
-  
+  Single-source shortest paths
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -5934,8 +5803,7 @@
   <span class="md-ellipsis">
     
   
-    Dijkstra - finding shortest paths from given vertex
-  
+  Dijkstra - finding shortest paths from given vertex
 
     
   </span>
@@ -5946,10 +5814,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -5962,8 +5830,7 @@
   <span class="md-ellipsis">
     
   
-    Dijkstra on sparse graphs
-  
+  Dijkstra on sparse graphs
 
     
   </span>
@@ -5974,10 +5841,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -5990,8 +5857,7 @@
   <span class="md-ellipsis">
     
   
-    Bellman-Ford - finding shortest paths with negative weights
-  
+  Bellman-Ford - finding shortest paths with negative weights
 
     
   </span>
@@ -6002,10 +5868,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6018,8 +5884,7 @@
   <span class="md-ellipsis">
     
   
-    0-1 BFS
-  
+  0-1 BFS
 
     
   </span>
@@ -6030,10 +5895,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6046,8 +5911,7 @@
   <span class="md-ellipsis">
     
   
-    D´Esopo-Pape algorithm
-  
+  D´Esopo-Pape algorithm
 
     
   </span>
@@ -6058,18 +5922,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6093,8 +5958,7 @@
   <span class="md-ellipsis">
     
   
-    All-pairs shortest paths
-  
+  All-pairs shortest paths
 
     
   </span>
@@ -6104,19 +5968,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_10_4">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_10_4">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    All-pairs shortest paths
-  
+  All-pairs shortest paths
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -6129,8 +5993,7 @@
   <span class="md-ellipsis">
     
   
-    Floyd-Warshall - finding all shortest paths
-  
+  Floyd-Warshall - finding all shortest paths
 
     
   </span>
@@ -6141,10 +6004,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6157,8 +6020,7 @@
   <span class="md-ellipsis">
     
   
-    Number of paths of fixed length / Shortest paths of fixed length
-  
+  Number of paths of fixed length / Shortest paths of fixed length
 
     
   </span>
@@ -6169,18 +6031,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6204,8 +6067,7 @@
   <span class="md-ellipsis">
     
   
-    Spanning trees
-  
+  Spanning trees
 
     
   </span>
@@ -6215,19 +6077,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_10_5">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_10_5">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Spanning trees
-  
+  Spanning trees
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -6240,8 +6102,7 @@
   <span class="md-ellipsis">
     
   
-    Minimum Spanning Tree - Prim's Algorithm
-  
+  Minimum Spanning Tree - Prim's Algorithm
 
     
   </span>
@@ -6252,10 +6113,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6268,8 +6129,7 @@
   <span class="md-ellipsis">
     
   
-    Minimum Spanning Tree - Kruskal
-  
+  Minimum Spanning Tree - Kruskal
 
     
   </span>
@@ -6280,10 +6140,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6296,8 +6156,7 @@
   <span class="md-ellipsis">
     
   
-    Minimum Spanning Tree - Kruskal with Disjoint Set Union
-  
+  Minimum Spanning Tree - Kruskal with Disjoint Set Union
 
     
   </span>
@@ -6308,10 +6167,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6324,8 +6183,7 @@
   <span class="md-ellipsis">
     
   
-    Second best Minimum Spanning Tree - Using Kruskal and Lowest Common Ancestor
-  
+  Second best Minimum Spanning Tree - Using Kruskal and Lowest Common Ancestor
 
     
   </span>
@@ -6336,10 +6194,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6352,8 +6210,7 @@
   <span class="md-ellipsis">
     
   
-    Kirchhoff Theorem
-  
+  Kirchhoff Theorem
 
     
   </span>
@@ -6364,10 +6221,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6380,8 +6237,7 @@
   <span class="md-ellipsis">
     
   
-    Prüfer code
-  
+  Prüfer code
 
     
   </span>
@@ -6392,18 +6248,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6427,8 +6284,7 @@
   <span class="md-ellipsis">
     
   
-    Cycles
-  
+  Cycles
 
     
   </span>
@@ -6438,19 +6294,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_10_6">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_10_6">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Cycles
-  
+  Cycles
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -6463,8 +6319,7 @@
   <span class="md-ellipsis">
     
   
-    Checking a graph for acyclicity and finding a cycle in O(M)
-  
+  Checking a graph for acyclicity and finding a cycle in O(M)
 
     
   </span>
@@ -6475,10 +6330,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6491,8 +6346,7 @@
   <span class="md-ellipsis">
     
   
-    Finding a Negative Cycle in the Graph
-  
+  Finding a Negative Cycle in the Graph
 
     
   </span>
@@ -6503,10 +6357,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6519,8 +6373,7 @@
   <span class="md-ellipsis">
     
   
-    Eulerian Path
-  
+  Eulerian Path
 
     
   </span>
@@ -6531,18 +6384,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6566,8 +6420,7 @@
   <span class="md-ellipsis">
     
   
-    Lowest common ancestor
-  
+  Lowest common ancestor
 
     
   </span>
@@ -6577,19 +6430,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_10_7">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_7_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_10_7">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Lowest common ancestor
-  
+  Lowest common ancestor
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -6602,8 +6455,7 @@
   <span class="md-ellipsis">
     
   
-    Lowest Common Ancestor
-  
+  Lowest Common Ancestor
 
     
   </span>
@@ -6614,10 +6466,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6630,8 +6482,7 @@
   <span class="md-ellipsis">
     
   
-    Lowest Common Ancestor - Binary Lifting
-  
+  Lowest Common Ancestor - Binary Lifting
 
     
   </span>
@@ -6642,10 +6493,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6658,8 +6509,7 @@
   <span class="md-ellipsis">
     
   
-    Lowest Common Ancestor - Farach-Colton and Bender algorithm
-  
+  Lowest Common Ancestor - Farach-Colton and Bender algorithm
 
     
   </span>
@@ -6670,10 +6520,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6686,8 +6536,7 @@
   <span class="md-ellipsis">
     
   
-    Solve RMQ by finding LCA
-  
+  Solve RMQ by finding LCA
 
     
   </span>
@@ -6698,10 +6547,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6714,8 +6563,7 @@
   <span class="md-ellipsis">
     
   
-    Lowest Common Ancestor - Tarjan's off-line algorithm
-  
+  Lowest Common Ancestor - Tarjan's off-line algorithm
 
     
   </span>
@@ -6726,18 +6574,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6761,8 +6610,7 @@
   <span class="md-ellipsis">
     
   
-    Flows and related problems
-  
+  Flows and related problems
 
     
   </span>
@@ -6772,19 +6620,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_10_8">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_8_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_10_8">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Flows and related problems
-  
+  Flows and related problems
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -6797,8 +6645,7 @@
   <span class="md-ellipsis">
     
   
-    Maximum flow - Ford-Fulkerson and Edmonds-Karp
-  
+  Maximum flow - Ford-Fulkerson and Edmonds-Karp
 
     
   </span>
@@ -6809,10 +6656,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6825,8 +6672,7 @@
   <span class="md-ellipsis">
     
   
-    Maximum flow - Push-relabel algorithm
-  
+  Maximum flow - Push-relabel algorithm
 
     
   </span>
@@ -6837,10 +6683,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6853,8 +6699,7 @@
   <span class="md-ellipsis">
     
   
-    Maximum flow - Push-relabel algorithm improved
-  
+  Maximum flow - Push-relabel algorithm improved
 
     
   </span>
@@ -6865,10 +6710,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6881,8 +6726,7 @@
   <span class="md-ellipsis">
     
   
-    Maximum flow - Dinic's algorithm
-  
+  Maximum flow - Dinic's algorithm
 
     
   </span>
@@ -6893,10 +6737,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6909,8 +6753,7 @@
   <span class="md-ellipsis">
     
   
-    Maximum flow - MPM algorithm
-  
+  Maximum flow - MPM algorithm
 
     
   </span>
@@ -6921,10 +6764,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6937,8 +6780,7 @@
   <span class="md-ellipsis">
     
   
-    Flows with demands
-  
+  Flows with demands
 
     
   </span>
@@ -6949,10 +6791,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6965,8 +6807,7 @@
   <span class="md-ellipsis">
     
   
-    Minimum-cost flow
-  
+  Minimum-cost flow
 
     
   </span>
@@ -6977,10 +6818,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -6993,8 +6834,7 @@
   <span class="md-ellipsis">
     
   
-    Assignment problem
-  
+  Assignment problem
 
     
   </span>
@@ -7005,10 +6845,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -7021,8 +6861,7 @@
   <span class="md-ellipsis">
     
   
-    Minimum cut - Stoer-Wagner algorithm
-  
+  Minimum cut - Stoer-Wagner algorithm
 
     
   </span>
@@ -7033,18 +6872,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -7068,8 +6908,7 @@
   <span class="md-ellipsis">
     
   
-    Matchings and related problems
-  
+  Matchings and related problems
 
     
   </span>
@@ -7079,19 +6918,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_10_9">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_9_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_10_9">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Matchings and related problems
-  
+  Matchings and related problems
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -7104,8 +6943,7 @@
   <span class="md-ellipsis">
     
   
-    Bipartite Graph Check
-  
+  Bipartite Graph Check
 
     
   </span>
@@ -7116,10 +6954,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -7132,8 +6970,7 @@
   <span class="md-ellipsis">
     
   
-    Kuhn's Algorithm - Maximum Bipartite Matching
-  
+  Kuhn's Algorithm - Maximum Bipartite Matching
 
     
   </span>
@@ -7144,10 +6981,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -7160,8 +6997,7 @@
   <span class="md-ellipsis">
     
   
-    Hungarian Algorithm
-  
+  Hungarian Algorithm
 
     
   </span>
@@ -7172,18 +7008,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -7207,8 +7044,7 @@
   <span class="md-ellipsis">
     
   
-    Miscellaneous
-  
+  Miscellaneous
 
     
   </span>
@@ -7218,19 +7054,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_10_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_10_10">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_10_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_10_10">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Miscellaneous
-  
+  Miscellaneous
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -7243,8 +7079,7 @@
   <span class="md-ellipsis">
     
   
-    Topological Sorting
-  
+  Topological Sorting
 
     
   </span>
@@ -7255,10 +7090,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -7271,8 +7106,7 @@
   <span class="md-ellipsis">
     
   
-    Edge connectivity / Vertex connectivity
-  
+  Edge connectivity / Vertex connectivity
 
     
   </span>
@@ -7283,10 +7117,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -7299,8 +7133,7 @@
   <span class="md-ellipsis">
     
   
-    Tree painting
-  
+  Tree painting
 
     
   </span>
@@ -7311,10 +7144,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -7327,8 +7160,7 @@
   <span class="md-ellipsis">
     
   
-    2-SAT
-  
+  2-SAT
 
     
   </span>
@@ -7339,10 +7171,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -7355,8 +7187,7 @@
   <span class="md-ellipsis">
     
   
-    Heavy-light decomposition
-  
+  Heavy-light decomposition
 
     
   </span>
@@ -7367,10 +7198,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -7383,8 +7214,7 @@
   <span class="md-ellipsis">
     
   
-    Centroid decomposition
-  
+  Centroid decomposition
 
     
   </span>
@@ -7395,18 +7225,20 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
@@ -7437,8 +7269,7 @@
   <span class="md-ellipsis">
     
   
-    Miscellaneous
-  
+  Miscellaneous
 
     
   </span>
@@ -7448,19 +7279,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_11">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_11">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Miscellaneous
-  
+  Miscellaneous
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -7484,8 +7315,7 @@
   <span class="md-ellipsis">
     
   
-    Sequences
-  
+  Sequences
 
     
   </span>
@@ -7495,19 +7325,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_11_1">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_1_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_11_1">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Sequences
-  
+  Sequences
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -7520,8 +7350,7 @@
   <span class="md-ellipsis">
     
   
-    RMQ task (Range Minimum Query - the smallest element in an interval)
-  
+  RMQ task (Range Minimum Query - the smallest element in an interval)
 
     
   </span>
@@ -7532,10 +7361,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -7548,8 +7377,7 @@
   <span class="md-ellipsis">
     
   
-    Search the subsegment with the maximum/minimum sum
-  
+  Search the subsegment with the maximum/minimum sum
 
     
   </span>
@@ -7560,10 +7388,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -7576,8 +7404,7 @@
   <span class="md-ellipsis">
     
   
-    K-th order statistic in O(N)
-  
+  K-th order statistic in O(N)
 
     
   </span>
@@ -7588,10 +7415,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -7604,8 +7431,7 @@
   <span class="md-ellipsis">
     
   
-    MEX task (Minimal Excluded element in an array)
-  
+  MEX task (Minimal Excluded element in an array)
 
     
   </span>
@@ -7616,18 +7442,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -7651,8 +7478,7 @@
   <span class="md-ellipsis">
     
   
-    Game Theory
-  
+  Game Theory
 
     
   </span>
@@ -7662,19 +7488,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_11_2">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_11_2">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Game Theory
-  
+  Game Theory
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -7687,8 +7513,7 @@
   <span class="md-ellipsis">
     
   
-    Games on arbitrary graphs
-  
+  Games on arbitrary graphs
 
     
   </span>
@@ -7699,10 +7524,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -7715,8 +7540,7 @@
   <span class="md-ellipsis">
     
   
-    Sprague-Grundy theorem. Nim
-  
+  Sprague-Grundy theorem. Nim
 
     
   </span>
@@ -7727,18 +7551,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -7762,8 +7587,7 @@
   <span class="md-ellipsis">
     
   
-    Schedules
-  
+  Schedules
 
     
   </span>
@@ -7773,19 +7597,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_11_3">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_11_3">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Schedules
-  
+  Schedules
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -7798,8 +7622,7 @@
   <span class="md-ellipsis">
     
   
-    Scheduling jobs on one machine
-  
+  Scheduling jobs on one machine
 
     
   </span>
@@ -7810,10 +7633,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -7826,8 +7649,7 @@
   <span class="md-ellipsis">
     
   
-    Scheduling jobs on two machines
-  
+  Scheduling jobs on two machines
 
     
   </span>
@@ -7838,10 +7660,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -7854,8 +7676,7 @@
   <span class="md-ellipsis">
     
   
-    Optimal schedule of jobs given their deadlines and durations
-  
+  Optimal schedule of jobs given their deadlines and durations
 
     
   </span>
@@ -7866,18 +7687,19 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -7901,8 +7723,7 @@
   <span class="md-ellipsis">
     
   
-    Miscellaneous
-  
+  Miscellaneous
 
     
   </span>
@@ -7912,19 +7733,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_11_4">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_11_4">
+              <span class="md-nav__icon md-icon"></span>
+              
   
-    Miscellaneous
-  
+  Miscellaneous
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -7937,8 +7758,7 @@
   <span class="md-ellipsis">
     
   
-    Tortoise and Hare Algorithm (Linked List cycle detection)
-  
+  Tortoise and Hare Algorithm (Linked List cycle detection)
 
     
   </span>
@@ -7949,10 +7769,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -7965,8 +7785,7 @@
   <span class="md-ellipsis">
     
   
-    Josephus problem
-  
+  Josephus problem
 
     
   </span>
@@ -7977,10 +7796,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -7993,8 +7812,7 @@
   <span class="md-ellipsis">
     
   
-    15 Puzzle Game: Existence Of The Solution
-  
+  15 Puzzle Game: Existence Of The Solution
 
     
   </span>
@@ -8005,10 +7823,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -8021,8 +7839,7 @@
   <span class="md-ellipsis">
     
   
-    The Stern-Brocot Tree and Farey Sequences
-  
+  The Stern-Brocot Tree and Farey Sequences
 
     
   </span>
@@ -8033,18 +7850,20 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
@@ -8062,6 +7881,7 @@
             <div class="md-content" data-md-component="content">
               
               <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
                 
                   <script type="text/javascript">
 window.onload = function() {
@@ -8091,320 +7911,10 @@ Describe the issue of this article in detail.
 </a>
 
 
-<!-- Construct the dict of author's contribution percentage -->
-
-
-
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-  
-  
-  
-    
-  
-
-
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-
-
-
-
 <!-- Dates of last and first commit -->
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
-
-  Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 7, 2026 11:03:47 UTC">August 7, 2026</span>&emsp;
-
-
-  Created:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 20, 2014 19:03:01 UTC">December 20, 2014</span>&emsp;
-
+Last update: August 7, 2026&emsp;Created: December 20, 2014&emsp;
 <!-- Tags -->
-
-  
-  
-  
-    
-  
-
 
   
     <a href="../tags.html#tag:translated" class="md-tag">
@@ -8412,6 +7922,8 @@ Describe the issue of this article in detail.
     </a>
   
 
+
+  
   
     <a href="https://e-maxx.ru/algo/fenwick_tree" class="md-tag">
       From: e-maxx.ru
@@ -8856,8 +8368,8 @@ Thus we can use <span class="arithmatex">$B_2$</span> for shaving off extra term
         
         
           Made with
-          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-            Material for MkDocs
+          <a href="https://zensical.org/" target="_blank" rel="noopener">
+            Zensical
           </a>
         
         
@@ -8873,7 +8385,7 @@ Thus we can use <span class="arithmatex">$B_2$</span> for shaving off extra term
       
     
     <a href="https://github.com/cp-algorithms/cp-algorithms" target="_blank" rel="noopener" title="github.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
     </a>
   
     
@@ -8884,7 +8396,7 @@ Thus we can use <span class="arithmatex">$B_2$</span> for shaving off extra term
       
     
     <a href="https://discord.gg/HZ5AecN3KX" target="_blank" rel="noopener" title="discord.gg" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
     </a>
   
     
@@ -8895,7 +8407,7 @@ Thus we can use <span class="arithmatex">$B_2$</span> for shaving off extra term
       
     
     <a href="https://github.com/sponsors/cp-algorithms" target="_blank" rel="noopener" title="github.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M96 224a192 192 0 1 1 384 0 192 192 0 1 1-384 0m176-92v4c-28.8.3-52 23.7-52 52.5 0 25.7 18.5 47.6 43.9 51.8l41.7 7c6 1 10.4 6.2 10.4 12.3 0 6.9-5.6 12.5-12.5 12.5L248 272c-11 0-20 9-20 20s9 20 20 20h24v4c0 11 9 20 20 20s20-9 20-20v-4.7c25-4.1 44-25.7 44-51.8 0-25.7-18.5-47.6-43.9-51.8l-41.7-7c-6-1-10.4-6.2-10.4-12.3 0-6.9 5.6-12.5 12.5-12.5H320c11 0 20-9 20-20s-9-20-20-20h-8v-4c0-11-9-20-20-20s-20 9-20 20zM48 344v104c0 8.8 7.2 16 16 16h448c8.8 0 16-7.2 16-16V344c0-13.3 10.7-24 24-24s24 10.7 24 24v104c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V344c0-13.3 10.7-24 24-24s24 10.7 24 24"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M96 224a192 192 0 1 1 384 0 192 192 0 1 1-384 0m176-92v4c-28.8.3-52 23.7-52 52.5 0 25.7 18.5 47.6 43.9 51.8l41.7 7c6 1 10.4 6.2 10.4 12.3 0 6.9-5.6 12.5-12.5 12.5L248 272c-11 0-20 9-20 20s9 20 20 20h24v4c0 11 9 20 20 20s20-9 20-20v-4.7c25-4.1 44-25.7 44-51.8 0-25.7-18.5-47.6-43.9-51.8l-41.7-7c-6-1-10.4-6.2-10.4-12.3 0-6.9 5.6-12.5 12.5-12.5H320c11 0 20-9 20-20s-9-20-20-20h-8v-4c0-11-9-20-20-20s-20 9-20 20zM48 344v104c0 8.8 7.2 16 16 16h448c8.8 0 16-7.2 16-16V344c0-13.3 10.7-24 24-24s24 10.7 24 24v104c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V344c0-13.3 10.7-24 24-24s24 10.7 24 24"/></svg>
     </a>
   
 </div>
@@ -8904,7 +8416,7 @@ Thus we can use <span class="arithmatex">$B_2$</span> for shaving off extra term
 </footer>
 
     </div>
-    <div class="md-dialog" data-md-component="dialog">
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
@@ -8912,14 +8424,18 @@ Thus we can use <span class="arithmatex">$B_2$</span> for shaving off extra term
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["toc.integrate","search.suggest","content.code.copy"],"redirect":null,"search":"../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      <script src="../assets/javascripts/bundle.d31f0ffa.min.js"></script>
       
         <script src="../javascript/config.js"></script>
       
-        <script src="../javascript/sidebar-toggle-sync.js"></script>
+        <script src="../javascript/sidebar-toggle.js"></script>
       
         <script src="../javascript/donation-banner.js"></script>
       

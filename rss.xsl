@@ -1,4 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+MIT License
+
+Copyright (c) 2022 Julien Moura (In Geo Veritas)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
 <xsl:stylesheet version="1.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:atom="http://www.w3.org/2005/Atom"
@@ -131,8 +154,8 @@ a:hover {
                     </p>
                     <div class="meta">
 
-                        <xsl:if test="managingEditor">
-    By <xsl:value-of select="managingEditor"/>
+                        <xsl:if test="author">
+    By <xsl:value-of select="author"/>
                         </xsl:if>
 
                         <xsl:if test="pubDate">
@@ -162,8 +185,8 @@ a:hover {
                         </h2>
 
                         <div class="meta">
-                            <xsl:if test="dc:creator">
-      By <xsl:value-of select="dc:creator"/>
+                            <xsl:if test="author">
+      Par <xsl:value-of select="author"/>
                             </xsl:if>
                             <xsl:if test="pubDate">
       —                                <xsl:value-of select="pubDate"/>
