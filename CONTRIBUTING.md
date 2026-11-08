@@ -152,7 +152,7 @@ You can preview changes locally before pushing them to GitHub. To do this:
 
 ## Testing Code Snippets
 
-Each new or changed C++ snippet needs a test in the `test` directory.
+Each new or changed executable snippet needs a test in the `test` directory.
 
 1. Name the code snippet:
 ````
