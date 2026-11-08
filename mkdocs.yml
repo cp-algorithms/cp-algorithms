@@ -69,6 +69,7 @@ plugins:
       nav_file: navigation.md
   - git-revision-date-localized:
       enable_creation_date: true
+      enable_git_follow: false
       enabled: !ENV [MKDOCS_ENABLE_GIT_REVISION_DATE, False]
   - git-authors
   - git-committers:
