@@ -2,6 +2,6 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in this repository, please report it using [GitHub's built-in reporting tool](https://github.com/cp-algorithms/cp-algorithms/security/advisories). We appreciate your efforts to responsibly disclose your findings and will make every effort to acknowledge your report promptly.
+Report security vulnerabilities privately through [GitHub security advisories](https://github.com/cp-algorithms/cp-algorithms/security/advisories/new). Do not open a public issue for them.
 
-Thank you for helping to keep our project secure!
+The report stays private until the maintainers publish an advisory. Thank you for helping to keep the project secure.

@@ -5,7 +5,7 @@ search:
 
 # How to Contribute
 
-Thank you for your interest in contributing to the cp-algorithms project! Whether you want to fix a typo, improve an article, or add new content, your help is welcome. All you need is a [GitHub account](https://github.com). Contributions are managed through our [GitHub repository](https://github.com/cp-algorithms/cp-algorithms), where you can directly submit changes or propose improvements.
+Anyone with a [GitHub account](https://github.com) can contribute. You can fix a typo, improve an article or add a new one. Send your changes as a pull request to the [cp-algorithms repository](https://github.com/cp-algorithms/cp-algorithms).
 
 The pages are compiled and published at [https://cp-algorithms.com](https://cp-algorithms.com).
 
@@ -19,7 +19,7 @@ Follow these steps to start contributing:
 4. **Preview your changes** using the [preview page](preview.md) to ensure they look correct.
 5. **Commit your changes** by clicking the _Propose changes_ button.
 6. **Create a Pull Request (PR)** by clicking _Compare & pull request_.
-7. **Review process**: Someone from the core team will review your changes. This may take a few days to a few weeks.
+7. **Wait for review**. A maintainer reviews each pull request. Review can take from a few days to a few weeks.
 
 ### Making Larger Changes
 
@@ -29,7 +29,7 @@ If you’re planning to make more significant changes, such as adding new articl
 - **Edit files locally or in the GitHub UI**.
 - **Submit a pull request** with your updates.
 
-For help with this workflow, check out this helpful guide: [Step-by-step guide to contributing on GitHub](https://opensource.guide/how-to-contribute/).
+New to pull requests? Read [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/).
 
 ### Updating Indexes
 
@@ -48,7 +48,7 @@ We use [Markdown](https://daringfireball.net/projects/markdown) to format articl
 - **Tabs**: Organize content with [content tabs](https://squidfunk.github.io/mkdocs-material/reference/content-tabs/#usage).
 - **Tables**: Use [data tables](https://squidfunk.github.io/mkdocs-material/reference/data-tables/#usage) for organizing information.
 
-Some advanced features may not be enabled or require a paid subscription. Keep this in mind when experimenting with formatting.
+Not every Material for MkDocs feature is enabled on this site. Check your page in the [preview](preview.md) before you submit it.
 
 ### Setting the HTML Title
 
@@ -73,13 +73,13 @@ This article has been moved to a [new location](new-section/new-article.md).
 
 ### Maintaining Anchor Links
 
-If you rename a section, the link to that section (`/article.html#old-section-title`) might break. To avoid this, add an anchor manually:
+If you rename a section, links to its old anchor (`/article.html#old-section-title`) stop working. To keep them working, add the old anchor by hand:
 
 ```html
 <div id="old-section-title"></div>
 ```
 
-This will allow existing links to continue working even after the section title is changed.
+Existing links then keep working after the section title changes.
 
 ### Article Tags
 
@@ -112,7 +112,7 @@ We follow certain conventions across the project. For example, we agreed to use 
 
 ## Adding Problems
 
-When adding problems, try to arrange them by difficulty. If you're unable to, don't worry—just add the problem, and someone else can adjust the order later.
+Before you add a problem, check that the article's technique is a useful part of its solution. Check that the list does not already teach the same idea. Place the problem by difficulty if you can. If you cannot, add it anyway, and a maintainer can reorder the list later.
 
 ## Local Development Setup
 
@@ -145,7 +145,7 @@ Set `GITHUB_TOKEN` to show GitHub accounts for authors who are not yet in `autho
 
 ## Testing Code Snippets
 
-If your article includes code snippets, it’s helpful to include tests to ensure that they run correctly.
+Each new or changed executable snippet needs a test in the `test` directory.
 
 1. Name the code snippet:
 ````
@@ -153,8 +153,9 @@ If your article includes code snippets, it’s helpful to include tests to ensur
 // code here
 ```
 ````
-3. Run `extract_snippets.py` from the `test` directory to extract snippets into header files. Create a test file that includes these headers and checks their behavior.
-4. You can run all tests with the `test.sh` script:
+2. Run `extract_snippets.py` from the `test` directory. It extracts the named snippets into header files.
+3. Create a test file that includes these headers and checks their behavior.
+4. Run the C++ tests with the `test.sh` script:
     ```console
     cd test
     ./test.sh
@@ -165,8 +166,7 @@ If your article includes code snippets, it’s helpful to include tests to ensur
     Running test_balanced_brackets.cpp - Passed in 1390 ms
     Running test_burnside_tori.cpp - Passed in 378 ms
     ...
-    51 PASSED in 49.00 seconds
+    67 PASSED in 49.00 seconds
     ```
-   This script will run tests and display the results.
 
 Additionally, all pull requests will be automatically tested via [GitHub Actions](https://github.com/cp-algorithms/cp-algorithms/actions).
