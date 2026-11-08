@@ -7879,6 +7879,16 @@ Describe the issue of this article in detail.
   
     
   
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
 
   
   
@@ -7889,6 +7899,10 @@ Describe the issue of this article in detail.
   
 
 
+
+  
+  
+  
 
   
   
@@ -7901,7 +7915,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 24, 2023 18:27:05 UTC">September 24, 2023</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 8, 2026 15:53:09 UTC">November 8, 2026</span>&emsp;
 
 
   Created:
@@ -7931,7 +7945,10 @@ Describe the issue of this article in detail.
           $("#previewArea").html(data + "\n" + refresh_script);
           $("#previewBtn").html("Preview (Ctrl + Enter)");
         },
-        error: function() {$("#previewArea").html("Internal error!")}
+        error: function() {
+          $("#previewArea").html('The preview could not be loaded. Wait 1 minute and try again. If it still fails, <a href="https://github.com/cp-algorithms/cp-algorithms/issues">open an issue</a>.');
+          $("#previewBtn").html("Preview (Ctrl + Enter)");
+        }
       });
     });
 
@@ -7943,7 +7960,7 @@ Describe the issue of this article in detail.
   });
 </script>
 <h1 id="article-preview">Article Preview<a class="headerlink" href="#article-preview" title="Permanent link">&para;</a></h1>
-<p><a href="contrib.html">Information for contributors</a></p>
+<p><a href="contrib.html">How to Contribute</a></p>
 <center>
 <form>
   <textarea style="width:100%;height:300px;" id="markdownInput">
@@ -7972,7 +7989,7 @@ int gcd (int a, int b) {
 
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
   <span class="contributors-text">Contributors:</span>
-  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (100.0%)</li></ul>
+  <ul class="contributors" data-bi-name="contributors"><li><a href="https://github.com/jakobkogler" title="jakobkogler" data-bi-name="contributorprofile" target="_blank">jakobkogler</a> (91.67%)</li><li><a href="https://github.com/adamant-pwn" title="adamant-pwn" data-bi-name="contributorprofile" target="_blank">adamant-pwn</a> (8.33%)</li></ul>
 </ul>
                 
               </article>

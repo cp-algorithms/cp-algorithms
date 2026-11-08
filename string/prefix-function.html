@@ -8521,10 +8521,10 @@ given a number <span class="arithmatex">$k \le 10^5$</span> and a string <span c
 We have to compute the number of occurrences of <span class="arithmatex">$s$</span> in the <span class="arithmatex">$k$</span>-th Gray string.
 Recall that Gray's strings are define in the following way:</p>
 <div class="arithmatex">$$\begin{align}
-g_1 &amp;= \text{"a"}\\
-g_2 &amp;= \text{"aba"}\\
-g_3 &amp;= \text{"abacaba"}\\
-g_4 &amp;= \text{"abacabadabacaba"}
+g_1 &amp;= \text{&quot;a&quot;}\\
+g_2 &amp;= \text{&quot;aba&quot;}\\
+g_3 &amp;= \text{&quot;abacaba&quot;}\\
+g_4 &amp;= \text{&quot;abacabadabacaba&quot;}
 \end{align}$$</div>
 <p>In such cases even constructing the string <span class="arithmatex">$t$</span> will be impossible, because of its astronomical length.
 The <span class="arithmatex">$k$</span>-th Gray string is <span class="arithmatex">$2^k-1$</span> characters long.
@@ -8548,8 +8548,8 @@ we are given a string <span class="arithmatex">$s$</span> and some patterns <spa
 it is a string of ordinary characters, and there might be some recursive insertions of the previous strings of the form <span class="arithmatex">$t_k^{\text{cnt}}$</span>, which means that at this place we have to insert the string <span class="arithmatex">$t_k$</span> <span class="arithmatex">$\text{cnt}$</span> times.
 An example of such patterns:</p>
 <div class="arithmatex">$$\begin{align}
-t_1 &amp;= \text{"abdeca"}\\
-t_2 &amp;= \text{"abc"} + t_1^{30} + \text{"abd"}\\
+t_1 &amp;= \text{&quot;abdeca&quot;}\\
+t_2 &amp;= \text{&quot;abc&quot;} + t_1^{30} + \text{&quot;abd&quot;}\\
 t_3 &amp;= t_2^{50} + t_1^{100}\\
 t_4 &amp;= t_2^{10} + t_3^{100}
 \end{align}$$</div>

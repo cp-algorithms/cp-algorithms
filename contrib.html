@@ -8169,7 +8169,7 @@ Describe the issue of this article in detail.
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 
   Last update:
-  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 7, 2025 21:57:39 UTC">May 7, 2025</span>&emsp;
+  <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 8, 2026 15:53:09 UTC">November 8, 2026</span>&emsp;
 
 
   Created:
@@ -8182,7 +8182,7 @@ Describe the issue of this article in detail.
 
 
 <h1 id="how-to-contribute">How to Contribute<a class="headerlink" href="#how-to-contribute" title="Permanent link">&para;</a></h1>
-<p>Thank you for your interest in contributing to the cp-algorithms project! Whether you want to fix a typo, improve an article, or add new content, your help is welcome. All you need is a <a href="https://github.com">GitHub account</a>. Contributions are managed through our <a href="https://github.com/cp-algorithms/cp-algorithms">GitHub repository</a>, where you can directly submit changes or propose improvements.</p>
+<p>Anyone with a <a href="https://github.com">GitHub account</a> can contribute. You can fix a typo, improve an article or add a new one. Send your changes as a pull request to the <a href="https://github.com/cp-algorithms/cp-algorithms">cp-algorithms repository</a>.</p>
 <p>The pages are compiled and published at <a href="https://cp-algorithms.com">https://cp-algorithms.com</a>.</p>
 <h2 id="steps-to-contribute">Steps to Contribute<a class="headerlink" href="#steps-to-contribute" title="Permanent link">&para;</a></h2>
 <p>Follow these steps to start contributing:</p>
@@ -8193,7 +8193,7 @@ Describe the issue of this article in detail.
 <li><strong>Preview your changes</strong> using the <a href="preview.html">preview page</a> to ensure they look correct.</li>
 <li><strong>Commit your changes</strong> by clicking the <em>Propose changes</em> button.</li>
 <li><strong>Create a Pull Request (PR)</strong> by clicking <em>Compare &amp; pull request</em>.</li>
-<li><strong>Review process</strong>: Someone from the core team will review your changes. This may take a few days to a few weeks.</li>
+<li><strong>Wait for review</strong>. A maintainer reviews each pull request. Review can take from a few days to a few weeks.</li>
 </ol>
 <h3 id="making-larger-changes">Making Larger Changes<a class="headerlink" href="#making-larger-changes" title="Permanent link">&para;</a></h3>
 <p>If you’re planning to make more significant changes, such as adding new articles or modifying multiple files:</p>
@@ -8202,7 +8202,7 @@ Describe the issue of this article in detail.
 <li><strong>Edit files locally or in the GitHub UI</strong>.</li>
 <li><strong>Submit a pull request</strong> with your updates.</li>
 </ul>
-<p>For help with this workflow, check out this helpful guide: <a href="https://opensource.guide/how-to-contribute/">Step-by-step guide to contributing on GitHub</a>.</p>
+<p>New to pull requests? Read <a href="https://opensource.guide/how-to-contribute/">How to Contribute to Open Source</a>.</p>
 <h3 id="updating-indexes">Updating Indexes<a class="headerlink" href="#updating-indexes" title="Permanent link">&para;</a></h3>
 <p>When you add new articles or reorganize existing ones, be sure to update the following files:</p>
 <ul>
@@ -8218,7 +8218,7 @@ Describe the issue of this article in detail.
 <li><strong>Tabs</strong>: Organize content with <a href="https://squidfunk.github.io/mkdocs-material/reference/content-tabs/#usage">content tabs</a>.</li>
 <li><strong>Tables</strong>: Use <a href="https://squidfunk.github.io/mkdocs-material/reference/data-tables/#usage">data tables</a> for organizing information.</li>
 </ul>
-<p>Some advanced features may not be enabled or require a paid subscription. Keep this in mind when experimenting with formatting.</p>
+<p>Not every Material for MkDocs feature is enabled on this site. Check your page in the <a href="preview.html">preview</a> before you submit it.</p>
 <h3 id="setting-the-html-title">Setting the HTML Title<a class="headerlink" href="#setting-the-html-title" title="Permanent link">&para;</a></h3>
 <p>By default, the first header (<code># header</code>) of your article will be used as the HTML title. If your header contains a formula or complex text, you can manually set the title:</p>
 <div class="highlight"><pre><span></span><code>---
@@ -8233,10 +8233,10 @@ Describe the issue of this article in detail.
 This article has been moved to a [<span class="nt">new location</span>](<span class="na">new-section/new-article.md</span>).
 </code></pre></div>
 <h3 id="maintaining-anchor-links">Maintaining Anchor Links<a class="headerlink" href="#maintaining-anchor-links" title="Permanent link">&para;</a></h3>
-<p>If you rename a section, the link to that section (<code>/article.html#old-section-title</code>) might break. To avoid this, add an anchor manually:</p>
+<p>If you rename a section, links to its old anchor (<code>/article.html#old-section-title</code>) stop working. To keep them working, add the old anchor by hand:</p>
 <div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">"old-section-title"</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </code></pre></div>
-<p>This will allow existing links to continue working even after the section title is changed.</p>
+<p>Existing links then keep working after the section title changes.</p>
 <h3 id="article-tags">Article Tags<a class="headerlink" href="#article-tags" title="Permanent link">&para;</a></h3>
 <p>We use tags to differentiate between original content and translated articles. Add the appropriate tag at the top of your article:</p>
 <ul>
@@ -8262,7 +8262,7 @@ tags:
 <h2 id="conventions">Conventions<a class="headerlink" href="#conventions" title="Permanent link">&para;</a></h2>
 <p>We follow certain conventions across the project. For example, we agreed to use the <code>\binom{n}{k}</code> notation for binomial coefficients instead of <code>C_n^k</code> as outlined in <a href="https://github.com/cp-algorithms/cp-algorithms/issues/83">issue #83</a>. The first one renders as <span class="arithmatex">$\binom{n}{k}$</span> and is a more universal convention. The second would render as <span class="arithmatex">$C_n^k$</span>.</p>
 <h2 id="adding-problems">Adding Problems<a class="headerlink" href="#adding-problems" title="Permanent link">&para;</a></h2>
-<p>When adding problems, try to arrange them by difficulty. If you're unable to, don't worry—just add the problem, and someone else can adjust the order later.</p>
+<p>Before you add a problem, check that the article's technique is a useful part of its solution. Check that the list does not already teach the same idea. Place the problem by difficulty if you can. If you cannot, add it anyway, and a maintainer can reorder the list later.</p>
 <h2 id="local-development-setup">Local Development Setup<a class="headerlink" href="#local-development-setup" title="Permanent link">&para;</a></h2>
 <p>You can preview changes locally before pushing them to GitHub. To do this:</p>
 <ol>
@@ -8282,7 +8282,7 @@ tags:
 <h3 id="optional-plugins">Optional Plugins<a class="headerlink" href="#optional-plugins" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p><strong>Git Revision Date Plugin</strong>: Disabled by default, as it produces errors when you have uncommited changes in the working tree. Can be enabled with:</p>
+<p><strong>Git Revision Date Plugin</strong>: Disabled by default, as it produces errors when you have uncommitted changes in the working tree. Can be enabled with:</p>
 <div class="highlight"><pre><span></span><code><span class="go">export MKDOCS_ENABLE_GIT_REVISION_DATE=True</span>
 </code></pre></div>
 </li>
@@ -8293,17 +8293,18 @@ tags:
 </code></pre></div>
 </li>
 </ul>
-<p>You can generate your token <a href="https://github.com/settings/tokens">here</a>. Only public access permissions are needed.</p>
+<p>Create the token in your <a href="https://github.com/settings/tokens">GitHub token settings</a>. It needs only public access permissions.</p>
 <h2 id="testing-code-snippets">Testing Code Snippets<a class="headerlink" href="#testing-code-snippets" title="Permanent link">&para;</a></h2>
-<p>If your article includes code snippets, it’s helpful to include tests to ensure that they run correctly.</p>
+<p>Each new or changed executable snippet needs a test in the <code>test</code> directory.</p>
 <ol>
 <li>Name the code snippet:
 <div class="highlight"><pre><span></span><code>```{.cpp file=snippet-name}
 // code here
 ```
 </code></pre></div></li>
-<li>Run <code>extract_snippets.py</code> from the <code>test</code> directory to extract snippets into header files. Create a test file that includes these headers and checks their behavior.</li>
-<li>You can run all tests with the <code>test.sh</code> script:
+<li>Run <code>extract_snippets.py</code> from the <code>test</code> directory. It extracts the named snippets into header files.</li>
+<li>Create a test file that includes these headers and checks their behavior.</li>
+<li>Run the C++ tests with the <code>test.sh</code> script:
     <div class="highlight"><pre><span></span><code><span class="go">cd test</span>
 <span class="go">./test.sh</span>
 </code></pre></div>
@@ -8312,9 +8313,8 @@ tags:
 Running test_balanced_brackets.cpp - Passed in 1390 ms
 Running test_burnside_tori.cpp - Passed in 378 ms
 ...
-51 PASSED in 49.00 seconds
-</code></pre></div>
-   This script will run tests and display the results.</li>
+67 PASSED in 49.00 seconds
+</code></pre></div></li>
 </ol>
 <p>Additionally, all pull requests will be automatically tested via <a href="https://github.com/cp-algorithms/cp-algorithms/actions">GitHub Actions</a>.</p>
 

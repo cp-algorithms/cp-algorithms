@@ -8806,7 +8806,7 @@ In the end we have a tree in which each inner vertex has a degree greater than o
 Therefore there are no more than <span class="arithmatex">$2n - 1$</span> vertices in such a tree.</p>
 <p>This bound of the number of states can actually be achieved for each <span class="arithmatex">$n$</span>.
 A possible string is:</p>
-<div class="arithmatex">$$\text{"abbb}\dots \text{bbb"}$$</div>
+<div class="arithmatex">$$\text{&quot;abbb}\dots \text{bbb&quot;}$$</div>
 <p>In each iteration, starting at the third one, the algorithm will split a state, resulting in exactly <span class="arithmatex">$2n - 1$</span> states.</p>
 <h3 id="number-of-transitions">Number of transitions<a class="headerlink" href="#number-of-transitions" title="Permanent link">&para;</a></h3>
 <p>The number of transitions in a suffix automaton of a string <span class="arithmatex">$s$</span> of length <span class="arithmatex">$n$</span> <strong>doesn't exceed</strong> <span class="arithmatex">$3n - 4$</span> (for <span class="arithmatex">$n \ge 3$</span>).</p>
@@ -8823,7 +8823,7 @@ Since there are only <span class="arithmatex">$n$</span> non-empty suffixes of <
 <p>Combining these two estimates gives us the bound <span class="arithmatex">$3n - 3$</span>.
 However, since the maximum number of states can only be achieved with the test case <span class="arithmatex">$\text{"abbb\dots bbb"}$</span> and this case has clearly less than <span class="arithmatex">$3n - 3$</span> transitions, we get the tighter bound of <span class="arithmatex">$3n - 4$</span> for the number of transitions in a suffix automaton.</p>
 <p>This bound can also be achieved with the string:</p>
-<div class="arithmatex">$$\text{"abbb}\dots \text{bbbc"}$$</div>
+<div class="arithmatex">$$\text{&quot;abbb}\dots \text{bbbc&quot;}$$</div>
 <h2 id="applications">Applications<a class="headerlink" href="#applications" title="Permanent link">&para;</a></h2>
 <p>Here we look at some tasks that can be solved using the suffix automaton.
 For the simplicity we assume that the alphabet size <span class="arithmatex">$k$</span> is constant, which allows us to consider the complexity of appending a character and the traversal as constant.</p>
