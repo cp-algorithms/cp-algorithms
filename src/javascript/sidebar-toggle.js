@@ -15,8 +15,12 @@
       return false;
     }
   };
-  const apply = (hidden) =>
+  const apply = (hidden) => {
     document.documentElement.classList.toggle("sidebar-hidden", hidden);
+    // Screen readers announce whether the navigation is shown.
+    document.querySelectorAll(".sidebar-toggle").forEach((button) =>
+      button.setAttribute("aria-expanded", String(!hidden)));
+  };
   const toggle = () => {
     const hidden = !document.documentElement.classList.contains("sidebar-hidden");
     apply(hidden);
@@ -36,6 +40,13 @@
       button.title = "Toggle navigation";
       button.setAttribute("aria-label", "Toggle navigation");
       button.innerHTML = icon;
+      const sidebar = document.querySelector(".md-sidebar--primary");
+      if (sidebar) {
+        sidebar.id ||= "sidebar-navigation";
+        button.setAttribute("aria-controls", sidebar.id);
+      }
+      button.setAttribute("aria-expanded",
+        String(!document.documentElement.classList.contains("sidebar-hidden")));
       button.addEventListener("click", toggle);
       title.after(button);
     }
