@@ -55,6 +55,70 @@ conventions. These instructions apply to agent-assisted contributions.
   permission or a compatible license for reused material. An image being
   publicly accessible is not permission to republish it.
 
+## Article writing
+
+Articles teach. A reader should understand why the method works and be able to
+adapt it, not only copy the code. Match the surrounding articles' style.
+These rules adapt
+[ratschlab/writing-rules TEACHING.md](https://github.com/ratschlab/writing-rules/blob/dbfd5d0c64cf9c34e2e95192043d384672de3937/TEACHING.md),
+which gives the sources behind each principle.
+
+- Open with the problem: the input, the task and the bounds that matter. Then
+  say what the method achieves and what the naive approach costs. Add history
+  after that, briefly.
+  Good: "You are given a text of length $n$ and a pattern of length
+  $m \leq n$. Find all occurrences of the pattern in the text." (#1356)
+  Avoid an opening that could start any article, such as one about how
+  important the topic is.
+- Give the central idea in one or two sentences before the details. For
+  Aho-Corasick, that is what a state of the automaton represents (#1006).
+- Develop the idea in the order a reader would explore it. Start from what we
+  want to compute or prove, try the natural approach, show briefly where it
+  falls short, and let the key idea arrive as the fix. If a step makes sense
+  only in hindsight, say why one would try it. Maintainers have asked for this
+  kind of motivation (#830, #1371, #1384).
+- Work a small concrete example before the general formula, then generalize.
+  `binary-exp.md` computes $3^{13}$ step by step before the recursion. A table
+  that traces each step is often clearer than more prose (#1384).
+- Start from what readers already know and link it. List prerequisites in one
+  line, as `knapsack.md` does. Prefer an explanation through a familiar tool,
+  such as prefix sums for substring hashes (#1356).
+- Define each term the first time it appears. Review found undefined
+  "energy", "potential" (#1371), "induced graph" and "dfs order" (#1433).
+  Use one name and one symbol per object across text, formulas and code. Do not
+  reuse $n$ or $m$ for a second meaning (#1483, #1384).
+- Say when to use the method and when not to. If you present a variant, say
+  what it gains (#1371: "But why and when would one do it?").
+- State claims exactly. Separate worst-case, expected and amortized bounds, and
+  what randomness affects: time or correctness. If a bound is unproven, say so
+  and link the source (#989). Do not imply a bound is optimal unless it is
+  known (#1280). Restrict the domain instead of hedging, for example "we
+  consider non-negative exponents" (#1602).
+- Keep a short proof inline instead of linking to an external answer (#1483).
+- Write updates as updates: $f_j \gets \max(f_j, f_{j-w_i}+v_i)$, and state the
+  loop order that makes them correct (#1280).
+- Point out the common mistake when there is one. `knapsack.md` shows that the
+  same transition run in the wrong loop direction solves a different problem,
+  and says why.
+- Use the site's notation: `\binom{n}{k}`, `\leq`, `\max`. Put key formulas in
+  display math. Keep `$...$` out of headings, because it breaks the sidebar
+  (#1306, #1371).
+- Keep the main implementation the simplest correct one. Put generalizations
+  and overflow-proof variants in a note (#1097). Write a function rather than
+  `main()` with input parsing, and name the problem-specific step (#1584).
+  Avoid pseudocode (#1608).
+- Write in a plain, neutral tone with "we". No emojis, marketing words or
+  repeated summaries. Proofread before requesting review.
+- Write in your own words. Rewording a source's ideas with credit is fine.
+  Copying its text or images without a compatible license is not (#1180, #1433).
+- Prefer targeted clarifications to a full rewrite. Rewrite only when the
+  current article fails readers in ways small edits cannot fix, and say what
+  it fails at (#1006, #1307).
+
+Before requesting review, read the article as a reader who knows the
+prerequisites but not this topic. Check that every symbol is defined, the
+example matches the code, and each claim is proved, cited or qualified.
+
 ## Tests and rendering
 
 - For new or changed executable snippets, use a named fence such as
@@ -99,9 +163,10 @@ conventions. These instructions apply to agent-assisted contributions.
 
 These rules apply to contributor-facing text: `README.md`, `CONTRIBUTING.md`,
 this file, site pages outside the articles, error messages, commit messages,
-PR descriptions and review replies. Article prose keeps its own style.
+PR descriptions and review replies. Article prose follows
+[Article writing](#article-writing) instead.
 These rules adapt
-[ratschlab/writing-rules](https://github.com/ratschlab/writing-rules/blob/5fe98632f7399e0dd1006cc20ff38f90c9bd823e/PRINCIPLES.md),
+[ratschlab/writing-rules](https://github.com/ratschlab/writing-rules/blob/dbfd5d0c64cf9c34e2e95192043d384672de3937/PRINCIPLES.md),
 which gives the sources behind each principle.
 
 - Start with the outcome or the action the reader must take. Keep the
