@@ -54,11 +54,15 @@ Describe the issue of this article in detail.
   selectattr('contribution') |
   sort(attribute='contribution',reverse=true) %}
 
-<!-- Date of last commit -->
+<!-- Dates of last and first commit -->
 <ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
 {% if page.meta.git_revision_date_localized %}
   {{ lang.t("source.file.date.updated") }}:
   {{ page.meta.git_revision_date_localized }}&emsp;
+{% endif %}
+{% if page.meta.git_creation_date_localized %}
+  {{ lang.t("source.file.date.created") }}:
+  {{ page.meta.git_creation_date_localized }}&emsp;
 {% endif %}
 <!-- Tags -->
 {% if page and page.meta and page.meta.e_maxx_link %}

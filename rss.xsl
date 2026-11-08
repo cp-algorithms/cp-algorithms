@@ -131,8 +131,8 @@ a:hover {
                     </p>
                     <div class="meta">
 
-                        <xsl:if test="author">
-    By <xsl:value-of select="author"/>
+                        <xsl:if test="managingEditor">
+    By <xsl:value-of select="managingEditor"/>
                         </xsl:if>
 
                         <xsl:if test="pubDate">
@@ -162,8 +162,8 @@ a:hover {
                         </h2>
 
                         <div class="meta">
-                            <xsl:if test="author">
-      Par <xsl:value-of select="author"/>
+                            <xsl:if test="dc:creator">
+      By <xsl:value-of select="dc:creator"/>
                             </xsl:if>
                             <xsl:if test="pubDate">
       —                                <xsl:value-of select="pubDate"/>
