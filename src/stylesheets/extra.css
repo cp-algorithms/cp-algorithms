@@ -140,10 +140,11 @@ body[dir=rtl] .metadata.page-metadata .contributors-text{
 /* Modern variant: admonitions keep the soft tint and outline icons and get a
    4px left bar in their type colour. The bar and the collapse chevron share
    one colour per type. In the light scheme it is a darker shade, so both reach
-   3:1 contrast on the tinted box (WCAG 1.4.11). Other types fall back to note. */
+   3:1 contrast on the tinted title row (WCAG 1.4.11). Other types fall back to note. */
 .md-typeset :is(.admonition, details) {
-  --cp-admonition-accent: #3580ff;
-  border-left: 4px solid var(--cp-admonition-accent);
+  --cp-admonition-accent: #2878ff;
+  --cp-admonition-tint: #448aff;
+  border-left: 4px solid var(--cp-admonition-bar, var(--cp-admonition-accent));
 }
 [data-md-color-scheme="slate"] .md-typeset :is(.admonition, details) {
   --cp-admonition-accent: #448aff;
@@ -151,18 +152,18 @@ body[dir=rtl] .metadata.page-metadata .contributors-text{
 .md-typeset :is(.admonition, details)[class] > :is(.admonition-title, summary)::after {
   color: var(--cp-admonition-accent);
 }
-.md-typeset :is(.admonition, details).note { --cp-admonition-accent: #3580ff; }
-.md-typeset :is(.admonition, details).abstract { --cp-admonition-accent: #008dcc; }
-.md-typeset :is(.admonition, details).info { --cp-admonition-accent: #0092a9; }
-.md-typeset :is(.admonition, details).tip { --cp-admonition-accent: #009682; }
-.md-typeset :is(.admonition, details).success { --cp-admonition-accent: #009a40; }
-.md-typeset :is(.admonition, details).question { --cp-admonition-accent: #469a10; }
-.md-typeset :is(.admonition, details).warning { --cp-admonition-accent: #c77100; }
-.md-typeset :is(.admonition, details).failure { --cp-admonition-accent: #ff2c2c; }
-.md-typeset :is(.admonition, details).danger { --cp-admonition-accent: #ff1442; }
-.md-typeset :is(.admonition, details).bug { --cp-admonition-accent: #f50057; }
-.md-typeset :is(.admonition, details).example { --cp-admonition-accent: #7c4dff; }
-.md-typeset :is(.admonition, details).quote { --cp-admonition-accent: #868686; }
+.md-typeset :is(.admonition, details).note { --cp-admonition-accent: #2878ff; --cp-admonition-tint: #448aff; }
+.md-typeset :is(.admonition, details).abstract { --cp-admonition-accent: #0089c7; --cp-admonition-tint: #00b0ff; }
+.md-typeset :is(.admonition, details).info { --cp-admonition-accent: #008ea4; --cp-admonition-tint: #00b8d4; }
+.md-typeset :is(.admonition, details).tip { --cp-admonition-accent: #00917d; --cp-admonition-tint: #00bfa5; }
+.md-typeset :is(.admonition, details).success { --cp-admonition-accent: #00953e; --cp-admonition-tint: #00c853; }
+.md-typeset :is(.admonition, details).question { --cp-admonition-accent: #449510; --cp-admonition-tint: #64dd17; }
+.md-typeset :is(.admonition, details).warning { --cp-admonition-accent: #bf6d00; --cp-admonition-tint: #ff9100; }
+.md-typeset :is(.admonition, details).failure { --cp-admonition-accent: #fd0000; --cp-admonition-tint: #ff5252; }
+.md-typeset :is(.admonition, details).danger { --cp-admonition-accent: #f2002f; --cp-admonition-tint: #ff1744; }
+.md-typeset :is(.admonition, details).bug { --cp-admonition-accent: #ed0054; --cp-admonition-tint: #f50057; }
+.md-typeset :is(.admonition, details).example { --cp-admonition-accent: #7c4dff; --cp-admonition-tint: #7c4dff; }
+.md-typeset :is(.admonition, details).quote { --cp-admonition-accent: #828282; --cp-admonition-tint: #9e9e9e; }
 [data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).note { --cp-admonition-accent: #448aff; }
 [data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).abstract { --cp-admonition-accent: #00b0ff; }
 [data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).info { --cp-admonition-accent: #00b8d4; }
@@ -175,3 +176,69 @@ body[dir=rtl] .metadata.page-metadata .contributors-text{
 [data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).bug { --cp-admonition-accent: #f50057; }
 [data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).example { --cp-admonition-accent: #7c4dff; }
 [data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).quote { --cp-admonition-accent: #9e9e9e; }
+
+/* Admonition title rows span the full box width, so a tint or a divider
+   reads as a header row. The box has .8rem side padding. */
+.md-typeset :is(.admonition, details) > :is(.admonition-title, summary) {
+  margin: 0 -.8rem .6rem;
+  padding-top: .4rem;
+  padding-bottom: .4rem;
+  border-start-end-radius: .4rem;
+}
+.md-typeset details:not([open]) > :is(.admonition-title, summary) {
+  margin-bottom: 0;
+  border-end-end-radius: .4rem;
+}
+[dir=ltr] .md-typeset :is(.admonition, details) > :is(.admonition-title, summary) {
+  padding-left: 2.4rem;
+  padding-right: 2.4rem;
+}
+[dir=rtl] .md-typeset :is(.admonition, details) > :is(.admonition-title, summary) {
+  padding-right: 2.4rem;
+  padding-left: 2.4rem;
+}
+.md-typeset :is(.admonition, details) > :is(.admonition-title, summary)::before,
+.md-typeset details > summary::after {
+  top: calc(.4rem + .125em);
+}
+[dir=ltr] .md-typeset :is(.admonition, details) > :is(.admonition-title, summary)::before,
+[dir=rtl] .md-typeset details > summary::after {
+  left: .8rem;
+}
+[dir=rtl] .md-typeset :is(.admonition, details) > :is(.admonition-title, summary)::before,
+[dir=ltr] .md-typeset details > summary::after {
+  right: .8rem;
+}
+/* Variant A: the title row is one step more tinted than the body. */
+.md-typeset :is(.admonition, details) > :is(.admonition-title, summary) {
+  background-color: color-mix(in srgb, var(--cp-admonition-tint) 8%, transparent);
+}
+
+/* The bar uses a calmer shade of each type colour: 70% of its chroma,
+   with the lightness kept so it still reaches 3:1 on the title row. */
+.md-typeset :is(.admonition, details) { --cp-admonition-bar: #497fda; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details) { --cp-admonition-bar: #5e8ede; }
+.md-typeset :is(.admonition, details).note { --cp-admonition-bar: #497fda; }
+.md-typeset :is(.admonition, details).abstract { --cp-admonition-bar: #4488b2; }
+.md-typeset :is(.admonition, details).info { --cp-admonition-bar: #458a99; }
+.md-typeset :is(.admonition, details).tip { --cp-admonition-bar: #448b7d; }
+.md-typeset :is(.admonition, details).success { --cp-admonition-bar: #448e54; }
+.md-typeset :is(.admonition, details).question { --cp-admonition-bar: #5a8f43; }
+.md-typeset :is(.admonition, details).warning { --cp-admonition-bar: #af7642; }
+.md-typeset :is(.admonition, details).failure { --cp-admonition-bar: #df5142; }
+.md-typeset :is(.admonition, details).danger { --cp-admonition-bar: #d54d4d; }
+.md-typeset :is(.admonition, details).bug { --cp-admonition-bar: #d14c62; }
+.md-typeset :is(.admonition, details).example { --cp-admonition-bar: #7863d8; }
+.md-typeset :is(.admonition, details).quote { --cp-admonition-bar: #828282; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).note { --cp-admonition-bar: #5e8ede; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).abstract { --cp-admonition-bar: #5aaee5; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).info { --cp-admonition-bar: #5bb3c6; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).tip { --cp-admonition-bar: #5cb8a5; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).success { --cp-admonition-bar: #5dbf71; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).question { --cp-admonition-bar: #85d565; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).warning { --cp-admonition-bar: #e99d5a; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).failure { --cp-admonition-bar: #e46f69; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).danger { --cp-admonition-bar: #e1555c; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).bug { --cp-admonition-bar: #d84f66; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).example { --cp-admonition-bar: #7863d8; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).quote { --cp-admonition-bar: #9e9e9e; }
