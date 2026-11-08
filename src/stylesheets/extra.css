@@ -90,3 +90,19 @@ body[dir=rtl] .metadata.page-metadata .contributors-text{
   border-color: #665c1e;
   color: #fff7b3;
 }
+
+/* Sidebar toggle button (javascript/sidebar-toggle.js). The drawer
+   hamburger takes over below the width where the sidebar is shown. */
+.md-header__button.sidebar-toggle {
+  cursor: pointer;
+}
+@media screen and (max-width: 76.1875em) {
+  .md-header__button.sidebar-toggle {
+    display: none;
+  }
+}
+@media screen and (min-width: 76.25em) {
+  .sidebar-hidden .md-sidebar--primary {
+    display: none;
+  }
+}
