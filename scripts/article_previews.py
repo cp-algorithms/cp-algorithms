@@ -73,6 +73,8 @@ def write_registry(site, entries):
 
 
 def remove_pages(site, entry, number):
+    if str(number) != "main":
+        (site / str(number) / SEARCH_INDEX).unlink(missing_ok=True)
     for article in entry.get("pages", {}):
         path = site / preview_path(article, number)
         path.unlink(missing_ok=True)
@@ -179,7 +181,7 @@ def review_index(number, pages, changed, shared, main_pages, main_prefix, revisi
         if not navigation_only:
             content += f'<details><summary>All other page previews ({len(remaining)})</summary>{table(remaining)}</details>'
     if pages:
-        content += '<p>Links to unchanged articles and search results open the Main preview.</p>'
+        content += '<p>Links to unchanged articles open the Main preview.</p>'
     document = (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         '<meta name="robots" content="noindex"><meta name="viewport" content="width=device-width, initial-scale=1">'
@@ -193,8 +195,28 @@ def review_index(number, pages, changed, shared, main_pages, main_prefix, revisi
     return document, summary
 
 
+def preview_search_index(raw, pages):
+    """Return a PR's search index with locations relative to its preview root.
+
+    Search links each result to the index location resolved against the
+    page's base URL. A PR preview uses its own root as that base, so changed
+    pages stay in the PR and unchanged pages point to the Main preview.
+    """
+    data = json.loads(raw)
+    for item in data.get("items", data.get("docs", [])):
+        if not isinstance(item, dict) or "location" not in item:
+            continue
+        location = item["location"]
+        page = location.partition("#")[0] or "index.html"
+        if page.endswith("/"):
+            page += "index.html"
+        if page not in pages:
+            item["location"] = "../main/" + location
+    return json.dumps(data, ensure_ascii=False).encode()
+
+
 def asset_files(files):
-    # Search uses the Main preview. Feeds and sitemaps are not assets:
+    # Search indexes are published per version. Feeds and sitemaps are not assets:
     # their timestamps would otherwise invalidate a bundle on every build.
     return {
         name: path for name, path in files.items()
@@ -212,7 +234,7 @@ def asset_digest(assets):
     return digest.hexdigest()
 
 
-def rewrite_page(source, article, pages, assets, bundle, number, main_prefix, has_main, prefix="/"):
+def rewrite_page(source, article, pages, assets, bundle, number, main_prefix, has_main, prefix="/", search_base=None):
     from bs4 import BeautifulSoup
 
     soup = BeautifulSoup(source, "html.parser")
@@ -266,8 +288,9 @@ def rewrite_page(source, article, pages, assets, bundle, number, main_prefix, ha
     config = soup.find("script", id="__config")
     if config and config.string:
         settings = json.loads(config.string)
-        # Material resolves the search index relative to this directory URL.
-        settings["base"] = main_prefix
+        # Search loads its index and resolves result links relative to this
+        # directory URL: the Main preview, or the PR root with its own index.
+        settings["base"] = search_base or main_prefix
         if settings.get("search"):
             settings["search"] = rewrite(settings["search"])
         config.string = json.dumps(settings)
@@ -334,15 +357,24 @@ def publish(build, site, number, changed, revision="", site_url="", production_u
     )
     assets = asset_files(files) if pages else {}
     bundle = asset_digest(assets) if assets else None
+    search_index = (build / SEARCH_INDEX).read_bytes() if is_main else None
+    # A PR whose search index differs from Main's gets its own copy, so
+    # search finds the PR's text. Otherwise its pages search the Main preview.
+    pr_search_index = None
+    if pages and not is_main and SEARCH_INDEX in files:
+        raw = files[SEARCH_INDEX].read_bytes()
+        published = site / "main" / SEARCH_INDEX
+        if not published.is_file() or published.read_bytes() != raw:
+            pr_search_index = preview_search_index(raw, set(pages))
+    search_base = url(str(number), prefix) + "/" if pr_search_index else None
     # Parse and rewrite all pages before replacing an earlier preview.
     rendered = {
         article: rewrite_page(
             files[article].read_text(), article, pages, assets, bundle, number, main_prefix,
-            article in main_pages, prefix,
+            article in main_pages, prefix, search_base,
         )
         for article in selected
     }
-    search_index = (build / SEARCH_INDEX).read_bytes() if is_main else None
     if str(number) in entries:
         remove_pages(site, entries[str(number)], number)
     if bundle:
@@ -356,6 +388,8 @@ def publish(build, site, number, changed, revision="", site_url="", production_u
         target = site / preview_path(article, number)
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(content)
+    if pr_search_index:
+        (site / str(number) / SEARCH_INDEX).write_bytes(pr_search_index)
     entries[str(number)] = {"pages": pages, "assets": bundle}
     write_registry(site, entries)
     (site / ".nojekyll").touch()

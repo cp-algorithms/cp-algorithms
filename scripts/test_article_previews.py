@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from urllib.parse import urljoin, urlsplit
 
 from bs4 import BeautifulSoup
 
@@ -53,6 +54,8 @@ class ArticlePreviewsTest(unittest.TestCase):
             path = self.site / name
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text("production " + name)
+        # By default the PR build has the same search index as Main.
+        (self.site / "main/search.json").write_text('{"docs": []}')
         self.production = snapshot(self.site)
 
     def publish(self, number=123, changed=None):
@@ -75,6 +78,7 @@ class ArticlePreviewsTest(unittest.TestCase):
         self.assertTrue((self.site / soup.img["src"].lstrip("/")).is_file())
         config = json.loads(soup.find("script", id="__config").string)
         self.assertEqual(config["base"], "/main/")
+        self.assertFalse((self.site / "123/search.json").exists())
         self.assertEqual(config["search"], f"/preview/assets/{bundle}/assets/worker.js")
         self.assertEqual(soup.code.get_text(), "int x = 1;")
         self.assertEqual(soup.find(class_="arithmatex").get_text(), "$x^2$")
@@ -238,6 +242,48 @@ class ArticlePreviewsTest(unittest.TestCase):
         self.assertEqual(snapshot(self.site), before)
         for name, digest in self.production.items():
             self.assertEqual(snapshot(self.site)[name], digest)
+
+    def test_pr_with_a_different_search_index_searches_its_own_copy(self):
+        index = {"config": {}, "items": [
+            {"location": "algebra/a.html", "title": "A"},
+            {"location": "algebra/a.html#proof", "title": "Proof"},
+            {"location": "graph/c.html#intro", "title": "C"},
+            {"location": "", "title": "Home"},
+        ]}
+        (self.build / "search.json").write_text(json.dumps(index))
+        self.publish()
+        published = json.loads((self.site / "123/search.json").read_text())
+        self.assertEqual([item["location"] for item in published["items"]], [
+            "algebra/a.html", "algebra/a.html#proof", "../main/graph/c.html#intro", "../main/",
+        ])
+        soup = BeautifulSoup((self.site / "123/algebra/a.html").read_text(), "html.parser")
+        self.assertEqual(json.loads(soup.find("script", id="__config").string)["base"], "/123/")
+        # Search resolves each location against the base, as the theme does.
+        resolved = [urljoin("https://preview.example/123/", "./" + item["location"]) for item in published["items"]]
+        self.assertEqual(resolved[2], "https://preview.example/main/graph/c.html#intro")
+        self.assertEqual(resolved[3], "https://preview.example/main/")
+        self.assertTrue((self.site / "123" / urlsplit(resolved[0]).path.split("/123/")[1]).is_file())
+
+        # Once the index matches Main again, the PR copy goes away.
+        (self.site / "main/search.json").write_text(json.dumps(index))
+        self.publish()
+        self.assertFalse((self.site / "123/search.json").exists())
+        soup = BeautifulSoup((self.site / "123/algebra/a.html").read_text(), "html.parser")
+        self.assertEqual(json.loads(soup.find("script", id="__config").string)["base"], "/main/")
+
+        (self.site / "main/search.json").unlink()
+        self.publish()
+        self.assertTrue((self.site / "123/search.json").exists())
+        previews.remove(self.site, 123)
+        self.assertFalse((self.site / "123").exists())
+
+    def test_project_site_pr_search_index_uses_the_project_prefix(self):
+        previews.publish(self.build, self.site, "main", [], site_url="https://example.github.io/project/")
+        (self.build / "search.json").write_text('{"docs": [{"location": "graph/c.html"}]}')
+        previews.publish(self.build, self.site, 123, ["src/algebra/a.md"], site_url="https://example.github.io/project/")
+        soup = BeautifulSoup((self.site / "123/algebra/a.html").read_text(), "html.parser")
+        self.assertEqual(json.loads(soup.find("script", id="__config").string)["base"], "/project/123/")
+        self.assertEqual(json.loads((self.site / "123/search.json").read_text())["docs"][0]["location"], "../main/graph/c.html")
 
     def test_main_preview_shares_assets_and_survives_pr_cleanup(self):
         templates = self.build / "overrides/main.html"
