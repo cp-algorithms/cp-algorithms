@@ -138,9 +138,16 @@ body[dir=rtl] .metadata.page-metadata .contributors-text{
 }
 
 /* Modern variant: admonitions keep the soft tint and outline icons and get a
-   4px left bar in their type colour. The bar and the collapse chevron share
-   one colour per type. In the light scheme it is a darker shade, so both reach
-   3:1 contrast on the tinted title row (WCAG 1.4.11). Other types fall back to note. */
+   4px left bar. Each type sets three colours:
+   - --cp-admonition-tint: the type colour, used for the title row tint.
+   - --cp-admonition-accent: the collapse chevron. In the light scheme it
+     is a darker shade of the type colour, so it reaches 3:1 contrast on the
+     tinted title row (WCAG 1.4.11). The dark scheme uses the type colour.
+   - --cp-admonition-bar: the left bar, a muted shade defined further down.
+     It falls back to the accent.
+   Contrast is measured against the title row: the type colour at 10% over
+   the page, plus 8% more for the title row. Types without their own colours
+   use note's. */
 .md-typeset :is(.admonition, details) {
   --cp-admonition-accent: #2878ff;
   --cp-admonition-tint: #448aff;
@@ -214,8 +221,9 @@ body[dir=rtl] .metadata.page-metadata .contributors-text{
   background-color: color-mix(in srgb, var(--cp-admonition-tint) 8%, transparent);
 }
 
-/* The bar uses a calmer shade of each type colour: 70% of its chroma,
-   with the lightness kept so it still reaches 3:1 on the title row. */
+/* The bar uses a muted shade of each type colour: 70% of its chroma in
+   OKLCH, with the lightness adjusted so it still reaches 3:1 against the
+   title row, where its contrast is lowest in both schemes. */
 .md-typeset :is(.admonition, details) { --cp-admonition-bar: #497fda; }
 [data-md-color-scheme="slate"] .md-typeset :is(.admonition, details) { --cp-admonition-bar: #5e8ede; }
 .md-typeset :is(.admonition, details).note { --cp-admonition-bar: #497fda; }
