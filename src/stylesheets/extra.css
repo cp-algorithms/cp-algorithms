@@ -106,3 +106,72 @@ body[dir=rtl] .metadata.page-metadata .contributors-text{
     display: none;
   }
 }
+
+/* Modern variant: keep the purple header and plain tag pills. */
+.md-header {
+  color: var(--md-primary-bg-color);
+  background-color: var(--md-primary-fg-color);
+}
+.md-typeset a.md-tag {
+  text-decoration: none;
+}
+
+/* Modern variant: a translucent search field that fits the purple header. */
+.md-header .md-search__button,
+.md-header .md-search__button:focus,
+.md-header .md-search__button:hover {
+  color: var(--md-primary-bg-color);
+}
+.md-header .md-search__button {
+  background-color: rgb(255 255 255 / 15%);
+}
+.md-header .md-search__button:focus,
+.md-header .md-search__button:hover {
+  background-color: rgb(255 255 255 / 25%);
+}
+.md-header .md-search__button::before {
+  background-color: var(--md-primary-bg-color);
+}
+.md-header .md-search__button::after {
+  color: var(--md-primary-bg-color);
+  background: rgb(255 255 255 / 15%);
+}
+
+/* Modern variant: admonitions keep the soft tint and outline icons and get a
+   4px left bar in their type colour. The bar and the collapse chevron share
+   one colour per type. In the light scheme it is a darker shade, so both reach
+   3:1 contrast on the tinted box (WCAG 1.4.11). Other types fall back to note. */
+.md-typeset :is(.admonition, details) {
+  --cp-admonition-accent: #3580ff;
+  border-left: 4px solid var(--cp-admonition-accent);
+}
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details) {
+  --cp-admonition-accent: #448aff;
+}
+.md-typeset :is(.admonition, details)[class] > :is(.admonition-title, summary)::after {
+  color: var(--cp-admonition-accent);
+}
+.md-typeset :is(.admonition, details).note { --cp-admonition-accent: #3580ff; }
+.md-typeset :is(.admonition, details).abstract { --cp-admonition-accent: #008dcc; }
+.md-typeset :is(.admonition, details).info { --cp-admonition-accent: #0092a9; }
+.md-typeset :is(.admonition, details).tip { --cp-admonition-accent: #009682; }
+.md-typeset :is(.admonition, details).success { --cp-admonition-accent: #009a40; }
+.md-typeset :is(.admonition, details).question { --cp-admonition-accent: #469a10; }
+.md-typeset :is(.admonition, details).warning { --cp-admonition-accent: #c77100; }
+.md-typeset :is(.admonition, details).failure { --cp-admonition-accent: #ff2c2c; }
+.md-typeset :is(.admonition, details).danger { --cp-admonition-accent: #ff1442; }
+.md-typeset :is(.admonition, details).bug { --cp-admonition-accent: #f50057; }
+.md-typeset :is(.admonition, details).example { --cp-admonition-accent: #7c4dff; }
+.md-typeset :is(.admonition, details).quote { --cp-admonition-accent: #868686; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).note { --cp-admonition-accent: #448aff; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).abstract { --cp-admonition-accent: #00b0ff; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).info { --cp-admonition-accent: #00b8d4; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).tip { --cp-admonition-accent: #00bfa5; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).success { --cp-admonition-accent: #00c853; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).question { --cp-admonition-accent: #64dd17; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).warning { --cp-admonition-accent: #ff9100; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).failure { --cp-admonition-accent: #ff5252; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).danger { --cp-admonition-accent: #ff1744; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).bug { --cp-admonition-accent: #f50057; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).example { --cp-admonition-accent: #7c4dff; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).quote { --cp-admonition-accent: #9e9e9e; }

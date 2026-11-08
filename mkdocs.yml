@@ -6,7 +6,6 @@ site_dir: public
 use_directory_urls: false
 theme:
   name: material
-  variant: classic
   custom_dir: src/overrides
   palette:
     - scheme: cpalgo
