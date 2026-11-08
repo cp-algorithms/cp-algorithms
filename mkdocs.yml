@@ -63,12 +63,13 @@ plugins:
   - mkdocs-simple-hooks:
       hooks:
           on_env: "hooks:on_env"
+          on_config: "hooks:on_config"
   - search
   - tags
   - literate-nav:
       nav_file: navigation.md
   - git-revision-date-localized:
-      enable_creation_date: false
+      enable_creation_date: true
       enabled: !ENV [MKDOCS_ENABLE_GIT_REVISION_DATE, False]
   - git-authors
   - git-committers:
