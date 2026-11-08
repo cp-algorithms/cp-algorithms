@@ -17,7 +17,7 @@
           $("#previewBtn").html("Preview (Ctrl + Enter)");
         },
         error: function() {
-          $("#previewArea").html('The preview service did not respond. Wait 1 minute and try again. If it still fails, <a href="https://github.com/cp-algorithms/cp-algorithms/issues">open an issue</a>.');
+          $("#previewArea").html('The preview could not be loaded. Wait 1 minute and try again. If it still fails, <a href="https://github.com/cp-algorithms/cp-algorithms/issues">open an issue</a>.');
           $("#previewBtn").html("Preview (Ctrl + Enter)");
         }
       });

@@ -19,7 +19,7 @@ Follow these steps to start contributing:
 4. **Preview your changes** using the [preview page](preview.md) to ensure they look correct.
 5. **Commit your changes** by clicking the _Propose changes_ button.
 6. **Create a Pull Request (PR)** by clicking _Compare & pull request_.
-7. **Wait for review**. A maintainer reviews each pull request. Reviews take from a few days to a few weeks.
+7. **Wait for review**. A maintainer reviews each pull request. Review can take from a few days to a few weeks.
 
 ### Making Larger Changes
 
@@ -152,7 +152,7 @@ You can preview changes locally before pushing them to GitHub. To do this:
 
 ## Testing Code Snippets
 
-Each new or changed code snippet needs a test in the `test` directory.
+Each new or changed C++ snippet needs a test in the `test` directory.
 
 1. Name the code snippet:
 ````

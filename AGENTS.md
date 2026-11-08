@@ -99,25 +99,30 @@ conventions. These instructions apply to agent-assisted contributions.
 
 These rules apply to contributor-facing text: `README.md`, `CONTRIBUTING.md`,
 this file, site pages outside the articles, error messages, commit messages,
-PR descriptions and review replies. Article prose may keep longer sentences and
-semicolons where they help the explanation.
+PR descriptions and review replies. Article prose keeps its own style.
+These rules adapt
+[ratschlab/writing-rules](https://github.com/ratschlab/writing-rules/blob/5fe98632f7399e0dd1006cc20ff38f90c9bd823e/PRINCIPLES.md),
+which gives the sources behind each principle.
 
-- Write one idea per sentence. Do not use semicolons, em dashes between
-  clauses, or more than one colon in a sentence.
-- Aim for 20 words per sentence. Split any sentence over 30 words.
-- Start with the outcome or the action the reader must take. An error message
-  says what happened, why, and what to do next.
-- Say who acts. Use "we" only where the page has said who "we" is.
-- Write numbers as digits. Use "may" for permission, not for possibility.
-- Keep a paragraph to 5 sentences or fewer. Make three or more parallel items a
-  list, and start each item with its key word.
-- Write headings as statements that name the topic.
+- Start with the outcome or the action the reader must take. Keep the
+  prerequisites, consequences and limits that affect a decision.
+- Keep facts and uncertainty accurate. Check every count, path, command and
+  workflow name against the repository. Keep "may" or "might" where the outcome
+  is really uncertain.
+- An error message names the problem and a next step. Give the cause only when
+  it is known.
+- Say who acts when responsibility matters.
+- Make headings, labels and link text name their topic or destination. Never
+  use "here" as link text. Use one name for each thing, and match labels on the
+  site and on GitHub exactly.
+- Make three or more parallel items a list. Number the steps of a procedure.
 - Put what most readers need first. Move rare setup and background to a later
   section or a link.
-- Make link text name the destination. Never use "here" as link text.
-- Use one name for each thing. Match labels on the site and on GitHub exactly.
-- Keep every count, path, command and workflow name in the text in sync with
-  the repository.
+- House style: one idea per sentence, no semicolons, and numbers as digits. Aim
+  for about 20 words per sentence and at most 5 sentences per paragraph. Treat
+  these as prompts for review. Never change the meaning to meet them.
+- Before checking style, read the text as its reader. Check that they can find
+  the point and take the right action.
 
 ## Communicating with maintainers
 
@@ -131,6 +136,10 @@ semicolons where they help the explanation.
 - Use simple, natural language. Omit generic praise, repeated summaries,
   implementation inventories, internal task history, and bulky logs. Keep
   explanatory detail in the article or linked supporting material.
+- Write a commit subject that describes the change on its own. Use the body for
+  the motivation and constraints that the diff does not show.
+- Report a suspected vulnerability through the private route in `SECURITY.md`.
+  Keep its details out of public issues, PRs and comments.
 - Reply in the relevant review thread. State what changed, or give a concise
   technical reason for disagreeing. Check the latest code before saying an
   issue is fixed. Do not repeatedly ping maintainers without new information.
