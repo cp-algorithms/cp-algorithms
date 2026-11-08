@@ -63,6 +63,7 @@ plugins:
   - mkdocs-simple-hooks:
       hooks:
           on_env: "hooks:on_env"
+          on_config: "hooks:on_config"
   - search
   - tags
   - literate-nav:
