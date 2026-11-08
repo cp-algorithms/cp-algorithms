@@ -70,8 +70,10 @@ which gives the sources behind each principle.
   $m \leq n$. Find all occurrences of the pattern in the text." (#1356)
   Avoid an opening that could start any article, such as one about how
   important the topic is.
-- Give the central idea in one or two sentences before the details. For
-  Aho-Corasick, that is what a state of the automaton represents (#1006).
+- Before the details, say in one or two sentences what the article builds
+  and where the exploration leads, so readers know the goal and experts can
+  find the result quickly. For Aho-Corasick, that is what a state of the
+  automaton represents (#1006).
 - Develop the idea in the order a reader would explore it. Start from what we
   want to compute or prove, try the natural approach, show briefly where it
   falls short, and let the key idea arrive as the fix. If a step makes sense
