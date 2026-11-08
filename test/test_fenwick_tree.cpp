@@ -21,7 +21,7 @@ void test_fenwick_sum() {
     using namespace Fenwick_Sum;
     vector<int> a = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     int n = a.size();
-    FenwickTree tree(a);
+    FenwickTreeZeroBasedIndexing tree(a);
     for (int i = 0; i < n; i++) {
         int expected_sum = 0;
         for (int j = i; j < n; j++) {
@@ -68,7 +68,7 @@ void test_fenwick_sum_onebased() {
     using namespace Fenwick_Sum_Onebased;
     vector<int> a = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     int n = a.size();
-    FenwickTreeOneBasedIndexing tree(a);
+    FenwickTree tree(a);
     for (int i = 0; i < n; i++) {
         int expected_sum = 0;
         for (int j = i; j < n; j++) {
