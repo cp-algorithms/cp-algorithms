@@ -160,7 +160,7 @@ vector<tuple<long long, int, int>> manhattan_mst_edges(vector<point> ps) {
         sort(ids.begin(), ids.end(), [&](int i, int j){
             return (ps[i].x + ps[i].y) < (ps[j].x + ps[j].y);
         });
-        map<int, int, greater<int>> active; // (xs, id)
+        map<long long, int, greater<long long>> active; // (xs, id)
         for (auto i : ids) {
             for (auto it = active.lower_bound(ps[i].x); it != active.end();
             active.erase(it++)) {

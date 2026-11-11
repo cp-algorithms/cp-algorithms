@@ -104,7 +104,7 @@ double mindist;
 pair<int, int> best_pair;
  
 void upd_ans(const pt & a, const pt & b) {
-    double dist = sqrt((a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y));
+    double dist = hypot(double(a.x) - b.x, double(a.y) - b.y);
     if (dist < mindist) {
         mindist = dist;
         best_pair = {a.id, b.id};
@@ -142,8 +142,8 @@ void rec(int l, int r) {
 
     int tsz = 0;
     for (int i = l; i < r; ++i) {
-        if (abs(a[i].x - midx) < mindist) {
-            for (int j = tsz - 1; j >= 0 && a[i].y - t[j].y < mindist; --j)
+        if (abs(double(a[i].x) - midx) < mindist) {
+            for (int j = tsz - 1; j >= 0 && double(a[i].y) - t[j].y < mindist; --j)
                 upd_ans(a[i], t[j]);
             t[tsz++] = a[i];
         }
