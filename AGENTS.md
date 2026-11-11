@@ -103,8 +103,9 @@ which gives the sources behind each principle.
   same transition run in the wrong loop direction solves a different problem,
   and says why.
 - Use the site's notation: `\binom{n}{k}`, `\leq`, `\max`. Put key formulas in
-  display math. Keep `$...$` out of headings, because it breaks the sidebar
-  (#1306, #1371).
+  display math. Math in headings also renders in the sidebar. Use
+  `data-toc-label` only to shorten a heading or drop a link from it, and write
+  the label as plain text.
 - Keep the main implementation the simplest correct one. Put generalizations
   and overflow-proof variants in a note (#1097). Write a function rather than
   `main()` with input parsing, and name the problem-specific step (#1584).

@@ -201,7 +201,7 @@ int find_all_solutions(int a, int b, int c, int minx, int maxx, int miny, int ma
 
 Once we have $l_x$ and $r_x$, it is also simple to enumerate through all the solutions. Just need to iterate through $x = l_x + k \cdot \frac{b}{g}$ for all $k \ge 0$ until $x = r_x$, and find the corresponding $y$ values using the equation $a x + b y = c$.
 
-## Find the solution with minimum value of $x + y$ { data-toc-label='Find the solution with minimum value of <script type="math/tex">x + y</script>' }
+## Find the solution with minimum value of $x + y$
 
 Here, $x$ and $y$ also need to be given some restriction, otherwise, the answer may become negative infinity.
 
