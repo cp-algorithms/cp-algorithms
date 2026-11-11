@@ -77,7 +77,7 @@ The encoding of an integer $n$ can be done with a simple greedy algorithm:
 To decode a code word, first remove the final $1$. Then, if the $i$-th bit is set (indexing from 0 from the leftmost to the rightmost bit), sum $F_{i+2}$ to the number.
 
 
-## Formulas for the $n^{\text{th}}$ Fibonacci number { data-toc-label="Formulas for the <script type='math/tex'>n</script>-th Fibonacci number" }
+## Formulas for the $n^{\text{th}}$ Fibonacci number
 
 ### Closed-form expression
 

@@ -129,7 +129,7 @@ the transition from $F_i$ and $F_{i+1}$ to $F_{i+1}$ and $F_{i+2}$.
 For example, applying this transformation to the pair $F_0$ and $F_1$ would change it into $F_1$ and $F_2$.
 Therefore, we can raise this transformation matrix to the $n$-th power to find $F_n$ in time complexity $O(\log n)$.
 
-### Applying a permutation $k$ times { data-toc-label='Applying a permutation <script type="math/tex">k</script> times' }
+### Applying a permutation $k$ times
 
 **Problem:** You are given a sequence of length $n$. Apply to it a given permutation $k$ times.
 
@@ -222,7 +222,7 @@ $$\begin{pmatrix}
 Now, once every transformation is described as a matrix, the sequence of transformations can be described as a product of these matrices, and a "loop" of $k$ repetitions can be described as the matrix raised to the power of $k$ (which can be calculated using binary exponentiation in $O(\log{k})$). This way, the matrix which represents all transformations can be calculated first in $O(m \log{k})$, and then it can be applied to each of the $n$ points in $O(n)$ for a total complexity of $O(n + m \log{k})$.
 
 
-### Number of paths of length $k$ in a graph { data-toc-label='Number of paths of length <script type="math/tex">k</script> in a graph' }
+### Number of paths of length $k$ in a graph
 
 **Problem:** Given a directed unweighted graph of $n$ vertices, find the number of paths of length $k$ from any vertex $u$ to any other vertex $v$.
 
@@ -233,7 +233,7 @@ Instead of the usual operation of multiplying two matrices, a modified one shoul
 instead of multiplication, both values are added, and instead of a summation, a minimum is taken.
 That is: $result_{ij} = \min\limits_{1\ \leq\ k\ \leq\ n}(a_{ik} + b_{kj})$.
 
-### Variation of binary exponentiation: multiplying two numbers modulo $m$ { data-toc-label='Variation of binary exponentiation: multiplying two numbers modulo <script type="math/tex">m</script>' }
+### Variation of binary exponentiation: multiplying two numbers modulo $m$
 
 **Problem:** Multiply two numbers $a$ and $b$ modulo $m$. $a$ and $b$ fit in the built-in data types, but their product is too big to fit in a 64-bit integer. The idea is to compute $a \cdot b \pmod m$ without using bignum arithmetics.
 
