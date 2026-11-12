@@ -93,6 +93,28 @@ However, its redeeming quality is that this algorithm calculates an array $lp []
 
 Knowing the factorizations of all numbers is very useful for some tasks, and this algorithm is one of the few which allow to find them in linear time.
 
+If only the primes are needed, $lp []$ can be replaced by a boolean array.
+The check `pr[j] == lp[i]` then becomes `i % pr[j] == 0`, which is the same thing, since the primes are tried in increasing order and the first one that divides $i$ is $lp [i]$:
+
+```cpp
+const int N = 10000000;
+vector<bool> is_composite(N+1);
+vector<int> pr;
+
+for (int i=2; i <= N; ++i) {
+	if (!is_composite[i])
+		pr.push_back(i);
+	for (int j = 0; i * pr[j] <= N; ++j) {
+		is_composite[i * pr[j]] = true;
+		if (i % pr[j] == 0)
+			break;
+	}
+}
+```
+
+The marker array takes only $n$ bits, like in the classic sieve of Eratosthenes, and $pr []$ still adds about $\frac n {\ln n}$ integers on top of that.
+Despite the division in the inner loop, it is usually not slower than the version with $lp []$, as the much smaller array is friendlier to the cache.
+
 ## References
 
 - Paul Pritchard, **Linear Prime-Number Sieves: a Family Tree**, Science of Computer Programming, vol. 9 (1987), pp.17-35.
