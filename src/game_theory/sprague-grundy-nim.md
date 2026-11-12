@@ -102,14 +102,14 @@ Moreover, when analyzing a Nim with several piles, we can replace it with a sing
 
 ### Misère Game
 
-In a **misère game**, the goal of the game is opposite, so the player who removes the last stick loses the game.
+In a **misère game**, the goal of the game is opposite, so the player who removes the last stone loses the game.
 It turns out that the misère nim game can be optimally played almost like a standard nim game.
  The idea is to first play the misère game like the standard game, but change the strategy at the end of the game.
- The new strategy will be introduced in a situation where each heap would contain at most one stick after the next move.
-In the standard game, we should choose a move after which there is an even number of heaps with one stick. However, in 
-the misère game,we choose a move so that there is an odd number of heaps with one stick.
+ The new strategy will be introduced in a situation where each pile would contain at most one stone after the next move.
+In the standard game, we should choose a move after which there is an even number of piles with one stone. However, in 
+the misère game, we choose a move so that there is an odd number of piles with one stone.
   This strategy works because a state where the strategy changes always appears in the game, and this state is a 
-  winning state, because it contains exactly one heap that has more than one stick so the nim sum is not 0.
+  winning state, because it contains exactly one pile that has more than one stone so the nim sum is not 0.
 
 ## The equivalence of impartial games and Nim (Sprague-Grundy theorem)
 
