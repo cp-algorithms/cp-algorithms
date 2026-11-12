@@ -363,9 +363,11 @@ We give a function that initializes a suffix automaton (creating a suffix automa
 
 ```{.cpp file=suffix_automaton_init}
 void sa_init() {
+    for (int i = 0; i < sz; i++)
+        st[i].next.clear();
     st[0].len = 0;
     st[0].link = -1;
-    sz++;
+    sz = 1;
     last = 0;
 }
 ```
