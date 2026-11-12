@@ -79,6 +79,51 @@ void dfs(int v) {
 }
 ```
 
+The same propagation can also be done with a [breadth-first search](../graph/breadth-first-search.md) instead of a DFS. This avoids recursion and can be useful on deep graphs where recursive DFS may overflow the stack.
+We put all vertices, for which we initially know if they are winning or losing states, into a queue.
+Then we repeatedly take a vertex $v$ from the queue and look at all undefined vertices $u$ with an edge $(u, v)$, i.e. we again move back over the reversed edges.
+If $v$ is a losing vertex, then $u$ becomes a winning vertex.
+If $v$ is a winning vertex, then we decrease the number of outgoing edges of $u$ that do not yet lead to a winning vertex, and if it becomes zero, $u$ becomes a losing vertex.
+Every vertex that becomes defined is added to the queue, so that its own predecessors get processed later.
+The rules applied are exactly the same as in the DFS, only the order in which vertices are processed is different.
+Since a vertex is added to the queue only once, at the moment it becomes defined, every reversed edge is again inspected at most once, and the complexity is still $O(n + m)$.
+The vertices that are still undefined when the queue becomes empty are exactly the draw vertices.
+
+As for the DFS, we assume that `degree` contains the outgoing degrees, and that `winning` and `losing` are already set for all vertices which are known in advance.
+
+```{.cpp file=games_on_graphs_bfs}
+vector<vector<int>> adj_rev;
+
+vector<bool> winning;
+vector<bool> losing;
+vector<int> degree;
+
+void bfs() {
+    int n = adj_rev.size();
+    queue<int> q;
+    for (int v = 0; v < n; v++) {
+        if (winning[v] || losing[v])
+            q.push(v);
+    }
+
+    while (!q.empty()) {
+        int v = q.front();
+        q.pop();
+        for (int u : adj_rev[v]) {
+            if (winning[u] || losing[u])
+                continue;
+            if (losing[v])
+                winning[u] = true;
+            else if (--degree[u] == 0)
+                losing[u] = true;
+            else
+                continue;
+            q.push(u);
+        }
+    }
+}
+```
+
 ## Example: "Policeman and thief"
 
 Here is a concrete example of such a game.
