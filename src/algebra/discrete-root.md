@@ -54,9 +54,9 @@ This is the final formula for all solutions of the discrete root problem.
 
 ## Implementation
 
-Here is a full implementation, including procedures for finding the primitive root, discrete log and finding and printing all solutions.
+Here is a full implementation, including procedures for finding the primitive root, discrete log and finding all solutions. The products are computed in `long long`, because they do not fit into `int` already for $n > 46341$.
 
-```cpp
+```{.cpp file=discrete_root}
 int gcd(int a, int b) {
 	return a ? gcd(b % a, a) : b;
 }
@@ -65,9 +65,9 @@ int powmod(int a, int b, int p) {
 	int res = 1;
 	while (b > 0) {
 		if (b & 1) {
-			res = res * a % p;
+			res = (long long) res * a % p;
 		}
-		a = a * a % p;
+		a = (long long) a * a % p;
 		b >>= 1;
 	}
 	return res;
@@ -100,14 +100,10 @@ int generator(int p) {
 	return -1;
 }
  
-// This program finds all numbers x such that x^k = a (mod n)
-int main() {
-	int n, k, a;
-	scanf("%d %d %d", &n, &k, &a);
-	if (a == 0) {
-		puts("1\n0");
-		return 0;
-	}
+// Finds all numbers x such that x^k = a (mod n), in increasing order
+vector<int> discrete_root(int n, int k, int a) {
+	if (a == 0)
+		return {0};
  
 	int g = generator(n);
  
@@ -115,31 +111,27 @@ int main() {
 	int sq = (int) sqrt (n + .0) + 1;
 	vector<pair<int, int>> dec(sq);
 	for (int i = 1; i <= sq; ++i)
-		dec[i-1] = {powmod(g, i * sq * k % (n - 1), n), i};
+		dec[i-1] = {powmod(g, (long long) i * sq % (n - 1) * k % (n - 1), n), i};
 	sort(dec.begin(), dec.end());
 	int any_ans = -1;
 	for (int i = 0; i < sq; ++i) {
-		int my = powmod(g, i * k % (n - 1), n) * a % n;
+		int my = (long long) powmod(g, (long long) i * k % (n - 1), n) * a % n;
 		auto it = lower_bound(dec.begin(), dec.end(), make_pair(my, 0));
 		if (it != dec.end() && it->first == my) {
 			any_ans = it->second * sq - i;
 			break;
 		}
 	}
-	if (any_ans == -1) {
-		puts("0");
-		return 0;
-	}
+	if (any_ans == -1)
+		return {};
  
-	// Print all possible answers
+	// Find all possible answers
 	int delta = (n-1) / gcd(k, n-1);
 	vector<int> ans;
 	for (int cur = any_ans % delta; cur < n-1; cur += delta)
 		ans.push_back(powmod(g, cur, n));
 	sort(ans.begin(), ans.end());
-	printf("%d\n", ans.size());
-	for (int answer : ans)
-		printf("%d ", answer);
+	return ans;
 }
 ```
 
