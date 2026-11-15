@@ -48,11 +48,11 @@ Binomial coefficients have many different properties. Here are the simplest of t
 
 *   Sum over $n$:
 
-    \[ \sum_{m = 0}^n \binom m k = \binom {n + 1} {k + 1} \]
+    \[ \sum_{k = 0}^n \binom n k = \binom {n + 1} {k + 1} \]
 
 *   Sum over $n$ and $k$:
 
-    \[ \sum_{k = 0}^m  \binom {n + k} k = \binom {n + m + 1} m \]
+    \[ \sum_{k = 0}^n  \binom {n + k} k = \binom {n + k + 1} k \]
 
 *   Sum of the squares:
 
@@ -146,6 +146,7 @@ $$\binom n k \equiv n! \cdot (k!)^{-1} \cdot ((n-k)!)^{-1} \mod m.$$
 First we precompute all factorials modulo $m$ up to $\text{MAXN}!$ in $O(\text{MAXN})$ time.
 
 ```cpp
+long long factorial[MAXN + 1];
 factorial[0] = 1;
 for (int i = 1; i <= MAXN; i++) {
     factorial[i] = factorial[i - 1] * i % m;
@@ -189,7 +190,7 @@ Therefore $g(x)$ is coprime to m, and we can compute the modular inverses of $g(
 After precomputing all values for $g$ and $c$, which can be done efficiently using dynamic programming in $\mathcal{O}(n)$, we can compute the binomial coefficient in $O(\log m)$ time.
 Or precompute all inverses and all powers of $p$, and then compute the binomial coefficient in $O(1)$.
 
-Notice, if $c(n) - c(k) - c(n-k) \ge b$, than $p^b ~|~ p^{c(n) - c(k) - c(n-k)}$, and the binomial coefficient is $0$.
+Notice, if $c(n) - c(k) - c(n-k) \ge b$, then $p^b ~|~ p^{c(n) - c(k) - c(n-k)}$, and the binomial coefficient is $0$.
 
 ### Binomial coefficient modulo an arbitrary number
 
