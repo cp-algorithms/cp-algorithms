@@ -118,7 +118,7 @@ vector<int> discrete_root(int n, int k, int a) {
 		int my = (long long) powmod(g, (long long) i * k % (n - 1), n) * a % n;
 		auto it = lower_bound(dec.begin(), dec.end(), make_pair(my, 0));
 		if (it != dec.end() && it->first == my) {
-			any_ans = it->second * sq - i;
+			any_ans = ((long long) it->second * sq - i) % (n - 1);
 			break;
 		}
 	}
@@ -128,7 +128,7 @@ vector<int> discrete_root(int n, int k, int a) {
 	// Find all possible answers
 	int delta = (n-1) / gcd(k, n-1);
 	vector<int> ans;
-	for (int cur = any_ans % delta; cur < n-1; cur += delta)
+	for (long long cur = any_ans % delta; cur < n-1; cur += delta)
 		ans.push_back(powmod(g, cur, n));
 	sort(ans.begin(), ans.end());
 	return ans;

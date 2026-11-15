@@ -45,6 +45,10 @@ void test_large_primes() {
     assert(discrete_root(1000000007, 2, 9) == vector<int>({3, 1000000004}));
     // 5 is a quadratic non-residue modulo 998244353.
     assert(discrete_root(998244353, 2, 5).empty());
+    // The largest prime that fits into int.
+    assert(discrete_root(2147483647, 2, 4) == vector<int>({2, 2147483645}));
+    assert(discrete_root(2147483647, 5, 32) == vector<int>({2}));
+    assert(discrete_root(2147483647, 2, 7).empty());
 
     const int n = 1000000007;
     for (int k : {4, 5, 123456, 1000000}) {
