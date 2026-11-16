@@ -34,7 +34,7 @@ For simplicity we will show how to do this for an upper segment, the algorithm f
 
     This case means that the parts of $s$ and $t$ for $x\in[x_1, x_2]$ coincide. If $t$ is lower, $s$ is clearly not a side of a trapezoid.
     Otherwise, it could happen that both $s$ and $t$ can be considered as a side of some trapezoid. In order to resolve this ambiguity, we can
-    decide that only the segment with the lowest index should be considered as a side (here we suppose that triangle sides are enumerated in some way). So, if $index(s) < index(t)$, we should ignore this case,
+    decide that only the segment with the highest index should be considered as a side (here we suppose that triangle sides are enumerated in some way). So, if $index(s) > index(t)$, we should ignore this case,
     otherwise we should mark that $s$ can never be a side on $[x_1, x_2]$ (for example, by adding a corresponding event with balance $-2$).
 
 Here is a graphic representation of the three cases.
