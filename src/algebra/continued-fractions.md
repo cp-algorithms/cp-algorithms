@@ -834,7 +834,7 @@ Now that the most important facts and concepts were introduced, it is time to de
     <figure><img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Lattice-hull.svg" width="500px"/>
     <figcaption>Convex hull of lattice points under $y=\frac{4}{7}x$ for $0 \leq x \leq 19$ consists of points $(0;0), (7;4), (14;8), (16;9), (18;10), (19;10)$.</figcaption></figure>
 
-    Let $(x; y)$ be the last current point in the convex hull. Then the next point $(x'; y')$ is such that $x' \leq N$ and $(x'; y') - (x; y) = (\Delta x; \Delta y)$ is as close to the line $y=rx$ as possible. In other words, $(\Delta x; \Delta y)$ minimizes $r \Delta x - \Delta y$ subject to $0 < \Delta x \leq N - x$ and $\Delta y \leq r \Delta x$.
+    Let $(x; y)$ be the last current point in the convex hull. Then the next point $(x'; y')$ is such that $x' \leq N$ and $(x'; y') - (x; y) = (\Delta x; \Delta y)$ is as close to the line $y=rx$ as possible. In other words, $(\Delta x; \Delta y)$ minimizes $r \Delta x - \Delta y$ subject to $0 < \Delta x \leq N - x$ and $\Delta y \leq r \Delta x$. If there is a tie, choose the smallest $\Delta x$ to obtain the next lattice point.
 
     Points like that lie on the convex hull of lattice points below $y=rx$. In other words, $(\Delta x; \Delta y)$ must be a lower semiconvergent of $r$.
 
