@@ -676,13 +676,20 @@ One can further prove (and it was first done by Lagrange) that for arbitrary qua
 
     === "Python"
         ```py
+        import math
+
         # compute the continued fraction of sqrt(n)
         def sqrt(n):
-            n0 = math.floor(math.sqrt(n))
             x, y, z = 1, 0, 1
             a = []
             def step(x, y, z):
-                a.append((x * n0 + y) // z)
+                # The current quotient is (x * sqrt(n) + y) / z.
+                if z < 0:
+                    x, y, z = -x, -y, -z
+                root = math.isqrt(n * x * x)
+                if x < 0:
+                    root = -root - 1  # n is not a square and x is nonzero
+                a.append((root + y) // z)
                 t = y - a[-1]*z
                 x, y, z = -z*x, z*t, t**2 - n*x**2
                 g = math.gcd(x, math.gcd(y, z))
@@ -696,7 +703,7 @@ One can further prove (and it was first done by Lagrange) that for arbitrary qua
                     return a
         ```
 
-    Using the same `step` function but different initial $x$, $y$ and $z$ it is possible to compute it for arbitrary $\frac{x+y \sqrt{n}}{z}$.
+    The `step` function also works for other quadratic irrationals: initialize its `x`, `y` and `z` with the coefficient of $\sqrt n$, the constant term and the denominator, respectively. An arbitrary starting value may require a different loop bound.
 
 !!! example "[Tavrida NU Akai Contest - Continued Fraction](https://timus.online/problem.aspx?space=1&num=1814)"
     You're given $x$ and $k$, $x$ is not a perfect square. Let $\sqrt x = [a_0; a_1, \dots]$, find $\frac{p_k}{q_k}=[a_0; a_1, \dots, a_k]$ for $0 \leq k \leq 10^9$.
