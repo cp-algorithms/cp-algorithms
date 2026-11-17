@@ -703,7 +703,7 @@ One can further prove (and it was first done by Lagrange) that for arbitrary qua
                     return a
         ```
 
-    The `step` function also works for other quadratic irrationals: initialize its `x`, `y` and `z` with the coefficient of $\sqrt n$, the constant term and the denominator, respectively. An arbitrary starting value may require a different loop bound.
+    The `step` function also works for other quadratic irrationals. Its state represents $(x\sqrt n+y)/z$, so its `x` and `y` have the opposite roles from $x_k$ and $y_k$ in the derivation above. Initialize `x`, `y` and `z` with the coefficient of $\sqrt n$, the constant term and the denominator, respectively. An arbitrary starting value may require a different loop bound.
 
 !!! example "[Tavrida NU Akai Contest - Continued Fraction](https://timus.online/problem.aspx?space=1&num=1814)"
     You're given $x$ and $k$, $x$ is not a perfect square. Let $\sqrt x = [a_0; a_1, \dots]$, find $\frac{p_k}{q_k}=[a_0; a_1, \dots, a_k]$ for $0 \leq k \leq 10^9$.
