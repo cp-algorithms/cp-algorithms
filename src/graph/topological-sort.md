@@ -84,7 +84,7 @@ void topological_sort() {
 }
 ```
 
-The main function of the solution is `topological_sort`, which initializes DFS variables, launches DFS and receives the answer in the vector `ans`. It is worth noting that when the graph is not acyclic, `topological_sort` result would still be somewhat meaningful in a sense that if a vertex $u$ is reachable from vertex $v$, but not vice versa, the vertex $v$ will always come first in the resulting array. This property of the provided implementation is used in [Kosaraju's algorithm](./strongly-connected-components.md) to extract strongly connected components and their topological sorting in a directed graph with cycles.
+The main function of the solution is `topological_sort`, which initializes DFS variables, launches DFS and receives the answer in the vector `ans`. When the graph contains cycles, the result is not necessarily a topological ordering of its vertices. However, replace each vertex in the resulting array with its strongly connected component and keep only the first occurrence of each component. The resulting sequence is a topological ordering of the condensation graph: if one component can reach another, its first vertex appears earlier. Vertices from different components may still be interleaved. This property is used in [Kosaraju's algorithm](./strongly-connected-components.md) to extract strongly connected components and order them topologically.
 
 ## Practice Problems
 
