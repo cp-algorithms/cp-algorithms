@@ -654,9 +654,9 @@ One can further prove (and it was first done by Lagrange) that for arbitrary qua
 
     Therefore, 
 
-    $$s_k = -\frac{\alpha q_{k-1} - p_{k-1}}{\alpha q_k - p_k} = -\frac{q_{k-1} y \sqrt n + (x q_{k-1} - z p_{k-1})}{q_k y \sqrt n + (xq_k-zp_k)}.$$
+    $$s_k = -\frac{\alpha q_{k-2} - p_{k-2}}{\alpha q_{k-1} - p_{k-1}} = -\frac{q_{k-2} y \sqrt n + (x q_{k-2} - z p_{k-2})}{q_{k-1} y \sqrt n + (x q_{k-1} - z p_{k-1})}.$$
 
-    Multiplying the numerator and denominator by $(xq_k - zp_k) - q_k y \sqrt n$, we'll get rid of $\sqrt n$ in the denominator, thus the complete quotients are of form
+    Multiplying the numerator and denominator by $(x q_{k-1} - z p_{k-1}) - q_{k-1} y \sqrt n$, we'll get rid of $\sqrt n$ in the denominator, thus the complete quotients are of form
 
     $$s_k = \frac{x_k + y_k \sqrt n}{z_k}.$$
 
