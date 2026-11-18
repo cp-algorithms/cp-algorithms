@@ -121,7 +121,11 @@ We will use a sweep-line approach. We process the points from south-west to nort
   *In this image we see the active set after processing the point $p$. Note that the $2$ green points of the previous image had $p$ in its north-north-east octant and are not in the active set anymore, because they already found their nearest neighbor.*
 </div>
 
-When we add a new point point $p$, for every point $s$ that has it in its octant we can safely assign $p$ as the nearest neighbor. This is true because their distance is $d(p,s) = |x_p - x_s| + |y_p - y_s| = (x_p + y_p) - (x_s + y_s)$, because $p$ is in the north-north-east octant. As all the next points will not have a smaller value of $x + y$ because of the sorting step, $p$ is guaranteed to have the smaller distance. We can then remove all such points from the active set, and finally add $p$ to the active set.
+When we add a new point point $p$, for every point $s$ that has it in its octant we can safely assign $p$ as the nearest neighbor. This is true because their distance is
+
+$$d(p,s) = |x_p - x_s| + |y_p - y_s| = (x_p + y_p) - (x_s + y_s),$$
+
+because $p$ is in the north-north-east octant. As all the next points will not have a smaller value of $x + y$ because of the sorting step, $p$ is guaranteed to have the smaller distance. We can then remove all such points from the active set, and finally add $p$ to the active set.
 
 The next question is how to efficiently find which points $s$ have $p$ in the north-north-east octant. That is, which points $s$ satisfy:
 

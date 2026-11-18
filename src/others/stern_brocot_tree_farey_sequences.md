@@ -209,7 +209,11 @@ Knowing this, we can emulate the search on Stern-Brocot tree by maintaining the 
 
 To get this bound, each $a_k$ must be found by first doubling a candidate value until it overshoots, and only then binary searching inside the last interval. This costs $O(\log a_k)$ comparisons. Binary searching each $a_k$ over a fixed range instead would cost $O(\log (p+q))$ per term, leading to a weaker $O(\log^2 (p+q))$ bound overall.
 
-The total is then $O\left(\sum_k \left(1 + \log a_k\right)\right)$, and both parts are $O(\log (p+q))$. The number of terms is $O(\log (p+q))$, because $p_k$ and $q_k$ grow at least as fast as Fibonacci numbers, which is the slowest growth, attained when every $a_k$ equals $1$. And adding the two recurrences above gives $p_{k+1} + q_{k+1} = (p_{k-1} + q_{k-1}) + a_k (p_k + q_k) \geq a_k (p_k + q_k)$, so $p + q \geq \prod_k a_k$ and therefore $\sum_k \log a_k \leq \log (p+q)$.
+The total is then $O\left(\sum_k \left(1 + \log a_k\right)\right)$, and both parts are $O(\log (p+q))$. The number of terms is $O(\log (p+q))$, because $p_k$ and $q_k$ grow at least as fast as Fibonacci numbers, which is the slowest growth, attained when every $a_k$ equals $1$. And adding the two recurrences above gives
+
+$$p_{k+1} + q_{k+1} = (p_{k-1} + q_{k-1}) + a_k (p_k + q_k) \geq a_k (p_k + q_k),$$
+
+so $p + q \geq \prod_k a_k$ and therefore $\sum_k \log a_k \leq \log (p+q)$.
 
 ## Farey Sequence
 

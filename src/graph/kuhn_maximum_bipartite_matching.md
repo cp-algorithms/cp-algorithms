@@ -31,7 +31,9 @@ by this matching.
 they do not belong in the matching. 
 
 * The **symmetric difference** (also known as the **disjunctive union**) of sets $A$ and $B$, represented by $A \oplus B$, is the set of all elements that belong to exactly one of $A$ or $B$, but not to both. 
-That is, $A \oplus B = (A - B) \cup (B - A) = (A \cup B) - (A \cap B)$.
+That is,
+
+    $$A \oplus B = (A - B) \cup (B - A) = (A \cup B) - (A \cap B).$$
 
 ### Berge's lemma
 
