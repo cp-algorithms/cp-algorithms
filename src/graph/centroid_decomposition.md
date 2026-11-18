@@ -33,7 +33,7 @@ For any given tree with $N$ vertices, either one or two centroids exist. If ther
 
     It is easy to see that this process always terminates, proving at least one centroid exists.
 
-    _Uniqueness_: Suppose there are two centroids $u$ and $v$. Consider the path between them. When we remove $u$, vertex $v$ must be in a component with at most $\frac{N}{2}$ vertices. Similarly, when we remove $v$, vertex $u$ must be in a component with at most $\frac{N}{2}$ vertices. This is only possible if $u$ and $v$ are adjacent; otherwise, removing either would place the other in a component with more than $\frac{N}{2}$ vertices. This contradicts our initial statement of both centroids being in a component with at most $\frac{N}{2}$ vertices. Furthermore, if two centroids exist, they must split the tree into two components of exactly $\frac{N}{2}$ vertices each, which is only possible when $N$ is even.
+    _Uniqueness_: Suppose there are two distinct centroids $u$ and $v$. Let $C_u$ be the component containing $v$ after removing $u$, and let $C_v$ be the component containing $u$ after removing $v$. Both components have at most $\frac{N}{2}$ vertices. Together they cover all vertices of the tree; if $u$ and $v$ were not adjacent, they would overlap on the internal vertices of their path, so their sizes would sum to more than $N$. Therefore $u$ and $v$ are adjacent, and the two components have exactly $\frac{N}{2}$ vertices each. There can be no third centroid: it would have to be another neighbor of $u$ whose component after removing $u$ also has $\frac{N}{2}$ vertices, but the components contain only $N-1$ vertices in total.
 
 ## Properties and Definition of Centroid Decomposition
 
@@ -50,13 +50,13 @@ For any given tree with $N$ vertices, either one or two centroids exist. If ther
 
     Consider any vertex $v$ in the original tree. We track how many times $v$ can be part of a component during the decomposition process.
 
-    At the first level, $v$ is in a component of size $N$. When we remove the centroid of this component, $v$ ends up in a component of size at most $\frac{N}{2}$ (by the balance property).
+    At the first level, $v$ is in a component of size $N$. When we remove the centroid of this component, either $v$ is removed or it ends up in a component of size at most $\frac{N}{2}$ (by the balance property).
 
-    At the second level, $v$ is in a component of size at most $\frac{N}{2}$. Removing this component's centroid places $v$ in a component of size at most $\frac{N}{4}$.
+    If $v$ remains, at the second level it is in a component of size at most $\frac{N}{2}$. Removing this component's centroid either removes $v$ or places it in a component of size at most $\frac{N}{4}$.
 
     Continuing this pattern, at the $k$-th level, $v$ is in a component of size at most $\frac{N}{2^{k-1}}$.
 
-    The decomposition stops when component sizes reach 1. This happens when $\frac{N}{2^{k-1}} \leq 1$, which gives us $k \leq \log_2 N + 1$.
+    At every level where $v$ is still present, its component has at least one vertex. Thus $1 \leq \frac{N}{2^{k-1}}$, which gives us $k \leq \log_2 N + 1$.
 
     Therefore, the maximum depth of the centroid decomposition tree is $O(\log N)$.
 
