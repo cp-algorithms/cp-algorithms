@@ -73,7 +73,7 @@ Here we only consider the case with one valid bracket type.
 
 Given a balanced sequence, we have to find the next (in lexicographical order) balanced sequence.
 
-It should be obvious, that we have to find the rightmost opening bracket, which we can replace by a closing bracket without violation the condition, that there are more closing brackets than opening brackets up to this position.
+We have to find the rightmost opening bracket that we can replace by a closing bracket while keeping the prefix up to and including that position valid: it must not have more closing brackets than opening brackets. The old suffix will be replaced.
 After replacing this position, we can fill the remaining part of the string with the lexicographically minimal one: i.e. first with as much opening brackets as possible, and then fill up the remaining positions with closing brackets.
 In other words we try to leave a long as possible prefix unchanged, and the suffix gets replaced by the lexicographically minimal one.
 
@@ -148,7 +148,7 @@ If the current character $s[i]$ is equal to $)$, then we must add $d[2n-i-1][\te
 
 New let there be $k$ different bracket types.
 
-Thus, when we look at the current character $s[i]$ before recomputing $\text{depth}$, we have to go through all bracket types that are smaller than the current character, and try to place this bracket into the current position (obtaining a new balance $\text{ndepth} = \text{depth} \pm 1$), and add the number of ways to finish the sequence (length $2n-i-1$, balance $ndepth$) to the answer:
+Thus, when we look at the current character $s[i]$ before recomputing $\text{depth}$, we try each bracket character smaller than $s[i]$ at this position. A closing bracket is valid only if it matches the most recent unmatched opening bracket; maintain a stack to check this and update it with the actual character $s[i]$ after processing the position. For each valid choice, obtain the new balance $\text{ndepth} = \text{depth} \pm 1$ and add the number of ways to finish the sequence (length $2n-i-1$, balance $\text{ndepth}$) to the answer. A choice contributes zero if the new balance exceeds the remaining length or their parities differ; otherwise the contribution is:
 
 $$d[2n - i - 1][\text{ndepth}] \cdot k^{\frac{2n - i - 1 - ndepth}{2}}$$
 
