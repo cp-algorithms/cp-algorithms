@@ -210,18 +210,17 @@ int lis(vector<int> const& a) {
 
 We now make two important observations.
 
-1.  The array $d$ will always be sorted: 
-    $d[l-1] < d[l]$ for all $l = 1 \dots n$.
+1.  The finite tails are strictly increasing. In the padded notation, if the longest increasing subsequence found so far has length $L$, then $d[0] < d[1] < \dots < d[L]$, and every entry after $d[L]$ equals $\infty$.
 
-    This is trivial, as you can just remove the last element from the increasing subsequence of length $l$, and you get a increasing subsequence of length $l-1$ with a smaller ending number.
+    Removing the last element from an increasing subsequence of length $l \ge 2$ gives one of length $l-1$ with a smaller last element.
 
 2.  The element $a[i]$ will only update at most one value $d[l]$.
 
     This follows immediately from the above implementation.
     There can only be one place in the array with $d[l-1] < a[i] < d[l]$.
 
-Thus we can find this element in the array $d[]$ using [binary search](../num_methods/binary_search.md) in $O(\log n)$.
-In fact we can simply look in the array $d[]$ for the first number that is strictly greater than $a[i]$, and we try to update this element in the same way as the above implementation.
+We can find the update position among the stored tails using [binary search](../num_methods/binary_search.md) in $O(\log n)$.
+Find the first tail greater than or equal to $a[i]$ and replace it with $a[i]$. If the tail is equal, its value stays the same. If all tails are smaller, append $a[i]$.
 
 ### Implementation
 

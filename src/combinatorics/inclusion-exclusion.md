@@ -434,7 +434,9 @@ $$ n! \left( 1 - \frac{1}{1!} + \frac{1}{2!} - \frac{1}{3!} + \cdots \pm \frac{1
 
 (because the sum in brackets are the first $n+1$ terms of the expansion in Taylor series $e^{-1}$)
 
-It is worth noting that a similar problem can be solved this way: when you need the fixed points were not among the $m$ first elements of permutations (and not among all, as we just solved). The formula obtained is as the given above accurate formula, but it will go up to the sum of $m$, instead of $n$.
+Suppose only the first $m$ positions are forbidden to be fixed points, where $0 \le m \le n$. We can choose $j$ of these positions in $\binom{m}{j}$ ways. Fixing those $j$ positions leaves $(n-j)!$ permutations, so inclusion-exclusion gives
+
+$$\sum_{j=0}^{m} (-1)^j \binom{m}{j} (n-j)!.$$
 
 ## Practice Problems
 
