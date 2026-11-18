@@ -163,9 +163,9 @@ The complexity is $O(\sqrt{m})$ using `unordered_map`.
 ## When $a$ and $m$ are not coprime { data-toc-label='When a and m are not coprime' }
 Let $g = \gcd(a, m)$, and $g > 1$. Clearly $a^x \bmod m$ for every $x \ge 1$ will be divisible by $g$.
 
-If $g \nmid b$, there is no solution for $x$.
+First check $x = 0$ separately: it is a solution exactly when $b \equiv 1 \pmod m$. For $x \ge 1$, if $g \nmid b$, there is no solution.
 
-If $g \mid b$, let $a = g \alpha, b = g \beta, m = g \nu$.
+Otherwise, with $x \ge 1$ and $g \mid b$, let $a = g \alpha, b = g \beta, m = g \nu$.
 
 $$
 \begin{aligned}
