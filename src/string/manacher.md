@@ -175,7 +175,7 @@ As you can see, $d[2i]=2 d_{even}[i]+1$ and $d[2i+1]=2 d_{odd}[i]$ where $d$ den
 
 Indeed, `#` characters do not affect the odd-length palindromes, which are still centered in the initial string's characters, but now even-length palindromes of the initial string are odd-length palindromes of the new string centered in `#` characters.
 
-Note that $d[2i]$ and $d[2i+1]$ are essentially the increased by $1$ lengths of the largest odd- and even-length palindromes centered in $i$ correspondingly.
+Note that $d[2i]$ and $d[2i+1]$ are essentially the increased by $1$ lengths of the largest even- and odd-length palindromes centered in $i$ correspondingly.
 
 The reduction is implemented in the following way:
 
