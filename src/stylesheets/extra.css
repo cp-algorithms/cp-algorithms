@@ -56,6 +56,19 @@ body[dir=rtl] .metadata.page-metadata .contributors-text{
   overflow-y: hidden !important;
 }
 
+/* Keep inline math on one line. config.js pads it with hair spaces, and a
+   line break at one of them pushes MathJax's hidden screen-reader copy past
+   the right edge, which makes the page wider than a phone screen. */
+mjx-container[jax="CHTML"]:not([display="true"]) {
+  white-space: nowrap;
+}
+
+/* The hidden screen-reader copy is drawn as native MathML, which can be wider
+   than the formula. Keep it within the formula for the same reason. */
+mjx-assistive-mml {
+  max-width: 100%;
+}
+
 /* Donation banner */
 #donation-banner {
   margin: 0.75rem 0.75rem 0;
