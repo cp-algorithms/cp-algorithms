@@ -99,6 +99,46 @@ while (r - l > 1) {
     }
 }
 ```
+### Search on a discrete strictly convex function
+
+Another useful use case of binary search is finding the (global) minimum of a discrete strictly convex function.
+
+<center>
+<img src="https://i.postimg.cc/15DTdyxH/desmos-graph.png" width="300px">
+<br>
+<i>An example of a discrete strictly convex function</i>
+<br>
+</center>
+
+Let $f : \{x_1, \dots, x_n\} \to \mathbb{R}$, $x_1 < x_2 < \dots < x_n$ be that function. We define $(x_{\min}, f(x_{\min}))$ to be the leftmost global minimum of the function, "the left part" to be all points $(x_i, f(x_i))$, $x_i < x_{\min}$, and "the right part" to be all points $(x_i, f(x_i))$, $x_i \ge x_{\min}$.
+
+We can observe that, on the left part, pairs of consecutive points $((x_i, f(x_i)), (x_{i+1}, f(x_{i+1})))$ have $f(x_i) - f(x_{i+1}) > 0$ and, on the right part, pairs of consecutive points $((x_i, f(x_i)), (x_{i+1}, f(x_{i+1})))$ have $f(x_i) - f(x_{i+1}) \le 0$. Thus, we can make the following transformation $f \to g$, $g \colon \{x_1, \dots, x_{n-1}\} \to \{-1, 0, 1\}$, such that $g(x_i) = \text{sgn}(f(x_i) - f(x_{i+1}))$. $g$ is monotonously decreasing, and that means we can binary search to find the global minimum. Complexity $\mathcal{O}(\log n)$.
+
+Conceptual code
+```cpp
+int binary_search_convex(const vector<int>& v) {
+    if (v.empty()) 
+        return -1;
+    if (v.size() == 1) 
+        return 0;
+    int l = 0;
+    int r = v.size() - 2;
+    int index = v.size() - 1;
+    while(l <= r){
+        int m = (l + r) / 2;
+        if (v[m] > v[m + 1])
+            l = m + 1;
+        else {
+            index = m;
+            r = m - 1;
+        }
+    }
+    return index;
+}
+
+```
+
+This approach can be similarly used for finding the (global) maximum of a discrete strictly concave function.
 
 ### Binary search on the answer
 
@@ -225,6 +265,7 @@ vector<int> parallel_binary_search(vector<int>& A, vector<int>& X) {
 - [LeetCode - Find Peak Element](https://leetcode.com/problems/find-peak-element/)
 - [LeetCode - Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
 - [LeetCode - Find Right Interval](https://leetcode.com/problems/find-right-interval/)
+- [LeetCode - Find in Mountain Array](https://leetcode.com/problems/find-in-mountain-array/description/)
 - [Codeforces - Interesting Drink](https://codeforces.com/problemset/problem/706/B/)
 - [Codeforces - Magic Powder - 1](https://codeforces.com/problemset/problem/670/D1)
 - [Codeforces - Another Problem on Strings](https://codeforces.com/problemset/problem/165/C)
