@@ -56,17 +56,16 @@ body[dir=rtl] .metadata.page-metadata .contributors-text{
   overflow-y: hidden !important;
 }
 
-/* Keep inline math on one line. config.js pads it with hair spaces, and a
-   line break at one of them pushes MathJax's hidden screen-reader copy past
-   the right edge, which makes the page wider than a phone screen. */
-mjx-container[jax="CHTML"]:not([display="true"]) {
-  white-space: nowrap;
+/* MathJax keeps a hidden copy of each formula for screen readers. Give it a
+   1px box so it cannot stick out and make the page wider than the screen. */
+mjx-container > mjx-assistive-mml {
+  width: 1px !important;
 }
 
-/* The hidden screen-reader copy is drawn as native MathML, which can be wider
-   than the formula. Keep it within the formula for the same reason. */
-mjx-assistive-mml {
-  max-width: 100%;
+/* Let an article scroll sideways when something in it is wider than the
+   screen, such as a long inline formula, so the page itself never is. */
+.md-content {
+  overflow-x: auto;
 }
 
 /* Donation banner */
