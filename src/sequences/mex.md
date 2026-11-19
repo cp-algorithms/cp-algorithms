@@ -119,7 +119,7 @@ public:
 
 ## MEX for extremely large values using Intervals
 
-If the values in the array can be extremely large (e.g., up to $10^{18}$), maintaining a frequency array or a set of all missing numbers can consume too much memory. Instead, we can track the **contiguous intervals** of numbers we have already seen.
+If the present values form a small number of contiguous runs, storing those runs as intervals can reduce memory compared with storing each value individually. This is useful for large, structured value sets; for arbitrary sparse values, the existing map/set approach is simpler.
 
 We can use a `std::set<pair<long long, long long>>` to store disjoint, contiguous intervals `[L, R]`. When a new number $X$ is added, we locate its position and merge it with adjacent intervals if necessary (e.g., merging `[0, 2]` and `[4, 5]` when `3` is inserted). 
 
