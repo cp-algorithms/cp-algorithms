@@ -134,6 +134,7 @@ search:
         - [Lattice points of non-lattice polygon](geometry/lattice-points.md)
     - Convex hull
         - [Convex hull construction](geometry/convex-hull.md)
+        - [Pareto Frontier / Skyline](geometry/pareto-frontier.md)
         - [Convex hull trick and Li Chao tree](geometry/convex_hull_trick.md)
     - Sweep-line
         - [Search for a pair of intersecting segments](geometry/intersecting_segments.md)
