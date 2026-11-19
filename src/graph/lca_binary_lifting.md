@@ -17,7 +17,7 @@ The algorithm described in this article will need $O(N \log N)$ for preprocessin
 
 For each node we will precompute its ancestor above it, its ancestor two nodes above, its ancestor four above, etc.
 Let's store them in the array `up`, i.e. `up[i][j]` is the `2^j`-th ancestor above the node `i` with `i=1...N`, `j=0...ceil(log(N))`.
-These information allow us to jump from any node to any ancestor above it in $O(\log N)$ time.
+This information allows us to jump from any node to any ancestor above it in $O(\log N)$ time.
 We can compute this array using a [DFS](depth-first-search.md) traversal of the tree.
 
 For each node we will also remember the time of the first visit of this node (i.e. the time when the DFS discovers the node), and the time when we left it (i.e. after we visited all children and exit the DFS function).
@@ -38,7 +38,7 @@ Clearly after doing this for all non-negative `i` the node `u` will be the desir
 
 Now, obviously, the answer to LCA will be `up[u][0]` - i.e., the smallest node among the ancestors of the node `u`, which is also an ancestor of `v`.
 
-So answering a LCA query will iterate `i` from `ceil(log(N))` to `0` and checks in each iteration if one node is the ancestor of the other.
+So answering a LCA query will iterate `i` from `ceil(log(N))` to `0` and check in each iteration if one node is the ancestor of the other.
 Consequently each query can be answered in $O(\log N)$.
 
 ## Implementation
@@ -93,6 +93,245 @@ void preprocess(int root) {
     dfs(root, root);
 }
 ```
+
+## Binary Lifting on a dynamic tree
+This is another method of doing LCA, that also accepts adding a leaf node to node `v`.
+
+The earlier method struggles with these updates, since adding a leaf will potentially modify the time of entry and exit for the entire graph.
+
+Let's create an array `depth[u]`, containing the distance of node `u` from the root. This can be done with a DFS-traversal of the tree. Similarly to the earlier approach we precompute an array `up[u][j]`.
+
+We handle LCA queries as follows: Let `(u, v)` be the pair that we want to find the answer to. From now on let `depth[u] ≥ depth[v]` (if `depth[v] > depth[u]`, we can just swap `u` and `v`). Now let's try and make `depth[u] = depth[v]`, by moving `u` up to an ancestor.
+The ancestor of `u` that satisfies this requirement is exactly `depth[u]-depth[v]` nodes higher. So using our `up[u][j]` table and the binary representation of `depth[u]-depth[v]`, let's change the value of `u` to the specified ancestor.
+
+Now we have another problem: Find the LCA of two vertices `(u, v)`, that have the same depth. First, let's check the trivial case if `u = v`, where the LCA of the two values is `u`. If not, then we find the highest vertex, that isn't a common ancestor of `(u, v)`.
+
+Suppose that `L=ceil(log(N))`, where `N` is the maximum number of vertices the graph will have. Let `i = L`. If `up[u][i]=up[v][i]`, we just decrement `i`. If that is not the case, then we set `u = up[u][i]` and `v = up[v][i]`, then we decrement `i`.
+After all these operations, we have two vertices `u` and `v`, that aren't the LCA of the original pair, but `up[u][0]` and `up[v][0]` are. We again are using $O(N \log N)$ preprocessing complexity and a $O( \log N)$ query one.
+
+Why does this work well in this dynamic environment? During the algorithm we only need to know the `up[u][j]` array for all vertices and the distance of each node from the root, both of which can be trivially obtained from the add leaf query in $O(\log n)$ time.
+
+The trade-off is query speed. The earlier method settles a query in a single descending loop, because its ancestor test covers the depth difference and the split at the same time. This one needs two loops, and the second climbs both vertices, so it reads `up` roughly three times as often: on a tree of $10^6$ vertices, 64 reads per query against 22.
+
+### Implementation
+
+```cpp
+int n, l;
+vector<vector<int>> adj;
+
+vector<int> depth;
+vector<vector<int>> up;
+
+void dfs(int v, int p, int dist)
+{
+    depth[v]=dist;
+    up[v][0] = p;
+    for (int i = 1; i <= l; ++i)
+        up[v][i] = up[up[v][i-1]][i-1];
+
+    for (int u : adj[v]) {
+        if (u != p)
+            dfs(u, v, dist+1);
+    }
+}
+
+int lca(int u, int v)
+{
+    if (depth[u] < depth[v]) swap(u,v);
+    for (int j = l; j >= 0; --j) {
+        if (depth[up[u][j]] >= depth[v]) {
+            u = up[u][j];
+        }
+    }
+
+    if(u == v) return u;
+
+    for (int i = l; i >= 0; --i) {
+        if (up[u][i] != up[v][i]) {
+            u = up[u][i];
+            v = up[v][i];
+        }
+    }
+    return up[u][0];
+}
+
+void add_leaf(int to)
+{
+    int v = adj.size();
+    adj[to].push_back(v);
+    adj.push_back({to});
+    depth.push_back(depth[to]+1);
+    up.push_back(vector<int>(l + 1));
+    up[v][0] = to;
+    for (int i = 1; i <= l; ++i)
+        up[v][i] = up[up[v][i-1]][i-1];
+}
+
+//Set max_nodes to the maximum size of the graph
+void preprocess(int root, int max_nodes)
+{
+    depth.resize(n);
+    l = ceil(log2(max_nodes));
+    up.assign(n, vector<int>(l + 1));
+    dfs(root, root, 0);
+}
+```
+
+## LCA with $O(n)$ space and preprocessing time
+
+This method allows us to calculate the LCA while only using $O(n)$ space. It is also possible to extend it so it will work for a dynamic tree. It was first proposed by Harel and Tarjan in 1984.
+
+Create an array `depth[]` which will store the depth of each node in the tree.
+For each node we will define only **small** and **big** jumps. Small jumps will always point to the immediate ancestor (except for the root, which will point to itself). The big jumps have a more complicated definition. Denote `big[v]` as the node that we will be in after we do a big jump from node `v`. Let `big[root] = root`. 
+
+After that we create a recursive definition. Write $\ell(v) = \mathtt{depth}[v] - \mathtt{depth}[\mathtt{big}[v]]$ for the size of the big jump from $v$, and let $p$ be the parent of $u$.
+
+$$\mathtt{big}[u] = \begin{cases} \mathtt{big}[\mathtt{big}[p]] & \text{if } \ell(p) = \ell(\mathtt{big}[p]) \\
+p & \text{otherwise}\end{cases}$$
+
+<figure style="margin:1.2em auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 26 700 134" width="700" height="134" style="max-width:100%;height:auto" font-family="Georgia,'Times New Roman',serif" role="img" aria-label="Two equal big jumps, one from p and one from big of p, combine into a single jump of size two ell plus one for u">
+  <defs>
+    <marker id="lcaA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#9575cd"/></marker>
+    <marker id="lcaB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#ec407a"/></marker>
+  </defs>
+  <g stroke="currentColor" fill="currentColor">
+    <line x1="60" y1="100" x2="660" y2="100" stroke-width="2" opacity=".4"/>
+    <g stroke="none" opacity=".62"><circle cx="140" cy="100" r="4"/><circle cx="260" cy="100" r="4"/><circle cx="320" cy="100" r="4"/><circle cx="440" cy="100" r="4"/><circle cx="500" cy="100" r="4"/></g>
+    <g stroke="none"><circle cx="200" cy="100" r="6.5"/><circle cx="380" cy="100" r="6.5"/><circle cx="560" cy="100" r="6.5"/><circle cx="620" cy="100" r="6.5"/></g>
+    <g font-size="16" text-anchor="middle" stroke="none" font-family="ui-monospace,'DejaVu Sans Mono',monospace">
+      <text x="200" y="152">big[big[p]]</text><text x="380" y="152">big[p]</text><text x="560" y="152">p</text><text x="620" y="152">u</text>
+    </g>
+  </g>
+  <g fill="none" stroke-width="2.2">
+    <path d="M556 110 Q470 162 388 110" stroke="#9575cd" marker-end="url(#lcaA)"/>
+    <path d="M376 110 Q290 162 208 110" stroke="#9575cd" marker-end="url(#lcaA)"/>
+    <path d="M618 90 Q410 22 206 90" stroke="#ec407a" marker-end="url(#lcaB)"/>
+  </g>
+  <g font-size="17" font-style="italic" text-anchor="middle">
+    <text x="470" y="127" fill="#9575cd">&#8467;</text><text x="290" y="127" fill="#9575cd">&#8467;</text>
+    <text x="410" y="46" fill="#ec407a">2&#8467; + 1</text>
+  </g>
+</svg>
+<figcaption>Two equal jumps merge, so every jump skips one less than a power of two.</figcaption>
+</figure>
+
+We have to evaluate this array in an order, such that for every node, we have computed the values for all of its ancestors. We can use the preorder ordering here, since it satisfies this property.
+
+
+Now after all of that preprocessing, answering queries is easy. We first balance the nodes to an equal depth and then we try to find the lowest node that isn't a common ancestor. This is very similar to what has been done in the Dynamic LCA algorithm, but now we just check if we can perform a big jump and if not, then we do a small one. The time complexity is logarithmic, as Harel and Tarjan proved in their paper that we will use at most $6\lfloor{\log(d+1)}\rfloor-4$ jumps. The space complexity is linear.
+
+<figure style="margin:1.2em auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 12 700 200" width="700" height="200" style="max-width:100%;height:auto" font-family="Georgia,'Times New Roman',serif" role="img" aria-label="The big jump of every vertex on a path of 17 vertices; sizes 1, 3, 7 and 15 alternate above and below the path">
+  <g stroke="currentColor" fill="currentColor">
+    <line x1="46" y1="134" x2="654" y2="134" stroke-width="2" opacity=".4"/>
+    <g stroke="none"><circle cx="46" cy="134" r="4.5"/><circle cx="84" cy="134" r="4.5"/><circle cx="122" cy="134" r="4.5"/><circle cx="160" cy="134" r="4.5"/><circle cx="198" cy="134" r="4.5"/><circle cx="236" cy="134" r="4.5"/><circle cx="274" cy="134" r="4.5"/><circle cx="312" cy="134" r="4.5"/><circle cx="350" cy="134" r="4.5"/><circle cx="388" cy="134" r="4.5"/><circle cx="426" cy="134" r="4.5"/><circle cx="464" cy="134" r="4.5"/><circle cx="502" cy="134" r="4.5"/><circle cx="540" cy="134" r="4.5"/><circle cx="578" cy="134" r="4.5"/><circle cx="616" cy="134" r="4.5"/><circle cx="654" cy="134" r="4.5"/></g>
+  </g>
+  <g fill="none" stroke="#9575cd" stroke-width="1.8">
+    <path d="M46 141 A19 14 0 0 0 84 141"/>
+    <path d="M84 141 A19 14 0 0 0 122 141"/>
+    <path d="M46 127 A57 34 0 0 1 160 127"/>
+    <path d="M160 141 A19 14 0 0 0 198 141"/>
+    <path d="M198 141 A19 14 0 0 0 236 141"/>
+    <path d="M160 127 A57 34 0 0 1 274 127"/>
+    <path d="M46 141 A133 46 0 0 0 312 141"/>
+    <path d="M312 141 A19 14 0 0 0 350 141"/>
+    <path d="M350 141 A19 14 0 0 0 388 141"/>
+    <path d="M312 127 A57 34 0 0 1 426 127"/>
+    <path d="M426 141 A19 14 0 0 0 464 141"/>
+    <path d="M464 141 A19 14 0 0 0 502 141"/>
+    <path d="M426 127 A57 34 0 0 1 540 127"/>
+    <path d="M312 141 A133 46 0 0 0 578 141"/>
+    <path d="M46 127 A285 92 0 0 1 616 127"/>
+    <path d="M616 141 A19 14 0 0 0 654 141"/>
+  </g>
+  <g fill="#9575cd" font-size="15" font-style="italic" text-anchor="middle"><text x="179" y="205">7</text><text x="483" y="85">3</text><text x="331" y="27">15</text><text x="635" y="173">1</text></g>
+</svg>
+<figcaption>Every big jump on a path. The sizes nest, so a few jumps reach the root from anywhere.</figcaption>
+</figure>
+
+Adding a leaf is cheaper here than in the previous section. Both pointers of a new vertex are determined by its parent alone, and no existing vertex changes, so an insertion is $O(1)$ and there is no table to extend.
+
+### Implementation
+
+```cpp
+int n, l;
+vector<vector<int>> adj;
+
+vector<int> depth;
+vector<int> small, big;
+
+void dfs(int v, int p, int dist)
+{
+    depth[v] = dist;
+    small[v] = p;
+    
+    if(depth[p] - depth[big[p]] == depth[big[p]] - depth[big[big[p]]]){
+        big[v]= big[big[p]];
+    }
+    else{
+        big[v]=p;
+    }
+
+    for (int u : adj[v]) {
+        if (u != p)
+            dfs(u, v, dist+1);
+    }
+}
+
+int lca(int u, int v)
+{
+    if (depth[u] < depth[v]) swap(u,v);
+    while(depth[u] != depth[v]) {
+        if (depth[big[u]] >= depth[v]) {
+            u = big[u];
+        }
+        else{
+            u = small[u];
+        }
+    }
+
+    while(u != v) {
+        if (big[u] != big[v]) {
+            u = big[u];
+            v = big[v];
+        }
+        else{
+            u = small[u];
+            v = small[v];
+        }
+    }
+    return u;
+}
+
+void add_leaf(int to)
+{
+    int v = adj.size();
+    adj[to].push_back(v);
+    adj.push_back({to});
+    depth.push_back(depth[to] + 1);
+    small.push_back(to);
+
+    if(depth[to] - depth[big[to]] == depth[big[to]] - depth[big[big[to]]]){
+        big.push_back(big[big[to]]);
+    }
+    else{
+        big.push_back(to);
+    }
+}
+
+void preprocess(int root)
+{
+    depth.resize(n);
+    small.resize(n);
+    big.resize(n);
+    big[root] = root;
+    dfs(root, root, 0);
+}
+```
+
+
+
 ## Practice Problems
 
 * [LeetCode -  Kth Ancestor of a Tree Node](https://leetcode.com/problems/kth-ancestor-of-a-tree-node)

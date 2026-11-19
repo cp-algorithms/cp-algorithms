@@ -2,6 +2,8 @@ target
 *.swp
 *.sublime-project
 *.sublime-workspace
+.vscode/
+__pycache__/
 converted.html
 converted.pdf
 /output
@@ -10,3 +12,5 @@ converted.pdf
 firebase-debug.log
 
 authors.json
+# Zensical build cache
+.cache/

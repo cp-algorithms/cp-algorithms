@@ -26,15 +26,15 @@ Then the array $a$ is divided into blocks in the following way:
 
 $$ \underbrace{a[0], a[1], \dots, a[s-1]}_{\text{b[0]}}, \underbrace{a[s], \dots, a[2s-1]}_{\text{b[1]}}, \dots, \underbrace{a[(s-1) \cdot s], \dots, a[n-1]}_{\text{b[s-1]}} $$
 
-The last block may have fewer elements than the others (if $n$ not a multiple of $s$), it is not important to the discussion (as it can be handled easily).
-Thus, for each block $k$, we know the sum of elements on it $b[k]$:
+The last block may have fewer elements than the others (if $n$ is not a multiple of $s$), it is not important to the discussion (as it can be handled easily).
+Thus, for each block $k$, we know the sum of elements in it $b[k]$:
 
 $$ b[k] = \sum\limits_{i=k\cdot s}^{\min {(n-1,(k+1)\cdot s - 1})} a[i] $$
 
 So, we have calculated the values of $b[k]$ (this required $O(n)$ operations). How can they help us to answer each query $[l, r]$ ?
 Notice that if the interval $[l, r]$ is long enough, it will contain several whole blocks, and for those blocks we can find the sum of elements in them in a single operation. As a result, the interval $[l, r]$ will contain parts of only two blocks, and we'll have to calculate the sum of elements in these parts trivially.
 
-Thus, in order to calculate the sum of elements on the interval $[l, r]$ we only need to sum the elements of the two "tails":
+Thus, in order to calculate the sum of elements of the interval $[l, r]$ we only need to sum the elements of the two "tails":
 $[l\dots (k + 1)\cdot s-1]$ and $[p\cdot s\dots r]$ , and sum the values $b[i]$ in all the blocks from $k + 1$ to $p-1$:
 
 $$ \sum\limits_{i=l}^r a[i] = \sum\limits_{i=l}^{(k+1) \cdot s-1} a[i] + \sum\limits_{i=k+1}^{p-1} b[i] + \sum\limits_{i=p\cdot s}^r a[i] $$
@@ -115,12 +115,12 @@ There exist other problems which can be solved using sqrt decomposition, for exa
 ## Mo's algorithm
 
 A similar idea, based on sqrt decomposition, can be used to answer range queries ($Q$) offline in $O((N+Q)\sqrt{N})$.
-This might sound like a lot worse than the methods in the previous section, since this is a slightly worse complexity than we had earlier and cannot update values between two queries.
+This might sound like a lot worse than the methods in the previous section, since this is a slightly worse complexity than we had earlier and it cannot update values between two queries.
 But in a lot of situations this method has advantages.
 During a normal sqrt decomposition, we have to precompute the answers for each block, and merge them during answering queries.
 In some problems this merging step can be quite problematic.
-E.g. when each queries asks to find the **mode** of its range (the number that appears the most often).
-For this each block would have to store the count of each number in it in some sort of data structure, and we can no longer perform the merge step fast enough any more.
+E.g. when each query asks to find the **mode** of its range (the number that appears the most often).
+For this each block would have to store the count of each number in it in some sort of data structure, and we can no longer perform the merge step fast enough anymore.
 **Mo's algorithm** uses a completely different approach, that can answer these kind of queries fast, because it only keeps track of one data structure, and the only operations with it are easy and fast.
 
 The idea is to answer the queries in a special order based on the indices.
@@ -130,8 +130,8 @@ And also we will have to answer the queries of a block in a special order, namel
 As already said we will use a single data structure.
 This data structure will store information about the range.
 At the beginning this range will be empty.
-When we want to answer the next query (in the special order), we simply extend or reduce the range, by adding/removing elements on both sides of the current range, until we transformed it into the query range.
-This way, we only need to add or remove a single element once at a time, which should be pretty easy operations in our data structure.
+When we want to answer the next query (in the special order), we simply extend or reduce the range, by adding/removing elements on both sides of the current range, until we transform it into the query range.
+This way, we only need to add or remove a single element once at a time, which should be pretty easy to do in our data structure.
 
 Since we change the order of answering the queries, this is only possible when we are allowed to answer the queries in offline mode.
 
@@ -212,7 +212,7 @@ If we only look at all queries having the left index in the same block, the quer
 Therefore we will call `add(cur_r)` and `remove(cur_r)` only $O(N)$ times for all these queries combined.
 This gives $O(\frac{N}{S} N)$ calls for all blocks.
 
-The value of `cur_l` can change by at most $O(S)$ during between two queries.
+The value of `cur_l` can change by at most $O(S)$ between two queries.
 Therefore we have an additional $O(S Q)$ calls of `add(cur_l)` and `remove(cur_l)`.
 
 For $S \approx \sqrt{N}$ this gives $O((N + Q) \sqrt{N})$ operations in total.

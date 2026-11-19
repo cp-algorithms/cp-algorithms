@@ -34,7 +34,7 @@ $$F_{2n} = F_n (F_{n+1} + F_{n-1})$$
 
 * From this we can prove by induction that for any positive integer $k$,  $F_{nk}$ is multiple of $F_n$.
 
-* The inverse is also true: if $F_m$ is multiple of $F_n$, then $m$ is multiple of $n$.
+* For $n \ge 3$, the inverse is also true: if $F_m$ is multiple of $F_n$, then $m$ is multiple of $n$.
 
 * GCD identity:
   
@@ -77,7 +77,7 @@ The encoding of an integer $n$ can be done with a simple greedy algorithm:
 To decode a code word, first remove the final $1$. Then, if the $i$-th bit is set (indexing from 0 from the leftmost to the rightmost bit), sum $F_{i+2}$ to the number.
 
 
-## Formulas for the $n^{\text{th}}$ Fibonacci number { data-toc-label="Formulas for the <script type='math/tex'>n</script>-th Fibonacci number" }
+## Formulas for the $n^{\text{th}}$ Fibonacci number
 
 ### Closed-form expression
 
@@ -99,7 +99,7 @@ As these two formulas would require very high accuracy when working with fractio
 
 The $n$-th Fibonacci number can be easily found in $O(n)$ by computing the numbers one by one up to $n$. However, there are also faster ways, as we will see.
 
-We can start from an iterative approach, to take advantage of the use of the formula $F_n = F_{n-1} + F_{n-2}$, therefore, we will simply precalculate those values in an array. Taking into account the base cases for $F_0$ and $F_1$.
+We can start from an iterative approach using the formula $F_n = F_{n-1} + F_{n-2}$. The implementation only needs to keep the two most recent values, starting from the base cases $F_0$ and $F_1$.
 
 ```{.cpp file=fibonacci_linear}
 int fib(int n) {
@@ -114,7 +114,7 @@ int fib(int n) {
 }
 ```
 
-In this way, we obtain a linear solution, $O(n)$ time, saving all the values prior to $n$ in the sequence.
+In this way, we obtain a linear solution with $O(n)$ time and $O(1)$ additional memory.
 
 ### Matrix form
 

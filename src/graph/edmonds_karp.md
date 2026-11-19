@@ -6,7 +6,7 @@ e_maxx_link: edmonds_karp
 
 # Maximum flow - Ford-Fulkerson and Edmonds-Karp
 
-The Edmonds-Karp algorithm is an implementation of the Ford-Fulkerson method for computing a maximal flow in a flow network.
+The Edmonds-Karp algorithm is an implementation of the Ford-Fulkerson method for computing a maximum flow in a flow network.
 
 ## Flow network
 
@@ -33,7 +33,7 @@ It is easy to see that the following equation holds:
 $$\sum_{(s, u) \in E} f((s, u)) = \sum_{(u, t) \in E} f((u, t))$$
 
 A good analogy for a flow network is the following visualization:
-We represent edges as water pipes, the capacity of an edge is the maximal amount of water that can flow through the pipe per second, and the flow of an edge is the amount of water that currently flows through the pipe per second.
+We represent edges as water pipes, the capacity of an edge is the maximum amount of water that can flow through the pipe per second, and the flow of an edge is the amount of water that currently flows through the pipe per second.
 This motivates the first flow condition. There cannot flow more water through a pipe than its capacity.
 The vertices act as junctions, where water comes out of some pipes, and then, these vertices distribute the water in some way to other pipes.
 This also motivates the second flow condition.
@@ -48,15 +48,15 @@ The first value of each edge represents the flow, which is initially 0, and the 
 </div>
 
 The value of the flow of a network is the sum of all the flows that get produced in the source $s$, or equivalently to the sum of all the flows that are consumed by the sink $t$.
-A **maximal flow** is a flow with the maximal possible value.
-Finding this maximal flow of a flow network is the problem that we want to solve.
+A **maximum flow** is a flow with the maximum possible value.
+Finding this maximum flow of a flow network is the problem that we want to solve.
 
 In the visualization with water pipes, the problem can be formulated in the following way:
 how much water can we push through the pipes from the source to the sink?
 
-The following image shows the maximal flow in the flow network.
+The following image shows the maximum flow in the flow network.
 <div style="text-align: center;">
-  <img src="Flow9.png" alt="Maximal flow">
+  <img src="Flow9.png" alt="Maximum flow">
 </div>
 
 ## Ford-Fulkerson method
@@ -73,7 +73,7 @@ Then we look for an **augmenting path** from $s$ to $t$.
 An augmenting path is a simple path in the residual graph where residual capacity is positive for all the edges along that path.
 If such a path is found, then we can increase the flow along these edges.
 We keep on searching for augmenting paths and increasing the flow.
-Once an augmenting path doesn't exist anymore, the flow is maximal.
+Once an augmenting path doesn't exist anymore, the flow is maximum.
 
 Let us specify in more detail, what increasing the flow along an augmenting path means.
 Let $C$ be the smallest residual capacity of the edges in the path.
@@ -121,22 +121,22 @@ Instead of sending a flow of 3 from $D$ to $A$, we only send 2 and compensate th
   <img src="Flow9.png" alt="Network after fourth path">
 </div>
 
-Now, it is impossible to find an augmenting path between $s$ and $t$, therefore this flow of $10$ is the maximal possible.
-We have found the maximal flow.
+Now, it is impossible to find an augmenting path between $s$ and $t$, therefore this flow of $10$ is the maximum possible.
+We have found the maximum flow.
 
 It should be noted, that the Ford-Fulkerson method doesn't specify a method of finding the augmenting path.
 Possible approaches are using [DFS](depth-first-search.md) or [BFS](breadth-first-search.md) which both work in $O(E)$.
 If all the capacities of the network are integers, then for each augmenting path the flow of the network increases by at least 1 (for more details see [Integral flow theorem](#integral-theorem)).
-Therefore, the complexity of Ford-Fulkerson is $O(E F)$, where $F$ is the maximal flow of the network.
+Therefore, the complexity of Ford-Fulkerson is $O(E F)$, where $F$ is the maximum flow of the network.
 In the case of rational capacities, the algorithm will also terminate, but the complexity is not bounded.
-In the case of irrational capacities, the algorithm might never terminate, and might not even converge to the maximal flow.
+In the case of irrational capacities, the algorithm might never terminate, and might not even converge to the maximum flow.
 
 ## Edmonds-Karp algorithm
 
 Edmonds-Karp algorithm is just an implementation of the Ford-Fulkerson method that uses [BFS](breadth-first-search.md) for finding augmenting paths.
 The algorithm was first published by Yefim Dinitz in 1970, and later independently published by Jack Edmonds and Richard Karp in 1972.
 
-The complexity can be given independently of the maximal flow.
+The complexity can be given independently of the maximum flow.
 The algorithm runs in $O(V E^2)$ time, even for irrational capacities.
 The intuition is, that every time we find an augmenting path one of the edges becomes saturated, and the distance from the edge to $s$ will be longer if it appears later again in an augmenting path.
 The length of the simple paths is bounded by $V$.
@@ -146,7 +146,7 @@ The length of the simple paths is bounded by $V$.
 The matrix `capacity` stores the capacity for every pair of vertices.
 `adj` is the adjacency list of the **undirected graph**, since we also have to use the reversed of directed edges when we are looking for augmenting paths.
 
-The function `maxflow` will return the value of the maximal flow.
+The function `maxflow` will return the value of the maximum flow.
 During the algorithm, the matrix `capacity` will actually store the residual capacity of the network.
 The value of the flow in each edge will actually not be stored, but it is easy to extend the implementation - by using an additional matrix - to also store the flow and return it.
 

@@ -157,7 +157,7 @@ However, there are still a large number of optimization options regarding this a
 By looking at the squares $a^2$ modulo a fixed small number, it can be observed that certain values $a$ don't have to be viewed, since they cannot produce a square number $a^2 - n$.
 
 
-## Pollard's $p - 1$ method { data-toc-label="Pollard's <script type='math/tex'>p - 1</script> method" }
+## Pollard's $p - 1$ method
 
 It is very likely that a number $n$ has at least one prime factor $p$ such that $p - 1$ is $\mathrm{B}$**-powersmooth** for small $\mathrm{B}$. An integer $m$ is said to be $\mathrm{B}$-powersmooth if every prime power dividing $m$ is at most $\mathrm{B}$. Formally, let $\mathrm{B} \geqslant 1$ and let $m$ be any positive integer. Suppose the prime factorization of $m$ is $m = \prod {q_i}^{e_i}$, where each $q_i$ is a prime and $e_i \geqslant 1$. Then $m$ is $\mathrm{B}$-powersmooth if, for all $i$, ${q_i}^{e_i} \leqslant \mathrm{B}$. 
 E.g. the prime factorization of $4817191$ is $1303 \cdot 3697$.
@@ -363,7 +363,7 @@ The difference being that instead of advancing the pointers by one and two place
 As soon as $2^i$ is greater than $\lambda$ and $\mu$, we will find the cycle.
 
 ```text
-function floyd(f, x0):
+function brent(f, x0):
     tortoise = x0
     hare = f(x0)
     l = 1

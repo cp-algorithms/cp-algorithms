@@ -36,7 +36,7 @@ That is, $A \oplus B = (A - B) \cup (B - A) = (A \cup B) - (A \cap B)$.
 ### Berge's lemma
 
 This lemma was proven by the French mathematician **Claude Berge** in 1957, although it already was observed by the Danish mathematician **Julius Petersen** in 1891 and 
-the Hungarian mathematician **Denés Kőnig** in 1931.
+the Hungarian mathematician **Dénes Kőnig** in 1931.
 
 #### Formulation 
 A matching $M$ is maximum $\Leftrightarrow$ there is no augmenting path relative to the matching $M$.
@@ -80,7 +80,7 @@ The algorithm is more convenient to describe if we assume that the input graph i
 that the input graph is not explicitly split into two parts).
 
 The algorithm looks at all the vertices $v$ of the first part of the graph: $v = 1 \ldots n_1$. If the current vertex $v$ is already saturated with the current matching 
-(i.e., some edge adjacent to it has already been selected), then skip this vertex. Otherwise, the algorithm tries to saturate this vertex, for which it starts 
+(i.e., some edge adjacent to it has already been selected), then it can be skipped. Otherwise, the algorithm tries to saturate this vertex, for which it starts 
 a search for an augmenting path starting from this vertex.
 
 The search for an augmenting path is carried out using a special depth-first or breadth-first traversal (usually depth-first traversal is used for ease of implementation). 
@@ -113,8 +113,7 @@ Let us present here an implementation of the above algorithm based on depth-firs
 This implementation is very concise, and perhaps it should be remembered in this form.
 
 Here $n$ is the number of vertices in the first part, $k$ - in the second part, $g[v]$ is the list of edges from the top of the first part (i.e. the list of numbers of the 
-vertices to which these edges lead from $v$). The vertices in both parts are numbered independently, i.e. vertices in the first part are numbered $1 \ldots n$, and those in the 
-second are numbered $1 \ldots k$.
+vertices to which these edges lead from $v$). In the implementation below, the vertices in both parts are indexed independently from zero: the first part uses indices $0 \ldots n-1$, and the second part uses $0 \ldots k-1$. The printed output adds one to these indices.
 
 Then there are two auxiliary arrays: $\rm mt$ and $\rm used$. The first - $\rm mt$ - contains information about the current matching. For convenience of programming, 
 this information is contained only for the vertices of the second part: $\textrm{mt[} i \rm]$ - this is the number of the vertex of the first part connected by an edge with the vertex $i$ of 
@@ -122,10 +121,10 @@ the second part (or $-1$, if no matching edge comes out of it). The second array
 (it is needed just so that the depth-first traversal does not enter the same vertex twice).
 
 A function $\textrm{try_kuhn}$ is a depth-first traversal. It returns $\rm true$ if it was able to find an augmenting path from the vertex $v$, and it is considered that this 
-function has already performed the alternation of matching along the found chain.
+function has already performed the alternation of matching along the found path.
 
 Inside the function, all the edges outgoing from the vertex $v$ of the first part are scanned, and then the following is checked: if this edge leads to an unsaturated vertex 
-$to$, or if this vertex $to$ is saturated, but it is possible to find an increasing chain by recursively starting from $\textrm{mt[}to \rm ]$, then we say that we have found an 
+$to$, or if this vertex $to$ is saturated, but it is possible to find an augmenting path by recursively starting from $\textrm{mt[}to \rm ]$, then we say that we have found an 
 augmenting path, and before returning from the function with the result $\rm true$, we alternate the current edge: we redirect the edge adjacent to $to$ to the vertex $v$.
 
 The main program first indicates that the current matching is empty (the list $\rm mt$ is filled with numbers $-1$). Then the vertex $v$ of the first part is searched by $\textrm{try_kuhn}$, 
@@ -171,7 +170,7 @@ int main() {
 We repeat once again that Kuhn's algorithm is easy to implement in such a way that it works on graphs that are known to be bipartite, but their explicit splitting into two parts 
 has not been given. In this case, it will be necessary to abandon the convenient division into two parts, and store all the information for all vertices of the graph. For this, 
 an array of lists $g$ is now specified not only for the vertices of the first part, but for all the vertices of the graph (of course, now the vertices of both parts are numbered 
-in a common numbering - from $1$ to $n$). Arrays $\rm mt$ and are $\rm used$ are now also defined for the vertices of both parts, and, accordingly, they need to be kept in this state.
+in a common numbering - from $1$ to $n$). Arrays $\rm mt$ and $\rm used$ are now also defined for the vertices of both parts, and, accordingly, they need to be kept in this state.
 
 ### Improved implementation
 

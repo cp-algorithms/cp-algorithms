@@ -90,3 +90,163 @@ body[dir=rtl] .metadata.page-metadata .contributors-text{
   border-color: #665c1e;
   color: #fff7b3;
 }
+
+/* Sidebar toggle button (javascript/sidebar-toggle.js). The drawer
+   hamburger takes over below the width where the sidebar is shown. */
+.md-header__button.sidebar-toggle {
+  cursor: pointer;
+}
+@media screen and (max-width: 76.1875em) {
+  .md-header__button.sidebar-toggle {
+    display: none;
+  }
+}
+@media screen and (min-width: 76.25em) {
+  .sidebar-hidden .md-sidebar--primary {
+    display: none;
+  }
+}
+
+/* Modern variant: keep the purple header and plain tag pills. */
+.md-header {
+  color: var(--md-primary-bg-color);
+  background-color: var(--md-primary-fg-color);
+}
+.md-typeset a.md-tag {
+  text-decoration: none;
+}
+
+/* Modern variant: a translucent search field that fits the purple header. */
+.md-header .md-search__button,
+.md-header .md-search__button:focus,
+.md-header .md-search__button:hover {
+  color: var(--md-primary-bg-color);
+}
+.md-header .md-search__button {
+  background-color: rgb(255 255 255 / 15%);
+}
+.md-header .md-search__button:focus,
+.md-header .md-search__button:hover {
+  background-color: rgb(255 255 255 / 25%);
+}
+.md-header .md-search__button::before {
+  background-color: var(--md-primary-bg-color);
+}
+.md-header .md-search__button::after {
+  color: var(--md-primary-bg-color);
+  background: rgb(255 255 255 / 15%);
+}
+
+/* Modern variant: admonitions keep the soft tint and outline icons and get a
+   4px left bar. Each type sets three colours:
+   - --cp-admonition-tint: the type colour, used for the title row tint.
+   - --cp-admonition-accent: the collapse chevron. In the light scheme it
+     is a darker shade of the type colour, so it reaches 3:1 contrast on the
+     tinted title row (WCAG 1.4.11). The dark scheme uses the type colour.
+   - --cp-admonition-bar: the left bar, a muted shade defined further down.
+     It falls back to the accent.
+   Contrast is measured against the title row: the type colour at 10% over
+   the page, plus 8% more for the title row. Types without their own colours
+   use note's. */
+.md-typeset :is(.admonition, details) {
+  --cp-admonition-accent: #2878ff;
+  --cp-admonition-tint: #448aff;
+  border-left: 4px solid var(--cp-admonition-bar, var(--cp-admonition-accent));
+}
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details) {
+  --cp-admonition-accent: #448aff;
+}
+.md-typeset :is(.admonition, details)[class] > :is(.admonition-title, summary)::after {
+  color: var(--cp-admonition-accent);
+}
+.md-typeset :is(.admonition, details).note { --cp-admonition-accent: #2878ff; --cp-admonition-tint: #448aff; }
+.md-typeset :is(.admonition, details).abstract { --cp-admonition-accent: #0089c7; --cp-admonition-tint: #00b0ff; }
+.md-typeset :is(.admonition, details).info { --cp-admonition-accent: #008ea4; --cp-admonition-tint: #00b8d4; }
+.md-typeset :is(.admonition, details).tip { --cp-admonition-accent: #00917d; --cp-admonition-tint: #00bfa5; }
+.md-typeset :is(.admonition, details).success { --cp-admonition-accent: #00953e; --cp-admonition-tint: #00c853; }
+.md-typeset :is(.admonition, details).question { --cp-admonition-accent: #449510; --cp-admonition-tint: #64dd17; }
+.md-typeset :is(.admonition, details).warning { --cp-admonition-accent: #bf6d00; --cp-admonition-tint: #ff9100; }
+.md-typeset :is(.admonition, details).failure { --cp-admonition-accent: #fd0000; --cp-admonition-tint: #ff5252; }
+.md-typeset :is(.admonition, details).danger { --cp-admonition-accent: #f2002f; --cp-admonition-tint: #ff1744; }
+.md-typeset :is(.admonition, details).bug { --cp-admonition-accent: #ed0054; --cp-admonition-tint: #f50057; }
+.md-typeset :is(.admonition, details).example { --cp-admonition-accent: #7c4dff; --cp-admonition-tint: #7c4dff; }
+.md-typeset :is(.admonition, details).quote { --cp-admonition-accent: #828282; --cp-admonition-tint: #9e9e9e; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).note { --cp-admonition-accent: #448aff; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).abstract { --cp-admonition-accent: #00b0ff; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).info { --cp-admonition-accent: #00b8d4; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).tip { --cp-admonition-accent: #00bfa5; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).success { --cp-admonition-accent: #00c853; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).question { --cp-admonition-accent: #64dd17; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).warning { --cp-admonition-accent: #ff9100; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).failure { --cp-admonition-accent: #ff5252; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).danger { --cp-admonition-accent: #ff1744; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).bug { --cp-admonition-accent: #f50057; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).example { --cp-admonition-accent: #7c4dff; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).quote { --cp-admonition-accent: #9e9e9e; }
+
+/* Admonition title rows span the full box width, so a tint or a divider
+   reads as a header row. The box has .8rem side padding. */
+.md-typeset :is(.admonition, details) > :is(.admonition-title, summary) {
+  margin: 0 -.8rem .6rem;
+  padding-top: .4rem;
+  padding-bottom: .4rem;
+  border-start-end-radius: .4rem;
+}
+.md-typeset details:not([open]) > :is(.admonition-title, summary) {
+  margin-bottom: 0;
+  border-end-end-radius: .4rem;
+}
+[dir=ltr] .md-typeset :is(.admonition, details) > :is(.admonition-title, summary) {
+  padding-left: 2.4rem;
+  padding-right: 2.4rem;
+}
+[dir=rtl] .md-typeset :is(.admonition, details) > :is(.admonition-title, summary) {
+  padding-right: 2.4rem;
+  padding-left: 2.4rem;
+}
+.md-typeset :is(.admonition, details) > :is(.admonition-title, summary)::before,
+.md-typeset details > summary::after {
+  top: calc(.4rem + .125em);
+}
+[dir=ltr] .md-typeset :is(.admonition, details) > :is(.admonition-title, summary)::before,
+[dir=rtl] .md-typeset details > summary::after {
+  left: .8rem;
+}
+[dir=rtl] .md-typeset :is(.admonition, details) > :is(.admonition-title, summary)::before,
+[dir=ltr] .md-typeset details > summary::after {
+  right: .8rem;
+}
+/* Variant A: the title row is one step more tinted than the body. */
+.md-typeset :is(.admonition, details) > :is(.admonition-title, summary) {
+  background-color: color-mix(in srgb, var(--cp-admonition-tint) 8%, transparent);
+}
+
+/* The bar uses a muted shade of each type colour: 70% of its chroma in
+   OKLCH, with the lightness adjusted so it still reaches 3:1 against the
+   title row, where its contrast is lowest in both schemes. */
+.md-typeset :is(.admonition, details) { --cp-admonition-bar: #497fda; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details) { --cp-admonition-bar: #5e8ede; }
+.md-typeset :is(.admonition, details).note { --cp-admonition-bar: #497fda; }
+.md-typeset :is(.admonition, details).abstract { --cp-admonition-bar: #4488b2; }
+.md-typeset :is(.admonition, details).info { --cp-admonition-bar: #458a99; }
+.md-typeset :is(.admonition, details).tip { --cp-admonition-bar: #448b7d; }
+.md-typeset :is(.admonition, details).success { --cp-admonition-bar: #448e54; }
+.md-typeset :is(.admonition, details).question { --cp-admonition-bar: #5a8f43; }
+.md-typeset :is(.admonition, details).warning { --cp-admonition-bar: #af7642; }
+.md-typeset :is(.admonition, details).failure { --cp-admonition-bar: #df5142; }
+.md-typeset :is(.admonition, details).danger { --cp-admonition-bar: #d54d4d; }
+.md-typeset :is(.admonition, details).bug { --cp-admonition-bar: #d14c62; }
+.md-typeset :is(.admonition, details).example { --cp-admonition-bar: #7863d8; }
+.md-typeset :is(.admonition, details).quote { --cp-admonition-bar: #828282; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).note { --cp-admonition-bar: #5e8ede; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).abstract { --cp-admonition-bar: #5aaee5; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).info { --cp-admonition-bar: #5bb3c6; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).tip { --cp-admonition-bar: #5cb8a5; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).success { --cp-admonition-bar: #5dbf71; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).question { --cp-admonition-bar: #85d565; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).warning { --cp-admonition-bar: #e99d5a; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).failure { --cp-admonition-bar: #e46f69; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).danger { --cp-admonition-bar: #e1555c; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).bug { --cp-admonition-bar: #d84f66; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).example { --cp-admonition-bar: #7863d8; }
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details).quote { --cp-admonition-bar: #9e9e9e; }
