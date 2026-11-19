@@ -56,6 +56,18 @@ body[dir=rtl] .metadata.page-metadata .contributors-text{
   overflow-y: hidden !important;
 }
 
+/* MathJax keeps a hidden copy of each formula for screen readers. Give it a
+   1px box so it cannot stick out and make the page wider than the screen. */
+mjx-container > mjx-assistive-mml {
+  width: 1px !important;
+}
+
+/* Let an article scroll sideways when something in it is wider than the
+   screen, such as a long inline formula, so the page itself never is. */
+.md-content {
+  overflow-x: auto;
+}
+
 /* Donation banner */
 #donation-banner {
   margin: 0.75rem 0.75rem 0;
