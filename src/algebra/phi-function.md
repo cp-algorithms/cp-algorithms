@@ -152,9 +152,7 @@ $$ \sum_{d|n} \phi{(d)} = n$$
 Here the sum is over all positive divisors $d$ of $n$.
 
 For instance the divisors of 10 are 1, 2, 5 and 10.
-Hence
-
-$$\phi{(1)} + \phi{(2)} + \phi{(5)} + \phi{(10)} = 1 + 1 + 4 + 4 = 10.$$
+Hence $\phi{(1)} + \phi{(2)} + \phi{(5)} + \phi{(10)} = 1 + 1 + 4 + 4 = 10$.
 
 ### Finding the totient from 1 to $n$ using the divisor sum property { data-toc-label="Finding the totient from 1 to n using the divisor sum property" }
 

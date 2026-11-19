@@ -35,10 +35,7 @@ This can be done by checking if the cross product $(p_1 - p_0)\times(p - p_0)$ i
 Then we handle the special case in which $p$ is part of the line $(p_0, p_1)$.
 And then we can binary search the last point from $p_1,\dots p_n$ which is not counter-clockwise from $p$ with respect to $p_0$.
 For a single point $p_i$ this condition can be checked by checking that $(p_i - p_0)\times(p - p_0) \le 0$. After we found such a point $p_i$, we must test if $p$ lies inside the triangle $p_0, p_i, p_{i + 1}$.
-To test if it belongs to the triangle, we may simply check that
-
-$$|(p_i - p_0)\times(p_{i + 1} - p_0)| = |(p_0 - p)\times(p_i - p)| + |(p_i - p)\times(p_{i + 1} - p)| + |(p_{i + 1} - p)\times(p_0 - p)|.$$
-
+To test if it belongs to the triangle, we may simply check that $|(p_i - p_0)\times(p_{i + 1} - p_0)| = |(p_0 - p)\times(p_i - p)| + |(p_i - p)\times(p_{i + 1} - p)| + |(p_{i + 1} - p)\times(p_0 - p)|$.
 This checks if the area of the triangle $p_0, p_i, p_{i+1}$ has exactly the same size as the sum of the sizes of the triangle $p_0, p_i, p$, the triangle $p_0, p, p_{i+1}$ and the triangle $p_i, p_{i+1}, p$.
 If $p$ is outside, then the sum of those three triangles will be bigger than the size of the triangle.
 If it is inside, then it will be equal.

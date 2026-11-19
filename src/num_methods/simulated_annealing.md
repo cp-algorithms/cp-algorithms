@@ -51,11 +51,11 @@ The temperature of the system quantifies the willingness of the algorithm to acc
 
 ## Probability Acceptance Function(PAF)
 
-$$P(E,E_{next},T) =
+$P(E,E_{next},T) = 
     \begin{cases}
        \text{True} &\quad\text{if }  \mathcal{U}_{[0,1]} \le \exp(-\frac{E_{next}-E}{T}) \\
        \text{False} &\quad\text{otherwise}\\
-     \end{cases}$$
+     \end{cases}$
 
 Here, $\mathcal{U}_{[0,1]}$ is a continuous uniform random value on $[0,1]$. This function takes in the current state, the next state and the temperature, returning a boolean value, which tells our search whether it should move to $s_{next}$ or stay at $s$. Note that for $E_{next} < E$ , this function will always return True, otherwise it can still make the move with probability $\exp(-\frac{E_{next}-E}{T})$, which corresponds to the [Gibbs measure](https://en.wikipedia.org/wiki/Gibbs_measure).
 
