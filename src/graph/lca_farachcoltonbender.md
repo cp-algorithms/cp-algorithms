@@ -75,7 +75,8 @@ So this leaves us only the range minimum queries inside blocks.
 
 Here we will exploit the property of the array.
 Remember that the values in the array - which are just height values in the tree - will always differ by one.
-If we remove the first element of a block, and subtract it from every other item in the block, every block can be identified by a sequence of length $K - 1$ consisting of the number $+1$ and $-1$.
+Taking the difference between each pair of adjacent elements identifies a block, up to an additive constant, by a sequence of length $K - 1$ consisting of $+1$ and $-1$.
+Adding the same constant to every element does not change the positions of the minima within the block, so blocks with the same sequence can share the same precomputed answers.
 Because these blocks are so small, there are only a few different sequences that can occur.
 The number of possible sequences is:
 
