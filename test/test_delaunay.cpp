@@ -3,6 +3,7 @@
 using namespace std;
 
 #include "delaunay.h"
+#include "data/delaunay_regression.h"
 
 int main(){
 	vector<pt> p = {
@@ -21,5 +22,6 @@ int main(){
 		swap(res[0], res[1]);
 	assert(has(res[0], pt(5, 5)) && has(res[0], pt(1, 0)) && has(res[0], pt(0, 1)));
 	assert(has(res[1], pt(0, 0)) && has(res[1], pt(1, 0)) && has(res[1], pt(0, 1)));
+	DelaunayRegression::run();
 	return 0;
 }

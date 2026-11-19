@@ -79,6 +79,13 @@ bool pointInTriangle(pt a, pt b, pt c, pt point) {
 
 void prepare(vector<pt> &points) {
     n = points.size();
+    vector<pt> corners;
+    for (int i = 0; i < n; ++i) {
+        if (points[i].cross(points[(i + 1) % n], points[(i + n - 1) % n]) != 0)
+            corners.push_back(points[i]);
+    }
+    points.swap(corners);
+    n = points.size();
     int pos = 0;
     for (int i = 1; i < n; i++) {
         if (lexComp(points[i], points[pos]))
