@@ -78,7 +78,7 @@ One approach would be take the frequency of each number from $0$ to $N$, and bui
 E.g. a segment tree or a treap.
 Each node represents a range of numbers, and together to total frequency in the range, you additionally store the amount of distinct numbers in that range.
 It's possible to update this data structure in $O(\log N)$ time, and also find the MEX in $O(\log N)$ time, by doing a binary search for the MEX.
-If the node representing the range $[0, \lfloor N/2 \rfloor)$ doesn't contain $\lfloor N/2 \rfloor$ many distinct numbers, then one is missing and the MEX is smaller than $\lfloor N/2 \rfloor$, and we recurse further.
+If the node representing the range $[0, \lfloor N/2 \rfloor)$ doesn't contain $\lfloor N/2 \rfloor$ many distinct numbers, then one is missing and the MEX is smaller than $\lfloor N/2 \rfloor$, and we recurse in the left branch. Otherwise it is at least $\lfloor N/2 \rfloor$, and we recurse in the right branch.
 
 It's also possible to use the standard library data structures `map` and `set` (based on an approach explained [here](https://codeforces.com/blog/entry/81287?#comment-677837)).
 With a `map` we will remember the frequency of each number, and with the `set` we represent the numbers that are currently missing from the array.
