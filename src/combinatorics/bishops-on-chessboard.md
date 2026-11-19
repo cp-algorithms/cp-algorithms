@@ -54,6 +54,8 @@ For each `i` we add `D[2N-1][i] * D[2N-2][K-i]` to the answer.
 ```cpp
 int bishop_placements(int N, int K)
 {
+    if (K == 0)
+        return 1;
     if (K > 2 * N - 1)
         return 0;
 

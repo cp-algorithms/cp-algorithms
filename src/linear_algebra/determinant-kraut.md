@@ -32,7 +32,7 @@ static BigInteger det (BigDecimal a [][], int n) {
 	for (int i=0; i<n; i++) {
 		boolean nonzero = false;
 		for (int j=0; j<n; j++)
-			if (a[i][j].compareTo (new BigDecimal (BigInteger.ZERO)) > 0)
+			if (a[i][j].compareTo (new BigDecimal (BigInteger.ZERO)) != 0)
 				nonzero = true;
 		if (!nonzero)
 			return BigInteger.ZERO;

@@ -56,10 +56,7 @@ void init(int n) {
     for (int i=2; i<=n; i++) {
         catalan[i] = 0;
         for (int j=0; j < i; j++) {
-            catalan[i] += (catalan[j] * catalan[i-j-1]) % MOD;
-            if (catalan[i] >= MOD) {
-                catalan[i] -= MOD;
-            }
+            catalan[i] = (catalan[i] + 1LL * catalan[j] * catalan[i-j-1]) % MOD;
         }
     }
 }
