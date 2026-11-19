@@ -6,16 +6,19 @@ def write_snippet(name, lines):
     file_name = '{}.h'.format(name)
     with open(file_name, 'w') as f:
         for line in lines:
+            # Strip leading 4 spaces (from tab indentation) if present
+            if line.startswith('    '):
+                line = line[4:]
             f.write(line)
 
 def extract_tests(filepath):
-    filepath_short = os.path.basename(filepath) 
+    filepath_short = os.path.basename(filepath)
     article_name = filepath_short.split('.')[0]
 
     snippet_start = re.compile(r"^\s*```\{.cpp\s+file=(\S+)\}$")
-    snippet_end = re.compile(r"^```$")
+    snippet_end = re.compile(r"^\s*```$")
 
-    with open(filepath) as f:
+    with open(filepath, encoding='utf-8') as f:
         in_snippet = False;
         for line in f:
             m_start = snippet_start.match(line)
