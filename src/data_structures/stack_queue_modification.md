@@ -94,7 +94,17 @@ We want to be able to remove elements without knowing which element we have to r
 We can accomplish that by storing the index for each element in the queue.
 And we also remember how many elements we already have added and removed.
 
+The variable `cnt_removed` stores the index of the next element to be removed from the original queue. It is incremented for every valid removal, even when no element is removed from the deque `q`. This is because a previous insertion may already have removed that element from the back of `q`.
+
+If `q.front().second` equals `cnt_removed`, the element is still present in the deque and must be removed from its front. Otherwise, it was already discarded during an earlier insertion.
+
+The algorithm assumes that removal is called only when the original queue is non-empty. Under this assumption, `q` is also non-empty. The `!q.empty()` check protects access to `q.front()`, but does not make removal from an empty original queue a supported operation.
+
 ```cpp
+if (!q.empty() && q.front().second == cnt_removed)
+    q.pop_front();
+
+cnt_removed++;
 deque<pair<int, int>> q;
 int cnt_added = 0;
 int cnt_removed = 0;
