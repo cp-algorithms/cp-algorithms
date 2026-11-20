@@ -18,11 +18,11 @@ If any element in the array changes, the complete data structure has to be recom
 Any non-negative number can be uniquely represented as a sum of decreasing powers of two.
 This is just a variant of the binary representation of a number.
 E.g. $13 = (1101)_2 = 8 + 4 + 1$.
-For a number $x$ there can be at most $\lceil \log_2 x \rceil$ summands.
+For a positive number $x$ there can be at most $\lfloor \log_2 x \rfloor + 1$ summands; zero has no summands.
 
 By the same reasoning any interval can be uniquely represented as a union of intervals with lengths that are decreasing powers of two.
 E.g. $[2, 14] = [2, 9] \cup [10, 13] \cup [14, 14]$, where the complete interval has length 13, and the individual intervals have the lengths 8, 4 and 1 respectively.
-And also here the union consists of at most $\lceil \log_2(\text{length of interval}) \rceil$ many intervals.
+And also here the union consists of at most $\lfloor \log_2(\text{length of interval}) \rfloor + 1$ intervals.
 
 The main idea behind Sparse Tables is to precompute all answers for range queries with power of two length.
 Afterwards a different range query can be answered by splitting the range into ranges with power of two lengths, looking up the precomputed answers, and combining them to receive a complete answer.
@@ -96,9 +96,9 @@ E.g. we can split the range $[1, 6]$ into the ranges $[1, 4]$ and $[3, 6]$.
 The range minimum of $[1, 6]$ is clearly the same as the minimum of the range minimum of $[1, 4]$ and the range minimum of $[3, 6]$.
 So we can compute the minimum of the range $[L, R]$ with:
 
-$$\min(\text{st}[i][L], \text{st}[i][R - 2^i + 1]) \quad \text{ where } i = \log_2(R - L + 1)$$
+$$\min(\text{st}[i][L], \text{st}[i][R - 2^i + 1]) \quad \text{ where } i = \lfloor \log_2(R - L + 1) \rfloor$$
 
-This requires that we are able to compute $\log_2(R - L + 1)$ fast.
+This requires that we are able to compute $\lfloor \log_2(R - L + 1) \rfloor$ fast.
 You can accomplish that by precomputing all logarithms:
 
 ```{.cpp file=sparse_table_log_table}
