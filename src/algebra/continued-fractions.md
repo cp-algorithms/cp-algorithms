@@ -410,7 +410,7 @@ It is worth noting that the Stern-Brocot tree is, in fact, a [treap](../data_str
     The problem is now, given $\frac{p_0}{q_0} < \frac{p_1}{q_1}$, find a fraction $\frac{p}{q}$ such that $(q;p)$ is lexicographically smallest and $\frac{p_0}{q_0} < \frac{p}{q} < \frac{p_1}{q_1}$.
     === "Python"
         ```py
-            def solve():
+        def solve():
             n = int(input())
             C = [0] * n
             J = [0] * n
@@ -525,7 +525,7 @@ $$|r-r_k| = |r_k-r_{k+1}|-|r-r_{k+1}| \leq |r_k - r_{k+1}|.$$
 
     $$r-r_k = \sum\limits_{i=k+1}^\infty \frac{(-1)^{i-1}}{q_i q_{i-1}}$$
 
-    has the same sign as $(-1)^k$ due to how fast $q_i q_{i-1}$ decreases. Hence even-indexed $r_k$ approach $r$ from below while odd-indexed $r_k$ approach it from above:
+    has the same sign as $(-1)^k$ because the terms $1/(q_i q_{i-1})$ decrease to zero. Hence even-indexed $r_k$ approach $r$ from below while odd-indexed $r_k$ approach it from above:
 
     <figure><img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Golden_ration_convergents.svg" width="600px"/>
     <figcaption>_Convergents of $r=\phi = \frac{1+\sqrt{5}}{2}=[1;1,1,\dots]$ and their distance from $r$._</figcaption></figure>
@@ -579,7 +579,7 @@ $$y = \frac{ax+b}{cx+d} \iff y(cx+d) = ax + b \iff x = -\frac{dy-b}{cy-a}.$$
 ??? hint "Solution"
     We can solve this problem with the segment tree if we're able to concatenate continued fractions.
 
-    It's generally true that $[a_0; a_1, \dots, a_k, b_0, b_1, \dots, b_k] = [a_0; a_1, \dots, a_k, [b_1; b_2, \dots, b_k]]$.
+    It's generally true that $[a_0; a_1, \dots, a_k, b_0, b_1, \dots, b_k] = [a_0; a_1, \dots, a_k, [b_0; b_1, \dots, b_k]]$.
 
     Let's denote $L_{k}(x) = [a_k; x] = a_k + \frac{1}{x} = \frac{a_k\cdot x+1}{1\cdot x + 0}$. Note that $L_k(\infty) = a_k$. In this notion, it holds that
 
@@ -654,19 +654,19 @@ One can further prove (and it was first done by Lagrange) that for arbitrary qua
 
     Therefore, 
 
-    $$s_k = -\frac{\alpha q_{k-1} - p_{k-1}}{\alpha q_k - p_k} = -\frac{q_{k-1} y \sqrt n + (x q_{k-1} - z p_{k-1})}{q_k y \sqrt n + (xq_k-zp_k)}.$$
+    $$s_k = -\frac{\alpha q_{k-2} - p_{k-2}}{\alpha q_{k-1} - p_{k-1}} = -\frac{q_{k-2} y \sqrt n + (x q_{k-2} - z p_{k-2})}{q_{k-1} y \sqrt n + (x q_{k-1} - z p_{k-1})}.$$
 
-    Multiplying the numerator and denominator by $(xq_k - zp_k) - q_k y \sqrt n$, we'll get rid of $\sqrt n$ in the denominator, thus the complete quotients are of form
+    Multiplying the numerator and denominator by $(x q_{k-1} - z p_{k-1}) - q_{k-1} y \sqrt n$, we'll get rid of $\sqrt n$ in the denominator, thus the complete quotients are of form
 
     $$s_k = \frac{x_k + y_k \sqrt n}{z_k}.$$
 
     Let's find $s_{k+1}$, assuming that $s_k$ is known.
 
-    First of all, $a_k = \lfloor s_k \rfloor = \left\lfloor \frac{x_k + y_k \lfloor \sqrt n \rfloor}{z_k} \right\rfloor$. Then,
+    First of all, $a_k = \lfloor s_k \rfloor = \left\lfloor \frac{x_k + y_k \sqrt n}{z_k} \right\rfloor$. In general, replacing $\sqrt n$ by $\lfloor \sqrt n \rfloor$ before taking this floor is not valid. Then,
 
-    $$s_{k+1} = \frac{1}{s_k-a_k} = \frac{z_k}{(x_k - z_k a_k) + y_k \sqrt n} = \frac{z_k (x_k - y_k a_k) - y_k z_k \sqrt n}{(x_k - y_k a_k)^2 - y_k^2 n}.$$
+    $$s_{k+1} = \frac{1}{s_k-a_k} = \frac{z_k}{(x_k - z_k a_k) + y_k \sqrt n} = \frac{z_k (x_k - z_k a_k) - y_k z_k \sqrt n}{(x_k - z_k a_k)^2 - y_k^2 n}.$$
 
-    Thus, if we denote $t_k = x_k - y_k a_k$, it will hold that
+    Thus, if we denote $t_k = x_k - z_k a_k$, it will hold that
 
     \begin{align}x_{k+1} &=& z_k t_k, \\ y_{k+1} &=& -y_k z_k, \\ z_{k+1} &=& t_k^2 - y_k^2 n.\end{align}
 
@@ -676,13 +676,20 @@ One can further prove (and it was first done by Lagrange) that for arbitrary qua
 
     === "Python"
         ```py
+        import math
+
         # compute the continued fraction of sqrt(n)
         def sqrt(n):
-            n0 = math.floor(math.sqrt(n))
             x, y, z = 1, 0, 1
             a = []
             def step(x, y, z):
-                a.append((x * n0 + y) // z)
+                # The current quotient is (x * sqrt(n) + y) / z.
+                if z < 0:
+                    x, y, z = -x, -y, -z
+                root = math.isqrt(n * x * x)
+                if x < 0:
+                    root = -root - 1  # n is not a square and x is nonzero
+                a.append((root + y) // z)
                 t = y - a[-1]*z
                 x, y, z = -z*x, z*t, t**2 - n*x**2
                 g = math.gcd(x, math.gcd(y, z))
@@ -696,7 +703,7 @@ One can further prove (and it was first done by Lagrange) that for arbitrary qua
                     return a
         ```
 
-    Using the same `step` function but different initial $x$, $y$ and $z$ it is possible to compute it for arbitrary $\frac{x+y \sqrt{n}}{z}$.
+    The `step` function also works for other quadratic irrationals. Its state represents $(x\sqrt n+y)/z$, so its `x` and `y` have the opposite roles from $x_k$ and $y_k$ in the derivation above. Initialize `x`, `y` and `z` with the coefficient of $\sqrt n$, the constant term and the denominator, respectively. An arbitrary starting value may require a different loop bound.
 
 !!! example "[Tavrida NU Akai Contest - Continued Fraction](https://timus.online/problem.aspx?space=1&num=1814)"
     You're given $x$ and $k$, $x$ is not a perfect square. Let $\sqrt x = [a_0; a_1, \dots]$, find $\frac{p_k}{q_k}=[a_0; a_1, \dots, a_k]$ for $0 \leq k \leq 10^9$.
@@ -756,7 +763,7 @@ $$\vec r_k = \vec r_{k-2} + \left\lfloor \left| \frac{\vec r \times \vec r_{k-2}
 
 Note that $\vec r_k \times r = (q;p) \times (1;r) = qr - p$, thus
 
-$$a_k = \left\lfloor \left| \frac{q_{k-1}r-p_{k-1}}{q_{k-2}r-p_{k-2}} \right| \right\rfloor.$$
+$$a_k = \left\lfloor \left| \frac{q_{k-2}r-p_{k-2}}{q_{k-1}r-p_{k-1}} \right| \right\rfloor.$$
 
 ??? hint "Explanation"
     As we have already noted, $a_k = \lfloor s_k \rfloor$, where $s_k = [a_k; a_{k+1}, a_{k+2}, \dots]$. On the other hand, from the convergent recurrence we derive that
@@ -827,7 +834,7 @@ Now that the most important facts and concepts were introduced, it is time to de
     <figure><img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Lattice-hull.svg" width="500px"/>
     <figcaption>Convex hull of lattice points under $y=\frac{4}{7}x$ for $0 \leq x \leq 19$ consists of points $(0;0), (7;4), (14;8), (16;9), (18;10), (19;10)$.</figcaption></figure>
 
-    Let $(x; y)$ be the last current point in the convex hull. Then the next point $(x'; y')$ is such that $x' \leq N$ and $(x'; y') - (x; y) = (\Delta x; \Delta y)$ is as close to the line $y=rx$ as possible. In other words, $(\Delta x; \Delta y)$ maximizes $r \Delta x - \Delta y$ subject to $\Delta x \leq N - x$ and $\Delta y \leq r \Delta x$.
+    Let $(x; y)$ be the last current point in the convex hull. Then the next point $(x'; y')$ is such that $x' \leq N$ and $(x'; y') - (x; y) = (\Delta x; \Delta y)$ is as close to the line $y=rx$ as possible. In other words, $(\Delta x; \Delta y)$ minimizes $r \Delta x - \Delta y$ subject to $0 < \Delta x \leq N - x$ and $\Delta y \leq r \Delta x$. If there is a tie, choose the smallest $\Delta x$ to obtain the next lattice point.
 
     Points like that lie on the convex hull of lattice points below $y=rx$. In other words, $(\Delta x; \Delta y)$ must be a lower semiconvergent of $r$.
 
