@@ -226,7 +226,7 @@ Consider two polynomials $A(x)$ and $B(x)$ of degrees $n$ and $m$. As it was sai
 
 $$A(x) = B(x) D(x) + R(x), \deg R < \deg B.$$
 
-Let $n \geq m$, it would imply that $\deg D = n - m$ and the leading $n-m+1$ coefficients of $A$ don't influence $R$. It means that you can recover $D(x)$ from the largest $n-m+1$ coefficients of $A(x)$ and $B(x)$ if you consider it as a system of equations.
+Let $n \geq m$. Then $\deg D = n - m$, and the leading $n-m+1$ coefficients of $A$ determine $D$ (together with the coefficients of $B$). In contrast, these coefficients can influence the remainder $R$.
 
 The system of linear equations we're talking about can be written in the following form:
 
@@ -417,7 +417,7 @@ The total procedure also works in $O(n \log^2 n)$.
 
 Assume you're given polynomials $A(x) = a_0 + a_1 x + \dots + a_n x^n$ and $B(x) = b_0 + b_1 x + \dots + b_m x^m$.
 
-Let $\lambda_0, \dots, \lambda_n$ be the roots of $A(x)$ and let $\mu_0, \dots, \mu_m$ be the roots of $B(x)$ counted with their multiplicities.
+Let $\lambda_1, \dots, \lambda_n$ be the roots of $A(x)$ and let $\mu_1, \dots, \mu_m$ be the roots of $B(x)$ counted with their multiplicities in a splitting field.
 
 You want to know if $A(x)$ and $B(x)$ have any roots in common. There are two interconnected ways to do that.
 
@@ -437,11 +437,11 @@ It can be proven that for polynomials $A(x)$ and $B(x)$ it will work in $O(nm)$.
 
 ### Resultant
 
-Let's calculate the product $A(\mu_0)\cdots A(\mu_m)$. It will be equal to zero if and only if some $\mu_i$ is the root of $A(x)$.
+Let's calculate the product $A(\mu_1)\cdots A(\mu_m)$. It will be equal to zero if and only if some $\mu_i$ is a root of $A(x)$.
 
 For symmetry we can also multiply it with $b_m^n$ and rewrite the whole product in the following form:
 
-$$\boxed{\mathcal{R}(A, B) = b_m^n\prod\limits_{j=0}^m A(\mu_j) = b_m^n a_m^n \prod\limits_{i=0}^n \prod\limits_{j=0}^m (\mu_j - \lambda_i)= (-1)^{mn}a_n^m \prod\limits_{i=0}^n B(\lambda_i)}$$
+$$\boxed{\mathcal{R}(A, B) = b_m^n\prod\limits_{j=1}^m A(\mu_j) = b_m^n a_n^m \prod\limits_{i=1}^n \prod\limits_{j=1}^m (\mu_j - \lambda_i)= (-1)^{mn}a_n^m \prod\limits_{i=1}^n B(\lambda_i)}$$
 
 The value defined above is called the resultant of the polynomials $A(x)$ and $B(x)$. From the definition you may find the following properties:
 
