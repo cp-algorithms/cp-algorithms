@@ -73,15 +73,13 @@ Kuhn's algorithm is a direct application of Berge's lemma. It is essentially des
 
 First, we take an empty matching. Then, while the algorithm is able to find an augmenting path, we update the matching by alternating it along this path and repeat the process of finding the augmenting path.  As soon as it is not possible to find such a path, we stop the process - the current matching is the maximum. 
 
-It remains to detail the way to find augmenting paths. Kuhn's algorithm simply searches for any of these paths using [depth-first](depth-first-search.md) or [breadth-first](breadth-first-search.md) traversal. The algorithm 
-looks through all the vertices of the graph in turn, starting each traversal from it, trying to find an augmenting path starting at this vertex.
+Kuhn's algorithm searches for an augmenting path using a [depth-first](depth-first-search.md) or [breadth-first](breadth-first-search.md) traversal.
 
 The algorithm is more convenient to describe if we assume that the input graph is already split into two parts (although, in fact, the algorithm can be implemented in such a way 
 that the input graph is not explicitly split into two parts).
 
-The algorithm looks at all the vertices $v$ of the first part of the graph: $v = 1 \ldots n_1$. If the current vertex $v$ is already saturated with the current matching 
-(i.e., some edge adjacent to it has already been selected), then it can be skipped. Otherwise, the algorithm tries to saturate this vertex, for which it starts 
-a search for an augmenting path starting from this vertex.
+Consider each vertex $v$ of the first part in turn. If $v$ is already matched, skip it because an augmenting path must start at an unmatched vertex.
+Otherwise, start a search from $v$. The search may still visit matched vertices along the path.
 
 The search for an augmenting path is carried out using a special depth-first or breadth-first traversal (usually depth-first traversal is used for ease of implementation). 
 Initially, the depth-first traversal is at the current unsaturated vertex $v$ of the first part. Let's look through all edges from this vertex. Let the current edge be an edge 
