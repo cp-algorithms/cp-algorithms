@@ -12,10 +12,11 @@ The algorithm described here is based on [depth first search](depth-first-search
 
 ## Algorithm
 
+For the discussion of back edges and $low$ values, assume there are no parallel edges. The implementation below also finds articulation points when parallel edges are present. It skips all edges to the parent, which can change a $low$ value, but an extra edge to the parent cannot change whether that child satisfies $low[to] \geq tin[v]$.
+
 Pick an arbitrary vertex of the graph $root$ and run [depth first search](depth-first-search.md) from it. Note the following fact (which is easy to prove):
 
-- Let's say we are in the DFS, looking through the edges starting from vertex $v\ne root$.
-If the current edge $(v, to)$ is such that none of the vertices $to$ or its descendants in the DFS traversal tree has a back-edge to any of ancestors of $v$, then $v$ is an articulation point. Otherwise, $v$ is not an articulation point.
+- A non-root vertex $v$ is an articulation point if and only if it has at least one child $to$ in the DFS tree such that neither $to$ nor any of its descendants has a back edge to a strict ancestor of $v$.
 
 - Let's consider the remaining case of $v=root$.
 This vertex will be the point of articulation if and only if this vertex has more than one child in the DFS tree.
@@ -26,9 +27,9 @@ So, let $tin[v]$ denote entry time for node $v$. We introduce an array $low[v]$ 
 
 $$low[v] = \min \begin{cases} tin[v] \\ tin[p] &\text{ for all }p\text{ for which }(v, p)\text{ is a back edge} \\ low[to]& \text{ for all }to\text{ for which }(v, to)\text{ is a tree edge} \end{cases}$$
 
-Now, there is a back edge from vertex $v$ or one of its descendants to one of its ancestors if and only if vertex $v$ has a child $to$ for which $low[to] < tin[v]$. If $low[to] = tin[v]$, the back edge comes directly to $v$, otherwise it comes to one of the ancestors of $v$.
+For a child $to$ of $v$, $low[to] < tin[v]$ means that $to$ or one of its descendants has a back edge to a strict ancestor of $v$. If $low[to] = tin[v]$, such a back edge reaches $v$, but none reaches a strict ancestor of $v$.
 
-Thus, the vertex $v$ in the DFS tree is an articulation point if and only if $low[to] \geq tin[v]$.
+Thus, a non-root vertex $v$ is an articulation point if and only if it has a child $to$ for which $low[to] \geq tin[v]$. As noted above, a DFS root is an articulation point if and only if it has more than one child.
 
 ## Implementation
 
