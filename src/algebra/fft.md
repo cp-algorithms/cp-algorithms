@@ -278,7 +278,7 @@ The only thing we have to do afterwards, is to normalize the number:
 
 ```cpp
     int carry = 0;
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n; i++) {
         result[i] += carry;
         carry = result[i] / 10;
         result[i] %= 10;
@@ -378,7 +378,7 @@ void fft(vector<cd> & a, bool invert) {
 ```
 
 At first we apply the bit-reversal permutation by swapping the each element with the element of the reversed position.
-Then the $\log n - 1$ states of the algorithm we compute the DFT for each block of the corresponding size $\text{len}$.
+Then, in each of the $\log_2 n$ stages of the algorithm, we compute the DFT for each block of the corresponding size $\text{len}$.
 For all those blocks we have the same root of unity $\text{wlen}$.
 We iterate all blocks and perform the butterfly transform on each of them.
 
