@@ -86,7 +86,7 @@ For relatively small $k$ we can come up with a better solution than the above re
 If $k$ is a lot smaller than $n$, then we can delete multiple numbers ($\lfloor \frac{n}{k} \rfloor$) in one run without looping over.
 Afterwards we have $n - \lfloor \frac{n}{k} \rfloor$ numbers left, and we start with the $(\lfloor \frac{n}{k} \rfloor \cdot k)$-th number.
 So we have to shift by that many.
-We can notice that $\lfloor \frac{n}{k} \rfloor \cdot k$ is simply $-n \bmod k$.
+We can notice that $\lfloor \frac{n}{k} \rfloor \cdot k = n - (n \bmod k)$.
 And because we removed every $k$-th number, we have to add the number of numbers that we removed before the result index.
 Which we can compute by dividing the result index by $k - 1$.
 
