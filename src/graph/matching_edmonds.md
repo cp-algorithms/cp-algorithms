@@ -62,11 +62,13 @@ As this example shows, when the search enters an odd cycle, it may go around the
 
 The idea of Edmonds' algorithm (Jack Edmonds, 1965) is **blossom shrinking**. We contract the whole odd cycle into one pseudo-vertex; all edges incident to vertices of the cycle become incident to this pseudo-vertex. Edmonds' algorithm finds blossoms in the graph and shrinks them. After that, there are no troublesome odd cycles left in the contracted graph (also called the **surface graph**), and an augmenting path can be found by a simple depth-first or breadth-first search. The blossoms are then expanded to restore an augmenting path in the original graph.
 
-**Edmonds' theorem.** Let $\overline G$ be the graph obtained from $G$ by shrinking a blossom. There is an augmenting path in $\overline G$ if and only if there is one in $G$.
+It is not immediately clear that shrinking a blossom preserves what we need: if there is an augmenting path in $G$, there is also one in the graph $\overline G$ obtained by shrinking the blossom, and conversely.
+
+**Edmonds' theorem.** There is an augmenting path in $\overline G$ if and only if there is an augmenting path in $G$.
 
 ??? note "Proof sketch"
 
-    Denote the cycle of the blossom by $B$ and the corresponding contracted vertex by $\overline B$.
+    Suppose $\overline G$ is obtained from $G$ by shrinking one blossom. Denote the cycle of the blossom by $B$ and the corresponding contracted vertex by $\overline B$.
 
     First notice that it is enough to consider the case where the base of the blossom is free. Otherwise, the stem is an alternating path of even length from a free vertex to the base. Alternating the matching along the stem in both graphs does not change the size of the matching and makes the base free. So one matching is maximum if and only if the other is, and by Berge's theorem an augmenting path exists for one if and only if it exists for the other.
 
@@ -75,6 +77,8 @@ The idea of Edmonds' algorithm (Jack Edmonds, 1965) is **blossom shrinking**. We
     Now suppose that $\overline P$ is an augmenting path in $\overline G$. Again, if it does not pass through $\overline B$, nothing has to be changed.
 
     The vertex $\overline B$ is free in the contracted graph, so it cannot be an internal vertex of $\overline P$. It remains to consider the case where $\overline P$ starts at $\overline B$, i.e. it has the form $(\overline B,c,\ldots)$. In the blossom there is a vertex $v$ joined to $c$ by the corresponding non-matching edge. Of the two paths around the odd cycle from the base $b$ to $v$, one is an alternating path of even length. Replacing $\overline B$ by this path gives $(b,\ldots,v,c,\ldots)$, which is an augmenting path in $G$.
+
+    This proves both directions of the theorem.
 
 In outline, for every free vertex we run a breadth-first search for an augmenting path, shrink every blossom the search meets, and alternate the matching along the path if one is found.
 
@@ -88,13 +92,13 @@ $$
 
 The blossom contractions are the main difficulty. If we directly merge adjacency lists and remove the extra vertices, one contraction takes $O(m)$ and expanding the blossoms afterwards also becomes complicated.
 
-Instead, for every vertex of the original graph we keep a pointer to the base of the blossom containing it (or to the vertex itself if it does not belong to a contracted blossom).
+Instead, for every vertex of the original graph we keep a pointer to the base of the blossom containing it (or to the vertex itself if it does not belong to a contracted blossom). We need to contract a blossom in $O(n)$ and, at the same time, keep enough information to alternate the matching along the path later.
 
 One iteration of the algorithm is a breadth-first search from a given free vertex `root`. During the search we build a tree in which the path from the root to any vertex is alternating. For convenience, only vertices at even distance from the root are put into the queue; we call such vertices **even**. These are the root and the far endpoints of matching edges.
 
 The tree is stored in the parent array `p`. For every **odd** vertex (a vertex at odd distance from the root), `p` stores its even parent. To restore a path we alternately use `p` and `match`, where `match[v]` is the vertex matched with `v`, or $-1$ if `v` is free.
 
-Now we can detect an odd cycle. Suppose that, while processing an even vertex $v$, the search follows an edge to another even vertex $u$: either the root, or a matched vertex whose partner already has a parent (`p[match[u]] != -1`). Their distances to their lowest common ancestor have the same parity, so the edge $(v,u)$ closes an odd cycle.
+Now we can detect an odd cycle. Suppose that, while processing an even vertex $v$, the search follows an edge to a vertex $u$ which is either the root, or is matched and its partner already has a parent (that is, `p[match[u]] != -1`). Then both $v$ and $u$ are even. Their distances to their lowest common ancestor have the same parity, and the edge $(v,u)$ closes an odd cycle.
 
 ### Finding the base
 
@@ -123,7 +127,7 @@ int lca(int a, int b) {
 
 ### Shrinking a blossom
 
-We have to identify the cycle by walking from $v$ and $u$ to its base $b$. For now it is enough to mark all its vertices in a boolean array `blossom`. To simulate a BFS from the contracted pseudo-vertex, we then put every vertex of the cycle into the queue.
+We have to identify the cycle by walking from $v$ and $u$ to its base $b$. For now it is enough to mark all its vertices in a boolean array `blossom`. To simulate a BFS from the contracted pseudo-vertex, we then put every vertex of the cycle into the queue. This avoids any real merging of adjacency lists.
 
 One problem is still left: restoring the augmenting path after the BFS finishes. For this we have kept the parent array `p`, but after a contraction the BFS continues from all vertices of the cycle, including odd ones. Also, an augmenting path through the blossom may go around the cycle in the direction which looks like going down the old search tree.
 
