@@ -6,7 +6,7 @@ e_maxx_link: matching_edmonds
 
 # Edmonds' Blossom Algorithm for Maximum Matching in General Graphs
 
-Let an undirected unweighted graph $G$ with $n$ vertices be given. We have to find a **maximum matching** in it, i.e. a set of as many edges as possible such that no two selected edges have a common endpoint.
+Let an undirected unweighted graph $G$ with $n$ vertices and $m$ edges be given. We have to find a **maximum matching** in it, i.e. a set of as many edges as possible such that no two selected edges have a common endpoint.
 
 Unlike the case of a bipartite graph (see [Kuhn's algorithm](kuhn_maximum_bipartite_matching.md)), the graph $G$ may contain odd cycles, which makes the search for augmenting paths much more difficult.
 
@@ -14,7 +14,7 @@ We first give Berge's theorem. It shows that, just as for bipartite graphs, a ma
 
 ## Augmenting paths. Berge's theorem
 
-Fix some matching $M$. A simple path $P = (v_1, v_2, \ldots, v_k)$ is called **alternating** if its edges alternately do and do not belong to $M$. An alternating path is called **augmenting** if its first and last vertices are not matched. In other words, the simple path $P$ is augmenting if and only if $v_1$ is free, $(v_2,v_3) \in M$, $(v_4,v_5) \in M$, $\ldots$, $(v_{k-2},v_{k-1}) \in M$, and $v_k$ is free.
+Fix some matching $M$. A simple path $P = (v_1, v_2, \ldots, v_k)$ is called **alternating** if its edges alternately do and do not belong to $M$. An alternating path is called **augmenting** if its first and last vertices are **free**, i.e. do not belong to the matching. In other words, the simple path $P$ is augmenting if and only if $v_1$ is free, $(v_2,v_3) \in M$, $(v_4,v_5) \in M$, $\ldots$, $(v_{k-2},v_{k-1}) \in M$, and $v_k$ is free.
 
 <div style="text-align: center;">
   <img src="edmonds_1.png" alt="An augmenting path">
@@ -22,19 +22,7 @@ Fix some matching $M$. A simple path $P = (v_1, v_2, \ldots, v_k)$ is called **a
 
 **Berge's theorem** (Claude Berge, 1957). A matching $M$ is maximum if and only if there is no augmenting path with respect to it.
 
-??? note "Proof"
-
-    **Proof of necessity.** Suppose that an augmenting path $P$ exists for the matching $M$. We show how to obtain a matching with larger cardinality. Alternate the matching along $P$: add the edges $(v_1,v_2)$, $(v_3,v_4)$, $\ldots$, $(v_{k-1},v_k)$ to the matching and remove the edges $(v_2,v_3)$, $(v_4,v_5)$, $\ldots$, $(v_{k-2},v_{k-1})$. The result is again a valid matching, and it contains one more edge than $M$.
-
-    **Proof of sufficiency.** Suppose that there is no augmenting path for $M$. We prove that $M$ is maximum. Let $\overline M$ be a maximum matching and consider the symmetric difference
-
-    $$
-    \overline G = M \oplus \overline M.
-    $$
-
-    Thus, $\overline G$ contains the edges which belong to exactly one of the two matchings. Every connected component of $\overline G$ is a simple path or a cycle: otherwise some vertex would be incident to two edges from the same matching. For the same reason, every cycle has even length and its edges alternate between $M$ and $\overline M$.
-
-    A path in $\overline G$ cannot have odd length either. Such a path would be augmenting for $M$, contrary to our assumption, or augmenting for $\overline M$, contrary to the fact that $\overline M$ is maximum. Therefore, every component contains the same number of edges from $M$ and $\overline M$. It follows that $|M| = |\overline M|$, and so $M$ is a maximum matching.
+The [proof](kuhn_maximum_bipartite_matching.md#berges-lemma) given in the article on Kuhn's algorithm does not use bipartiteness, so it applies here unchanged.
 
 Berge's theorem gives the basis of Edmonds' algorithm: find augmenting paths and alternate the matching along them while such paths exist.
 
@@ -54,43 +42,29 @@ Still, it is possible to construct a graph where, for a certain order of the adj
   <img src="edmonds_3.png" alt="A graph on which Kuhn's algorithm can fail">
 </div>
 
-As this example shows, when the search enters an odd cycle, it may go around the cycle in the wrong direction. In fact, we are interested only in odd alternating cycles of length $2k+1$ which contain $k$ matching edges. Such a cycle has exactly one vertex not matched by an edge of the cycle; this vertex is called the **base**, and the odd cycle itself is called a **blossom**. An alternating path of even (possibly zero) length starts at a free vertex and ends at the base; it is called the **stem**.
+As this example shows, when the search enters an odd cycle, it may go around the cycle in the wrong direction. In fact, we are interested only in odd alternating cycles of length $2k+1$ which contain $k$ matching edges. Such a cycle has exactly one vertex not matched by an edge of the cycle; this vertex is called the **base**. The cycle is called a **blossom** if it also has a **stem**: an alternating path of even (possibly zero) length from a free vertex to the base that meets the cycle only at the base.
 
 <div style="text-align: center;">
   <img src="edmonds_4.png" alt="A blossom, its base, and its stem">
 </div>
 
-The idea of Edmonds' algorithm (Jack Edmonds, 1965) is **blossom shrinking**. We contract the whole odd cycle into one pseudo-vertex; all edges incident to vertices of the cycle become incident to this pseudo-vertex. Edmonds' algorithm finds blossoms in the graph and shrinks them. After that, there are no troublesome odd cycles left in the contracted graph (also called the **surface graph**), and an augmenting path can be found by an ordinary traversal. The blossoms are then expanded to restore an augmenting path in the original graph.
+The idea of Edmonds' algorithm (Jack Edmonds, 1965) is **blossom shrinking**. We contract the whole odd cycle into one pseudo-vertex; all edges incident to vertices of the cycle become incident to this pseudo-vertex. Edmonds' algorithm finds blossoms in the graph and shrinks them. After that, there are no troublesome odd cycles left in the contracted graph (also called the **surface graph**), and an augmenting path can be found by a simple depth-first or breadth-first search. The blossoms are then expanded to restore an augmenting path in the original graph.
 
-It is not immediately clear that shrinking a blossom preserves what we need: if an augmenting path existed in $G$, it should also exist in the graph $\overline G$ obtained by shrinking the blossom, and conversely.
-
-**Edmonds' theorem.** There is an augmenting path in $\overline G$ if and only if there is an augmenting path in $G$.
+**Edmonds' theorem.** Let $\overline G$ be the graph obtained from $G$ by shrinking a blossom. There is an augmenting path in $\overline G$ if and only if there is one in $G$.
 
 ??? note "Proof sketch"
 
-    Suppose $\overline G$ is obtained from $G$ by shrinking one blossom. Denote the cycle of the blossom by $B$ and the corresponding contracted vertex by $\overline B$.
+    Denote the cycle of the blossom by $B$ and the corresponding contracted vertex by $\overline B$.
 
-    First notice that it is enough to consider the case where the base of the blossom is free. Otherwise, the stem is an alternating path of even length from a free vertex to the base. Alternating the matching along the stem does not change the size of the matching and makes the base free. The old and new matchings have the same cardinality, so one is maximum if and only if the other is. By Berge's theorem, an augmenting path exists for one matching if and only if it exists for the other.
+    First notice that it is enough to consider the case where the base of the blossom is free. Otherwise, the stem is an alternating path of even length from a free vertex to the base. Alternating the matching along the stem does not change the size of the matching and makes the base free. So one matching is maximum if and only if the other is, and by Berge's theorem an augmenting path exists for one if and only if it exists for the other.
 
-    Suppose first that $P$ is an augmenting path in $G$. If it does not pass through $B$, it stays an augmenting path in $\overline G$. Otherwise, walk along $P$ from one of its free endpoints until it first reaches the cycle. All vertices of $B$ except its base are matched by edges of the cycle, so the edge by which $P$ enters $B$ is not in the matching. After the contraction, the prefix of $P$ up to this edge is therefore an augmenting path ending at the free vertex $\overline B$. If an endpoint of $P$ itself lies in $B$, this endpoint can only be the base, and the same argument applies after reversing $P$ if necessary.
+    Suppose first that $P$ is an augmenting path in $G$. If it does not pass through $B$, it stays an augmenting path in $\overline G$. Otherwise, follow $P$ from one of its free endpoints until it first reaches the cycle. All vertices of $B$ except its base are matched by edges of the cycle, so the edge by which $P$ enters $B$ is not in the matching. After the contraction, the prefix of $P$ up to this edge is therefore an augmenting path ending at the free vertex $\overline B$. If an endpoint of $P$ itself lies in $B$, this endpoint can only be the base, and the same argument applies after reversing $P$ if necessary.
 
     Now suppose that $\overline P$ is an augmenting path in $\overline G$. Again, if it does not pass through $\overline B$, nothing has to be changed.
 
     The vertex $\overline B$ is free in the contracted graph, so it cannot be an internal vertex of $\overline P$. It remains to consider the case where $\overline P$ starts at $\overline B$, i.e. it has the form $(\overline B,c,\ldots)$. In the blossom there is a vertex $v$ joined to $c$ by the corresponding non-matching edge. Of the two paths around the odd cycle from the base $b$ to $v$, one is an alternating path of even length. Replacing $\overline B$ by this path gives $(b,\ldots,v,c,\ldots)$, which is an augmenting path in $G$.
 
-    This proves both directions of the theorem.
-
-The general scheme of Edmonds' algorithm is the following:
-
-```text
-for every free vertex root:
-    search for an augmenting path starting at root using BFS:
-        for every edge from the current vertex:
-            if it closes an odd cycle, shrink the blossom
-            if it reaches a free vertex, return the path
-            otherwise add the vertex matched with it to the queue
-    if a path was found, alternate the matching along it
-```
+In outline, for every free vertex we run a breadth-first search for an augmenting path, shrink every blossom the search meets, and alternate the matching along the path if one is found.
 
 ## Efficient implementation
 
@@ -100,21 +74,21 @@ $$
 O\left(n(m+n^2)\right) = O(n^3).
 $$
 
-The blossom contractions are the main difficulty. If we really merge adjacency lists and remove the extra vertices, one contraction takes $O(m)$ and expanding the blossoms afterwards also becomes complicated.
+The blossom contractions are the main difficulty. If we directly merge adjacency lists and remove the extra vertices, one contraction takes $O(m)$ and expanding the blossoms afterwards also becomes complicated.
 
-Instead, for every vertex of the original graph we keep a pointer to the base of the blossom containing it (or to the vertex itself if it does not belong to a contracted blossom). We need to contract a blossom in $O(n)$ and, at the same time, keep enough information to alternate the matching along the path later.
+Instead, for every vertex of the original graph we keep a pointer to the base of the blossom containing it (or to the vertex itself if it does not belong to a contracted blossom).
 
-One iteration of the algorithm is a breadth-first search from a given free vertex `root`. During the search we build a tree in which the path from the root to any vertex is alternating. For convenience, only vertices at even distance from the root are put into the queue. These are the root and the far endpoints of matching edges.
+One iteration of the algorithm is a breadth-first search from a given free vertex `root`. During the search we build a tree in which the path from the root to any vertex is alternating. For convenience, only vertices at even distance from the root are put into the queue; we call such vertices **even**. These are the root and the far endpoints of matching edges.
 
-The tree is stored in the parent array `p`. For every odd vertex, `p` stores its even parent. To restore a path we alternately use `p` and `match`, where `match[v]` is the vertex matched with `v`, or $-1$ if `v` is free.
+The tree is stored in the parent array `p`. For every **odd** vertex (a vertex at odd distance from the root), `p` stores its even parent. To restore a path we alternately use `p` and `match`, where `match[v]` is the vertex matched with `v`, or $-1$ if `v` is free.
 
-Now we can detect an odd cycle. Suppose that, while processing an even vertex $v$, the search follows an edge to a vertex $u$ which is either the root or is matched and already belongs to the search tree (that is, `p[match[u]] != -1`). Then both $v$ and $u$ are even. Their distances to their lowest common ancestor have the same parity, and the edge $(v,u)$ closes an odd cycle.
+Now we can detect an odd cycle. Suppose that, while processing an even vertex $v$, the search follows an edge to another even vertex $u$: either the root, or a matched vertex whose partner already has a parent (`p[match[u]] != -1`). Their distances to their lowest common ancestor have the same parity, so the edge $(v,u)$ closes an odd cycle.
 
 ### Finding the base
 
 Suppose the blossom was detected while considering an edge $(v,u)$ between two even vertices. Their lowest common ancestor $b$ is the base of the blossom. The base is also even, because every odd vertex in the search tree has only one child. Notice that $b$ may itself be a pseudo-vertex: in that case we find the base of the already contracted blossom which is the lowest common ancestor of $v$ and $u$.
 
-The lowest common ancestor can be found directly in $O(n)$:
+The lowest common ancestor can be found directly in $O(n)$. From an even vertex we move to its base and then to the next even ancestor `p[match[a]]`; only the root has no partner:
 
 ```cpp
 int lca(int a, int b) {
@@ -137,15 +111,17 @@ int lca(int a, int b) {
 
 ### Shrinking a blossom
 
-We have to identify the cycle by walking from $v$ and $u$ to its base $b$. For now it is enough to mark all its vertices in a boolean array `blossom`. To simulate a BFS from the contracted pseudo-vertex, we then put every vertex of the cycle into the queue. This avoids any real merging of adjacency lists.
+We have to identify the cycle by walking from $v$ and $u$ to its base $b$. For now it is enough to mark all its vertices in a boolean array `blossom`. To simulate a BFS from the contracted pseudo-vertex, we then put every vertex of the cycle into the queue.
 
 One problem is still left: restoring the augmenting path after the BFS finishes. For this we have kept the parent array `p`, but after a contraction the BFS continues from all vertices of the cycle, including odd ones. Also, an augmenting path through the blossom may go around the cycle in the direction which looks like going down the old search tree.
 
-This is handled by changing the parents of every even vertex of the cycle, except for the base, so that they point to the neighboring vertex in the proper direction around the cycle. For $u$ and $v$, if they are not the base, the parent pointers are directed toward each other. Then, if path restoration enters a blossom at an odd vertex, following the parent pointers correctly walks around the cycle and eventually reaches its base.
+This is handled by changing the parents of every even vertex of the cycle, except for the base, so that they point to the neighboring vertex in the proper direction around the cycle. For $v$ and $u$, if they are not the base, the parent pointers are directed toward each other. Then, if path restoration enters a blossom at an odd vertex, following the parent pointers correctly walks around the cycle and eventually reaches its base.
 
 <div style="text-align: center;">
   <img src="edmonds_5.png" alt="Changing parent pointers while shrinking a blossom">
 </div>
+
+In the figure, $(v,u) = (v_4,v_5)$, an arrow from $x$ to $y$ means `p[x] = y`, and the arrows leaving $b$ are not stored.
 
 The contraction begins as follows:
 
@@ -156,7 +132,7 @@ mark_path(v, curbase, u);
 mark_path(u, curbase, v);
 ```
 
-The function `mark_path` walks from a vertex to the base, marks both ends of every matching edge of this part of the cycle, and fixes the parents of the even vertices. The parameter `children` is the child of the first vertex; it is used to close the cycle in the parent pointers.
+The function `mark_path` walks from a vertex to the base, marks both ends of every matching edge of this part of the cycle, and fixes the parents of the even vertices. Vertices are marked through `base`, so a blossom shrunk earlier is marked as a whole. The parameter `children` is the child of the first vertex; it is used to close the cycle in the parent pointers.
 
 ```cpp
 void mark_path(int v, int b, int children) {
@@ -169,7 +145,7 @@ void mark_path(int v, int b, int children) {
 }
 ```
 
-After both sides of the cycle have been marked, the contraction is completed by changing their bases and adding the necessary vertices to the queue:
+After both sides of the cycle have been marked, the contraction is completed by updating the bases and adding the necessary vertices to the queue:
 
 ```cpp
 for (int i = 0; i < n; ++i) {
@@ -187,7 +163,7 @@ for (int i = 0; i < n; ++i) {
 
 The function `find_path(root)` searches for an augmenting path from a free vertex `root`. It returns the other free endpoint, or $-1$ if no path was found.
 
-At the start of each search, no blossom is contracted, so `base[i] = i`. The arrays `used` and `p` are cleared. While processing an edge $(v,to)$ there are three cases:
+At the start of each search, no blossom is contracted, so `base[i] = i`. The arrays `used` (vertices already put into the queue) and `p` are cleared. While processing an edge $(v,to)$ there are three cases:
 
 1. If `base[v] == base[to]`, the two vertices belong to the same contracted pseudo-vertex and the edge does not exist in the current surface graph. We also skip the edge if `match[v] == to`, because it is the matching edge going back towards the parent of the even vertex $v$.
 
@@ -298,21 +274,26 @@ int maximum_matching() {
 
 As with Kuhn's algorithm, before running Edmonds' algorithm we can build some initial matching by a simple algorithm. For example, the following greedy algorithm can be used:
 
-```cpp
-for (int i = 0; i < n; ++i) {
-    if (match[i] == -1) {
-        for (int to : g[i]) {
-            if (match[to] == -1) {
-                match[to] = i;
-                match[i] = to;
-                break;
+```{.cpp file=edmonds_blossom_greedy}
+int greedy_matching() {
+    int matching = 0;
+    for (int i = 0; i < n; ++i) {
+        if (match[i] == -1) {
+            for (int to : g[i]) {
+                if (match[to] == -1) {
+                    match[to] = i;
+                    match[i] = to;
+                    ++matching;
+                    break;
+                }
             }
         }
     }
+    return matching;
 }
 ```
 
-On random graphs this optimization can speed up the algorithm considerably, sometimes by several times. After building this matching, the main loop of `maximum_matching` should be run without clearing `match`, and the initial number of matched pairs should be counted.
+To use it, replace `int matching = 0;` in `maximum_matching` by `int matching = greedy_matching();`. Each edge it adds saves one search.
 
 ## The bipartite case
 
