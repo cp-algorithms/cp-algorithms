@@ -56,7 +56,7 @@ The idea of Edmonds' algorithm (Jack Edmonds, 1965) is **blossom shrinking**. We
 
     Denote the cycle of the blossom by $B$ and the corresponding contracted vertex by $\overline B$.
 
-    First notice that it is enough to consider the case where the base of the blossom is free. Otherwise, the stem is an alternating path of even length from a free vertex to the base. Alternating the matching along the stem does not change the size of the matching and makes the base free. So one matching is maximum if and only if the other is, and by Berge's theorem an augmenting path exists for one if and only if it exists for the other.
+    First notice that it is enough to consider the case where the base of the blossom is free. Otherwise, the stem is an alternating path of even length from a free vertex to the base. Alternating the matching along the stem in both graphs does not change the size of the matching and makes the base free. So one matching is maximum if and only if the other is, and by Berge's theorem an augmenting path exists for one if and only if it exists for the other.
 
     Suppose first that $P$ is an augmenting path in $G$. If it does not pass through $B$, it stays an augmenting path in $\overline G$. Otherwise, follow $P$ from one of its free endpoints until it first reaches the cycle. All vertices of $B$ except its base are matched by edges of the cycle, so the edge by which $P$ enters $B$ is not in the matching. After the contraction, the prefix of $P$ up to this edge is therefore an augmenting path ending at the free vertex $\overline B$. If an endpoint of $P$ itself lies in $B$, this endpoint can only be the base, and the same argument applies after reversing $P$ if necessary.
 
