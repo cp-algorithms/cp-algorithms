@@ -22,7 +22,19 @@ Fix some matching $M$. A simple path $P = (v_1, v_2, \ldots, v_k)$ is called **a
 
 **Berge's theorem** (Claude Berge, 1957). A matching $M$ is maximum if and only if there is no augmenting path with respect to it.
 
-The [proof](kuhn_maximum_bipartite_matching.md#berges-lemma) given in the article on Kuhn's algorithm does not use bipartiteness, so it applies here unchanged.
+??? note "Proof"
+
+    **Proof of necessity.** Suppose that an augmenting path $P$ exists for the matching $M$. We show how to obtain a matching of larger cardinality. Alternate the matching along $P$: add the edges $(v_1,v_2)$, $(v_3,v_4)$, $\ldots$, $(v_{k-1},v_k)$ to the matching and remove the edges $(v_2,v_3)$, $(v_4,v_5)$, $\ldots$, $(v_{k-2},v_{k-1})$. The result is again a valid matching, and it contains one more edge than $M$.
+
+    **Proof of sufficiency.** Suppose that there is no augmenting path for $M$. We prove that $M$ is maximum. Let $\overline M$ be a maximum matching and consider the symmetric difference
+
+    $$
+    H = M \oplus \overline M.
+    $$
+
+    Thus, $H$ contains the edges which belong to exactly one of the two matchings. Every connected component of $H$ is a simple path or a cycle: otherwise some vertex would be incident to two edges from the same matching. For the same reason, every cycle has even length and its edges alternate between $M$ and $\overline M$.
+
+    A path in $H$ cannot have odd length either. Both end edges of such a path belong to the same matching, and its endpoints are free in the other one, since otherwise the path would continue. So it would be augmenting for $M$, contrary to our assumption, or augmenting for $\overline M$, contrary to the fact that $\overline M$ is maximum. Therefore, every component contains the same number of edges from $M$ and $\overline M$. It follows that $|M| = |\overline M|$, and so $M$ is a maximum matching.
 
 Berge's theorem gives the basis of Edmonds' algorithm: find augmenting paths and alternate the matching along them while such paths exist.
 
