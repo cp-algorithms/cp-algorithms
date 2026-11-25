@@ -325,7 +325,7 @@ If we consider all parts of the algorithm, then it contains three places in the 
   - Third place is changing the transition leading to $q$, redirecting them to $clone$.
 
 We use the fact that the size of the suffix automaton (both in the number of states and in the number of transitions) is **linear**.
-(The proof of the linearity of the number of states is the algorithm itself, and the proof of linearity of the number of states is given below, after the implementation of the algorithm).
+(The proof of the linearity of the number of states is the algorithm itself, and the proof of linearity of the number of transitions is given below, after the implementation of the algorithm).
 
 Thus the total complexity of the **first and second places** is obvious, after all each operation adds only one amortized new transition to the automaton.
 
