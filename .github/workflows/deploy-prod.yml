@@ -7,58 +7,13 @@ on:
       - completed
 
 jobs:
-  deploy_live_website:
-    runs-on: ubuntu-latest
-    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Attach run to the commit
-        uses: ./.github/actions/set-commit-status
-        with:
-          sha: ${{ github.event.workflow_run.head_sha }}
-          status: pending
-
-      - name: Download pages
-        uses: actions/download-artifact@v4
-        with:
-          run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ github.token }}
-          merge-multiple: true
-          path: public
-
-      - name: change URLs for large files
-        shell: bash
-        run: sed -i 's|search/search_index.json|https://storage.googleapis.com/cp-algorithms/search_index.json|g' public/assets/javascripts/*.js
-
-      - id: auth
-        uses: google-github-actions/auth@v2.1.6
-        with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
-
-      - uses: google-github-actions/upload-cloud-storage@v2.2.0
-        with:
-          path: public/search/search_index.json
-          destination: cp-algorithms
-
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        id: firebase-deploy
-        with:
-          repoToken: ${{ github.token }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          projectId: cp-algorithms
-          channelId: live
-
-      - name: Set final commit status
-        uses: ./.github/actions/set-commit-status
-        if: always()
-        with:
-          sha: ${{ github.event.workflow_run.head_sha }}
-
   deploy_github_pages:
     runs-on: ubuntu-latest
-    if: github.event.workflow_run.conclusion == 'success'
+    if: github.event.workflow_run.conclusion == 'success' && (github.event.workflow_run.event == 'pull_request' || github.event.workflow_run.head_branch == 'main')
+    concurrency:
+      group: gh-pages
+      queue: max
+      cancel-in-progress: false
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -76,22 +31,114 @@ jobs:
           github-token: ${{ github.token }}
           path: public
 
-      - name: Get PR number from artifact
+      - name: Check preview target
         id: get-pr-number
-        run: echo "pr_number=$(ls public)" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BUILD_EVENT: ${{ github.event.workflow_run.event }}
+          BUILD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          target=$(ls public)
+          if [ "$BUILD_EVENT" = push ] && [ "$target" = main ]; then
+            deploy=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" |
+              jq -r --arg sha "$BUILD_SHA" '.object.sha == $sha')
+          else
+            [[ "$BUILD_EVENT" = pull_request && "$target" =~ ^[1-9][0-9]*$ ]] || exit 1
+            # workflow_run.head_sha is the PR head, not the merge-ref checkout SHA.
+            deploy=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$target" |
+              jq -r --arg sha "$BUILD_SHA" '.state == "open" and .head.sha == $sha')
+          fi
+          printf 'pr_number=%s\ndeploy=%s\n' "$target" "$deploy" >> "$GITHUB_OUTPUT"
 
-      - name: Deploy to gh-pages
+      - name: Validate isolated preview destination
+        id: preview-site
+        if: steps.get-pr-number.outputs.deploy == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.PREVIEW_DEPLOY_TOKEN }}
+          PREVIEW_REPOSITORY: ${{ vars.PREVIEW_REPOSITORY }}
+        run: |
+          : "${GH_TOKEN:?Configure PREVIEW_DEPLOY_TOKEN for the preview repository}"
+          [[ "$PREVIEW_REPOSITORY" =~ ^[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+$ ]]
+          [[ "${PREVIEW_REPOSITORY,,}" != "${GITHUB_REPOSITORY,,}" ]]
+          site_url=$(gh api "repos/$PREVIEW_REPOSITORY/pages" --jq '
+            if .public == true and .source.branch == "gh-pages" and .source.path == "/" then .html_url
+            else error("Configure public Pages from the preview repository gh-pages root") end')
+          PREVIEW_SITE_URL="$site_url" python3 - <<'PY'
+          import os
+          from scripts.article_previews import preview_prefix
+          preview_prefix(os.environ["PREVIEW_SITE_URL"], "https://cp-algorithms.com/")
+          PY
+          printf 'url=%s\n' "${site_url%/}" >> "$GITHUB_OUTPUT"
+
+      - name: Publish production at the site root
+        if: steps.get-pr-number.outputs.deploy == 'true' && steps.get-pr-number.outputs.pr_number == 'main'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ github.token }}
           user_name: github-actions[bot]
           user_email: github-actions[bot]@users.noreply.github.com
-          publish_dir: public/${{ steps.get-pr-number.outputs.pr_number }}
-          destination_dir: ${{ steps.get-pr-number.outputs.pr_number }}
-          full_commit_message: "Preview for ${{ steps.get-pr-number.outputs.pr_number != 'main' && '#' || '' }}${{ steps.get-pr-number.outputs.pr_number }} (${{ github.event.workflow_run.head_sha }}) at https://gh.cp-algorithms.com/${{ steps.get-pr-number.outputs.pr_number }}/"
+          publish_dir: public/main
+          cname: cp-algorithms.com
+          full_commit_message: "Publish production (${{ github.event.workflow_run.head_sha }})"
+
+      - name: Checkout published previews
+        if: steps.get-pr-number.outputs.deploy == 'true'
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.PREVIEW_REPOSITORY }}
+          token: ${{ secrets.PREVIEW_DEPLOY_TOKEN }}
+          ref: gh-pages
+          path: published
+
+      - name: Set up Python for previews
+        if: steps.get-pr-number.outputs.deploy == 'true'
+        uses: actions/setup-python@v5.6.0
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: scripts/preview-requirements.txt
+
+      - name: Publish article previews
+        id: article-previews
+        if: steps.get-pr-number.outputs.deploy == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ steps.get-pr-number.outputs.pr_number }}
+          BUILD_SHA: ${{ github.event.workflow_run.head_sha }}
+          PREVIEW_SITE_URL: ${{ steps.preview-site.outputs.url }}
+        run: |
+          python3 -m pip install -r scripts/preview-requirements.txt
+          args=()
+          if [ "$PR_NUMBER" != main ]; then
+            gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/files" > "$RUNNER_TEMP/preview-files.json"
+            deploy=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER" |
+              jq -r --arg sha "$BUILD_SHA" '.state == "open" and .head.sha == $sha')
+            if [ "$deploy" != true ]; then
+              printf 'Preview skipped: the PR closed or its head changed while fetching the file list.\n' >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+            args=(--files "$RUNNER_TEMP/preview-files.json")
+          fi
+          python3 scripts/article_previews.py publish \
+            --build "public/$PR_NUMBER" --site published --pr "$PR_NUMBER" \
+            "${args[@]}" --revision "$BUILD_SHA" --site-url "$PREVIEW_SITE_URL" \
+            --summary "$RUNNER_TEMP/preview-summary.md"
+          review_url="$PREVIEW_SITE_URL/preview/$PR_NUMBER/"
+          if [ "$PR_NUMBER" = main ]; then review_url="$PREVIEW_SITE_URL/main/"; fi
+          git -C published config user.name "github-actions[bot]"
+          git -C published config user.email "github-actions[bot]@users.noreply.github.com"
+          git -C published add --all
+          if ! git -C published diff --cached --quiet; then
+            git -C published commit -m "Preview for $PR_NUMBER ($BUILD_SHA) at $review_url"
+            git -C published push origin HEAD:gh-pages
+          fi
+          cat "$RUNNER_TEMP/preview-summary.md" >> "$GITHUB_STEP_SUMMARY"
+          printf 'url=%s\n' "$review_url" >> "$GITHUB_OUTPUT"
 
       - name: Set final commit status
         uses: ./.github/actions/set-commit-status
         if: always()
         with:
           sha: ${{ github.event.workflow_run.head_sha }}
+          target-url: ${{ job.status == 'success' && steps.article-previews.outputs.url || format('{0}/{1}/actions/runs/{2}', github.server_url, github.repository, github.run_id) }}
+          description: ${{ job.status == 'success' && steps.article-previews.outputs.url && 'Review article previews' || job.status }}

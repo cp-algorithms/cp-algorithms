@@ -432,3 +432,4 @@ void output (pitem t) {
 * [Codeforces - T-Shirts](https://codeforces.com/contest/702/problem/F)
 * [Codeforces - Wizards and Roads](https://codeforces.com/problemset/problem/167/D)
 * [Codeforces - Yaroslav and Points](https://codeforces.com/contest/295/problem/E)
+* [Codeforces - KiaKio and Energy Intervals](https://codeforces.com/contest/2268/problem/C)

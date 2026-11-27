@@ -6,11 +6,24 @@ e_maxx_link: prefix_function
 
 # Prefix function. Knuth–Morris–Pratt algorithm
 
+## Motivation
+
+Suppose we want to find all occurrences of a non-empty string $s$ in a text $t$.
+Starting at position $0$, we compare $s[0]$ with $t[0]$, $s[1]$ with $t[1]$, and so on, until we find a mismatch or match all of $s$.
+When moving to the next candidate position, we would like to reuse as much of this work as possible.
+
+Suppose the current candidate starts at $i$ and we have matched through position $j$, so $t[i \dots j] = s[0 \dots j-i]$.
+After a mismatch, or after reporting a full match, a later start within this block is still possible only if the overlapping suffix of $t[i \dots j]$ is a prefix of $s$.
+The longest such suffix shorter than the whole block gives the earliest start not ruled out by the matched characters; if it is empty, that start is $j+1$.
+The next comparison uses $t[j+1]$ and the character of $s$ following this prefix, without rechecking the overlap.
+Since the matched block equals a prefix of $s$, the possible overlaps depend only on $s$, not on $t$.
+The prefix function records the longest such overlap for each prefix of $s$.
+
 ## Prefix function definition
 
 You are given a string $s$ of length $n$.
-The **prefix function** for this string is defined as an array $\pi$ of length $n$, where $\pi[i]$ is the length of the longest proper prefix of the substring $s[0 \dots i]$ which is also a suffix of this substring.
-A proper prefix of a string is a prefix that is not equal to the string itself.
+The **prefix function** for this string is an array $\pi$ of length $n$, where $\pi[i]$ is the length of the longest prefix of $s$ that matches a substring ending at position $i$, excluding the whole substring $s[0 \dots i]$ itself.
+The matched string is a **proper prefix** of $s[0 \dots i]$ (a prefix shorter than the whole substring) that is also its suffix.
 By definition, $\pi[0] = 0$.
 
 Mathematically the definition of the prefix function can be written as follows:
@@ -130,20 +143,14 @@ The algorithm still requires storing the string itself and the previously calcul
 
 ### Search for a substring in a string. The Knuth-Morris-Pratt algorithm
 
-The task is the classical application of the prefix function.
-
-Given a text $t$ and a string $s$, we want to find and display the positions of all occurrences of the string $s$ in the text $t$.
-
-For convenience we denote with $n$ the length of the string s and with $m$ the length of the text $t$.
+We now solve the substring-search problem from the motivation using the prefix function.
+Let $n = |s|$ and $m = |t|$.
 
 We generate the string $s + \# + t$, where $\#$ is a separator that appears neither in $s$ nor in $t$.
 Let us calculate the prefix function for this string.
-Now think about the meaning of the values of the prefix function, except for the first $n + 1$ entries (which belong to the string $s$ and the separator).
-By definition the value $\pi[i]$ shows the longest length of a substring ending in position $i$ that coincides with the prefix.
-But in our case this is nothing more than the largest block that coincides with $s$ and ends at position $i$.
-This length cannot be bigger than $n$ due to the separator.
-But if equality $\pi[i] = n$ is achieved, then it means that the string $s$ appears completely in at this position, i.e. it ends at position $i$.
-Just do not forget that the positions are indexed in the string $s + \# + t$.
+For a position $i$ in the text part, the separator ensures that $\pi[i] \le n$.
+By the definition, $\pi[i] = n$ means that a full occurrence of $s$ ends there.
+The positions here are indexed in the combined string $s + \# + t$.
 
 Thus if at some position $i$ we have $\pi[i] = n$, then at the position $i - (n + 1) - n + 1 = i - 2n$ in the string $t$ the string $s$ appears.
 
