@@ -18,6 +18,7 @@
 /* Override the above filter for the header logo. */
 .md-logo img {
   filter: none;
+  mix-blend-mode: normal;
 }
 
 /* Move primary sidebar to the right */
