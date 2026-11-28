@@ -9,8 +9,16 @@
   --md-typeset-a-color: #c973d9;
 }
 
+/* Invert images in dark mode, but keep them visible. */
 [data-md-color-scheme="slate"] img {
-  background-color: lightgray;
+  filter: invert(1) hue-rotate(180deg);
+  mix-blend-mode: lighten;
+}
+
+/* Override the above filter for the header logo. */
+.md-logo img {
+  filter: none;
+  mix-blend-mode: normal;
 }
 
 /* Move primary sidebar to the right */
