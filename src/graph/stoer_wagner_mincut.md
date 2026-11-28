@@ -8,11 +8,11 @@ e_maxx_link: stoer_wagner_mincut
 
 ## Problem statement
 
-Given an undirected weighted graph $G$ with $n$ vertices and $m$ edges. A cut $C$ is a non-empty proper subset of the vertices (effectively, a cut is a partition of the vertices into two non-empty sets: the ones belonging to $C$ and all the others). The weight of a cut is the sum of the weights of the edges crossing the cut, i.e. the edges that have exactly one endpoint in $C$:
+Given an undirected weighted graph $G$ with $n$ vertices and $m$ edges with nonnegative edge weights. A cut $C$ is a non-empty proper subset of the vertices (effectively, a cut is a partition of the vertices into two non-empty sets: the ones belonging to $C$ and all the others). The weight of a cut is the sum of the weights of the edges crossing the cut, i.e. the edges that have exactly one endpoint in $C$:
 
 $$ w(C) = \sum_{\substack{(v,u) \in E \\ u \in C,\ v \not\in C}} c(v,u), $$
 
-where $E$ denotes the set of all edges of the graph $G$, and $c(v,u)$ is the weight of the edge $(v,u)$.
+where $E$ denotes the set of all edges of the graph $G$, and $c(v,u)$ is the nonnegative weight of the edge $(v,u)$.
 
 The task is to find a **cut of minimum weight**.
 
@@ -42,7 +42,7 @@ If we use **Fibonacci heaps** for finding the vertex with the largest value of $
 
 ## Proof of the Stoer-Wagner theorem
 
-Let us recall the statement of this theorem. If we add all the vertices to the set $A$ one by one, every time adding the vertex most strongly connected to this set, then denote the second-to-last added vertex by $s$ and the last one by $t$. Then the minimum $s$-$t$ cut consists of a single vertex — $t$.
+Let us recall the statement of this theorem. In an undirected graph with nonnegative edge weights, if we add all the vertices to the set $A$ one by one, every time adding the vertex most strongly connected to this set, then denote the second-to-last added vertex by $s$ and the last one by $t$. Then the minimum $s$-$t$ cut consists of a single vertex — $t$.
 
 To prove it, consider an arbitrary $s$-$t$ cut $C$ and show that its weight cannot be less than the weight of the cut consisting of the single vertex $t$:
 
@@ -78,7 +78,7 @@ from which we have:
 
 $$ w(u,A_u) \le w(C_v) + w(u,A_u \setminus A_v). $$
 
-Now note that the vertex $u$ and all vertices of $A_u \setminus A_v$ are in different parts of the cut $C$, so the quantity $w(u,A_u \setminus A_v)$ denotes the sum of the weights of the edges that are counted in $w(C_u)$ but were not yet counted in $w(C_v)$, from which we get:
+Now note that the vertex $u$ and all vertices of $A_u \setminus A_v$ are in different parts of the cut $C$, so the quantity $w(u,A_u \setminus A_v)$ denotes the sum of the weights of the edges that are counted in $w(C_u)$ but were not yet counted in $w(C_v)$. Since all edge weights are nonnegative, any remaining edges crossing $C_u$ also contribute nonnegative weight, from which we get:
 
 $$ w(u,A_u) \le w(C_v) + w(u,A_u \setminus A_v) \le w(C_u), $$
 
