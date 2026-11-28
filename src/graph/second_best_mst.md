@@ -88,12 +88,12 @@ long long res = 0, ans = 1e18;
 int n, m, a, b, w, id, l = 21;
 vector<Edge> edges;
 vector<int> h(N, 0), parent(N, -1), size(N, 0), present(N, 0);
-vector<vector<pair<int, int>>> adj(N), dp(N, vector<pair<int, int>>(l));
+vector<vector<pair<int, int>>> adj(N), dp(N, vector<pair<int, int>>(l, {INT_MIN, INT_MIN}));
 vector<vector<int>> up(N, vector<int>(l, -1));
 
 pair<int, int> combine(pair<int, int> a, pair<int, int> b) {
     vector<int> v = {a.first, a.second, b.first, b.second};
-    int topTwo = -3, topOne = -2;
+    int topTwo = INT_MIN, topOne = INT_MIN;
     for (int c : v) {
         if (c > topOne) {
             topTwo = topOne;
@@ -108,7 +108,7 @@ pair<int, int> combine(pair<int, int> a, pair<int, int> b) {
 void dfs(int u, int par, int d) {
     h[u] = 1 + h[par];
     up[u][0] = par;
-    dp[u][0] = {d, -1};
+    dp[u][0] = {d, INT_MIN};
     for (auto v : adj[u]) {
         if (v.first != par) {
             dfs(v.first, u, v.second);
@@ -117,7 +117,7 @@ void dfs(int u, int par, int d) {
 }
 
 pair<int, int> lca(int u, int v) {
-    pair<int, int> ans = {-2, -3};
+    pair<int, int> ans = {INT_MIN, INT_MIN};
     if (h[u] < h[v]) {
         swap(u, v);
     }
@@ -164,7 +164,7 @@ int main(void) {
             res += w;
         }
     }
-    dfs(1, 0, 0);
+    dfs(1, 0, INT_MIN);
     for (int i = 1; i <= l - 1; i++) {
         for (int j = 1; j <= n; ++j) {
             if (up[j][i - 1] != -1) {
@@ -179,11 +179,11 @@ int main(void) {
         w = edges[i].w;
         if (!present[id]) {
             auto rem = lca(edges[i].s, edges[i].e);
-            if (rem.first != w) {
+            if (rem.first != INT_MIN && rem.first != w) {
                 if (ans > res + w - rem.first) {
                     ans = res + w - rem.first;
                 }
-            } else if (rem.second != -1) {
+            } else if (rem.second != INT_MIN) {
                 if (ans > res + w - rem.second) {
                     ans = res + w - rem.second;
                 }
