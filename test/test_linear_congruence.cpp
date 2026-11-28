@@ -1,19 +1,22 @@
-#include <cassert>
-#include <vector>
 #include <algorithm>
-#include <numeric>
+#include <cassert>
+#include <climits>
+#include <vector>
 using namespace std;
 
 #include "solve_linear_congruence.h"
 
+long long norm_mod(__int128 x, long long n) {
+    long long r = static_cast<long long>(x % n);
+    return r < 0 ? r + n : r;
+}
+
 // Brute-force: find all x in [0, n-1] with (a*x) mod n == b mod n.
 vector<long long> brute_force(long long a, long long b, long long n) {
     vector<long long> results;
-    // Normalize b into [0, n-1].
-    long long b_mod = ((b % n) + n) % n;
+    long long b_mod = norm_mod(b, n);
     for (long long x = 0; x < n; ++x) {
-        long long val = ((a % n * (x % n)) % n + n) % n;
-        if (val == b_mod)
+        if (norm_mod(static_cast<__int128>(a) * x, n) == b_mod)
             results.push_back(x);
     }
     return results;
@@ -122,8 +125,54 @@ void test_all_solutions_in_range() {
     assert(sol == expected);
     for (long long x : sol) {
         assert(x >= 0 && x < n);
-        assert(((a * x - b) % n + n) % n == 0);
+        assert(norm_mod(static_cast<__int128>(a) * x - b, n) == 0);
     }
+}
+
+void verify_solutions(long long a, long long b, long long n, size_t expected_count) {
+    auto sol = solve_linear_congruence(a, b, n);
+    assert(sol.size() == expected_count);
+    if (expected_count == 0) {
+        return;
+    }
+    long long b_mod = norm_mod(b, n);
+    long long step = n / static_cast<long long>(expected_count);
+    for (size_t i = 0; i < sol.size(); ++i) {
+        assert(sol[i] >= 0 && sol[i] < n);
+        assert(norm_mod(static_cast<__int128>(a) * sol[i], n) == b_mod);
+        if (i > 0) {
+            assert(sol[i] - sol[i - 1] == step);
+        }
+    }
+}
+
+void test_large_64bit_overflow() {
+    // Exercises __int128 multiplication when n > sqrt(LLONG_MAX)
+    auto sol = solve_linear_congruence(3999999999LL, 3999999997LL, 4000000000LL);
+    assert(sol == vector<long long>{3});
+
+    verify_solutions(999999999999999989LL, 123456789012345678LL, 1000000000000000003LL, 1);
+}
+
+void test_large_64bit_multiple_and_unsolvable() {
+    // gcd(|-2000000000000000015|, 1000000000000000005) = 5
+    long long n = 1000000000000000005LL;
+    long long a = -2000000000000000015LL;
+    verify_solutions(a, 25, n, 5);
+    verify_solutions(a, 26, n, 0);
+}
+
+void test_extreme_llong_bounds() {
+    // Stresses UBSan safety for LLONG_MAX and LLONG_MIN inputs
+    assert(solve_linear_congruence(1, 1, LLONG_MAX) == vector<long long>{1});
+    verify_solutions(LLONG_MAX - 1, -123456789012345LL, LLONG_MAX, 1);
+
+    // LLONG_MIN ≡ -1 (mod LLONG_MAX), so (-1) * x ≡ -1 => x = 1
+    assert(solve_linear_congruence(LLONG_MIN, LLONG_MIN, LLONG_MAX) == vector<long long>{1});
+
+    assert(solve_linear_congruence(LLONG_MIN, -1, 1) == vector<long long>{0});
+    assert(solve_linear_congruence(LLONG_MIN, 0, 2) == (vector<long long>{0, 1}));
+    assert(solve_linear_congruence(LLONG_MIN, 1, 2).empty());
 }
 
 int main() {
@@ -140,5 +189,8 @@ int main() {
     test_n_equals_one();
     test_invalid_n();
     test_all_solutions_in_range();
+    test_large_64bit_overflow();
+    test_large_64bit_multiple_and_unsolvable();
+    test_extreme_llong_bounds();
     return 0;
 }
