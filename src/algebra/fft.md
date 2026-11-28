@@ -16,7 +16,7 @@ But actually Gauss developed such a method already in 1805, but never published 
 
 Notice, that the FFT algorithm presented here runs in $O(n \log n)$ time, but it doesn't work for multiplying arbitrary big polynomials with arbitrary large coefficients or for multiplying arbitrary big integers.
 It can easily handle polynomials of size $10^5$ with small coefficients, or multiplying two numbers of size $10^6$, which is usually enough for solving competitive programming problems. Beyond the scale of multiplying numbers with $10^6$ bits, the range and precision of the floating point numbers used during the computation will not be enough to give accurate final results, though there are more complex variations that can perform arbitrary large polynomial/integer multiplications.
-E.g. in 1971 Schönhage and Strasser developed a variation for multiplying arbitrary large numbers that applies the FFT recursively in rings structures running in $O(n \log n \log \log n)$.
+E.g. in 1971 Schönhage and Strassen developed a variation for multiplying arbitrary large numbers that applies the FFT recursively in rings structures running in $O(n \log n \log \log n)$.
 And recently (in 2019) Harvey and van der Hoeven published an algorithm that runs in true $O(n \log n)$.
 
 ## Discrete Fourier transform
